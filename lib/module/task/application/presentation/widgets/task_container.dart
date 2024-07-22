@@ -198,13 +198,13 @@ class TaskContainer extends StatelessWidget {
                                         style: TextStyle(color: kblack),
                                       ),
                                     ),
-                                    const PopupMenuItem<String>(
-                                      value: 'remove task from folder',
-                                      child: Text(
-                                        'Remove task from folder',
-                                        style: TextStyle(color: kblack),
-                                      ),
-                                    ),
+                                    // const PopupMenuItem<String>(
+                                    //   value: 'remove task from folder',
+                                    //   child: Text(
+                                    //     'Remove task from folder',
+                                    //     style: TextStyle(color: kblack),
+                                    //   ),
+                                    // ),
                                   ];
 
                                   return items;

@@ -163,7 +163,8 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                                 controller.filterFoldersByDeadline(
                                     filterFolder: FilterFolderByDeadlineModel(
                                         filterDate:
-                                            controller.deadlineDate.value));
+                                            DateTimeFormater.dateTimeFormat(
+                                                date)));
                               }
                             },
                             child: AnimatedContainer(

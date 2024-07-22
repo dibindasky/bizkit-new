@@ -1,15 +1,16 @@
-import 'package:bizkit/core/routes/routes.dart';
+// import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
+// import 'package:get/get.dart';
 
 class TaskDetailAttachmentsSection extends StatelessWidget {
   const TaskDetailAttachmentsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // final controller = Get.find<CreateTaskController>();
     return Container(
       padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
@@ -26,22 +27,23 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
                 style: textHeadStyle1,
               ),
               const Spacer(),
-              GestureDetector(
-                onTap: () {
-                  // GoRouter.of(context).pushNamed(Routes.taskAttachmetnsList);
-                },
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(150),
-                    child: const ColoredBox(
-                        color: neonShade,
-                        child: Icon(Icons.arrow_forward, color: kGrayLight))),
-              )
+              // GestureDetector(
+              //   onTap: () {
+              //     // GoRouter.of(context).pushNamed(Routes.taskAttachmetnsList);
+              //   },
+              //   child: ClipRRect(
+              //       borderRadius: BorderRadius.circular(150),
+              //       child: const ColoredBox(
+              //           color: neonShade,
+              //           child: Icon(Icons.arrow_forward, color: kGrayLight))),
+              // )
             ],
           ),
           const SizedBox(height: 8),
           SizedBox(
             height: 100,
             child: ListView.builder(
+              itemCount: 10,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => const AttachmentTile(),
             ),

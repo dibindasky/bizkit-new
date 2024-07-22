@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_creation.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/container_textfield_dummy.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -5,12 +6,14 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class TaskDetailSubtasksSection extends StatelessWidget {
   const TaskDetailSubtasksSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<CreateTaskController>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -24,28 +27,46 @@ class TaskDetailSubtasksSection extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 showDialog(
-                    context: context,
-                    builder: (context) => const SubTaskCreationCustomDialog());
+                  context: context,
+                  builder: (context) => const SubTaskCreationCustomDialog(),
+                );
               },
               child: Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
-                  decoration: BoxDecoration(
-                      color: neonShade, borderRadius: kBorderRadius5),
-                  child: Row(children: [
+                padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
+                decoration: BoxDecoration(
+                    color: neonShade, borderRadius: kBorderRadius5),
+                child: Row(
+                  children: [
                     const Icon(Icons.add, color: kwhite),
                     adjustWidth(5.w),
                     const Text('Add Sub Task')
-                  ])),
+                  ],
+                ),
+              ),
             )
           ],
         ),
         adjustHieght(5.h),
-        ListView.builder(
-          itemCount: 2,
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) => const SubTaskTileDetailPage(),
+        Obx(
+          () => controller.singleTask.value.subTask?.isEmpty ?? true
+              ? Center(
+                  child: Column(
+                    children: [
+                      adjustHieght(20.h),
+                      Text(
+                        'No Subtasks available',
+                        style: textThinStyle1,
+                      ),
+                    ],
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: controller.singleTask.value.subTask?.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) =>
+                      const SubTaskTileDetailPage(),
+                ),
         )
       ],
     );
@@ -53,37 +74,43 @@ class TaskDetailSubtasksSection extends StatelessWidget {
 }
 
 class SubTaskTileDetailPage extends StatelessWidget {
-  const SubTaskTileDetailPage({
-    super.key,
-  });
+  const SubTaskTileDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<CreateTaskController>();
     return GestureDetector(
       onTap: () {
         showDialog(
           context: context,
           builder: (context) => Dialog(
-              backgroundColor: kblack,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
-                child: Column(mainAxisSize: MainAxisSize.min, children: [
+            backgroundColor: kblack,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
                   Text('New Project user flow', style: textHeadStyle1),
                   adjustHieght(10.h),
                   const ContainerTextFieldDummy(
-                      text: 'Task Start Date',
-                      suffixIcon: Icons.calendar_month_outlined),
+                    text: 'Task Start Date',
+                    suffixIcon: Icons.calendar_month_outlined,
+                  ),
                   adjustHieght(10.h),
                   const ContainerTextFieldDummy(
-                      text: 'Total Time Taken', suffixIcon: Icons.alarm_sharp),
+                    text: 'Total Time Taken',
+                    suffixIcon: Icons.alarm_sharp,
+                  ),
                   adjustHieght(30.h),
                   EventButton(
                     text: 'Complete',
                     onTap: () {},
                     wdth: double.infinity,
-                  )
-                ]),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         );
       },
       child: Container(
@@ -104,21 +131,21 @@ class SubTaskTileDetailPage extends StatelessWidget {
                       Image.asset('asset/images/icon/Vector.png', scale: 2),
                       adjustWidth(10.w),
                       Text(
-                        'new project user flow',
+                        controller.singleTask.value.title ?? 'subtask title',
                         style: textHeadStyle1.copyWith(color: neonShade),
                       ),
                     ],
                   ),
                   adjustHieght(8.h),
                   Text(
-                    'User interface (UI) design is the process designers use to build interfaces in software or computerized devices.',
+                    controller.singleTask.value.description ?? 'subtask des',
                     style: textThinStyle1,
                   ),
                   adjustHieght(5.h),
-                  Text(
-                    'Deadline : 16 May 2024',
-                    style: textStyle1,
-                  ),
+                  // Text(
+                  //   'Deadline : 16 May 2024',
+                  //   style: textStyle1,
+                  // ),
                 ],
               ),
             ),

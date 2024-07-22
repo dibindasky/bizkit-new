@@ -208,7 +208,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByDeadline,
         data: filterByDeadline.toJson(),
       );
-      log("=> Response Filter by Deadline : ");
+      log("=> Response Filter by Deadline : ${response.data}");
       return Right(FilterByDeadlineResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException filterByDeadline $e');

@@ -1,13 +1,16 @@
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class TaskDetailTagsSection extends StatelessWidget {
   const TaskDetailTagsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<CreateTaskController>();
     return Container(
       padding: EdgeInsets.all(10.w),
       width: double.infinity,
@@ -23,13 +26,17 @@ class TaskDetailTagsSection extends StatelessWidget {
             style: textHeadStyle1,
           ),
           adjustHieght(5.h),
-          Wrap(
+          Obx(() {
+            return Wrap(
               spacing: 8.w,
               runSpacing: 8.w,
-              children: List.generate(
-                4,
-                (index) => const TagChip(label: 'Flow'),
-              )),
+              children: controller.singleTask.value.tags != null
+                  ? controller.singleTask.value.tags!.map((tag) {
+                      return TagChip(label: tag.toString());
+                    }).toList()
+                  : [],
+            );
+          }),
         ],
       ),
     );

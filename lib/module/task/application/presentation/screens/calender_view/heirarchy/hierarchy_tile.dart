@@ -3,17 +3,21 @@ import 'dart:developer';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/folder.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
+import 'package:bizkit/module/task/domain/model/folders/filter_folder_by_deadline_model/filter_folder_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/create_folder_inside_a_folder/create_folder_inside_a_folder.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/delete_inner_folder_model/delete_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/edit_inner_folder_model/edit_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +66,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<TaskFolderController>();
     final taskCalenderViewController = Get.find<TaskCalenderViewController>();
+    final taskController = Get.find<CreateTaskController>();
 
     void showInnerFolderDialog({String? initialName, String? innerFolderId}) {
       TextEditingController folderNameController = TextEditingController(
@@ -170,54 +175,142 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
               ],
             ),
             adjustHieght(10),
-            EasyDateTimeLine(
-              timeLineProps: const EasyTimeLineProps(
-                vPadding: 20,
-                hPadding: 15,
-              ),
-              headerProps: const EasyHeaderProps(
-                showSelectedDate: false,
-                showHeader: false,
-              ),
-              dayProps: EasyDayProps(
-                todayStyle: DayStyle(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: kred),
-                    borderRadius: kBorderRadius15,
-                  ),
-                  monthStrStyle: TextStyle(color: kwhite, fontSize: 11.sp),
-                  dayNumStyle: TextStyle(color: kwhite, fontSize: 12.sp),
-                  dayStrStyle: TextStyle(color: kwhite, fontSize: 11.sp),
+            // EasyDateTimeLine(
+            //   timeLineProps: const EasyTimeLineProps(
+            //     vPadding: 20,
+            //     hPadding: 15,
+            //   ),
+            //   headerProps: const EasyHeaderProps(
+            //     showSelectedDate: false,
+            //     showHeader: false,
+            //   ),
+            //   dayProps: EasyDayProps(
+            //     todayStyle: DayStyle(
+            //       decoration: BoxDecoration(
+            //         border: Border.all(color: kred),
+            //         borderRadius: kBorderRadius15,
+            //       ),
+            //       monthStrStyle: TextStyle(color: kwhite, fontSize: 11.sp),
+            //       dayNumStyle: TextStyle(color: kwhite, fontSize: 12.sp),
+            //       dayStrStyle: TextStyle(color: kwhite, fontSize: 11.sp),
+            //     ),
+            //     todayHighlightColor: kwhite,
+            //     activeDayStyle: DayStyle(
+            //       dayNumStyle: const TextStyle(color: kblack),
+            //       decoration: BoxDecoration(
+            //         color: neonShade,
+            //         borderRadius: kBorderRadius15,
+            //         border: Border.all(color: neonShade),
+            //       ),
+            //     ),
+            //     inactiveDayStyle: DayStyle(
+            //       decoration: BoxDecoration(
+            //         color: lightGrey,
+            //         borderRadius: kBorderRadius15,
+            //       ),
+            //       dayNumStyle: const TextStyle(color: kwhite),
+            //     ),
+            //   ),
+            //   activeColor: neonShade,
+            //   initialDate: DateTime.now(),
+            //   onDateChange: (selectedDate) {
+            //     controller.deadlineDate.value =
+            //         DateFormat('yyyy-MM-dd').format(selectedDate);
+            //     log('date :=> ${controller.deadlineDate.value}');
+            //     controller.filterInnerFolderByDeadline(
+            //         filterInnerFolder: FilterInnerFolderModel(
+            //       folderId: folderId ?? '',
+            //       filterDate: controller.deadlineDate.value,
+            //     ));
+            //   },
+            // ),
+
+            Obx(
+              () => EasyInfiniteDateTimeLine(
+                timeLineProps: const EasyTimeLineProps(
+                  vPadding: 20,
+                  hPadding: 5,
                 ),
-                todayHighlightColor: kwhite,
-                activeDayStyle: DayStyle(
-                  dayNumStyle: const TextStyle(color: kblack),
-                  decoration: BoxDecoration(
-                    color: neonShade,
-                    borderRadius: kBorderRadius15,
-                    border: Border.all(color: neonShade),
-                  ),
-                ),
-                inactiveDayStyle: DayStyle(
-                  decoration: BoxDecoration(
-                    color: lightGrey,
-                    borderRadius: kBorderRadius15,
-                  ),
-                  dayNumStyle: const TextStyle(color: kwhite),
-                ),
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(const Duration(days: 31)),
+                focusDate: controller.selectedDate.value,
+                showTimelineHeader: false,
+                itemBuilder: (context, date, isSelected, onTap) {
+                  int taskCount = taskController
+                          .tasksCounts[DateFormat('yyyy-MM-dd').format(date)]
+                          ?.value ??
+                      0;
+                  return GestureDetector(
+                    onTap: () {
+                      controller.selctDate(date);
+
+                      controller.filterInnerFolderByDeadline(
+                          filterInnerFolder: FilterInnerFolderModel(
+                              folderId: folderId ?? '',
+                              filterDate:
+                                  DateTimeFormater.dateTimeFormat(date)));
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      decoration: BoxDecoration(
+                        borderRadius: kBorderRadius5,
+                        color: isSelected ? neonShade : kgrey,
+                      ),
+                      padding: const EdgeInsets.all(5),
+                      margin: EdgeInsets.symmetric(
+                          vertical: isSelected ? 0 : 5.h,
+                          horizontal: isSelected ? 0 : 3.w),
+                      height: 70.h,
+                      width: isSelected ? 60.w : 50.w,
+                      child: FittedBox(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              DateTimeFormater.getMonth(date.month),
+                              style: textHeadStyle1.copyWith(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: isSelected ? kwhite : kblack,
+                              ),
+                            ),
+                            Text(
+                              date.day.toString(),
+                              style: textThinStyle1.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w200,
+                                color: isSelected ? kwhite : kblack,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  DateTimeFormater.getWeekDay(date.weekday),
+                                  style: textHeadStyle1.copyWith(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: isSelected ? kwhite : kblack,
+                                  ),
+                                ),
+                                Text(
+                                  ' ($taskCount)',
+                                  style: textThinStyle1.copyWith(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w200,
+                                    color: isSelected ? kwhite : kblack,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                activeColor: neonShade,
+                onDateChange: (selectedDate) {},
               ),
-              activeColor: neonShade,
-              initialDate: DateTime.now(),
-              onDateChange: (selectedDate) {
-                controller.deadlineDate.value =
-                    DateFormat('yyyy-MM-dd').format(selectedDate);
-                log('date :=> ${controller.deadlineDate.value}');
-                controller.filterInnerFolderByDeadline(
-                    filterInnerFolder: FilterInnerFolderModel(
-                  folderId: folderId ?? '',
-                  filterDate: controller.deadlineDate.value,
-                ));
-              },
             ),
             adjustHieght(10),
             Obx(

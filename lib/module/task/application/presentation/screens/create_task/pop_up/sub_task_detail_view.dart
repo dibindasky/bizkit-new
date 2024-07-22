@@ -26,13 +26,13 @@ class SubTaskDetailView extends StatelessWidget {
             style: TextStyle(fontSize: 17.sp, color: neonShade),
           ),
           const Divider(color: kblack, indent: 0),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              subTaskDeadline ?? 'subTask Deadline',
-              style: TextStyle(fontSize: 10.sp, color: kwhite),
-            ),
-          ),
+          // Align(
+          //   alignment: Alignment.centerRight,
+          //   child: Text(
+          //     subTaskDeadline ?? 'subTask Deadline',
+          //     style: TextStyle(fontSize: 10.sp, color: kwhite),
+          //   ),
+          // ),
           adjustHieght(10.h),
           Text(
             subTaskDes ?? 'Subtask des',

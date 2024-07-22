@@ -21,7 +21,7 @@ class TotalTaskListView extends StatelessWidget {
           );
         } else if (taskController.typeTasks.isEmpty) {
           return const Center(
-            child: Text('No Data'),
+            child: Text('No Tasks'),
           );
         } else {
           return ListView.builder(

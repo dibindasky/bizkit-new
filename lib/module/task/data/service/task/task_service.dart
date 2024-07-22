@@ -3,8 +3,9 @@ import 'dart:developer';
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/module/task/domain/model/errors/error_model/error_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
-import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
+// import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
@@ -122,27 +123,23 @@ class TaskService implements TaskRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, List<ReceivedRequestsResponce>>>
-      getReceivedRequests() async {
-    try {
-      final response =
-          await apiService.get(ApiEndPoints.taskTestReceivedRequests);
-      log("=> Response Received Requests : ${response.data}");
-      final List<dynamic> data = response.data['tasks'] as List<dynamic>;
-      final receivedRequests = data
-          .map((json) =>
-              ReceivedRequestsResponce.fromJson(json as Map<String, dynamic>))
-          .toList();
-      return Right(receivedRequests);
-    } on DioException catch (e) {
-      log('DioException getReceivedRequests $e');
-      return Left(Failure(message: e.message ?? errorMessage));
-    } catch (e) {
-      log('catch getReceivedRequests $e');
-      return Left(Failure(message: e.toString()));
-    }
-  }
+  // @override
+  // Future<Either<Failure, ReceivedRequestsResponce>>
+  //     getReceivedRequests() async {
+  //   try {
+  //     final response =
+  //         await apiService.get(ApiEndPoints.taskTestReceivedRequests);
+  //     log("=> Response Received Requests : ${response.data}");
+
+  //     return Right(response.data);
+  //   } on DioException catch (e) {
+  //     log('DioException getReceivedRequests $e');
+  //     return Left(Failure(message: e.message ?? errorMessage));
+  //   } catch (e) {
+  //     log('catch getReceivedRequests $e');
+  //     return Left(Failure(message: e.toString()));
+  //   }
+  // }
 
   @override
   Future<Either<ErrorModel, SuccessResponce>> pinnedATask(
@@ -208,7 +205,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByDeadline,
         data: filterByDeadline.toJson(),
       );
-      log("=> Response Filter by Deadline : ${response.data}");
+      log("=> Response Filter by Deadline : ");
       return Right(FilterByDeadlineResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException filterByDeadline $e');
@@ -328,7 +325,7 @@ class TaskService implements TaskRepo {
 
   @override
   Future<Either<ErrorModel, SuccessResponce>> editTask(
-      {required TaskModel taskModel}) async {
+      {required EditTaskModel taskModel}) async {
     try {
       log('Json === >>>>>> ${taskModel.toJson()}');
       final response = await apiService.patch(
@@ -491,5 +488,11 @@ class TaskService implements TaskRepo {
       log('catch getTasksCountsWithoutDate $e');
       return Left(Failure(message: e.toString()));
     }
+  }
+
+  @override
+  Future<Either<Failure, dynamic>> getReceivedRequests() {
+    // TODO: implement getReceivedRequests
+    throw UnimplementedError();
   }
 }

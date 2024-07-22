@@ -9,6 +9,7 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/tag_contaner.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/task_type_radio_button.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -21,8 +22,9 @@ import 'package:go_router/go_router.dart';
 class ScreenEditTask extends StatelessWidget {
   ScreenEditTask({
     super.key,
+    this.taskId,
   });
-
+  final String? taskId;
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   // final TextEditingController taskHeadController = TextEditingController();
@@ -149,32 +151,6 @@ class ScreenEditTask extends StatelessWidget {
                                     // log("DeadLine => ${controller.deadlineDate.value}");
                                     // log('======> $controller.participants');
                                     // log('createPriorityLevel value : => ${controller.createPriorityLevel.value}');
-
-                                    controller.editTask(
-                                      taskModel: TaskModel(
-                                        title: titleController.text,
-                                        description: descriptionController.text,
-                                        deadLine: controller
-                                                .deadlineDate.value.isNotEmpty
-                                            ? controller.deadlineDate.value
-                                            : 'deadline',
-                                        assignedTo: [],
-                                        attachments: [],
-                                        isCompleted: false,
-                                        isKilled: false,
-                                        priorityLevel: controller
-                                            .priorityLevelEnumToString(
-                                                controller
-                                                    .createPriorityLevel.value),
-                                        recurrentTask:
-                                            controller.createRecurring.value,
-                                        subTask: [],
-                                        tags: [],
-                                        taskType: controller
-                                            .taskTypeEnumToString(controller
-                                                .createTaskTupe.value),
-                                      ),
-                                    );
 
                                     Future.delayed(
                                       const Duration(seconds: 2),

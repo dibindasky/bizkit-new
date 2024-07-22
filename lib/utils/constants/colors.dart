@@ -39,7 +39,6 @@ SizedBox kempty = const SizedBox(height: 0);
 //   kwidth = size.width > 450 ? 450 : size.width;
 // }
 
-
 adjustWidth(double width) {
   return SizedBox(
     width: width,

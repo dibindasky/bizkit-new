@@ -289,9 +289,25 @@ class GoRouterConfig {
     ),
     GoRoute(
       name: Routes.editTask,
-      path: Routes.editTask,
-      builder: (context, state) => ScreenEditTask(),
+      path: '${Routes.editTask}/:taskId',
+      builder: (context, state) {
+        final taskId = state.pathParameters['taskId'] ?? '';
+        return ScreenEditTask(
+          taskId: taskId,
+        );
+      },
     ),
+
+    //  GoRoute(
+    //   name: Routes.secondcardDetail,
+    //   path: '${Routes.secondcardDetail}/:cardId',
+    //   builder: (context, state) {
+    //     final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
+    //     return SecondCardDetailView(
+    //       cardId: cardId,
+    //     );
+    //   },
+    // ),
 
     // Tsks notification
     GoRoute(

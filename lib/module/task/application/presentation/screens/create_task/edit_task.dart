@@ -15,9 +15,8 @@ import 'package:go_router/go_router.dart';
 class ScreenEditTask extends StatelessWidget {
   ScreenEditTask({
     super.key,
-    this.taskId,
   });
-  final String? taskId;
+
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   // final TextEditingController taskHeadController = TextEditingController();

@@ -5,6 +5,7 @@ import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/module/task/domain/model/errors/error_model/error_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
+import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 // import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
@@ -122,24 +123,6 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.toString()));
     }
   }
-
-  // @override
-  // Future<Either<Failure, ReceivedRequestsResponce>>
-  //     getReceivedRequests() async {
-  //   try {
-  //     final response =
-  //         await apiService.get(ApiEndPoints.taskTestReceivedRequests);
-  //     log("=> Response Received Requests : ${response.data}");
-
-  //     return Right(response.data);
-  //   } on DioException catch (e) {
-  //     log('DioException getReceivedRequests $e');
-  //     return Left(Failure(message: e.message ?? errorMessage));
-  //   } catch (e) {
-  //     log('catch getReceivedRequests $e');
-  //     return Left(Failure(message: e.toString()));
-  //   }
-  // }
 
   @override
   Future<Either<ErrorModel, SuccessResponce>> pinnedATask(
@@ -491,8 +474,22 @@ class TaskService implements TaskRepo {
   }
 
   @override
-  Future<Either<Failure, dynamic>> getReceivedRequests() {
-    // TODO: implement getReceivedRequests
-    throw UnimplementedError();
+  Future<Either<Failure, ReceivedRequestsResponce>>
+      getReceivedRequests() async {
+    try {
+      final response = await apiService.get(
+        ApiEndPoints.taskTestReceivedRequests,
+      );
+
+      log("=> Response Received Requests  : ${response.data}");
+
+      return Right(ReceivedRequestsResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException getReceivedRequests $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getReceivedRequests $e');
+      return Left(Failure(message: e.toString()));
+    }
   }
 }

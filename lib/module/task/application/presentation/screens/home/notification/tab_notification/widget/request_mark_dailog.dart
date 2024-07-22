@@ -35,10 +35,10 @@ Future<dynamic> requestMarkingDailog(
                   acceptOrReject: AcceptOrRejectModel(
                     taskId: taskId,
                     taskType: 'Official',
-                    acceptanceStatus:
-                        isAccepted == 'pending' ? 'accepted' : 'rejected',
+                    acceptanceStatus: 'accepted',
                   ),
                 );
+                Navigator.pop(context);
               },
               child: ClipRRect(
                 borderRadius: kBorderRadius15,
@@ -60,10 +60,10 @@ Future<dynamic> requestMarkingDailog(
                   acceptOrReject: AcceptOrRejectModel(
                     taskId: taskId,
                     taskType: 'Personl',
-                    acceptanceStatus:
-                        isAccepted == 'pending' ? 'accepted' : 'rejected',
+                    acceptanceStatus: 'accepted',
                   ),
                 );
+                Navigator.pop(context);
               },
               child: ClipRRect(
                 borderRadius: kBorderRadius15,
@@ -85,10 +85,10 @@ Future<dynamic> requestMarkingDailog(
                   acceptOrReject: AcceptOrRejectModel(
                     taskId: taskId,
                     taskType: 'Others',
-                    acceptanceStatus:
-                        isAccepted == 'pending' ? 'accepted' : 'rejected',
+                    acceptanceStatus: 'accepted',
                   ),
                 );
+                Navigator.pop(context);
               },
               child: ClipRRect(
                 borderRadius: kBorderRadius15,

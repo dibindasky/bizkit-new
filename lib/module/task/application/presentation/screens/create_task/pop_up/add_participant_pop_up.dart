@@ -11,119 +11,116 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class AddParticipentBottomSheet extends StatelessWidget {
-  const AddParticipentBottomSheet({super.key});
+  const AddParticipentBottomSheet({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
     final TextEditingController searchController = TextEditingController();
+    return Container(
+      height: 500.h,
+      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          kHeight20,
+          Text('Add Participants', style: fontPopinsMedium),
+          kHeight5,
+          Divider(color: lightGrey),
+          kHeight10,
+          TaskTextField(
+            onChanged: (value) {
+              if (value.isNotEmpty) {
+                taskController.searchParticipants(
+                  user: UserSearchModel(searchTerm: value),
+                );
+              }
+            },
+            controller: searchController,
+            hintText: 'Find your Participant',
+            showBorder: true,
+            fillColor: textFieldFillColr,
+            suffixIcon: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.search, color: neonShade),
+            ),
+          ),
+          adjustHieght(20.h),
+          Expanded(
+            child: GetBuilder<CreateTaskController>(
+              builder: (controller) {
+                if (controller.searchLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (controller.userslist.isEmpty) {
+                  return const Center(child: Text('No participants found.'));
+                } else {
+                  return ListView.separated(
+                    itemCount: controller.userslist.length,
+                    separatorBuilder: (context, index) => Divider(
+                      endIndent: 30.w,
+                      indent: 50.w,
+                      height: 0,
+                      color: kgrey,
+                      thickness: 0,
+                    ),
+                    itemBuilder: (context, index) {
+                      final user = controller.userslist[index];
+                      final isAlreadyAdded = controller.participants.any(
+                          (participant) => participant.user == user.userId);
 
-    return BottomSheet(
-      enableDrag: true,
-      onClosing: () {},
-      builder: (context) => Container(
-        height: 500.h,
-        padding: EdgeInsets.symmetric(horizontal: 15.w),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            kHeight20,
-            Text('Add Participants', style: fontPopinsMedium),
-            kHeight5,
-            Divider(color: lightGrey),
-            kHeight10,
-            TaskTextField(
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  taskController.searchParticipants(
-                    user: UserSearchModel(searchTerm: value),
+                      return ListTile(
+                        leading: const CircleAvatar(
+                          backgroundImage: AssetImage(imageDummyAsset),
+                        ),
+                        title: Text(user.name ?? 'No Name'),
+                        subtitle: Text(
+                          '${user.email ?? 'No Email'} ',
+                          style: fontPopinsThin.copyWith(
+                            fontSize: 10.sp,
+                          ),
+                        ),
+                        trailing: GestureDetector(
+                          onTap: () {
+                            if (isAlreadyAdded) {
+                              controller.participants.removeWhere(
+                                  (participant) =>
+                                      participant.user == user.userId);
+                            } else {
+                              final participant = TaskAssignedTo(
+                                name: user.name,
+                                user: user.userId,
+                                isAccepted: 'pending',
+                              );
+                              controller.participants.add(participant);
+                            }
+
+                            taskController.update();
+                            log('Participants: ${taskController.participants.map((e) => e.user).join(', ')}');
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 15.w, vertical: 5.w),
+                            decoration: BoxDecoration(
+                              gradient: neonShadeGradient,
+                              borderRadius: kBorderRadius5,
+                              border: Border.all(color: neonShade),
+                            ),
+                            child: Text(
+                              isAlreadyAdded ? 'Remove' : 'Add',
+                              style: fontPopinsThin.copyWith(fontSize: 10.sp),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   );
                 }
               },
-              controller: searchController,
-              hintText: 'Find your Participant',
-              showBorder: true,
-              fillColor: textFieldFillColr,
-              suffixIcon: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.search, color: neonShade),
-              ),
             ),
-            adjustHieght(20.h),
-            Expanded(
-              child: GetBuilder<CreateTaskController>(
-                builder: (controller) {
-                  if (taskController.isLoading.value) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (taskController.userslist.isEmpty) {
-                    return const Center(child: Text('No participants found.'));
-                  } else {
-                    return ListView.separated(
-                      itemCount: taskController.userslist.length,
-                      separatorBuilder: (context, index) => Divider(
-                        endIndent: 30.w,
-                        indent: 50.w,
-                        height: 0,
-                        color: kgrey,
-                        thickness: 0,
-                      ),
-                      itemBuilder: (context, index) {
-                        final user = taskController.userslist[index];
-                        final isAlreadyAdded = taskController.participants.any(
-                            (participant) => participant.user == user.userId);
-
-                        return ListTile(
-                          leading: const CircleAvatar(
-                            backgroundImage: AssetImage(imageDummyAsset),
-                          ),
-                          title: Text(user.name ?? 'No Name'),
-                          subtitle: Text(
-                            '${user.email ?? 'No Email'} ',
-                            style: fontPopinsThin.copyWith(
-                              fontSize: 10.sp,
-                            ),
-                          ),
-                          trailing: GestureDetector(
-                            onTap: () {
-                              if (isAlreadyAdded) {
-                                taskController.participants.removeWhere(
-                                    (participant) =>
-                                        participant.user == user.userId);
-                              } else {
-                                final participant = TaskAssignedTo(
-                                  name: user.name,
-                                  user: user.userId,
-                                  isAccepted: 'pending',
-                                );
-                                taskController.participants.add(participant);
-                              }
-
-                              taskController.update();
-                              log('Participants: ${taskController.participants.map((e) => e.user).join(', ')}');
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 15.w, vertical: 5.w),
-                              decoration: BoxDecoration(
-                                gradient: neonShadeGradient,
-                                borderRadius: kBorderRadius5,
-                                border: Border.all(color: neonShade),
-                              ),
-                              child: Text(
-                                isAlreadyAdded ? 'Remove' : 'Add',
-                                style: fontPopinsThin.copyWith(fontSize: 10.sp),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

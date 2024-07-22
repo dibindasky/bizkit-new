@@ -27,7 +27,9 @@ class ContainerTextFieldDummy extends StatelessWidget {
             Expanded(
               child: Text(
                 text,
-                style: TextStyle(fontSize: 14.sp, color: klightgrey),
+                style: TextStyle(
+                    fontSize: 14.sp,
+                    color: text == 'Choose Deadline' ? klightgrey : kwhite),
               ),
             ),
             suffixIcon != null

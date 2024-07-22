@@ -33,6 +33,7 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:intl/intl.dart';
 
 // import 'package:intl/intl.dart';
@@ -40,6 +41,9 @@ import 'package:intl/intl.dart';
 import '../../../domain/model/task/task_model/sub_task.dart';
 
 class CreateTaskController extends GetxController {
+  //Controller for page comes bottom
+  final ScrollController scrollController = ScrollController();
+
   Rx<TaskType> createTaskTupe = TaskType.official.obs;
   Rx<PriorityLevel> createPriorityLevel = PriorityLevel.medium.obs;
   Rx<FilterTypes> filterTypes = FilterTypes.all.obs;
@@ -97,6 +101,7 @@ class CreateTaskController extends GetxController {
 
   // Reactive variable for loading state
   RxBool isLoading = false.obs;
+  RxBool searchLoading = false.obs;
   RxBool pinLoader = false.obs;
 
   // Task service instance for API interactions
@@ -466,17 +471,18 @@ class CreateTaskController extends GetxController {
 
   // Searches for participants based on user input
   void searchParticipants({required UserSearchModel user}) async {
-    isLoading.value = true;
+    searchLoading.value = true;
     final result = await taskService.participantsSearch(user: user);
+    update();
     result.fold(
       (failure) {
-        isLoading.value = false;
+        searchLoading.value = false;
         log(failure.message.toString());
+        update();
       },
       (success) {
         userslist.assignAll(success);
-
-        isLoading.value = false;
+        searchLoading.value = false;
         update();
       },
     );
@@ -599,7 +605,7 @@ class CreateTaskController extends GetxController {
     final result = await taskService.getTasksCountsWithDate(
         tasksCountModel: TasksCountModel(
             fromDate: DateTimeFormater.dateTimeFormat(
-                DateTime.now().add(Duration(days: 31)))));
+                DateTime.now().add(const Duration(days: 31)))));
     result.fold(
       (failure) {
         isLoading.value = false;

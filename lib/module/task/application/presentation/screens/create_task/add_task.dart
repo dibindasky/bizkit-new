@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
@@ -55,10 +56,10 @@ class ScreenAddTask extends StatelessWidget {
         child: Obx(
           () {
             final isLoading = controller.isLoading.value;
-
             return Stack(
               children: [
                 SingleChildScrollView(
+                  controller: controller.scrollController,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: Form(
@@ -85,12 +86,6 @@ class ScreenAddTask extends StatelessWidget {
                             maxLines: 5,
                             hintText: 'Description',
                             controller: descriptionController,
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return 'Description is required';
-                            //   }
-                            //   return null;
-                            // },
                           ),
                           adjustHieght(3.h),
                           Text('Task Type', style: style),
@@ -99,26 +94,20 @@ class ScreenAddTask extends StatelessWidget {
                           adjustHieght(10.h),
                           const PriorityRecurringDropDownItems(),
                           adjustHieght(10.h),
-                          // Text('Task Head', style: style),
-                          // adjustHieght(3.h),
-                          // TaskTextField(
-                          //   hintText: 'Task Head',
-                          //   controller: taskHeadController,
-                          // ),
                           adjustHieght(10.h),
                           Text('Assign to', style: style),
                           adjustHieght(3.h),
                           ContainerTextFieldDummy(
-                            text: 'Assign to',
-                            suffixIcon: Icons.arrow_right,
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) =>
-                                    const AddParticipentBottomSheet(),
-                              );
-                            },
-                          ),
+                              text: 'Assign to',
+                              suffixIcon: Icons.arrow_right,
+                              onTap: () {
+                                showModalBottomSheet(
+                                  enableDrag: true,
+                                  context: context,
+                                  builder: (context) =>
+                                      const AddParticipentBottomSheet(),
+                                );
+                              }),
                           adjustHieght(10.h),
                           Obx(() {
                             final participants = controller.participants;
@@ -141,11 +130,9 @@ class ScreenAddTask extends StatelessWidget {
                                   .toList(),
                             );
                           }),
-                          DeadlineChooserCreateTask(
-                            onPressed: (date) {
-                              controller.deadlineDate.value = date;
-                            },
-                          ),
+                          DeadlineChooserCreateTask(onPressed: (date) {
+                            controller.deadlineDate.value = date;
+                          }),
                           adjustHieght(10.h),
                           TagsContainer(),
                           adjustHieght(10.h),
@@ -187,9 +174,6 @@ class ScreenAddTask extends StatelessWidget {
 
   void createNewTask(CreateTaskController controller) {
     if (_formKey.currentState!.validate()) {
-      // log("DeadLine => ${controller.deadlineDate.value}");
-      // log('======> $controller.participants');
-      // log('createPriorityLevel value : => ${controller.createPriorityLevel.value}');
       var attachments =
           controller.convertFilesToAttachments(controller.selectedFiles);
       controller.createNewTask(
@@ -224,6 +208,14 @@ class ScreenAddTask extends StatelessWidget {
             id: navigationId,
           );
         },
+      );
+    } else {
+      Timer(
+        const Duration(milliseconds: 300),
+        () => controller.scrollController.animateTo(
+            controller.scrollController.position.minScrollExtent,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.bounceIn),
       );
     }
   }

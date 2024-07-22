@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -11,6 +12,7 @@ class TaskHomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final taskController = Get.find<CreateTaskController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -32,7 +34,10 @@ class TaskHomeAppBar extends StatelessWidget {
             ),
             adjustWidth(12.w),
             CustomStackOnlineDotCircleAvatar(
-              onTap: () => Get.toNamed(Routes.taskTabNotification, id: 1),
+              onTap: () {
+                Get.toNamed(Routes.taskTabNotification, id: 1);
+                taskController.fetchReceivedRequests();
+              },
               image: taskHomeNNOtificationAsset,
               dotColor: kOrange,
             ),

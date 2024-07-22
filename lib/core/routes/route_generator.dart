@@ -291,10 +291,8 @@ class GoRouterConfig {
       name: Routes.editTask,
       path: '${Routes.editTask}/:taskId',
       builder: (context, state) {
-        final taskId = state.pathParameters['taskId'] ?? '';
-        return ScreenEditTask(
-          taskId: taskId,
-        );
+        final taskId = state.extra.toString();
+        return ScreenEditTask(taskId: taskId);
       },
     ),
 

@@ -84,9 +84,9 @@ class TaskStatusChangeDialog extends StatelessWidget {
                     text: 'Edit Task',
                     onTap: () {
                       log('Edit');
-                      GoRouter.of(context).pop();
-                      GoRouter.of(context)
-                          .push(Routes.editTask, extra: '$taskId');
+                      // GoRouter.of(context).pop();
+                      // GoRouter.of(context)
+                      //     .push(Routes.editTask, extra: '$taskId');
                     },
                     wdth: double.infinity,
                   ),

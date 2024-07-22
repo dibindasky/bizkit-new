@@ -1,17 +1,13 @@
+import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'assigned_to.dart';
-import 'attachment.dart';
-import 'sub_task.dart';
+import '../../task/task_model/attachment.dart';
+import '../../task/task_model/sub_task.dart';
 
-part 'received_requests_responce.g.dart';
+part 'edit_task_responce.g.dart';
 
 @JsonSerializable()
-class ReceivedRequestsResponce {
-  @JsonKey(name: '_id')
-  String? id;
-  @JsonKey(name: 'created_by')
-  String? createdBy;
+class EditTaskModel {
   String? title;
   String? description;
   @JsonKey(name: 'priority_level')
@@ -29,11 +25,12 @@ class ReceivedRequestsResponce {
   @JsonKey(name: 'sub_task')
   List<SubTask>? subTask;
   @JsonKey(name: 'assigned_to')
-  List<AssignedTo>? assignedTo;
+  List<TaskAssignedTo>? assignedTo;
 
-  ReceivedRequestsResponce({
-    this.id,
-    this.createdBy,
+  @JsonKey(name: 'task_id')
+  String? taskId;
+
+  EditTaskModel({
     this.title,
     this.description,
     this.priorityLevel,
@@ -45,11 +42,12 @@ class ReceivedRequestsResponce {
     this.attachments,
     this.subTask,
     this.assignedTo,
+    this.taskId,
   });
 
-  factory ReceivedRequestsResponce.fromJson(Map<String, dynamic> json) {
-    return _$ReceivedRequestsResponceFromJson(json);
+  factory EditTaskModel.fromJson(Map<String, dynamic> json) {
+    return _$EditTaskModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$ReceivedRequestsResponceToJson(this);
+  Map<String, dynamic> toJson() => _$EditTaskModelToJson(this);
 }

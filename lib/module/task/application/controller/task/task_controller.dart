@@ -4,8 +4,9 @@ import 'dart:io';
 
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
-import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
+
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
@@ -55,8 +56,7 @@ class CreateTaskController extends GetxController {
   RxList<Task> typeTasks = <Task>[].obs;
   RxList<Task> deadlineTasks = <Task>[].obs;
   RxList<SentRequest> sentRequests = <SentRequest>[].obs;
-  RxList<ReceivedRequestsResponce> receivedRequests =
-      <ReceivedRequestsResponce>[].obs;
+  RxList<Task> receivedRequests = <Task>[].obs;
   RxList<Task> allPinnedTasks = <Task>[].obs;
   RxList<UserSearchSuccessResponce> userslist =
       <UserSearchSuccessResponce>[].obs;
@@ -253,9 +253,25 @@ class CreateTaskController extends GetxController {
   }
 
   // Edits an existing task with the provided task model
-  void editTask({required TaskModel taskModel}) async {
+  void editTask({
+    required EditTaskModel taskModel,
+  }) async {
     isLoading.value = true;
+
+    // TaskModel task = TaskModel(
+    //   title: taskModel.title,
+    //   description: taskModel.description,
+    //   priorityLevel: taskModel.priorityLevel,
+    //   recurrentTask: taskModel.recurrentTask,
+    //   deadLine: taskModel.deadLine,
+    //   tags: selectedTags.toList(),
+    //   attachments: attachments,
+    //   subTask: subTasks.toList(),
+    //   assignedTo: participants,
+    // );
+
     final result = await taskService.editTask(taskModel: taskModel);
+
     result.fold(
       (error) {
         isLoading.value = false;
@@ -290,17 +306,18 @@ class CreateTaskController extends GetxController {
   // Fetches the list of received requests
   void fetchReceivedRequests() async {
     isLoading.value = true;
-    final result = await taskService.getReceivedRequests();
-    result.fold(
-      (failure) {
-        isLoading.value = false;
-        log(failure.message.toString());
-      },
-      (success) {
-        isLoading.value = false;
-        receivedRequests.assignAll(success);
-      },
-    );
+    // final result = await taskService.getReceivedRequests();
+    // result.fold(
+    //   (failure) {
+    //     isLoading.value = false;
+    //     log(failure.message.toString());
+    //   },
+    //   (success) {
+    //     // receivedRequests.assignAll(success.tasks ?? []);
+    //     log('receivedRequests :=> $receivedRequests');
+    //     isLoading.value = false;
+    //   },
+    // );
   }
 
   // Filters tasks by deadline using the provided model

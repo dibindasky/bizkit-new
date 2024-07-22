@@ -1,7 +1,8 @@
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/module/task/domain/model/errors/error_model/error_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
-import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
+// import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
@@ -43,7 +44,7 @@ abstract class TaskRepo {
 
   Future<Either<Failure, SendRequestsResponce>> getSendRequests();
 
-  Future<Either<Failure, List<ReceivedRequestsResponce>>> getReceivedRequests();
+  // Future<Either<Failure, ReceivedRequestsResponce>> getReceivedRequests();
 
   Future<Either<Failure, FilterByDeadlineResponce>> filterByDeadline({
     required FilterByDeadlineModel filterByDeadline,
@@ -78,7 +79,7 @@ abstract class TaskRepo {
   });
 
   Future<Either<ErrorModel, SuccessResponce>> editTask(
-      {required TaskModel taskModel});
+      {required EditTaskModel taskModel});
 
   Future<Either<Failure, SuccessResponce>> addSubTask(
       {required SubTaskAddModel newsubtask});
@@ -96,5 +97,4 @@ abstract class TaskRepo {
   Future<Either<Failure, TaskCountsResponce>> getTasksCountsWithoutDate();
   Future<Either<Failure, TaskCountsResponce>> getTasksCountsWithDate(
       {required TasksCountModel tasksCountModel});
-
 }

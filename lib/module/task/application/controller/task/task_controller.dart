@@ -6,6 +6,7 @@ import 'package:bizkit/module/task/application/controller/home_controller/home_c
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
+import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/task.dart';
 
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
@@ -34,7 +35,7 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
+
 import 'package:intl/intl.dart';
 
 // import 'package:intl/intl.dart';
@@ -60,12 +61,12 @@ class CreateTaskController extends GetxController {
   RxList<Task> typeTasks = <Task>[].obs;
   RxList<Task> deadlineTasks = <Task>[].obs;
   RxList<SentRequest> sentRequests = <SentRequest>[].obs;
-  RxList<Task> receivedRequests = <Task>[].obs;
   RxList<Task> allPinnedTasks = <Task>[].obs;
   RxList<UserSearchSuccessResponce> userslist =
       <UserSearchSuccessResponce>[].obs;
   RxList<Task> tasksSearch = <Task>[].obs;
   RxList<Task> selectedTasks = <Task>[].obs;
+  RxList<ReceivedTask> receivedRequests = <ReceivedTask>[].obs;
   RxMap<String, RxInt> tasksCounts = <String, RxInt>{}.obs;
   // Holds a single task response
   Rx<GetTaskResponce> singleTask = GetTaskResponce().obs;
@@ -311,18 +312,18 @@ class CreateTaskController extends GetxController {
   // Fetches the list of received requests
   void fetchReceivedRequests() async {
     isLoading.value = true;
-    // final result = await taskService.getReceivedRequests();
-    // result.fold(
-    //   (failure) {
-    //     isLoading.value = false;
-    //     log(failure.message.toString());
-    //   },
-    //   (success) {
-    //     // receivedRequests.assignAll(success.tasks ?? []);
-    //     log('receivedRequests :=> $receivedRequests');
-    //     isLoading.value = false;
-    //   },
-    // );
+    final result = await taskService.getReceivedRequests();
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        receivedRequests.assignAll(success.tasks ?? []);
+        log('receivedRequests :=> $receivedRequests');
+        isLoading.value = false;
+      },
+    );
   }
 
   // Filters tasks by deadline using the provided model

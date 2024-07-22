@@ -14,7 +14,8 @@ class NotificationRequestCard extends StatelessWidget {
       this.taskId,
       this.acceptanceStatus,
       this.taskType,
-      this.isAccepted});
+      this.isAccepted,
+      this.des});
   final String? title;
   final String? priorityLevel;
   final String? deadline;
@@ -22,6 +23,7 @@ class NotificationRequestCard extends StatelessWidget {
   final String? taskId;
   final String? acceptanceStatus;
   final String? taskType;
+  final String? des;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class NotificationRequestCard extends StatelessWidget {
                 ),
                 adjustHieght(4.h),
                 Text(
-                  priorityLevel ?? 'priorityLevel',
+                  des ?? 'des',
                   style: TextStyle(
                     color: klightgrey,
                     fontSize: 12.0.sp,

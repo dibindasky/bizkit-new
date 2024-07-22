@@ -36,8 +36,7 @@ Future<dynamic> requestDiclineShowDailog(
                 taskId: taskId,
                 taskType: taskController
                     .taskTypeEnumToString(taskController.createTaskTupe.value),
-                acceptanceStatus:
-                    isAccepted == 'accepted' ? 'accepted' : 'rejected',
+                acceptanceStatus: 'rejected',
               ),
             );
             Navigator.pop(context);

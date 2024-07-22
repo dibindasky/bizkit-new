@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_creation.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_tasks_inside_folder_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/inner_folder_task.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
@@ -191,7 +192,17 @@ class TaskContainer extends StatelessWidget {
                                           style: TextStyle(color: kblack),
                                         ),
                                       ),
-                                    const PopupMenuItem<String>(
+                                    PopupMenuItem<String>(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              SubTaskCreationCustomDialog(
+                                            afterTaskCreation: true,
+                                            taskId: typeTask?.id ?? '',
+                                          ),
+                                        );
+                                      },
                                       value: 'Add Sub Task',
                                       child: Text(
                                         'Add Sub Task',

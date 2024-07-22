@@ -53,6 +53,8 @@ class TaskFolderController extends GetxController {
 
   String innerFolderId = '';
 
+  Rx<DateTime> selectedDate = DateTime.now().obs;
+
   final FolderRepo folderService = FolderService();
 
   @override
@@ -64,6 +66,10 @@ class TaskFolderController extends GetxController {
         filterFolder:
             FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
     super.onInit();
+  }
+
+  void selctDate(DateTime value) {
+    selectedDate.value = value;
   }
 
   void toggleFolderSelection(String folderId) {

@@ -241,9 +241,13 @@ class CreateTaskController extends GetxController {
         selectedTags.clear();
         tags.clear();
         fetchSendRequests();
+        participants.clear();
+        attachments.clear();
+        deadlineDate.value = '';
 
         // Filter tasks by type after creation
         filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
+        getTasksCountWithoutDate();
       },
     );
   }
@@ -605,8 +609,7 @@ class CreateTaskController extends GetxController {
         for (var element in success.taskCounts.keys) {
           tasksCounts[element] = success.taskCounts[element]!.obs;
         }
-        // tasksCounts.value = success.taskCounts.map((e)=>);
-        log('Tasks Count : => ${tasksCounts.toJson()}');
+
         isLoading.value = false;
       },
     );

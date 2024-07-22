@@ -62,23 +62,29 @@ class AttachmentChooserTaskCreation extends StatelessWidget {
                         .map(
                           (file) => Stack(
                             children: [
-                              Card(
-                                color: lightGrey,
-                                margin: EdgeInsets.only(right: 10.w),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Column(
-                                    children: [
-                                      Image.asset(
-                                        attendenceSolidPdfImg,
-                                        width: 25,
-                                      ),
-                                      Text(
-                                        file.name,
-                                        style: textThinStyle1.copyWith(
-                                            fontSize: 10),
-                                      ),
-                                    ],
+                              SizedBox(
+                                width: 109.w,
+                                height: 65.h,
+                                child: Card(
+                                  color: lightGrey,
+                                  margin: EdgeInsets.only(right: 10.w),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      children: [
+                                        Image.asset(
+                                          attendenceSolidPdfImg,
+                                          width: 25,
+                                        ),
+                                        Text(
+                                          file.name,
+                                          maxLines: 1,
+                                          softWrap: true,
+                                          style: textThinStyle1.copyWith(
+                                              fontSize: 10),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

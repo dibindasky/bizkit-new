@@ -133,11 +133,11 @@ class ScreenEditTask extends StatelessWidget {
                           ),
                           adjustHieght(10.h),
                           TagsContainer(),
-                          adjustHieght(10.h),
-                          const AttachmentChooserTaskCreation(),
-                          adjustHieght(10.h),
-                          SubTaskBuilder(),
-                          adjustHieght(10.h),
+                          // adjustHieght(10.h),
+                          // const AttachmentChooserTaskCreation(),
+                          // adjustHieght(10.h),
+                          // SubTaskBuilder(),
+                          adjustHieght(15.h),
                           Center(
                             child: EventButton(
                                 color: const LinearGradient(

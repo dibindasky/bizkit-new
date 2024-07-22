@@ -3,9 +3,7 @@ import 'dart:developer';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
-import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
-import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
@@ -23,6 +21,39 @@ class TaskStatusChangeDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<CreateTaskController>();
     final homeController = Get.find<TaskHomeScreenController>();
+
+    void showKillTaskConfirmationDialog() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Confirm Kill Task'),
+            content: const Text('Are you sure you want to kill this task?'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('Yes'),
+                onPressed: () {
+                  GoRouter.of(context)
+                      .pop(); // Close the TaskStatusChangeDialog
+                  controller.killatask(
+                    killAtaskModel:
+                        KillATaskModel(isKilled: true, taskId: taskId),
+                  );
+                  homeController.progresBar();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return SizedBox(
       height: 200.h,
       width: 200.h,
@@ -34,40 +65,45 @@ class TaskStatusChangeDialog extends StatelessWidget {
             child: Container(
               // height: 200.h,
               width: 200.h,
-              decoration:
-                  BoxDecoration(borderRadius: kBorderRadius20, color: kblack),
+              decoration: BoxDecoration(
+                borderRadius: kBorderRadius20,
+                color: kblack,
+              ),
               padding: EdgeInsets.all(10.w),
-              child: Column(mainAxisSize: MainAxisSize.min, children: [
-                kHeight10,
-                EventButton(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  kHeight10,
+                  EventButton(
                     text: 'Edit Task',
                     onTap: () {
                       log('Edit');
                       GoRouter.of(context).pop();
                       GoRouter.of(context).push(Routes.editTask);
                     },
-                    wdth: double.infinity),
-                kHeight10,
-                EventButton(
+                    wdth: double.infinity,
+                  ),
+                  kHeight10,
+                  EventButton(
                     text: 'Kill Task',
                     onTap: () {
-                      log('Kill ');
+                      log('Kill');
                       GoRouter.of(context).pop();
-                      controller.killatask(
-                          killAtaskModel:
-                              KillATaskModel(isKilled: true, taskId: taskId));
-                      homeController.progresBar();
+                      showKillTaskConfirmationDialog();
                     },
-                    wdth: double.infinity),
-                kHeight10,
-                EventButton(
+                    wdth: double.infinity,
+                  ),
+                  kHeight10,
+                  EventButton(
                     text: 'Complete Task',
                     onTap: () {
                       log('Complete');
                     },
-                    wdth: double.infinity),
-                kHeight10
-              ]),
+                    wdth: double.infinity,
+                  ),
+                  kHeight10,
+                ],
+              ),
             ),
           ),
         ],

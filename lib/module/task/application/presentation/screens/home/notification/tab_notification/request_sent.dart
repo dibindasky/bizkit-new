@@ -14,21 +14,21 @@ class RequestSentBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 15.h, right: 15.h, top: 10.h),
-      child: Obx(
-        () {
-          if (taskController.isLoading.value) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      child: RefreshIndicator(
+        onRefresh: () async {
+          taskController.fetchSendRequests();
+        },
+        child: Obx(
+          () {
+            if (taskController.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-          if (taskController.sentRequests.isEmpty) {
-            return const Center(child: Text('No sent requests available'));
-          }
+            if (taskController.sentRequests.isEmpty) {
+              return const Center(child: Text('No sent requests available'));
+            }
 
-          return RefreshIndicator(
-            onRefresh: () async {
-              taskController.fetchSendRequests();
-            },
-            child: ListView.separated(
+            return ListView.separated(
               separatorBuilder: (context, index) => adjustHieght(10),
               itemCount: taskController.sentRequests.length,
               itemBuilder: (context, index) {
@@ -38,9 +38,9 @@ class RequestSentBuilder extends StatelessWidget {
                       '${taskController.sentRequests[index].description}',
                 );
               },
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

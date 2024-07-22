@@ -366,17 +366,14 @@ class CreateTaskController extends GetxController {
     result.fold(
       (error) {
         pinLoader.value = false;
-        log('${error.error}', name: 'Error from pinnedATask ');
       },
       (success) {
-        log("${success.message}");
-        update(); // Update the UI or state
+        update();
         if (pinnedATask.isPinned == false) {
-          print('pinned length => ${allPinnedTasks.length}');
           allPinnedTasks.removeWhere((e) => e.id == pinnedATask.taskId);
           pinLoader.value = false;
+          update();
         }
-        print('pinned length => ${allPinnedTasks.length}');
         filterPinnedTasksByType(
             filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: Get.find<TaskHomeScreenController>()
@@ -393,25 +390,26 @@ class CreateTaskController extends GetxController {
                     .replaceAll(' ', '_')
                     .toLowerCase()));
         pinLoader.value = false;
+        update();
       },
     );
   }
 
   // Fetches all pinned tasks
-  void fetchAllPinnedTasks() async {
-    isLoading.value = true;
-    final result = await taskService.getAllPinnedTasks();
-    result.fold(
-      (failure) {
-        isLoading.value = false;
-        log(failure.message.toString());
-      },
-      (success) {
-        isLoading.value = false;
-        // allPinnedTasks.assignAll(success.pinnedTasks ?? []);
-      },
-    );
-  }
+  // void fetchAllPinnedTasks() async {
+  //   isLoading.value = true;
+  //   final result = await taskService.getAllPinnedTasks();
+  //   result.fold(
+  //     (failure) {
+  //       isLoading.value = false;
+  //       log(failure.message.toString());
+  //     },
+  //     (success) {
+  //       isLoading.value = false;
+  //       log('${success.pinnedTasks ?? []}', name: 'all pined tasks');
+  //     },
+  //   );
+  // }
 
   // Unpins a task using the provided model
   void unpinATask({required UnpinATaskModel unpinATask}) async {
@@ -425,6 +423,8 @@ class CreateTaskController extends GetxController {
       (success) {
         isLoading.value = false;
         log("${success.message}");
+        Get.snackbar(
+            'Success', success.message ?? 'Successfully Unpinned this task');
         update(); // Update the UI or state
       },
     );
@@ -456,17 +456,18 @@ class CreateTaskController extends GetxController {
     print('pinned task => ${filterPinnedTask.toJson()}');
     final result = await taskService.filterPinnedTaskByType(
         filterPinnedTaskByType: filterPinnedTask);
+    update();
     result.fold(
       (failure) {
         isLoading.value = false;
-        log(failure.message.toString());
       },
       (success) {
         allPinnedTasks.assignAll(success.tasks ?? []);
         isLoading.value = false;
+        log('${success.tasks ?? []}', name: 'all pinned tasks');
+        update();
       },
     );
-    update();
   }
 
   // Accepts or rejects a request using the provided model
@@ -482,6 +483,11 @@ class CreateTaskController extends GetxController {
       (success) {
         log("${success.message}");
         isLoading.value = false;
+        acceptOrReject.acceptanceStatus == 'Accept'
+            ? Get.snackbar('Success',
+                success.message ?? 'Successfully Accept this task request')
+            : Get.snackbar('Success',
+                success.message ?? 'Successfully Reject this task request');
       },
     );
   }

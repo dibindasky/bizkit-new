@@ -105,7 +105,7 @@ class GoRouterConfig {
     ),
   ];
 
-// biz card routes
+  // biz card routes
   static final bizcardRoute = [
     // splash
     GoRoute(
@@ -144,7 +144,6 @@ class GoRouterConfig {
       builder: (context, state) {
         final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
         if (cardId != null) {
-          // return ScreenCardDetailView(cardId: cardId);
           return CardDetailViewDeeplinkScreen(cardId: cardId);
         } else {
           return _errorScreen();
@@ -292,9 +291,11 @@ class GoRouterConfig {
       path: '${Routes.editTask}/:taskId',
       builder: (context, state) {
         final taskId = state.pathParameters['taskId'] ?? '';
-        return ScreenEditTask(
-          taskId: taskId,
-        );
+        if (taskId != '') {
+          return ScreenEditTask(taskId: taskId);
+        } else {
+          return _errorScreen();
+        }
       },
     ),
 
@@ -326,7 +327,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.heirarchyUserDetail,
       path: Routes.heirarchyUserDetail,
-      builder: (context, state) => ScreenHeirarchyTaskUserDetails(),
+      builder: (context, state) => const ScreenHeirarchyTaskUserDetails(),
     ),
 
     // chat Screen task

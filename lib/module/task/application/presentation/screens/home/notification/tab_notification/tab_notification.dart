@@ -46,16 +46,6 @@ class TaskTabNotification extends StatelessWidget {
             ],
           ),
           title: const Text('Requests'),
-          // actions: [
-          //   IconButton(
-          //     onPressed: () {},
-          //     icon: const Icon(
-          //       Icons.filter_alt,
-          //       color: neonShade,
-          //     ),
-          //   ),
-          //   adjustWidth(10)
-          // ],
         ),
         body: TabBarView(
           children: [

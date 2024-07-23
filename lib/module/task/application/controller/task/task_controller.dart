@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/task.dart';
-
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
@@ -35,11 +33,7 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:intl/intl.dart';
-
-// import 'package:intl/intl.dart';
-
 import '../../../domain/model/task/task_model/sub_task.dart';
 
 class CreateTaskController extends GetxController {
@@ -95,6 +89,14 @@ class CreateTaskController extends GetxController {
         filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
     getTasksCountWithoutDate();
     super.onInit();
+  }
+
+  final combinedTags = <dynamic>[];
+  void updatingTags(List? tags) {
+    if (tags != null) {
+      combinedTags.addAll(tags);
+    }
+    combinedTags.addAll(tags!);
   }
 
   // Test task ID for validation or testing purposes
@@ -277,7 +279,6 @@ class CreateTaskController extends GetxController {
     // );
 
     final result = await taskService.editTask(taskModel: taskModel);
-
     result.fold(
       (error) {
         isLoading.value = false;
@@ -286,7 +287,6 @@ class CreateTaskController extends GetxController {
       (success) {
         isLoading.value = false;
         log('${success.message}');
-
         // Filter tasks by type after editing
         filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
       },
@@ -484,11 +484,8 @@ class CreateTaskController extends GetxController {
       (success) {
         log("${success.message}");
         isLoading.value = false;
-        acceptOrReject.acceptanceStatus == 'Accept'
-            ? Get.snackbar('Success',
-                success.message ?? 'Successfully Accept this task request')
-            : Get.snackbar('Success',
-                success.message ?? 'Successfully Reject this task request');
+        Get.snackbar('Success', success.message ?? '');
+        fetchReceivedRequests();
       },
     );
   }
@@ -541,6 +538,7 @@ class CreateTaskController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
+        log('Search tasks ${success.tasks?.first.toJson()}');
         if (success.tasks != null) {
           tasksSearch.clear();
           tasksSearch.addAll(success.tasks!);

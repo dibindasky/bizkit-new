@@ -67,8 +67,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           questionList: [...state.questionList, ...r.results ?? []],
         ),
       );
-      log('${questionList.length}',
-          name: 'getQuestionsEvent questionList length');
+      // log('${questionList.length}',
+      //     name: 'getQuestionsEvent questionList length');
     });
   }
 

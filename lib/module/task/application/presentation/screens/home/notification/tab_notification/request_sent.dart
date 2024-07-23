@@ -1,6 +1,8 @@
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/widget/notification_container.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,9 +23,14 @@ class RequestSentBuilder extends StatelessWidget {
           }
 
           if (taskController.sentRequests.isEmpty) {
-            return const Center(child: Text('No sent requests available'));
+            return ErrorRefreshIndicator(
+              image: emptyNodata2,
+              errorMessage: 'No sent requests available',
+              onRefresh: () {
+                taskController.fetchReceivedRequests();
+              },
+            );
           }
-
           return RefreshIndicator(
             onRefresh: () async {
               taskController.fetchSendRequests();

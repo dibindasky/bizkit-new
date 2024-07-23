@@ -21,10 +21,10 @@ class GetTaskResponce {
   String? deadLine;
   @JsonKey(name: 'is_killed')
   bool? isKilled;
-  List<dynamic>? tags;
-  List<dynamic>? attachments;
+  List<String>? tags;
+  List<String>? attachments;
   @JsonKey(name: 'sub_task')
-  List<dynamic>? subTask;
+  List<String>? subTask;
   @JsonKey(name: 'assigned_to')
   List<TaskAssignedTo>? assignedTo;
   @JsonKey(name: 'created_at')

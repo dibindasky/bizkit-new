@@ -9,6 +9,8 @@ import 'package:bizkit/module/task/application/presentation/widgets/task_contain
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -227,11 +229,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             physics: const NeverScrollableScrollPhysics(),
             controller: _tabController,
             children: [
-              GetBuilder<CreateTaskController>(builder: (conte) {
-                return PinnedTasks(
-                  tabController: _tabController,
-                );
-              }),
+              PinnedTasks(tabController: _tabController),
               TotalTaskListView(),
             ],
           );
@@ -247,43 +245,80 @@ class PinnedTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-    log('${taskController.allPinnedTasks.length}',
-        name: 'final taskController = Get.find<CreateTaskController>();');
-    // final controller = Get.find<TaskCalenderViewController>();
+    log('${taskController.allPinnedTasks.length}', name: 'Task Controller');
     return Obx(
       () {
         if (taskController.isLoading.value || taskController.pinLoader.value) {
           return const Center(child: CircularProgressIndicator());
         } else if (taskController.allPinnedTasks.isEmpty) {
-          return const Center(child: Text('No Pinned Tasks'));
-        } else {
-          return ListView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            itemCount: taskController.allPinnedTasks.length,
-            // itemCount: tasks.length,
-            itemBuilder: (context, index) {
-              final pinnedTasks = taskController.allPinnedTasks[index];
-              return GestureDetector(
-                onLongPress: () {
-                  // bool isSelected = !controller.selectedIndices.contains(index);
-                  // controller.longPress(isSelected, index);
-                },
-                onTap: () {
-                  // if (controller.selectedFolderContainer.value) {
-                  //   bool isSelected = !controller.selectedIndices.contains(index);
-                  //   controller.longPress(isSelected, index);
-                  // } else {
-                  GoRouter.of(context).push(Routes.taskChatScreen);
-                  //}
-                },
-                child: TaskContainer(
-                  tabIndex: tabController.index,
-                  index: index,
-                  typeTask: pinnedTasks,
-                ),
-              );
+          return ErrorRefreshIndicator(
+            image: emptyNodata2,
+            errorMessage: 'No Pinned Tasks',
+            onRefresh: () {
+              taskController.filterPinnedTasksByType(
+                  filterPinnedTask: FilterPinnedTaskByTypeModel(
+                      taskType: Get.find<TaskHomeScreenController>()
+                          .taskCategory
+                          .value
+                          .replaceAll(' ', '_')
+                          .toLowerCase(),
+                      isPinned: true));
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(
+                      taskType: Get.find<TaskHomeScreenController>()
+                          .taskCategory
+                          .value
+                          .replaceAll(' ', '_')
+                          .toLowerCase()));
             },
+          );
+        } else {
+          return RefreshIndicator(
+            onRefresh: () async {
+              taskController.filterPinnedTasksByType(
+                  filterPinnedTask: FilterPinnedTaskByTypeModel(
+                      taskType: Get.find<TaskHomeScreenController>()
+                          .taskCategory
+                          .value
+                          .replaceAll(' ', '_')
+                          .toLowerCase(),
+                      isPinned: true));
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(
+                      taskType: Get.find<TaskHomeScreenController>()
+                          .taskCategory
+                          .value
+                          .replaceAll(' ', '_')
+                          .toLowerCase()));
+            },
+            child: ListView.builder(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              itemCount: taskController.allPinnedTasks.length,
+              // itemCount: tasks.length,
+              itemBuilder: (context, index) {
+                final pinnedTasks = taskController.allPinnedTasks[index];
+                return GestureDetector(
+                  onLongPress: () {
+                    // bool isSelected = !controller.selectedIndices.contains(index);
+                    // controller.longPress(isSelected, index);
+                  },
+                  onTap: () {
+                    // if (controller.selectedFolderContainer.value) {
+                    //   bool isSelected = !controller.selectedIndices.contains(index);
+                    //   controller.longPress(isSelected, index);
+                    // } else {
+                    GoRouter.of(context).push(Routes.taskChatScreen);
+                    //}
+                  },
+                  child: TaskContainer(
+                    tabIndex: tabController.index,
+                    index: index,
+                    typeTask: pinnedTasks,
+                  ),
+                );
+              },
+            ),
           );
         }
       },

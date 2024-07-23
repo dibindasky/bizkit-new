@@ -17,10 +17,10 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
       isCompleted: json['is_completed'] as bool?,
       deadLine: json['dead_line'] as String?,
       isKilled: json['is_killed'] as bool?,
-      tags: json['tags'] as List<dynamic>?,
-      attachments: json['attachments'] as List<dynamic>?,
-      subTask: json['sub_task'] as List<dynamic>?,
-      assignedTo: (json['assigned_to'] as List<dynamic>?)
+      tags: json['tags'] as List<String>?,
+      attachments: json['attachments'] as List<String>?,
+      subTask: json['sub_task'] as List<String>?,
+      assignedTo: (json['assigned_to'] as List<String>?)
           ?.map((e) => TaskAssignedTo.fromJson(e as Map<String, dynamic>))
           .toList(),
       createdAt: json['created_at'] == null

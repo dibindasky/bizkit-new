@@ -288,14 +288,15 @@ class GoRouterConfig {
     ),
     GoRoute(
       name: Routes.editTask,
-      path: '${Routes.editTask}/:taskId',
+      path: Routes.editTask,
       builder: (context, state) {
         final taskId = state.pathParameters['taskId'] ?? '';
         if (taskId != '') {
           return ScreenEditTask(taskId: taskId);
         } else {
           return _errorScreen();
-        }
+       }
+
       },
     ),
 

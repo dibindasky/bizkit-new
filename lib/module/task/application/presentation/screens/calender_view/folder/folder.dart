@@ -2,6 +2,7 @@ import 'package:bizkit/module/task/application/controller/caleder_view/calender_
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
+import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/task_selection.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/folders/delete_folder_model/delete_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
@@ -206,7 +207,7 @@ void showTaskSelectionBottomSheet(BuildContext context, String folderId,
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
                           title: Text(
-                            task.title ?? 'Title',
+                            task.task?.title ?? 'Title',
                             style: const TextStyle(color: kwhite),
                           ),
                           trailing: Obx(

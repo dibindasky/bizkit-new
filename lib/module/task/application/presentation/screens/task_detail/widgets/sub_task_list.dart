@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_creation.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/container_textfield_dummy.dart';
@@ -28,7 +30,10 @@ class TaskDetailSubtasksSection extends StatelessWidget {
               onTap: () {
                 showDialog(
                   context: context,
-                  builder: (context) => const SubTaskCreationCustomDialog(),
+                  builder: (context) => SubTaskCreationCustomDialog(
+                    taskId: controller.singleTask.value.id,
+                    afterTaskCreation: true,
+                  ),
                 );
               },
               child: Container(
@@ -64,8 +69,15 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                   itemCount: controller.singleTask.value.subTask?.length,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemBuilder: (context, index) =>
-                      const SubTaskTileDetailPage(),
+                  itemBuilder: (context, index) {
+                    final subTask =
+                        controller.singleTask.value.subTask?.first[index];
+                    // log('${controller.singleTask.value.subTask?.first[index]}');
+                    return SubTaskTileDetailPage(
+                      subTaskTitle: subTask?.title,
+                      subTaskDes: subTask?.description,
+                    );
+                  },
                 ),
         )
       ],
@@ -74,44 +86,46 @@ class TaskDetailSubtasksSection extends StatelessWidget {
 }
 
 class SubTaskTileDetailPage extends StatelessWidget {
-  const SubTaskTileDetailPage({super.key});
+  const SubTaskTileDetailPage({super.key, this.subTaskTitle, this.subTaskDes});
+
+  final String? subTaskTitle;
+  final String? subTaskDes;
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<CreateTaskController>();
     return GestureDetector(
       onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) => Dialog(
-            backgroundColor: kblack,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('New Project user flow', style: textHeadStyle1),
-                  adjustHieght(10.h),
-                  const ContainerTextFieldDummy(
-                    text: 'Task Start Date',
-                    suffixIcon: Icons.calendar_month_outlined,
-                  ),
-                  adjustHieght(10.h),
-                  const ContainerTextFieldDummy(
-                    text: 'Total Time Taken',
-                    suffixIcon: Icons.alarm_sharp,
-                  ),
-                  adjustHieght(30.h),
-                  EventButton(
-                    text: 'Complete',
-                    onTap: () {},
-                    wdth: double.infinity,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
+        // showDialog(
+        //   context: context,
+        //   builder: (context) => Dialog(
+        //     backgroundColor: kblack,
+        //     child: Container(
+        //       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+        //       child: Column(
+        //         mainAxisSize: MainAxisSize.min,
+        //         children: [
+        //           Text(subTaskTitle ?? 'Subtask Title', style: textHeadStyle1),
+        //           adjustHieght(10.h),
+        //           const ContainerTextFieldDummy(
+        //             text: 'Task Start Date',
+        //             suffixIcon: Icons.calendar_month_outlined,
+        //           ),
+        //           adjustHieght(10.h),
+        //           const ContainerTextFieldDummy(
+        //             text: 'Total Time Taken',
+        //             suffixIcon: Icons.alarm_sharp,
+        //           ),
+        //           adjustHieght(30.h),
+        //           EventButton(
+        //             text: 'Complete',
+        //             onTap: () {},
+        //             wdth: double.infinity,
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // );
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10.w),
@@ -131,26 +145,21 @@ class SubTaskTileDetailPage extends StatelessWidget {
                       Image.asset('asset/images/icon/Vector.png', scale: 2),
                       adjustWidth(10.w),
                       Text(
-                        controller.singleTask.value.title ?? 'subtask title',
+                        subTaskTitle ?? 'Subtask Title',
                         style: textHeadStyle1.copyWith(color: neonShade),
                       ),
                     ],
                   ),
                   adjustHieght(8.h),
                   Text(
-                    controller.singleTask.value.description ?? 'subtask des',
+                    subTaskDes ?? 'Subtask Description',
                     style: textThinStyle1,
                   ),
                   adjustHieght(5.h),
-                  // Text(
-                  //   'Deadline : 16 May 2024',
-                  //   style: textStyle1,
-                  // ),
                 ],
               ),
             ),
             adjustWidth(20.w),
-            // change decoration when task got completed
             Container(
               height: 27.w,
               width: 27.w,

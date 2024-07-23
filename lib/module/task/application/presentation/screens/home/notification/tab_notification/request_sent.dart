@@ -16,11 +16,15 @@ class RequestSentBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 15.h, right: 15.h, top: 10.h),
-      child: Obx(
-        () {
-          if (taskController.isLoading.value) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      child: RefreshIndicator(
+        onRefresh: () async {
+          taskController.fetchSendRequests();
+        },
+        child: Obx(
+          () {
+            if (taskController.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
           if (taskController.sentRequests.isEmpty) {
             return ErrorRefreshIndicator(
@@ -45,9 +49,9 @@ class RequestSentBuilder extends StatelessWidget {
                       '${taskController.sentRequests[index].description}',
                 );
               },
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

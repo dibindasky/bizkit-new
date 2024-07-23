@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -39,13 +41,17 @@ class TaskStatusChangeDialog extends StatelessWidget {
               TextButton(
                 child: const Text('Yes'),
                 onPressed: () {
-                  GoRouter.of(context)
-                      .pop(); // Close the TaskStatusChangeDialog
+                  GoRouter.of(context).pop();
                   controller.killatask(
+                    context: context,
                     killAtaskModel:
                         KillATaskModel(isKilled: true, taskId: taskId),
                   );
                   homeController.progresBar();
+                  controller.taskFilterByDeadline(
+                      filterByDeadline: FilterByDeadlineModel(
+                          date: DateTimeFormater.dateTimeFormat(
+                              controller.selectedDate.value)));
                 },
               ),
             ],

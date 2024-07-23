@@ -23,6 +23,7 @@ import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model
 import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/task_search_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/tasks_count_model/tasks_count_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
@@ -32,6 +33,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../domain/model/task/task_model/sub_task.dart';
@@ -58,8 +60,8 @@ class CreateTaskController extends GetxController {
   RxList<Task> allPinnedTasks = <Task>[].obs;
   RxList<UserSearchSuccessResponce> userslist =
       <UserSearchSuccessResponce>[].obs;
-  RxList<Task> tasksSearch = <Task>[].obs;
-  RxList<Task> selectedTasks = <Task>[].obs;
+  RxList<SearchTasks> tasksSearch = <SearchTasks>[].obs;
+  RxList<SearchTasks> selectedTasks = <SearchTasks>[].obs;
   RxList<ReceivedTask> receivedRequests = <ReceivedTask>[].obs;
   RxMap<String, RxInt> tasksCounts = <String, RxInt>{}.obs;
   // Holds a single task response
@@ -607,7 +609,9 @@ class CreateTaskController extends GetxController {
   }
 
   // Kill a task
-  void killatask({required KillATaskModel killAtaskModel}) async {
+  void killatask(
+      {required KillATaskModel killAtaskModel,
+      required BuildContext context}) async {
     isLoading.value = true;
     final result = await taskService.killATask(killatask: killAtaskModel);
     result.fold(
@@ -617,7 +621,17 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         log("${success.message}");
+
+        // Get.snackbar('Kill', 'Success');
+        // Navigator.of(context).pop();
+        // Navigator.of(context).pop();
+        // GoRouter.of(context).pop();
+        // GoRouter.of(context).pop();
+        // print('After pop');
         isLoading.value = false;
+        // GoRouter.of(context).pus(
+        //   Routes.taskHome,
+        // );
       },
     );
   }

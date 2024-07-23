@@ -69,11 +69,10 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                 text: 'Create Sub Task',
                 onTap: () {
                   final subtasks = SubTasks(
-                      title: titleController.text,
-                      deadLine: '',
-                      description: descriptionController.text,
-                      isCompleted: false,
-                      totalTimeTaken: '');
+                    title: titleController.text,
+                    description: descriptionController.text,
+                    isCompleted: false,
+                  );
 
                   afterTaskCreation == true
                       ? controller.addSubTask(
@@ -83,7 +82,7 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                       : controller.createSubtaskBeforeTaskCreation(
                           subTask: SubTask(
                               title: titleController.text,
-                              deadLine: controller.deadlineDate.value,
+                              deadLine: '',
                               description: descriptionController.text,
                               isCompleted: false,
                               totalTimeTaken: ''),

@@ -103,7 +103,9 @@ class SubTaskBuilder extends StatelessWidget {
             onTap: () {
               showDialog(
                   context: context,
-                  builder: (context) => const SubTaskCreationCustomDialog());
+                  builder: (context) => const SubTaskCreationCustomDialog(
+                        afterTaskCreation: false,
+                      ));
             },
             child: ClipRRect(
               borderRadius: kBorderRadius5,

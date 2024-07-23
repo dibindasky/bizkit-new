@@ -229,11 +229,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             physics: const NeverScrollableScrollPhysics(),
             controller: _tabController,
             children: [
-              GetBuilder<CreateTaskController>(builder: (conte) {
-                return PinnedTasks(
-                  tabController: _tabController,
-                );
-              }),
+              PinnedTasks(tabController: _tabController),
               TotalTaskListView(),
             ],
           );
@@ -249,9 +245,7 @@ class PinnedTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-    log('${taskController.allPinnedTasks.length}',
-        name: 'final taskController = Get.find<CreateTaskController>();');
-    // final controller = Get.find<TaskCalenderViewController>();
+    log('${taskController.allPinnedTasks.length}', name: 'Task Controller');
     return Obx(
       () {
         if (taskController.isLoading.value || taskController.pinLoader.value) {
@@ -260,36 +254,71 @@ class PinnedTasks extends StatelessWidget {
           return ErrorRefreshIndicator(
             image: emptyNodata2,
             errorMessage: 'No Pinned Tasks',
-            onRefresh: () {},
+            onRefresh: () {
+              taskController.filterPinnedTasksByType(
+                  filterPinnedTask: FilterPinnedTaskByTypeModel(
+                      taskType: Get.find<TaskHomeScreenController>()
+                          .taskCategory
+                          .value
+                          .replaceAll(' ', '_')
+                          .toLowerCase(),
+                      isPinned: true));
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(
+                      taskType: Get.find<TaskHomeScreenController>()
+                          .taskCategory
+                          .value
+                          .replaceAll(' ', '_')
+                          .toLowerCase()));
+            },
           );
         } else {
-          return ListView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            itemCount: taskController.allPinnedTasks.length,
-            // itemCount: tasks.length,
-            itemBuilder: (context, index) {
-              final pinnedTasks = taskController.allPinnedTasks[index];
-              return GestureDetector(
-                onLongPress: () {
-                  // bool isSelected = !controller.selectedIndices.contains(index);
-                  // controller.longPress(isSelected, index);
-                },
-                onTap: () {
-                  // if (controller.selectedFolderContainer.value) {
-                  //   bool isSelected = !controller.selectedIndices.contains(index);
-                  //   controller.longPress(isSelected, index);
-                  // } else {
-                  GoRouter.of(context).push(Routes.taskChatScreen);
-                  //}
-                },
-                child: TaskContainer(
-                  tabIndex: tabController.index,
-                  index: index,
-                  typeTask: pinnedTasks,
-                ),
-              );
+          return RefreshIndicator(
+            onRefresh: () async {
+              taskController.filterPinnedTasksByType(
+                  filterPinnedTask: FilterPinnedTaskByTypeModel(
+                      taskType: Get.find<TaskHomeScreenController>()
+                          .taskCategory
+                          .value
+                          .replaceAll(' ', '_')
+                          .toLowerCase(),
+                      isPinned: true));
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(
+                      taskType: Get.find<TaskHomeScreenController>()
+                          .taskCategory
+                          .value
+                          .replaceAll(' ', '_')
+                          .toLowerCase()));
             },
+            child: ListView.builder(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              itemCount: taskController.allPinnedTasks.length,
+              // itemCount: tasks.length,
+              itemBuilder: (context, index) {
+                final pinnedTasks = taskController.allPinnedTasks[index];
+                return GestureDetector(
+                  onLongPress: () {
+                    // bool isSelected = !controller.selectedIndices.contains(index);
+                    // controller.longPress(isSelected, index);
+                  },
+                  onTap: () {
+                    // if (controller.selectedFolderContainer.value) {
+                    //   bool isSelected = !controller.selectedIndices.contains(index);
+                    //   controller.longPress(isSelected, index);
+                    // } else {
+                    GoRouter.of(context).push(Routes.taskChatScreen);
+                    //}
+                  },
+                  child: TaskContainer(
+                    tabIndex: tabController.index,
+                    index: index,
+                    typeTask: pinnedTasks,
+                  ),
+                );
+              },
+            ),
           );
         }
       },

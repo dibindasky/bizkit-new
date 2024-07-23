@@ -7,13 +7,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class TagsContainer extends StatelessWidget {
-  TagsContainer({super.key});
+  TagsContainer({super.key, this.tags});
+
+  final List? tags;
 
   final TextEditingController tagController = TextEditingController();
   final controller = Get.find<CreateTaskController>();
 
   @override
   Widget build(BuildContext context) {
+    // Combine the passed tags and the controller's tags
+    controller.updatingTags(tags);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -68,9 +72,10 @@ class TagsContainer extends StatelessWidget {
                   return Wrap(
                     spacing: 18.0,
                     runSpacing: 4.0,
-                    children: controller.tags.asMap().entries.map((entry) {
-                      int index = entry.key % controller.tagColor.length;
-                      String tag = entry.value;
+                    children: controller.combinedTags.map((tag) {
+                      int index =
+                          controller.combinedTags.toList().indexOf(tag) %
+                              controller.tagColor.length;
                       final isSelected = controller.selectedTags.contains(tag);
                       return FilterChip(
                         side: BorderSide.none,

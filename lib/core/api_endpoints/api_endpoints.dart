@@ -160,8 +160,7 @@ class ApiEndPoints {
   static String selfieImageAdding =
       '/card-connections/selfie-card-image-create/';
 
-// ------------------------------------------------------------------------------------------
-
+  // ------------------------------------------------------------------------------------------
   // TASK MODULE TEST APIENDPOINTS
 
   static const taskTestgetAllTasks = '/user-tasks/';

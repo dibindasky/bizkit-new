@@ -72,7 +72,7 @@ Future<dynamic> requestMarkingDailog(
                   child: Center(
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Text('Personl'),
+                      child: Text('Personal'),
                     ),
                   ),
                 ),

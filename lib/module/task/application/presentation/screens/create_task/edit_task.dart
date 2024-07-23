@@ -1,10 +1,11 @@
 import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
-import 'widgets/deadline_chooser.dart';
-import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/priority_recurring_dropdown_items.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/tag_contaner.dart';
-import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/task_type_radio_button.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/task_model/attachment.dart';
+import 'package:bizkit/module/task/domain/model/task/task_model/sub_task.dart';
+import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,9 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class ScreenEditTask extends StatelessWidget {
-  ScreenEditTask({
-    super.key,
-  });
+  ScreenEditTask({super.key, this.taskId});
+
+  final String? taskId;
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -25,21 +26,20 @@ class ScreenEditTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final taskCalenarcontroller = Get.find<TaskCalenderViewController>();
-    final controller = Get.find<CreateTaskController>();
-    final style = TextStyle(
-      fontSize: 15.sp,
-      color: neonShade,
-    );
+    final createTaskController = Get.find<CreateTaskController>();
+    final style = TextStyle(fontSize: 15.sp, color: neonShade);
+    List tags = createTaskController.singleTask.value.tags ?? [];
 
-    titleController.text = controller.singleTask.value.title ?? 'title';
+    titleController.text =
+        createTaskController.singleTask.value.title ?? 'title';
     descriptionController.text =
-        controller.singleTask.value.description ?? 'description';
+        createTaskController.singleTask.value.description ?? 'description';
 
-    controller.deadlineDate.value =
-        controller.singleTask.value.deadLine ?? 'deadLine';
+    createTaskController.deadlineDate.value =
+        createTaskController.singleTask.value.deadLine ?? 'deadLine';
 
-    controller.createRecurring.value =
-        controller.singleTask.value.recurrentTask ?? false;
+    createTaskController.createRecurring.value =
+        createTaskController.singleTask.value.recurrentTask ?? false;
 
     return Scaffold(
       appBar: AppBar(
@@ -55,7 +55,7 @@ class ScreenEditTask extends StatelessWidget {
       body: SafeArea(
         child: Obx(
           () {
-            final isLoading = controller.isLoading.value;
+            final isLoading = createTaskController.isLoading.value;
 
             return Stack(
               children: [
@@ -76,6 +76,9 @@ class ScreenEditTask extends StatelessWidget {
                               if (value!.isEmpty) {
                                 return 'Title is required';
                               }
+                              if (value.length < 8) {
+                                return 'Title have minimum 8 charecters';
+                              }
                               return null;
                             },
                           ),
@@ -83,7 +86,7 @@ class ScreenEditTask extends StatelessWidget {
                           Text('Description', style: style),
                           adjustHieght(3.h),
                           TaskTextField(
-                            maxLines: 5,
+                            maxLines: 3,
                             hintText: 'Description',
                             controller: descriptionController,
                             // validator: (value) {
@@ -94,11 +97,11 @@ class ScreenEditTask extends StatelessWidget {
                             // },
                           ),
                           adjustHieght(3.h),
-                          Text('Task Type', style: style),
-                          adjustHieght(5.h),
-                          const TaskTypeRadioButtons(),
+                          // Text('Task Type', style: style),
+                          // adjustHieght(5.h),
+                          // const TaskTypeRadioButtons(),
                           adjustHieght(10.h),
-                          const PriorityRecurringDropDownItems(),
+                          // const PriorityRecurringDropDownItems(),
                           adjustHieght(10.h),
                           // Text('Task Head', style: style),
                           // adjustHieght(3.h),
@@ -120,18 +123,19 @@ class ScreenEditTask extends StatelessWidget {
                           //     );
                           //   },
                           // ),
-                          DeadlineChooserCreateTask(
-                            onPressed: (date) {
-                              controller.deadlineDate.value = date;
-                            },
-                          ),
+                          // DeadlineChooserCreateTask(
+                          //   onPressed: (date) {
+                          //     createTaskController.deadlineDate.value = date;
+                          //   },
+                          // ),
                           adjustHieght(10.h),
-                          TagsContainer(),
+                          TagsContainer(tags: tags),
                           // adjustHieght(10.h),
                           // const AttachmentChooserTaskCreation(),
                           // adjustHieght(10.h),
                           // SubTaskBuilder(),
                           adjustHieght(15.h),
+                          // const Spacer(),
                           Center(
                             child: EventButton(
                                 color: const LinearGradient(
@@ -140,6 +144,24 @@ class ScreenEditTask extends StatelessWidget {
                                 text: 'Edit Task',
                                 onTap: () {
                                   if (_formKey.currentState!.validate()) {
+                                    final task =
+                                        createTaskController.singleTask.value;
+                                    createTaskController.editTask(
+                                        taskModel: EditTaskModel(
+                                      tags: task.tags,
+                                      assignedTo: task.assignedTo,
+                                      attachments:
+                                          task.attachments as List<Attachment>,
+                                      deadLine: task.deadLine,
+                                      isCompleted: task.isCompleted,
+                                      isKilled: task.isKilled,
+                                      priorityLevel: task.priorityLevel,
+                                      recurrentTask: task.recurrentTask,
+                                      subTask: task.subTask as List<SubTask>,
+                                      taskId: taskId,
+                                      title: titleController.text,
+                                      description: descriptionController.text,
+                                    ));
                                     // log("DeadLine => ${controller.deadlineDate.value}");
                                     // log('======> $controller.participants');
                                     // log('createPriorityLevel value : => ${controller.createPriorityLevel.value}');

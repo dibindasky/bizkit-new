@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
@@ -36,7 +37,6 @@ class ScreenAddTask extends StatelessWidget {
       fontSize: 15.sp,
       color: neonShade,
     );
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

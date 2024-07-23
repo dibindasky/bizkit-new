@@ -26,7 +26,7 @@ class NotoficationBuilder extends StatelessWidget {
             separatorBuilder: (context, index) => adjustHieght(10),
             itemCount: 10,
             itemBuilder: (context, index) {
-              return NotificationCard();
+              return const NotificationCard();
             },
           ),
         ),

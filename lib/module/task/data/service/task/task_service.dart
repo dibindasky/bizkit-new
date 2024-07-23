@@ -294,8 +294,6 @@ class TaskService implements TaskRepo {
         data: taskSearchItem.toJson(),
       );
 
-      log("=> Response Search tasks : ${response.data}");
-
       return Right(TaskSearchResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException taskSearch $e');

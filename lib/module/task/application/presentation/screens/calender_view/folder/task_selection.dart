@@ -30,7 +30,7 @@ class TaskSelectionScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Tasks to Add'),
+        title: const Text('Select Tasks to Add'),
         backgroundColor: kblack,
       ),
       body: Container(
@@ -69,7 +69,7 @@ class TaskSelectionScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
                           title: Text(
-                            task.task?.title ?? 'Title',
+                            task.title ?? 'Title',
                             style: const TextStyle(color: kwhite),
                           ),
                           trailing: Obx(

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -9,7 +10,7 @@ import 'package:get/get.dart';
 class TagsContainer extends StatelessWidget {
   TagsContainer({super.key, this.tags});
 
-  final List? tags;
+  final List<String>? tags;
 
   final TextEditingController tagController = TextEditingController();
   final controller = Get.find<CreateTaskController>();
@@ -17,7 +18,7 @@ class TagsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Combine the passed tags and the controller's tags
-    controller.updatingTags(tags);
+    // controller.updatingTags(tags);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -69,13 +70,13 @@ class TagsContainer extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Obx(() {
+                  log('tags: ${controller.selectedTags}');
                   return Wrap(
                     spacing: 18.0,
                     runSpacing: 4.0,
-                    children: controller.combinedTags.map((tag) {
-                      int index =
-                          controller.combinedTags.toList().indexOf(tag) %
-                              controller.tagColor.length;
+                    children: controller.tags.map((tag) {
+                      int index = controller.tags.toList().indexOf(tag) %
+                          controller.tagColor.length;
                       final isSelected = controller.selectedTags.contains(tag);
                       return FilterChip(
                         side: BorderSide.none,

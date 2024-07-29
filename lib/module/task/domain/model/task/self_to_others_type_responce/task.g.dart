@@ -20,6 +20,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
           ?.map((e) => SubTask.fromJson(e as Map<String, dynamic>))
           .toList(),
       title: json['task_title'] as String?,
+      status: json['status'] as String?,
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
@@ -34,4 +35,5 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'is_owned': instance.isOwned,
       'spotlight_on': instance.spotlightOn,
       'is_pinned': instance.isPinned,
+      'status': instance.status,
     };

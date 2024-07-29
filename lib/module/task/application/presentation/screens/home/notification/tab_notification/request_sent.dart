@@ -26,30 +26,30 @@ class RequestSentBuilder extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
 
-          if (taskController.sentRequests.isEmpty) {
-            return ErrorRefreshIndicator(
-              image: emptyNodata2,
-              errorMessage: 'No sent requests available',
-              onRefresh: () {
-                taskController.fetchReceivedRequests();
-              },
-            );
-          }
-          return RefreshIndicator(
-            onRefresh: () async {
-              taskController.fetchSendRequests();
-            },
-            child: ListView.separated(
-              separatorBuilder: (context, index) => adjustHieght(10),
-              itemCount: taskController.sentRequests.length,
-              itemBuilder: (context, index) {
-                return NotificationCard(
-                  title: '${taskController.sentRequests[index].title}',
-                  description:
-                      '${taskController.sentRequests[index].description}',
-                );
-              },
-            );
+            if (taskController.sentRequests.isEmpty) {
+              return ErrorRefreshIndicator(
+                image: emptyNodata2,
+                errorMessage: 'No sent requests available',
+                onRefresh: () {
+                  taskController.fetchReceivedRequests();
+                },
+              );
+            }
+            return RefreshIndicator(
+                onRefresh: () async {
+                  taskController.fetchSendRequests();
+                },
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => adjustHieght(10),
+                  itemCount: taskController.sentRequests.length,
+                  itemBuilder: (context, index) {
+                    return NotificationCard(
+                      title: '${taskController.sentRequests[index].title}',
+                      description:
+                          '${taskController.sentRequests[index].description}',
+                    );
+                  },
+                ));
           },
         ),
       ),

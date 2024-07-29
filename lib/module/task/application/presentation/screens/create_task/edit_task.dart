@@ -28,7 +28,7 @@ class ScreenEditTask extends StatelessWidget {
     // final taskCalenarcontroller = Get.find<TaskCalenderViewController>();
     final createTaskController = Get.find<CreateTaskController>();
     final style = TextStyle(fontSize: 15.sp, color: neonShade);
-    List tags = createTaskController.singleTask.value.tags ?? [];
+    List<String> tags = createTaskController.singleTask.value.tags ?? [];
 
     titleController.text =
         createTaskController.singleTask.value.title ?? 'title';
@@ -129,7 +129,9 @@ class ScreenEditTask extends StatelessWidget {
                           //   },
                           // ),
                           adjustHieght(10.h),
-                          TagsContainer(tags: tags),
+                          TagsContainer(
+                            tags: tags,
+                          ),
                           // adjustHieght(10.h),
                           // const AttachmentChooserTaskCreation(),
                           // adjustHieght(10.h),
@@ -149,7 +151,7 @@ class ScreenEditTask extends StatelessWidget {
                                     createTaskController.editTask(
                                         taskModel: EditTaskModel(
                                       tags: task.tags,
-                                      assignedTo: task.assignedTo,
+                                      assignedTo: task.assignedToDetails,
                                       attachments:
                                           task.attachments as List<Attachment>,
                                       deadLine: task.deadLine,

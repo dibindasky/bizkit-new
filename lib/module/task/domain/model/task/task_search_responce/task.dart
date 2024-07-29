@@ -1,4 +1,4 @@
-import 'package:bizkit/module/task/domain/model/task/task_search_responce/search_tasks/search_tasks.dart';
+import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'task.g.dart';
@@ -7,7 +7,7 @@ part 'task.g.dart';
 class SearchTasks {
   @JsonKey(name: '_id')
   String? id;
-  SearchTask? task;
+  Task? task;
   @JsonKey(name: 'task_type')
   String? taskType;
   @JsonKey(name: 'is_owned')

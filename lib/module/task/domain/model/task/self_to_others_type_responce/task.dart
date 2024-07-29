@@ -27,7 +27,8 @@ class Task {
   bool? spotlightOn;
   @JsonKey(name: 'is_pinned')
   bool? isPinned;
-
+  @JsonKey(name: 'status')
+  String? status;
   Task({
     this.id,
     this.taskType,
@@ -40,6 +41,7 @@ class Task {
     this.priorityLevel,
     this.subtasks,
     this.title,
+    this.status,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);

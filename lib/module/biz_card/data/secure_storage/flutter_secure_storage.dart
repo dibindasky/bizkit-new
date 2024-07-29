@@ -49,7 +49,7 @@ class SecureStorage {
     log('save token =>() ${tokenModel.accessToken}');
     await prefs.setString(accessKey, tokenModel.accessToken ?? '');
     await prefs.setString(refreshKey, tokenModel.refreshToken ?? '');
-    await prefs.setString(idKey, tokenModel.id?.toString() ?? '');
+    await prefs.setString(userNameKey, tokenModel.name?.toString() ?? '');
   }
 
   static Future<TokenModel> getToken() async {
@@ -57,8 +57,10 @@ class SecureStorage {
     log('get token =>()');
     final accessToken = prefs.getString(accessKey);
     final refreshToken = prefs.getString(refreshKey);
+    final userName = prefs.getString(userNameKey);
     log('accessToken =>() $accessToken');
-    return TokenModel(accessToken: accessToken, refreshToken: refreshToken);
+    return TokenModel(
+        accessToken: accessToken, refreshToken: refreshToken, name: userName);
   }
 
   static Future<void> setUserName({required String userName}) async {

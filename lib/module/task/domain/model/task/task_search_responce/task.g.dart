@@ -10,7 +10,7 @@ SearchTasks _$SearchTasksFromJson(Map<String, dynamic> json) => SearchTasks(
       id: json['_id'] as String?,
       task: json['task'] == null
           ? null
-          : SearchTask.fromJson(json['task'] as Map<String, dynamic>),
+          : Task.fromJson(json['task'] as Map<String, dynamic>),
       taskType: json['task_type'] as String?,
       isOwned: json['is_owned'] as bool?,
       spotlightOn: json['spotlight_on'] as bool?,

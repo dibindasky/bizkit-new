@@ -45,7 +45,7 @@ class AuthenticationService implements AuthenticationRepo {
         ApiEndPoints.verifyOtp,
         data: authPostmodel.toJson(),
       );
-      log('Success otpVerification');
+      log('Success otpVerification ');
       return Right(TokenModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException otpVerification $e');

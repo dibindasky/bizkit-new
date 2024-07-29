@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:ffi';
-
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 // import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
@@ -56,7 +53,9 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
           () => Column(
             children: [
               taskCalenderViewController.selectedFolderContainer.value
-                  ? TaskLongPressAppBarItems()
+                  ? TaskLongPressAppBarItems(
+                      mergeInnerFolder: false,
+                    )
                   : const TaskCalenderViewAppBar(),
               taskCalenderViewController.selectedFolderContainer.value
                   ? kempty
@@ -114,23 +113,23 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                                   vertical: isSelected ? 0 : 5.h,
                                   horizontal: isSelected ? 0 : 3.w),
                               height: 70.h,
-                              width: isSelected ? 60.w : 50.w,
+                              width: isSelected ? 90.w : 70.w,
                               child: FittedBox(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       DateTimeFormater.getMonth(date.month),
-                                      style: textHeadStyle1.copyWith(
+                                      style: textThinStyle1.copyWith(
                                         fontSize: 12,
-                                        fontWeight: FontWeight.w400,
+                                        fontWeight: FontWeight.w200,
                                         color: isSelected ? kwhite : kblack,
                                       ),
                                     ),
                                     Text(
                                       date.day.toString(),
                                       style: textThinStyle1.copyWith(
-                                        fontSize: 16,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w200,
                                         color: isSelected ? kwhite : kblack,
                                       ),

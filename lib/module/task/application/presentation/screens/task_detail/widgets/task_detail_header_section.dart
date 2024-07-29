@@ -1,3 +1,5 @@
+// import 'dart:developer';
+
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/task_status_dialoge.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -12,7 +14,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-
+    // log('Title : ===>> ${taskController.singleTask.value.title}');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

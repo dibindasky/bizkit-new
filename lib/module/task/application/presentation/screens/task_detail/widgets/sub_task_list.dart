@@ -74,8 +74,8 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                         controller.singleTask.value.subTask?.first[index];
                     // log('${controller.singleTask.value.subTask?.first[index]}');
                     return SubTaskTileDetailPage(
-                      subTaskTitle: subTask?.title,
-                      subTaskDes: subTask?.description,
+                      subTaskTitle: controller.singleTask.value.title ?? '',
+                      subTaskDes: controller.singleTask.value.description ?? '',
                     );
                   },
                 ),

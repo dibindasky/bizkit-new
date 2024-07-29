@@ -8,9 +8,10 @@ class TokenModel {
   String? accessToken;
   @JsonKey(name: 'refresh')
   String? refreshToken;
-  int? id;
+  @JsonKey(name: 'name')
+  String? name;
 
-  TokenModel({this.accessToken, this.refreshToken, this.id});
+  TokenModel({this.accessToken, this.refreshToken, this.name});
 
   factory TokenModel.fromJson(Map<String, dynamic> json) =>
       _$TokenModelFromJson(json);

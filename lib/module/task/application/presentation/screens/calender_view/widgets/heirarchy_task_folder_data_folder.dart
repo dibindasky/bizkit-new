@@ -90,7 +90,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                           '',
                       name: taskFolderController
                               .filteredFoldersByDeadline[index].folderName ??
-                          '',
+                          'Folder Name',
                       index: index,
                     ),
                   );

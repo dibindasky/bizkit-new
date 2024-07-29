@@ -17,15 +17,19 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
       isCompleted: json['is_completed'] as bool?,
       deadLine: json['dead_line'] as String?,
       isKilled: json['is_killed'] as bool?,
-      tags: json['tags'] as List<String>?,
-      attachments: json['attachments'] as List<String>?,
-      subTask: json['sub_task'] as List<String>?,
-      assignedTo: (json['assigned_to'] as List<String>?)
-          ?.map((e) => TaskAssignedTo.fromJson(e as Map<String, dynamic>))
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      attachments: (json['attachments'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      subTask: (json['sub_task'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
+      assignedToDetails: (json['assigned_to_details'] as List<dynamic>?)
+          ?.map((e) => AssignedToDetail.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$GetTaskResponceToJson(GetTaskResponce instance) =>
@@ -42,6 +46,6 @@ Map<String, dynamic> _$GetTaskResponceToJson(GetTaskResponce instance) =>
       'tags': instance.tags,
       'attachments': instance.attachments,
       'sub_task': instance.subTask,
-      'assigned_to': instance.assignedTo,
       'created_at': instance.createdAt?.toIso8601String(),
+      'assigned_to_details': instance.assignedToDetails,
     };

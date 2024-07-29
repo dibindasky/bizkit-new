@@ -295,8 +295,7 @@ class GoRouterConfig {
           return ScreenEditTask(taskId: taskId);
         } else {
           return _errorScreen();
-       }
-
+        }
       },
     ),
 

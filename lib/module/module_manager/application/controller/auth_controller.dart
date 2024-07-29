@@ -26,6 +26,8 @@ class AuthenticationController extends GetxController {
   // model used to save data temproraly for signup
   Rx<AuthPostmodel> postModel = AuthPostmodel().obs;
 
+  RxString userName = ''.obs;
+
   // register
   void registerUser(BuildContext context,
       {required AuthPostmodel authPostModel}) async {
@@ -64,6 +66,9 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     }, (r) {
       SecureStorage.saveToken(tokenModel: r);
+      userName.value = r.name ?? '';
+      log('user name => ${userName.value}');
+
       SecureStorage.setLogin();
       context.go(Routes.taskNavbar);
       showSnackbar(context,
@@ -111,6 +116,8 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     }, (r) {
       SecureStorage.saveToken(tokenModel: r);
+      userName.value = r.name ?? '';
+      log('user name => ${userName.value}');
       SecureStorage.setLogin();
       context.go(Routes.taskNavbar);
       showSnackbar(context,

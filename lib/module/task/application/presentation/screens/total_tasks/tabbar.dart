@@ -4,6 +4,8 @@ import 'package:bizkit/module/task/application/controller/home_controller/home_c
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
+import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -22,8 +24,18 @@ class TotalTaskListView extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (taskController.typeTasks.isEmpty) {
-          return const Center(
-            child: Text('No Tasks'),
+          return ErrorRefreshIndicator(
+            image: emptyNodata2,
+            errorMessage: 'No Tasks',
+            onRefresh: () {
+              taskController.filterByType(
+                  filterByType: FilterByTypeModel(
+                      taskType: Get.find<TaskHomeScreenController>()
+                          .taskCategory
+                          .value
+                          .replaceAll(' ', '_')
+                          .toLowerCase()));
+            },
           );
         } else {
           return RefreshIndicator(

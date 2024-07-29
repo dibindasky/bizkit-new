@@ -64,7 +64,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           child: CustomPopupMenuItem(
             text: 'All Tasks',
             onTap: () {
-              homeController.changeSelectedTaskCategory('All tasks');
+              homeController.changeSelectedTaskCategory('all');
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'all',
@@ -80,9 +80,9 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
         ),
         PopupMenuItem(
           child: CustomPopupMenuItem(
-            text: 'Self to Self    ',
+            text: 'Self to Self',
             onTap: () {
-              homeController.changeSelectedTaskCategory('Self to self');
+              homeController.changeSelectedTaskCategory('self_to_self');
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'self_to_self',
@@ -100,7 +100,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           child: CustomPopupMenuItem(
             text: 'Self to others',
             onTap: () {
-              homeController.changeSelectedTaskCategory('Self to others');
+              homeController.changeSelectedTaskCategory('self_to_others');
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'self_to_others',
@@ -119,7 +119,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           child: CustomPopupMenuItem(
             text: 'Others to self',
             onTap: () {
-              homeController.changeSelectedTaskCategory('Others to self');
+              homeController.changeSelectedTaskCategory('others_to_self');
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'others_to_self',
@@ -170,7 +170,9 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
               () => Row(
                 children: [
                   Text(
-                    controller.taskCategory.value,
+                    controller.taskCategory.value
+                        .replaceAll('_', ' ')
+                        .toLowerCase(),
                     style: TextStyle(fontSize: 13.sp),
                   ),
                   adjustWidth(10.w),
@@ -211,11 +213,11 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
                 tabs: [
                   SizedBox(
                     width: kwidth * 0.5,
-                    child: const Tab(text: 'Pinned tasks'),
+                    child: const Tab(text: 'Total Tasks'),
                   ),
                   SizedBox(
                     width: kwidth * 0.5,
-                    child: const Tab(text: 'Total Tasks'),
+                    child: const Tab(text: 'Pinned tasks'),
                   ),
                 ],
               ),
@@ -229,8 +231,8 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             physics: const NeverScrollableScrollPhysics(),
             controller: _tabController,
             children: [
-              PinnedTasks(tabController: _tabController),
               TotalTaskListView(),
+              PinnedTasks(tabController: _tabController),
             ],
           );
         },

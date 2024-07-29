@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
@@ -12,12 +11,15 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/task_type_radio_button.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
+import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:path/path.dart';
 
 class ScreenAddTask extends StatelessWidget {
   ScreenAddTask({super.key, this.edit = false, required this.navigationId});
@@ -37,6 +39,13 @@ class ScreenAddTask extends StatelessWidget {
       fontSize: 15.sp,
       color: neonShade,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      controller.searchParticipants(
+        user: UserSearchModel(searchTerm: ''),
+      );
+    });
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -75,6 +84,9 @@ class ScreenAddTask extends StatelessWidget {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Title is required';
+                              }
+                              if (value.length < 8) {
+                                return 'Title have minimum 8 charecters';
                               }
                               return null;
                             },
@@ -147,7 +159,7 @@ class ScreenAddTask extends StatelessWidget {
                               wdth: 300.w,
                               text: edit ? 'Edit Task' : 'Create Task',
                               onTap: () {
-                                createNewTask(controller);
+                                createNewTask(controller, context);
                               },
                             ),
                           ),
@@ -172,7 +184,7 @@ class ScreenAddTask extends StatelessWidget {
     );
   }
 
-  void createNewTask(CreateTaskController controller) {
+  void createNewTask(CreateTaskController controller, BuildContext context) {
     if (_formKey.currentState!.validate()) {
       var attachments =
           controller.convertFilesToAttachments(controller.selectedFiles);
@@ -182,7 +194,7 @@ class ScreenAddTask extends StatelessWidget {
           description: descriptionController.text,
           deadLine: controller.deadlineDate.value.isNotEmpty
               ? controller.deadlineDate.value
-              : 'deadline',
+              : '',
           assignedTo:
               controller.participants.isNotEmpty ? controller.participants : [],
           attachments: attachments.isNotEmpty ? attachments : [],
@@ -194,12 +206,22 @@ class ScreenAddTask extends StatelessWidget {
           subTask: controller.subTasks.isNotEmpty ? controller.subTasks : [],
           tags:
               controller.selectedTags.isNotEmpty ? controller.selectedTags : [],
-          taskType:
-              controller.taskTypeEnumToString(controller.createTaskTupe.value),
+          // taskType:
+          //     controller.taskTypeEnumToString(controller.createTaskTupe.value),
         ),
       );
 
+      showSnackbar(
+        context,
+        message: 'Task created successfully',
+        backgroundColor: neonShade,
+        textColor: kblack,
+        duration: 4,
+      );
+
       controller.userslist.clear();
+      controller.selectedTags.clear();
+      controller.tags.clear();
 
       Future.delayed(
         const Duration(seconds: 2),

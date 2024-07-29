@@ -178,6 +178,7 @@ class ApiEndPoints {
   static const taskTestTaskSearch = '/search-tasks/';
   static const taskTestSubtask = '/tasks/sub-task/';
   static const taskTestMergeFolders = '/merge-folders/';
+  static const taskTestMergeInnerFolders = '/merge-inner-folders/';
   static const taskTestProgresBar = '/get-count-of-tasks/';
   static const taskTestGetTasksCounts = '/get-count-by-date/';
   static const taskTestFilterFolders = '/filter-folders/';

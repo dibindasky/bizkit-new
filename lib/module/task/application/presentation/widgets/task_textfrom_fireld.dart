@@ -18,6 +18,8 @@ class TaskTextField extends StatelessWidget {
     this.onChanged,
     this.onTapOutside,
     this.validator,
+    this.enabled = true,
+    this.onTap,
   }) : super(key: key);
 
   final Color? fillColor;
@@ -32,15 +34,19 @@ class TaskTextField extends StatelessWidget {
   final bool showBorder;
   final TextEditingController? controller;
   final Function(String)? onChanged;
+  final void Function()? onTap;
   final String? Function(String?)? validator;
+  final bool? enabled;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enabled,
       textCapitalization: textCapitalization ?? TextCapitalization.words,
       style: textStyle1.copyWith(color: kwhite),
       maxLines: maxLines,
       onChanged: onChanged,
+      onTap: onTap,
       onTapOutside: (event) {
         if (onTapOutside != null) {
           onTapOutside!();

@@ -1,5 +1,6 @@
-import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'assigned_to_detail.dart';
 
 part 'get_task_responce.g.dart';
 
@@ -25,10 +26,10 @@ class GetTaskResponce {
   List<String>? attachments;
   @JsonKey(name: 'sub_task')
   List<String>? subTask;
-  @JsonKey(name: 'assigned_to')
-  List<TaskAssignedTo>? assignedTo;
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
+  @JsonKey(name: 'assigned_to_details')
+  List<AssignedToDetail>? assignedToDetails;
 
   GetTaskResponce({
     this.id,
@@ -43,13 +44,12 @@ class GetTaskResponce {
     this.tags,
     this.attachments,
     this.subTask,
-    this.assignedTo,
     this.createdAt,
+    this.assignedToDetails,
   });
 
-  factory GetTaskResponce.fromJson(Map<String, dynamic> json) {
-    return _$GetTaskResponceFromJson(json);
-  }
+  factory GetTaskResponce.fromJson(Map<String, dynamic> json) =>
+      _$GetTaskResponceFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetTaskResponceToJson(this);
 }

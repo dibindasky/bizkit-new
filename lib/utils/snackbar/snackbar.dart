@@ -1,11 +1,13 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-void showSnackbar(BuildContext context,
-    {required String message,
-    Color backgroundColor = neonShade,
-    int duration = 2,
-    Color textColor = kblack}) {
+void showSnackbar(
+  BuildContext context, {
+  required String message,
+  Color backgroundColor = neonShade,
+  int duration = 2,
+  Color textColor = kblack,
+}) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     behavior: SnackBarBehavior.floating,
     elevation: 5,

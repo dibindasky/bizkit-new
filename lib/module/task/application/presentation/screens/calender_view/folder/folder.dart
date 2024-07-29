@@ -2,7 +2,6 @@ import 'package:bizkit/module/task/application/controller/caleder_view/calender_
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
-import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/task_selection.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/folders/delete_folder_model/delete_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
@@ -10,6 +9,8 @@ import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or
 import 'package:bizkit/module/task/domain/model/folders/task_add_to_folder_model/task_add_to_folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,6 +83,7 @@ class TaskFolderSection extends StatelessWidget {
         trailing: PopupMenuButton<String>(
           onSelected: (value) {
             if (value == 'Add New Task to Folder') {
+              taskcontroller.searchTasks(searchItem: '');
               showTaskSelectionBottomSheet(context, folderId, '', false);
             } else if (value == 'Edit folder name') {
               showCreateFolderDialog(context,
@@ -152,8 +154,12 @@ class TaskFolderSection extends StatelessWidget {
   }
 }
 
-void showTaskSelectionBottomSheet(BuildContext context, String folderId,
-    String? innerFoldrId, bool? isFromInner) {
+void showTaskSelectionBottomSheet(
+  BuildContext context,
+  String folderId,
+  String? innerFoldrId,
+  bool? isFromInner,
+) {
   final taskController = Get.find<CreateTaskController>();
   final TextEditingController searchController = TextEditingController();
   final folderController = Get.find<TaskFolderController>();
@@ -183,6 +189,8 @@ void showTaskSelectionBottomSheet(BuildContext context, String folderId,
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                     taskController.searchTasks(searchItem: value);
+                  } else {
+                    taskController.searchTasks(searchItem: value);
                   }
                 },
                 controller: searchController,
@@ -199,41 +207,58 @@ void showTaskSelectionBottomSheet(BuildContext context, String folderId,
             Expanded(
               child: Obx(
                 () {
-                  return ListView.builder(
-                    itemCount: taskController.tasksSearch.length,
-                    itemBuilder: (context, index) {
-                      final task = taskController.tasksSearch[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          title: Text(
-                            task.task?.title ?? 'Title',
-                            style: const TextStyle(color: kwhite),
-                          ),
-                          trailing: Obx(
-                            () => Checkbox(
-                              checkColor: kblack,
-                              activeColor: neonShade,
-                              value:
-                                  taskController.selectedTasks.contains(task),
-                              onChanged: (bool? value) {
-                                if (value == true) {
-                                  taskController.selectedTasks.add(task);
-                                } else {
-                                  taskController.selectedTasks.remove(task);
-                                }
-                              },
+                  if (taskController.isLoading.value) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (taskController.tasksSearch.isEmpty) {
+                    return ErrorRefreshIndicator(
+                      image: emptyNodata2,
+                      errorMessage: 'No Tasks',
+                      onRefresh: () {},
+                    );
+                  } else {
+                    return ListView.builder(
+                      itemCount: taskController.tasksSearch.length,
+                      itemBuilder: (context, index) {
+                        final task = taskController.tasksSearch[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            surfaceTintColor: neonShade,
+                            color: lightColr,
+                            child: ListTile(
+                              title: Text(
+                                task.title ?? 'Title',
+                                style: const TextStyle(color: kwhite),
+                              ),
+                              trailing: Obx(
+                                () => Checkbox(
+                                  checkColor: kblack,
+                                  activeColor: neonShade,
+                                  value: taskController.selectedTasks
+                                      .contains(task),
+                                  onChanged: (bool? value) {
+                                    if (value == true) {
+                                      taskController.selectedTasks.add(task);
+                                    } else {
+                                      taskController.selectedTasks.remove(task);
+                                    }
+                                  },
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  );
+                        );
+                      },
+                    );
+                  }
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: () async {
+            EventButton(
+              wdth: 320.w,
+              onTap: () async {
                 if (isFromInner == true) {
                   if (taskController.selectedTasks.isNotEmpty) {
                     List<String> selectedTaskIds = taskController.selectedTasks
@@ -285,8 +310,10 @@ void showTaskSelectionBottomSheet(BuildContext context, String folderId,
                   }
                 }
               },
-              child: const Text('Add Tasks'),
+              color: neonShadeLinearGradient,
+              text: 'Add Tasks',
             ),
+            adjustHieght(10.h),
           ],
         ),
       );

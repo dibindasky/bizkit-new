@@ -1,4 +1,7 @@
-import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
+import 'dart:developer';
+
+import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/generate_repor.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/home_appbar.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/legends_container.dart';
@@ -16,9 +19,11 @@ class ScreenTaskHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeController = Get.find<TaskHomeScreenController>();
+    // final homeController = Get.find<TaskHomeScreenController>();
+    final taskController = Get.find<CreateTaskController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeController.progresBar();
+      // homeController.progresBar();
+      // taskController.searchTasks(searchItem: '');
     });
 
     return Scaffold(
@@ -29,10 +34,22 @@ class ScreenTaskHome extends StatelessWidget {
             children: [
               const TaskHomeAppBar(),
               adjustHieght(16.h),
-              TaskTextField(
-                onTapOutside: () => FocusScope.of(context).unfocus(),
-                hintText: 'Find your task',
-                suffixIcon: const Icon(Icons.search, color: neonShade),
+              Hero(
+                tag: 'taskSearch',
+                child: GestureDetector(
+                  onTap: () {
+                    taskController.searchTasks(searchItem: '');
+                    FocusScope.of(context).unfocus();
+                    log('Search bar clicked');
+                    Get.toNamed(Routes.taskSearch, id: 1);
+                  },
+                  child: TaskTextField(
+                    enabled: false,
+                    onTapOutside: () => FocusScope.of(context).unfocus(),
+                    hintText: 'Find your task',
+                    suffixIcon: const Icon(Icons.search, color: neonShade),
+                  ),
+                ),
               ),
               adjustHieght(16.h),
               const TaskCreationContainer(),

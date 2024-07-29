@@ -23,7 +23,6 @@ import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model
 import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
-import 'package:bizkit/module/task/domain/model/task/task_search_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/tasks_count_model/tasks_count_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
@@ -60,12 +59,13 @@ class CreateTaskController extends GetxController {
   RxList<Task> allPinnedTasks = <Task>[].obs;
   RxList<UserSearchSuccessResponce> userslist =
       <UserSearchSuccessResponce>[].obs;
-  RxList<SearchTasks> tasksSearch = <SearchTasks>[].obs;
-  RxList<SearchTasks> selectedTasks = <SearchTasks>[].obs;
+  RxList<Task> tasksSearch = <Task>[].obs;
+  RxList<Task> selectedTasks = <Task>[].obs;
   RxList<ReceivedTask> receivedRequests = <ReceivedTask>[].obs;
   RxMap<String, RxInt> tasksCounts = <String, RxInt>{}.obs;
+
   // Holds a single task response
-  Rx<GetTaskResponce> singleTask = GetTaskResponce().obs;
+  var singleTask = GetTaskResponce().obs;
 
   // Reactive list to store selected files
   RxList<PlatformFile> selectedFiles = <PlatformFile>[].obs;
@@ -84,22 +84,23 @@ class CreateTaskController extends GetxController {
 
   @override
   void onInit() {
+    getTasksCountWithoutDate();
     final DateTime todaydate = DateTime.now();
     // Initialize with today's date for deadline filtering
     deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
     taskFilterByDeadline(
         filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
-    getTasksCountWithoutDate();
+
     super.onInit();
   }
 
-  final combinedTags = <dynamic>[];
-  void updatingTags(List? tags) {
-    if (tags != null) {
-      combinedTags.addAll(tags);
-    }
-    combinedTags.addAll(tags!);
-  }
+  // final combinedTags = <dynamic>[];
+  // void updatingTags(List? tags) {
+  //   if (tags != null) {
+  //     combinedTags.addAll(tags);
+  //   }
+  //   combinedTags.addAll(tags!);
+  // }
 
   // Test task ID for validation or testing purposes
   String testTaskId = '';
@@ -256,7 +257,7 @@ class CreateTaskController extends GetxController {
         deadlineDate.value = '';
 
         // Filter tasks by type after creation
-        filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
+        // filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
         getTasksCountWithoutDate();
       },
     );
@@ -341,7 +342,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         deadlineTasks.assignAll(success.tasks ?? []);
-        log('deadlineTasks :=> $deadlineTasks');
+
         isLoading.value = false;
       },
     );
@@ -521,8 +522,8 @@ class CreateTaskController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
-        log('Get Single task : $success');
         singleTask.value = success;
+        log('Get Single task ===== > From controlller : $success');
         isLoading.value = false;
       },
     );
@@ -543,7 +544,8 @@ class CreateTaskController extends GetxController {
         log('Search tasks ${success.tasks?.first.toJson()}');
         if (success.tasks != null) {
           tasksSearch.clear();
-          tasksSearch.addAll(success.tasks!);
+          tasksSearch.addAll(success.tasks ?? []);
+          isLoading.value = false;
         } else {
           log("Received null tasks in the response");
         }
@@ -638,6 +640,7 @@ class CreateTaskController extends GetxController {
 
   void getTasksCountWithoutDate() async {
     isLoading.value = true;
+    log('DateTime ===> ${DateTimeFormater.dateTimeFormat(DateTime.now().add(const Duration(days: 31)))}');
     final result = await taskService.getTasksCountsWithDate(
         tasksCountModel: TasksCountModel(
             fromDate: DateTimeFormater.dateTimeFormat(

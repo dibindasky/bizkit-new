@@ -18,6 +18,7 @@ import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inne
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_success_responce/filter_inner_folder_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/get_all_tasks_inner_folder_responce.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/merge_inner_folder_model/merge_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_success_responce/merge_folder_success_responce.dart';
@@ -195,6 +196,7 @@ class FolderService implements FolderRepo {
   Future<Either<Failure, SuccessResponce>> deleteInnerFolder(
       {required DeleteInnerFolderModel deleteInnerFolder}) async {
     try {
+      // log('ToJson ==== > ${deleteInnerFolder.toJson()}');
       final response = await apiService.delete(
         ApiEndPoints.taskTestFolders,
         data: deleteInnerFolder.toJson(),
@@ -308,6 +310,26 @@ class FolderService implements FolderRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch filterFolderByDeadline $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> mergeInnerFolders(
+      {required MergeInnerFolderModel mergeInnerFolders}) async {
+    try {
+      log('Merge Inner Folders ToJson ======> ${mergeInnerFolders.toJson()}');
+      final response = await apiService.post(
+        ApiEndPoints.taskTestMergeInnerFolders,
+        data: mergeInnerFolders.toJson(),
+      );
+      log("=> Response Merge inner folders : ${response.data}");
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException mergeInnerFolders $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch mergeInnerFolders $e');
       return Left(Failure(message: e.toString()));
     }
   }

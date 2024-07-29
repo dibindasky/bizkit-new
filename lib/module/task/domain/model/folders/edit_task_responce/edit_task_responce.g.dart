@@ -23,7 +23,7 @@ EditTaskModel _$EditTaskModelFromJson(Map<String, dynamic> json) =>
           ?.map((e) => SubTask.fromJson(e as Map<String, dynamic>))
           .toList(),
       assignedTo: (json['assigned_to'] as List<dynamic>?)
-          ?.map((e) => TaskAssignedTo.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => AssignedToDetail.fromJson(e as Map<String, dynamic>))
           .toList(),
       taskId: json['task_id'] as String?,
     );

@@ -19,6 +19,7 @@ import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inne
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_success_responce/filtered_folder.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/inner_folder_task.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/merge_inner_folder_model/merge_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/task_add_to_folder_model/task_add_to_folder_model.dart';
@@ -30,6 +31,7 @@ class TaskFolderController extends GetxController {
   RxList<Datum> allFolders = <Datum>[].obs;
 
   RxList<String> selectedFolderIds = <String>[].obs;
+  RxList<String> selectedInnerFolderIds = <String>[].obs;
 
   RxList<InsideAFolderTasks> tasksInsideFolder = <InsideAFolderTasks>[].obs;
   RxList<InnerFolderTask> tasksInsideInnerFolder = <InnerFolderTask>[].obs;
@@ -55,6 +57,8 @@ class TaskFolderController extends GetxController {
 
   Rx<DateTime> selectedDate = DateTime.now().obs;
 
+  RxBool selectedFolderContainer = false.obs;
+
   final FolderRepo folderService = FolderService();
 
   @override
@@ -72,6 +76,17 @@ class TaskFolderController extends GetxController {
     selectedDate.value = value;
   }
 
+  var selectedIndices = <int>[].obs;
+
+  void longPress(int index) {
+    if (selectedIndices.contains(index)) {
+      selectedIndices.remove(index);
+    } else {
+      selectedIndices.add(index);
+    }
+    selectedFolderContainer.value = selectedIndices.isNotEmpty;
+  }
+
   void toggleFolderSelection(String folderId) {
     if (selectedFolderIds.contains(folderId)) {
       selectedFolderIds.remove(folderId);
@@ -80,6 +95,16 @@ class TaskFolderController extends GetxController {
     }
     log('selectedFolderIds : = > $selectedFolderIds');
     log('selectedFolderIds : => ${selectedFolderIds.length}');
+  }
+
+  void toggleInnerFolderSelection(String innerFolderId) {
+    if (selectedInnerFolderIds.contains(innerFolderId)) {
+      selectedInnerFolderIds.remove(innerFolderId);
+    } else {
+      selectedInnerFolderIds.add(innerFolderId);
+    }
+    log('selectedInnerFolderIds : = > $selectedInnerFolderIds');
+    log('selectedInnerFolderIds : => ${selectedInnerFolderIds.length}');
   }
 
   void createNewFolder({required FolderModel folder}) async {
@@ -197,6 +222,7 @@ class TaskFolderController extends GetxController {
 
   void fetchTasksInsideFolder(
       {required GetTaskInsideAFolderParamsModel taskInsideFolder}) async {
+    isLoading.value = true;
     final result = await folderService.getTasksInsideFolder(
         taskInsideFolder: taskInsideFolder);
 
@@ -314,6 +340,24 @@ class TaskFolderController extends GetxController {
       },
       (success) {
         filteredFoldersByDeadline.assignAll(success.filteredFolders ?? []);
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void mergeInnerFolders(
+      {required MergeInnerFolderModel mergeInnerFolders}) async {
+    isLoading.value = true;
+    final result = await folderService.mergeInnerFolders(
+        mergeInnerFolders: mergeInnerFolders);
+
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        log('MergeInner Folder : ${success.message}');
         isLoading.value = false;
       },
     );

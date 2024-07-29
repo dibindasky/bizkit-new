@@ -19,6 +19,7 @@ class AddParticipentBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
     final TextEditingController searchController = TextEditingController();
+
     return Container(
       height: 500.h,
       padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -31,8 +32,13 @@ class AddParticipentBottomSheet extends StatelessWidget {
           Divider(color: lightGrey),
           kHeight10,
           TaskTextField(
+            onTapOutside: () => FocusScope.of(context).unfocus(),
             onChanged: (value) {
               if (value.isNotEmpty) {
+                taskController.searchParticipants(
+                  user: UserSearchModel(searchTerm: value),
+                );
+              } else {
                 taskController.searchParticipants(
                   user: UserSearchModel(searchTerm: value),
                 );

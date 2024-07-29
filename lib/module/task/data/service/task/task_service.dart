@@ -51,12 +51,12 @@ class TaskService implements TaskRepo {
         log('data => :${element.toString()}');
       }
 
-      // log('Task Datas : => ${task.toJson()}');
+      log('Task Datas : => ${task.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestCreateTask,
         data: task.toJson(),
       );
-      log("=> Response CreateTask :");
+      log("=> Response CreateTask :  ${response.data}");
       return Right(TaskSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException createTask $e');
@@ -183,12 +183,12 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, FilterByDeadlineResponce>> filterByDeadline(
       {required FilterByDeadlineModel filterByDeadline}) async {
     try {
-      log('Filter by deadline data => ${filterByDeadline.toJson()}');
+      // log('Filter by deadline data => ${filterByDeadline.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestFilterByDeadline,
         data: filterByDeadline.toJson(),
       );
-      log("=> Response Filter by Deadline : ");
+      log("=> Response Filter by Deadline : ${response.data} ");
       return Right(FilterByDeadlineResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException filterByDeadline $e');
@@ -209,7 +209,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByType,
         data: filterPinnedTaskByType.toJson(),
       );
-      log("=> Response Filter Pinned Tasks By Type : ");
+      log("=> Response Filter Pinned Tasks By Type :  ${response.data} ");
       return Right(
           FilterPinnedTaskByTypeSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -270,10 +270,13 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, GetTaskResponce>> getTask(
       {required GetSingleTaskModel singleTaskModel}) async {
     try {
-      final response = await apiService.get(ApiEndPoints.taskTestEditTask,
-          data: singleTaskModel.toJson());
+      log('GetTask Json => ${singleTaskModel.toJson()}');
+      final response = await apiService.get(
+        ApiEndPoints.taskTestEditTask,
+        data: singleTaskModel.toJson(),
+      );
 
-      log("=> Response Get one task :  ");
+      log("=> Response Get one task : ");
 
       return Right(GetTaskResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -293,7 +296,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestTaskSearch,
         data: taskSearchItem.toJson(),
       );
-
+      log('=> Response Task Search : ');
       return Right(TaskSearchResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException taskSearch $e');

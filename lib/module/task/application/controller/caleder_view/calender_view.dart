@@ -56,6 +56,4 @@ class TaskCalenderViewController extends GetxController {
     }
     selectedFolderContainer.value = selectedIndices.isNotEmpty;
   }
-
-  void toggleSelection(int index) {}
 }

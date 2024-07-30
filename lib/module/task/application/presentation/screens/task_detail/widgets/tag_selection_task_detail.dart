@@ -32,7 +32,7 @@ class TaskDetailTagsSection extends StatelessWidget {
               runSpacing: 8.w,
               children: controller.singleTask.value.tags != null
                   ? controller.singleTask.value.tags!.map((tag) {
-                      return TagChip(label: tag.toString());
+                      return TagChip(label: tag);
                     }).toList()
                   : [],
             );

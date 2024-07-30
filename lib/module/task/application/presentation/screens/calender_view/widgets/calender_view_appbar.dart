@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:bizkit/core/routes/routes.dart';
@@ -6,6 +5,7 @@ import 'package:bizkit/module/task/application/controller/caleder_view/calender_
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/merge_inner_folder_model/merge_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -113,6 +113,7 @@ class TaskLongPressAppBarItems extends StatelessWidget {
                       ),
                     );
                     controller.selectedIndices.clear();
+                    controller.selectedFolderContainer.value = false;
                     Navigator.of(context).pop();
                   }
                 },
@@ -158,12 +159,21 @@ class TaskLongPressAppBarItems extends StatelessWidget {
                   String newFolderName = folderNameController.text;
                   if (newFolderName.isNotEmpty) {
                     folderController.mergeInnerFolders(
-                        mergeInnerFolders: MergeInnerFolderModel(
-                            folderId: folderId,
-                            innerFolders:
-                                folderController.selectedInnerFolderIds,
-                            newInnerFolderName: newFolderName));
+                      mergeInnerFolders: MergeInnerFolderModel(
+                        folderId: folderId,
+                        innerFolders: folderController.selectedInnerFolderIds,
+                        newInnerFolderName: newFolderName,
+                      ),
+                    );
                     folderController.selectedIndices.clear();
+                    folderController.selectedFolderContainer.value = false;
+                    folderController.filterInnerFolderByDeadline(
+                      filterInnerFolder: FilterInnerFolderModel(
+                        folderId: folderId,
+                        filterDate: folderController.deadlineDate.value,
+                      ),
+                    );
+
                     Navigator.of(context).pop();
                   }
                 },

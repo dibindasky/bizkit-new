@@ -1,5 +1,6 @@
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/data/service/folder/folder_service.dart';
+import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/repository/service/folder_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:get/get.dart';

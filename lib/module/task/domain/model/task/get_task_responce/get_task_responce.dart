@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'assigned_to_detail.dart';
+import 'attachment.dart';
+import 'sub_task.dart';
 
 part 'get_task_responce.g.dart';
 
@@ -23,11 +25,12 @@ class GetTaskResponce {
   @JsonKey(name: 'is_killed')
   bool? isKilled;
   List<String>? tags;
-  List<String>? attachments;
+  List<Attachment>? attachments;
   @JsonKey(name: 'sub_task')
-  List<String>? subTask;
+  List<SubTask>? subTask;
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
+  String? status;
   @JsonKey(name: 'assigned_to_details')
   List<AssignedToDetail>? assignedToDetails;
 
@@ -45,11 +48,13 @@ class GetTaskResponce {
     this.attachments,
     this.subTask,
     this.createdAt,
+    this.status,
     this.assignedToDetails,
   });
 
-  factory GetTaskResponce.fromJson(Map<String, dynamic> json) =>
-      _$GetTaskResponceFromJson(json);
+  factory GetTaskResponce.fromJson(Map<String, dynamic> json) {
+    return _$GetTaskResponceFromJson(json);
+  }
 
   Map<String, dynamic> toJson() => _$GetTaskResponceToJson(this);
 }

@@ -19,14 +19,15 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
       isKilled: json['is_killed'] as bool?,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       attachments: (json['attachments'] as List<dynamic>?)
-          ?.map((e) => e as String)
+          ?.map((e) => Attachment.fromJson(e as Map<String, dynamic>))
           .toList(),
       subTask: (json['sub_task'] as List<dynamic>?)
-          ?.map((e) => e as String)
+          ?.map((e) => SubTask.fromJson(e as Map<String, dynamic>))
           .toList(),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
+      status: json['status'] as String?,
       assignedToDetails: (json['assigned_to_details'] as List<dynamic>?)
           ?.map((e) => AssignedToDetail.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -47,5 +48,6 @@ Map<String, dynamic> _$GetTaskResponceToJson(GetTaskResponce instance) =>
       'attachments': instance.attachments,
       'sub_task': instance.subTask,
       'created_at': instance.createdAt?.toIso8601String(),
+      'status': instance.status,
       'assigned_to_details': instance.assignedToDetails,
     };

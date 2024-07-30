@@ -10,21 +10,12 @@ class EditSubTaskModel {
   String? subTaskId;
   String? title;
   String? description;
-  @JsonKey(name: 'dead_line')
-  String? deadLine;
-  @JsonKey(name: 'is_completed')
-  bool? isCompleted;
-  @JsonKey(name: 'total_time_taken')
-  String? totalTimeTaken;
 
   EditSubTaskModel({
     this.taskId,
     this.subTaskId,
     this.title,
     this.description,
-    this.deadLine,
-    this.isCompleted,
-    this.totalTimeTaken,
   });
 
   factory EditSubTaskModel.fromJson(Map<String, dynamic> json) {

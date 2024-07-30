@@ -1,11 +1,11 @@
-import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_creation.dart';
-import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/container_textfield_dummy.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_model/delete_sub_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -70,12 +70,12 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    final subTask =
-                        controller.singleTask.value.subTask?.first[index];
-                    // log('${controller.singleTask.value.subTask?.first[index]}');
+                    final subTask = controller.singleTask.value.subTask?[index];
                     return SubTaskTileDetailPage(
-                      subTaskTitle: controller.singleTask.value.title ?? '',
-                      subTaskDes: controller.singleTask.value.description ?? '',
+                      taskId: controller.singleTask.value.id,
+                      subTaskTitle: subTask?.title ?? '',
+                      subTaskDes: subTask?.description ?? '',
+                      subTaskId: subTask?.id ?? '',
                     );
                   },
                 ),
@@ -86,13 +86,21 @@ class TaskDetailSubtasksSection extends StatelessWidget {
 }
 
 class SubTaskTileDetailPage extends StatelessWidget {
-  const SubTaskTileDetailPage({super.key, this.subTaskTitle, this.subTaskDes});
+  const SubTaskTileDetailPage(
+      {super.key,
+      this.subTaskTitle,
+      this.subTaskDes,
+      this.subTaskId,
+      this.taskId});
 
   final String? subTaskTitle;
   final String? subTaskDes;
+  final String? subTaskId;
+  final String? taskId;
 
   @override
   Widget build(BuildContext context) {
+    final taskController = Get.find<CreateTaskController>();
     return GestureDetector(
       onTap: () {
         // showDialog(
@@ -160,12 +168,58 @@ class SubTaskTileDetailPage extends StatelessWidget {
               ),
             ),
             adjustWidth(20.w),
-            Container(
-              height: 27.w,
-              width: 27.w,
-              decoration: BoxDecoration(
-                  border: Border.all(color: neonShade, width: 2.w),
-                  borderRadius: kBorderRadius5),
+            PopupMenuButton(
+              color: kwhite,
+              icon: const Icon(Icons.more_vert_outlined, color: kwhite),
+              itemBuilder: (context) {
+                List<PopupMenuItem<String>> items = [
+                  PopupMenuItem<String>(
+                    value: 'Edit subtask',
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => SubTaskCreationCustomDialog(
+                          taskId: taskId,
+                          subtaskId: subTaskId,
+                          subtaskTitile: subTaskTitle,
+                          subtaskDescription: subTaskDes,
+                          afterTaskCreation: true,
+                          isEdit: true,
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Edit subtask',
+                      style: TextStyle(color: kblack),
+                    ),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'Delete subtask',
+                    onTap: () {
+                      showCustomConfirmationDialogue(
+                        description:
+                            'Are you sure you want to delete this subtask ?',
+                        buttonText: 'Delete',
+                        context: context,
+                        onTap: () {
+                          taskController.deleteSubTask(
+                              deletesubtask: DeleteSubTaskModel(
+                                  subTaskId: subTaskId ?? '',
+                                  taskId: taskId ?? ''));
+                        },
+                        title: 'Delete Subtask',
+                        buttonColor: neonShade,
+                      );
+                    },
+                    child: const Text(
+                      'Delete subtask',
+                      style: TextStyle(color: kblack),
+                    ),
+                  ),
+                ];
+
+                return items;
+              },
             ),
           ],
         ),

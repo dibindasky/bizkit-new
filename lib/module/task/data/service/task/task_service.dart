@@ -284,6 +284,7 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch getTask $e');
+
       return Left(Failure(message: e.toString()));
     }
   }

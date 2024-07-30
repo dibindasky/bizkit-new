@@ -8,12 +8,13 @@ class AssignedToDetail {
   String? userId;
   String? name;
   @JsonKey(name: 'is_accepted')
-  bool? isAccepted;
+  String? isAccepted;
 
   AssignedToDetail({this.userId, this.name, this.isAccepted});
 
-  factory AssignedToDetail.fromJson(Map<String, dynamic> json) =>
-      _$AssignedToDetailFromJson(json);
+  factory AssignedToDetail.fromJson(Map<String, dynamic> json) {
+    return _$AssignedToDetailFromJson(json);
+  }
 
   Map<String, dynamic> toJson() => _$AssignedToDetailToJson(this);
 }

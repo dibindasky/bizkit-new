@@ -10,7 +10,7 @@ AssignedToDetail _$AssignedToDetailFromJson(Map<String, dynamic> json) =>
     AssignedToDetail(
       userId: json['user_id'] as String?,
       name: json['name'] as String?,
-      isAccepted: json['is_accepted'] as bool?,
+      isAccepted: json['is_accepted'] as String?,
     );
 
 Map<String, dynamic> _$AssignedToDetailToJson(AssignedToDetail instance) =>

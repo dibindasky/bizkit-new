@@ -59,6 +59,8 @@ class TaskFolderController extends GetxController {
 
   RxBool selectedFolderContainer = false.obs;
 
+  var selectedIndices = <int>[].obs;
+
   final FolderRepo folderService = FolderService();
 
   @override
@@ -75,8 +77,6 @@ class TaskFolderController extends GetxController {
   void selctDate(DateTime value) {
     selectedDate.value = value;
   }
-
-  var selectedIndices = <int>[].obs;
 
   void longPress(int index) {
     if (selectedIndices.contains(index)) {
@@ -164,7 +164,9 @@ class TaskFolderController extends GetxController {
     );
   }
 
-  void tasksAddToFolder({required TaskAddToFolderModel taskAddToFolder}) async {
+  void tasksAddToFolder({
+    required TaskAddToFolderModel taskAddToFolder,
+  }) async {
     isLoading.value = true;
     final result =
         await folderService.tasksAddToFolder(taskAddToFolder: taskAddToFolder);
@@ -174,7 +176,11 @@ class TaskFolderController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
-        log('${success.message}');
+        log('task add OR remove - folder ===  ${success.message}');
+
+        fetchTasksInsideFolder(
+            taskInsideFolder:
+                GetTaskInsideAFolderParamsModel(folderId: folderId));
         isLoading.value = false;
       },
     );
@@ -286,7 +292,7 @@ class TaskFolderController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
-        log('${success.message}');
+        log('taskAddOrDeleteInnerFolder === ${success.message}');
         isLoading.value = false;
       },
     );

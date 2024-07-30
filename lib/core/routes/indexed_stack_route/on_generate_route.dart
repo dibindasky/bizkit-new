@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/managementside_attendence_selection.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/calendar/calendar_screen.dart';
@@ -56,16 +58,34 @@ class RouteGenerator {
         } else {
           return _errorScreen();
         }
+
       case Routes.taskInsideTheInnerFolderScreen:
-        if (arguments is String) {
+        if (arguments is Map<String, dynamic>?) {
+          log('arguments --> $arguments');
           return MaterialPageRoute(
             builder: (ctx) => TaskInsideTheInnerFolderScreen(
-              foldername: arguments,
+              arguments: arguments,
             ),
+            settings: RouteSettings(arguments: arguments),
           );
         } else {
           return _errorScreen();
         }
+
+      // case Routes.taskInsideTheInnerFolderScreen:
+      //   return MaterialPageRoute(
+      //     builder: (ctx) => TaskInsideTheInnerFolderScreen(),
+      //   );
+      // if (arguments is String) {
+      //   return MaterialPageRoute(
+      //     builder: (ctx) => TaskInsideTheInnerFolderScreen(
+      //       foldername: arguments,
+      //     ),
+      //   );
+      // } else {
+      //   return _errorScreen();
+      // }
+
       // return MaterialPageRoute(
       //     builder: (ctx) => const TaskInsideTheInnerFolderScreen());
       case Routes.editTask:

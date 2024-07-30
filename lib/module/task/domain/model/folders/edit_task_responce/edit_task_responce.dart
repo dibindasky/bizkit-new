@@ -1,5 +1,4 @@
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
-import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../task/task_model/attachment.dart';

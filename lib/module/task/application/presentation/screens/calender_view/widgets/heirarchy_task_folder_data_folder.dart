@@ -1,10 +1,16 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/tasks_list_view.dart';
+import 'package:bizkit/module/task/domain/model/folders/filter_folder_by_deadline_model/filter_folder_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
+import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -40,10 +46,15 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
               ),
             );
           } else if (taskFolderController.filteredFoldersByDeadline.isEmpty) {
-            return const Expanded(
-              child: Center(
-                child: Text('No folders available'),
-              ),
+            return ErrorRefreshIndicator(
+              image: emptyNodata2,
+              errorMessage: 'No folders available',
+              onRefresh: () {
+                taskFolderController.filterFoldersByDeadline(
+                    filterFolder: FilterFolderByDeadlineModel(
+                  filterDate: taskFolderController.deadlineDate.value,
+                ));
+              },
             );
           } else {
             return Expanded(
@@ -69,6 +80,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                               '',
                         );
                       } else {
+                        log('Folder ID ----===> ${taskFolderController.filteredFoldersByDeadline[index].folderId ?? ''}');
                         Get.toNamed(Routes.heirarchyUserDetail,
                             id: 2,
                             arguments: taskFolderController
@@ -82,6 +94,15 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                                   .filteredFoldersByDeadline[index].folderId ??
                               '',
                         ));
+
+                        taskFolderController.filterInnerFolderByDeadline(
+                            filterInnerFolder: FilterInnerFolderModel(
+                                folderId: taskFolderController
+                                        .filteredFoldersByDeadline[index]
+                                        .folderId ??
+                                    '',
+                                filterDate:
+                                    taskFolderController.deadlineDate.value));
                       }
                     },
                     child: TaskFolderSection(

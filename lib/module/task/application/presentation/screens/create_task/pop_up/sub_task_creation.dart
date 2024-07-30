@@ -1,7 +1,9 @@
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/edit_sub_task_model/edit_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task_add_model.dart';
+import 'package:bizkit/module/task/domain/model/task/task_model/sub_task.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
@@ -9,22 +11,32 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../domain/model/task/task_model/sub_task.dart';
-
 class SubTaskCreationCustomDialog extends StatelessWidget {
-  const SubTaskCreationCustomDialog(
-      {super.key, this.afterTaskCreation, this.taskId});
+  const SubTaskCreationCustomDialog({
+    super.key,
+    this.afterTaskCreation,
+    this.taskId,
+    this.subtaskTitile,
+    this.subtaskDescription,
+    this.subtaskId,
+    this.isEdit = false, // Default value is false
+  });
 
   final bool? afterTaskCreation;
+  final bool isEdit;
   final String? taskId;
+  final String? subtaskTitile;
+  final String? subtaskDescription;
+  final String? subtaskId;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<CreateTaskController>();
 
     // Create TextEditingController instances
-    final titleController = TextEditingController();
-    final descriptionController = TextEditingController();
+    final titleController = TextEditingController(text: subtaskTitile);
+    final descriptionController =
+        TextEditingController(text: subtaskDescription);
 
     return Dialog(
       backgroundColor: Colors.black,
@@ -36,16 +48,16 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Sub Task',
+            Center(
+              child: Text(
+                isEdit ? 'Edit Sub Task' : 'Sub Task',
                 style: TextStyle(
                     color: Colors.teal,
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.bold)),
-            SizedBox(height: 3.h),
-            Text('Add The Subtask and assign it to the concerned person',
-                style: TextStyle(color: klightgrey, fontSize: 8.h),
-                textAlign: TextAlign.center),
-            SizedBox(height: 20.h),
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 9.h),
             TaskTextField(
               hintText: 'Add Subtask Title here',
               controller: titleController,
@@ -56,38 +68,52 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
               controller: descriptionController,
             ),
             SizedBox(height: 10.h),
-            // DeadlineChooserCreateTask(
-            //   onPressed: (date) {
-            //     controller.deadlineDate.value = date;
-            //   },
-            //   showTitle: false,
-            // ),
             SizedBox(height: 30.h),
             SizedBox(
               width: double.infinity,
               child: EventButton(
-                text: 'Create Sub Task',
+                text: isEdit ? 'Edit Sub Task' : 'Create Sub Task',
                 onTap: () {
-                  final subtasks = SubTasks(
-                    title: titleController.text,
-                    description: descriptionController.text,
-                    isCompleted: false,
-                  );
+                  if (isEdit) {
+                    // Edit existing subtask
+                    final editsubtask = EditSubTaskModel(
+                      taskId: taskId ?? '',
+                      subTaskId: subtaskId ?? '',
+                      title: titleController.text,
+                      description: descriptionController.text,
+                    );
+                    controller.editSubTask(editsubtask: editsubtask);
+                    GoRouter.of(context).pop();
+                  } else {
+                    // Create new subtask
+                    final subtasks = SubTasks(
+                      title: titleController.text,
+                      description: descriptionController.text,
+                      isCompleted: false,
+                    );
 
-                  afterTaskCreation == true
-                      ? controller.addSubTask(
-                          newsubtask: SubTaskAddModel(
-                              taskId: taskId, subTask: subtasks),
-                        )
-                      : controller.createSubtaskBeforeTaskCreation(
-                          subTask: SubTask(
-                              title: titleController.text,
-                              deadLine: '',
-                              description: descriptionController.text,
-                              isCompleted: false,
-                              totalTimeTaken: ''),
-                        );
-                  GoRouter.of(context).pop();
+                    if (afterTaskCreation == true) {
+                      controller.addSubTask(
+                        newsubtask: SubTaskAddModel(
+                          taskId: taskId,
+                          subTask: subtasks,
+                        ),
+                      );
+                      GoRouter.of(context).pop();
+                    } else {
+                      controller.createSubtaskBeforeTaskCreation(
+                        subTask: SubTask(
+                          title: titleController.text,
+                          deadLine: '',
+                          description: descriptionController.text,
+                          isCompleted: false,
+                          totalTimeTaken: '',
+                        ),
+                      );
+                      GoRouter.of(context).pop();
+                    }
+                  }
+                  // GoRouter.of(context).pop();
                 },
               ),
             ),

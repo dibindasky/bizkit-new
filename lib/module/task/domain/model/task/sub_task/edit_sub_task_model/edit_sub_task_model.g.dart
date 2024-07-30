@@ -12,9 +12,6 @@ EditSubTaskModel _$EditSubTaskModelFromJson(Map<String, dynamic> json) =>
       subTaskId: json['sub_task_id'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
-      deadLine: json['dead_line'] as String?,
-      isCompleted: json['is_completed'] as bool?,
-      totalTimeTaken: json['total_time_taken'] as String?,
     );
 
 Map<String, dynamic> _$EditSubTaskModelToJson(EditSubTaskModel instance) =>
@@ -23,7 +20,4 @@ Map<String, dynamic> _$EditSubTaskModelToJson(EditSubTaskModel instance) =>
       'sub_task_id': instance.subTaskId,
       'title': instance.title,
       'description': instance.description,
-      'dead_line': instance.deadLine,
-      'is_completed': instance.isCompleted,
-      'total_time_taken': instance.totalTimeTaken,
     };

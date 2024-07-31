@@ -1,8 +1,7 @@
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../../task/task_model/attachment.dart';
-import '../../task/task_model/sub_task.dart';
 
 part 'edit_task_responce.g.dart';
 
@@ -10,38 +9,14 @@ part 'edit_task_responce.g.dart';
 class EditTaskModel {
   String? title;
   String? description;
-  @JsonKey(name: 'priority_level')
-  String? priorityLevel;
-  @JsonKey(name: 'recurrent_task')
-  bool? recurrentTask;
-  @JsonKey(name: 'is_completed')
-  bool? isCompleted;
-  @JsonKey(name: 'dead_line')
-  String? deadLine;
-  @JsonKey(name: 'is_killed')
-  bool? isKilled;
   List<String>? tags;
-  List<Attachment>? attachments;
-  @JsonKey(name: 'sub_task')
-  List<SubTask>? subTask;
-  @JsonKey(name: 'assigned_to')
-  List<AssignedToDetail>? assignedTo;
-
   @JsonKey(name: 'task_id')
   String? taskId;
 
   EditTaskModel({
     this.title,
     this.description,
-    this.priorityLevel,
-    this.recurrentTask,
-    this.isCompleted,
-    this.deadLine,
-    this.isKilled,
     this.tags,
-    this.attachments,
-    this.subTask,
-    this.assignedTo,
     this.taskId,
   });
 

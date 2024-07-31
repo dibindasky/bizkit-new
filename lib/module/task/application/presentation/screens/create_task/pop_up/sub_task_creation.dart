@@ -6,6 +6,7 @@ import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model
 import 'package:bizkit/module/task/domain/model/task/task_model/sub_task.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -99,16 +100,28 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                           subTask: subtasks,
                         ),
                       );
+                      showSnackbar(
+                        context,
+                        message: 'Subtask added successfully',
+                        backgroundColor: neonShade,
+                        textColor: kblack,
+                        duration: 4,
+                      );
                       GoRouter.of(context).pop();
                     } else {
                       controller.createSubtaskBeforeTaskCreation(
                         subTask: SubTask(
                           title: titleController.text,
-                          deadLine: '',
                           description: descriptionController.text,
                           isCompleted: false,
-                          totalTimeTaken: '',
                         ),
+                      );
+                      showSnackbar(
+                        context,
+                        message: 'Subtask added successfully',
+                        backgroundColor: neonShade,
+                        textColor: kblack,
+                        duration: 4,
                       );
                       GoRouter.of(context).pop();
                     }

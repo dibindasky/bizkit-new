@@ -99,10 +99,16 @@ class AddParticipentBottomSheet extends StatelessWidget {
                                 user: user.userId,
                                 isAccepted: 'pending',
                               );
+
                               controller.participants.add(participant);
                             }
 
                             taskController.update();
+                            log('controller.participants  ${taskController.participants.map(
+                                  (element) => element.name,
+                                ).join(
+                                  ', ',
+                                )}');
                             log('Participants: ${taskController.participants.map((e) => e.user).join(', ')}');
                           },
                           child: Container(

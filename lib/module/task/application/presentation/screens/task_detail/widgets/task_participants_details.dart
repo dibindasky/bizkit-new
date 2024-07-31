@@ -23,11 +23,11 @@ class TaskDetailUserInfoSection extends StatelessWidget {
         return DateFormat('MMM d').format(date);
       }
 
-      // Join participants names
-      // String participants =
-      //     task.assignedTo != null && task.assignedTo!.isNotEmpty
-      //         ? task.assignedTo!.map((e) => e.name).join(', ')
-      //         : 'None';
+      //  Join participants names
+      String? participants =
+          task.assignedToDetails != null && task.assignedToDetails!.isNotEmpty
+              ? task.assignedToDetails?.map((e) => e.name).join(', ')
+              : 'None';
 
       return Container(
         padding: EdgeInsets.all(10.w),
@@ -40,29 +40,68 @@ class TaskDetailUserInfoSection extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: neonShade,
-                  child: Padding(
-                      padding: EdgeInsets.all(1.w),
-                      child: CircleAvatar(
-                        radius: 20.w,
-                        backgroundImage: const AssetImage(imageDummyAsset),
-                      )),
-                ),
-                adjustWidth(7.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Assigned By',
-                      style: textThinStyle1,
-                    ),
-                    Text(
-                      'Unknown',
-                      style: textHeadStyle1,
-                    ),
-                  ],
-                ),
+                taskController.singleTask.value.createdBy ==
+                        taskController.singleTask.value.createdUserDetails?.id
+                    ? Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: neonShade,
+                            child: Padding(
+                                padding: EdgeInsets.all(1.w),
+                                child: CircleAvatar(
+                                  radius: 20.w,
+                                  backgroundImage:
+                                      const AssetImage(imageDummyAsset),
+                                )),
+                          ),
+                          adjustWidth(7.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Created By',
+                                style: textThinStyle1,
+                              ),
+                              Text(
+                                taskController.singleTask.value
+                                        .createdUserDetails?.name ??
+                                    'creater name',
+                                style: textHeadStyle1,
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: neonShade,
+                            child: Padding(
+                                padding: EdgeInsets.all(1.w),
+                                child: CircleAvatar(
+                                  radius: 20.w,
+                                  backgroundImage:
+                                      const AssetImage(imageDummyAsset),
+                                )),
+                          ),
+                          adjustWidth(7.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Assigned By',
+                                style: textThinStyle1,
+                              ),
+                              Text(
+                                taskController.singleTask.value
+                                        .createdUserDetails?.name ??
+                                    'Unknown',
+                                style: textHeadStyle1,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                 const Spacer(),
                 CircleAvatar(
                   backgroundColor: neonShade,
@@ -111,12 +150,11 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                       'Participants',
                       style: textThinStyle1,
                     ),
-                    // Text(
-                    //   participants,
-                    //   // '',
-                    //   style: textStyle1,
-                    //   overflow: TextOverflow.ellipsis,
-                    // )
+                    Text(
+                      participants ?? 'Participants',
+                      style: textStyle1,
+                      overflow: TextOverflow.ellipsis,
+                    )
                   ],
                 )
               ],

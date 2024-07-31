@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
@@ -19,7 +20,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:path/path.dart';
 
 class ScreenAddTask extends StatelessWidget {
   ScreenAddTask({super.key, this.edit = false, required this.navigationId});
@@ -54,6 +54,13 @@ class ScreenAddTask extends StatelessWidget {
               GoRouter.of(context).pop();
             } else {
               Get.back(id: navigationId);
+              controller.selectedTags.clear();
+              controller.tags.clear();
+              controller.subTasks.clear();
+              controller.participants.clear();
+              controller.clearSelectedFiles();
+              titleController.clear();
+              descriptionController.clear();
             }
           },
           icon: const Icon(Icons.arrow_back_ios),
@@ -188,6 +195,8 @@ class ScreenAddTask extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       var attachments =
           controller.convertFilesToAttachments(controller.selectedFiles);
+
+      log('Tages before create new task From UI =>>>>>> ${controller.selectedTags}');
       controller.createNewTask(
         task: TaskModel(
           title: titleController.text,
@@ -206,17 +215,9 @@ class ScreenAddTask extends StatelessWidget {
           subTask: controller.subTasks.isNotEmpty ? controller.subTasks : [],
           tags:
               controller.selectedTags.isNotEmpty ? controller.selectedTags : [],
-          // taskType:
-          //     controller.taskTypeEnumToString(controller.createTaskTupe.value),
+          taskType:
+              controller.taskTypeEnumToString(controller.createTaskTupe.value),
         ),
-      );
-
-      showSnackbar(
-        context,
-        message: 'Task created successfully',
-        backgroundColor: neonShade,
-        textColor: kblack,
-        duration: 4,
       );
 
       controller.userslist.clear();
@@ -228,6 +229,13 @@ class ScreenAddTask extends StatelessWidget {
         () {
           Get.back(
             id: navigationId,
+          );
+          showSnackbar(
+            context,
+            message: 'Task created successfully',
+            backgroundColor: neonShade,
+            textColor: kblack,
+            duration: 4,
           );
         },
       );

@@ -47,6 +47,7 @@ class TagsContainer extends StatelessWidget {
                     onTap: () {
                       controller.addTag(tagController.text.trim());
                       tagController.clear();
+                      log('Tag Added to tags list From UI ====> ${controller.tags}');
                     },
                     child: const Padding(
                       padding: EdgeInsets.only(right: 10.0),
@@ -70,7 +71,6 @@ class TagsContainer extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Obx(() {
-                  log('tags: ${controller.selectedTags}');
                   return Wrap(
                     spacing: 18.0,
                     runSpacing: 4.0,

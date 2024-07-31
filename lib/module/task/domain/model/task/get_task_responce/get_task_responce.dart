@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/created_user_details.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'assigned_to_detail.dart';
@@ -31,6 +32,8 @@ class GetTaskResponce {
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
   String? status;
+  @JsonKey(name: 'created_user_details')
+  CreatedUserDetails? createdUserDetails;
   @JsonKey(name: 'assigned_to_details')
   List<AssignedToDetail>? assignedToDetails;
 

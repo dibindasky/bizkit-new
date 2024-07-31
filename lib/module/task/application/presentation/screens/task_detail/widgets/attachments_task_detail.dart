@@ -1,16 +1,20 @@
-// import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/image_viewer.dart';
+import 'package:flutter/material.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:get/get.dart';
+import 'package:get/get.dart';
 
 class TaskDetailAttachmentsSection extends StatelessWidget {
   const TaskDetailAttachmentsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.find<CreateTaskController>();
+    final controller = Get.find<CreateTaskController>();
+    final attachments = controller.singleTask.value.attachments ?? [];
+
     return Container(
       padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
@@ -27,37 +31,83 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
                 style: textHeadStyle1,
               ),
               const Spacer(),
-              // GestureDetector(
-              //   onTap: () {
-              //     // GoRouter.of(context).pushNamed(Routes.taskAttachmetnsList);
-              //   },
-              //   child: ClipRRect(
-              //       borderRadius: BorderRadius.circular(150),
-              //       child: const ColoredBox(
-              //           color: neonShade,
-              //           child: Icon(Icons.arrow_forward, color: kGrayLight))),
-              // )
             ],
           ),
           const SizedBox(height: 8),
-          SizedBox(
-            height: 100,
-            child: ListView.builder(
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => const AttachmentTile(),
-            ),
-          )
+          attachments.isEmpty
+              ? Center(
+                  child: Text(
+                    'No Attachments Available',
+                    style: textThinStyle1.copyWith(color: Colors.grey),
+                  ),
+                )
+              : SizedBox(
+                  height: 100,
+                  child: ListView.builder(
+                    itemCount: attachments.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      final attachment = attachments[index];
+                      return GestureDetector(
+                        onTap: () {
+                          _handleAttachmentTap(
+                            context,
+                            attachment.attachment ?? '',
+                            attachment.type ?? '',
+                            controller,
+                            index,
+                          );
+                        },
+                        child: AttachmentTile(
+                          attachmet: attachment.attachment ?? 'No Attachment',
+                          type: attachment.type ?? 'Unknown Type',
+                        ),
+                      );
+                    },
+                  ),
+                ),
         ],
       ),
     );
+  }
+
+  void _handleAttachmentTap(BuildContext context, String attachment,
+      String type, CreateTaskController controller, int index) {
+    if (type == 'jpg' || type == 'png') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ImagePreviewScreen(
+            initialIndex: index,
+            attachments: controller.singleTask.value.attachments ?? [],
+            imageBase64: attachment,
+          ),
+        ),
+      );
+    } else if (type == 'pdf') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ScreenPdfPreview(
+            base64: attachment,
+            label: 'Attachment',
+          ),
+        ),
+      );
+    } else {
+      // Handle other types if needed
+    }
   }
 }
 
 class AttachmentTile extends StatelessWidget {
   const AttachmentTile({
     super.key,
+    required this.attachmet,
+    required this.type,
   });
+  final String attachmet;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +122,22 @@ class AttachmentTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.picture_as_pdf_rounded, color: neonShade, size: 35.w),
-          adjustHieght(4.h),
+          Icon(
+            type == 'pdf' ? Icons.file_copy : Icons.image,
+            color: neonShade,
+            size: 35.w,
+          ),
+          SizedBox(height: 4.h),
           Text(
-            'Flow.pdf',
+            attachmet,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: textThinStyle1,
+          ),
+          Text(
+            '.$type',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: textThinStyle1,
           ),
         ],

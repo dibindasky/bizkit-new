@@ -31,7 +31,10 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
       assignedToDetails: (json['assigned_to_details'] as List<dynamic>?)
           ?.map((e) => AssignedToDetail.fromJson(e as Map<String, dynamic>))
           .toList(),
-    );
+    )..createdUserDetails = json['created_user_details'] == null
+        ? null
+        : CreatedUserDetails.fromJson(
+            json['created_user_details'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$GetTaskResponceToJson(GetTaskResponce instance) =>
     <String, dynamic>{
@@ -49,5 +52,6 @@ Map<String, dynamic> _$GetTaskResponceToJson(GetTaskResponce instance) =>
       'sub_task': instance.subTask,
       'created_at': instance.createdAt?.toIso8601String(),
       'status': instance.status,
+      'created_user_details': instance.createdUserDetails,
       'assigned_to_details': instance.assignedToDetails,
     };

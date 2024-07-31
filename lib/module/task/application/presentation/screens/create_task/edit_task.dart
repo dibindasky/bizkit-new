@@ -5,7 +5,6 @@ import 'package:bizkit/module/task/application/presentation/widgets/task_textfro
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/sub_task.dart';
-import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,7 @@ class ScreenEditTask extends StatelessWidget {
     // final taskCalenarcontroller = Get.find<TaskCalenderViewController>();
     final createTaskController = Get.find<CreateTaskController>();
     final style = TextStyle(fontSize: 15.sp, color: neonShade);
-    List<String> tags = createTaskController.singleTask.value.tags ?? [];
+    List<String>? tags = createTaskController.singleTask.value.tags ?? [];
 
     titleController.text =
         createTaskController.singleTask.value.title ?? 'title';
@@ -151,15 +150,6 @@ class ScreenEditTask extends StatelessWidget {
                                     createTaskController.editTask(
                                         taskModel: EditTaskModel(
                                       tags: task.tags,
-                                      assignedTo: task.assignedToDetails,
-                                      attachments:
-                                          task.attachments as List<Attachment>,
-                                      deadLine: task.deadLine,
-                                      isCompleted: task.isCompleted,
-                                      isKilled: task.isKilled,
-                                      priorityLevel: task.priorityLevel,
-                                      recurrentTask: task.recurrentTask,
-                                      subTask: task.subTask as List<SubTask>,
                                       taskId: taskId,
                                       title: titleController.text,
                                       description: descriptionController.text,

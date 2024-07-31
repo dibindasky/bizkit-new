@@ -7,7 +7,8 @@ class SlidablePhotoGallery extends StatelessWidget {
   final List<String> images;
   final int initialIndex;
 
-  const SlidablePhotoGallery({required this.images, this.initialIndex = 0});
+  const SlidablePhotoGallery(
+      {super.key, required this.images, this.initialIndex = 0});
 
   @override
   Widget build(BuildContext context) {

@@ -7,6 +7,7 @@ import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
+import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
@@ -30,6 +31,7 @@ import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -199,6 +201,7 @@ class CreateTaskController extends GetxController {
       selectedTags.remove(tag);
     } else {
       selectedTags.add(tag);
+      log('selectedTags : $selectedTags');
     }
   }
 
@@ -235,7 +238,7 @@ class CreateTaskController extends GetxController {
         convertFilesToAttachments(selectedFiles).cast<Attachment>();
     task.attachments = attachments;
 
-    log('task model ${task.toJson()}');
+    // log('task model ${task.toJson()}');
     final result = await taskService.createTask(task: task);
 
     result.fold(
@@ -247,10 +250,9 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
         log('${success.message}');
         testTaskId = success.taskId.toString();
+        log('TaskID after create new task ==> $testTaskId');
         clearSelectedFiles();
         subTasks.clear();
-        selectedTags.clear();
-        tags.clear();
         fetchSendRequests();
         participants.clear();
         attachments.clear();
@@ -291,7 +293,26 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
         log('${success.message}');
         // Filter tasks by type after editing
-        filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
+        // filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
+      },
+    );
+  }
+
+  // Complete a Task
+  void completeTask({required CompletedTaskModel completedTaskModel}) async {
+    isLoading.value = true;
+
+    final result =
+        await taskService.completeTask(completedTaskModel: completedTaskModel);
+
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        log('${success.message}');
+        isLoading.value = false;
       },
     );
   }
@@ -523,7 +544,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         singleTask.value = success;
-        log('Single Task  After responce => ${singleTask.value}');
+        log('Single Task  After responce => ${singleTask.value.tags}');
 
         isLoading.value = false;
       },
@@ -641,10 +662,11 @@ class CreateTaskController extends GetxController {
 
   void getTasksCountWithoutDate() async {
     isLoading.value = true;
-    log('DateTime ===> ${DateTimeFormater.dateTimeFormat(DateTime.now().add(const Duration(days: 31)))}');
+    // log('DateTime ===> ${DateTimeFormater.dateTimeFormat(DateTime.now().add(const Duration(days: 31)))}');
     final result = await taskService.getTasksCountsWithDate(
         tasksCountModel: TasksCountModel(
-            fromDate: DateTimeFormater.dateTimeFormat(
+            fromDate: DateTimeFormater.dateTimeFormat(DateTime.now()),
+            toDate: DateTimeFormater.dateTimeFormat(
                 DateTime.now().add(const Duration(days: 31)))));
     result.fold(
       (failure) {

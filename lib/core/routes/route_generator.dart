@@ -288,7 +288,7 @@ class GoRouterConfig {
     ),
     GoRoute(
       name: Routes.editTask,
-      path: Routes.editTask,
+      path: '${Routes.editTask}/:taskId',
       builder: (context, state) {
         final taskId = state.pathParameters['taskId'] ?? '';
         if (taskId != '') {

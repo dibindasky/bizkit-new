@@ -7,6 +7,7 @@ import 'package:bizkit/module/task/domain/model/requests/received_requests_respo
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/filter_by_deadline_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
@@ -81,6 +82,9 @@ abstract class TaskRepo {
 
   Future<Either<ErrorModel, SuccessResponce>> editTask(
       {required EditTaskModel taskModel});
+
+  Future<Either<Failure, SuccessResponce>> completeTask(
+      {required CompletedTaskModel completedTaskModel});
 
   Future<Either<Failure, SuccessResponce>> addSubTask(
       {required SubTaskAddModel newsubtask});

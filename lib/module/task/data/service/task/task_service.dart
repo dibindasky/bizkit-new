@@ -6,10 +6,10 @@ import 'package:bizkit/module/task/domain/model/errors/error_model/error_model.d
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
-// import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/filter_by_deadline_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
@@ -60,7 +60,6 @@ class TaskService implements TaskRepo {
       return Right(TaskSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException createTask $e');
-
       return Left(ErrorModel(error: e.message ?? errorMessage));
     } catch (e) {
       log('catch createTask $e');
@@ -188,7 +187,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByDeadline,
         data: filterByDeadline.toJson(),
       );
-      log("=> Response Filter by Deadline : ${response.data} ");
+      log("=> Response Filter by Deadline : ");
       return Right(FilterByDeadlineResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException filterByDeadline $e');
@@ -276,7 +275,7 @@ class TaskService implements TaskRepo {
         data: singleTaskModel.toJson(),
       );
 
-      log("=> Response Get one task : ");
+      log("=> Response Get one task :  ");
 
       return Right(GetTaskResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -438,6 +437,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, TaskCountsResponce>> getTasksCountsWithDate(
       {required TasksCountModel tasksCountModel}) async {
     try {
+      log('tasksCountModel.toJson()=> ${tasksCountModel.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestGetTasksCounts,
         data: tasksCountModel.toJson(),
@@ -491,6 +491,25 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch getReceivedRequests $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> completeTask(
+      {required CompletedTaskModel completedTaskModel}) async {
+    try {
+      final response = await apiService.patch(ApiEndPoints.taskTestEditTask,
+          data: completedTaskModel.toJson());
+
+      log("=> Response Complete Task  : ${response.data}");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException completeTask $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch completeTask $e');
       return Left(Failure(message: e.toString()));
     }
   }

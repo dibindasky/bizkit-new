@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/generate_repor.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/home_appbar.dart';
@@ -19,10 +20,10 @@ class ScreenTaskHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final homeController = Get.find<TaskHomeScreenController>();
+    final homeController = Get.find<TaskHomeScreenController>();
     final taskController = Get.find<CreateTaskController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // homeController.progresBar();
+      homeController.progresBar();
       // taskController.searchTasks(searchItem: '');
     });
 

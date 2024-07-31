@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SubTaskDetailView extends StatelessWidget {
-  const SubTaskDetailView(
-      {super.key,
-      this.index,
-      this.subTaskDes,
-      this.subTaskTitle,
-      this.subTaskDeadline});
+  const SubTaskDetailView({
+    super.key,
+    this.index,
+    this.subTaskDes,
+    this.subTaskTitle,
+  });
 
   final String? subTaskTitle;
-  final String? subTaskDeadline;
+
   final String? subTaskDes;
   final int? index;
 

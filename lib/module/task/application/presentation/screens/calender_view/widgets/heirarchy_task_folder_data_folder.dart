@@ -47,6 +47,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
             );
           } else if (taskFolderController.filteredFoldersByDeadline.isEmpty) {
             return ErrorRefreshIndicator(
+              shrinkWrap: true,
               image: emptyNodata2,
               errorMessage: 'No folders available',
               onRefresh: () {

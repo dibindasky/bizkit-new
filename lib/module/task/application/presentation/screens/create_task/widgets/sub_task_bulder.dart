@@ -70,8 +70,6 @@ class SubTaskBuilder extends StatelessWidget {
                           context: context,
                           builder: (context) => SubTaskDetailView(
                             index: index,
-                            subTaskDeadline:
-                                controller.subTasks[index].deadLine,
                             subTaskDes: controller.subTasks[index].description,
                             subTaskTitle: controller.subTasks[index].title,
                           ),

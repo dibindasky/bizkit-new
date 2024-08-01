@@ -46,6 +46,8 @@ class Routes {
   static const String taskInsideTheInnerFolderScreen =
       'task_inside_the_inner_folder';
   static const String taskSearch = '/task_search';
+  static const String generateTasksSearch = '/generate_tasks_search';
+  static const String reportsview = '/reports_view';
 
   // Attendence Module
   static const String attendenceInital = '/attendence_inital';

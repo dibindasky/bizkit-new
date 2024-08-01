@@ -25,6 +25,8 @@ import 'package:bizkit/module/task/application/presentation/screens/calender_vie
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/edit_task.dart';
+import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/reports_view.dart';
+import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/search_tasks.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/tab_notification.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
@@ -101,6 +103,10 @@ class RouteGenerator {
       case Routes.cardDetailView:
         return MaterialPageRoute(
             builder: (ctx) => const ScreenTaskCalenderView());
+      case Routes.generateTasksSearch:
+        return MaterialPageRoute(builder: (ctx) => const SearchTasksWidget());
+      case Routes.reportsview:
+        return MaterialPageRoute(builder: (ctx) => const ReportsView());
 
       case Routes.heirarchyUserDetail:
         if (arguments is String) {

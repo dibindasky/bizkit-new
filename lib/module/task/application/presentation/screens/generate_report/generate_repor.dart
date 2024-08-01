@@ -1,15 +1,16 @@
-import 'dart:developer';
-
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/generate_report/generate_report.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/date_container.dart';
+import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_report_model/get_report_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:bizkit/module/task/domain/model/dashboard/generate_task_report_model/generate_task_report_model.dart';
 
 class ScreenTaskReportGenerator extends StatefulWidget {
   const ScreenTaskReportGenerator({super.key});
@@ -22,9 +23,9 @@ class ScreenTaskReportGenerator extends StatefulWidget {
 class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
   final TaskHomeScreenController controller =
       Get.find<TaskHomeScreenController>();
-
+  final taskController = Get.find<CreateTaskController>();
   final taskGenerateReportController = Get.find<TaskGenerateReportController>();
-
+  final TextEditingController searchController = TextEditingController();
   List<String> selectedOptionCategory = [];
   List<String> selectedTaskType = [];
   List<String> selectedPriorityType = [];
@@ -59,23 +60,61 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
     });
   }
 
-  void _generateReport() async {
-    log(' taskGenerateReportController.toDate.text = > ${taskGenerateReportController.toDate.text}');
-    log(' taskGenerateReportController.fromDate.text= > ${taskGenerateReportController.fromDate.text}');
-    GenerateTaskReportModel reportModel = GenerateTaskReportModel(
-      priorityLevel:
-          selectedPriorityType.isNotEmpty ? selectedPriorityType : null,
-      taskMentionedType: selectedTaskType.isNotEmpty ? selectedTaskType : null,
-      taskType:
-          selectedOptionCategory.isNotEmpty ? selectedOptionCategory : null,
-      fromDate: taskGenerateReportController.fromDate.text,
-      toDate: taskGenerateReportController.toDate.text,
-    );
+  void _getReport() async {
+    List<String> formattedPriorityType = selectedPriorityType.map((type) {
+      switch (type) {
+        case 'High':
+          return 'high';
+        case 'Medium':
+          return 'medium';
+        case 'Low':
+          return 'low';
+        default:
+          return type;
+      }
+    }).toList();
 
-    controller.generateTaskReport(
-        genearteTaskReport: reportModel, context: context);
+    List<String> formattedOptionCategory = selectedOptionCategory.map((type) {
+      switch (type) {
+        case 'Self to self':
+          return 'self_to_self';
+        case 'Others to self':
+          return 'others_to_self';
+        case 'Self to others':
+          return 'self_to_others';
+        default:
+          return type;
+      }
+    }).toList();
+
+    List<String> formattedTaskTypes = selectedTaskType.map((type) {
+      switch (type) {
+        case 'Personal':
+          return 'personal';
+        case 'Official':
+          return 'official';
+        case 'Others':
+          return 'others';
+        default:
+          return type;
+      }
+    }).toList();
+    controller.getReport(
+      getReportModel: GetReportModel(
+          fromDate: taskGenerateReportController.fromDate.text,
+          toDate: taskGenerateReportController.toDate.text,
+          priorityLevel: formattedPriorityType,
+          taskMentionedType: formattedTaskTypes,
+          taskType: formattedOptionCategory,
+          searchTerm: searchController.text),
+    );
     taskGenerateReportController.fromDate.clear();
     taskGenerateReportController.toDate.clear();
+    Navigator.of(context).pop();
+    Get.toNamed(
+      Routes.reportsview,
+      id: 1,
+    );
   }
 
   @override
@@ -92,7 +131,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   children: [
                     const Text(
-                      'Generate report for your tasks',
+                      'Get report for your tasks',
                       style: TextStyle(fontSize: 18, color: neonShade),
                     ),
                     adjustHieght(8.h),
@@ -127,22 +166,38 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                           _handlePriorityTypeChange),
                     ]),
                     adjustHieght(16.h),
-                    DateContainer(
-                      isFromDate: true,
-                      title: 'Select from date',
-                    ),
+
                     adjustHieght(8.h),
+                    TaskTextField(
+                      onTapOutside: () => FocusScope.of(context).unfocus(),
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          taskController.searchTasks(searchItem: value);
+                        } else {
+                          taskController.searchTasks(searchItem: value);
+                        }
+                      },
+                      controller: searchController,
+                      hintText: 'Search with title , des , type etc..',
+                      showBorder: true,
+                      fillColor: textFieldFillColr,
+                      suffixIcon: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.search, color: neonShade),
+                      ),
+                    ),
+                    adjustHieght(10.h),
                     DateContainer(
                       isFromDate: false,
-                      title: 'Select to date',
+                      title: 'Select date range',
                     ),
                     // GenerateReportDropDownButton(),
                     adjustHieght(20.h),
                     Center(
                       child: EventButton(
                         wdth: kwidth * 98,
-                        text: 'Generate',
-                        onTap: _generateReport,
+                        text: 'Get Report',
+                        onTap: _getReport,
                       ),
                     ),
                     adjustHieght(10.h),

@@ -1,28 +1,45 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:bizkit/module/task/data/service/home/home_service.dart';
-import 'package:bizkit/module/task/domain/model/dashboard/generate_task_report_model/generate_task_report_model.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/genearate_report_model/genearate_report_model.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_report_model/get_report_model.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_report_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/progres_bar_success_responce/counts.dart';
 import 'package:bizkit/module/task/domain/repository/service/home_repo.dart';
-import 'package:bizkit/utils/pdf/pdf_preview_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TaskHomeScreenController extends GetxController {
   final HomeRepo homeService = HomeService();
 
   RxBool isLoading = false.obs;
-
   RxString taskCategory = ''.obs;
-
   Rx<Counts> progresBarCounts = Counts().obs;
-
+  RxList<ReportTask> reportTasks = <ReportTask>[].obs;
   RxString taskReport = ''.obs;
 
-  changeSelectedTaskCategory(String selectedTaskCategory) {
+  // RxList to hold selected fields
+  RxList<String> selectedFields = <String>[].obs;
+  RxString selectedReportType = 'pdf'.obs;
+  RxList<String> selectedTaskIds = <String>[].obs;
+
+  // Function to add or remove fields from the selectedFields list
+  void addField(String value) {
+    if (selectedFields.contains(value)) {
+      selectedFields.remove(value);
+    } else {
+      selectedFields.add(value);
+    }
+  }
+
+  // Function to set the selected report type
+  void setReportType(String type) {
+    selectedReportType.value = type;
+  }
+
+  void changeSelectedTaskCategory(String selectedTaskCategory) {
     taskCategory.value = selectedTaskCategory;
-    log('cont');
     update();
   }
 
@@ -36,7 +53,6 @@ class TaskHomeScreenController extends GetxController {
       },
       (success) {
         progresBarCounts.value = success.counts!;
-        // log('value :=> ${progresBarCounts.value.selfToOthers?.toJson()}');
         Timer(
           const Duration(milliseconds: 50),
           () => isLoading.value = false,
@@ -45,33 +61,38 @@ class TaskHomeScreenController extends GetxController {
     );
   }
 
-  void generateTaskReport(
-      {required GenerateTaskReportModel genearteTaskReport,
-      required BuildContext context}) async {
+  void getReport({required GetReportModel getReportModel}) async {
     isLoading.value = true;
-    final result = await homeService.genearateTaskReport(
-        genearteTaskReport: genearteTaskReport);
+
+    final result = await homeService.getReport(getReportModel: getReportModel);
 
     result.fold(
       (failure) {
         isLoading.value = false;
-        Navigator.pop(context);
         log(failure.message.toString());
       },
       (success) {
-        taskReport.value = success.report ?? '';
-        Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ScreenPdfPreview(
-              base64: taskReport.value,
-              label: 'Task Report',
-            ),
-          ),
-        );
+        reportTasks.assignAll(success.tasks ?? []);
+        isLoading.value = false;
+      },
+    );
+  }
 
-        log('Report : => ${taskReport.value}');
+  void generateReport(
+      {required GenearateReportModel generateReportModel}) async {
+    isLoading.value = true;
+
+    final result = await homeService.generateReport(
+        generateReportModel: generateReportModel);
+
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) async {
+        taskReport.value = success.report ?? '';
+        update();
         isLoading.value = false;
       },
     );

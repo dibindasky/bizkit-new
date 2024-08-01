@@ -78,6 +78,7 @@ class PdfPickerImpl {
         final filePath = File(join(directory.path, fileName));
 
         await filePath.writeAsBytes(bytes);
+        log('File path : => ${filePath.path}');
         return filePath.path;
       } catch (e) {
         log('error base64 to file = > $e');

@@ -1,17 +1,14 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/genearate_report_model/genearate_report_model.dart';
-import 'package:bizkit/packages/pdf/pdf_picker.dart';
+
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 
 class ReportsView extends StatelessWidget {
   const ReportsView({super.key});

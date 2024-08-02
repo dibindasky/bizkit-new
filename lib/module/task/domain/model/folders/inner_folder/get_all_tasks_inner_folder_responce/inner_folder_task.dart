@@ -1,7 +1,5 @@
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/created_by.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'attachment.dart';
-import 'sub_task.dart';
 
 part 'inner_folder_task.g.dart';
 
@@ -22,10 +20,14 @@ class InnerFolderTask {
   @JsonKey(name: 'is_killed')
   bool? isKilled;
   List<String>? tags;
-  List<Attachment>? attachments;
-  @JsonKey(name: 'sub_task')
-  List<SubTask>? subTask;
-
+  @JsonKey(name: 'is_owned')
+  bool? isOwned;
+  @JsonKey(name: 'spotlight_on')
+  bool? spotlightOn;
+  @JsonKey(name: 'created_by')
+  CreatedBy? createdBy;
+  @JsonKey(name: 'created_at')
+  DateTime? createdAt;
   InnerFolderTask({
     this.taskId,
     this.title,
@@ -36,8 +38,10 @@ class InnerFolderTask {
     this.deadLine,
     this.isKilled,
     this.tags,
-    this.attachments,
-    this.subTask,
+    this.isOwned,
+    this.spotlightOn,
+    this.createdBy,
+    this.createdAt,
   });
 
   factory InnerFolderTask.fromJson(Map<String, dynamic> json) {

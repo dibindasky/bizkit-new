@@ -23,7 +23,7 @@ class ScreenTaskHome extends StatelessWidget {
     final homeController = Get.find<TaskHomeScreenController>();
     final taskController = Get.find<CreateTaskController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeController.progresBar();
+      // homeController.progresBar();
       // taskController.searchTasks(searchItem: '');
     });
 

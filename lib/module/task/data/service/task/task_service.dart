@@ -4,10 +4,12 @@ import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/module/task/domain/model/errors/error_model/error_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/add_new_assined_users_model/add_new_assined_users_model.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
@@ -510,6 +512,49 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch completeTask $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> addNewUserToAssginedUsers(
+      {required AddNewAssinedUsersModel addNewAssginedUsersModel}) async {
+    try {
+      final response = await apiService.patch(
+        ApiEndPoints.taskTestEditTask,
+        data: addNewAssginedUsersModel.toJson(),
+      );
+
+      log("=> Response Add new user to assgined users  :");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException addNewUserToAssginedUsers $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch addNewUserToAssginedUsers $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> removeUserFromAssginedUsers(
+      {required RemoveUserFromAssignedModel
+          removeUserFromAssignedModel}) async {
+    try {
+      final response = await apiService.patch(
+        ApiEndPoints.taskTestEditTask,
+        data: removeUserFromAssignedModel.toJson(),
+      );
+
+      log("=> Response Remove user from assgined uers  :");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException removeUserFromAssginedUsers $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch removeUserFromAssginedUsers $e');
       return Left(Failure(message: e.toString()));
     }
   }

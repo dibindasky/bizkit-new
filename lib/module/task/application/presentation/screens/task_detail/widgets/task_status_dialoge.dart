@@ -144,6 +144,16 @@ class TaskStatusChangeDialog extends StatelessWidget {
                       GoRouter.of(context).pop();
                       GoRouter.of(context).pushNamed(Routes.editTask,
                           pathParameters: {"taskId": '$taskId'});
+                      final isAlreadyAdded = controller.participantsForEditTask
+                          .any((participant) =>
+                              participant.userId ==
+                              controller.singleTask.value.assignedToDetails
+                                  ?.first.userId);
+                      if (!isAlreadyAdded) {
+                        controller.participantsForEditTask.addAll(
+                            controller.singleTask.value.assignedToDetails ??
+                                []);
+                      }
                     },
                     wdth: double.infinity,
                   ),

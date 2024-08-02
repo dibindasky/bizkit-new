@@ -8,10 +8,11 @@ class AcceptOrRejectModel {
   String? taskId;
   @JsonKey(name: 'acceptance_status')
   String? acceptanceStatus;
-  @JsonKey(name: 'task_type')
-  String? taskType;
 
-  AcceptOrRejectModel({this.taskId, this.acceptanceStatus, this.taskType});
+  AcceptOrRejectModel({
+    this.taskId,
+    this.acceptanceStatus,
+  });
 
   factory AcceptOrRejectModel.fromJson(Map<String, dynamic> json) {
     return _$AcceptOrRejectModelFromJson(json);

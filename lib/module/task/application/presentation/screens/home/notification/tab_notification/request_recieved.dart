@@ -37,6 +37,7 @@ class TabNotificationItemBuilder extends StatelessWidget {
               itemCount: taskController.receivedRequests.length,
               itemBuilder: (context, index) {
                 return NotificationRequestCard(
+                  name: taskController.receivedRequests[index].createdBy?.name,
                   taskId: taskController.receivedRequests[index].taskId,
                   title: taskController.receivedRequests[index].taskTitle,
                   des: taskController.receivedRequests[index].description,

@@ -14,6 +14,7 @@ import 'package:bizkit/module/task/domain/model/folders/inner_folder/delete_inne
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/edit_inner_folder_model/edit_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
@@ -23,6 +24,7 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class HierarchyListtile extends StatelessWidget {
@@ -536,8 +538,20 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                         return GestureDetector(
                                           onTap: () {
                                             log('Main folder task id => ${controller.tasksInsideFolder[index].taskId}');
+                                            GoRouter.of(context)
+                                                .push(Routes.taskChatScreen);
+                                            taskController.fetchSingleTask(
+                                                singleTaskModel:
+                                                    GetSingleTaskModel(
+                                                        taskId: controller
+                                                                .tasksInsideFolder[
+                                                                    index]
+                                                                .taskId ??
+                                                            ''));
                                           },
                                           child: TaskContainer(
+                                            tasksFromFoldrs: true,
+                                            fromFolders: true,
                                             folderId: folderId,
                                             isInnerFolderTask: false,
                                             tasksInsideFolder: task,

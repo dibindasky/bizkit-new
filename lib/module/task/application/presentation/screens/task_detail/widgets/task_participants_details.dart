@@ -51,7 +51,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                 child: CircleAvatar(
                                   radius: 20.w,
                                   backgroundImage:
-                                      const AssetImage(imageDummyAsset),
+                                      const AssetImage(personDemoImg),
                                 )),
                           ),
                           adjustWidth(7.w),

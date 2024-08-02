@@ -1,9 +1,13 @@
 import 'dart:developer';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class TaskInsideTheInnerFolderScreen extends StatelessWidget {
   const TaskInsideTheInnerFolderScreen({super.key, this.arguments});
@@ -13,6 +17,7 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
     log('Arguments => : $arguments');
 
     final folderController = Get.find<TaskFolderController>();
+    final taskController = Get.find<CreateTaskController>();
 
     return Obx(
       () => Scaffold(
@@ -60,13 +65,26 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                         onTap: () {
                           log('Task from inner folder ==> ${folderController.tasksInsideInnerFolder[index].taskId}');
                         },
-                        child: TaskContainer(
-                          folderId: arguments?['folderId'],
-                          innerFolderId: arguments?['innerFolderId'],
-                          isInnerFolderTask: true,
-                          index: index,
-                          tasksInsideInnerFolder:
-                              folderController.tasksInsideInnerFolder[index],
+                        child: GestureDetector(
+                          onTap: () {
+                            GoRouter.of(context).push(Routes.taskChatScreen);
+                            taskController.fetchSingleTask(
+                                singleTaskModel: GetSingleTaskModel(
+                                    taskId: folderController
+                                            .tasksInsideInnerFolder[index]
+                                            .taskId ??
+                                        ''));
+                          },
+                          child: TaskContainer(
+                            fromFolders: true,
+                            tasksFromInnerFolder: true,
+                            folderId: arguments?['folderId'],
+                            innerFolderId: arguments?['innerFolderId'],
+                            isInnerFolderTask: true,
+                            index: index,
+                            tasksInsideInnerFolder:
+                                folderController.tasksInsideInnerFolder[index],
+                          ),
                         ),
                       );
                     },

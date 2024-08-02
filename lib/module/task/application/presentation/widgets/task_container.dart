@@ -354,17 +354,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TaskContainer extends StatelessWidget {
-  TaskContainer({
-    super.key,
-    required this.index,
-    this.tabIndex,
-    this.typeTask,
-    this.tasksInsideFolder,
-    this.tasksInsideInnerFolder,
-    this.isInnerFolderTask = false,
-    this.folderId,
-    this.innerFolderId,
-  });
+  TaskContainer(
+      {super.key,
+      required this.index,
+      this.tabIndex,
+      this.typeTask,
+      this.tasksInsideFolder,
+      this.tasksInsideInnerFolder,
+      this.isInnerFolderTask = false,
+      this.folderId,
+      this.innerFolderId,
+      this.fromFolders = false,
+      this.tasksFromInnerFolder = false,
+      this.tasksFromFoldrs = false});
 
   final int index;
   final int? tabIndex;
@@ -374,6 +376,9 @@ class TaskContainer extends StatelessWidget {
   final InnerFolderTask? tasksInsideInnerFolder;
   final InsideAFolderTasks? tasksInsideFolder;
   final bool? isInnerFolderTask;
+  final bool? fromFolders;
+  final bool? tasksFromFoldrs;
+  final bool? tasksFromInnerFolder;
 
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
@@ -381,7 +386,17 @@ class TaskContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = getSpotLightColor(typeTask?.createdAt, typeTask?.deadLine);
+    final color = getSpotLightColor(
+        tasksFromFoldrs == true
+            ? tasksInsideFolder?.createdAt.toString() ?? ''
+            : tasksFromInnerFolder == true
+                ? tasksInsideInnerFolder?.createdAt.toString() ?? ''
+                : typeTask?.createdAt ?? '',
+        tasksFromFoldrs == true
+            ? tasksInsideFolder?.deadLine ?? ''
+            : tasksFromInnerFolder == true
+                ? tasksInsideInnerFolder?.deadLine ?? ''
+                : typeTask?.deadLine ?? '');
     return AnimatedGrowShrinkContainer(
       animate: typeTask?.spotlightOn ?? false,
       begin: 0.95,
@@ -451,6 +466,9 @@ class TaskContainer extends StatelessWidget {
                                         ),
                                   adjustWidth(10),
                                   Text(
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
                                     typeTask?.title ??
                                         tasksInsideFolder?.title ??
                                         tasksInsideInnerFolder?.title ??
@@ -459,6 +477,21 @@ class TaskContainer extends StatelessWidget {
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: neonShade,
+                                    ),
+                                  ),
+                                  adjustWidth(15),
+                                  Card(
+                                    color: lightGrey,
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 5),
+                                      child: Text(
+                                        'status',
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          color: neonShade,
+                                        ),
+                                      ),
                                     ),
                                   )
                                 ],
@@ -474,22 +507,45 @@ class TaskContainer extends StatelessWidget {
                                 },
                                 itemBuilder: (BuildContext context) {
                                   List<PopupMenuItem<String>> items = [
-                                    PopupMenuItem<String>(
-                                      value: 'Spot light Task',
-                                      child: const Text(
-                                        'Spot light Task',
-                                        style: TextStyle(color: kblack),
-                                      ),
-                                      onTap: () {
-                                        taskController.spotLightTask(
+                                    if (typeTask?.isOwned == true ||
+                                        tasksInsideFolder?.isOwned == true ||
+                                        tasksInsideInnerFolder?.isOwned == true)
+                                      PopupMenuItem<String>(
+                                        value: typeTask?.spotlightOn == true ||
+                                                tasksInsideInnerFolder
+                                                        ?.spotlightOn ==
+                                                    true ||
+                                                tasksInsideFolder
+                                                        ?.spotlightOn ==
+                                                    true
+                                            ? 'Spot light Task Off'
+                                            : 'Spot light Task On',
+                                        child: Text(
+                                          typeTask?.spotlightOn == true ||
+                                                  tasksInsideInnerFolder
+                                                          ?.spotlightOn ==
+                                                      true ||
+                                                  tasksInsideFolder
+                                                          ?.spotlightOn ==
+                                                      true
+                                              ? 'Spot light Task Off'
+                                              : 'Spot light Task On',
+                                          style: const TextStyle(color: kblack),
+                                        ),
+                                        onTap: () {
+                                          taskController.spotLightTask(
                                             spotLightTask: SpotLightTask(
-                                                spotLightStatus: true,
-                                                taskId: typeTask?.id ??
-                                                    tasksInsideFolder?.taskId ??
-                                                    tasksInsideInnerFolder
-                                                        ?.taskId));
-                                      },
-                                    ),
+                                              spotLightStatus: true,
+                                              taskId: tasksFromFoldrs == true
+                                                  ? tasksInsideFolder?.taskId
+                                                  : tasksFromInnerFolder == true
+                                                      ? tasksInsideInnerFolder
+                                                          ?.taskId
+                                                      : typeTask?.id,
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     if (typeTask?.isPinned == false)
                                       PopupMenuItem<String>(
                                         value: 'Pin the task',
@@ -541,7 +597,8 @@ class TaskContainer extends StatelessWidget {
                                     ),
                                     if (tabIndex != 1 &&
                                         tabIndex != 2 &&
-                                        tabIndex != 3)
+                                        tabIndex != 3 &&
+                                        fromFolders == true)
                                       PopupMenuItem<String>(
                                         onTap: () {
                                           showCustomConfirmationDialogue(

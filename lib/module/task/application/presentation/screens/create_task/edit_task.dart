@@ -1,10 +1,11 @@
 import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_paricipant_pop_for_edit_task.dart';
+import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/container_textfield_dummy.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/tag_contaner.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
-import 'package:bizkit/module/task/domain/model/task/task_model/attachment.dart';
-import 'package:bizkit/module/task/domain/model/task/task_model/sub_task.dart';
+import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,7 @@ class ScreenEditTask extends StatelessWidget {
                           Text('Description', style: style),
                           adjustHieght(3.h),
                           TaskTextField(
-                            maxLines: 3,
+                            maxLines: 5,
                             hintText: 'Description',
                             controller: descriptionController,
                             // validator: (value) {
@@ -100,6 +101,42 @@ class ScreenEditTask extends StatelessWidget {
                           // adjustHieght(5.h),
                           // const TaskTypeRadioButtons(),
                           adjustHieght(10.h),
+                          ContainerTextFieldDummy(
+                              text: 'Assign to',
+                              suffixIcon: Icons.arrow_right,
+                              onTap: () {
+                                createTaskController.searchParticipants(
+                                    user: UserSearchModel(searchTerm: ''));
+                                showModalBottomSheet(
+                                  enableDrag: true,
+                                  context: context,
+                                  builder: (context) =>
+                                      const AddParticipentForTaskEditBottomSheet(),
+                                );
+                              }),
+                          adjustHieght(10.h),
+                          Obx(() {
+                            return Wrap(
+                              spacing: 10.w,
+                              runSpacing: 10.h,
+                              children: createTaskController
+                                  .participantsForEditTask
+                                  .map((participant) => Chip(
+                                        deleteIconColor: kred,
+                                        side:
+                                            const BorderSide(color: neonShade),
+                                        label: Text(
+                                          participant.name ?? 'name',
+                                        ),
+                                        onDeleted: () {
+                                          createTaskController
+                                              .removeParticipantsForEdit(
+                                                  participant);
+                                        },
+                                      ))
+                                  .toList(),
+                            );
+                          }),
                           // const PriorityRecurringDropDownItems(),
                           adjustHieght(10.h),
                           // Text('Task Head', style: style),
@@ -147,6 +184,7 @@ class ScreenEditTask extends StatelessWidget {
                                   if (_formKey.currentState!.validate()) {
                                     final task =
                                         createTaskController.singleTask.value;
+
                                     createTaskController.editTask(
                                         taskModel: EditTaskModel(
                                       tags: task.tags,

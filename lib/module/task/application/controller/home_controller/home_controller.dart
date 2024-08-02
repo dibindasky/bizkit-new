@@ -1,7 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:bizkit/module/task/data/service/home/home_service.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/genearate_report_model/genearate_report_model.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_report_model/get_report_model.dart';
@@ -9,6 +11,7 @@ import 'package:bizkit/module/task/domain/model/dashboard/get_report_success_res
 import 'package:bizkit/module/task/domain/model/dashboard/progres_bar_success_responce/counts.dart';
 import 'package:bizkit/module/task/domain/repository/service/home_repo.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 
 class TaskHomeScreenController extends GetxController {
   final HomeRepo homeService = HomeService();
@@ -78,6 +81,33 @@ class TaskHomeScreenController extends GetxController {
     );
   }
 
+  Future<void> downloadReport(String base64Data, String fileType) async {
+    try {
+      final bytes = base64Decode(base64Data);
+
+      final directory = await getExternalStorageDirectory();
+      final path = '${directory!.path}/task_report.$fileType';
+
+      final file = File(path);
+      await file.writeAsBytes(bytes);
+
+      Get.snackbar(
+        'Download Complete',
+        'Your $fileType report has been saved to $path',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+
+      log('Report saved to $path');
+    } catch (e) {
+      log('Failed to download report: $e');
+      Get.snackbar(
+        'Download Failed',
+        'An error occurred while downloading the report',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
   void generateReport(
       {required GenearateReportModel generateReportModel}) async {
     isLoading.value = true;
@@ -92,7 +122,11 @@ class TaskHomeScreenController extends GetxController {
       },
       (success) async {
         taskReport.value = success.report ?? '';
+        selectedFields.clear();
+        selectedReportType.value = '';
+        selectedTaskIds.clear();
         update();
+        downloadReport(taskReport.value, selectedReportType.value);
         isLoading.value = false;
       },
     );

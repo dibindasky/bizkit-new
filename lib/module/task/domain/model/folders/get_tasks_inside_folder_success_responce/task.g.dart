@@ -17,12 +17,14 @@ InsideAFolderTasks _$InsideAFolderTasksFromJson(Map<String, dynamic> json) =>
       deadLine: json['dead_line'] as String?,
       isKilled: json['is_killed'] as bool?,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      attachments: (json['attachments'] as List<dynamic>?)
-          ?.map((e) => Attachment.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      subTask: (json['sub_task'] as List<dynamic>?)
-          ?.map((e) => SubTask.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      isOwned: json['is_owned'] as bool?,
+      spotlightOn: json['spotlight_on'] as bool?,
+      createdBy: json['created_by'] == null
+          ? null
+          : CreatedBy.fromJson(json['created_by'] as Map<String, dynamic>),
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$InsideAFolderTasksToJson(InsideAFolderTasks instance) =>
@@ -36,6 +38,8 @@ Map<String, dynamic> _$InsideAFolderTasksToJson(InsideAFolderTasks instance) =>
       'dead_line': instance.deadLine,
       'is_killed': instance.isKilled,
       'tags': instance.tags,
-      'attachments': instance.attachments,
-      'sub_task': instance.subTask,
+      'is_owned': instance.isOwned,
+      'spotlight_on': instance.spotlightOn,
+      'created_by': instance.createdBy,
+      'created_at': instance.createdAt?.toIso8601String(),
     };

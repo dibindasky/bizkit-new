@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
@@ -59,14 +62,20 @@ class TotalTaskListView extends StatelessWidget {
 
                 return GestureDetector(
                   onLongPress: () {
-                    controller.longPress(index);
+                    // controller.longPress(index);
                   },
                   onTap: () {
-                    if (controller.selectedFolderContainer.value) {
-                      controller.longPress(index);
-                    } else {
-                      GoRouter.of(context).push(Routes.taskChatScreen);
-                    }
+                    GoRouter.of(context).push(Routes.taskChatScreen);
+                    taskController.fetchSingleTask(
+                        singleTaskModel:
+                            GetSingleTaskModel(taskId: typeTask.id));
+                    // if (controller.selectedFolderContainer.value) {
+                    //   controller.longPress(index);
+                    // } else {
+                    //   GoRouter.of(context).push(Routes.taskChatScreen);
+                    // }
+
+                    log('Task id form filter by type==> ${typeTask.id}');
                   },
                   child: TaskContainer(
                     index: index,

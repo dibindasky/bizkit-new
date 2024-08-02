@@ -4,14 +4,17 @@ import 'dart:io';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
+import 'package:bizkit/module/task/domain/model/task/add_new_assined_users_model/add_new_assined_users_model.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
@@ -31,7 +34,6 @@ import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
-import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -53,6 +55,8 @@ class CreateTaskController extends GetxController {
 
   // List of participants involved in the task
   var participants = <TaskAssignedTo>[].obs;
+
+  var participantsForEditTask = <AssignedToDetail>[].obs;
 
   // Lists for storing various task types and deadlines
   RxList<Task> typeTasks = <Task>[].obs;
@@ -138,6 +142,10 @@ class CreateTaskController extends GetxController {
   // Method to remove a participant
   void removeParticipant(TaskAssignedTo participant) {
     participants.remove(participant);
+  }
+
+  void removeParticipantsForEdit(dynamic participant) {
+    participantsForEditTask.remove(participant);
   }
 
   // Converts PriorityLevel enum to string
@@ -678,6 +686,43 @@ class CreateTaskController extends GetxController {
           tasksCounts[element] = success.taskCounts[element]!.obs;
         }
 
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void addNewUserToAssginedUsers(
+      {required AddNewAssinedUsersModel addNewAssginedUsersModel}) async {
+    isLoading.value = true;
+
+    final result = await taskService.addNewUserToAssginedUsers(
+        addNewAssginedUsersModel: addNewAssginedUsersModel);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        log("${success.message}");
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void removeUserFromAssginedUsers(
+      {required RemoveUserFromAssignedModel
+          removeUserFromAssignedModel}) async {
+    isLoading.value = true;
+
+    final result = await taskService.removeUserFromAssginedUsers(
+        removeUserFromAssignedModel: removeUserFromAssignedModel);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        log("${success.message}");
         isLoading.value = false;
       },
     );

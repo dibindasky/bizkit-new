@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/widget/request_dicline_dailog.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/widget/request_mark_dailog.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -15,6 +17,7 @@ class NotificationRequestCard extends StatelessWidget {
       this.acceptanceStatus,
       this.taskType,
       this.isAccepted,
+      this.name,
       this.des});
   final String? title;
   final String? priorityLevel;
@@ -24,108 +27,113 @@ class NotificationRequestCard extends StatelessWidget {
   final String? acceptanceStatus;
   final String? taskType;
   final String? des;
+  final String? name;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(13.0.w),
-      decoration: BoxDecoration(
-        color: kNotificationColor,
-        borderRadius: BorderRadius.circular(10.0.h),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title ?? 'title',
-                  style: TextStyle(
-                    color: kwhite,
-                    fontSize: 14.0.sp,
-                    fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        log('Task id ------- >>> $taskId');
+      },
+      child: Container(
+        padding: EdgeInsets.all(13.0.w),
+        decoration: BoxDecoration(
+          color: kNotificationColor,
+          borderRadius: BorderRadius.circular(10.0.h),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title ?? 'title',
+                    style: TextStyle(
+                      color: kwhite,
+                      fontSize: 14.0.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                adjustHieght(4.h),
-                Text(
-                  des ?? 'des',
-                  style: TextStyle(
-                    color: klightgrey,
-                    fontSize: 12.0.sp,
+                  adjustHieght(4.h),
+                  Text(
+                    des ?? 'des',
+                    style: TextStyle(
+                      color: klightgrey,
+                      fontSize: 12.0.sp,
+                    ),
                   ),
-                ),
-                adjustHieght(8.h),
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: const AssetImage(
-                        dummyPersonImage,
+                  adjustHieght(8.h),
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: const AssetImage(
+                          dummyPersonImage,
+                        ),
+                        radius: 10.0.w,
                       ),
-                      radius: 10.0.w,
-                    ),
-                    adjustWidth(8.w),
-                    Text(
-                      'Will Jacks',
-                      style: TextStyle(
+                      adjustWidth(8.w),
+                      Text(
+                        name ?? '',
+                        style: TextStyle(
+                          color: neonShade,
+                          fontSize: 12.0.sp,
+                        ),
+                      ),
+                      adjustWidth(16.w),
+                      Icon(
+                        Icons.calendar_today,
                         color: neonShade,
-                        fontSize: 12.0.sp,
+                        size: 12.0.w,
                       ),
-                    ),
-                    adjustWidth(16.w),
-                    Icon(
-                      Icons.calendar_today,
-                      color: neonShade,
-                      size: 12.0.w,
-                    ),
-                    adjustWidth(4.w),
-                    Text(
-                      deadline ?? '12 My',
-                      style: TextStyle(
-                        color: neonShade,
-                        fontSize: 12.0.sp,
+                      adjustWidth(4.w),
+                      Text(
+                        deadline ?? '12 My',
+                        style: TextStyle(
+                          color: neonShade,
+                          fontSize: 12.0.sp,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          CircleAvatar(
-            radius: 17.w,
-            backgroundColor: neonShade,
-            child: IconButton(
-              icon: const Icon(
-                Icons.check,
-                color: kblack,
+                    ],
+                  ),
+                ],
               ),
-              color: neonShade,
-              onPressed: () {
-                requestMarkingDailog(
-                  isAccepted: isAccepted,
-                  context,
-                  taskId: taskId,
-                );
-              },
             ),
-          ),
-          adjustWidth(10.w),
-          CircleAvatar(
-            radius: 17.w,
-            backgroundColor: kred,
-            child: IconButton(
-              icon: const Icon(Icons.cancel),
-              color: Colors.redAccent,
-              onPressed: () {
-                requestDiclineShowDailog(
-                  context,
-                  taskId: taskId,
-                  isAccepted: isAccepted,
-                );
-              },
+            CircleAvatar(
+              radius: 17.w,
+              backgroundColor: neonShade,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.check,
+                  color: kblack,
+                ),
+                color: neonShade,
+                onPressed: () {
+                  requestMarkingDailog(
+                    context,
+                    taskId: taskId,
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+            adjustWidth(10.w),
+            CircleAvatar(
+              radius: 17.w,
+              backgroundColor: kred,
+              child: IconButton(
+                icon: const Icon(Icons.cancel),
+                color: Colors.redAccent,
+                onPressed: () {
+                  requestDiclineShowDailog(
+                    context,
+                    taskId: taskId,
+                    isAccepted: isAccepted,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

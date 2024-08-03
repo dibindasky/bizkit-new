@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -11,14 +12,11 @@ class TagsContainer extends StatelessWidget {
   TagsContainer({super.key, this.tags});
 
   final List<String>? tags;
-
   final TextEditingController tagController = TextEditingController();
-  final controller = Get.find<CreateTaskController>();
+  final CreateTaskController controller = Get.find<CreateTaskController>();
 
   @override
   Widget build(BuildContext context) {
-    // Combine the passed tags and the controller's tags
-    // controller.updatingTags(tags);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -45,9 +43,12 @@ class TagsContainer extends StatelessWidget {
                   placeholderStyle: TextStyle(color: kwhite.withOpacity(0.6)),
                   suffix: GestureDetector(
                     onTap: () {
-                      controller.addTag(tagController.text.trim());
+                      final tag = tagController.text.trim();
+
+                      if (tag.isNotEmpty && !controller.tags.contains(tag)) {
+                        controller.tags.add(tag);
+                      }
                       tagController.clear();
-                      log('Tag Added to tags list From UI ====> ${controller.tags}');
                     },
                     child: const Padding(
                       padding: EdgeInsets.only(right: 10.0),
@@ -74,26 +75,20 @@ class TagsContainer extends StatelessWidget {
                   return Wrap(
                     spacing: 18.0,
                     runSpacing: 4.0,
-                    children: controller.tags.map((tag) {
-                      int index = controller.tags.toList().indexOf(tag) %
-                          controller.tagColor.length;
-                      final isSelected = controller.selectedTags.contains(tag);
-                      return FilterChip(
-                        side: BorderSide.none,
+                    children: controller.tags.asMap().entries.map((entry) {
+                      int index = entry.key;
+                      String tag = entry.value;
+                      return Chip(
                         label: Text(
                           tag,
-                          style: TextStyle(
-                            color: isSelected
-                                ? kwhite
-                                : controller.tagColor[index].withOpacity(0.9),
+                          style: const TextStyle(
+                            color: kwhite,
                           ),
                         ),
-                        selected: isSelected,
-                        onSelected: (_) => controller.toggleTagSelection(tag),
-                        selectedColor: neonShade.withOpacity(0.9),
-                        backgroundColor:
-                            controller.tagColor[index].withOpacity(0.2),
-                        checkmarkColor: kwhite,
+                        side: BorderSide.none,
+                        backgroundColor: controller
+                            .tagColor[index % controller.tagColor.length]
+                            .withOpacity(0.4),
                       );
                     }).toList(),
                   );

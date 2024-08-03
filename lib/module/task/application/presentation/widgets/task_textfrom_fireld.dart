@@ -41,6 +41,7 @@ class TaskTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      showCursor: true,
       enabled: enabled,
       textCapitalization: textCapitalization ?? TextCapitalization.words,
       style: textStyle1.copyWith(color: kwhite),

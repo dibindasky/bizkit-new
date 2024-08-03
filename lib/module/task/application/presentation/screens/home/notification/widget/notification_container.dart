@@ -1,12 +1,16 @@
+import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
+import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/assigned_user.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 
 class NotificationCard extends StatelessWidget {
-  const NotificationCard({super.key, this.title = '', this.description = ''});
+  const NotificationCard(
+      {super.key, this.title = '', this.description = '', this.assignedUsers});
 
   final String title;
   final String description;
+  final List<AssignedUser>? assignedUsers;
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +59,11 @@ class NotificationCard extends StatelessWidget {
                   ),
                   adjustHieght(4),
                   Text(
-                    // 'New project task assigned to imran',
-                    description, maxLines: 1, overflow: TextOverflow.clip,
-
+                    assignedUsers!.isNotEmpty
+                        ? 'New project task assigned to ${assignedUsers?.first.name}'
+                        : '',
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
                     style: const TextStyle(
                       color: kwhite,
                       fontSize: 16.0,
@@ -72,18 +78,9 @@ class NotificationCard extends StatelessWidget {
                 ],
               ),
             ),
-            const Spacer(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                adjustHieght(8),
-                // const CustomStackOnlineDotCircleAvatar(
-                //   isChild: false,
-                //   backgroundColor: knill,
-                //   image: dummyPersonImage,
-                // ),
-              ],
-            ),
+            // const Spacer(),
+            adjustHieght(8),
+
             adjustHieght(8),
           ],
         ),
@@ -91,3 +88,10 @@ class NotificationCard extends StatelessWidget {
     );
   }
 }
+
+
+//  const CustomStackOnlineDotCircleAvatar(
+//               isChild: false,
+//               backgroundColor: knill,
+//               image: personDemoImg,
+//             ),

@@ -1,11 +1,15 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class TaskSearchScreen extends StatelessWidget {
   const TaskSearchScreen({super.key});
@@ -28,13 +32,15 @@ class TaskSearchScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Column(
             children: [
               Hero(
                 tag: 'taskSearch',
                 child: TaskTextField(
+                  // showBorder: true,
                   controller: searchController,
+                  // fillColor: textFieldFillColr,
                   onChanged: (value) {
                     if (value.isNotEmpty) {
                       taskController.searchTasks(searchItem: value);
@@ -64,14 +70,25 @@ class TaskSearchScreen extends StatelessWidget {
                     } else {
                       return ListView.builder(
                         itemCount: taskController.tasksSearch.length,
-                        itemBuilder: (context, index) => ListTile(
-                          onTap: () {},
-                          title: Text(taskController.tasksSearch[index].title ??
-                              'title'),
-                          subtitle: Text(
-                              taskController.tasksSearch[index].description ??
-                                  'description'),
-                        ),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              taskController.fetchSingleTask(
+                                singleTaskModel: GetSingleTaskModel(
+                                    taskId:
+                                        taskController.tasksSearch[index].id ??
+                                            ''),
+                              );
+                              GoRouter.of(context).push(
+                                Routes.taskChatScreen,
+                              );
+                            },
+                            child: TaskContainer(
+                              index: index,
+                              typeTask: taskController.tasksSearch[index],
+                            ),
+                          );
+                        },
                       );
                     }
                   },

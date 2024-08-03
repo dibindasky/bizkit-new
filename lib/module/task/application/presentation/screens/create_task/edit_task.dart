@@ -5,6 +5,7 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/tag_contaner.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
@@ -13,13 +14,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
-class ScreenEditTask extends StatelessWidget {
+class ScreenEditTask extends StatefulWidget {
   ScreenEditTask({super.key, this.taskId});
 
   final String? taskId;
 
+  @override
+  State<ScreenEditTask> createState() => _ScreenEditTaskState();
+}
+
+class _ScreenEditTaskState extends State<ScreenEditTask> {
   final TextEditingController titleController = TextEditingController();
+
   final TextEditingController descriptionController = TextEditingController();
+
   // final TextEditingController taskHeadController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -119,22 +127,44 @@ class ScreenEditTask extends StatelessWidget {
                             return Wrap(
                               spacing: 10.w,
                               runSpacing: 10.h,
-                              children: createTaskController
-                                  .participantsForEditTask
-                                  .map((participant) => Chip(
-                                        deleteIconColor: kred,
-                                        side:
-                                            const BorderSide(color: neonShade),
-                                        label: Text(
-                                          participant.name ?? 'name',
-                                        ),
-                                        onDeleted: () {
-                                          createTaskController
-                                              .removeParticipantsForEdit(
-                                                  participant);
-                                        },
-                                      ))
-                                  .toList(),
+                              children: [
+                                ...createTaskController.participantsForEditTask
+                                    .map((participant) => Chip(
+                                          deleteIconColor: kred,
+                                          side: const BorderSide(
+                                              color: neonShade),
+                                          label: Text(
+                                            participant.name ?? 'name',
+                                          ),
+                                          onDeleted: () {
+                                            // if (participant.userId != null) {
+                                            //   createTaskController
+                                            //       .removeUserFromAssginedUsers(
+                                            //           removeUserFromAssignedModel:
+                                            //               RemoveUserFromAssignedModel(
+                                            //                   taskId:
+                                            //                       widget.taskId,
+                                            //                   assignedTo: []));
+                                            // }
+                                          },
+                                        ))
+                                    .toList(),
+                                ...createTaskController.participantsEditNewList
+                                    .map((participant) => Chip(
+                                          deleteIconColor: kred,
+                                          side: const BorderSide(
+                                              color: neonShade),
+                                          label: Text(
+                                            participant.name ?? 'name',
+                                          ),
+                                          onDeleted: () {
+                                            createTaskController
+                                                .removeParticipantsForEditNewList(
+                                                    participant);
+                                          },
+                                        ))
+                                    .toList(),
+                              ],
                             );
                           }),
                           // const PriorityRecurringDropDownItems(),
@@ -188,7 +218,7 @@ class ScreenEditTask extends StatelessWidget {
                                     createTaskController.editTask(
                                         taskModel: EditTaskModel(
                                       tags: task.tags,
-                                      taskId: taskId,
+                                      taskId: widget.taskId,
                                       title: titleController.text,
                                       description: descriptionController.text,
                                     ));

@@ -95,7 +95,7 @@ class AddParticipentBottomSheet extends StatelessWidget {
                                       participant.user == user.userId);
                             } else {
                               final participant = TaskAssignedTo(
-                                name: user.name,
+                                // name: user.name,
                                 user: user.userId,
                                 isAccepted: 'pending',
                               );
@@ -104,11 +104,11 @@ class AddParticipentBottomSheet extends StatelessWidget {
                             }
 
                             taskController.update();
-                            log('controller.participants  ${taskController.participants.map(
-                                  (element) => element.name,
-                                ).join(
-                                  ', ',
-                                )}');
+                            // log('controller.participants  ${taskController.participants.map(
+                            //       (element) => element.name,
+                            //     ).join(
+                            //       ', ',
+                            //     )}');
                             log('Participants: ${taskController.participants.map((e) => e.user).join(', ')}');
                           },
                           child: Container(

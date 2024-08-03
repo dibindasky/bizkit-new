@@ -45,6 +45,8 @@ class ScreenTaskHome extends StatelessWidget {
                     Get.toNamed(Routes.taskSearch, id: 1);
                   },
                   child: TaskTextField(
+                    showBorder: true,
+                    fillColor: textFieldFillColr,
                     enabled: false,
                     onTapOutside: () => FocusScope.of(context).unfocus(),
                     hintText: 'Find your task',

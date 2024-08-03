@@ -42,7 +42,7 @@ class HomeService implements HomeRepo {
         ApiEndPoints.taskTestGenerateTaskReport,
         data: generateReportModel.toJson(),
       );
-      log("=> Response generate report  : ${response.data}");
+      log("=> Response generate report  : ");
       return Right(GenearateTaskReportSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException generateReport $e');

@@ -57,6 +57,7 @@ class CreateTaskController extends GetxController {
   var participants = <TaskAssignedTo>[].obs;
 
   var participantsForEditTask = <AssignedToDetail>[].obs;
+  var participantsEditNewList = [].obs;
 
   // Lists for storing various task types and deadlines
   RxList<Task> typeTasks = <Task>[].obs;
@@ -83,7 +84,7 @@ class CreateTaskController extends GetxController {
   var tags = <String>[].obs;
 
   // List of selected tags
-  var selectedTags = <String>[].obs;
+  // var selectedTags = <String>[].obs;
 
   // List of colors for tags
   final List<Color> tagColor = [kred, kblue, kgreen, kgrey, kOrange];
@@ -148,6 +149,10 @@ class CreateTaskController extends GetxController {
     participantsForEditTask.remove(participant);
   }
 
+  void removeParticipantsForEditNewList(dynamic participant) {
+    participantsEditNewList.remove(participant);
+  }
+
   // Converts PriorityLevel enum to string
   String priorityLevelEnumToString(PriorityLevel priorityLevel) {
     switch (priorityLevel) {
@@ -204,14 +209,14 @@ class CreateTaskController extends GetxController {
   }
 
   // Function to toggle the selection of a tag
-  void toggleTagSelection(String tag) {
-    if (selectedTags.contains(tag)) {
-      selectedTags.remove(tag);
-    } else {
-      selectedTags.add(tag);
-      log('selectedTags : $selectedTags');
-    }
-  }
+  // void toggleTagSelection(String tag) {
+  //   if (selectedTags.contains(tag)) {
+  //     selectedTags.remove(tag);
+  //   } else {
+  //     selectedTags.add(tag);
+  //     log('selectedTags : $selectedTags');
+  //   }
+  // }
 
   // Function to add a new tag to the list
   void addTag(String tag) {
@@ -247,6 +252,11 @@ class CreateTaskController extends GetxController {
     task.attachments = attachments;
 
     // log('task model ${task.toJson()}');
+
+    log('Subtasks before create a task ------- ${task.subTask}');
+    log('Tags before create a task  -------  ${task.tags}');
+    log('Participants before create a task  -------  ${task.assignedTo}');
+    log('Attachments before create a task  -------  ${task.attachments}');
     final result = await taskService.createTask(task: task);
 
     result.fold(
@@ -258,13 +268,21 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
         log('${success.message}');
         testTaskId = success.taskId.toString();
-        log('TaskID after create new task ==> $testTaskId');
+        // log('TaskID after create new task ==> $testTaskId');
         clearSelectedFiles();
+
         subTasks.clear();
+        tags.clear();
         fetchSendRequests();
         participants.clear();
         attachments.clear();
         deadlineDate.value = '';
+        attachments.clear;
+
+        log('Subtasks after create a task ======= >   ${task.subTask}');
+        log('Tags after create a task  ======= >  ${task.tags}');
+        log('Participants after create a task   ======= > ${task.assignedTo}');
+        log('Attachments after create a task   ======= > ${task.attachments}');
 
         // Filter tasks by type after creation
         // filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
@@ -552,7 +570,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         singleTask.value = success;
-        log('Single Task  After responce => ${singleTask.value.tags}');
+        // log('Single Task  After responce => $singleTask');
 
         isLoading.value = false;
       },

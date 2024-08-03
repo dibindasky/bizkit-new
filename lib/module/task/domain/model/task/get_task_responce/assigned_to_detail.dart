@@ -4,7 +4,7 @@ part 'assigned_to_detail.g.dart';
 
 @JsonSerializable()
 class AssignedToDetail {
-  @JsonKey(name: 'user_id')
+  @JsonKey(name: 'user')
   String? userId;
   String? name;
   @JsonKey(name: 'is_accepted')

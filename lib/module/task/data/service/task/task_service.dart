@@ -49,11 +49,11 @@ class TaskService implements TaskRepo {
   Future<Either<ErrorModel, TaskSuccessResponce>> createTask(
       {required TaskModel task}) async {
     try {
-      for (var element in task.assignedTo ?? []) {
-        log('data => :${element.toString()}');
-      }
+      // for (var element in task.assignedTo ?? []) {
+      //   log('data => :${element.toString()}');
+      // }
 
-      log('Task Datas : => ${task.toJson()}');
+      log('Task Tags  : => ${task.tags}');
       final response = await apiService.post(
         ApiEndPoints.taskTestCreateTask,
         data: task.toJson(),

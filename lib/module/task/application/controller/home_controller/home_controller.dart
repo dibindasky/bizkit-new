@@ -85,15 +85,15 @@ class TaskHomeScreenController extends GetxController {
     try {
       final bytes = base64Decode(base64Data);
 
-      final directory = await getExternalStorageDirectory();
-      final path = '${directory!.path}/task_report.$fileType';
+      final directory = await getApplicationDocumentsDirectory();
+      final path = '${directory.path}/task_report.$fileType';
 
       final file = File(path);
       await file.writeAsBytes(bytes);
 
       Get.snackbar(
         'Download Complete',
-        'Your $fileType report has been saved to $path',
+        'Your $fileType report has been saved and is accessible',
         snackPosition: SnackPosition.BOTTOM,
       );
 

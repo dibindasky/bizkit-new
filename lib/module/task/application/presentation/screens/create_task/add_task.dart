@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
@@ -54,12 +53,12 @@ class ScreenAddTask extends StatelessWidget {
               GoRouter.of(context).pop();
             } else {
               Get.back(id: navigationId);
-              controller.selectedTags.clear();
               controller.tags.clear();
               controller.subTasks.clear();
               controller.participants.clear();
               controller.clearSelectedFiles();
               titleController.clear();
+
               descriptionController.clear();
             }
           },
@@ -139,7 +138,7 @@ class ScreenAddTask extends StatelessWidget {
                                         side:
                                             const BorderSide(color: neonShade),
                                         label: Text(
-                                          participant.name ?? 'name',
+                                          participant.user ?? 'name',
                                         ),
                                         onDeleted: () {
                                           controller
@@ -196,7 +195,6 @@ class ScreenAddTask extends StatelessWidget {
       var attachments =
           controller.convertFilesToAttachments(controller.selectedFiles);
 
-      log('Tages before create new task From UI =>>>>>> ${controller.selectedTags}');
       controller.createNewTask(
         task: TaskModel(
           title: titleController.text,
@@ -213,15 +211,14 @@ class ScreenAddTask extends StatelessWidget {
               .priorityLevelEnumToString(controller.createPriorityLevel.value),
           recurrentTask: controller.createRecurring.value,
           subTask: controller.subTasks.isNotEmpty ? controller.subTasks : [],
-          tags:
-              controller.selectedTags.isNotEmpty ? controller.selectedTags : [],
+          tags: controller.tags.isNotEmpty ? controller.tags : [],
           taskType:
               controller.taskTypeEnumToString(controller.createTaskTupe.value),
         ),
       );
 
       controller.userslist.clear();
-      controller.selectedTags.clear();
+      controller.tags.clear();
       controller.tags.clear();
 
       Future.delayed(

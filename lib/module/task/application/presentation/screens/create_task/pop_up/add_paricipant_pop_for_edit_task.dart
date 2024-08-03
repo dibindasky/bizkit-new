@@ -91,9 +91,9 @@ class AddParticipentForTaskEditBottomSheet extends StatelessWidget {
                         trailing: GestureDetector(
                           onTap: () {
                             if (isAlreadyAdded) {
-                              controller.participantsForEditTask.removeWhere(
-                                  (participant) =>
-                                      participant.userId == user.userId);
+                              // controller.participantsForEditTask.removeWhere(
+                              //     (participant) =>
+                              //         participant.userId == user.userId);
                             } else {
                               final participant = AssignedToDetail(
                                 name: user.name,
@@ -101,7 +101,7 @@ class AddParticipentForTaskEditBottomSheet extends StatelessWidget {
                                 isAccepted: 'pending',
                               );
 
-                              controller.participantsForEditTask
+                              controller.participantsEditNewList
                                   .add(participant);
                             }
 

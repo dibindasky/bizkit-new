@@ -11,7 +11,7 @@ AddNewAssinedUsersModel _$AddNewAssinedUsersModelFromJson(
     AddNewAssinedUsersModel(
       taskId: json['task_id'] as String?,
       assignedTo: (json['assigned_to'] as List<dynamic>?)
-          ?.map((e) => AssignedTo.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => AssignedToDetail.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

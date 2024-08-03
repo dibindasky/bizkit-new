@@ -1,10 +1,10 @@
+import 'package:bizkit/module/task/domain/model/task/task_model/attachment.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'assigned_to.dart';
-import 'attachment.dart';
 import 'sub_task.dart';
 
-part "task_model.g.dart";
+part 'task_model.g.dart';
 
 @JsonSerializable()
 class TaskModel {
@@ -42,7 +42,6 @@ class TaskModel {
     this.subTask,
     this.assignedTo,
     this.taskType,
-    String? id,
   });
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {

@@ -317,8 +317,9 @@ class TaskFolderController extends GetxController {
     );
   }
 
-  void filterInnerFolderByDeadline(
-      {required FilterInnerFolderModel filterInnerFolder}) async {
+  void filterInnerFolderByDeadline({
+    required FilterInnerFolderModel filterInnerFolder,
+  }) async {
     isLoading.value = true;
     final result = await folderService.filterInnerFolderByDealine(
         filterInnerFolder: filterInnerFolder);

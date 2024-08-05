@@ -104,6 +104,7 @@ class AuthenticationService implements AuthenticationRepo {
     try {
       log('logOut data ');
       final token = await SecureStorage.getToken();
+      _dio.options.headers = {'Authorization': "Bearer ${token.accessToken}"};
       final responce = await _dio.post(
         ApiEndPoints.logOut,
         data: TokenModel(refreshToken: token.refreshToken).toJson(),

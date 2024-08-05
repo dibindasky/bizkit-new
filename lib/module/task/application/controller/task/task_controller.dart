@@ -57,7 +57,6 @@ class CreateTaskController extends GetxController {
   var participants = <TaskAssignedTo>[].obs;
 
   var participantsForEditTask = <AssignedToDetail>[].obs;
-  var participantsEditNewList = [].obs;
 
   // Lists for storing various task types and deadlines
   RxList<Task> typeTasks = <Task>[].obs;
@@ -147,10 +146,6 @@ class CreateTaskController extends GetxController {
 
   void removeParticipantsForEdit(dynamic participant) {
     participantsForEditTask.remove(participant);
-  }
-
-  void removeParticipantsForEditNewList(dynamic participant) {
-    participantsEditNewList.remove(participant);
   }
 
   // Converts PriorityLevel enum to string
@@ -294,20 +289,36 @@ class CreateTaskController extends GetxController {
   // Edits an existing task with the provided task model
   void editTask({
     required EditTaskModel taskModel,
+    required String taskId,
   }) async {
     isLoading.value = true;
 
-    // TaskModel task = TaskModel(
-    //   title: taskModel.title,
-    //   description: taskModel.description,
-    //   priorityLevel: taskModel.priorityLevel,
-    //   recurrentTask: taskModel.recurrentTask,
-    //   deadLine: taskModel.deadLine,
-    //   tags: selectedTags.toList(),
-    //   attachments: attachments,
-    //   subTask: subTasks.toList(),
-    //   assignedTo: participants,
-    // );
+    log('Edit assignedTo  ==> ${taskModel.assignedTo}');
+
+    List<TaskAssignedTo> templist = [];
+    for (var i = 0; i < participantsForEditTask.length; i++) {
+      if (!(singleTask.value.assignedToDetails ?? []).any(
+        (element) => element.userId == participantsForEditTask[i].userId,
+      )) {
+        templist.add(TaskAssignedTo(
+            user: participantsForEditTask[i].userId,
+            isAccepted: participantsForEditTask[i].isAccepted));
+      }
+    }
+    List<AssignedToDetail> modelList =
+        singleTask.value.assignedToDetails ?? <AssignedToDetail>[];
+    for (int i = 0; i < modelList.length; i++) {
+      if (participantsForEditTask.any((e) => e.userId == modelList[i].userId)) {
+        modelList.removeAt(i--);
+      }
+    }
+
+    taskModel.assignedTo = templist +
+        modelList
+            .map(
+              (e) => TaskAssignedTo(user: e.userId, isAccepted: e.isAccepted),
+            )
+            .toList();
 
     final result = await taskService.editTask(taskModel: taskModel);
     result.fold(
@@ -318,8 +329,7 @@ class CreateTaskController extends GetxController {
       (success) {
         isLoading.value = false;
         log('${success.message}');
-        // Filter tasks by type after editing
-        // filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
+        fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
       },
     );
   }
@@ -602,7 +612,8 @@ class CreateTaskController extends GetxController {
   }
 
   // Adds a new subtask using the provided model
-  void addSubTask({required SubTaskAddModel newsubtask}) async {
+  void addSubTask(
+      {required SubTaskAddModel newsubtask, required String taskId}) async {
     isLoading.value = true;
 
     final result = await taskService.addSubTask(newsubtask: newsubtask);
@@ -613,13 +624,16 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         log("${success.message}");
+        fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
         isLoading.value = false;
       },
     );
   }
 
   // Deletes a subtask using the provided model
-  void deleteSubTask({required DeleteSubTaskModel deletesubtask}) async {
+  void deleteSubTask(
+      {required DeleteSubTaskModel deletesubtask,
+      required String taskId}) async {
     isLoading.value = true;
 
     final result =
@@ -631,13 +645,15 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         log("${success.message}");
+        fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
         isLoading.value = false;
       },
     );
   }
 
   // Edits an existing subtask using the provided model
-  void editSubTask({required EditSubTaskModel editsubtask}) async {
+  void editSubTask(
+      {required EditSubTaskModel editsubtask, required String taskId}) async {
     isLoading.value = true;
 
     final result = await taskService.editSubTask(editsubtask: editsubtask);
@@ -648,6 +664,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         log("${success.message}");
+        fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
         isLoading.value = false;
       },
     );

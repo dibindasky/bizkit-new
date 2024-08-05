@@ -35,7 +35,7 @@ class TaskCalenderViewAppBar extends StatelessWidget {
           CustomCircleAvatar(
             backgroundColor: lightGrey,
             onTap: () {
-              Get.toNamed(Routes.taskNotification, id: 2);
+              // Get.toNamed(Routes.taskNotification, id: 2);
             },
             backgroundColorInner: neonShade,
           ),

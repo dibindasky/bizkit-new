@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
@@ -9,8 +11,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class TaskHomeAppBar extends StatelessWidget {
+class TaskHomeAppBar extends StatefulWidget {
   const TaskHomeAppBar({super.key});
+
+  @override
+  State<TaskHomeAppBar> createState() => _TaskHomeAppBarState();
+}
+
+class _TaskHomeAppBarState extends State<TaskHomeAppBar> {
+  String? name = '';
+
+  void getName() async {
+    name = await SecureStorage.getName();
+    log('Name => $name');
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getName();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +41,11 @@ class TaskHomeAppBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Obx(
-          () => Text(
-            authController.userName.value.isNotEmpty
-                ? "Welcome \n ${authController.userName.value}"
-                : "Welcome \n Guest",
-            style: TextStyle(
-              fontSize: 17.sp,
-              fontWeight: FontWeight.bold,
-            ),
+        Text(
+          "Welcome ${name ?? 'Guest'}",
+          style: TextStyle(
+            fontSize: 17.sp,
+            fontWeight: FontWeight.bold,
           ),
         ),
         Row(
@@ -36,7 +53,7 @@ class TaskHomeAppBar extends StatelessWidget {
             CustomCircleAvatar(
               backgroundColor: lightGrey,
               onTap: () {
-                Get.toNamed(Routes.taskNotification, id: 1);
+                // Get.toNamed(Routes.taskNotification, id: 1);
               },
               backgroundColorInner: neonShade,
             ),

@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:ffi';
 
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -53,32 +55,40 @@ class TaskDetailSubtasksSection extends StatelessWidget {
         ),
         adjustHieght(5.h),
         Obx(
-          () => controller.singleTask.value.subTask?.isEmpty ?? true
-              ? Center(
-                  child: Column(
-                    children: [
-                      adjustHieght(20.h),
-                      Text(
-                        'No Subtasks available',
-                        style: textThinStyle1,
-                      ),
-                    ],
-                  ),
-                )
-              : ListView.builder(
-                  itemCount: controller.singleTask.value.subTask?.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final subTask = controller.singleTask.value.subTask?[index];
-                    return SubTaskTileDetailPage(
-                      taskId: controller.singleTask.value.id,
-                      subTaskTitle: subTask?.title ?? '',
-                      subTaskDes: subTask?.description ?? '',
-                      subTaskId: subTask?.id ?? '',
-                    );
-                  },
+          () {
+            if (controller.isLoading == true) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (controller.singleTask.value.subTask?.isEmpty ?? true) {
+              return Center(
+                child: Column(
+                  children: [
+                    adjustHieght(20.h),
+                    Text(
+                      'No Subtasks available',
+                      style: textThinStyle1,
+                    ),
+                  ],
                 ),
+              );
+            } else {
+              return ListView.builder(
+                itemCount: controller.singleTask.value.subTask?.length,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final subTask = controller.singleTask.value.subTask?[index];
+                  return SubTaskTileDetailPage(
+                    taskId: controller.singleTask.value.id,
+                    subTaskTitle: subTask?.title ?? '',
+                    subTaskDes: subTask?.description ?? '',
+                    subTaskId: subTask?.id ?? '',
+                  );
+                },
+              );
+            }
+          },
         )
       ],
     );
@@ -205,7 +215,8 @@ class SubTaskTileDetailPage extends StatelessWidget {
                           taskController.deleteSubTask(
                               deletesubtask: DeleteSubTaskModel(
                                   subTaskId: subTaskId ?? '',
-                                  taskId: taskId ?? ''));
+                                  taskId: taskId ?? ''),
+                              taskId: taskId ?? '');
                         },
                         title: 'Delete Subtask',
                         buttonColor: neonShade,

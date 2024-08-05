@@ -150,7 +150,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                               controller.singleTask.value.assignedToDetails
                                   ?.first.userId);
                       if (!isAlreadyAdded) {
-                        controller.participantsForEditTask.addAll(
+                        controller.participantsForEditTask.assignAll(
                             controller.singleTask.value.assignedToDetails ??
                                 []);
                       }

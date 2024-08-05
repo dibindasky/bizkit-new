@@ -66,7 +66,8 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     }, (r) {
       SecureStorage.saveToken(tokenModel: r);
-      userName.value = r.name ?? '';
+      getUserName();
+      // userName.value = r.name ?? '';
       log('user name => ${userName.value}');
 
       SecureStorage.setLogin();
@@ -77,6 +78,11 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     });
     loadingOtpEmail.value = false;
+  }
+
+  void getUserName() async {
+    userName.value = await SecureStorage.getName();
+    log('USer name ${userName.value}');
   }
 
   void loginUser(BuildContext context,
@@ -116,7 +122,8 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     }, (r) {
       SecureStorage.saveToken(tokenModel: r);
-      userName.value = r.name ?? '';
+      getUserName();
+      // userName.value = r.name ?? '';
       log('user name => ${userName.value}');
       SecureStorage.setLogin();
       context.go(Routes.taskNavbar);

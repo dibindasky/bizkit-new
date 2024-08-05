@@ -30,7 +30,7 @@ class InsideAFolderTasks {
   @JsonKey(name: 'created_by')
   CreatedBy? createdBy;
   @JsonKey(name: 'created_at')
-  DateTime? createdAt;
+  String? createdAt;
   InsideAFolderTasks(
       {this.taskId,
       this.title,

@@ -83,7 +83,8 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                       title: titleController.text,
                       description: descriptionController.text,
                     );
-                    controller.editSubTask(editsubtask: editsubtask);
+                    controller.editSubTask(
+                        editsubtask: editsubtask, taskId: taskId ?? '');
                     GoRouter.of(context).pop();
                   } else {
                     // Create new subtask
@@ -95,11 +96,11 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
 
                     if (afterTaskCreation == true) {
                       controller.addSubTask(
-                        newsubtask: SubTaskAddModel(
-                          taskId: taskId,
-                          subTask: subtasks,
-                        ),
-                      );
+                          newsubtask: SubTaskAddModel(
+                            taskId: taskId,
+                            subTask: subtasks,
+                          ),
+                          taskId: taskId ?? '');
                       showSnackbar(
                         context,
                         message: 'Subtask added successfully',

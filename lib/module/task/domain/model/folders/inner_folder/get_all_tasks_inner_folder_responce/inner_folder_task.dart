@@ -27,7 +27,7 @@ class InnerFolderTask {
   @JsonKey(name: 'created_by')
   CreatedBy? createdBy;
   @JsonKey(name: 'created_at')
-  DateTime? createdAt;
+  String? createdAt;
   InnerFolderTask({
     this.taskId,
     this.title,

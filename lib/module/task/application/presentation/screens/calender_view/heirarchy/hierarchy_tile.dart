@@ -535,6 +535,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                       itemBuilder: (context, index) {
                                         final task =
                                             controller.tasksInsideFolder[index];
+
                                         return GestureDetector(
                                           onTap: () {
                                             log('Main folder task id => ${controller.tasksInsideFolder[index].taskId}');

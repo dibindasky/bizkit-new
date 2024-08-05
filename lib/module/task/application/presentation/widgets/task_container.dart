@@ -339,8 +339,10 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_tasks_inside_folder_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/inner_folder_task.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/task_add_to_folder_model/task_add_to_folder_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
@@ -386,34 +388,46 @@ class TaskContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = getSpotLightColor(
-        tasksFromFoldrs == true
-            ? tasksInsideFolder?.createdAt.toString() ?? ''
-            : tasksFromInnerFolder == true
-                ? tasksInsideInnerFolder?.createdAt.toString() ?? ''
-                : typeTask?.createdAt ?? '',
-        tasksFromFoldrs == true
-            ? tasksInsideFolder?.deadLine ?? ''
-            : tasksFromInnerFolder == true
-                ? tasksInsideInnerFolder?.deadLine ?? ''
-                : typeTask?.deadLine ?? '');
+    String? created, deadline;
+    bool? spotlightOn;
+    if (typeTask != null) {
+      created = typeTask?.createdAt;
+      deadline = typeTask?.deadLine;
+      spotlightOn = typeTask?.spotlightOn;
+    } else if (tasksInsideFolder != null) {
+      created = tasksInsideFolder?.createdAt;
+      deadline = tasksInsideFolder?.deadLine;
+      spotlightOn = tasksInsideFolder?.spotlightOn;
+    } else if (tasksInsideInnerFolder != null) {
+      created = tasksInsideInnerFolder?.createdAt;
+      deadline = tasksInsideInnerFolder?.deadLine;
+      spotlightOn = tasksInsideInnerFolder?.spotlightOn;
+    }
+
+    final color = getSpotLightColor(created, deadline);
     return AnimatedGrowShrinkContainer(
-      animate: typeTask?.spotlightOn ?? false,
+      animate: spotlightOn ?? false,
+      // animate: tasksFromFoldrs == true
+      //     ? tasksInsideFolder?.spotlightOn ?? false
+      //     : tasksFromInnerFolder == true
+      //         ? tasksInsideInnerFolder?.spotlightOn ?? false
+      //         : typeTask?.spotlightOn ?? false,
       begin: 0.95,
       end: 0.99,
       backgroundColor: klightGreyClr,
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: kBorderRadius15,
-            boxShadow: typeTask?.spotlightOn ?? false
-                ? [
-                    BoxShadow(
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 1),
-                        color: color.withOpacity(0.4))
-                  ]
-                : null),
+          borderRadius: kBorderRadius15,
+          boxShadow: spotlightOn ?? false
+              ? [
+                  BoxShadow(
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 1),
+                      color: color.withOpacity(0.4))
+                ]
+              : null,
+        ),
         child: Obx(
           () => Stack(
             children: [
@@ -424,7 +438,7 @@ class TaskContainer extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
                     width: 2,
-                    color: typeTask?.spotlightOn ?? false
+                    color: spotlightOn ?? false
                         ? color
                         : controller.selectedIndices.contains(index)
                             ? neonShade
@@ -535,7 +549,22 @@ class TaskContainer extends StatelessWidget {
                                         onTap: () {
                                           taskController.spotLightTask(
                                             spotLightTask: SpotLightTask(
-                                              spotLightStatus: true,
+                                              spotLightStatus: tasksFromFoldrs ==
+                                                          true &&
+                                                      tasksInsideFolder
+                                                              ?.spotlightOn ==
+                                                          true
+                                                  ? false
+                                                  : tasksFromInnerFolder ==
+                                                              true &&
+                                                          tasksInsideInnerFolder
+                                                                  ?.spotlightOn ==
+                                                              true
+                                                      ? false
+                                                      : typeTask?.spotlightOn ==
+                                                              true
+                                                          ? false
+                                                          : true,
                                               taskId: tasksFromFoldrs == true
                                                   ? tasksInsideFolder?.taskId
                                                   : tasksFromInnerFolder == true
@@ -544,6 +573,25 @@ class TaskContainer extends StatelessWidget {
                                                       : typeTask?.id,
                                             ),
                                           );
+                                          taskController.taskFilterByDeadline(
+                                              filterByDeadline:
+                                                  FilterByDeadlineModel(
+                                                      date: taskController
+                                                          .deadlineDate.value));
+
+                                          taskFolderController
+                                              .fetchTasksInsideFolder(
+                                                  taskInsideFolder:
+                                                      GetTaskInsideAFolderParamsModel(
+                                                          folderId:
+                                                              folderId ?? ' '));
+
+                                          taskFolderController
+                                              .fetchAllTasksInsideAInnerFolder(
+                                                  InnerFolderTasksGetParamsModel(
+                                                      folderId: folderId ?? '',
+                                                      innerFolderId:
+                                                          innerFolderId ?? ''));
                                         },
                                       ),
                                     if (typeTask?.isPinned == false)

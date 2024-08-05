@@ -22,9 +22,8 @@ InsideAFolderTasks _$InsideAFolderTasksFromJson(Map<String, dynamic> json) =>
       createdBy: json['created_by'] == null
           ? null
           : CreatedBy.fromJson(json['created_by'] as Map<String, dynamic>),
-      createdAt: json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String),
+      createdAt:
+          json['created_at'] == null ? null : (json['created_at'] as String),
     );
 
 Map<String, dynamic> _$InsideAFolderTasksToJson(InsideAFolderTasks instance) =>
@@ -41,5 +40,5 @@ Map<String, dynamic> _$InsideAFolderTasksToJson(InsideAFolderTasks instance) =>
       'is_owned': instance.isOwned,
       'spotlight_on': instance.spotlightOn,
       'created_by': instance.createdBy,
-      'created_at': instance.createdAt?.toIso8601String(),
+      'created_at': instance.createdAt,
     };

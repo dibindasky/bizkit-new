@@ -1,4 +1,4 @@
-import 'package:bizkit/module/task/domain/model/task/add_new_assined_users_model/assigned_to.dart';
+import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'edit_task_responce.g.dart';
@@ -11,7 +11,7 @@ class EditTaskModel {
   @JsonKey(name: 'task_id')
   String? taskId;
   @JsonKey(name: 'assigned_to')
-  List<AssignedTo>? assignedTo;
+  List<TaskAssignedTo>? assignedTo;
 
   EditTaskModel(
       {this.title, this.description, this.tags, this.taskId, this.assignedTo});

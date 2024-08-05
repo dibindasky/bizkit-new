@@ -23,8 +23,8 @@ class ScreenTaskHome extends StatelessWidget {
     final homeController = Get.find<TaskHomeScreenController>();
     final taskController = Get.find<CreateTaskController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // homeController.progresBar();
-      // taskController.searchTasks(searchItem: '');
+      homeController.progresBar();
+      taskController.searchTasks(searchItem: '');
     });
 
     return Scaffold(
@@ -33,7 +33,7 @@ class ScreenTaskHome extends StatelessWidget {
           padding: const EdgeInsets.only(left: 10.0, right: 10, top: 24),
           child: ListView(
             children: [
-              const TaskHomeAppBar(),
+              TaskHomeAppBar(),
               adjustHieght(16.h),
               Hero(
                 tag: 'taskSearch',

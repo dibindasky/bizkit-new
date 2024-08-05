@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_paricipant_pop_for_edit_task.dart';
@@ -5,7 +6,6 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/tag_contaner.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
-import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
@@ -14,16 +14,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
-class ScreenEditTask extends StatefulWidget {
+class ScreenEditTask extends StatelessWidget {
   ScreenEditTask({super.key, this.taskId});
 
   final String? taskId;
 
-  @override
-  State<ScreenEditTask> createState() => _ScreenEditTaskState();
-}
-
-class _ScreenEditTaskState extends State<ScreenEditTask> {
   final TextEditingController titleController = TextEditingController();
 
   final TextEditingController descriptionController = TextEditingController();
@@ -137,33 +132,28 @@ class _ScreenEditTaskState extends State<ScreenEditTask> {
                                             participant.name ?? 'name',
                                           ),
                                           onDeleted: () {
-                                            // if (participant.userId != null) {
-                                            //   createTaskController
-                                            //       .removeUserFromAssginedUsers(
-                                            //           removeUserFromAssignedModel:
-                                            //               RemoveUserFromAssignedModel(
-                                            //                   taskId:
-                                            //                       widget.taskId,
-                                            //                   assignedTo: []));
-                                            // }
-                                          },
-                                        ))
-                                    .toList(),
-                                ...createTaskController.participantsEditNewList
-                                    .map((participant) => Chip(
-                                          deleteIconColor: kred,
-                                          side: const BorderSide(
-                                              color: neonShade),
-                                          label: Text(
-                                            participant.name ?? 'name',
-                                          ),
-                                          onDeleted: () {
+                                            log('particpant deleted');
                                             createTaskController
-                                                .removeParticipantsForEditNewList(
+                                                .removeParticipantsForEdit(
                                                     participant);
                                           },
                                         ))
                                     .toList(),
+                                // ...createTaskController.participantsEditNewList
+                                //     .map((participant) => Chip(
+                                //           deleteIconColor: kred,
+                                //           side: const BorderSide(
+                                //               color: neonShade),
+                                //           label: Text(
+                                //             participant.name ?? 'name',
+                                //           ),
+                                //           onDeleted: () {
+                                //             createTaskController
+                                //                 .removeParticipantsForEditNewList(
+                                //                     participant);
+                                //           },
+                                //         ))
+                                //     .toList(),
                               ],
                             );
                           }),
@@ -217,11 +207,14 @@ class _ScreenEditTaskState extends State<ScreenEditTask> {
 
                                     createTaskController.editTask(
                                         taskModel: EditTaskModel(
-                                      tags: task.tags,
-                                      taskId: widget.taskId,
-                                      title: titleController.text,
-                                      description: descriptionController.text,
-                                    ));
+                                          tags: task.tags,
+                                          taskId: taskId ?? '',
+                                          title: titleController.text,
+                                          description:
+                                              descriptionController.text,
+                                        ),
+                                        taskId: taskId ?? '');
+
                                     // log("DeadLine => ${controller.deadlineDate.value}");
                                     // log('======> $controller.participants');
                                     // log('createPriorityLevel value : => ${controller.createPriorityLevel.value}');

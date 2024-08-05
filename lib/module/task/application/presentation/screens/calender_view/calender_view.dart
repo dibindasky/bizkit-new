@@ -86,19 +86,22 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                               if (taskCalenderViewController
                                       .taskTabChangeIndex.value ==
                                   1) {
+                                taskController.deadlineDate.value =
+                                    DateTimeFormater.dateTimeFormat(date);
                                 taskController.taskFilterByDeadline(
                                   filterByDeadline: FilterByDeadlineModel(
-                                    date: DateTimeFormater.dateTimeFormat(date),
+                                    date: taskController.deadlineDate.value,
                                   ),
                                 );
                               } else if (taskCalenderViewController
                                       .taskTabChangeIndex.value ==
                                   2) {
+                                taskController.deadlineDate.value =
+                                    DateTimeFormater.dateTimeFormat(date);
                                 controller.filterFoldersByDeadline(
                                     filterFolder: FilterFolderByDeadlineModel(
                                         filterDate:
-                                            DateTimeFormater.dateTimeFormat(
-                                                date)));
+                                            taskController.deadlineDate.value));
                               }
                             },
                             child: AnimatedContainer(

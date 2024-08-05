@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
@@ -68,6 +69,7 @@ class TaskLongPressAppBarItems extends StatelessWidget {
 
   final controller = Get.find<TaskCalenderViewController>();
   final folderController = Get.find<TaskFolderController>();
+  // final taskController = Get.find<CreateTaskController>();
 
   final String? folderId;
 
@@ -113,6 +115,7 @@ class TaskLongPressAppBarItems extends StatelessWidget {
                       ),
                     );
                     controller.selectedIndices.clear();
+                    folderController.selectedInnerFolderIds.clear();
                     controller.selectedFolderContainer.value = false;
                     Navigator.of(context).pop();
                   }

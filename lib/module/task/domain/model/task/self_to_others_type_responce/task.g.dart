@@ -21,6 +21,9 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
           .toList(),
       title: json['task_title'] as String?,
       status: json['status'] as String?,
+      createdBy: json['created_by'] == null
+          ? null
+          : CreatedBy.fromJson(json['created_by'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
@@ -36,4 +39,5 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'spotlight_on': instance.spotlightOn,
       'is_pinned': instance.isPinned,
       'status': instance.status,
+      'created_by': instance.createdBy,
     };

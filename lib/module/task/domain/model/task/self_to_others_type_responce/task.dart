@@ -1,6 +1,8 @@
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/sub_task.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../folders/inner_folder/get_all_tasks_inner_folder_responce/created_by.dart';
+
 part 'task.g.dart';
 
 @JsonSerializable()
@@ -29,20 +31,22 @@ class Task {
   bool? isPinned;
   @JsonKey(name: 'status')
   String? status;
-  Task({
-    this.id,
-    this.taskType,
-    this.isOwned,
-    this.spotlightOn,
-    this.isPinned,
-    this.createdAt,
-    this.deadLine,
-    this.description,
-    this.priorityLevel,
-    this.subtasks,
-    this.title,
-    this.status,
-  });
+  @JsonKey(name: 'created_by')
+  CreatedBy? createdBy;
+  Task(
+      {this.id,
+      this.taskType,
+      this.isOwned,
+      this.spotlightOn,
+      this.isPinned,
+      this.createdAt,
+      this.deadLine,
+      this.description,
+      this.priorityLevel,
+      this.subtasks,
+      this.title,
+      this.status,
+      this.createdBy});
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 

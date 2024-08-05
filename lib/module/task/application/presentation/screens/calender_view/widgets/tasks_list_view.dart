@@ -5,6 +5,7 @@ import 'package:bizkit/module/task/application/controller/caleder_view/calender_
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -47,6 +48,11 @@ class TaskListView extends StatelessWidget {
                       singleTaskModel:
                           GetSingleTaskModel(taskId: deadlineTask.id),
                     );
+                    if (deadlineTask.isOwned == false) {
+                      taskController.spotLightTask(
+                          spotLightTask: SpotLightTask(
+                              spotLightStatus: false, taskId: deadlineTask.id));
+                    }
                     GoRouter.of(context).push(
                       Routes.taskChatScreen,
                     );

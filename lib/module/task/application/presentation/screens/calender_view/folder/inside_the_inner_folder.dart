@@ -76,6 +76,7 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                                         ''));
                           },
                           child: TaskContainer(
+                            fromInnerfolder: true,
                             fromFolders: true,
                             tasksFromInnerFolder: true,
                             folderId: arguments?['folderId'],

@@ -12,6 +12,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -132,6 +133,13 @@ class TaskFolderSection extends StatelessWidget {
                         deleteFolder: DeleteFolderModel(
                           folderId: folderId,
                         ),
+                      );
+                      showSnackbar(
+                        context,
+                        message: 'Folder deleted successfully',
+                        backgroundColor: kred,
+                        textColor: kblack,
+                        duration: 4,
                       );
                     },
                     title: 'Delete Folder',

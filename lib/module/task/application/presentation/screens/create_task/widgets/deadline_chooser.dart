@@ -50,7 +50,7 @@ class DeadlineChooserCreateTask extends StatelessWidget {
             () => ContainerTextFieldDummy(
                 text: controller.deadlineDate.value.isEmpty
                     ? 'Choose Deadline'
-                    : 'Choose Deadline',
+                    : controller.deadlineDate.value,
                 suffixIcon: Icons.calendar_month),
           ),
         ),

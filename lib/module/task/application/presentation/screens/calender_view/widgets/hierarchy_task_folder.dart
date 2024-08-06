@@ -133,15 +133,15 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
             CustomCircleAvatar(
               radius: 20,
               onTap: () {
-                showModalBottomSheet(
-                  isDismissible: true,
-                  enableDrag: true,
-                  showDragHandle: true,
-                  context: context,
-                  builder: (context) {
-                    return TaskSortingBottomSheet();
-                  },
-                );
+                // showModalBottomSheet(
+                //   isDismissible: true,
+                //   enableDrag: true,
+                //   showDragHandle: true,
+                //   context: context,
+                //   builder: (context) {
+                //     return TaskSortingBottomSheet();
+                //   },
+                // );
               },
               backgroundColor: lightGrey,
               backgroundColorInner: lightGrey,

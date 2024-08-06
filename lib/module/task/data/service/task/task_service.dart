@@ -277,7 +277,7 @@ class TaskService implements TaskRepo {
         data: singleTaskModel.toJson(),
       );
 
-      log("=> Response Get one task :  ");
+      log("=> Response Get one task : ${response.data} ");
 
       return Right(GetTaskResponce.fromJson(response.data));
     } on DioException catch (e) {

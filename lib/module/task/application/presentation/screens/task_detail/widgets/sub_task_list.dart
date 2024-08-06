@@ -8,6 +8,7 @@ import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_mo
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -217,6 +218,13 @@ class SubTaskTileDetailPage extends StatelessWidget {
                                   subTaskId: subTaskId ?? '',
                                   taskId: taskId ?? ''),
                               taskId: taskId ?? '');
+                          showSnackbar(
+                            context,
+                            message: 'Subtask deleted successfully',
+                            backgroundColor: kred,
+                            textColor: kblack,
+                            duration: 4,
+                          );
                         },
                         title: 'Delete Subtask',
                         buttonColor: neonShade,

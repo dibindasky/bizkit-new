@@ -258,6 +258,9 @@ class TaskContainer extends StatelessWidget {
                                                               .deadlineDate
                                                               .value));
 
+                                              taskController.searchTasks(
+                                                  searchItem: '');
+
                                               if (tasksFromFoldrs == true) {
                                                 taskFolderController
                                                     .fetchTasksInsideFolder(

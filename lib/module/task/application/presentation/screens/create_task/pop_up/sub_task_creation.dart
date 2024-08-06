@@ -85,6 +85,13 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                     );
                     controller.editSubTask(
                         editsubtask: editsubtask, taskId: taskId ?? '');
+                    showSnackbar(
+                      context,
+                      message: 'Subtask edited successfully',
+                      backgroundColor: neonShade,
+                      textColor: kblack,
+                      duration: 4,
+                    );
                     GoRouter.of(context).pop();
                   } else {
                     // Create new subtask

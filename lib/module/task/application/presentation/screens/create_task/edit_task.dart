@@ -207,6 +207,7 @@ class ScreenEditTask extends StatelessWidget {
 
                                     createTaskController.editTask(
                                         taskModel: EditTaskModel(
+                                          assignedTo: [],
                                           tags: task.tags,
                                           taskId: taskId ?? '',
                                           title: titleController.text,

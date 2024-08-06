@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../../utils/snackbar/snackbar.dart';
+
 class TaskCreateNewFolderDialog extends StatelessWidget {
   final String? folderName;
   final String? folderId;
@@ -75,12 +77,26 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
                             editFolderName: EditFolderModel(
                                 folderName: folderNameController.text,
                                 folderId: folderId));
+                        showSnackbar(
+                          context,
+                          message: 'Edit folder name successfully',
+                          backgroundColor: neonShade,
+                          textColor: kblack,
+                          duration: 4,
+                        );
                       } else {
                         folderController.createNewFolder(
                           folder: FolderModel(
                             folderName: folderNameController.text,
                             tasks: [],
                           ),
+                        );
+                        showSnackbar(
+                          context,
+                          message: 'Folder created successfully',
+                          backgroundColor: neonShade,
+                          textColor: kblack,
+                          duration: 4,
                         );
                       }
                       Navigator.pop(context);

@@ -20,6 +20,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -106,6 +107,13 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                           innerFolderTasks: [],
                         ),
                       );
+                      showSnackbar(
+                        context,
+                        message: 'Create Inner folder successfully',
+                        backgroundColor: neonShade,
+                        textColor: kblack,
+                        duration: 4,
+                      );
                       // log('After inner folder creation ====> ${controller.deadlineDate.value} // $folderId');
                       controller.filterInnerFolderByDeadline(
                           filterInnerFolder: FilterInnerFolderModel(
@@ -130,7 +138,13 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                         taskInsideFolder: GetTaskInsideAFolderParamsModel(
                       folderId: folderId ?? '',
                     ));
-
+                    showSnackbar(
+                      context,
+                      message: 'Edit inner folder name successfully',
+                      backgroundColor: neonShade,
+                      textColor: kblack,
+                      duration: 4,
+                    );
                     Navigator.of(context).pop();
                   }
                 },
@@ -479,6 +493,14 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                               GetTaskInsideAFolderParamsModel(
                                                             folderId: folderId,
                                                           ),
+                                                        );
+                                                        showSnackbar(
+                                                          context,
+                                                          message:
+                                                              'Inner folder deleted successfully',
+                                                          backgroundColor: kred,
+                                                          textColor: kblack,
+                                                          duration: 4,
                                                         );
                                                       },
                                                       title: 'Delete Folder',

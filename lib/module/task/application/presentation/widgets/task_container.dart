@@ -404,18 +404,18 @@ class TaskContainer extends StatelessWidget {
                                       return items;
                                     },
                                   ),
-                                  // Text(
-                                  //   maxLines: 1,
-                                  //   overflow: TextOverflow.ellipsis,
-                                  //   typeTask?.isOwned == true ||
-                                  //           tasksInsideFolder?.isOwned ==
-                                  //               true ||
-                                  //           tasksInsideInnerFolder?.isOwned ==
-                                  //               true
-                                  //       ? 'Created by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}'
-                                  //       : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
-                                  //   style: textThinStyle1,
-                                  // ),
+                                  Text(
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    typeTask?.isOwned == true ||
+                                            tasksInsideFolder?.isOwned ==
+                                                true ||
+                                            tasksInsideInnerFolder?.isOwned ==
+                                                true
+                                        ? 'Created by \n ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}'
+                                        : 'Assigned by \n ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
+                                    style: textThinStyle1.copyWith(fontSize: 8),
+                                  ),
                                 ],
                               ),
                             ],

@@ -10,6 +10,7 @@ import 'package:bizkit/module/task/domain/model/dashboard/get_report_model/get_r
 import 'package:bizkit/module/task/domain/model/dashboard/get_report_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/progres_bar_success_responce/counts.dart';
 import 'package:bizkit/module/task/domain/repository/service/home_repo.dart';
+import 'package:bizkit/packages/pdf/pdf_generator.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -17,6 +18,7 @@ class TaskHomeScreenController extends GetxController {
   final HomeRepo homeService = HomeService();
 
   RxBool isLoading = false.obs;
+  RxBool fileDownloading = false.obs;
   RxString taskCategory = ''.obs;
   Rx<Counts> progresBarCounts = Counts().obs;
   RxList<ReportTask> reportTasks = <ReportTask>[].obs;
@@ -110,14 +112,14 @@ class TaskHomeScreenController extends GetxController {
 
   void generateReport(
       {required GenearateReportModel generateReportModel}) async {
-    isLoading.value = true;
+    fileDownloading.value = true;
 
     final result = await homeService.generateReport(
         generateReportModel: generateReportModel);
 
     result.fold(
       (failure) {
-        isLoading.value = false;
+        fileDownloading.value = false;
         log(failure.message.toString());
       },
       (success) async {
@@ -126,8 +128,12 @@ class TaskHomeScreenController extends GetxController {
         selectedReportType.value = '';
         selectedTaskIds.clear();
         update();
-        downloadReport(taskReport.value, selectedReportType.value);
-        isLoading.value = false;
+        // if (selectedReportType.value == 'pdf') {
+        pdfGenerator(success.report ?? '');
+        Get.snackbar('Success', 'Success');
+        //downloadReport(taskReport.value, selectedReportType.value);
+        fileDownloading.value = false;
+        Get.back();
       },
     );
   }

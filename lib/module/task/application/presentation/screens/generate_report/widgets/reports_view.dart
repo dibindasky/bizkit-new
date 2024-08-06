@@ -6,6 +6,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -110,166 +111,194 @@ class ReportsView extends StatelessWidget {
               EventButton(
                 text: 'Confirm to generate report',
                 onTap: () {
-                  Navigator.of(context).pop();
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Dialog(
-                        child: Container(
-                          width: double.infinity.w,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 20),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20)),
-                            border: Border.all(color: neonShade),
-                          ),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.only(left: 8.0),
-                                      child: Center(
-                                        child: Text(
-                                          'Select fields for\ngenerating a report',
-                                          style: TextStyle(
-                                              fontSize: 18, color: neonShade),
+                  if (controller.selectedTaskIds.isEmpty) {
+                    showSnackbar(context,
+                        message: 'Please select any tasks',
+                        backgroundColor: kred);
+                    return;
+                  } else {
+                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          child: Container(
+                            width: double.infinity.w,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 20),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              border: Border.all(color: neonShade),
+                            ),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.only(left: 8.0),
+                                        child: Center(
+                                          child: Text(
+                                            'Select fields for\ngenerating a report',
+                                            style: TextStyle(
+                                                fontSize: 18, color: neonShade),
+                                          ),
                                         ),
                                       ),
+                                      IconButton(
+                                        icon: const Icon(Icons.close,
+                                            color: neonShade),
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pop(); // Close the dialog
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  adjustHieght(10.h),
+                                  _buildCheckboxColumn('Select fields', [
+                                    Row(
+                                      children: [
+                                        _buildCheckbox(
+                                            'Created by',
+                                            'created_by',
+                                            controller.selectedFields,
+                                            controller.addField),
+                                        _buildCheckbox(
+                                            'Title',
+                                            'title',
+                                            controller.selectedFields,
+                                            controller.addField),
+                                      ],
                                     ),
-                                    IconButton(
-                                      icon: const Icon(Icons.close,
-                                          color: neonShade),
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                            .pop(); // Close the dialog
-                                      },
+                                    _buildCheckbox(
+                                        'Description',
+                                        'description',
+                                        controller.selectedFields,
+                                        controller.addField),
+                                    _buildCheckbox(
+                                        'Priority Level',
+                                        'priority_level',
+                                        controller.selectedFields,
+                                        controller.addField),
+                                    _buildCheckbox(
+                                        'Recurrent Task',
+                                        'recurrent_task',
+                                        controller.selectedFields,
+                                        controller.addField),
+                                    Row(
+                                      children: [
+                                        _buildCheckbox(
+                                            'Completed',
+                                            'is_completed',
+                                            controller.selectedFields,
+                                            controller.addField),
+                                        _buildCheckbox(
+                                            'Deadline',
+                                            'dead_line',
+                                            controller.selectedFields,
+                                            controller.addField),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                adjustHieght(10.h),
-                                _buildCheckboxColumn('Select fields', [
-                                  Row(
-                                    children: [
-                                      _buildCheckbox(
-                                          'Created by',
-                                          'created_by',
-                                          controller.selectedFields,
-                                          controller.addField),
-                                      _buildCheckbox(
-                                          'Title',
-                                          'title',
-                                          controller.selectedFields,
-                                          controller.addField),
-                                    ],
+                                    Row(
+                                      children: [
+                                        _buildCheckbox(
+                                            'Killed',
+                                            'is_killed',
+                                            controller.selectedFields,
+                                            controller.addField),
+                                        _buildCheckbox(
+                                            'Tags',
+                                            'tags',
+                                            controller.selectedFields,
+                                            controller.addField),
+                                      ],
+                                    ),
+                                    _buildCheckbox(
+                                        'Assigned To',
+                                        'assigned_to',
+                                        controller.selectedFields,
+                                        controller.addField),
+                                    _buildCheckbox(
+                                        'Created At',
+                                        'created_at',
+                                        controller.selectedFields,
+                                        controller.addField),
+                                  ]),
+                                  adjustHieght(10.h),
+                                  const Text('Select report type',
+                                      style: TextStyle(
+                                          fontSize: 18, color: neonShade)),
+                                  adjustHieght(10.h),
+                                  Obx(
+                                    () => Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        _buildReportTypeButton(
+                                            'PDF',
+                                            'pdf',
+                                            controller.selectedReportType.value,
+                                            controller.setReportType),
+                                        adjustWidth(10.w),
+                                        _buildReportTypeButton(
+                                            'Excel',
+                                            'excel',
+                                            controller.selectedReportType.value,
+                                            controller.setReportType),
+                                      ],
+                                    ),
                                   ),
-                                  _buildCheckbox(
-                                      'Description',
-                                      'description',
-                                      controller.selectedFields,
-                                      controller.addField),
-                                  _buildCheckbox(
-                                      'Priority Level',
-                                      'priority_level',
-                                      controller.selectedFields,
-                                      controller.addField),
-                                  _buildCheckbox(
-                                      'Recurrent Task',
-                                      'recurrent_task',
-                                      controller.selectedFields,
-                                      controller.addField),
-                                  Row(
-                                    children: [
-                                      _buildCheckbox(
-                                          'Completed',
-                                          'is_completed',
-                                          controller.selectedFields,
-                                          controller.addField),
-                                      _buildCheckbox(
-                                          'Deadline',
-                                          'dead_line',
-                                          controller.selectedFields,
-                                          controller.addField),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      _buildCheckbox(
-                                          'Killed',
-                                          'is_killed',
-                                          controller.selectedFields,
-                                          controller.addField),
-                                      _buildCheckbox(
-                                          'Tags',
-                                          'tags',
-                                          controller.selectedFields,
-                                          controller.addField),
-                                    ],
-                                  ),
-                                  _buildCheckbox(
-                                      'Assigned To',
-                                      'assigned_to',
-                                      controller.selectedFields,
-                                      controller.addField),
-                                  _buildCheckbox(
-                                      'Created At',
-                                      'created_at',
-                                      controller.selectedFields,
-                                      controller.addField),
-                                ]),
-                                adjustHieght(10.h),
-                                const Text('Select report type',
-                                    style: TextStyle(
-                                        fontSize: 18, color: neonShade)),
-                                adjustHieght(10.h),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    _buildReportTypeButton(
-                                        'PDF',
-                                        'pdf',
-                                        controller.selectedReportType.value,
-                                        controller.setReportType),
-                                    adjustWidth(10.w),
-                                    _buildReportTypeButton(
-                                        'Excel',
-                                        'excel',
-                                        controller.selectedReportType.value,
-                                        controller.setReportType),
-                                  ],
-                                ),
-                                adjustHieght(20.h),
-                                Center(
-                                  child: EventButton(
-                                    wdth: kwidth * 0.9,
-                                    text: 'Generate Report',
-                                    onTap: () async {
-                                      controller.generateReport(
-                                        generateReportModel:
-                                            GenearateReportModel(
-                                          fields: controller.selectedFields,
-                                          reportType: controller
-                                              .selectedReportType.value,
-                                          taskIds: controller.selectedTaskIds,
-                                        ),
-                                      );
+                                  adjustHieght(20.h),
+                                  Center(
+                                    child: Obx(
+                                      () => EventButton(
+                                        wdth: kwidth * 0.9,
+                                        text: controller.fileDownloading.value
+                                            ? 'Downloading...!'
+                                            : 'Generate Report',
+                                        onTap: () async {
+                                          if (controller
+                                                  .selectedFields.isEmpty &&
+                                              controller.selectedReportType
+                                                      .value ==
+                                                  '') {
+                                            showSnackbar(context,
+                                                message:
+                                                    'Please select any of the feilds',
+                                                backgroundColor: kred);
+                                            return;
+                                          } else {
+                                            controller.generateReport(
+                                              generateReportModel:
+                                                  GenearateReportModel(
+                                                fields:
+                                                    controller.selectedFields,
+                                                reportType: controller
+                                                    .selectedReportType.value,
+                                                taskIds:
+                                                    controller.selectedTaskIds,
+                                              ),
+                                            );
+                                          }
 
-                                      Navigator.of(context).pop();
-                                    },
+                                          // Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  );
+                        );
+                      },
+                    );
+                  }
                 },
                 wdth: double.infinity,
               ),

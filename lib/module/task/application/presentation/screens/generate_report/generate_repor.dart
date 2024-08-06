@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/generate_report/generate_report.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
@@ -7,6 +9,7 @@ import 'package:bizkit/module/task/application/presentation/widgets/task_textfro
 import 'package:bizkit/module/task/domain/model/dashboard/get_report_model/get_report_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -99,22 +102,31 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
           return type;
       }
     }).toList();
-    controller.getReport(
-      getReportModel: GetReportModel(
-          fromDate: taskGenerateReportController.fromDate.text,
-          toDate: taskGenerateReportController.toDate.text,
-          priorityLevel: formattedPriorityType,
-          taskMentionedType: formattedTaskTypes,
-          taskType: formattedOptionCategory,
-          searchTerm: searchController.text),
-    );
-    taskGenerateReportController.fromDate.clear();
-    taskGenerateReportController.toDate.clear();
-    Navigator.of(context).pop();
-    Get.toNamed(
-      Routes.reportsview,
-      id: 1,
-    );
+    if (formattedPriorityType.isEmpty ||
+        formattedTaskTypes.isEmpty ||
+        formattedOptionCategory.isEmpty ||
+        taskGenerateReportController.fromDate.text.isEmpty) {
+      log('message');
+      // Get.snackbar('Failed', 'Please select any of the Fields');
+      showSnackbar(context,
+          message: 'Please select any of the Fields', backgroundColor: kred);
+      return;
+    } else {
+      log('getreport print');
+      controller.getReport(
+        getReportModel: GetReportModel(
+            fromDate: taskGenerateReportController.fromDate.text,
+            toDate: taskGenerateReportController.toDate.text,
+            priorityLevel: formattedPriorityType,
+            taskMentionedType: formattedTaskTypes,
+            taskType: formattedOptionCategory,
+            searchTerm: searchController.text),
+      );
+      taskGenerateReportController.fromDate.clear();
+      taskGenerateReportController.toDate.clear();
+      Navigator.of(context).pop();
+      Get.toNamed(Routes.reportsview, id: 1);
+    }
   }
 
   @override
@@ -166,7 +178,6 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                           _handlePriorityTypeChange),
                     ]),
                     adjustHieght(16.h),
-
                     adjustHieght(8.h),
                     TaskTextField(
                       onTapOutside: () => FocusScope.of(context).unfocus(),

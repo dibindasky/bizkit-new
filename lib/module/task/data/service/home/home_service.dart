@@ -42,7 +42,7 @@ class HomeService implements HomeRepo {
         ApiEndPoints.taskTestGenerateTaskReport,
         data: generateReportModel.toJson(),
       );
-      log("=> Response generate report  : ");
+      log("=> Response generate report  :${response.data} ");
       return Right(GenearateTaskReportSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException generateReport $e');
@@ -57,7 +57,6 @@ class HomeService implements HomeRepo {
   Future<Either<Failure, GetReportSuccessResponce>> getReport(
       {required GetReportModel getReportModel}) async {
     try {
-      log('Get report toJson ===> ${getReportModel.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestProvideTaskReport,
         data: getReportModel.toJson(),

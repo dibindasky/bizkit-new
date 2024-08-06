@@ -20,6 +20,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class TaskContainer extends StatelessWidget {
@@ -406,16 +407,18 @@ class TaskContainer extends StatelessWidget {
                                   ),
                                   Text(
                                     maxLines: 1,
+                                    softWrap: true,
                                     overflow: TextOverflow.ellipsis,
                                     typeTask?.isOwned == true ||
                                             tasksInsideFolder?.isOwned ==
                                                 true ||
                                             tasksInsideInnerFolder?.isOwned ==
                                                 true
-                                        ? 'Created by \n ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}'
-                                        : 'Assigned by \n ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
+                                        ? 'Created by  ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}'
+                                        : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
                                     style: textThinStyle1.copyWith(fontSize: 8),
                                   ),
+                                  adjustWidth(30.w),
                                 ],
                               ),
                             ],

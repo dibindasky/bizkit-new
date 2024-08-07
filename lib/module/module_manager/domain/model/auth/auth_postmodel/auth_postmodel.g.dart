@@ -12,6 +12,7 @@ AuthPostmodel _$AuthPostmodelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       email: json['email'] as String?,
       phoneNumber: json['phone_number'] as String?,
+      password: json['password'] as String?,
     );
 
 Map<String, dynamic> _$AuthPostmodelToJson(AuthPostmodel instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$AuthPostmodelToJson(AuthPostmodel instance) =>
       'name': instance.name,
       'email': instance.email,
       'phone_number': instance.phoneNumber,
+      'password': instance.password,
     };

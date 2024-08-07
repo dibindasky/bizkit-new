@@ -7,8 +7,13 @@ class AuthPostPhoneModel {
   String? otp;
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
+  @JsonKey(name: 'name')
+  String? name;
+  @JsonKey(name: 'email')
+  String? email;
 
-  AuthPostPhoneModel({this.otp, this.phoneNumber});
+  AuthPostPhoneModel(
+      {this.otp, this.phoneNumber, this.name, this.email});
 
   factory AuthPostPhoneModel.fromJson(Map<String, dynamic> json) {
     return _$AuthPostPhoneModelFromJson(json);
@@ -19,10 +24,15 @@ class AuthPostPhoneModel {
   AuthPostPhoneModel copyWith({
     String? otp,
     String? phoneNumber,
+    String? password,
+    String? email,
+    String? name,
   }) {
     return AuthPostPhoneModel(
       otp: otp ?? this.otp,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      email: email ?? this.email,
+      name: name ?? this.name,
     );
   }
 }

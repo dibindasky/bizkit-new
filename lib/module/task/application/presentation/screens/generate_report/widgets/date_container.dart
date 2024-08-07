@@ -133,6 +133,8 @@ class DateContainer extends StatelessWidget {
                           onCancel: () {
                             Navigator.of(context).pop();
                           },
+                          // selectionColor: neonShade,
+                          rangeSelectionColor: neonShade,
                           headerStyle: const DateRangePickerHeaderStyle(
                               backgroundColor: kblack),
                           onSelectionChanged:

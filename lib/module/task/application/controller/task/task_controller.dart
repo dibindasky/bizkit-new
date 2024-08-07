@@ -399,6 +399,7 @@ class CreateTaskController extends GetxController {
   void taskFilterByDeadline(
       {required FilterByDeadlineModel filterByDeadline}) async {
     isLoading.value = true;
+    log('Tojson => Deadline filter task = >> ${filterByDeadline.toJson()}');
     final result =
         await taskService.filterByDeadline(filterByDeadline: filterByDeadline);
     result.fold(

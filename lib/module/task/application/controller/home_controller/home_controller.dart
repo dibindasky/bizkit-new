@@ -83,32 +83,32 @@ class TaskHomeScreenController extends GetxController {
     );
   }
 
-  Future<void> downloadReport(String base64Data, String fileType) async {
-    try {
-      final bytes = base64Decode(base64Data);
+  // Future<void> downloadReport(String base64Data, String fileType) async {
+  //   try {
+  //     final bytes = base64Decode(base64Data);
 
-      final directory = await getApplicationDocumentsDirectory();
-      final path = '${directory.path}/task_report.$fileType';
+  //     final directory = await getApplicationDocumentsDirectory();
+  //     final path = '${directory.path}/task_report.$fileType';
 
-      final file = File(path);
-      await file.writeAsBytes(bytes);
+  //     final file = File(path);
+  //     await file.writeAsBytes(bytes);
 
-      Get.snackbar(
-        'Download Complete',
-        'Your $fileType report has been saved and is accessible',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+  //     Get.snackbar(
+  //       'Download Complete',
+  //       'Your $fileType report has been saved and is accessible',
+  //       snackPosition: SnackPosition.BOTTOM,
+  //     );
 
-      log('Report saved to $path');
-    } catch (e) {
-      log('Failed to download report: $e');
-      Get.snackbar(
-        'Download Failed',
-        'An error occurred while downloading the report',
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    }
-  }
+  //     log('Report saved to $path');
+  //   } catch (e) {
+  //     log('Failed to download report: $e');
+  //     Get.snackbar(
+  //       'Download Failed',
+  //       'An error occurred while downloading the report',
+  //       snackPosition: SnackPosition.BOTTOM,
+  //     );
+  //   }
+  // }
 
   void generateReport(
       {required GenearateReportModel generateReportModel}) async {

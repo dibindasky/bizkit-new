@@ -4,8 +4,11 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
+import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +27,12 @@ class TaskListView extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (taskController.deadlineTasks.isEmpty) {
-          return const Center(child: Text('No Tasks'));
+          return ErrorRefreshIndicator(
+            shrinkWrap: true,
+            image: emptyNodata2,
+            errorMessage: 'No tasks available',
+            onRefresh: () {},
+          );
         } else {
           return ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),

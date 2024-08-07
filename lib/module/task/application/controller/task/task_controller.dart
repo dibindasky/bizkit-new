@@ -55,7 +55,7 @@ class CreateTaskController extends GetxController {
 
   // List of participants involved in the task
   var participants = <TaskAssignedTo>[].obs;
-
+  var userslistNew = <UserSearchSuccessResponce>[].obs;
   var participantsForEditTask = <AssignedToDetail>[].obs;
 
   // Lists for storing various task types and deadlines
@@ -93,9 +93,10 @@ class CreateTaskController extends GetxController {
     getTasksCountWithoutDate();
     final DateTime todaydate = DateTime.now();
     // Initialize with today's date for deadline filtering
-    deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
+    // deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
     taskFilterByDeadline(
-        filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
+        filterByDeadline: FilterByDeadlineModel(
+            date: DateFormat('yyyy-MM-dd').format(todaydate)));
 
     super.onInit();
   }
@@ -140,8 +141,8 @@ class CreateTaskController extends GetxController {
   }
 
   // Method to remove a participant
-  void removeParticipant(TaskAssignedTo participant) {
-    participants.remove(participant);
+  void removeParticipant(UserSearchSuccessResponce participant) {
+    userslistNew.remove(participant);
   }
 
   void removeParticipantsForEdit(dynamic participant) {
@@ -248,10 +249,17 @@ class CreateTaskController extends GetxController {
 
     // log('task model ${task.toJson()}');
 
-    log('Subtasks before create a task ------- ${task.subTask}');
-    log('Tags before create a task  -------  ${task.tags}');
-    log('Participants before create a task  -------  ${task.assignedTo}');
-    log('Attachments before create a task  -------  ${task.attachments}');
+    // log('Subtasks before create a task ------- ${task.subTask}');
+    // log('Tags before create a task  -------  ${task.tags}');
+    // log('Participants before create a task  -------  ${task.assignedTo}');
+    // log('Attachments before create a task  -------  ${task.attachments}');
+    task.assignedTo = userslistNew
+        .map(
+          (e) => TaskAssignedTo(user: e.userId, isAccepted: 'pending'),
+        )
+        .toList();
+
+    log(' task.assignedTo ==> ${task.assignedTo}');
     final result = await taskService.createTask(task: task);
 
     result.fold(
@@ -330,6 +338,7 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
         log('${success.message}');
         fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
+        tags.clear();
       },
     );
   }

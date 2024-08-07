@@ -33,7 +33,7 @@ class ScreenTaskHome extends StatelessWidget {
           padding: const EdgeInsets.only(left: 10.0, right: 10, top: 24),
           child: ListView(
             children: [
-              TaskHomeAppBar(),
+              const TaskHomeAppBar(),
               adjustHieght(16.h),
               Hero(
                 tag: 'taskSearch',

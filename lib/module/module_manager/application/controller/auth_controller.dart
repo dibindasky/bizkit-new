@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
@@ -66,7 +67,7 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     }, (r) {
       SecureStorage.saveToken(tokenModel: r);
-      getUserName();
+
       // userName.value = r.name ?? '';
       log('user name => ${userName.value}');
 
@@ -77,7 +78,14 @@ class AuthenticationController extends GetxController {
           backgroundColor: kneonShade,
           textColor: kblack);
     });
+
     loadingOtpEmail.value = false;
+    Timer(
+      const Duration(seconds: 2),
+      () {
+        getUserName();
+      },
+    );
   }
 
   void getUserName() async {
@@ -122,7 +130,7 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     }, (r) {
       SecureStorage.saveToken(tokenModel: r);
-      getUserName();
+
       // userName.value = r.name ?? '';
       log('user name => ${userName.value}');
       SecureStorage.setLogin();
@@ -133,6 +141,12 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     });
     loadingOtpPhone.value = false;
+    Timer(
+      const Duration(seconds: 2),
+      () {
+        getUserName();
+      },
+    );
   }
 
   void logOut(BuildContext context) async {

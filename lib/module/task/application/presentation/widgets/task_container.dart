@@ -120,312 +120,279 @@ class TaskContainer extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Column(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  controller.selectedIndices.contains(index)
-                                      ? Container(
-                                          padding: const EdgeInsets.all(6),
-                                          decoration: BoxDecoration(
-                                            border:
-                                                Border.all(color: neonShade),
-                                            borderRadius: kBorderRadius25,
-                                            color: neonShade,
-                                          ),
-                                          child: const Icon(
-                                            Icons.done,
-                                            color: kwhite,
-                                            size: 16,
-                                          ),
-                                        )
-                                      : Image.asset(
-                                          'asset/images/icon/Vector.png',
-                                          scale: 2,
-                                        ),
-                                  adjustWidth(10),
-                                  Text(
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: true,
-                                    typeTask?.title ??
-                                        tasksInsideFolder?.title ??
-                                        tasksInsideInnerFolder?.title ??
-                                        'Title',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                              controller.selectedIndices.contains(index)
+                                  ? Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: neonShade),
+                                        borderRadius: kBorderRadius25,
+                                        color: neonShade,
+                                      ),
+                                      child: const Icon(
+                                        Icons.done,
+                                        color: kwhite,
+                                        size: 16,
+                                      ),
+                                    )
+                                  : Image.asset(
+                                      'asset/images/icon/Vector.png',
+                                      scale: 2,
+                                    ),
+                              adjustWidth(10),
+                              Text(
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                typeTask?.title ??
+                                    tasksInsideFolder?.title ??
+                                    tasksInsideInnerFolder?.title ??
+                                    'Title',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: neonShade,
+                                ),
+                              ),
+                              adjustWidth(15),
+                              Card(
+                                color: lightGrey,
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
+                                  child: Text(
+                                    'status',
+                                    style: TextStyle(
+                                      fontSize: 10,
                                       color: neonShade,
                                     ),
                                   ),
-                                  adjustWidth(15),
-                                  Card(
-                                    color: lightGrey,
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 5),
-                                      child: Text(
-                                        'status',
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          color: neonShade,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  PopupMenuButton<String>(
-                                    color: kwhite,
-                                    icon: const Icon(Icons.more_vert_outlined,
-                                        color: kwhite),
-                                    onSelected: (value) {
-                                      if (value == 'Move task') {
-                                        log('Move task');
-                                      } else if (value == 'delete') {}
-                                    },
-                                    itemBuilder: (BuildContext context) {
-                                      List<PopupMenuItem<String>> items = [
-                                        if (typeTask?.isOwned == true ||
-                                            tasksInsideFolder?.isOwned ==
-                                                true ||
-                                            tasksInsideInnerFolder?.isOwned ==
-                                                true)
-                                          PopupMenuItem<String>(
-                                            value:
-                                                typeTask?.spotlightOn == true ||
-                                                        tasksInsideInnerFolder
-                                                                ?.spotlightOn ==
-                                                            true ||
-                                                        tasksInsideFolder
-                                                                ?.spotlightOn ==
-                                                            true
-                                                    ? 'Spot light Task Off'
-                                                    : 'Spot light Task On',
-                                            child: Text(
-                                              typeTask?.spotlightOn == true ||
-                                                      tasksInsideInnerFolder
-                                                              ?.spotlightOn ==
-                                                          true ||
-                                                      tasksInsideFolder
-                                                              ?.spotlightOn ==
-                                                          true
-                                                  ? 'Spot light Task Off'
-                                                  : 'Spot light Task On',
-                                              style: const TextStyle(
-                                                  color: kblack),
-                                            ),
-                                            onTap: () {
-                                              taskController.spotLightTask(
-                                                spotLightTask: SpotLightTask(
-                                                  spotLightStatus: tasksFromFoldrs ==
-                                                              true &&
-                                                          tasksInsideFolder
-                                                                  ?.spotlightOn ==
-                                                              true
-                                                      ? false
-                                                      : tasksFromInnerFolder ==
-                                                                  true &&
-                                                              tasksInsideInnerFolder
-                                                                      ?.spotlightOn ==
-                                                                  true
-                                                          ? false
-                                                          : typeTask?.spotlightOn ==
-                                                                  true
-                                                              ? false
-                                                              : true,
-                                                  taskId: tasksFromFoldrs ==
-                                                          true
-                                                      ? tasksInsideFolder
-                                                          ?.taskId
-                                                      : tasksFromInnerFolder ==
-                                                              true
-                                                          ? tasksInsideInnerFolder
-                                                              ?.taskId
-                                                          : typeTask?.id,
-                                                ),
-                                              );
-                                              taskController.taskFilterByDeadline(
-                                                  filterByDeadline:
-                                                      FilterByDeadlineModel(
-                                                          date: taskController
-                                                              .deadlineDate
-                                                              .value));
-
-                                              taskController.searchTasks(
-                                                  searchItem: '');
-
-                                              if (tasksFromFoldrs == true) {
-                                                taskFolderController
-                                                    .fetchTasksInsideFolder(
-                                                        taskInsideFolder:
-                                                            GetTaskInsideAFolderParamsModel(
-                                                                folderId:
-                                                                    folderId ??
-                                                                        ' '));
-                                              }
-
-                                              taskFolderController
-                                                  .fetchAllTasksInsideAInnerFolder(
-                                                      InnerFolderTasksGetParamsModel(
-                                                          folderId:
-                                                              folderId ?? '',
-                                                          innerFolderId:
-                                                              innerFolderId ??
-                                                                  ''));
-                                            },
-                                          ),
-                                        if (typeTask?.isPinned == false)
-                                          PopupMenuItem<String>(
-                                            value: 'Pin the task',
-                                            onTap: () {
-                                              taskController.pinnedATask(
-                                                pinnedATask: PinnedATaskModel(
-                                                  isPinned: true,
-                                                  taskId: typeTask?.id ?? '',
-                                                ),
-                                              );
-                                            },
-                                            child: const Text(
-                                              'Pin the task',
-                                              style: TextStyle(color: kblack),
-                                            ),
-                                          ),
-                                        if (typeTask?.isPinned == true)
-                                          PopupMenuItem<String>(
-                                            value: 'Unpin the task',
-                                            onTap: () {
-                                              taskController.unpinATask(
-                                                unpinATask: UnpinATaskModel(
-                                                  taskId: typeTask?.id ?? '',
-                                                  isPinned: false,
-                                                ),
-                                              );
-                                            },
-                                            child: const Text(
-                                              'Unpin the task',
-                                              style: TextStyle(color: kblack),
-                                            ),
-                                          ),
-                                        PopupMenuItem<String>(
-                                          onTap: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  SubTaskCreationCustomDialog(
-                                                afterTaskCreation: true,
-                                                taskId: typeTask?.id ?? '',
-                                              ),
-                                            );
-                                          },
-                                          value: 'Add Sub Task',
-                                          child: const Text(
-                                            'Add Sub Task',
-                                            style: TextStyle(color: kblack),
-                                          ),
-                                        ),
-                                        if (tabIndex != 1 &&
-                                            tabIndex != 2 &&
-                                            tabIndex != 3 &&
-                                            fromFolders == true)
-                                          PopupMenuItem<String>(
-                                            onTap: () {
-                                              showCustomConfirmationDialogue(
-                                                description:
-                                                    'Are you sure you want to remove this task?',
-                                                buttonText: 'Remove',
-                                                context: context,
-                                                onTap: () {
-                                                  log('task id from dialog => ${tasksInsideFolder?.taskId}');
-                                                  log('Folder Id from dialog => $folderId');
-                                                  if (isInnerFolderTask ==
-                                                          true ||
-                                                      fromInnerfolder == true) {
-                                                    taskFolderController.taskAddOrDeleteInnerFolder(
-                                                        taskAddOrDelete:
-                                                            TaskAddOrDeleteInnerFolderModel(
-                                                                folderId:
-                                                                    folderId,
-                                                                innerFolderId:
-                                                                    innerFolderId,
-                                                                innerFolderTasks: [
-                                                          tasksInsideInnerFolder
-                                                                  ?.taskId ??
-                                                              ''
-                                                        ]));
-                                                  } else {
-                                                    taskFolderController
-                                                        .tasksAddToFolder(
-                                                      taskAddToFolder:
-                                                          TaskAddToFolderModel(
-                                                              folderId:
-                                                                  folderId,
-                                                              tasks: [
-                                                            tasksInsideFolder
-                                                                    ?.taskId ??
-                                                                ''
-                                                          ]),
-                                                    );
-
-                                                    taskFolderController
-                                                        .fetchTasksInsideFolder(
-                                                            taskInsideFolder:
-                                                                GetTaskInsideAFolderParamsModel(
-                                                                    folderId:
-                                                                        folderId ??
-                                                                            ''));
-                                                  }
-                                                },
-                                                title: 'Remove task',
-                                                buttonColor: neonShade,
-                                              );
-                                            },
-                                            value: 'Remove task',
-                                            child: isInnerFolderTask == true
-                                                ? const Text(
-                                                    'Remove task from inner folder',
-                                                    style: TextStyle(
-                                                        color: kblack),
-                                                  )
-                                                : const Text(
-                                                    'Remove task from folder',
-                                                    style: TextStyle(
-                                                        color: kblack),
-                                                  ),
-                                          ),
-                                      ];
-
-                                      return items;
-                                    },
-                                  ),
-                                  Text(
-                                    maxLines: 1,
-                                    softWrap: true,
-                                    overflow: TextOverflow.ellipsis,
-                                    typeTask?.isOwned == true ||
-                                            tasksInsideFolder?.isOwned ==
-                                                true ||
-                                            tasksInsideInnerFolder?.isOwned ==
-                                                true
-                                        ? 'Created by  ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}'
-                                        : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
-                                    style: textThinStyle1.copyWith(fontSize: 8),
-                                  ),
-                                  adjustWidth(30.w),
-                                ],
+                                ),
                               ),
                             ],
                           ),
-                          adjustHieght(10),
+                          PopupMenuButton<String>(
+                            color: kwhite,
+                            icon: const Icon(Icons.more_vert_outlined,
+                                color: kwhite),
+                            onSelected: (value) {
+                              if (value == 'Move task') {
+                                log('Move task');
+                              } else if (value == 'delete') {}
+                            },
+                            itemBuilder: (BuildContext context) {
+                              List<PopupMenuItem<String>> items = [
+                                if (typeTask?.isOwned == true ||
+                                    tasksInsideFolder?.isOwned == true ||
+                                    tasksInsideInnerFolder?.isOwned == true)
+                                  PopupMenuItem<String>(
+                                    value: typeTask?.spotlightOn == true ||
+                                            tasksInsideInnerFolder
+                                                    ?.spotlightOn ==
+                                                true ||
+                                            tasksInsideFolder?.spotlightOn ==
+                                                true
+                                        ? 'Spot light Task Off'
+                                        : 'Spot light Task On',
+                                    child: Text(
+                                      typeTask?.spotlightOn == true ||
+                                              tasksInsideInnerFolder
+                                                      ?.spotlightOn ==
+                                                  true ||
+                                              tasksInsideFolder?.spotlightOn ==
+                                                  true
+                                          ? 'Spot light Task Off'
+                                          : 'Spot light Task On',
+                                      style: const TextStyle(color: kblack),
+                                    ),
+                                    onTap: () {
+                                      taskController.spotLightTask(
+                                        spotLightTask: SpotLightTask(
+                                          spotLightStatus: tasksFromFoldrs ==
+                                                      true &&
+                                                  tasksInsideFolder
+                                                          ?.spotlightOn ==
+                                                      true
+                                              ? false
+                                              : tasksFromInnerFolder == true &&
+                                                      tasksInsideInnerFolder
+                                                              ?.spotlightOn ==
+                                                          true
+                                                  ? false
+                                                  : typeTask?.spotlightOn ==
+                                                          true
+                                                      ? false
+                                                      : true,
+                                          taskId: tasksFromFoldrs == true
+                                              ? tasksInsideFolder?.taskId
+                                              : tasksFromInnerFolder == true
+                                                  ? tasksInsideInnerFolder
+                                                      ?.taskId
+                                                  : typeTask?.id,
+                                        ),
+                                      );
+                                      taskController.taskFilterByDeadline(
+                                          filterByDeadline:
+                                              FilterByDeadlineModel(
+                                                  date: taskController
+                                                      .deadlineDate.value));
+
+                                      taskController.searchTasks(
+                                          searchItem: '');
+
+                                      if (tasksFromFoldrs == true) {
+                                        taskFolderController.fetchTasksInsideFolder(
+                                            taskInsideFolder:
+                                                GetTaskInsideAFolderParamsModel(
+                                                    folderId: folderId ?? ' '));
+                                      }
+
+                                      taskFolderController
+                                          .fetchAllTasksInsideAInnerFolder(
+                                              InnerFolderTasksGetParamsModel(
+                                                  folderId: folderId ?? '',
+                                                  innerFolderId:
+                                                      innerFolderId ?? ''));
+                                    },
+                                  ),
+                                if (typeTask?.isPinned == false)
+                                  PopupMenuItem<String>(
+                                    value: 'Pin the task',
+                                    onTap: () {
+                                      taskController.pinnedATask(
+                                        pinnedATask: PinnedATaskModel(
+                                          isPinned: true,
+                                          taskId: typeTask?.id ?? '',
+                                        ),
+                                      );
+                                    },
+                                    child: const Text(
+                                      'Pin the task',
+                                      style: TextStyle(color: kblack),
+                                    ),
+                                  ),
+                                if (typeTask?.isPinned == true)
+                                  PopupMenuItem<String>(
+                                    value: 'Unpin the task',
+                                    onTap: () {
+                                      taskController.unpinATask(
+                                        unpinATask: UnpinATaskModel(
+                                          taskId: typeTask?.id ?? '',
+                                          isPinned: false,
+                                        ),
+                                      );
+                                    },
+                                    child: const Text(
+                                      'Unpin the task',
+                                      style: TextStyle(color: kblack),
+                                    ),
+                                  ),
+                                PopupMenuItem<String>(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          SubTaskCreationCustomDialog(
+                                        afterTaskCreation: true,
+                                        taskId: typeTask?.id ?? '',
+                                      ),
+                                    );
+                                  },
+                                  value: 'Add Sub Task',
+                                  child: const Text(
+                                    'Add Sub Task',
+                                    style: TextStyle(color: kblack),
+                                  ),
+                                ),
+                                if (tabIndex != 1 &&
+                                    tabIndex != 2 &&
+                                    tabIndex != 3 &&
+                                    fromFolders == true)
+                                  PopupMenuItem<String>(
+                                    onTap: () {
+                                      showCustomConfirmationDialogue(
+                                        description:
+                                            'Are you sure you want to remove this task?',
+                                        buttonText: 'Remove',
+                                        context: context,
+                                        onTap: () {
+                                          log('task id from dialog => ${tasksInsideFolder?.taskId}');
+                                          log('Folder Id from dialog => $folderId');
+                                          if (isInnerFolderTask == true ||
+                                              fromInnerfolder == true) {
+                                            taskFolderController
+                                                .taskAddOrDeleteInnerFolder(
+                                                    taskAddOrDelete:
+                                                        TaskAddOrDeleteInnerFolderModel(
+                                                            folderId: folderId,
+                                                            innerFolderId:
+                                                                innerFolderId,
+                                                            innerFolderTasks: [
+                                                  tasksInsideInnerFolder
+                                                          ?.taskId ??
+                                                      ''
+                                                ]));
+                                          } else {
+                                            taskFolderController
+                                                .tasksAddToFolder(
+                                              taskAddToFolder:
+                                                  TaskAddToFolderModel(
+                                                      folderId: folderId,
+                                                      tasks: [
+                                                    tasksInsideFolder?.taskId ??
+                                                        ''
+                                                  ]),
+                                            );
+
+                                            taskFolderController
+                                                .fetchTasksInsideFolder(
+                                                    taskInsideFolder:
+                                                        GetTaskInsideAFolderParamsModel(
+                                                            folderId:
+                                                                folderId ??
+                                                                    ''));
+                                          }
+                                        },
+                                        title: 'Remove task',
+                                        buttonColor: neonShade,
+                                      );
+                                    },
+                                    value: 'Remove task',
+                                    child: isInnerFolderTask == true
+                                        ? const Text(
+                                            'Remove task from inner folder',
+                                            style: TextStyle(color: kblack),
+                                          )
+                                        : const Text(
+                                            'Remove task from folder',
+                                            style: TextStyle(color: kblack),
+                                          ),
+                                  ),
+                              ];
+
+                              return items;
+                            },
+                          ),
+                          // adjustWidth(30.w),s
                         ],
                       ),
+                      Text(
+                        maxLines: 1,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        typeTask?.isOwned == true ||
+                                tasksInsideFolder?.isOwned == true ||
+                                tasksInsideInnerFolder?.isOwned == true
+                            ? 'Created by  ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}'
+                            : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
+                        style: textThinStyle1.copyWith(fontSize: 8),
+                      ),
+                      adjustHieght(10),
                     ],
                   ),
                 ),
@@ -447,19 +414,46 @@ class TaskContainer extends StatelessWidget {
     );
   }
 
+  // Color getSpotLightColor(String? date1, String? date2) {
+  //   if (date1 == null || date2 == null) return kwhite;
+  //   final int first = DateTimeFormater.calculateDifferenceInHours(date1, date2);
+  //   final int second = DateTimeFormater.calculateDifferenceInHours(
+  //       date1, DateTime.now().toString());
+  //   if (first < second) return kred;
+  //   final int part = (first / 3).round();
+  //   if ((part * 2) <= second) {
+  //     return leaveBorderClr;
+  //   } else if (part <= second) {
+  //     return neonShade;
+  //   } else {
+  //     return kblue;
+  //   }
+  // }
+
   Color getSpotLightColor(String? date1, String? date2) {
-    if (date1 == null || date2 == null) return kwhite;
-    final int first = DateTimeFormater.calculateDifferenceInHours(date1, date2);
-    final int second = DateTimeFormater.calculateDifferenceInHours(
-        date1, DateTime.now().toString());
-    if (first < second) return kred;
-    final int part = (first / 3).round();
-    if ((part * 2) <= second) {
-      return leaveBorderClr;
-    } else if (part <= second) {
-      return neonShade;
-    } else {
-      return kblue;
+    if (date1 == null || date2 == null) {
+      log('Invalid date(s): date1=$date1, date2=$date2', name: 'TaskContainer');
+      return kwhite;
+    }
+
+    try {
+      final int first =
+          DateTimeFormater.calculateDifferenceInHours(date1, date2);
+      final int second = DateTimeFormater.calculateDifferenceInHours(
+          date1, DateTime.now().toString());
+
+      if (first < second) return kred;
+      final int part = (first / 3).round();
+      if ((part * 2) <= second) {
+        return leaveBorderClr;
+      } else if (part <= second) {
+        return neonShade;
+      } else {
+        return kblue;
+      }
+    } catch (e) {
+      log('Error calculating difference in hours: $e', name: 'TaskContainer');
+      return kwhite;
     }
   }
 }

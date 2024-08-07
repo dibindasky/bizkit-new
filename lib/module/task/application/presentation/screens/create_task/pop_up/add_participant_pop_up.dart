@@ -4,6 +4,7 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
+import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -73,8 +74,8 @@ class AddParticipentBottomSheet extends StatelessWidget {
                     ),
                     itemBuilder: (context, index) {
                       final user = controller.userslist[index];
-                      final isAlreadyAdded = controller.participants.any(
-                          (participant) => participant.user == user.userId);
+                      final isAlreadyAdded = controller.userslistNew.any(
+                          (participant) => participant.userId == user.userId);
 
                       return ListTile(
                         leading: const CircleAvatar(
@@ -90,17 +91,17 @@ class AddParticipentBottomSheet extends StatelessWidget {
                         trailing: GestureDetector(
                           onTap: () {
                             if (isAlreadyAdded) {
-                              controller.participants.removeWhere(
+                              controller.userslistNew.removeWhere(
                                   (participant) =>
-                                      participant.user == user.userId);
+                                      participant.userId == user.userId);
                             } else {
-                              final participant = TaskAssignedTo(
-                                // name: user.name,
-                                user: user.userId,
-                                isAccepted: 'pending',
+                              final participant = UserSearchSuccessResponce(
+                                name: user.name,
+                                userId: user.userId,
+                                // isAccepted: 'pending',
                               );
 
-                              controller.participants.add(participant);
+                              controller.userslistNew.add(participant);
                             }
 
                             taskController.update();

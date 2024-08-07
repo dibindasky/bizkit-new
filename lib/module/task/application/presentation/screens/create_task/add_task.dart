@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
@@ -58,7 +59,7 @@ class ScreenAddTask extends StatelessWidget {
               controller.participants.clear();
               controller.clearSelectedFiles();
               titleController.clear();
-
+              controller.deadlineDate.value = '';
               descriptionController.clear();
             }
           },
@@ -91,8 +92,8 @@ class ScreenAddTask extends StatelessWidget {
                               if (value!.isEmpty) {
                                 return 'Title is required';
                               }
-                              if (value.length < 8) {
-                                return 'Title have minimum 8 charecters';
+                              if (value.length < 4) {
+                                return 'Title have minimum 4 charecters';
                               }
                               return null;
                             },
@@ -128,7 +129,7 @@ class ScreenAddTask extends StatelessWidget {
                               }),
                           adjustHieght(10.h),
                           Obx(() {
-                            final participants = controller.participants;
+                            final participants = controller.userslistNew;
                             return Wrap(
                               spacing: 10.w,
                               runSpacing: 10.h,
@@ -138,7 +139,7 @@ class ScreenAddTask extends StatelessWidget {
                                         side:
                                             const BorderSide(color: neonShade),
                                         label: Text(
-                                          participant.user ?? 'name',
+                                          participant.name ?? 'name',
                                         ),
                                         onDeleted: () {
                                           controller
@@ -202,8 +203,7 @@ class ScreenAddTask extends StatelessWidget {
           deadLine: controller.deadlineDate.value.isNotEmpty
               ? controller.deadlineDate.value
               : '',
-          assignedTo:
-              controller.participants.isNotEmpty ? controller.participants : [],
+          assignedTo: [],
           attachments: attachments.isNotEmpty ? attachments : [],
           isCompleted: false,
           isKilled: false,

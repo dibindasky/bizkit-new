@@ -64,7 +64,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           child: CustomPopupMenuItem(
             text: 'All Tasks',
             onTap: () {
-              homeController.changeSelectedTaskCategory('all');
+              homeController.changeSelectedTaskCategory('All');
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'all',
@@ -82,7 +82,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           child: CustomPopupMenuItem(
             text: 'Self to Self',
             onTap: () {
-              homeController.changeSelectedTaskCategory('self_to_self');
+              homeController.changeSelectedTaskCategory('Self to self');
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'self_to_self',
@@ -100,7 +100,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           child: CustomPopupMenuItem(
             text: 'Self to others',
             onTap: () {
-              homeController.changeSelectedTaskCategory('self_to_others');
+              homeController.changeSelectedTaskCategory('Self to others');
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'self_to_others',
@@ -119,7 +119,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
           child: CustomPopupMenuItem(
             text: 'Others to self',
             onTap: () {
-              homeController.changeSelectedTaskCategory('others_to_self');
+              homeController.changeSelectedTaskCategory('Others to self');
               taskController.filterPinnedTasksByType(
                   filterPinnedTask: FilterPinnedTaskByTypeModel(
                 taskType: 'others_to_self',
@@ -170,9 +170,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
               () => Row(
                 children: [
                   Text(
-                    controller.taskCategory.value
-                        .replaceAll('_', ' ')
-                        .toLowerCase(),
+                    controller.taskCategory.value.replaceAll('_', ' '),
                     style: TextStyle(fontSize: 13.sp),
                   ),
                   adjustWidth(10.w),

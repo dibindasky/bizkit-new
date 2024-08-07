@@ -274,6 +274,7 @@ class ReportsView extends StatelessWidget {
                                             return;
                                           } else {
                                             controller.generateReport(
+                                              context: context,
                                               generateReportModel:
                                                   GenearateReportModel(
                                                 fields:

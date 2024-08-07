@@ -117,9 +117,8 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                       // log('After inner folder creation ====> ${controller.deadlineDate.value} // $folderId');
                       controller.filterInnerFolderByDeadline(
                           filterInnerFolder: FilterInnerFolderModel(
-                        filterDate: controller.deadlineDate.value,
-                        folderId: folderId ?? '',
-                      ));
+                              folderId: folderId ?? '',
+                              filterDate: controller.deadlineDate.value));
                     } else {
                       controller.editInnerFolderName(
                           editInnerFolderName: EditInnerFolderModel(
@@ -129,22 +128,21 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                       ));
                       controller.filterInnerFolderByDeadline(
                           filterInnerFolder: FilterInnerFolderModel(
-                        filterDate: controller.deadlineDate.value,
-                        folderId: folderId,
-                      ));
+                              folderId: folderId ?? '',
+                              filterDate: controller.deadlineDate.value));
                     }
 
                     controller.fetchTasksInsideFolder(
                         taskInsideFolder: GetTaskInsideAFolderParamsModel(
                       folderId: folderId ?? '',
                     ));
-                    showSnackbar(
-                      context,
-                      message: 'Edit inner folder name successfully',
-                      backgroundColor: neonShade,
-                      textColor: kblack,
-                      duration: 4,
-                    );
+                    // showSnackbar(
+                    //   context,
+                    //   message: 'Edit inner folder name successfully',
+                    //   backgroundColor: neonShade,
+                    //   textColor: kblack,
+                    //   duration: 4,
+                    // );
                     Navigator.of(context).pop();
                   }
                 },
@@ -225,13 +223,14 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                           return GestureDetector(
                             onTap: () {
                               controller.selctDate(date);
+                              controller.deadlineDate.value =
+                                  DateTimeFormater.dateTimeFormat(date);
                               // log('Folder ID - folderFilterByDeadline ====> $folderId');
                               controller.filterInnerFolderByDeadline(
                                   filterInnerFolder: FilterInnerFolderModel(
                                       folderId: folderId ?? '',
                                       filterDate:
-                                          DateTimeFormater.dateTimeFormat(
-                                              date)));
+                                          controller.deadlineDate.value));
                             },
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
@@ -487,6 +486,15 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                                 '',
                                                           ),
                                                         );
+                                                        controller.filterInnerFolderByDeadline(
+                                                            filterInnerFolder:
+                                                                FilterInnerFolderModel(
+                                                                    folderId:
+                                                                        folderId ??
+                                                                            '',
+                                                                    filterDate: controller
+                                                                        .deadlineDate
+                                                                        .value));
                                                         controller
                                                             .fetchTasksInsideFolder(
                                                           taskInsideFolder:

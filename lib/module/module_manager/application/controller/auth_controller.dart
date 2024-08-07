@@ -28,6 +28,12 @@ class AuthenticationController extends GetxController {
 
   RxString userName = ''.obs;
 
+  @override
+  void onInit() {
+    getUserName();
+    super.onInit();
+  }
+
   // register
   void registerUser(BuildContext context,
       {required AuthPostmodel authPostModel}) async {

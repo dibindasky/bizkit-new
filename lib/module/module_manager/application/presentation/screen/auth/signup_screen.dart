@@ -22,9 +22,11 @@ class _ScreenSignUpState extends State<ScreenSignUp>
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailIdController = TextEditingController();
-  // final TextEditingController passwordController = TextEditingController();
-  // final TextEditingController rePasswordController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController rePasswordController = TextEditingController();
   final GlobalKey<FormState> personalSignup = GlobalKey();
+
+  int showPassword = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -84,69 +86,49 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                     onChanaged: (value) =>
                         formatWebsiteUrl(value, emailIdController),
                   ),
-                  // company mail
-                  // BlocListener<SignUpBloc, SignUpState>(
-                  //   listener: (context, state) {
-                  //     if (state.message != null) {
-                  //       showSnackbar(context,
-                  //           message: state.message!,
-                  //           backgroundColor: state.hasError ? kred : neonShade);
-                  //     }
-                  //     if (state.otpSendIndividual) {
-                  //       // navigate to otp screen when send
-                  //       // final SignUpIndivudalModel signUpModel =
-                  //       //     SignUpIndivudalModel(
-                  //       //   isBusiness: false,
-                  //       //   isVerified: false,
-                  //       //   name: nameController.text.trim(),
-                  //       //   email: emailIdController.text.trim(),
-                  //       //   password: passwordController.text.trim(),
-                  //       //   phoneNumber: mobileController.text.trim(),
-                  //       // );
-                  //       // print('otp individual got');
-                  //       // GoRouter.of(context)
-                  //       //     .pushNamed(Routes.otpPage, pathParameters: {
-                  //       //   'email': emailIdController.text.trim(),
-                  //       //   'fromBusiness': 'false',
-                  //       //   'model': jsonEncode({
-                  //       //     'signUpIndivudalModel':
-                  //       //         jsonEncode(signUpModel.toJson())
-                  //       //   })
-                  //       // });
-                  //     }
-                  //   },
-                  //   child: CustomTextFormField(
-                  //     validate: Validate.email,
-                  //     labelText: 'Mail',
-                  //     onTapOutside: () {
-                  //       FocusScope.of(context).unfocus();
-                  //     },
-                  //     controller: emailIdController,
-                  //     inputType: TextInputType.emailAddress,
-                  //     onChanaged: (value) =>
-                  //         formatWebsiteUrl(value, emailIdController),
-                  //   ),
-                  // ),
-                  // TTextFormField(
-                  //   validate: Validate.password,
-                  //   password: passwordController,
-                  //   text: 'Password',
-                  //   controller: passwordController,
-                  //   inputType: TextInputType.visiblePassword,
-                  //   obscureText: true,
-                  // ),
-                  // PasswordHintmaker(passwordController: passwordController),
-                  // CustomTextFormField(
-                  //   validate: Validate.rePassword,
-                  //   password: passwordController,
-                  //   labelText: 'Re-Enter Password',
-                  //   controller: rePasswordController,
-                  //   inputType: TextInputType.visiblePassword,
-                  //   obscureText: true,
-                  //   onTapOutside: () {
-                  //     FocusScope.of(context).unfocus();
-                  //   },
-                  // ),
+                  CustomTextFormField(
+                    obscureText: showPassword != 1,
+                    validate: Validate.password,
+                    labelText: 'password',
+                    onTapOutside: () {
+                      FocusScope.of(context).unfocus();
+                    },
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          if (showPassword == 1) {
+                            showPassword = 0;
+                          } else if (showPassword == 0) {
+                            showPassword = 1;
+                          }
+                          setState(() {});
+                        },
+                        icon: Icon(showPassword == 1
+                            ? Icons.remove_red_eye_sharp
+                            : Icons.remove_red_eye_outlined)),
+                    controller: passwordController,
+                  ),
+                  CustomTextFormField(
+                    obscureText: showPassword != 2,
+                    validate: Validate.rePassword,
+                    labelText: 'confirm password',
+                    onTapOutside: () {
+                      FocusScope.of(context).unfocus();
+                    },
+                    password: passwordController,
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          if (showPassword == 2) {
+                            showPassword = 0;
+                          } else if (showPassword == 0) {
+                            showPassword = 2;
+                          }
+                          setState(() {});
+                        },
+                        icon: Icon(showPassword == 2
+                            ? Icons.remove_red_eye_sharp
+                            : Icons.remove_red_eye_outlined)),
+                    controller: rePasswordController,
+                  ),
                   adjustHieght(khieght * .01),
                   InkWell(
                     onTap: () => Navigator.pop(context),
@@ -175,6 +157,7 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                               if (personalSignup.currentState!.validate()) {
                                 controller.registerUser(context,
                                     authPostModel: AuthPostmodel(
+                                        password: passwordController.text,
                                         email: emailIdController.text,
                                         name: nameController.text,
                                         phoneNumber:

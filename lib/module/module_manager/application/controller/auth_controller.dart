@@ -24,7 +24,7 @@ class AuthenticationController extends GetxController {
   RxBool otpFromRegisterUser = false.obs;
 
   // model used to save data temproraly for signup
-  Rx<AuthPostmodel> postModel = AuthPostmodel().obs;
+  Rx<AuthPostmodel> registerPostModel = AuthPostmodel().obs;
 
   RxString userName = ''.obs;
 
@@ -32,7 +32,7 @@ class AuthenticationController extends GetxController {
   void registerUser(BuildContext context,
       {required AuthPostmodel authPostModel}) async {
     loadingregister.value = true;
-    postModel.value = authPostModel;
+    registerPostModel.value = authPostModel;
     final result = await authRepo.registerUser(
         authPostmodel: AuthPostmodel(
             email: authPostModel.email,
@@ -57,7 +57,7 @@ class AuthenticationController extends GetxController {
       {required String otp}) async {
     loadingOtpEmail.value = true;
     final result = await authRepo.otpVerification(
-        authPostmodel: postModel.value.copyWith(otp: otp));
+        authPostmodel: registerPostModel.value.copyWith(otp: otp));
     result.fold((l) {
       GoRouter.of(context).pop();
       showSnackbar(context,
@@ -88,7 +88,7 @@ class AuthenticationController extends GetxController {
   void loginUser(BuildContext context,
       {required AuthPostmodel authPostModel}) async {
     loadingLogin.value = true;
-    postModel.value = authPostModel;
+    registerPostModel.value = authPostModel;
     final result = await authRepo.loginUser(
         authPostmodel: AuthPostmodel(phoneNumber: authPostModel.phoneNumber));
     result.fold((l) {
@@ -113,7 +113,7 @@ class AuthenticationController extends GetxController {
     loadingOtpPhone.value = true;
     final result = await authRepo.otpVerificationPhone(
         authPostmodel: AuthPostPhoneModel(
-            otp: otp, phoneNumber: postModel.value.phoneNumber));
+            otp: otp, phoneNumber: registerPostModel.value.phoneNumber));
     result.fold((l) {
       GoRouter.of(context).pop();
       showSnackbar(context,

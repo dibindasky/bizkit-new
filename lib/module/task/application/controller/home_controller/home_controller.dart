@@ -11,6 +11,7 @@ import 'package:bizkit/module/task/domain/model/dashboard/get_report_success_res
 import 'package:bizkit/module/task/domain/model/dashboard/progres_bar_success_responce/counts.dart';
 import 'package:bizkit/module/task/domain/repository/service/home_repo.dart';
 import 'package:bizkit/packages/pdf/pdf_generator.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -111,7 +112,8 @@ class TaskHomeScreenController extends GetxController {
   // }
 
   void generateReport(
-      {required GenearateReportModel generateReportModel}) async {
+      {required GenearateReportModel generateReportModel,
+      required BuildContext context}) async {
     fileDownloading.value = true;
 
     final result = await homeService.generateReport(
@@ -133,7 +135,8 @@ class TaskHomeScreenController extends GetxController {
         Get.snackbar('Success', 'Success');
         //downloadReport(taskReport.value, selectedReportType.value);
         fileDownloading.value = false;
-        Get.back();
+        // Get.back();
+        Navigator.of(context).pop();
       },
     );
   }

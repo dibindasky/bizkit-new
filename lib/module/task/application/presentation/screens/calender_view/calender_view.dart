@@ -98,6 +98,7 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                                   2) {
                                 taskController.deadlineDate.value =
                                     DateTimeFormater.dateTimeFormat(date);
+
                                 controller.filterFoldersByDeadline(
                                     filterFolder: FilterFolderByDeadlineModel(
                                         filterDate:

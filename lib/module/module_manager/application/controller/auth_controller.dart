@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/data/service/auth/auth_service.dart';
-import 'package:bizkit/module/module_manager/domain/model/auth/auth_post_phone_model/auth_post_phone_model.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
 import 'package:bizkit/module/module_manager/domain/repository/authentication_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -119,9 +118,10 @@ class AuthenticationController extends GetxController {
 
   void verifyOtpLoginPhone(BuildContext context, {required String otp}) async {
     loadingOtpPhone.value = true;
-    final result = await authRepo.otpVerificationPhone(
-        authPostmodel: AuthPostPhoneModel(
-            otp: otp, phoneNumber: registerPostModel.value.phoneNumber));
+    final result = await authRepo.otpVerificationPhone(authPostmodel: {
+      'otp': otp,
+      'phone_number': registerPostModel.value.phoneNumber
+    });
     result.fold((l) {
       GoRouter.of(context).pop();
       showSnackbar(context,

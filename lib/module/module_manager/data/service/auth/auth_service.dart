@@ -5,7 +5,6 @@ import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/core/model/token/token_model.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
-import 'package:bizkit/module/module_manager/domain/model/auth/auth_post_phone_model/auth_post_phone_model.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
 import 'package:bizkit/module/module_manager/domain/repository/authentication_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -59,12 +58,12 @@ class AuthenticationService implements AuthenticationRepo {
 
   @override
   Future<Either<Failure, TokenModel>> otpVerificationPhone(
-      {required AuthPostPhoneModel authPostmodel}) async {
+      {required Map<String,dynamic> authPostmodel}) async {
     try {
-      log('OTP data ${authPostmodel.toJson()}');
+      log('OTP data $authPostmodel');
       final responce = await _dio.post(
         ApiEndPoints.verifyOtp,
-        data: authPostmodel.toJson(),
+        data: authPostmodel,
       );
       log('Success otpVerification');
       return Right(TokenModel.fromJson(responce.data));

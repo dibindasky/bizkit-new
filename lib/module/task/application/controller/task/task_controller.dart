@@ -34,7 +34,9 @@ import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -54,7 +56,7 @@ class CreateTaskController extends GetxController {
   RxString deadlineDate = ''.obs;
 
   // List of participants involved in the task
-  var participants = <TaskAssignedTo>[].obs;
+  // var participants = <TaskAssignedTo>[].obs;
   var userslistNew = <UserSearchSuccessResponce>[].obs;
   var participantsForEditTask = <AssignedToDetail>[].obs;
 
@@ -81,6 +83,7 @@ class CreateTaskController extends GetxController {
 
   // List of all available tags
   var tags = <String>[].obs;
+  var tagsForEdit = <String>[].obs;
 
   // List of selected tags
   // var selectedTags = <String>[].obs;
@@ -143,6 +146,14 @@ class CreateTaskController extends GetxController {
   // Method to remove a participant
   void removeParticipant(UserSearchSuccessResponce participant) {
     userslistNew.remove(participant);
+  }
+
+  void removeTag(dynamic tag) {
+    tags.remove(tag);
+  }
+
+  void removeTagForEdit(dynamic tag) {
+    tagsForEdit.remove(tag);
   }
 
   void removeParticipantsForEdit(dynamic participant) {
@@ -240,55 +251,55 @@ class CreateTaskController extends GetxController {
   }
 
   // Creates a new task with the provided task model
-  void createNewTask({required TaskModel task}) async {
+  void createNewTask(
+      {required TaskModel task,
+      required BuildContext context,
+      required int navigationId}) async {
     isLoading.value = true;
 
     List<Attachment> attachments =
         convertFilesToAttachments(selectedFiles).cast<Attachment>();
     task.attachments = attachments;
-
-    // log('task model ${task.toJson()}');
-
-    // log('Subtasks before create a task ------- ${task.subTask}');
-    // log('Tags before create a task  -------  ${task.tags}');
-    // log('Participants before create a task  -------  ${task.assignedTo}');
-    // log('Attachments before create a task  -------  ${task.attachments}');
     task.assignedTo = userslistNew
         .map(
           (e) => TaskAssignedTo(user: e.userId, isAccepted: 'pending'),
         )
         .toList();
 
-    log(' task.assignedTo ==> ${task.assignedTo}');
+    // log(' task.assignedTo ==> ${task.assignedTo}');
     final result = await taskService.createTask(task: task);
 
     result.fold(
       (error) {
         isLoading.value = false;
+        Get.back(id: navigationId);
+        showSnackbar(context,
+            message: error.error ?? errorMessage,
+            backgroundColor: kred,
+            textColor: kblack);
         log('${error.error}', name: 'Error from create new task');
       },
       (success) {
         isLoading.value = false;
         log('${success.message}');
         testTaskId = success.taskId.toString();
-        // log('TaskID after create new task ==> $testTaskId');
-        clearSelectedFiles();
 
+        Get.back(id: navigationId);
+        showSnackbar(
+          context,
+          message: 'Task created successfully',
+          backgroundColor: neonShade,
+          textColor: kblack,
+          duration: 4,
+        );
+        clearSelectedFiles();
         subTasks.clear();
         tags.clear();
         fetchSendRequests();
-        participants.clear();
         attachments.clear();
         deadlineDate.value = '';
         attachments.clear;
-
-        log('Subtasks after create a task ======= >   ${task.subTask}');
-        log('Tags after create a task  ======= >  ${task.tags}');
-        log('Participants after create a task   ======= > ${task.assignedTo}');
-        log('Attachments after create a task   ======= > ${task.attachments}');
-
-        // Filter tasks by type after creation
-        // filterByType(filterByType: FilterByTypeModel(taskType: 'all'));
+        userslistNew.clear();
         getTasksCountWithoutDate();
       },
     );

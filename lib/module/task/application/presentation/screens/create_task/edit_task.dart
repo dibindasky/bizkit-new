@@ -31,7 +31,8 @@ class ScreenEditTask extends StatelessWidget {
     // final taskCalenarcontroller = Get.find<TaskCalenderViewController>();
     final createTaskController = Get.find<CreateTaskController>();
     final style = TextStyle(fontSize: 15.sp, color: neonShade);
-    List<String>? tags = createTaskController.singleTask.value.tags ?? [];
+    // createTaskController.tagsForEdit =
+    //     createTaskController.singleTask.value.tags ?? [];
 
     titleController.text =
         createTaskController.singleTask.value.title ?? 'title';
@@ -79,8 +80,8 @@ class ScreenEditTask extends StatelessWidget {
                               if (value!.isEmpty) {
                                 return 'Title is required';
                               }
-                              if (value.length < 8) {
-                                return 'Title have minimum 8 charecters';
+                              if (value.length < 4) {
+                                return 'Title have minimum 4 charecters';
                               }
                               return null;
                             },
@@ -92,17 +93,8 @@ class ScreenEditTask extends StatelessWidget {
                             maxLines: 5,
                             hintText: 'Description',
                             controller: descriptionController,
-                            // validator: (value) {
-                            //   if (value!.isEmpty) {
-                            //     return 'Description is required';
-                            //   }
-                            //   return null;
-                            // },
                           ),
                           adjustHieght(3.h),
-                          // Text('Task Type', style: style),
-                          // adjustHieght(5.h),
-                          // const TaskTypeRadioButtons(),
                           adjustHieght(10.h),
                           ContainerTextFieldDummy(
                               text: 'Assign to',
@@ -139,61 +131,14 @@ class ScreenEditTask extends StatelessWidget {
                                           },
                                         ))
                                     .toList(),
-                                // ...createTaskController.participantsEditNewList
-                                //     .map((participant) => Chip(
-                                //           deleteIconColor: kred,
-                                //           side: const BorderSide(
-                                //               color: neonShade),
-                                //           label: Text(
-                                //             participant.name ?? 'name',
-                                //           ),
-                                //           onDeleted: () {
-                                //             createTaskController
-                                //                 .removeParticipantsForEditNewList(
-                                //                     participant);
-                                //           },
-                                //         ))
-                                //     .toList(),
                               ],
                             );
                           }),
-                          // const PriorityRecurringDropDownItems(),
-                          adjustHieght(10.h),
-                          // Text('Task Head', style: style),
-                          // adjustHieght(3.h),
-                          // TaskTextField(
-                          //   hintText: 'Task Head',
-                          //   controller: taskHeadController,
-                          // ),
-                          // adjustHieght(10.h),
-                          // Text('Assign to', style: style),
-                          // adjustHieght(3.h),
-                          // ContainerTextFieldDummy(
-                          //   text: 'Assign to',
-                          //   suffixIcon: Icons.arrow_right,
-                          //   onTap: () {
-                          //     showModalBottomSheet(
-                          //       context: context,
-                          //       builder: (context) =>
-                          //           const AddParticipentBottomSheet(),
-                          //     );
-                          //   },
-                          // ),
-                          // DeadlineChooserCreateTask(
-                          //   onPressed: (date) {
-                          //     createTaskController.deadlineDate.value = date;
-                          //   },
-                          // ),
                           adjustHieght(10.h),
                           TagsContainer(
-                            tags: tags,
+                            tagsForEdit: true,
                           ),
-                          // adjustHieght(10.h),
-                          // const AttachmentChooserTaskCreation(),
-                          // adjustHieght(10.h),
-                          // SubTaskBuilder(),
                           adjustHieght(15.h),
-                          // const Spacer(),
                           Center(
                             child: EventButton(
                                 color: const LinearGradient(
@@ -208,7 +153,7 @@ class ScreenEditTask extends StatelessWidget {
                                     createTaskController.editTask(
                                         taskModel: EditTaskModel(
                                           assignedTo: [],
-                                          tags: task.tags,
+                                          tags: [],
                                           taskId: taskId ?? '',
                                           title: titleController.text,
                                           description:

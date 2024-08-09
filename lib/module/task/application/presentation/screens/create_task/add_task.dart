@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:ffi';
+
 import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
@@ -15,7 +15,6 @@ import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart'
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -56,7 +55,6 @@ class ScreenAddTask extends StatelessWidget {
               Get.back(id: navigationId);
               controller.tags.clear();
               controller.subTasks.clear();
-              controller.participants.clear();
               controller.clearSelectedFiles();
               titleController.clear();
               controller.deadlineDate.value = '';
@@ -104,6 +102,7 @@ class ScreenAddTask extends StatelessWidget {
                           TaskTextField(
                             maxLines: 5,
                             hintText: 'Description',
+                            textCapitalization: TextCapitalization.sentences,
                             controller: descriptionController,
                           ),
                           adjustHieght(3.h),
@@ -197,6 +196,8 @@ class ScreenAddTask extends StatelessWidget {
           controller.convertFilesToAttachments(controller.selectedFiles);
 
       controller.createNewTask(
+        navigationId: navigationId,
+        context: context,
         task: TaskModel(
           title: titleController.text,
           description: descriptionController.text,
@@ -215,26 +216,6 @@ class ScreenAddTask extends StatelessWidget {
           taskType:
               controller.taskTypeEnumToString(controller.createTaskTupe.value),
         ),
-      );
-
-      controller.userslist.clear();
-      controller.tags.clear();
-      controller.tags.clear();
-
-      Future.delayed(
-        const Duration(seconds: 2),
-        () {
-          Get.back(
-            id: navigationId,
-          );
-          showSnackbar(
-            context,
-            message: 'Task created successfully',
-            backgroundColor: neonShade,
-            textColor: kblack,
-            duration: 4,
-          );
-        },
       );
     } else {
       Timer(

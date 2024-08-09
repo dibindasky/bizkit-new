@@ -337,6 +337,14 @@ class TaskContainer extends StatelessWidget {
                                                           ?.taskId ??
                                                       ''
                                                 ]));
+                                            taskFolderController
+                                                .fetchAllTasksInsideAInnerFolder(
+                                                    InnerFolderTasksGetParamsModel(
+                                                        folderId:
+                                                            folderId ?? '',
+                                                        innerFolderId:
+                                                            innerFolderId ??
+                                                                ''));
                                           } else {
                                             taskFolderController
                                                 .tasksAddToFolder(

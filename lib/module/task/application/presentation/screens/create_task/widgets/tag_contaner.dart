@@ -9,12 +9,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class TagsContainer extends StatelessWidget {
-  TagsContainer({super.key, this.tags});
+  TagsContainer({
+    super.key,
+    this.tagsForEdit = false,
+  });
 
-  final List<String>? tags;
+  // final List<String>? tags;
   final TextEditingController tagController = TextEditingController();
   final CreateTaskController controller = Get.find<CreateTaskController>();
-
+  final bool tagsForEdit;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -43,12 +46,26 @@ class TagsContainer extends StatelessWidget {
                   placeholderStyle: TextStyle(color: kwhite.withOpacity(0.6)),
                   suffix: GestureDetector(
                     onTap: () {
-                      final tag = tagController.text.trim();
+                      if (tagsForEdit) {
+                        final tag = tagController.text.trim();
 
-                      if (tag.isNotEmpty && !controller.tags.contains(tag)) {
-                        controller.tags.add(tag);
+                        if (tag.isNotEmpty &&
+                            !controller.tagsForEdit.contains(tag)) {
+                          controller.tagsForEdit.add(tag);
+                          FocusScope.of(context).unfocus();
+                          log('Tags For Edit =====> ${controller.tags}');
+                        }
+                        tagController.clear();
+                      } else {
+                        final tag = tagController.text.trim();
+
+                        if (tag.isNotEmpty && !controller.tags.contains(tag)) {
+                          controller.tags.add(tag);
+                          FocusScope.of(context).unfocus();
+                          log('Tags =====> ${controller.tags}');
+                        }
+                        tagController.clear();
                       }
-                      tagController.clear();
                     },
                     child: const Padding(
                       padding: EdgeInsets.only(right: 10.0),
@@ -75,22 +92,47 @@ class TagsContainer extends StatelessWidget {
                   return Wrap(
                     spacing: 18.0,
                     runSpacing: 4.0,
-                    children: controller.tags.asMap().entries.map((entry) {
-                      int index = entry.key;
-                      String tag = entry.value;
-                      return Chip(
-                        label: Text(
-                          tag,
-                          style: const TextStyle(
-                            color: kwhite,
-                          ),
-                        ),
-                        side: BorderSide.none,
-                        backgroundColor: controller
-                            .tagColor[index % controller.tagColor.length]
-                            .withOpacity(0.4),
-                      );
-                    }).toList(),
+                    children: tagsForEdit
+                        ? controller.tagsForEdit.asMap().entries.map((entry) {
+                            int index = entry.key;
+                            String tag = entry.value;
+                            return Chip(
+                              label: Text(
+                                tag,
+                                style: const TextStyle(
+                                  color: kwhite,
+                                ),
+                              ),
+                              onDeleted: () {
+                                controller.removeTagForEdit(tag);
+                                log('Tags For Edit =====> ${controller.tags}');
+                              },
+                              side: BorderSide.none,
+                              backgroundColor: controller
+                                  .tagColor[index % controller.tagColor.length]
+                                  .withOpacity(0.4),
+                            );
+                          }).toList()
+                        : controller.tags.asMap().entries.map((entry) {
+                            int index = entry.key;
+                            String tag = entry.value;
+                            return Chip(
+                              label: Text(
+                                tag,
+                                style: const TextStyle(
+                                  color: kwhite,
+                                ),
+                              ),
+                              onDeleted: () {
+                                controller.removeTag(tag);
+                                log('Tags =====> ${controller.tags}');
+                              },
+                              side: BorderSide.none,
+                              backgroundColor: controller
+                                  .tagColor[index % controller.tagColor.length]
+                                  .withOpacity(0.4),
+                            );
+                          }).toList(),
                   );
                 }),
               ),

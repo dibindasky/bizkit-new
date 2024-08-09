@@ -284,6 +284,7 @@ class TaskFolderController extends GetxController {
 
   void taskAddOrDeleteInnerFolder(
       {required TaskAddOrDeleteInnerFolderModel taskAddOrDelete}) async {
+    isLoading.value = true;
     final result = await folderService.taskAddOrDeleteInnerFolder(
         taskAddOrDelete: taskAddOrDelete);
     result.fold(
@@ -299,7 +300,8 @@ class TaskFolderController extends GetxController {
   }
 
   void fetchAllTasksInsideAInnerFolder(
-      InnerFolderTasksGetParamsModel innerFolderGetParams) async {
+    InnerFolderTasksGetParamsModel innerFolderGetParams,
+  ) async {
     isLoading.value = true;
     final result = await folderService.getTasksInsideAInnerFolder(
         innerFolderGetParams: innerFolderGetParams);

@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
@@ -153,6 +155,15 @@ class TaskStatusChangeDialog extends StatelessWidget {
                         controller.participantsForEditTask.assignAll(
                             controller.singleTask.value.assignedToDetails ??
                                 []);
+                      }
+
+                      final isTagAlreadyAdded = controller.tagsForEdit.any(
+                        (tag) => tag == controller.singleTask.value.tags,
+                      );
+
+                      if (!isTagAlreadyAdded) {
+                        controller.tagsForEdit
+                            .assignAll(controller.singleTask.value.tags ?? []);
                       }
                     },
                     wdth: double.infinity,

@@ -49,16 +49,12 @@ class TaskService implements TaskRepo {
   Future<Either<ErrorModel, TaskSuccessResponce>> createTask(
       {required TaskModel task}) async {
     try {
-      // for (var element in task.assignedTo ?? []) {
-      //   log('data => :${element.toString()}');
-      // }
-
-      log('Task Tags  : => ${task.tags}');
+      log('Create Task To Json ===> ${task.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestCreateTask,
         data: task.toJson(),
       );
-      log("=> Response CreateTask :  ${response.data}");
+      log("=> Response CreateTask :");
       return Right(TaskSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException createTask $e');

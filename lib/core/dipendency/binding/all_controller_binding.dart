@@ -2,6 +2,7 @@ import 'package:bizkit/module/attendence/application/controller/home/home_contro
 import 'package:bizkit/module/attendence/application/controller/navabar/navabar_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/generate_report/generate_report.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
@@ -22,6 +23,7 @@ class AllControllerBinding implements Bindings {
     Get.lazyPut(() => TaskGenerateReportController());
     Get.lazyPut(() => TaskHomeScreenController());
     Get.lazyPut(() => TaskFolderController());
+    Get.lazyPut(() => ChatController());
 
     // Attendence module
     Get.lazyPut(() => AttendenceNavBarConroller());

@@ -1,8 +1,10 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_bubble.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_text_field.dart';
+import 'package:bizkit/module/task/domain/model/chat/message.dart';
 import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
@@ -20,7 +22,7 @@ class ScreenTaskChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-
+    final chatController = Get.find<ChatController>();
     return Obx(
       () {
         return Scaffold(
@@ -85,29 +87,47 @@ class ScreenTaskChat extends StatelessWidget {
               adjustWidth(10.w),
             ],
           ),
-          body: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0.w),
-                  child: ListView.builder(
-                    reverse: true,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => index == 0 || index == 3
-                        ? PollContainerChat(isSender: index == 0)
-                        : ChatBubble(
-                            isSender: index % 2 == 0,
-                            text: 'Yes.. I am always free .. can we meet',
-                            time: '12:15 PM',
-                            isImage: (index + 1) % 7 == 0,
-                            imageUrl: imageDummyNetwork,
-                          ),
-                  ),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+                      child: GetBuilder<ChatController>(
+                          id: 'chat',
+                          builder: (controller) {
+                            print(
+                                'rebuid chat new chat arrived => ${chatController.messages.length}');
+                            return ListView.builder(
+                              // reverse: true,
+                              shrinkWrap: true,
+                              controller: chatController.chatScrollController,
+                              itemCount: chatController.messages.length,
+                              itemBuilder: (context, index) {
+                                final message = chatController.messages[index];
+                                bool showArrow = true;
+                                if (index != 0 &&
+                                    index !=
+                                        chatController.messages.length - 1) {
+                                  if (message.sender ==
+                                      chatController
+                                          .messages[index + 1].sender) {
+                                    showArrow = false;
+                                  }
+                                }
+                                // PollContainerChat(isSender: index == 0)
+                                return ChatBubble(
+                                  showArrow: showArrow,
+                                  message: message,
+                                );
+                              },
+                            );
+                          })),
                 ),
-              ),
-              adjustHieght(10),
-              const ChatTextfieldContainer(),
-            ],
+                adjustHieght(10),
+                const ChatTextfieldContainer(),
+              ],
+            ),
           ),
         );
       },

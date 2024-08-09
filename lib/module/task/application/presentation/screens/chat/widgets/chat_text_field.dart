@@ -1,8 +1,12 @@
+import 'dart:async';
+
+import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/attachments_chat_dialog.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ChatTextfieldContainer extends StatefulWidget {
   const ChatTextfieldContainer({
@@ -14,11 +18,11 @@ class ChatTextfieldContainer extends StatefulWidget {
 }
 
 class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
-  final TextEditingController chatController = TextEditingController();
   int maxLines = 1;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<ChatController>();
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       height: 50.h + maxLines * 10.h,
@@ -42,7 +46,17 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
             child: ClipRRect(
               borderRadius: kBorderRadius25,
               child: TextField(
-                controller: chatController,
+                onTap: () {
+                  Timer(const Duration(milliseconds: 300), () {
+                    controller.chatScrollController.animateTo(
+                        controller
+                                .chatScrollController.position.maxScrollExtent +
+                            200,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease);
+                  });
+                },
+                controller: controller.controller,
                 onChanged: (value) {
                   setState(() {});
                   if (value == '') {
@@ -83,7 +97,7 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
               ),
             ),
           )),
-          chatController.text == ''
+          controller.controller.text == ''
               ? Row(
                   children: [
                     IconButton(
@@ -98,7 +112,9 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
                   ],
                 )
               : IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.sendTextMessage();
+                  },
                   icon: const Icon(Icons.send, color: neonShade)),
         ],
       ),

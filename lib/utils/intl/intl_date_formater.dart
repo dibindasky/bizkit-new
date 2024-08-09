@@ -1,6 +1,22 @@
 import 'package:intl/intl.dart';
 
 class DateTimeFormater {
+  // return HH:MM AM/PM
+static String formatTimeAMPM(String? timestamp) {
+  if (timestamp == null || timestamp.isEmpty) return '';
+  
+  // Parse the timestamp into a DateTime object
+  final dateTime = DateTime.parse(timestamp);
+  
+  // Convert the DateTime to the user's local time zone
+  final localDateTime = dateTime.toLocal();
+  
+  // Format the time in AM/PM format
+  final formattedTime = DateFormat.jm().format(localDateTime);
+  
+  return formattedTime;
+}
+
   static String formatDateTime(String dateString, String timeString) {
     // Parse the date and time strings
     DateTime dateTime;

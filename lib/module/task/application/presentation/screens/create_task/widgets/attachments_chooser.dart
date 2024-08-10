@@ -64,7 +64,7 @@ class AttachmentChooserTaskCreation extends StatelessWidget {
                             children: [
                               SizedBox(
                                 width: 109.w,
-                                height: 65.h,
+                                height: 60.h,
                                 child: Card(
                                   color: lightGrey,
                                   margin: EdgeInsets.only(right: 10.w),
@@ -72,9 +72,10 @@ class AttachmentChooserTaskCreation extends StatelessWidget {
                                     padding: const EdgeInsets.all(12.0),
                                     child: Column(
                                       children: [
-                                        Image.asset(
-                                          attendenceSolidPdfImg,
-                                          width: 25,
+                                        Icon(
+                                          Icons.file_copy,
+                                          color: neonShade,
+                                          size: 30.w,
                                         ),
                                         Text(
                                           file.name,

@@ -16,6 +16,7 @@ class TaskHomeScreenController extends GetxController {
   final HomeRepo homeService = HomeService();
 
   RxBool isLoading = false.obs;
+  RxBool loadingForGetReports = false.obs;
   RxBool fileDownloading = false.obs;
   RxString taskCategory = ''.obs;
   Rx<Counts> progresBarCounts = Counts().obs;
@@ -24,7 +25,7 @@ class TaskHomeScreenController extends GetxController {
 
   // RxList to hold selected fields
   RxList<String> selectedFields = <String>[].obs;
-  RxString selectedReportType = 'pdf'.obs;
+  RxString selectedReportType = ''.obs;
   RxList<String> selectedTaskIds = <String>[].obs;
 
   // Function to add or remove fields from the selectedFields list
@@ -65,18 +66,18 @@ class TaskHomeScreenController extends GetxController {
   }
 
   void getReport({required GetReportModel getReportModel}) async {
-    isLoading.value = true;
+    loadingForGetReports.value = true;
 
     final result = await homeService.getReport(getReportModel: getReportModel);
 
     result.fold(
       (failure) {
-        isLoading.value = false;
+        loadingForGetReports.value = false;
         log(failure.message.toString());
       },
       (success) {
         reportTasks.assignAll(success.tasks ?? []);
-        isLoading.value = false;
+        loadingForGetReports.value = false;
       },
     );
   }
@@ -100,10 +101,11 @@ class TaskHomeScreenController extends GetxController {
         selectedReportType.value = '';
         selectedTaskIds.clear();
         update();
-        // if (selectedReportType.value == 'pdf') {
-        pdfAndExcelGenerator(success.report ?? '',generateReportModel.reportType ?? '' );
-        // pdfAndExcelGenerator(
-        //    base64String: success.report ,filetype: generateReportModel.reportType , context :context);
+
+        pdfAndExcelGenerator(
+            base64String: success.report ?? '',
+            filetype: generateReportModel.reportType ?? '',
+            context: context);
         // Get.snackbar('Success', 'Success');
         fileDownloading.value = false;
         Navigator.of(context).pop();
@@ -111,5 +113,3 @@ class TaskHomeScreenController extends GetxController {
     );
   }
 }
-
-

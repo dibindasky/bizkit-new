@@ -259,7 +259,7 @@ class ReportsView extends StatelessWidget {
                                       () => EventButton(
                                         wdth: kwidth * 0.9,
                                         text: controller.fileDownloading.value
-                                            ? 'Downloading...!'
+                                            ? 'Downloading...'
                                             : 'Generate Report',
                                         onTap: () async {
                                           if (controller
@@ -286,8 +286,6 @@ class ReportsView extends StatelessWidget {
                                               ),
                                             );
                                           }
-
-                                          // Navigator.of(context).pop();
                                         },
                                       ),
                                     ),

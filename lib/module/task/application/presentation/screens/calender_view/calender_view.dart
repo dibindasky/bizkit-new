@@ -24,27 +24,15 @@ class ScreenTaskCalenderView extends StatefulWidget {
 }
 
 class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
-  final controller = Get.find<TaskCalenderViewController>();
-
-  final taskController = Get.find<CreateTaskController>();
-
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<TaskFolderController>();
+    final folderController = Get.find<TaskFolderController>();
     final taskCalenderViewController = Get.find<TaskCalenderViewController>();
 
     final taskController = Get.find<CreateTaskController>();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // taskController.filterPinnedTasksByType(
-      //     filterPinnedTask: FilterPinnedTaskByTypeModel(
-      //   taskType: 'all',
-      //   isPinned: true,
-      // ));
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
 
-      // taskController.filterByType(
-      //     filterByType: FilterByTypeModel(taskType: 'all'));
-      // taskController.fetchAllPinnedTasks();
-    });
+    // });
 
     return Scaffold(
       body: SafeArea(
@@ -96,13 +84,13 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                               } else if (taskCalenderViewController
                                       .taskTabChangeIndex.value ==
                                   2) {
-                                taskController.deadlineDate.value =
+                                folderController.deadlineDate.value =
                                     DateTimeFormater.dateTimeFormat(date);
 
-                                controller.filterFoldersByDeadline(
+                                folderController.filterFoldersByDeadline(
                                     filterFolder: FilterFolderByDeadlineModel(
-                                        filterDate:
-                                            taskController.deadlineDate.value));
+                                        filterDate: folderController
+                                            .deadlineDate.value));
                               }
                             },
                             child: AnimatedContainer(

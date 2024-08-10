@@ -20,7 +20,6 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -69,7 +68,6 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     log('Main Folder Id :$folderId');
     final controller = Get.find<TaskFolderController>();
-    final taskCalenderViewController = Get.find<TaskCalenderViewController>();
     final taskController = Get.find<CreateTaskController>();
 
     void showInnerFolderDialog({String? initialName, String? innerFolderId}) {
@@ -101,48 +99,40 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                   if (innerFolderName.isNotEmpty) {
                     if (innerFolderId == null) {
                       controller.createNewFolderInsideFolder(
+                        folderId: folderId ?? '',
+                        context: context,
                         createNewFolderInsideFolder: CreateFolderInsideAFolder(
                           folderId: folderId ?? '',
                           innerFolderName: innerFolderName,
                           innerFolderTasks: [],
                         ),
                       );
-                      showSnackbar(
-                        context,
-                        message: 'Create Inner folder successfully',
-                        backgroundColor: neonShade,
-                        textColor: kblack,
-                        duration: 4,
-                      );
+
                       // log('After inner folder creation ====> ${controller.deadlineDate.value} // $folderId');
-                      controller.filterInnerFolderByDeadline(
-                          filterInnerFolder: FilterInnerFolderModel(
-                              folderId: folderId ?? '',
-                              filterDate: controller.deadlineDate.value));
+                      // controller.filterInnerFolderByDeadline(
+                      //     filterInnerFolder: FilterInnerFolderModel(
+                      //         folderId: folderId ?? '',
+                      //         filterDate: controller.deadlineDate.value));
                     } else {
                       controller.editInnerFolderName(
+                          folderId: folderId ?? '',
+                          context: context,
                           editInnerFolderName: EditInnerFolderModel(
-                        folderId: folderId ?? '',
-                        innerFolderId: innerFolderId,
-                        innerFolderName: innerFolderName,
-                      ));
-                      controller.filterInnerFolderByDeadline(
-                          filterInnerFolder: FilterInnerFolderModel(
-                              folderId: folderId ?? '',
-                              filterDate: controller.deadlineDate.value));
+                            folderId: folderId ?? '',
+                            innerFolderId: innerFolderId,
+                            innerFolderName: innerFolderName,
+                          ));
+                      // controller.filterInnerFolderByDeadline(
+                      //     filterInnerFolder: FilterInnerFolderModel(
+                      //         folderId: folderId ?? '',
+                      //         filterDate: controller.deadlineDate.value));
                     }
 
                     controller.fetchTasksInsideFolder(
                         taskInsideFolder: GetTaskInsideAFolderParamsModel(
                       folderId: folderId ?? '',
                     ));
-                    // showSnackbar(
-                    //   context,
-                    //   message: 'Edit inner folder name successfully',
-                    //   backgroundColor: neonShade,
-                    //   textColor: kblack,
-                    //   duration: 4,
-                    // );
+
                     Navigator.of(context).pop();
                   }
                 },
@@ -336,16 +326,22 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                         onLongPress: () {
                                           controller.longPress(index);
                                           controller.toggleInnerFolderSelection(
-                                              innerFolder.innerFolderId ?? '');
+                                            controller
+                                                    .filteredInnerFolders[index]
+                                                    .innerFolderId ??
+                                                '',
+                                          );
                                         },
                                         onTap: () {
                                           if (controller
                                               .selectedFolderContainer.value) {
                                             controller.longPress(index);
-                                            controller
-                                                .toggleInnerFolderSelection(
-                                                    innerFolder.innerFolderId ??
-                                                        '');
+                                            controller.toggleInnerFolderSelection(
+                                                controller
+                                                        .filteredInnerFolders[
+                                                            index]
+                                                        .innerFolderId ??
+                                                    '');
                                           } else {
                                             Get.toNamed(
                                               Routes
@@ -362,18 +358,18 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                               id: 2,
                                             );
 
-                                            controller
-                                                .fetchAllTasksInsideAInnerFolder(
-                                                    InnerFolderTasksGetParamsModel(
-                                                        folderId: folderId,
-                                                        innerFolderId:
-                                                            innerFolder
-                                                                .innerFolderId));
+                                            controller.fetchAllTasksInsideAInnerFolder(
+                                                InnerFolderTasksGetParamsModel(
+                                                    folderId: folderId,
+                                                    innerFolderId: controller
+                                                            .filteredInnerFolders[
+                                                                index]
+                                                            .innerFolderId ??
+                                                        ''));
                                           }
                                         },
                                         child: ListTile(
-                                          tileColor: taskCalenderViewController
-                                                  .selectedIndices
+                                          tileColor: controller.selectedIndices
                                                   .contains(index)
                                               ? lightColr
                                               : knill,
@@ -429,7 +425,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                   true,
                                                 );
                                               } else if (value ==
-                                                  'Edit folder name') {
+                                                  'Edit Inner Folder Name') {
                                                 showInnerFolderDialog(
                                                   initialName: innerFolder
                                                       .innerFolderName,
@@ -453,17 +449,18 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                   ),
                                                 ),
                                                 const PopupMenuItem<String>(
-                                                  value: 'Edit folder name',
+                                                  value:
+                                                      'Edit Inner Folder Name',
                                                   child: Text(
-                                                    'Edit folder name',
+                                                    'Edit Inner Folder Name',
                                                     style: TextStyle(
                                                         color: kblack),
                                                   ),
                                                 ),
                                                 PopupMenuItem<String>(
-                                                  value: 'Delete Folder',
+                                                  value: 'Delete Inner Folder',
                                                   child: const Text(
-                                                    'Delete Folder',
+                                                    'Delete Inner Folder',
                                                     style: TextStyle(
                                                         color: kblack),
                                                   ),
@@ -476,6 +473,9 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                       onTap: () {
                                                         controller
                                                             .deleteInnerFolder(
+                                                          folderId:
+                                                              folderId ?? '',
+                                                          context: context,
                                                           deleteInnerFolder:
                                                               DeleteInnerFolderModel(
                                                             folderId: folderId,
@@ -486,30 +486,23 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                                 '',
                                                           ),
                                                         );
-                                                        controller.filterInnerFolderByDeadline(
-                                                            filterInnerFolder:
-                                                                FilterInnerFolderModel(
-                                                                    folderId:
-                                                                        folderId ??
-                                                                            '',
-                                                                    filterDate: controller
-                                                                        .deadlineDate
-                                                                        .value));
-                                                        controller
-                                                            .fetchTasksInsideFolder(
-                                                          taskInsideFolder:
-                                                              GetTaskInsideAFolderParamsModel(
-                                                            folderId: folderId,
-                                                          ),
-                                                        );
-                                                        showSnackbar(
-                                                          context,
-                                                          message:
-                                                              'Inner folder deleted successfully',
-                                                          backgroundColor: kred,
-                                                          textColor: kblack,
-                                                          duration: 4,
-                                                        );
+
+                                                        // controller.filterInnerFolderByDeadline(
+                                                        //     filterInnerFolder:
+                                                        //         FilterInnerFolderModel(
+                                                        //             folderId:
+                                                        //                 folderId ??
+                                                        //                     '',
+                                                        //             filterDate: controller
+                                                        //                 .deadlineDate
+                                                        //                 .value));
+                                                        // controller
+                                                        //     .fetchTasksInsideFolder(
+                                                        //   taskInsideFolder:
+                                                        //       GetTaskInsideAFolderParamsModel(
+                                                        //     folderId: folderId,
+                                                        //   ),
+                                                        // );
                                                       },
                                                       title: 'Delete Folder',
                                                       buttonColor: neonShade,
@@ -583,6 +576,8 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                           child: TaskContainer(
                                             tasksFromFoldrs: true,
                                             fromFolders: true,
+                                            tasksFromInnerFolder: false,
+                                            fromInnerfolder: false,
                                             folderId: folderId,
                                             isInnerFolderTask: false,
                                             tasksInsideFolder: task,

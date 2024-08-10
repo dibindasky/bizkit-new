@@ -18,7 +18,6 @@ import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 class ScreenAddTask extends StatelessWidget {
   ScreenAddTask({super.key, this.edit = false, required this.navigationId});
@@ -49,17 +48,13 @@ class ScreenAddTask extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            if (edit) {
-              GoRouter.of(context).pop();
-            } else {
-              Get.back(id: navigationId);
-              controller.tags.clear();
-              controller.subTasks.clear();
-              controller.clearSelectedFiles();
-              titleController.clear();
-              controller.deadlineDate.value = '';
-              descriptionController.clear();
-            }
+            Get.back(id: navigationId);
+            controller.tags.clear();
+            controller.subTasks.clear();
+            controller.clearSelectedFiles();
+            titleController.clear();
+            controller.deadlineDate.value = '';
+            descriptionController.clear();
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
@@ -69,7 +64,7 @@ class ScreenAddTask extends StatelessWidget {
       body: SafeArea(
         child: Obx(
           () {
-            final isLoading = controller.isLoading.value;
+            final isLoading = controller.taskCreationLoading.value;
             return Stack(
               children: [
                 SingleChildScrollView(
@@ -104,6 +99,8 @@ class ScreenAddTask extends StatelessWidget {
                             hintText: 'Description',
                             textCapitalization: TextCapitalization.sentences,
                             controller: descriptionController,
+                            onTapOutside: () =>
+                                FocusScope.of(context).unfocus(),
                           ),
                           adjustHieght(3.h),
                           Text('Task Type', style: style),
@@ -148,9 +145,12 @@ class ScreenAddTask extends StatelessWidget {
                                   .toList(),
                             );
                           }),
-                          DeadlineChooserCreateTask(onPressed: (date) {
-                            controller.deadlineDate.value = date;
-                          }),
+                          DeadlineChooserCreateTask(
+                            showTitle: true,
+                            onPressed: (date) {
+                              controller.deadlineDate.value = date;
+                            },
+                          ),
                           adjustHieght(10.h),
                           TagsContainer(),
                           adjustHieght(10.h),
@@ -217,6 +217,7 @@ class ScreenAddTask extends StatelessWidget {
               controller.taskTypeEnumToString(controller.createTaskTupe.value),
         ),
       );
+      controller.deadlineDate.value = '';
     } else {
       Timer(
         const Duration(milliseconds: 300),

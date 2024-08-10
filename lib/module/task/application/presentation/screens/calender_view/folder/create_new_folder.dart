@@ -74,29 +74,17 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
                     onTap: () {
                       if (folderName != null && folderId != null) {
                         folderController.editFolderName(
+                            context: context,
                             editFolderName: EditFolderModel(
                                 folderName: folderNameController.text,
                                 folderId: folderId));
-                        showSnackbar(
-                          context,
-                          message: 'Edit folder name successfully',
-                          backgroundColor: neonShade,
-                          textColor: kblack,
-                          duration: 4,
-                        );
                       } else {
                         folderController.createNewFolder(
+                          context: context,
                           folder: FolderModel(
                             folderName: folderNameController.text,
                             tasks: [],
                           ),
-                        );
-                        showSnackbar(
-                          context,
-                          message: 'Folder created successfully',
-                          backgroundColor: neonShade,
-                          textColor: kblack,
-                          duration: 4,
                         );
                       }
                       Navigator.pop(context);

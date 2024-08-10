@@ -8,6 +8,8 @@ class ShimmerLoader extends StatelessWidget {
     required this.itemCount,
     required this.height,
     required this.width,
+    this.highlightColor,
+    this.baseColor,
     this.seprator = const SizedBox(),
     this.scrollDirection = Axis.vertical,
   }) : super(key: key);
@@ -17,6 +19,8 @@ class ShimmerLoader extends StatelessWidget {
   final double width;
   final Axis scrollDirection;
   final Widget seprator;
+  final Color? baseColor;
+  final Color? highlightColor;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +32,9 @@ class ShimmerLoader extends StatelessWidget {
       scrollDirection: scrollDirection,
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: const Color.fromARGB(255, 54, 54, 54),
-          highlightColor: const Color.fromARGB(255, 85, 85, 85),
+          baseColor: baseColor ?? const Color.fromARGB(255, 54, 54, 54),
+          highlightColor:
+              highlightColor ?? const Color.fromARGB(255, 85, 85, 85),
           child: Container(
             height: height,
             width: width,

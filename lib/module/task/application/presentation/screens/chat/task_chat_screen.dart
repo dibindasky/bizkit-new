@@ -3,7 +3,6 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_bubble.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_text_field.dart';
-import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';

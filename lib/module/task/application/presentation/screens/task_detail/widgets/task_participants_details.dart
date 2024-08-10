@@ -1,6 +1,7 @@
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -150,11 +151,21 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                       'Participants',
                       style: textThinStyle1,
                     ),
-                    Text(
-                      participants ?? 'Participants',
-                      style: textStyle1,
-                      overflow: TextOverflow.ellipsis,
-                    )
+                    Obx(
+                      () => taskController.isLoading.value
+                          ? Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: ShimmerLoaderTile(
+                                height: 9.h,
+                                width: 100.w,
+                              ),
+                            )
+                          : Text(
+                              participants ?? 'Participants',
+                              style: textStyle1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                    ),
                   ],
                 )
               ],

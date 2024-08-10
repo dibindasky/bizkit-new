@@ -1,5 +1,6 @@
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,9 +22,21 @@ class TaskDetailDescriptionSection extends StatelessWidget {
         children: [
           Text('Description', style: textHeadStyle1),
           adjustHieght(5.h),
-          Text(
-            taskController.singleTask.value.description ?? 'Description',
-            style: textStyle1,
+          Obx(
+            () => taskController.isLoading.value
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: ShimmerLoader(
+                      itemCount: 1,
+                      height: 20.h,
+                      width: 200.w,
+                    ),
+                  )
+                : Text(
+                    taskController.singleTask.value.description ??
+                        'Description',
+                    style: textStyle1,
+                  ),
           ),
         ],
       ),

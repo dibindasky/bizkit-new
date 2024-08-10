@@ -4,9 +4,7 @@ import 'package:bizkit/module/task/domain/model/task/sub_task/edit_sub_task_mode
 import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task_add_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/sub_task.dart';
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,7 +18,7 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
     this.subtaskTitile,
     this.subtaskDescription,
     this.subtaskId,
-    this.isEdit = false, // Default value is false
+    this.isEdit = false,
   });
 
   final bool? afterTaskCreation;
@@ -34,7 +32,6 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<CreateTaskController>();
 
-    // Create TextEditingController instances
     final titleController = TextEditingController(text: subtaskTitile);
     final descriptionController =
         TextEditingController(text: subtaskDescription);
@@ -65,6 +62,7 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             TaskTextField(
+              textCapitalization: TextCapitalization.sentences,
               hintText: 'Description',
               controller: descriptionController,
             ),
@@ -84,15 +82,9 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                       description: descriptionController.text,
                     );
                     controller.editSubTask(
-                        editsubtask: editsubtask, taskId: taskId ?? '');
-                    showSnackbar(
-                      context,
-                      message: 'Subtask edited successfully',
-                      backgroundColor: neonShade,
-                      textColor: kblack,
-                      duration: 4,
-                    );
-                    GoRouter.of(context).pop();
+                        context: context,
+                        editsubtask: editsubtask,
+                        taskId: taskId ?? '');
                   } else {
                     // Create new subtask
                     final subtasks = SubTasks(
@@ -103,19 +95,12 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
 
                     if (afterTaskCreation == true) {
                       controller.addSubTask(
+                          context: context,
                           newsubtask: SubTaskAddModel(
                             taskId: taskId,
                             subTask: subtasks,
                           ),
                           taskId: taskId ?? '');
-                      showSnackbar(
-                        context,
-                        message: 'Subtask added successfully',
-                        backgroundColor: neonShade,
-                        textColor: kblack,
-                        duration: 4,
-                      );
-                      GoRouter.of(context).pop();
                     } else {
                       controller.createSubtaskBeforeTaskCreation(
                         subTask: SubTask(
@@ -123,13 +108,6 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                           description: descriptionController.text,
                           isCompleted: false,
                         ),
-                      );
-                      showSnackbar(
-                        context,
-                        message: 'Subtask added successfully',
-                        backgroundColor: neonShade,
-                        textColor: kblack,
-                        duration: 4,
                       );
                       GoRouter.of(context).pop();
                     }

@@ -40,6 +40,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../domain/model/task/task_model/sub_task.dart';
 
@@ -104,19 +105,13 @@ class CreateTaskController extends GetxController {
     super.onInit();
   }
 
-  // final combinedTags = <dynamic>[];
-  // void updatingTags(List? tags) {
-  //   if (tags != null) {
-  //     combinedTags.addAll(tags);
-  //   }
-  //   combinedTags.addAll(tags!);
-  // }
-
   // Test task ID for validation or testing purposes
   String testTaskId = '';
 
   // Reactive variable for loading state
   RxBool isLoading = false.obs;
+  RxBool taskCreationLoading = false.obs;
+  RxBool taskEditLoading = false.obs;
   RxBool searchLoading = false.obs;
   RxBool pinLoader = false.obs;
 
@@ -255,7 +250,7 @@ class CreateTaskController extends GetxController {
       {required TaskModel task,
       required BuildContext context,
       required int navigationId}) async {
-    isLoading.value = true;
+    taskCreationLoading.value = true;
 
     List<Attachment> attachments =
         convertFilesToAttachments(selectedFiles).cast<Attachment>();
@@ -271,7 +266,7 @@ class CreateTaskController extends GetxController {
 
     result.fold(
       (error) {
-        isLoading.value = false;
+        taskCreationLoading.value = false;
         Get.back(id: navigationId);
         showSnackbar(context,
             message: error.error ?? errorMessage,
@@ -280,7 +275,7 @@ class CreateTaskController extends GetxController {
         log('${error.error}', name: 'Error from create new task');
       },
       (success) {
-        isLoading.value = false;
+        taskCreationLoading.value = false;
         log('${success.message}');
         testTaskId = success.taskId.toString();
 
@@ -290,14 +285,12 @@ class CreateTaskController extends GetxController {
           message: 'Task created successfully',
           backgroundColor: neonShade,
           textColor: kblack,
-          duration: 4,
         );
         clearSelectedFiles();
         subTasks.clear();
         tags.clear();
         fetchSendRequests();
         attachments.clear();
-        deadlineDate.value = '';
         attachments.clear;
         userslistNew.clear();
         getTasksCountWithoutDate();
@@ -309,8 +302,9 @@ class CreateTaskController extends GetxController {
   void editTask({
     required EditTaskModel taskModel,
     required String taskId,
+    required BuildContext context,
   }) async {
-    isLoading.value = true;
+    taskEditLoading.value = true;
 
     log('Edit assignedTo  ==> ${taskModel.assignedTo}');
 
@@ -339,23 +333,39 @@ class CreateTaskController extends GetxController {
             )
             .toList();
 
+    taskModel.tags = tagsForEdit;
+
     final result = await taskService.editTask(taskModel: taskModel);
     result.fold(
       (error) {
-        isLoading.value = false;
+        taskEditLoading.value = false;
+        showSnackbar(context,
+            message: error.error ?? errorMessage,
+            backgroundColor: kred,
+            textColor: kblack);
         log('${error.error}', name: 'Error from Edit Task');
       },
       (success) {
-        isLoading.value = false;
+        taskEditLoading.value = false;
         log('${success.message}');
+        showSnackbar(
+          context,
+          message: 'Task edited successfully',
+          backgroundColor: neonShade,
+          textColor: kblack,
+          duration: 4,
+        );
+        Navigator.of(context).pop();
         fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
-        tags.clear();
       },
     );
   }
 
   // Complete a Task
-  void completeTask({required CompletedTaskModel completedTaskModel}) async {
+  void completeTask({
+    required CompletedTaskModel completedTaskModel,
+    required BuildContext context,
+  }) async {
     isLoading.value = true;
 
     final result =
@@ -364,10 +374,22 @@ class CreateTaskController extends GetxController {
     result.fold(
       (failure) {
         isLoading.value = false;
+        showSnackbar(context,
+            message: failure.message ?? errorMessage,
+            backgroundColor: kred,
+            textColor: kblack);
+        GoRouter.of(context).pop();
         log(failure.message.toString());
       },
       (success) {
         log('${success.message}');
+        showSnackbar(
+          context,
+          message: 'Complete task successfully',
+          backgroundColor: neonShade,
+          textColor: kblack,
+        );
+        GoRouter.of(context).pop();
         isLoading.value = false;
       },
     );
@@ -410,7 +432,7 @@ class CreateTaskController extends GetxController {
   void taskFilterByDeadline(
       {required FilterByDeadlineModel filterByDeadline}) async {
     isLoading.value = true;
-    log('Tojson => Deadline filter task = >> ${filterByDeadline.toJson()}');
+
     final result =
         await taskService.filterByDeadline(filterByDeadline: filterByDeadline);
     result.fold(
@@ -428,13 +450,18 @@ class CreateTaskController extends GetxController {
 
   // add spotlight to a task
   void spotLightTask({required SpotLightTask spotLightTask}) async {
+    isLoading.value = true;
     final result =
         await taskService.spotLightTask(spotLightTask: spotLightTask);
     result.fold(
       (failure) {
+        isLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
+        isLoading.value = false;
+        taskFilterByDeadline(
+            filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
         log('SpotLightTask :=> $deadlineTasks');
       },
     );
@@ -476,22 +503,6 @@ class CreateTaskController extends GetxController {
       },
     );
   }
-
-  // Fetches all pinned tasks
-  // void fetchAllPinnedTasks() async {
-  //   isLoading.value = true;
-  //   final result = await taskService.getAllPinnedTasks();
-  //   result.fold(
-  //     (failure) {
-  //       isLoading.value = false;
-  //       log(failure.message.toString());
-  //     },
-  //     (success) {
-  //       isLoading.value = false;
-  //       log('${success.pinnedTasks ?? []}', name: 'all pined tasks');
-  //     },
-  //   );
-  // }
 
   // Unpins a task using the provided model
   void unpinATask({required UnpinATaskModel unpinATask}) async {
@@ -535,7 +546,6 @@ class CreateTaskController extends GetxController {
       {required FilterPinnedTaskByTypeModel filterPinnedTask,
       bool pinn = false}) async {
     isLoading.value = true;
-    print('pinned task => ${filterPinnedTask.toJson()}');
     final result = await taskService.filterPinnedTaskByType(
         filterPinnedTaskByType: filterPinnedTask);
     update();
@@ -634,18 +644,31 @@ class CreateTaskController extends GetxController {
 
   // Adds a new subtask using the provided model
   void addSubTask(
-      {required SubTaskAddModel newsubtask, required String taskId}) async {
+      {required SubTaskAddModel newsubtask,
+      required String taskId,
+      required BuildContext context}) async {
     isLoading.value = true;
 
     final result = await taskService.addSubTask(newsubtask: newsubtask);
     result.fold(
       (failure) {
         isLoading.value = false;
+        showSnackbar(context,
+            message: failure.message ?? errorMessage,
+            backgroundColor: kred,
+            textColor: kblack);
         log(failure.message.toString());
       },
       (success) {
         log("${success.message}");
         fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
+        GoRouter.of(context).pop();
+        showSnackbar(
+          context,
+          message: 'Subtask added successfully',
+          backgroundColor: neonShade,
+          textColor: kblack,
+        );
         isLoading.value = false;
       },
     );
@@ -654,19 +677,32 @@ class CreateTaskController extends GetxController {
   // Deletes a subtask using the provided model
   void deleteSubTask(
       {required DeleteSubTaskModel deletesubtask,
-      required String taskId}) async {
+      required String taskId,
+      required BuildContext context}) async {
     isLoading.value = true;
 
     final result =
         await taskService.deleteSubTask(deletesubtask: deletesubtask);
     result.fold(
       (failure) {
+        showSnackbar(context,
+            message: failure.message ?? errorMessage,
+            backgroundColor: kred,
+            textColor: kblack);
+        GoRouter.of(context).pop();
         isLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         log("${success.message}");
         fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
+        showSnackbar(
+          context,
+          message: 'Subtask deleted successfully',
+          backgroundColor: kred,
+          textColor: kblack,
+        );
+        GoRouter.of(context).pop();
         isLoading.value = false;
       },
     );
@@ -674,17 +710,31 @@ class CreateTaskController extends GetxController {
 
   // Edits an existing subtask using the provided model
   void editSubTask(
-      {required EditSubTaskModel editsubtask, required String taskId}) async {
+      {required EditSubTaskModel editsubtask,
+      required String taskId,
+      required BuildContext context}) async {
     isLoading.value = true;
 
     final result = await taskService.editSubTask(editsubtask: editsubtask);
     result.fold(
       (failure) {
         isLoading.value = false;
+        GoRouter.of(context).pop();
+        showSnackbar(context,
+            message: failure.message ?? errorMessage,
+            backgroundColor: kred,
+            textColor: kblack);
         log(failure.message.toString());
       },
       (success) {
         log("${success.message}");
+        GoRouter.of(context).pop();
+        showSnackbar(
+          context,
+          message: 'Subtask edited successfully',
+          backgroundColor: neonShade,
+          textColor: kblack,
+        );
         fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
         isLoading.value = false;
       },
@@ -705,21 +755,23 @@ class CreateTaskController extends GetxController {
     result.fold(
       (failure) {
         isLoading.value = false;
+        showSnackbar(context,
+            message: failure.message ?? errorMessage,
+            backgroundColor: kred,
+            textColor: kblack);
+        GoRouter.of(context).pop();
         log(failure.message.toString());
       },
       (success) {
         log("${success.message}");
-
-        // Get.snackbar('Kill', 'Success');
-        // Navigator.of(context).pop();
-        // Navigator.of(context).pop();
-        // GoRouter.of(context).pop();
-        // GoRouter.of(context).pop();
-        // print('After pop');
+        GoRouter.of(context).pop();
+        showSnackbar(
+          context,
+          message: 'Killed task successfully',
+          backgroundColor: neonShade,
+          textColor: kblack,
+        );
         isLoading.value = false;
-        // GoRouter.of(context).pus(
-        //   Routes.taskHome,
-        // );
       },
     );
   }

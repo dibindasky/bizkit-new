@@ -95,7 +95,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByType,
         data: filterByType.toJson(),
       );
-      log("=> Response Filter by Type : ");
+      log("=> Response Filter by Type :  ");
       return Right(SelfToOthersTypeResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException filterByType $e');
@@ -180,7 +180,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, FilterByDeadlineResponce>> filterByDeadline(
       {required FilterByDeadlineModel filterByDeadline}) async {
     try {
-      // log('Filter by deadline data => ${filterByDeadline.toJson()}');
+      log('Filter by deadline ToJson => ${filterByDeadline.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestFilterByDeadline,
         data: filterByDeadline.toJson(),
@@ -273,7 +273,7 @@ class TaskService implements TaskRepo {
         data: singleTaskModel.toJson(),
       );
 
-      log("=> Response Get one task : ${response.data} ");
+      log("=> Response Get one task :  ${response.data}");
 
       return Right(GetTaskResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -309,12 +309,12 @@ class TaskService implements TaskRepo {
   Future<Either<ErrorModel, SuccessResponce>> editTask(
       {required EditTaskModel taskModel}) async {
     try {
-      log('Json === >>>>>> ${taskModel.toJson()}');
+      log('Edit Task ToJson === >>>>>> ${taskModel.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestEditTask,
         data: taskModel.toJson(),
       );
-      log("=> Response Edit Task  : ${response.data}");
+      log("=> Response Edit Task  :");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException editTask $e');

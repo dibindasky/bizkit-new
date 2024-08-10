@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/attachments_task_detail.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/description_task_detail.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/sub_task_list.dart';
@@ -7,6 +8,7 @@ import 'package:bizkit/module/task/application/presentation/screens/task_detail/
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ScreenTaskDetailPage extends StatelessWidget {
   const ScreenTaskDetailPage({

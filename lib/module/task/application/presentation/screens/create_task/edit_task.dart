@@ -59,7 +59,7 @@ class ScreenEditTask extends StatelessWidget {
       body: SafeArea(
         child: Obx(
           () {
-            final isLoading = createTaskController.isLoading.value;
+            final isLoading = createTaskController.taskEditLoading.value;
 
             return Stack(
               children: [
@@ -147,10 +147,8 @@ class ScreenEditTask extends StatelessWidget {
                                 text: 'Edit Task',
                                 onTap: () {
                                   if (_formKey.currentState!.validate()) {
-                                    final task =
-                                        createTaskController.singleTask.value;
-
                                     createTaskController.editTask(
+                                        context: context,
                                         taskModel: EditTaskModel(
                                           assignedTo: [],
                                           tags: [],
@@ -160,17 +158,6 @@ class ScreenEditTask extends StatelessWidget {
                                               descriptionController.text,
                                         ),
                                         taskId: taskId ?? '');
-
-                                    // log("DeadLine => ${controller.deadlineDate.value}");
-                                    // log('======> $controller.participants');
-                                    // log('createPriorityLevel value : => ${controller.createPriorityLevel.value}');
-
-                                    Future.delayed(
-                                      const Duration(seconds: 2),
-                                      () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    );
                                   }
                                 }),
                           ),

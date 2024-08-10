@@ -51,20 +51,13 @@ class TaskStatusChangeDialog extends StatelessWidget {
                     killAtaskModel:
                         KillATaskModel(isKilled: true, taskId: taskId ?? ''),
                   );
-                  showSnackbar(
-                    context,
-                    message: 'Killed task successfully',
-                    backgroundColor: neonShade,
-                    textColor: kblack,
-                    duration: 4,
-                  );
                   GoRouter.of(context).pop();
-                  homeController.progresBar();
-                  controller.getTasksCountWithoutDate();
                   controller.taskFilterByDeadline(
                       filterByDeadline: FilterByDeadlineModel(
-                          date: DateTimeFormater.dateTimeFormat(
-                              controller.selectedDate.value)));
+                          date: controller.deadlineDate.value));
+                  homeController.progresBar();
+                  controller.getTasksCountWithoutDate();
+
                   GoRouter.of(context).pop();
                 },
               ),
@@ -93,22 +86,15 @@ class TaskStatusChangeDialog extends StatelessWidget {
                 onPressed: () {
                   GoRouter.of(context).pop();
                   controller.completeTask(
+                      context: context,
                       completedTaskModel: CompletedTaskModel(
                           isCompleted: true, taskId: taskId ?? ''));
-                  homeController.progresBar();
-                  controller.getTasksCountWithoutDate();
-                  showSnackbar(
-                    context,
-                    message: 'Complete task successfully',
-                    backgroundColor: neonShade,
-                    textColor: kblack,
-                    duration: 4,
-                  );
                   GoRouter.of(context).pop();
                   controller.taskFilterByDeadline(
                       filterByDeadline: FilterByDeadlineModel(
-                          date: DateTimeFormater.dateTimeFormat(
-                              controller.selectedDate.value)));
+                          date: controller.deadlineDate.value));
+                  homeController.progresBar();
+                  controller.getTasksCountWithoutDate();
 
                   GoRouter.of(context).pop();
                 },

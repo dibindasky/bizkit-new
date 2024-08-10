@@ -32,7 +32,6 @@ class AddParticipentForTaskEditBottomSheet extends StatelessWidget {
           Divider(color: lightGrey),
           kHeight10,
           TaskTextField(
-            onTapOutside: () => FocusScope.of(context).unfocus(),
             onChanged: (value) {
               if (value.isNotEmpty) {
                 taskController.searchParticipants(

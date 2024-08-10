@@ -41,6 +41,8 @@ void showInnerFolderDialogWidget(
               if (innerFolderName.isNotEmpty) {
                 if (innerFolderId == null) {
                   controller.createNewFolderInsideFolder(
+                    context: context,
+                    folderId: folderId ?? '',
                     createNewFolderInsideFolder: CreateFolderInsideAFolder(
                       folderId: folderId ?? '',
                       innerFolderName: innerFolderName,
@@ -55,11 +57,13 @@ void showInnerFolderDialogWidget(
                   ));
                 } else {
                   controller.editInnerFolderName(
+                      context: context,
+                      folderId: folderId ?? '',
                       editInnerFolderName: EditInnerFolderModel(
-                    folderId: folderId ?? '',
-                    innerFolderId: innerFolderId,
-                    innerFolderName: innerFolderName,
-                  ));
+                        folderId: folderId ?? '',
+                        innerFolderId: innerFolderId,
+                        innerFolderName: innerFolderName,
+                      ));
                   controller.filterInnerFolderByDeadline(
                       filterInnerFolder: FilterInnerFolderModel(
                     filterDate: controller.deadlineDate.value,

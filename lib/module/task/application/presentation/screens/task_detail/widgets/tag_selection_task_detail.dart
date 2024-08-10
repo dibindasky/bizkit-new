@@ -1,6 +1,7 @@
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -26,17 +27,28 @@ class TaskDetailTagsSection extends StatelessWidget {
             style: textHeadStyle1,
           ),
           adjustHieght(5.h),
-          Obx(() {
-            return Wrap(
-              spacing: 8.w,
-              runSpacing: 8.w,
-              children: controller.singleTask.value.tags != null
-                  ? controller.singleTask.value.tags!.map((tag) {
-                      return TagChip(label: tag);
-                    }).toList()
-                  : [],
-            );
-          }),
+          Obx(() => controller.isLoading.value
+              ? SizedBox(
+                  height: 30.h,
+                  child: ShimmerLoader(
+                    height: 30.h,
+                    itemCount: controller.singleTask.value.tags?.length ?? 5,
+                    width: 80.w,
+                    scrollDirection: Axis.horizontal,
+                    seprator: const SizedBox(
+                      width: 8,
+                    ),
+                  ),
+                )
+              : Wrap(
+                  spacing: 8.w,
+                  runSpacing: 8.w,
+                  children: controller.singleTask.value.tags != null
+                      ? controller.singleTask.value.tags!.map((tag) {
+                          return TagChip(label: tag);
+                        }).toList()
+                      : [],
+                )),
         ],
       ),
     );
@@ -51,19 +63,20 @@ class TagChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(5.w),
+      padding: EdgeInsets.all(8.w),
       decoration: BoxDecoration(
+        border: Border.all(color: neonShade),
         borderRadius: kBorderRadius5,
         color: backgroundColour,
       ),
       child: Row(mainAxisSize: MainAxisSize.min, children: [
         Text(label, style: textThinStyle1),
         adjustWidth(10.w),
-        GestureDetector(
-            onTap: () {
-              // handle tag deletion
-            },
-            child: const Icon(Icons.close, color: neonShade))
+        // GestureDetector(
+        //     onTap: () {
+        //       // handle tag deletion
+        //     },
+        //     child: const Icon(Icons.close, color: neonShade))
       ]),
     );
   }

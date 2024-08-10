@@ -50,30 +50,4 @@ class TabNotificationItemBuilder extends StatelessWidget {
       ),
     );
   }
-
-  // child: Obx(
-  //   () {
-  //     if (taskController.isLoading.value) {
-  //       return const Center(child: CircularProgressIndicator());
-  //     } else if (taskController.receivedRequests.isEmpty) {
-  //       return const Center(child: Text('No new requests available'));
-  //     }
-  //     return RefreshIndicator(
-  //       onRefresh: () async {
-  //         taskController.fetchReceivedRequests();
-  //       },
-  //       child: ListView.separated(
-  //         itemBuilder: (context, index) {
-  //           return NotificationRequestCard(
-  //               // isAccepted: taskController
-  //               //     .receivedRequests[index].tasks.first.,
-
-  //               );
-  //         },
-  //         separatorBuilder: (context, index) => adjustHieght(10.h),
-  //         itemCount: 10,
-  //       ),
-  //     );
-  //   },
-  // ),
 }

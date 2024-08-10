@@ -1,4 +1,4 @@
-import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
+// import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/assigned_user.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 
 class NotificationCard extends StatelessWidget {
   const NotificationCard(
-      {super.key, this.title = '', this.description = '', this.assignedUsers});
+      {super.key, this.title, this.description, this.assignedUsers});
 
-  final String title;
-  final String description;
+  final String? title;
+  final String? description;
   final List<AssignedUser>? assignedUsers;
 
   @override
@@ -41,7 +41,7 @@ class NotificationCard extends StatelessWidget {
                           adjustWidth(8),
                           Text(
                             // 'Task',
-                            title,
+                            title ?? 'Task Title',
                             style: const TextStyle(color: kwhite),
                           ),
                         ],
@@ -53,15 +53,16 @@ class NotificationCard extends StatelessWidget {
                     ],
                   ),
                   adjustHieght(8),
-                  const Text(
-                    'Click to get more information',
-                    style: TextStyle(color: klightgrey, fontSize: 12.0),
+                  Text(
+                    maxLines: 2,
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                    description ?? 'Task Description',
+                    style: const TextStyle(color: klightgrey, fontSize: 12.0),
                   ),
                   adjustHieght(4),
                   Text(
-                    assignedUsers!.isNotEmpty
-                        ? 'New project task assigned to ${assignedUsers?.first.name}'
-                        : '',
+                    'New project task assigned to ${assignedUsers?.first.name}',
                     maxLines: 1,
                     overflow: TextOverflow.clip,
                     style: const TextStyle(
@@ -71,10 +72,6 @@ class NotificationCard extends StatelessWidget {
                     ),
                   ),
                   adjustHieght(4),
-                  const Text(
-                    'meeting about the new movie details',
-                    style: TextStyle(color: klightgrey, fontSize: 12.0),
-                  ),
                 ],
               ),
             ),
@@ -91,7 +88,7 @@ class NotificationCard extends StatelessWidget {
 
 
 //  const CustomStackOnlineDotCircleAvatar(
-//               isChild: false,
-//               backgroundColor: knill,
-//               image: personDemoImg,
-//             ),
+//                     isChild: false,
+//                     backgroundColor: knill,
+//                     image: personDemoImg,
+//                   ),

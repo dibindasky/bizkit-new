@@ -3,12 +3,13 @@ import 'dart:developer';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class TaskGenerateReportController extends GetxController {
   RxList<String> taskFromOptions =
       <String>['Option 1', 'Option 2', 'Option 3'].obs;
   RxString genareteDropDownData = 'Option 1'.obs;
-
+  PickerDateRange? selectedRange;
   final TextEditingController fromDate = TextEditingController();
   final TextEditingController toDate = TextEditingController();
 

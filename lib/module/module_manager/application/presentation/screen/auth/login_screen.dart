@@ -41,7 +41,7 @@ class _ScreenLoginState extends State<ScreenLogin>
   final GlobalKey<FormState> loginKey = GlobalKey();
 
   final alignments = [
-    Alignment.center, 
+    Alignment.center,
     Alignment.bottomLeft,
     Alignment.bottomCenter,
     Alignment.topRight,
@@ -181,6 +181,7 @@ class _ScreenLoginState extends State<ScreenLogin>
                     ),
                     adjustHieght(khieght * .02),
                     CustomTextFormField(
+                      maxlegth: 10,
                       onTap: () {
                         setState(() {
                           if (phoneController.text.isEmpty) {

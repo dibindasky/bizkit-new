@@ -137,7 +137,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
         () => SizedBox(
           width: double.infinity,
           height: khieght * 0.6,
-          child: controller.isLoading.value
+          child: controller.loadingForGetReports.value
               ? const Center(child: CircularProgressIndicator())
               : ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 8),

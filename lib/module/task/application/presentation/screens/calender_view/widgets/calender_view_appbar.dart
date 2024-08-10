@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:bizkit/core/routes/routes.dart';
@@ -47,7 +48,11 @@ class TaskCalenderViewAppBar extends StatelessWidget {
               if (controller.taskTabChangeIndex.value == 2) {
                 showCreateFolderDialog(context);
               } else {
-                Get.toNamed(Routes.addTask, id: 2, arguments: 2);
+                Get.toNamed(
+                  Routes.addTask,
+                  id: 2,
+                  arguments: 2,
+                );
               }
             },
             backgroundColorInner: neonShade,
@@ -65,7 +70,8 @@ class TaskCalenderViewAppBar extends StatelessWidget {
 }
 
 class TaskLongPressAppBarItems extends StatelessWidget {
-  TaskLongPressAppBarItems({super.key, this.folderId, this.mergeInnerFolder});
+  TaskLongPressAppBarItems(
+      {super.key, this.folderId, this.mergeInnerFolder = false});
 
   final controller = Get.find<TaskCalenderViewController>();
   final folderController = Get.find<TaskFolderController>();
@@ -109,13 +115,13 @@ class TaskLongPressAppBarItems extends StatelessWidget {
                   String newFolderName = folderNameController.text;
                   if (newFolderName.isNotEmpty) {
                     folderController.mergeFolders(
+                      context: context,
                       mergeFolders: MergeFolderModel(
                         folderName: newFolderName,
                         folders: folderController.selectedFolderIds,
                       ),
                     );
                     controller.selectedIndices.clear();
-                    folderController.selectedInnerFolderIds.clear();
                     controller.selectedFolderContainer.value = false;
                     Navigator.of(context).pop();
                   }
@@ -162,18 +168,12 @@ class TaskLongPressAppBarItems extends StatelessWidget {
                   String newFolderName = folderNameController.text;
                   if (newFolderName.isNotEmpty) {
                     folderController.mergeInnerFolders(
+                      folderId: folderId ?? '',
+                      context: context,
                       mergeInnerFolders: MergeInnerFolderModel(
                         folderId: folderId,
                         innerFolders: folderController.selectedInnerFolderIds,
                         newInnerFolderName: newFolderName,
-                      ),
-                    );
-                    folderController.selectedIndices.clear();
-                    folderController.selectedFolderContainer.value = false;
-                    folderController.filterInnerFolderByDeadline(
-                      filterInnerFolder: FilterInnerFolderModel(
-                        folderId: folderId,
-                        filterDate: folderController.deadlineDate.value,
                       ),
                     );
 
@@ -197,10 +197,15 @@ class TaskLongPressAppBarItems extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () {
-              controller.selectedIndices.clear();
-              controller.selectedFolderContainer.value = false;
-              folderController.selectedInnerFolderIds.clear();
-              folderController.selectedFolderContainer.value = false;
+              if (mergeInnerFolder == true) {
+                folderController.selectedIndices.clear();
+                folderController.selectedInnerFolderIds.clear();
+                folderController.selectedFolderContainer.value = false;
+              } else {
+                controller.selectedIndices.clear();
+                folderController.selectedFolderIds.clear();
+                controller.selectedFolderContainer.value = false;
+              }
             },
             icon: const Icon(Icons.close, color: neonShade),
           ),

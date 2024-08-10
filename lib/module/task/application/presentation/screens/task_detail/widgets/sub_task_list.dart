@@ -1,17 +1,14 @@
-// ignore_for_file: unrelated_type_equality_checks
-
-import 'dart:ffi';
-
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_creation.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_model/delete_sub_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class TaskDetailSubtasksSection extends StatelessWidget {
   const TaskDetailSubtasksSection({super.key});
@@ -57,9 +54,17 @@ class TaskDetailSubtasksSection extends StatelessWidget {
         adjustHieght(5.h),
         Obx(
           () {
-            if (controller.isLoading == true) {
-              return const Center(
-                child: CircularProgressIndicator(),
+            if (controller.isLoading.value) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: ShimmerLoader(
+                  height: 30.h,
+                  itemCount: controller.singleTask.value.subTask?.length ?? 5,
+                  width: 80.w,
+                  seprator: const SizedBox(
+                    height: 10,
+                  ),
+                ),
               );
             } else if (controller.singleTask.value.subTask?.isEmpty ?? true) {
               return Center(
@@ -113,39 +118,7 @@ class SubTaskTileDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
     return GestureDetector(
-      onTap: () {
-        // showDialog(
-        //   context: context,
-        //   builder: (context) => Dialog(
-        //     backgroundColor: kblack,
-        //     child: Container(
-        //       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
-        //       child: Column(
-        //         mainAxisSize: MainAxisSize.min,
-        //         children: [
-        //           Text(subTaskTitle ?? 'Subtask Title', style: textHeadStyle1),
-        //           adjustHieght(10.h),
-        //           const ContainerTextFieldDummy(
-        //             text: 'Task Start Date',
-        //             suffixIcon: Icons.calendar_month_outlined,
-        //           ),
-        //           adjustHieght(10.h),
-        //           const ContainerTextFieldDummy(
-        //             text: 'Total Time Taken',
-        //             suffixIcon: Icons.alarm_sharp,
-        //           ),
-        //           adjustHieght(30.h),
-        //           EventButton(
-        //             text: 'Complete',
-        //             onTap: () {},
-        //             wdth: double.infinity,
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // );
-      },
+      onTap: () {},
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10.w),
         padding: EdgeInsets.all(10.w),
@@ -214,17 +187,11 @@ class SubTaskTileDetailPage extends StatelessWidget {
                         context: context,
                         onTap: () {
                           taskController.deleteSubTask(
+                              context: context,
                               deletesubtask: DeleteSubTaskModel(
                                   subTaskId: subTaskId ?? '',
                                   taskId: taskId ?? ''),
                               taskId: taskId ?? '');
-                          showSnackbar(
-                            context,
-                            message: 'Subtask deleted successfully',
-                            backgroundColor: kred,
-                            textColor: kblack,
-                            duration: 4,
-                          );
                         },
                         title: 'Delete Subtask',
                         buttonColor: neonShade,

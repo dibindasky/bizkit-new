@@ -53,7 +53,7 @@ class TagsContainer extends StatelessWidget {
                             !controller.tagsForEdit.contains(tag)) {
                           controller.tagsForEdit.add(tag);
                           FocusScope.of(context).unfocus();
-                          log('Tags For Edit =====> ${controller.tags}');
+                          log('Tags For Edit =====> ${controller.tagsForEdit}');
                         }
                         tagController.clear();
                       } else {
@@ -105,7 +105,7 @@ class TagsContainer extends StatelessWidget {
                               ),
                               onDeleted: () {
                                 controller.removeTagForEdit(tag);
-                                log('Tags For Edit =====> ${controller.tags}');
+                                log('Tags For Edit =====> ${controller.tagsForEdit}');
                               },
                               side: BorderSide.none,
                               backgroundColor: controller

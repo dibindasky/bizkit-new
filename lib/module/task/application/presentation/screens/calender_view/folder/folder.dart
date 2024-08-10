@@ -11,6 +11,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -130,16 +131,10 @@ class TaskFolderSection extends StatelessWidget {
                     context: context,
                     onTap: () {
                       folderController.deleteFolder(
+                        context: context,
                         deleteFolder: DeleteFolderModel(
                           folderId: folderId,
                         ),
-                      );
-                      showSnackbar(
-                        context,
-                        message: 'Folder deleted successfully',
-                        backgroundColor: kred,
-                        textColor: kblack,
-                        duration: 4,
                       );
                     },
                     title: 'Delete Folder',
@@ -218,8 +213,16 @@ void showTaskSelectionBottomSheet(
               child: Obx(
                 () {
                   if (taskController.isLoading.value) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ShimmerLoader(
+                        width: 100.w,
+                        seprator: const SizedBox(
+                          height: 13,
+                        ),
+                        height: 60.h,
+                        itemCount: taskController.tasksSearch.length,
+                      ),
                     );
                   } else if (taskController.tasksSearch.isEmpty) {
                     return ErrorRefreshIndicator(
@@ -286,12 +289,11 @@ void showTaskSelectionBottomSheet(
                         taskAddOrDelete: addOrDeleteInnerFolderModel);
                     Navigator.pop(context);
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('No tasks selected'),
-                        behavior: SnackBarBehavior.floating,
-                        duration: Duration(seconds: 2),
-                      ),
+                    showSnackbar(
+                      context,
+                      message: 'No tasks selected',
+                      backgroundColor: kred,
+                      textColor: kblack,
                     );
                   }
                 } else {
@@ -310,12 +312,11 @@ void showTaskSelectionBottomSheet(
 
                     Navigator.pop(context);
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('No tasks selected'),
-                        behavior: SnackBarBehavior.floating,
-                        duration: Duration(seconds: 2),
-                      ),
+                    showSnackbar(
+                      context,
+                      message: 'No tasks selected',
+                      backgroundColor: kwhite,
+                      textColor: kblack,
                     );
                   }
                 }

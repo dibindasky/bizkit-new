@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
@@ -64,6 +65,7 @@ class TaskListView extends StatelessWidget {
                     GoRouter.of(context).push(
                       Routes.taskChatScreen,
                     );
+                    Get.find<ChatController>().connectChannel(taskId: deadlineTask.id);
                   }
                 },
                 child: TaskContainer(

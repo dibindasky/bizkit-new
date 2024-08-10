@@ -94,6 +94,7 @@ dependencies:
   syncfusion_flutter_datepicker: ^26.2.7
   flutter_file_downloader: ^2.0.0
   open_file: ^3.3.2
+  web_socket_channel: ^3.0.1
 
 
 dev_dependencies:

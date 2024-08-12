@@ -27,47 +27,47 @@ class ChatController extends GetxController {
     firstLoad = true;
     messages.clear();
     // remove when server is there.. for testing use it
-    messages = sampleMessages.obs;
-    // try {
-    //   channel = IOWebSocketChannel.connect(
-    //     Uri.parse(
-    //         SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
-    //     headers: {'Authorization': 'Bearer $accessToken'},
-    //   );
+    // messages = sampleMessages.obs;
+    try {
+      channel = IOWebSocketChannel.connect(
+        Uri.parse(
+            SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
+        headers: {'Authorization': 'Bearer $accessToken'},
+      );
 
-    //   channel.stream.listen(
-    //     (message) {
-    //       print(message);
-    //       messages.add(Message.fromJson(
-    //           jsonDecode(message) as Map<String, dynamic>, uid));
-    //       update(['chat']);
-    //       Timer(
-    //         const Duration(milliseconds: 200),
-    //         () {
-    //           chatScrollController.animateTo(
-    //               firstLoad
-    //                   ? chatScrollController.position.maxScrollExtent
-    //                   : chatScrollController.position.pixels + 100,
-    //               duration: const Duration(milliseconds: 300),
-    //               curve: Curves.easeIn);
-    //         },
-    //       );
-    //     },
-    //     onError: (error) {
-    //       print('Connection error: $error');
-    //       _error = 'Connection error: $error';
-    //     },
-    //     onDone: () {
-    //       if (channel.closeCode != null) {
-    //         print('Connection closed with code: ${channel.closeCode}');
-    //         _error = 'Connection closed with code: ${channel.closeCode}';
-    //       }
-    //     },
-    //   );
-    // } catch (e) {
-    //   print('Failed to connect: $e');
-    //   _error = 'Failed to connect: $e';
-    // }
+      channel.stream.listen(
+        (message) {
+          print(message);
+          messages.add(Message.fromJson(
+              jsonDecode(message) as Map<String, dynamic>, uid));
+          update(['chat']);
+          Timer(
+            const Duration(milliseconds: 200),
+            () {
+              chatScrollController.animateTo(
+                  firstLoad
+                      ? chatScrollController.position.maxScrollExtent
+                      : chatScrollController.position.pixels + 100,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeIn);
+            },
+          );
+        },
+        onError: (error) {
+          print('Connection error: $error');
+          _error = 'Connection error: $error';
+        },
+        onDone: () {
+          if (channel.closeCode != null) {
+            print('Connection closed with code: ${channel.closeCode}');
+            _error = 'Connection closed with code: ${channel.closeCode}';
+          }
+        },
+      );
+    } catch (e) {
+      print('Failed to connect: $e');
+      _error = 'Failed to connect: $e';
+    }
   }
 
   // close channel connection
@@ -277,6 +277,16 @@ final List<Message> sampleMessages = [
     messageId: 'msg3',
     message: 'How are you today?',
     sender: true,
+  ),
+  Message(
+    messageType: 'text',
+    userId: 'user2',
+    username: 'Bob',
+    profilePicture: 'https://example.com/bob.jpg',
+    timestamp: '2024-08-09T10:18:00Z',
+    messageId: 'msg4',
+    message: 'I\'m doing well, thanks!',
+    sender: false,
   ),
   Message(
     messageType: 'text',

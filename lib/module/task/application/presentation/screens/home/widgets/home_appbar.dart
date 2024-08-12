@@ -43,7 +43,7 @@ class _TaskHomeAppBarState extends State<TaskHomeAppBar> {
             CustomCircleAvatar(
               backgroundColor: lightGrey,
               onTap: () {
-                // Get.toNamed(Routes.taskNotification, id: 1);
+                Get.toNamed(Routes.taskNotification, id: 1);
               },
               backgroundColorInner: neonShade,
             ),

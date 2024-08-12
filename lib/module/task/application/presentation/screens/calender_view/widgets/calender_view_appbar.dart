@@ -1,13 +1,10 @@
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
-import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
-import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/merge_inner_folder_model/merge_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -37,7 +34,7 @@ class TaskCalenderViewAppBar extends StatelessWidget {
           CustomCircleAvatar(
             backgroundColor: lightGrey,
             onTap: () {
-              // Get.toNamed(Routes.taskNotification, id: 2);
+              Get.toNamed(Routes.taskNotification, id: 2);
             },
             backgroundColorInner: neonShade,
           ),

@@ -125,19 +125,12 @@ Future<void> pdfAndExcelGenerator({
       await file.writeAsBytes(bytes);
       log('File Path: ${file.path}');
 
-      filetype == 'excel' ? filetype = 'xlsx' : filetype = '';
+      filetype == 'excel' ? filetype = 'xlsx' : filetype = 'pdf';
 
       if (filetype == 'pdf') {
         await OpenFile.open(file.path);
       } else if (filetype == 'xlsx') {
         await OpenFile.open(file.path);
-        // if (context.mounted) {
-        //   Navigator.of(context).push(
-        //     MaterialPageRoute(
-        //       builder: (context) => ExcelViewerScreen(filePath: file.path),
-        //     ),
-        //   );
-        // }
       } else {
         log("Unsupported file type.");
       }

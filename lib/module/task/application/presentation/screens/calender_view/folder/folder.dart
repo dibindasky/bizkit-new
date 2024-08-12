@@ -308,6 +308,8 @@ void showTaskSelectionBottomSheet(
                     );
 
                     folderController.tasksAddToFolder(
+                        // addOrDelete: true,
+                        context: context,
                         taskAddToFolder: taskAddToFolder);
 
                     Navigator.pop(context);

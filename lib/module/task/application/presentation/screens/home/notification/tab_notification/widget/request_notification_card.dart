@@ -68,7 +68,7 @@ class NotificationRequestCard extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         backgroundImage: const AssetImage(
-                          dummyPersonImage,
+                          personDemoImg,
                         ),
                         radius: 10.0.w,
                       ),
@@ -103,9 +103,11 @@ class NotificationRequestCard extends StatelessWidget {
               radius: 17.w,
               backgroundColor: neonShade,
               child: IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.check,
                   color: kblack,
+                  size: 19.w,
+                  weight: 800,
                 ),
                 color: neonShade,
                 onPressed: () {
@@ -121,7 +123,11 @@ class NotificationRequestCard extends StatelessWidget {
               radius: 17.w,
               backgroundColor: kred,
               child: IconButton(
-                icon: const Icon(Icons.cancel),
+                icon: Icon(
+                  Icons.cancel,
+                  size: 19.w,
+                  weight: 800,
+                ),
                 color: Colors.redAccent,
                 onPressed: () {
                   requestDiclineShowDailog(

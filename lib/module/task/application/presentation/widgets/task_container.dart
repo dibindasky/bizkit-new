@@ -268,6 +268,7 @@ class TaskContainer extends StatelessWidget {
                                     value: 'Pin the task',
                                     onTap: () {
                                       taskController.pinnedATask(
+                                        context: context,
                                         pinnedATask: PinnedATaskModel(
                                           isPinned: true,
                                           taskId: typeTask?.id ?? '',
@@ -284,6 +285,7 @@ class TaskContainer extends StatelessWidget {
                                     value: 'Unpin the task',
                                     onTap: () {
                                       taskController.unpinATask(
+                                        context: context,
                                         unpinATask: UnpinATaskModel(
                                           taskId: typeTask?.id ?? '',
                                           isPinned: false,
@@ -351,6 +353,8 @@ class TaskContainer extends StatelessWidget {
                                           } else {
                                             taskFolderController
                                                 .tasksAddToFolder(
+                                              // addOrDelete: false,
+                                              context: context,
                                               taskAddToFolder:
                                                   TaskAddToFolderModel(
                                                       folderId: folderId,

@@ -8,6 +8,7 @@ import 'package:bizkit/module/task/application/presentation/screens/calender_vie
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/calender_view_appbar.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
+import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/create_folder_inside_a_folder/create_folder_inside_a_folder.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/delete_inner_folder_model/delete_inner_folder_model.dart';
@@ -81,9 +82,9 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
             title: Text(innerFolderId == null
                 ? 'Create Inner Folder'
                 : 'Edit Inner Folder'),
-            content: TextField(
+            content: TaskTextField(
+              hintText: 'Folder name',
               controller: folderNameController,
-              decoration: const InputDecoration(hintText: "Enter folder name"),
             ),
             actions: <Widget>[
               TextButton(

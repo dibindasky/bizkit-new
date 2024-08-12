@@ -133,6 +133,8 @@ class TaskSelectionScreen extends StatelessWidget {
                     );
 
                     folderController.tasksAddToFolder(
+                        // addOrDelete: false,
+                        context: context,
                         taskAddToFolder: taskAddToFolder);
 
                     Navigator.pop(context);

@@ -3,8 +3,11 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -50,9 +53,18 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                   ),
                 )
               else if (folderController.tasksInsideInnerFolder.isEmpty)
-                const Expanded(
-                  child: Center(
-                    child: Text('No tasks available'),
+                Expanded(
+                  child: ErrorRefreshIndicator(
+                    image: emptyNodata2,
+                    errorMessage: 'No Tasks',
+                    onRefresh: () {
+                      folderController.fetchAllTasksInsideAInnerFolder(
+                        InnerFolderTasksGetParamsModel(
+                          folderId: arguments?['folderId'],
+                          innerFolderId: arguments?['innerFolderId'],
+                        ),
+                      );
+                    },
                   ),
                 )
               else

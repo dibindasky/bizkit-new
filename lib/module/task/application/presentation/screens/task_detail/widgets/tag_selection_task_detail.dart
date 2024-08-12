@@ -27,28 +27,30 @@ class TaskDetailTagsSection extends StatelessWidget {
             style: textHeadStyle1,
           ),
           adjustHieght(5.h),
-          Obx(() => controller.isLoading.value
-              ? SizedBox(
-                  height: 30.h,
-                  child: ShimmerLoader(
+          Obx(() {
+            return controller.isLoading.value
+                ? SizedBox(
                     height: 30.h,
-                    itemCount: controller.singleTask.value.tags?.length ?? 5,
-                    width: 80.w,
-                    scrollDirection: Axis.horizontal,
-                    seprator: const SizedBox(
-                      width: 8,
+                    child: ShimmerLoader(
+                      height: 30.h,
+                      itemCount: controller.singleTask.value.tags?.length ?? 5,
+                      width: 80.w,
+                      scrollDirection: Axis.horizontal,
+                      seprator: const SizedBox(
+                        width: 8,
+                      ),
                     ),
-                  ),
-                )
-              : Wrap(
-                  spacing: 8.w,
-                  runSpacing: 8.w,
-                  children: controller.singleTask.value.tags != null
-                      ? controller.singleTask.value.tags!.map((tag) {
-                          return TagChip(label: tag);
-                        }).toList()
-                      : [],
-                )),
+                  )
+                : Wrap(
+                    spacing: 8.w,
+                    runSpacing: 8.w,
+                    children: controller.singleTask.value.tags != null
+                        ? controller.singleTask.value.tags!.map((tag) {
+                            return TagChip(label: tag);
+                          }).toList()
+                        : [],
+                  );
+          }),
         ],
       ),
     );

@@ -16,6 +16,8 @@ Future<dynamic> requestMarkingDailog(
     actionButton: 'Accept',
     onPressed: () {
       taskController.acceptOrReject(
+        context: context,
+        isAccept: true,
         acceptOrReject: AcceptOrRejectModel(
           taskId: taskId,
           acceptanceStatus: 'accepted',

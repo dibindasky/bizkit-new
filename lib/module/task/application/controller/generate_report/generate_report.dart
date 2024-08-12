@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,13 +26,13 @@ class TaskGenerateReportController extends GetxController {
 
   void changeFromDate(String selecteDate) {
     fromDate.text = selecteDate;
-    log('FromDate => ${fromDate.text}');
+    // log('FromDate => ${fromDate.text}');
     update();
   }
 
   void changeToDate(String selecteDate) {
     toDate.text = selecteDate;
-    log('ToDate => ${toDate.text}');
+    // log('ToDate => ${toDate.text}');
     update();
   }
 }

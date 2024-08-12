@@ -15,7 +15,22 @@ class TaskDetailHeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-    // log('Title : ===>> ${taskController.singleTask.value.title}');
+
+    // Calculate the total time taken
+    Duration? totalTimeTaken;
+    if (taskController.singleTask.value.deadLine != null &&
+        taskController.singleTask.value.createdAt != null) {
+      DateTime createdAt =
+          DateTime.parse(taskController.singleTask.value.createdAt.toString());
+      DateTime deadLine =
+          DateTime.parse(taskController.singleTask.value.deadLine!);
+      totalTimeTaken = deadLine.difference(createdAt);
+    }
+
+    String formattedTimeTaken = totalTimeTaken != null
+        ? '${totalTimeTaken.inHours}Hr ${(totalTimeTaken.inMinutes % 60)}Min'
+        : 'Time Not Available';
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -41,7 +56,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
             ),
             SizedBox(height: 8.h),
             Text(
-              'Total Time Taken: 24Hr 55Min',
+              'Total Time Taken: $formattedTimeTaken',
               style: textStyle1,
             ),
           ],

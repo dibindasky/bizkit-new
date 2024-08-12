@@ -13,6 +13,7 @@ SentRequest _$SentRequestFromJson(Map<String, dynamic> json) => SentRequest(
       assignedUsers: (json['assigned_users'] as List<dynamic>?)
           ?.map((e) => AssignedUser.fromJson(e as Map<String, dynamic>))
           .toList(),
+      createdAt: json['created_at'] as String?,
     );
 
 Map<String, dynamic> _$SentRequestToJson(SentRequest instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$SentRequestToJson(SentRequest instance) =>
       'title': instance.title,
       'description': instance.description,
       'assigned_users': instance.assignedUsers,
+      'created_at': instance.createdAt
     };

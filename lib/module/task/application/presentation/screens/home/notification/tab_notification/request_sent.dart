@@ -44,6 +44,8 @@ class RequestSentBuilder extends StatelessWidget {
                   itemCount: taskController.sentRequests.length,
                   itemBuilder: (context, index) {
                     return NotificationCard(
+                      createdAt:
+                          taskController.sentRequests[index].createdAt ?? '',
                       assignedUsers:
                           taskController.sentRequests[index].assignedUsers ??
                               [],

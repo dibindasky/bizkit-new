@@ -40,6 +40,8 @@ class DateContainer extends StatelessWidget {
                             backgroundColor: kblack,
                             onCancel: () {
                               controllerr.selectedRange = null;
+                              controller.fromDate.text = '';
+                              controller.toDate.text = '';
                               Navigator.of(context).pop();
                             },
                             cancelText: 'Cancel',

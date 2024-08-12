@@ -9,6 +9,8 @@ import 'package:bizkit/module/task/domain/model/dashboard/get_report_success_res
 import 'package:bizkit/module/task/domain/model/dashboard/progres_bar_success_responce/counts.dart';
 import 'package:bizkit/module/task/domain/repository/service/home_repo.dart';
 import 'package:bizkit/packages/pdf/pdf_generator.dart';
+import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -86,13 +88,19 @@ class TaskHomeScreenController extends GetxController {
       {required GenearateReportModel generateReportModel,
       required BuildContext context}) async {
     fileDownloading.value = true;
-
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await homeService.generateReport(
         generateReportModel: generateReportModel);
 
     result.fold(
       (failure) {
         fileDownloading.value = false;
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
+            backgroundColor: kred,
+          ),
+        );
         log(failure.message.toString());
       },
       (success) async {
@@ -106,7 +114,13 @@ class TaskHomeScreenController extends GetxController {
             base64String: success.report ?? '',
             filetype: generateReportModel.reportType ?? '',
             context: context);
-        // Get.snackbar('Success', 'Success');
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Task Report Downloaded Successfully'),
+            backgroundColor: neonShade,
+          ),
+        );
+
         fileDownloading.value = false;
         Navigator.of(context).pop();
       },

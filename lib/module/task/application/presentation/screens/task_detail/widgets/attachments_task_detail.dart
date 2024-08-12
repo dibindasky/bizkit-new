@@ -38,7 +38,7 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
               ? Center(
                   child: Text(
                     'No Attachments Available',
-                    style: textThinStyle1.copyWith(color: Colors.grey),
+                    style: textThinStyle1.copyWith(color: klightgrey),
                   ),
                 )
               : SizedBox(

@@ -12,13 +12,15 @@ class SentRequest {
   String? description;
   @JsonKey(name: 'assigned_users')
   List<AssignedUser>? assignedUsers;
+  @JsonKey(name: 'created_at')
+  String? createdAt;
 
-  SentRequest({
-    this.taskId,
-    this.title,
-    this.description,
-    this.assignedUsers,
-  });
+  SentRequest(
+      {this.taskId,
+      this.title,
+      this.description,
+      this.assignedUsers,
+      this.createdAt});
 
   factory SentRequest.fromJson(Map<String, dynamic> json) {
     return _$SentRequestFromJson(json);

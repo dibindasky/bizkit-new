@@ -79,6 +79,8 @@ class ScreenAddTask extends StatelessWidget {
                           Text('Title', style: style),
                           adjustHieght(3.h),
                           TaskTextField(
+                            onTapOutside: () =>
+                                FocusScope.of(context).unfocus(),
                             hintText: 'Title',
                             controller: titleController,
                             validator: (value) {
@@ -150,6 +152,7 @@ class ScreenAddTask extends StatelessWidget {
                             onPressed: (date) {
                               controller.deadlineDateForTaskCreation.value =
                                   date;
+                              FocusScope.of(context).unfocus();
                             },
                           ),
                           adjustHieght(10.h),

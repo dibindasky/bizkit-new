@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
+import 'package:bizkit/module/task/domain/model/chat/message.dart';
 import 'package:bizkit/utils/clipper/chat_pol_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -8,9 +9,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class PollContainerChat extends StatefulWidget {
-  const PollContainerChat({super.key, required this.isSender});
+  const PollContainerChat({super.key, required this.message});
 
-  final bool isSender;
+  final Message message;
 
   @override
   _PollContainerChatState createState() => _PollContainerChatState();
@@ -28,26 +29,25 @@ class _PollContainerChatState extends State<PollContainerChat> {
 
   @override
   Widget build(BuildContext context) {
+    final sender = widget.message.sender;
     return Padding(
       padding: EdgeInsets.only(
           top: 5.0.w,
           bottom: 5.0.w,
-          left: widget.isSender ? 50.w : 0.w,
-          right: !widget.isSender ? 50.w : 0.w),
+          left: sender ? 50.w : 0.w,
+          right: !sender ? 50.w : 0.w),
       child: ClipPath(
-        clipper: PollChatClipper(isSender: widget.isSender),
+        clipper: PollChatClipper(isSender: sender),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           width: 300,
           padding: EdgeInsets.only(
-              left: !widget.isSender ? 20.w : 10.w,
-              right: widget.isSender ? 20.w : 10.w,
+              left: !sender ? 20.w : 10.w,
+              right: sender ? 20.w : 10.w,
               top: 10.h,
               bottom: 10.h),
           decoration: BoxDecoration(
-            color: widget.isSender
-                ? neonShade.withOpacity(0.8)
-                : kwhite.withOpacity(0.3),
+            color: sender ? neonShade.withGreen(190) : kwhite.withOpacity(0.3),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -60,87 +60,88 @@ class _PollContainerChatState extends State<PollContainerChat> {
                 decoration: BoxDecoration(
                     color: kblack.withOpacity(0.1),
                     borderRadius: kBorderRadius5),
-                child: Text(
-                  'Which quest should we take?',
-                  style: textHeadStyle1.copyWith(color: kblack),
-                ),
+                child: Text(widget.message.pollQuestion ?? '',
+                    style: textHeadStyle1.copyWith(
+                        color: sender ? kblack : kwhite)),
               ),
               adjustHieght(2.h),
               ListView(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: List.generate(
-                  answers.length,
-                  (index) => Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: RadioListTile<int>(
-                          contentPadding: EdgeInsets.zero,
-                          activeColor: kwhite,
-                          title: Container(
-                            padding: completed
-                                ? EdgeInsets.symmetric(
-                                    vertical: 5.h, horizontal: 10.w)
-                                : null,
-                            margin: EdgeInsets.only(right: completed ? 5.w : 0),
-                            decoration: completed
-                                ? BoxDecoration(
-                                    color: widget.isSender
-                                        ? kblack.withOpacity(0.1)
-                                        : kwhite.withOpacity(0.5),
-                                    borderRadius: kBorderRadius5)
-                                : null,
-                            child: Text(answers[index],
-                                style: textStyle1.copyWith(
-                                    color: completed && selectedOption != index
-                                        ? kgrey
-                                        : kblack)),
+                  widget.message.pollAnswers?.length ?? 0,
+                  (index) {
+                    final answer = widget.message.pollAnswers![index];
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: RadioListTile<int>(
+                            contentPadding: EdgeInsets.zero,
+                            activeColor: kwhite,
+                            title: Container(
+                              padding: completed
+                                  ? EdgeInsets.symmetric(
+                                      vertical: 5.h, horizontal: 10.w)
+                                  : null,
+                              margin:
+                                  EdgeInsets.only(right: completed ? 5.w : 0),
+                              decoration: completed
+                                  ? BoxDecoration(
+                                      color: sender
+                                          ? kblack.withOpacity(0.1)
+                                          : kwhite.withOpacity(0.5),
+                                      borderRadius: kBorderRadius5)
+                                  : null,
+                              child: Text(answer.answerText ?? '',
+                                  style: textStyle1.copyWith(
+                                      color: sender ? kblack : kwhite)),
+                            ),
+                            value: index,
+                            groupValue: selectedOption,
+                            onChanged: (value) {
+                              setState(() {
+                                if (completed) {
+                                  return;
+                                }
+                                selectedOption = value!;
+                                if (selectedOption != -1) {
+                                  optionSelected = true;
+                                }
+                              });
+                            },
                           ),
-                          value: index,
-                          groupValue: selectedOption,
-                          onChanged: (value) {
-                            setState(() {
-                              if (completed) {
-                                return;
-                              }
-                              selectedOption = value!;
-                              if (selectedOption != -1) {
-                                optionSelected = true;
-                              }
-                            });
-                          },
                         ),
-                      ),
-                      completed
-                          ? SizedBox(
-                              width: 50.w,
-                              height: 50.w,
-                              child: Stack(
-                                children: List.generate(
-                                  3,
-                                  (index) => Positioned(
-                                    left: 5.w * index,
-                                    child: CircleAvatar(
-                                      backgroundColor: kgrey,
-                                      backgroundImage:
-                                          const AssetImage(imageDummyAsset),
-                                      child: Center(
-                                        child: FittedBox(
-                                          child: Text(
-                                            "${index + 1}",
-                                            style: textHeadStyle1,
+                        completed
+                            ? SizedBox(
+                                width: 50.w,
+                                height: 50.w,
+                                child: Stack(
+                                  children: List.generate(
+                                    3,
+                                    (index) => Positioned(
+                                      left: 5.w * index,
+                                      child: CircleAvatar(
+                                        backgroundColor: kgrey,
+                                        backgroundImage:
+                                            const AssetImage(imageDummyAsset),
+                                        child: Center(
+                                          child: FittedBox(
+                                            child: Text(
+                                              "${index + 1}",
+                                              style: textHeadStyle1,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            )
-                          : kempty
-                    ],
-                  ),
+                              )
+                            : kempty
+                      ],
+                    );
+                  },
                 ),
               ),
               completed
@@ -195,11 +196,11 @@ class _PollContainerChatState extends State<PollContainerChat> {
                   const Spacer(),
                   Text(
                     '10:20',
-                    style: textStyle1.copyWith(
-                        color: widget.isSender ? kgrey : klightgrey),
+                    style:
+                        textStyle1.copyWith(color: sender ? kgrey : klightgrey),
                   ),
-                  widget.isSender ? kWidth10 : kempty,
-                  widget.isSender
+                  sender ? kWidth10 : kempty,
+                  sender
                       ? SizedBox(
                           height: 15.sp,
                           width: 15.sp,

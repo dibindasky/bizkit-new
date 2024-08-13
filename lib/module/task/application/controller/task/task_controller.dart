@@ -56,6 +56,7 @@ class CreateTaskController extends GetxController {
   RxBool createRecurring = false.obs;
   RxString deadlineDate = ''.obs;
   RxString deadlineDateForTaskCreation = ''.obs;
+  RxBool taskscountChanged = false.obs;
 
   // List of participants involved in the task
   // var participants = <TaskAssignedTo>[].obs;
@@ -289,6 +290,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         deadlineDateForTaskCreation.value = '';
+        getTasksCountWithoutDate();
         taskCreationLoading.value = false;
         log('${success.message}');
         testTaskId = success.taskId.toString();
@@ -300,7 +302,7 @@ class CreateTaskController extends GetxController {
         attachments.clear();
         attachments.clear;
         userslistNew.clear();
-        getTasksCountWithoutDate();
+
         showSnackbar(
           context,
           message: 'Task created successfully',

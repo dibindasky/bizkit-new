@@ -160,11 +160,11 @@ class AuthenticationController extends GetxController {
 
   void logOut(BuildContext context) async {
     context.go(Routes.loginPage);
+    SecureStorage.clearLogin();
     authRepo.logOut();
     Get.find<CreateTaskController>().clearAllDatas();
     Get.find<TaskFolderController>().clearAllDatas();
     Get.find<TaskHomeScreenController>().clearAllDatas();
-    SecureStorage.clearLogin();
   }
 
   void checkLoginStatus(BuildContext context) async {

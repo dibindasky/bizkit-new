@@ -7,6 +7,7 @@ import 'package:bizkit/module/module_manager/data/service/auth/auth_service.dart
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
 import 'package:bizkit/module/module_manager/domain/repository/authentication_repo.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
+import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -162,6 +163,7 @@ class AuthenticationController extends GetxController {
     authRepo.logOut();
     Get.find<CreateTaskController>().clearAllDatas();
     Get.find<TaskFolderController>().clearAllDatas();
+    Get.find<TaskHomeScreenController>().clearAllDatas();
     SecureStorage.clearLogin();
   }
 

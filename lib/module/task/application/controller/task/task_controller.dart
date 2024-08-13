@@ -997,5 +997,7 @@ class CreateTaskController extends GetxController {
     receivedRequests.clear();
     sentRequests.clear();
     deadlineDate.value = '';
+    selectedFiles.clear();
+    selectedTasks.clear();
   }
 }

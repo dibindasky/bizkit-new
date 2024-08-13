@@ -126,4 +126,11 @@ class TaskHomeScreenController extends GetxController {
       },
     );
   }
+
+  void clearAllDatas() async {
+    reportTasks.clear();
+    selectedFields.clear();
+    selectedTaskIds.clear();
+    selectedReportType.value = '';
+  }
 }

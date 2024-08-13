@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/module/task/domain/model/chat/create_poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
-import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 
@@ -15,12 +15,21 @@ class ChatController extends GetxController {
   late IOWebSocketChannel channel;
   final TextEditingController controller = TextEditingController();
   final ScrollController chatScrollController = ScrollController();
+
+  /// chat message list
   RxList<Message> messages = <Message>[].obs;
   String _error = '';
+  String chatTaskId = '';
   bool firstLoad = true;
 
-  // connect to the channel with task id
+  /// connect to the channel with task id
   void connectChannel({required String? taskId}) async {
+    chatTaskId = taskId ?? '';
+    chatScrollController.addListener(
+      () {
+        checkLoading();
+      },
+    );
     final token = await SecureStorage.getToken();
     final accessToken = token.accessToken ?? '';
     final uid = token.uid ?? '';
@@ -38,8 +47,14 @@ class ChatController extends GetxController {
       channel.stream.listen(
         (message) {
           print(message);
-          messages.add(Message.fromJson(
-              jsonDecode(message) as Map<String, dynamic>, uid));
+          final m = Message.fromJson(
+              jsonDecode(message) as Map<String, dynamic>, uid);
+          if (m.messageType == 'text' &&
+              !messages.any((mess) => mess.messageId == m.messageId)) {
+            messages.add(m);
+          } else if (m.messageType == 'poll') {
+            messages.add(m);
+          }
           update(['chat']);
           Timer(
             const Duration(milliseconds: 200),
@@ -47,7 +62,8 @@ class ChatController extends GetxController {
               chatScrollController.animateTo(
                   firstLoad
                       ? chatScrollController.position.maxScrollExtent
-                      : chatScrollController.position.pixels + 100,
+                      : chatScrollController.position.pixels +
+                          (m.messageType == 'poll' ? 500 : 100),
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeIn);
             },
@@ -70,7 +86,7 @@ class ChatController extends GetxController {
     }
   }
 
-  // close channel connection
+  /// close channel connection
   void closeConnetion() {
     try {
       channel.sink.close();
@@ -80,7 +96,7 @@ class ChatController extends GetxController {
     }
   }
 
-  // send text message
+  /// send text message
   void sendTextMessage() {
     if (controller.text.isNotEmpty) {
       final message = controller.text;
@@ -93,6 +109,30 @@ class ChatController extends GetxController {
         print('Failed to send message: $e');
         _error = 'Failed to send message: $e';
       }
+    }
+  }
+
+  /// create poll voting
+  void createPollVoting({required CreatePoll createPoll}) {
+    try {
+      channel.sink.add(jsonEncode(createPoll.toJson()));
+      controller.clear();
+      firstLoad = false;
+    } catch (e) {
+      print('Failed to create poll: $e');
+      _error = 'Failed to create poll: $e';
+    }
+  }
+
+  /// check for load more
+  void checkLoading() {
+    if (chatScrollController.offset ==
+        chatScrollController.position.minScrollExtent) {
+      print('call load more message');
+      // channel.sink.add(jsonEncode({
+      //   "message_type": "load_more",
+      //   "last_message_id": messages.first.messageId
+      // }));
     }
   }
 }

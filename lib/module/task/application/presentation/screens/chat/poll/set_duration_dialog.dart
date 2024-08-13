@@ -2,11 +2,17 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class SetDurationDialogPolCreation extends StatefulWidget {
   const SetDurationDialogPolCreation({
     super.key,
+    required this.onSelection,
+    required this.durations,
   });
+
+  final Function(int value) onSelection;
+  final List<String> durations;
 
   @override
   State<SetDurationDialogPolCreation> createState() =>
@@ -15,7 +21,7 @@ class SetDurationDialogPolCreation extends StatefulWidget {
 
 class _SetDurationDialogPolCreationState
     extends State<SetDurationDialogPolCreation> {
-  List<String> durations = ['Next 1 hour', '24 hours', '1 week', 'Alwase'];
+ 
   int selection = 1;
   @override
   Widget build(BuildContext context) {
@@ -28,27 +34,30 @@ class _SetDurationDialogPolCreationState
             Text('Set Duration', style: textHeadStyle1),
             adjustHieght(10.h),
             ...List.generate(
-              durations.length,
+              widget.durations.length,
               (index) => RadioListTile(
                   value: index,
                   groupValue: selection,
-                  title: Text(durations[index],
+                  title: Text(widget.durations[index],
                       style: textStyle1.copyWith(color: neonShade)),
                   onChanged: (value) {
                     setState(() {
                       selection = value!;
                     });
+                    widget.onSelection(value!);
                   }),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                // TextButton(
+                //     onPressed: () {},
+                //     child: Text('CANCEL', style: textThinStyle1)),
                 TextButton(
-                    onPressed: () {},
-                    child: Text('CANCEL', style: textThinStyle1)),
-                TextButton(
-                    onPressed: () {},
-                    child: Text('DONE', style: textThinStyle1)),
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                    child: Text('Close', style: textThinStyle1)),
                 kWidth30
               ],
             ),

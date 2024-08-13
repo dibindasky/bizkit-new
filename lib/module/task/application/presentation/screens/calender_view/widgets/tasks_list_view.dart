@@ -65,7 +65,8 @@ class TaskListView extends StatelessWidget {
                     GoRouter.of(context).push(
                       Routes.taskChatScreen,
                     );
-                    Get.find<ChatController>().connectChannel(taskId: deadlineTask.id);
+                    Get.find<ChatController>()
+                        .connectChannel(taskId: deadlineTask.id);
                   }
                 },
                 child: TaskContainer(

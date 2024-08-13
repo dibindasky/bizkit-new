@@ -17,6 +17,7 @@ class CustomPopupMenuItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -26,9 +27,11 @@ class CustomPopupMenuItem extends StatelessWidget {
           ),
           borderRadius: kBorderRadius10,
         ),
-        child: Text(
-          text,
-          style: const TextStyle(color: kwhite, fontWeight: FontWeight.bold),
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(color: kwhite, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );

@@ -23,5 +23,5 @@ Map<String, dynamic> _$EditTaskModelToJson(EditTaskModel instance) =>
       'description': instance.description,
       'tags': instance.tags,
       'task_id': instance.taskId,
-      'assigned_to': instance.assignedTo
+      'assigned_to': instance.assignedTo,
     };

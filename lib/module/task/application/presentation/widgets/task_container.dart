@@ -233,34 +233,6 @@ class TaskContainer extends StatelessWidget {
                                                   : typeTask?.id,
                                         ),
                                       );
-
-                                      taskController.searchTasks(
-                                          searchItem: '');
-
-                                      if (tasksFromFoldrs == true) {
-                                        taskFolderController.fetchTasksInsideFolder(
-                                            taskInsideFolder:
-                                                GetTaskInsideAFolderParamsModel(
-                                                    folderId: folderId ?? ''));
-
-                                        taskFolderController
-                                            .filterInnerFolderByDeadline(
-                                                filterInnerFolder:
-                                                    FilterInnerFolderModel(
-                                                        filterDate:
-                                                            taskFolderController
-                                                                .deadlineDate
-                                                                .value,
-                                                        folderId:
-                                                            folderId ?? ''));
-                                      }
-
-                                      taskFolderController
-                                          .fetchAllTasksInsideAInnerFolder(
-                                              InnerFolderTasksGetParamsModel(
-                                                  folderId: folderId ?? '',
-                                                  innerFolderId:
-                                                      innerFolderId ?? ''));
                                     },
                                   ),
                                 if (typeTask?.isPinned == false)
@@ -332,16 +304,18 @@ class TaskContainer extends StatelessWidget {
                                               fromInnerfolder == true) {
                                             taskFolderController
                                                 .taskAddOrDeleteInnerFolder(
+                                                    context: context,
+                                                    addOrDelete: false,
                                                     taskAddOrDelete:
                                                         TaskAddOrDeleteInnerFolderModel(
                                                             folderId: folderId,
                                                             innerFolderId:
                                                                 innerFolderId,
                                                             innerFolderTasks: [
-                                                  tasksInsideInnerFolder
-                                                          ?.taskId ??
-                                                      ''
-                                                ]));
+                                                          tasksInsideInnerFolder
+                                                                  ?.taskId ??
+                                                              ''
+                                                        ]));
                                             taskFolderController
                                                 .fetchAllTasksInsideAInnerFolder(
                                                     InnerFolderTasksGetParamsModel(
@@ -353,7 +327,7 @@ class TaskContainer extends StatelessWidget {
                                           } else {
                                             taskFolderController
                                                 .tasksAddToFolder(
-                                              // addOrDelete: false,
+                                              addOrDelete: false,
                                               context: context,
                                               taskAddToFolder:
                                                   TaskAddToFolderModel(

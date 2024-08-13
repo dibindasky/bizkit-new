@@ -22,5 +22,5 @@ Map<String, dynamic> _$SentRequestToJson(SentRequest instance) =>
       'title': instance.title,
       'description': instance.description,
       'assigned_users': instance.assignedUsers,
-      'created_at': instance.createdAt
+      'created_at': instance.createdAt,
     };

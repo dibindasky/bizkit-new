@@ -2,12 +2,10 @@ import 'dart:developer';
 
 import 'package:bizkit/module/task/data/service/folder/folder_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/all_folders_responce/datum.dart';
-
 import 'package:bizkit/module/task/domain/model/folders/delete_folder_model/delete_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_folder_model/edit_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/filter_folder_by_deadline_model/filter_folder_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/filter_folders_by_deadlin_success_responce/filtered_folder.dart';
-
 import 'package:bizkit/module/task/domain/model/folders/folder_model/folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_tasks_inside_folder_success_responce/inner_folder.dart';
@@ -23,13 +21,11 @@ import 'package:bizkit/module/task/domain/model/folders/inner_folder/merge_inner
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/task_add_to_folder_model/task_add_to_folder_model.dart';
+import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
 import 'package:bizkit/module/task/domain/repository/service/folder_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -224,7 +220,7 @@ class TaskFolderController extends GetxController {
   void tasksAddToFolder({
     required TaskAddToFolderModel taskAddToFolder,
     required BuildContext context,
-    // required bool addOrDelete,
+    required bool addOrDelete,
   }) async {
     isLoading.value = true;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -243,19 +239,19 @@ class TaskFolderController extends GetxController {
       },
       (success) {
         log('task add OR remove - folder ===  ${success.message}');
-        // addOrDelete == true
-        //     ? scaffoldMessenger.showSnackBar(
-        //         const SnackBar(
-        //           content: Text('Tasks added successfully'),
-        //           backgroundColor: neonShade,
-        //         ),
-        //       )
-        //     : scaffoldMessenger.showSnackBar(
-        //         const SnackBar(
-        //           content: Text('Task removed successfully'),
-        //           backgroundColor: neonShade,
-        //         ),
-        //       );
+        addOrDelete == true
+            ? scaffoldMessenger.showSnackBar(
+                const SnackBar(
+                  content: Text('Tasks added successfully'),
+                  backgroundColor: neonShade,
+                ),
+              )
+            : scaffoldMessenger.showSnackBar(
+                const SnackBar(
+                  content: Text('Task removed successfully'),
+                  backgroundColor: neonShade,
+                ),
+              );
         isLoading.value = false;
       },
     );
@@ -441,17 +437,38 @@ class TaskFolderController extends GetxController {
   }
 
   void taskAddOrDeleteInnerFolder(
-      {required TaskAddOrDeleteInnerFolderModel taskAddOrDelete}) async {
+      {required TaskAddOrDeleteInnerFolderModel taskAddOrDelete,
+      required BuildContext context,
+      required bool addOrDelete}) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await folderService.taskAddOrDeleteInnerFolder(
         taskAddOrDelete: taskAddOrDelete);
     result.fold(
       (failure) {
         isLoading.value = false;
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
+            backgroundColor: kred,
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
-        log('taskAddOrDeleteInnerFolder === ${success.message}');
+        addOrDelete == true
+            ? scaffoldMessenger.showSnackBar(
+                const SnackBar(
+                  content: Text('Tasks added successfully'),
+                  backgroundColor: neonShade,
+                ),
+              )
+            : scaffoldMessenger.showSnackBar(
+                const SnackBar(
+                  content: Text('Task removed successfully'),
+                  backgroundColor: neonShade,
+                ),
+              );
         isLoading.value = false;
       },
     );
@@ -552,5 +569,37 @@ class TaskFolderController extends GetxController {
         isLoading.value = false;
       },
     );
+  }
+
+  void folderSpotLightOnOrOff({required SpotLightTask spotLightTask}) async {
+    for (var i = 0; i < tasksInsideFolder.length; i++) {
+      if (tasksInsideFolder[i].taskId == spotLightTask.taskId) {
+        tasksInsideFolder[i] = tasksInsideFolder[i]
+            .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+        break;
+      }
+    }
+  }
+
+  void innerFolderSpotLightOnOrOff(
+      {required SpotLightTask spotLightTask}) async {
+    for (var i = 0; i < tasksInsideInnerFolder.length; i++) {
+      if (tasksInsideInnerFolder[i].taskId == spotLightTask.taskId) {
+        tasksInsideInnerFolder[i] = tasksInsideInnerFolder[i]
+            .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+        break;
+      }
+    }
+  }
+
+  void clearAllDatas() async {
+    tasksInsideFolder.clear();
+    tasksInsideInnerFolder.clear();
+    filteredInnerFolders.clear();
+    filteredFoldersByDeadline.clear();
+    deadlineDate.value = '';
+    allFolders.clear();
+    selectedFolderIds.clear();
+    selectedInnerFolderIds.clear();
   }
 }

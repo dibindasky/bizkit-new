@@ -22,8 +22,7 @@ InsideAFolderTasks _$InsideAFolderTasksFromJson(Map<String, dynamic> json) =>
       createdBy: json['created_by'] == null
           ? null
           : CreatedBy.fromJson(json['created_by'] as Map<String, dynamic>),
-      createdAt:
-          json['created_at'] == null ? null : (json['created_at'] as String),
+      createdAt: json['created_at'] as String?,
     );
 
 Map<String, dynamic> _$InsideAFolderTasksToJson(InsideAFolderTasks instance) =>

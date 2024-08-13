@@ -184,4 +184,6 @@ class ApiEndPoints {
   static const taskTestFilterFolders = '/filter-folders/';
   static const taskTestGenerateTaskReport = '/generate-task-report/';
   static const taskTestProvideTaskReport = '/provide-task-report/';
+  static const taskTestCompletedTasks = '/get-completed-tasks/';
+  static const taskTestKilledTasks = '/get-killed-tasks/';
 }

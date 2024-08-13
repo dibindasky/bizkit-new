@@ -58,7 +58,7 @@ class AuthenticationService implements AuthenticationRepo {
 
   @override
   Future<Either<Failure, TokenModel>> otpVerificationPhone(
-      {required Map<String,dynamic> authPostmodel}) async {
+      {required Map<String, dynamic> authPostmodel}) async {
     try {
       log('OTP data $authPostmodel');
       final responce = await _dio.post(

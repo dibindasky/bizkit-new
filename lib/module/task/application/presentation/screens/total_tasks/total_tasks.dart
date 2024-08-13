@@ -4,7 +4,9 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/tabbar.dart';
+import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/completed_tasks_list.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/custom_pop_menubutton.dart';
+import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/killed_tasks_list.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
@@ -74,6 +76,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
                   filterByType: FilterByTypeModel(taskType: 'all'));
 
               log('=> ${homeController.taskCategory.value}');
+
               Navigator.of(context).pop();
             },
           ),
@@ -132,6 +135,26 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             },
           ),
         ),
+        PopupMenuItem(
+          child: CustomPopupMenuItem(
+            text: 'Completed Tasks',
+            onTap: () {
+              homeController.changeSelectedTaskCategory('Completed Tasks');
+              taskController.fetchAllCompletedTasks();
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        PopupMenuItem(
+          child: CustomPopupMenuItem(
+            text: 'Killed Tasks',
+            onTap: () {
+              homeController.changeSelectedTaskCategory('Killed Tasks');
+              taskController.fetchAllKilledTasks();
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
         // PopupMenuItem(
         //   child: CustomPopupMenuItem(
         //     text: 'Combleted task',
@@ -153,21 +176,21 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
       // taskController.filterByType(
       //     filterByType: FilterByTypeModel(taskType: 'self_to_self'));
     });
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            size: 17,
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              size: 17,
+            ),
           ),
-        ),
-        backgroundColor: knill,
-        title: GetBuilder<TaskHomeScreenController>(builder: (controller) {
-          return GestureDetector(
-            onTap: () => _showCustomMenu(context),
-            child: Obx(
-              () => Row(
+          backgroundColor: knill,
+          title: GetBuilder<TaskHomeScreenController>(builder: (controller) {
+            return GestureDetector(
+              onTap: () => _showCustomMenu(context),
+              child: Row(
                 children: [
                   Text(
                     controller.taskCategory.value.replaceAll('_', ' '),
@@ -177,63 +200,71 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
                   const Icon(Icons.arrow_drop_down)
                 ],
               ),
-            ),
-          );
-        }),
-        actions: const [
-          // IconButton(
-          //   icon: const Icon(Icons.search),
-          //   onPressed: () {},
-          // ),
-          // IconButton(
-          //   icon: const Icon(Icons.filter_list),
-          //   onPressed: () {},
-          // ),
-          // IconButton(
-          //   icon: const Icon(Icons.add),
-          //   onPressed: () {},
-          // ),
-        ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(50.0),
-          child: Stack(
-            children: [
-              TabBar(
-                dividerColor: kblack,
-                controller: _tabController,
-                indicator: BoxDecoration(
-                  color: neonShade,
-                  borderRadius: BorderRadius.circular(10),
+            );
+          }),
+          actions: const [
+            // IconButton(
+            //   icon: const Icon(Icons.search),
+            //   onPressed: () {},
+            // ),
+            // IconButton(
+            //   icon: const Icon(Icons.filter_list),
+            //   onPressed: () {},
+            // ),
+            // IconButton(
+            //   icon: const Icon(Icons.add),
+            //   onPressed: () {},
+            // ),
+          ],
+          bottom: homeController.taskCategory.value == 'Completed Tasks' ||
+                  homeController.taskCategory.value == 'Killed Tasks'
+              ? null
+              : PreferredSize(
+                  preferredSize: const Size.fromHeight(50.0),
+                  child: Stack(
+                    children: [
+                      TabBar(
+                          dividerColor: kblack,
+                          controller: _tabController,
+                          indicator: BoxDecoration(
+                            color: neonShade,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          unselectedLabelColor: kwhite,
+                          labelColor: kwhite,
+                          indicatorColor: knill,
+                          tabs: [
+                            SizedBox(
+                              width: kwidth * 0.5,
+                              child: const Tab(text: 'Total Tasks'),
+                            ),
+                            SizedBox(
+                              width: kwidth * 0.5,
+                              child: const Tab(text: 'Pinned tasks'),
+                            ),
+                          ]),
+                    ],
+                  ),
                 ),
-                unselectedLabelColor: kwhite,
-                labelColor: kwhite,
-                indicatorColor: knill,
-                tabs: [
-                  SizedBox(
-                    width: kwidth * 0.5,
-                    child: const Tab(text: 'Total Tasks'),
-                  ),
-                  SizedBox(
-                    width: kwidth * 0.5,
-                    child: const Tab(text: 'Pinned tasks'),
-                  ),
-                ],
-              ),
-            ],
-          ),
         ),
-      ),
-      body: GetBuilder<CreateTaskController>(
-        builder: (controller) {
-          return TabBarView(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: _tabController,
-            children: [
-              TotalTaskListView(),
-              PinnedTasks(tabController: _tabController),
-            ],
-          );
-        },
+        body: Obx(
+          () => homeController.taskCategory.value == 'Completed Tasks'
+              ? const CompletedTasksListView()
+              : homeController.taskCategory.value == 'Killed Tasks'
+                  ? const KilledTasksListView()
+                  : GetBuilder<CreateTaskController>(
+                      builder: (controller) {
+                        return TabBarView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          controller: _tabController,
+                          children: [
+                            TotalTaskListView(),
+                            PinnedTasks(tabController: _tabController),
+                          ],
+                        );
+                      },
+                    ),
+        ),
       ),
     );
   }

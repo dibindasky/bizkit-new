@@ -53,7 +53,7 @@ class ScreenAddTask extends StatelessWidget {
             controller.subTasks.clear();
             controller.clearSelectedFiles();
             titleController.clear();
-            controller.deadlineDate.value = '';
+            controller.deadlineDateForTaskCreation.value = '';
             descriptionController.clear();
           },
           icon: const Icon(Icons.arrow_back_ios),
@@ -148,7 +148,8 @@ class ScreenAddTask extends StatelessWidget {
                           DeadlineChooserCreateTask(
                             showTitle: true,
                             onPressed: (date) {
-                              controller.deadlineDate.value = date;
+                              controller.deadlineDateForTaskCreation.value =
+                                  date;
                             },
                           ),
                           adjustHieght(10.h),
@@ -201,8 +202,8 @@ class ScreenAddTask extends StatelessWidget {
         task: TaskModel(
           title: titleController.text,
           description: descriptionController.text,
-          deadLine: controller.deadlineDate.value.isNotEmpty
-              ? controller.deadlineDate.value
+          deadLine: controller.deadlineDateForTaskCreation.value.isNotEmpty
+              ? controller.deadlineDateForTaskCreation.value
               : '',
           assignedTo: [],
           attachments: attachments.isNotEmpty ? attachments : [],

@@ -48,6 +48,7 @@ class DateContainer extends StatelessWidget {
                             confirmText: 'Ok',
                             onSubmit: (p0) {
                               Navigator.of(context).pop();
+                              controllerr.selectedRange = null;
                             },
                             showActionButtons: true,
                             toggleDaySelection: true,

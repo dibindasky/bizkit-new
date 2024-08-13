@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
 import 'package:bizkit/module/task/domain/model/task/add_new_assined_users_model/add_new_assined_users_model.dart';
+import 'package:bizkit/module/task/domain/model/task/completed_or_killed_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
@@ -36,9 +38,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -55,6 +55,7 @@ class CreateTaskController extends GetxController {
       RecurringTimePeriod.none.obs;
   RxBool createRecurring = false.obs;
   RxString deadlineDate = ''.obs;
+  RxString deadlineDateForTaskCreation = ''.obs;
 
   // List of participants involved in the task
   // var participants = <TaskAssignedTo>[].obs;
@@ -66,6 +67,9 @@ class CreateTaskController extends GetxController {
   RxList<Task> deadlineTasks = <Task>[].obs;
   RxList<SentRequest> sentRequests = <SentRequest>[].obs;
   RxList<Task> allPinnedTasks = <Task>[].obs;
+  RxList<TasksCompletedOrKilled> completedTasks =
+      <TasksCompletedOrKilled>[].obs;
+  RxList<TasksCompletedOrKilled> killedTasks = <TasksCompletedOrKilled>[].obs;
   RxList<UserSearchSuccessResponce> userslist =
       <UserSearchSuccessResponce>[].obs;
   RxList<Task> tasksSearch = <Task>[].obs;
@@ -115,6 +119,7 @@ class CreateTaskController extends GetxController {
   RxBool taskEditLoading = false.obs;
   RxBool searchLoading = false.obs;
   RxBool pinLoader = false.obs;
+  RxBool isLoadingForSpotLight = false.obs;
 
   // Task service instance for API interactions
   final TaskRepo taskService = TaskService();
@@ -275,7 +280,7 @@ class CreateTaskController extends GetxController {
         attachments.clear();
         attachments.clear;
         userslistNew.clear();
-        deadlineDate.value = '';
+        deadlineDateForTaskCreation.value = '';
         showSnackbar(context,
             message: error.error ?? errorMessage,
             backgroundColor: kred,
@@ -283,15 +288,13 @@ class CreateTaskController extends GetxController {
         log('${error.error}', name: 'Error from create new task');
       },
       (success) {
+        deadlineDateForTaskCreation.value = '';
         taskCreationLoading.value = false;
         log('${success.message}');
         testTaskId = success.taskId.toString();
-
         Get.back(id: navigationId);
-        deadlineDate.value = '';
         clearSelectedFiles();
         subTasks.clear();
-        deadlineDate.value = '';
         tags.clear();
         fetchSendRequests();
         attachments.clear();
@@ -462,18 +465,50 @@ class CreateTaskController extends GetxController {
 
   // add spotlight to a task
   void spotLightTask({required SpotLightTask spotLightTask}) async {
-    isLoading.value = true;
+    isLoadingForSpotLight.value = true;
     final result =
         await taskService.spotLightTask(spotLightTask: spotLightTask);
     result.fold(
       (failure) {
-        isLoading.value = false;
+        isLoadingForSpotLight.value = false;
         log(failure.message.toString());
       },
       (success) {
-        isLoading.value = false;
-        taskFilterByDeadline(
-            filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
+        isLoadingForSpotLight.value = false;
+        for (var i = 0; i < deadlineTasks.length; i++) {
+          if (deadlineTasks[i].id == spotLightTask.taskId) {
+            deadlineTasks[i] = deadlineTasks[i]
+                .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+            break;
+          }
+        }
+        for (var i = 0; i < tasksSearch.length; i++) {
+          if (tasksSearch[i].id == spotLightTask.taskId) {
+            tasksSearch[i] = tasksSearch[i]
+                .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+            break;
+          }
+        }
+        for (var i = 0; i < typeTasks.length; i++) {
+          if (typeTasks[i].id == spotLightTask.taskId) {
+            typeTasks[i] = typeTasks[i]
+                .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+            break;
+          }
+        }
+        for (var i = 0; i < allPinnedTasks.length; i++) {
+          if (allPinnedTasks[i].id == spotLightTask.taskId) {
+            allPinnedTasks[i] = allPinnedTasks[i]
+                .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+            break;
+          }
+        }
+
+        Get.find<TaskFolderController>()
+            .folderSpotLightOnOrOff(spotLightTask: spotLightTask);
+        Get.find<TaskFolderController>()
+            .innerFolderSpotLightOnOrOff(spotLightTask: spotLightTask);
+
         log('SpotLightTask :=> $deadlineTasks');
       },
     );
@@ -920,5 +955,49 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
       },
     );
+  }
+
+  void fetchAllCompletedTasks() async {
+    isLoading.value = true;
+    final result = await taskService.getAllCompletedTasks();
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        completedTasks.assignAll(success.tasks ?? []);
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void fetchAllKilledTasks() async {
+    isLoading.value = true;
+    final result = await taskService.getAllKilledTasks();
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        killedTasks.assignAll(success.tasks ?? []);
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void clearAllDatas() async {
+    tasksSearch.clear();
+    allPinnedTasks.clear();
+    typeTasks.clear();
+    deadlineTasks.clear();
+    completedTasks.clear();
+    killedTasks.clear();
+    receivedRequests.clear();
+    sentRequests.clear();
+    deadlineDate.value = '';
+    selectedFiles.clear();
+    selectedTasks.clear();
   }
 }

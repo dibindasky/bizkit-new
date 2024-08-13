@@ -33,6 +33,7 @@ class Task {
   String? status;
   @JsonKey(name: 'created_by')
   CreatedBy? createdBy;
+
   Task(
       {this.id,
       this.taskType,
@@ -51,4 +52,36 @@ class Task {
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 
   Map<String, dynamic> toJson() => _$TaskToJson(this);
+
+  Task copyWith({
+    String? id,
+    String? description,
+    String? title,
+    String? createdAt,
+    String? deadLine,
+    String? priorityLevel,
+    List<SubTask>? subtasks,
+    String? taskType,
+    bool? isOwned,
+    bool? spotlightOn,
+    bool? isPinned,
+    String? status,
+    CreatedBy? createdBy,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      description: description ?? this.description,
+      title: title ?? this.title,
+      createdAt: createdAt ?? this.createdAt,
+      deadLine: deadLine ?? this.deadLine,
+      priorityLevel: priorityLevel ?? this.priorityLevel,
+      subtasks: subtasks ?? this.subtasks,
+      taskType: taskType ?? this.taskType,
+      isOwned: isOwned ?? this.isOwned,
+      spotlightOn: spotlightOn ?? this.spotlightOn,
+      isPinned: isPinned ?? this.isPinned,
+      status: status ?? this.status,
+      createdBy: createdBy ?? this.createdBy,
+    );
+  }
 }

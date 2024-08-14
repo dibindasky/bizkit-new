@@ -556,7 +556,6 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   FutureOr<void> getUserDetail(GetUserDetail event, emit) async {
     final result = await SecureStorage.getUserDetails();
     final business = await SecureStorage.getRole();
-
     if (!business) {
       nameController.text = result.name ?? nameController.text;
       phoneController.text = result.phoneNumber ?? phoneController.text;
@@ -577,7 +576,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       GetBusinessCategories event, emit) async {
     final result = await cardService.getBusinessCategories();
     result.fold((failure) => null, (getBusinessCategories) {
-      print('get category => ${getBusinessCategories.businessCategories}');
+      //print('get category => ${getBusinessCategories.businessCategories}');
       emit(state.copyWith(
           accoladeAdded: false,
           datesToRememberAdded: false,

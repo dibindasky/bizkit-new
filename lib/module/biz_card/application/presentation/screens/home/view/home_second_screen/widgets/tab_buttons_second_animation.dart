@@ -28,7 +28,7 @@ class _TabButtonsSecondAnimationState extends State<TabButtonsSecondAnimation>
       children: [
         textButton(index: 0),
         textButton(index: 1),
-        textButton(index: 2),
+        textButton(index: 2)
       ],
     );
   }

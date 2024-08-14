@@ -77,178 +77,138 @@ class _DeletedCardsState extends State<DeletedCards> {
           onRefresh: () => onRefresh(),
           child: ListView(
             children: [
-              BlocConsumer<CardBloc, CardState>(
-                listener: (context, state) {
-                  if (state.deleteCardRestored) {
-                    showSnackbar(
-                      context,
-                      message: 'Card Restored',
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  if (state.deleteCardLoading) {
-                    return SizedBox(
-                      height: khieght * .4,
-                      child: ShimmerLoader(
-                        itemCount: 10,
-                        height: 240,
-                        scrollDirection: Axis.horizontal,
-                        width: kwidth * 0.9,
-                        seprator: const SizedBox(width: 10),
-                      ),
-                    );
-                  } else if (state.deletedCards != null &&
-                      state.deletedCards!.isNotEmpty) {
-                    return SizedBox(
-                      height: khieght * .4,
-                      child: ListView.separated(
-                        controller: firstCardscrollController,
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: (state.deletedCards?.length ?? 0) +
-                            (state.deleteCardEventLoading ? 1 : 0),
-                        separatorBuilder: (context, index) =>
-                            adjustWidth(kwidth * .05),
-                        itemBuilder: (context, index) {
-                          if (state.deleteCardEventLoading &&
-                              index == state.deletedCards!.length) {
-                            return const LoadingAnimation();
-                          }
-                          final deletedFirstCard = state.deletedCards![index];
-                          String base64String = deletedFirstCard.logo ?? '';
-                          base64String = base64String.replaceFirst(
-                              RegExp(r'data:image/jpg;base64,'), '');
-                          return InkWell(
-                            onTap: () {
-                              final Map<String, String> map =
-                                  state.deletedCards != null &&
-                                          state.deletedCards![index].id != null
-                                      ? {
-                                          'myCard': 'true',
-                                          'cardId': state
-                                              .deletedCards![index].id!
-                                              .toString()
-                                        }
-                                      : <String, String>{};
-                              GoRouter.of(context).pushNamed(
-                                Routes.cardDetailView,
-                                pathParameters: map,
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: textFieldFillColr,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              width: 300,
-                              child: Column(
+              SizedBox(
+                  height: khieght * .4,
+                  child: ListView.separated(
+                    controller: firstCardscrollController,
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 4,
+                    //  (state.deletedCards?.length ?? 0) +
+                    //     (state.deleteCardEventLoading ? 1 : 0),
+                    separatorBuilder: (context, index) =>
+                        adjustWidth(kwidth * .05),
+                    itemBuilder: (context, index) {
+                      // if (state.deleteCardEventLoading &&
+                      //     index == state.deletedCards!.length) {
+                      //   return const LoadingAnimation();
+                      // }
+                      // final deletedFirstCard = state.deletedCards![index];
+                      // String base64String = deletedFirstCard.logo ?? '';
+                      // base64String = base64String.replaceFirst(
+                      //     RegExp(r'data:image/jpg;base64,'), '');
+                      return InkWell(
+                        onTap: () {
+                          // final Map<String, String> map = state.deletedCards !=
+                          //             null &&
+                          //         state.deletedCards![index].id != null
+                          //     ? {
+                          //         'myCard': 'true',
+                          //         'cardId':
+                          //             state.deletedCards![index].id!.toString()
+                          //       }
+                          //     : <String, String>{};
+                          // GoRouter.of(context).pushNamed(
+                          //   Routes.cardDetailView,
+                          //   pathParameters: map,
+                          // );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: textFieldFillColr,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          width: 300,
+                          child: Column(
+                            children: [
+                              Stack(
                                 children: [
-                                  Stack(
-                                    children: [
-                                      SizedBox(
-                                        width: 300,
-                                        height: khieght * .3,
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(25),
-                                            topRight: Radius.circular(20),
-                                          ),
-                                          child: state.deletedCards != null &&
-                                                  state.deletedCards![index]
-                                                          .logo !=
-                                                      null
-                                              ? Image.memory(
-                                                  //base64Decode(memoryImage),
-                                                  base64Decode(base64String),
-                                                  //card.logo!,
-                                                  fit: BoxFit.cover,
-                                                  errorBuilder: (context, error,
-                                                      stackTrace) {
-                                                    return const Icon(
-                                                        Icons.error);
-                                                  },
-                                                )
-                                              : Image.asset(imageBackgroundCard,
-                                                  fit: BoxFit.cover),
+                                  SizedBox(
+                                    width: 300,
+                                    height: khieght * .3,
+                                    child: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(25),
+                                          topRight: Radius.circular(20),
                                         ),
-                                      ),
-                                    ],
+                                        child:
+                                            //  state.deletedCards != null &&
+                                            //         state.deletedCards![index].logo !=
+                                            //             null
+                                            Image.memory(
+                                          //base64Decode(memoryImage),
+                                          base64Decode(
+                                              imageTestingBase64.substring(22)),
+                                          //card.logo!,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return const Icon(Icons.error);
+                                          },
+                                        )),
                                   ),
-                                  adjustHieght(khieght * .02),
-                                  Row(
-                                    children: [
-                                      adjustWidth(kwidth * .02),
-                                      Text(
-                                        '${state.deletedCards![index].name ?? ''}\n${state.deletedCards![index].designation ?? ''}',
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      InkWell(
-                                        onTap: () {
-                                          showConfirmationDialog(
-                                            actionButton: 'Restore',
-                                            heading: 'Restore Deleted cards',
-                                            context,
-                                            onPressed: () {
-                                              CardActionRequestModel
-                                                  cardActionRewuestModel =
-                                                  CardActionRequestModel(
-                                                isArchived: false,
-                                                isActive: true,
-                                              );
-                                              context.read<CardBloc>().add(
-                                                    CardEvent
-                                                        .restoreDeletedCard(
-                                                      cardActionRequestModel:
-                                                          cardActionRewuestModel,
-                                                      cardId: state
-                                                          .deletedCards![index]
-                                                          .id!,
-                                                    ),
-                                                  );
-                                            },
-                                          );
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: kblue,
-                                          ),
-                                          width: 100,
-                                          height: 30,
-                                          child: Center(
-                                            child: Text('Restore',
-                                                style: textStyle1),
-                                          ),
-                                        ),
-                                      ),
-                                      adjustWidth(kwidth * .02)
-                                    ],
-                                  ),
-                                  adjustHieght(khieght * .02),
                                 ],
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  } else {
-                    return ErrorRefreshIndicator(
-                      shrinkWrap: true,
-                      image: emptyNodata2,
-                      errorMessage: 'Deleted Card is not found',
-                      onRefresh: onRefresh,
-                    );
-                  }
-                },
-              ),
+                              adjustHieght(khieght * .02),
+                              Row(
+                                children: [
+                                  adjustWidth(kwidth * .02),
+                                  Text(
+                                    'Designation',
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  InkWell(
+                                    onTap: () {
+                                      showConfirmationDialog(
+                                        actionButton: 'Restore',
+                                        heading: 'Restore Deleted cards',
+                                        context,
+                                        onPressed: () {
+                                          CardActionRequestModel
+                                              cardActionRewuestModel =
+                                              CardActionRequestModel(
+                                            isArchived: false,
+                                            isActive: true,
+                                          );
+                                          // context.read<CardBloc>().add(
+                                          //       CardEvent.restoreDeletedCard(
+                                          //         cardActionRequestModel:
+                                          //             cardActionRewuestModel,
+                                          //         cardId: state
+                                          //             .deletedCards![index].id!,
+                                          //       ),
+                                          //     );
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: kblue,
+                                      ),
+                                      width: 100,
+                                      height: 30,
+                                      child: Center(
+                                        child:
+                                            Text('Restore', style: textStyle1),
+                                      ),
+                                    ),
+                                  ),
+                                  adjustWidth(kwidth * .02)
+                                ],
+                              ),
+                              adjustHieght(khieght * .02),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  )),
               adjustHieght(khieght * .02),
               BlocConsumer<CardSecondBloc, CardSecondState>(
                 listener: (context, state) {

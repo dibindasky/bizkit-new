@@ -5,7 +5,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_c
 import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/card_sharing_qr.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -20,14 +20,14 @@ final GlobalKey globalKeyQRScan = GlobalKey();
 final GlobalKey globalKeyNFCScan = GlobalKey();
 final GlobalKey globalKeyCreateVsitingCard = GlobalKey();
 
-class SelfieScreen extends StatefulWidget {
-  const SelfieScreen({super.key});
+class ScreenCardSelfie extends StatefulWidget {
+  const ScreenCardSelfie({super.key});
 
   @override
-  State<SelfieScreen> createState() => _SelfieScreenState();
+  State<ScreenCardSelfie> createState() => _ScreenCardSelfieState();
 }
 
-class _SelfieScreenState extends State<SelfieScreen>
+class _ScreenCardSelfieState extends State<ScreenCardSelfie>
     with SingleTickerProviderStateMixin {
   final buttons = [
     'asset/images/Vector.png',
@@ -101,7 +101,7 @@ class _SelfieScreenState extends State<SelfieScreen>
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const CardSharingScreen(),
+                        builder: (context) => const ScreenCardSharing(),
                       ),
                     ),
                     child: CustomShowCaseView(
@@ -177,7 +177,7 @@ class _SelfieScreenState extends State<SelfieScreen>
                                     .read<CardSecondBloc>()
                                     .add(const CardSecondEvent.imageClear());
                                 Navigator.of(context).push(
-                                  fadePageRoute(CardSecondScannedDatas()),
+                                  cardFadePageRoute(CardSecondScannedDatas()),
                                 );
                               },
                               child: const Text(
@@ -323,7 +323,8 @@ class ContainerPickImage extends StatelessWidget {
                                 () {
                                   if (needNavigate) {
                                     Navigator.of(context).push(
-                                        fadePageRoute(const SelectedCard()));
+                                        cardFadePageRoute(
+                                            const SelectedCard()));
                                   }
                                   context.read<CardSecondBloc>().add(
                                       const CardSecondEvent.scanImage(
@@ -351,8 +352,8 @@ class ContainerPickImage extends StatelessWidget {
                       onTap: onPressedCam ??
                           () {
                             if (needNavigate) {
-                              Navigator.of(context)
-                                  .push(fadePageRoute(const SelectedCard()));
+                              Navigator.of(context).push(
+                                  cardFadePageRoute(const SelectedCard()));
                             }
                             context.read<CardSecondBloc>().add(
                                   const CardSecondEvent.scanImage(

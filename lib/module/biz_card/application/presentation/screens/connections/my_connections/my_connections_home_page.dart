@@ -13,16 +13,17 @@ import 'package:bizkit/module/biz_card/application/presentation/widgets/show_cas
 import 'package:bizkit/module/biz_card/domain/model/connections/get_bizkit_connections_response_model/bizkit_connection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MyConnectionContainerHomePage extends StatelessWidget {
-  const MyConnectionContainerHomePage({super.key});
+class CardMyConnectionContainerHomePage extends StatelessWidget {
+  const CardMyConnectionContainerHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context
-          .read<ConnectionRequestBloc>()
-          .add(const ConnectionRequestEvent.getBizkitConnections(query: ''));
+      // context
+      //     .read<ConnectionRequestBloc>()
+      //     .add(const ConnectionRequestEvent.getBizkitConnections(query: ''));
     });
     return Column(
       children: [
@@ -35,32 +36,27 @@ class MyConnectionContainerHomePage extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
-                    fadePageRoute(const MyConnectionsViewAllContacts()),
-                  );
+                      cardFadePageRoute(const MyConnectionsViewAllContacts()));
                 },
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  child: Card(
-                    elevation: 4,
-                    child: ColoredBox(
-                      color: backgroundColour,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 8),
-                        child: CustomShowCaseView(
-                          image: personImage,
-                          globalKey: globalKeyViewAllConnections,
-                          tittle: 'View your added conecctions',
-                          description: '',
-                          child: Text(
-                            'View All',
-                            style: TextStyle(
+                  borderRadius: const BorderRadius.all(Radius.circular(1)),
+                  child: ColoredBox(
+                    color: backgroundColour,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 8),
+                      child: CustomShowCaseView(
+                        image: personImage,
+                        globalKey: globalKeyViewAllConnections,
+                        tittle: 'View your added conecctions',
+                        description: '',
+                        child: Text(
+                          'View All',
+                          style: textThinStyle1.copyWith(
                               decorationColor: kwhite,
                               decorationThickness: 1.5,
                               color: kwhite,
-                              fontSize: kwidth * .029,
-                            ),
-                          ),
+                              fontSize: 10.sp),
                         ),
                       ),
                     ),
@@ -74,122 +70,75 @@ class MyConnectionContainerHomePage extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           height: 75,
-          child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
-            builder: (context, state) {
-              if (state.isLoading) {
-                return const ShimmerLoader(
-                  seprator: SizedBox(width: 10),
-                  height: 40,
-                  width: 60,
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                );
-              }
-              return ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                separatorBuilder: (context, index) => adjustWidth(kwidth * .02),
-                itemCount: state.bizkitConnections?.length == null
-                    ? 1
-                    : state.bizkitConnections!.length + 1,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  BizkitConnection data = BizkitConnection();
-                  if (index != 0) {
-                    data = state.bizkitConnections![index - 1];
-                  }
-                  if (index == 0) {
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            fadePageRoute(const ScreenAddConnections()),
-                          );
-                        },
-                        child: CustomShowCaseView(
-                          description: '',
-                          globalKey: globalKeyaddConnections,
-                          tittle: 'Start Add connections from here',
-                          image: '',
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: const ColoredBox(
-                                  color: textFieldFillColr,
-                                  child: SizedBox(
-                                    height: 58,
-                                    width: 60,
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.add,
-                                        size: 20,
-                                        color: kwhite,
-                                      ),
-                                    ),
+          child: ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            separatorBuilder: (context, index) => adjustWidth(kwidth * .02),
+            itemCount: 3,
+            //  state.bizkitConnections?.length == null
+            //     ? 1
+            //     : state.bizkitConnections!.length + 1,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              //BizkitConnection data = BizkitConnection();
+              // if (index != 0) {
+              //   data = state.bizkitConnections![index - 1];
+              // }
+              if (index == 0) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        cardFadePageRoute(const ScreenCardAddConnections()),
+                      );
+                    },
+                    child: CustomShowCaseView(
+                      description: '',
+                      globalKey: globalKeyaddConnections,
+                      tittle: 'Start Add connections from here',
+                      image: '',
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: ColoredBox(
+                              color: textFieldFillColr,
+                              child: SizedBox(
+                                height: 47.h,
+                                width: 50.w,
+                                child: Center(
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 18.h,
+                                    color: kwhite,
                                   ),
                                 ),
                               ),
-                              const Expanded(child: Text('Add')),
-                            ],
+                            ),
                           ),
-                        ),
+                          const Expanded(child: Text('Add')),
+                        ],
                       ),
-                    );
-                  }
-                  return InkWell(
-                    onTap: () {
-                      print('data.photo =>${data.photos == ''}');
-                      Navigator.push(
-                          context,
-                          fadePageRoute(
-                              ScreenCardDetailView(cardId: data.cardId)));
-                    },
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 50,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              color: textFieldFillColr,
-                              image: data.photos != null && data.photos != ''
-                                  ? DecorationImage(
-                                      image: MemoryImage(
-                                        base64.decode(getBase64(data.photos!)),
-                                      ),
-                                      fit: BoxFit.cover,
-                                      onError: (exception, stackTrace) =>
-                                          const Icon(Icons
-                                              .image_not_supported_outlined),
-                                    )
-                                  : null,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Center(
-                              child: data.photos == null && data.name != null
-                                  ? FittedBox(
-                                      child: Text(
-                                          data.name!
-                                              .substring(0, 2)
-                                              .toUpperCase(),
-                                          style: textHeadStyle1),
-                                    )
-                                  : null,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 60,
-                          child: Text(data.name ?? '',
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center),
-                        )
-                      ],
                     ),
-                  );
+                  ),
+                );
+              }
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context, cardFadePageRoute(const ScreenCardDetailView()));
                 },
+                child: Column(
+                  children: [
+                    Expanded(
+                        child: Image.asset(dummyPersonImage,
+                            height: 30.h, width: 50.w)),
+                    const Text('Name',
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center)
+                  ],
+                ),
               );
             },
           ),

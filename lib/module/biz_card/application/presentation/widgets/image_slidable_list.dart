@@ -6,9 +6,13 @@ import 'package:photo_view/photo_view.dart';
 class SlidablePhotoGallery extends StatelessWidget {
   final List<String> images;
   final int initialIndex;
+  final bool isMemory;
 
   const SlidablePhotoGallery(
-      {super.key, required this.images, this.initialIndex = 0});
+      {super.key,
+      required this.images,
+      this.initialIndex = 0,
+      this.isMemory = false});
 
   @override
   Widget build(BuildContext context) {

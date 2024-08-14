@@ -20,17 +20,17 @@ class ContactConnectionsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ContactsBloc>().add(const ContactsEvent.getConnections());
+      //context.read<ContactsBloc>().add(const ContactsEvent.getConnections());
     });
     return Expanded(
       child: BlocConsumer<ContactsBloc, ContactsState>(
         listener: (context, state) {
-          if (state.message != null) {
-            showSnackbar(
-              context,
-              message: state.message!,
-            );
-          }
+          // if (state.message != null) {
+          //   showSnackbar(
+          //     context,
+          //     message: state.message!,
+          //   );
+          // }
         },
         builder: (context, state) {
           print('contacts list length ==> (${state.contactList?.length})');
@@ -97,9 +97,7 @@ class ContactConnectionsTab extends StatelessWidget {
                     onTap: () {
                       if (data.id != null && data.id != 0) {
                         Navigator.of(context).push(
-                          fadePageRoute(ScreenCardDetailView(
-                            userId: data.id,
-                          )),
+                          cardFadePageRoute(const ScreenCardDetailView()),
                         );
                       }
                     },
@@ -153,9 +151,9 @@ class ContactConnectionsTab extends StatelessWidget {
           } else {
             return ErrorRefreshIndicator(
               onRefresh: () {
-                context
-                    .read<ContactsBloc>()
-                    .add(const ContactsEvent.getConnections());
+                // context
+                //     .read<ContactsBloc>()
+                //     .add(const ContactsEvent.getConnections());
               },
               errorMessage: 'No Contacts',
               image: emptyNodata2,

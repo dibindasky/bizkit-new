@@ -1,5 +1,5 @@
 import 'package:bizkit/module/biz_card/application/business_logic/profile/profile_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
@@ -18,7 +18,7 @@ class ReportProblemPage extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
-        child: const AppbarCommen(
+        child: const CardAppbarCommen(
           tittle: 'Report a Problem',
         ),
       ),
@@ -64,7 +64,7 @@ class ReportProblemPage extends StatelessWidget {
                 },
                 builder: (context, state) {
                   return !state.isLoading
-                      ? LastSkipContinueButtons(
+                      ? CardLastSkipContinueButtons(
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
                               final subject = context

@@ -56,22 +56,22 @@ class _PreviewPageviewImageBuilderState
       },
       child: (index, _) {
         return ImagePreviewScrollView(
-            showPreview: () {
-              List<String> images = widget.story != null
-                  ? widget.imagesList.sublist(1)
-                  : widget.imagesList;
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
+          showPreview: () {
+            List<String> images = widget.story != null
+                ? widget.imagesList.sublist(1)
+                : widget.imagesList;
+            Navigator.push(
+                context,
+                MaterialPageRoute(
                     builder: (context) => SlidablePhotoGallery(
-                      images: images,
-                      initialIndex: widget.story != null ? index - 1 : index,
-                    ),
-                  ));
-            },
-            isStory: widget.isStory,
-            image: widget.imagesList[index],
-            story: index == widget.storyIndex ? widget.story : null);
+                        images: images,
+                        initialIndex:
+                            widget.story != null ? index - 1 : index)));
+          },
+          isStory: widget.isStory,
+          image: widget.imagesList[index],
+          story: index == widget.storyIndex ? widget.story : null,
+        );
       },
     );
   }

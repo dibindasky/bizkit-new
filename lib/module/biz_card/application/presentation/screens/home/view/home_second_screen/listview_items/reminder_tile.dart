@@ -8,27 +8,27 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReminderTile extends StatelessWidget {
-  const ReminderTile({super.key, required this.reminder});
-  final Reminders reminder;
+  const ReminderTile({super.key});
+  // final Reminders reminder;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context
-            .read<ReminderBloc>()
-            .add(ReminderEvent.getReminderDetails(id: reminder.id!));
+        // context
+        //     .read<ReminderBloc>()
+        //     .add(ReminderEvent.getReminderDetails(id: reminder.id!));
         Navigator.push(
           context,
-          fadePageRoute(const MeetingDetailScreenWithOutAnimation()),
+          cardFadePageRoute(const ScreenCardReminderDetailWithoutAnimation()),
         );
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
-        padding: const EdgeInsets.only(right: 8),
-        height: 100,
+        padding:
+            EdgeInsets.only(top: 20.w, left: 2.w, bottom: 20.w, right: 7.w),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8)),
           boxShadow: [
@@ -42,9 +42,8 @@ class ReminderTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: kwidth * 0.24,
-
               // decoration: BoxDecoration(
               //   image: reminder.image != null
               //       ? DecorationImage(
@@ -59,24 +58,24 @@ class ReminderTile extends StatelessWidget {
               //     bottomLeft: Radius.circular(12),
               //   ),
               // ),
-              child: reminder.image != null && reminder.image!.isNotEmpty
-                  ? Image.memory(base64Decode(reminder.image!.startsWith('data')
-                      ? reminder.image!.substring(22)
-                      : reminder.image!))
-                  : const Icon(Icons.person_2),
+              child:
+                  //  reminder.image != null && reminder.image!.isNotEmpty
+                  //     ? Image.memory(base64Decode(reminder.image!.startsWith('data')
+                  //         ? reminder.image!.substring(22)
+                  //         : reminder.image!))
+                  //     :
+                  const Icon(Icons.person_2),
             ),
             adjustWidth(kwidth * .02),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                Text('Discussion with', style: textHeadStyle1),
                 Text(
-                  'Discussion with \n${reminder.name ?? ''}',
-                  style: textHeadStyle1,
-                ),
-                Text(
-                  DateTimeFormater.formatDateTime(
-                      reminder.date!, reminder.time!),
+                  'Date',
+                  // DateTimeFormater.formatDateTime(
+                  //     reminder.date!, reminder.time!),
                   style: textStyle1,
                 ),
               ],

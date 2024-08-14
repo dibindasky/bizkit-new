@@ -38,78 +38,40 @@ class ScreenPreviewBankOrPersnalCArdView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
           child: Column(
-            children: !isFromBankScreen
-                ? [
-                    BlocBuilder<CardBloc, CardState>(
-                      builder: (context, state) {
-                        if (state.anotherCard?.personalDetails?.bloodGroup ==
-                            null) {
-                          return Image.asset(emptyNodata3);
-                        }
-                        return CommenbankingPersnalTiles(
-                          first: 'Blood Group',
-                          second:
-                              state.anotherCard!.personalDetails!.bloodGroup ??
-                                  '',
-                        );
-                      },
-                    ),
-                  ]
-                : [
-                    BlocBuilder<CardBloc, CardState>(
-                      builder: (context, state) {
-                        if (state.anotherCard?.bankDetails?.accountNumber ==
-                            null) {
-                          return const SizedBox();
-                        }
-                        return CommenbankingPersnalTiles(
-                          first: 'Account Number',
-                          second:
-                              state.anotherCard?.bankDetails?.accountNumber ??
-                                  '',
-                        );
-                      },
-                    ),
-                    BlocBuilder<CardBloc, CardState>(
-                      builder: (context, state) {
-                        if (state.anotherCard?.bankDetails?.ifscCode == null) {
-                          return const SizedBox();
-                        }
-                        return CommenbankingPersnalTiles(
-                          first: 'IFSC',
-                          second:
-                              state.anotherCard?.bankDetails?.ifscCode ?? '',
-                        );
-                      },
-                    ),
-                    BlocBuilder<CardBloc, CardState>(
-                      builder: (context, state) {
-                        if (state.anotherCard?.bankDetails
-                                ?.gstMembershipDetails ==
-                            null) {
-                          return const SizedBox();
-                        }
-                        return CommenbankingPersnalTiles(
-                          first: 'GST ',
-                          second: state.anotherCard?.bankDetails
-                                  ?.gstMembershipDetails ??
-                              '',
-                        );
-                      },
-                    ),
-                    BlocBuilder<CardBloc, CardState>(builder: (context, state) {
-                      if (state.anotherCard?.bankDetails?.accountNumber ==
-                              null &&
-                          state.anotherCard?.bankDetails?.ifscCode == null &&
-                          state.anotherCard?.bankDetails
-                                  ?.gstMembershipDetails ==
-                              null) {
-                        return Image.asset(emptyNodata3);
-                      } else {
-                        return const SizedBox();
-                      }
-                    })
-                  ],
+            children:
+                // ? [
+                //     BlocBuilder<CardBloc, CardState>(
+                //       builder: (context, state) {
+                //         if (state.anotherCard?.personalDetails?.bloodGroup ==
+                //             null) {
+                //           return Image.asset(emptyNodata3);
+                //         }
+                //         return CardBankingPersonalTiles(
+                //           first: 'Blood Group',
+                //           second:
+                //               state.anotherCard!.personalDetails!.bloodGroup ??
+                //                   '',
+                //         );
+                //       },
+                //     ),
+                //   ]
+                // :
+                [
+              const CardBankingPersonalTiles(
+                first: 'Account Number',
+                second: '785275'
+                    '',
+              ),
+              const CardBankingPersonalTiles(
+                first: 'IFSC',
+                second: '23554',
+              ),
+              const CardBankingPersonalTiles(
+                first: 'GST ',
+                second: '',
+              ),
+              Image.asset(emptyNodata3)
+            ],
           ),
         ),
       ),

@@ -75,9 +75,11 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) => context.read<ProfileBloc>().add(
-            const ProfileEvent.getProfile(isLoad: false),
-          ),
+      (timeStamp) {
+        // context.read<ProfileBloc>().add(
+        //     const ProfileEvent.getProfile(isLoad: false),
+        //   );
+      },
     );
     return SafeArea(
       child: Scaffold(
@@ -227,17 +229,17 @@ class _ProfileScreenState extends State<ProfileScreen>
                       heading: 'Are you sure want to logout from Bizkit',
                       context,
                       onPressed: () {
-                        context
-                            .read<CardSecondBloc>()
-                            .add(const CardSecondEvent.clear());
-                        context.read<AuthBloc>().add(const AuthEvent.logOut());
-                        context.read<CardBloc>().add(const CardEvent.clear());
-                        context
-                            .read<ConnectionRequestBloc>()
-                            .add(const ConnectionRequestEvent.clear());
-                        context
-                            .read<NotificationBloc>()
-                            .add(const NotificationEvent.clear());
+                        // context
+                        //     .read<CardSecondBloc>()
+                        //     .add(const CardSecondEvent.clear());
+                        // context.read<AuthBloc>().add(const AuthEvent.logOut());
+                        // context.read<CardBloc>().add(const CardEvent.clear());
+                        // context
+                        //     .read<ConnectionRequestBloc>()
+                        //     .add(const ConnectionRequestEvent.clear());
+                        // context
+                        //     .read<NotificationBloc>()
+                        //     .add(const NotificationEvent.clear());
                         context.go(Routes.loginPage);
                       },
                     );
@@ -272,7 +274,7 @@ class ProfileTiles extends StatelessWidget {
         if (onTap != null) {
           onTap!();
         } else {
-          Navigator.of(context).push(fadePageRoute(widget!));
+          Navigator.of(context).push(cardFadePageRoute(widget!));
         }
       },
       child: Padding(
@@ -311,7 +313,7 @@ class ProfileTiles extends StatelessWidget {
                     if (onTap != null) {
                       onTap!();
                     } else {
-                      Navigator.of(context).push(fadePageRoute(widget!));
+                      Navigator.of(context).push(cardFadePageRoute(widget!));
                     }
                   },
                   icon: const Icon(

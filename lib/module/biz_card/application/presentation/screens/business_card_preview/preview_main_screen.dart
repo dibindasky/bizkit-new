@@ -77,7 +77,7 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                 //           .substring('data:application/pdf;base64,'.length))
                 //       .toList();
                 // }
-                return PreviewProductsBrandsLists(
+                return CardProductsBrandsLists(
                   networkImages: images,
                   pdf: pdf,
                 );
@@ -126,7 +126,6 @@ class BusinessCardCreationPreviewScreen extends StatelessWidget {
                       text: 'Create Business Card',
                       onTap: () {
                         print('on tap card creation');
-
                         // context.read<UserDataBloc>().add(
                         //       UserDataEvent.createCard(
                         //         createCardByIdModel: CreateCardByIdModel(

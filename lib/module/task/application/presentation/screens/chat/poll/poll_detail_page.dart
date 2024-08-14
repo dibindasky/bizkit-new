@@ -13,7 +13,7 @@ class ScreenPollDetailTask extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const AppbarCommen(tittle: 'Poll Details'),
+          const CardAppbarCommen(tittle: 'Poll Details'),
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),

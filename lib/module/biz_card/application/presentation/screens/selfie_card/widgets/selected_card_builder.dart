@@ -35,7 +35,7 @@ class SelectedCard extends StatelessWidget {
                 if (state.cardScanFinish) {
                   Navigator.pop(context);
                   Navigator.of(context).push(
-                    fadePageRoute(CardSecondScannedDatas()),
+                    cardFadePageRoute(CardSecondScannedDatas()),
                   );
                 }
               },
@@ -72,7 +72,7 @@ class SelectedCard extends StatelessWidget {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  fadePageRoute(ScreenImagePreview(
+                                  cardFadePageRoute(ScreenImagePreview(
                                     image: state
                                         .scannedImagesSecondCardCreation[index]
                                         .base64,

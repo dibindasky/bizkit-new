@@ -1,8 +1,9 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_share/view/widgets/card_sharing_qr.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/card_sharing_qr.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
@@ -25,9 +26,9 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
 
   @override
   void initState() {
-    context
-        .read<ProfileBloc>()
-        .add(const ProfileEvent.getProfile(isLoad: true));
+    // context
+    //     .read<ProfileBloc>()
+    //     .add(const ProfileEvent.getProfile(isLoad: true));
     super.initState();
   }
 
@@ -63,7 +64,8 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
           ),
           GestureDetector(
             onTap: () {
-              GoRouter.of(context).pushNamed(Routes.notificationPage);
+              Navigator.of(context)
+                  .push(cardFadePageRoute(const ScreenCardNotification()));
             },
             child: CustomShowCaseView(
               image: personImage,
@@ -83,8 +85,8 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
           GestureDetector(
             onTap: () => Navigator.push(
               context,
-              fadePageRoute(
-                const CardSharingScreen(),
+              cardFadePageRoute(
+                const ScreenCardSharing(),
               ),
             ),
             child: CustomShowCaseView(

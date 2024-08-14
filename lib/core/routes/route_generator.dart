@@ -2,25 +2,23 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
-
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/new_password.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/otp_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/business_card_preview/preview_main_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_share/view/screen/card_screen_main.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/second_card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/update_second_card.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/create_business_card.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/create_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/card_view/card_detail_view_deeplink.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/profile_creation/profile_creation.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/progeress_indicator_start/progress_indicator_start.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/card_profile_creation/card_profile_creation.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navba.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/splash_screen/splash_screen.dart';
-import 'package:bizkit/module/biz_card/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/signup_screen.dart';
@@ -117,7 +115,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.onBoardingBizCard,
       path: Routes.onBoardingBizCard,
-      builder: (context, state) => const BizkitOnBoardingScreen(),
+      builder: (context, state) => const ScreenCardOnBoarding(),
     ),
     //New Password
     GoRoute(
@@ -153,26 +151,25 @@ class GoRouterConfig {
     //First card detail secreen
     GoRoute(
       name: Routes.cardDetailView,
-      path: '${Routes.cardDetailView}/:cardId/:myCard',
+      path: Routes.cardDetailView,
       builder: (context, state) {
-        final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
-        final myCard = state.pathParameters['myCard'] == 'true';
-        if (cardId != null) {
-          return ScreenCardDetailView(cardId: cardId, myCard: myCard);
-        } else {
-          return _errorScreen();
-        }
+        return const ScreenCardDetailView();
+        // final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
+        // final myCard = state.pathParameters['myCard'] == 'true';
+        // if (cardId != null) {
+        //   return ScreenCardDetailView(cardId: cardId, myCard: myCard);
+        // } else {
+        //   return _errorScreen();
+        // }
       },
     ),
     //second card detail
     GoRoute(
       name: Routes.secondcardDetail,
-      path: '${Routes.secondcardDetail}/:cardId',
+      path: Routes.secondcardDetail,
       builder: (context, state) {
-        final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
-        return SecondCardDetailView(
-          cardId: cardId,
-        );
+        //final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
+        return const ScreenCardSecondDetailView();
       },
     ),
     GoRoute(
@@ -186,7 +183,7 @@ class GoRouterConfig {
       name: Routes.cardListing,
       path: Routes.cardListing,
       builder: (context, state) {
-        return const CardShareMainScreen();
+        return const ScreenCardsLists();
       },
     ),
     //Card updating
@@ -194,16 +191,14 @@ class GoRouterConfig {
       name: Routes.cardUpdating,
       path: Routes.cardUpdating,
       builder: (context, state) {
-        return SecondCardUpdation(
-          secondCard: state.extra as SecondCardNew,
-        );
+        return const CardSecondUpdation();
       },
     ),
 
     GoRoute(
       name: Routes.cardCreationProfilePage,
       path: Routes.cardCreationProfilePage,
-      builder: (context, state) => const ProfileCreationScreen(),
+      builder: (context, state) => const ScreenCardProfileCreation(),
     ),
 
     //Second card creation selected scanned images
@@ -216,7 +211,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.cardCreation,
       path: Routes.cardCreation,
-      builder: (context, state) => const StartingBusinessCardCreation(),
+      builder: (context, state) => const ScreenCardCreationStarting(),
     ),
     //Second card Creation scanned data fileds
     GoRoute(
@@ -233,12 +228,12 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.cardListingboth,
       path: Routes.cardListingboth,
-      builder: (context, state) => const CardShareMainScreen(),
+      builder: (context, state) => const ScreenCardsLists(),
     ),
     GoRoute(
-      name: Routes.homePage,
-      path: Routes.homePage,
-      builder: (context, state) => const BizkitBottomNavigationBar(),
+      name: Routes.bizCardNavbar,
+      path: Routes.bizCardNavbar,
+      builder: (context, state) => const CardBottomNavigationBar(),
     ),
     GoRoute(
       name: Routes.cardCreationPreview,
@@ -248,7 +243,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.notificationPage,
       path: Routes.notificationPage,
-      builder: (context, state) => const NotificationScreen(),
+      builder: (context, state) => const ScreenCardNotification(),
     ),
   ];
 
@@ -327,7 +322,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.heirarchyUserDetail,
       path: Routes.heirarchyUserDetail,
-      builder: (context, state) => ScreenHeirarchyTaskUserDetails(),
+      builder: (context, state) => const ScreenHeirarchyTaskUserDetails(),
     ),
 
     // chat Screen task

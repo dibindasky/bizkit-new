@@ -10,18 +10,18 @@ import 'package:bizkit/module/biz_card/domain/model/card/card/image_card/image_c
 import 'package:bizkit/module/biz_card/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
 
-class ProductViewDetail extends StatefulWidget {
-  const ProductViewDetail(
+class CardProductDetailView extends StatefulWidget {
+  const CardProductDetailView(
       {super.key, required this.product, required this.myCard});
 
   final Product product;
   final bool myCard;
 
   @override
-  State<ProductViewDetail> createState() => _ProductViewDetailState();
+  State<CardProductDetailView> createState() => _CardProductDetailViewState();
 }
 
-class _ProductViewDetailState extends State<ProductViewDetail> {
+class _CardProductDetailViewState extends State<CardProductDetailView> {
   TextEditingController tittleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   late bool switchValue;
@@ -108,7 +108,7 @@ class _ProductViewDetailState extends State<ProductViewDetail> {
                           ),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.of(context).push(fadePageRoute(
+                              Navigator.of(context).push(cardFadePageRoute(
                                   SlidablePhotoGallery(
                                       initialIndex: index,
                                       images: updateImageCard

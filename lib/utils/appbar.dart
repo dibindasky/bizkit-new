@@ -1,8 +1,8 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class AppbarCommen extends StatelessWidget {
-  const AppbarCommen(
+class CardAppbarCommen extends StatelessWidget {
+  const CardAppbarCommen(
       {super.key, this.tittle, this.onTap, this.backgroundColor = knill});
 
   final String? tittle;

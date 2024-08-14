@@ -28,8 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-        (timeStamp) => context.read<AuthBloc>().add(const AuthEvent.log()));
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      // context.read<AuthBloc>().add(const AuthEvent.log());
+    });
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         _navigateToSignInPage(context, state.isLogin, state.onBoardSkipBool);
@@ -50,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
       BuildContext context, bool toLogin, bool isOnbaordSkip) async {
     Future.delayed(const Duration(milliseconds: 2000), () {
       if (toLogin && isOnbaordSkip) {
-        GoRouter.of(context).pushReplacementNamed(Routes.homePage);
+        GoRouter.of(context).pushReplacementNamed(Routes.bizCardNavbar);
       } else if (isOnbaordSkip && !toLogin) {
         GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
       } else if (!isOnbaordSkip) {

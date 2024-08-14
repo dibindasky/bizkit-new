@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class PreviewBankOrPersnalScreen extends StatelessWidget {
-  const PreviewBankOrPersnalScreen({
+class ScreenCardPreviewBankOrPersonal extends StatelessWidget {
+  const ScreenCardPreviewBankOrPersonal({
     super.key,
     required this.isFromBankScreen,
   });
@@ -46,7 +46,7 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                         if (state.personalData?.bloodGroup == null) {
                           return Image.asset(emptyNodata3);
                         }
-                        return CommenbankingPersnalTiles(
+                        return CardBankingPersonalTiles(
                           first: 'Blood Group',
                           second: state.personalData!.bloodGroup ?? '',
                         );
@@ -57,9 +57,9 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
                         if (state.bankDetails.accountNumber == null) {
-                          return const SizedBox();
+                          return kempty;
                         }
-                        return CommenbankingPersnalTiles(
+                        return CardBankingPersonalTiles(
                           first: 'Account Number',
                           second: state.bankDetails.accountNumber ?? '',
                         );
@@ -68,9 +68,9 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
                         if (state.bankDetails.ifscCode == null) {
-                          return const SizedBox();
+                          return kempty;
                         }
-                        return CommenbankingPersnalTiles(
+                        return CardBankingPersonalTiles(
                           first: 'IFSC',
                           second: state.bankDetails.ifscCode ?? '',
                         );
@@ -79,9 +79,9 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                     BlocBuilder<BusinessDataBloc, BusinessDataState>(
                       builder: (context, state) {
                         if (state.bankDetails.gstMembershipDetails == null) {
-                          return const SizedBox();
+                          return kempty;
                         }
-                        return CommenbankingPersnalTiles(
+                        return CardBankingPersonalTiles(
                           first: 'GST ',
                           second: state.bankDetails.gstMembershipDetails ?? '',
                         );
@@ -96,7 +96,7 @@ class PreviewBankOrPersnalScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(top: 60),
                               child: Image.asset(emptyNodata3));
                         } else {
-                          return const SizedBox();
+                          return kempty;
                         }
                       },
                     ),

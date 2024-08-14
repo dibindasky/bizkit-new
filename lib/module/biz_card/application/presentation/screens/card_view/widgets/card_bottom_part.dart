@@ -11,22 +11,17 @@ import 'package:bizkit/module/biz_card/domain/model/card/card/product/product.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CardDetailScreenSecondHalf extends StatelessWidget {
-  const CardDetailScreenSecondHalf(
-      {super.key, required this.myCard, required this.cardId});
-
-  final bool myCard;
-  final int cardId;
+class ScreenCardDetailSecondHalf extends StatelessWidget {
+  const ScreenCardDetailSecondHalf({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // completion persentage indicator
-        myCard
-            ? const CardViewCompletionPersentageIndicator()
-            // add reminder button
-            : const CardViewAddReminderContainer(),
+
+        // add reminder button
+        const CardViewAddReminderContainer(),
         // row icons call,mail,website,socialmedia ,location
         const CardViewRowWiceIcons(),
         adjustHieght(khieght * .02),
@@ -34,36 +29,31 @@ class CardDetailScreenSecondHalf extends StatelessWidget {
         const CardViewBankPersonAchivedRows(),
         adjustHieght(khieght * .02),
         // brochers and product preview sestion
-        BlocBuilder<CardBloc, CardState>(
-          builder: (context, state) {
-            List<Product> images = [];
-            if (state.anotherCard != null &&
-                state.anotherCard!.product != null) {
-              images = state.anotherCard!.product!;
-            }
-            List<Brochure> pdfBase64 = [];
-            if (state.anotherCard != null &&
-                state.anotherCard!.brochure != null) {
-              pdfBase64 = state.anotherCard!.brochure!;
-              // .map((e) => e.file == null
-              //     ? pdfImage.substring(22)
-              //     : e.file!
-              //         .substring('data:application/pdf;base64,'.length))
-              // .toList();
-            }
-            return PreviewProductsBrandsLists(
-                networkImages: images, pdf: pdfBase64);
-          },
-        ),
+        // BlocBuilder<CardBloc, CardState>(
+        //   builder: (context, state) {
+        //     List<Product> images = [];
+        //     if (state.anotherCard != null &&
+        //         state.anotherCard!.product != null) {
+        //       images = state.anotherCard!.product!;
+        //     }
+        //     List<Brochure> pdfBase64 = [];
+        //     if (state.anotherCard != null &&
+        //         state.anotherCard!.brochure != null) {
+        //       pdfBase64 = state.anotherCard!.brochure!;
+        //       // .map((e) => e.file == null
+        //       //     ? pdfImage.substring(22)
+        //       //     : e.file!
+        //       //         .substring('data:application/pdf;base64,'.length))
+        //       // .toList();
+        //     }
+        //     return CardProductsBrandsLists(
+        //         networkImages: images, pdf: pdfBase64);
+        //   },
+        // ),
+        const CardProductsBrandsLists(networkImages: [], pdf: []),
         adjustHieght(khieght * .02),
         // meeting history section
-        !myCard
-            ? SizedBox(
-                height: 300,
-                child: MeetingDetailHistoryCardBuilder(
-                  cardId: cardId,
-                ))
-            : const SizedBox()
+        const CardMeetingDetailHistoryCardBuilder()
       ],
     );
   }

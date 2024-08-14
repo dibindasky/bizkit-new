@@ -1,4 +1,5 @@
 import 'package:bizkit/module/biz_card/application/business_logic/reminder/reminder_bloc.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -6,11 +7,12 @@ import 'package:bizkit/module/biz_card/domain/model/reminders/create_reminder_mo
 import 'package:bizkit/module/biz_card/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final GlobalKey<FormState> reminderKey = GlobalKey<FormState>();
 
-class PreviewHomeAddReminderScreen extends StatefulWidget {
-  const PreviewHomeAddReminderScreen(
+class ScreenCardReminderCreating extends StatefulWidget {
+  const ScreenCardReminderCreating(
       {super.key, this.connectionId, this.cardId, this.reminder});
 
   final int? connectionId;
@@ -18,32 +20,32 @@ class PreviewHomeAddReminderScreen extends StatefulWidget {
   final Reminders? reminder;
 
   @override
-  State<PreviewHomeAddReminderScreen> createState() =>
-      _PreviewHomeAddReminderScreenState();
+  State<ScreenCardReminderCreating> createState() =>
+      _ScreenCardReminderCreatingState();
 }
 
-class _PreviewHomeAddReminderScreenState
-    extends State<PreviewHomeAddReminderScreen> {
+class _ScreenCardReminderCreatingState
+    extends State<ScreenCardReminderCreating> {
   String time = '';
   String date = '';
   bool showError = false;
 
-  @override
-  void initState() {
-    if (widget.reminder != null) {
-      time = widget.reminder?.time ?? '';
-      date = widget.reminder?.date ?? '';
-      context.read<ReminderBloc>().labelController.text =
-          widget.reminder?.meetingLabel ?? '';
-      context.read<ReminderBloc>().venueController.text =
-          widget.reminder?.venue ?? '';
-      context.read<ReminderBloc>().occationController.text =
-          widget.reminder?.occation ?? '';
-      context.read<ReminderBloc>().messageController.text =
-          widget.reminder?.message ?? '';
-    }
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   if (widget.reminder != null) {
+  //     time = widget.reminder?.time ?? '';
+  //     date = widget.reminder?.date ?? '';
+  //     context.read<ReminderBloc>().labelController.text =
+  //         widget.reminder?.meetingLabel ?? '';
+  //     context.read<ReminderBloc>().venueController.text =
+  //         widget.reminder?.venue ?? '';
+  //     context.read<ReminderBloc>().occationController.text =
+  //         widget.reminder?.occation ?? '';
+  //     context.read<ReminderBloc>().messageController.text =
+  //         widget.reminder?.message ?? '';
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -94,19 +96,19 @@ class _PreviewHomeAddReminderScreenState
                     controller: context.read<ReminderBloc>().venueController,
                     inputType: TextInputType.text),
                 CustomTextFormField(
-                    validate: Validate.notNull,
-                    suffixIcon: Icon(
-                      Icons.edit_outlined,
-                      color: kwhite.withOpacity(0.5),
-                    ),
-                    labelText: 'Occasion',
-                    textCapitalization: TextCapitalization.words,
-                    maxlegth: 100,
-                    controller: context.read<ReminderBloc>().occationController,
-                    inputType: TextInputType.text),
+                  validate: Validate.notNull,
+                  suffixIcon: Icon(
+                    Icons.edit_outlined,
+                    color: kwhite.withOpacity(0.5),
+                  ),
+                  labelText: 'Occasion',
+                  textCapitalization: TextCapitalization.words,
+                  maxlegth: 100,
+                  controller: context.read<ReminderBloc>().occationController,
+                  inputType: TextInputType.text,
+                ),
                 Container(
                   padding: const EdgeInsets.only(top: 5),
-                  // height: kwidth * 0.3,
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     color: textFieldFillColr,
@@ -119,12 +121,12 @@ class _PreviewHomeAddReminderScreenState
                     children: [
                       Text(
                         'Message',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: klightgrey,
-                          fontSize: kwidth * 0.04,
-                        ),
+                        style: textHeadStyle1.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: klightgrey,
+                            fontSize: 12.sp),
                       ),
+                      kHeight5,
                       CustomTextFormField(
                         controller:
                             context.read<ReminderBloc>().messageController,
@@ -137,12 +139,11 @@ class _PreviewHomeAddReminderScreenState
                     ],
                   ),
                 ),
-                adjustHieght(kwidth * 0.03),
+                kHeight10,
                 Container(
                   padding: const EdgeInsets.all(10),
-                  height: kwidth * 0.13,
                   decoration: BoxDecoration(
-                    color: textFieldFillColr,
+                    color: klightGreyClr,
                     border: date == '' && showError
                         ? Border.all(color: kred)
                         : null,
@@ -157,7 +158,7 @@ class _PreviewHomeAddReminderScreenState
                         date == '' ? 'Select the Date' : date,
                         style: TextStyle(
                           color: date == '' ? klightgrey : kwhite,
-                          fontSize: date == '' ? kwidth * 0.03 : kwidth * 0.04,
+                          fontSize: date == '' ? 11.sp : 12.sp,
                         ),
                       ),
                       const Icon(
@@ -174,9 +175,8 @@ class _PreviewHomeAddReminderScreenState
                     child: CalendarDatePicker(
                       initialDate: DateTime.now(),
                       firstDate: DateTime.now(),
-                      lastDate: DateTime.now().add(
-                        const Duration(days: 365 * 100),
-                      ),
+                      lastDate:
+                          DateTime.now().add(const Duration(days: 365 * 100)),
                       onDateChanged: (dates) {
                         setState(() {
                           date = '${dates.year}-${dates.month}-${dates.day}';
@@ -189,9 +189,7 @@ class _PreviewHomeAddReminderScreenState
                 InkWell(
                   onTap: () async {
                     final selectedTime = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.now(),
-                    );
+                        context: context, initialTime: TimeOfDay.now());
                     if (selectedTime != null) {
                       setState(() {
                         time =
@@ -201,9 +199,8 @@ class _PreviewHomeAddReminderScreenState
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),
-                    height: kwidth * 0.13,
                     decoration: BoxDecoration(
-                      color: textFieldFillColr,
+                      color: klightGreyClr,
                       border: time == '' && showError
                           ? Border.all(color: kred)
                           : null,
@@ -217,10 +214,8 @@ class _PreviewHomeAddReminderScreenState
                         Text(
                           time == '' ? 'Choose time' : time,
                           style: TextStyle(
-                            color: time == '' ? klightgrey : kwhite,
-                            fontSize:
-                                time == '' ? kwidth * 0.03 : kwidth * 0.04,
-                          ),
+                              color: time == '' ? klightgrey : kwhite,
+                              fontSize: time == '' ? 11.sp : 12.sp),
                         ),
                         const Icon(
                           Icons.alarm_add_sharp,
@@ -267,66 +262,67 @@ class _PreviewHomeAddReminderScreenState
                       child: Expanded(
                         child: InkWell(
                           onTap: () {
-                            if (reminderKey.currentState!.validate()) {
-                              if (date == '') {
-                                setState(() {
-                                  showError = true;
-                                });
-                                showSnackbar(context,
-                                    message: 'choose date to continue');
-                              } else if (time == '') {
-                                setState(() {
-                                  showError = true;
-                                });
-                                showSnackbar(context,
-                                    message: 'choose time to continue');
-                              } else {
-                                setState(() {
-                                  showError = false;
-                                });
-                                final model = CreateReminderModel(
-                                    cardId: widget.cardId,
-                                    connectionId: widget.connectionId,
-                                    date: date,
-                                    time: time,
-                                    meetingLabel: context
-                                        .read<ReminderBloc>()
-                                        .labelController
-                                        .text
-                                        .trim(),
-                                    message: context
-                                        .read<ReminderBloc>()
-                                        .messageController
-                                        .text
-                                        .trim(),
-                                    occation: context
-                                        .read<ReminderBloc>()
-                                        .occationController
-                                        .text
-                                        .trim(),
-                                    venue: context
-                                        .read<ReminderBloc>()
-                                        .venueController
-                                        .text
-                                        .trim());
-                                if (widget.reminder == null) {
-                                  context.read<ReminderBloc>().add(
-                                      ReminderEvent.createReminder(
-                                          createReminderModel: model));
-                                } else {
-                                  final data = model.copyWith(
-                                      cardId: widget.reminder!.cardId,
-                                      id: widget.reminder!.id,
-                                      connectionId:
-                                          widget.reminder!.connectionId);
-                                  context.read<ReminderBloc>().add(
-                                        ReminderEvent.editReminder(
-                                          createReminderModel: data,
-                                        ),
-                                      );
-                                }
-                              }
-                            }
+                            Navigator.pop(context);
+                            // if (reminderKey.currentState!.validate()) {
+                            //   if (date == '') {
+                            //     setState(() {
+                            //       showError = true;
+                            //     });
+                            //     showSnackbar(context,
+                            //         message: 'Choose date to continue');
+                            //   } else if (time == '') {
+                            //     setState(() {
+                            //       showError = true;
+                            //     });
+                            //     showSnackbar(context,
+                            //         message: 'Choose time to continue');
+                            //   } else {
+                            //     setState(() {
+                            //       showError = false;
+                            //     });
+                            //     final model = CreateReminderModel(
+                            //         cardId: widget.cardId,
+                            //         connectionId: widget.connectionId,
+                            //         date: date,
+                            //         time: time,
+                            //         meetingLabel: context
+                            //             .read<ReminderBloc>()
+                            //             .labelController
+                            //             .text
+                            //             .trim(),
+                            //         message: context
+                            //             .read<ReminderBloc>()
+                            //             .messageController
+                            //             .text
+                            //             .trim(),
+                            //         occation: context
+                            //             .read<ReminderBloc>()
+                            //             .occationController
+                            //             .text
+                            //             .trim(),
+                            //         venue: context
+                            //             .read<ReminderBloc>()
+                            //             .venueController
+                            //             .text
+                            //             .trim());
+                            //     if (widget.reminder == null) {
+                            //       context.read<ReminderBloc>().add(
+                            //           ReminderEvent.createReminder(
+                            //               createReminderModel: model));
+                            //     } else {
+                            //       final data = model.copyWith(
+                            //           cardId: widget.reminder!.cardId,
+                            //           id: widget.reminder!.id,
+                            //           connectionId:
+                            //               widget.reminder!.connectionId);
+                            //       context.read<ReminderBloc>().add(
+                            //             ReminderEvent.editReminder(
+                            //               createReminderModel: data,
+                            //             ),
+                            //           );
+                            //     }
+                            //   }
+                            // }
                           },
                           child: Container(
                             height: kwidth * 0.1,

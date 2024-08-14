@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-PageRouteBuilder fadePageRoute(Widget page) {
+PageRouteBuilder cardFadePageRoute(Widget page) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {

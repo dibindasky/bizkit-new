@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/connecti
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/bizkit_connection_tab.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/contacts_connection_tab.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/blocked_connections.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -62,9 +63,9 @@ class _MyConnectionsViewAllContactsState
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context
-          .read<ConnectionRequestBloc>()
-          .add(const ConnectionRequestEvent.getRequestLists());
+      // context
+      //     .read<ConnectionRequestBloc>()
+      //     .add(const ConnectionRequestEvent.getRequestLists());
     });
     return Scaffold(
       appBar: AppBar(
@@ -84,14 +85,9 @@ class _MyConnectionsViewAllContactsState
           style: textHeadStyle1,
         ),
         actions: [
-          // IconButton(
-          //     onPressed: () => Navigator.push(
-          //         context, fadePageRoute(const ScreenAddConnections())),
-          //     icon: const Icon(Icons.add_circle, color: kneonShade)),
-          // adjustWidth(10),
           InkWell(
             onTap: () => Navigator.push(
-                context, fadePageRoute(const ScreenConnectionRequests())),
+                context, cardFadePageRoute(const ScreenConnectionRequests())),
             child: SizedBox(
               height: 20,
               width: 26,
@@ -115,7 +111,14 @@ class _MyConnectionsViewAllContactsState
               ),
             ),
           ),
-          adjustWidth(20)
+          kWidth10,
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CardBlockedConnections()));
+              },
+              icon: const Icon(Icons.block, color: kred)),
+          kWidth20
         ],
       ),
       body: Padding(
@@ -127,14 +130,14 @@ class _MyConnectionsViewAllContactsState
               onChanged: (value) {
                 print('search bar =====================');
                 if (tabNotifier.value == 1) {
-                  context
-                      .read<ContactsBloc>()
-                      .add(ContactsEvent.searchContact(query: value));
+                  // context
+                  //     .read<ContactsBloc>()
+                  //     .add(ContactsEvent.searchContact(query: value));
                 } else {
                   // search for bizkit connection
-                  context.read<ConnectionRequestBloc>().add(
-                      ConnectionRequestEvent.getBizkitConnections(
-                          query: value));
+                  // context.read<ConnectionRequestBloc>().add(
+                  //     ConnectionRequestEvent.getBizkitConnections(
+                  //         query: value));
                 }
               },
               prefix: const Icon(
@@ -174,11 +177,11 @@ class _MyConnectionsViewAllContactsState
                               searchController.clear();
                               tabNotifier.notifyListeners();
                             }
-                            context.read<ConnectionRequestBloc>().add(
-                                const ConnectionRequestEvent
-                                    .getBizkitConnections(query: ''));
-                            context.read<ContactsBloc>().add(
-                                const ContactsEvent.searchContact(query: ''));
+                            // context.read<ConnectionRequestBloc>().add(
+                            //     const ConnectionRequestEvent
+                            //         .getBizkitConnections(query: ''));
+                            // context.read<ContactsBloc>().add(
+                            //     const ContactsEvent.searchContact(query: ''));
                             FocusScope.of(context).unfocus();
                           },
                         );
@@ -197,17 +200,17 @@ class _MyConnectionsViewAllContactsState
                           ? null
                           : const RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                                  BorderRadius.all(Radius.circular(0))),
                       onPressed: () {
                         tabNotifier.value = 0;
                         searchController.clear();
                         tabNotifier.notifyListeners();
-                        context.read<ConnectionRequestBloc>().add(
-                            const ConnectionRequestEvent.getBizkitConnections(
-                                query: ''));
-                        context
-                            .read<ContactsBloc>()
-                            .add(const ContactsEvent.searchContact(query: ''));
+                        // context.read<ConnectionRequestBloc>().add(
+                        //     const ConnectionRequestEvent.getBizkitConnections(
+                        //         query: ''));
+                        // context
+                        //     .read<ContactsBloc>()
+                        //     .add(const ContactsEvent.searchContact(query: ''));
                         FocusScope.of(context).unfocus();
                       },
                       color: value != 0 ? kgrey : neonShade,
@@ -225,12 +228,12 @@ class _MyConnectionsViewAllContactsState
                         tabNotifier.value = 1;
                         searchController.clear();
                         tabNotifier.notifyListeners();
-                        context.read<ConnectionRequestBloc>().add(
-                            const ConnectionRequestEvent.getBizkitConnections(
-                                query: ''));
-                        context
-                            .read<ContactsBloc>()
-                            .add(const ContactsEvent.searchContact(query: ''));
+                        // context.read<ConnectionRequestBloc>().add(
+                        //     const ConnectionRequestEvent.getBizkitConnections(
+                        //         query: ''));
+                        // context
+                        //     .read<ContactsBloc>()
+                        //     .add(const ContactsEvent.searchContact(query: ''));
                         FocusScope.of(context).unfocus();
                       },
                       color: value != 1 ? kgrey : neonShade,
@@ -255,7 +258,7 @@ class _MyConnectionsViewAllContactsState
           // label: Text('Add Connection',style: textStyle1),
           // icon: const Icon(Icons.add),
           onPressed: () => Navigator.push(
-              context, fadePageRoute(const ScreenAddConnections())),
+              context, cardFadePageRoute(const ScreenCardAddConnections())),
           child: const Icon(Icons.add)),
     );
   }

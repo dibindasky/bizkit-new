@@ -165,7 +165,8 @@ class AuthenticationController extends GetxController {
     await SecureStorage.getLogin().then((loginStatus) {
       if (!loginStatus) {
         // if user not loged in navigate to loginpage
-        context.go(Routes.loginPage);
+        //context.go(Routes.loginPage);
+        context.go(Routes.bizCardNavbar);
       } else {
         // change this according to the module need to be shown
         context.go(Routes.taskNavbar);

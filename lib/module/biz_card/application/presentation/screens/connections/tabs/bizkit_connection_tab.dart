@@ -37,9 +37,9 @@ class BizkitConnectionsTab extends StatelessWidget {
               state.bizkitConnections!.isNotEmpty) {
             return RefreshIndicator(
               onRefresh: () async {
-                context.read<ConnectionRequestBloc>().add(
-                    const ConnectionRequestEvent.getBizkitConnections(
-                        query: ''));
+                // context.read<ConnectionRequestBloc>().add(
+                //     const ConnectionRequestEvent.getBizkitConnections(
+                //         query: ''));
                 await Future.delayed(const Duration(seconds: 2));
               },
               child: ListView.separated(
@@ -54,10 +54,8 @@ class BizkitConnectionsTab extends StatelessWidget {
                   return ListTile(
                       onTap: () {
                         print(data.toJson());
-                        Navigator.push(
-                            context,
-                            fadePageRoute(
-                                ScreenCardDetailView(cardId: data.cardId)));
+                        Navigator.push(context,
+                            cardFadePageRoute(const ScreenCardDetailView()));
                       },
                       leading: CircleAvatar(
                         backgroundColor: textFieldFillColr,
@@ -83,13 +81,13 @@ class BizkitConnectionsTab extends StatelessWidget {
                         return [
                           PopupMenuItem(
                               onTap: () {
-                                context.read<ConnectionRequestBloc>().add(
-                                    ConnectionRequestEvent
-                                        .blockBizkitConnections(
-                                            blockBizkitConnection:
-                                                BlockBizkitConnection(
-                                                    isBlock: true),
-                                            connectionId: data.id!));
+                                // context.read<ConnectionRequestBloc>().add(
+                                //     ConnectionRequestEvent
+                                //         .blockBizkitConnections(
+                                //             blockBizkitConnection:
+                                //                 BlockBizkitConnection(
+                                //                     isBlock: true),
+                                //             connectionId: data.id!));
                               },
                               child: const Text('Block'))
                         ];
@@ -104,9 +102,9 @@ class BizkitConnectionsTab extends StatelessWidget {
                     ? 'Something went wrong pull to refresh'
                     : 'No bizkit connections',
                 onRefresh: () {
-                  context.read<ConnectionRequestBloc>().add(
-                      const ConnectionRequestEvent.getBizkitConnections(
-                          query: ''));
+                  // context.read<ConnectionRequestBloc>().add(
+                  //     const ConnectionRequestEvent.getBizkitConnections(
+                  //         query: ''));
                 });
           }
         },

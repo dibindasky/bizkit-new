@@ -14,36 +14,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({super.key});
+class ScreenCardNotification extends StatefulWidget {
+  const ScreenCardNotification({super.key});
 
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  State<ScreenCardNotification> createState() => _ScreenCardNotificationState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
+class _ScreenCardNotificationState extends State<ScreenCardNotification> {
   late ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     scrollController.addListener(() {
-      log('call');
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        context
-            .read<NotificationBloc>()
-            .add(const NotificationEvent.getNotificationEvent());
+        // context
+        //     .read<NotificationBloc>()
+        //     .add(const NotificationEvent.getNotificationEvent());
       } else if (scrollController.position.pixels ==
           scrollController.position.minScrollExtent) {
-        context
-            .read<NotificationBloc>()
-            .add(const NotificationEvent.getNotification(isLoad: false));
+        // context
+        //     .read<NotificationBloc>()
+        //     .add(const NotificationEvent.getNotification(isLoad: false));
       }
     });
-    context
-        .read<NotificationBloc>()
-        .add(const NotificationEvent.getNotification(isLoad: false));
+    // context
+    //     .read<NotificationBloc>()
+    //     .add(const NotificationEvent.getNotification(isLoad: false));
   }
 
   @override
@@ -79,32 +78,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   'notification item count ==> ${(state.notification?.length ?? 0) + (state.notificationLoading ? 1 : 0) + (!state.notificationLoading && state.notification!.length < 6 ? 1 : 0)}');
               return RefreshIndicator(
                 onRefresh: () async {
-                  log('scroll');
-                  context.read<NotificationBloc>().add(
-                      const NotificationEvent.getNotification(isLoad: false));
+                  // log('scroll');
+                  // context.read<NotificationBloc>().add(
+                  //     const NotificationEvent.getNotification(isLoad: false));
                 },
                 child: ListView.separated(
                   controller: scrollController,
-                  // physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   separatorBuilder: (context, index) {
                     return adjustHieght(10);
                   },
                   itemCount: (state.notification?.length ?? 0) +
-                      (state.notificationLoading ? 1 : 0)
-                  // + (!state.notificationLoading &&
-                  //         state.notification!.length < 6
-                  //     ? 1
-                  //     : 0)
-                  ,
+                      (state.notificationLoading ? 1 : 0),
                   itemBuilder: (context, index) {
                     log('notification length ${!state.notificationLoading && state.notification!.length <= index}=>$index ${state.notification!.length}');
                     final notification = state.notification![index];
-                    // if (!state.notificationLoading && state.notification!.length <= index) {
-                    //   log('now in side condition');
-                    //   return Container(
-                    //       height: 800, width: double.infinity, color: kgreen);
-                    // }
+
                     if (state.notificationLoading &&
                         index >= state.notification!.length - 1) {
                       return const LoadingAnimation();
@@ -112,38 +101,38 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       log('in normal return tile $index');
                       return GestureDetector(
                         onTap: () {
-                          if (notification.tag == 'Connection request') {
-                            Navigator.push(
-                              context,
-                              fadePageRoute(const ScreenConnectionRequests()),
-                            );
-                          }
-                          if (notification.tag == 'Connection accepted') {
-                            Navigator.push(
-                              context,
-                              fadePageRoute(
-                                  const MyConnectionsViewAllContacts()),
-                            );
-                          }
-                          if (notification.tag == 'Company Request') {
-                            Map<String, String> map =
-                                notification.cardId != null
-                                    ? {
-                                        'myCard': 'true',
-                                        'cardId':
-                                            notification.cardId!.toString(),
-                                      }
-                                    : <String, String>{};
-                            GoRouter.of(context).pushNamed(
-                              Routes.cardDetailView,
-                              pathParameters: map,
-                            );
-                            // Navigator.push(
-                            //   context,
-                            //   fadePageRoute(const Tabs()),
-                            // );
-                          }
-                          if (notification.tag == 'Request Diclined') {}
+                          // if (notification.tag == 'Connection request') {
+                          //   Navigator.push(
+                          //     context,
+                          //     cardFadePageRoute(
+                          //         const ScreenConnectionRequests()),
+                          //   );
+                          // }
+                          // if (notification.tag == 'Connection accepted') {
+                          //   Navigator.push(
+                          //     context,
+                          //     cardFadePageRoute(
+                          //         const MyConnectionsViewAllContacts()),
+                          //   );
+                          // }
+                          // if (notification.tag == 'Company Request') {
+                          //   Map<String, String> map =
+                          //       notification.cardId != null
+                          //           ? {
+                          //               'myCard': 'true',
+                          //               'cardId':
+                          //                   notification.cardId!.toString(),
+                          //             }
+                          //           : <String, String>{};
+                          //   GoRouter.of(context).pushNamed(
+                          //       Routes.cardDetailView,
+                          //       pathParameters: map);
+                          // Navigator.push(
+                          //   context,
+                          //   fadePageRoute(const Tabs()),
+                          // );
+                          // }
+                          // if (notification.tag == 'Request Diclined') {}
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -209,8 +198,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 image: emptyNodata2,
                 errorMessage: 'No Notifications found',
                 onRefresh: () {
-                  context.read<NotificationBloc>().add(
-                      const NotificationEvent.getNotification(isLoad: false));
+                  // context.read<NotificationBloc>().add(
+                  //     const NotificationEvent.getNotification(isLoad: false));
                 },
               );
             }

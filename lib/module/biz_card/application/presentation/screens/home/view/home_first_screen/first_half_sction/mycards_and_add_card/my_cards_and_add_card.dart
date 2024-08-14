@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/screens/create_business_card.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/create_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -31,96 +31,63 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CardBloc>().add(const CardEvent.getCards(call: false));
+      // context.read<CardBloc>().add(const CardEvent.getCards(call: false));
     });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BlocBuilder<CardBloc, CardState>(
-            buildWhen: (previous, current) =>
-                previous.businessUser != current.businessUser,
-            builder: (context, state) {
-              return Text(state.businessUser ? 'My Card' : 'My Cards',
-                  style: textHeadStyle1);
-            },
-          ),
+          Text('My Cards', style: textHeadStyle1),
           adjustHieght(khieght * .02),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                flex: 2,
-                child: BlocBuilder<CardBloc, CardState>(
-                  builder: (context, state) {
-                    if (state.isLoading) {
-                      return ShimmerLoader(
-                        itemCount: 1,
-                        height: kwidth * 0.35,
-                        width: kwidth * 0.55,
-                      );
-                    } else if (state.cards.isEmpty) {
-                      return SizedBox(
-                        height: kwidth * 0.35,
-                        width: kwidth * 0.55,
-                        child: const Center(
-                          child: Text('Create Your BizKit Card'),
-                        ),
-                      );
-                    } else {
-                      return CardPageSlider(cards: state.cards);
-                    }
-                  },
-                ),
-              ),
+              const Expanded(
+                  flex: 2,
+                  child: Center(
+                    child: Text('No cards'),
+                  )
+                  //CardPageSlider(cards: []),
+                  ),
               adjustWidth(kwidth * .03),
               Expanded(
-                child: BlocBuilder<CardBloc, CardState>(
-                  builder: (context, state) {
-                    if (state.businessUser && state.cards.length == 1) {
-                      return const SizedBox();
-                    }
-                    return GestureDetector(
-                      onTap: () => Navigator.of(context).push(
-                        fadePageRoute(
-                            const StartingBusinessCardCreation(fromHome: true)),
-                      ),
-                      child: Container(
-                        height: kwidth * 0.35,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: backgroundColour,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: kblack,
-                              blurRadius: 2,
-                              blurStyle: BlurStyle.outer,
-                            )
-                          ],
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    cardFadePageRoute(
+                        const ScreenCardCreationStarting(fromHome: true)),
+                  ),
+                  child: Container(
+                    height: kwidth * 0.35,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: backgroundColour,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: kblack,
+                          blurRadius: 2,
+                          blurStyle: BlurStyle.outer,
+                        )
+                      ],
+                    ),
+                    width: 140,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const CircleAvatar(
+                            radius: 16,
+                            backgroundImage:
+                                AssetImage('asset/images/home add circl.png')),
+                        CustomShowCaseView(
+                          image: personImage,
+                          description: '',
+                          tittle: 'Start Creating Business card from here',
+                          globalKey: globalKeyAddCard,
+                          child: const Text('Add Card'),
                         ),
-                        width: 140,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const CircleAvatar(
-                              radius: 16,
-                              backgroundImage: AssetImage(
-                                'asset/images/home add circl.png',
-                              ),
-                            ),
-                            CustomShowCaseView(
-                              image: personImage,
-                              description: '',
-                              tittle: 'Start Creating Business card from here',
-                              globalKey: globalKeyAddCard,
-                              child: const Text('Add Card'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -191,11 +158,10 @@ class _CardPageSliderState extends State<CardPageSlider>
           data = widget.cards[index];
           return InkWell(
             onTap: () {
-              final map = data.id != null
-                  ? {'myCard': 'true', 'cardId': data.id!.toString()}
-                  : <String, String>{};
-              GoRouter.of(context)
-                  .pushNamed(Routes.cardDetailView, pathParameters: map);
+              // final map = data.id != null
+              //     ? {'myCard': 'true', 'cardId': data.id.toString()}
+              //     : <String, String>{};
+              GoRouter.of(context).pushNamed(Routes.cardDetailView);
             },
             child: FittedBox(
               child: Container(
@@ -229,15 +195,13 @@ class _CardPageSliderState extends State<CardPageSlider>
                                       ? '${data.name!.substring(0, 15)}..'
                                       : data.name!
                                   : '',
-                              style: textHeadStyle1.copyWith(
-                                shadows: [
-                                  const Shadow(
-                                    color: kblack,
-                                    offset: Offset(1, 2),
-                                    blurRadius: 5,
-                                  ),
-                                ],
-                              ),
+                              style: textHeadStyle1.copyWith(shadows: [
+                                const Shadow(
+                                  color: kblack,
+                                  offset: Offset(1, 2),
+                                  blurRadius: 5,
+                                )
+                              ]),
                             ),
                             Text(
                               data.designation != null

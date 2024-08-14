@@ -1,6 +1,7 @@
 class ApiEndPoints {
   // static String baseUrl = 'https://bizkit.onrender.com';
-  static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
+  //static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
+  static String baseUrl = 'https://9jdcxxr1';
 
   // refesh token
   static String refreshUrl = '/token/';

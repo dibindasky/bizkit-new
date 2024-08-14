@@ -10,8 +10,8 @@ import 'package:bizkit/module/biz_card/domain/model/card/card/product/product.da
 import 'package:flutter/material.dart';
 import 'package:pdf_render/pdf_render_widgets.dart';
 
-class PreviewProductsBrandsLists extends StatelessWidget {
-  const PreviewProductsBrandsLists(
+class CardProductsBrandsLists extends StatelessWidget {
+  const CardProductsBrandsLists(
       {super.key, required this.networkImages, required this.pdf});
 
   final List<Product> networkImages;
@@ -38,8 +38,8 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                 const Text('Brochures and Products'),
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(
-                    fadePageRoute(
-                      BrochersAndProductsTab(
+                    cardFadePageRoute(
+                      CardBrochursAndProductsTab(
                           networkImages: networkImages, pdf: pdf),
                     ),
                   ),
@@ -71,10 +71,10 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       children: [
                         ListView.separated(
+                          itemCount: networkImages.length,
                           shrinkWrap: true,
-                          separatorBuilder: (context, index) => adjustWidth(
-                            kwidth * .01,
-                          ),
+                          separatorBuilder: (context, index) =>
+                              adjustWidth(kwidth * .01),
                           physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
@@ -82,7 +82,7 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProductViewDetail(
+                                    builder: (context) => CardProductDetailView(
                                           product: networkImages[index],
                                           myCard: false,
                                         )),
@@ -121,7 +121,6 @@ class PreviewProductsBrandsLists extends StatelessWidget {
                               ),
                             );
                           },
-                          itemCount: networkImages.length,
                         ),
                         adjustWidth(kwidth * .01),
                         ListView.separated(

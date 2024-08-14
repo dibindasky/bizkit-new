@@ -29,7 +29,7 @@ class CustomButtonSelfie extends StatelessWidget {
           ),
         ),
         InkWell(
-          onTap: () => Navigator.of(context).push(fadePageRoute(navigate)),
+          onTap: () => Navigator.of(context).push(cardFadePageRoute(navigate)),
           child: Container(
             decoration: const BoxDecoration(
               color: neonShade,

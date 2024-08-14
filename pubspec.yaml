@@ -125,6 +125,7 @@ flutter:
     - asset/images/icon/
     - asset/images/task_onboard/
     - asset/images/task/
+    - asset/dev/
     - asset/images/attendence module/attendence onboarding/
     - asset/images/attendence module/home screen btns/
     - asset/images/attendence module/home screen dialogs/

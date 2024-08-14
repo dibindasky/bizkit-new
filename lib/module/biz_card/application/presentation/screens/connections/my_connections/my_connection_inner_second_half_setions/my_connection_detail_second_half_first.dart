@@ -9,8 +9,8 @@ import 'package:bizkit/module/biz_card/domain/model/card/card/product/product.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
-  const MyConnectionDetailScreenSecondHalf({super.key});
+class CardMyConnectionDetailScreenSecondHalf extends StatelessWidget {
+  const CardMyConnectionDetailScreenSecondHalf({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,28 +25,25 @@ class MyConnectionDetailScreenSecondHalf extends StatelessWidget {
         const PreviewBankPersonAchivedRows(fromPreview: false),
         adjustHieght(khieght * .02),
         // brochers and product preview sestion
-        BlocBuilder<CardBloc, CardState>(
-          builder: (context, state) {
-            List<Product> images = [];
-            if (state.anotherCard != null &&
-                state.anotherCard!.product != null) {
-              images = state.anotherCard!.product!;
-            }
-            List<Brochure> pdfBase64 = [];
-            if (state.anotherCard != null &&
-                state.anotherCard!.businessDetails != null &&
-                state.anotherCard!.brochure != null) {
-              pdfBase64 = state.anotherCard!.brochure!;
-              // .map((e) =>
-              //     e.file!.substring('data:application/pdf;base64,'.length))
-              // .toList();
-            }
-            return PreviewProductsBrandsLists(
-              networkImages: images,
-              pdf: pdfBase64,
-            );
-          },
-        ),
+        BlocBuilder<CardBloc, CardState>(builder: (context, state) {
+          List<Product> images = [];
+          if (state.anotherCard != null && state.anotherCard!.product != null) {
+            images = state.anotherCard!.product!;
+          }
+          List<Brochure> pdfBase64 = [];
+          if (state.anotherCard != null &&
+              state.anotherCard!.businessDetails != null &&
+              state.anotherCard!.brochure != null) {
+            pdfBase64 = state.anotherCard!.brochure!;
+            // .map((e) =>
+            //     e.file!.substring('data:application/pdf;base64,'.length))
+            // .toList();
+          }
+          return CardProductsBrandsLists(
+            networkImages: images,
+            pdf: pdfBase64,
+          );
+        }),
         adjustHieght(khieght * .02),
         // meeting history section
         // const MeetingDetailHistoryLogTabBuilder()

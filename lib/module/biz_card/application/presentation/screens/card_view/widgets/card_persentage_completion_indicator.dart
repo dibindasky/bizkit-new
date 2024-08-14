@@ -7,9 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardViewCompletionPersentageIndicator extends StatelessWidget {
-  const CardViewCompletionPersentageIndicator({
-    super.key,
-  });
+  const CardViewCompletionPersentageIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +15,7 @@ class CardViewCompletionPersentageIndicator extends StatelessWidget {
       listenWhen: (previous, current) =>
           previous.anotherCard?.percentage != current.anotherCard?.percentage,
       listener: (context, state) {
-        context.read<CardBloc>().add(const CardEvent.getCards(call: true));
+        //context.read<CardBloc>().add(const CardEvent.getCards(call: true));
       },
       builder: (context, state) {
         // if (state.anotherCard?.isCompanyRequested ?? false) {
@@ -48,11 +46,11 @@ class CardViewCompletionPersentageIndicator extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const ScreenCardDetailEditingList()));
-            context
-                .read<UserDataBloc>()
-                .add(UserDataEvent.getCurrentCard(card: state.anotherCard!));
-            context.read<BusinessDataBloc>().add(
-                BusinessDataEvent.getCurrentCard(card: state.anotherCard!));
+            // context
+            //     .read<UserDataBloc>()
+            //     .add(UserDataEvent.getCurrentCard(card: state.anotherCard!));
+            // context.read<BusinessDataBloc>().add(
+            //     BusinessDataEvent.getCurrentCard(card: state.anotherCard!));
           },
           child: Container(
             width: kwidth,

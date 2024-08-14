@@ -10,7 +10,7 @@ class Routes {
   static const String loginPage = '/login';
   static const String signUpPage = '/signup_page';
   static const String otpPage = '/otp_page';
-  static const String homePage = '/home_page';
+  static const String bizCardNavbar = '/bizcard_navbar';
   static const String cardCreationProfilePage = '/card_creation_profile';
   static const String cardCreation = '/card_creation';
   static const String cardCreationPreview = '/card_creation_preview';

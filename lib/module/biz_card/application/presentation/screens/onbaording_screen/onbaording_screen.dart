@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class BizkitOnBoardingScreen extends StatefulWidget {
-  const BizkitOnBoardingScreen({Key? key}) : super(key: key);
+class ScreenCardOnBoarding extends StatefulWidget {
+  const ScreenCardOnBoarding({Key? key}) : super(key: key);
 
   @override
-  State<BizkitOnBoardingScreen> createState() => _BizkitOnBoardingScreenState();
+  State<ScreenCardOnBoarding> createState() => _ScreenCardOnBoardingState();
 }
 
-class _BizkitOnBoardingScreenState extends State<BizkitOnBoardingScreen> {
+class _ScreenCardOnBoardingState extends State<ScreenCardOnBoarding> {
   late PageController _pageController;
   int selectedIndex = 0;
   final int totalPages = 3;

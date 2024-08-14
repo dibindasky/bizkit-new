@@ -2,9 +2,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class PreviewHomeContactDetailAddReminderContainer extends StatelessWidget {
-  const PreviewHomeContactDetailAddReminderContainer({
-    super.key,
-  });
+  const PreviewHomeContactDetailAddReminderContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +27,9 @@ class PreviewHomeContactDetailAddReminderContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const CircleAvatar(
-              radius: 10,
-              backgroundImage: AssetImage(
-                'asset/images/addButtunIconImage.png',
-              ),
-            ),
+                radius: 10,
+                backgroundImage:
+                    AssetImage('asset/images/addButtunIconImage.png')),
             adjustWidth(kwidth * .03),
             Text('Add Reminder', style: textHeadStyle1),
           ],

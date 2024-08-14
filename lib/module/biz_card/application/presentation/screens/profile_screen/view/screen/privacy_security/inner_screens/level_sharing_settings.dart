@@ -6,14 +6,15 @@ import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DefaultLevelSharing extends StatefulWidget {
-  const DefaultLevelSharing({super.key});
+class CardDefaultLevelSharing extends StatefulWidget {
+  const CardDefaultLevelSharing({super.key});
 
   @override
-  State<DefaultLevelSharing> createState() => _DefaultLevelSharingState();
+  State<CardDefaultLevelSharing> createState() =>
+      _CardDefaultLevelSharingState();
 }
 
-class _DefaultLevelSharingState extends State<DefaultLevelSharing> {
+class _CardDefaultLevelSharingState extends State<CardDefaultLevelSharing> {
   @override
   void initState() {
     super.initState();
@@ -23,7 +24,7 @@ class _DefaultLevelSharingState extends State<DefaultLevelSharing> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        context.read<QrBloc>().add(const QrEvent.getDefaultQr());
+        //context.read<QrBloc>().add(const QrEvent.getDefaultQr());
       },
     );
     return Scaffold(
@@ -37,9 +38,7 @@ class _DefaultLevelSharingState extends State<DefaultLevelSharing> {
           ),
         ),
         backgroundColor: knill,
-        title: const Text(
-          'Commen level sharing settings',
-        ),
+        title: const Text('Commen level sharing settings'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -56,50 +55,30 @@ class _DefaultLevelSharingState extends State<DefaultLevelSharing> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          'Commen Level Sharing',
-                          style: TextStyle(fontSize: kwidth * 0.037),
-                        ),
-                      ],
-                    ),
-                    const Icon(
-                      Icons.keyboard_arrow_down_outlined,
-                      color: kwhite,
-                      size: 30,
-                    ),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            'Commen Level Sharing',
+                            style: TextStyle(fontSize: kwidth * 0.037),
+                          )
+                        ]),
+                    const Icon(Icons.keyboard_arrow_down_outlined,
+                        color: kwhite, size: 30)
                   ],
                 ),
               ),
               adjustHieght(khieght * .05),
               const DefaultSwitchButtons(),
               adjustHieght(khieght * .1),
-              BlocConsumer<QrBloc, QrState>(
-                listener: (context, state) {
-                  if (state.qrUpdated) {
-                    showSnackbar(
-                      context,
-                      message: 'Level Sharing Updated Successfully',
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  if (state.isLoading) {
-                    return const LoadingAnimation();
-                  }
-                  return EventButton(
-                    text: 'Save',
-                    onTap: () {
-                      context.read<QrBloc>().add(QrEvent.defaultQr(
-                          defauiltQr: context.read<QrBloc>().defauiltQr));
+              EventButton(
+                  text: 'Save',
+                  onTap: () {
+                    // context.read<QrBloc>().add(QrEvent.defaultQr(
+                    //     defauiltQr: context.read<QrBloc>().defauiltQr));
 
-                      Navigator.pop(context);
-                    },
-                  );
-                },
-              ),
+                    Navigator.pop(context);
+                  }),
               adjustHieght(khieght * .03),
             ],
           ),
@@ -128,170 +107,144 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<QrBloc, QrState>(builder: (context, state) {
-      if (state.defauiltQr != null) {
-        // DefauiltQr defaultQrModel = state.defauiltQr!;
-        context.read<QrBloc>().defauiltQr = state.defauiltQr!;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: const SizedBox(
-                width: double.infinity,
-                child: ColoredBox(
-                  color: neonShade,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Text("Personal Details"),
-                  ),
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: const SizedBox(
+            width: double.infinity,
+            child: ColoredBox(
+              color: neonShade,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text("Personal Details"),
               ),
             ),
-            adjustHieght(5),
-            buildSwitch("Email", state.defauiltQr!.email!, (value) {
-              setState(() {
-                state.defauiltQr!.email = value;
-                context.read<QrBloc>().defauiltQr =
-                    context.read<QrBloc>().defauiltQr.copyWith(email: value);
-              });
-            }),
-            buildSwitch("Phone Number", state.defauiltQr!.phoneNumber ?? false,
-                (value) {
-              setState(() {
-                state.defauiltQr!.phoneNumber = value;
-                context.read<QrBloc>().defauiltQr = context
-                    .read<QrBloc>()
-                    .defauiltQr
-                    .copyWith(phoneNumber: value);
-              });
-            }),
-            buildSwitch("Company", state.defauiltQr!.company ?? false, (value) {
-              setState(() {
-                state.defauiltQr!.company = value;
-                context.read<QrBloc>().defauiltQr =
-                    context.read<QrBloc>().defauiltQr.copyWith(company: value);
-              });
-            }),
-            buildSwitch("Personal Social Medias",
-                state.defauiltQr!.personalSocialMedia ?? false, (value) {
-              setState(() {
-                state.defauiltQr!.personalSocialMedia = value;
-                context.read<QrBloc>().defauiltQr = context
-                    .read<QrBloc>()
-                    .defauiltQr
-                    .copyWith(personalSocialMedia: value);
-              });
-            }),
-            buildSwitch(
-                "Personal Achievements", state.defauiltQr!.accolades ?? false,
-                (value) {
-              setState(() {
-                state.defauiltQr!.accolades = value;
-                context.read<QrBloc>().defauiltQr = context
-                    .read<QrBloc>()
-                    .defauiltQr
-                    .copyWith(accolades: value);
-              });
-            }),
-            adjustHieght(5),
-            adjustHieght(khieght * .02),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: const SizedBox(
-                width: double.infinity,
-                child: ColoredBox(
-                  color: neonShade,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Text("Business Details"),
-                  ),
-                ),
+          ),
+        ),
+        adjustHieght(5),
+        buildSwitch("Email", true, (value) {
+          setState(() {
+            //state.defauiltQr!.email = value;
+            // context.read<QrBloc>().defauiltQr =
+            //     context.read<QrBloc>().defauiltQr.copyWith(email: value);
+          });
+        }),
+        buildSwitch("Phone Number", false, (value) {
+          setState(() {
+            // state.defauiltQr!.phoneNumber = value;
+            // context.read<QrBloc>().defauiltQr =
+            //     context.read<QrBloc>().defauiltQr.copyWith(phoneNumber: value);
+          });
+        }),
+        buildSwitch("Company", false, (value) {
+          setState(() {
+            // state.defauiltQr!.company = value;
+            // context.read<QrBloc>().defauiltQr =
+            //     context.read<QrBloc>().defauiltQr.copyWith(company: value);
+          });
+        }),
+        buildSwitch("Personal Social Medias", false, (value) {
+          setState(() {
+            // state.defauiltQr!.personalSocialMedia = value;
+            // context.read<QrBloc>().defauiltQr = context
+            //     .read<QrBloc>()
+            //     .defauiltQr
+            //     .copyWith(personalSocialMedia: value);
+          });
+        }),
+        buildSwitch("Personal Achievements", false, (value) {
+          // setState(() {
+          //   state.defauiltQr!.accolades = value;
+          //   context.read<QrBloc>().defauiltQr =
+          //       context.read<QrBloc>().defauiltQr.copyWith(accolades: value);
+          // });
+        }),
+        adjustHieght(5),
+        adjustHieght(khieght * .02),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: const SizedBox(
+            width: double.infinity,
+            child: ColoredBox(
+              color: neonShade,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text("Business Details"),
               ),
             ),
-            adjustHieght(5),
-            buildSwitch("Business Phone Number",
-                state.defauiltQr!.businessDetailsMobileNumber ?? false,
-                (value) {
-              setState(() {
-                state.defauiltQr!.businessDetailsMobileNumber = value;
-                context.read<QrBloc>().defauiltQr = context
-                    .read<QrBloc>()
-                    .defauiltQr
-                    .copyWith(businessDetailsMobileNumber: value);
-              });
-            }),
-            buildSwitch(
-                "Business Email", state.defauiltQr!.businessEmail ?? false,
-                (value) {
-              setState(() {
-                state.defauiltQr!.businessEmail = value;
-                context.read<QrBloc>().defauiltQr = context
-                    .read<QrBloc>()
-                    .defauiltQr
-                    .copyWith(businessEmail: value);
-              });
-            }),
-            buildSwitch("Website Link", state.defauiltQr!.websiteLink ?? false,
-                (value) {
-              setState(() {
-                state.defauiltQr!.websiteLink = value;
-                context.read<QrBloc>().defauiltQr = context
-                    .read<QrBloc>()
-                    .defauiltQr
-                    .copyWith(websiteLink: value);
-              });
-            }),
-            buildSwitch("Address", state.defauiltQr!.address ?? false, (value) {
-              setState(() {
-                state.defauiltQr!.address = value;
-                context.read<QrBloc>().defauiltQr =
-                    context.read<QrBloc>().defauiltQr.copyWith(address: value);
-              });
-            }),
-            buildSwitch("Business Social Medias",
-                state.defauiltQr!.socialMediaHandles ?? false, (value) {
-              setState(() {
-                state.defauiltQr!.socialMediaHandles = value;
-                context.read<QrBloc>().defauiltQr = context
-                    .read<QrBloc>()
-                    .defauiltQr
-                    .copyWith(socialMediaHandles: value);
-              });
-            }),
-            buildSwitch(
-              "Business Achievements",
-              state.defauiltQr!.accreditation ?? false,
-              (value) {
-                setState(() {
-                  state.defauiltQr!.accreditation = value;
-                  context.read<QrBloc>().defauiltQr = context
-                      .read<QrBloc>()
-                      .defauiltQr
-                      .copyWith(accreditation: value);
-                });
-              },
-            ),
-            adjustHieght(khieght * .03),
-            buildSwitch(
-                "Update all cards", state.defauiltQr!.updateAllCards ?? false,
-                (value) {
-              setState(
-                () {
-                  state.defauiltQr!.updateAllCards = value;
-                  context.read<QrBloc>().defauiltQr = context
-                      .read<QrBloc>()
-                      .defauiltQr
-                      .copyWith(updateAllCards: value);
-                },
-              );
-            }, wantShowDailogue: state.defauiltQr!.updateAllCards ?? true),
-          ],
-        );
-      } else {
-        return const Text('');
-      }
-    });
+          ),
+        ),
+        adjustHieght(5),
+        buildSwitch("Business Phone Number", false, (value) {
+          setState(() {
+            // state.defauiltQr!.businessDetailsMobileNumber = value;
+            // context.read<QrBloc>().defauiltQr = context
+            //     .read<QrBloc>()
+            //     .defauiltQr
+            //     .copyWith(businessDetailsMobileNumber: value);
+          });
+        }),
+        buildSwitch("Business Email", false, (value) {
+          setState(() {
+            // state.defauiltQr!.businessEmail = value;
+            context.read<QrBloc>().defauiltQr = context
+                .read<QrBloc>()
+                .defauiltQr
+                .copyWith(businessEmail: value);
+          });
+        }),
+        buildSwitch("Website Link", false, (value) {
+          setState(() {
+            // state.defauiltQr!.websiteLink = value;
+            // context.read<QrBloc>().defauiltQr =
+            //     context.read<QrBloc>().defauiltQr.copyWith(websiteLink: value);
+          });
+        }),
+        buildSwitch("Address", false, (value) {
+          // setState(() {
+          //   state.defauiltQr!.address = value;
+          //   context.read<QrBloc>().defauiltQr =
+          //       context.read<QrBloc>().defauiltQr.copyWith(address: value);
+          // });
+        }),
+        buildSwitch("Business Social Medias", false, (value) {
+          setState(() {
+            // state.defauiltQr!.socialMediaHandles = value;
+            // context.read<QrBloc>().defauiltQr = context
+            //     .read<QrBloc>()
+            //     .defauiltQr
+            //     .copyWith(socialMediaHandles: value);
+          });
+        }),
+        buildSwitch(
+          "Business Achievements",
+          false,
+          (value) {
+            // setState(() {
+            //   state.defauiltQr!.accreditation = value;
+            //   context.read<QrBloc>().defauiltQr = context
+            //       .read<QrBloc>()
+            //       .defauiltQr
+            //       .copyWith(accreditation: value);
+            // });
+          },
+        ),
+        adjustHieght(khieght * .03),
+        buildSwitch("Update all cards", false, (value) {
+          setState(
+            () {
+              // state.defauiltQr!.updateAllCards = value;
+              // context.read<QrBloc>().defauiltQr = context
+              //     .read<QrBloc>()
+              //     .defauiltQr
+              //     .copyWith(updateAllCards: value);
+            },
+          );
+        }, wantShowDailogue: true),
+      ],
+    );
   }
 
   Widget buildSwitch(String label, bool value, Function(bool) onChanged,

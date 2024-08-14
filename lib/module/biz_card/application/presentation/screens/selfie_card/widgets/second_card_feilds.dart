@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_business_card/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/selfie_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
@@ -182,13 +182,14 @@ class CardSecondScannedDatas extends StatelessWidget {
                           adjustHieght(khieght * .02),
                           state.contactAddLoading
                               ? const LoadingAnimation()
-                              : LastSkipContinueButtons(
+                              : CardLastSkipContinueButtons(
                                   onTap: () {
                                     if (autoFillDataKey.currentState!
                                         .validate()) {
                                       FocusScope.of(context).unfocus();
                                       Navigator.of(context).push(
-                                        fadePageRoute(const SelfieTextFields()),
+                                        cardFadePageRoute(
+                                            const SelfieTextFields()),
                                       );
                                       // Contact save
                                       AddNewContact addNewContact =
@@ -549,7 +550,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                           adjustHieght(khieght * .02),
                           state.isLoading
                               ? const LoadingAnimation()
-                              : LastSkipContinueButtons(onTap: () {
+                              : CardLastSkipContinueButtons(onTap: () {
                                   FocusScope.of(context).unfocus();
                                   context.read<CardSecondBloc>().add(
                                         CardSecondEvent.meetingRelatedInfo(

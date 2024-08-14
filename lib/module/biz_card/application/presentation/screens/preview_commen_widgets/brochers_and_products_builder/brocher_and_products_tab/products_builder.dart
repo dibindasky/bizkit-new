@@ -88,8 +88,8 @@ class ProductsBuilder extends StatelessWidget {
                                             text: 'View',
                                             onTap: () {
                                               Navigator.of(context).push(
-                                                  fadePageRoute(
-                                                      ProductViewDetail(
+                                                  cardFadePageRoute(
+                                                      CardProductDetailView(
                                                 product: data,
                                                 myCard: false,
                                               )));

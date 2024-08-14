@@ -17,7 +17,7 @@ PreferredSizeWidget homeAppbarSecondAndThird(
         showCardsNotifier.notifyListeners();
       },
       child: AppBar(
-        backgroundColor: backgroundColour,
+        backgroundColor: knill,
         foregroundColor: kwhite,
         leadingWidth: kwidth * 0.35,
         leading: Row(
@@ -30,10 +30,10 @@ PreferredSizeWidget homeAppbarSecondAndThird(
             ),
           ],
         ),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.filter_alt))
-        ],
+        // actions: [
+        //   IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+        //   IconButton(onPressed: () {}, icon: const Icon(Icons.filter_alt))
+        // ],
       ),
     ),
   );

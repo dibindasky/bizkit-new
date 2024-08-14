@@ -15,11 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 // enum and notifier below are used to shift the screens in home page without shifting home bottom bar
-enum HomeScreensList {
-  first,
-  second,
-  third,
-}
+enum HomeScreensList { first, second, third }
 
 final GlobalKey globalKeyAddCard = GlobalKey();
 final GlobalKey globalKeylevelSharingIcon = GlobalKey();
@@ -30,12 +26,12 @@ final GlobalKey globalKeyViewAllConnections = GlobalKey();
 ValueNotifier<HomeScreensList> showCardsNotifier =
     ValueNotifier(HomeScreensList.first);
 
-class HomeScreenFirstAnimationScreen extends StatefulWidget {
-  const HomeScreenFirstAnimationScreen({super.key});
+class ScreenCardHomeFirstAnimation extends StatefulWidget {
+  const ScreenCardHomeFirstAnimation({super.key});
 
   @override
-  State<HomeScreenFirstAnimationScreen> createState() =>
-      _HomeScreenFirstAnimationScreenState();
+  State<ScreenCardHomeFirstAnimation> createState() =>
+      _ScreenCardHomeFirstAnimationState();
 }
 
 showFirstScreen() {
@@ -53,9 +49,8 @@ late AnimationController homeFirstAnimationController;
 late AnimationController homeSecondAnimationController;
 late AnimationController homeSecondAnimationController2;
 
-class _HomeScreenFirstAnimationScreenState
-    extends State<HomeScreenFirstAnimationScreen>
-    with TickerProviderStateMixin {
+class _ScreenCardHomeFirstAnimationState
+    extends State<ScreenCardHomeFirstAnimation> with TickerProviderStateMixin {
   late Animation<Offset> _slideAnimation;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation2;
@@ -142,10 +137,10 @@ class _HomeScreenFirstAnimationScreenState
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context
-          .read<ReminderBloc>()
-          .add(const ReminderEvent.getAllRemindersEvent());
-      context.read<QrBloc>().add(const QrEvent.getQrCodes());
+      // context
+      //     .read<ReminderBloc>()
+      //     .add(const ReminderEvent.getAllRemindersEvent());
+      // context.read<QrBloc>().add(const QrEvent.getQrCodes());
     });
     final size = MediaQuery.of(context).size;
     khieght = size.height;
@@ -164,7 +159,7 @@ class _HomeScreenFirstAnimationScreenState
                     alignment: Alignment.topLeft,
                     child: Visibility(
                       visible: homeFirstAnimationController.isCompleted,
-                      child: SecondAnimation(
+                      child: ScreenCardSecondAnimation(
                         animationController: [
                           homeFirstAnimationController,
                           homeSecondAnimationController,
@@ -189,16 +184,16 @@ class _HomeScreenFirstAnimationScreenState
                                   padding: const EdgeInsets.all(10),
                                   child: RefreshIndicator(
                                     onRefresh: () async {
-                                      context.read<CardBloc>().add(
-                                          const CardEvent.getCards(call: true));
-                                      context.read<ConnectionRequestBloc>().add(
-                                          const ConnectionRequestEvent
-                                              .getBizkitConnections(query: ''));
-                                      context.read<ReminderBloc>().add(
-                                          const ReminderEvent
-                                              .getAllRemindersEvent());
-                                      await Future.delayed(
-                                          const Duration(milliseconds: 1500));
+                                      // context.read<CardBloc>().add(
+                                      //     const CardEvent.getCards(call: true));
+                                      // context.read<ConnectionRequestBloc>().add(
+                                      //     const ConnectionRequestEvent
+                                      //         .getBizkitConnections(query: ''));
+                                      // context.read<ReminderBloc>().add(
+                                      //     const ReminderEvent
+                                      //         .getAllRemindersEvent());
+                                      // await Future.delayed(
+                                      //     const Duration(milliseconds: 1500));
                                     },
                                     child: ListView(
                                       children: [
@@ -206,7 +201,7 @@ class _HomeScreenFirstAnimationScreenState
                                         adjustHieght(khieght * .02),
                                         const MyCardsAndAddCardSection(),
                                         adjustHieght(khieght * .03),
-                                        const MyConnectionContainerHomePage(),
+                                        const CardMyConnectionContainerHomePage()
                                       ],
                                     ),
                                   ),

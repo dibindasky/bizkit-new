@@ -2,20 +2,30 @@ import 'package:intl/intl.dart';
 
 class DateTimeFormater {
   // return HH:MM AM/PM
-  static String formatTimeAMPM(String? timestamp) {
-    if (timestamp == null || timestamp.isEmpty) return '';
+static String formatTimeAMPM(String? timestamp) {
+  if (timestamp == null || timestamp.isEmpty) return '';
 
+  try {
     // Parse the timestamp into a DateTime object
     final dateTime = DateTime.parse(timestamp);
 
     // Convert the DateTime to the user's local time zone
     final localDateTime = dateTime.toLocal();
 
+    // Add 5 hours and 30 minutes to the localDateTime
+    final updatedDateTime = localDateTime.add(const Duration(hours: 5, minutes: 30));
+
     // Format the time in AM/PM format
-    final formattedTime = DateFormat.jm().format(localDateTime);
+    final formattedTime = DateFormat.jm().format(updatedDateTime);
 
     return formattedTime;
+  } catch (e) {
+    // Handle parsing or formatting errors
+    print('Error formatting time: $e');
+    return '';
   }
+}
+
 
   static String formatDateTime(String dateString, String timeString) {
     // Parse the date and time strings

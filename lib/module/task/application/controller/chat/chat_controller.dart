@@ -4,6 +4,9 @@ import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/task/domain/model/chat/create_poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll.dart';
+import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 
@@ -22,21 +25,21 @@ class ChatController extends GetxController {
   String chatTaskId = '';
   bool firstLoad = true;
 
+  Rx<Poll> pollDetail = Poll().obs;
+
   /// connect to the channel with task id
   void connectChannel({required String? taskId}) async {
     chatTaskId = taskId ?? '';
-    chatScrollController.addListener(
-      () {
-        checkLoading();
-      },
-    );
+    chatScrollController.addListener(() {
+      checkLoading();
+    });
+
     final token = await SecureStorage.getToken();
     final accessToken = token.accessToken ?? '';
     final uid = token.uid ?? '';
     firstLoad = true;
     messages.clear();
-    // remove when server is there.. for testing use it
-    // messages = sampleMessages.obs;
+
     try {
       channel = IOWebSocketChannel.connect(
         Uri.parse(
@@ -46,28 +49,57 @@ class ChatController extends GetxController {
 
       channel.stream.listen(
         (message) {
-          print(message);
-          final m = Message.fromJson(
-              jsonDecode(message) as Map<String, dynamic>, uid);
-          if (m.messageType == 'text' &&
-              !messages.any((mess) => mess.messageId == m.messageId)) {
-            messages.add(m);
-          } else if (m.messageType == 'poll') {
-            messages.add(m);
+          // Decode the message from JSON
+          final decodedMessage =
+              jsonDecode(message as String) as Map<String, dynamic>;
+
+          print(decodedMessage);
+          bool doAnimate = true;
+          // handle for text messages
+          if (decodedMessage['message_type'] == 'text') {
+            final m = TextMessage.fromJson(decodedMessage, uid);
+            if (!messages
+                .any((mess) => mess.textMessage?.messageId == m.messageId)) {
+              messages.add(Message(textMessage: m, sender: m.sender));
+            }
           }
+          // handle for polls
+          else if (decodedMessage['message_type'] == 'poll') {
+            final poll = Poll.fromJson(decodedMessage, uid);
+            if (!messages.any((mess) => mess.poll?.pollId == poll.pollId)) {
+              messages.add(Message(poll: poll, sender: poll.sender));
+            } else {
+              doAnimate = false;
+              print('poll updation');
+              final index = messages
+                  .indexWhere((mess) => mess.poll?.pollId == poll.pollId);
+              if (index != -1) {
+                messages[index] = Message(poll: poll, sender: poll.sender);
+                if (poll.pollId == pollDetail.value.pollId) {
+                  pollDetail.value = poll;
+                }
+              }
+            }
+          }
+
           update(['chat']);
-          Timer(
-            const Duration(milliseconds: 200),
-            () {
-              chatScrollController.animateTo(
+          if (doAnimate) {
+            Timer(
+              const Duration(milliseconds: 200),
+              () {
+                chatScrollController.animateTo(
                   firstLoad
                       ? chatScrollController.position.maxScrollExtent
                       : chatScrollController.position.pixels +
-                          (m.messageType == 'poll' ? 500 : 100),
+                          (decodedMessage['message_type'] == 'poll'
+                              ? 500
+                              : 100),
                   duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeIn);
-            },
-          );
+                  curve: Curves.easeIn,
+                );
+              },
+            );
+          }
         },
         onError: (error) {
           print('Connection error: $error');
@@ -124,6 +156,18 @@ class ChatController extends GetxController {
     }
   }
 
+  /// add vote for pole
+  void addVoteforPol({required VotePoll votePoll}) {
+    try {
+      channel.sink.add(jsonEncode(votePoll.toJson()));
+      controller.clear();
+      firstLoad = false;
+    } catch (e) {
+      print('Failed to create poll: $e');
+      _error = 'Failed to create poll: $e';
+    }
+  }
+
   /// check for load more
   void checkLoading() {
     if (chatScrollController.offset ==
@@ -136,216 +180,3 @@ class ChatController extends GetxController {
     }
   }
 }
-
-final List<Message> sampleMessages = [
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:15:00Z',
-    messageId: 'msg1',
-    message: 'Hey there!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:16:00Z',
-    messageId: 'msg2',
-    message: 'Hello Alice!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:17:00Z',
-    messageId: 'msg3',
-    message: 'How are you today?',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:18:00Z',
-    messageId: 'msg4',
-    message: 'I\'m doing well, thanks!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:19:00Z',
-    messageId: 'msg5',
-    message: 'Glad to hear that!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:15:00Z',
-    messageId: 'msg1',
-    message: 'Hey there!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:16:00Z',
-    messageId: 'msg2',
-    message: 'Hello Alice!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:17:00Z',
-    messageId: 'msg3',
-    message: 'How are you today?',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:18:00Z',
-    messageId: 'msg4',
-    message: 'I\'m doing well, thanks!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:19:00Z',
-    messageId: 'msg5',
-    message: 'Glad to hear that!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:15:00Z',
-    messageId: 'msg1',
-    message: 'Hey there!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:16:00Z',
-    messageId: 'msg2',
-    message: 'Hello Alice!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:17:00Z',
-    messageId: 'msg3',
-    message: 'How are you today?',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:18:00Z',
-    messageId: 'msg4',
-    message: 'I\'m doing well, thanks!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:19:00Z',
-    messageId: 'msg5',
-    message: 'Glad to hear that!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:15:00Z',
-    messageId: 'msg1',
-    message: 'Hey there!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:16:00Z',
-    messageId: 'msg2',
-    message: 'Hello Alice!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:17:00Z',
-    messageId: 'msg3',
-    message: 'How are you today?',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:18:00Z',
-    messageId: 'msg4',
-    message: 'I\'m doing well, thanks!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:18:00Z',
-    messageId: 'msg4',
-    message: 'I\'m doing well, thanks!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:19:00Z',
-    messageId: 'msg5',
-    message: 'Glad to hear that!',
-    sender: true,
-  ),
-];

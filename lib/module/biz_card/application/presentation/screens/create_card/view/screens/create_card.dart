@@ -39,12 +39,17 @@ class _ScreenCardCreationStartingState
     final kwidth = size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: backgroundColour,
+        backgroundColor: knill,
         centerTitle: true,
-        title: Text(
-          'Business Card',
-          style: textHeadStyle1,
-        ),
+        title: Text('Business Card', style: textHeadStyle1),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new_outlined,
+              size: 17,
+            )),
       ),
       body: SingleChildScrollView(
         child: Center(

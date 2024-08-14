@@ -170,7 +170,6 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                           autocompleteItems: const ['Zizk', 'Pvt Ltd'],
                           onChanged: (value) {
                             // call company api and fetch companys to dropdown
-
                             // context.read<BusinessDataBloc>().add(
                             //     BusinessDataEvent.getCompnayList(
                             //         search: SearchQuery(search: value)));

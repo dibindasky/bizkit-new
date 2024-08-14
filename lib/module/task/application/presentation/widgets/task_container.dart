@@ -6,7 +6,6 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_creation.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_tasks_inside_folder_success_responce/task.dart';
-import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/inner_folder_task.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
@@ -138,10 +137,7 @@ class TaskContainer extends StatelessWidget {
                                         size: 16,
                                       ),
                                     )
-                                  : Image.asset(
-                                      'asset/images/icon/Vector.png',
-                                      scale: 2,
-                                    ),
+                                  : kempty,
                               adjustWidth(10),
                               Text(
                                 overflow: TextOverflow.ellipsis,
@@ -377,7 +373,7 @@ class TaskContainer extends StatelessWidget {
                         typeTask?.isOwned == true ||
                                 tasksInsideFolder?.isOwned == true ||
                                 tasksInsideInnerFolder?.isOwned == true
-                            ? 'Created by  ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}'
+                            ? 'Created by you'
                             : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
                         style: textThinStyle1.copyWith(fontSize: 8),
                       ),
@@ -387,13 +383,13 @@ class TaskContainer extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 50,
-                bottom: 50,
+                top: 40,
+                bottom: 40,
                 left: 0,
                 child: Container(
                   color: klightgrey,
                   width: 4,
-                  height: 100,
+                  height: 5,
                 ),
               )
             ],

@@ -17,19 +17,19 @@ class TaskDetailHeaderSection extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
 
     // Calculate the total time taken
-    Duration? totalTimeTaken;
-    if (taskController.singleTask.value.deadLine != null &&
-        taskController.singleTask.value.createdAt != null) {
-      DateTime createdAt =
-          DateTime.parse(taskController.singleTask.value.createdAt.toString());
-      DateTime deadLine =
-          DateTime.parse(taskController.singleTask.value.deadLine!);
-      totalTimeTaken = deadLine.difference(createdAt);
-    }
+    // Duration? totalTimeTaken;
+    // if (taskController.singleTask.value.deadLine != null &&
+    //     taskController.singleTask.value.createdAt != null) {
+    //   DateTime createdAt =
+    //       DateTime.parse(taskController.singleTask.value.createdAt.toString());
+    //   DateTime deadLine =
+    //       DateTime.parse(taskController.singleTask.value.deadLine!);
+    //   totalTimeTaken = deadLine.difference(createdAt);
+    // }
 
-    String formattedTimeTaken = totalTimeTaken != null
-        ? '${totalTimeTaken.inHours}Hr ${(totalTimeTaken.inMinutes % 60)}Min'
-        : 'Time Not Available';
+    // String formattedTimeTaken = totalTimeTaken != null
+    //     ? '${totalTimeTaken.inHours}Hr ${(totalTimeTaken.inMinutes % 60)}Min'
+    //     : 'Time Not Available';
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,30 +55,36 @@ class TaskDetailHeaderSection extends StatelessWidget {
                     ),
             ),
             SizedBox(height: 8.h),
-            Text(
-              'Total Time Taken: $formattedTimeTaken',
-              style: textStyle1,
+            Obx(
+              () => Text(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                'Total Time Taken: ${taskController.getTotalCompletedSubtasksDuration()}',
+                style: textStyle1,
+              ),
             ),
           ],
         ),
         Row(
           children: [
-            CircleAvatar(
-              backgroundColor: kGrayLight,
-              child: IconButton(
-                icon:
-                    const Icon(Icons.mode_edit_outline_outlined, color: kwhite),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    builder: (context) => TaskStatusChangeDialog(
-                      taskId: taskController.singleTask.value.id,
+            taskController.singleTask.value.isOwned == true
+                ? CircleAvatar(
+                    backgroundColor: kGrayLight,
+                    child: IconButton(
+                      icon: const Icon(Icons.mode_edit_outline_outlined,
+                          color: kwhite),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (context) => TaskStatusChangeDialog(
+                            taskId: taskController.singleTask.value.id,
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
-            ),
+                  )
+                : kempty,
             adjustWidth(10.w),
             CircleAvatar(
               backgroundColor: kGrayLight,

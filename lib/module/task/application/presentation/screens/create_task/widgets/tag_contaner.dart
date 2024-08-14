@@ -52,7 +52,7 @@ class TagsContainer extends StatelessWidget {
                         if (tag.isNotEmpty &&
                             !controller.tagsForEdit.contains(tag)) {
                           controller.tagsForEdit.add(tag);
-                          FocusScope.of(context).unfocus();
+                          // FocusScope.of(context).unfocus();
                           log('Tags For Edit =====> ${controller.tagsForEdit}');
                         }
                         tagController.clear();
@@ -61,7 +61,7 @@ class TagsContainer extends StatelessWidget {
 
                         if (tag.isNotEmpty && !controller.tags.contains(tag)) {
                           controller.tags.add(tag);
-                          FocusScope.of(context).unfocus();
+                          // FocusScope.of(context).unfocus();
                           log('Tags =====> ${controller.tags}');
                         }
                         tagController.clear();

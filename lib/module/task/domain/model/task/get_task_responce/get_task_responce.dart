@@ -21,6 +21,8 @@ class GetTaskResponce {
   bool? recurrentTask;
   @JsonKey(name: 'is_completed')
   bool? isCompleted;
+  @JsonKey(name: 'is_owned')
+  bool? isOwned;
   @JsonKey(name: 'dead_line')
   String? deadLine;
   @JsonKey(name: 'is_killed')
@@ -52,6 +54,7 @@ class GetTaskResponce {
     this.subTask,
     this.createdAt,
     this.status,
+    this.isOwned,
     this.assignedToDetails,
   });
 

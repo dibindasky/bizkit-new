@@ -32,11 +32,33 @@ class AttachmentChooserTaskCreation extends StatelessWidget {
               color: lightGrey,
               borderRadius: kBorderRadius15,
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.file_upload_outlined, color: neonShade),
-                Text('Browse File or upload')
+                const Icon(Icons.file_upload_outlined, color: neonShade),
+                adjustWidth(20.w),
+                const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Browse File or Upload',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: kwhite,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Allowed File Types: JPG, PDF',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

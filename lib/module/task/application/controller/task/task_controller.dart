@@ -23,6 +23,8 @@ import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_m
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/completed_sub_task/completed_sub_task.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/completed_sub_task_success_responce/sub_task.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_model/delete_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/edit_sub_task_model/edit_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task_add_model.dart';
@@ -77,6 +79,7 @@ class CreateTaskController extends GetxController {
   RxList<Task> selectedTasks = <Task>[].obs;
   RxList<ReceivedTask> receivedRequests = <ReceivedTask>[].obs;
   RxMap<String, RxInt> tasksCounts = <String, RxInt>{}.obs;
+  RxList<CompletedSubTasks> completedSubTasks = <CompletedSubTasks>[].obs;
 
   // Holds a single task response
   var singleTask = GetTaskResponce().obs;
@@ -236,7 +239,8 @@ class CreateTaskController extends GetxController {
 
   // Method to handle file selection
   void pickFiles() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    final result = await FilePicker.platform
+        .pickFiles(allowedExtensions: ['jpg', 'pdf'], type: FileType.custom);
     if (result != null) {
       selectedFiles.addAll(result.files);
     }
@@ -311,6 +315,47 @@ class CreateTaskController extends GetxController {
         );
       },
     );
+  }
+
+  String getTotalCompletedSubtasksDuration() {
+    final subtasks = singleTask.value.subTask ?? [];
+    final completedSubtasks =
+        subtasks.where((subtask) => subtask.isCompleted ?? false).toList();
+    Duration totalDuration = const Duration();
+
+    for (var subtask in completedSubtasks) {
+      final duration = _parseDuration(subtask.duration);
+      totalDuration += duration ?? const Duration();
+    }
+
+    return _formatDuration(totalDuration);
+  }
+
+  Duration? _parseDuration(String? duration) {
+    if (duration == null || duration.isEmpty) return null;
+
+    try {
+      final parts = duration.split(':');
+      if (parts.length == 3) {
+        final hours = int.parse(parts[0]);
+        final minutes = int.parse(parts[1]);
+
+        return Duration(
+          hours: hours,
+          minutes: minutes,
+        );
+      }
+    } catch (e) {
+      log('Error parsing duration: $e');
+    }
+    return null;
+  }
+
+  String _formatDuration(Duration duration) {
+    final hours = duration.inHours;
+    final minutes = (duration.inMinutes % 60);
+
+    return '$hours Hr $minutes Min';
   }
 
   // Edits an existing task with the provided task model
@@ -984,6 +1029,45 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         killedTasks.assignAll(success.tasks ?? []);
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void completedSubTask({
+    required CompletedSubTask completedSubTask,
+    required BuildContext context,
+    required String taskId,
+  }) async {
+    isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    log('SubTask completed = > ${completedSubTask.toJson()}');
+
+    final result =
+        await taskService.completedSubTask(completedSubTask: completedSubTask);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
+            backgroundColor: kred,
+          ),
+        );
+        log(failure.message.toString());
+      },
+      (success) {
+        log("${success.message}");
+        completedSubTasks.assignAll(success.subTask ?? []);
+        fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Subtask completed successfully'),
+            backgroundColor: neonShade,
+          ),
+        );
+
         isLoading.value = false;
       },
     );

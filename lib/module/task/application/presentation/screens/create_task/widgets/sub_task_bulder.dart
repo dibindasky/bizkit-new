@@ -37,9 +37,10 @@ class SubTaskBuilder extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     showDialog(
-                      context: context,
-                      builder: (context) => const SubTaskDetailView(),
-                    );
+                        context: context,
+                        builder: (context) => const SubTaskCreationCustomDialog(
+                              afterTaskCreation: false,
+                            ));
                   },
                   child: Container(
                     width: double.infinity,
@@ -69,7 +70,6 @@ class SubTaskBuilder extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (context) => SubTaskDetailView(
-                            index: index,
                             subTaskDes: controller.subTasks[index].description,
                             subTaskTitle: controller.subTasks[index].title,
                           ),

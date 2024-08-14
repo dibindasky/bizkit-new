@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
-import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -28,7 +27,17 @@ class AddParticipentBottomSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           kHeight20,
-          Text('Add Participants', style: fontPopinsMedium),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Add Participants', style: fontPopinsMedium),
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.close_outlined))
+            ],
+          ),
           kHeight5,
           Divider(color: lightGrey),
           kHeight10,
@@ -79,11 +88,11 @@ class AddParticipentBottomSheet extends StatelessWidget {
 
                       return ListTile(
                         leading: const CircleAvatar(
-                          backgroundImage: AssetImage(imageDummyAsset),
+                          backgroundImage: AssetImage(personDemoImg),
                         ),
                         title: Text(user.name ?? 'No Name'),
                         subtitle: Text(
-                          '${user.email ?? 'No Email'} ',
+                          maskEmail(user.email ?? ''),
                           style: fontPopinsThin.copyWith(
                             fontSize: 10.sp,
                           ),
@@ -135,5 +144,20 @@ class AddParticipentBottomSheet extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String maskEmail(String email) {
+    int atIndex = email.indexOf('@');
+    if (atIndex <= 3) {
+      return email;
+    }
+
+    String username = email.substring(0, atIndex);
+    String domain = email.substring(atIndex);
+
+    String maskedUsername =
+        username.substring(0, 3) + '*' * (username.length - 3);
+
+    return maskedUsername + domain;
   }
 }

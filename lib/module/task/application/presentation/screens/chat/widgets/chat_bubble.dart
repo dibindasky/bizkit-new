@@ -1,4 +1,4 @@
-import 'package:bizkit/module/task/domain/model/chat/message.dart';
+import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
 import 'package:bizkit/utils/clipper/chat_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatBubble extends StatelessWidget {
-  final Message message;
+  final TextMessage message;
   final bool showArrow;
 
   const ChatBubble({
@@ -44,17 +44,17 @@ class ChatBubble extends StatelessWidget {
               ? SizedBox(
                   height: 15.sp,
                   width: 15.sp,
-                  child: FittedBox(
-                    child: Stack(
-                      children: [
-                        Icon(Icons.check, color: kblack.withOpacity(0.7)),
-                        Positioned(
-                            left: 5,
-                            child: Icon(Icons.check,
-                                color: kGrayLight.withOpacity(0.7))),
-                      ],
-                    ),
-                  ),
+                  // child: FittedBox(
+                  //   child: Stack(
+                  //     children: [
+                  //       Icon(Icons.check, color: kblack.withOpacity(0.7)),
+                  //       Positioned(
+                  //           left: 5,
+                  //           child: Icon(Icons.check,
+                  //               color: kGrayLight.withOpacity(0.7))),
+                  //     ],
+                  //   ),
+                  // ),
                 )
               : kempty
         ],

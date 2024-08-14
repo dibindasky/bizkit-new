@@ -4,11 +4,6 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_bubble.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_text_field.dart';
-
-import 'package:bizkit/module/task/domain/model/chat/message.dart';
-import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
-
-import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -117,15 +112,15 @@ class ScreenTaskChat extends StatelessWidget {
                                     showArrow = false;
                                   }
                                 }
-                                if (message.messageType == 'text') {
+                                if (message.textMessage != null) {
                                   return ChatBubble(
                                     showArrow: showArrow,
-                                    message: message,
+                                    message: message.textMessage!,
                                   );
                                 }
-                                if (message.messageType == 'poll') {
+                                if (message.poll != null) {
                                   return PollContainerChat(
-                                      message: message);
+                                      message: message.poll!);
                                 }
                                 return kempty;
                               },

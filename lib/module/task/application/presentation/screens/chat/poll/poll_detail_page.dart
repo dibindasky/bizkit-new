@@ -1,14 +1,18 @@
+import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll.dart';
 import 'package:bizkit/utils/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ScreenPollDetailTask extends StatelessWidget {
   const ScreenPollDetailTask({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<ChatController>();
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,15 +28,23 @@ class ScreenPollDetailTask extends StatelessWidget {
                     'Poll Question',
                     style: textHeadStyle1.copyWith(color: kneonShade),
                   ),
-                  const Text('Which quest should we take ?'),
+                  Obx(() {
+                    return Text(controller.pollDetail.value.pollQuestion ?? '');
+                  }),
                   adjustHieght(10.h),
                   Expanded(
-                    child: ListView.separated(
-                        itemBuilder: (context, index) =>
-                            const PollDetailAnswerTile(),
-                        separatorBuilder: (context, index) =>
-                            adjustHieght(20.h),
-                        itemCount: 3),
+                    child: Obx(() {
+                      return ListView.separated(
+                          itemBuilder: (context, index) => PollDetailAnswerTile(
+                                pollAnswer: controller
+                                    .pollDetail.value.pollAnswers![index],
+                              ),
+                          separatorBuilder: (context, index) =>
+                              adjustHieght(20.h),
+                          itemCount:
+                              controller.pollDetail.value.pollAnswers?.length ??
+                                  0);
+                    }),
                   )
                 ],
               ),
@@ -45,11 +57,22 @@ class ScreenPollDetailTask extends StatelessWidget {
   }
 }
 
-class PollDetailAnswerTile extends StatelessWidget {
-  const PollDetailAnswerTile({super.key});
+class PollDetailAnswerTile extends StatefulWidget {
+  const PollDetailAnswerTile({super.key, required this.pollAnswer});
+
+  final PollAnswer pollAnswer;
 
   @override
+  State<PollDetailAnswerTile> createState() => _PollDetailAnswerTileState();
+}
+
+class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
+  int selectedIndex = 0;
+  @override
   Widget build(BuildContext context) {
+    if (widget.pollAnswer.supporters?.length == 0) {
+      return kempty;
+    }
     return Column(
       children: [
         Container(
@@ -65,28 +88,34 @@ class PollDetailAnswerTile extends StatelessWidget {
         SizedBox(
           height: 70.h,
           child: ListView.separated(
-            itemCount: 10,
+            itemCount: widget.pollAnswer.supporters?.length ?? 0,
             scrollDirection: Axis.horizontal,
             separatorBuilder: (context, index) => adjustWidth(20.w),
-            itemBuilder: (context, index) => Column(
-              children: [
-                Container(
-                    height: 50.h,
-                    width: 50.h,
-                    decoration: BoxDecoration(
-                        border: index != 0
-                            ? null
-                            : Border.all(color: neonShade, width: 3.sp),
-                        borderRadius: kBorderRadius5,
-                        image: const DecorationImage(
-                            image: AssetImage(imageDummyAsset),
-                            fit: BoxFit.cover))),
-                adjustHieght(3.h),
-                Text(
-                  'Person ${index + 1}',
-                  style: textThinStyle1,
-                )
-              ],
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: () {
+                selectedIndex = index;
+                setState(() {});
+              },
+              child: Column(
+                children: [
+                  Container(
+                      height: 50.h,
+                      width: 50.h,
+                      decoration: BoxDecoration(
+                          border: index != selectedIndex
+                              ? null
+                              : Border.all(color: neonShade, width: 3.sp),
+                          borderRadius: kBorderRadius5,
+                          image: const DecorationImage(
+                              image: AssetImage(imageDummyAsset),
+                              fit: BoxFit.cover))),
+                  adjustHieght(3.h),
+                  Text(
+                    widget.pollAnswer.supporters?[index].name ?? '',
+                    style: textThinStyle1,
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -104,10 +133,11 @@ class PollDetailAnswerTile extends StatelessWidget {
                     color: kGrayLight, borderRadius: kBorderRadius10),
                 child: Column(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: SingleChildScrollView(
-                        child: Text(
-                            'Lorem ipsum dolor sit amet consectetur. Mauris mauris sollicitudin eget egestas malesuada congue vulputate ac sed.\n \nLorem ipsum dolor sit amet consectetur. Mauris mauris sollicitudin eget egestas malesuada congue vulputate ac sed.\n\nLorem ipsum dolor sit amet consectetur. Mauris mauris sollicitudin eget egestas malesuada congue vulputate ac sed.'),
+                        child: Text(widget
+                                .pollAnswer.supporters?[selectedIndex].reason ??
+                            ''),
                       ),
                     ),
                     adjustHieght(5.h),
@@ -121,9 +151,24 @@ class PollDetailAnswerTile extends StatelessWidget {
                 ),
               ),
               ArrowMarkIndexChange(
-                  alignment: Alignment.centerLeft, left: true, onTap: () {}),
+                  alignment: Alignment.centerLeft,
+                  left: true,
+                  onTap: () {
+                    if (selectedIndex > 0) {
+                      selectedIndex--;
+                      setState(() {});
+                    }
+                  }),
               ArrowMarkIndexChange(
-                  alignment: Alignment.centerRight, left: false, onTap: () {})
+                  alignment: Alignment.centerRight,
+                  left: false,
+                  onTap: () {
+                    if (selectedIndex <
+                        (widget.pollAnswer.supporters?.length ?? 0) - 1) {
+                      selectedIndex++;
+                      setState(() {});
+                    }
+                  })
             ],
           ),
         ),

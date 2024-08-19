@@ -1,14 +1,15 @@
 class TextMessage {
-  final String? messageType;
-  final String? userId;
-  final String? currentUid;
-  final String? username;
-  final String? profilePicture;
-  final String? timestamp;
-  final String? messageId;
-  final String? message;
-  final bool sender;
-  final List<String>? readBy; // Added field
+  String? messageType;
+  String? userId;
+  String? currentUid;
+  String? username;
+  String? profilePicture;
+  String? timestamp;
+  String? messageId;
+  String? message;
+  bool sender;
+  bool isLoadMore;
+  List<String>? readBy;
 
   TextMessage({
     this.messageType,
@@ -20,7 +21,8 @@ class TextMessage {
     this.messageId,
     this.message,
     this.sender = false,
-    this.readBy, // Added field
+    this.readBy,
+    this.isLoadMore = false,
   });
 
   // Convert a Message instance to a Map
@@ -35,7 +37,8 @@ class TextMessage {
       'message': message,
       'timestamp': timestamp,
       'sender': sender,
-      'read_by': readBy, // Added field
+      'read_by': readBy,
+      'is_load_more': isLoadMore,
     };
   }
 
@@ -50,11 +53,11 @@ class TextMessage {
       messageId: json['message_id'] as String?,
       message: json['message'] as String?,
       timestamp: json['timestamp'] as String?,
+      isLoadMore: (json['is_load_more'] as bool?) ?? false,
       sender: (json['user_id'] as String?) == uid,
       readBy: (json['read_by'] as List<dynamic>?)
           ?.map((item) => item as String)
-          .toList(), // Added field
+          .toList(),
     );
   }
 }
-

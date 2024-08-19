@@ -9,6 +9,7 @@ class TextMessage {
   String? message;
   bool sender;
   bool isLoadMore;
+  bool readByAll;
   List<String>? readBy;
 
   TextMessage({
@@ -23,6 +24,7 @@ class TextMessage {
     this.sender = false,
     this.readBy,
     this.isLoadMore = false,
+    this.readByAll = false,
   });
 
   // Convert a Message instance to a Map
@@ -39,6 +41,7 @@ class TextMessage {
       'sender': sender,
       'read_by': readBy,
       'is_load_more': isLoadMore,
+      'read_by_all': readByAll,
     };
   }
 
@@ -58,6 +61,7 @@ class TextMessage {
       readBy: (json['read_by'] as List<dynamic>?)
           ?.map((item) => item as String)
           .toList(),
+      readByAll: (json['read_by_all'] as bool?) ?? false,
     );
   }
 }

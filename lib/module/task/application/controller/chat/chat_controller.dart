@@ -41,6 +41,7 @@ class ChatController extends GetxController {
     messages.clear();
 
     try {
+      print('message count taskId => $taskId');
       channel = IOWebSocketChannel.connect(
         Uri.parse(
             SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
@@ -125,6 +126,7 @@ class ChatController extends GetxController {
   /// close channel connection
   void closeConnetion() {
     try {
+      messages.clear();
       channel.sink.close();
       // channel.sink.close(status.goingAway);
     } catch (e) {

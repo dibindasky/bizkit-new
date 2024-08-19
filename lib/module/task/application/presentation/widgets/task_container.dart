@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 // import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -22,6 +23,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class TaskContainer extends StatelessWidget {
@@ -56,23 +58,27 @@ class TaskContainer extends StatelessWidget {
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
   final taskFolderController = Get.find<TaskFolderController>();
+  final messageCountController = Get.find<MessageCountController>();
 
   @override
   Widget build(BuildContext context) {
-    String? created, deadline;
+    String? created, deadline, taskId;
     bool? spotlightOn;
     if (typeTask != null) {
       created = typeTask?.createdAt;
       deadline = typeTask?.deadLine;
       spotlightOn = typeTask?.spotlightOn;
+      taskId = typeTask?.id;
     } else if (tasksInsideFolder != null) {
       created = tasksInsideFolder?.createdAt;
       deadline = tasksInsideFolder?.deadLine;
       spotlightOn = tasksInsideFolder?.spotlightOn;
+      taskId = tasksInsideFolder?.taskId;
     } else if (tasksInsideInnerFolder != null) {
       created = tasksInsideInnerFolder?.createdAt;
       deadline = tasksInsideInnerFolder?.deadLine;
       spotlightOn = tasksInsideInnerFolder?.spotlightOn;
+      taskId = tasksInsideInnerFolder?.taskId;
     }
 
     final color = getSpotLightColor(created, deadline);
@@ -391,29 +397,27 @@ class TaskContainer extends StatelessWidget {
                   width: 4,
                   height: 5,
                 ),
-              )
+              ),
+              Obx(() {
+                final count = messageCountController.unreadCounts[taskId];
+                if (count == null || count.value == 0) return kempty;
+                return Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 3.h),
+                        decoration: BoxDecoration(
+                            borderRadius: kBorderRadius10, color: kneonShade),
+                        child: Text('$count',
+                            style: textThinStyle1.copyWith(color: kblack))));
+              })
             ],
           ),
         ),
       ),
     );
   }
-
-  // Color getSpotLightColor(String? date1, String? date2) {
-  //   if (date1 == null || date2 == null) return kwhite;
-  //   final int first = DateTimeFormater.calculateDifferenceInHours(date1, date2);
-  //   final int second = DateTimeFormater.calculateDifferenceInHours(
-  //       date1, DateTime.now().toString());
-  //   if (first < second) return kred;
-  //   final int part = (first / 3).round();
-  //   if ((part * 2) <= second) {
-  //     return leaveBorderClr;
-  //   } else if (part <= second) {
-  //     return neonShade;
-  //   } else {
-  //     return kblue;
-  //   }
-  // }
 
   Color getSpotLightColor(String? date1, String? date2) {
     if (date1 == null || date2 == null) {

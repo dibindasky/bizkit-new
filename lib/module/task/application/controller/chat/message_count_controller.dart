@@ -1,26 +1,45 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/module/task/domain/model/chat/unread_count.dart';
 import 'package:get/get.dart';
 import 'package:web_socket_channel/io.dart';
 
 class MessageCountController extends GetxController {
+  @override
+  onInit() {
+    connectChannel();
+    super.onInit();
+  }
+
   late IOWebSocketChannel channel;
   String _error = '';
+  RxMap<String, RxInt> unreadCounts = <String, RxInt>{}.obs;
 
-  void connectChannel({required String? taskId}) async {
+  void connectChannel() async {
     try {
       final token = await SecureStorage.getToken();
       final accessToken = token.accessToken ?? '';
+      unreadCounts = <String, RxInt>{}.obs;
 
       channel = IOWebSocketChannel.connect(
-        Uri.parse(
-            SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
+        Uri.parse(SocketEndpoints.messageCount),
         headers: {'Authorization': 'Bearer $accessToken'},
       );
 
       channel.stream.listen(
         (data) {
-
+          final unread = UnreadCounts.fromJson(
+              jsonDecode(data as String) as Map<String, dynamic>);
+          print('message count :=> ${unread.unreadCounts}');
+          print('message count keys :=> ${unread.unreadCounts?.keys.toList()}');
+          for (var k in (unread.unreadCounts?.keys.toList()) ?? []) {
+            print('message count k,v :=> $k : ${unread.unreadCounts?[k] ?? 0}');
+            unreadCounts[k] = (unread.unreadCounts?[k] ?? 0).obs;
+          }
         },
         onError: (error) {
           print('Connection error: $error');
@@ -38,7 +57,8 @@ class MessageCountController extends GetxController {
       _error = 'Failed to connect: $e';
     }
   }
-    void closeConnetion() {
+
+  void closeConnetion() {
     try {
       channel.sink.close();
       // channel.sink.close(status.goingAway);
@@ -46,18 +66,20 @@ class MessageCountController extends GetxController {
       print('Channel close error =>$e');
     }
   }
-  //   void sendTextMessage() {
-  //   if (controller.text.isNotEmpty) {
-  //     final message = controller.text;
-  //     try {
-  //       channel.sink
-  //           .add(jsonEncode({"message_type": "text", "message": message}));
-  //       controller.clear();
-  //       firstLoad = false;
-  //     } catch (e) {
-  //       print('Failed to send message: $e');
-  //       _error = 'Failed to send message: $e';
-  //     }
-  //   }
-  // }
+
+  void sendReqForUnread() {
+    Timer(const Duration(seconds: 5), () {
+      try {
+        channel.sink.add(jsonEncode({"message_type": "unread_count"}));
+      } catch (e) {
+        print('Failed to call message count socket: $e');
+        _error = 'Failed to call message count socket: $e';
+      }
+    });
+  }
+
+  void resetCount({required String id}) {
+    if (id == '') return;
+    unreadCounts[id] = 0.obs;
+  }
 }

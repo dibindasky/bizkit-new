@@ -1,8 +1,13 @@
 // import 'dart:developer';
 
+import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
+import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/task_status_dialoge.dart';
+import 'package:bizkit/utils/animations/custom_shrinking_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,21 +20,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-
-    // Calculate the total time taken
-    // Duration? totalTimeTaken;
-    // if (taskController.singleTask.value.deadLine != null &&
-    //     taskController.singleTask.value.createdAt != null) {
-    //   DateTime createdAt =
-    //       DateTime.parse(taskController.singleTask.value.createdAt.toString());
-    //   DateTime deadLine =
-    //       DateTime.parse(taskController.singleTask.value.deadLine!);
-    //   totalTimeTaken = deadLine.difference(createdAt);
-    // }
-
-    // String formattedTimeTaken = totalTimeTaken != null
-    //     ? '${totalTimeTaken.inHours}Hr ${(totalTimeTaken.inMinutes % 60)}Min'
-    //     : 'Time Not Available';
+    final messageCountController = Get.find<MessageCountController>();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,22 +28,30 @@ class TaskDetailHeaderSection extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Obx(
-              () => taskController.isLoading.value
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: ShimmerLoaderTile(
-                        height: 15.h,
-                        width: 150.w,
-                      ),
-                    )
-                  : Text(
-                      taskController.singleTask.value.title ?? 'Title',
-                      style: textHeadStyle1.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp,
-                          color: neonShade),
-                    ),
+            Row(
+              children: [
+                kWidth5,
+                GestureDetector(onTap: (){
+                  GoRouter.of(context).pop();
+                },child: const Icon(Icons.arrow_back_ios)),
+                Obx(
+                  () => taskController.isLoading.value
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: ShimmerLoaderTile(
+                            height: 15.h,
+                            width: 150.w,
+                          ),
+                        )
+                      : Text(
+                          taskController.singleTask.value.title ?? 'Title',
+                          style: textHeadStyle1.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.sp,
+                              color: neonShade),
+                        ),
+                ),
+              ],
             ),
             SizedBox(height: 8.h),
             Obx(
@@ -86,14 +85,39 @@ class TaskDetailHeaderSection extends StatelessWidget {
                   )
                 : kempty,
             adjustWidth(10.w),
-            CircleAvatar(
-              backgroundColor: kGrayLight,
-              child: IconButton(
-                icon: const Icon(Icons.message_outlined, color: kwhite),
-                onPressed: () {
-                  GoRouter.of(context).pop();
-                },
-              ),
+            Stack(
+              children: [
+                CircleAvatar(
+                  backgroundColor: kGrayLight,
+                  child: IconButton(
+                    icon: const Icon(Icons.message_outlined, color: kwhite),
+                    onPressed: () {
+                      Get.find<ChatController>().connectChannel(
+                          taskId: taskController.singleTask.value.id);
+                      GoRouter.of(context).push(
+                        Routes.taskChatScreen,
+                      );
+                      messageCountController.resetCount(id:taskController.singleTask.value.id??'');
+                    },
+                  ),
+                ),
+                Obx(() {
+                  final count = messageCountController
+                      .unreadCounts[taskController.singleTask.value.id];
+                  if (count == null || count.value == 0) return kempty;
+                  return Positioned(
+                    right: 0,
+                    top: 0,
+                    child: AnimatedGrowShrinkContainer(
+                      animate: true,
+                      child: CircleAvatar(
+                        radius: 5.w,
+                        backgroundColor: kneonShade,
+                      ),
+                    ),
+                  );
+                })
+              ],
             ),
           ],
         ),

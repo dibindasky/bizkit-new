@@ -14,6 +14,8 @@ class Poll {
   bool? anonymousVote;
   bool? resonRequired;
   String? activeUntil;
+  bool isLoadMore;
+  bool readByAll;
 
   Poll({
     this.sender = false,
@@ -31,6 +33,8 @@ class Poll {
     this.anonymousVote,
     this.multipleAnswer,
     this.resonRequired,
+    this.isLoadMore = false,
+    this.readByAll=false,
   });
 
   // Convert a Poll instance to a Map
@@ -51,6 +55,8 @@ class Poll {
       'is_multiple_selection_allowed': multipleAnswer,
       'is_anonymous_voting_allowed': anonymousVote,
       'is_reason_required': resonRequired,
+      'is_load_more': isLoadMore,
+      'read_by_all': readByAll,
     };
   }
 
@@ -76,12 +82,14 @@ class Poll {
       multipleAnswer: json['is_multiple_selection_allowed'] as bool?,
       anonymousVote: json['is_anonymous_voting_allowed'] as bool?,
       resonRequired: json['is_reason_required'] as bool?,
+      isLoadMore: (json['is_load_more'] as bool?) ?? false,
+      readByAll: (json['read_by_all'] as bool?) ?? false,
     );
   }
 
   @override
   String toString() {
-    return 'Poll(sender: $sender, pollId: $pollId, currentUid: $currentUid, messageId: $messageId, pollQuestion: $pollQuestion, pollAnswers: $pollAnswers, timestamp: $timestamp, userName: $userName, profilePicture: $profilePicture, userId: $userId, readBy: $readBy, multipleAnswer: $multipleAnswer, anonymousVote: $anonymousVote, resonRequired: $resonRequired, activeUntil: $activeUntil)';
+    return 'Poll(sender: $sender, pollId: $pollId, currentUid: $currentUid, messageId: $messageId, pollQuestion: $pollQuestion, pollAnswers: $pollAnswers, timestamp: $timestamp, userName: $userName, profilePicture: $profilePicture, userId: $userId, readBy: $readBy, multipleAnswer: $multipleAnswer, anonymousVote: $anonymousVote, resonRequired: $resonRequired, activeUntil: $activeUntil, isLoadMore: $isLoadMore, readByAll: $readByAll)';
   }
 }
 

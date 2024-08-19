@@ -27,12 +27,13 @@ class ScreenTaskChat extends StatelessWidget {
             leading: IconButton(
               onPressed: () {
                 GoRouter.of(context).pop();
+                chatController.closeConnetion();
               },
               icon: const Icon(Icons.arrow_back_ios),
             ),
             title: GestureDetector(
               onTap: () {
-                GoRouter.of(context).pushNamed(Routes.taskDeail);
+                GoRouter.of(context).push(Routes.taskChatScreen);
               },
               child: taskController.isLoading.value
                   ? Column(

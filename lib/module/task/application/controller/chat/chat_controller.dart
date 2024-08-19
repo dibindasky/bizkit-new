@@ -41,6 +41,7 @@ class ChatController extends GetxController {
     messages.clear();
 
     try {
+      print('message count taskId => $taskId');
       channel = IOWebSocketChannel.connect(
         Uri.parse(
             SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
@@ -58,23 +59,27 @@ class ChatController extends GetxController {
           // handle for text messages
           if (decodedMessage['message_type'] == 'text') {
             final m = TextMessage.fromJson(decodedMessage, uid);
-            if (!messages
+            final mess = Message(textMessage: m, sender: m.sender);
+            if (m.isLoadMore) {
+              messages.insert(0, mess);
+            } else if (!messages
                 .any((mess) => mess.textMessage?.messageId == m.messageId)) {
-              messages.add(Message(textMessage: m, sender: m.sender));
+              messages.add(mess);
             }
           }
           // handle for polls
           else if (decodedMessage['message_type'] == 'poll') {
             final poll = Poll.fromJson(decodedMessage, uid);
+            final mess = Message(poll: poll, sender: poll.sender);
             if (!messages.any((mess) => mess.poll?.pollId == poll.pollId)) {
-              messages.add(Message(poll: poll, sender: poll.sender));
+              messages.add(mess);
             } else {
               doAnimate = false;
               print('poll updation');
               final index = messages
-                  .indexWhere((mess) => mess.poll?.pollId == poll.pollId);
+                  .indexWhere((element) => element.poll?.pollId == poll.pollId);
               if (index != -1) {
-                messages[index] = Message(poll: poll, sender: poll.sender);
+                messages[index] = mess;
                 if (poll.pollId == pollDetail.value.pollId) {
                   pollDetail.value = poll;
                 }
@@ -83,7 +88,7 @@ class ChatController extends GetxController {
           }
 
           update(['chat']);
-          if (doAnimate) {
+          if (decodedMessage['is_load_more'] != true && doAnimate) {
             Timer(
               const Duration(milliseconds: 200),
               () {
@@ -121,6 +126,7 @@ class ChatController extends GetxController {
   /// close channel connection
   void closeConnetion() {
     try {
+      messages.clear();
       channel.sink.close();
       // channel.sink.close(status.goingAway);
     } catch (e) {
@@ -173,10 +179,14 @@ class ChatController extends GetxController {
     if (chatScrollController.offset ==
         chatScrollController.position.minScrollExtent) {
       print('call load more message');
-      // channel.sink.add(jsonEncode({
-      //   "message_type": "load_more",
-      //   "last_message_id": messages.first.messageId
-      // }));
+      channel.sink.add(jsonEncode({
+        "message_type": "load_more",
+        "last_message_id": messages.first.textMessage != null
+            ? (messages.first.textMessage!.messageId ?? '')
+            : messages.first.poll != null
+                ? (messages.first.poll?.messageId ?? '')
+                : ''
+      }));
     }
   }
 }

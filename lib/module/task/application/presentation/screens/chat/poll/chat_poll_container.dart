@@ -250,9 +250,11 @@ class _PollContainerChatState extends State<PollContainerChat> {
                           child: TextField(
                             maxLines: 3,
                             maxLength: 250,
+                            
                             controller: reasonController,
                             style: TextStyle(color: kblack, fontSize: 12.sp),
                             decoration: InputDecoration(
+                              hintText: 'Let us know why ?',
                                 contentPadding: EdgeInsets.zero,
                                 border: InputBorder.none,
                                 suffix: GestureDetector(

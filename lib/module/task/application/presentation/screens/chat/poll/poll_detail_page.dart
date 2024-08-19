@@ -82,7 +82,8 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
               borderRadius: kBorderRadius15,
               border: Border.all(color: neonShade),
               color: kGrayLight),
-          child: Text('Complete Development', style: textHeadStyle1),
+          child:
+              Text(widget.pollAnswer.answerText ?? '', style: textHeadStyle1),
         ),
         adjustHieght(20.h),
         SizedBox(
@@ -140,13 +141,13 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
                             ''),
                       ),
                     ),
-                    adjustHieght(5.h),
-                    Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          '3hrs ago',
-                          style: textThinStyle1.copyWith(color: klightgrey),
-                        ))
+                    // adjustHieght(5.h),
+                    // Align(
+                    //     alignment: Alignment.centerRight,
+                    //     child: Text(
+                    //       '3hrs ago',
+                    //       style: textThinStyle1.copyWith(color: klightgrey),
+                    //     ))
                   ],
                 ),
               ),

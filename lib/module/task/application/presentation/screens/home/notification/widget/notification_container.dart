@@ -2,6 +2,7 @@ import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NotificationCard extends StatelessWidget {
@@ -39,37 +40,35 @@ class NotificationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          const CircleAvatar(
-                            backgroundColor: kred,
-                            radius: 6.0,
-                          ),
-                          adjustWidth(8),
-                          Text(
-                            title ?? 'Task Title',
-                            style: const TextStyle(color: kwhite),
-                          ),
-                        ],
+                      const CircleAvatar(
+                        backgroundColor: kred,
+                        radius: 6.0,
                       ),
-                      // Use timeago to format the DateTime
+                      adjustWidth(8),
+                      Flexible(
+                        child: Text(
+                          title ?? 'Task Title',
+                          style: const TextStyle(color: kwhite),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const Spacer(),
                       Text(
                         createdAtDateTime != null
                             ? timeago.format(createdAtDateTime)
                             : 'Unknown time',
                         style: const TextStyle(
                           color: klightgrey,
-                          fontSize: 12.0,
+                          fontSize: 10.0,
                         ),
                       ),
                     ],
                   ),
-                  adjustHieght(8),
+                  adjustHieght(4),
                   Text(
                     description ?? 'Task Description',
-                    maxLines: 2,
+                    maxLines: 1,
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(color: klightgrey, fontSize: 12.0),
@@ -81,11 +80,10 @@ class NotificationCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       color: kwhite,
-                      fontSize: 16.0,
+                      fontSize: 13.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  adjustHieght(4),
                 ],
               ),
             ),

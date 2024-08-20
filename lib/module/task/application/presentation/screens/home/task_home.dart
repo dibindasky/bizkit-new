@@ -8,12 +8,15 @@ import 'package:bizkit/module/task/application/presentation/screens/home/widgets
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/legends_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_creation_container.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/widgets/tasks_lists.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 class ScreenTaskHome extends StatelessWidget {
   const ScreenTaskHome({super.key});
@@ -57,14 +60,14 @@ class ScreenTaskHome extends StatelessWidget {
               adjustHieght(16.h),
               const TaskCreationContainer(),
               adjustHieght(16.h),
-              const LegendsContainer(),
-              adjustHieght(40.h),
-              TaskContainers(),
-              adjustHieght(70.h),
+              // const LegendsContainer(),
+              const TasksListsWidget(),
+              // TaskContainers(),
+              adjustHieght(30.h),
               Center(
                 child: EventButton(
                   hieght: 40.h,
-                  wdth: 200.w,
+                  wdth: 270.w,
                   text: 'Generate Report',
                   textColr: kblack,
                   onTap: () {

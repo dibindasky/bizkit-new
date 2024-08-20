@@ -18,7 +18,7 @@ class TaskCreationContainer extends StatelessWidget {
           'Task Stats',
           style: TextStyle(
             fontSize: 17,
-            fontWeight: FontWeight.bold,
+            // fontWeight: FontWeight.bold,
           ),
         ),
         EventButton(

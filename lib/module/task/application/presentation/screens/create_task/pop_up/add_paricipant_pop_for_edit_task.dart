@@ -78,11 +78,14 @@ class AddParticipentForTaskEditBottomSheet extends StatelessWidget {
 
                       return ListTile(
                         leading: const CircleAvatar(
-                          backgroundImage: AssetImage(imageDummyAsset),
+                          backgroundImage: AssetImage(personDemoImg),
                         ),
-                        title: Text(user.name ?? 'No Name'),
+                        title: Text(
+                          user.name ?? 'No Name',
+                          style: textThinStyle1.copyWith(fontSize: 14),
+                        ),
                         subtitle: Text(
-                          '${user.email ?? 'No Email'} ',
+                          maskEmail(user.email ?? ''),
                           style: fontPopinsThin.copyWith(
                             fontSize: 10.sp,
                           ),

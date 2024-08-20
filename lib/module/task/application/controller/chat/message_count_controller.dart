@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
@@ -34,10 +33,7 @@ class MessageCountController extends GetxController {
         (data) {
           final unread = UnreadCounts.fromJson(
               jsonDecode(data as String) as Map<String, dynamic>);
-          print('message count :=> ${unread.unreadCounts}');
-          print('message count keys :=> ${unread.unreadCounts?.keys.toList()}');
           for (var k in (unread.unreadCounts?.keys.toList()) ?? []) {
-            print('message count k,v :=> $k : ${unread.unreadCounts?[k] ?? 0}');
             unreadCounts[k] = (unread.unreadCounts?[k] ?? 0).obs;
           }
         },
@@ -67,6 +63,7 @@ class MessageCountController extends GetxController {
     }
   }
 
+  // call socket for the count of all unread messages
   void sendReqForUnread() {
     Timer(const Duration(seconds: 5), () {
       try {
@@ -78,6 +75,7 @@ class MessageCountController extends GetxController {
     });
   }
 
+  // reset the count of the message while opening the chat
   void resetCount({required String id}) {
     if (id == '') return;
     unreadCounts[id] = 0.obs;

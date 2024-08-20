@@ -1,14 +1,17 @@
 import 'package:bizkit/module/task/domain/model/chat/poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/time_expence_message.dart';
 
 class Message {
   TextMessage? textMessage;
   Poll? poll;
+  TimeExpense? timeExpence;
   bool? sender;
 
   Message({
     this.poll,
     this.textMessage,
+    this.timeExpence,
     this.sender,
   });
 
@@ -17,7 +20,8 @@ class Message {
     return {
       'text_message': textMessage?.toJson(),
       'poll': poll?.toJson(),
-      'sender': sender
+      'time_expence': timeExpence?.toJson(),
+      'sender': sender,
     };
   }
 
@@ -29,6 +33,9 @@ class Message {
             : null,
         poll: json['poll'] != null
             ? Poll.fromJson(json['poll'] as Map<String, dynamic>)
+            : null,
+        timeExpence: json['time_expence'] != null
+            ? TimeExpense.fromJson(json['time_expence'] as Map<String, dynamic>)
             : null,
         sender: false);
   }

@@ -6,6 +6,8 @@ import 'package:bizkit/module/task/domain/model/chat/create_poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/time_expence_creation.dart';
+import 'package:bizkit/module/task/domain/model/chat/time_expence_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
@@ -84,6 +86,15 @@ class ChatController extends GetxController {
                   pollDetail.value = poll;
                 }
               }
+            }
+          }
+          // handle for expence and time
+          else if (decodedMessage['message_type'] == 'time_expense') {
+            final m = TimeExpense.fromJson(decodedMessage, uid);
+            final mess = Message(timeExpence: m, sender: m.sender);
+            if (!messages
+                .any((mess) => mess.textMessage?.messageId == m.messageId)) {
+              messages.add(mess);
             }
           }
 
@@ -179,14 +190,26 @@ class ChatController extends GetxController {
     if (chatScrollController.offset ==
         chatScrollController.position.minScrollExtent) {
       print('call load more message');
-      channel.sink.add(jsonEncode({
-        "message_type": "load_more",
-        "last_message_id": messages.first.textMessage != null
-            ? (messages.first.textMessage!.messageId ?? '')
-            : messages.first.poll != null
-                ? (messages.first.poll?.messageId ?? '')
-                : ''
-      }));
+      channel.sink.add(
+        jsonEncode({
+          "message_type": "load_more",
+          "last_message_id": messages.first.textMessage != null
+              ? (messages.first.textMessage!.messageId ?? '')
+              : messages.first.poll != null
+                  ? (messages.first.poll?.messageId ?? '')
+                  : ''
+        }),
+      );
+    }
+  }
+
+  // create time and expence chat
+  void addTimeExpence({required TimeExpenseUpdation timeExpenceUpdation}) {
+    try {
+      channel.sink.add(jsonEncode(timeExpenceUpdation.toJson()));
+    } catch (e) {
+      print('Failed to update time and expence: $e');
+      _error = 'Failed to update time and expence: $e';
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/time_expence/expence_time_creation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -29,15 +30,21 @@ class AttachmentsChatDialog extends StatelessWidget {
                 kHeight10,
                 AttachmentTile(
                     iconData: Icons.camera_alt_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                    },
                     text: 'Camera'),
                 AttachmentTile(
                     iconData: Icons.photo_size_select_actual_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                    },
                     text: 'Photo & Video Library'),
                 AttachmentTile(
                     iconData: Icons.file_present_outlined,
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                    },
                     text: 'Document'),
                 AttachmentTile(
                     iconData: Icons.poll_outlined,
@@ -48,11 +55,22 @@ class AttachmentsChatDialog extends StatelessWidget {
                     },
                     text: 'Poll'),
                 AttachmentTile(
-                    iconData: Icons.alarm, onTap: () {}, text: 'Update Time'),
+                    iconData: Icons.alarm,
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                      showDialog(
+                        context: context,
+                        builder: (context) =>
+                            const Dialog(child: TimeExpenceCreation()),
+                      );
+                    },
+                    text: 'Update Time/Expence'),
                 AttachmentTile(
                     iconData: Icons.location_on_outlined,
-                    onTap: () {},
-                    text: 'Location'),
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                    },
+                    text: 'Current Location'),
                 // AttachmentTile(
                 //     iconData: Icons.contact_page_outlined,
                 //     onTap: () {},

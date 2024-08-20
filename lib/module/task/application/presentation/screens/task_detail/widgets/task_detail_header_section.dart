@@ -31,9 +31,11 @@ class TaskDetailHeaderSection extends StatelessWidget {
             Row(
               children: [
                 kWidth5,
-                GestureDetector(onTap: (){
-                  GoRouter.of(context).pop();
-                },child: const Icon(Icons.arrow_back_ios)),
+                GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                    },
+                    child: const Icon(Icons.arrow_back_ios)),
                 Obx(
                   () => taskController.isLoading.value
                       ? Padding(
@@ -53,7 +55,6 @@ class TaskDetailHeaderSection extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 8.h),
             Obx(
               () => Text(
                 maxLines: 1,
@@ -97,13 +98,14 @@ class TaskDetailHeaderSection extends StatelessWidget {
                       GoRouter.of(context).push(
                         Routes.taskChatScreen,
                       );
-                      messageCountController.resetCount(id:taskController.singleTask.value.id??'');
+                      messageCountController.resetCount(
+                          id: taskController.singleTask.value.id ?? '');
                     },
                   ),
                 ),
                 Obx(() {
                   final count = messageCountController
-                      .unreadCounts[taskController.singleTask.value.id];
+                      .unreadCounts[taskController.singleTask.value.id ?? ''];
                   if (count == null || count.value == 0) return kempty;
                   return Positioned(
                     right: 0,

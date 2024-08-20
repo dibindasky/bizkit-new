@@ -2,7 +2,8 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
-import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_bubble.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/chat_bubble/chat_bubble.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/time_expence/time_expence_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_text_field.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -122,6 +123,11 @@ class ScreenTaskChat extends StatelessWidget {
                                 if (message.poll != null) {
                                   return PollContainerChat(
                                       message: message.poll!);
+                                }
+                                if (message.timeExpence != null) {
+                                  return TimeAndExpenseCard(
+                                    message: message.timeExpence!,
+                                  );
                                 }
                                 return kempty;
                               },

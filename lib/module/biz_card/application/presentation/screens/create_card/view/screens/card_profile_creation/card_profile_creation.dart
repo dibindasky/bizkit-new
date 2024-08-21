@@ -1,24 +1,14 @@
 import 'dart:convert';
 
-import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
-import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
-import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/extracted_text_model/extracted_text_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 class ScreenCardProfileCreation extends StatefulWidget {
   const ScreenCardProfileCreation({super.key});

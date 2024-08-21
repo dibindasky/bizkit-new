@@ -1,5 +1,4 @@
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
-import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';

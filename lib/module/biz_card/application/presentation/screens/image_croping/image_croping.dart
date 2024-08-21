@@ -2,13 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Croper extends StatefulWidget {
   const Croper({super.key, this.imageToCrop});

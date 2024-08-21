@@ -1,8 +1,6 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
-import 'package:bizkit/utils/constants/contants.dart';
-
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/copy_clipboard/copy_clipboard.dart';
 import 'package:flutter/material.dart';
 

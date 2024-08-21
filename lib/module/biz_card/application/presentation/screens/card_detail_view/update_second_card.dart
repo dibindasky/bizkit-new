@@ -1,22 +1,16 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
-import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/image_picker/image_picker.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
-import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
-import 'package:bizkit/module/biz_card/domain/model/card_second/add_selfie_model/add_selfie_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/card_second/get_all_second_card_model/seond_card_new.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_second/get_second_card_model/selfie.dart';
+import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
+import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardSecondUpdation extends StatefulWidget {

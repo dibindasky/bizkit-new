@@ -1,10 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:convert';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/archieved_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/deleted_cards.dart';
@@ -12,15 +9,9 @@ import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storag
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/utils/shimmier/shimmer.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 

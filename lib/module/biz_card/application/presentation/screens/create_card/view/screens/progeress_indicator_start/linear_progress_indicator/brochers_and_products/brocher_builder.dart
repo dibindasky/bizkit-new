@@ -1,12 +1,10 @@
 import 'dart:convert';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
+
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brochure_adding_screen.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pdf_render/pdf_render_widgets.dart';
 
 class BrocherBuilder extends StatelessWidget {

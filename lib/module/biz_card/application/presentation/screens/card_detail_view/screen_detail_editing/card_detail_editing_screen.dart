@@ -1,18 +1,13 @@
-import 'package:bizkit/core/model/search_query/search_query.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/screen_detail_editing/widgets/company_banking_tiles.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/screen_detail_editing/widgets/company_search_add_popup.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 ValueNotifier<int> companySearchNotifier = ValueNotifier<int>(2);
 

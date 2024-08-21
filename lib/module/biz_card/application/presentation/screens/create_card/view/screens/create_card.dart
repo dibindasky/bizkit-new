@@ -1,11 +1,9 @@
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/picked_scanning_cards/picked_scanning_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/card_uploading_showdailogue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 

@@ -1,10 +1,7 @@
-import 'dart:async';
 import 'dart:convert';
 
-import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
 import 'package:flutter/material.dart';
 
 class ScreenAchivementDetail extends StatefulWidget {

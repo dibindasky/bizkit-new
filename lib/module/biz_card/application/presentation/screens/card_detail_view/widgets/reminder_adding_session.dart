@@ -1,11 +1,5 @@
-import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_screen.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/domain/model/connections/create_connection_with_card_id_model/create_connection_with_card_id_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardViewAddReminderContainer extends StatelessWidget {
   const CardViewAddReminderContainer({super.key});

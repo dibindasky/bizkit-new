@@ -1,9 +1,6 @@
-import 'package:bizkit/module/biz_card/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MeetingDetailHistoryLogTabBuilder extends StatelessWidget {

@@ -1,14 +1,10 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_without_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/intl/intl_date_formater.dart';
-import 'package:bizkit/module/biz_card/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReminderTile extends StatelessWidget {

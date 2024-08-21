@@ -1,13 +1,11 @@
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brocers_and_products.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/business_details/business_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/company_and_bankdetails.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/logo_story.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/personal_detail_screen.dart';
 import 'package:bizkit/utils/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brocers_and_products.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LinearProgressIndicatorStarting extends StatefulWidget {
   const LinearProgressIndicatorStarting({Key? key, this.index})

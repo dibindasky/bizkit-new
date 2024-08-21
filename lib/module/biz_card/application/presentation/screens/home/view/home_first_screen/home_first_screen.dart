@@ -1,16 +1,11 @@
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/qr/qr_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/home_first_app_bar.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections_home_page.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_cards_and_add_card.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections_home_page.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/second_half_section/home_screen_second_part.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/home_second_screen.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 

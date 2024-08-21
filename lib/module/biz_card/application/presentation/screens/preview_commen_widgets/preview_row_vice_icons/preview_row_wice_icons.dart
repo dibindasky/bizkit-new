@@ -1,6 +1,3 @@
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_vice_accounts_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -8,7 +5,6 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PreviewRowWiceIcons extends StatelessWidget {
   const PreviewRowWiceIcons({super.key, required this.fromPreview});

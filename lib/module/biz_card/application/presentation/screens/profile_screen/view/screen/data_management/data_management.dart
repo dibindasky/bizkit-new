@@ -1,12 +1,9 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/archieved_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/deleted_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/widgets/tile_item.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DataManagement extends StatelessWidget {
   const DataManagement({super.key});

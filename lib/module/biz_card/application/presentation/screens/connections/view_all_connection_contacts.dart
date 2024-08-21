@@ -1,6 +1,5 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/bizkit_connection_tab.dart';

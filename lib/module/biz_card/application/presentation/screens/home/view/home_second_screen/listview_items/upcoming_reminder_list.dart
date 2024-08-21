@@ -1,12 +1,6 @@
-import 'package:bizkit/module/biz_card/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/listview_items/reminder_tile.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/utils/shimmier/shimmer.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SecondAnimationPageListViewUpcomingReminders extends StatefulWidget {
   SecondAnimationPageListViewUpcomingReminders({

@@ -1,20 +1,22 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:bizkit/core/model/token/token_model.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
-import 'package:bizkit/module/biz_card/domain/repository/service/auth_repo.dart';
-import 'package:bizkit/module/biz_card/domain/repository/sqflite/user_local_repo.dart';
-import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/module/biz_card/domain/model/auth/login_model/login_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/auth/login_response_model/login_response_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/user/user.dart';
+import 'package:bizkit/module/biz_card/domain/repository/service/auth_repo.dart';
+import 'package:bizkit/module/biz_card/domain/repository/sqflite/user_local_repo.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+
+part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
-part 'auth_bloc.freezed.dart';
 
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {

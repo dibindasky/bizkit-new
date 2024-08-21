@@ -7,7 +7,7 @@ class AttendenceCalenderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SafeArea(
+      body: const SafeArea(
         child: Center(child: Text('Attendence Calender Screen')),
       ),
     );

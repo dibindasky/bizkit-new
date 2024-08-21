@@ -2,7 +2,6 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/bizcard.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/get_all_cards.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card_repo.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart' as mat;

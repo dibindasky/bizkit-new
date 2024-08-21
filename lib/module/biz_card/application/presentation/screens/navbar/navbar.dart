@@ -1,12 +1,11 @@
 import 'package:bizkit/module/biz_card/application/business_logic/cubit/nav_cubit.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/promt/promt_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/widgets/prompt.dart';
-import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/widgets/prompt.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/profile_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/visiting_screen.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';

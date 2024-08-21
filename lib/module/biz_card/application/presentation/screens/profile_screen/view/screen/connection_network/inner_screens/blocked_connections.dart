@@ -1,17 +1,9 @@
 import 'dart:convert';
-import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
+
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
-import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:bizkit/module/biz_card/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class CardBlockedConnections extends StatefulWidget {
   const CardBlockedConnections({super.key});

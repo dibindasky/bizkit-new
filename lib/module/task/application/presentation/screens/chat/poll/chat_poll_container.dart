@@ -105,8 +105,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                     color: kblack.withOpacity(0.1),
                     borderRadius: kBorderRadius5),
                 child: Text(widget.message.pollQuestion ?? '',
-                    style: textHeadStyle1.copyWith(
-                        color: sender ? kblack : kwhite)),
+                    style: textHeadStyle1.copyWith(color: kwhite)),
               ),
               adjustHieght(2.h),
               ListView(
@@ -183,8 +182,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                   : null,
                               child: Text(
                                 answer?.answerText ?? '',
-                                style: textStyle1.copyWith(
-                                    color: sender ? kblack : kwhite),
+                                style: textStyle1.copyWith(color: kwhite),
                               ),
                             ),
                           ),

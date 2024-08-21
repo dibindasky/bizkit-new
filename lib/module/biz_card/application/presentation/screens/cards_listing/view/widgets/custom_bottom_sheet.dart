@@ -1,6 +1,6 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/card_sharing_qr.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/get_card_response/card_response.dart'
     as c;

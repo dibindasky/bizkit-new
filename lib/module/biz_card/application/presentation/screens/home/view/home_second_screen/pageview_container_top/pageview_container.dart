@@ -61,7 +61,7 @@ class _CardTodaysRemiderBuilderState extends State<CardTodaysRemiderBuilder> {
                 widget.fadeCallBack();
               },
               child: Container(
-                padding: EdgeInsets.only(bottom: 10.h),
+                padding: EdgeInsets.only(bottom: 6.h),
                 decoration: BoxDecoration(
                   border: Border.all(color: neonShade, width: 2),
                   borderRadius: BorderRadius.circular(10),

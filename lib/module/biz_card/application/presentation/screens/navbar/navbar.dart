@@ -6,12 +6,13 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/profile_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/selfie_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/visiting_screen.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class CardBottomNavigationBar extends StatefulWidget {
@@ -24,11 +25,11 @@ class CardBottomNavigationBar extends StatefulWidget {
 
 class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
   final List<Widget> _widgetOptions = [
-    ScreenModuleSelector(),
-    const ScreenCardHomeFirstAnimation(),
+    //ScreenModuleSelector(),
+    const ScreenCardsHomeFirstAnimation(),
     const ScreenCardsLists(),
     const ScreenCardSelfie(),
-    //const ProfileScreen()
+    const ProfileScreen()
   ];
   int slectedtabIndex = 0;
 
@@ -141,7 +142,7 @@ class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
                 builder: (context) => Stack(
                   children: [
                     _widgetOptions.elementAt(state.slectedtabIndex),
-                    CardPromptHomePage(showPrompt: state.slectedtabIndex == 1)
+                    CardPromptHomePage(showPrompt: state.slectedtabIndex == 0)
                   ],
                 ),
               ),
@@ -155,40 +156,49 @@ class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
                 backgroundColor: backgroundColour,
                 selectedIndex: state.slectedtabIndex,
                 items: [
-                  BottomBarItem(
-                    iconBuilder: (color) => Image.asset(
-                      iconModuleSelectorBottomBar,
-                      fit: BoxFit.cover,
-                      color: state.slectedtabIndex == 0 ? neonShade : color,
-                      height: state.slectedtabIndex == 0 ? 36 : 30,
-                      width: state.slectedtabIndex == 0 ? 36 : 30,
-                    ),
-                  ),
+                  // BottomBarItem(
+                  //   iconBuilder: (color) => Image.asset(
+                  //     iconModuleSelectorBottomBar,
+                  //     fit: BoxFit.cover,
+                  //     color: state.slectedtabIndex == 0 ? neonShade : color,
+                  //     height: state.slectedtabIndex == 0 ? 36 : 30,
+                  //     width: state.slectedtabIndex == 0 ? 36 : 30,
+                  //   ),
+                  // ),
                   BottomBarItem(
                     iconBuilder: (color) => Image.asset(
                       cardIconHomeBottomBar,
                       fit: BoxFit.cover,
-                      color: state.slectedtabIndex == 1 ? neonShade : color,
-                      height: state.slectedtabIndex == 1 ? 32 : 26,
-                      width: state.slectedtabIndex == 1 ? 32 : 26,
+                      color: state.slectedtabIndex == 0 ? neonShade : color,
+                      height: state.slectedtabIndex == 0 ? 32 : 26,
+                      width: state.slectedtabIndex == 0 ? 32 : 26,
                     ),
                   ),
                   BottomBarItem(
                     iconBuilder: (color) => Image.asset(
                       cardIconcardIcon,
                       fit: BoxFit.cover,
-                      color: state.slectedtabIndex == 2 ? neonShade : color,
-                      height: state.slectedtabIndex == 2 ? 27 : 22,
-                      width: state.slectedtabIndex == 2 ? 27 : 22,
+                      color: state.slectedtabIndex == 1 ? neonShade : color,
+                      height: state.slectedtabIndex == 1 ? 27 : 22,
+                      width: state.slectedtabIndex == 1 ? 27 : 22,
                     ),
                   ),
                   BottomBarItem(
                     iconBuilder: (color) => Image.asset(
                       iconScannerBottombar,
                       fit: BoxFit.cover,
+                      color: state.slectedtabIndex == 2 ? neonShade : color,
+                      height: state.slectedtabIndex == 2 ? 26 : 20,
+                      width: state.slectedtabIndex == 2 ? 26 : 20,
+                    ),
+                  ),
+                  BottomBarItem(
+                    iconBuilder: (color) => Image.asset(
+                      iconAccountBottomBar,
+                      fit: BoxFit.cover,
                       color: state.slectedtabIndex == 3 ? neonShade : color,
-                      height: state.slectedtabIndex == 3 ? 26 : 20,
-                      width: state.slectedtabIndex == 3 ? 26 : 20,
+                      height: state.slectedtabIndex == 3 ? 32.w : 26.w,
+                      width: state.slectedtabIndex == 3 ? 32.w : 26.w,
                     ),
                   ),
                 ],

@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/qr/qr_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/privacy_security/inner_screens/level_sharing_settings.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/level_sharing.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,15 +24,14 @@ class ScreenCardSharing extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 18,
-            color: kwhite,
-          ),
-        ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              size: 18,
+              color: kwhite,
+            )),
         backgroundColor: knill,
         title: Text(
           'QR Code',
@@ -40,12 +39,11 @@ class ScreenCardSharing extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.of(context)
-                  .push(cardFadePageRoute(const CardDefaultLevelSharing()));
-            },
-            icon: const Icon(Icons.ios_share_rounded),
-          )
+              onPressed: () {
+                Navigator.of(context)
+                    .push(cardFadePageRoute(const CardDefaultLevelSharing()));
+              },
+              icon: const Icon(Icons.ios_share_rounded))
         ],
       ),
       body: SingleChildScrollView(
@@ -53,41 +51,35 @@ class ScreenCardSharing extends StatelessWidget {
           children: [
             SizedBox(
               height: 70.dm,
-              child: ListView.separated(
+              child: ListView.builder(
                 itemCount: 3,
-                separatorBuilder: (context, index) => adjustWidth(20),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.only(),
+                  padding: EdgeInsets.only(left: 7.w),
                   child: InkWell(
                     onTap: () {
                       // context
                       //     .read<QrBloc>()
                       //     .add(QrEvent.changeQRSelection(index: index));
                     },
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: neonShade, width: 5),
-                          ),
-                          height: 50.dm,
-                          width: 50.dm,
-                          child: Image.memory(
-                            base64.decode(imageTestingBase64.startsWith('data')
-                                ? imageTestingBase64.substring(22)
-                                : imageTestingBase64),
-                            fit: BoxFit.cover,
-                          ),
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: neonShade, width: 3),
                         ),
-                        Text(
-                          'CARD ${index + 1}',
-                          style: const TextStyle(color: kwhite),
+                        height: 50.dm,
+                        width: 50.dm,
+                        child: Image.memory(
+                          base64.decode(imageTestingBase64.substring(22)),
+                          fit: BoxFit.cover,
                         ),
-                      ],
-                    ),
+                      ),
+                      Text(
+                        'CARD ${index + 1}',
+                        style: const TextStyle(color: kwhite),
+                      ),
+                    ]),
                   ),
                 ),
               ),
@@ -98,8 +90,8 @@ class ScreenCardSharing extends StatelessWidget {
               height: 250.dm,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  'asset/dev/QR_code_for_mobile_English_Wikipedia.svg.png', // Remove prefix
+                child: Image.memory(
+                  base64Decode(imageTestingBase64.substring(22)),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -149,7 +141,7 @@ class ScreenCardSharing extends StatelessWidget {
                     ),
                   ),
                 ),
-                kHeight10,
+                kHeight5,
                 Container(
                     width: 300.dm,
                     decoration: BoxDecoration(

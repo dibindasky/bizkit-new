@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/card_detail_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_screen.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -16,88 +16,92 @@ class SecondScreenPageViewContents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+    return Stack(
       children: [
-        kHeight10,
-        Row(
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            kWidth10,
-            CircleAvatar(
-              radius: 32,
-              backgroundColor: neonShade,
-              child: ClipOval(
-                child: CircleAvatar(
-                    backgroundColor: kgrey,
-                    radius: 25.w,
-                    //  reminder != null &&
-                    //         reminder!.image != null &&
-                    //         reminder!.image!.isNotEmpty
-                    child: Image.memory(
-                      base64Decode(
-                        imageTestingBase64.startsWith('data')
-                            ? imageTestingBase64.substring(22)
-                            : imageTestingBase64,
-                      ),
-                      fit: BoxFit.cover,
-                    )),
-              ),
-            ),
-            kWidth20,
-            Expanded(
-              child: Text(
-                'Meeting lebel',
-                overflow: TextOverflow.clip,
-                style: TextStyle(
-                  fontSize: kwidth * .047,
-                  fontWeight: FontWeight.w700,
+            kHeight10,
+            Row(
+              children: [
+                kWidth10,
+                CircleAvatar(
+                  radius: 32,
+                  backgroundColor: neonShade,
+                  child: ClipOval(
+                    child: CircleAvatar(
+                        backgroundColor: kgrey,
+                        radius: 25.w,
+                        //  reminder != null &&
+                        //         reminder!.image != null &&
+                        //         reminder!.image!.isNotEmpty
+                        child: Image.memory(
+                          base64Decode(
+                            imageTestingBase64.startsWith('data')
+                                ? imageTestingBase64.substring(22)
+                                : imageTestingBase64,
+                          ),
+                          fit: BoxFit.cover,
+                        )),
+                  ),
                 ),
-              ),
-            ),
-          ],
-        ),
-        kHeight20,
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildTextRow('Name', 'Febin'),
-              buildTextRow('Venue', 'Wayanad'),
-              buildTextRow('Created', '22/08.202'),
-              buildTextRow('Occation', 'Padinjarathara'),
-            ],
-          ),
-        ),
-        kHeight20,
-        Row(
-          children: [
-            kWidth10,
-            buildButton(
-              borderRadius: kBorderRadius10,
-              backgroundColor: neonShade,
-              text: 'View card',
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ScreenCardDetailView(),
+                kWidth20,
+                Expanded(
+                  child: Text(
+                    'Meeting lebel',
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(
+                      fontSize: kwidth * .047,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
+              ],
+            ),
+            kHeight20,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildTextRow('Name', 'Febin'),
+                  buildTextRow('Venue', 'Wayanad'),
+                  buildTextRow('Created', '22/08/2022'),
+                  buildTextRow('Occation', 'Padinjarathara'),
+                ],
               ),
             ),
-            kWidth5,
-            buildButton(
-              borderRadius: kBorderRadius10,
-              border: Border.all(color: neonShade),
-              text: 'Postpone',
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ScreenCardReminderCreating(reminder: Reminders()),
+            kHeight20,
+            Row(
+              children: [
+                kWidth10,
+                buildButton(
+                  borderRadius: kBorderRadius10,
+                  backgroundColor: neonShade,
+                  text: 'View card',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ScreenCardDetailView(),
+                    ),
+                  ),
                 ),
-              ),
+                kWidth5,
+                buildButton(
+                  borderRadius: kBorderRadius10,
+                  border: Border.all(color: neonShade),
+                  text: 'Postpone',
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ScreenCardReminderCreating(reminder: Reminders()),
+                    ),
+                  ),
+                ),
+                kWidth10
+              ],
             ),
-            kWidth10
           ],
         ),
       ],

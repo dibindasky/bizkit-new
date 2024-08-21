@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:alphabet_scroll_view/alphabet_scroll_view.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/contacts/contacts_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/card_detail_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';

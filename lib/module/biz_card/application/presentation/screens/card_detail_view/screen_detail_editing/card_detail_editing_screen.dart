@@ -1,8 +1,8 @@
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/screen_detail_editing/widgets/company_banking_tiles.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/screen_detail_editing/widgets/company_search_add_popup.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/screen_detail_editing/widgets/company_banking_tiles.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/screen_detail_editing/widgets/company_search_add_popup.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';

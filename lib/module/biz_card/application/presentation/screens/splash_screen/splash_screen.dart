@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/auth/login/auth_bloc.dart';
-import 'package:bizkit/service/firebase_api/firebase_messaging.dart';
+import 'package:bizkit/service/firebase_notification_api/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -57,6 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
       } else if (!isOnbaordSkip) {
         GoRouter.of(context).pushReplacementNamed(Routes.onBoardingBizCard);
       }
+
       //GoRouter.of(context).pushReplacementNamed(Routes.onBoarding);
       // GoRouter.of(context)
       //     .pushReplacementNamed(!toLogin ? Routes.loginPage : Routes.homePage);

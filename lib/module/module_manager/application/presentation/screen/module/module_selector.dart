@@ -22,12 +22,14 @@ class ScreenModuleSelector extends StatelessWidget {
     'https://via.placeholder.com/50',
     'https://via.placeholder.com/50'
   ];
+
   final List color = [
     neonShadeGradientTopToBottom,
     whiteShadeGradient,
     blackShadeGradient
   ];
-  final List height = [200.h, 160.h, 160.h];
+
+  final List height = [200.h, 170.h, 165.h];
 
   @override
   Widget build(BuildContext context) {

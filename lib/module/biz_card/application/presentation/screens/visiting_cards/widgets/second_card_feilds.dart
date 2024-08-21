@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/selfie_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/visiting_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';

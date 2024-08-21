@@ -1,11 +1,11 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/qr_scanner_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/qr_scanner_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/card_sharing_qr.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -101,8 +101,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ScreenCardSharing(),
-                      ),
+                          builder: (context) => const ScreenCardSharing()),
                     ),
                     child: CustomShowCaseView(
                       description: '',
@@ -196,37 +195,29 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   scannerButton(image: buttons[leftButton], left: true),
-                  InkWell(
-                    splashColor: neonShade,
-                    onTap: () {},
-                    customBorder: const CircleBorder(),
-                    child: FadeTransition(
-                      opacity: _controller,
-                      child: Container(
-                        padding: const EdgeInsets.all(35),
-                        width: kwidth * 0.28,
-                        height: kwidth * 0.28,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(kwidth * 0.2),
-                          ),
+                  FadeTransition(
+                    opacity: _controller,
+                    child: Container(
+                      padding: const EdgeInsets.all(35),
+                      width: kwidth * 0.28,
+                      height: kwidth * 0.28,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(kwidth * 0.2)),
                           image: const DecorationImage(
-                            image: AssetImage(
-                              'asset/images/cameraSelectBackground.png',
-                            ),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        child: Image.asset(
-                          centerButtons[indexofButton],
-                        ),
+                              image: AssetImage(
+                                'asset/images/cameraSelectBackground.png',
+                              ),
+                              fit: BoxFit.contain)),
+                      child: Image.asset(
+                        centerButtons[indexofButton],
                       ),
                     ),
                   ),
                   scannerButton(image: buttons[rightButton], left: false)
                 ],
               ),
-              adjustHieght(khieght * 0.05)
+              kHeight10
             ],
           ),
         ),

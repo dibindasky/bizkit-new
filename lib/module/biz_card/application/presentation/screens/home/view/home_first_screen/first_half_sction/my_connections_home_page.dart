@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/card_detail_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/view_all_connection_contacts.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
@@ -88,10 +88,8 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 15),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        cardFadePageRoute(const ScreenCardAddConnections()),
-                      );
+                      Navigator.push(context,
+                          cardFadePageRoute(const ScreenCardAddConnections()));
                     },
                     child: CustomShowCaseView(
                       description: '',

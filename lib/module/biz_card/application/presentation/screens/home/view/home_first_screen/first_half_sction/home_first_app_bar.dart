@@ -1,15 +1,19 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/card_sharing_qr.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
+import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeFirstAppBar extends StatefulWidget {
@@ -34,6 +38,7 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    final authController = Get.find<AuthenticationController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
@@ -42,22 +47,14 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BlocBuilder<ProfileBloc, ProfileState>(
-                  builder: (context, state) {
-                    if (state.profileLoading) {
-                      return const ShimmerLoaderTile(
-                        height: 30,
-                        width: 120,
-                      );
-                    }
-                    return Text(
-                      '${state.userName != null ? state.userName!.length > 15 ? '${state.userName!.substring(0, 15)}..' : state.userName : ''}',
-                      style: custumText(
-                        fontSize: kwidth * 0.05,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    );
-                  },
+                Obx(
+                  () => Text(
+                    "Welcome ${authController.userName.value}",
+                    style: TextStyle(
+                      fontSize: 17.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             ),

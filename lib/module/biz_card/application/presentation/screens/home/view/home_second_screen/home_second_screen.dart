@@ -2,7 +2,7 @@ import 'package:bizkit/module/biz_card/application/business_logic/reminder/remin
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/listview_items/history_list_reminders.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/listview_items/upcoming_reminder_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/widgets/appbar_second_third.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/appbar_second_third.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/listview_items/second_animation_all_reminders_list.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/pageview_container_top/pageview_container.dart';

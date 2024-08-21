@@ -164,7 +164,7 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                                         name: nameController.text,
                                         phoneNumber:
                                             '+91${mobileController.text}'));
-                                log('${AuthPostmodel(password: passwordController.text, email: emailIdController.text, name: nameController.text, phoneNumber: '+91${mobileController.text}')}');
+                                //log('${AuthPostmodel(password: passwordController.text, email: emailIdController.text, name: nameController.text, phoneNumber: '+91${mobileController.text}')}');
                                 // context.read<SignUpBloc>().add(
                                 //       SignUpEvent.sendOtp(
                                 //         emailModel: EmailModel(

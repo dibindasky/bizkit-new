@@ -89,7 +89,6 @@ class NotificationCard extends StatelessWidget {
   }
 }
 
-
 //  const CustomStackOnlineDotCircleAvatar(
 //               isChild: false,
 //               backgroundColor: knill,

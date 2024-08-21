@@ -2,9 +2,9 @@ import 'package:bizkit/module/biz_card/application/business_logic/card/card/card
 import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/reminder/reminder_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/widgets/home_first_app_bar.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/my_connections/my_connections_home_page.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/mycards_and_add_card/my_cards_and_add_card.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/home_first_app_bar.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections_home_page.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_cards_and_add_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/second_half_section/home_screen_second_part.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/home_second_screen.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
@@ -26,12 +26,12 @@ final GlobalKey globalKeyViewAllConnections = GlobalKey();
 ValueNotifier<HomeScreensList> showCardsNotifier =
     ValueNotifier(HomeScreensList.first);
 
-class ScreenCardHomeFirstAnimation extends StatefulWidget {
-  const ScreenCardHomeFirstAnimation({super.key});
+class ScreenCardsHomeFirstAnimation extends StatefulWidget {
+  const ScreenCardsHomeFirstAnimation({super.key});
 
   @override
-  State<ScreenCardHomeFirstAnimation> createState() =>
-      _ScreenCardHomeFirstAnimationState();
+  State<ScreenCardsHomeFirstAnimation> createState() =>
+      _ScreenCardsHomeFirstAnimationState();
 }
 
 showFirstScreen() {
@@ -49,8 +49,8 @@ late AnimationController homeFirstAnimationController;
 late AnimationController homeSecondAnimationController;
 late AnimationController homeSecondAnimationController2;
 
-class _ScreenCardHomeFirstAnimationState
-    extends State<ScreenCardHomeFirstAnimation> with TickerProviderStateMixin {
+class _ScreenCardsHomeFirstAnimationState
+    extends State<ScreenCardsHomeFirstAnimation> with TickerProviderStateMixin {
   late Animation<Offset> _slideAnimation;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation2;

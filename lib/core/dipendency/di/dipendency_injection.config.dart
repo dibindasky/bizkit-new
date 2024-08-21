@@ -125,7 +125,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i4.AuthRepo>(() => _i5.AuthService());
     gh.lazySingleton<_i6.CardPatchRepo>(
         () => _i7.CardPatchService(gh<_i3.ApiService>()));
-    gh.lazySingleton<_i8.CardRepo>(() => _i9.CardService(gh<_i3.ApiService>()));
+    gh.lazySingleton<_i8.CardRepo>(() => _i9.CardService());
     gh.lazySingleton<_i10.CardScanningRepo>(() => _i11.CardScanningImpl());
     gh.lazySingleton<_i12.CardSecondRepo>(
         () => _i13.CardSecondService(gh<_i3.ApiService>()));

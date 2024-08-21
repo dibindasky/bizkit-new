@@ -1,7 +1,7 @@
 class ApiEndPoints {
   // static String baseUrl = 'https://bizkit.onrender.com';
-  //static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
-  static String baseUrl = 'https://9jdcxxr1';
+  static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
+  // static String baseUrl = 'https://9jdcxxr1';
 
   // refesh token
   static String refreshUrl = '/token/';
@@ -17,9 +17,12 @@ class ApiEndPoints {
   static String forgottPassword = '/verification/change_password/';
   static String forgottPasswordProfile = '/accounts/password_change/';
 
+  // Card Creation
+  static String card = 'get-bizcards/';
+
   // card
-  static String createCard = '/card/create-card/';
-  static String card = '/card/card-list/';
+  //static String createCard = '/card/create-card/';
+  //static String card = '/card/card-list/';
   static String deleteCard = '/card/get-card/{card_id}/';
   static String defaultCard = '/card/is_default/{card_id}/';
   static String contacts = '/card/registered_contacts/';

@@ -4,11 +4,10 @@ import 'package:bizkit/module/attendence/application/presentation/screens/navbar
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/new_password.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/otp_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/business_card_preview/preview_main_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/card_screen_main.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/card_detail_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/second_card_detail_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/update_second_card.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/second_card_detail_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/update_second_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/create_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/card_view/card_detail_view_deeplink.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/card_profile_creation/card_profile_creation.dart';
@@ -16,8 +15,8 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/create_c
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/selected_card_builder.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
@@ -51,13 +50,14 @@ class GoRouterConfig {
 
 // general routes
   static final generalRoutes = [
-    // splash
+    // Splash
     GoRoute(
       name: Routes.initial,
       path: Routes.initial,
       // builder: (context, state) => const ScreenTaskChat(),
       builder: (context, state) => const ScreenGeneralSplash(),
     ),
+
     // login page
     GoRoute(
       name: Routes.loginPage,
@@ -72,7 +72,7 @@ class GoRouterConfig {
       builder: (context, state) => const ScreenSignUp(),
     ),
 
-    // otp page
+    // Otp page
     GoRoute(
       name: Routes.otpPage,
       path: Routes.otpPage,
@@ -105,18 +105,20 @@ class GoRouterConfig {
 
   // biz card routes
   static final bizcardRoute = [
-    // splash
+    // Splash
     GoRoute(
       name: Routes.initialBizCard,
       path: Routes.initialBizCard,
       builder: (context, state) => const SplashScreen(),
     ),
-    //Onboard
+
+    //On board
     GoRoute(
       name: Routes.onBoardingBizCard,
       path: Routes.onBoardingBizCard,
       builder: (context, state) => const ScreenCardOnBoarding(),
     ),
+
     //New Password
     GoRoute(
       name: Routes.newPasswordScreen,
@@ -126,7 +128,8 @@ class GoRouterConfig {
         return NewPasswordFeild(email: email);
       },
     ),
-    //Otp for password change screen
+
+    // Otp for password change screen
     GoRoute(
       name: Routes.otpScreen,
       path: "${Routes.otpScreen}/:email",
@@ -135,7 +138,7 @@ class GoRouterConfig {
         return ForgottPasswrodOTPScreen(email: email);
       },
     ),
-    // card view
+    // Card view
     GoRoute(
       name: Routes.cardView,
       path: '${Routes.cardView}/:cardId',
@@ -148,7 +151,8 @@ class GoRouterConfig {
         }
       },
     ),
-    //First card detail secreen
+
+    // First card detail secreen
     GoRoute(
       name: Routes.cardDetailView,
       path: Routes.cardDetailView,
@@ -172,6 +176,7 @@ class GoRouterConfig {
         return const ScreenCardSecondDetailView();
       },
     ),
+
     GoRoute(
       name: Routes.linerarProgressBar,
       path: Routes.linerarProgressBar,
@@ -179,6 +184,7 @@ class GoRouterConfig {
         return const LinearProgressIndicatorStarting();
       },
     ),
+
     GoRoute(
       name: Routes.cardListing,
       path: Routes.cardListing,
@@ -186,7 +192,8 @@ class GoRouterConfig {
         return const ScreenCardsLists();
       },
     ),
-    //Card updating
+
+    // Card updating
     GoRoute(
       name: Routes.cardUpdating,
       path: Routes.cardUpdating,
@@ -201,7 +208,7 @@ class GoRouterConfig {
       builder: (context, state) => const ScreenCardProfileCreation(),
     ),
 
-    //Second card creation selected scanned images
+    // Second card creation selected scanned images
     GoRoute(
       name: Routes.selectedCards,
       path: Routes.selectedCards,
@@ -213,7 +220,8 @@ class GoRouterConfig {
       path: Routes.cardCreation,
       builder: (context, state) => const ScreenCardCreationStarting(),
     ),
-    //Second card Creation scanned data fileds
+
+    // Second card Creation scanned data fileds
     GoRoute(
       name: Routes.scanedDataFeilds,
       path: Routes.scanedDataFeilds,
@@ -230,16 +238,13 @@ class GoRouterConfig {
       path: Routes.cardListingboth,
       builder: (context, state) => const ScreenCardsLists(),
     ),
+
     GoRoute(
       name: Routes.bizCardNavbar,
       path: Routes.bizCardNavbar,
       builder: (context, state) => const CardBottomNavigationBar(),
     ),
-    GoRoute(
-      name: Routes.cardCreationPreview,
-      path: Routes.cardCreationPreview,
-      builder: (context, state) => const BusinessCardCreationPreviewScreen(),
-    ),
+
     GoRoute(
       name: Routes.notificationPage,
       path: Routes.notificationPage,
@@ -268,6 +273,7 @@ class GoRouterConfig {
     //     );
     //   },
     // ),
+
     // Tasks Screen
     GoRoute(
       name: Routes.taskLists,

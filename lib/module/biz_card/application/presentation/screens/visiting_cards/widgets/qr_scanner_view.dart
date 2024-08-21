@@ -1,5 +1,5 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_view/card_detail_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';

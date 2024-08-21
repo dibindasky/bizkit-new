@@ -1,7 +1,7 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/selfie_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/selfie_card/widgets/second_card_feilds.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/visiting_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';

@@ -12,8 +12,7 @@ class AuthPostPhoneModel {
   @JsonKey(name: 'email')
   String? email;
 
-  AuthPostPhoneModel(
-      {this.otp, this.phoneNumber, this.name, this.email});
+  AuthPostPhoneModel({this.otp, this.phoneNumber, this.name, this.email});
 
   factory AuthPostPhoneModel.fromJson(Map<String, dynamic> json) {
     return _$AuthPostPhoneModelFromJson(json);

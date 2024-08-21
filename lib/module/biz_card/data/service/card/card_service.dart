@@ -18,6 +18,9 @@ import 'package:bizkit/module/biz_card/domain/model/card/request/request_card_de
 import 'package:bizkit/module/biz_card/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_first/get_views_response_model/get_views_response_model.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/create_card_responce/create_card_responce.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/get_all_cards.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -28,9 +31,9 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: CardRepo)
 @injectable
 class CardService implements CardRepo {
-  final ApiService apiService;
+  final ApiService apiService = ApiService();
 
-  CardService(this.apiService);
+  //CardService(this.apiService);
 
   @override
   Future<Either<Failure, SuccessResponseModel>> cardAction({
@@ -77,26 +80,26 @@ class CardService implements CardRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, SuccessResponseModel>> createCard(
-      {required CardFirstCreationModel cardFirstCreationModel}) async {
-    try {
-      final response = await apiService.post(ApiEndPoints.createCard,
-          data: cardFirstCreationModel.toJson());
-      log('${response.data}', name: 'create data');
-      print('create card ${cardFirstCreationModel.toJson()}');
-      return Right(SuccessResponseModel(message: 'Card created successfully'));
-    } on DioException catch (e) {
-      log('card creation dio error');
-      log(e.toString());
-      log(e.response.toString());
-      return Left(Failure(message: 'Failed to create card'));
-    } catch (e) {
-      log('card creation exception error');
-      log(e.toString());
-      return Left(Failure(message: 'Failed to create card'));
-    }
-  }
+  // @override
+  // Future<Either<Failure, SuccessResponseModel>> createCard(
+  //     {required CardFirstCreationModel cardFirstCreationModel}) async {
+  //   try {
+  //     final response = await apiService.post(ApiEndPoints.card,
+  //         data: cardFirstCreationModel.toJson());
+  //     log('${response.data}', name: 'create data');
+  //     print('create card ${cardFirstCreationModel.toJson()}');
+  //     return Right(SuccessResponseModel(message: 'Card created successfully'));
+  //   } on DioException catch (e) {
+  //     log('card creation dio error');
+  //     log(e.toString());
+  //     log(e.response.toString());
+  //     return Left(Failure(message: 'Failed to create card'));
+  //   } catch (e) {
+  //     log('card creation exception error');
+  //     log(e.toString());
+  //     return Left(Failure(message: 'Failed to create card'));
+  //   }
+  // }
 
   @override
   Future<Either<Failure, PersonalDetails>> patchPersonalDetails(
@@ -374,6 +377,39 @@ class CardService implements CardRepo {
           Failure(message: e.response?.data['error'] ?? 'Failed to request'));
     } catch (e) {
       log('removeCompanyDetailRequest catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetAllCards>> getAllCards() async {
+    try {
+      final responce = await apiService.get(ApiEndPoints.card);
+      log('getAllCards ==>success');
+      return Right(GetAllCards.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getAllCards DioException ${e.response?.statusCode} $e');
+      return Left(
+          Failure(message: e.response?.data['error'] ?? 'Failed to request'));
+    } catch (e) {
+      log('getAllCards catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CreateCardResponce>> createCard(
+      {required CreateCard createCard}) async {
+    try {
+      final responce = await apiService.post(ApiEndPoints.card);
+      log('createCard ==>success');
+      return Right(CreateCardResponce.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('createCard DioException ${e.response?.statusCode} $e');
+      return Left(
+          Failure(message: e.response?.data['error'] ?? 'Failed to request'));
+    } catch (e) {
+      log('createCard catch $e');
       return Left(Failure(message: 'Failed to request'));
     }
   }

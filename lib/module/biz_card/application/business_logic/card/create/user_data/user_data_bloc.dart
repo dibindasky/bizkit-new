@@ -88,20 +88,20 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         hasError: false,
         message: null,
         cardAdded: false));
-    final result = await cardService.createCard(
-        cardFirstCreationModel: event.cardFirstCreationModel);
-    result.fold((l) {
-      return emit(
-          state.copyWith(isLoading: false, hasError: true, message: l.message));
-    }, (r) {
-      SecureStorage.setHasCard(hasCard: true);
-      emit(state.copyWith(
-        isLoading: false,
-        message: r.message,
-        cardAdded: true,
-      ));
-      add(UserDataEvent.clear());
-    });
+    // final result = await cardService.createCard(
+    //     cardFirstCreationModel: event.cardFirstCreationModel);
+    // result.fold((l) {
+    //   return emit(
+    //       state.copyWith(isLoading: false, hasError: true, message: l.message));
+    // }, (r) {
+    //   SecureStorage.setHasCard(hasCard: true);
+    //   emit(state.copyWith(
+    //     isLoading: false,
+    //     message: r.message,
+    //     cardAdded: true,
+    //   ));
+    //   add(UserDataEvent.clear());
+    // });
   }
 
   FutureOr<void> createPersonalData(CreatePersonalData event, emit) async {

@@ -3,9 +3,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class BusinessAndBankingDetailsAddingTiles extends StatelessWidget {
-  const BusinessAndBankingDetailsAddingTiles({
-    super.key,
-  });
+  const BusinessAndBankingDetailsAddingTiles({super.key});
 
   @override
   Widget build(BuildContext context) {

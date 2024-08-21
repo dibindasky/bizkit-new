@@ -16,8 +16,6 @@ import 'package:bizkit/module/biz_card/application/business_logic/contacts/conta
     as _i43;
 import 'package:bizkit/module/biz_card/application/business_logic/profile/profile_bloc.dart'
     as _i45;
-import 'package:bizkit/module/biz_card/application/business_logic/promt/promt_bloc.dart'
-    as _i27;
 import 'package:bizkit/module/biz_card/application/business_logic/qr/qr_bloc.dart'
     as _i46;
 import 'package:bizkit/module/biz_card/application/business_logic/reminder/reminder_bloc.dart'
@@ -122,7 +120,6 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i24.PdfPickerImpl>(() => _i24.PdfPickerImpl());
     gh.lazySingleton<_i25.ProfileRepo>(
         () => _i26.ProfileService(gh<_i3.ApiService>()));
-    gh.factory<_i27.PromtBloc>(() => _i27.PromtBloc());
     gh.lazySingleton<_i28.QrServiceRepo>(
         () => _i29.QRServiceImpl(gh<_i3.ApiService>()));
     gh.lazySingleton<_i30.ReminderRepo>(

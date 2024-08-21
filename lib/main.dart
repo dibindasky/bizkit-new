@@ -7,7 +7,6 @@ import 'package:bizkit/module/biz_card/application/business_logic/contacts/conta
 import 'package:bizkit/module/biz_card/application/business_logic/cubit/nav_cubit.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/profile/profile_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/promt/promt_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/module/module_manager/application/controller/text_style_controller.dart';
@@ -70,7 +69,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<ConnectionRequestBloc>()),
           BlocProvider(create: (context) => getIt<ReminderBloc>()),
           BlocProvider(create: (context) => getIt<ProfileBloc>()),
-          BlocProvider(create: (context) => getIt<PromtBloc>()),
+          //BlocProvider(create: (context) => getIt<PromtBloc>()),
           // BlocProvider(create: (context) => getIt<AdminBloc>()),
         ],
         child: GetMaterialApp.router(

@@ -1,5 +1,4 @@
 import 'package:bizkit/module/biz_card/application/business_logic/cubit/nav_cubit.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/promt/promt_bloc.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
@@ -45,7 +44,7 @@ class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
   @override
   void initState() {
     controller.slectedtabIndex.value = 0;
-    context.read<PromtBloc>().add(const PromtEvent.checkPrompt());
+    //context.read<PromtBloc>().add(const PromtEvent.checkPrompt());
     context.read<NavCubit>().navbarChange(index: 0);
     super.initState();
   }

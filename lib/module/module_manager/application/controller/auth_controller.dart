@@ -174,8 +174,8 @@ class AuthenticationController extends GetxController {
         context.go(Routes.loginPage);
       } else {
         // change this according to the module need to be shown
-        context.go(Routes.taskNavbar);
-        //context.go(Routes.bizCardNavbar);
+        //context.go(Routes.taskNavbar);
+        context.go(Routes.bizCardNavbar);
       }
     });
   }

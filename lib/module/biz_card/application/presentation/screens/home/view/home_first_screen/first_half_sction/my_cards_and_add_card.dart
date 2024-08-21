@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/create_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
@@ -12,6 +15,8 @@ import 'package:bizkit/module/biz_card/application/presentation/widgets/show_cas
 import 'package:bizkit/module/biz_card/domain/model/card/get_card_response/card_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class MyCardsAndAddCardSection extends StatefulWidget {
@@ -30,8 +35,9 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
 
   @override
   Widget build(BuildContext context) {
+    final cardController = Get.put(CardController());
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // context.read<CardBloc>().add(const CardEvent.getCards(call: false));
+      cardController.getAllcards(false);
     });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -43,13 +49,22 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Expanded(
-                  flex: 2,
-                  child: Center(
-                    child: Text('No cards'),
-                  )
-                  //CardPageSlider(cards: []),
-                  ),
+              Obx(
+                () {
+                  if (cardController.isLoading.value) {
+                    return ShimmerLoaderTile(height: 125.w, width: 200.w);
+                  } else if (cardController.bizcards.isEmpty) {
+                    return const Expanded(
+                      flex: 2,
+                      child: Center(
+                        child: Text('No cards'),
+                      ),
+                    );
+                  } else {
+                    return CardPageSlider(bizcards: cardController.bizcards);
+                  }
+                },
+              ),
               adjustWidth(kwidth * .03),
               Expanded(
                 child: GestureDetector(
@@ -99,8 +114,9 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
 }
 
 class CardPageSlider extends StatefulWidget {
-  const CardPageSlider({super.key, required this.cards});
-  final List<CardResponse> cards;
+  const CardPageSlider({super.key, required this.bizcards});
+  // final List<CardResponse> cards;
+  final List<Bizcard> bizcards;
 
   @override
   State<CardPageSlider> createState() => _CardPageSliderState();
@@ -118,11 +134,11 @@ class _CardPageSliderState extends State<CardPageSlider>
     super.initState();
     _pageController = PageController(initialPage: _currentPageIndex);
     _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      if (_currentPageIndex == widget.cards.length - 1 ||
+      if (_currentPageIndex == widget.bizcards.length - 1 ||
           _currentPageIndex == 0) {
         forward = !forward;
       }
-      if (forward && _currentPageIndex < widget.cards.length - 1) {
+      if (forward && _currentPageIndex < widget.bizcards.length - 1) {
         _currentPageIndex++;
       } else if (!forward && _currentPageIndex > 0) {
         _currentPageIndex--;
@@ -137,14 +153,14 @@ class _CardPageSliderState extends State<CardPageSlider>
 
   @override
   void dispose() {
-    // _pageController.dispose();
-    // _timer.cancel();
+    _pageController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    CardResponse data = widget.cards[0];
+    Bizcard data = widget.bizcards[0];
     return SizedBox(
       height: kwidth * 0.35,
       width: kwidth * 0.55,
@@ -153,9 +169,9 @@ class _CardPageSliderState extends State<CardPageSlider>
           _currentPageIndex = value;
         },
         controller: _pageController,
-        itemCount: widget.cards.length,
+        itemCount: widget.bizcards.length,
         itemBuilder: (context, index) {
-          data = widget.cards[index];
+          data = widget.bizcards[index];
           return InkWell(
             onTap: () {
               // final map = data.id != null
@@ -175,9 +191,11 @@ class _CardPageSliderState extends State<CardPageSlider>
                   ),
                   borderRadius: BorderRadius.circular(5),
                   // image: DecorationImage(
-                  //     image: NetworkImage(
-                  //         data.logo ?? imageDummyNetwork),
-                  //     fit: BoxFit.cover)
+                  //     image: MemoryImage(base64Decode(getBase64(
+                  //         data.logo == ''
+                  //             ? imageTestingBase64
+                  //             : data.logo ?? imageTestingBase64))),
+                  //     fit: BoxFit.cover)),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -225,8 +243,10 @@ class _CardPageSliderState extends State<CardPageSlider>
                                 SizedBox(
                                   height: kwidth * 0.10,
                                   width: kwidth * 0.10,
-                                  child: data.logo != null
-                                      ? Image.memory(base64.decode(data.logo!),
+                                  child: data.logo != null && data.logo != ''
+                                      ? Image.memory(
+                                          base64Decode(
+                                              imageTestingBase64.substring(22)),
                                           fit: BoxFit.cover)
                                       : Image.asset(iconBizkitPng,
                                           fit: BoxFit.cover),
@@ -235,7 +255,7 @@ class _CardPageSliderState extends State<CardPageSlider>
                                 data.isDefault ?? false
                                     ? const ClipRRect(
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(5)),
+                                            Radius.circular(3)),
                                         child: ColoredBox(
                                           color: neonShade,
                                           child: Padding(
@@ -266,7 +286,7 @@ class _CardPageSliderState extends State<CardPageSlider>
                             ),
                             adjustHieght(kwidth * 0.03),
                             Text(
-                              '${data.percentage ?? 100} %',
+                              '${data.completionLevel ?? 100} %',
                               style: textStyle1.copyWith(shadows: [
                                 const Shadow(
                                   color: kblack,
@@ -281,8 +301,9 @@ class _CardPageSliderState extends State<CardPageSlider>
                     ),
                     adjustHieght(5),
                     LinearProgressIndicator(
-                      value:
-                          data.percentage == null ? 1 : data.percentage! / 100,
+                      value: data.completionLevel == null
+                          ? 1
+                          : data.completionLevel! / 100,
                       backgroundColor: kgrey,
                       minHeight: 8,
                       borderRadius: BorderRadius.circular(50),

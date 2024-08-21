@@ -152,6 +152,15 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
                         inputType: TextInputType.emailAddress,
                         autocompleteItems: const [],
                       ),
+                      //Company name
+                      AutocompleteTextField(
+                        showDropdownOnTap: true,
+                        validate: Validate.notNull,
+                        label: 'Company Name *',
+                        textCapitalization: TextCapitalization.words,
+                        controller: cardController.companyNameController,
+                        autocompleteItems: const <String>[],
+                      ),
                       // business category
                       AutocompleteTextField(
                           onTap: () =>
@@ -180,39 +189,49 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
                 CardLastSkipContinueButtons(
                   continueText: 'Create Card',
                   onTap: () {
-                    cardController.createCard(context);
+                    if (cardController.emailController.text.isEmpty ||
+                        cardController
+                            .businessCategeryController.text.isEmpty ||
+                        cardController.companyNameController.text.isEmpty ||
+                        cardController.designationController.text.isEmpty ||
+                        cardController.nameController.text.isEmpty ||
+                        cardController.phoneController.text.isEmpty) {
+                      showSnackbar(context,
+                          message: 'Please Fill the Required Feilds');
+                    }
                     // context.push(Routes.bizCardNavbar);
-                    // if (personalDataFirstFormKey.currentState!.validate()) {
-                    // context.read<UserDataBloc>().add(UserDataEvent.createCard(
-                    //     cardFirstCreationModel: CardFirstCreationModel(
-                    //         cardJson: state.scannedImageDatasModel == null
-                    //             ? null
-                    //             : ExtractedTextModel(
-                    //                 designations: state
-                    //                     .scannedImageDatasModel
-                    //                     ?.designations,
-                    //                 emails: state
-                    //                     .scannedImageDatasModel?.emails,
-                    //                 names: state
-                    //                     .scannedImageDatasModel?.names,
-                    //                 phoneNumbers: state
-                    //                     .scannedImageDatasModel?.phone,
-                    //                 websites: state.scannedImageDatasModel
-                    //                     ?.websites),
-                    //         cardImage: state.scannedImagesCardCreation
-                    //             .map((e) => ImageCard(image: e.base64))
-                    //             .toList(),
-                    //         name: context
-                    //             .read<UserDataBloc>()
-                    //             .nameController
-                    //             .text
-                    //             .trim(),
-                    //         designation: context.read<UserDataBloc>().designationController.text.trim(),
-                    //         phoneNumber: context.read<UserDataBloc>().phoneController.text.trim(),
-                    //         email: context.read<UserDataBloc>().emailController.text.trim(),
-                    //         photos: state.userPhotos ?? [],
-                    //         businessCategoryId: state.businessCategories.firstWhere((element) => element.category == context.read<UserDataBloc>().businessCategoryController.text.trim()).id)));
-                    //}
+                    if (personalDataFirstFormKey.currentState!.validate()) {
+                      cardController.createCard(context);
+                      // context.read<UserDataBloc>().add(UserDataEvent.createCard(
+                      //     cardFirstCreationModel: CardFirstCreationModel(
+                      //         cardJson: state.scannedImageDatasModel == null
+                      //             ? null
+                      //             : ExtractedTextModel(
+                      //                 designations: state
+                      //                     .scannedImageDatasModel
+                      //                     ?.designations,
+                      //                 emails: state
+                      //                     .scannedImageDatasModel?.emails,
+                      //                 names: state
+                      //                     .scannedImageDatasModel?.names,
+                      //                 phoneNumbers: state
+                      //                     .scannedImageDatasModel?.phone,
+                      //                 websites: state.scannedImageDatasModel
+                      //                     ?.websites),
+                      //         cardImage: state.scannedImagesCardCreation
+                      //             .map((e) => ImageCard(image: e.base64))
+                      //             .toList(),
+                      //         name: context
+                      //             .read<UserDataBloc>()
+                      //             .nameController
+                      //             .text
+                      //             .trim(),
+                      //         designation: context.read<UserDataBloc>().designationController.text.trim(),
+                      //         phoneNumber: context.read<UserDataBloc>().phoneController.text.trim(),
+                      //         email: context.read<UserDataBloc>().emailController.text.trim(),
+                      //         photos: state.userPhotos ?? [],
+                      //         businessCategoryId: state.businessCategories.firstWhere((element) => element.category == context.read<UserDataBloc>().businessCategoryController.text.trim()).id)));
+                    }
                   },
                 ),
                 adjustHieght(khieght * .02),

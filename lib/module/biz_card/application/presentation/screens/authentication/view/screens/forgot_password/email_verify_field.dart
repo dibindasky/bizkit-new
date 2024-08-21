@@ -32,14 +32,10 @@ class EmailFieldForGottPassword extends StatelessWidget {
             style: TextStyle(fontSize: 16),
           ),
           leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              size: 17,
-            ),
-          ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back_ios, size: 17)),
         ),
         body: Column(
           children: [

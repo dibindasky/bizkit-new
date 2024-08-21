@@ -11,7 +11,7 @@ CompletedSubTask _$CompletedSubTaskFromJson(Map<String, dynamic> json) =>
       taskId: json['task_id'] as String?,
       subTaskId: json['sub_task_id'] as String?,
       isCompleted: json['is_completed'] as bool?,
-      totalTimeTaken: json['total_time_taken'] as String,
+      totalTimeTaken: json['total_time_taken'] as String?,
     );
 
 Map<String, dynamic> _$CompletedSubTaskToJson(CompletedSubTask instance) =>

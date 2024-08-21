@@ -14,6 +14,17 @@ class Bizcard {
   bool? isBusinessEditable;
   @JsonKey(name: 'is_archived')
   bool? isArchived;
+  @JsonKey(name: 'designation')
+  String? designation;
+
+  @JsonKey(name: 'name')
+  String? name;
+
+  @JsonKey(name: 'company_name')
+  String? companyName;
+
+  @JsonKey(name: 'logo')
+  String? logo;
 
   Bizcard({
     this.bizcardId,
@@ -21,6 +32,10 @@ class Bizcard {
     this.isDefault,
     this.isBusinessEditable,
     this.isArchived,
+    this.designation,
+    this.name,
+    this.companyName,
+    this.logo,
   });
 
   factory Bizcard.fromJson(Map<String, dynamic> json) {

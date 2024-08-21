@@ -15,7 +15,6 @@ import 'package:bizkit/module/biz_card/domain/model/card/company/get_business_ca
 import 'package:bizkit/module/biz_card/domain/model/card/company/get_company_response_model/get_companys.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/get_card_response/get_card_response.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/request/request_card_detail_model/request_card_detail_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_first/get_views_response_model/get_views_response_model.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
@@ -381,6 +380,8 @@ class CardService implements CardRepo {
     }
   }
 
+  // New Api Implementation
+
   @override
   Future<Either<Failure, GetAllCards>> getAllCards() async {
     try {
@@ -401,7 +402,8 @@ class CardService implements CardRepo {
   Future<Either<Failure, CreateCardResponce>> createCard(
       {required CreateCard createCard}) async {
     try {
-      final responce = await apiService.post(ApiEndPoints.card);
+      final responce = await apiService.post(ApiEndPoints.cardCreationInital,
+          data: createCard.toJson());
       log('createCard ==>success');
       return Right(CreateCardResponce.fromJson(responce.data));
     } on DioException catch (e) {
@@ -412,5 +414,24 @@ class CardService implements CardRepo {
       log('createCard catch $e');
       return Left(Failure(message: 'Failed to request'));
     }
+  }
+
+  @override
+  Future<Either<Failure, GetAllCards>> getCardDetail(
+      {required String cardId}) async {
+    throw UnimplementedError();
+    //   try {
+    //     final responce = await apiService
+    //         .post(ApiEndPoints.cardCreationInital, data: {'bizcard_id': cardId});
+    //     log('createCard ==>success');
+    //     return Right(CreateCardResponce.fromJson(responce.data));
+    //   } on DioException catch (e) {
+    //     log('createCard DioException ${e.response?.statusCode} $e');
+    //     return Left(
+    //         Failure(message: e.response?.data['error'] ?? 'Failed to request'));
+    //   } catch (e) {
+    //     log('createCard catch $e');
+    //     return Left(Failure(message: 'Failed to request'));
+    //   }
   }
 }

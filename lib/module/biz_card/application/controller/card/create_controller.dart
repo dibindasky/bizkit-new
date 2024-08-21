@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/get_all_cards.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card_repo.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
@@ -12,7 +13,7 @@ import 'package:go_router/go_router.dart';
 class CardController extends GetxController {
   final CardRepo cardRepo = CardService();
 
-  Rx<GetAllCards> cards = GetAllCards().obs;
+  RxList<Bizcard> bizcards = <Bizcard>[].obs;
   RxBool isLoading = false.obs;
 
   final mat.TextEditingController nameController = mat.TextEditingController();
@@ -26,15 +27,6 @@ class CardController extends GetxController {
       mat.TextEditingController();
 
   void createCard(BuildContext context) async {
-    if (emailController.text.isEmpty ||
-        businessCategeryController.text.isEmpty ||
-        companyNameController.text.isEmpty ||
-        designationController.text.isEmpty ||
-        nameController.text.isEmpty ||
-        phoneController.text.isEmpty) {
-      showSnackbar(context, message: 'Please Fill the Required Feilds');
-      return;
-    }
     isLoading.value = true;
     final CreateCard createCard = CreateCard(
         email: emailController.text,
@@ -47,19 +39,21 @@ class CardController extends GetxController {
     data.fold(
       (l) => null,
       (r) {
+        showSnackbar(context, message: 'Card created Successfully');
         context.push(Routes.bizCardNavbar);
-        getAllcards();
+        getAllcards(true);
       },
     );
     isLoading.value = false;
   }
 
-  void getAllcards() async {
+  void getAllcards(bool isLoad) async {
+    if (!isLoad && bizcards.isNotEmpty) return;
     isLoading.value = true;
     final data = await cardRepo.getAllCards();
     data.fold(
-      (l) => null,
-      (r) => cards.value = r,
+      (l) => isLoading.value = false,
+      (r) => bizcards.value = r.bizcards ?? <Bizcard>[],
     );
     isLoading.value = false;
   }

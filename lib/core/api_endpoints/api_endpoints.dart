@@ -18,7 +18,10 @@ class ApiEndPoints {
   static String forgottPasswordProfile = '/accounts/password_change/';
 
   // Card Creation
-  static String card = 'get-bizcards/';
+  static String card = '/get-bizcards/';
+  static String cardCreationInital = '/initial-details/';
+  static String cardDetail = '/get-bizcard-detail/';
+  static String cardCreationPersonalDetails = '/personal-details/';
 
   // card
   //static String createCard = '/card/create-card/';

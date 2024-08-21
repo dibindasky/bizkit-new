@@ -1,6 +1,6 @@
 import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/my_connections/my_connection_inner_second_half_setions/my_connection_detail_second_half_first.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navba.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/my_connections/my_connection_inner_second_half_setions/add_tag/add_tag_screen.dart';
@@ -22,9 +22,9 @@ class CardDetailViewDeeplinkScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (userId != null) {
-        context.read<CardBloc>().add(CardEvent.getCardyUserId(id: userId!));
+        //context.read<CardBloc>().add(CardEvent.getCardyUserId(id: userId!));
       } else if (cardId != null) {
-        context.read<CardBloc>().add(CardEvent.getCardyCardId(id: cardId!));
+        //context.read<CardBloc>().add(CardEvent.getCardyCardId(id: cardId!));
       }
     });
 
@@ -44,23 +44,19 @@ class CardDetailViewDeeplinkScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             leading: IconButton(
-              onPressed: () {
-                Navigator.canPop(context)
-                    ? Navigator.of(context).pop()
-                    : Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const BizkitBottomNavigationBar(),
-                        ),
-                        (route) => false);
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: kwhite,
-                size: 18,
-              ),
-            ),
+                onPressed: () {
+                  Navigator.canPop(context)
+                      ? Navigator.of(context).pop()
+                      : Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const CardBottomNavigationBar(),
+                          ),
+                          (route) => false);
+                },
+                icon:
+                    const Icon(Icons.arrow_back_ios, color: kwhite, size: 18)),
             backgroundColor: knill,
             title: Text(state.anotherCard?.personalDetails?.name ?? 'Name',
                 style: textHeadStyle1),
@@ -123,9 +119,9 @@ class CardDetailViewDeeplinkScreen extends StatelessWidget {
                         images.add(state.anotherCard!.logoCard!.logo!);
                       }
                       return SizedBox(
-                        height: 200,
-                        child: PreviewPageviewImageBuilder(imagesList: images),
-                      );
+                          height: 200,
+                          child:
+                              PreviewPageviewImageBuilder(imagesList: images));
                     },
                   ),
                   // name and designation
@@ -151,7 +147,7 @@ class CardDetailViewDeeplinkScreen extends StatelessWidget {
                     valueListenable: changeScreenNotifier,
                     builder: (context, value, child) {
                       if (value == Changing.first) {
-                        return const MyConnectionDetailScreenSecondHalf();
+                        return const CardMyConnectionDetailScreenSecondHalf();
                       }
                       return AddTagScreen();
                     },

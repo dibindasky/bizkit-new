@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/connecti
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/bizkit_connection_tab.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/contacts_connection_tab.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/blocked_connections.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -62,201 +63,198 @@ class _MyConnectionsViewAllContactsState
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context
-          .read<ConnectionRequestBloc>()
-          .add(const ConnectionRequestEvent.getRequestLists());
+      // context
+      //     .read<ConnectionRequestBloc>()
+      //     .add(const ConnectionRequestEvent.getRequestLists());
     });
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: kwhite,
-            size: 18,
-          ),
-        ),
-        backgroundColor: knill,
-        title: Text(
-          'My Connections',
-          style: textHeadStyle1,
-        ),
-        actions: [
-          // IconButton(
-          //     onPressed: () => Navigator.push(
-          //         context, fadePageRoute(const ScreenAddConnections())),
-          //     icon: const Icon(Icons.add_circle, color: kneonShade)),
-          // adjustWidth(10),
-          InkWell(
-            onTap: () => Navigator.push(
-                context, fadePageRoute(const ScreenConnectionRequests())),
-            child: SizedBox(
-              height: 20,
-              width: 26,
-              child: Stack(
-                children: [
-                  Image.asset(iconConnectionPeople),
-                  BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
-                    builder: (context, state) {
-                      return Positioned(
-                          right: 10,
-                          child: Text(
-                            state.requestList != null &&
-                                    state.requestList!.isNotEmpty
-                                ? state.requestList!.length.toString()
-                                : '0',
-                            style: const TextStyle(color: kblack),
-                          ));
-                    },
-                  )
-                ],
-              ),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: kwhite,
+              size: 18,
             ),
           ),
-          adjustWidth(20)
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          children: [
-            CupertinoTextField(
-              controller: searchController,
-              onChanged: (value) {
-                print('search bar =====================');
-                if (tabNotifier.value == 1) {
-                  context
-                      .read<ContactsBloc>()
-                      .add(ContactsEvent.searchContact(query: value));
-                } else {
-                  // search for bizkit connection
-                  context.read<ConnectionRequestBloc>().add(
-                      ConnectionRequestEvent.getBizkitConnections(
-                          query: value));
-                }
-              },
-              prefix: const Icon(
-                Icons.search,
-                color: kwhite,
-              ),
-              style: const TextStyle(
-                color: kwhite,
-              ),
-              placeholder: 'Search Connection',
-              placeholderStyle: const TextStyle(
-                fontSize: 16,
-                color: klightgrey,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: textFieldFillColr,
-              ),
-              cursorColor: kwhite,
-              suffix: Row(
-                children: [
-                  ValueListenableBuilder(
-                      valueListenable: tabNotifier,
-                      builder: (context, value, _) {
-                        return IconButton(
-                          icon: Icon(value == 0
-                              ? Icons.arrow_circle_right_outlined
-                              : Icons.arrow_circle_left_outlined),
-                          color: kwhite,
-                          onPressed: () {
-                            if (tabNotifier.value == 0) {
-                              tabNotifier.value = 1;
-                              searchController.clear();
-                              tabNotifier.notifyListeners();
-                            } else {
-                              tabNotifier.value = 0;
-                              searchController.clear();
-                              tabNotifier.notifyListeners();
-                            }
-                            context.read<ConnectionRequestBloc>().add(
-                                const ConnectionRequestEvent
-                                    .getBizkitConnections(query: ''));
-                            context.read<ContactsBloc>().add(
-                                const ContactsEvent.searchContact(query: ''));
-                            FocusScope.of(context).unfocus();
-                          },
-                        );
-                      }),
-                ],
+          backgroundColor: knill,
+          title: Text(
+            'My Connections',
+            style: textHeadStyle1,
+          ),
+          actions: [
+            InkWell(
+              onTap: () => Navigator.push(
+                  context, cardFadePageRoute(const ScreenConnectionRequests())),
+              child: SizedBox(
+                height: 20,
+                width: 26,
+                child: Stack(
+                  children: [
+                    Image.asset(iconConnectionPeople),
+                    BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
+                      builder: (context, state) {
+                        return Positioned(
+                            right: 10,
+                            child: Text(
+                              state.requestList != null &&
+                                      state.requestList!.isNotEmpty
+                                  ? state.requestList!.length.toString()
+                                  : '0',
+                              style: const TextStyle(color: kblack),
+                            ));
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
-            adjustHieght(kwidth * .05),
-            ValueListenableBuilder(
-              valueListenable: tabNotifier,
-              builder: (context, value, child) => Row(
-                children: [
-                  Expanded(
-                    child: MaterialButton(
-                      shape: value != 0
-                          ? null
-                          : const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                      onPressed: () {
-                        tabNotifier.value = 0;
-                        searchController.clear();
-                        tabNotifier.notifyListeners();
-                        context.read<ConnectionRequestBloc>().add(
-                            const ConnectionRequestEvent.getBizkitConnections(
-                                query: ''));
-                        context
-                            .read<ContactsBloc>()
-                            .add(const ContactsEvent.searchContact(query: ''));
-                        FocusScope.of(context).unfocus();
-                      },
-                      color: value != 0 ? kgrey : neonShade,
-                      child: const Text('Bizkit Connections'),
-                    ),
-                  ),
-                  Expanded(
-                    child: MaterialButton(
-                      shape: value != 1
-                          ? null
-                          : const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                      onPressed: () {
-                        tabNotifier.value = 1;
-                        searchController.clear();
-                        tabNotifier.notifyListeners();
-                        context.read<ConnectionRequestBloc>().add(
-                            const ConnectionRequestEvent.getBizkitConnections(
-                                query: ''));
-                        context
-                            .read<ContactsBloc>()
-                            .add(const ContactsEvent.searchContact(query: ''));
-                        FocusScope.of(context).unfocus();
-                      },
-                      color: value != 1 ? kgrey : neonShade,
-                      child: const Text('All Contacts'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ValueListenableBuilder(
-              valueListenable: tabNotifier,
-              builder: (context, value, child) => value == 0
-                  ? const BizkitConnectionsTab()
-                  : const ContactConnectionsTab(),
-            )
+            kWidth10,
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      cardFadePageRoute(const CardBlockedConnections()));
+                },
+                icon: const Icon(Icons.block, color: kred)),
+            const SizedBox(width: 3)
           ],
         ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            children: [
+              CupertinoTextField(
+                controller: searchController,
+                onChanged: (value) {
+                  print('search bar =====================');
+                  if (tabNotifier.value == 1) {
+                    // context
+                    //     .read<ContactsBloc>()
+                    //     .add(ContactsEvent.searchContact(query: value));
+                  } else {
+                    // search for bizkit connection
+                    // context.read<ConnectionRequestBloc>().add(
+                    //     ConnectionRequestEvent.getBizkitConnections(
+                    //         query: value));
+                  }
+                },
+                prefix: const Icon(
+                  Icons.search,
+                  color: kwhite,
+                ),
+                style: const TextStyle(
+                  color: kwhite,
+                ),
+                placeholder: 'Search Connection',
+                placeholderStyle: const TextStyle(
+                  fontSize: 16,
+                  color: klightgrey,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: textFieldFillColr,
+                ),
+                cursorColor: kwhite,
+                suffix: Row(
+                  children: [
+                    ValueListenableBuilder(
+                        valueListenable: tabNotifier,
+                        builder: (context, value, _) {
+                          return InkWell(
+                              onTap: () {
+                                if (tabNotifier.value == 0) {
+                                  tabNotifier.value = 1;
+                                  searchController.clear();
+                                  tabNotifier.notifyListeners();
+                                } else {
+                                  tabNotifier.value = 0;
+                                  searchController.clear();
+                                  tabNotifier.notifyListeners();
+                                }
+                                // FocusScope.of(context).unfocus();
+                              },
+                              child: Icon(value == 0
+                                  ? Icons.arrow_circle_right_outlined
+                                  : Icons.arrow_circle_left_outlined));
+                        }),
+                  ],
+                ),
+              ),
+              adjustHieght(kwidth * .05),
+              ValueListenableBuilder(
+                valueListenable: tabNotifier,
+                builder: (context, value, child) => Row(
+                  children: [
+                    Expanded(
+                      child: MaterialButton(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        onPressed: () {
+                          tabNotifier.value = 0;
+                          searchController.clear();
+                          tabNotifier.notifyListeners();
+                          // context.read<ConnectionRequestBloc>().add(
+                          //     const ConnectionRequestEvent.getBizkitConnections(
+                          //         query: ''));
+                          // context
+                          //     .read<ContactsBloc>()
+                          //     .add(const ContactsEvent.searchContact(query: ''));
+                          FocusScope.of(context).unfocus();
+                        },
+                        color: value != 0 ? kgrey : neonShade,
+                        child: const Text('Bizkit Connections'),
+                      ),
+                    ),
+                    kWidth10,
+                    Expanded(
+                      child: MaterialButton(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        onPressed: () {
+                          tabNotifier.value = 1;
+                          searchController.clear();
+                          tabNotifier.notifyListeners();
+                          // context.read<ConnectionRequestBloc>().add(
+                          //     const ConnectionRequestEvent.getBizkitConnections(
+                          //         query: ''));
+                          // context
+                          //     .read<ContactsBloc>()
+                          //     .add(const ContactsEvent.searchContact(query: ''));
+                          FocusScope.of(context).unfocus();
+                        },
+                        color: value != 1 ? kgrey : neonShade,
+                        child: const Text('All Contacts'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ValueListenableBuilder(
+                valueListenable: tabNotifier,
+                builder: (context, value, child) => value == 0
+                    ? const BizkitConnectionsTab()
+                    : const ContactConnectionsTab(),
+              )
+            ],
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: FloatingActionButton(
+            shape: const CircleBorder(),
+            // label: Text('Add Connection',style: textStyle1),
+            // icon: const Icon(Icons.add),
+            onPressed: () => Navigator.push(
+                context, cardFadePageRoute(const ScreenCardAddConnections())),
+            child: const Icon(Icons.add)),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-          shape: const CircleBorder(),
-          // label: Text('Add Connection',style: textStyle1),
-          // icon: const Icon(Icons.add),
-          onPressed: () => Navigator.push(
-              context, fadePageRoute(const ScreenAddConnections())),
-          child: const Icon(Icons.add)),
     );
   }
 }

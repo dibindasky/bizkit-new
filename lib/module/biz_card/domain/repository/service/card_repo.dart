@@ -16,11 +16,14 @@ import 'package:bizkit/module/biz_card/domain/model/card/request/request_card_de
 import 'package:bizkit/module/biz_card/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_first/creation/patch_personal_data/patch_personal_data.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_first/get_views_response_model/get_views_response_model.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/create_card_responce/create_card_responce.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/get_all_cards.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class CardRepo {
-  Future<Either<Failure, SuccessResponseModel>> createCard(
-      {required CardFirstCreationModel cardFirstCreationModel});
+  // Future<Either<Failure, SuccessResponseModel>> createCard(
+  //     {required CardFirstCreationModel cardFirstCreationModel});
   Future<Either<Failure, PersonalDetails>> patchPersonalDetails(
       {required PatchPersonalData patchPersonalData,
       required int personalDataId});
@@ -56,4 +59,8 @@ abstract class CardRepo {
   Future<Either<Failure, ArcheivedCardModel>> archievedCardsList({
     required PageQuery pageQuery,
   });
+
+  Future<Either<Failure, CreateCardResponce>> createCard(
+      {required CreateCard createCard});
+  Future<Either<Failure, GetAllCards>> getAllCards();
 }

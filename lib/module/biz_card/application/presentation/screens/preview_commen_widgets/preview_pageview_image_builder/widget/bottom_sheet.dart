@@ -33,7 +33,7 @@ class PreviewPageViewBottomSheet extends StatelessWidget {
                 height: 250,
                 width: double.infinity,
                 child: memoryImage != null
-                    ? Image.memory(base64.decode(memoryImage!))
+                    ? Image.asset(memoryImage!)
                     : Image.file(image!, fit: BoxFit.cover),
               ),
             ),

@@ -4,8 +4,8 @@ import 'package:bizkit/module/biz_card/domain/model/card/card/brochure/brochure.
 import 'package:bizkit/module/biz_card/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
 
-class BrochersAndProductsTab extends StatelessWidget {
-  const BrochersAndProductsTab({
+class CardBrochursAndProductsTab extends StatelessWidget {
+  const CardBrochursAndProductsTab({
     super.key,
     required this.networkImages,
     required this.pdf,
@@ -47,7 +47,7 @@ class BrochersAndProductsTab extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            BrochersBuilder(pdf: pdf),
+            BrochursBuilder(pdf: pdf),
             ProductsBuilder(products: networkImages),
           ],
         ),

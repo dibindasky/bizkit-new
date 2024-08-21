@@ -109,9 +109,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             if (widget.onTapOutside != null) {
               widget.onTapOutside!();
             }
-            // _focusNode.unfocus();
           },
-          // onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
           enabled: widget.enabled,
           focusNode: widget.focusNode,
           onTap: widget.onTap,

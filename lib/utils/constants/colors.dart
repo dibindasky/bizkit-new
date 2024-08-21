@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const Color textFieldFillColr = Color.fromRGBO(49, 49, 49, 0.5);
 const Color smallBigGrey = Color.fromRGBO(255, 255, 255, 0.1);
@@ -40,15 +41,11 @@ SizedBox kempty = const SizedBox(height: 0);
 // }
 
 adjustWidth(double width) {
-  return SizedBox(
-    width: width,
-  );
+  return SizedBox(width: width);
 }
 
 adjustHieght(double height) {
-  return SizedBox(
-    height: height,
-  );
+  return SizedBox(height: height);
 }
 
 const String fontPoppins = 'Poppins';
@@ -56,17 +53,17 @@ const String fontEuclid = 'Euclid';
 
 TextStyle textHeadStyle1 = TextStyle(
   color: kwhite,
-  fontSize: kwidth * 0.04,
+  fontSize: 16.sp,
   fontWeight: FontWeight.w700,
 );
 
 TextStyle textStyle1 = TextStyle(
-  fontSize: kwidth * 0.035,
+  fontSize: 14.sp,
   fontWeight: FontWeight.w400,
 );
 
 TextStyle textThinStyle1 = TextStyle(
-  fontSize: kwidth * 0.03,
+  fontSize: 13.sp,
   fontWeight: FontWeight.w200,
 );
 
@@ -79,6 +76,7 @@ LinearGradient neonShadeGradient = const LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
 );
+
 LinearGradient neonShadeLinearGradient = const LinearGradient(
   colors: [
     Color.fromRGBO(5, 202, 173, 1),
@@ -87,6 +85,7 @@ LinearGradient neonShadeLinearGradient = const LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
 );
+
 LinearGradient neonShadeGradientTopToBottom = const LinearGradient(
   colors: [
     Color.fromRGBO(6, 199, 172, .34),
@@ -106,6 +105,7 @@ LinearGradient blackShadeGradient = const LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomRight,
 );
+
 LinearGradient whiteShadeGradient = const LinearGradient(
   colors: [
     Color.fromRGBO(255, 255, 255, 1),
@@ -133,5 +133,5 @@ TextStyle custumText({
 
 TextStyle appBarHeading1 = TextStyle(
   color: kwhite,
-  fontSize: kwidth * 0.042,
+  fontSize: 14.sp,
 );

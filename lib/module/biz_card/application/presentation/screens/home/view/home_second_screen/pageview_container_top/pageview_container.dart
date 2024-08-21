@@ -7,20 +7,19 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomeScreenPageviewAnimatedContaner extends StatefulWidget {
-  const HomeScreenPageviewAnimatedContaner(
-      {super.key, required this.fadeCallBack});
+class CardTodaysRemiderBuilder extends StatefulWidget {
+  const CardTodaysRemiderBuilder({super.key, required this.fadeCallBack});
 
   final VoidCallback fadeCallBack;
 
   @override
-  State<HomeScreenPageviewAnimatedContaner> createState() =>
-      _HomeScreenPageviewAnimatedContanerState();
+  State<CardTodaysRemiderBuilder> createState() =>
+      _CardTodaysRemiderBuilderState();
 }
 
-class _HomeScreenPageviewAnimatedContanerState
-    extends State<HomeScreenPageviewAnimatedContaner> {
+class _CardTodaysRemiderBuilderState extends State<CardTodaysRemiderBuilder> {
   late PageController pageController;
   int currentIndex = 0;
   double pageValue = 0.0;
@@ -40,57 +39,37 @@ class _HomeScreenPageviewAnimatedContanerState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: kwidth * 0.6,
-      child: BlocBuilder<ReminderBloc, ReminderState>(
-        builder: (context, state) {
-          print('state todays data = > ${state.toDaysRminderList}');
-          if (state.isLoading) {
-            return ShimmerLoader(
-                itemCount: 1,
-                height: kwidth * 0.6,
-                width: kwidth * 0.8,
-                scrollDirection: Axis.horizontal);
-          }
-          if (state.toDaysRminderList != null &&
-              state.toDaysRminderList!.isNotEmpty) {
-            return HomeScreenPagviewAnimateBuilder(
-              pageController: pageController,
-              pageValue: pageValue,
-              pageCount: state.toDaysRminderList!.length,
-              onpageCallBack: (index) {
-                setState(() {
-                  currentIndex = index;
-                });
+      height: 220.h,
+      child: HomeScreenPagviewAnimateBuilder(
+        pageController: pageController,
+        pageValue: pageValue,
+        pageCount: 4,
+        onpageCallBack: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        child: (index, _) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                // context.read<ReminderBloc>().add(
+                //     ReminderEvent.getReminderDetails(
+                //         id: state.toDaysRminderList![index].id!));
+                showCardsNotifier.value = HomeScreensList.third;
+                widget.fadeCallBack();
               },
-              child: (index, _) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    onTap: () {
-                      context.read<ReminderBloc>().add(
-                          ReminderEvent.getReminderDetails(
-                              id: state.toDaysRminderList![index].id!));
-                      showCardsNotifier.value = HomeScreensList.third;
-                      widget.fadeCallBack();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: neonShade,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: SecondScreenPageViewContents(
-                          reminder: state.toDaysRminderList![index]),
-                    ),
-                  ),
-                );
-              },
-            );
-          } else {
-            return Center(child: Image.asset(emptyNodata1));
-          }
+              child: Container(
+                padding: EdgeInsets.only(bottom: 6.h),
+                decoration: BoxDecoration(
+                  border: Border.all(color: neonShade, width: 2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const SecondScreenPageViewContents(),
+              ),
+            ),
+          );
         },
       ),
     );

@@ -41,7 +41,7 @@ class AccountSettigsScreen extends StatelessWidget {
                   text: 'Change User Name',
                   onTap: () => Navigator.push(
                     context,
-                    fadePageRoute(const EditUserDetails()),
+                    cardFadePageRoute(const EditUserDetails()),
                   ),
                 );
               },
@@ -50,14 +50,14 @@ class AccountSettigsScreen extends StatelessWidget {
               text: 'Change Password',
               onTap: () => Navigator.push(
                 context,
-                fadePageRoute(const ChangePassword()),
+                cardFadePageRoute(const ChangePassword()),
               ),
             ),
             TileItem(
               text: 'Report Problem',
               onTap: () => Navigator.push(
                 context,
-                fadePageRoute(
+                cardFadePageRoute(
                   ReportProblemPage(),
                 ),
               ),

@@ -57,9 +57,9 @@ class _CroperState extends State<Croper> {
                 // writeUint8ListToFile(image, croppedImage.path);
                 // cropped = !cropped;
                 croppedImage = base64Encode(image);
-                context.read<BusinessDataBloc>().add(
-                      BusinessDataEvent.addCropedLogo(base64: croppedImage!),
-                    );
+                // context.read<BusinessDataBloc>().add(
+                //       BusinessDataEvent.addCropedLogo(base64: croppedImage!),
+                //     );
                 Navigator.pop(context);
                 // setState(() {});
               },

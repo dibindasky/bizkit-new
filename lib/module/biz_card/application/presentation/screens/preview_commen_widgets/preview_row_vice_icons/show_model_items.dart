@@ -33,74 +33,68 @@ class _PreviewScreenRowIconsModelSheetState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
       ),
-      child: ListView(
-        children: [
-          SizedBox(
-            height: 270,
-            child: widget.items == null || widget.items!.isEmpty
-                ? const Center(
-                    child: Text('Nothing to show'),
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.all(0),
-                    itemCount: widget.items!.length,
-                    itemBuilder: (context, index) {
-                      final data = widget.items![index];
-                      final dataHead = widget.itemsHeading![index];
-                      return Container(
-                        height: 70,
-                        decoration: const BoxDecoration(
-                          color: textFieldFillColr,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        margin: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: InkWell(
-                          onTap: () {
-                            if (isValidEmail(data)) {
-                              LaunchUrl.launchEmail(data);
-                            } else if (isValidPhoneNumber(data)) {
-                              LaunchUrl.launchCall(phone: data);
-                            }
-                          },
-                          child: Row(
+      child: SizedBox(
+        height: 270,
+        child: widget.items == null || widget.items!.isEmpty
+            ? const Center(child: Text('Nothing to show'))
+            : ListView.builder(
+                padding: const EdgeInsets.all(0),
+                itemCount: widget.items!.length,
+                itemBuilder: (context, index) {
+                  final data = widget.items![index];
+                  final dataHead = widget.itemsHeading![index];
+                  return Container(
+                    height: 70,
+                    decoration: const BoxDecoration(
+                      color: textFieldFillColr,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: InkWell(
+                      onTap: () {
+                        if (isValidEmail(data)) {
+                          LaunchUrl.launchEmail(data);
+                        } else if (isValidPhoneNumber(data)) {
+                          LaunchUrl.launchCall(phone: data);
+                        }
+                      },
+                      child: Row(
+                        children: [
+                          adjustWidth(kwidth * .03),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              adjustWidth(kwidth * .03),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    dataHead,
-                                    style: const TextStyle(
-                                        color: neonShade, fontSize: 10),
-                                  ),
-                                  adjustHieght(5),
-                                  Text(
-                                    data,
-                                    style: const TextStyle(color: neonShade),
-                                  ),
-                                ],
+                              Text(
+                                dataHead,
+                                style: const TextStyle(
+                                    color: neonShade, fontSize: 10),
                               ),
-                              const Spacer(),
-                              IconButton(
-                                onPressed: () => copyToClipboard(
-                                    text: data, context: context),
-                                icon: const Icon(
-                                  Icons.copy,
-                                  color: neonShade,
-                                ),
+                              adjustHieght(5),
+                              Text(
+                                data,
+                                style: const TextStyle(color: neonShade),
                               ),
-                              adjustWidth(kwidth * .04),
                             ],
                           ),
-                        ),
-                      );
-                    },
-                  ),
-          ),
-        ],
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () =>
+                                copyToClipboard(text: data, context: context),
+                            icon: const Icon(
+                              Icons.copy,
+                              color: neonShade,
+                            ),
+                          ),
+                          adjustWidth(kwidth * .04),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
       ),
     );
   }

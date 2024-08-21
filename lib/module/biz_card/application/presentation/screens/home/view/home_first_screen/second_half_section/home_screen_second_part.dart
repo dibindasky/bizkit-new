@@ -1,6 +1,7 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/listview_items/second_animation_all_reminders_list.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenSecondPart extends StatefulWidget {
@@ -49,12 +50,11 @@ class _HomeScreenSecondPartState extends State<HomeScreenSecondPart> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Reminders', style: textHeadStyle1),
-          adjustHieght(kwidth * .035),
+          kHeight10,
           Expanded(
-            child: SecondAnimationPageListViewAllReminders(
-              scrollController: scrollController,
-            ),
-          ),
+              child: SecondAnimationPageListViewAllReminders(
+            scrollController: scrollController,
+          ))
         ],
       ),
     );

@@ -30,9 +30,9 @@ class _SecondAnimationPageListViewUpcomingRemindersState
   _scrollCallBack() {
     if (widget.scrollController.position.pixels ==
         widget.scrollController.position.maxScrollExtent) {
-      context
-          .read<ReminderBloc>()
-          .add(const ReminderEvent.getUpcomingRemindersEventPage());
+      // context
+      //     .read<ReminderBloc>()
+      //     .add(const ReminderEvent.getUpcomingRemindersEventPage());
     }
   }
 
@@ -63,53 +63,23 @@ class _SecondAnimationPageListViewUpcomingRemindersState
     return AnimatedBuilder(
         animation: _animationController,
         builder: (context, child) {
-          return BlocBuilder<ReminderBloc, ReminderState>(
-            builder: (context, state) {
-              if (state.isLoading) {
-                return ShimmerLoader(
-                  itemCount: 10,
-                  height: 100,
-                  width: kwidth * 0.9,
-                  seprator: const SizedBox(height: 10),
-                );
-              } else if (state.upcomingRminderList != null &&
-                  state.upcomingRminderList!.isNotEmpty) {
-                return ListView.separated(
-                  controller: widget.scrollController,
-                  separatorBuilder: (context, index) =>
-                      adjustHieght(khieght * .02),
-                  itemCount: (state.upcomingRminderList?.length ?? 0) +
-                      (state.upcomingReminderLoading ? 1 : 0),
-                  itemBuilder: (context, index) {
-                    if (state.upcomingReminderLoading &&
-                        index == state.upcomingRminderList!.length) {
-                      return const LoadingAnimation();
-                    }
-                    if (widget.doTransition && index == 0) {
-                      return Transform.translate(
-                          offset: Offset(0, 100 * _animation.value),
-                          child: ReminderTile(
-                              reminder: state.upcomingRminderList![index]));
-                    } else if (widget.doTransition && index == 1) {
-                      return Transform.translate(
-                          offset: Offset(0, -100 * _animation.value),
-                          child: ReminderTile(
-                              reminder: state.upcomingRminderList![index]));
-                    }
-                    return ReminderTile(
-                        reminder: state.upcomingRminderList![index]);
-                  },
-                );
-              } else {
-                return RefreshIndicatorCustom(
-                    image: emptyNodata4,
-                    message: 'No Reminders',
-                    onRefresh: () {
-                      context
-                          .read<ReminderBloc>()
-                          .add(const ReminderEvent.getUpcomingRemindersEvent());
-                    });
+          return ListView.separated(
+            controller: widget.scrollController,
+            separatorBuilder: (context, index) => adjustHieght(khieght * .02),
+            itemCount: 3,
+            // (state.upcomingRminderList?.length ?? 0) +
+            //     (state.upcomingReminderLoading ? 1 : 0),
+            itemBuilder: (context, index) {
+              if (widget.doTransition && index == 0) {
+                return Transform.translate(
+                    offset: Offset(0, 100 * _animation.value),
+                    child: const ReminderTile());
+              } else if (widget.doTransition && index == 1) {
+                return Transform.translate(
+                    offset: Offset(0, -100 * _animation.value),
+                    child: const ReminderTile());
               }
+              return const ReminderTile();
             },
           );
         });

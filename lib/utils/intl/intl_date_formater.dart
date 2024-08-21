@@ -4,7 +4,6 @@ class DateTimeFormater {
   // return HH:MM AM/PM
   static String formatTimeAMPM(String? timestamp) {
     if (timestamp == null || timestamp.isEmpty) return '';
-
     try {
       // Parse the timestamp into a DateTime object
       final dateTime = DateTime.parse(timestamp);

@@ -49,8 +49,8 @@ class _HelpSupportState extends State<HelpSupport> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        context.read<ProfileBloc>().add(ProfileEvent.getQuestions(
-            serachQuery: context.read<ProfileBloc>().faqSearchController.text));
+        // context.read<ProfileBloc>().add(ProfileEvent.getQuestions(
+        //     serachQuery: context.read<ProfileBloc>().faqSearchController.text));
       },
     );
     return Scaffold(

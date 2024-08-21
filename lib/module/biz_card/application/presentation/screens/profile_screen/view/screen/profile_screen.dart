@@ -16,12 +16,14 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/profile_
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -75,9 +77,11 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) => context.read<ProfileBloc>().add(
-            const ProfileEvent.getProfile(isLoad: false),
-          ),
+      (timeStamp) {
+        // context.read<ProfileBloc>().add(
+        //     const ProfileEvent.getProfile(isLoad: false),
+        //   );
+      },
     );
     return SafeArea(
       child: Scaffold(
@@ -188,37 +192,37 @@ class _ProfileScreenState extends State<ProfileScreen>
                   },
                 ),
                 adjustHieght(khieght * .06),
-                const ProfileTiles(
-                  heading: 'Account Settings',
-                  subtittle: 'Username, Password, Email, Report Problem Etc.',
-                  widget: AccountSettigsScreen(),
-                ),
-                BlocBuilder<ProfileBloc, ProfileState>(
-                  builder: (context, state) {
-                    return !state.isBusiness
-                        ? const ProfileTiles(
-                            heading: 'Privacy and Security',
-                            subtittle: 'Level Or Security Preferences Etc.',
-                            widget: PrivacyAndSecurityScreen(),
-                          )
-                        : kempty;
-                  },
-                ),
-                const ProfileTiles(
-                  heading: 'Data Management',
-                  subtittle: 'Archived Cards, Soft Deleted Cards.',
-                  widget: DataManagement(),
-                ),
-                ProfileTiles(
-                  heading: 'Connections & Networking',
-                  subtittle: 'Blocked Connections$business',
-                  widget: const ConnectionNetworkScreen(),
-                ),
-                const ProfileTiles(
-                  heading: 'Help & Support',
-                  subtittle: ' Faq',
-                  widget: HelpSupport(),
-                ),
+                // const ProfileTiles(
+                //   heading: 'Account Settings',
+                //   subtittle: 'Username, Password, Email, Report Problem Etc.',
+                //   widget: AccountSettigsScreen(),
+                // ),
+                // BlocBuilder<ProfileBloc, ProfileState>(
+                //   builder: (context, state) {
+                //     return !state.isBusiness
+                //         ? const ProfileTiles(
+                //             heading: 'Privacy and Security',
+                //             subtittle: 'Level Or Security Preferences Etc.',
+                //             widget: PrivacyAndSecurityScreen(),
+                //           )
+                //         : kempty;
+                //   },
+                // ),
+                // const ProfileTiles(
+                //   heading: 'Data Management',
+                //   subtittle: 'Archived Cards, Soft Deleted Cards.',
+                //   widget: DataManagement(),
+                // ),
+                // ProfileTiles(
+                //   heading: 'Connections & Networking',
+                //   subtittle: 'Blocked Connections$business',
+                //   widget: const ConnectionNetworkScreen(),
+                // ),
+                // const ProfileTiles(
+                //   heading: 'Help & Support',
+                //   subtittle: ' Faq',
+                //   widget: HelpSupport(),
+                // ),
                 ProfileTiles(
                   heading: 'Log Out',
                   onTap: () {
@@ -227,17 +231,18 @@ class _ProfileScreenState extends State<ProfileScreen>
                       heading: 'Are you sure want to logout from Bizkit',
                       context,
                       onPressed: () {
-                        context
-                            .read<CardSecondBloc>()
-                            .add(const CardSecondEvent.clear());
-                        context.read<AuthBloc>().add(const AuthEvent.logOut());
-                        context.read<CardBloc>().add(const CardEvent.clear());
-                        context
-                            .read<ConnectionRequestBloc>()
-                            .add(const ConnectionRequestEvent.clear());
-                        context
-                            .read<NotificationBloc>()
-                            .add(const NotificationEvent.clear());
+                        Get.find<AuthenticationController>().logOut(context);
+                        // context
+                        //     .read<CardSecondBloc>()
+                        //     .add(const CardSecondEvent.clear());
+                        // context.read<AuthBloc>().add(const AuthEvent.logOut());
+                        // context.read<CardBloc>().add(const CardEvent.clear());
+                        // context
+                        //     .read<ConnectionRequestBloc>()
+                        //     .add(const ConnectionRequestEvent.clear());
+                        // context
+                        //     .read<NotificationBloc>()
+                        //     .add(const NotificationEvent.clear());
                         context.go(Routes.loginPage);
                       },
                     );
@@ -272,7 +277,7 @@ class ProfileTiles extends StatelessWidget {
         if (onTap != null) {
           onTap!();
         } else {
-          Navigator.of(context).push(fadePageRoute(widget!));
+          Navigator.of(context).push(cardFadePageRoute(widget!));
         }
       },
       child: Padding(
@@ -311,7 +316,7 @@ class ProfileTiles extends StatelessWidget {
                     if (onTap != null) {
                       onTap!();
                     } else {
-                      Navigator.of(context).push(fadePageRoute(widget!));
+                      Navigator.of(context).push(cardFadePageRoute(widget!));
                     }
                   },
                   icon: const Icon(

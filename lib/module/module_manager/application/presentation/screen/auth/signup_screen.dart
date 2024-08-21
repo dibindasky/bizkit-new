@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -205,6 +207,7 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                                         name: nameController.text,
                                         phoneNumber:
                                             '+91${mobileController.text}'));
+                                //log('${AuthPostmodel(password: passwordController.text, email: emailIdController.text, name: nameController.text, phoneNumber: '+91${mobileController.text}')}');
                                 // context.read<SignUpBloc>().add(
                                 //       SignUpEvent.sendOtp(
                                 //         emailModel: EmailModel(

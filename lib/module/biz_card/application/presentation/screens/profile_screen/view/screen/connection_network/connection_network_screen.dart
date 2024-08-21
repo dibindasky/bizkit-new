@@ -38,7 +38,7 @@ class ConnectionNetworkScreen extends StatelessWidget {
               text: 'Blocked Connections',
               onTap: () {
                 Navigator.of(context)
-                    .push(fadePageRoute(const BlockedConnections()));
+                    .push(cardFadePageRoute(const CardBlockedConnections()));
               },
             ),
             BlocBuilder<ProfileBloc, ProfileState>(
@@ -49,7 +49,7 @@ class ConnectionNetworkScreen extends StatelessWidget {
                 return TileItem(
                   text: 'Business Users',
                   onTap: () {
-                    Navigator.of(context).push(fadePageRoute(const Tabs()));
+                    Navigator.of(context).push(cardFadePageRoute(const Tabs()));
                   },
                 );
               },

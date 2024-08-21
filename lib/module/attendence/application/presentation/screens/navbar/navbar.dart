@@ -76,7 +76,7 @@ class _AttendenceNavbarModuleScreenState
               ),
               BottomBarItem(
                 iconBuilder: (color) => Image.asset(
-                  iconHomeBottomBar,
+                  cardIconHomeBottomBar,
                   fit: BoxFit.cover,
                   color: selectedIndex == 1 ? neonShade : color,
                   height: selectedIndex == 1 ? 32.w : 28.w,

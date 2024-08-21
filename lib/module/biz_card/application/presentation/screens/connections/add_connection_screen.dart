@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/blocked_connections.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/add_connection_request_model/add_connection_request_model.dart';
@@ -12,14 +13,15 @@ import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ScreenAddConnections extends StatefulWidget {
-  const ScreenAddConnections({super.key});
+class ScreenCardAddConnections extends StatefulWidget {
+  const ScreenCardAddConnections({super.key});
 
   @override
-  State<ScreenAddConnections> createState() => _ScreenAddConnectionsState();
+  State<ScreenCardAddConnections> createState() =>
+      _ScreenCardAddConnectionsState();
 }
 
-class _ScreenAddConnectionsState extends State<ScreenAddConnections> {
+class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -39,7 +41,7 @@ class _ScreenAddConnectionsState extends State<ScreenAddConnections> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ConnectionRequestBloc>().connectionController.text = '';
+      // context.read<ConnectionRequestBloc>().connectionController.text = '';
       _focusNode.requestFocus();
     });
     bool show = false;
@@ -70,17 +72,14 @@ class _ScreenAddConnectionsState extends State<ScreenAddConnections> {
               style: textHeadStyle1,
             ),
             actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 12.0),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            const ConnectionPendingRequests()));
-                  },
-                  icon: const Icon(Icons.person_2_outlined),
-                ),
-              )
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ConnectionPendingRequests()));
+                },
+                icon: const Icon(Icons.person_2_outlined),
+              ),
+              kWidth10
             ],
           ),
           body: Padding(
@@ -98,10 +97,9 @@ class _ScreenAddConnectionsState extends State<ScreenAddConnections> {
                     } else {
                       show = true;
                     }
-                    print(value);
-                    context.read<ConnectionRequestBloc>().add(
-                        ConnectionRequestEvent.searchBizkitUsers(
-                            searchQuery: SearchQuery(search: value)));
+                    // context.read<ConnectionRequestBloc>().add(
+                    //     ConnectionRequestEvent.searchBizkitUsers(
+                    //         searchQuery: SearchQuery(search: value)));
                   },
                   labelText: 'Search',
                   prefixIcon: const Icon(Icons.search),
@@ -111,70 +109,67 @@ class _ScreenAddConnectionsState extends State<ScreenAddConnections> {
                   child: BlocBuilder<ConnectionRequestBloc,
                       ConnectionRequestState>(
                     builder: (context, state) {
-                      if (!show) {
-                        return const Center(
-                          child: Text('Start typing to get results'),
-                        );
-                      }
-                      if (state.isLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(color: neonShade),
-                        );
-                      } else if (state.bizkitUsers != null &&
-                          state.bizkitUsers!.isNotEmpty) {
-                        return RefreshIndicator(
-                          onRefresh: () async {
-                            context.read<ConnectionRequestBloc>().add(
-                                ConnectionRequestEvent.searchBizkitUsers(
-                                    searchQuery: SearchQuery(
-                                        search: context
-                                            .read<ConnectionRequestBloc>()
-                                            .connectionController
-                                            .text)));
-                            await Future.delayed(
-                                const Duration(milliseconds: 1500));
-                          },
-                          child: GridView.builder(
-                            itemCount: state.bizkitUsers!.length,
-                            shrinkWrap: true,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 1 / 1.15,
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20,
-                            ),
-                            itemBuilder: (context, index) {
-                              return GridTileAddRequestConnection(
-                                data: state.bizkitUsers![index],
-                                index: index,
-                              );
-                            },
+                      // if (!show) {
+                      //   return const Center(
+                      //     child: Text('Start typing to get results'),
+                      //   );
+                      // }
+
+                      // if (state.bizkitUsers != null &&
+                      //     state.bizkitUsers!.isNotEmpty) {
+                      return RefreshIndicator(
+                        onRefresh: () async {
+                          // context.read<ConnectionRequestBloc>().add(
+                          //     ConnectionRequestEvent.searchBizkitUsers(
+                          //         searchQuery: SearchQuery(
+                          //             search: context
+                          //                 .read<ConnectionRequestBloc>()
+                          //                 .connectionController
+                          //                 .text)));
+                          await Future.delayed(
+                              const Duration(milliseconds: 1500));
+                        },
+                        child: GridView.builder(
+                          itemCount: 3,
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 1 / 1.15,
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20,
                           ),
-                        );
-                      } else {
-                        return RefreshIndicator(
-                          onRefresh: () async {
-                            context.read<ConnectionRequestBloc>().add(
-                                ConnectionRequestEvent.searchBizkitUsers(
-                                    searchQuery: SearchQuery(
-                                        search: context
-                                            .read<ConnectionRequestBloc>()
-                                            .connectionController
-                                            .text)));
-                            await Future.delayed(
-                                const Duration(milliseconds: 1500));
+                          itemBuilder: (context, index) {
+                            return GridTileAddRequestConnection(
+                              // data: state.bizkitUsers![index],
+                              index: index,
+                            );
                           },
-                          child: ListView(
-                            children: [
-                              adjustHieght(40),
-                              Center(child: Image.asset(emptyNodata3)),
-                              const Center(child: Text('No data')),
-                              adjustHieght(80),
-                            ],
-                          ),
-                        );
-                      }
+                        ),
+                      );
+                      // } else {
+                      //   return RefreshIndicator(
+                      //     onRefresh: () async {
+                      //       context.read<ConnectionRequestBloc>().add(
+                      //           ConnectionRequestEvent.searchBizkitUsers(
+                      //               searchQuery: SearchQuery(
+                      //                   search: context
+                      //                       .read<ConnectionRequestBloc>()
+                      //                       .connectionController
+                      //                       .text)));
+                      //       await Future.delayed(
+                      //           const Duration(milliseconds: 1500));
+                      //     },
+                      //     child: ListView(
+                      //       children: [
+                      //         adjustHieght(40),
+                      //         Center(child: Image.asset(emptyNodata3)),
+                      //         const Center(child: Text('No data')),
+                      //         adjustHieght(80),
+                      //       ],
+                      //     ),
+                      //   );
+                      // }
                     },
                   ),
                 ),
@@ -190,12 +185,12 @@ class _ScreenAddConnectionsState extends State<ScreenAddConnections> {
 class GridTileAddRequestConnection extends StatefulWidget {
   const GridTileAddRequestConnection({
     super.key,
-    required this.data,
+    //required this.data,
     required this.index,
     this.fromPendingRequests = false,
   });
 
-  final BizkitUser data;
+  //final BizkitUser data;
   final int index;
   final bool fromPendingRequests;
 
@@ -207,20 +202,20 @@ class GridTileAddRequestConnection extends StatefulWidget {
 class _GridTileAddRequestConnectionState
     extends State<GridTileAddRequestConnection> {
   bool requested = false;
-  @override
-  void initState() {
-    log("added ==== ${widget.data.toJson()}");
-    if (widget.data.connectionId != null) {
-      requested = true;
-    }
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   log("added ==== ${widget.data.toJson()}");
+  //   if (widget.data.connectionId != null) {
+  //     requested = true;
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final name = widget.data.name ?? '';
-    final company = widget.data.company ?? '';
-    final designation = widget.data.designation ?? '';
+    // final name = widget.data.name ?? '';
+    // final company = widget.data.company ?? '';
+    // final designation = widget.data.designation ?? '';
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -234,26 +229,26 @@ class _GridTileAddRequestConnectionState
           return Column(children: [
             // image profile
             CircleAvatar(
-              radius: kwidth * 0.08,
-              backgroundColor: textFieldFillColr,
-              backgroundImage: widget.data.image != null
-                  ? MemoryImage(base64.decode(
-                      widget.data.image!.startsWith('data')
-                          ? widget.data.image!.substring(22)
-                          : widget.data.image!))
-                  : null,
-              child: widget.data.image != null
-                  ? null
-                  : const Icon(Icons.person, color: neonShade),
-            ),
+                radius: kwidth * 0.08,
+                backgroundColor: textFieldFillColr,
+                backgroundImage: MemoryImage(base64.decode(
+                    imageTestingBase64.startsWith('data')
+                        ? imageTestingBase64.substring(22)
+                        : imageTestingBase64))
+
+                // child: widget.data.image != null
+                //     ? null
+                //     :
+                //const Icon(Icons.person, color: neonShade),
+                ),
             adjustHieght(10),
             Text(
-              name,
+              'Name',
               overflow: TextOverflow.ellipsis,
               style: textStyle1.copyWith(fontSize: kwidth * 0.045),
             ),
             Text(
-              widget.data.isVerified ?? false ? company : designation,
+              'Designation',
               overflow: TextOverflow.ellipsis,
               style: textStyle1,
             ),
@@ -261,49 +256,44 @@ class _GridTileAddRequestConnectionState
             GestureDetector(
               onTap: () {
                 if (widget.fromPendingRequests) {
-                  context.read<ConnectionRequestBloc>().add(
-                      ConnectionRequestEvent
-                          .removeConnectionRequestFromPendingScreen(
-                              connectionRequestIdModel:
-                                  ConnectionRequestIdModel(
-                                      connectionRequestId: widget.data.id!),
-                              id: widget.data.id!));
+                  // context.read<ConnectionRequestBloc>().add(
+                  //     ConnectionRequestEvent
+                  //         .removeConnectionRequestFromPendingScreen(
+                  //             connectionRequestIdModel:
+                  //                 ConnectionRequestIdModel(
+                  //                     connectionRequestId: widget.data.id!),
+                  //             id: widget.data.id!));
                 } else {
-                  if (widget.data.connectionId == null) {
-                    context.read<ConnectionRequestBloc>().add(
-                        ConnectionRequestEvent.addConnectionRequests(
-                            addConnectionRequestModel:
-                                AddConnectionRequestModel(
-                                    cardUserId: widget.data.id),
-                            index: widget.data.id!));
-                  } else {
-                    context.read<ConnectionRequestBloc>().add(
-                        ConnectionRequestEvent.removeConnectionRequest(
-                            connectionRequestIdModel: ConnectionRequestIdModel(
-                                connectionRequestId: widget.data.connectionId),
-                            id: widget.data.id!));
-                  }
+                  // if (widget.data.connectionId == null) {
+                  //   context.read<ConnectionRequestBloc>().add(
+                  //       ConnectionRequestEvent.addConnectionRequests(
+                  //           addConnectionRequestModel:
+                  //               AddConnectionRequestModel(
+                  //                   cardUserId: widget.data.id),
+                  //           index: widget.data.id!));
+                  // } else {
+                  //   context.read<ConnectionRequestBloc>().add(
+                  //       ConnectionRequestEvent.removeConnectionRequest(
+                  //           connectionRequestIdModel: ConnectionRequestIdModel(
+                  //               connectionRequestId: widget.data.connectionId),
+                  //           id: widget.data.id!));
+                  // }
                 }
               },
-              child: state.requestLoadingIndex.contains(widget.data.id)
-                  ? const Center(child: CircularProgressIndicator())
-                  : Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 8),
-                      decoration: BoxDecoration(
-                          gradient: neonShadeGradient,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10))),
-                      child: FittedBox(
-                        child: Text(
-                            widget.fromPendingRequests
-                                ? 'Remove Request'
-                                : widget.data.connectionId != null
-                                    ? 'Remove Request'
-                                    : 'Add Connection',
-                            style: const TextStyle(color: kwhite)),
-                      ),
-                    ),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                decoration: BoxDecoration(
+                    gradient: neonShadeGradient,
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
+                child: const FittedBox(
+                  child: Text('Remove Request',
+                      // : widget.data.connectionId != null
+                      //     ? 'Remove Request'
+                      //     : 'Add Connection',
+                      style: TextStyle(color: kwhite)),
+                ),
+              ),
             ),
           ]);
         },
@@ -319,9 +309,9 @@ class ConnectionPendingRequests extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        context
-            .read<ConnectionRequestBloc>()
-            .add(const ConnectionRequestEvent.getConnectionRequestedList());
+        // context
+        //     .read<ConnectionRequestBloc>()
+        //     .add(const ConnectionRequestEvent.getConnectionRequestedList());
       },
     );
     return Scaffold(
@@ -343,59 +333,31 @@ class ConnectionPendingRequests extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
-          builder: (context, state) {
-            if (state.connectionRequestLoading) {
-              return const Center(
-                  child: CircularProgressIndicator(color: neonShade));
-            } else if (state.connectionRequestedList != null &&
-                state.connectionRequestedList!.isNotEmpty) {
-              return RefreshIndicator(
-                onRefresh: () async {
-                  context.read<ConnectionRequestBloc>().add(
-                      const ConnectionRequestEvent
-                          .getConnectionRequestedList());
-                  await Future.delayed(const Duration(milliseconds: 1500));
-                },
-                child: GridView.builder(
-                  itemCount: state.connectionRequestedList!.length,
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1 / 1.15,
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20),
-                  itemBuilder: (context, index) {
-                    return GridTileAddRequestConnection(
-                      fromPendingRequests: true,
-                      data: state.connectionRequestedList![index],
-                      index: index,
-                    );
-                  },
-                ),
-              );
-            } else {
-              return RefreshIndicator(
-                onRefresh: () async {
-                  context.read<ConnectionRequestBloc>().add(
-                      const ConnectionRequestEvent
-                          .getConnectionRequestedList());
-                  await Future.delayed(const Duration(milliseconds: 1500));
-                },
-                child: ListView(
-                  children: [
-                    adjustHieght(40),
-                    Center(child: Image.asset(emptyNodata3)),
-                    const Center(child: Text('No Pending Requests')),
-                    adjustHieght(80),
-                  ],
-                ),
-              );
-            }
-          },
-        ),
-      ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: RefreshIndicator(
+            onRefresh: () async {
+              // context.read<ConnectionRequestBloc>().add(
+              //     const ConnectionRequestEvent
+              //         .getConnectionRequestedList());
+              await Future.delayed(const Duration(milliseconds: 1500));
+            },
+            child: GridView.builder(
+              itemCount: 3,
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 1 / 1.15,
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20),
+              itemBuilder: (context, index) {
+                return GridTileAddRequestConnection(
+                  fromPendingRequests: true,
+                  // data: state.connectionRequestedList![index],
+                  index: index,
+                );
+              },
+            ),
+          )),
     );
   }
 }

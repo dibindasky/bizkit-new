@@ -6,8 +6,8 @@ import 'package:bizkit/module/biz_card/domain/model/card/card/brochure/brochure.
 import 'package:flutter/material.dart';
 import 'package:pdf_render/pdf_render_widgets.dart';
 
-class BrochersBuilder extends StatelessWidget {
-  const BrochersBuilder({
+class BrochursBuilder extends StatelessWidget {
+  const BrochursBuilder({
     super.key,
     required this.pdf,
   });

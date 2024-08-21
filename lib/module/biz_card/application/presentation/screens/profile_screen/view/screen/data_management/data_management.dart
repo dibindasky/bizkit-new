@@ -15,15 +15,15 @@ class DataManagement extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        context
-            .read<CardBloc>()
-            .add(const CardEvent.getArchievedCards(isLoad: false));
-        context
-            .read<CardBloc>()
-            .add(const CardEvent.getdeleteCards(isLoad: false));
-        context
-            .read<CardSecondBloc>()
-            .add(const CardSecondEvent.getDeleteCardSecond(isLoad: false));
+        // context
+        //     .read<CardBloc>()
+        //     .add(const CardEvent.getArchievedCards(isLoad: false));
+        // context
+        //     .read<CardBloc>()
+        //     .add(const CardEvent.getdeleteCards(isLoad: false));
+        // context
+        //     .read<CardSecondBloc>()
+        //     .add(const CardSecondEvent.getDeleteCardSecond(isLoad: false));
       },
     );
     return Scaffold(
@@ -50,14 +50,14 @@ class DataManagement extends StatelessWidget {
           children: [
             TileItem(
               text: 'Archived Cards',
-              onTap: () => Navigator.of(context).push(fadePageRoute(
+              onTap: () => Navigator.of(context).push(cardFadePageRoute(
                 const ArchivedCards(),
               )),
             ),
             TileItem(
               text: 'Deleted Cards',
               onTap: () => Navigator.of(context).push(
-                fadePageRoute(
+                cardFadePageRoute(
                   const DeletedCards(),
                 ),
               ),

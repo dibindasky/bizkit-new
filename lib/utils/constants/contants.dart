@@ -256,6 +256,10 @@ const String taskFolderLongPressSelectAllImage =
 const String taskHomeNNOtificationAsset =
     'asset/images/icon/image 4 (Traced).png';
 
+const String taskHomeSelfieIconImage = 'asset/images/task/selfie.png';
+const String taskHomeToMeIconImage = 'asset/images/task/to_me.png';
+const String taskHomeToOthersIconImage = 'asset/images/task/to_others.png';
+
 final List<Map<String, String>> tasks = [
   {
     'title': 'Edit a Picture',
@@ -432,6 +436,22 @@ const List<String> myTeamActivitiesTitles = [
   'Calendar',
   'PELT&PELL'
 ];
+
+String maskEmail(String email) {
+  int atIndex = email.indexOf('@');
+  if (atIndex <= 3) {
+    return email;
+  }
+
+  String username = email.substring(0, atIndex);
+  String domain = email.substring(atIndex);
+
+  String maskedUsername =
+      username.substring(0, 3) + '*' * (username.length - 3);
+
+  return maskedUsername + domain;
+}
+
 List<void Function()> myTeamActivitiesOnTaps = [
   () {
     Get.toNamed(Routes.attendenceMsTeamTimeSheet, id: 2);

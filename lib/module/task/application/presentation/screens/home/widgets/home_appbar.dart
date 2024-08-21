@@ -34,7 +34,7 @@ class _TaskHomeAppBarState extends State<TaskHomeAppBar> {
             "Welcome ${authController.userName.value}",
             style: TextStyle(
               fontSize: 17.sp,
-              fontWeight: FontWeight.bold,
+              // fontWeight: FontWeight.bold,
             ),
           ),
         ),

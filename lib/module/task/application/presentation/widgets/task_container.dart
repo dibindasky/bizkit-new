@@ -118,7 +118,7 @@ class TaskContainer extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                margin: const EdgeInsets.symmetric(vertical: 8.0),
+                margin: const EdgeInsets.symmetric(vertical: 7.0),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
@@ -154,7 +154,7 @@ class TaskContainer extends StatelessWidget {
                                     'Title',
                                 style: const TextStyle(
                                   fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                                  // fontWeight: FontWeight.bold,
                                   color: neonShade,
                                 ),
                               ),

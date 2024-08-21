@@ -40,7 +40,7 @@ class EventButton extends StatelessWidget {
             style: custumText(
               colr: textColr,
               fontSize: kwidth * 0.033,
-              fontWeight: FontWeight.w800,
+              // fontWeight: FontWeight.w800,
             ),
           ),
         ),

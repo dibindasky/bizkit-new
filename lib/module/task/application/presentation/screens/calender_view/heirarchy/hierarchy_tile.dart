@@ -440,7 +440,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                   innerFolder.innerFolderId ??
                                                       '',
                                                   true,
-                                                );
+                                               );
                                               } else if (value ==
                                                   'Edit Inner Folder Name') {
                                                 showInnerFolderDialog(

@@ -90,7 +90,10 @@ class AddParticipentBottomSheet extends StatelessWidget {
                         leading: const CircleAvatar(
                           backgroundImage: AssetImage(personDemoImg),
                         ),
-                        title: Text(user.name ?? 'No Name'),
+                        title: Text(
+                          user.name ?? 'No Name',
+                          style: textThinStyle1.copyWith(fontSize: 14),
+                        ),
                         subtitle: Text(
                           maskEmail(user.email ?? ''),
                           style: fontPopinsThin.copyWith(
@@ -144,20 +147,5 @@ class AddParticipentBottomSheet extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String maskEmail(String email) {
-    int atIndex = email.indexOf('@');
-    if (atIndex <= 3) {
-      return email;
-    }
-
-    String username = email.substring(0, atIndex);
-    String domain = email.substring(atIndex);
-
-    String maskedUsername =
-        username.substring(0, 3) + '*' * (username.length - 3);
-
-    return maskedUsername + domain;
   }
 }

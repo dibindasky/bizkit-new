@@ -29,7 +29,7 @@ class AttachmentChooserTaskCreation extends StatelessWidget {
             width: double.infinity,
             height: 120.h,
             decoration: BoxDecoration(
-              color: lightGrey,
+              color: klightDarkGrey,
               borderRadius: kBorderRadius15,
             ),
             child: Row(

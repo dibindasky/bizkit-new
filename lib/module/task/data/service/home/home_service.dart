@@ -4,6 +4,7 @@ import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/genearate_report_model/genearate_report_model.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/genearate_task_report_success_responce/genearate_task_report_success_responce.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_report_model/get_report_model.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_report_success_responce/get_report_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/progres_bar_success_responce/progres_bar_success_responce.dart';
@@ -68,6 +69,23 @@ class HomeService implements HomeRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch getReport $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetRecentTasksResponce>> getRecentTasks() async {
+    try {
+      final response = await apiService.get(
+        ApiEndPoints.taskTestGetRecentTasks,
+      );
+      log("=> Response get recent tasks :");
+      return Right(GetRecentTasksResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException getRecentTasks $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getRecentTasks $e');
       return Left(Failure(message: e.toString()));
     }
   }

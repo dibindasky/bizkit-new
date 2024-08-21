@@ -48,6 +48,7 @@ class Routes {
   static const String taskSearch = '/task_search';
   static const String generateTasksSearch = '/generate_tasks_search';
   static const String reportsview = '/reports_view';
+  static const String taskTotalTimeAndExpense = '/task_total_time_expense';
 
   // Attendence Module
   static const String attendenceInital = '/attendence_inital';

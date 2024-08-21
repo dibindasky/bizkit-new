@@ -1,10 +1,14 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class TaskDetailUserInfoSection extends StatelessWidget {
@@ -33,7 +37,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
       return Container(
         padding: EdgeInsets.all(10.w),
         decoration: BoxDecoration(
-          color: kGrayLight,
+          color: klightDarkGrey,
           borderRadius: kBorderRadius10,
         ),
         child: Column(
@@ -109,7 +113,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(1.w),
                     child: const CircleAvatar(
-                        backgroundColor: kgrey,
+                        backgroundColor: klightDarkGrey,
                         child: Icon(Icons.calendar_month, color: kwhite)),
                   ),
                 ),
@@ -136,7 +140,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(1.w),
                     child: const CircleAvatar(
-                        backgroundColor: kgrey,
+                        backgroundColor: klightDarkGrey,
                         child: Icon(
                           Icons.person,
                           color: neonShade,
@@ -170,6 +174,149 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                 )
               ],
             ),
+            adjustHieght(20.h),
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).pushNamed(
+                          Routes.taskTotalTimeAndExpense,
+                          extra: true);
+                      taskController.fetchTaskTotalTime(
+                          taskId: GetSingleTaskModel(taskId: task.id));
+                    },
+                    child: Container(
+                      height: 50.h,
+                      decoration: BoxDecoration(
+                        borderRadius: kBorderRadius10,
+                        border: Border.all(color: neonShade),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CircleAvatar(
+                              child: Padding(
+                                padding: EdgeInsets.all(1.w),
+                                child: CircleAvatar(
+                                  backgroundColor: lightGrey,
+                                  child: const Icon(
+                                    Icons.access_time_filled_sharp,
+                                    color: neonShade,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            adjustWidth(8.w),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  FittedBox(
+                                    child: Text(
+                                      'Time For the Task',
+                                      style: textThinStyle1.copyWith(
+                                          fontSize: 10.sp),
+                                    ),
+                                  ),
+                                  taskController.isLoading.value
+                                      ? Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5),
+                                          child: ShimmerLoaderTile(
+                                            height: 9.h,
+                                            width: 100.w,
+                                          ),
+                                        )
+                                      : FittedBox(
+                                          child: Text(
+                                            // '${ task.totalTime ?? 'total time'}',
+                                            DateTimeFormater
+                                                .convertMinutesToHourMinuteFormat(
+                                                    task.totalTime ?? 0),
+                                            style: textThinStyle1,
+                                          ),
+                                        ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                adjustWidth(15.w),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).pushNamed(
+                          Routes.taskTotalTimeAndExpense,
+                          extra: false);
+                      taskController.fetchTaskExpense(
+                          taskId: GetSingleTaskModel(taskId: task.id));
+                    },
+                    child: Container(
+                      height: 50.h,
+                      decoration: BoxDecoration(
+                        borderRadius: kBorderRadius10,
+                        border: Border.all(color: neonShade),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            CircleAvatar(
+                              child: Padding(
+                                padding: EdgeInsets.all(1.w),
+                                child: CircleAvatar(
+                                    backgroundColor: lightGrey,
+                                    child: Image.asset(
+                                      width: 20.w,
+                                      taskExpenseIconImage,
+                                    )),
+                              ),
+                            ),
+                            // adjustWidth(8.w),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      'Expense',
+                                      style: textThinStyle1.copyWith(
+                                          fontSize: 10.sp),
+                                    ),
+                                  ),
+                                  taskController.isLoading.value
+                                      ? Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5),
+                                          child: ShimmerLoaderTile(
+                                            height: 9.h,
+                                            width: 60.w,
+                                          ),
+                                        )
+                                      : FittedBox(
+                                          child: Text(
+                                            '₹ ${task.totalExpense ?? '0'}',
+                                            style: textThinStyle1,
+                                          ),
+                                        ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       );

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bizkit/core/model/page_query/page_query.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/biz_card/domain/model/commen/card_id_model/card_id_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminders/create_reminder_model/create_reminder_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminders/get_reminder_model/reminders.dart';
@@ -113,7 +113,7 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
       venueController.clear();
       occationController.clear();
       messageController.clear();
-      SecureStorage.setHasReminder(hasReminder: true);
+      // SecureStorage.setHasReminder(hasReminder: true);
       add(const ReminderEvent.getAllRemindersEvent());
     });
   }

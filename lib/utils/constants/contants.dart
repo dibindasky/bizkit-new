@@ -42,6 +42,8 @@ enum FilterTypes { all, self_to_self, self_to_others, others_to_self }
 
 enum RecurringTimePeriod { everyDay, everyWeek, everyMoth, custom, none }
 
+enum Module { card, task, attendance }
+
 String cardIconHomeBottomBar =
     'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png';
 String cardIconcardIcon = 'asset/images/NavPngs/my connection selected.png';
@@ -259,6 +261,9 @@ const String taskHomeNNOtificationAsset =
 const String taskHomeSelfieIconImage = 'asset/images/task/selfie.png';
 const String taskHomeToMeIconImage = 'asset/images/task/to_me.png';
 const String taskHomeToOthersIconImage = 'asset/images/task/to_others.png';
+
+const String taskTimeIconImage = 'asset/images/task/task_time_icon.png';
+const String taskExpenseIconImage = 'asset/images/task/task_expense_icon.png';
 
 final List<Map<String, String>> tasks = [
   {

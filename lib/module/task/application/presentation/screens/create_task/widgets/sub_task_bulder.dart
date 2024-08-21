@@ -45,7 +45,7 @@ class SubTaskBuilder extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: lightGrey, borderRadius: kBorderRadius10),
+                        color: klightDarkGrey, borderRadius: kBorderRadius10),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: 10.h, horizontal: 15.h),
@@ -77,7 +77,8 @@ class SubTaskBuilder extends StatelessWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            color: lightGrey, borderRadius: kBorderRadius10),
+                            color: klightDarkGrey,
+                            borderRadius: kBorderRadius10),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: 10.h, horizontal: 15.h),

@@ -24,7 +24,8 @@ class ScreenTaskHome extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
     final messageCoutController = Get.find<MessageCountController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeController.progresBar();
+      // homeController.progresBar();
+      homeController.fetchRecentTasks();
       taskController.searchTasks(searchItem: '');
       messageCoutController.sendReqForUnread();
     });

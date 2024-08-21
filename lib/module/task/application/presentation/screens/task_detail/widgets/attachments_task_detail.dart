@@ -18,7 +18,7 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
-        color: kGrayLight,
+        color: klightDarkGrey,
         borderRadius: kBorderRadius10,
       ),
       child: Column(

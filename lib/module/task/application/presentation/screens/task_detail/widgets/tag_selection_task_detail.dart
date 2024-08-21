@@ -16,7 +16,7 @@ class TaskDetailTagsSection extends StatelessWidget {
       padding: EdgeInsets.all(10.w),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: kGrayLight,
+        color: klightDarkGrey,
         borderRadius: kBorderRadius10,
       ),
       child: Column(

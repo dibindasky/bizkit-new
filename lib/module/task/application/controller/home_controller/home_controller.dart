@@ -4,6 +4,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bizkit/module/task/data/service/home/home_service.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/genearate_report_model/genearate_report_model.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/recent_tasks/recent_tasks.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_report_model/get_report_model.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_report_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/progres_bar_success_responce/counts.dart';
@@ -20,10 +22,16 @@ class TaskHomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool loadingForGetReports = false.obs;
   RxBool fileDownloading = false.obs;
+  RxBool loadingForRecentTasks = false.obs;
   RxString taskCategory = ''.obs;
   Rx<Counts> progresBarCounts = Counts().obs;
   RxList<ReportTask> reportTasks = <ReportTask>[].obs;
   RxString taskReport = ''.obs;
+
+  // RxList to hold recent tasks - to me , to others , selfie
+  RxList<RecentTasks> toMeTasks = <RecentTasks>[].obs;
+  RxList<RecentTasks> toOthersTasks = <RecentTasks>[].obs;
+  RxList<RecentTasks> selfieTasks = <RecentTasks>[].obs;
 
   // RxList to hold selected fields
   RxList<String> selectedFields = <String>[].obs;
@@ -63,6 +71,24 @@ class TaskHomeScreenController extends GetxController {
           const Duration(milliseconds: 50),
           () => isLoading.value = false,
         );
+      },
+    );
+  }
+
+  void fetchRecentTasks() async {
+    loadingForRecentTasks.value = true;
+    final result = await homeService.getRecentTasks();
+
+    result.fold(
+      (failure) {
+        loadingForRecentTasks.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        toMeTasks.assignAll(success.othersToSelf ?? []);
+        toOthersTasks.assignAll(success.selfToOthers ?? []);
+        selfieTasks.assignAll(success.selfToSelf ?? []);
+        loadingForRecentTasks.value = false;
       },
     );
   }

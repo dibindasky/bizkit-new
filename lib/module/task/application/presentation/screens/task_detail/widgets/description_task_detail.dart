@@ -14,7 +14,7 @@ class TaskDetailDescriptionSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
-        color: kGrayLight,
+        color: klightDarkGrey,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -35,7 +35,7 @@ class TaskDetailDescriptionSection extends StatelessWidget {
                 : Text(
                     taskController.singleTask.value.description ??
                         'Description',
-                    style: textStyle1,
+                    style: textThinStyle1.copyWith(color: klightgrey),
                   ),
           ),
         ],

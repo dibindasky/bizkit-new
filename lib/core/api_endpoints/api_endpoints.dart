@@ -193,4 +193,7 @@ class ApiEndPoints {
   static const taskTestProvideTaskReport = '/provide-task-report/';
   static const taskTestCompletedTasks = '/get-completed-tasks/';
   static const taskTestKilledTasks = '/get-killed-tasks/';
+  static const taskTestGetTaskExpense = '/get-expense-data/';
+  static const taskTestGetTaskTotalTime = '/get-time-data/';
+  static const taskTestGetRecentTasks = '/get-recent-tasks/';
 }

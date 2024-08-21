@@ -4,7 +4,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/visiting
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -50,8 +49,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       SharedPreferences.getInstance().then((prefs) async {
-        final showed =
-            await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
+        const showed = false;
         setState(() {
           isShowcaseSeen = showed;
         });
@@ -62,7 +60,6 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
             globalKeyNFCScan,
             globalKeyCreateVsitingCard
           ]);
-          await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
         }
       });
     });

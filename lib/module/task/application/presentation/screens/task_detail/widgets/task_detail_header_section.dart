@@ -55,71 +55,78 @@ class TaskDetailHeaderSection extends StatelessWidget {
                 ),
               ],
             ),
-            Obx(
-              () => Text(
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                'Total Time Taken: ${taskController.getTotalCompletedSubtasksDuration()}',
-                style: textStyle1,
-              ),
-            ),
+            // Obx(
+            //   () => Text(
+            //     maxLines: 1,
+            //     overflow: TextOverflow.ellipsis,
+            //     'Total Time Taken: ${taskController.getTotalCompletedSubtasksDuration()}',
+            //     style: textStyle1,
+            //   ),
+            // ),
           ],
         ),
         Row(
           children: [
-            taskController.singleTask.value.isOwned == true
-                ? CircleAvatar(
-                    backgroundColor: kGrayLight,
-                    child: IconButton(
-                      icon: const Icon(Icons.mode_edit_outline_outlined,
-                          color: kwhite),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: true,
-                          builder: (context) => TaskStatusChangeDialog(
-                            taskId: taskController.singleTask.value.id,
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                : kempty,
-            adjustWidth(10.w),
-            Stack(
-              children: [
-                CircleAvatar(
-                  backgroundColor: kGrayLight,
-                  child: IconButton(
-                    icon: const Icon(Icons.message_outlined, color: kwhite),
-                    onPressed: () {
-                      Get.find<ChatController>().connectChannel(
-                          taskId: taskController.singleTask.value.id);
-                      GoRouter.of(context).push(
-                        Routes.taskChatScreen,
-                      );
-                      messageCountController.resetCount(
-                          id: taskController.singleTask.value.id ?? '');
-                    },
-                  ),
-                ),
-                Obx(() {
-                  final count = messageCountController
-                      .unreadCounts[taskController.singleTask.value.id ?? ''];
-                  if (count == null || count.value == 0) return kempty;
-                  return Positioned(
-                    right: 0,
-                    top: 0,
-                    child: AnimatedGrowShrinkContainer(
-                      animate: true,
-                      child: CircleAvatar(
-                        radius: 5.w,
-                        backgroundColor: kneonShade,
+            Obx(
+              () => taskController.singleTask.value.isOwned == true
+                  ? CircleAvatar(
+                      backgroundColor: kGrayLight,
+                      child: IconButton(
+                        icon: const Icon(Icons.mode_edit_outline_outlined,
+                            color: kwhite),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (context) => TaskStatusChangeDialog(
+                              taskId: taskController.singleTask.value.id,
+                            ),
+                          );
+                        },
                       ),
+                    )
+                  : kempty,
+            ),
+            adjustWidth(10.w),
+            Obx(
+              () => taskController.isLoading.value
+                  ? kempty
+                  : Stack(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: kGrayLight,
+                          child: IconButton(
+                            icon: const Icon(Icons.message_outlined,
+                                color: kwhite),
+                            onPressed: () {
+                              Get.find<ChatController>().connectChannel(
+                                  taskId: taskController.singleTask.value.id);
+                              GoRouter.of(context).push(
+                                Routes.taskChatScreen,
+                              );
+                              messageCountController.resetCount(
+                                  id: taskController.singleTask.value.id ?? '');
+                            },
+                          ),
+                        ),
+                        Obx(() {
+                          final count = messageCountController.unreadCounts[
+                              taskController.singleTask.value.id ?? ''];
+                          if (count == null || count.value == 0) return kempty;
+                          return Positioned(
+                            right: 0,
+                            top: 0,
+                            child: AnimatedGrowShrinkContainer(
+                              animate: true,
+                              child: CircleAvatar(
+                                radius: 5.w,
+                                backgroundColor: kneonShade,
+                              ),
+                            ),
+                          );
+                        })
+                      ],
                     ),
-                  );
-                })
-              ],
             ),
           ],
         ),

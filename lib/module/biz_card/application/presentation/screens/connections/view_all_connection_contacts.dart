@@ -5,7 +5,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/connecti
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/bizkit_connection_tab.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/contacts_connection_tab.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/blocked_connections.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,8 +37,7 @@ class _MyConnectionsViewAllContactsState
   @override
   void initState() {
     SharedPreferences.getInstance().then((prefs) async {
-      final showCase =
-          await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
+      const showCase = false;
       setState(() {
         isShowcaseSeen = showCase;
       });
@@ -53,7 +51,6 @@ class _MyConnectionsViewAllContactsState
             globalKeyVisitingCard,
           ]);
         });
-        await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
       }
     });
     super.initState();

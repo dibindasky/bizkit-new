@@ -18,6 +18,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/visiting
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/signup_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/splash/splash_general.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/poll_creation_page.dart';
@@ -28,6 +29,7 @@ import 'package:bizkit/module/task/application/presentation/screens/home/notific
 import 'package:bizkit/module/task/application/presentation/screens/navbar/navbar_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/task_detail_page.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/attachments_detil_view.dart';
+import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/task_total_time_and_expense.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/poll_detail_page.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +46,9 @@ class GoRouterConfig {
     ],
     errorBuilder: (context, state) => _errorScreen(),
   );
+//  <------------------------------------------------------------------------------>
 
-// general routes
+  /// general routes
   static final generalRoutes = [
     // Splash
     GoRoute(
@@ -98,9 +101,17 @@ class GoRouterConfig {
       //       signUpModel: businessModel);
       // },
     ),
+
+    // Module selector
+    GoRoute(
+      name: Routes.moduleSelector,
+      path: Routes.moduleSelector,
+      builder: (context, state) => ScreenModuleSelector(),
+    ),
   ];
 
-  // biz card routes
+//  <------------------------------------------------------------------------------>
+  /// biz card routes
   static final bizcardRoute = [
     //On board
     GoRoute(
@@ -223,7 +234,9 @@ class GoRouterConfig {
     ),
   ];
 
-  // task module route
+//  <------------------------------------------------------------------------------>
+
+  /// task module route
   static final taskModuleRoute = [
     // Navbar
     GoRoute(
@@ -304,6 +317,16 @@ class GoRouterConfig {
 
     // chat Screen task
     GoRoute(
+      name: Routes.taskTotalTimeAndExpense,
+      path: Routes.taskTotalTimeAndExpense,
+      builder: (context, state) {
+        final isTotalTimeOrExpense = state.extra as bool;
+        return TaskTotalTimeAndExpenseView(
+          isTotalTimeOrExpense: isTotalTimeOrExpense,
+        );
+      },
+    ),
+    GoRoute(
       name: Routes.taskChatScreen,
       path: Routes.taskChatScreen,
       builder: (context, state) => const ScreenTaskChat(),
@@ -337,7 +360,9 @@ class GoRouterConfig {
     ),
   ];
 
-  // Attendence module
+  //  <------------------------------------------------------------------------------>
+
+  /// Attendence module
   static final attendeceModule = [
     //Navabar
     GoRoute(

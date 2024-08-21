@@ -33,8 +33,8 @@ class TagsContainer extends StatelessWidget {
         kHeight10,
         Container(
           width: double.infinity,
-          decoration:
-              BoxDecoration(color: lightGrey, borderRadius: kBorderRadius15),
+          decoration: BoxDecoration(
+              color: klightDarkGrey, borderRadius: kBorderRadius15),
           padding: EdgeInsets.all(10.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

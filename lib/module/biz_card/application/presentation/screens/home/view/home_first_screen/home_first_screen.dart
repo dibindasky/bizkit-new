@@ -3,7 +3,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/home/vie
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections_home_page.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/second_half_section/home_screen_second_part.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/home_second_screen.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -57,7 +57,7 @@ class _ScreenCardsHomeFirstAnimationState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       SharedPreferences.getInstance().then((prefs) async {
-        final showed = await SecureStorage.getHasCard();
+        final showed = true;
         //  await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
         setState(() {
           isShowcaseSeen = showed;
@@ -69,7 +69,7 @@ class _ScreenCardsHomeFirstAnimationState
             globalKeyAddCard,
             globalKeyaddConnections,
           ]);
-          await SecureStorage.setHasCard(hasCard: true);
+          // await SecureStorage.setHasCard(hasCard: true);
         }
       });
     });

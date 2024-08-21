@@ -33,12 +33,12 @@ class _AttendenceNavbarModuleScreenState
         children: [
           ScreenModuleSelector(),
           Navigator(
-            key: Get.nestedKey(1),
+            key: Get.nestedKey(21),
             initialRoute: Routes.attendenceHome,
             onGenerateRoute: RouteGenerator().onGenerateRoute,
           ),
           Navigator(
-            key: Get.nestedKey(2),
+            key: Get.nestedKey(22),
             initialRoute: Routes.attendenceSelectionManagementSide,
             onGenerateRoute: RouteGenerator().onGenerateRoute,
           ),

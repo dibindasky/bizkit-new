@@ -114,6 +114,9 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
               : IconButton(
                   onPressed: () {
                     controller.sendTextMessage();
+                    setState(() {
+                      maxLines = 1;
+                    });
                   },
                   icon: const Icon(Icons.send, color: neonShade)),
         ],

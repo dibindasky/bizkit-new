@@ -67,6 +67,14 @@ class ChatController extends GetxController {
             } else if (!messages
                 .any((mess) => mess.textMessage?.messageId == m.messageId)) {
               messages.add(mess);
+            } else {
+              doAnimate = false;
+              print('message updation');
+              final index = messages.indexWhere(
+                  (element) => element.timeExpence?.messageId == m.messageId);
+              if (index != -1) {
+                messages[index] = mess;
+              }
             }
           }
           // handle for polls
@@ -95,6 +103,14 @@ class ChatController extends GetxController {
             if (!messages
                 .any((mess) => mess.textMessage?.messageId == m.messageId)) {
               messages.add(mess);
+            } else {
+              doAnimate = false;
+              print('time expence updation');
+              final index = messages.indexWhere(
+                  (element) => element.timeExpence?.messageId == m.messageId);
+              if (index != -1) {
+                messages[index] = mess;
+              }
             }
           }
 
@@ -139,6 +155,7 @@ class ChatController extends GetxController {
     try {
       messages.clear();
       channel.sink.close();
+      print('connection closed');
       // channel.sink.close(status.goingAway);
     } catch (e) {
       print('Channel close error =>$e');

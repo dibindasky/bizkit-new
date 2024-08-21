@@ -26,7 +26,7 @@ class ChatBubble extends StatelessWidget {
       // ],
       Text(
         message.message ?? '',
-        style: textStyle1.copyWith(color: message.sender ? kblack : kwhite),
+        style: textStyle1.copyWith(color: kwhite),
       ),
       showCol ? kempty : adjustWidth(8.w),
       Row(

@@ -1,6 +1,7 @@
 class Routes {
   static const String initial = '/';
   static const String onBoarding = '/on_boarding';
+  static const String moduleSelector = '/module_selector';
 
   // biz card module
   static const String onBoardingBizCard = '/on_boarding_bizcard';

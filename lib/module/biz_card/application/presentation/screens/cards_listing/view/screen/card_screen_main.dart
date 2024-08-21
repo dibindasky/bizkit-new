@@ -8,7 +8,7 @@ import 'package:bizkit/module/biz_card/application/business_logic/card_second/ca
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/archieved_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/deleted_cards.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/get_card_response/card_response.dart'
     as card;
@@ -52,7 +52,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       SharedPreferences.getInstance().then((prefs) async {
-        final showed = await SecureStorage.getHasCard();
+        final showed = false;
         setState(() {
           isShowcaseSeen = showed;
         });
@@ -61,7 +61,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
             globalKeyBusinessCard,
             globalKeyVisitingCard,
           ]);
-          await SecureStorage.setHasCard(hasCard: true);
+          // await SecureStorage.setHasCard(hasCard: true);
         }
       });
     });

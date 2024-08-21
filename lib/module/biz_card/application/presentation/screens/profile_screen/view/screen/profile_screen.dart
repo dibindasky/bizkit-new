@@ -15,7 +15,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/profile_
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/help_support/help_support.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';

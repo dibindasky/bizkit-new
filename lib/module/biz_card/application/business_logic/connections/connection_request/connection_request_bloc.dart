@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bizkit/core/model/page_query/page_query.dart';
 import 'package:bizkit/core/model/search_query/search_query.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/add_connection_request_model/add_connection_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/add_connection_tag_model/add_connection_tag_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/block_bizkit_connection/block_bizkit_connection.dart';
@@ -346,7 +346,7 @@ class ConnectionRequestBloc
             requestLoadingIndex: indexs,
             hasError: true,
             message: l.message)), (r) {
-      SecureStorage.setHasConnection(hasCard: true);
+      // SecureStorage.setHasConnection(hasCard: true);
       emit(state.copyWith(
           bizkitUsers: searchList, message: r.message, connected: true));
       add(ConnectionRequestEvent.getRequestLoadList(id: event.index));

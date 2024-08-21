@@ -7,16 +7,27 @@ import 'package:sqflite/sqflite.dart' as sql;
 class Sql {
   static const userTable = 'Users';
   static const contactTable = 'Contact';
+  static const localStorageTable = 'LocalStorage';
 
   static Future onCreate(sql.Database db) async {
     try {
       log('-----------------oncreate database---------------------');
       await db.execute(queryUserTableCreation);
       await db.execute(queryContactTableCreation);
+      await db.execute(queryLocalStorageTableCreation);
     } catch (e) {
       log('onCreate ==> ${e.toString()}');
     }
   }
+
+  static const String queryLocalStorageTableCreation = '''
+      CREATE TABLE IF NOT EXISTS $localStorageTable (
+        localId INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT,
+        key TEXT,
+        value TEXT
+      )
+    ''';
 
   static const String queryContactTableCreation = '''
       CREATE TABLE IF NOT EXISTS $contactTable (

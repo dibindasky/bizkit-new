@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:bizkit/core/model/token/token_model.dart';
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/module/module_manager/data/local_storage/local_storage_preference.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/data/service/auth/auth_service.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
 import 'package:bizkit/module/module_manager/domain/repository/authentication_repo.dart';
@@ -74,13 +76,7 @@ class AuthenticationController extends GetxController {
           backgroundColor: kred,
           textColor: kblack);
     }, (r) {
-      SecureStorage.saveToken(tokenModel: r);
-
-      // userName.value = r.name ?? '';
-      log('user name => ${userName.value}');
-
-      SecureStorage.setLogin();
-      context.go(Routes.taskNavbar);
+      completeLogin(context, r);
       showSnackbar(context,
           message: 'User Registered Successfully',
           backgroundColor: kneonShade,
@@ -138,12 +134,7 @@ class AuthenticationController extends GetxController {
           backgroundColor: kred,
           textColor: kblack);
     }, (r) {
-      SecureStorage.saveToken(tokenModel: r);
-
-      // userName.value = r.name ?? '';
-      log('user name => ${userName.value}');
-      SecureStorage.setLogin();
-      context.go(Routes.taskNavbar);
+      completeLogin(context, r);
       showSnackbar(context,
           message: 'User Logged In Successfully',
           backgroundColor: kneonShade,
@@ -156,6 +147,15 @@ class AuthenticationController extends GetxController {
         getUserName();
       },
     );
+  }
+
+  /// complete all steps related to login in this function
+  void completeLogin(BuildContext context, TokenModel model) async {
+    SecureStorage.saveToken(tokenModel: model);
+    log('user name => ${model.name ?? ''}');
+    SecureStorage.setLogin();
+    context.go(Routes.taskNavbar);
+    // context.go(Routes.moduleSelector);
   }
 
   void logOut(BuildContext context) async {
@@ -174,7 +174,7 @@ class AuthenticationController extends GetxController {
         context.go(Routes.loginPage);
       } else {
         // change this according to the module need to be shown
-        context.go(Routes.taskNavbar);
+        context.go(Routes.moduleSelector);
         //context.go(Routes.bizCardNavbar);
       }
     });

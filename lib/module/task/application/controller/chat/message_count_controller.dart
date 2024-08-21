@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/task/domain/model/chat/unread_count.dart';
 import 'package:get/get.dart';
 import 'package:web_socket_channel/io.dart';

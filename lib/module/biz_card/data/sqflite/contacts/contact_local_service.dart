@@ -32,7 +32,7 @@ class ContactLocalService implements ContactLocalRepo {
         contact.name ?? '',
         contact.phoneNumber ?? '',
         contact.photo ?? '',
-        contact.id ?? 0
+        // contact.id ?? 0
       ]);
       return Right(SuccessResponseModel());
     } catch (e) {

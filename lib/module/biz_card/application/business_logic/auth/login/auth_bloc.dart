@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:bizkit/core/model/token/token_model.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/auth_repo.dart';
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/user_local_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -87,8 +87,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               accessToken: loginResponseModel.accessToken,
               refreshToken: loginResponseModel.refreshToken),
         );
-        SecureStorage.setHasCard(
-            hasCard: loginResponseModel.user?.hasCard ?? false);
+        // SecureStorage.setHasCard(
+        //     hasCard: loginResponseModel.user?.hasCard ?? false);
         print(loginResponseModel.toJson());
         emit(
           state.copyWith(
@@ -111,11 +111,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             //     '',
             // isVerified: loginResponseModel.user?.isVerified ?? false
             );
-        await SecureStorage.setRole(
-            isBusiness: loginResponseModel.user?.isBusiness ?? true);
-        await SecureStorage.setHasReminder(
-            hasReminder: loginResponseModel.user?.hasCard ?? false);
-        SecureStorage.setUserDetails(user: loginResponseModel.user ?? User());
+        // await SecureStorage.setRole(
+        //     isBusiness: loginResponseModel.user?.isBusiness ?? true);
+        // await SecureStorage.setHasReminder(
+        //     hasReminder: loginResponseModel.user?.hasCard ?? false);
+        // SecureStorage.setUserDetails(user: loginResponseModel.user ?? User());
       },
     );
   }

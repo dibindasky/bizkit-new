@@ -4,7 +4,7 @@ import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/core/model/token/token_model.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
 import 'package:bizkit/module/module_manager/domain/repository/authentication_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:bizkit/core/model/page_query/page_query.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/core/model/token/token_model.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/profile_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/core/model/image/image_model.dart';
@@ -198,7 +198,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     // if (state.getUserInfoModel != null && !event.isLoad) return;
     emit(state.copyWith(profileLoading: true, hasError: false, message: null));
     final data = await profileRepo.getProfile();
-    final role = await SecureStorage.getRole();
+    final role = false;
     data.fold(
         (l) => emit(
               state.copyWith(

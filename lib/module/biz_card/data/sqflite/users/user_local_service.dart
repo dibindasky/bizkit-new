@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/biz_card/domain/model/user/user.dart';
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/user_local_repo.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
@@ -73,16 +73,16 @@ class UserLocalService implements UserLocalRepo {
             ${User.colWebsite})
           VALUES (?,?,?,?,?,?,?,?)
           ''';
-      await localService.rawInsert(insertQuery, [
-        user.name ?? '',
-        user.phoneNumber ?? '',
-        user.email ?? '',
-        user.id ?? 0,
-        user.isBusiness! ? 1 : 0,
-        user.companyName ?? '',
-        user.address ?? '',
-        user.websiteLink ?? ''
-      ]);
+      // await localService.rawInsert(insertQuery, [
+      //   user.name ?? '',
+      //   user.phoneNumber ?? '',
+      //   user.email ?? '',
+      //   user.id ?? 0,
+      //   user.isBusiness! ? 1 : 0,
+      //   user.companyName ?? '',
+      //   user.address ?? '',
+      //   user.websiteLink ?? ''
+      // ]);
     } catch (e) {
       log('cannot insert user data\n ${e.toString()}');
     }

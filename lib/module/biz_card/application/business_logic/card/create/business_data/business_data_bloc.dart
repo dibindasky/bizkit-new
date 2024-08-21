@@ -4,7 +4,8 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:bizkit/core/model/pdf/pdf_model.dart';
 import 'package:bizkit/core/model/search_query/search_query.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/module/biz_card/domain/model/user/user.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/accredition/accredition.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/accredition/accredition_image_adding_model/accredition_image_adding_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/bank_details/bank_details.dart';
@@ -270,7 +271,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
   }
 
   FutureOr<void> getCurrentCard(GetCurrentCard event, emit) async {
-    final business = await SecureStorage.getRole();
+    final business = true;
     emit(
       state.copyWith(
           isBusiness: business,
@@ -346,7 +347,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
         : event.card.bankDetails?.upiDetails ?? '';
     print('user ===> $business');
     if (business) {
-      final user = await SecureStorage.getUserDetails();
+      final user = User();
       websiteLinkController.text = websiteLinkController.text == ''
           ? user.websiteLink ?? ''
           : websiteLinkController.text;
@@ -585,7 +586,7 @@ class BusinessDataBloc extends Bloc<BusinessDataEvent, BusinessDataState> {
 
   FutureOr<void> getUserData(GetUserData event, emit) async {
     final result = await userLocalService.getUserData();
-    final business = await SecureStorage.getRole();
+    final business = true;
     result.fold((l) => null, (userData) {
       websiteLinkController.text =
           userData.first.websiteLink ?? websiteLinkController.text;

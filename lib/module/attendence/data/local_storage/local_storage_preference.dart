@@ -1,6 +1,6 @@
 import 'package:bizkit/service/secure_storage/local_storage.dart';
 
-class LocalStoragePreference {
+class LocalStoragePreferenceAttendence {
   // static String userName = 'user_name_key';
 
   // static void setName(String name) async {

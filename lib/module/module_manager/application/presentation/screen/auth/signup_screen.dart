@@ -29,6 +29,7 @@ class _ScreenSignUpState extends State<ScreenSignUp>
   final GlobalKey<FormState> personalSignup = GlobalKey();
 
   int showPassword = 0;
+  bool tapOnPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +59,11 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                   ),
                   adjustHieght(khieght * .04),
                   CustomTextFormField(
+                    onTap: () {
+                      setState(() {
+                        tapOnPassword = false;
+                      });
+                    },
                     labelText: 'Name',
                     onTapOutside: () {
                       FocusScope.of(context).unfocus();
@@ -68,6 +74,11 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                     inputType: TextInputType.text,
                   ),
                   CustomTextFormField(
+                    onTap: () {
+                      setState(() {
+                        tapOnPassword = false;
+                      });
+                    },
                     validate: Validate.phone,
                     maxlegth: 10,
                     labelText: 'Mobile Number',
@@ -78,6 +89,11 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                     inputType: TextInputType.number,
                   ),
                   CustomTextFormField(
+                    onTap: () {
+                      setState(() {
+                        tapOnPassword = false;
+                      });
+                    },
                     validate: Validate.email,
                     labelText: 'Mail',
                     onTapOutside: () {
@@ -88,7 +104,27 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                     onChanaged: (value) =>
                         formatWebsiteUrl(value, emailIdController),
                   ),
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.linear,
+                    height: tapOnPassword ? 50 : 0,
+                    child: tapOnPassword
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              maxLines: 3,
+                              'Password must contain at least 8 characters, including lowercase & uppercase letters, numbers, and special characters',
+                              style: textThinStyle1,
+                            ),
+                          )
+                        : kempty,
+                  ),
                   CustomTextFormField(
+                    onTap: () {
+                      setState(() {
+                        tapOnPassword = true;
+                      });
+                    },
                     obscureText: showPassword != 1,
                     validate: Validate.password,
                     labelText: 'password',
@@ -113,6 +149,11 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                     obscureText: showPassword != 2,
                     validate: Validate.rePassword,
                     labelText: 'confirm password',
+                    onTap: () {
+                      setState(() {
+                        tapOnPassword = true;
+                      });
+                    },
                     onTapOutside: () {
                       FocusScope.of(context).unfocus();
                     },
@@ -156,6 +197,8 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                         : EventButton(
                             text: 'SignUp',
                             onTap: () {
+                              tapOnPassword = false;
+
                               if (personalSignup.currentState!.validate()) {
                                 controller.registerUser(context,
                                     authPostModel: AuthPostmodel(

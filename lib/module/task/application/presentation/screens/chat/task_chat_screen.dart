@@ -2,13 +2,9 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
-import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_bubble.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/chat_bubble/chat_bubble.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/time_expence/time_expence_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_text_field.dart';
-
-import 'package:bizkit/module/task/domain/model/chat/message.dart';
-import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
-
-import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,12 +28,13 @@ class ScreenTaskChat extends StatelessWidget {
             leading: IconButton(
               onPressed: () {
                 GoRouter.of(context).pop();
+                chatController.closeConnetion();
               },
               icon: const Icon(Icons.arrow_back_ios),
             ),
             title: GestureDetector(
               onTap: () {
-                GoRouter.of(context).pushNamed(Routes.taskDeail);
+                GoRouter.of(context).push(Routes.taskChatScreen);
               },
               child: taskController.isLoading.value
                   ? Column(
@@ -56,9 +53,9 @@ class ScreenTaskChat extends StatelessWidget {
                     )
                   : Row(
                       children: [
-                        const CircleAvatar(
-                          backgroundImage: AssetImage(imageDummyAsset),
-                        ),
+                        // const CircleAvatar(
+                        //   backgroundImage: AssetImage(imageDummyAsset),
+                        // ),
                         adjustWidth(5.w),
                         Expanded(
                           child: Column(
@@ -117,11 +114,22 @@ class ScreenTaskChat extends StatelessWidget {
                                     showArrow = false;
                                   }
                                 }
-                                // PollContainerChat(isSender: index == 0)
-                                return ChatBubble(
-                                  showArrow: showArrow,
-                                  message: message,
-                                );
+                                if (message.textMessage != null) {
+                                  return ChatBubble(
+                                    showArrow: showArrow,
+                                    message: message.textMessage!,
+                                  );
+                                }
+                                if (message.poll != null) {
+                                  return PollContainerChat(
+                                      message: message.poll!);
+                                }
+                                if (message.timeExpence != null) {
+                                  return TimeAndExpenseCard(
+                                    message: message.timeExpence!,
+                                  );
+                                }
+                                return kempty;
                               },
                             );
                           })),

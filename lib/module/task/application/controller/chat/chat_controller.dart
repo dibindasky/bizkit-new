@@ -2,8 +2,13 @@ import 'dart:async';
 
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/module/task/domain/model/chat/create_poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
-import 'package:dartz/dartz.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll.dart';
+import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/time_expence_creation.dart';
+import 'package:bizkit/module/task/domain/model/chat/time_expence_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 
@@ -15,64 +20,124 @@ class ChatController extends GetxController {
   late IOWebSocketChannel channel;
   final TextEditingController controller = TextEditingController();
   final ScrollController chatScrollController = ScrollController();
+
+  /// chat message list
   RxList<Message> messages = <Message>[].obs;
   String _error = '';
+  String chatTaskId = '';
   bool firstLoad = true;
 
-  // connect to the channel with task id
+  Rx<Poll> pollDetail = Poll().obs;
+
+  /// connect to the channel with task id
   void connectChannel({required String? taskId}) async {
+    chatTaskId = taskId ?? '';
+    chatScrollController.addListener(() {
+      checkLoading();
+    });
+
     final token = await SecureStorage.getToken();
     final accessToken = token.accessToken ?? '';
     final uid = token.uid ?? '';
     firstLoad = true;
     messages.clear();
-    // remove when server is there.. for testing use it
-    messages = sampleMessages.obs;
-    // try {
-    //   channel = IOWebSocketChannel.connect(
-    //     Uri.parse(
-    //         SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
-    //     headers: {'Authorization': 'Bearer $accessToken'},
-    //   );
 
-    //   channel.stream.listen(
-    //     (message) {
-    //       print(message);
-    //       messages.add(Message.fromJson(
-    //           jsonDecode(message) as Map<String, dynamic>, uid));
-    //       update(['chat']);
-    //       Timer(
-    //         const Duration(milliseconds: 200),
-    //         () {
-    //           chatScrollController.animateTo(
-    //               firstLoad
-    //                   ? chatScrollController.position.maxScrollExtent
-    //                   : chatScrollController.position.pixels + 100,
-    //               duration: const Duration(milliseconds: 300),
-    //               curve: Curves.easeIn);
-    //         },
-    //       );
-    //     },
-    //     onError: (error) {
-    //       print('Connection error: $error');
-    //       _error = 'Connection error: $error';
-    //     },
-    //     onDone: () {
-    //       if (channel.closeCode != null) {
-    //         print('Connection closed with code: ${channel.closeCode}');
-    //         _error = 'Connection closed with code: ${channel.closeCode}';
-    //       }
-    //     },
-    //   );
-    // } catch (e) {
-    //   print('Failed to connect: $e');
-    //   _error = 'Failed to connect: $e';
-    // }
+    try {
+      print('message count taskId => $taskId');
+      channel = IOWebSocketChannel.connect(
+        Uri.parse(
+            SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
+        headers: {'Authorization': 'Bearer $accessToken'},
+      );
+
+      channel.stream.listen(
+        (message) {
+          // Decode the message from JSON
+          final decodedMessage =
+              jsonDecode(message as String) as Map<String, dynamic>;
+
+          print(decodedMessage);
+          bool doAnimate = true;
+          // handle for text messages
+          if (decodedMessage['message_type'] == 'text') {
+            final m = TextMessage.fromJson(decodedMessage, uid);
+            final mess = Message(textMessage: m, sender: m.sender);
+            if (m.isLoadMore) {
+              messages.insert(0, mess);
+            } else if (!messages
+                .any((mess) => mess.textMessage?.messageId == m.messageId)) {
+              messages.add(mess);
+            }
+          }
+          // handle for polls
+          else if (decodedMessage['message_type'] == 'poll') {
+            final poll = Poll.fromJson(decodedMessage, uid);
+            final mess = Message(poll: poll, sender: poll.sender);
+            if (!messages.any((mess) => mess.poll?.pollId == poll.pollId)) {
+              messages.add(mess);
+            } else {
+              doAnimate = false;
+              print('poll updation');
+              final index = messages
+                  .indexWhere((element) => element.poll?.pollId == poll.pollId);
+              if (index != -1) {
+                messages[index] = mess;
+                if (poll.pollId == pollDetail.value.pollId) {
+                  pollDetail.value = poll;
+                }
+              }
+            }
+          }
+          // handle for expence and time
+          else if (decodedMessage['message_type'] == 'time_expense') {
+            final m = TimeExpense.fromJson(decodedMessage, uid);
+            final mess = Message(timeExpence: m, sender: m.sender);
+            if (!messages
+                .any((mess) => mess.textMessage?.messageId == m.messageId)) {
+              messages.add(mess);
+            }
+          }
+
+          update(['chat']);
+          if (decodedMessage['is_load_more'] != true && doAnimate) {
+            Timer(
+              const Duration(milliseconds: 200),
+              () {
+                chatScrollController.animateTo(
+                  firstLoad
+                      ? chatScrollController.position.maxScrollExtent
+                      : chatScrollController.position.pixels +
+                          (decodedMessage['message_type'] == 'poll'
+                              ? 500
+                              : 100),
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeIn,
+                );
+              },
+            );
+          }
+        },
+        onError: (error) {
+          print('Connection error: $error');
+          _error = 'Connection error: $error';
+        },
+        onDone: () {
+          if (channel.closeCode != null) {
+            print('Connection closed with code: ${channel.closeCode}');
+            _error = 'Connection closed with code: ${channel.closeCode}';
+          }
+        },
+      );
+    } catch (e) {
+      print('Failed to connect: $e');
+      _error = 'Failed to connect: $e';
+    }
   }
 
-  // close channel connection
+  /// close channel connection
   void closeConnetion() {
     try {
+      messages.clear();
       channel.sink.close();
       // channel.sink.close(status.goingAway);
     } catch (e) {
@@ -80,7 +145,7 @@ class ChatController extends GetxController {
     }
   }
 
-  // send text message
+  /// send text message
   void sendTextMessage() {
     if (controller.text.isNotEmpty) {
       final message = controller.text;
@@ -95,207 +160,56 @@ class ChatController extends GetxController {
       }
     }
   }
-}
 
-final List<Message> sampleMessages = [
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:15:00Z',
-    messageId: 'msg1',
-    message: 'Hey there!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:16:00Z',
-    messageId: 'msg2',
-    message: 'Hello Alice!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:17:00Z',
-    messageId: 'msg3',
-    message: 'How are you today?',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:18:00Z',
-    messageId: 'msg4',
-    message: 'I\'m doing well, thanks!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:19:00Z',
-    messageId: 'msg5',
-    message: 'Glad to hear that!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:15:00Z',
-    messageId: 'msg1',
-    message: 'Hey there!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:16:00Z',
-    messageId: 'msg2',
-    message: 'Hello Alice!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:17:00Z',
-    messageId: 'msg3',
-    message: 'How are you today?',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:18:00Z',
-    messageId: 'msg4',
-    message: 'I\'m doing well, thanks!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:19:00Z',
-    messageId: 'msg5',
-    message: 'Glad to hear that!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:15:00Z',
-    messageId: 'msg1',
-    message: 'Hey there!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:16:00Z',
-    messageId: 'msg2',
-    message: 'Hello Alice!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:17:00Z',
-    messageId: 'msg3',
-    message: 'How are you today?',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:18:00Z',
-    messageId: 'msg4',
-    message: 'I\'m doing well, thanks!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:19:00Z',
-    messageId: 'msg5',
-    message: 'Glad to hear that!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:15:00Z',
-    messageId: 'msg1',
-    message: 'Hey there!',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:16:00Z',
-    messageId: 'msg2',
-    message: 'Hello Alice!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:17:00Z',
-    messageId: 'msg3',
-    message: 'How are you today?',
-    sender: true,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user2',
-    username: 'Bob',
-    profilePicture: 'https://example.com/bob.jpg',
-    timestamp: '2024-08-09T10:18:00Z',
-    messageId: 'msg4',
-    message: 'I\'m doing well, thanks!',
-    sender: false,
-  ),
-  Message(
-    messageType: 'text',
-    userId: 'user1',
-    username: 'Alice',
-    profilePicture: 'https://example.com/alice.jpg',
-    timestamp: '2024-08-09T10:19:00Z',
-    messageId: 'msg5',
-    message: 'Glad to hear that!',
-    sender: true,
-  ),
-];
+  /// create poll voting
+  void createPollVoting({required CreatePoll createPoll}) {
+    try {
+      channel.sink.add(jsonEncode(createPoll.toJson()));
+      controller.clear();
+      firstLoad = false;
+    } catch (e) {
+      print('Failed to create poll: $e');
+      _error = 'Failed to create poll: $e';
+    }
+  }
+
+  /// add vote for pole
+  void addVoteforPol({required VotePoll votePoll}) {
+    try {
+      channel.sink.add(jsonEncode(votePoll.toJson()));
+      controller.clear();
+      firstLoad = false;
+    } catch (e) {
+      print('Failed to create poll: $e');
+      _error = 'Failed to create poll: $e';
+    }
+  }
+
+  /// check for load more
+  void checkLoading() {
+    if (chatScrollController.offset ==
+        chatScrollController.position.minScrollExtent) {
+      print('call load more message');
+      channel.sink.add(
+        jsonEncode({
+          "message_type": "load_more",
+          "last_message_id": messages.first.textMessage != null
+              ? (messages.first.textMessage!.messageId ?? '')
+              : messages.first.poll != null
+                  ? (messages.first.poll?.messageId ?? '')
+                  : ''
+        }),
+      );
+    }
+  }
+
+  // create time and expence chat
+  void addTimeExpence({required TimeExpenseUpdation timeExpenceUpdation}) {
+    try {
+      channel.sink.add(jsonEncode(timeExpenceUpdation.toJson()));
+    } catch (e) {
+      print('Failed to update time and expence: $e');
+      _error = 'Failed to update time and expence: $e';
+    }
+  }
+}

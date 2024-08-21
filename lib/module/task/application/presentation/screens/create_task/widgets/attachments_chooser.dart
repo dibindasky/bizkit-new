@@ -32,11 +32,33 @@ class AttachmentChooserTaskCreation extends StatelessWidget {
               color: lightGrey,
               borderRadius: kBorderRadius15,
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.file_upload_outlined, color: neonShade),
-                Text('Browse File or upload')
+                const Icon(Icons.file_upload_outlined, color: neonShade),
+                adjustWidth(20.w),
+                const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Browse File or Upload',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: kwhite,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Allowed File Types: JPG, PDF',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
@@ -64,7 +86,7 @@ class AttachmentChooserTaskCreation extends StatelessWidget {
                             children: [
                               SizedBox(
                                 width: 109.w,
-                                height: 65.h,
+                                height: 60.h,
                                 child: Card(
                                   color: lightGrey,
                                   margin: EdgeInsets.only(right: 10.w),
@@ -72,9 +94,10 @@ class AttachmentChooserTaskCreation extends StatelessWidget {
                                     padding: const EdgeInsets.all(12.0),
                                     child: Column(
                                       children: [
-                                        Image.asset(
-                                          attendenceSolidPdfImg,
-                                          width: 25,
+                                        Icon(
+                                          Icons.file_copy,
+                                          color: neonShade,
+                                          size: 30.w,
                                         ),
                                         Text(
                                           file.name,

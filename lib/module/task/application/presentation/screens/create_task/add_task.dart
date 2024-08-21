@@ -14,6 +14,7 @@ import 'package:bizkit/module/task/application/presentation/widgets/task_textfro
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,7 +54,7 @@ class ScreenAddTask extends StatelessWidget {
             controller.subTasks.clear();
             controller.clearSelectedFiles();
             titleController.clear();
-            controller.deadlineDate.value = '';
+            controller.deadlineDateForTaskCreation.value = '';
             descriptionController.clear();
           },
           icon: const Icon(Icons.arrow_back_ios),
@@ -79,6 +80,8 @@ class ScreenAddTask extends StatelessWidget {
                           Text('Title', style: style),
                           adjustHieght(3.h),
                           TaskTextField(
+                            onTapOutside: () =>
+                                FocusScope.of(context).unfocus(),
                             hintText: 'Title',
                             controller: titleController,
                             validator: (value) {
@@ -110,20 +113,28 @@ class ScreenAddTask extends StatelessWidget {
                           const PriorityRecurringDropDownItems(),
                           adjustHieght(10.h),
                           adjustHieght(10.h),
-                          Text('Assign to', style: style),
-                          adjustHieght(3.h),
-                          ContainerTextFieldDummy(
-                              text: 'Assign to',
-                              suffixIcon: Icons.arrow_right,
-                              onTap: () {
-                                showModalBottomSheet(
-                                  enableDrag: true,
-                                  context: context,
-                                  builder: (context) =>
-                                      const AddParticipentBottomSheet(),
-                                );
-                              }),
-                          adjustHieght(10.h),
+                          controller.createTaskTupe.value == TaskType.personal
+                              ? kempty
+                              : Text('Assign to', style: style),
+                          controller.createTaskTupe.value == TaskType.personal
+                              ? kempty
+                              : adjustHieght(3.h),
+                          controller.createTaskTupe.value == TaskType.personal
+                              ? kempty
+                              : ContainerTextFieldDummy(
+                                  text: 'Assign to',
+                                  suffixIcon: Icons.arrow_right,
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      enableDrag: true,
+                                      context: context,
+                                      builder: (context) =>
+                                          const AddParticipentBottomSheet(),
+                                    );
+                                  }),
+                          controller.createTaskTupe.value == TaskType.personal
+                              ? kempty
+                              : adjustHieght(10.h),
                           Obx(() {
                             final participants = controller.userslistNew;
                             return Wrap(
@@ -148,7 +159,9 @@ class ScreenAddTask extends StatelessWidget {
                           DeadlineChooserCreateTask(
                             showTitle: true,
                             onPressed: (date) {
-                              controller.deadlineDate.value = date;
+                              controller.deadlineDateForTaskCreation.value =
+                                  date;
+                              FocusScope.of(context).unfocus();
                             },
                           ),
                           adjustHieght(10.h),
@@ -201,8 +214,8 @@ class ScreenAddTask extends StatelessWidget {
         task: TaskModel(
           title: titleController.text,
           description: descriptionController.text,
-          deadLine: controller.deadlineDate.value.isNotEmpty
-              ? controller.deadlineDate.value
+          deadLine: controller.deadlineDateForTaskCreation.value.isNotEmpty
+              ? controller.deadlineDateForTaskCreation.value
               : '',
           assignedTo: [],
           attachments: attachments.isNotEmpty ? attachments : [],

@@ -2,12 +2,10 @@ import 'dart:developer';
 
 import 'package:bizkit/module/task/data/service/folder/folder_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/all_folders_responce/datum.dart';
-
 import 'package:bizkit/module/task/domain/model/folders/delete_folder_model/delete_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_folder_model/edit_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/filter_folder_by_deadline_model/filter_folder_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/filter_folders_by_deadlin_success_responce/filtered_folder.dart';
-
 import 'package:bizkit/module/task/domain/model/folders/folder_model/folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_tasks_inside_folder_success_responce/inner_folder.dart';
@@ -23,13 +21,11 @@ import 'package:bizkit/module/task/domain/model/folders/inner_folder/merge_inner
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/task_add_to_folder_model/task_add_to_folder_model.dart';
+import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
 import 'package:bizkit/module/task/domain/repository/service/folder_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -49,6 +45,7 @@ class TaskFolderController extends GetxController {
   RxList<FilteredFolders> filteredFoldersByDeadline = <FilteredFolders>[].obs;
 
   RxBool isLoading = false.obs;
+  RxBool folderNameLoading = false.obs;
 
   RxString deadlineDate = ''.obs;
 
@@ -116,14 +113,19 @@ class TaskFolderController extends GetxController {
   void createNewFolder(
       {required FolderModel folder, required BuildContext context}) async {
     isLoading.value = true;
+
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await folderService.createNewFolder(folder: folder);
     result.fold(
       (failure) {
         isLoading.value = false;
-        showSnackbar(context,
-            message: failure.message ?? errorMessage,
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
             backgroundColor: kred,
-            textColor: kblack);
+          ),
+        );
+
         log(failure.message.toString());
       },
       (success) {
@@ -133,11 +135,12 @@ class TaskFolderController extends GetxController {
         filterFoldersByDeadline(
             filterFolder:
                 FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
-        showSnackbar(
-          context,
-          message: 'Folder created successfully',
-          backgroundColor: neonShade,
-          textColor: kblack,
+
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Folder created successfully'),
+            backgroundColor: neonShade,
+          ),
         );
         isLoading.value = false;
       },
@@ -148,15 +151,18 @@ class TaskFolderController extends GetxController {
       {required EditFolderModel editFolderName,
       required BuildContext context}) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result =
         await folderService.editFolderName(editFolderName: editFolderName);
     result.fold(
       (failure) {
         isLoading.value = false;
-        showSnackbar(context,
-            message: failure.message ?? errorMessage,
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
             backgroundColor: kred,
-            textColor: kblack);
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
@@ -165,11 +171,12 @@ class TaskFolderController extends GetxController {
         filterFoldersByDeadline(
             filterFolder:
                 FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
-        showSnackbar(
-          context,
-          message: 'Folder name edited successfully',
-          backgroundColor: neonShade,
-          textColor: kblack,
+
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Folder name edited successfully'),
+            backgroundColor: neonShade,
+          ),
         );
         isLoading.value = false;
       },
@@ -180,14 +187,17 @@ class TaskFolderController extends GetxController {
       {required DeleteFolderModel deleteFolder,
       required BuildContext context}) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await folderService.deleteFolder(deleteFolder: deleteFolder);
     result.fold(
       (failure) {
         isLoading.value = false;
-        showSnackbar(context,
-            message: failure.message ?? errorMessage,
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
             backgroundColor: kred,
-            textColor: kblack);
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
@@ -195,12 +205,13 @@ class TaskFolderController extends GetxController {
         filterFoldersByDeadline(
             filterFolder:
                 FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
-        // showSnackbar(
-        //   context,
-        //   message: 'Folder deleted successfully',
-        //   backgroundColor: kred,
-        //   textColor: kblack,
-        // );
+
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Folder deleted successfully'),
+            backgroundColor: neonShade,
+          ),
+        );
         isLoading.value = false;
       },
     );
@@ -208,18 +219,39 @@ class TaskFolderController extends GetxController {
 
   void tasksAddToFolder({
     required TaskAddToFolderModel taskAddToFolder,
+    required BuildContext context,
+    required bool addOrDelete,
   }) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result =
         await folderService.tasksAddToFolder(taskAddToFolder: taskAddToFolder);
     result.fold(
       (failure) {
         isLoading.value = false;
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
+            backgroundColor: kred,
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
         log('task add OR remove - folder ===  ${success.message}');
-
+        addOrDelete == true
+            ? scaffoldMessenger.showSnackBar(
+                const SnackBar(
+                  content: Text('Tasks added successfully'),
+                  backgroundColor: neonShade,
+                ),
+              )
+            : scaffoldMessenger.showSnackBar(
+                const SnackBar(
+                  content: Text('Task removed successfully'),
+                  backgroundColor: neonShade,
+                ),
+              );
         isLoading.value = false;
       },
     );
@@ -229,16 +261,19 @@ class TaskFolderController extends GetxController {
       {required MergeFolderModel mergeFolders,
       required BuildContext context}) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await folderService.mergeFolders(
       mergeFolders: mergeFolders,
     );
     result.fold(
       (failure) {
         isLoading.value = false;
-        showSnackbar(context,
-            message: failure.message ?? errorMessage,
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
             backgroundColor: kred,
-            textColor: kblack);
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
@@ -249,12 +284,13 @@ class TaskFolderController extends GetxController {
         filterFoldersByDeadline(
             filterFolder:
                 FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
-        // showSnackbar(
-        //   context,
-        //   message: 'Folder Merged successfully',
-        //   backgroundColor: kred,
-        //   textColor: kblack,
-        // );
+
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Folder Merged successfully'),
+            backgroundColor: neonShade,
+          ),
+        );
       },
     );
   }
@@ -265,28 +301,34 @@ class TaskFolderController extends GetxController {
     required String folderId,
   }) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await folderService.createNewFolderInsideFolder(
         createNewFolderInsideFolder: createNewFolderInsideFolder);
 
     result.fold(
       (failure) {
         isLoading.value = false;
-        showSnackbar(context,
-            message: failure.message ?? errorMessage,
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(
+              failure.message ?? errorMessage,
+            ),
             backgroundColor: kred,
-            textColor: kblack);
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
         filterInnerFolderByDeadline(
             filterInnerFolder: FilterInnerFolderModel(
                 folderId: folderId, filterDate: deadlineDate.value));
-        // showSnackbar(
-        //   context,
-        //   message: 'Create Inner folder successfully',
-        //   backgroundColor: neonShade,
-        //   textColor: kblack,
-        // );
+
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Create Inner folder successfully'),
+            backgroundColor: neonShade,
+          ),
+        );
         isLoading.value = false;
         log('${success.message}');
       },
@@ -295,20 +337,20 @@ class TaskFolderController extends GetxController {
 
   void fetchTasksInsideFolder(
       {required GetTaskInsideAFolderParamsModel taskInsideFolder}) async {
-    isLoading.value = true;
+    folderNameLoading.value = true;
     final result = await folderService.getTasksInsideFolder(
         taskInsideFolder: taskInsideFolder);
 
     result.fold(
       (failure) {
-        isLoading.value = false;
+        folderNameLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         foldername.value = success.data?.first.folderName ?? 'Folder Name';
         tasksInsideFolder.assignAll(success.data?.first.tasks ?? []);
         innerFolders.assignAll(success.data?.first.innerFolders ?? []);
-        isLoading.value = false;
+        folderNameLoading.value = false;
       },
     );
   }
@@ -319,6 +361,7 @@ class TaskFolderController extends GetxController {
     required String folderId,
   }) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await folderService.deleteInnerFolder(
       deleteInnerFolder: deleteInnerFolder,
     );
@@ -326,6 +369,12 @@ class TaskFolderController extends GetxController {
     result.fold(
       (failure) {
         isLoading.value = false;
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
+            backgroundColor: kred,
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
@@ -338,13 +387,13 @@ class TaskFolderController extends GetxController {
             folderId: folderId,
           ),
         );
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Inner folder deleted successfully'),
+            backgroundColor: neonShade,
+          ),
+        );
 
-        // showSnackbar(
-        //   context,
-        //   message: 'Inner folder deleted successfully',
-        //   backgroundColor: kred,
-        //   textColor: kblack,
-        // );
         isLoading.value = false;
       },
     );
@@ -355,15 +404,20 @@ class TaskFolderController extends GetxController {
       required BuildContext context,
       required String folderId}) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await folderService.editInnerFolder(
         editInnerFolder: editInnerFolderName);
     result.fold(
       (failure) {
         isLoading.value = false;
-        showSnackbar(context,
-            message: failure.message ?? errorMessage,
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(
+              failure.message ?? errorMessage,
+            ),
             backgroundColor: kred,
-            textColor: kblack);
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
@@ -371,29 +425,50 @@ class TaskFolderController extends GetxController {
         filterInnerFolderByDeadline(
             filterInnerFolder: FilterInnerFolderModel(
                 folderId: folderId, filterDate: deadlineDate.value));
-        // showSnackbar(
-        //   context,
-        //   message: 'Inner folder name edited successfully',
-        //   backgroundColor: neonShade,
-        //   textColor: kblack,
-        // );
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Inner folder name edited successfully'),
+            backgroundColor: neonShade,
+          ),
+        );
         isLoading.value = false;
       },
     );
   }
 
   void taskAddOrDeleteInnerFolder(
-      {required TaskAddOrDeleteInnerFolderModel taskAddOrDelete}) async {
+      {required TaskAddOrDeleteInnerFolderModel taskAddOrDelete,
+      required BuildContext context,
+      required bool addOrDelete}) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await folderService.taskAddOrDeleteInnerFolder(
         taskAddOrDelete: taskAddOrDelete);
     result.fold(
       (failure) {
         isLoading.value = false;
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
+            backgroundColor: kred,
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
-        log('taskAddOrDeleteInnerFolder === ${success.message}');
+        addOrDelete == true
+            ? scaffoldMessenger.showSnackBar(
+                const SnackBar(
+                  content: Text('Tasks added successfully'),
+                  backgroundColor: neonShade,
+                ),
+              )
+            : scaffoldMessenger.showSnackBar(
+                const SnackBar(
+                  content: Text('Task removed successfully'),
+                  backgroundColor: neonShade,
+                ),
+              );
         isLoading.value = false;
       },
     );
@@ -459,16 +534,19 @@ class TaskFolderController extends GetxController {
       required BuildContext context,
       required String folderId}) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await folderService.mergeInnerFolders(
         mergeInnerFolders: mergeInnerFolders);
 
     result.fold(
       (failure) {
         isLoading.value = false;
-        showSnackbar(context,
-            message: failure.message ?? errorMessage,
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
             backgroundColor: kred,
-            textColor: kblack);
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
@@ -482,15 +560,46 @@ class TaskFolderController extends GetxController {
             filterDate: deadlineDate.value,
           ),
         );
-
-        // showSnackbar(
-        //   context,
-        //   message: 'Inner Folder Merged successfully',
-        //   backgroundColor: kred,
-        //   textColor: kblack,
-        // );
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Inner Folders Merged successfully'),
+            backgroundColor: neonShade,
+          ),
+        );
         isLoading.value = false;
       },
     );
+  }
+
+  void folderSpotLightOnOrOff({required SpotLightTask spotLightTask}) async {
+    for (var i = 0; i < tasksInsideFolder.length; i++) {
+      if (tasksInsideFolder[i].taskId == spotLightTask.taskId) {
+        tasksInsideFolder[i] = tasksInsideFolder[i]
+            .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+        break;
+      }
+    }
+  }
+
+  void innerFolderSpotLightOnOrOff(
+      {required SpotLightTask spotLightTask}) async {
+    for (var i = 0; i < tasksInsideInnerFolder.length; i++) {
+      if (tasksInsideInnerFolder[i].taskId == spotLightTask.taskId) {
+        tasksInsideInnerFolder[i] = tasksInsideInnerFolder[i]
+            .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+        break;
+      }
+    }
+  }
+
+  void clearAllDatas() async {
+    tasksInsideFolder.clear();
+    tasksInsideInnerFolder.clear();
+    filteredInnerFolders.clear();
+    filteredFoldersByDeadline.clear();
+    deadlineDate.value = '';
+    allFolders.clear();
+    selectedFolderIds.clear();
+    selectedInnerFolderIds.clear();
   }
 }

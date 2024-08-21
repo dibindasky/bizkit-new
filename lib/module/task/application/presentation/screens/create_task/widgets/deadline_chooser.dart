@@ -48,9 +48,9 @@ class DeadlineChooserCreateTask extends StatelessWidget {
           ),
           child: Obx(
             () => ContainerTextFieldDummy(
-                text: controller.deadlineDate.value.isEmpty
+                text: controller.deadlineDateForTaskCreation.value.isEmpty
                     ? 'Choose Deadline'
-                    : controller.deadlineDate.value,
+                    : controller.deadlineDateForTaskCreation.value,
                 suffixIcon: Icons.calendar_month),
           ),
         ),

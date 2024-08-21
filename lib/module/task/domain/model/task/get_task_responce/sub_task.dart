@@ -12,6 +12,8 @@ class SubTask {
   bool? isCompleted;
   @JsonKey(name: 'total_time_taken')
   String? totalTimeTaken;
+  @JsonKey(name: 'duration')
+  String? duration;
   @JsonKey(name: '_id')
   String? id;
 
@@ -21,6 +23,7 @@ class SubTask {
     this.deadLine,
     this.isCompleted,
     this.totalTimeTaken,
+    this.duration,
     this.id,
   });
 

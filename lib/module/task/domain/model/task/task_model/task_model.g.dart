@@ -15,7 +15,9 @@ TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => TaskModel(
       deadLine: json['dead_line'] as String?,
       isKilled: json['is_killed'] as bool?,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      attachments: json['attachments'] as List<Attachment>?,
+      attachments: (json['attachments'] as List<dynamic>?)
+          ?.map((e) => Attachment.fromJson(e as Map<String, dynamic>))
+          .toList(),
       subTask: (json['sub_task'] as List<dynamic>?)
           ?.map((e) => SubTask.fromJson(e as Map<String, dynamic>))
           .toList(),

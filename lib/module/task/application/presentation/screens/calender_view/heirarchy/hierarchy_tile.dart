@@ -8,6 +8,7 @@ import 'package:bizkit/module/task/application/presentation/screens/calender_vie
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/calender_view_appbar.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
+import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/create_folder_inside_a_folder/create_folder_inside_a_folder.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/delete_inner_folder_model/delete_inner_folder_model.dart';
@@ -81,9 +82,9 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
             title: Text(innerFolderId == null
                 ? 'Create Inner Folder'
                 : 'Edit Inner Folder'),
-            content: TextField(
+            content: TaskTextField(
+              hintText: 'Folder name',
               controller: folderNameController,
-              decoration: const InputDecoration(hintText: "Enter folder name"),
             ),
             actions: <Widget>[
               TextButton(
@@ -233,49 +234,65 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                   vertical: isSelected ? 0 : 5.h,
                                   horizontal: isSelected ? 0 : 3.w),
                               height: 70.h,
-                              width: isSelected ? 60.w : 50.w,
-                              child: FittedBox(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      DateTimeFormater.getMonth(date.month),
-                                      style: textHeadStyle1.copyWith(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        color: isSelected ? kwhite : kblack,
-                                      ),
-                                    ),
-                                    Text(
-                                      date.day.toString(),
-                                      style: textThinStyle1.copyWith(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w200,
-                                        color: isSelected ? kwhite : kblack,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          DateTimeFormater.getWeekDay(
-                                              date.weekday),
-                                          style: textHeadStyle1.copyWith(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                            color: isSelected ? kwhite : kblack,
+                              width: isSelected ? 90.w : 70.w,
+                              child: Center(
+                                child: FittedBox(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            DateTimeFormater.getMonth(
+                                                date.month),
+                                            style: textThinStyle1.copyWith(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                              color:
+                                                  isSelected ? kwhite : kblack,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          ' ($taskCount)',
-                                          style: textThinStyle1.copyWith(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w200,
-                                            color: isSelected ? kwhite : kblack,
+                                          adjustWidth(5.w),
+                                          Text(
+                                            date.day.toString(),
+                                            style: textHeadStyle1.copyWith(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w600,
+                                              color:
+                                                  isSelected ? kwhite : kblack,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                      adjustHieght(3.h),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            DateTimeFormater.getWeekDay(
+                                                date.weekday),
+                                            style: textHeadStyle1.copyWith(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color:
+                                                  isSelected ? kwhite : kblack,
+                                            ),
+                                          ),
+                                          adjustWidth(2.w),
+                                          Text(
+                                            ' ($taskCount)',
+                                            style: textThinStyle1.copyWith(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w200,
+                                              color:
+                                                  isSelected ? kwhite : kblack,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

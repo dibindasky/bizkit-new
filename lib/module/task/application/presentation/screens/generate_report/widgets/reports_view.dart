@@ -43,7 +43,7 @@ class ReportsView extends StatelessWidget {
               Expanded(
                 child: Obx(
                   () {
-                    if (controller.isLoading.value) {
+                    if (controller.loadingForGetReports.value) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
@@ -123,6 +123,7 @@ class ReportsView extends StatelessWidget {
                       builder: (context) {
                         return Dialog(
                           child: Container(
+                            height: 420.h,
                             width: double.infinity.w,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 20),
@@ -259,7 +260,7 @@ class ReportsView extends StatelessWidget {
                                       () => EventButton(
                                         wdth: kwidth * 0.9,
                                         text: controller.fileDownloading.value
-                                            ? 'Downloading...!'
+                                            ? 'Downloading...'
                                             : 'Generate Report',
                                         onTap: () async {
                                           if (controller
@@ -271,7 +272,6 @@ class ReportsView extends StatelessWidget {
                                                 message:
                                                     'Please select any of the feilds',
                                                 backgroundColor: kred);
-                                            return;
                                           } else {
                                             controller.generateReport(
                                               context: context,
@@ -286,8 +286,6 @@ class ReportsView extends StatelessWidget {
                                               ),
                                             );
                                           }
-
-                                          // Navigator.of(context).pop();
                                         },
                                       ),
                                     ),

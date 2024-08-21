@@ -28,6 +28,7 @@ class InnerFolderTask {
   CreatedBy? createdBy;
   @JsonKey(name: 'created_at')
   String? createdAt;
+
   InnerFolderTask({
     this.taskId,
     this.title,
@@ -49,4 +50,36 @@ class InnerFolderTask {
   }
 
   Map<String, dynamic> toJson() => _$InnerFolderTaskToJson(this);
+
+  InnerFolderTask copyWith({
+    String? taskId,
+    String? title,
+    String? description,
+    String? priorityLevel,
+    bool? recurrentTask,
+    bool? isCompleted,
+    String? deadLine,
+    bool? isKilled,
+    List<String>? tags,
+    bool? isOwned,
+    bool? spotlightOn,
+    CreatedBy? createdBy,
+    String? createdAt,
+  }) {
+    return InnerFolderTask(
+      taskId: taskId ?? this.taskId,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      priorityLevel: priorityLevel ?? this.priorityLevel,
+      recurrentTask: recurrentTask ?? this.recurrentTask,
+      isCompleted: isCompleted ?? this.isCompleted,
+      deadLine: deadLine ?? this.deadLine,
+      isKilled: isKilled ?? this.isKilled,
+      tags: tags ?? this.tags,
+      isOwned: isOwned ?? this.isOwned,
+      spotlightOn: spotlightOn ?? this.spotlightOn,
+      createdBy: createdBy ?? this.createdBy,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }

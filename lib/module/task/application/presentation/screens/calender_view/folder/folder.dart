@@ -286,6 +286,8 @@ void showTaskSelectionBottomSheet(
                     );
 
                     folderController.taskAddOrDeleteInnerFolder(
+                        context: context,
+                        addOrDelete: true,
                         taskAddOrDelete: addOrDeleteInnerFolderModel);
                     Navigator.pop(context);
                   } else {
@@ -308,6 +310,8 @@ void showTaskSelectionBottomSheet(
                     );
 
                     folderController.tasksAddToFolder(
+                        addOrDelete: true,
+                        context: context,
                         taskAddToFolder: taskAddToFolder);
 
                     Navigator.pop(context);

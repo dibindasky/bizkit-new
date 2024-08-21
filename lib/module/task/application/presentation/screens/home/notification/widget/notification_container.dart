@@ -1,19 +1,28 @@
-import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/assigned_user.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class NotificationCard extends StatelessWidget {
-  const NotificationCard(
-      {super.key, this.title = '', this.description = '', this.assignedUsers});
+  const NotificationCard({
+    super.key,
+    this.title,
+    this.description,
+    this.assignedUsers,
+    this.createdAt,
+  });
 
-  final String title;
-  final String description;
+  final String? title;
+  final String? description;
   final List<AssignedUser>? assignedUsers;
+  final String? createdAt;
 
   @override
   Widget build(BuildContext context) {
+    final DateTime? createdAtDateTime =
+        createdAt != null ? DateTime.parse(createdAt!) : null;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: Container(
@@ -40,30 +49,36 @@ class NotificationCard extends StatelessWidget {
                           ),
                           adjustWidth(8),
                           Text(
-                            // 'Task',
-                            title,
+                            title ?? 'Task Title',
                             style: const TextStyle(color: kwhite),
                           ),
                         ],
                       ),
-                      const Text(
-                        '25m ago',
-                        style: TextStyle(color: klightgrey, fontSize: 12.0),
+                      // Use timeago to format the DateTime
+                      Text(
+                        createdAtDateTime != null
+                            ? timeago.format(createdAtDateTime)
+                            : 'Unknown time',
+                        style: const TextStyle(
+                          color: klightgrey,
+                          fontSize: 12.0,
+                        ),
                       ),
                     ],
                   ),
                   adjustHieght(8),
-                  const Text(
-                    'Click to get more information',
-                    style: TextStyle(color: klightgrey, fontSize: 12.0),
+                  Text(
+                    description ?? 'Task Description',
+                    maxLines: 2,
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: klightgrey, fontSize: 12.0),
                   ),
                   adjustHieght(4),
                   Text(
-                    assignedUsers!.isNotEmpty
-                        ? 'New project task assigned to ${assignedUsers?.first.name}'
-                        : '',
+                    'New project task assigned to ${assignedUsers?.first.name}',
                     maxLines: 1,
-                    overflow: TextOverflow.clip,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       color: kwhite,
                       fontSize: 16.0,
@@ -71,26 +86,12 @@ class NotificationCard extends StatelessWidget {
                     ),
                   ),
                   adjustHieght(4),
-                  const Text(
-                    'meeting about the new movie details',
-                    style: TextStyle(color: klightgrey, fontSize: 12.0),
-                  ),
                 ],
               ),
             ),
-            // const Spacer(),
-            adjustHieght(8),
-
-            adjustHieght(8),
           ],
         ),
       ),
     );
   }
 }
-
-//  const CustomStackOnlineDotCircleAvatar(
-//               isChild: false,
-//               backgroundColor: knill,
-//               image: personDemoImg,
-//             ),

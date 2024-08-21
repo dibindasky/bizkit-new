@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
 import 'package:bizkit/module/task/domain/model/task/add_new_assined_users_model/add_new_assined_users_model.dart';
+import 'package:bizkit/module/task/domain/model/task/completed_or_killed_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
@@ -21,6 +23,8 @@ import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_m
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/completed_sub_task/completed_sub_task.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/completed_sub_task_success_responce/sub_task.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_model/delete_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/edit_sub_task_model/edit_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task_add_model.dart';
@@ -36,9 +40,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -55,6 +57,8 @@ class CreateTaskController extends GetxController {
       RecurringTimePeriod.none.obs;
   RxBool createRecurring = false.obs;
   RxString deadlineDate = ''.obs;
+  RxString deadlineDateForTaskCreation = ''.obs;
+  RxBool taskscountChanged = false.obs;
 
   // List of participants involved in the task
   // var participants = <TaskAssignedTo>[].obs;
@@ -66,12 +70,16 @@ class CreateTaskController extends GetxController {
   RxList<Task> deadlineTasks = <Task>[].obs;
   RxList<SentRequest> sentRequests = <SentRequest>[].obs;
   RxList<Task> allPinnedTasks = <Task>[].obs;
+  RxList<TasksCompletedOrKilled> completedTasks =
+      <TasksCompletedOrKilled>[].obs;
+  RxList<TasksCompletedOrKilled> killedTasks = <TasksCompletedOrKilled>[].obs;
   RxList<UserSearchSuccessResponce> userslist =
       <UserSearchSuccessResponce>[].obs;
   RxList<Task> tasksSearch = <Task>[].obs;
   RxList<Task> selectedTasks = <Task>[].obs;
   RxList<ReceivedTask> receivedRequests = <ReceivedTask>[].obs;
   RxMap<String, RxInt> tasksCounts = <String, RxInt>{}.obs;
+  RxList<CompletedSubTasks> completedSubTasks = <CompletedSubTasks>[].obs;
 
   // Holds a single task response
   var singleTask = GetTaskResponce().obs;
@@ -110,10 +118,12 @@ class CreateTaskController extends GetxController {
 
   // Reactive variable for loading state
   RxBool isLoading = false.obs;
+  RxBool loadgingForFilterByType = false.obs;
   RxBool taskCreationLoading = false.obs;
   RxBool taskEditLoading = false.obs;
   RxBool searchLoading = false.obs;
   RxBool pinLoader = false.obs;
+  RxBool isLoadingForSpotLight = false.obs;
 
   // Task service instance for API interactions
   final TaskRepo taskService = TaskService();
@@ -229,7 +239,8 @@ class CreateTaskController extends GetxController {
 
   // Method to handle file selection
   void pickFiles() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    final result = await FilePicker.platform
+        .pickFiles(allowedExtensions: ['jpg', 'pdf'], type: FileType.custom);
     if (result != null) {
       selectedFiles.addAll(result.files);
     }
@@ -261,31 +272,12 @@ class CreateTaskController extends GetxController {
         )
         .toList();
 
-    // log(' task.assignedTo ==> ${task.assignedTo}');
     final result = await taskService.createTask(task: task);
 
     result.fold(
       (error) {
         taskCreationLoading.value = false;
         Get.back(id: navigationId);
-        showSnackbar(context,
-            message: error.error ?? errorMessage,
-            backgroundColor: kred,
-            textColor: kblack);
-        log('${error.error}', name: 'Error from create new task');
-      },
-      (success) {
-        taskCreationLoading.value = false;
-        log('${success.message}');
-        testTaskId = success.taskId.toString();
-
-        Get.back(id: navigationId);
-        showSnackbar(
-          context,
-          message: 'Task created successfully',
-          backgroundColor: neonShade,
-          textColor: kblack,
-        );
         clearSelectedFiles();
         subTasks.clear();
         tags.clear();
@@ -293,9 +285,77 @@ class CreateTaskController extends GetxController {
         attachments.clear();
         attachments.clear;
         userslistNew.clear();
+        deadlineDateForTaskCreation.value = '';
+        showSnackbar(context,
+            message: error.error ?? errorMessage,
+            backgroundColor: kred,
+            textColor: kblack);
+        log('${error.error}', name: 'Error from create new task');
+      },
+      (success) {
+        deadlineDateForTaskCreation.value = '';
         getTasksCountWithoutDate();
+        taskCreationLoading.value = false;
+        log('${success.message}');
+        testTaskId = success.taskId.toString();
+        Get.back(id: navigationId);
+        clearSelectedFiles();
+        subTasks.clear();
+        tags.clear();
+        fetchSendRequests();
+        attachments.clear();
+        attachments.clear;
+        userslistNew.clear();
+
+        showSnackbar(
+          context,
+          message: 'Task created successfully',
+          backgroundColor: neonShade,
+          textColor: kblack,
+        );
       },
     );
+  }
+
+  String getTotalCompletedSubtasksDuration() {
+    final subtasks = singleTask.value.subTask ?? [];
+    final completedSubtasks =
+        subtasks.where((subtask) => subtask.isCompleted ?? false).toList();
+    Duration totalDuration = const Duration();
+
+    for (var subtask in completedSubtasks) {
+      final duration = _parseDuration(subtask.duration);
+      totalDuration += duration ?? const Duration();
+    }
+
+    return _formatDuration(totalDuration);
+  }
+
+  Duration? _parseDuration(String? duration) {
+    if (duration == null || duration.isEmpty) return null;
+
+    try {
+      final parts = duration.split(':');
+      if (parts.length == 3) {
+        final hours = int.parse(parts[0]);
+        final minutes = int.parse(parts[1]);
+
+        return Duration(
+          hours: hours,
+          minutes: minutes,
+        );
+      }
+    } catch (e) {
+      log('Error parsing duration: $e');
+    }
+    return null;
+  }
+
+  String _formatDuration(Duration duration) {
+    final hours = duration.inHours;
+    final minutes = (duration.inMinutes % 60);
+
+    return '$hours Hr $minutes Min';
   }
 
   // Edits an existing task with the provided task model
@@ -367,27 +427,29 @@ class CreateTaskController extends GetxController {
     required BuildContext context,
   }) async {
     isLoading.value = true;
-
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result =
         await taskService.completeTask(completedTaskModel: completedTaskModel);
 
     result.fold(
       (failure) {
         isLoading.value = false;
-        showSnackbar(context,
-            message: failure.message ?? errorMessage,
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
             backgroundColor: kred,
-            textColor: kblack);
+          ),
+        );
         GoRouter.of(context).pop();
         log(failure.message.toString());
       },
       (success) {
         log('${success.message}');
-        showSnackbar(
-          context,
-          message: 'Complete task successfully',
-          backgroundColor: neonShade,
-          textColor: kblack,
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Complete task successfully'),
+            backgroundColor: neonShade,
+          ),
         );
         GoRouter.of(context).pop();
         isLoading.value = false;
@@ -450,30 +512,71 @@ class CreateTaskController extends GetxController {
 
   // add spotlight to a task
   void spotLightTask({required SpotLightTask spotLightTask}) async {
-    isLoading.value = true;
+    isLoadingForSpotLight.value = true;
     final result =
         await taskService.spotLightTask(spotLightTask: spotLightTask);
     result.fold(
       (failure) {
-        isLoading.value = false;
+        isLoadingForSpotLight.value = false;
         log(failure.message.toString());
       },
       (success) {
-        isLoading.value = false;
-        taskFilterByDeadline(
-            filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
+        isLoadingForSpotLight.value = false;
+        for (var i = 0; i < deadlineTasks.length; i++) {
+          if (deadlineTasks[i].id == spotLightTask.taskId) {
+            deadlineTasks[i] = deadlineTasks[i]
+                .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+            break;
+          }
+        }
+        for (var i = 0; i < tasksSearch.length; i++) {
+          if (tasksSearch[i].id == spotLightTask.taskId) {
+            tasksSearch[i] = tasksSearch[i]
+                .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+            break;
+          }
+        }
+        for (var i = 0; i < typeTasks.length; i++) {
+          if (typeTasks[i].id == spotLightTask.taskId) {
+            typeTasks[i] = typeTasks[i]
+                .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+            break;
+          }
+        }
+        for (var i = 0; i < allPinnedTasks.length; i++) {
+          if (allPinnedTasks[i].id == spotLightTask.taskId) {
+            allPinnedTasks[i] = allPinnedTasks[i]
+                .copyWith(spotlightOn: spotLightTask.spotLightStatus);
+            break;
+          }
+        }
+
+        Get.find<TaskFolderController>()
+            .folderSpotLightOnOrOff(spotLightTask: spotLightTask);
+        Get.find<TaskFolderController>()
+            .innerFolderSpotLightOnOrOff(spotLightTask: spotLightTask);
+
         log('SpotLightTask :=> $deadlineTasks');
       },
     );
   }
 
   // Pins a task using the provided model
-  void pinnedATask({required PinnedATaskModel pinnedATask}) async {
+  void pinnedATask(
+      {required PinnedATaskModel pinnedATask,
+      required BuildContext context}) async {
     isLoading.value = true;
     pinLoader.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.pinnedATask(pinnedATask: pinnedATask);
     result.fold(
       (error) {
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(error.error ?? errorMessage),
+            backgroundColor: kred,
+          ),
+        );
         pinLoader.value = false;
       },
       (success) {
@@ -498,6 +601,13 @@ class CreateTaskController extends GetxController {
                     .value
                     .replaceAll(' ', '_')
                     .toLowerCase()));
+
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Successfully Pinned this task'),
+            backgroundColor: neonShade,
+          ),
+        );
         pinLoader.value = false;
         update();
       },
@@ -505,19 +615,47 @@ class CreateTaskController extends GetxController {
   }
 
   // Unpins a task using the provided model
-  void unpinATask({required UnpinATaskModel unpinATask}) async {
+  void unpinATask(
+      {required UnpinATaskModel unpinATask,
+      required BuildContext context}) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.unpinATask(unpinATask: unpinATask);
     result.fold(
       (failure) {
         isLoading.value = false;
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
+            backgroundColor: kred,
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
         isLoading.value = false;
         log("${success.message}");
-        Get.snackbar(
-            'Success', success.message ?? 'Successfully Unpinned this task');
+        filterPinnedTasksByType(
+            filterPinnedTask: FilterPinnedTaskByTypeModel(
+                taskType: Get.find<TaskHomeScreenController>()
+                    .taskCategory
+                    .value
+                    .replaceAll(' ', '_')
+                    .toLowerCase(),
+                isPinned: true));
+        filterByType(
+            filterByType: FilterByTypeModel(
+                taskType: Get.find<TaskHomeScreenController>()
+                    .taskCategory
+                    .value
+                    .replaceAll(' ', '_')
+                    .toLowerCase()));
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Successfully Unpinned this task'),
+            backgroundColor: neonShade,
+          ),
+        );
         update(); // Update the UI or state
       },
     );
@@ -563,19 +701,43 @@ class CreateTaskController extends GetxController {
   }
 
   // Accepts or rejects a request using the provided model
-  void acceptOrReject({required AcceptOrRejectModel acceptOrReject}) async {
+  void acceptOrReject({
+    required AcceptOrRejectModel acceptOrReject,
+    required bool isAccept,
+    required BuildContext context,
+  }) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result =
         await taskService.acceptOrReject(acceptOrReject: acceptOrReject);
     result.fold(
       (error) {
         isLoading.value = false;
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(error.error ?? errorMessage),
+            backgroundColor: kred,
+          ),
+        );
         log('${error.error}', name: 'Error from acceptOrReject ');
       },
       (success) {
         log("${success.message}");
+        isAccept == true
+            ? scaffoldMessenger.showSnackBar(
+                const SnackBar(
+                  content: Text('Task Accepted successfully'),
+                  backgroundColor: neonShade,
+                ),
+              )
+            : scaffoldMessenger.showSnackBar(
+                const SnackBar(
+                  content: Text('Task Rejected successfully'),
+                  backgroundColor: neonShade,
+                ),
+              );
         isLoading.value = false;
-        Get.snackbar('Success', success.message ?? '');
+
         fetchReceivedRequests();
       },
     );
@@ -680,15 +842,17 @@ class CreateTaskController extends GetxController {
       required String taskId,
       required BuildContext context}) async {
     isLoading.value = true;
-
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result =
         await taskService.deleteSubTask(deletesubtask: deletesubtask);
     result.fold(
       (failure) {
-        showSnackbar(context,
-            message: failure.message ?? errorMessage,
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
             backgroundColor: kred,
-            textColor: kblack);
+          ),
+        );
         GoRouter.of(context).pop();
         isLoading.value = false;
         log(failure.message.toString());
@@ -696,11 +860,11 @@ class CreateTaskController extends GetxController {
       (success) {
         log("${success.message}");
         fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
-        showSnackbar(
-          context,
-          message: 'Subtask deleted successfully',
-          backgroundColor: kred,
-          textColor: kblack,
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Subtask deleted successfully'),
+            backgroundColor: neonShade,
+          ),
         );
         GoRouter.of(context).pop();
         isLoading.value = false;
@@ -751,26 +915,30 @@ class CreateTaskController extends GetxController {
       {required KillATaskModel killAtaskModel,
       required BuildContext context}) async {
     isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.killATask(killatask: killAtaskModel);
     result.fold(
       (failure) {
         isLoading.value = false;
-        showSnackbar(context,
-            message: failure.message ?? errorMessage,
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
             backgroundColor: kred,
-            textColor: kblack);
+          ),
+        );
         GoRouter.of(context).pop();
         log(failure.message.toString());
       },
       (success) {
         log("${success.message}");
-        GoRouter.of(context).pop();
-        showSnackbar(
-          context,
-          message: 'Killed task successfully',
-          backgroundColor: neonShade,
-          textColor: kblack,
+
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Killed task successfully'),
+            backgroundColor: neonShade,
+          ),
         );
+        GoRouter.of(context).pop();
         isLoading.value = false;
       },
     );
@@ -834,5 +1002,88 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
       },
     );
+  }
+
+  void fetchAllCompletedTasks() async {
+    isLoading.value = true;
+    final result = await taskService.getAllCompletedTasks();
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        completedTasks.assignAll(success.tasks ?? []);
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void fetchAllKilledTasks() async {
+    isLoading.value = true;
+    final result = await taskService.getAllKilledTasks();
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        killedTasks.assignAll(success.tasks ?? []);
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void completedSubTask({
+    required CompletedSubTask completedSubTask,
+    required BuildContext context,
+    required String taskId,
+  }) async {
+    isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    log('SubTask completed = > ${completedSubTask.toJson()}');
+
+    final result =
+        await taskService.completedSubTask(completedSubTask: completedSubTask);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(failure.message ?? errorMessage),
+            backgroundColor: kred,
+          ),
+        );
+        log(failure.message.toString());
+      },
+      (success) {
+        log("${success.message}");
+        completedSubTasks.assignAll(success.subTask ?? []);
+        fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Subtask completed successfully'),
+            backgroundColor: neonShade,
+          ),
+        );
+
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void clearAllDatas() async {
+    tasksSearch.clear();
+    allPinnedTasks.clear();
+    typeTasks.clear();
+    deadlineTasks.clear();
+    completedTasks.clear();
+    killedTasks.clear();
+    receivedRequests.clear();
+    sentRequests.clear();
+    deadlineDate.value = '';
+    selectedFiles.clear();
+    selectedTasks.clear();
   }
 }

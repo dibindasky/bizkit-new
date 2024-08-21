@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/generate_repor.dart';
@@ -22,9 +23,11 @@ class ScreenTaskHome extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeController = Get.find<TaskHomeScreenController>();
     final taskController = Get.find<CreateTaskController>();
+    final messageCoutController = Get.find<MessageCountController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       homeController.progresBar();
       taskController.searchTasks(searchItem: '');
+      messageCoutController.sendReqForUnread();
     });
 
     return Scaffold(

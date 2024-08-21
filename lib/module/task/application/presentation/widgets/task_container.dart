@@ -1,18 +1,18 @@
 import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
-import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
+// import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_creation.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_tasks_inside_folder_success_responce/task.dart';
-import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/inner_folder_task.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or_delete_inner_folder_model/task_add_or_delete_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/task_add_to_folder_model/task_add_to_folder_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
+// import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
+// import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
@@ -23,6 +23,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class TaskContainer extends StatelessWidget {
@@ -57,23 +58,27 @@ class TaskContainer extends StatelessWidget {
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
   final taskFolderController = Get.find<TaskFolderController>();
+  final messageCountController = Get.find<MessageCountController>();
 
   @override
   Widget build(BuildContext context) {
-    String? created, deadline;
+    String? created, deadline, taskId;
     bool? spotlightOn;
     if (typeTask != null) {
       created = typeTask?.createdAt;
       deadline = typeTask?.deadLine;
       spotlightOn = typeTask?.spotlightOn;
+      taskId = typeTask?.id;
     } else if (tasksInsideFolder != null) {
       created = tasksInsideFolder?.createdAt;
       deadline = tasksInsideFolder?.deadLine;
       spotlightOn = tasksInsideFolder?.spotlightOn;
+      taskId = tasksInsideFolder?.taskId;
     } else if (tasksInsideInnerFolder != null) {
       created = tasksInsideInnerFolder?.createdAt;
       deadline = tasksInsideInnerFolder?.deadLine;
       spotlightOn = tasksInsideInnerFolder?.spotlightOn;
+      taskId = tasksInsideInnerFolder?.taskId;
     }
 
     final color = getSpotLightColor(created, deadline);
@@ -138,10 +143,7 @@ class TaskContainer extends StatelessWidget {
                                         size: 16,
                                       ),
                                     )
-                                  : Image.asset(
-                                      'asset/images/icon/Vector.png',
-                                      scale: 2,
-                                    ),
+                                  : kempty,
                               adjustWidth(10),
                               Text(
                                 overflow: TextOverflow.ellipsis,
@@ -233,34 +235,6 @@ class TaskContainer extends StatelessWidget {
                                                   : typeTask?.id,
                                         ),
                                       );
-
-                                      taskController.searchTasks(
-                                          searchItem: '');
-
-                                      if (tasksFromFoldrs == true) {
-                                        taskFolderController.fetchTasksInsideFolder(
-                                            taskInsideFolder:
-                                                GetTaskInsideAFolderParamsModel(
-                                                    folderId: folderId ?? ''));
-
-                                        taskFolderController
-                                            .filterInnerFolderByDeadline(
-                                                filterInnerFolder:
-                                                    FilterInnerFolderModel(
-                                                        filterDate:
-                                                            taskFolderController
-                                                                .deadlineDate
-                                                                .value,
-                                                        folderId:
-                                                            folderId ?? ''));
-                                      }
-
-                                      taskFolderController
-                                          .fetchAllTasksInsideAInnerFolder(
-                                              InnerFolderTasksGetParamsModel(
-                                                  folderId: folderId ?? '',
-                                                  innerFolderId:
-                                                      innerFolderId ?? ''));
                                     },
                                   ),
                                 if (typeTask?.isPinned == false)
@@ -268,6 +242,7 @@ class TaskContainer extends StatelessWidget {
                                     value: 'Pin the task',
                                     onTap: () {
                                       taskController.pinnedATask(
+                                        context: context,
                                         pinnedATask: PinnedATaskModel(
                                           isPinned: true,
                                           taskId: typeTask?.id ?? '',
@@ -284,6 +259,7 @@ class TaskContainer extends StatelessWidget {
                                     value: 'Unpin the task',
                                     onTap: () {
                                       taskController.unpinATask(
+                                        context: context,
                                         unpinATask: UnpinATaskModel(
                                           taskId: typeTask?.id ?? '',
                                           isPinned: false,
@@ -330,16 +306,18 @@ class TaskContainer extends StatelessWidget {
                                               fromInnerfolder == true) {
                                             taskFolderController
                                                 .taskAddOrDeleteInnerFolder(
+                                                    context: context,
+                                                    addOrDelete: false,
                                                     taskAddOrDelete:
                                                         TaskAddOrDeleteInnerFolderModel(
                                                             folderId: folderId,
                                                             innerFolderId:
                                                                 innerFolderId,
                                                             innerFolderTasks: [
-                                                  tasksInsideInnerFolder
-                                                          ?.taskId ??
-                                                      ''
-                                                ]));
+                                                          tasksInsideInnerFolder
+                                                                  ?.taskId ??
+                                                              ''
+                                                        ]));
                                             taskFolderController
                                                 .fetchAllTasksInsideAInnerFolder(
                                                     InnerFolderTasksGetParamsModel(
@@ -351,6 +329,8 @@ class TaskContainer extends StatelessWidget {
                                           } else {
                                             taskFolderController
                                                 .tasksAddToFolder(
+                                              addOrDelete: false,
+                                              context: context,
                                               taskAddToFolder:
                                                   TaskAddToFolderModel(
                                                       folderId: folderId,
@@ -399,7 +379,7 @@ class TaskContainer extends StatelessWidget {
                         typeTask?.isOwned == true ||
                                 tasksInsideFolder?.isOwned == true ||
                                 tasksInsideInnerFolder?.isOwned == true
-                            ? 'Created by  ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}'
+                            ? 'Created by you'
                             : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
                         style: textThinStyle1.copyWith(fontSize: 8),
                       ),
@@ -409,37 +389,35 @@ class TaskContainer extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 50,
-                bottom: 50,
+                top: 40,
+                bottom: 40,
                 left: 0,
                 child: Container(
                   color: klightgrey,
                   width: 4,
-                  height: 100,
+                  height: 5,
                 ),
-              )
+              ),
+              Obx(() {
+                final count = messageCountController.unreadCounts[taskId];
+                if (count == null || count.value == 0) return kempty;
+                return Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 3.h),
+                        decoration: BoxDecoration(
+                            borderRadius: kBorderRadius10, color: kneonShade),
+                        child: Text('$count',
+                            style: textThinStyle1.copyWith(color: kblack))));
+              })
             ],
           ),
         ),
       ),
     );
   }
-
-  // Color getSpotLightColor(String? date1, String? date2) {
-  //   if (date1 == null || date2 == null) return kwhite;
-  //   final int first = DateTimeFormater.calculateDifferenceInHours(date1, date2);
-  //   final int second = DateTimeFormater.calculateDifferenceInHours(
-  //       date1, DateTime.now().toString());
-  //   if (first < second) return kred;
-  //   final int part = (first / 3).round();
-  //   if ((part * 2) <= second) {
-  //     return leaveBorderClr;
-  //   } else if (part <= second) {
-  //     return neonShade;
-  //   } else {
-  //     return kblue;
-  //   }
-  // }
 
   Color getSpotLightColor(String? date1, String? date2) {
     if (date1 == null || date2 == null) {

@@ -9,6 +9,7 @@ import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/
 import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/add_new_assined_users_model/add_new_assined_users_model.dart';
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/completed_or_killed_success_responce/completed_or_killed_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/filter_by_deadline_responce.dart';
@@ -23,6 +24,8 @@ import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_re
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/self_to_others_type_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/completed_sub_task/completed_sub_task.dart';
+import 'package:bizkit/module/task/domain/model/task/sub_task/completed_sub_task_success_responce/completed_sub_task_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_model/delete_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/edit_sub_task_model/edit_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task_add_model.dart';
@@ -110,4 +113,10 @@ abstract class TaskRepo {
 
   Future<Either<Failure, SuccessResponce>> removeUserFromAssginedUsers(
       {required RemoveUserFromAssignedModel removeUserFromAssignedModel});
+
+  Future<Either<Failure, CompletedOrKilledSuccessResponce>>
+      getAllCompletedTasks();
+  Future<Either<Failure, CompletedOrKilledSuccessResponce>> getAllKilledTasks();
+  Future<Either<Failure, CompletedSubTaskSuccessResponce>> completedSubTask(
+      {required CompletedSubTask completedSubTask});
 }

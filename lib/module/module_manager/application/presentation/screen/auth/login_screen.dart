@@ -181,6 +181,7 @@ class _ScreenLoginState extends State<ScreenLogin>
                     ),
                     adjustHieght(khieght * .02),
                     CustomTextFormField(
+                      maxlegth: 10,
                       onTap: () {
                         setState(() {
                           if (phoneController.text.isEmpty) {

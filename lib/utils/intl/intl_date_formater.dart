@@ -4,17 +4,26 @@ class DateTimeFormater {
   // return HH:MM AM/PM
   static String formatTimeAMPM(String? timestamp) {
     if (timestamp == null || timestamp.isEmpty) return '';
+    try {
+      // Parse the timestamp into a DateTime object
+      final dateTime = DateTime.parse(timestamp);
 
-    // Parse the timestamp into a DateTime object
-    final dateTime = DateTime.parse(timestamp);
+      // Convert the DateTime to the user's local time zone
+      final localDateTime = dateTime.toLocal();
 
-    // Convert the DateTime to the user's local time zone
-    final localDateTime = dateTime.toLocal();
+      // Add 5 hours and 30 minutes to the localDateTime
+      final updatedDateTime =
+          localDateTime.add(const Duration(hours: 5, minutes: 30));
 
-    // Format the time in AM/PM format
-    final formattedTime = DateFormat.jm().format(localDateTime);
+      // Format the time in AM/PM format
+      final formattedTime = DateFormat.jm().format(updatedDateTime);
 
-    return formattedTime;
+      return formattedTime;
+    } catch (e) {
+      // Handle parsing or formatting errors
+      print('Error formatting time: $e');
+      return '';
+    }
   }
 
   static String formatDateTime(String dateString, String timeString) {
@@ -145,6 +154,18 @@ class DateTimeFormater {
         return 'Dec';
       default:
         return '';
+    }
+  }
+
+  // return "45 Hours 24 Minutes" minutes
+  static String convertMinutesToHourMinuteFormat(int totalMinutes) {
+    int hours = totalMinutes ~/ 60; // Calculate the number of hours
+    int minutes = totalMinutes % 60; // Calculate the remaining minutes
+
+    if (hours == 0) {
+      return "$minutes Min${minutes != 1 ? 's' : ''}";
+    } else {
+      return "$hours Hr${hours != 1 ? 's' : ''} $minutes Min${minutes != 1 ? 's' : ''}";
     }
   }
 }

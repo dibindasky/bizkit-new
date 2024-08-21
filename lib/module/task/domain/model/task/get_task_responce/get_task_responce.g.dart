@@ -15,6 +15,7 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
       priorityLevel: json['priority_level'] as String?,
       recurrentTask: json['recurrent_task'] as bool?,
       isCompleted: json['is_completed'] as bool?,
+      isOwned: json['is_owned'] as bool?,
       deadLine: json['dead_line'] as String?,
       isKilled: json['is_killed'] as bool?,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -52,6 +53,7 @@ Map<String, dynamic> _$GetTaskResponceToJson(GetTaskResponce instance) =>
       'sub_task': instance.subTask,
       'created_at': instance.createdAt?.toIso8601String(),
       'status': instance.status,
+      'is_owned': instance.isOwned,
       'created_user_details': instance.createdUserDetails,
       'assigned_to_details': instance.assignedToDetails,
     };

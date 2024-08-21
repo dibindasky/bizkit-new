@@ -9,9 +9,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/cards_li
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/archieved_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/deleted_cards.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/get_card_response/card_response.dart'
-    as card;
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
@@ -231,11 +228,11 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                     'Are you sure you want to archive your card',
                                                 context,
                                                 onPressed: () {
-                                                  CardActionRequestModel
-                                                      cardActionRewuestModel =
-                                                      CardActionRequestModel(
-                                                          isActive: true,
-                                                          isArchived: true);
+                                                  // CardActionRequestModel
+                                                  //     cardActionRewuestModel =
+                                                  //     CardActionRequestModel(
+                                                  //         isActive: true,
+                                                  //         isArchived: true);
                                                   // context
                                                   //     .read<CardBloc>()
                                                   //     .add(CardEvent
@@ -256,11 +253,11 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                   'Are you sure you want to delete your card',
                                               context,
                                               onPressed: () {
-                                                CardActionRequestModel
-                                                    cardActionRewuestModel =
-                                                    CardActionRequestModel(
-                                                  isActive: false,
-                                                );
+                                                // CardActionRequestModel
+                                                //     cardActionRewuestModel =
+                                                //     CardActionRequestModel(
+                                                //   isActive: false,
+                                                // );
                                                 // context.read<CardBloc>().add(
                                                 //     CardEvent.cardDelete(
                                                 //         cardActionRequestModel:
@@ -526,10 +523,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                         List<PopupMenuEntry<String>> items = [
                                           PopupMenuItem(
                                             onTap: () {
-                                              context
-                                                  .read<CardSecondBloc>()
-                                                  .add(const CardSecondEvent
-                                                      .imageClear());
+                                              // context
+                                              //     .read<CardSecondBloc>()
+                                              //     .add(const CardSecondEvent
+                                              //         .imageClear());
                                               GoRouter.of(context).pushNamed(
                                                 Routes.cardUpdating,
                                                 //extra: state.secondCards[index],
@@ -630,10 +627,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
     );
   }
 
-  bottomSheet(BuildContext context, card.CardResponse card) {
+  bottomSheet(BuildContext context) {
     showBottomSheet(
       context: context,
-      builder: (context) => CustomBottomSheet(card: card),
+      builder: (context) => const CustomBottomSheet(),
     );
   }
 }

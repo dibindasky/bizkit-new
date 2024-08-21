@@ -41,65 +41,58 @@ class ScreenCardPreviewBankOrPersonal extends StatelessWidget {
           child: Column(
             children: !isFromBankScreen
                 ? [
-                    BlocBuilder<UserDataBloc, UserDataState>(
-                      builder: (context, state) {
-                        if (state.personalData?.bloodGroup == null) {
-                          return Image.asset(emptyNodata3);
-                        }
-                        return CardBankingPersonalTiles(
-                          first: 'Blood Group',
-                          second: state.personalData!.bloodGroup ?? '',
-                        );
-                      },
+                    const CardBankingPersonalTiles(
+                      first: 'Blood Group',
+                      second: 'B+',
                     ),
                   ]
                 : [
-                    BlocBuilder<BusinessDataBloc, BusinessDataState>(
-                      builder: (context, state) {
-                        if (state.bankDetails.accountNumber == null) {
-                          return kempty;
-                        }
-                        return CardBankingPersonalTiles(
-                          first: 'Account Number',
-                          second: state.bankDetails.accountNumber ?? '',
-                        );
-                      },
-                    ),
-                    BlocBuilder<BusinessDataBloc, BusinessDataState>(
-                      builder: (context, state) {
-                        if (state.bankDetails.ifscCode == null) {
-                          return kempty;
-                        }
-                        return CardBankingPersonalTiles(
-                          first: 'IFSC',
-                          second: state.bankDetails.ifscCode ?? '',
-                        );
-                      },
-                    ),
-                    BlocBuilder<BusinessDataBloc, BusinessDataState>(
-                      builder: (context, state) {
-                        if (state.bankDetails.gstMembershipDetails == null) {
-                          return kempty;
-                        }
-                        return CardBankingPersonalTiles(
-                          first: 'GST ',
-                          second: state.bankDetails.gstMembershipDetails ?? '',
-                        );
-                      },
-                    ),
-                    BlocBuilder<BusinessDataBloc, BusinessDataState>(
-                      builder: (context, state) {
-                        if (state.bankDetails.gstMembershipDetails == null &&
-                            state.bankDetails.accountNumber == null &&
-                            state.bankDetails.ifscCode == null) {
-                          return Padding(
-                              padding: const EdgeInsets.only(top: 60),
-                              child: Image.asset(emptyNodata3));
-                        } else {
-                          return kempty;
-                        }
-                      },
-                    ),
+                    // BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                    //   builder: (context, state) {
+                    //     if (state.bankDetails.accountNumber == null) {
+                    //       return kempty;
+                    //     }
+                    //     return CardBankingPersonalTiles(
+                    //       first: 'Account Number',
+                    //       second: state.bankDetails.accountNumber ?? '',
+                    //     );
+                    //   },
+                    // ),
+                    // BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                    //   builder: (context, state) {
+                    //     if (state.bankDetails.ifscCode == null) {
+                    //       return kempty;
+                    //     }
+                    //     return CardBankingPersonalTiles(
+                    //       first: 'IFSC',
+                    //       second: state.bankDetails.ifscCode ?? '',
+                    //     );
+                    //   },
+                    // ),
+                    // BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                    //   builder: (context, state) {
+                    //     if (state.bankDetails.gstMembershipDetails == null) {
+                    //       return kempty;
+                    //     }
+                    //     return CardBankingPersonalTiles(
+                    //       first: 'GST ',
+                    //       second: state.bankDetails.gstMembershipDetails ?? '',
+                    //     );
+                    //   },
+                    // ),
+                    // BlocBuilder<BusinessDataBloc, BusinessDataState>(
+                    //   builder: (context, state) {
+                    //     if (state.bankDetails.gstMembershipDetails == null &&
+                    //         state.bankDetails.accountNumber == null &&
+                    //         state.bankDetails.ifscCode == null) {
+                    //       return Padding(
+                    //           padding: const EdgeInsets.only(top: 60),
+                    //           child: Image.asset(emptyNodata3));
+                    //     } else {
+                    //       return kempty;
+                    //     }
+                    //   },
+                    // ),
                   ],
           ),
         ),

@@ -102,30 +102,30 @@ class PersonalDetails extends StatelessWidget {
                       ),
                     ),
                     // personal name field
-                    AutocompleteTextField(
+                    const AutocompleteTextField(
                       validate: Validate.notNull,
                       label: 'Name',
-                      controller: context.read<UserDataBloc>().nameController,
+                      //controller: context.read<UserDataBloc>().nameController,
                       inputType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
-                      autocompleteItems: const ['febin', 'sebin'],
+                      autocompleteItems: ['febin', 'sebin'],
                     ),
                     // personal phone number
-                    AutocompleteTextField(
+                    const AutocompleteTextField(
                       validate: Validate.phone,
                       maxLength: 10,
                       label: 'Personal Phone Number',
-                      controller: context.read<UserDataBloc>().phoneController,
+                      //controller: context.read<UserDataBloc>().phoneController,
                       inputType: TextInputType.phone,
-                      autocompleteItems: const ['38947590', '837598'],
+                      autocompleteItems: ['38947590', '837598'],
                     ),
                     // personal email
-                    AutocompleteTextField(
+                    const AutocompleteTextField(
                       validate: Validate.email,
                       label: 'Personal Email',
-                      controller: context.read<UserDataBloc>().emailController,
+                      // controller: context.read<UserDataBloc>().emailController,
                       inputType: TextInputType.emailAddress,
-                      autocompleteItems: const ['Gmail', 'mail'],
+                      autocompleteItems: ['Gmail', 'mail'],
                     ),
                     // business category
                     AutocompleteTextField(
@@ -134,34 +134,34 @@ class PersonalDetails extends StatelessWidget {
                         enabled: false,
                         validate: Validate.notNull,
                         label: 'Business Category',
-                        controller: context
-                            .read<UserDataBloc>()
-                            .businessCategoryController,
+                        // controller: context
+                        //     .read<UserDataBloc>()
+                        //     .businessCategoryController,
                         // inputType: TextInputType.name,
                         autocompleteItems: const ['Categery', 'Rupees']),
                     // designation
-                    AutocompleteTextField(
+                    const AutocompleteTextField(
                       showDropdownOnTap: true,
                       validate: Validate.notNull,
                       label: 'Designation',
                       textCapitalization: TextCapitalization.words,
-                      controller:
-                          context.read<UserDataBloc>().designationController,
-                      autocompleteItems: const <String>['Desig', 'Over all'],
+                      // controller:
+                      //     context.read<UserDataBloc>().designationController,
+                      autocompleteItems: <String>['Desig', 'Over all'],
                     ),
                   ],
                 ),
               ),
               // home address text field
-              AutocompleteTextField(
-                autocompleteItems: const [],
+              const AutocompleteTextField(
+                autocompleteItems: [],
                 showDropdownOnTap: true,
                 validate: Validate.none,
                 maxLines: 2,
                 label: 'Home address',
                 textCapitalization: TextCapitalization.words,
                 maxLength: 250,
-                controller: context.read<UserDataBloc>().homeAddress,
+                //controller: context.read<UserDataBloc>().homeAddress,
                 inputType: TextInputType.name,
               ),
               // blood group selection
@@ -171,7 +171,7 @@ class PersonalDetails extends StatelessWidget {
                 autocompleteItems: bloodGroups,
                 showDropdown: true,
                 label: 'Blood Group',
-                controller: context.read<UserDataBloc>().bloodGroup,
+                //controller: context.read<UserDataBloc>().bloodGroup,
                 inputType: TextInputType.name,
                 onTap: () {
                   FocusScope.of(context).unfocus();
@@ -188,20 +188,19 @@ class PersonalDetails extends StatelessWidget {
                       return DatePickingBottomSheet(
                         year: 100,
                         onPressed: (date) {
-                          context.read<UserDataBloc>().birthDaycontroller.text =
-                              date;
+                          // context.read<UserDataBloc>().birthDaycontroller.text =
+                          //     date;
                         },
-                        datePicker:
-                            context.read<UserDataBloc>().birthDaycontroller,
+                        datePicker: TextEditingController(),
                       );
                     },
                   );
                 },
-                child: CustomTextFormField(
+                child: const CustomTextFormField(
                   validate: Validate.notNull,
                   labelText: 'Birthday',
                   enabled: false,
-                  controller: context.read<UserDataBloc>().birthDaycontroller,
+                  //controller: context.read<UserDataBloc>().birthDaycontroller,
                   inputType: TextInputType.name,
                 ),
               ),

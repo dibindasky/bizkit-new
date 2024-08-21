@@ -9,7 +9,6 @@ import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,9 +25,9 @@ class _ArchivedCardsState extends State<ArchivedCards> {
   final ScrollController scrollController = ScrollController();
 
   Future<void> onRefresh() async {
-    context
-        .read<CardBloc>()
-        .add(const CardEvent.getArchievedCards(isLoad: true));
+    // context
+    //     .read<CardBloc>()
+    //     .add(const CardEvent.getArchievedCards(isLoad: true));
     await Future.delayed(const Duration(milliseconds: 1000));
   }
 
@@ -148,11 +147,11 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                               actionButton: 'Restore',
                               context,
                               onPressed: () {
-                                CardActionRequestModel cardActionRewuestModel =
-                                    CardActionRequestModel(
-                                  isActive: true,
-                                  isArchived: false,
-                                );
+                                // CardActionRequestModel cardActionRewuestModel =
+                                //     CardActionRequestModel(
+                                //   isActive: true,
+                                //   isArchived: false,
+                                // );
                                 // context.read<CardBloc>().add(
                                 //       CardEvent.restoreArchiveCard(
                                 //           cardActionRequestModel:

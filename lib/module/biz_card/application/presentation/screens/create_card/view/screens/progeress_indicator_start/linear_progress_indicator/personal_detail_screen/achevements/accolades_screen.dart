@@ -9,8 +9,6 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/date_bottom_sheet.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/accolade/accolade.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/accredition/accredition.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -96,87 +94,29 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                       ),
                     ),
               adjustHieght(khieght * .04),
-              BlocBuilder<BusinessDataBloc, BusinessDataState>(
-                  builder: (context, business) {
-                return BlocBuilder<UserDataBloc, UserDataState>(
-                    builder: (context, user) {
-                  bool achivement = (widget.accolade ?? true
-                          ? user.accolades
-                          : business.accreditions)
-                      .isEmpty;
-                  if (achivement) {
-                    return const SizedBox();
-                  }
-                  return SizedBox(
-                    height: 50,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: () => showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              builder: (BuildContext context) {
-                                return DatePickingBottomSheet(
-                                  // initialDate: DateTime.now(),
-                                  year: 500,
-                                  last: 500,
-                                  onPressed: (date) {
-                                    dateController.text = date;
-                                    setState(() {});
-                                  },
-                                  datePicker: dateController,
-                                );
+              SizedBox(
+                height: 50,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () => showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (BuildContext context) {
+                            return DatePickingBottomSheet(
+                              // initialDate: DateTime.now(),
+                              year: 500,
+                              last: 500,
+                              onPressed: (date) {
+                                dateController.text = date;
+                                setState(() {});
                               },
-                            ),
-                            child: Container(
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 12),
-                              height: 50,
-                              // width: double.infinity,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: kgrey),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      dateController.text.isEmpty
-                                          ? 'Date '
-                                          : dateController.text,
-                                      style: dateController.text.isEmpty
-                                          ? const TextStyle(color: kwhite)
-                                          : const TextStyle(color: kwhite),
-                                    ),
-                                  ),
-                                  dateController.text != ''
-                                      ? InkWell(
-                                          onTap: () => setState(() {
-                                            dateController.text = '';
-                                          }),
-                                          child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                              child: const ColoredBox(
-                                                  color: neonShade,
-                                                  child: Icon(
-                                                    Icons.close,
-                                                    color: kblack,
-                                                  ))),
-                                        )
-                                      : const Icon(
-                                          Icons.calendar_month,
-                                          color: neonShade,
-                                        ),
-                                ],
-                              ),
-                            ),
-                          ),
+                              datePicker: dateController,
+                            );
+                          },
                         ),
-                        adjustWidth(20),
-                        Expanded(
-                            child: Container(
+                        child: Container(
                           padding: const EdgeInsets.only(left: 10, right: 12),
                           height: 50,
                           // width: double.infinity,
@@ -184,82 +124,69 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                             border: Border.all(color: kgrey),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: CustomDropDown(
-                              title: 'Event',
-                              icon: Icons.sort,
-                              items: const [
-                                ...achivementEvents,
-                                'Others',
-                                'All'
-                              ],
-                              onTap: (value) {
-                                eventController.text = value ?? '';
-                                setState(() {});
-                              }),
-                        ))
-                      ],
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  dateController.text.isEmpty
+                                      ? 'Date '
+                                      : dateController.text,
+                                  style: dateController.text.isEmpty
+                                      ? const TextStyle(color: kwhite)
+                                      : const TextStyle(color: kwhite),
+                                ),
+                              ),
+                              dateController.text != ''
+                                  ? InkWell(
+                                      onTap: () => setState(() {
+                                        dateController.text = '';
+                                      }),
+                                      child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          child: const ColoredBox(
+                                              color: neonShade,
+                                              child: Icon(
+                                                Icons.close,
+                                                color: kblack,
+                                              ))),
+                                    )
+                                  : const Icon(
+                                      Icons.calendar_month,
+                                      color: neonShade,
+                                    ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  );
-                });
-              }),
+                    adjustWidth(20),
+                    Expanded(
+                        child: Container(
+                      padding: const EdgeInsets.only(left: 10, right: 12),
+                      height: 50,
+                      // width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: kgrey),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: CustomDropDown(
+                          title: 'Event',
+                          icon: Icons.sort,
+                          items: const [...achivementEvents, 'Others', 'All'],
+                          onTap: (value) {
+                            eventController.text = value ?? '';
+                            setState(() {});
+                          }),
+                    ))
+                  ],
+                ),
+              ),
               adjustHieght(khieght * .04),
-              BlocBuilder<BusinessDataBloc, BusinessDataState>(
-                builder: (context, business) {
-                  return BlocBuilder<UserDataBloc, UserDataState>(
-                    builder: (context, user) {
-                      List<Accolade> accolade =
-                          widget.accolade ?? true ? user.accolades : [];
-                      List<Accredition> accredition =
-                          widget.accolade ?? true ? [] : business.accreditions;
-                      if (dateController.text != '') {
-                        accolade = accolade
-                            .where((element) =>
-                                element.date == dateController.text.trim())
-                            .toList();
-                        accredition = accredition
-                            .where((element) =>
-                                element.date == dateController.text.trim())
-                            .toList();
-                      }
-                      if (eventController.text != '') {
-                        accolade = accolade.where((element) {
-                          if (eventController.text == 'All') return true;
-                          if (eventController.text == element.event) {
-                            return true;
-                          } else if (eventController.text == 'Others' &&
-                              !achivementEvents
-                                  .contains(eventController.text)) {
-                            return true;
-                          }
-                          return false;
-                        }).toList();
-                        accredition = accredition.where((element) {
-                          if (eventController.text == 'All') return true;
-                          if (eventController.text == element.event) {
-                            return true;
-                          } else if (eventController.text == 'Others' &&
-                              !achivementEvents
-                                  .contains(eventController.text)) {
-                            return true;
-                          }
-                          return false;
-                        }).toList();
-                      }
-                      if (widget.accolade == true && accolade.isEmpty) {
-                        return const Text('No Personal Achivements found');
-                      }
-                      if (widget.accolade == false && accredition.isEmpty) {
-                        return const Text('No Business Achivements found');
-                      }
-                      return AchivementListViewCreation(
-                        accolades: widget.accolade == true ? accolade : null,
-                        accreditions:
-                            widget.accolade == true ? null : accredition,
-                        cardId: user.currentCard!.id!,
-                      );
-                    },
-                  );
-                },
+              const AchivementListViewCreation(
+                // accolades: widget.accolade == true ? accolade : null,
+                // accreditions: widget.accolade == true ? null : accredition,
+                cardId: 2,
               ),
               adjustHieght(khieght * .03),
               // EventButton(
@@ -277,43 +204,43 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
 }
 
 class AchivementListViewCreation extends StatelessWidget {
-  const AchivementListViewCreation(
-      {super.key, this.accolades, this.accreditions, required this.cardId});
+  const AchivementListViewCreation({super.key, required this.cardId});
 
-  final List<Accolade>? accolades;
-  final List<Accredition>? accreditions;
+  // final List<Accolade>? accolades;
+  // final List<Accredition>? accreditions;
   final int cardId;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       separatorBuilder: (context, index) => adjustHieght(kwidth * .03),
-      itemCount: accolades != null
-          ? accolades!.length
-          : accreditions != null
-              ? accreditions!.length
-              : 0,
+      itemCount: 3,
+      // accolades != null
+      //     ? accolades!.length
+      //     : accreditions != null
+      //         ? accreditions!.length
+      //         : 0,
       key: UniqueKey(),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            if (accolades != null) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        AccoladesAddCreateScreen(accolade: accolades![index]),
-                  ));
-            } else {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AccoladesAddCreateScreen(
-                        accredition: accreditions![index]),
-                  ));
-            }
+            // if (accolades != null) {
+            //   Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) =>
+            //             AccoladesAddCreateScreen(accolade: accolades![index]),
+            //       ));
+            // } else {
+            //   Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => AccoladesAddCreateScreen(
+            //             accredition: accreditions![index]),
+            //       ));
+            // }
           },
           child: SizedBox(
             height: 260,
@@ -324,10 +251,7 @@ class AchivementListViewCreation extends StatelessWidget {
                   height: 200,
                   width: double.infinity,
                   child: Image.memory(
-                    base64.decode((accolades != null
-                            ? accolades![index].images![0].image!
-                            : accreditions![index].images![0].image!)
-                        .substring(22)),
+                    base64.decode(imageTestingBase64.substring(22)),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -342,18 +266,14 @@ class AchivementListViewCreation extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          accolades != null
-                              ? accolades![index].accolades ?? ''
-                              : accreditions![index].label ?? '',
+                          'Lebal',
                           style: textStyle1.copyWith(
                             fontSize: kwidth * .04,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         Text(
-                          accolades != null
-                              ? accolades![index].accoladesDescription ?? ''
-                              : accreditions![index].description ?? '',
+                          'Description',
                           style: textStyle1.copyWith(
                             fontSize: kwidth * .03,
                           ),
@@ -362,38 +282,36 @@ class AchivementListViewCreation extends StatelessWidget {
                     ),
                   ),
                 ),
-                accolades != null
-                    ? const SizedBox()
-                    : Positioned(
-                        right: 10,
-                        top: 10,
-                        child: CircleAvatar(
-                          child: IconButton(
-                            onPressed: () {
-                              showCustomConfirmationDialogue(
-                                  context: context,
-                                  title: 'Are you sure want to delete ?',
-                                  buttonText: 'Delete',
-                                  onTap: () {
-                                    accolades != null
-                                        ? context.read<UserDataBloc>().add(
-                                              UserDataEvent.removeAccolade(
-                                                  id: accolades![index].id!),
-                                            )
-                                        : context.read<BusinessDataBloc>().add(
-                                              BusinessDataEvent
-                                                  .removeAccredition(
-                                                      id: accreditions![index]
-                                                          .id!),
-                                            );
-                                  });
-                            },
-                            icon: const Icon(
-                              Icons.delete,
-                            ),
-                          ),
-                        ),
-                      )
+                Positioned(
+                  right: 10,
+                  top: 10,
+                  child: CircleAvatar(
+                    child: IconButton(
+                      onPressed: () {
+                        showCustomConfirmationDialogue(
+                            context: context,
+                            title: 'Are you sure want to delete ?',
+                            buttonText: 'Delete',
+                            onTap: () {
+                              // accolades != null
+                              //     ? context.read<UserDataBloc>().add(
+                              //           UserDataEvent.removeAccolade(
+                              //               id: accolades![index].id!),
+                              //         )
+                              //     : context.read<BusinessDataBloc>().add(
+                              //           BusinessDataEvent
+                              //               .removeAccredition(
+                              //                   id: accreditions![index]
+                              //                       .id!),
+                              //         );
+                            });
+                      },
+                      icon: const Icon(
+                        Icons.delete,
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),

@@ -110,10 +110,10 @@ class _LogoStoryState extends State<LogoStory> {
             adjustHieght(khieght * .02),
             Form(
               key: logokey,
-              child: CustomTextFormField(
+              child: const CustomTextFormField(
                 validate: Validate.notNull,
-                controller:
-                    context.read<BusinessDataBloc>().logoStoryController,
+                // controller:
+                //     context.read<BusinessDataBloc>().logoStoryController,
                 maxLines: 10,
                 labelText: 'Logo Story',
                 textCapitalization: TextCapitalization.sentences,

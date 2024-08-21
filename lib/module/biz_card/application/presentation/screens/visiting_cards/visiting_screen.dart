@@ -172,9 +172,9 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                             adjustHieght(20),
                             TextButton(
                               onPressed: () {
-                                context
-                                    .read<CardSecondBloc>()
-                                    .add(const CardSecondEvent.imageClear());
+                                // context
+                                //     .read<CardSecondBloc>()
+                                //     .add(const CardSecondEvent.imageClear());
                                 Navigator.of(context).push(
                                   cardFadePageRoute(CardSecondScannedDatas()),
                                 );
@@ -317,12 +317,12 @@ class ContainerPickImage extends StatelessWidget {
                                         cardFadePageRoute(
                                             const SelectedCard()));
                                   }
-                                  context.read<CardSecondBloc>().add(
-                                      const CardSecondEvent.scanImage(
-                                          isFront: false, isCam: false));
+                                  // context.read<CardSecondBloc>().add(
+                                  //     const CardSecondEvent.scanImage(
+                                  //         isFront: false, isCam: false));
                                   if (fromMain) {
-                                    context.read<CardSecondBloc>().add(
-                                        const CardSecondEvent.imageClear());
+                                    // context.read<CardSecondBloc>().add(
+                                    //     const CardSecondEvent.imageClear());
                                   }
                                 },
                             child: Container(
@@ -346,14 +346,14 @@ class ContainerPickImage extends StatelessWidget {
                               Navigator.of(context).push(
                                   cardFadePageRoute(const SelectedCard()));
                             }
-                            context.read<CardSecondBloc>().add(
-                                  const CardSecondEvent.scanImage(
-                                      isCam: true, isFront: false),
-                                );
+                            // context.read<CardSecondBloc>().add(
+                            //       const CardSecondEvent.scanImage(
+                            //           isCam: true, isFront: false),
+                            //     );
                             if (fromMain) {
-                              context
-                                  .read<CardSecondBloc>()
-                                  .add(const CardSecondEvent.imageClear());
+                              // context
+                              //     .read<CardSecondBloc>()
+                              //     .add(const CardSecondEvent.imageClear());
                             }
                           },
                       child: Container(

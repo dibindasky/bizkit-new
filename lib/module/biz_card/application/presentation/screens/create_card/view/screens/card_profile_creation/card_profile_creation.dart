@@ -13,7 +13,6 @@ import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/image_card/image_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_first/creation/card_first_creation_model/card_first_creation_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/extracted_text_model/extracted_text_model.dart';
 import 'package:flutter/material.dart';

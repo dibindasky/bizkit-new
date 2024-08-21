@@ -12,9 +12,9 @@ Future<dynamic> cardscanimagesSelectingDailogue(
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
-            context
-                .read<UserDataBloc>()
-                .add(UserDataEvent.pickImageScanning(camera: false));
+            // context
+            //     .read<UserDataBloc>()
+            //     .add(UserDataEvent.pickImageScanning(camera: false));
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => widget,
             ));
@@ -27,9 +27,9 @@ Future<dynamic> cardscanimagesSelectingDailogue(
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
-            context
-                .read<UserDataBloc>()
-                .add(UserDataEvent.pickImageScanning(camera: true));
+            // context
+            //     .read<UserDataBloc>()
+            //     .add(UserDataEvent.pickImageScanning(camera: true));
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => widget,
             ));

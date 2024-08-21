@@ -57,17 +57,11 @@ class _LinearProgressIndicatorStartingState
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: BlocBuilder<CardBloc, CardState>(
-                  builder: (context, state) {
-                    return LinearProgressIndicator(
-                      minHeight: 13,
-                      value: ((state.anotherCard?.percentage ?? 10.toDouble()) /
-                          100),
-                      backgroundColor: smallBigGrey,
-                      valueColor:
-                          const AlwaysStoppedAnimation<Color>(neonShade),
-                    );
-                  },
+                child: LinearProgressIndicator(
+                  minHeight: 13,
+                  value: ((10.toDouble()) / 100),
+                  backgroundColor: smallBigGrey,
+                  valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
                 ),
               ),
               adjustHieght(10),

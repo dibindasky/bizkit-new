@@ -126,18 +126,18 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                               cameraAndGalleryPickImage(
                                 context: context,
                                 onPressCam: () {
-                                  context.read<CardSecondBloc>().add(
-                                        const CardSecondEvent.scanImage(
-                                          isFront: false,
-                                          isCam: true,
-                                        ),
-                                      );
+                                  // context.read<CardSecondBloc>().add(
+                                  //       const CardSecondEvent.scanImage(
+                                  //         isFront: false,
+                                  //         isCam: true,
+                                  //       ),
+                                  //     );
                                 },
                                 onPressGallery: () {
-                                  context.read<CardSecondBloc>().add(
-                                        const CardSecondEvent.scanImage(
-                                            isFront: false, isCam: false),
-                                      );
+                                  // context.read<CardSecondBloc>().add(
+                                  //       const CardSecondEvent.scanImage(
+                                  //           isFront: false, isCam: false),
+                                  //     );
                                 },
                               );
                             },
@@ -218,12 +218,12 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                                               'You want to delete product image',
                                           onTap: () {
                                             if (imageList[index].id != null) {
-                                              context
-                                                  .read<CardSecondBloc>()
-                                                  .add(CardSecondEvent
-                                                      .removeSelfieIndexImages(
-                                                          id: imageList[index]
-                                                              .id!));
+                                              // context
+                                              //     .read<CardSecondBloc>()
+                                              //     .add(CardSecondEvent
+                                              //         .removeSelfieIndexImages(
+                                              //             id: imageList[index]
+                                              //                 .id!));
                                             }
                                             newImageList.removeWhere(
                                                 (element) =>
@@ -284,167 +284,167 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                   ],
                 ),
                 Form(
-                  key: context.read<CardSecondBloc>().cardUpdateKey,
+                  //key: context.read<CardSecondBloc>().cardUpdateKey,
                   child: Column(
                     children: [
                       adjustHieght(khieght * 0.008),
-                      CustomTextFormField(
+                      const CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
                         validate: Validate.notNull,
                         labelText: 'Name',
-                        controller:
-                            context.read<CardSecondBloc>().updateNameController,
+                        // controller:
+                        //     context.read<CardSecondBloc>().updateNameController,
                         inputType: TextInputType.name,
                       ),
-                      CustomTextFormField(
+                      const CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
                         //validate: Validate.notNull,
                         labelText: 'Company',
-                        controller: context
-                            .read<CardSecondBloc>()
-                            .updateCompanyController,
+                        // controller: context
+                        //     .read<CardSecondBloc>()
+                        //     .updateCompanyController,
                         inputType: TextInputType.name,
                       ),
-                      CustomTextFormField(
+                      const CustomTextFormField(
                         textCapitalization: TextCapitalization.none,
                         validate: Validate.ifValidEmail,
                         labelText: 'Email',
-                        controller: context
-                            .read<CardSecondBloc>()
-                            .updateEmailController,
+                        // controller: context
+                        //     .read<CardSecondBloc>()
+                        //     .updateEmailController,
                         inputType: TextInputType.emailAddress,
                       ),
-                      CustomTextFormField(
+                      const CustomTextFormField(
                         maxlegth: 10,
                         validate: Validate.ifValidnumber,
                         labelText: 'Phone number',
-                        controller: context
-                            .read<CardSecondBloc>()
-                            .updatephoneController,
+                        // controller: context
+                        //     .read<CardSecondBloc>()
+                        //     .updatephoneController,
                         inputType: TextInputType.number,
                       ),
-                      CustomTextFormField(
+                      const CustomTextFormField(
                         validate: Validate.ifValidWebsite,
                         labelText: 'Website',
-                        controller: context
-                            .read<CardSecondBloc>()
-                            .updatewebSiteController,
+                        // controller: context
+                        //     .read<CardSecondBloc>()
+                        //     .updatewebSiteController,
                         inputType: TextInputType.emailAddress,
                       ),
-                      CustomTextFormField(
+                      const CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
                         // validate: Validate.notNull,
                         labelText: 'Designation',
-                        controller: context
-                            .read<CardSecondBloc>()
-                            .updatedesignationController,
+                        // controller: context
+                        //     .read<CardSecondBloc>()
+                        //     .updatedesignationController,
                         inputType: TextInputType.name,
                       ),
-                      CustomTextFormField(
+                      const CustomTextFormField(
                         maxLines: 2,
                         textCapitalization: TextCapitalization.words,
                         // validate: Validate.notNull,
                         labelText: 'Location',
-                        controller: context
-                            .read<CardSecondBloc>()
-                            .updatelocatioNController,
+                        // controller: context
+                        //     .read<CardSecondBloc>()
+                        //     .updatelocatioNController,
                         inputType: TextInputType.name,
                       ),
-                      CustomTextFormField(
+                      const CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
                         labelText: 'Occasion',
-                        controller: context
-                            .read<CardSecondBloc>()
-                            .updateoccationController,
+                        // controller: context
+                        //     .read<CardSecondBloc>()
+                        //     .updateoccationController,
                         inputType: TextInputType.name,
                       ),
-                      CustomTextFormField(
+                      const CustomTextFormField(
                         //validate: Validate.notNull,
                         labelText: 'Occupation',
-                        controller: context
-                            .read<CardSecondBloc>()
-                            .updateoccupationController,
+                        // controller: context
+                        //     .read<CardSecondBloc>()
+                        //     .updateoccupationController,
                         inputType: TextInputType.name,
                       ),
-                      CustomTextFormField(
+                      const CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
                         //validate: Validate.notNull,
                         labelText: 'Notes',
-                        controller: context
-                            .read<CardSecondBloc>()
-                            .updatenotesController,
+                        // controller: context
+                        //     .read<CardSecondBloc>()
+                        //     .updatenotesController,
                         inputType: TextInputType.name,
                       ),
                       adjustHieght(20),
                       CardLastSkipContinueButtons(
                         continueText: '  Save  ',
                         onTap: () {
-                          if (context
-                              .read<CardSecondBloc>()
-                              .cardUpdateKey
-                              .currentState!
-                              .validate()) {
-                            // SecondCardNew secondCard = SecondCardNew(
-                            //   id: widget.secondCard.id,
-                            //   date: widget.secondCard.date,
-                            //   time: widget.secondCard.time,
-                            //   isActive: true,
-                            //   tag: '',
-                            //   whereWeMet: context
-                            //       .read<CardSecondBloc>()
-                            //       .updateoccationController
-                            //       .text,
-                            //   designation: context
-                            //       .read<CardSecondBloc>()
-                            //       .updatedesignationController
-                            //       .text,
-                            //   email: context
-                            //       .read<CardSecondBloc>()
-                            //       .updateEmailController
-                            //       .text,
-                            //   location: context
-                            //       .read<CardSecondBloc>()
-                            //       .updatelocatioNController
-                            //       .text,
-                            //   notes: context
-                            //       .read<CardSecondBloc>()
-                            //       .updatenotesController
-                            //       .text,
-                            //   occupation: context
-                            //       .read<CardSecondBloc>()
-                            //       .updateoccupationController
-                            //       .text,
-                            //   phoneNumber: context
-                            //       .read<CardSecondBloc>()
-                            //       .updatephoneController
-                            //       .text,
-                            //   website: context
-                            //       .read<CardSecondBloc>()
-                            //       .updatewebSiteController
-                            //       .text,
-                            //   image: state.scannedImagesSecondCardCreation
-                            //           .isNotEmpty
-                            //       ? state
-                            //           .scannedImagesSecondCardCreation
-                            //           .last
-                            //           .base64
-                            //       : widget.secondCard.image!,
-                            //   company: context
-                            //       .read<CardSecondBloc>()
-                            //       .updateCompanyController
-                            //       .text,
-                            //   name: context
-                            //       .read<CardSecondBloc>()
-                            //       .updateNameController
-                            //       .text,
-                            //   selfie: [],
-                            // );
-                            // AddSelfieModel addSelfieModel =
-                            //     AddSelfieModel(
-                            //   businessCardId: widget.secondCard.id,
-                            //   selfie: newImageList,
-                            // );
-                          }
+                          // if (context
+                          //     .read<CardSecondBloc>()
+                          //     .cardUpdateKey
+                          //     .currentState!
+                          //     .validate()) {
+                          // SecondCardNew secondCard = SecondCardNew(
+                          //   id: widget.secondCard.id,
+                          //   date: widget.secondCard.date,
+                          //   time: widget.secondCard.time,
+                          //   isActive: true,
+                          //   tag: '',
+                          //   whereWeMet: context
+                          //       .read<CardSecondBloc>()
+                          //       .updateoccationController
+                          //       .text,
+                          //   designation: context
+                          //       .read<CardSecondBloc>()
+                          //       .updatedesignationController
+                          //       .text,
+                          //   email: context
+                          //       .read<CardSecondBloc>()
+                          //       .updateEmailController
+                          //       .text,
+                          //   location: context
+                          //       .read<CardSecondBloc>()
+                          //       .updatelocatioNController
+                          //       .text,
+                          //   notes: context
+                          //       .read<CardSecondBloc>()
+                          //       .updatenotesController
+                          //       .text,
+                          //   occupation: context
+                          //       .read<CardSecondBloc>()
+                          //       .updateoccupationController
+                          //       .text,
+                          //   phoneNumber: context
+                          //       .read<CardSecondBloc>()
+                          //       .updatephoneController
+                          //       .text,
+                          //   website: context
+                          //       .read<CardSecondBloc>()
+                          //       .updatewebSiteController
+                          //       .text,
+                          //   image: state.scannedImagesSecondCardCreation
+                          //           .isNotEmpty
+                          //       ? state
+                          //           .scannedImagesSecondCardCreation
+                          //           .last
+                          //           .base64
+                          //       : widget.secondCard.image!,
+                          //   company: context
+                          //       .read<CardSecondBloc>()
+                          //       .updateCompanyController
+                          //       .text,
+                          //   name: context
+                          //       .read<CardSecondBloc>()
+                          //       .updateNameController
+                          //       .text,
+                          //   selfie: [],
+                          // );
+                          // AddSelfieModel addSelfieModel =
+                          //     AddSelfieModel(
+                          //   businessCardId: widget.secondCard.id,
+                          //   selfie: newImageList,
+                          // );
+                          // }
                         },
                       ),
                       adjustHieght(40)

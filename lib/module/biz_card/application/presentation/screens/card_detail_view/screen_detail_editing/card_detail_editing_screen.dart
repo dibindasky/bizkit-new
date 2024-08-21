@@ -87,57 +87,48 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      BlocBuilder<CardBloc, CardState>(
-                        builder: (context, state) {
-                          return EventButton(
-                            text: state.anotherCard?.isCompanyAutofilled ??
-                                    false
-                                ? 'Remove Company'
-                                : state.anotherCard?.isCompanyRequested ?? false
-                                    ? 'Remove Request'
-                                    : 'Add Company',
-                            onTap: () {
-                              if (state.anotherCard?.isCompanyRequested ==
-                                  true) {
-                                // cancel request call
-                                showCustomConfirmationDialogue(
-                                  context: context,
-                                  title: 'Remove compnay request ?',
-                                  buttonText: 'Remove',
-                                  onTap: () {
-                                    // context.read<CardBloc>().add(
-                                    //     CardEvent.removeCompanyRequest(
-                                    //         id: state.anotherCard!.id!));
-                                  },
-                                );
-                                return;
-                              } else if (state
-                                      .anotherCard?.isCompanyAutofilled ==
-                                  true) {
-                                showCustomConfirmationDialogue(
-                                  context: context,
-                                  title: 'Remove compnay form card ?',
-                                  buttonText: 'Remove',
-                                  onTap: () {
-                                    // context.read<BusinessDataBloc>().add(
-                                    //     const BusinessDataEvent
-                                    //         .removeBusinessData());
-                                    companySearchNotifier.value = 0;
-                                    companySearchNotifier.notifyListeners();
-                                  },
-                                );
-                              } else {
-                                companySearchNotifier.value = 0;
-                                companySearchNotifier.notifyListeners();
-                              }
-                            },
-                            color: value == 0
-                                ? null
-                                : const LinearGradient(
-                                    colors: [smallBigGrey, kgrey, smallBigGrey],
-                                  ),
-                          );
+                      EventButton(
+                        text: 'Add Company',
+                        onTap: () {
+                          if (true) {
+                            // cancel request call
+                            showCustomConfirmationDialogue(
+                              context: context,
+                              title: 'Remove compnay request ?',
+                              buttonText: 'Remove',
+                              onTap: () {
+                                // context.read<CardBloc>().add(
+                                //     CardEvent.removeCompanyRequest(
+                                //         id: state.anotherCard!.id!));
+                              },
+                            );
+                            return;
+                          }
+                          // else if (state
+                          //         .anotherCard?.isCompanyAutofilled ==
+                          //     true) {
+                          //   showCustomConfirmationDialogue(
+                          //     context: context,
+                          //     title: 'Remove compnay form card ?',
+                          //     buttonText: 'Remove',
+                          //     onTap: () {
+                          //       // context.read<BusinessDataBloc>().add(
+                          //       //     const BusinessDataEvent
+                          //       //         .removeBusinessData());
+                          //       companySearchNotifier.value = 0;
+                          //       companySearchNotifier.notifyListeners();
+                          //     },
+                          //   );
+                          // } else {
+                          //   companySearchNotifier.value = 0;
+                          //   companySearchNotifier.notifyListeners();
+                          // }
                         },
+                        color: value == 0
+                            ? null
+                            : const LinearGradient(
+                                colors: [smallBigGrey, kgrey, smallBigGrey],
+                              ),
                       ),
                       EventButton(
                         text: 'Search Company',
@@ -185,9 +176,9 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                           },
                           label: 'Company',
                           textCapitalization: TextCapitalization.words,
-                          controller: context
-                              .read<BusinessDataBloc>()
-                              .companyController,
+                          // controller: context
+                          //     .read<BusinessDataBloc>()
+                          //  .companyController,
                         ),
                         const BusinessAndBankingDetailsAddingTiles()
                       ],

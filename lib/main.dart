@@ -4,10 +4,6 @@ import 'package:bizkit/module/biz_card/application/business_logic/admin/admin_bl
 import 'package:bizkit/module/biz_card/application/business_logic/auth/forgott_passwrod/forgott_password_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/auth/signup/sign_up_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/cubit/nav_cubit.dart';
@@ -43,9 +39,7 @@ Future<void> main() async {
   );
   await configuteInjection();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(MyApp(connectivity: Connectivity()));
 }
@@ -73,11 +67,11 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<ForgottPasswordBloc>()),
           BlocProvider(create: (context) => getIt<NotificationBloc>()),
           BlocProvider(create: (context) => getIt<AuthBloc>()),
-          BlocProvider(create: (context) => getIt<UserDataBloc>()),
-          BlocProvider(create: (context) => getIt<BusinessDataBloc>()),
+          // BlocProvider(create: (context) => getIt<UserDataBloc>()),
+          // BlocProvider(create: (context) => getIt<BusinessDataBloc>()),
           BlocProvider(create: (context) => getIt<SignUpBloc>()),
-          BlocProvider(create: (context) => getIt<CardBloc>()),
-          BlocProvider(create: (context) => getIt<CardSecondBloc>()),
+          // BlocProvider(create: (context) => getIt<CardBloc>()),
+          // BlocProvider(create: (context) => getIt<CardSecondBloc>()),
           BlocProvider(create: (context) => getIt<QrBloc>()),
           BlocProvider(create: (context) => getIt<ConnectionRequestBloc>()),
           BlocProvider(create: (context) => getIt<ReminderBloc>()),

@@ -3,7 +3,6 @@ import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/page_query/page_query.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_second/add_selfie_model/add_selfie_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_second/card_second_create_request_model/card_second_create_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
@@ -107,13 +106,13 @@ class CardSecondService implements CardSecondRepo {
 
   @override
   Future<Either<Failure, SuccessResponseModel>> deleteSecondCard({
-    required CardActionRequestModel cardActionRewuestModel,
+    //required CardActionRequestModel cardActionRewuestModel,
     required int id,
   }) async {
     try {
       final responce = await _apiService.patch(
         ApiEndPoints.updateCardSecond.replaceAll('{id}', id.toString()),
-        data: cardActionRewuestModel.toJson(),
+        // data: cardActionRewuestModel.toJson(),
       );
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
@@ -168,12 +167,12 @@ class CardSecondService implements CardSecondRepo {
   @override
   Future<Either<Failure, SuccessResponseModel>> restoreDeleteSecondCardEvent({
     required int id,
-    required CardActionRequestModel cardActionRewuestModel,
+    //required CardActionRequestModel cardActionRewuestModel,
   }) async {
     try {
       final responce = await _apiService.patch(
         ApiEndPoints.updateCardSecond.replaceAll('{id}', id.toString()),
-        data: cardActionRewuestModel.toJson(),
+        // data: cardActionRewuestModel.toJson(),
       );
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
@@ -225,10 +224,8 @@ class CardSecondService implements CardSecondRepo {
   Future<Either<Failure, SuccessResponseModel>> addSelfieImage(
       {required AddSelfieModel selfies}) async {
     try {
-      await _apiService.post(
-        ApiEndPoints.selfieImageAdding,
-        data: selfies.toJson(),
-      );
+      await _apiService.post(ApiEndPoints.selfieImageAdding,
+          data: selfies.toJson());
       log('addSelfieImage done');
       return Right(SuccessResponseModel());
     } on DioException catch (e) {

@@ -15,7 +15,6 @@ import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/branch_office/branch_office.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -65,54 +64,54 @@ class BusinessDetailsScreen extends StatelessWidget {
                 onDropDownSelection: (value) {},
                 label: 'Company',
                 textCapitalization: TextCapitalization.words,
-                controller: context.read<BusinessDataBloc>().companyController,
+                //controller: context.read<BusinessDataBloc>().companyController,
               ),
               // business name
-              CustomTextFormField(
+              const CustomTextFormField(
                 labelText: 'Business Name',
                 validate: Validate.notNull,
                 textCapitalization: TextCapitalization.words,
-                controller:
-                    context.read<BusinessDataBloc>().businessNameController,
+                // controller:
+                //     context.read<BusinessDataBloc>().businessNameController,
               ),
               // company mail id
-              AutocompleteTextField(
+              const AutocompleteTextField(
                 doAutoFill: false,
                 validate: Validate.email,
                 label: 'Company Mail ID',
                 inputType: TextInputType.emailAddress,
-                controller: context.read<BusinessDataBloc>().mailController,
-                autocompleteItems: const [],
+                //controller: context.read<BusinessDataBloc>().mailController,
+                autocompleteItems: [],
               ),
               // mobile number business
-              AutocompleteTextField(
+              const AutocompleteTextField(
                 label: 'Company Number',
                 doAutoFill: false,
                 // validate: Validate.phone,
                 // maxLength: 10,
-                controller: context.read<BusinessDataBloc>().mobileController,
+                //controller: context.read<BusinessDataBloc>().mobileController,
                 inputType: TextInputType.number,
-                autocompleteItems: const [],
+                autocompleteItems: [],
               ),
               adjustHieght(10),
               // address field
-              AutocompleteTextField(
+              const AutocompleteTextField(
                 maxLines: 4, doAutoFill: false,
                 // maxlegth: 250,
                 maxLength: 250,
                 label: 'Company Address',
                 textCapitalization: TextCapitalization.words,
-                controller: context.read<BusinessDataBloc>().addressController,
-                autocompleteItems: const [],
+                //controller: context.read<BusinessDataBloc>().addressController,
+                autocompleteItems: [],
               ),
               // website link business
-              AutocompleteTextField(
+              const AutocompleteTextField(
                 inputType: TextInputType.url,
                 label: 'Company Website link',
                 doAutoFill: false,
-                controller:
-                    context.read<BusinessDataBloc>().websiteLinkController,
-                autocompleteItems: const [],
+                // controller:
+                //     context.read<BusinessDataBloc>().websiteLinkController,
+                autocompleteItems: [],
               ),
               // social media handles
               ImagePreviewUnderTextField(
@@ -334,28 +333,31 @@ showBranchDialoge(context, int? id) {
                 children: [
                   const Text('Enter Branch Office Details'),
                   adjustHieght(10),
-                  CustomTextFormField(
-                      labelText: 'Branch Address',
-                      maxLines: 4,
-                      maxlegth: 250,
-                      textCapitalization: TextCapitalization.words,
-                      controller: context
-                          .read<BusinessDataBloc>()
-                          .branchOfficeController),
+                  const CustomTextFormField(
+                    labelText: 'Branch Address',
+                    maxLines: 4,
+                    maxlegth: 250,
+                    textCapitalization: TextCapitalization.words,
+                    // controller: context
+                    //     .read<BusinessDataBloc>()
+                    //     .branchOfficeController
+                  ),
                   adjustHieght(10),
-                  CustomTextFormField(
-                      labelText: 'Contact Person',
-                      textCapitalization: TextCapitalization.words,
-                      controller: context
-                          .read<BusinessDataBloc>()
-                          .branchOfficeNameController),
+                  const CustomTextFormField(
+                    labelText: 'Contact Person',
+                    textCapitalization: TextCapitalization.words,
+                    // controller: context
+                    //     .read<BusinessDataBloc>()
+                    //     .branchOfficeNameController
+                  ),
                   adjustHieght(10),
-                  CustomTextFormField(
-                      inputType: TextInputType.phone,
-                      labelText: 'Contact Number',
-                      controller: context
-                          .read<BusinessDataBloc>()
-                          .branchOfficePhoneController),
+                  const CustomTextFormField(
+                    inputType: TextInputType.phone,
+                    labelText: 'Contact Number',
+                    // controller: context
+                    //     .read<BusinessDataBloc>()
+                    //     .branchOfficePhoneController
+                  ),
                   adjustHieght(10),
                   EventButton(
                     text: id != null ? 'Update' : 'Add',
@@ -405,18 +407,18 @@ showBranchDialoge(context, int? id) {
                       //         );
                       //   }
                       // }
-                      context
-                          .read<BusinessDataBloc>()
-                          .branchOfficeController
-                          .text = '';
-                      context
-                          .read<BusinessDataBloc>()
-                          .branchOfficeNameController
-                          .text = '';
-                      context
-                          .read<BusinessDataBloc>()
-                          .branchOfficePhoneController
-                          .text = '';
+                      // context
+                      //     .read<BusinessDataBloc>()
+                      //     .branchOfficeController
+                      //     .text = '';
+                      // context
+                      //     .read<BusinessDataBloc>()
+                      //     .branchOfficeNameController
+                      //     .text = '';
+                      // context
+                      //     .read<BusinessDataBloc>()
+                      //     .branchOfficePhoneController
+                      //     .text = '';
                     },
                   )
                 ],

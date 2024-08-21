@@ -70,10 +70,10 @@ class BrochersAndProductsScreen extends StatelessWidget {
               Center(
                 child: InkWell(
                   onTap: () async {
-                    context
-                        .read<BusinessDataBloc>()
-                        .brochureLabelController
-                        .text = '';
+                    // context
+                    //     .read<BusinessDataBloc>()
+                    //     .brochureLabelController
+                    //     .text = '';
                     Navigator.push(
                         context,
                         MaterialPageRoute(

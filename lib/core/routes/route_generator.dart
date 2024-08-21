@@ -2,8 +2,6 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/new_password.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/authentication/view/screens/forgot_password/otp_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/second_card_detail_view.dart';
@@ -17,7 +15,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/n
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/signup_screen.dart';
@@ -105,13 +102,6 @@ class GoRouterConfig {
 
   // biz card routes
   static final bizcardRoute = [
-    // Splash
-    GoRoute(
-      name: Routes.initialBizCard,
-      path: Routes.initialBizCard,
-      builder: (context, state) => const SplashScreen(),
-    ),
-
     //On board
     GoRoute(
       name: Routes.onBoardingBizCard,
@@ -119,25 +109,6 @@ class GoRouterConfig {
       builder: (context, state) => const ScreenCardOnBoarding(),
     ),
 
-    //New Password
-    GoRoute(
-      name: Routes.newPasswordScreen,
-      path: "${Routes.newPasswordScreen}/:email",
-      builder: (context, state) {
-        final email = state.pathParameters['email'] ?? '';
-        return NewPasswordFeild(email: email);
-      },
-    ),
-
-    // Otp for password change screen
-    GoRoute(
-      name: Routes.otpScreen,
-      path: "${Routes.otpScreen}/:email",
-      builder: (context, state) {
-        final email = state.pathParameters['email'] ?? '';
-        return ForgottPasswrodOTPScreen(email: email);
-      },
-    ),
     // Card view
     GoRoute(
       name: Routes.cardView,

@@ -4,7 +4,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/connecti
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/bizkit_connection_tab.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/contacts_connection_tab.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/blocked_connections.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/connections/blocked_connections.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';

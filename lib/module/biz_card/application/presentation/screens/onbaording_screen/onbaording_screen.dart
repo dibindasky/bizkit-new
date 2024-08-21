@@ -1,5 +1,4 @@
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/auth/login/auth_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/cubit/nav_cubit.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -165,9 +164,9 @@ class BizkitOnBoardingScreenSecond extends StatelessWidget {
                       onPressed: () {
                         GoRouter.of(context)
                             .pushReplacementNamed(Routes.loginPage);
-                        context
-                            .read<AuthBloc>()
-                            .add(const AuthEvent.onBoardskip());
+                        // context
+                        //     .read<AuthBloc>()
+                        //     .add(const AuthEvent.onBoardskip());
                       },
                       child: const Text(
                         'Skip',
@@ -266,9 +265,9 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                       onPressed: () {
                         GoRouter.of(context)
                             .pushReplacementNamed(Routes.loginPage);
-                        context
-                            .read<AuthBloc>()
-                            .add(const AuthEvent.onBoardskip());
+                        // context
+                        //     .read<AuthBloc>()
+                        //     .add(const AuthEvent.onBoardskip());
                       },
                       child: const Text(
                         'Skip',
@@ -299,7 +298,7 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
                 text: 'Continue',
                 onTap: () {
                   GoRouter.of(context).pushReplacementNamed(Routes.loginPage);
-                  context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
+                  //context.read<AuthBloc>().add(const AuthEvent.onBoardskip());
                 },
               ),
               adjustHieght(screenHeight * .1),

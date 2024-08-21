@@ -3,8 +3,8 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/custom_bottom_sheet.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/archieved_cards.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/deleted_cards.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/archieved_cards.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/deleted_cards.dart';
 import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';

@@ -9,20 +9,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:bizkit/core/dipendency/dio_module/dio_module.dart' as _i49;
-import 'package:bizkit/module/biz_card/application/business_logic/admin/admin_bloc.dart'
-    as _i48;
-import 'package:bizkit/module/biz_card/application/business_logic/auth/forgott_passwrod/forgott_password_bloc.dart'
-    as _i19;
-import 'package:bizkit/module/biz_card/application/business_logic/auth/login/auth_bloc.dart'
-    as _i39;
-import 'package:bizkit/module/biz_card/application/business_logic/auth/signup/sign_up_bloc.dart'
-    as _i32;
+
 import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart'
     as _i40;
 import 'package:bizkit/module/biz_card/application/business_logic/contacts/contacts_bloc.dart'
     as _i43;
-import 'package:bizkit/module/biz_card/application/business_logic/notification/notification_bloc.dart'
-    as _i44;
 import 'package:bizkit/module/biz_card/application/business_logic/profile/profile_bloc.dart'
     as _i45;
 import 'package:bizkit/module/biz_card/application/business_logic/promt/promt_bloc.dart'
@@ -123,8 +114,7 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i16.ContactServiceImpl(gh<_i3.ApiService>()));
     gh.lazySingleton<_i17.DeviceInformation>(() => _i17.DeviceInformation());
     gh.lazySingleton<_i18.Dio>(() => dioModule.dioInstance);
-    gh.factory<_i19.ForgottPasswordBloc>(
-        () => _i19.ForgottPasswordBloc(gh<_i4.AuthRepo>()));
+
     gh.lazySingleton<_i20.LocalService>(() => _i20.LocalService());
     gh.lazySingleton<_i21.LocationService>(() => _i21.LocationService());
     gh.lazySingleton<_i22.NotificationRepo>(
@@ -137,17 +127,14 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i29.QRServiceImpl(gh<_i3.ApiService>()));
     gh.lazySingleton<_i30.ReminderRepo>(
         () => _i31.ReminderService(gh<_i3.ApiService>()));
-    gh.factory<_i32.SignUpBloc>(() => _i32.SignUpBloc(gh<_i4.AuthRepo>()));
+
     gh.lazySingleton<_i33.TextExtractionRepo>(
         () => _i34.TextExtractionService(gh<_i3.ApiService>()));
     gh.lazySingleton<_i35.UserLocalRepo>(
         () => _i36.UserLocalService(gh<_i20.LocalService>()));
     gh.lazySingleton<_i37.AdminRepo>(
         () => _i38.AdminServices(gh<_i3.ApiService>()));
-    gh.factory<_i39.AuthBloc>(() => _i39.AuthBloc(
-          gh<_i4.AuthRepo>(),
-          gh<_i35.UserLocalRepo>(),
-        ));
+
     gh.factory<_i40.ConnectionRequestBloc>(
         () => _i40.ConnectionRequestBloc(gh<_i12.ConnectionRequestRepo>()));
     gh.lazySingleton<_i41.ContactLocalRepo>(
@@ -157,14 +144,12 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i15.ContactsRepo>(),
           gh<_i41.ContactLocalRepo>(),
         ));
-    gh.factory<_i44.NotificationBloc>(
-        () => _i44.NotificationBloc(gh<_i22.NotificationRepo>()));
     gh.factory<_i45.ProfileBloc>(
         () => _i45.ProfileBloc(gh<_i25.ProfileRepo>()));
     gh.factory<_i46.QrBloc>(() => _i46.QrBloc(gh<_i28.QrServiceRepo>()));
     gh.factory<_i47.ReminderBloc>(
         () => _i47.ReminderBloc(gh<_i30.ReminderRepo>()));
-    gh.factory<_i48.AdminBloc>(() => _i48.AdminBloc(gh<_i37.AdminRepo>()));
+    // gh.factory<_i48.AdminBloc>(() => _i48.AdminBloc(gh<_i37.AdminRepo>()));́
     return this;
   }
 }

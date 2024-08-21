@@ -1,36 +1,27 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/utils/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/date_bottom_sheet.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/accolade/accolade.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/accredition/accredition.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/image_card/image_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccoladesAddCreateScreen extends StatefulWidget {
-  const AccoladesAddCreateScreen({super.key, this.accolade, this.accredition});
+  const AccoladesAddCreateScreen({super.key});
 
   // final bool isAccolade;
-  // final int cardId;
-  final Accolade? accolade;
-  final Accredition? accredition;
+  // // final int cardId;
+  // final Accolade? accolade;
+  // final Accredition? accredition;
 
   @override
   State<AccoladesAddCreateScreen> createState() =>
@@ -38,8 +29,8 @@ class AccoladesAddCreateScreen extends StatefulWidget {
 }
 
 class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
-  List<ImageCard> image = [];
-  List<ImageCard> newimage = [];
+  // List<ImageCard> image = [];
+  // List<ImageCard> newimage = [];
   String title = '';
   String description = '';
   final dateController = TextEditingController();
@@ -47,27 +38,27 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
   final eventController = TextEditingController();
   final descriptionController = TextEditingController();
 
-  @override
-  void initState() {
-    if (widget.accolade != null) {
-      image = widget.accolade!.images ?? [];
-      title = widget.accolade!.accolades ?? '';
-      titleController.text = widget.accolade!.accolades ?? '';
-      description = widget.accolade!.accoladesDescription ?? '';
-      descriptionController.text = widget.accolade!.accoladesDescription ?? '';
-      dateController.text = widget.accolade!.date ?? '';
-      eventController.text = widget.accolade!.event ?? '';
-    } else if (widget.accredition != null) {
-      image = widget.accredition!.images ?? [];
-      title = widget.accredition!.label ?? '';
-      titleController.text = widget.accredition!.label ?? '';
-      description = widget.accredition!.description ?? '';
-      descriptionController.text = widget.accredition!.description ?? '';
-      dateController.text = widget.accredition!.date ?? '';
-      eventController.text = widget.accredition!.event ?? '';
-    }
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   if (widget.accolade != null) {
+  //     image = widget.accolade!.images ?? [];
+  //     title = widget.accolade!.accolades ?? '';
+  //     titleController.text = widget.accolade!.accolades ?? '';
+  //     description = widget.accolade!.accoladesDescription ?? '';
+  //     descriptionController.text = widget.accolade!.accoladesDescription ?? '';
+  //     dateController.text = widget.accolade!.date ?? '';
+  //     eventController.text = widget.accolade!.event ?? '';
+  //   } else if (widget.accredition != null) {
+  //     image = widget.accredition!.images ?? [];
+  //     title = widget.accredition!.label ?? '';
+  //     titleController.text = widget.accredition!.label ?? '';
+  //     description = widget.accredition!.description ?? '';
+  //     descriptionController.text = widget.accredition!.description ?? '';
+  //     dateController.text = widget.accredition!.date ?? '';
+  //     eventController.text = widget.accredition!.event ?? '';
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -93,20 +84,20 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                         onPressCam: () async {
                           final img =
                               await ImagePickerClass.getImage(camera: true);
-                          if (img != null) {
-                            image.add(ImageCard(image: img.base64));
-                            newimage.add(ImageCard(image: img.base64));
-                            setState(() {});
-                          }
+                          // if (img != null) {
+                          //   image.add(ImageCard(image: img.base64));
+                          //   newimage.add(ImageCard(image: img.base64));
+                          //   setState(() {});
+                          // }
                         },
                         onPressGallery: () async {
                           final img =
                               await ImagePickerClass.getImage(camera: false);
-                          if (img != null) {
-                            image.add(ImageCard(image: img.base64));
-                            newimage.add(ImageCard(image: img.base64));
-                            setState(() {});
-                          }
+                          // if (img != null) {
+                          //   image.add(ImageCard(image: img.base64));
+                          //   newimage.add(ImageCard(image: img.base64));
+                          //   setState(() {});
+                          // }
                         });
                   },
                   child: SizedBox(
@@ -125,37 +116,36 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                       title: 'Are you sure want to remove ?',
                                       buttonText: 'Delete',
                                       onTap: () {
-                                        if (image[image.length - index - 1]
-                                                .id !=
-                                            null) {
-                                          // if (widget.isAccolade) {
-                                          //   context.read<UserDataBloc>().add(
-                                          //       UserDataEvent
-                                          //           .removeAccoladeImage(
-                                          //               id: image[image.length -
-                                          //                       index -
-                                          //                       1]
-                                          //                   .id!));
-                                          // } else {
-                                          //   context
-                                          //       .read<BusinessDataBloc>()
-                                          //       .add(BusinessDataEvent
-                                          //           .removeAccreditionImage(
-                                          //               id: image[image.length -
-                                          //                       index -
-                                          //                       1]
-                                          //                   .id!));
-                                          // }
-                                        }
-                                        newimage.removeWhere((element) =>
-                                            element ==
-                                            image[image.length - index - 1]);
-                                        image
-                                            .removeAt(image.length - index - 1);
-                                        setState(() {});
+                                        // if (image[image.length - index - 1]
+
+                                        //     null) {
+                                        //   // if (widget.isAccolade) {
+                                        //   //   context.read<UserDataBloc>().add(
+                                        //   //       UserDataEvent
+                                        //   //           .removeAccoladeImage(
+                                        //   //               id: image[image.length -
+                                        //   //                       index -
+                                        //   //                       1]
+                                        //   //                   .id!));
+                                        //   // } else {
+                                        //   //   context
+                                        //   //       .read<BusinessDataBloc>()
+                                        //   //       .add(BusinessDataEvent
+                                        //   //           .removeAccreditionImage(
+                                        //   //               id: image[image.length -
+                                        //   //                       index -
+                                        //   //                       1]
+                                        //   //                   .id!));
+                                        //   // }
+                                        // }
+                                        // newimage.removeWhere((element) =>
+                                        //     element ==
+                                        //     image[image.length - index - 1]);
+                                        // image
+                                        //     .removeAt(image.length - index - 1);
+                                        // setState(() {});
                                       });
                                 },
-                                image: image,
                                 index: image.length - index - 1);
                           },
                         ),
@@ -171,23 +161,23 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                                       final img =
                                           await ImagePickerClass.getImage(
                                               camera: true);
-                                      if (img != null) {
-                                        image.add(ImageCard(image: img.base64));
-                                        newimage
-                                            .add(ImageCard(image: img.base64));
-                                        setState(() {});
-                                      }
+                                      // if (img != null) {
+                                      //   image.add(ImageCard(image: img.base64));
+                                      //   newimage
+                                      //       .add(ImageCard(image: img.base64));
+                                      //   setState(() {});
+                                      // }
                                     },
                                     onPressGallery: () async {
                                       final img =
                                           await ImagePickerClass.getImage(
                                               camera: false);
-                                      if (img != null) {
-                                        image.add(ImageCard(image: img.base64));
-                                        newimage
-                                            .add(ImageCard(image: img.base64));
-                                        setState(() {});
-                                      }
+                                      // if (img != null) {
+                                      //   image.add(ImageCard(image: img.base64));
+                                      //   newimage
+                                      //       .add(ImageCard(image: img.base64));
+                                      //   setState(() {});
+                                      // }
                                     });
                               },
                               child: const CircleAvatar(
@@ -275,80 +265,52 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
                   inputType: TextInputType.name,
                 ),
                 adjustHieght(khieght * .02),
-                BlocConsumer<BusinessDataBloc, BusinessDataState>(
-                  listener: (context, state) {
-                    if (state.accreditionAdded) {
-                      context.read<CardBloc>().add(
-                          CardEvent.getCardyCardId(id: state.currentCard!.id!));
-                      Navigator.pop(context);
+                EventButton(
+                  hieght: 48,
+                  text: 'Save',
+                  onTap: () {
+                    if (image.isEmpty || title == '' || description == '') {
+                      showSnackbar(context,
+                          message: image.isEmpty
+                              ? 'Add image'
+                              : title == ''
+                                  ? 'Add title'
+                                  : 'Add description',
+                          backgroundColor: kred);
+                      return;
+                    } else {
+                      // widget.isAccolade
+                      //     ? context.read<UserDataBloc>().add(
+                      //           UserDataEvent.addAccolade(
+                      //             edit: widget.accolade != null,
+                      //             accolade: Accolade(
+                      //                 id: widget.accolade?.id,
+                      //                 cardId: widget.cardId,
+                      //                 accolades: title,
+                      //                 date: dateController.text == ''
+                      //                     ? null
+                      //                     : dateController.text,
+                      //                 accoladesDescription: description,
+                      //                 event: eventController.text,
+                      //                 images: newimage),
+                      //           ),
+                      //         )
+                      //     : context.read<BusinessDataBloc>().add(
+                      //           BusinessDataEvent.addAccredition(
+                      //             edit: widget.accredition != null,
+                      //             accredition: Accredition(
+                      //                 id: widget.accredition?.id,
+                      //                 cardId: widget.cardId,
+                      //                 description: description,
+                      //                 label: title,
+                      //                 event: eventController.text,
+                      //                 date: dateController.text == ''
+                      //                     ? null
+                      //                     : dateController.text,
+                      //                 images: newimage),
+                      //           ),
+                      //         );
                     }
-                  },
-                  builder: (context, business) {
-                    return BlocConsumer<UserDataBloc, UserDataState>(
-                      listener: (context, state) {
-                        if (state.accoladeAdded) {
-                          context.read<CardBloc>().add(CardEvent.getCardyCardId(
-                              id: state.currentCard!.id!));
-                          Navigator.pop(context);
-                        }
-                      },
-                      builder: (context, user) {
-                        if (business.accreditionLoading ||
-                            user.accoladeLoading) {
-                          return const LoadingAnimation();
-                        }
-                        return EventButton(
-                          hieght: 48,
-                          text: 'Save',
-                          onTap: () {
-                            if (image.isEmpty ||
-                                title == '' ||
-                                description == '') {
-                              showSnackbar(context,
-                                  message: image.isEmpty
-                                      ? 'Add image'
-                                      : title == ''
-                                          ? 'Add title'
-                                          : 'Add description',
-                                  backgroundColor: kred);
-                              return;
-                            } else {
-                              // widget.isAccolade
-                              //     ? context.read<UserDataBloc>().add(
-                              //           UserDataEvent.addAccolade(
-                              //             edit: widget.accolade != null,
-                              //             accolade: Accolade(
-                              //                 id: widget.accolade?.id,
-                              //                 cardId: widget.cardId,
-                              //                 accolades: title,
-                              //                 date: dateController.text == ''
-                              //                     ? null
-                              //                     : dateController.text,
-                              //                 accoladesDescription: description,
-                              //                 event: eventController.text,
-                              //                 images: newimage),
-                              //           ),
-                              //         )
-                              //     : context.read<BusinessDataBloc>().add(
-                              //           BusinessDataEvent.addAccredition(
-                              //             edit: widget.accredition != null,
-                              //             accredition: Accredition(
-                              //                 id: widget.accredition?.id,
-                              //                 cardId: widget.cardId,
-                              //                 description: description,
-                              //                 label: title,
-                              //                 event: eventController.text,
-                              //                 date: dateController.text == ''
-                              //                     ? null
-                              //                     : dateController.text,
-                              //                 images: newimage),
-                              //           ),
-                              //         );
-                            }
-                          },
-                        );
-                      },
-                    );
                   },
                 ),
                 adjustHieght(30)
@@ -362,10 +324,9 @@ class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
 }
 
 class MemoryImageMaker extends StatefulWidget {
-  const MemoryImageMaker(
-      {super.key, required this.image, this.deleteTap, required this.index});
+  const MemoryImageMaker({super.key, this.deleteTap, required this.index});
 
-  final List<ImageCard>? image;
+  //final List<ImageCard>? image;
   final int index;
   final VoidCallback? deleteTap;
 
@@ -393,49 +354,42 @@ class _MemoryImageMakerState extends State<MemoryImageMaker> {
             borderRadius: BorderRadius.circular(10)),
         width: 270.dm,
         height: 170.dm,
-        child: widget.image != null
-            ? Stack(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SlidablePhotoGallery(
-                              initialIndex:
-                                  widget.image!.length - widget.index - 1,
-                              images: widget.image!
-                                  .map((e) => e.image!)
-                                  .toList()
-                                  .reversed
-                                  .toList())));
-                    },
-                    child: SizedBox(
-                      width: 270.dm,
-                      height: 170.dm,
-                      child: Image.memory(
-                          base64.decode(widget.image![widget.index].image!
-                                  .startsWith('data')
-                              ? widget.image![widget.index].image!.substring(22)
-                              : widget.image![widget.index].image!),
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                  Positioned(
-                    top: 5,
-                    right: 5,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: ColoredBox(
-                        color: neonShade,
-                        child: IconButton.filled(
-                            onPressed: widget.deleteTap,
-                            icon: const Icon(Icons.delete, color: kwhite)),
-                      ),
-                    ),
-                  )
-                ],
-              )
-            : const Center(
-                child: Icon(Icons.photo_library_rounded),
-              ));
+        child: Stack(
+          children: [
+            InkWell(
+              onTap: () {
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => SlidablePhotoGallery(
+                //         initialIndex:
+                //             widget.image!.length - widget.index - 1,
+                //         images: widget.image!
+                //             .map((e) => e.image!)
+                //             .toList()
+                //             .reversed
+                //             .toList())));
+              },
+              child: SizedBox(
+                width: 270.dm,
+                height: 170.dm,
+                child: Image.memory(
+                    base64.decode(imageTestingBase64.substring(22)),
+                    fit: BoxFit.cover),
+              ),
+            ),
+            Positioned(
+              top: 5,
+              right: 5,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: ColoredBox(
+                  color: neonShade,
+                  child: IconButton.filled(
+                      onPressed: widget.deleteTap,
+                      icon: const Icon(Icons.delete, color: kwhite)),
+                ),
+              ),
+            )
+          ],
+        ));
   }
 }

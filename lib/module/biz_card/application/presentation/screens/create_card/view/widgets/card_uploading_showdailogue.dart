@@ -1,7 +1,5 @@
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<dynamic> cardscanimagesSelectingDailogue(
     BuildContext context, Widget widget) {
@@ -12,9 +10,9 @@ Future<dynamic> cardscanimagesSelectingDailogue(
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
-            context
-                .read<UserDataBloc>()
-                .add(UserDataEvent.pickImageScanning(camera: false));
+            // context
+            //     .read<UserDataBloc>()
+            //     .add(UserDataEvent.pickImageScanning(camera: false));
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => widget,
             ));
@@ -27,9 +25,9 @@ Future<dynamic> cardscanimagesSelectingDailogue(
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
-            context
-                .read<UserDataBloc>()
-                .add(UserDataEvent.pickImageScanning(camera: true));
+            // context
+            //     .read<UserDataBloc>()
+            //     .add(UserDataEvent.pickImageScanning(camera: true));
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => widget,
             ));

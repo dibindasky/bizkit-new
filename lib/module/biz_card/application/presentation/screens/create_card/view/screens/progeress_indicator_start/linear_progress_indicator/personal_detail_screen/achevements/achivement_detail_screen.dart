@@ -1,20 +1,14 @@
-import 'dart:async';
 import 'dart:convert';
 
-import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/accolade/accolade.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/accredition/accredition.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/image_card/image_card.dart';
 import 'package:flutter/material.dart';
 
 class ScreenAchivementDetail extends StatefulWidget {
-  const ScreenAchivementDetail({super.key, this.accolade, this.accredition});
+  const ScreenAchivementDetail({super.key});
 
-  final Accolade? accolade;
-  final Accredition? accredition;
+  // final Accolade? accolade;
+  // final Accredition? accredition;
 
   @override
   State<ScreenAchivementDetail> createState() => _ScreenAchivementDetailState();
@@ -25,45 +19,45 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   late bool switchValue;
-  late List<ImageCard> updateImageCard;
+  //late List<ImageCard> updateImageCard;
   late PageController _pageController;
-  int _currentPageIndex = 0;
+  final int _currentPageIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    updateImageCard = widget.accolade == null
-        ? widget.accredition!.images ?? []
-        : widget.accolade!.images ?? [];
-    tittleController.text = widget.accolade == null
-        ? widget.accredition!.label ?? ''
-        : widget.accolade!.accolades ?? '';
-    descriptionController.text = widget.accolade == null
-        ? widget.accredition!.description ?? ''
-        : widget.accolade!.accoladesDescription ?? '';
-    dateController.text = widget.accolade == null
-        ? widget.accredition!.date ?? ''
-        : widget.accolade!.date ?? '';
-    _pageController = PageController(initialPage: _currentPageIndex);
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   updateImageCard = widget.accolade == null
+  //       ? widget.accredition!.images ?? []
+  //       : widget.accolade!.images ?? [];
+  //   tittleController.text = widget.accolade == null
+  //       ? widget.accredition!.label ?? ''
+  //       : widget.accolade!.accolades ?? '';
+  //   descriptionController.text = widget.accolade == null
+  //       ? widget.accredition!.description ?? ''
+  //       : widget.accolade!.accoladesDescription ?? '';
+  //   dateController.text = widget.accolade == null
+  //       ? widget.accredition!.date ?? ''
+  //       : widget.accolade!.date ?? '';
+  //   _pageController = PageController(initialPage: _currentPageIndex);
 
-    bool forward = true;
-    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      if (_currentPageIndex == updateImageCard.length - 1 ||
-          _currentPageIndex == 0) {
-        forward = !forward;
-      }
-      if (forward && _currentPageIndex < updateImageCard.length - 1) {
-        _currentPageIndex++;
-      } else if (!forward && _currentPageIndex > 0) {
-        _currentPageIndex--;
-      }
-      _pageController.animateToPage(
-        _currentPageIndex,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    });
-  }
+  //   bool forward = true;
+  //   Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+  //     if (_currentPageIndex == updateImageCard.length - 1 ||
+  //         _currentPageIndex == 0) {
+  //       forward = !forward;
+  //     }
+  //     if (forward && _currentPageIndex < updateImageCard.length - 1) {
+  //       _currentPageIndex++;
+  //     } else if (!forward && _currentPageIndex > 0) {
+  //       _currentPageIndex--;
+  //     }
+  //     _pageController.animateToPage(
+  //       _currentPageIndex,
+  //       duration: const Duration(milliseconds: 300),
+  //       curve: Curves.easeInOut,
+  //     );
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +84,7 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
                 height: khieght * .3,
                 child: PageView.builder(
                   controller: _pageController,
-                  itemCount: updateImageCard.length,
+                  itemCount: 2,
                   scrollDirection: Axis.horizontal,
                   // physics: const NeverScrollableScrollPhysics(),
                   // separatorBuilder: (context, index) => adjustWidth(10),
@@ -108,35 +102,22 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
                           ),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.of(context).push(cardFadePageRoute(
-                                  SlidablePhotoGallery(
-                                      initialIndex: index,
-                                      images: updateImageCard
-                                          .map((e) => e.image!)
-                                          .toList())));
+                              // Navigator.of(context).push(cardFadePageRoute(
+                              //     SlidablePhotoGallery(
+                              //         initialIndex: index,
+                              //         images: updateImageCard
+                              //             .map((e) => e.image!)
+                              //             .toList())));
                             },
                             child: SizedBox(
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: updateImageCard.isNotEmpty
-                                    ? Image.memory(
-                                        base64.decode(
-                                          updateImageCard[index]
-                                                  .image!
-                                                  .startsWith('data')
-                                              ? updateImageCard[index]
-                                                  .image!
-                                                  .substring(22)
-                                              : updateImageCard[index].image!,
-                                        ),
-                                        filterQuality: FilterQuality.high,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.asset(
-                                        emptyNodata3,
-                                        fit: BoxFit.cover,
-                                      ),
-                              ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.memory(
+                                    base64.decode(
+                                        imageTestingBase64.substring(22)),
+                                    filterQuality: FilterQuality.high,
+                                    fit: BoxFit.cover,
+                                  )),
                             ),
                           ),
                         ),

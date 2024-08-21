@@ -1,16 +1,13 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/qr_scanner_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
-import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
-import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
-import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
+import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -52,8 +49,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       SharedPreferences.getInstance().then((prefs) async {
-        final showed =
-            await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
+        const showed = false;
         setState(() {
           isShowcaseSeen = showed;
         });
@@ -64,7 +60,6 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
             globalKeyNFCScan,
             globalKeyCreateVsitingCard
           ]);
-          await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
         }
       });
     });
@@ -172,9 +167,9 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                             adjustHieght(20),
                             TextButton(
                               onPressed: () {
-                                context
-                                    .read<CardSecondBloc>()
-                                    .add(const CardSecondEvent.imageClear());
+                                // context
+                                //     .read<CardSecondBloc>()
+                                //     .add(const CardSecondEvent.imageClear());
                                 Navigator.of(context).push(
                                   cardFadePageRoute(CardSecondScannedDatas()),
                                 );
@@ -317,12 +312,12 @@ class ContainerPickImage extends StatelessWidget {
                                         cardFadePageRoute(
                                             const SelectedCard()));
                                   }
-                                  context.read<CardSecondBloc>().add(
-                                      const CardSecondEvent.scanImage(
-                                          isFront: false, isCam: false));
+                                  // context.read<CardSecondBloc>().add(
+                                  //     const CardSecondEvent.scanImage(
+                                  //         isFront: false, isCam: false));
                                   if (fromMain) {
-                                    context.read<CardSecondBloc>().add(
-                                        const CardSecondEvent.imageClear());
+                                    // context.read<CardSecondBloc>().add(
+                                    //     const CardSecondEvent.imageClear());
                                   }
                                 },
                             child: Container(
@@ -346,14 +341,14 @@ class ContainerPickImage extends StatelessWidget {
                               Navigator.of(context).push(
                                   cardFadePageRoute(const SelectedCard()));
                             }
-                            context.read<CardSecondBloc>().add(
-                                  const CardSecondEvent.scanImage(
-                                      isCam: true, isFront: false),
-                                );
+                            // context.read<CardSecondBloc>().add(
+                            //       const CardSecondEvent.scanImage(
+                            //           isCam: true, isFront: false),
+                            //     );
                             if (fromMain) {
-                              context
-                                  .read<CardSecondBloc>()
-                                  .add(const CardSecondEvent.imageClear());
+                              // context
+                              //     .read<CardSecondBloc>()
+                              //     .add(const CardSecondEvent.imageClear());
                             }
                           },
                       child: Container(

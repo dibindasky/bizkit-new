@@ -1,15 +1,10 @@
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/card_persentage_completion_indicator.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/card_view_personal_banking_achive.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/card_view_row_icons.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/history_card_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/reminder_adding_session.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/preview_products_and_brands.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/brochure/brochure.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/card/product/product.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenCardDetailSecondHalf extends StatelessWidget {
   const ScreenCardDetailSecondHalf({super.key});
@@ -50,7 +45,7 @@ class ScreenCardDetailSecondHalf extends StatelessWidget {
         //         networkImages: images, pdf: pdfBase64);
         //   },
         // ),
-        const CardProductsBrandsLists(networkImages: [], pdf: []),
+        const CardProductsBrandsLists(),
         adjustHieght(khieght * .02),
         // meeting history section
         const CardMeetingDetailHistoryCardBuilder()

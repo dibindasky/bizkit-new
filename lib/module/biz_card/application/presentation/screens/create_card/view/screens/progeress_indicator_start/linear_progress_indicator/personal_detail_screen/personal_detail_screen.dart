@@ -1,5 +1,3 @@
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/user_data/user_data_bloc.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_create_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_screen.dart';
@@ -7,17 +5,15 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/create_c
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/date_bottom_sheet.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
-import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PersonalDetails extends StatelessWidget {
   PersonalDetails(
@@ -102,30 +98,30 @@ class PersonalDetails extends StatelessWidget {
                       ),
                     ),
                     // personal name field
-                    AutocompleteTextField(
+                    const AutocompleteTextField(
                       validate: Validate.notNull,
                       label: 'Name',
-                      controller: context.read<UserDataBloc>().nameController,
+                      //controller: context.read<UserDataBloc>().nameController,
                       inputType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
-                      autocompleteItems: const ['febin', 'sebin'],
+                      autocompleteItems: ['febin', 'sebin'],
                     ),
                     // personal phone number
-                    AutocompleteTextField(
+                    const AutocompleteTextField(
                       validate: Validate.phone,
                       maxLength: 10,
                       label: 'Personal Phone Number',
-                      controller: context.read<UserDataBloc>().phoneController,
+                      //controller: context.read<UserDataBloc>().phoneController,
                       inputType: TextInputType.phone,
-                      autocompleteItems: const ['38947590', '837598'],
+                      autocompleteItems: ['38947590', '837598'],
                     ),
                     // personal email
-                    AutocompleteTextField(
+                    const AutocompleteTextField(
                       validate: Validate.email,
                       label: 'Personal Email',
-                      controller: context.read<UserDataBloc>().emailController,
+                      // controller: context.read<UserDataBloc>().emailController,
                       inputType: TextInputType.emailAddress,
-                      autocompleteItems: const ['Gmail', 'mail'],
+                      autocompleteItems: ['Gmail', 'mail'],
                     ),
                     // business category
                     AutocompleteTextField(
@@ -134,34 +130,34 @@ class PersonalDetails extends StatelessWidget {
                         enabled: false,
                         validate: Validate.notNull,
                         label: 'Business Category',
-                        controller: context
-                            .read<UserDataBloc>()
-                            .businessCategoryController,
+                        // controller: context
+                        //     .read<UserDataBloc>()
+                        //     .businessCategoryController,
                         // inputType: TextInputType.name,
                         autocompleteItems: const ['Categery', 'Rupees']),
                     // designation
-                    AutocompleteTextField(
+                    const AutocompleteTextField(
                       showDropdownOnTap: true,
                       validate: Validate.notNull,
                       label: 'Designation',
                       textCapitalization: TextCapitalization.words,
-                      controller:
-                          context.read<UserDataBloc>().designationController,
-                      autocompleteItems: const <String>['Desig', 'Over all'],
+                      // controller:
+                      //     context.read<UserDataBloc>().designationController,
+                      autocompleteItems: <String>['Desig', 'Over all'],
                     ),
                   ],
                 ),
               ),
               // home address text field
-              AutocompleteTextField(
-                autocompleteItems: const [],
+              const AutocompleteTextField(
+                autocompleteItems: [],
                 showDropdownOnTap: true,
                 validate: Validate.none,
                 maxLines: 2,
                 label: 'Home address',
                 textCapitalization: TextCapitalization.words,
                 maxLength: 250,
-                controller: context.read<UserDataBloc>().homeAddress,
+                //controller: context.read<UserDataBloc>().homeAddress,
                 inputType: TextInputType.name,
               ),
               // blood group selection
@@ -171,7 +167,7 @@ class PersonalDetails extends StatelessWidget {
                 autocompleteItems: bloodGroups,
                 showDropdown: true,
                 label: 'Blood Group',
-                controller: context.read<UserDataBloc>().bloodGroup,
+                //controller: context.read<UserDataBloc>().bloodGroup,
                 inputType: TextInputType.name,
                 onTap: () {
                   FocusScope.of(context).unfocus();
@@ -188,20 +184,19 @@ class PersonalDetails extends StatelessWidget {
                       return DatePickingBottomSheet(
                         year: 100,
                         onPressed: (date) {
-                          context.read<UserDataBloc>().birthDaycontroller.text =
-                              date;
+                          // context.read<UserDataBloc>().birthDaycontroller.text =
+                          //     date;
                         },
-                        datePicker:
-                            context.read<UserDataBloc>().birthDaycontroller,
+                        datePicker: TextEditingController(),
                       );
                     },
                   );
                 },
-                child: CustomTextFormField(
+                child: const CustomTextFormField(
                   validate: Validate.notNull,
                   labelText: 'Birthday',
                   enabled: false,
-                  controller: context.read<UserDataBloc>().birthDaycontroller,
+                  //controller: context.read<UserDataBloc>().birthDaycontroller,
                   inputType: TextInputType.name,
                 ),
               ),

@@ -1,12 +1,10 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/contacts/contacts_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/bizkit_connection_tab.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/contacts_connection_tab.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/connection_network/inner_screens/blocked_connections.dart';
-import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/connections/blocked_connections.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,8 +37,7 @@ class _MyConnectionsViewAllContactsState
   @override
   void initState() {
     SharedPreferences.getInstance().then((prefs) async {
-      final showCase =
-          await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
+      const showCase = false;
       setState(() {
         isShowcaseSeen = showCase;
       });
@@ -54,7 +51,6 @@ class _MyConnectionsViewAllContactsState
             globalKeyVisitingCard,
           ]);
         });
-        await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
       }
     });
     super.initState();

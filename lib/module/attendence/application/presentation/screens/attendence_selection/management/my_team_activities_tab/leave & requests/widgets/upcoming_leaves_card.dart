@@ -124,7 +124,7 @@ class UpcomingLeavesCard extends StatelessWidget {
                     adjustHieght(6.h),
                     Text(
                       '$leaveBalance Days',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                       ),
@@ -143,7 +143,7 @@ class UpcomingLeavesCard extends StatelessWidget {
                     adjustHieght(6.h),
                     Text(
                       lastLeave,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                       ),

@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_screen.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/intl/intl_date_formater.dart';
-import 'package:bizkit/module/biz_card/domain/model/reminders/get_reminder_model/reminders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -1,7 +1,6 @@
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/page_query/page_query.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_second/add_selfie_model/add_selfie_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_second/card_second_create_request_model/card_second_create_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card_second/card_second_response_model/card_second_response_model.dart';
@@ -24,7 +23,7 @@ abstract class CardSecondRepo {
     required PageQuery pageQuery,
   });
   Future<Either<Failure, SuccessResponseModel>> deleteSecondCard({
-    required CardActionRequestModel cardActionRewuestModel,
+    //required CardActionRequestModel cardActionRewuestModel,
     required int id,
   });
   Future<Either<Failure, GetDeletedSecondCards>> getDeleteSecondCard({
@@ -34,7 +33,7 @@ abstract class CardSecondRepo {
     required PageQuery pageQuery,
   });
   Future<Either<Failure, SuccessResponseModel>> restoreDeleteSecondCardEvent({
-    required CardActionRequestModel cardActionRewuestModel,
+    //required CardActionRequestModel cardActionRewuestModel,
     required int id,
   });
   Future<Either<Failure, SuccessResponseModel>> removeSelfieImage({

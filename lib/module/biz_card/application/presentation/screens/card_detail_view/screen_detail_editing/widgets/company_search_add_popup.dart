@@ -1,8 +1,5 @@
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/request/request_card_detail_model/request_card_detail_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CompanyAddingPopUp extends StatelessWidget {
   const CompanyAddingPopUp({super.key});

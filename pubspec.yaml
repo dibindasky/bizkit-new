@@ -129,6 +129,7 @@ flutter:
     - asset/images/task_onboard/
     - asset/images/task/
     - asset/dev/
+    - asset/dev/QR_code_for_mobile_English_Wikipedia.svg.png
     - asset/images/attendence module/attendence onboarding/
     - asset/images/attendence module/home screen btns/
     - asset/images/attendence module/home screen dialogs/

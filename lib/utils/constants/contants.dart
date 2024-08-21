@@ -1,10 +1,10 @@
 // ignore_for_file: constant_identifier_names
 
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../core/routes/routes.dart';
 

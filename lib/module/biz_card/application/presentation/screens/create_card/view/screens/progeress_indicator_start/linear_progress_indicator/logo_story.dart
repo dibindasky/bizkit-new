@@ -1,16 +1,10 @@
-import 'dart:convert';
-
 import 'package:animate_do/animate_do.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LogoStory extends StatefulWidget {
@@ -110,10 +104,10 @@ class _LogoStoryState extends State<LogoStory> {
             adjustHieght(khieght * .02),
             Form(
               key: logokey,
-              child: CustomTextFormField(
+              child: const CustomTextFormField(
                 validate: Validate.notNull,
-                controller:
-                    context.read<BusinessDataBloc>().logoStoryController,
+                // controller:
+                //     context.read<BusinessDataBloc>().logoStoryController,
                 maxLines: 10,
                 labelText: 'Logo Story',
                 textCapitalization: TextCapitalization.sentences,

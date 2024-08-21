@@ -1,19 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
+
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/auth/login/auth_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/notification/notification_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/profile/profile_bloc.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/account_settings/account_settings_scree.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/connection_network/connection_network_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/data_management.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/help_support/help_support.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/privacy_security/privacy_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';

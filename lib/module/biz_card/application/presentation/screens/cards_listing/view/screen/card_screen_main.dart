@@ -1,29 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:convert';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card_second/card_second_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/custom_bottom_sheet.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/archieved_cards.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/data_management/inner_screens/deleted_cards.dart';
-import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/cards_in_profile/card_action_rewuest_model/card_action_rewuest_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/get_card_response/card_response.dart'
-    as card;
+import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/archieved_cards.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/deleted_cards.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/utils/shimmier/shimmer.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
@@ -52,7 +39,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       SharedPreferences.getInstance().then((prefs) async {
-        final showed = false;
+        const showed = false;
         setState(() {
           isShowcaseSeen = showed;
         });
@@ -231,11 +218,11 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                     'Are you sure you want to archive your card',
                                                 context,
                                                 onPressed: () {
-                                                  CardActionRequestModel
-                                                      cardActionRewuestModel =
-                                                      CardActionRequestModel(
-                                                          isActive: true,
-                                                          isArchived: true);
+                                                  // CardActionRequestModel
+                                                  //     cardActionRewuestModel =
+                                                  //     CardActionRequestModel(
+                                                  //         isActive: true,
+                                                  //         isArchived: true);
                                                   // context
                                                   //     .read<CardBloc>()
                                                   //     .add(CardEvent
@@ -256,11 +243,11 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                   'Are you sure you want to delete your card',
                                               context,
                                               onPressed: () {
-                                                CardActionRequestModel
-                                                    cardActionRewuestModel =
-                                                    CardActionRequestModel(
-                                                  isActive: false,
-                                                );
+                                                // CardActionRequestModel
+                                                //     cardActionRewuestModel =
+                                                //     CardActionRequestModel(
+                                                //   isActive: false,
+                                                // );
                                                 // context.read<CardBloc>().add(
                                                 //     CardEvent.cardDelete(
                                                 //         cardActionRequestModel:
@@ -526,10 +513,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                         List<PopupMenuEntry<String>> items = [
                                           PopupMenuItem(
                                             onTap: () {
-                                              context
-                                                  .read<CardSecondBloc>()
-                                                  .add(const CardSecondEvent
-                                                      .imageClear());
+                                              // context
+                                              //     .read<CardSecondBloc>()
+                                              //     .add(const CardSecondEvent
+                                              //         .imageClear());
                                               GoRouter.of(context).pushNamed(
                                                 Routes.cardUpdating,
                                                 //extra: state.secondCards[index],
@@ -630,10 +617,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
     );
   }
 
-  bottomSheet(BuildContext context, card.CardResponse card) {
+  bottomSheet(BuildContext context) {
     showBottomSheet(
       context: context,
-      builder: (context) => CustomBottomSheet(card: card),
+      builder: (context) => const CustomBottomSheet(),
     );
   }
 }

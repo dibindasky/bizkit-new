@@ -1,19 +1,13 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
-import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/module/biz_card/domain/model/card/get_card_response/card_response.dart'
-    as c;
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/copy_clipboard/copy_clipboard.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomSheet extends StatefulWidget {
-  const CustomBottomSheet({
-    Key? key,
-    required this.card,
-  }) : super(key: key);
+  const CustomBottomSheet({Key? key}) : super(key: key);
 
-  final c.CardResponse card;
+  // final c.CardResponse card;
 
   @override
   State<CustomBottomSheet> createState() => _CustomBottomSheetState();
@@ -39,19 +33,19 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
           adjustHieght(khieght * .02),
           Row(
             children: [
-              SizedBox(
-                width: 50,
-                height: 50,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: widget.card.logo == null
-                      ? Image.network(imageDummyNetwork, fit: BoxFit.cover)
-                      : Image.network(
-                          widget.card.logo!,
-                          fit: BoxFit.cover,
-                        ),
-                ),
-              ),
+              // SizedBox(
+              //   width: 50,
+              //   height: 50,
+              //   child: ClipRRect(
+              //     borderRadius: BorderRadius.circular(5),
+              //     child: widget.card.logo == null
+              //         ? Image.network(imageDummyNetwork, fit: BoxFit.cover)
+              //         : Image.network(
+              //             widget.card.logo!,
+              //             fit: BoxFit.cover,
+              //           ),
+              //   ),
+              // ),
               adjustWidth(kwidth * .02),
               Text(
                 'Business card',

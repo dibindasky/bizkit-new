@@ -1,8 +1,6 @@
 import 'package:bizkit/core/routes/indexed_stack_route/on_generate_route.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/controller/navabar/navabar_controller.dart';
-import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/managementside_attendence_selection.dart';
-import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/attendence_selection.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
 import 'package:bizkit/module/task/application/presentation/screens/profile/task_profile.dart';
 import 'package:bizkit/utils/clipper/bottom_bar_clipper.dart';

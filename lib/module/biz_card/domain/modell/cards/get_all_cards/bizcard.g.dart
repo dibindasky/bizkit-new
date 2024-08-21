@@ -12,6 +12,10 @@ Bizcard _$BizcardFromJson(Map<String, dynamic> json) => Bizcard(
       isDefault: json['is_default'] as bool?,
       isBusinessEditable: json['is_business_editable'] as bool?,
       isArchived: json['is_archived'] as bool?,
+      designation: json['designation'] as String?,
+      name: json['name'] as String?,
+      companyName: json['company_name'] as String?,
+      logo: json['logo'] as String?,
     );
 
 Map<String, dynamic> _$BizcardToJson(Bizcard instance) => <String, dynamic>{
@@ -20,4 +24,8 @@ Map<String, dynamic> _$BizcardToJson(Bizcard instance) => <String, dynamic>{
       'is_default': instance.isDefault,
       'is_business_editable': instance.isBusinessEditable,
       'is_archived': instance.isArchived,
+      'designation': instance.designation,
+      'name': instance.name,
+      'company_name': instance.companyName,
+      'logo': instance.logo,
     };

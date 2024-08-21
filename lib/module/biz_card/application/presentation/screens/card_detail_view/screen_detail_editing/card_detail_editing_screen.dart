@@ -1,18 +1,13 @@
-import 'package:bizkit/core/model/search_query/search_query.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/screen_detail_editing/widgets/company_banking_tiles.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/screen_detail_editing/widgets/company_search_add_popup.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 ValueNotifier<int> companySearchNotifier = ValueNotifier<int>(2);
 
@@ -87,57 +82,48 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      BlocBuilder<CardBloc, CardState>(
-                        builder: (context, state) {
-                          return EventButton(
-                            text: state.anotherCard?.isCompanyAutofilled ??
-                                    false
-                                ? 'Remove Company'
-                                : state.anotherCard?.isCompanyRequested ?? false
-                                    ? 'Remove Request'
-                                    : 'Add Company',
-                            onTap: () {
-                              if (state.anotherCard?.isCompanyRequested ==
-                                  true) {
-                                // cancel request call
-                                showCustomConfirmationDialogue(
-                                  context: context,
-                                  title: 'Remove compnay request ?',
-                                  buttonText: 'Remove',
-                                  onTap: () {
-                                    // context.read<CardBloc>().add(
-                                    //     CardEvent.removeCompanyRequest(
-                                    //         id: state.anotherCard!.id!));
-                                  },
-                                );
-                                return;
-                              } else if (state
-                                      .anotherCard?.isCompanyAutofilled ==
-                                  true) {
-                                showCustomConfirmationDialogue(
-                                  context: context,
-                                  title: 'Remove compnay form card ?',
-                                  buttonText: 'Remove',
-                                  onTap: () {
-                                    // context.read<BusinessDataBloc>().add(
-                                    //     const BusinessDataEvent
-                                    //         .removeBusinessData());
-                                    companySearchNotifier.value = 0;
-                                    companySearchNotifier.notifyListeners();
-                                  },
-                                );
-                              } else {
-                                companySearchNotifier.value = 0;
-                                companySearchNotifier.notifyListeners();
-                              }
-                            },
-                            color: value == 0
-                                ? null
-                                : const LinearGradient(
-                                    colors: [smallBigGrey, kgrey, smallBigGrey],
-                                  ),
-                          );
+                      EventButton(
+                        text: 'Add Company',
+                        onTap: () {
+                          if (true) {
+                            // cancel request call
+                            showCustomConfirmationDialogue(
+                              context: context,
+                              title: 'Remove compnay request ?',
+                              buttonText: 'Remove',
+                              onTap: () {
+                                // context.read<CardBloc>().add(
+                                //     CardEvent.removeCompanyRequest(
+                                //         id: state.anotherCard!.id!));
+                              },
+                            );
+                            return;
+                          }
+                          // else if (state
+                          //         .anotherCard?.isCompanyAutofilled ==
+                          //     true) {
+                          //   showCustomConfirmationDialogue(
+                          //     context: context,
+                          //     title: 'Remove compnay form card ?',
+                          //     buttonText: 'Remove',
+                          //     onTap: () {
+                          //       // context.read<BusinessDataBloc>().add(
+                          //       //     const BusinessDataEvent
+                          //       //         .removeBusinessData());
+                          //       companySearchNotifier.value = 0;
+                          //       companySearchNotifier.notifyListeners();
+                          //     },
+                          //   );
+                          // } else {
+                          //   companySearchNotifier.value = 0;
+                          //   companySearchNotifier.notifyListeners();
+                          // }
                         },
+                        color: value == 0
+                            ? null
+                            : const LinearGradient(
+                                colors: [smallBigGrey, kgrey, smallBigGrey],
+                              ),
                       ),
                       EventButton(
                         text: 'Search Company',
@@ -185,9 +171,9 @@ class ScreenCardDetailEditingList extends StatelessWidget {
                           },
                           label: 'Company',
                           textCapitalization: TextCapitalization.words,
-                          controller: context
-                              .read<BusinessDataBloc>()
-                              .companyController,
+                          // controller: context
+                          //     .read<BusinessDataBloc>()
+                          //  .companyController,
                         ),
                         const BusinessAndBankingDetailsAddingTiles()
                       ],

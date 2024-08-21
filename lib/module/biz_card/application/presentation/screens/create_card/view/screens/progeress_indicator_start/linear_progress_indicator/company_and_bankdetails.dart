@@ -1,12 +1,8 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/card/card_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/card/create/business_data/business_data_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
-import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
-import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 GlobalKey<FormState> bankingCardCreationKey = GlobalKey<FormState>();
 
@@ -38,45 +34,45 @@ class CompanyAndBankingDetails extends StatelessWidget {
               ),
               adjustHieght(khieght * .02),
               // company banking name
-              CustomTextFormField(
+              const CustomTextFormField(
                 labelText: 'Company Banking Name',
                 validate: Validate.none,
                 textCapitalization: TextCapitalization.words,
-                controller:
-                    context.read<BusinessDataBloc>().nameOfCompanyController,
+                // controller:
+                //     context.read<BusinessDataBloc>().nameOfCompanyController,
               ),
               // banking details accound number
-              CustomTextFormField(
+              const CustomTextFormField(
                 labelText: 'Account Number',
                 validate: Validate.none,
                 inputType: TextInputType.number,
                 maxlegth: 16,
-                controller:
-                    context.read<BusinessDataBloc>().accountNumberController,
+                // controller:
+                //     context.read<BusinessDataBloc>().accountNumberController,
               ),
               // banking details accound number
-              CustomTextFormField(
+              const CustomTextFormField(
                 labelText: 'IFSC',
                 maxlegth: 11,
                 textCapitalization: TextCapitalization.characters,
                 validate: Validate.ifsc,
                 inputType: TextInputType.name,
-                controller: context.read<BusinessDataBloc>().ifscController,
+                //ontroller: context.read<BusinessDataBloc>().ifscController,
               ),
               // upi details
-              CustomTextFormField(
+              const CustomTextFormField(
                 labelText: 'UPI ID',
                 validate: Validate.upi,
-                controller:
-                    context.read<BusinessDataBloc>().upiDetailController,
+                // controller:
+                //     context.read<BusinessDataBloc>().upiDetailController,
               ),
               // gst number
-              CustomTextFormField(
+              const CustomTextFormField(
                 labelText: 'GST Number',
                 validate: Validate.gst,
                 maxlegth: 15,
-                controller:
-                    context.read<BusinessDataBloc>().gstNumberController,
+                // controller:
+                //     context.read<BusinessDataBloc>().gstNumberController,
               ),
               adjustHieght(khieght * .05),
               CardLastSkipContinueButtons(

@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/module/biz_card/domain/model/user/user.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/accolade/accolade.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/accolade/accolade_image_adding_model/accolade_image_adding_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/card/card.dart';
@@ -554,8 +555,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   FutureOr<void> getUserDetail(GetUserDetail event, emit) async {
-    final result = await SecureStorage.getUserDetails();
-    final business = await SecureStorage.getRole();
+    final result = User();
+    final business = false;
     if (!business) {
       nameController.text = result.name ?? nameController.text;
       phoneController.text = result.phoneNumber ?? phoneController.text;

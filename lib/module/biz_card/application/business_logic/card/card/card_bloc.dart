@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:bizkit/core/model/page_query/page_query.dart';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/card/card/card.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/cards_in_profile/archeived_card_model/archeived_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/card/cards_in_profile/blocked_cards_responce_moede/deleted_cards.dart';
@@ -365,7 +365,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       message: null,
       deleteCardRestored: false,
     ));
-    final business = await SecureStorage.getRole();
+    final business =false;
     cardPage = 1;
     final result = await cardService.getCards(qurey: PageQuery(page: cardPage));
     result.fold(

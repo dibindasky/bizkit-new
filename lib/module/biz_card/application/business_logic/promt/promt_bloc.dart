@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bizkit/module/biz_card/data/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -21,8 +21,9 @@ class PromtBloc extends Bloc<PromtEvent, PromtState> {
 
   FutureOr<void> checkPrompt(CheckPrompt event, emit) async {
     await Future.delayed(const Duration(seconds: 3));
-    final hasCard = await SecureStorage.getHasCard();
-    final hasReminder = await SecureStorage.getHasConnection();
+    // check 
+    final hasCard = false;
+    final hasReminder = true;
     if (!hasCard || !hasReminder) {
       emit(state.copyWith(
           hasCard: hasCard,

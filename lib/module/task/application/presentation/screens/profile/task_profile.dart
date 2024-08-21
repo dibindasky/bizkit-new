@@ -12,6 +12,7 @@ class ScreenTaskProfile extends StatelessWidget {
       body: Center(
         child: GestureDetector(
             onTap: () {
+              // LocalStoragePreference.setName('checkname');
               Get.find<AuthenticationController>().logOut(context);
               Get.find<TaskNavbarController>().taskBottomIndex.value = 1;
             },

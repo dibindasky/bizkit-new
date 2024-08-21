@@ -42,6 +42,8 @@ enum FilterTypes { all, self_to_self, self_to_others, others_to_self }
 
 enum RecurringTimePeriod { everyDay, everyWeek, everyMoth, custom, none }
 
+enum Module { card, task, attendance }
+
 String cardIconHomeBottomBar =
     'asset/images/NavPngs/—Pngtree—vector house icon_4013710.png';
 String cardIconcardIcon = 'asset/images/NavPngs/my connection selected.png';

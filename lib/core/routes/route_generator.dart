@@ -21,6 +21,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/splash_s
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/signup_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/splash/splash_general.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/poll_creation_page.dart';
@@ -47,8 +48,9 @@ class GoRouterConfig {
     ],
     errorBuilder: (context, state) => _errorScreen(),
   );
+//  <------------------------------------------------------------------------------>
 
-// general routes
+  /// general routes
   static final generalRoutes = [
     // Splash
     GoRoute(
@@ -101,9 +103,17 @@ class GoRouterConfig {
       //       signUpModel: businessModel);
       // },
     ),
+
+    // Module selector
+    GoRoute(
+      name: Routes.moduleSelector,
+      path: Routes.moduleSelector,
+      builder: (context, state) => ScreenModuleSelector(),
+    ),
   ];
 
-  // biz card routes
+//  <------------------------------------------------------------------------------>
+  /// biz card routes
   static final bizcardRoute = [
     // Splash
     GoRoute(
@@ -252,7 +262,9 @@ class GoRouterConfig {
     ),
   ];
 
-  // task module route
+//  <------------------------------------------------------------------------------>
+
+  /// task module route
   static final taskModuleRoute = [
     // Navbar
     GoRoute(
@@ -366,7 +378,9 @@ class GoRouterConfig {
     ),
   ];
 
-  // Attendence module
+  //  <------------------------------------------------------------------------------>
+
+  /// Attendence module
   static final attendeceModule = [
     //Navabar
     GoRoute(

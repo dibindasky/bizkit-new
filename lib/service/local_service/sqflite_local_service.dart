@@ -29,10 +29,11 @@ class LocalService {
   }
 
   // get data from sql
-  Future<List<Map<String, Object?>>> rawQuery(String query) async {
+  Future<List<Map<String, Object?>>> rawQuery(
+      String query,[ List<String>? listParams]) async {
     try {
       final db = await database;
-      return await db.rawQuery(query);
+      return await db.rawQuery(query, listParams);
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -52,7 +53,7 @@ class LocalService {
   }
 
   // insert data
-  Future rawInsert(String query, List listParams) async {
+  Future rawInsert(String query,[ List<String>? listParams]) async {
     try {
       final db = await database;
       final id = await db.rawInsert(query, listParams);
@@ -64,6 +65,10 @@ class LocalService {
   }
 
   // update data
+  /// table -> 'name'
+  /// map -> {'key': 'value','key': 'value'}
+  /// where -> 'id = ?'
+  /// whereArgs -> [1234]
   Future update(String table, Map<String, dynamic> map, String? where,
       List<Object?>? whereArgs) async {
     try {
@@ -75,17 +80,19 @@ class LocalService {
     }
   }
 
-  Future rawUpdate(String query) async {
+  /// 'UPDATE Test SET name = ?, value = ? WHERE name = ?',
+  ///  ['updated name', '9876', 'some name'];
+  Future rawUpdate(String query, [List<String>? listParam]) async {
     try {
       final db = await database;
-      return await db.rawUpdate(query);
+      return await db.rawUpdate(query, listParam);
     } catch (e) {
       log('update = > ${e.toString()}');
       rethrow;
     }
   }
 
-  Future<void> rawDelete(String query, List<String> listParams) async {
+  Future<void> rawDelete(String query, [List<String>? listParams]) async {
     try {
       final db = await database;
       await db.rawDelete(query, listParams);
@@ -96,6 +103,7 @@ class LocalService {
   }
 
   // check a value is present or not in table
+  /// eg query 'SELECT COUNT(*) FROM users WHERE email = ?', listParams ['example']
   Future<bool> presentOrNot(String query, List<dynamic> listParams) async {
     try {
       final db = await database;

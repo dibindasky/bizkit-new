@@ -1,6 +1,7 @@
 import 'package:bizkit/module/attendence/application/controller/home/home_controller.dart';
 import 'package:bizkit/module/attendence/application/controller/navabar/navabar_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
@@ -16,19 +17,20 @@ class AllControllerBinding implements Bindings {
   void dependencies() {
     // Module manager
     Get.lazyPut(() => AuthenticationController());
+    Get.lazyPut(() => ModuleController());
 
-    // Task Module
-    Get.lazyPut(() => TaskNavbarController());
-    Get.lazyPut(() => TaskCalenderViewController());
-    Get.lazyPut(() => CreateTaskController());
-    Get.lazyPut(() => TaskGenerateReportController());
-    Get.lazyPut(() => TaskHomeScreenController());
-    Get.lazyPut(() => TaskFolderController());
-    Get.lazyPut(() => ChatController());
-    Get.lazyPut(() => MessageCountController());
+    // // Task Module
+    // Get.lazyPut(() => TaskNavbarController());
+    // Get.lazyPut(() => TaskCalenderViewController());
+    // Get.lazyPut(() => CreateTaskController());
+    // Get.lazyPut(() => TaskGenerateReportController());
+    // Get.lazyPut(() => TaskHomeScreenController());
+    // Get.lazyPut(() => TaskFolderController());
+    // Get.lazyPut(() => ChatController());
+    // Get.lazyPut(() => MessageCountController());
 
-    // Attendence module
-    Get.lazyPut(() => AttendenceNavBarConroller());
-    Get.lazyPut(() => AttendenceHomeConroller());
+    // // Attendence module
+    // Get.lazyPut(() => AttendenceNavBarConroller());
+    // Get.lazyPut(() => AttendenceHomeConroller());
   }
 }

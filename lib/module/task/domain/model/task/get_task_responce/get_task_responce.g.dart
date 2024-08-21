@@ -29,6 +29,8 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['created_at'] as String),
       status: json['status'] as String?,
+      totalTime: (json['total_time'] as num?)?.toInt(),
+      totalExpense: (json['total_expense'] as num?)?.toInt(),
       assignedToDetails: (json['assigned_to_details'] as List<dynamic>?)
           ?.map((e) => AssignedToDetail.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -56,4 +58,6 @@ Map<String, dynamic> _$GetTaskResponceToJson(GetTaskResponce instance) =>
       'is_owned': instance.isOwned,
       'created_user_details': instance.createdUserDetails,
       'assigned_to_details': instance.assignedToDetails,
+      'total_time': instance.totalTime,
+      'total_expense': instance.totalExpense,
     };

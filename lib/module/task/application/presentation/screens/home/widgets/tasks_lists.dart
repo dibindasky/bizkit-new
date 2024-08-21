@@ -1,13 +1,19 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/widgets/recent_task_container.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class TasksListsWidget extends StatelessWidget {
   const TasksListsWidget({super.key});
@@ -17,7 +23,7 @@ class TasksListsWidget extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
     final homeController = Get.find<TaskHomeScreenController>();
     return SizedBox(
-      height: 280.h,
+      height: 270.h,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
@@ -111,49 +117,72 @@ class TasksListsWidget extends StatelessWidget {
                   child: Container(
                     color: klightDarkGrey,
                     height: 60.h,
-                    child: ListView.builder(
-                      itemCount: 6,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        if (index == 5) {
-                          return const Padding(
-                            padding: EdgeInsets.all(7.0),
-                            child: Icon(
-                              Icons.arrow_circle_right_sharp,
-                              size: 25,
-                              color: neonShade,
+                    child: Obx(
+                      () {
+                        if (homeController.loadingForRecentTasks.value) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ShimmerLoader(
+                              seprator: kWidth10,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 5,
+                              height: 40.h,
+                              width: 130.w,
                             ),
                           );
+                        } else if (homeController.toMeTasks.isEmpty ||
+                            homeController.toOthersTasks.isEmpty ||
+                            homeController.selfieTasks.isEmpty) {
+                          return const Center(
+                            child: Text('No recent tasks '),
+                          );
+                        } else {
+                          return ListView.builder(
+                            itemCount: index == 0
+                                ? homeController.toMeTasks.length
+                                : index == 1
+                                    ? homeController.toOthersTasks.length
+                                    : homeController.selfieTasks.length,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, inx) {
+                              // if (index == 5) {
+                              //   return const Padding(
+                              //     padding: EdgeInsets.all(7.0),
+                              //     child: Icon(
+                              //       Icons.arrow_circle_right_sharp,
+                              //       size: 25,
+                              //       color: neonShade,
+                              //     ),
+                              //   );
+                              // }
+
+                              return GestureDetector(
+                                onTap: () {
+                                  taskController.fetchSingleTask(
+                                    singleTaskModel: GetSingleTaskModel(
+                                        taskId: index == 0
+                                            ? homeController
+                                                .toMeTasks[inx].taskId
+                                            : index == 1
+                                                ? homeController
+                                                    .toOthersTasks[inx].taskId
+                                                : homeController
+                                                    .selfieTasks[inx].taskId),
+                                  );
+                                  GoRouter.of(context)
+                                      .pushNamed(Routes.taskDeail);
+                                },
+                                child: RecentTaskContainer(
+                                  taskTitle:
+                                      '${index == 0 ? homeController.toMeTasks[inx].taskTitle : index == 1 ? homeController.toOthersTasks[inx].taskTitle : homeController.selfieTasks[inx].taskTitle ?? 'task title'}',
+                                  taskDeadline:
+                                      '${index == 0 ? homeController.toMeTasks[inx].deadLine : index == 1 ? homeController.toOthersTasks[inx].deadLine : homeController.selfieTasks[inx].deadLine ?? 'task deadline'}',
+                                ),
+                              );
+                            },
+                          );
                         }
-                        return Padding(
-                          padding: const EdgeInsets.all(7.0),
-                          child: Container(
-                            width: 130.w,
-                            height: 40.h,
-                            decoration: BoxDecoration(
-                              borderRadius: kBorderRadius10,
-                              color: lightGrey,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Laravel Task',
-                                  style: textThinStyle1.copyWith(
-                                    color: neonShade,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                Text(
-                                  'Feb, 21 - Mar, 12',
-                                  style: textThinStyle1.copyWith(fontSize: 10),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
                       },
                     ),
                   ),

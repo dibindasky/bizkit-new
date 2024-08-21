@@ -168,4 +168,24 @@ class DateTimeFormater {
       return "$hours Hr${hours != 1 ? 's' : ''} $minutes Min${minutes != 1 ? 's' : ''}";
     }
   }
+
+  static String timeAgo(DateTime dateTime) {
+    final Duration difference = DateTime.now().difference(dateTime);
+
+    if (difference.inDays > 1) {
+      return '${difference.inDays} days ago';
+    } else if (difference.inDays == 1) {
+      return '1 day ago';
+    } else if (difference.inHours > 1) {
+      return '${difference.inHours} hours ago';
+    } else if (difference.inHours == 1) {
+      return '1 hour ago';
+    } else if (difference.inMinutes > 1) {
+      return '${difference.inMinutes} min ago';
+    } else if (difference.inMinutes == 1) {
+      return '1 min ago';
+    } else {
+      return 'Just now';
+    }
+  }
 }

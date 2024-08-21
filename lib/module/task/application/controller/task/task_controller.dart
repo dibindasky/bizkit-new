@@ -28,6 +28,7 @@ import 'package:bizkit/module/task/domain/model/task/sub_task/completed_sub_task
 import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_model/delete_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/edit_sub_task_model/edit_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task_add_model.dart';
+import 'package:bizkit/module/task/domain/model/task/task_expense_and_time_success_responce/task_expense_and_time_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
@@ -64,6 +65,11 @@ class CreateTaskController extends GetxController {
   // var participants = <TaskAssignedTo>[].obs;
   var userslistNew = <UserSearchSuccessResponce>[].obs;
   var participantsForEditTask = <AssignedToDetail>[].obs;
+
+  RxList<TaskExpenseAndTimeSuccessResponce> taskTotalTime =
+      <TaskExpenseAndTimeSuccessResponce>[].obs;
+  RxList<TaskExpenseAndTimeSuccessResponce> taskExpense =
+      <TaskExpenseAndTimeSuccessResponce>[].obs;
 
   // Lists for storing various task types and deadlines
   RxList<Task> typeTasks = <Task>[].obs;
@@ -124,6 +130,9 @@ class CreateTaskController extends GetxController {
   RxBool searchLoading = false.obs;
   RxBool pinLoader = false.obs;
   RxBool isLoadingForSpotLight = false.obs;
+
+  RxList<String> taskTotalTimeKeys = <String>[].obs;
+  RxList<String> taskExpenseKeys = <String>[].obs;
 
   // Task service instance for API interactions
   final TaskRepo taskService = TaskService();
@@ -1068,6 +1077,59 @@ class CreateTaskController extends GetxController {
           ),
         );
 
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void fetchTaskExpense({required GetSingleTaskModel taskId}) async {
+    isLoading.value = true;
+    final result = await taskService.getTaskExpense(taskId: taskId);
+
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        taskExpenseKeys.value = success.keys.toList();
+        List<TaskExpenseAndTimeSuccessResponce> tempList = [];
+
+        for (var element in taskExpenseKeys) {
+          tempList.add(
+            TaskExpenseAndTimeSuccessResponce.fromJson(success[element]),
+          );
+        }
+
+        taskExpense.value = tempList;
+        log('taskExpense  ====> ${taskExpense.toJson()}');
+
+        isLoading.value = false;
+      },
+    );
+  }
+
+  void fetchTaskTotalTime({required GetSingleTaskModel taskId}) async {
+    isLoading.value = true;
+    final result = await taskService.getTaskTotalTime(taskId: taskId);
+
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        taskTotalTimeKeys.value = success.keys.toList();
+        List<TaskExpenseAndTimeSuccessResponce> tempList = [];
+
+        for (var element in taskTotalTimeKeys) {
+          tempList.add(
+            TaskExpenseAndTimeSuccessResponce.fromJson(success[element]),
+          );
+        }
+
+        taskTotalTime.value = tempList;
+        log('taskTotalTime  ====> ${taskTotalTime.toJson()}');
         isLoading.value = false;
       },
     );

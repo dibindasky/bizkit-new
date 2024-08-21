@@ -6,18 +6,14 @@ import 'package:bizkit/module/task/application/controller/home_controller/home_c
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/generate_repor.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/home_appbar.dart';
-import 'package:bizkit/module/task/application/presentation/screens/home/widgets/legends_container.dart';
-import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_creation_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/tasks_lists.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
 
 class ScreenTaskHome extends StatelessWidget {
   const ScreenTaskHome({super.key});
@@ -28,7 +24,8 @@ class ScreenTaskHome extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
     final messageCoutController = Get.find<MessageCountController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeController.progresBar();
+      // homeController.progresBar();
+      homeController.fetchRecentTasks();
       taskController.searchTasks(searchItem: '');
       messageCoutController.sendReqForUnread();
     });

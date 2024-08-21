@@ -19,7 +19,7 @@ class ContainerTextFieldDummy extends StatelessWidget {
         height: 40.h,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: lightGrey,
+          color: klightDarkGrey,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(

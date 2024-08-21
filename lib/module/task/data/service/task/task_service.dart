@@ -31,6 +31,7 @@ import 'package:bizkit/module/task/domain/model/task/sub_task/completed_sub_task
 import 'package:bizkit/module/task/domain/model/task/sub_task/delete_sub_task_model/delete_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/edit_sub_task_model/edit_sub_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/sub_task/sub_task_add_model/sub_task_add_model.dart';
+import 'package:bizkit/module/task/domain/model/task/task_expense_and_time_success_responce/task_expense_and_time_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/task_search_responce/task_search_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
@@ -615,6 +616,49 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch completedSubTask $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  // Task Expense
+  @override
+  Future<Either<Failure, Map<String, dynamic>>> getTaskExpense(
+      {required GetSingleTaskModel taskId}) async {
+    try {
+      final response = await apiService.get(
+        ApiEndPoints.taskTestGetTaskExpense,
+        data: taskId.toJson(),
+      );
+
+      log("=> Response Task Expense  : ${response.data}");
+
+      return Right(response.data as Map<String, dynamic>);
+    } on DioException catch (e) {
+      log('DioException getTaskExpense $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getTaskExpense $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  // Task total time
+  @override
+  Future<Either<Failure, Map<String, dynamic>>> getTaskTotalTime(
+      {required GetSingleTaskModel taskId}) async {
+    try {
+      final response = await apiService.get(
+        ApiEndPoints.taskTestGetTaskTotalTime,
+        data: taskId.toJson(),
+      );
+      log("=> Response Task total time  : ${response.data}");
+
+      return Right(response.data as Map<String, dynamic>);
+    } on DioException catch (e) {
+      log('DioException getTaskTotalTime $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getTaskTotalTime $e');
       return Left(Failure(message: e.toString()));
     }
   }

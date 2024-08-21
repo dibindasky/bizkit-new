@@ -158,7 +158,7 @@ class SubTaskTileDetailPage extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 10.w),
         padding: EdgeInsets.all(10.w),
         decoration: BoxDecoration(
-          color: kGrayLight,
+          color: klightDarkGrey,
           borderRadius: kBorderRadius10,
         ),
         child: Row(

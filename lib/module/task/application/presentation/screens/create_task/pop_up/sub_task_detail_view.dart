@@ -24,9 +24,24 @@ class SubTaskDetailView extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(20.w),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Text(
-            subTaskTitle ?? 'SubTask Title',
-            style: TextStyle(fontSize: 17.sp, color: neonShade),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              adjustWidth(25.w),
+              Text(
+                subTaskTitle ?? 'SubTask Title',
+                style: TextStyle(fontSize: 17.sp, color: neonShade),
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.close,
+                  color: neonShade,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
           ),
           const Divider(color: kblack, indent: 0),
           adjustHieght(10.h),

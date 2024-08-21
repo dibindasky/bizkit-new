@@ -38,7 +38,7 @@ class CustomDropDown extends StatelessWidget {
           onChanged: onChanged,
           decoration: InputDecoration(
             filled: true,
-            fillColor: lightGrey,
+            fillColor: klightDarkGrey,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
@@ -46,7 +46,7 @@ class CustomDropDown extends StatelessWidget {
             contentPadding:
                 EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
           ),
-          dropdownColor: lightGrey,
+          dropdownColor: klightDarkGrey,
         ),
       ],
     );

@@ -62,7 +62,7 @@ class TaskTextField extends StatelessWidget {
         labelText: labelText,
         labelStyle: TextStyle(color: textColor),
         filled: true,
-        fillColor: fillColor ?? lightGrey,
+        fillColor: fillColor ?? klightDarkGrey,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide:

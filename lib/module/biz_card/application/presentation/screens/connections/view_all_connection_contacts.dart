@@ -1,5 +1,4 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/bizkit_connection_tab.dart';
@@ -94,19 +93,12 @@ class _MyConnectionsViewAllContactsState
                 child: Stack(
                   children: [
                     Image.asset(iconConnectionPeople),
-                    BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
-                      builder: (context, state) {
-                        return Positioned(
-                            right: 10,
-                            child: Text(
-                              state.requestList != null &&
-                                      state.requestList!.isNotEmpty
-                                  ? state.requestList!.length.toString()
-                                  : '0',
-                              style: const TextStyle(color: kblack),
-                            ));
-                      },
-                    )
+                    const Positioned(
+                        right: 10,
+                        child: Text(
+                          '0',
+                          style: TextStyle(color: kblack),
+                        ))
                   ],
                 ),
               ),

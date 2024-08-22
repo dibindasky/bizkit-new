@@ -1,15 +1,12 @@
-import 'dart:developer';
-
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:flutter/material.dart';
-
-import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ScreenSignUp extends StatefulWidget {

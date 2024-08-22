@@ -1,11 +1,9 @@
 import 'dart:convert';
 
-import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenCardAddConnections extends StatefulWidget {
   const ScreenCardAddConnections({super.key});
@@ -82,9 +80,9 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
               children: [
                 CustomTextFormField(
                   focusNode: _focusNode,
-                  controller: context
-                      .read<ConnectionRequestBloc>()
-                      .connectionController,
+                  // controller: context
+                  //     .read<ConnectionRequestBloc>()
+                  //     .connectionController,
                   onChanaged: (value) {
                     if (value.length < 3) {
                       show = false;
@@ -100,71 +98,34 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                 ),
                 adjustHieght(10),
                 Expanded(
-                  child: BlocBuilder<ConnectionRequestBloc,
-                      ConnectionRequestState>(
-                    builder: (context, state) {
-                      // if (!show) {
-                      //   return const Center(
-                      //     child: Text('Start typing to get results'),
-                      //   );
-                      // }
-
-                      // if (state.bizkitUsers != null &&
-                      //     state.bizkitUsers!.isNotEmpty) {
-                      return RefreshIndicator(
-                        onRefresh: () async {
-                          // context.read<ConnectionRequestBloc>().add(
-                          //     ConnectionRequestEvent.searchBizkitUsers(
-                          //         searchQuery: SearchQuery(
-                          //             search: context
-                          //                 .read<ConnectionRequestBloc>()
-                          //                 .connectionController
-                          //                 .text)));
-                          await Future.delayed(
-                              const Duration(milliseconds: 1500));
-                        },
-                        child: GridView.builder(
-                          itemCount: 3,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1 / 1.15,
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20,
-                          ),
-                          itemBuilder: (context, index) {
-                            return GridTileAddRequestConnection(
-                              // data: state.bizkitUsers![index],
-                              index: index,
-                            );
-                          },
-                        ),
-                      );
-                      // } else {
-                      //   return RefreshIndicator(
-                      //     onRefresh: () async {
-                      //       context.read<ConnectionRequestBloc>().add(
-                      //           ConnectionRequestEvent.searchBizkitUsers(
-                      //               searchQuery: SearchQuery(
-                      //                   search: context
-                      //                       .read<ConnectionRequestBloc>()
-                      //                       .connectionController
-                      //                       .text)));
-                      //       await Future.delayed(
-                      //           const Duration(milliseconds: 1500));
-                      //     },
-                      //     child: ListView(
-                      //       children: [
-                      //         adjustHieght(40),
-                      //         Center(child: Image.asset(emptyNodata3)),
-                      //         const Center(child: Text('No data')),
-                      //         adjustHieght(80),
-                      //       ],
-                      //     ),
-                      //   );
-                      // }
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      // context.read<ConnectionRequestBloc>().add(
+                      //     ConnectionRequestEvent.searchBizkitUsers(
+                      //         searchQuery: SearchQuery(
+                      //             search: context
+                      //                 .read<ConnectionRequestBloc>()
+                      //                 .connectionController
+                      //                 .text)));
+                      await Future.delayed(const Duration(milliseconds: 1500));
                     },
+                    child: GridView.builder(
+                      itemCount: 3,
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: 1 / 1.15,
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                      ),
+                      itemBuilder: (context, index) {
+                        return GridTileAddRequestConnection(
+                          // data: state.bizkitUsers![index],
+                          index: index,
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -218,80 +179,75 @@ class _GridTileAddRequestConnectionState
           Radius.circular(10),
         ),
       ),
-      child: BlocBuilder<ConnectionRequestBloc, ConnectionRequestState>(
-        builder: (context, state) {
-          return Column(children: [
-            // image profile
-            CircleAvatar(
-                radius: kwidth * 0.08,
-                backgroundColor: textFieldFillColr,
-                backgroundImage: MemoryImage(base64.decode(
-                    imageTestingBase64.startsWith('data')
-                        ? imageTestingBase64.substring(22)
-                        : imageTestingBase64))
+      child: Column(children: [
+        // image profile
+        CircleAvatar(
+            radius: kwidth * 0.08,
+            backgroundColor: textFieldFillColr,
+            backgroundImage: MemoryImage(base64.decode(
+                imageTestingBase64.startsWith('data')
+                    ? imageTestingBase64.substring(22)
+                    : imageTestingBase64))
 
-                // child: widget.data.image != null
-                //     ? null
-                //     :
-                //const Icon(Icons.person, color: neonShade),
-                ),
-            adjustHieght(10),
-            Text(
-              'Name',
-              overflow: TextOverflow.ellipsis,
-              style: textStyle1.copyWith(fontSize: kwidth * 0.045),
+            // child: widget.data.image != null
+            //     ? null
+            //     :
+            //const Icon(Icons.person, color: neonShade),
             ),
-            Text(
-              'Designation',
-              overflow: TextOverflow.ellipsis,
-              style: textStyle1,
+        adjustHieght(10),
+        Text(
+          'Name',
+          overflow: TextOverflow.ellipsis,
+          style: textStyle1.copyWith(fontSize: kwidth * 0.045),
+        ),
+        Text(
+          'Designation',
+          overflow: TextOverflow.ellipsis,
+          style: textStyle1,
+        ),
+        adjustHieght(10),
+        GestureDetector(
+          onTap: () {
+            if (widget.fromPendingRequests) {
+              // context.read<ConnectionRequestBloc>().add(
+              //     ConnectionRequestEvent
+              //         .removeConnectionRequestFromPendingScreen(
+              //             connectionRequestIdModel:
+              //                 ConnectionRequestIdModel(
+              //                     connectionRequestId: widget.data.id!),
+              //             id: widget.data.id!));
+            } else {
+              // if (widget.data.connectionId == null) {
+              //   context.read<ConnectionRequestBloc>().add(
+              //       ConnectionRequestEvent.addConnectionRequests(
+              //           addConnectionRequestModel:
+              //               AddConnectionRequestModel(
+              //                   cardUserId: widget.data.id),
+              //           index: widget.data.id!));
+              // } else {
+              //   context.read<ConnectionRequestBloc>().add(
+              //       ConnectionRequestEvent.removeConnectionRequest(
+              //           connectionRequestIdModel: ConnectionRequestIdModel(
+              //               connectionRequestId: widget.data.connectionId),
+              //           id: widget.data.id!));
+              // }
+            }
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            decoration: BoxDecoration(
+                gradient: neonShadeGradient,
+                borderRadius: const BorderRadius.all(Radius.circular(10))),
+            child: const FittedBox(
+              child: Text('Remove Request',
+                  // : widget.data.connectionId != null
+                  //     ? 'Remove Request'
+                  //     : 'Add Connection',
+                  style: TextStyle(color: kwhite)),
             ),
-            adjustHieght(10),
-            GestureDetector(
-              onTap: () {
-                if (widget.fromPendingRequests) {
-                  // context.read<ConnectionRequestBloc>().add(
-                  //     ConnectionRequestEvent
-                  //         .removeConnectionRequestFromPendingScreen(
-                  //             connectionRequestIdModel:
-                  //                 ConnectionRequestIdModel(
-                  //                     connectionRequestId: widget.data.id!),
-                  //             id: widget.data.id!));
-                } else {
-                  // if (widget.data.connectionId == null) {
-                  //   context.read<ConnectionRequestBloc>().add(
-                  //       ConnectionRequestEvent.addConnectionRequests(
-                  //           addConnectionRequestModel:
-                  //               AddConnectionRequestModel(
-                  //                   cardUserId: widget.data.id),
-                  //           index: widget.data.id!));
-                  // } else {
-                  //   context.read<ConnectionRequestBloc>().add(
-                  //       ConnectionRequestEvent.removeConnectionRequest(
-                  //           connectionRequestIdModel: ConnectionRequestIdModel(
-                  //               connectionRequestId: widget.data.connectionId),
-                  //           id: widget.data.id!));
-                  // }
-                }
-              },
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                decoration: BoxDecoration(
-                    gradient: neonShadeGradient,
-                    borderRadius: const BorderRadius.all(Radius.circular(10))),
-                child: const FittedBox(
-                  child: Text('Remove Request',
-                      // : widget.data.connectionId != null
-                      //     ? 'Remove Request'
-                      //     : 'Add Connection',
-                      style: TextStyle(color: kwhite)),
-                ),
-              ),
-            ),
-          ]);
-        },
-      ),
+          ),
+        ),
+      ]),
     );
   }
 }

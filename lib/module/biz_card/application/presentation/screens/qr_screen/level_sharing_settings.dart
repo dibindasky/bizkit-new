@@ -1,8 +1,6 @@
-import 'package:bizkit/module/biz_card/application/business_logic/qr/qr_bloc.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardDefaultLevelSharing extends StatefulWidget {
   const CardDefaultLevelSharing({super.key});
@@ -99,7 +97,7 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
 
   @override
   void initState() {
-    context.read<QrBloc>().add(const QrEvent.getDefaultQr());
+    //context.read<QrBloc>().add(const QrEvent.getDefaultQr());
     super.initState();
   }
 
@@ -187,10 +185,10 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
         buildSwitch("Business Email", false, (value) {
           setState(() {
             // state.defauiltQr!.businessEmail = value;
-            context.read<QrBloc>().defauiltQr = context
-                .read<QrBloc>()
-                .defauiltQr
-                .copyWith(businessEmail: value);
+            // context.read<QrBloc>().defauiltQr = context
+            //     .read<QrBloc>()
+            //     .defauiltQr
+            //     .copyWith(businessEmail: value);
           });
         }),
         buildSwitch("Website Link", false, (value) {

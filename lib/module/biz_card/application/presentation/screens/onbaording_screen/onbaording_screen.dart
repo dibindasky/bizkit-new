@@ -1,10 +1,10 @@
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/cubit/nav_cubit.dart';
+import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class ScreenCardOnBoarding extends StatefulWidget {
@@ -32,7 +32,8 @@ class _ScreenCardOnBoardingState extends State<ScreenCardOnBoarding> {
   }
 
   void _onPageChanged(int index) {
-    context.read<NavCubit>().onBoardChange(index: index);
+    Get.find<NavbarController>().slectedtabIndex.value = 0;
+    //context.read<NavCubit>().onBoardChange(index: index);
   }
 
   @override

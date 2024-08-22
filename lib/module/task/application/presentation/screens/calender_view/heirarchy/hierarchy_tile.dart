@@ -578,8 +578,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                         return GestureDetector(
                                           onTap: () {
                                             log('Main folder task id => ${controller.tasksInsideFolder[index].taskId}');
-                                            GoRouter.of(context)
-                                                .push(Routes.taskChatScreen);
+
                                             taskController.fetchSingleTask(
                                                 singleTaskModel:
                                                     GetSingleTaskModel(
@@ -588,6 +587,8 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                                     index]
                                                                 .taskId ??
                                                             ''));
+                                            GoRouter.of(context)
+                                                .pushNamed(Routes.taskDeail);
                                           },
                                           child: TaskContainer(
                                             tasksFromFoldrs: true,

@@ -109,15 +109,15 @@ class CompletedTasksListView extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                          top: 50,
-                          bottom: 50,
+                          top: 40,
+                          bottom: 40,
                           left: 0,
                           child: Container(
                             color: klightgrey,
                             width: 4,
-                            height: 100,
+                            height: 5,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

@@ -398,6 +398,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SuccessResponce>> killATask(
       {required KillATaskModel killatask}) async {
     try {
+      log('Killed Task TOJSON === > ${killatask.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestEditTask,
         data: killatask.toJson(),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -139,23 +137,73 @@ class TasksListsWidget extends StatelessWidget {
                         } else {
                           return ListView.builder(
                             itemCount: index == 0
-                                ? homeController.toMeTasks.length
+                                ? homeController.toMeTasks.length + 1
                                 : index == 1
-                                    ? homeController.toOthersTasks.length
-                                    : homeController.selfieTasks.length,
+                                    ? homeController.toOthersTasks.length + 1
+                                    : homeController.selfieTasks.length + 1,
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, inx) {
-                              // if (index == 5) {
-                              //   return const Padding(
-                              //     padding: EdgeInsets.all(7.0),
-                              //     child: Icon(
-                              //       Icons.arrow_circle_right_sharp,
-                              //       size: 25,
-                              //       color: neonShade,
-                              //     ),
-                              //   );
-                              // }
+                              if (inx ==
+                                  (index == 0
+                                      ? homeController.toMeTasks.length
+                                      : index == 1
+                                          ? homeController.toOthersTasks.length
+                                          : homeController
+                                              .selfieTasks.length)) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    if (index == 0) {
+                                      homeController.changeSelectedTaskCategory(
+                                          'Others to self');
+                                      taskController.filterByType(
+                                          filterByType: FilterByTypeModel(
+                                              taskType: 'others_to_self'));
+                                      taskController.filterPinnedTasksByType(
+                                          filterPinnedTask:
+                                              FilterPinnedTaskByTypeModel(
+                                        taskType: 'others_to_self',
+                                        isPinned: true,
+                                      ));
+                                      Get.toNamed(Routes.taskLists, id: 1);
+                                    } else if (index == 1) {
+                                      homeController.changeSelectedTaskCategory(
+                                          'Self to others');
+                                      taskController.filterByType(
+                                          filterByType: FilterByTypeModel(
+                                              taskType: 'self_to_others'));
+                                      taskController.filterPinnedTasksByType(
+                                          filterPinnedTask:
+                                              FilterPinnedTaskByTypeModel(
+                                        taskType: 'self_to_others',
+                                        isPinned: true,
+                                      ));
+                                      Get.toNamed(Routes.taskLists, id: 1);
+                                    } else {
+                                      homeController.changeSelectedTaskCategory(
+                                          'Self to self');
+                                      taskController.filterByType(
+                                          filterByType: FilterByTypeModel(
+                                              taskType: 'self_to_self'));
+                                      taskController.filterPinnedTasksByType(
+                                          filterPinnedTask:
+                                              FilterPinnedTaskByTypeModel(
+                                        taskType: 'self_to_self',
+                                        isPinned: true,
+                                      ));
+                                      Get.toNamed(Routes.taskLists, id: 1);
+                                    }
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(7.0),
+                                    child: Icon(
+                                      Icons.arrow_circle_right_sharp,
+                                      size: 25,
+                                      color: neonShade,
+                                    ),
+                                  ),
+                                );
+                              }
 
                               return GestureDetector(
                                 onTap: () {

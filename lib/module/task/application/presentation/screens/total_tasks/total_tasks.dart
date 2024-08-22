@@ -58,7 +58,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
     );
 
     showMenu(
-      color: lightGrey,
+      color: klightDarkGrey,
       context: context,
       position: position,
       items: [

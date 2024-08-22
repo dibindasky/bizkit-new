@@ -167,7 +167,7 @@ class SubTaskTileDetailPage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Image.asset('asset/images/icon/Vector.png', scale: 2),
+                      // Image.asset('asset/images/icon/Vector.png', scale: 2),
                       adjustWidth(10.w),
                       Text(
                         subTaskTitle ?? 'Subtask Title',

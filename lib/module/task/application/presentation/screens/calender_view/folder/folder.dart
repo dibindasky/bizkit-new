@@ -70,7 +70,10 @@ class TaskFolderSection extends StatelessWidget {
           children: [
             SizedBox(
               width: 100,
-              child: Text(name),
+              child: Text(
+                name,
+                style: textThinStyle1.copyWith(fontSize: 15.sp),
+              ),
             ),
             adjustWidth(50),
             // Text(

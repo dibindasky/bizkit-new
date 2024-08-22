@@ -10,21 +10,13 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:showcaseview/showcaseview.dart';
 
-class CardBottomNavigationBar extends StatefulWidget {
-  const CardBottomNavigationBar({super.key});
+class CardBottomNavigationBar extends StatelessWidget {
+  CardBottomNavigationBar({super.key});
 
-  @override
-  State<CardBottomNavigationBar> createState() =>
-      _CardBottomNavigationBarState();
-}
-
-class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
-  final controller = Get.put(NavbarController());
   final List<Widget> _widgetOptions = [
     ScreenModuleSelector(),
     const ScreenCardsHomeFirstAnimation(),
@@ -32,20 +24,10 @@ class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
     const ScreenCardSelfie(),
     const ProfileScreen()
   ];
-  //int slectedtabIndex = 0;
-
-  void _onItemTapped(int index) {}
-
-  @override
-  void initState() {
-    controller.slectedtabIndex.value = 1;
-    //context.read<PromtBloc>().add(const PromtEvent.checkPrompt());
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<NavbarController>();
     return Obx(
       () => PopScope(
         canPop: controller.slectedtabIndex.value == 0,
@@ -138,7 +120,7 @@ class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
                 children: [
                   _widgetOptions.elementAt(controller.slectedtabIndex.value),
                   CardPromptHomePage(
-                      showPrompt: controller.slectedtabIndex.value == 0)
+                      showPrompt: controller.slectedtabIndex.value == 1)
                 ],
               ),
             ),

@@ -171,10 +171,11 @@ class _CardPageSliderState extends State<CardPageSlider>
           data = widget.bizcards[index];
           return InkWell(
             onTap: () {
-              // final map = data.id != null
-              //     ? {'myCard': 'true', 'cardId': data.id.toString()}
-              //     : <String, String>{};
-              GoRouter.of(context).pushNamed(Routes.cardDetailView);
+              final map = data.bizcardId != null
+                  ? {'myCard': 'true', 'cardId': data.bizcardId.toString()}
+                  : <String, String>{};
+              GoRouter.of(context)
+                  .pushNamed(Routes.cardDetailView, pathParameters: map);
             },
             child: FittedBox(
               child: Container(

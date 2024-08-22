@@ -118,8 +118,8 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
               }
               return InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context, cardFadePageRoute(const ScreenCardDetailView()));
+                  // Navigator.push(
+                  //     context, cardFadePageRoute(const ScreenCardDetailView()));
                 },
                 child: Column(
                   children: [

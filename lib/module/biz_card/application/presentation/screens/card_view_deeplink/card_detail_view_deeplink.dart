@@ -35,7 +35,7 @@ class CardDetailViewDeeplinkScreen extends StatelessWidget {
                   : Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const CardBottomNavigationBar(),
+                        builder: (context) => CardBottomNavigationBar(),
                       ),
                       (route) => false);
             },

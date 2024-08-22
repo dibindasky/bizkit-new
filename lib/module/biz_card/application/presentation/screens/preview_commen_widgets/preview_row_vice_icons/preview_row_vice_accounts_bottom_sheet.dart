@@ -3,6 +3,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/copy_clipboard/copy_clipboard.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccountsListsBottomSheet extends StatelessWidget {
   const AccountsListsBottomSheet(
@@ -28,6 +29,7 @@ class AccountsListsBottomSheet extends StatelessWidget {
         child: Column(
           children: [
             const TabBar(
+              dividerColor: knill,
               tabs: [
                 Text('Personal'),
                 Text('Company'),
@@ -155,11 +157,12 @@ class AccountsListviewBuilder extends StatelessWidget {
                                   socialMedia[index].socialMedia!);
                             },
                             child: Text(
-                              'copy link',
+                              'Copy Link',
                               style: textHeadStyle1.copyWith(
-                                color: neonShade,
+                                color: kblue,
+                                fontSize: 12.sp,
                                 decoration: TextDecoration.underline,
-                                decorationColor: neonShade,
+                                decorationColor: kblue,
                               ),
                             ),
                           ),

@@ -1,92 +1,114 @@
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_vice_accounts_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/branch_office.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CardViewRowWiceIcons extends StatelessWidget {
   const CardViewRowWiceIcons({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cardController = Get.find<CardController>();
     return FittedBox(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // phone number botom sheet
-          DetailSharingIconWidget(
-            onTap: () {
-              List<String> items = [
-                'febin@@gmail.com',
-                'sebin@gmail.com',
-                'jbin@gmail.com'
-              ];
-              List<String> itemsHead = ['Business', 'Service', 'Tipping'];
-              // if (state.anotherCard != null &&
-              //     state.anotherCard!.businessDetails != null &&
-              //     state.anotherCard!.businessDetails!.mobileNumber !=
-              //         null) {
-              //   items
-              //       .add(state.anotherCard!.businessDetails!.mobileNumber!);
-              //   itemsHead.add('Business');
-              // }
-              // if (state.anotherCard != null &&
-              //     state.anotherCard!.personalDetails != null &&
-              //     state.anotherCard!.personalDetails!.phoneNumber != null) {
-
-              // }
-              showModalBottomSheet(
-                context: context,
-                enableDrag: true,
-                isDismissible: true,
-                showDragHandle: true,
-                backgroundColor: kblack,
-                builder: (context) => PreviewScreenRowIconsModelSheet(
-                  fromPreview: false,
+          Obx(
+            () {
+              if (cardController.personalDetails.value?.phone == null) {
+                return const SizedBox();
+              }
+              {
+                return DetailSharingIconWidget(
+                  onTap: () {
+                    List<String> phone = [];
+                    List<String> itemsHead = [];
+                    if (cardController.personalDetails.value != null &&
+                        cardController.personalDetails.value!.phone != null &&
+                        cardController
+                            .personalDetails.value!.phone!.isNotEmpty) {
+                      phone = cardController.personalDetails.value!.phone!;
+                      itemsHead.add('Personal');
+                    }
+                    // if (cardController.businessDetails.value != null &&
+                    //     cardController.businessDetails.value. != null &&
+                    //     state.anotherCard!.businessDetails!.mobileNumber !=
+                    //         null) {
+                    //   items
+                    //       .add(state.anotherCard!.businessDetails!.mobileNumber!);
+                    //   itemsHead.add('Business');
+                    // }
+                    if (cardController.personalDetails.value != null &&
+                        cardController.personalDetails.value!.phone != null) {
+                      showModalBottomSheet(
+                        context: context,
+                        enableDrag: true,
+                        isDismissible: true,
+                        showDragHandle: true,
+                        backgroundColor: kblack,
+                        builder: (context) => PreviewScreenRowIconsModelSheet(
+                          fromPreview: false,
+                          image: imagePhone,
+                          items: phone,
+                          itemsHeading: itemsHead,
+                        ),
+                      );
+                    }
+                  },
                   image: imagePhone,
-                  items: items,
-                  itemsHeading: itemsHead,
-                ),
-              );
+                );
+              }
             },
-            image: imagePhone,
           ),
           // email bottom sheet
-          DetailSharingIconWidget(
-            onTap: () {
-              List<String> items = [
-                'febin@@gmail.com',
-                'sebin@gmail.com' 'jbin@gmail.com'
-              ];
-              List<String> itemsHead = ['Business', 'Service', 'Tipping'];
-              // if (state.anotherCard != null &&
-              //     state.anotherCard!.businessDetails != null &&
-              //     state.anotherCard!.businessDetails!.email != null) {
-              //   items.add(state.anotherCard!.businessDetails!.email!);
-              //   itemsHead.add('Business');
-              // }
-              // if (state.anotherCard != null &&
-              //     state.anotherCard!.personalDetails != null &&
-              //     state.anotherCard!.personalDetails!.email != null) {
-
-              // }
-
-              showModalBottomSheet(
-                context: context,
-                enableDrag: true,
-                isDismissible: true,
-                showDragHandle: true,
-                backgroundColor: kblack,
-                builder: (context) => PreviewScreenRowIconsModelSheet(
-                  fromPreview: false,
-                  image: imagePhone,
-                  items: items,
-                  itemsHeading: itemsHead,
-                ),
+          Obx(
+            () {
+              if (cardController.personalDetails.value!.email == null) {
+                return const SizedBox();
+              }
+              return DetailSharingIconWidget(
+                onTap: () {
+                  String email = '';
+                  List<String> itemsHead = [];
+                  if (cardController.personalDetails.value != null &&
+                      cardController.personalDetails.value!.email != null) {
+                    email = cardController.personalDetails.value!.email!;
+                    itemsHead.add('Email');
+                  }
+                  // if (state.anotherCard != null &&
+                  //     state.anotherCard!.businessDetails != null &&
+                  //     state.anotherCard!.businessDetails!.email != null) {
+                  //   items.add(state.anotherCard!.businessDetails!.email!);
+                  //   itemsHead.add('Business');
+                  // }
+                  // if (state.anotherCard != null &&
+                  //     state.anotherCard!.personalDetails != null &&
+                  //     state.anotherCard!.personalDetails!.email != null) {
+                  // }
+                  showModalBottomSheet(
+                    context: context,
+                    enableDrag: true,
+                    isDismissible: true,
+                    showDragHandle: true,
+                    backgroundColor: kblack,
+                    builder: (context) => PreviewScreenRowIconsModelSheet(
+                      fromPreview: false,
+                      image: imagePhone,
+                      items: [email],
+                      itemsHeading: itemsHead,
+                    ),
+                  );
+                },
+                image: gifMail,
               );
             },
-            image: gifMail,
           ),
           // website navigator
           DetailSharingIconWidget(
@@ -214,49 +236,56 @@ class CardViewRowWiceIcons extends StatelessWidget {
           // social media bottom sheet
           DetailSharingIconWidget(
             onTap: () =>
-                // (state.anotherCard?.socialMedia ?? []).isEmpty &&
-                //         (state.anotherCard?.businessSocialMedia ?? []).isEmpty
-                //     ?
-                showDialog(
-              context: context,
-              builder: (context) => Dialog(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: neonShade),
-                      borderRadius: BorderRadius.circular(10),
-                      color: backgroundColour),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      adjustHieght(10),
-                      Text(
-                        'No social medias available',
-                        style: textHeadStyle1,
+                (cardController.personalDetails.value?.personalSocialMedia ??
+                                [])
+                            .isEmpty &&
+                        (cardController.businessDetails.value
+                                    ?.businessSocialMedia ??
+                                [])
+                            .isEmpty
+                    ? showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: neonShade),
+                                borderRadius: BorderRadius.circular(10),
+                                color: backgroundColour),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                adjustHieght(10),
+                                Text(
+                                  'No social medias available',
+                                  style: textHeadStyle1,
+                                ),
+                                adjustHieght(10)
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    : showModalBottomSheet(
+                        context: context,
+                        enableDrag: true,
+                        isDismissible: true,
+                        showDragHandle: true,
+                        backgroundColor: kblack,
+                        builder: (context) {
+                          List personal = cardController.personalDetails.value
+                                      ?.personalSocialMedia ??
+                                  [],
+                              business = cardController.businessDetails.value
+                                      ?.businessSocialMedia ??
+                                  [];
+                          return AccountsListsBottomSheet(
+                            personal: personal,
+                            business: business,
+                          );
+                        },
                       ),
-                      adjustHieght(10)
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            // : showModalBottomSheet(
-            //     context: context,
-            //     enableDrag: true,
-            //     isDismissible: true,
-            //     showDragHandle: true,
-            //     backgroundColor: kblack,
-            //     builder: (context) {
-            //       List personal = state.anotherCard?.socialMedia ?? [],
-            //           business =
-            //               state.anotherCard?.businessSocialMedia ?? [];
-            //       return AccountsListsBottomSheet(
-            //         personal: personal,
-            //         business: business,
-            //       );
-            //     },
-            //   ),
             image: imageSpinner,
           ),
           // location navigator
@@ -272,69 +301,71 @@ class CardViewRowWiceIcons extends StatelessWidget {
                         border: Border.all(color: neonShade),
                         borderRadius: BorderRadius.circular(10),
                         color: backgroundColour),
-                    child:
-                        // state.anotherCard?.businessDetails?.address ==
-                        //             null &&
-                        //         (state.anotherCard?.branchOffices == null ||
-                        //             state.anotherCard?.branchOffices?.length ==
-                        //                 0)
-                        //     ?
-                        Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        adjustHieght(10),
-                        Text(
-                          'Location/Address not available',
-                          style: textHeadStyle1,
-                        ),
-                        adjustHieght(10)
-                      ],
-                    ),
-                    // : SingleChildScrollView(
-                    //     child: Column(
-                    //       mainAxisSize: MainAxisSize.min,
-                    //       children: [
-                    //         state.anotherCard?.businessDetails
-                    //                     ?.address ==
-                    //                 null
-                    //             ? const SizedBox()
-                    //             : const Text('Company Main Address'),
-                    //         // adjustHieght(10),
-                    //         AddressTilePopUp(
-                    //             address: state.anotherCard
-                    //                     ?.businessDetails?.address ??
-                    //                 '',
-                    //             phone: state.anotherCard
-                    //                 ?.businessDetails?.mobileNumber),
-                    //         adjustHieght(15),
-                    //         state.anotherCard?.branchOffices == null ||
-                    //                 state.anotherCard?.branchOffices
-                    //                         ?.length ==
-                    //                     0
-                    //             ? const SizedBox()
-                    //             : const Text('Branch Office Address'),
-                    //         state.anotherCard?.branchOffices == null ||
-                    //                 state.anotherCard?.branchOffices ==
-                    //                     <BranchOffice>[]
-                    //             ? const SizedBox()
-                    //             : ListView.builder(
-                    //                 physics:
-                    //                     const NeverScrollableScrollPhysics(),
-                    //                 itemCount: state.anotherCard
-                    //                     ?.branchOffices!.length,
-                    //                 shrinkWrap: true,
-                    //                 itemBuilder: (context, index) {
-                    //                   final data = state.anotherCard!
-                    //                       .branchOffices![index];
-                    //                   return AddressTilePopUp(
-                    //                       address: data.branch,
-                    //                       contactPerson: data.name,
-                    //                       phone: data.phoneNumber);
-                    //                 },
-                    //               )
-                    //       ],
-                    //     ),
-                    //   ),
+                    child: cardController.businessDetails.value == null &&
+                            (cardController
+                                        .businessDetails.value?.branchOffices ==
+                                    null ||
+                                cardController.businessDetails.value
+                                        ?.branchOffices?.length ==
+                                    0)
+                        ? Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              adjustHieght(10),
+                              Text(
+                                'Location/Address not available',
+                                style: textHeadStyle1,
+                              ),
+                              adjustHieght(10)
+                            ],
+                          )
+                        : SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                cardController.businessDetails.value
+                                            ?.branchOffices?.length ==
+                                        0
+                                    ? const SizedBox()
+                                    : const Text('Branch Office Address'),
+                                cardController.businessDetails.value
+                                                ?.branchOffices ==
+                                            null ||
+                                        cardController.businessDetails.value
+                                                ?.branchOffices ==
+                                            <BranchOffice>[]
+                                    ? const SizedBox()
+                                    : ListView.builder(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: cardController
+                                                .businessDetails
+                                                .value
+                                                ?.branchOffices
+                                                ?.length ??
+                                            0,
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          final data = cardController
+                                              .businessDetails
+                                              .value
+                                              ?.branchOffices![index];
+                                          return AddressTilePopUp(
+                                              location:
+                                                  data?.branchLocation ?? '',
+                                              address:
+                                                  data?.branchAddress ?? '',
+                                              contactPerson:
+                                                  data?.branchContactPerson ??
+                                                      '',
+                                              phone:
+                                                  data?.branchContactNumber ??
+                                                      '');
+                                        },
+                                      )
+                              ],
+                            ),
+                          ),
                   ),
                 ),
               );
@@ -354,7 +385,9 @@ class AddressTilePopUp extends StatelessWidget {
     this.address,
     this.phone,
     this.contactPerson,
+    this.location,
   });
+  final String? location;
   final String? address;
   final String? phone;
   final String? contactPerson;
@@ -370,13 +403,20 @@ class AddressTilePopUp extends StatelessWidget {
           color: backgroundColour),
       child: Column(
         children: [
+          Text(location ?? ''),
           Text(address ?? ''),
           adjustHieght(10),
           contactPerson == null || contactPerson == ''
               ? const SizedBox()
               : Align(
                   alignment: Alignment.centerLeft,
-                  child: Text('Contact : ${contactPerson ?? ''}')),
+                  child: Text('Name : ${contactPerson ?? ''}')),
+          phone == null || phone == ''
+              ? kempty
+              : Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('Contact : ${phone ?? ''}')),
+          kHeight5,
           FittedBox(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

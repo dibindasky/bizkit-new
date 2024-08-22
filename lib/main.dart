@@ -40,21 +40,11 @@ class MyApp extends StatelessWidget {
     final TextStyleController textStyleController =
         Get.put(TextStyleController());
     return ScreenUtilInit(
-      //designSize: Size(size.width, size.height),
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
       child: MultiBlocProvider(
-        providers: [
-          // BlocProvider<InternetConnectionCheckCubit>(
-          //     create: (ctx) =>
-          //         InternetConnectionCheckCubit(connectivity: connectivity)),
-          BlocProvider(create: (context) => getIt<ContactsBloc>()),
-          //BlocProvider(create: (context) => getIt<QrBloc>()),
-          //BlocProvider(create: (context) => getIt<ConnectionRequestBloc>()),
-          // BlocProvider(create: (context) => getIt<ReminderBloc>()),
-          //BlocProvider(create: (context) => getIt<ProfileBloc>()),
-        ],
+        providers: [BlocProvider(create: (context) => getIt<ContactsBloc>())],
         child: GetMaterialApp.router(
           debugShowMaterialGrid: false,
           theme: ThemeData(

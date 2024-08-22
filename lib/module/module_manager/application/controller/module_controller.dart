@@ -1,6 +1,8 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/controller/home/home_controller.dart';
 import 'package:bizkit/module/attendence/application/controller/navabar/navabar_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
@@ -36,7 +38,10 @@ class ModuleController extends GetxController {
   }
 
   /// initilize all controllers in CARD module [Module.card]
-  void initCardControllers() {}
+  void initCardControllers() {
+    Get.lazyPut(() => CardController());
+    Get.lazyPut(() => NavbarController());
+  }
 
   /// initilize all controllers in TASK module [Module.task]
   void initTaskControllers() {

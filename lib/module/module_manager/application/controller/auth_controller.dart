@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/token/token_model.dart';
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/module/module_manager/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/data/service/auth/auth_service.dart';
@@ -154,8 +155,9 @@ class AuthenticationController extends GetxController {
     SecureStorage.saveToken(tokenModel: model);
     log('user name => ${model.name ?? ''}');
     SecureStorage.setLogin();
-    context.go(Routes.taskNavbar);
-    // context.go(Routes.moduleSelector);
+    Get.find<ModuleController>().chooseModule(context, module: Module.card);
+    //context.go(Routes.taskNavbar);
+    //context.go(Routes.moduleSelector);
   }
 
   void logOut(BuildContext context) async {

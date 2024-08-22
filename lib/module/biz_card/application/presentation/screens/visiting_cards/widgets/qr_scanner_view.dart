@@ -69,8 +69,8 @@ class _QrScannerViewState extends State<QrScannerView> {
           final id = int.parse(url.split('/').last);
           goturl = true;
           reassemble();
-          await Navigator.push(
-              context, cardFadePageRoute(const ScreenCardDetailView()));
+          // await Navigator.push(
+          //     context, cardFadePageRoute(const ScreenCardDetailView()));
           goturl = false;
           reassemble();
         }

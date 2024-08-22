@@ -39,6 +39,7 @@ import '../../../module/attendence/application/presentation/screens/attendence_s
 class RouteGenerator {
   Route onGenerateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
+
     //Task section
     switch (settings.name) {
       case Routes.taskHome:
@@ -74,29 +75,11 @@ class RouteGenerator {
           return _errorScreen();
         }
 
-      // case Routes.taskInsideTheInnerFolderScreen:
-      //   return MaterialPageRoute(
-      //     builder: (ctx) => TaskInsideTheInnerFolderScreen(),
-      //   );
-      // if (arguments is String) {
-      //   return MaterialPageRoute(
-      //     builder: (ctx) => TaskInsideTheInnerFolderScreen(
-      //       foldername: arguments,
-      //     ),
-      //   );
-      // } else {
-      //   return _errorScreen();
-      // }
-
-      // return MaterialPageRoute(
-      //     builder: (ctx) => const TaskInsideTheInnerFolderScreen());
       case Routes.editTask:
         return MaterialPageRoute(builder: (ctx) => ScreenEditTask());
       case Routes.taskNotification:
         return MaterialPageRoute(builder: (ctx) => const NotoficationBuilder());
-      // case Routes.taskCreateNewFolder:
-      //   return MaterialPageRoute(
-      //       builder: (ctx) => const TaskCreateNewFolderScreen());
+
       case Routes.taskTabNotification:
         return MaterialPageRoute(builder: (ctx) => TaskTabNotification());
 
@@ -118,10 +101,6 @@ class RouteGenerator {
         } else {
           return _errorScreen();
         }
-
-      // case Routes.heirarchyUserDetail:
-      //   return MaterialPageRoute(
-      //       builder: (ctx) => const ScreenHeirarchyTaskUserDetails());
 
       //Attendence Module
       case Routes.attendenceHome:

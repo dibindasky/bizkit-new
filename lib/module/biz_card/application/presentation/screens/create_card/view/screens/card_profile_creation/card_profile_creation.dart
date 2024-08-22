@@ -9,6 +9,7 @@ import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ScreenCardProfileCreation extends StatefulWidget {
   const ScreenCardProfileCreation({super.key});
@@ -36,7 +37,9 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
             size: 18,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            // Navigator.of(context).pop();
+
+            GoRouter.of(context).pop();
           },
           color: kwhite,
         ),

@@ -28,6 +28,8 @@ class Routes {
   static const String newPasswordScreen = '/new_password_screen';
   static const String otpScreen = '/otp_screen';
 
+  static const String cardPickedScanningCards = '/picked_scanning_cards';
+
   // Task module
   static const String initaltask = '/taskInitail';
   static const String taskNavbar = '/task_navbar';

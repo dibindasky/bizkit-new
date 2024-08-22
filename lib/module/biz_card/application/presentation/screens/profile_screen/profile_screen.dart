@@ -1,21 +1,12 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'dart:convert';
-
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/profile/profile_bloc.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
-import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
@@ -86,101 +77,50 @@ class _ProfileScreenState extends State<ProfileScreen>
             opacity: animation,
             child: Column(
               children: [
-                BlocConsumer<ProfileBloc, ProfileState>(
-                  listenWhen: (previous, current) {
-                    return previous.updateUserInfoModel !=
-                        current.updateUserInfoModel;
-                  },
-                  listener: (context, state) {
-                    if (state.hasError) {
-                      showSnackbar(context, message: errorMessage);
-                    }
-                    if (state.updateUserInfoModel != null) {
-                      showSnackbar(context, message: 'Profile updated');
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state.isBusiness) {
-                      business = ', Business Users';
-                    }
-                    String base64String = '';
-                    if ((state.getUserInfoModel != null &&
-                        state.getUserInfoModel!.results != null &&
-                        state.getUserInfoModel!.results!.profilePic != null &&
-                        state.getUserInfoModel!.results!.profilePic!
-                            .isNotEmpty)) {
-                      final image =
-                          state.getUserInfoModel!.results!.profilePic!;
-                      base64String = image;
-                      base64String = image.replaceFirst(
-                          RegExp(r'data:image/jpg;base64,'), '');
-                    }
-                    return Stack(
-                      children: [
-                        CircleAvatar(
-                          radius: 70,
-                          backgroundColor: neonShade,
-                          child: state.profileLoading
-                              ? const CircularProgressIndicator(
-                                  color: backgroundColour,
-                                )
-                              : (state.getUserInfoModel != null &&
-                                      state.getUserInfoModel!.results != null &&
-                                      state.getUserInfoModel!.results!
-                                              .profilePic !=
-                                          null &&
-                                      state.getUserInfoModel!.results!
-                                          .profilePic!.isNotEmpty)
-                                  ? ClipRRect(
-                                      borderRadius: BorderRadius.circular(67),
-                                      child: Image.memory(
-                                        base64.decode(base64String),
-                                        width: 134,
-                                        height: 134,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )
-                                  : CustomShowCaseView(
-                                      image: personImage,
-                                      globalKey: globalKeyProfilPicUploading,
-                                      tittle: 'Add your Profile image',
-                                      description: '',
-                                      child: const CircleAvatar(
-                                        radius: 66,
-                                        backgroundColor: backgroundColour,
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.person,
-                                            color: neonShade,
-                                            size: 30,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 20,
-                          child: Container(
-                            decoration: BoxDecoration(
+                Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 70,
+                      backgroundColor: neonShade,
+                      child: CustomShowCaseView(
+                        image: personImage,
+                        globalKey: globalKeyProfilPicUploading,
+                        tittle: 'Add your Profile image',
+                        description: '',
+                        child: const CircleAvatar(
+                          radius: 66,
+                          backgroundColor: backgroundColour,
+                          child: Center(
+                            child: Icon(
+                              Icons.person,
                               color: neonShade,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            height: 30,
-                            width: 34,
-                            child: InkWell(
-                              onTap: () {
-                                cardscanimagesSelectingDailogue(context);
-                              },
-                              child: const Icon(
-                                Icons.add,
-                              ),
+                              size: 30,
                             ),
                           ),
-                        )
-                      ],
-                    );
-                  },
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 20,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: neonShade,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        height: 30,
+                        width: 34,
+                        child: InkWell(
+                          onTap: () {
+                            cardscanimagesSelectingDailogue(context);
+                          },
+                          child: const Icon(
+                            Icons.add,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
                 adjustHieght(khieght * .06),
                 // const ProfileTiles(
@@ -234,7 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         // context
                         //     .read<NotificationBloc>()
                         //     .add(const NotificationEvent.clear());
-                        context.go(Routes.loginPage);
+                        //context.go(Routes.loginPage);
                       },
                     );
                   },
@@ -333,9 +273,6 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
-            context
-                .read<ProfileBloc>()
-                .add(const ProfileEvent.pickImageScanning(camera: false));
           },
           style: ElevatedButton.styleFrom(
               foregroundColor: kwhite, side: const BorderSide(color: kwhite)),
@@ -345,9 +282,6 @@ Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
-            context
-                .read<ProfileBloc>()
-                .add(const ProfileEvent.pickImageScanning(camera: true));
           },
           style: ElevatedButton.styleFrom(
               foregroundColor: kwhite, side: const BorderSide(color: kwhite)),

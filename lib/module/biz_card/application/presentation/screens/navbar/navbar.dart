@@ -1,10 +1,10 @@
-import 'package:bizkit/module/biz_card/application/business_logic/cubit/nav_cubit.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/widgets/prompt.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/view/screen/profile_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/visiting_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
@@ -26,7 +26,7 @@ class CardBottomNavigationBar extends StatefulWidget {
 class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
   final controller = Get.put(NavbarController());
   final List<Widget> _widgetOptions = [
-    //ScreenModuleSelector(),
+    ScreenModuleSelector(),
     const ScreenCardsHomeFirstAnimation(),
     const ScreenCardsLists(),
     const ScreenCardSelfie(),
@@ -34,18 +34,13 @@ class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
   ];
   //int slectedtabIndex = 0;
 
-  void _onItemTapped(int index) {
-    context.read<NavCubit>().navbarChange(index: index);
-    setState(() {
-      controller.slectedtabIndex.value = index;
-    });
-  }
+  void _onItemTapped(int index) {}
 
   @override
   void initState() {
-    controller.slectedtabIndex.value = 0;
+    controller.slectedtabIndex.value = 1;
     //context.read<PromtBloc>().add(const PromtEvent.checkPrompt());
-    context.read<NavCubit>().navbarChange(index: 0);
+
     super.initState();
   }
 
@@ -95,7 +90,7 @@ class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
                               ),
                             ),
                           ),
-                          adjustWidth(20),
+                          kWidth20,
                           Expanded(
                             child: InkWell(
                               onTap: () {
@@ -113,7 +108,7 @@ class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
                               ),
                             ),
                           ),
-                          adjustWidth(20),
+                          kWidth20,
                         ],
                       ),
                     ],
@@ -132,7 +127,7 @@ class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
               !homeFirstAnimationController.isCompleted) {
             Navigator.pop(context);
           } else {
-            context.read<NavCubit>().navbarChange(index: 0);
+            controller.changeBottomBar(0);
             return;
           }
         },
@@ -157,62 +152,64 @@ class _CardBottomNavigationBarState extends State<CardBottomNavigationBar> {
               backgroundColor: backgroundColour,
               selectedIndex: controller.slectedtabIndex.value,
               items: [
-                // BottomBarItem(
-                //   iconBuilder: (color) => Image.asset(
-                //     iconModuleSelectorBottomBar,
-                //     fit: BoxFit.cover,
-                //     color: state.controller.slectedtabIndex.value == 0 ? neonShade : color,
-                //     height: state.controller.slectedtabIndex.value == 0 ? 36 : 30,
-                //     width: state.controller.slectedtabIndex.value == 0 ? 36 : 30,
-                //   ),
-                // ),
                 BottomBarItem(
                   iconBuilder: (color) => Image.asset(
-                    cardIconHomeBottomBar,
+                    iconModuleSelectorBottomBar,
                     fit: BoxFit.cover,
                     color: controller.slectedtabIndex.value == 0
                         ? neonShade
                         : color,
-                    height: controller.slectedtabIndex.value == 0 ? 32 : 26,
-                    width: controller.slectedtabIndex.value == 0 ? 32 : 26,
+                    height: controller.slectedtabIndex.value == 0 ? 36 : 30,
+                    width: controller.slectedtabIndex.value == 0 ? 36 : 30,
+                  ),
+                ),
+                BottomBarItem(
+                  iconBuilder: (color) => Image.asset(
+                    cardIconHomeBottomBar,
+                    fit: BoxFit.cover,
+                    color: controller.slectedtabIndex.value == 1
+                        ? neonShade
+                        : color,
+                    height: controller.slectedtabIndex.value == 1 ? 32 : 26,
+                    width: controller.slectedtabIndex.value == 1 ? 32 : 26,
                   ),
                 ),
                 BottomBarItem(
                   iconBuilder: (color) => Image.asset(
                     cardIconcardIcon,
                     fit: BoxFit.cover,
-                    color: controller.slectedtabIndex.value == 1
+                    color: controller.slectedtabIndex.value == 2
                         ? neonShade
                         : color,
-                    height: controller.slectedtabIndex.value == 1 ? 27 : 22,
-                    width: controller.slectedtabIndex.value == 1 ? 27 : 22,
+                    height: controller.slectedtabIndex.value == 2 ? 27 : 22,
+                    width: controller.slectedtabIndex.value == 2 ? 27 : 22,
                   ),
                 ),
                 BottomBarItem(
                   iconBuilder: (color) => Image.asset(
                     iconScannerBottombar,
                     fit: BoxFit.cover,
-                    color: controller.slectedtabIndex.value == 2
+                    color: controller.slectedtabIndex.value == 3
                         ? neonShade
                         : color,
-                    height: controller.slectedtabIndex.value == 2 ? 26 : 20,
-                    width: controller.slectedtabIndex.value == 2 ? 26 : 20,
+                    height: controller.slectedtabIndex.value == 3 ? 26 : 20,
+                    width: controller.slectedtabIndex.value == 3 ? 26 : 20,
                   ),
                 ),
                 BottomBarItem(
                   iconBuilder: (color) => Image.asset(
                     iconAccountBottomBar,
                     fit: BoxFit.cover,
-                    color: controller.slectedtabIndex.value == 3
+                    color: controller.slectedtabIndex.value == 4
                         ? neonShade
                         : color,
-                    height: controller.slectedtabIndex.value == 3 ? 32.w : 26.w,
-                    width: controller.slectedtabIndex.value == 3 ? 32.w : 26.w,
+                    height: controller.slectedtabIndex.value == 4 ? 32.w : 26.w,
+                    width: controller.slectedtabIndex.value == 4 ? 32.w : 26.w,
                   ),
                 ),
               ],
               onSelect: (index) {
-                _onItemTapped(index);
+                controller.slectedtabIndex.value = index;
               },
             ),
           ),

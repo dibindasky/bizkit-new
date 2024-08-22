@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -10,7 +7,6 @@ import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
@@ -110,215 +106,186 @@ class _ScreenLoginState extends State<ScreenLogin>
         //   });
         // }
       },
-      child: BlocListener<InternetConnectionCheckCubit,
-          InternetConnectionCheckState>(
-        listener: (context, state) {
-          if (state is InternetConnected) {
-            log('Internet is connected');
-          } else {
-            showDialog(
-              context: context,
-              builder: (ctx) {
-                return AlertDialog(
-                  title: const Text('No internet'),
-                  content: const Text(
-                    'Please turn on mobile data or connect to a wifi',
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Form(
+            key: loginKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  adjustHieght(khieght * 0.10),
+                  SizedBox(
+                    width: double.infinity,
+                    height: khieght * 0.25,
+                    // child: Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     eyeCircleAnimated(),
+                    //     Container(
+                    //       width: kwidth * 0.05,
+                    //       height: kwidth * 0.02,
+                    //       decoration: BoxDecoration(
+                    //         gradient: neonShadeGradient,
+                    //       ),
+                    //     ),
+                    //     eyeCircleAnimated()
+                    //   ],
+                    // ),
+                    child: Image.asset('asset/images/Bizkit.png'),
                   ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        GoRouter.of(context).pop();
-                      },
-                      child: const Text('Close'),
-                    )
-                  ],
-                );
-              },
-            );
-            log('internet is disconnected');
-          }
-        },
-        child: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Form(
-              key: loginKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    adjustHieght(khieght * 0.10),
-                    SizedBox(
-                      width: double.infinity,
-                      height: khieght * 0.25,
-                      // child: Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     eyeCircleAnimated(),
-                      //     Container(
-                      //       width: kwidth * 0.05,
-                      //       height: kwidth * 0.02,
-                      //       decoration: BoxDecoration(
-                      //         gradient: neonShadeGradient,
-                      //       ),
-                      //     ),
-                      //     eyeCircleAnimated()
-                      //   ],
-                      // ),
-                      child: Image.asset('asset/images/Bizkit.png'),
+                  Text(
+                    'Your key to your business',
+                    style: custumText(
+                      fontSize: kwidth * 0.043,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      'Your key to your business',
-                      style: custumText(
-                        fontSize: kwidth * 0.043,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    adjustHieght(khieght * .02),
-                    CustomTextFormField(
-                      maxlegth: 10,
-                      onTap: () {
-                        setState(() {
-                          if (phoneController.text.isEmpty) {
-                            animate(-28, 20);
-                            indexOfEye = 1;
-                          } else {
-                            double newXPosition =
-                                -28 + (phoneController.text.length * 1.5);
-                            double newYPosition =
-                                20 + (phoneController.text.length * 0.5);
-                            if (newXPosition > 12 && newYPosition > 33) {
-                              setState(() {
-                                newXPosition = 12.0;
-                                newYPosition = 33.0;
-                                animate(newXPosition, newYPosition);
-                                indexOfEye = 4;
-                              });
-                              return;
-                            }
-                            animate(newXPosition, newYPosition);
-                            if (phoneController.text.length > 22) {
+                  ),
+                  adjustHieght(khieght * .02),
+                  CustomTextFormField(
+                    maxlegth: 10,
+                    onTap: () {
+                      setState(() {
+                        if (phoneController.text.isEmpty) {
+                          animate(-28, 20);
+                          indexOfEye = 1;
+                        } else {
+                          double newXPosition =
+                              -28 + (phoneController.text.length * 1.5);
+                          double newYPosition =
+                              20 + (phoneController.text.length * 0.5);
+                          if (newXPosition > 12 && newYPosition > 33) {
+                            setState(() {
+                              newXPosition = 12.0;
+                              newYPosition = 33.0;
+                              animate(newXPosition, newYPosition);
                               indexOfEye = 4;
-                            } else if (phoneController.text.length >= 17) {
-                              indexOfEye = 2;
-                            } else {
-                              indexOfEye = 1;
-                            }
+                            });
+                            return;
                           }
-                        });
-                      },
-                      onChanaged: (name) {
-                        double newXPosition = -28 + (name.length * 1.5);
-                        double newYPosition = 20 + (name.length * 0.5);
-                        if (newXPosition > 12 && newYPosition > 33) {
-                          setState(() {
-                            newXPosition = 12.0;
-                            newYPosition = 33.0;
-                            indexOfEye = 4;
-                          });
-                          return;
-                        }
-                        setState(() {
                           animate(newXPosition, newYPosition);
-                          if (name.length >= 17) {
+                          if (phoneController.text.length > 22) {
+                            indexOfEye = 4;
+                          } else if (phoneController.text.length >= 17) {
                             indexOfEye = 2;
                           } else {
                             indexOfEye = 1;
                           }
+                        }
+                      });
+                    },
+                    onChanaged: (name) {
+                      double newXPosition = -28 + (name.length * 1.5);
+                      double newYPosition = 20 + (name.length * 0.5);
+                      if (newXPosition > 12 && newYPosition > 33) {
+                        setState(() {
+                          newXPosition = 12.0;
+                          newYPosition = 33.0;
+                          indexOfEye = 4;
                         });
-                      },
-                      onTapOutside: () {
-                        // FocusScope.of(context).unfocus();
-                      },
-                      validate: Validate.phone,
-                      labelText: 'Phone',
-                      controller: phoneController,
-                      inputType: TextInputType.number,
-                    ),
-                    // CustomTextFormField(
-                    //     onTap: () {
-                    //       setState(() {
-                    //         indexOfEye = 3;
-                    //         animate(30, -20);
-                    //       });
-                    //     },
-                    //     validate: Validate.notNull,
-                    //     labelText: 'Password',
-                    //     controller: passwordController,
-                    //     inputType: TextInputType.visiblePassword,
-                    //     obscureText: true,
-                    //     onTapOutside: () {
-                    //       // FocusScope.of(context).unfocus();
-                    //     }),
-                    adjustHieght(10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Don\'t have an account?',
+                        return;
+                      }
+                      setState(() {
+                        animate(newXPosition, newYPosition);
+                        if (name.length >= 17) {
+                          indexOfEye = 2;
+                        } else {
+                          indexOfEye = 1;
+                        }
+                      });
+                    },
+                    onTapOutside: () {
+                      // FocusScope.of(context).unfocus();
+                    },
+                    validate: Validate.phone,
+                    labelText: 'Phone',
+                    controller: phoneController,
+                    inputType: TextInputType.number,
+                  ),
+                  // CustomTextFormField(
+                  //     onTap: () {
+                  //       setState(() {
+                  //         indexOfEye = 3;
+                  //         animate(30, -20);
+                  //       });
+                  //     },
+                  //     validate: Validate.notNull,
+                  //     labelText: 'Password',
+                  //     controller: passwordController,
+                  //     inputType: TextInputType.visiblePassword,
+                  //     obscureText: true,
+                  //     onTapOutside: () {
+                  //       // FocusScope.of(context).unfocus();
+                  //     }),
+                  adjustHieght(10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Don\'t have an account?',
+                        style: TextStyle(
+                          fontSize: kwidth * 0.03,
+                        ),
+                      ),
+                      adjustWidth(10),
+                      InkWell(
+                        onTap: () async {
+                          await GoRouter.of(context)
+                              .pushNamed(Routes.signUpPage)
+                              .then((value) {
+                            FocusScope.of(context).unfocus();
+                          });
+                        },
+                        child: Text(
+                          'Sign Up',
                           style: TextStyle(
-                            fontSize: kwidth * 0.03,
+                            fontSize: kwidth * 0.037,
+                            decoration: TextDecoration.underline,
+                            decorationColor: kwhite,
                           ),
                         ),
-                        adjustWidth(10),
-                        InkWell(
-                          onTap: () async {
-                            await GoRouter.of(context)
-                                .pushNamed(Routes.signUpPage)
-                                .then((value) {
-                              FocusScope.of(context).unfocus();
-                            });
-                          },
-                          child: Text(
-                            'Sign Up',
-                            style: TextStyle(
-                              fontSize: kwidth * 0.037,
-                              decoration: TextDecoration.underline,
-                              decorationColor: kwhite,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    // adjustHieght(khieght * .01),
-                    // TextButton(
-                    //   onPressed: () async {
-                    //     await Navigator.push(
-                    //             context,
-                    //             fadePageRoute(
-                    //                 const EmailFieldForGottPassword()))
-                    //         .then((value) => FocusScope.of(context));
-                    //   },
-                    //   child: Text(
-                    //     'Forgot Password',
-                    //     style:
-                    //         TextStyle(fontSize: kwidth * 0.03, color: kwhite),
-                    //   ),
-                    // ),
-                    adjustHieght(khieght * .03),
-                    Obx(() {
-                      return controller.loadingLogin.value
-                          ? const LoadingAnimation()
-                          : EventButton(
-                              text: 'Login',
-                              onTap: () {
-                                if (loginKey.currentState!.validate()) {
-                                  FocusScope.of(context).unfocus();
-                                  controller.loginUser(context,
-                                      authPostModel: AuthPostmodel(
-                                          phoneNumber:
-                                              '+91${phoneController.text}'));
-                                  // context.read<AuthBloc>().add(AuthEvent.login(
-                                  //     loginModel: LoginModel(
-                                  //         email: emailController.text.trim(),
-                                  //         password:
-                                  //             passwordController.text.trim())));
-                                }
-                              },
-                            );
-                    })
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  // adjustHieght(khieght * .01),
+                  // TextButton(
+                  //   onPressed: () async {
+                  //     await Navigator.push(
+                  //             context,
+                  //             fadePageRoute(
+                  //                 const EmailFieldForGottPassword()))
+                  //         .then((value) => FocusScope.of(context));
+                  //   },
+                  //   child: Text(
+                  //     'Forgot Password',
+                  //     style:
+                  //         TextStyle(fontSize: kwidth * 0.03, color: kwhite),
+                  //   ),
+                  // ),
+                  adjustHieght(khieght * .03),
+                  Obx(() {
+                    return controller.loadingLogin.value
+                        ? const LoadingAnimation()
+                        : EventButton(
+                            text: 'Login',
+                            onTap: () {
+                              if (loginKey.currentState!.validate()) {
+                                FocusScope.of(context).unfocus();
+                                controller.loginUser(context,
+                                    authPostModel: AuthPostmodel(
+                                        phoneNumber:
+                                            '+91${phoneController.text}'));
+                                // context.read<AuthBloc>().add(AuthEvent.login(
+                                //     loginModel: LoginModel(
+                                //         email: emailController.text.trim(),
+                                //         password:
+                                //             passwordController.text.trim())));
+                              }
+                            },
+                          );
+                  })
+                ],
               ),
             ),
           ),

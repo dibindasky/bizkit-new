@@ -3,9 +3,8 @@ import 'dart:developer';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_preview.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
-import 'package:bizkit/module/biz_card/domain/model/card_second/get_second_card_model/selfie.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
@@ -24,12 +23,10 @@ class CardSecondUpdation extends StatefulWidget {
 class _CardSecondUpdationState extends State<CardSecondUpdation> {
   List<String> selfieBase64List = [];
   String? base64imagecard;
-  List<Selfie> imageList = [];
-  List<Selfie> newImageList = [];
 
   @override
   void initState() {
-    newImageList = [];
+    // newImageList = [];
     // if (widget.secondCard.selfie != null ||
     //     widget.secondCard.selfie!.isNotEmpty) {
     //   for (var image in widget.secondCard.selfie!) {
@@ -158,37 +155,35 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                           return adjustWidth(10);
                         },
                         scrollDirection: Axis.horizontal,
-                        itemCount: imageList.length,
+                        itemCount: 2,
                         itemBuilder: (context, index) {
-                          final imageSelfie = imageList[index];
-                          if (imageSelfie.selfie == null) {
-                            return kempty;
-                          }
+                          //  final imageSelfie = imageList[index];
+                          // if (imageSelfie.selfie == null) {
+                          //   return kempty;
+                          // }
                           return Stack(
                             children: [
                               InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          SlidablePhotoGallery(
-                                        images: imageList
-                                            .map((e) => e.selfie!)
-                                            .toList(),
-                                        initialIndex: index,
-                                      ),
-                                    ),
-                                  );
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) =>
+                                  //         SlidablePhotoGallery(
+                                  //       images: imageList
+                                  //           .map((e) => e.selfie!)
+                                  //           .toList(),
+                                  //       initialIndex: index,
+                                  //     ),
+                                  //   ),
+                                  // );
                                 },
                                 child: SizedBox(
                                   width: 300.dm,
                                   height: 200.dm,
                                   child: Image.memory(
                                     base64.decode(
-                                        imageSelfie.selfie!.startsWith('data')
-                                            ? imageSelfie.selfie!.substring(22)
-                                            : imageSelfie.selfie ?? ''),
+                                        imageTestingBase64.substring(22)),
                                     fit: BoxFit.cover,
                                     errorBuilder: (context, error, stackTrace) {
                                       return const Icon(Icons.error);
@@ -211,20 +206,20 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                                           title:
                                               'You want to delete product image',
                                           onTap: () {
-                                            if (imageList[index].id != null) {
-                                              // context
-                                              //     .read<CardSecondBloc>()
-                                              //     .add(CardSecondEvent
-                                              //         .removeSelfieIndexImages(
-                                              //             id: imageList[index]
-                                              //                 .id!));
-                                            }
-                                            newImageList.removeWhere(
-                                                (element) =>
-                                                    element ==
-                                                    imageList[index]);
-                                            imageList.removeAt(index);
-                                            setState(() {});
+                                            // if (imageList[index].id != null) {
+                                            //   // context
+                                            //   //     .read<CardSecondBloc>()
+                                            //   //     .add(CardSecondEvent
+                                            //   //         .removeSelfieIndexImages(
+                                            //   //             id: imageList[index]
+                                            //   //                 .id!));
+                                            // }
+                                            // newImageList.removeWhere(
+                                            //     (element) =>
+                                            //         element ==
+                                            //         imageList[index]);
+                                            // imageList.removeAt(index);
+                                            // setState(() {});
                                           },
                                         );
                                       },
@@ -253,8 +248,8 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                               final img =
                                   await ImagePickerClass.getImage(camera: true);
                               if (img != null) {
-                                imageList.insert(0, Selfie(selfie: img.base64));
-                                newImageList.add(Selfie(selfie: img.base64));
+                                // imageList.insert(0, Selfie(selfie: img.base64));
+                                // newImageList.add(Selfie(selfie: img.base64));
                                 setState(() {});
                               }
                             },
@@ -262,8 +257,8 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                               final img = await ImagePickerClass.getImage(
                                   camera: false);
                               if (img != null) {
-                                imageList.insert(0, Selfie(selfie: img.base64));
-                                newImageList.add(Selfie(selfie: img.base64));
+                                // imageList.insert(0, Selfie(selfie: img.base64));
+                                // newImageList.add(Selfie(selfie: img.base64));
                                 setState(() {});
                               }
                             },

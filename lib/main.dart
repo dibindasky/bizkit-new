@@ -2,13 +2,7 @@ import 'package:bizkit/core/dipendency/binding/all_controller_binding.dart';
 import 'package:bizkit/core/dipendency/di/dipendency_injection.dart';
 import 'package:bizkit/core/routes/route_generator.dart';
 import 'package:bizkit/firebase_options.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/connections/connection_request/connection_request_bloc.dart';
 import 'package:bizkit/module/biz_card/application/business_logic/contacts/contacts_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/cubit/nav_cubit.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/internet_connection_check/internet_connection_check_cubit.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/profile/profile_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/qr/qr_bloc.dart';
-import 'package:bizkit/module/biz_card/application/business_logic/reminder/reminder_bloc.dart';
 import 'package:bizkit/module/module_manager/application/controller/text_style_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -52,25 +46,14 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => NavCubit()),
-          BlocProvider<InternetConnectionCheckCubit>(
-              create: (ctx) =>
-                  InternetConnectionCheckCubit(connectivity: connectivity)),
+          // BlocProvider<InternetConnectionCheckCubit>(
+          //     create: (ctx) =>
+          //         InternetConnectionCheckCubit(connectivity: connectivity)),
           BlocProvider(create: (context) => getIt<ContactsBloc>()),
-          // BlocProvider(create: (context) => getIt<ForgottPasswordBloc>()),
-          // BlocProvider(create: (context) => getIt<NotificationBloc>()),
-          // BlocProvider(create: (context) => getIt<AuthBloc>()),
-          // BlocProvider(create: (context) => getIt<UserDataBloc>()),
-          // BlocProvider(create: (context) => getIt<BusinessDataBloc>()),
-          // BlocProvider(create: (context) => getIt<SignUpBloc>()),
-          // BlocProvider(create: (context) => getIt<CardBloc>()),
-          // BlocProvider(create: (context) => getIt<CardSecondBloc>()),
-          BlocProvider(create: (context) => getIt<QrBloc>()),
-          BlocProvider(create: (context) => getIt<ConnectionRequestBloc>()),
-          BlocProvider(create: (context) => getIt<ReminderBloc>()),
-          BlocProvider(create: (context) => getIt<ProfileBloc>()),
-          //BlocProvider(create: (context) => getIt<PromtBloc>()),
-          // BlocProvider(create: (context) => getIt<AdminBloc>()),
+          //BlocProvider(create: (context) => getIt<QrBloc>()),
+          //BlocProvider(create: (context) => getIt<ConnectionRequestBloc>()),
+          // BlocProvider(create: (context) => getIt<ReminderBloc>()),
+          //BlocProvider(create: (context) => getIt<ProfileBloc>()),
         ],
         child: GetMaterialApp.router(
           debugShowMaterialGrid: false,

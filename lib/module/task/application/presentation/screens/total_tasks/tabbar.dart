@@ -65,7 +65,6 @@ class TotalTaskListView extends StatelessWidget {
                     // controller.longPress(index);
                   },
                   onTap: () {
-                    GoRouter.of(context).push(Routes.taskChatScreen);
                     taskController.fetchSingleTask(
                         singleTaskModel:
                             GetSingleTaskModel(taskId: typeTask.id));
@@ -75,6 +74,7 @@ class TotalTaskListView extends StatelessWidget {
                     //   GoRouter.of(context).push(Routes.taskChatScreen);
                     // }
 
+                    GoRouter.of(context).push(Routes.taskDeail);
                     log('Task id form filter by type==> ${typeTask.id}');
                   },
                   child: TaskContainer(

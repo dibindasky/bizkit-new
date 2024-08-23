@@ -1,8 +1,8 @@
+import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/achievement.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'branch_office.dart';
 import 'brochure.dart';
-import 'business_achievement.dart';
 import 'business_social_media.dart';
 import 'product.dart';
 
@@ -20,7 +20,7 @@ class BusinessDetails {
   @JsonKey(name: 'business_name')
   String? businessName;
   @JsonKey(name: 'business_achievements')
-  List<BusinessAchievement>? businessAchievements;
+  List<Achievement>? businessAchievements;
   @JsonKey(name: 'business_social_media')
   List<BusinessSocialMedia>? businessSocialMedia;
   List<Product>? product;

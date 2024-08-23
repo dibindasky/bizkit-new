@@ -43,13 +43,7 @@ extension GetItInjectableX on _i1.GetIt {
     );
     final dioModule = _$DioModule();
     gh.factory<_i3.ApiService>(() => _i3.ApiService());
-    // gh.lazySingleton<_i4.AuthRepo>(() => _i5.AuthService());
-    // gh.lazySingleton<_i6.CardRepo>(() => _i7.CardService());
-    // gh.lazySingleton<_i8.CardScanningRepo>(() => _i9.CardScanningImpl());
-    // gh.lazySingleton<_i10.CardSecondRepo>(
-    //     () => _i11.CardSecondService(gh<_i3.ApiService>()));
-    // gh.lazySingleton<_i12.ConnectionRequestRepo>(
-    //     () => _i13.ConnectionService(gh<_i3.ApiService>()));
+
     gh.lazySingleton<_i14.ContactFetchService>(
         () => _i14.ContactFetchService());
     gh.lazySingleton<_i15.ContactsRepo>(
@@ -59,21 +53,7 @@ extension GetItInjectableX on _i1.GetIt {
 
     gh.lazySingleton<_i20.LocalService>(() => _i20.LocalService());
     gh.lazySingleton<_i21.LocationService>(() => _i21.LocationService());
-    // gh.lazySingleton<_i22.NotificationRepo>(
-    //     () => _i23.NotificationService(gh<_i3.ApiService>()));
     gh.lazySingleton<_i24.PdfPickerImpl>(() => _i24.PdfPickerImpl());
-    // gh.lazySingleton<_i25.ProfileRepo>(
-    //     () => _i26.ProfileService(gh<_i3.ApiService>()));
-    // gh.lazySingleton<_i30.ReminderRepo>(
-    //     () => _i31.ReminderService(gh<_i3.ApiService>()));
-
-    // gh.lazySingleton<_i33.TextExtractionRepo>(
-    //     () => _i34.TextExtractionService(gh<_i3.ApiService>()));
-    // gh.lazySingleton<_i35.UserLocalRepo>(
-    //     () => _i36.UserLocalService(gh<_i20.LocalService>()));
-    // gh.lazySingleton<_i37.AdminRepo>(
-    //     () => _i38.AdminServices(gh<_i3.ApiService>()));
-
     gh.lazySingleton<_i41.ContactLocalRepo>(
         () => _i42.ContactLocalService(gh<_i20.LocalService>()));
     gh.factory<_i43.ContactsBloc>(() => _i43.ContactsBloc(
@@ -81,12 +61,6 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i15.ContactsRepo>(),
           gh<_i41.ContactLocalRepo>(),
         ));
-    // gh.factory<_i45.ProfileBloc>(
-    //     () => _i45.ProfileBloc(gh<_i25.ProfileRepo>()));
-    // gh.factory<_i46.QrBloc>(() => _i46.QrBloc(gh<_i28.QrServiceRepo>()));
-    // gh.factory<_i47.ReminderBloc>(
-    //     () => _i47.ReminderBloc(gh<_i30.ReminderRepo>()));
-    // gh.factory<_i48.AdminBloc>(() => _i48.AdminBloc(gh<_i37.AdminRepo>()));́
     return this;
   }
 }

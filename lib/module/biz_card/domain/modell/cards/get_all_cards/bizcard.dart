@@ -16,13 +16,10 @@ class Bizcard {
   bool? isArchived;
   @JsonKey(name: 'designation')
   String? designation;
-
   @JsonKey(name: 'name')
   String? name;
-
   @JsonKey(name: 'company_name')
   String? companyName;
-
   @JsonKey(name: 'logo')
   String? logo;
 

@@ -19,7 +19,7 @@ PersonalDetails _$PersonalDetailsFromJson(Map<String, dynamic> json) =>
       images:
           (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       personalAchievements: (json['personal_achievements'] as List<dynamic>?)
-          ?.map((e) => PersonalAchievement.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Achievement.fromJson(e as Map<String, dynamic>))
           .toList(),
       personalSocialMedia: (json['personal_social_media'] as List<dynamic>?)
           ?.map((e) => PersonalSocialMedia.fromJson(e as Map<String, dynamic>))

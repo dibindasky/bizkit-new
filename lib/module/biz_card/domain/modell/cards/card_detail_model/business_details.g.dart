@@ -14,7 +14,7 @@ BusinessDetails _$BusinessDetailsFromJson(Map<String, dynamic> json) =>
       companyName: json['company_name'] as String?,
       businessName: json['business_name'] as String?,
       businessAchievements: (json['business_achievements'] as List<dynamic>?)
-          ?.map((e) => BusinessAchievement.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Achievement.fromJson(e as Map<String, dynamic>))
           .toList(),
       businessSocialMedia: (json['business_social_media'] as List<dynamic>?)
           ?.map((e) => BusinessSocialMedia.fromJson(e as Map<String, dynamic>))

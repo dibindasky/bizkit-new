@@ -1,18 +1,19 @@
+import 'package:bizkit/module/biz_card/domain/modell/cards/image_card/image_card.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'personal_achievement.g.dart';
+part 'achievement.g.dart';
 
 @JsonSerializable()
-class PersonalAchievement {
+class Achievement {
   String? title;
-  List<String>? images;
+  List<ImageCard>? images;
   String? description;
   String? event;
   String? date;
   @JsonKey(name: '_id')
   String? id;
 
-  PersonalAchievement({
+  Achievement({
     this.title,
     this.images,
     this.description,
@@ -21,7 +22,7 @@ class PersonalAchievement {
     this.id,
   });
 
-  factory PersonalAchievement.fromJson(Map<String, dynamic> json) {
+  factory Achievement.fromJson(Map<String, dynamic> json) {
     return _$PersonalAchievementFromJson(json);
   }
 

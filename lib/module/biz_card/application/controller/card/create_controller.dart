@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/business_details.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/personal_details.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/bizcard.dart';
@@ -12,13 +13,19 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class CardController extends GetxController {
+  @override
+  void onInit() {
+    super.onInit();
+    getAllcards(true);
+  }
+
   final CardRepo cardRepo = CardService();
   RxBool isLoading = false.obs;
 
   RxList<Bizcard> bizcards = <Bizcard>[].obs;
+  Rx<CardDetailModel> bizcardDetail = CardDetailModel().obs;
   Rx<PersonalDetails?> personalDetails = PersonalDetails().obs;
   Rx<BusinessDetails?> businessDetails = BusinessDetails().obs;
-
   final mat.TextEditingController nameController = mat.TextEditingController();
   final mat.TextEditingController phoneController = mat.TextEditingController();
   final mat.TextEditingController emailController = mat.TextEditingController();
@@ -67,6 +74,7 @@ class CardController extends GetxController {
     data.fold(
       (l) => isLoading.value = false,
       (r) {
+        bizcardDetail.value = r;
         personalDetails.value = r.personalDetails;
         businessDetails.value = r.businessDetails;
         isLoading.value = false;

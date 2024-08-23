@@ -1,3 +1,4 @@
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/home_first_app_bar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_cards_and_add_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections_home_page.dart';
@@ -5,6 +6,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/home/vie
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/home_second_screen.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
@@ -178,6 +180,8 @@ class _ScreenCardsHomeFirstAnimationState
                                   padding: const EdgeInsets.all(10),
                                   child: RefreshIndicator(
                                     onRefresh: () async {
+                                      Get.find<CardController>()
+                                          .getAllcards(true);
                                       // context.read<CardBloc>().add(
                                       //     const CardEvent.getCards(call: true));
                                       // context.read<ConnectionRequestBloc>().add(

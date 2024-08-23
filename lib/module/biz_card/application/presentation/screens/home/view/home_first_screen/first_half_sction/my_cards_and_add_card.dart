@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
@@ -32,9 +33,9 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
 
   @override
   Widget build(BuildContext context) {
-    final cardController = Get.put(CardController());
+    //final cardController = Get.put(CardController());
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      cardController.getAllcards(false);
+      //cardController.getAllcards(true);
     });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -46,8 +47,8 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Obx(
-                () {
+              GetBuilder<CardController>(
+                builder: (cardController) {
                   if (cardController.isLoading.value) {
                     return ShimmerLoaderTile(height: 125.w, width: 200.w);
                   } else if (cardController.bizcards.isEmpty) {
@@ -112,7 +113,7 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
 
 class CardPageSlider extends StatefulWidget {
   const CardPageSlider({super.key, required this.bizcards});
-  // final List<CardResponse> cards;
+
   final List<Bizcard> bizcards;
 
   @override
@@ -128,6 +129,7 @@ class _CardPageSliderState extends State<CardPageSlider>
 
   @override
   void initState() {
+    log('Cards length ${widget.bizcards.length}');
     super.initState();
     _pageController = PageController(initialPage: _currentPageIndex);
     _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
@@ -142,7 +144,7 @@ class _CardPageSliderState extends State<CardPageSlider>
       }
       _pageController.animateToPage(
         _currentPageIndex,
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 1000),
         curve: Curves.easeInOut,
       );
     });
@@ -206,11 +208,7 @@ class _CardPageSliderState extends State<CardPageSlider>
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              data.name != null
-                                  ? data.name!.length > 17
-                                      ? '${data.name!.substring(0, 15)}..'
-                                      : data.name!
-                                  : '',
+                              data.name != null ? data.name! : '',
                               style: textHeadStyle1.copyWith(shadows: [
                                 const Shadow(
                                   color: kblack,

@@ -10,17 +10,17 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AccolodesScreen extends StatefulWidget {
-  const AccolodesScreen({super.key, this.accolade = true});
+class CardScreenAccolodes extends StatefulWidget {
+  const CardScreenAccolodes({super.key, this.accolade = true});
 
   final bool? accolade;
   //final int cardId;
 
   @override
-  State<AccolodesScreen> createState() => _AccolodesScreenState();
+  State<CardScreenAccolodes> createState() => _CardScreenAccolodesState();
 }
 
-class _AccolodesScreenState extends State<AccolodesScreen> {
+class _CardScreenAccolodesState extends State<CardScreenAccolodes> {
   final dateController = TextEditingController(text: '');
   final eventController = TextEditingController(text: '');
 
@@ -59,7 +59,7 @@ class _AccolodesScreenState extends State<AccolodesScreen> {
                         onTap: () async {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
-                                const AccoladesAddCreateScreen(),
+                                const CardScreenAccoladesAddCreate(),
                           ));
                         },
                         child: DottedBorder(

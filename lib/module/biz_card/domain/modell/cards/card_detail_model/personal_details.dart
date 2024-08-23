@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'dates_to_remember.dart';
-import 'personal_achievement.dart';
+import 'achievement.dart';
 import 'personal_social_media.dart';
 
 part 'personal_details.g.dart';
@@ -19,7 +19,7 @@ class PersonalDetails {
   String? dob;
   List<String>? images;
   @JsonKey(name: 'personal_achievements')
-  List<PersonalAchievement>? personalAchievements;
+  List<Achievement>? personalAchievements;
   @JsonKey(name: 'personal_social_media')
   List<PersonalSocialMedia>? personalSocialMedia;
   @JsonKey(name: 'dates_to_remember')

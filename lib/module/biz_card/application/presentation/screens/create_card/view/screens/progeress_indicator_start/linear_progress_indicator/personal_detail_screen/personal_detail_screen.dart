@@ -206,12 +206,14 @@ class PersonalDetails extends StatelessWidget {
                   ontap: () {
                     FocusScope.of(context).unfocus();
                     Navigator.of(context).push(
-                      cardFadePageRoute(const AccolodesScreen()),
+                      cardFadePageRoute(const CardScreenAccolodes()),
                     );
                   },
                   onItemTap: (value, index) {
-                    return Navigator.push(context,
-                        cardFadePageRoute(const AccoladesAddCreateScreen()));
+                    return Navigator.push(
+                        context,
+                        cardFadePageRoute(
+                            const CardScreenAccoladesAddCreate()));
                   },
                   removeItem: (index) {
                     showCustomConfirmationDialogue(

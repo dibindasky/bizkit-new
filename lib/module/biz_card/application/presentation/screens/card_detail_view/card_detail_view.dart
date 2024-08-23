@@ -95,12 +95,29 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
           if (cardController.isLoading.value) {
             return const Center(
                 child: CircularProgressIndicator(color: neonShade));
+          } else if (cardController.bizcards == null) {
+            return GestureDetector(
+              onTap: () {
+                if (widget.cardId != null) {
+                  cardController.cardDetail(cardId: widget.cardId!);
+                }
+              },
+              child: const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.refresh),
+                    Text('Tap to retry'),
+                  ],
+                ),
+              ),
+            );
           }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: RefreshIndicator(
               onRefresh: () async {
-                //getCard();
+                cardController.cardDetail(cardId: widget.cardId!);
               },
               child: ListView(
                 children: [
@@ -108,14 +125,44 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                   // Image carosal view
                   SizedBox(
                     height: 200.h,
-                    child: const PreviewPageviewImageBuilder(
-                      imagesList: [dummyPersonImage],
-                      //sisStory: false,
-                    ),
+                    child: GetBuilder<CardController>(builder: (controller) {
+                      List<String> images = [];
+                      bool story = false;
+                      if (cardController.bizcardDetail.value.businessDetails
+                              ?.businessLogo !=
+                          null) {
+                        images.add(cardController.bizcardDetail.value
+                                .businessDetails!.businessLogo!
+                                .startsWith('data:')
+                            ? cardController.bizcardDetail.value
+                                .businessDetails!.businessLogo!
+                                .substring(22)
+                            : cardController.bizcardDetail.value
+                                .businessDetails!.businessLogo!);
+                        story = true;
+                      }
+                      if (cardController.bizcardDetail.value.personalDetails
+                                  ?.images !=
+                              null &&
+                          cardController.bizcardDetail.value.personalDetails!
+                              .images!.isNotEmpty) {
+                        images.addAll(cardController
+                            .bizcardDetail.value.personalDetails!.images!
+                            .map((e) =>
+                                e.startsWith('data') ? e.substring(22) : e)
+                            .toList());
+                      }
+                      return PreviewPageviewImageBuilder(
+                        imagesList: images,
+                        storyIndex: story ? 0 : null,
+                        story: cardController
+                            .bizcardDetail.value.businessDetails?.logoStory,
+                      );
+                    }),
                   ),
                   Column(
                     children: [
-                      const SizedBox(height: 20),
+                      kHeight20,
                       Text(
                         cardController.personalDetails.value?.name != null
                             ? cardController.personalDetails.value?.name ?? ''

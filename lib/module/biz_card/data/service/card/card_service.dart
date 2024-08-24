@@ -48,23 +48,4 @@ class CardService implements CardRepo {
       return Left(Failure(message: 'Failed to request'));
     }
   }
-
-  @override
-  Future<Either<Failure, GetAllCards>> getCardDetail(
-      {required String cardId}) async {
-    throw UnimplementedError();
-    //   try {
-    //     final responce = await apiService
-    //         .post(ApiEndPoints.cardCreationInital, data: {'bizcard_id': cardId});
-    //     log('createCard ==>success');
-    //     return Right(CreateCardResponce.fromJson(responce.data));
-    //   } on DioException catch (e) {
-    //     log('createCard DioException ${e.response?.statusCode} $e');
-    //     return Left(
-    //         Failure(message: e.response?.data['error'] ?? 'Failed to request'));
-    //   } catch (e) {
-    //     log('createCard catch $e');
-    //     return Left(Failure(message: 'Failed to request'));
-    //   }
-  }
 }

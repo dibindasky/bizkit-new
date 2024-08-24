@@ -9,5 +9,4 @@ abstract class CardRepo {
   Future<Either<Failure, CreateCardResponce>> createCard(
       {required CreateCard createCard});
   Future<Either<Failure, GetAllCards>> getAllCards();
-  Future<Either<Failure, GetAllCards>> getCardDetail({required String cardId});
 }

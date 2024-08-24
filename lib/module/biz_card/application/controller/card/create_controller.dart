@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
+
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card_repo.dart';
@@ -13,6 +14,7 @@ class CardController extends GetxController {
   final CardRepo cardRepo = CardService();
 
   RxList<Bizcard> bizcards = <Bizcard>[].obs;
+  RxList<Bizcard> bizcardsDetails = <Bizcard>[].obs;
   RxBool isLoading = false.obs;
 
   final mat.TextEditingController nameController = mat.TextEditingController();

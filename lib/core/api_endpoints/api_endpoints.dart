@@ -23,6 +23,9 @@ class ApiEndPoints {
   static String cardCreationPersonalDetails = '/personal-details/';
 
   // Old
+  // Text Extraction
+  static String textExtraction = '/extract-text/';
+
   static String contacts = '/card/registered_contacts/';
 
   // ------------------------------------------------------------------------------------------

@@ -120,8 +120,8 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -158,8 +158,8 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -193,8 +193,8 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -230,8 +230,8 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -269,8 +269,8 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -309,10 +309,8 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              failure.message ?? errorMessage,
-            ),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -370,8 +368,8 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -411,10 +409,8 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              failure.message ?? errorMessage,
-            ),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -448,8 +444,8 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -542,8 +538,8 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );

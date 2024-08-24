@@ -296,10 +296,7 @@ class CreateTaskController extends GetxController {
         userslistNew.clear();
         deadlineDateForTaskCreation.value = '';
         showSnackbar(context,
-            message: error.error ?? errorMessage,
-            backgroundColor: kred,
-            textColor: kblack);
-        log('${error.error}', name: 'Error from create new task');
+            message: errorMessage, backgroundColor: kred, textColor: kblack);
       },
       (success) {
         deadlineDateForTaskCreation.value = '';
@@ -409,9 +406,7 @@ class CreateTaskController extends GetxController {
       (error) {
         taskEditLoading.value = false;
         showSnackbar(context,
-            message: error.error ?? errorMessage,
-            backgroundColor: kred,
-            textColor: kblack);
+            message: errorMessage, backgroundColor: kred, textColor: kblack);
         log('${error.error}', name: 'Error from Edit Task');
       },
       (success) {
@@ -444,8 +439,8 @@ class CreateTaskController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -581,8 +576,8 @@ class CreateTaskController extends GetxController {
     result.fold(
       (error) {
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(error.error ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -634,8 +629,8 @@ class CreateTaskController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -723,8 +718,8 @@ class CreateTaskController extends GetxController {
       (error) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(error.error ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -825,9 +820,7 @@ class CreateTaskController extends GetxController {
       (failure) {
         isLoading.value = false;
         showSnackbar(context,
-            message: failure.message ?? errorMessage,
-            backgroundColor: kred,
-            textColor: kblack);
+            message: errorMessage, backgroundColor: kred, textColor: kblack);
         log(failure.message.toString());
       },
       (success) {
@@ -857,8 +850,8 @@ class CreateTaskController extends GetxController {
     result.fold(
       (failure) {
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -894,9 +887,7 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
         GoRouter.of(context).pop();
         showSnackbar(context,
-            message: failure.message ?? errorMessage,
-            backgroundColor: kred,
-            textColor: kblack);
+            message: errorMessage, backgroundColor: kred, textColor: kblack);
         log(failure.message.toString());
       },
       (success) {
@@ -930,8 +921,8 @@ class CreateTaskController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );
@@ -1059,8 +1050,8 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
 
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );

@@ -45,8 +45,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
           children: [
             Row(
               children: [
-                taskController.singleTask.value.createdBy ==
-                        taskController.singleTask.value.createdUserDetails?.id
+                taskController.singleTask.value.isOwned == true
                     ? Row(
                         children: [
                           CircleAvatar(
@@ -63,16 +62,39 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Created By',
-                                style: textThinStyle1,
-                              ),
-                              Text(
-                                taskController.singleTask.value
-                                        .createdUserDetails?.name ??
-                                    'creater name',
-                                style: textHeadStyle1,
-                              ),
+                              taskController.isLoading.value
+                                  ? Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: ShimmerLoaderTile(
+                                        height: 9.h,
+                                        width: 100.w,
+                                      ),
+                                    )
+                                  : Text(
+                                      taskController
+                                                  .singleTask.value.createdBy ==
+                                              taskController.singleTask.value
+                                                  .createdUserDetails?.id
+                                          ? 'Created By'
+                                          : 'Assigned By',
+                                      style: textThinStyle1,
+                                    ),
+                              taskController.isLoading.value
+                                  ? Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: ShimmerLoaderTile(
+                                        height: 9.h,
+                                        width: 100.w,
+                                      ),
+                                    )
+                                  : Text(
+                                      taskController.singleTask.value
+                                              .createdUserDetails?.name ??
+                                          'creater name',
+                                      style: textHeadStyle1,
+                                    ),
                             ],
                           ),
                         ],
@@ -86,23 +108,41 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                 child: CircleAvatar(
                                   radius: 20.w,
                                   backgroundImage:
-                                      const AssetImage(imageDummyAsset),
+                                      const AssetImage(personDemoImg),
                                 )),
                           ),
                           adjustWidth(7.w),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Assigned By',
-                                style: textThinStyle1,
-                              ),
-                              Text(
-                                taskController.singleTask.value
-                                        .createdUserDetails?.name ??
-                                    'Unknown',
-                                style: textHeadStyle1,
-                              ),
+                              taskController.isLoading.value
+                                  ? Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: ShimmerLoaderTile(
+                                        height: 9.h,
+                                        width: 100.w,
+                                      ),
+                                    )
+                                  : Text(
+                                      'Assigned By',
+                                      style: textThinStyle1,
+                                    ),
+                              taskController.isLoading.value
+                                  ? Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: ShimmerLoaderTile(
+                                        height: 9.h,
+                                        width: 100.w,
+                                      ),
+                                    )
+                                  : Text(
+                                      taskController.singleTask.value
+                                              .createdUserDetails?.name ??
+                                          'Unknown',
+                                      style: textHeadStyle1,
+                                    ),
                             ],
                           ),
                         ],

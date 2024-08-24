@@ -79,13 +79,14 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                         },
                         child: GestureDetector(
                           onTap: () {
-                            GoRouter.of(context).push(Routes.taskChatScreen);
                             taskController.fetchSingleTask(
                                 singleTaskModel: GetSingleTaskModel(
                                     taskId: folderController
                                             .tasksInsideInnerFolder[index]
                                             .taskId ??
                                         ''));
+
+                            GoRouter.of(context).push(Routes.taskDeail);
                           },
                           child: TaskContainer(
                             fromInnerfolder: true,

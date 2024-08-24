@@ -122,8 +122,8 @@ class TaskHomeScreenController extends GetxController {
       (failure) {
         fileDownloading.value = false;
         scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(failure.message ?? errorMessage),
+          const SnackBar(
+            content: Text(errorMessage),
             backgroundColor: kred,
           ),
         );

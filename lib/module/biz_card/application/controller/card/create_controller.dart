@@ -20,6 +20,8 @@ class CardController extends GetxController {
   }
 
   final CardRepo cardRepo = CardService();
+  RxList<Bizcard> bizcards = <Bizcard>[].obs;
+  RxList<Bizcard> bizcardsDetails = <Bizcard>[].obs;
   RxBool isLoading = false.obs;
 
   RxList<Bizcard> bizcards = <Bizcard>[].obs;

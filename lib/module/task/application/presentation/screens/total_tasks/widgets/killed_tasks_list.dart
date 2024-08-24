@@ -1,4 +1,7 @@
+import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
+import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,7 @@ class KilledTasksListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
+    final homeController = Get.find<TaskHomeScreenController>();
     return Obx(
       () {
         if (taskController.isLoading.value) {
@@ -88,6 +92,37 @@ class KilledTasksListView extends StatelessWidget {
                                         ),
                                       ],
                                     ),
+                                    PopupMenuButton<String>(
+                                      color: kwhite,
+                                      icon: const Icon(Icons.more_vert_outlined,
+                                          color: kwhite),
+                                      onSelected: (value) {},
+                                      itemBuilder: (BuildContext context) {
+                                        List<PopupMenuItem<String>> items = [
+                                          PopupMenuItem<String>(
+                                            value: 'Restore the task',
+                                            child: const Text(
+                                              'Restore the task',
+                                              style: TextStyle(color: kblack),
+                                            ),
+                                            onTap: () {
+                                              taskController.killatask(
+                                                context: context,
+                                                killAtaskModel: KillATaskModel(
+                                                    isKilled: false,
+                                                    taskId:
+                                                        typeTask.taskId ?? ''),
+                                              );
+                                              homeController.progresBar();
+                                              taskController
+                                                  .getTasksCountWithoutDate();
+                                            },
+                                          )
+                                        ];
+
+                                        return items;
+                                      },
+                                    ),
 
                                     // adjustWidth(30.w),s
                                   ],
@@ -107,13 +142,13 @@ class KilledTasksListView extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                          top: 50,
-                          bottom: 50,
+                          top: 40,
+                          bottom: 40,
                           left: 0,
                           child: Container(
                             color: klightgrey,
                             width: 4,
-                            height: 100,
+                            height: 5,
                           ),
                         ),
                       ],

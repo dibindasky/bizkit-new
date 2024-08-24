@@ -60,8 +60,6 @@ class MyApp extends StatelessWidget {
           ),
           initialBinding: AllControllerBinding(),
           debugShowCheckedModeBanner: false,
-          // getPages: GetXRouterConfig.routes,
-          // routerConfig: GoRouterConfig.router,
           routeInformationParser: GoRouterConfig.router.routeInformationParser,
           routeInformationProvider:
               GoRouterConfig.router.routeInformationProvider,

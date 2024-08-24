@@ -43,7 +43,6 @@ class CardViewBankPersonAchivedRows extends StatelessWidget {
             ),
           ),
         ),
-
         // Achivements
         Expanded(
           child: Padding(

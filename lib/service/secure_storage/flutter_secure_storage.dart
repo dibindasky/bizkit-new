@@ -10,6 +10,8 @@ class SecureStorage {
   static const String userNameKey = 'user_name';
   static const String onboardSetBool = 'on_board';
   static const String showCaseSetBool = 'show_case_widget';
+  static const String hasCardKey = 'has_card';
+  static const String hasConnectionKey = 'has_connection';
 
   static Future<SharedPreferences> _getPrefs() async =>
       await SharedPreferences.getInstance();
@@ -109,5 +111,27 @@ class SecureStorage {
     final prefs = await _getPrefs();
     final viewed = prefs.getBool(key);
     return viewed ?? false;
+  }
+
+  static Future<void> setHasCard({required bool hasCard}) async {
+    final prefs = await _getPrefs();
+    await prefs.setBool(hasCardKey, hasCard);
+  }
+
+  static Future<bool> getHasCard() async {
+    final prefs = await _getPrefs();
+    final role = prefs.getBool(hasCardKey);
+    return role ?? false;
+  }
+
+  static Future<void> setHasConnection({required bool hasCard}) async {
+    final prefs = await _getPrefs();
+    await prefs.setBool(hasConnectionKey, hasCard);
+  }
+
+  static Future<bool> getHasConnection() async {
+    final prefs = await _getPrefs();
+    final hasConnection = prefs.getBool(hasConnectionKey);
+    return hasConnection ?? false;
   }
 }

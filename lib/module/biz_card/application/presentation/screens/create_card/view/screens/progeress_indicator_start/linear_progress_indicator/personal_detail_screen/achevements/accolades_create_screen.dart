@@ -15,8 +15,8 @@ import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AccoladesAddCreateScreen extends StatefulWidget {
-  const AccoladesAddCreateScreen({super.key});
+class CardScreenAccoladesAddCreate extends StatefulWidget {
+  const CardScreenAccoladesAddCreate({super.key});
 
   // final bool isAccolade;
   // // final int cardId;
@@ -24,11 +24,12 @@ class AccoladesAddCreateScreen extends StatefulWidget {
   // final Accredition? accredition;
 
   @override
-  State<AccoladesAddCreateScreen> createState() =>
-      _AccoladesAddCreateScreenState();
+  State<CardScreenAccoladesAddCreate> createState() =>
+      _CardScreenAccoladesAddCreateState();
 }
 
-class _AccoladesAddCreateScreenState extends State<AccoladesAddCreateScreen> {
+class _CardScreenAccoladesAddCreateState
+    extends State<CardScreenAccoladesAddCreate> {
   // List<ImageCard> image = [];
   // List<ImageCard> newimage = [];
   String title = '';

@@ -107,7 +107,7 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                     height: tapOnPassword ? 50 : 0,
                     child: tapOnPassword
                         ? Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(3.0),
                             child: Text(
                               maxLines: 3,
                               'Password must contain at least 8 characters, including lowercase & uppercase letters, numbers, and special characters',
@@ -116,6 +116,7 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                           )
                         : kempty,
                   ),
+                  kHeight10,
                   CustomTextFormField(
                     onTap: () {
                       setState(() {

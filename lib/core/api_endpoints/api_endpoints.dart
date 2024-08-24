@@ -1,7 +1,6 @@
 class ApiEndPoints {
   static String baseUrl = 'https://bizkit.onrender.com';
-  // static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
-  // static String baseUrl = 'https://9jdcxxr1';
+  //static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
 
   // refesh token
   static String refreshUrl = '/token/';
@@ -23,6 +22,7 @@ class ApiEndPoints {
   static String cardDetail = '/get-bizcard-detail/';
   static String cardCreationPersonalDetails = '/personal-details/';
 
+  // Old
   // Text Extraction
   static String textExtraction = '/extract-text/';
 

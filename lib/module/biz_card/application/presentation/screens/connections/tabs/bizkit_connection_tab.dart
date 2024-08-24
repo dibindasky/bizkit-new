@@ -33,8 +33,8 @@ class BizkitConnectionsTab extends StatelessWidget {
             return ListTile(
                 onTap: () {
                   //print(data.toJson());
-                  Navigator.push(
-                      context, cardFadePageRoute(const ScreenCardDetailView()));
+                  // Navigator.push(
+                  //     context, cardFadePageRoute(const ScreenCardDetailView()));
                 },
                 leading: CircleAvatar(
                   backgroundColor: textFieldFillColr,

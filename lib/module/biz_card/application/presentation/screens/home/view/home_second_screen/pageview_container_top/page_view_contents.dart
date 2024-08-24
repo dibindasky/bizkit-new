@@ -76,12 +76,14 @@ class SecondScreenPageViewContents extends StatelessWidget {
                   borderRadius: kBorderRadius10,
                   backgroundColor: neonShade,
                   text: 'View card',
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ScreenCardDetailView(),
-                    ),
-                  ),
+                  onTap: () {
+                    //   Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const ScreenCardDetailView(),
+                    //   ),
+                    // );
+                  },
                 ),
                 kWidth5,
                 buildButton(

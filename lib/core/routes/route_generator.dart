@@ -138,16 +138,15 @@ class GoRouterConfig {
     // First card detail secreen
     GoRoute(
       name: Routes.cardDetailView,
-      path: Routes.cardDetailView,
+      path: '${Routes.cardDetailView}/:cardId/:myCard',
       builder: (context, state) {
-        return const ScreenCardDetailView();
-        // final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
-        // final myCard = state.pathParameters['myCard'] == 'true';
-        // if (cardId != null) {
-        //   return ScreenCardDetailView(cardId: cardId, myCard: myCard);
-        // } else {
-        //   return _errorScreen();
-        // }
+        final cardId = state.pathParameters['cardId'] ?? '';
+        final myCard = state.pathParameters['myCard'] == 'true';
+        if (cardId != null) {
+          return ScreenCardDetailView(cardId: cardId, myCard: myCard);
+        } else {
+          return _errorScreen();
+        }
       },
     ),
     //second card detail
@@ -225,7 +224,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.bizCardNavbar,
       path: Routes.bizCardNavbar,
-      builder: (context, state) => const CardBottomNavigationBar(),
+      builder: (context, state) => CardBottomNavigationBar(),
     ),
 
     GoRoute(

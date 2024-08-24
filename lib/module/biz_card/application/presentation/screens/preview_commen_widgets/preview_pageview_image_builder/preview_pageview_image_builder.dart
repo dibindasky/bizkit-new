@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/widget/bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
+import 'package:bizkit/module/biz_card/application/presentation/widgets/image_preview.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
 import 'package:flutter/material.dart';
@@ -110,11 +112,11 @@ class _ImagePreviewScrollViewState extends State<ImagePreviewScrollView> {
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
           onTap: () {
-            // if (widget.isStory??false == false) {
-            //   Navigator.of(context).push(fadePageRoute(ScreenImagePreview(
-            //     image: widget.image,
-            //   )));
-            // }
+            if (widget.isStory ?? false == false) {
+              Navigator.of(context).push(cardFadePageRoute(ScreenImagePreview(
+                image: widget.image,
+              )));
+            }
             if (widget.story != null) {
               showModalBottomSheet(
                 context: context,

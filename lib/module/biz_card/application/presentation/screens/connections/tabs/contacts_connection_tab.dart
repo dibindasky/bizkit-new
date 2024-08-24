@@ -95,9 +95,9 @@ class ContactConnectionsTab extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       if (data.id != null && data.id != 0) {
-                        Navigator.of(context).push(
-                          cardFadePageRoute(const ScreenCardDetailView()),
-                        );
+                        // Navigator.of(context).push(
+                        //   cardFadePageRoute(const ScreenCardDetailView()),
+                        // );
                       }
                     },
                     child: ListTile(

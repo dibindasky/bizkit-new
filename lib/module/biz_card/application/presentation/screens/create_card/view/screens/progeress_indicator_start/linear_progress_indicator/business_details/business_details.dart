@@ -210,13 +210,13 @@ class BusinessDetailsScreen extends StatelessWidget {
                 ontap: () {
                   FocusScope.of(context).unfocus();
                   Navigator.of(context).push(cardFadePageRoute(
-                      const AccolodesScreen(accolade: false)));
+                      const CardScreenAccolodes(accolade: false)));
                 },
                 onItemTap: (value, index) {
                   // int index = state.accreditions
                   //     .indexWhere((e) => e.images![0].image == value);
-                  return Navigator.push(
-                      context, cardFadePageRoute(const AccoladesAddCreateScreen(
+                  return Navigator.push(context,
+                      cardFadePageRoute(const CardScreenAccoladesAddCreate(
 
                           // accredition: [],
                           )));

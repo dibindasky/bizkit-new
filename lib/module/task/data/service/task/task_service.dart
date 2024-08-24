@@ -568,7 +568,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestCompletedTasks,
       );
 
-      log("=> Response Get All Completed Taks  : ${response.data}");
+      log("=> Response Get All Completed Taks  :");
 
       return Right(CompletedOrKilledSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -588,7 +588,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestKilledTasks,
       );
 
-      log("=> Response Get All Killed Taks  : ${response.data}");
+      log("=> Response Get All Killed Taks  :");
 
       return Right(CompletedOrKilledSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -660,6 +660,27 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch getTaskTotalTime $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> restoreATask(
+      {required KillATaskModel restoreTask}) async {
+    try {
+      final response = await apiService.post(
+        ApiEndPoints.taskTestRestoreTask,
+        data: restoreTask.toJson(),
+      );
+
+      log("=> Response restore A Task : ${response.data}");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException restoreATask $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch restoreATask $e');
       return Left(Failure(message: e.toString()));
     }
   }

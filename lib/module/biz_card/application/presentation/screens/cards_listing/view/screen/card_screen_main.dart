@@ -2,14 +2,19 @@
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/archieved_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/deleted_cards.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/card_archive_model/card_archive_model.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/card_delete_model/card_delete_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
+import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -89,12 +94,17 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
 
   @override
   Widget build(BuildContext context) {
+    final cardController = Get.find<CardController>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      cardController.getAllcards(true);
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: knill,
         actions: [
           IconButton(
               onPressed: () {
+                cardController.fetchDeletedAndArchivedCards();
                 Navigator.of(context).push(cardFadePageRoute(
                   const DeletedCards(),
                 ));
@@ -103,6 +113,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
           kWidth10,
           IconButton(
               onPressed: () {
+                cardController.fetchDeletedAndArchivedCards();
                 Navigator.of(context)
                     .push(cardFadePageRoute(const ArchivedCards()));
               },
@@ -122,279 +133,337 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                   adjustHieght(khieght * .05),
                   SizedBox(
                     height: 340.h,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 2,
-                      separatorBuilder: (context, index) =>
-                          adjustWidth(kwidth * .05),
-                      itemBuilder: (context, index) {
-                        // final card = state.cards[index];
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: textFieldFillColr,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          width: 300,
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  SizedBox(
-                                    width: 300,
-                                    height: 200,
-                                    child: InkWell(
-                                      onTap: () {
-                                        // final Map<String, String> map =
-                                        //     state.cards[index].id != null
-                                        //         ? {
-                                        //             'myCard': 'true',
-                                        //             'cardId': state
-                                        //                 .cards[index].id!
-                                        //                 .toString()
-                                        //           }
-                                        //         : <String, String>{};
-                                        GoRouter.of(context).pushNamed(
-                                          Routes.cardDetailView,
-                                          // pathParameters: map,
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(25),
-                                            topRight: Radius.circular(20),
-                                          ),
-                                          child: Image.asset(
-                                            imageBackgroundCard,
-                                            fit: BoxFit.cover,
-                                          )),
-                                    ),
-                                  ),
-                                  const Positioned(
-                                    right: 10,
-                                    bottom: 0,
-                                    child: ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(6)),
-                                      child: ColoredBox(
-                                          color: neonShade,
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 8, vertical: 2),
-                                            child: Text('Default'),
-                                          )),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 10,
-                                    top: 10,
-                                    child: PopupMenuButton<String>(
-                                      icon: const Icon(
-                                        Icons.more_vert,
-                                        size: 32,
-                                        color: kblack,
-                                      ),
-                                      onSelected: (value) {},
-                                      itemBuilder: (context) {
-                                        List<PopupMenuEntry<String>> items = [];
-
-                                        items.add(
-                                          PopupMenuItem(
+                    child: GetBuilder<CardController>(
+                      builder: (controller) {
+                        if (controller.isLoading.value) {
+                          return ShimmerLoaderTile(height: 125.w, width: 200.w);
+                        } else if (controller.bizcards.isEmpty) {
+                          return const Expanded(
+                            flex: 2,
+                            child: Center(
+                              child: Text('No cards'),
+                            ),
+                          );
+                        } else {
+                          return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.bizcards.length,
+                            separatorBuilder: (context, index) =>
+                                adjustWidth(kwidth * .05),
+                            itemBuilder: (context, index) {
+                              final data = controller.bizcards[index];
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: textFieldFillColr,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                width: 300,
+                                child: Column(
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        SizedBox(
+                                          width: 300,
+                                          height: 200,
+                                          child: InkWell(
                                             onTap: () {
-                                              // context
-                                              //   .read<CardBloc>()
-                                              //   .add(CardEvent.setDefault(
-                                              //       id: card.id!));
+                                              final map = data.bizcardId != null
+                                                  ? {
+                                                      'myCard': 'true',
+                                                      'cardId': data.bizcardId
+                                                          .toString()
+                                                    }
+                                                  : <String, String>{};
+                                              GoRouter.of(context).pushNamed(
+                                                  Routes.cardDetailView,
+                                                  pathParameters: map);
                                             },
-                                            value: 'Default',
-                                            child: const Text('Set as default'),
+                                            child: ClipRRect(
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(25),
+                                                  topRight: Radius.circular(20),
+                                                ),
+                                                child: Image.asset(
+                                                  imageBackgroundCard,
+                                                  fit: BoxFit.cover,
+                                                )),
                                           ),
-                                        );
-                                        items.addAll([
-                                          PopupMenuItem(
+                                        ),
+                                        controller.bizcards[index].isDefault ==
+                                                true
+                                            ? Positioned(
+                                                right: 10,
+                                                bottom: 0,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(6)),
+                                                  child: ColoredBox(
+                                                      color: neonShade,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal: 8,
+                                                                vertical: 2),
+                                                        child: Text(
+                                                          'Default',
+                                                          style: textThinStyle1,
+                                                        ),
+                                                      )),
+                                                ),
+                                              )
+                                            : kempty,
+                                        controller.bizcards[index].isDefault ==
+                                                false
+                                            ? Positioned(
+                                                right: 10,
+                                                top: 10,
+                                                child: PopupMenuButton<String>(
+                                                  icon: const CircleAvatar(
+                                                    backgroundColor: neonShade,
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.all(2.0),
+                                                      child: CircleAvatar(
+                                                        backgroundColor:
+                                                            klightDarkGrey,
+                                                        child: Icon(
+                                                          Icons.more_vert,
+                                                          size: 25,
+                                                          color: kwhite,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  onSelected: (value) {},
+                                                  itemBuilder: (context) {
+                                                    List<PopupMenuEntry<String>>
+                                                        items = [];
+
+                                                    items.add(
+                                                      PopupMenuItem(
+                                                        onTap: () {
+                                                          showConfirmationDialog(
+                                                            actionButton:
+                                                                'Default',
+                                                            heading:
+                                                                'Are you sure you want to set as defult card',
+                                                            context,
+                                                            onPressed: () {
+                                                              controller.setDefaultCard(
+                                                                  context:
+                                                                      context,
+                                                                  cardId: controller
+                                                                          .bizcards[
+                                                                              index]
+                                                                          .bizcardId ??
+                                                                      '');
+                                                            },
+                                                          );
+                                                        },
+                                                        value: 'Default',
+                                                        child: const Text(
+                                                            'Set as default'),
+                                                      ),
+                                                    );
+                                                    items.addAll([
+                                                      PopupMenuItem(
+                                                          onTap: () {
+                                                            showConfirmationDialog(
+                                                              actionButton:
+                                                                  'Archive',
+                                                              heading:
+                                                                  'Are you sure you want to archive your card',
+                                                              context,
+                                                              onPressed: () {
+                                                                controller
+                                                                    .archiveACard(
+                                                                        context:
+                                                                            context,
+                                                                        cardArchive:
+                                                                            CardArchiveModel(
+                                                                          bizcardId:
+                                                                              controller.bizcards[index].bizcardId ?? '',
+                                                                          isArchived:
+                                                                              true,
+                                                                        ));
+                                                              },
+                                                            );
+                                                          },
+                                                          value: 'Archive',
+                                                          child: const Text(
+                                                              'Archive')),
+                                                      PopupMenuItem(
+                                                          onTap: () =>
+                                                              showConfirmationDialog(
+                                                                heading:
+                                                                    'Are you sure you want to delete your card',
+                                                                context,
+                                                                onPressed: () {
+                                                                  controller
+                                                                      .deleteACard(
+                                                                          context:
+                                                                              context,
+                                                                          cardDelete:
+                                                                              CardDeleteModel(
+                                                                            bizcardId:
+                                                                                controller.bizcards[index].bizcardId ?? '',
+                                                                            isDisabled:
+                                                                                true,
+                                                                          ));
+                                                                },
+                                                              ),
+                                                          value: 'Delete Card',
+                                                          child: const Text(
+                                                              'Delete Card')),
+                                                    ]);
+                                                    return items;
+                                                  },
+                                                ),
+                                              )
+                                            : kempty,
+                                      ],
+                                    ),
+                                    adjustHieght(khieght * .02),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            // 'Name\n Designation',
+                                            '${controller.bizcards[index].companyName} \n ${controller.bizcards[index].designation}',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            // if (state.cards[index].cardLink != null) {
+                                            //   print(
+                                            //       'Checkout my Bizkit card ${state.cards[index].cardLink ?? ''}');
+                                            //   Share.share(
+                                            //       'Checkout my Bizkit card ${state.cards[index].cardLink ?? ''}');
+                                            // } else {
+                                            //   Fluttertoast.showToast(
+                                            //       msg: "can't share card");
+                                            // }
+                                          },
+                                          //  bottomSheet(context, card),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: kblue,
+                                            ),
+                                            width: 100,
+                                            height: 30,
+                                            child: Center(
+                                              child: Text('Share',
+                                                  style: textStyle1),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    adjustHieght(khieght * .02),
+                                    Row(
+                                      children: [
+                                        adjustWidth(kwidth * .02),
+                                        Expanded(
+                                          child: InkWell(
                                             onTap: () {
-                                              showConfirmationDialog(
-                                                actionButton: 'Archive',
-                                                heading:
-                                                    'Are you sure you want to archive your card',
-                                                context,
-                                                onPressed: () {
-                                                  // CardActionRequestModel
-                                                  //     cardActionRewuestModel =
-                                                  //     CardActionRequestModel(
-                                                  //         isActive: true,
-                                                  //         isArchived: true);
-                                                  // context
-                                                  //     .read<CardBloc>()
-                                                  //     .add(CardEvent
-                                                  //         .cardArchive(
-                                                  //       cardActionRequestModel:
-                                                  //           cardActionRewuestModel,
-                                                  //       id: card.id!,
-                                                  //     ));
+                                              // if (state.cards[index].views != null &&
+                                              //     state.cards[index].views! > 0) {
+                                              //   // context.read<CardBloc>().add(
+                                              //   //     CardEvent.getCardViews(
+                                              //   //         id: card.id!));
+
+                                              // }
+                                              showModalBottomSheet(
+                                                context: context,
+                                                enableDrag: true,
+                                                isDismissible: true,
+                                                showDragHandle: true,
+                                                backgroundColor: kblack,
+                                                builder: (context) {
+                                                  return const CardViewsListPopUp();
                                                 },
                                               );
                                             },
-                                            value: 'Archive',
-                                            child: const Text('Archive'),
-                                          ),
-                                          PopupMenuItem(
-                                            onTap: () => showConfirmationDialog(
-                                              heading:
-                                                  'Are you sure you want to delete your card',
-                                              context,
-                                              onPressed: () {
-                                                // CardActionRequestModel
-                                                //     cardActionRewuestModel =
-                                                //     CardActionRequestModel(
-                                                //   isActive: false,
-                                                // );
-                                                // context.read<CardBloc>().add(
-                                                //     CardEvent.cardDelete(
-                                                //         cardActionRequestModel:
-                                                //             cardActionRewuestModel,
-                                                //         id: card.id!));
-                                              },
+                                            child: Container(
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                border:
+                                                    Border.all(color: kwhite),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  adjustWidth(kwidth * .01),
+                                                  const Icon(
+                                                    Icons.remove_red_eye,
+                                                    size: 19,
+                                                    color: kwhite,
+                                                  ),
+                                                  adjustWidth(kwidth * .01),
+                                                  const Text('3'),
+                                                  adjustWidth(kwidth * .01),
+                                                  const Expanded(
+                                                    child: Text('Views',
+                                                        overflow: TextOverflow
+                                                            .ellipsis),
+                                                  ),
+                                                  adjustWidth(kwidth * .01),
+                                                ],
+                                              ),
                                             ),
-                                            value: 'Delete Card',
-                                            child: const Text('Delete Card'),
                                           ),
-                                        ]);
-                                        return items;
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              adjustHieght(khieght * .02),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      'Name\n Designation',
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      // if (state.cards[index].cardLink != null) {
-                                      //   print(
-                                      //       'Checkout my Bizkit card ${state.cards[index].cardLink ?? ''}');
-                                      //   Share.share(
-                                      //       'Checkout my Bizkit card ${state.cards[index].cardLink ?? ''}');
-                                      // } else {
-                                      //   Fluttertoast.showToast(
-                                      //       msg: "can't share card");
-                                      // }
-                                    },
-                                    //  bottomSheet(context, card),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: kblue,
-                                      ),
-                                      width: 100,
-                                      height: 30,
-                                      child: Center(
-                                        child: Text('Share', style: textStyle1),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              adjustHieght(khieght * .02),
-                              Row(
-                                children: [
-                                  adjustWidth(kwidth * .02),
-                                  Expanded(
-                                    child: InkWell(
-                                      onTap: () {
-                                        // if (state.cards[index].views != null &&
-                                        //     state.cards[index].views! > 0) {
-                                        //   // context.read<CardBloc>().add(
-                                        //   //     CardEvent.getCardViews(
-                                        //   //         id: card.id!));
-
-                                        // }
-                                        showModalBottomSheet(
-                                          context: context,
-                                          enableDrag: true,
-                                          isDismissible: true,
-                                          showDragHandle: true,
-                                          backgroundColor: kblack,
-                                          builder: (context) {
-                                            return const CardViewsListPopUp();
-                                          },
-                                        );
-                                      },
-                                      child: Container(
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(color: kwhite),
                                         ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            adjustWidth(kwidth * .01),
-                                            const Icon(
-                                              Icons.remove_red_eye,
-                                              size: 19,
-                                              color: kwhite,
+                                        adjustWidth(kwidth * .04),
+                                        Expanded(
+                                          child: Container(
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: kwhite),
                                             ),
-                                            adjustWidth(kwidth * .01),
-                                            const Text('3'),
-                                            adjustWidth(kwidth * .01),
-                                            const Expanded(
-                                              child: Text('Views',
-                                                  overflow:
-                                                      TextOverflow.ellipsis),
+                                            child: Row(
+                                              children: [
+                                                adjustWidth(kwidth * .01),
+                                                const Icon(
+                                                  Icons.share,
+                                                  color: kwhite,
+                                                  size: 19,
+                                                ),
+                                                adjustWidth(kwidth * .01),
+                                                const Text('3'),
+                                                adjustWidth(kwidth * .01),
+                                                const Expanded(
+                                                  child: Text('Share',
+                                                      overflow: TextOverflow
+                                                          .ellipsis),
+                                                ),
+                                                adjustWidth(kwidth * .01),
+                                              ],
                                             ),
-                                            adjustWidth(kwidth * .01),
-                                          ],
+                                          ),
                                         ),
-                                      ),
+                                        adjustWidth(kwidth * .02),
+                                      ],
                                     ),
-                                  ),
-                                  adjustWidth(kwidth * .04),
-                                  Expanded(
-                                    child: Container(
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: kwhite),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          adjustWidth(kwidth * .01),
-                                          const Icon(
-                                            Icons.share,
-                                            color: kwhite,
-                                            size: 19,
-                                          ),
-                                          adjustWidth(kwidth * .01),
-                                          const Text('3'),
-                                          adjustWidth(kwidth * .01),
-                                          const Expanded(
-                                            child: Text('Share',
-                                                overflow:
-                                                    TextOverflow.ellipsis),
-                                          ),
-                                          adjustWidth(kwidth * .01),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  adjustWidth(kwidth * .02),
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        }
                       },
                     ),
                   ),

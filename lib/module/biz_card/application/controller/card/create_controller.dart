@@ -24,7 +24,6 @@ class CardController extends GetxController {
   RxList<Bizcard> bizcardsDetails = <Bizcard>[].obs;
   RxBool isLoading = false.obs;
 
-  RxList<Bizcard> bizcards = <Bizcard>[].obs;
   Rx<CardDetailModel> bizcardDetail = CardDetailModel().obs;
   Rx<PersonalDetails?> personalDetails = PersonalDetails().obs;
   Rx<BusinessDetails?> businessDetails = BusinessDetails().obs;

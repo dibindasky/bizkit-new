@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card_responce/create_card_responce.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/get_all_cards.dart';
@@ -46,26 +45,6 @@ class CardService implements CardRepo {
           Failure(message: e.response?.data['error'] ?? 'Failed to request'));
     } catch (e) {
       log('createCard catch $e');
-      return Left(Failure(message: 'Failed to request'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, GetAllCards>> getCardDetail(
-      {required CardDetailModel cardId}) async {
-    try {
-      final responce = await apiService.post(
-        ApiEndPoints.cardDetail,
-        data: cardId.toJson(),
-      );
-      log('getCardDetail ==>success');
-      return Right(GetAllCards.fromJson(responce.data));
-    } on DioException catch (e) {
-      log('getCardDetail DioException ${e.response?.statusCode} $e');
-      return Left(
-          Failure(message: e.response?.data['error'] ?? 'Failed to request'));
-    } catch (e) {
-      log('getCardDetail catch $e');
       return Left(Failure(message: 'Failed to request'));
     }
   }

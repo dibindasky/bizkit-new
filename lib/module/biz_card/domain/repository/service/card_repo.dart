@@ -1,5 +1,4 @@
 import 'package:bizkit/core/model/failure/failure.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card_responce/create_card_responce.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/get_all_cards.dart';
@@ -10,6 +9,4 @@ abstract class CardRepo {
   Future<Either<Failure, CreateCardResponce>> createCard(
       {required CreateCard createCard});
   Future<Either<Failure, GetAllCards>> getAllCards();
-  Future<Either<Failure, GetAllCards>> getCardDetail(
-      {required CardDetailModel cardId});
 }

@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/card_detail_model.dart';
+
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card_repo.dart';
@@ -58,18 +56,6 @@ class CardController extends GetxController {
       (l) => isLoading.value = false,
       (r) => bizcards.value = r.bizcards ?? <Bizcard>[],
     );
-    isLoading.value = false;
-  }
-
-  void getCardDetails({required CardDetailModel cardId}) async {
-    isLoading.value = true;
-    final data = await cardRepo.getCardDetail(cardId: cardId);
-    data.fold(
-      (l) => isLoading.value = false,
-      (r) => bizcardsDetails.value = r.bizcards ?? <Bizcard>[],
-    );
-
-    log('bizcardsDetails ===> $bizcardsDetails');
     isLoading.value = false;
   }
 }

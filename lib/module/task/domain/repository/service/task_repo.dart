@@ -103,6 +103,9 @@ abstract class TaskRepo {
 
   Future<Either<Failure, SuccessResponce>> killATask(
       {required KillATaskModel killatask});
+
+  Future<Either<Failure, SuccessResponce>> restoreATask(
+      {required KillATaskModel restoreTask});
   Future<Either<Failure, SuccessResponce>> spotLightTask(
       {required SpotLightTask spotLightTask});
   Future<Either<Failure, TaskCountsResponce>> getTasksCountsWithoutDate();

@@ -1,6 +1,6 @@
 class ApiEndPoints {
-  static String baseUrl = 'https://bizkit.onrender.com';
-  //static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
+  // static String baseUrl = 'https://bizkit.onrender.com';
+  static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
 
   // refesh token
   static String refreshUrl = '/token/';
@@ -22,14 +22,23 @@ class ApiEndPoints {
   static String cardDetail = '/get-bizcard-detail/';
   static String cardCreationPersonalDetails = '/personal-details/';
 
-  // Old
-  // Text Extraction
+  static String cardSetDefault = '/set-default/';
+  static String getArchievedOrDeletedCards =
+      '/list-disabled-and-archieved-cards/';
+  static String cardArchiveOrDelete = '/archieve-or-disable-card/';
+
+  // [ Text Extraction ]
   static String textExtraction = '/extract-text/';
 
   static String contacts = '/card/registered_contacts/';
 
+  // [ Visiting card ]
+  static String visitingCard = '/visiting-cards/';
+  static String getAllDeletedVisitingCards = '/deleted-visiting-cards/';
+  static String getAllVisitingCards = '/list-visiting-cards/';
+
   // ------------------------------------------------------------------------------------------
-  // TASK MODULE TEST APIENDPOINTS
+  // [ TASK MODULE TEST APIENDPOINTS ]
 
   static const taskTestgetAllTasks = '/user-tasks/';
   static const taskTestCreateTask = '/tasks/create/';
@@ -57,4 +66,5 @@ class ApiEndPoints {
   static const taskTestGetTaskExpense = '/get-expense-data/';
   static const taskTestGetTaskTotalTime = '/get-time-data/';
   static const taskTestGetRecentTasks = '/get-recent-tasks/';
+  static const taskTestRestoreTask = '/restore-task/';
 }

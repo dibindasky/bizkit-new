@@ -944,6 +944,40 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // Restore the killed task
+  void restoreKilledTask(
+      {required KillATaskModel restoreTask,
+      required BuildContext context}) async {
+    isLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final result = await taskService.restoreATask(restoreTask: restoreTask);
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: kred,
+          ),
+        );
+        GoRouter.of(context).pop();
+        log(failure.message.toString());
+      },
+      (success) {
+        log("${success.message}");
+        fetchAllKilledTasks();
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Restore successfully'),
+            backgroundColor: neonShade,
+          ),
+        );
+        GoRouter.of(context).pop();
+        isLoading.value = false;
+      },
+    );
+  }
+
   void getTasksCountWithoutDate() async {
     isLoading.value = true;
     // log('DateTime ===> ${DateTimeFormater.dateTimeFormat(DateTime.now().add(const Duration(days: 31)))}');

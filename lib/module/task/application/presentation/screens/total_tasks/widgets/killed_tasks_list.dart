@@ -1,6 +1,5 @@
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -106,9 +105,9 @@ class KilledTasksListView extends StatelessWidget {
                                               style: TextStyle(color: kblack),
                                             ),
                                             onTap: () {
-                                              taskController.killatask(
+                                              taskController.restoreKilledTask(
                                                 context: context,
-                                                killAtaskModel: KillATaskModel(
+                                                restoreTask: KillATaskModel(
                                                     isKilled: false,
                                                     taskId:
                                                         typeTask.taskId ?? ''),

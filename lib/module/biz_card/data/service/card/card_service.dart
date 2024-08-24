@@ -2,6 +2,10 @@ import 'dart:developer';
 
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
+import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/archived_and_deleted_cards_responce/archived_and_deleted_cards_responce.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/card_archive_model/card_archive_model.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/card_delete_model/card_delete_model.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card_responce/create_card_responce.dart';
@@ -11,10 +15,7 @@ import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: CardRepo)
-@injectable
 class CardService implements CardRepo {
   final ApiService apiService = ApiService();
   @override
@@ -62,6 +63,79 @@ class CardService implements CardRepo {
       return Left(Failure(message: errorMessage));
     } catch (e) {
       log('getCardDetail catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> setDefaultCard(
+      {required String cardId}) async {
+    try {
+      final responce = await apiService
+          .post(ApiEndPoints.cardSetDefault, data: {'card_id': cardId});
+      log('setDefaultCard ==> success');
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('setDefaultCard DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('setDefaultCard catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> archiveTheCard(
+      {required CardArchiveModel cardArchive}) async {
+    try {
+      log('archiveTheCard TOJSON = ${cardArchive.toJson()}');
+      final responce = await apiService.patch(
+        ApiEndPoints.cardArchiveOrDelete,
+        data: cardArchive.toJson(),
+      );
+      log('archiveTheCard ==> success');
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('archiveTheCard DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('archiveTheCard catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> deleteTheCard(
+      {required CardDeleteModel cardDelete}) async {
+    try {
+      final responce = await apiService.patch(
+        ApiEndPoints.cardArchiveOrDelete,
+        data: cardDelete.toJson(),
+      );
+      log('deleteTheCard ==> success');
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('deleteTheCard DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('deleteTheCard catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ArchivedAndDeletedCardsResponce>>
+      getAllArchivedAndDeletedCards() async {
+    try {
+      final responce =
+          await apiService.get(ApiEndPoints.getArchievedOrDeletedCards);
+      log('getAllArchivedAndDeletedCards ==> success');
+      return Right(ArchivedAndDeletedCardsResponce.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getAllArchivedAndDeletedCards DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('getAllArchivedAndDeletedCards catch $e');
       return Left(Failure(message: 'Failed to request'));
     }
   }

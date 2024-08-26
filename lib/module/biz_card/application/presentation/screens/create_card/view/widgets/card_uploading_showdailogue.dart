@@ -1,12 +1,10 @@
-import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 Future<dynamic> cardscanimagesSelectingDailogue(
-    BuildContext context, Widget widget) {
+    BuildContext context, Widget widget, bool fromAddMoreCards) {
   final textExtractionController = Get.find<CardTextExtractionController>();
   return showDialog(
     context: context,
@@ -17,9 +15,11 @@ Future<dynamic> cardscanimagesSelectingDailogue(
             Navigator.pop(context);
 
             textExtractionController.pickImageScanning(camera: false);
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => widget,
-            ));
+            if (!fromAddMoreCards) {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => widget,
+              ));
+            }
           },
           style: ElevatedButton.styleFrom(
               foregroundColor: kwhite, side: const BorderSide(color: kwhite)),
@@ -33,9 +33,11 @@ Future<dynamic> cardscanimagesSelectingDailogue(
               camera: true,
             );
 
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => widget,
-            ));
+            if (!fromAddMoreCards) {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => widget,
+              ));
+            }
           },
           style: ElevatedButton.styleFrom(
               foregroundColor: kwhite, side: const BorderSide(color: kwhite)),

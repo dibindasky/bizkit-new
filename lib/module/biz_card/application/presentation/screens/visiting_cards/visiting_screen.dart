@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/qr_scanner_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
@@ -71,6 +73,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
 
   @override
   Widget build(BuildContext context) {
+    final textExtractionController = Get.find<CardTextExtractionController>();
     return Scaffold(
       body: Container(
         width: kwidth,
@@ -163,7 +166,20 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                                 tittle: 'See notification',
                                 description: '',
                                 child: const Text('Create visiting card')),
-                            const ContainerPickImage(),
+                            ContainerPickImage(
+                              onPressedCam: () {
+                                Navigator.of(context).push(
+                                    cardFadePageRoute(const SelectedCard()));
+                                textExtractionController.pickImageScanning(
+                                    camera: true);
+                              },
+                              onPressedGallery: () {
+                                Navigator.of(context).push(
+                                    cardFadePageRoute(const SelectedCard()));
+                                textExtractionController.pickImageScanning(
+                                    camera: false);
+                              },
+                            ),
                             adjustHieght(20),
                             TextButton(
                               onPressed: () {

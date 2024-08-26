@@ -19,7 +19,7 @@ class PickedScanningCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textExtractionController = Get.find<CardTextExtractionController>();
-    final cardController = Get.find<CardController>();
+    // final cardController = Get.find<CardController>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -59,9 +59,13 @@ class PickedScanningCards extends StatelessWidget {
                               //   )),
                               // );
                             },
-                            child: SizedBox(
-                              width: 300.dm,
+                            child: Container(
+                              width: 310.dm,
                               height: 150.dm,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: neonShade, width: 2),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.memory(
@@ -104,9 +108,7 @@ class PickedScanningCards extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () {
                                 cardscanimagesSelectingDailogue(
-                                  context,
-                                  const PickedScanningCards(),
-                                );
+                                    context, const PickedScanningCards(), true);
                               },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +130,6 @@ class PickedScanningCards extends StatelessWidget {
                           ),
                         ),
                 ),
-                // : const SizedBox(),
                 adjustHieght(khieght * .02),
                 Obx(
                   () => EventButton(
@@ -136,39 +137,13 @@ class PickedScanningCards extends StatelessWidget {
                         ? 'Loading....'
                         : 'Continue',
                     onTap: () {
-                      // context.read<UserDataBloc>().nameController.text =
-                      //     '';
-                      // context
-                      //     .read<UserDataBloc>()
-                      //     .emailController
-                      //     .text = '';
-                      // context
-                      //     .read<UserDataBloc>()
-                      //     .phoneController
-                      //     .text = '';
-                      // context
-                      //     .read<UserDataBloc>()
-                      //     .designationController
-                      //     .text = '';
-                      // context
-                      //     .read<UserDataBloc>()
-                      //     .businessCategoryController
-                      //     .text = '';
-                      // context.read<UserDataBloc>().add(
-                      //       UserDataEvent.processImageScanning(
-                      //         images: state.scannedImagesCardCreation,
-                      //       ),
-                      //     );
-
-                      // context
-                      //     .read<UserDataBloc>()
-                      //     .add(UserDataEvent.getBusinessCategories());
-
                       textExtractionController.textExtraction(
+                          fromVisitingCard: false,
                           textExtractionModel: TextExtractionModel(
                               image: textExtractionController
-                                  .pickedImageUrl.first.base64
-                                  ?.substring(22)));
+                                      .pickedImageUrl.first.base64
+                                      ?.substring(22) ??
+                                  ''));
                       GoRouter.of(context)
                           .pushReplacementNamed(Routes.cardCreationProfilePage);
                     },

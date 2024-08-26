@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/image/image_model.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/text_extraction/text_extraction_service.dart';
 import 'package:bizkit/module/biz_card/domain/modell/text_extraction/text_extraction_model/text_extraction_model.dart';
 import 'package:bizkit/module/biz_card/domain/modell/text_extraction/text_extraction_responce/extracted_details.dart';
@@ -19,14 +20,17 @@ class CardTextExtractionController extends GetxController {
   var extractedDetails = ExtractedDetails().obs;
 
   RxList<ImageModel> pickedImageUrl = <ImageModel>[].obs;
+  RxList<ImageModel> pickedSelfiesImageUrl = <ImageModel>[].obs;
   RxList<String> extractedPhoneNumbers = <String>[].obs;
   RxList<String> extractedEmails = <String>[].obs;
   RxList<String> extractedLocations = <String>[].obs;
 
   final cardController = Get.find<CardController>();
+  final visitingCardController = Get.find<VisitingCardController>();
 
   void textExtraction(
-      {required TextExtractionModel textExtractionModel}) async {
+      {required TextExtractionModel textExtractionModel,
+      required bool fromVisitingCard}) async {
     isLoading.value = true;
 
     final data = await textExtractionService.textExtracion(
@@ -44,22 +48,38 @@ class CardTextExtractionController extends GetxController {
         extractedPhoneNumbers
             .assignAll((extractedDetails.value.phoneNumbers ?? []));
         extractedLocations.assignAll((extractedDetails.value.location ?? []));
-
-        cardController.nameController.text =
-            extractedDetails.value.personName ?? '';
-        cardController.phoneController.text =
-            (extractedDetails.value.phoneNumbers?.isNotEmpty ?? false)
-                ? extractedDetails.value.phoneNumbers!.first
-                : '';
-        cardController.emailController.text =
-            (extractedDetails.value.emails?.isNotEmpty ?? false)
-                ? extractedDetails.value.emails!.first
-                : '';
-        cardController.designationController.text =
-            extractedDetails.value.designation ?? '';
-        cardController.companyNameController.text =
-            extractedDetails.value.businessName ?? '';
-
+        if (fromVisitingCard == false) {
+          cardController.nameController.text =
+              extractedDetails.value.personName ?? '';
+          cardController.phoneController.text =
+              (extractedDetails.value.phoneNumbers?.isNotEmpty ?? false)
+                  ? extractedDetails.value.phoneNumbers!.first
+                  : '';
+          cardController.emailController.text =
+              (extractedDetails.value.emails?.isNotEmpty ?? false)
+                  ? extractedDetails.value.emails!.first
+                  : '';
+          cardController.designationController.text =
+              extractedDetails.value.designation ?? '';
+          cardController.companyNameController.text =
+              extractedDetails.value.businessName ?? '';
+        } else {
+          visitingCardController.nameController.text =
+              extractedDetails.value.personName ?? '';
+          visitingCardController.phoneController.text =
+              (extractedDetails.value.phoneNumbers?.isNotEmpty ?? false)
+                  ? extractedDetails.value.phoneNumbers!.first
+                  : '';
+          visitingCardController.emailController.text =
+              (extractedDetails.value.emails?.isNotEmpty ?? false)
+                  ? extractedDetails.value.emails!.first
+                  : '';
+          visitingCardController.designationController.text =
+              extractedDetails.value.designation ?? '';
+          visitingCardController.companyNameController.text =
+              extractedDetails.value.businessName ?? '';
+        }
+        pickedImageUrl.clear();
         isLoading.value = false;
       },
     );
@@ -72,6 +92,18 @@ class CardTextExtractionController extends GetxController {
 
     if (imageUrl != null) {
       pickedImageUrl.add(imageUrl);
+    } else {
+      log('Image picking failed or was canceled.');
+    }
+  }
+
+  void pickSelfie({required bool camera}) async {
+    final ImageModel? imageUrl = await ImagePickerClass.getImage(
+      camera: camera,
+    );
+
+    if (imageUrl != null) {
+      pickedSelfiesImageUrl.add(imageUrl);
     } else {
       log('Image picking failed or was canceled.');
     }

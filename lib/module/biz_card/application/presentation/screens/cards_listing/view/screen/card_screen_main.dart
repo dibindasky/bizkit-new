@@ -3,11 +3,13 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/archieved_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/deleted_cards.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/card_delete_model/card_delete_model.dart';
+import 'package:bizkit/module/biz_card/domain/modell/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
@@ -95,8 +97,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
   @override
   Widget build(BuildContext context) {
     final cardController = Get.find<CardController>();
+    final visitingCardController = Get.find<VisitingCardController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       cardController.getAllcards(true);
+      visitingCardController.fetchAllVisitingCards();
     });
     return Scaffold(
       appBar: AppBar(
@@ -471,209 +475,250 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                   adjustHieght(khieght * .02),
                   SizedBox(
                     height: 290,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 2,
-                      // (state.secondCards.length) +
-                      //     (state.secondCardEventLoading ? 1 : 0),
-                      separatorBuilder: (context, index) =>
-                          adjustWidth(kwidth * .05),
-                      itemBuilder: (context, index) {
-                        // if (state.secondCardEventLoading &&
-                        //     index == state.secondCards.length) {
-                        //   return const LoadingAnimation();
-                        // }
-                        //final secondCard = state.secondCards[index];
-                        // String imageBase64 = '';
-                        // if (secondCard.image != null &&
-                        //     secondCard.image!.isNotEmpty) {
-                        //   imageBase64 = secondCard.image!;
-                        //   imageBase64 = imageBase64.startsWith('data')
-                        //       ? imageBase64.substring(22)
-                        //       : imageBase64;
-                        // } else if (secondCard.selfie != null &&
-                        //     secondCard.selfie!.isNotEmpty) {
-                        //   final imageList =
-                        //       secondCard.selfie!.map((e) => e.selfie).toList();
-                        //   imageBase64 = imageList.first ?? '';
-                        //   imageBase64 = imageBase64.startsWith('data')
-                        //       ? imageBase64.substring(22)
-                        //       : imageBase64;
-                        // } else {
-                        //   imageBase64 = '';
-                        // }
-                        // String secondName = secondCard.company != null &&
-                        //         secondCard.company != ''
-                        //     ? secondCard.company!
-                        //     : secondCard.designation != null &&
-                        //             secondCard.designation != ''
-                        //         ? secondCard.designation!
-                        //         : '';
-                        // print(secondName);
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: textFieldFillColr,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          width: 300,
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  SizedBox(
-                                    width: 300,
-                                    height: 200,
-                                    child: InkWell(
-                                      onTap: () {
-                                        // Map<String, String> map =
-                                        //     state.secondCards[index].id != null
-                                        //         ? {
-                                        //             'cardId': state
-                                        //                 .secondCards[index].id!
-                                        //                 .toString()
-                                        //           }
-                                        //         : <String, String>{};
-                                        GoRouter.of(context).pushNamed(
-                                          Routes.secondcardDetail,
-                                          //pathParameters: map,
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(25),
-                                            topRight: Radius.circular(20),
-                                          ),
-                                          child: Image.network(
-                                            imageDummyNetwork,
-                                            fit: BoxFit.cover,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return const Icon(
-                                                Icons
-                                                    .image_not_supported_outlined,
-                                              );
-                                            },
-                                          )
-                                          // : Image.memory(
-                                          //     base64Decode(imageBase64),
-                                          //     fit: BoxFit.cover,
-                                          //     errorBuilder: (context, error,
-                                          //         stackTrace) {
-                                          //       return const Icon(
-                                          //         Icons
-                                          //             .image_not_supported_outlined,
-                                          //       );
-                                          //     },
-                                          //   ),
-                                          ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 0,
-                                    top: 10,
-                                    child: PopupMenuButton<String>(
-                                      padding: const EdgeInsets.all(0),
-                                      icon: const Icon(
-                                        Icons.more_vert,
-                                        size: 32,
-                                        color: kblack,
-                                      ),
-                                      itemBuilder: (context) {
-                                        List<PopupMenuEntry<String>> items = [
-                                          PopupMenuItem(
+                    child: Obx(
+                      () {
+                        if (visitingCardController
+                            .loadingForVisitingCard.value) {
+                          return ShimmerLoaderTile(height: 125.w, width: 200.w);
+                        } else if (visitingCardController
+                            .visitingCards.isEmpty) {
+                          return const Expanded(
+                            flex: 2,
+                            child: Center(
+                              child: Text('No visiting cards'),
+                            ),
+                          );
+                        } else {
+                          return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount:
+                                visitingCardController.visitingCards.length,
+                            // (state.secondCards.length) +
+                            //     (state.secondCardEventLoading ? 1 : 0),
+                            separatorBuilder: (context, index) =>
+                                adjustWidth(kwidth * .05),
+                            itemBuilder: (context, index) {
+                              // if (state.secondCardEventLoading &&
+                              //     index == state.secondCards.length) {
+                              //   return const LoadingAnimation();
+                              // }
+                              //final secondCard = state.secondCards[index];
+                              // String imageBase64 = '';
+                              // if (secondCard.image != null &&
+                              //     secondCard.image!.isNotEmpty) {
+                              //   imageBase64 = secondCard.image!;
+                              //   imageBase64 = imageBase64.startsWith('data')
+                              //       ? imageBase64.substring(22)
+                              //       : imageBase64;
+                              // } else if (secondCard.selfie != null &&
+                              //     secondCard.selfie!.isNotEmpty) {
+                              //   final imageList =
+                              //       secondCard.selfie!.map((e) => e.selfie).toList();
+                              //   imageBase64 = imageList.first ?? '';
+                              //   imageBase64 = imageBase64.startsWith('data')
+                              //       ? imageBase64.substring(22)
+                              //       : imageBase64;
+                              // } else {
+                              //   imageBase64 = '';
+                              // }
+                              // String secondName = secondCard.company != null &&
+                              //         secondCard.company != ''
+                              //     ? secondCard.company!
+                              //     : secondCard.designation != null &&
+                              //             secondCard.designation != ''
+                              //         ? secondCard.designation!
+                              //         : '';
+                              // print(secondName);
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: textFieldFillColr,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                width: 300,
+                                child: Column(
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        SizedBox(
+                                          width: 300,
+                                          height: 200,
+                                          child: InkWell(
                                             onTap: () {
-                                              // context
-                                              //     .read<CardSecondBloc>()
-                                              //     .add(const CardSecondEvent
-                                              //         .imageClear());
+                                              // Map<String, String> map =
+                                              //     state.secondCards[index].id != null
+                                              //         ? {
+                                              //             'cardId': state
+                                              //                 .secondCards[index].id!
+                                              //                 .toString()
+                                              //           }
+                                              //         : <String, String>{};
                                               GoRouter.of(context).pushNamed(
-                                                Routes.cardUpdating,
-                                                //extra: state.secondCards[index],
+                                                Routes.secondcardDetail,
+                                                //pathParameters: map,
                                               );
                                             },
-                                            value: 'Edit Card',
-                                            child: const Text('Edit Card'),
+                                            child: ClipRRect(
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(25),
+                                                  topRight: Radius.circular(20),
+                                                ),
+                                                child: Image.network(
+                                                  imageDummyNetwork,
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    return const Icon(
+                                                      Icons
+                                                          .image_not_supported_outlined,
+                                                    );
+                                                  },
+                                                )
+                                                // : Image.memory(
+                                                //     base64Decode(imageBase64),
+                                                //     fit: BoxFit.cover,
+                                                //     errorBuilder: (context, error,
+                                                //         stackTrace) {
+                                                //       return const Icon(
+                                                //         Icons
+                                                //             .image_not_supported_outlined,
+                                                //       );
+                                                //     },
+                                                //   ),
+                                                ),
                                           ),
-                                        ];
-                                        items.addAll([
-                                          PopupMenuItem(
-                                            onTap: () => showConfirmationDialog(
-                                              heading:
-                                                  'Are you sure you want to delete your card',
-                                              context,
-                                              onPressed: () {
-                                                // CardActionRequestModel
-                                                //     cardActionRewuestModel =
-                                                //     CardActionRequestModel(
-                                                //   isActive: false,
-                                                // );
-                                                // context
-                                                //     .read<CardSecondBloc>()
-                                                //     .add(
-                                                //       CardSecondEvent
-                                                //           .deleteCardSecond(
-                                                //         cardActionRewuestModel:
-                                                //             cardActionRewuestModel,
-                                                //         id: secondCard.id!,
-                                                //       ),
-                                                //     );
-                                              },
+                                        ),
+                                        Positioned(
+                                          right: 0,
+                                          top: 10,
+                                          child: PopupMenuButton<String>(
+                                            padding: const EdgeInsets.all(0),
+                                            icon: const Icon(
+                                              Icons.more_vert,
+                                              size: 32,
+                                              color: kblack,
                                             ),
-                                            value: 'Delete Card',
-                                            child: const Text('Delete Card'),
+                                            itemBuilder: (context) {
+                                              List<PopupMenuEntry<String>>
+                                                  items = [
+                                                PopupMenuItem(
+                                                  onTap: () {
+                                                    // context
+                                                    //     .read<CardSecondBloc>()
+                                                    //     .add(const CardSecondEvent
+                                                    //         .imageClear());
+                                                    GoRouter.of(context)
+                                                        .pushNamed(
+                                                      Routes.cardUpdating,
+                                                      //extra: state.secondCards[index],
+                                                    );
+                                                  },
+                                                  value: 'Edit Card',
+                                                  child:
+                                                      const Text('Edit Card'),
+                                                ),
+                                              ];
+                                              items.addAll([
+                                                PopupMenuItem(
+                                                  onTap: () =>
+                                                      showConfirmationDialog(
+                                                    heading:
+                                                        'Are you sure you want to delete your card',
+                                                    context,
+                                                    onPressed: () {
+                                                      // CardActionRequestModel
+                                                      //     cardActionRewuestModel =
+                                                      //     CardActionRequestModel(
+                                                      //   isActive: false,
+                                                      // );
+                                                      // context
+                                                      //     .read<CardSecondBloc>()
+                                                      //     .add(
+                                                      //       CardSecondEvent
+                                                      //           .deleteCardSecond(
+                                                      //         cardActionRewuestModel:
+                                                      //             cardActionRewuestModel,
+                                                      //         id: secondCard.id!,
+                                                      //       ),
+                                                      //     );
+
+                                                      visitingCardController
+                                                          .deleteVisitingCard(
+                                                              context: context,
+                                                              visitingCardDeleteModel:
+                                                                  VisitingCardDeleteModel(
+                                                                cardId: visitingCardController
+                                                                        .visitingCards[
+                                                                            index]
+                                                                        .id ??
+                                                                    '',
+                                                                isDisabled:
+                                                                    true,
+                                                              ));
+                                                    },
+                                                  ),
+                                                  value: 'Delete Card',
+                                                  child:
+                                                      const Text('Delete Card'),
+                                                ),
+                                              ]);
+                                              return items;
+                                            },
                                           ),
-                                        ]);
-                                        return items;
-                                      },
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                              adjustHieght(khieght * .02),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      'Name',
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                    adjustHieght(khieght * .02),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            visitingCardController
+                                                    .visitingCards[index]
+                                                    .name ??
+                                                '',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
+                                        // InkWell(
+                                        //   onTap: () async {
+                                        //     print(
+                                        //         'card share=> ${state.secondCards[index].pdf == null ? 'no data' : 'data'}');
+                                        //     await SharePlus.sharePdfFromBase64(
+                                        //         state.secondCards[index].pdf ??
+                                        //             '',
+                                        //         state.secondCards[index].name ??
+                                        //             '');
+                                        //   },
+                                        //   child: Container(
+                                        //     decoration: BoxDecoration(
+                                        //       borderRadius:
+                                        //           BorderRadius.circular(20),
+                                        //       color: kblue,
+                                        //     ),
+                                        //     width: 100,
+                                        //     height: 30,
+                                        //     child: Center(
+                                        //       child: Text('Share',
+                                        //           style: textStyle1),
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                      ],
                                     ),
-                                  ),
-                                  // InkWell(
-                                  //   onTap: () async {
-                                  //     print(
-                                  //         'card share=> ${state.secondCards[index].pdf == null ? 'no data' : 'data'}');
-                                  //     await SharePlus.sharePdfFromBase64(
-                                  //         state.secondCards[index].pdf ??
-                                  //             '',
-                                  //         state.secondCards[index].name ??
-                                  //             '');
-                                  //   },
-                                  //   child: Container(
-                                  //     decoration: BoxDecoration(
-                                  //       borderRadius:
-                                  //           BorderRadius.circular(20),
-                                  //       color: kblue,
-                                  //     ),
-                                  //     width: 100,
-                                  //     height: 30,
-                                  //     child: Center(
-                                  //       child: Text('Share',
-                                  //           style: textStyle1),
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                              adjustHieght(khieght * .02),
-                            ],
-                          ),
-                        );
+                                    adjustHieght(khieght * .02),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        }
                       },
                     ),
                   )

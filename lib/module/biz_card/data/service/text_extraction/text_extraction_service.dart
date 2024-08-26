@@ -15,6 +15,7 @@ class TextExtractionService implements TextExtractionRepo {
   Future<Either<Failure, TextExtractionResponce>> textExtracion(
       {required TextExtractionModel textExtractionModel}) async {
     try {
+      // log('Text Extraction TOJSON = > ${textExtractionModel.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.textExtraction,
         data: textExtractionModel.toJson(),

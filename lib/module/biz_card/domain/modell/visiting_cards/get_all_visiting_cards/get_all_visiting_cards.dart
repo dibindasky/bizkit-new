@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-
 import 'visiting_card.dart';
 
 part 'get_all_visiting_cards.g.dart';
@@ -16,4 +15,13 @@ class GetAllVisitingCards {
   }
 
   Map<String, dynamic> toJson() => _$GetAllVisitingCardsToJson(this);
+
+  // Adding the copyWith method
+  GetAllVisitingCards copyWith({
+    List<VisitingCard>? visitingCards,
+  }) {
+    return GetAllVisitingCards(
+      visitingCards: visitingCards ?? this.visitingCards,
+    );
+  }
 }

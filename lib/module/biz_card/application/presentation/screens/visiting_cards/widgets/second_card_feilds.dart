@@ -550,32 +550,34 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                         inputType: TextInputType.name,
                       ),
                       adjustHieght(khieght * .02),
-                      CardLastSkipContinueButtons(onTap: () {
-                        FocusScope.of(context).unfocus();
-                        visitingCardController.createVisitingCard(
-                            context: context);
-                        // context.read<CardSecondBloc>().add(
-                        //       CardSecondEvent.meetingRelatedInfo(
-                        //         selfieImage: state.selfieImageModel,
-                        //         occation: context
-                        //             .read<CardSecondBloc>()
-                        //             .occationController
-                        //             .text,
-                        //         location: context
-                        //             .read<CardSecondBloc>()
-                        //             .locatioNController
-                        //             .text,
-                        //         occupation: context
-                        //             .read<CardSecondBloc>()
-                        //             .occupationController
-                        //             .text,
-                        //         notes: context
-                        //             .read<CardSecondBloc>()
-                        //             .notesController
-                        //             .text,
-                        //       ),
-                        //     );
-                      }),
+                      CardLastSkipContinueButtons(
+                          continueText: 'Create Visiting Card',
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            visitingCardController.createVisitingCard(
+                                context: context);
+                            // context.read<CardSecondBloc>().add(
+                            //       CardSecondEvent.meetingRelatedInfo(
+                            //         selfieImage: state.selfieImageModel,
+                            //         occation: context
+                            //             .read<CardSecondBloc>()
+                            //             .occationController
+                            //             .text,
+                            //         location: context
+                            //             .read<CardSecondBloc>()
+                            //             .locatioNController
+                            //             .text,
+                            //         occupation: context
+                            //             .read<CardSecondBloc>()
+                            //             .occupationController
+                            //             .text,
+                            //         notes: context
+                            //             .read<CardSecondBloc>()
+                            //             .notesController
+                            //             .text,
+                            //       ),
+                            //     );
+                          }),
                       adjustHieght(khieght * .02),
                     ],
                   ),

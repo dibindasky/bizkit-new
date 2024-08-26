@@ -2,6 +2,7 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/visiting_card/visiting_card_service.dart';
 import 'package:bizkit/module/biz_card/domain/modell/visiting_cards/create_visiting_card/create_visiting_card.dart';
+import 'package:bizkit/module/biz_card/domain/modell/visiting_cards/get_all_visiting_cards/visiting_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/module/biz_card/domain/modell/visiting_cards/visiting_card_edit_model/visiting_card_edit_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/visiting_card_repo.dart';
@@ -16,6 +17,11 @@ class VisitingCardController extends GetxController {
   final VisitingCardRepo visitingCardService = VisitingCardService();
 
   RxBool isLoading = false.obs;
+  RxBool loadingForVisitingCard = false.obs;
+
+  RxList<VisitingCard> visitingCards = <VisitingCard>[].obs;
+
+  final cardTextExtractionController = Get.find<CardTextExtractionController>();
 
   final mat.TextEditingController nameController = mat.TextEditingController();
   final mat.TextEditingController companyNameController =
@@ -33,8 +39,6 @@ class VisitingCardController extends GetxController {
   final mat.TextEditingController occupationController =
       mat.TextEditingController();
   final mat.TextEditingController notesController = mat.TextEditingController();
-
-  final cardTextExtractionController = Get.find<CardTextExtractionController>();
 
   RxString visitingCardId = ''.obs;
   // Create new visiting card
@@ -75,14 +79,43 @@ class VisitingCardController extends GetxController {
 
   // Edit visting card
   void editVisitingCard(
-      {required VisitingCardEditModel visitingCardEditModel}) async {}
+      {required VisitingCardEditModel visitingCardEditModel,
+      required BuildContext context}) async {}
 
   // Delete visiting card
   void deleteVisitingCard(
-      {required VisitingCardDeleteModel visitingCardDeleteModel}) async {}
+      {required VisitingCardDeleteModel visitingCardDeleteModel,
+      required BuildContext context}) async {
+    loadingForVisitingCard.value = true;
+    final data = await visitingCardService.deleteVisitingCard(
+        visitingCardDeleteModel: visitingCardDeleteModel);
+    data.fold(
+      (l) {
+        showSnackbar(context, message: errorMessage);
+        loadingForVisitingCard.value = false;
+      },
+      (r) {
+        fetchAllVisitingCards();
+
+        showSnackbar(context, message: 'Deleted Successfully');
+
+        loadingForVisitingCard.value = false;
+      },
+    );
+  }
 
   // Fetch all visiting cards
-  void fetchAllVisitingCards() async {}
+  void fetchAllVisitingCards() async {
+    loadingForVisitingCard.value = true;
+    final data = await visitingCardService.getAllVisitingCards();
+    data.fold(
+      (l) => loadingForVisitingCard.value = false,
+      (r) {
+        visitingCards.assignAll(r.visitingCards ?? []);
+        loadingForVisitingCard.value = false;
+      },
+    );
+  }
 
   // Fetch all deleted visiting cards
   void fetchAllDeletedVisitingCards() async {}

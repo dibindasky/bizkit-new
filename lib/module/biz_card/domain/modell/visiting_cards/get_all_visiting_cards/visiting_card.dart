@@ -4,19 +4,21 @@ part 'visiting_card.g.dart';
 
 @JsonSerializable()
 class VisitingCard {
+  @JsonKey(name: '_id')
+  String? id;
   String? name;
   String? company;
   String? designation;
   String? notes;
   String? selfie;
 
-  VisitingCard({
-    this.name,
-    this.company,
-    this.designation,
-    this.notes,
-    this.selfie,
-  });
+  VisitingCard(
+      {this.name,
+      this.company,
+      this.designation,
+      this.notes,
+      this.selfie,
+      this.id});
 
   factory VisitingCard.fromJson(Map<String, dynamic> json) {
     return _$VisitingCardFromJson(json);
@@ -30,6 +32,7 @@ class VisitingCard {
     String? designation,
     String? notes,
     String? selfie,
+    String? id,
   }) {
     return VisitingCard(
       name: name ?? this.name,
@@ -37,6 +40,7 @@ class VisitingCard {
       designation: designation ?? this.designation,
       notes: notes ?? this.notes,
       selfie: selfie ?? this.selfie,
+      id: id ?? this.id,
     );
   }
 }

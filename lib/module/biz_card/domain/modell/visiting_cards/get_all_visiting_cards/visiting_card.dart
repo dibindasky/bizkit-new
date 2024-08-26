@@ -23,4 +23,20 @@ class VisitingCard {
   }
 
   Map<String, dynamic> toJson() => _$VisitingCardToJson(this);
+
+  VisitingCard copyWith({
+    String? name,
+    String? company,
+    String? designation,
+    String? notes,
+    String? selfie,
+  }) {
+    return VisitingCard(
+      name: name ?? this.name,
+      company: company ?? this.company,
+      designation: designation ?? this.designation,
+      notes: notes ?? this.notes,
+      selfie: selfie ?? this.selfie,
+    );
+  }
 }

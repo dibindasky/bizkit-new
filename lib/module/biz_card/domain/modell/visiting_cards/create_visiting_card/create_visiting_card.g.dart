@@ -18,7 +18,8 @@ CreateVisitingCard _$CreateVisitingCardFromJson(Map<String, dynamic> json) =>
       location: json['location'] as String?,
       occupation: json['occupation'] as String?,
       notes: json['notes'] as String?,
-      selfie: json['selfie'] as String?,
+      selfie:
+          (json['selfie'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$CreateVisitingCardToJson(CreateVisitingCard instance) =>

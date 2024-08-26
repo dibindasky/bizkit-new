@@ -15,4 +15,14 @@ class CreateVisitingCardResponce {
   }
 
   Map<String, dynamic> toJson() => _$CreateVisitingCardResponceToJson(this);
+
+  CreateVisitingCardResponce copyWith({
+    String? message,
+    String? visitingCardId,
+  }) {
+    return CreateVisitingCardResponce(
+      message: message ?? this.message,
+      visitingCardId: visitingCardId ?? this.visitingCardId,
+    );
+  }
 }

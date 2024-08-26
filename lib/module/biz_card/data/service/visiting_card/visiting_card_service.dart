@@ -22,6 +22,7 @@ class VisitingCardService implements VisitingCardRepo {
   Future<Either<Failure, CreateVisitingCardResponce>> createVisitingCard(
       {required CreateVisitingCard createVisitingCard}) async {
     try {
+      log('Create VIsiting cardd TOJOSN ==> ${createVisitingCard.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.visitingCard,
         data: createVisitingCard.toJson(),

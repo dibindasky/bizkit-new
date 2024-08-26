@@ -4,6 +4,7 @@ import 'package:bizkit/module/biz_card/application/controller/card/create_contro
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
@@ -178,52 +179,59 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
                     ],
                   ),
                 ),
-                CardLastSkipContinueButtons(
-                  continueText: 'Create Card',
-                  onTap: () {
-                    if (cardController.emailController.text.isEmpty ||
-                        cardController
-                            .businessCategeryController.text.isEmpty ||
-                        cardController.companyNameController.text.isEmpty ||
-                        cardController.designationController.text.isEmpty ||
-                        cardController.nameController.text.isEmpty ||
-                        cardController.phoneController.text.isEmpty) {
-                      showSnackbar(context,
-                          message: 'Please Fill the Required Feilds');
+                Obx(
+                  () {
+                    if (cardController.isLoading.value) {
+                      return const LoadingAnimation();
                     }
-                    // context.push(Routes.bizCardNavbar);
-                    if (personalDataFirstFormKey.currentState!.validate()) {
-                      cardController.createCard(context);
-                      // context.read<UserDataBloc>().add(UserDataEvent.createCard(
-                      //     cardFirstCreationModel: CardFirstCreationModel(
-                      //         cardJson: state.scannedImageDatasModel == null
-                      //             ? null
-                      //             : ExtractedTextModel(
-                      //                 designations: state
-                      //                     .scannedImageDatasModel
-                      //                     ?.designations,
-                      //                 emails: state
-                      //                     .scannedImageDatasModel?.emails,
-                      //                 names: state
-                      //                     .scannedImageDatasModel?.names,
-                      //                 phoneNumbers: state
-                      //                     .scannedImageDatasModel?.phone,
-                      //                 websites: state.scannedImageDatasModel
-                      //                     ?.websites),
-                      //         cardImage: state.scannedImagesCardCreation
-                      //             .map((e) => ImageCard(image: e.base64))
-                      //             .toList(),
-                      //         name: context
-                      //             .read<UserDataBloc>()
-                      //             .nameController
-                      //             .text
-                      //             .trim(),
-                      //         designation: context.read<UserDataBloc>().designationController.text.trim(),
-                      //         phoneNumber: context.read<UserDataBloc>().phoneController.text.trim(),
-                      //         email: context.read<UserDataBloc>().emailController.text.trim(),
-                      //         photos: state.userPhotos ?? [],
-                      //         businessCategoryId: state.businessCategories.firstWhere((element) => element.category == context.read<UserDataBloc>().businessCategoryController.text.trim()).id)));
-                    }
+                    return CardLastSkipContinueButtons(
+                      continueText: 'Create Card',
+                      onTap: () {
+                        if (cardController.emailController.text.isEmpty ||
+                            cardController
+                                .businessCategeryController.text.isEmpty ||
+                            cardController.companyNameController.text.isEmpty ||
+                            cardController.designationController.text.isEmpty ||
+                            cardController.nameController.text.isEmpty ||
+                            cardController.phoneController.text.isEmpty) {
+                          showSnackbar(context,
+                              message: 'Please Fill the Required Feilds');
+                        }
+                        // context.push(Routes.bizCardNavbar);
+                        if (personalDataFirstFormKey.currentState!.validate()) {
+                          cardController.createCard(context);
+                          // context.read<UserDataBloc>().add(UserDataEvent.createCard(
+                          //     cardFirstCreationModel: CardFirstCreationModel(
+                          //         cardJson: state.scannedImageDatasModel == null
+                          //             ? null
+                          //             : ExtractedTextModel(
+                          //                 designations: state
+                          //                     .scannedImageDatasModel
+                          //                     ?.designations,
+                          //                 emails: state
+                          //                     .scannedImageDatasModel?.emails,
+                          //                 names: state
+                          //                     .scannedImageDatasModel?.names,
+                          //                 phoneNumbers: state
+                          //                     .scannedImageDatasModel?.phone,
+                          //                 websites: state.scannedImageDatasModel
+                          //                     ?.websites),
+                          //         cardImage: state.scannedImagesCardCreation
+                          //             .map((e) => ImageCard(image: e.base64))
+                          //             .toList(),
+                          //         name: context
+                          //             .read<UserDataBloc>()
+                          //             .nameController
+                          //             .text
+                          //             .trim(),
+                          //         designation: context.read<UserDataBloc>().designationController.text.trim(),
+                          //         phoneNumber: context.read<UserDataBloc>().phoneController.text.trim(),
+                          //         email: context.read<UserDataBloc>().emailController.text.trim(),
+                          //         photos: state.userPhotos ?? [],
+                          //         businessCategoryId: state.businessCategories.firstWhere((element) => element.category == context.read<UserDataBloc>().businessCategoryController.text.trim()).id)));
+                        }
+                      },
+                    );
                   },
                 ),
                 adjustHieght(khieght * .02),

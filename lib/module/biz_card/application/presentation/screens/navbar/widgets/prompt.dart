@@ -1,9 +1,11 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/module/biz_card/application/controller/prompt/prompt_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/create_card.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class CardPromptHomePage extends StatelessWidget {
   const CardPromptHomePage({
@@ -14,7 +16,8 @@ class CardPromptHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (showPrompt) {
+    final promptController = Get.find<PromtController>();
+    if (showPrompt && promptController.show.value) {
       return Align(
         alignment: Alignment.bottomCenter,
         child: Stack(
@@ -50,9 +53,7 @@ class CardPromptHomePage extends StatelessWidget {
                     ),
                     kWidth10,
                     InkWell(
-                      // onTap: () => context
-                      //     .read<PromtBloc>()
-                      //     .add(const PromtEvent.closePrompt()),
+                      onTap: () => promptController.closePrompt(),
                       child: ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(50)),

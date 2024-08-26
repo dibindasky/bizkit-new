@@ -146,7 +146,6 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                 onChanged: (value) {
                   if (value.contains(' ') &&
                       filteredAutocompleteItems.isNotEmpty) {
-                    log('message');
                     setState(() {
                       isDropdownVisible = true;
                       log("$isDropdownVisible");
@@ -205,9 +204,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   fillColor: textFieldFillColr,
                   filled: true,
                   labelText: widget.label,
-                  labelStyle: custumText(
-                    colr: widget.hintColor ?? klightgrey,
-                  ),
+                  labelStyle: custumText(colr: widget.hintColor ?? klightgrey),
                   border: UnderlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(7),

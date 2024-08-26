@@ -1,17 +1,22 @@
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/reminder/reminder_deletion/reminder_deletion.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/social_media/personal_social_media_deletion/personal_social_media_deletion.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/social_media/personal_social_media_request_model/personal_social_media_request_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SocialMediahandlesScreen extends StatefulWidget {
-  const SocialMediahandlesScreen({
-    super.key,
-  });
+  const SocialMediahandlesScreen({super.key, required this.fromBusiness});
 
-  // final bool fromBusiness;
+  final bool fromBusiness;
   // final int cardId;
 
   @override
@@ -25,6 +30,8 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
   List<String> socialMedias = socialMedia;
   @override
   Widget build(BuildContext context) {
+    final personalDetailsController = Get.find<PersonalDetailsController>();
+    final cardController = Get.find<CardController>();
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScopeNode = FocusScope.of(context);
@@ -45,186 +52,232 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
           ),
           backgroundColor: knill,
           title: Text('Social media accounts', style: textHeadStyle1),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.check)),
-            adjustWidth(20)
-          ],
+          // actions: [
+          //   IconButton(
+          //       onPressed: () {
+          //         Navigator.pop(context);
+          //       },
+          //       icon: const Icon(Icons.check)),
+          //   adjustWidth(20)
+          // ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                adjustHieght(40),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: selectedCategory == 'Select your account'
-                        ? null
-                        : Border.all(color: kwhite),
-                  ),
-                  padding: const EdgeInsets.only(left: 10),
-                  width: double.infinity,
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedCategory = newValue!;
-                        });
-                      },
-                      items: List.generate(
-                        socialMedias.length,
-                        (index) => DropdownMenuItem(
-                          value: socialMedias[index],
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 10,
-                                backgroundColor: kwhite,
-                                backgroundImage: AssetImage(
-                                    socialMediaImage[socialMedias[index]]!),
-                              ),
-                              adjustWidth(10),
-                              Text(socialMedias[index]),
-                            ],
+        body: Obx(
+          () => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  adjustHieght(40),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: selectedCategory == 'Select your account'
+                          ? null
+                          : Border.all(color: kwhite),
+                    ),
+                    padding: const EdgeInsets.only(left: 10),
+                    width: double.infinity,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedCategory = newValue!;
+                          });
+                        },
+                        items: List.generate(
+                          socialMedias.length,
+                          (index) => DropdownMenuItem(
+                            value: socialMedias[index],
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 10,
+                                  backgroundColor: kwhite,
+                                  backgroundImage: AssetImage(
+                                      socialMediaImage[socialMedias[index]]!),
+                                ),
+                                adjustWidth(10),
+                                Text(socialMedias[index]),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      hint: Text(
-                        selectedCategory,
-                        style: selectedCategory == 'Social Media'
-                            ? null
-                            : textStyle1.copyWith(color: kwhite),
+                        hint: Text(
+                          selectedCategory,
+                          style: selectedCategory == 'Social Media'
+                              ? null
+                              : textStyle1.copyWith(color: kwhite),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                adjustHieght(10),
-                CustomTextFormField(
-                  maxlegth: selectedCategory == 'Whatsapp' ||
-                          selectedCategory == 'Telegram'
-                      ? 10
-                      : null,
-                  controller: linkController,
-                  labelText: selectedCategory == 'Whatsapp'
-                      ? 'Enter Whatsap Number'
-                      : selectedCategory == 'Telegram'
-                          ? 'Enter Telegram Number'
-                          : 'Account link paste here',
-                  inputType: selectedCategory == 'Whatsapp' ||
-                          selectedCategory == 'Telegram'
-                      ? TextInputType.number
-                      : TextInputType.url,
-                ),
-                adjustHieght(30),
-                EventButton(
-                  text: 'Add',
-                  onTap: () {
-                    FocusScope.of(context).unfocus();
-                    if (selectedCategory == 'Social Media') {
-                      showSnackbar(context,
-                          message: 'Select social media first',
-                          textColor: kwhite,
-                          backgroundColor: kred);
-                      return;
-                    }
-                    if (linkController.text == '') {
-                      showSnackbar(context,
-                          message: 'add your social media link',
-                          textColor: kwhite,
-                          backgroundColor: kred);
-                      return;
-                    }
-                    final link = selectedCategory == 'Whatsapp'
-                        ? 'https://wa.me/${linkController.text}'
+                  kHeight20,
+                  CustomTextFormField(
+                    maxlegth: selectedCategory == 'Whatsapp' ||
+                            selectedCategory == 'Telegram'
+                        ? 10
+                        : null,
+                    controller: linkController,
+                    labelText: selectedCategory == 'Whatsapp'
+                        ? 'Enter Whatsap Number'
                         : selectedCategory == 'Telegram'
-                            ? 'https://t.me/+${linkController.text}'
-                            : linkController.text;
-                    // final model = SocialMediaHandle(
-                    //     label: selectedCategory,
-                    //     socialMedia: link,
-                    //     cardId: widget.cardId);
-                    // !widget.fromBusiness
-                    //     ? context.read<UserDataBloc>().add(
-                    //         UserDataEvent.addSocialMedia(
-                    //             socialMediaHandle: model))
-                    //     : context.read<BusinessDataBloc>().add(
-                    //         BusinessDataEvent.addSocialMedia(
-                    //             socialMediaHandle: model));
-                    linkController.text = '';
-                    selectedCategory = 'Social Media';
-                    setState(() {});
-                  },
-                ),
-                adjustHieght(30),
-                Wrap(
-                  children: List.generate(
-                    2,
-                    (index) => Stack(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(8),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 8),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: neonShade),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const CircleAvatar(
-                                radius: 10,
-                                backgroundImage:
-                                    AssetImage('asset/images/banking.png'),
-                              ),
-                              adjustWidth(10),
-                              const Text(''),
-                            ],
+                            ? 'Enter Telegram Number'
+                            : 'Account link paste here',
+                    inputType: selectedCategory == 'Whatsapp' ||
+                            selectedCategory == 'Telegram'
+                        ? TextInputType.number
+                        : TextInputType.url,
+                  ),
+                  adjustHieght(30),
+                  Obx(
+                    () {
+                      if (personalDetailsController.isLoading.value) {
+                        return const LoadingAnimation();
+                      }
+                      return EventButton(
+                        text: 'Add',
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          if (selectedCategory == 'Social Media') {
+                            showSnackbar(context,
+                                message: 'Select social media first',
+                                textColor: kwhite,
+                                backgroundColor: kred);
+                            return;
+                          }
+                          if (linkController.text == '') {
+                            if (selectedCategory == 'Whatsapp' ||
+                                selectedCategory == 'Telegram') {
+                              showSnackbar(context,
+                                  message: 'Add your social media Number',
+                                  textColor: kwhite,
+                                  backgroundColor: kred);
+                              return;
+                            } else {
+                              showSnackbar(context,
+                                  message: 'Add your social media link',
+                                  textColor: kwhite,
+                                  backgroundColor: kred);
+                              return;
+                            }
+                          }
+                          final link = selectedCategory == 'Whatsapp'
+                              ? 'https://wa.me/${linkController.text}'
+                              : selectedCategory == 'Telegram'
+                                  ? 'https://t.me/+${linkController.text}'
+                                  : linkController.text;
+                          PersonalSocialMediaRequestModel
+                              personalSocialMediaModel =
+                              PersonalSocialMediaRequestModel(
+                                  label: selectedCategory,
+                                  link: link,
+                                  bizcardId: cardController
+                                      .bizcardDetail.value.bizcardId,
+                                  personalDetailsId: cardController
+                                      .bizcardDetail.value.personalDetails?.id);
+                          !widget.fromBusiness
+                              ? personalDetailsController
+                                  .personalSocialMediaAdding(
+                                      personalSocialMediaModel:
+                                          personalSocialMediaModel)
+                              : null;
+                          linkController.text = '';
+                          selectedCategory = 'Social Media';
+                          setState(() {});
+                        },
+                      );
+                    },
+                  ),
+                  adjustHieght(30),
+                  Wrap(
+                    children: List.generate(
+                      (cardController.bizcardDetail.value.personalDetails
+                              ?.personalSocialMedia?.length ??
+                          0),
+                      (index) => Stack(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 8),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: neonShade),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10))),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const CircleAvatar(
+                                  radius: 10,
+                                  backgroundImage:
+                                      AssetImage('asset/images/banking.png'),
+                                ),
+                                adjustWidth(10),
+                                Text(cardController
+                                        .bizcardDetail
+                                        .value
+                                        .personalDetails
+                                        ?.personalSocialMedia?[index]
+                                        .label ??
+                                    ''),
+                              ],
+                            ),
                           ),
-                        ),
-                        Positioned(
-                          right: 0,
-                          top: 0,
-                          child: InkWell(
-                            onTap: () {
-                              showCustomConfirmationDialogue(
-                                  context: context,
-                                  title: 'are you sure want to delete ?',
-                                  buttonText: 'Delete',
-                                  onTap: () {
-                                    // widget.fromBusiness
-                                    //     ? context.read<BusinessDataBloc>().add(
-                                    //         BusinessDataEvent.removeSocialMedia(
-                                    //             id: business
-                                    //                 .socialMedias[index].id!))
-                                    //     : context.read<UserDataBloc>().add(
-                                    //         UserDataEvent.removeSocialMedia(
-                                    //             id: user
-                                    //                 .socialMedias[index].id!));
-                                  });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: const ColoredBox(
-                                color: neonShade,
-                                child: Padding(
-                                  padding: EdgeInsets.all(5),
-                                  child: Icon(Icons.close, size: 12),
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: InkWell(
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+                                showCustomConfirmationDialogue(
+                                    context: context,
+                                    title:
+                                        'Are You Sure Do You Want To Delete?',
+                                    buttonText: 'Delete',
+                                    onTap: () {
+                                      PersonalSocialMediaDeletion personalSocialMediaDeletion =
+                                          PersonalSocialMediaDeletion(
+                                              personalDetailsId: cardController
+                                                  .bizcardDetail
+                                                  .value
+                                                  .personalDetails
+                                                  ?.id,
+                                              socialMediaId: cardController
+                                                  .bizcardDetail
+                                                  .value
+                                                  .personalDetails
+                                                  ?.personalSocialMedia?[index]
+                                                  .id);
+
+                                      !widget.fromBusiness
+                                          ? personalDetailsController
+                                              .personalSocialMediaDelete(
+                                                  personalSocialMediaDeletion:
+                                                      personalSocialMediaDeletion)
+                                          : null;
+                                      //         UserDataEvent.removeSocialMedia(
+                                      //             id: user
+                                      //                 .socialMedias[index].id!));
+                                    });
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: const ColoredBox(
+                                  color: neonShade,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: Icon(Icons.close, size: 12),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

@@ -1,6 +1,6 @@
 class ApiEndPoints {
-  // static String baseUrl = 'https://bizkit.onrender.com';
-  static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms/';
+  static String baseUrl = 'https://bizkit.onrender.com';
+  //static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
 
   // refesh token
   static String refreshUrl = '/token/';
@@ -26,6 +26,9 @@ class ApiEndPoints {
   static String getArchievedOrDeletedCards =
       '/list-disabled-and-archieved-cards/';
   static String cardArchiveOrDelete = '/archieve-or-disable-card/';
+  static String personalAchievement = '/personal-achievements/';
+  static String personalSocialedia = '/personal-social-media/';
+  static String personalDatesToReminder = '/personal-dates-to-remember/';
 
   // [ Text Extraction ]
   static String textExtraction = '/extract-text/';

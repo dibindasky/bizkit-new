@@ -124,8 +124,10 @@ class BusinessDetailsScreen extends StatelessWidget {
                 },
                 ontap: () {
                   FocusScope.of(context).unfocus();
-                  Navigator.of(context).push(
-                      cardFadePageRoute(const SocialMediahandlesScreen()));
+                  Navigator.of(context)
+                      .push(cardFadePageRoute(const SocialMediahandlesScreen(
+                    fromBusiness: true,
+                  )));
                 },
                 child: Container(
                   decoration: const BoxDecoration(

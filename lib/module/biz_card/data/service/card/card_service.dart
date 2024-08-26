@@ -10,7 +10,8 @@ import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/car
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card_responce/create_card_responce.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/get_all_cards.dart';
-import 'package:bizkit/module/biz_card/domain/repository/service/card_repo.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/personal_details_request_model/personal_details_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:dartz/dartz.dart';
@@ -136,6 +137,26 @@ class CardService implements CardRepo {
       return Left(Failure(message: errorMessage));
     } catch (e) {
       log('getAllArchivedAndDeletedCards catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> personalDetailsAdding(
+      {required PersonalDetailsRequestModel
+          personalDetailsRequestModel}) async {
+    try {
+      log('${personalDetailsRequestModel.toJson()}');
+      final responce = await apiService.put(
+          ApiEndPoints.cardCreationPersonalDetails,
+          data: personalDetailsRequestModel.toJson());
+      log('personalDetailsAdding ==> success');
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('personalDetailsAdding DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('personalDetailsAdding catch $e');
       return Left(Failure(message: 'Failed to request'));
     }
   }

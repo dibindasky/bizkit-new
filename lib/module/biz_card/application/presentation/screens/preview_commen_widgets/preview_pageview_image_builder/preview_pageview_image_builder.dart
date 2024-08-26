@@ -62,13 +62,15 @@ class _PreviewPageviewImageBuilderState
             List<String> images = widget.story != null
                 ? widget.imagesList.sublist(1)
                 : widget.imagesList;
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SlidablePhotoGallery(
-                        images: images,
-                        initialIndex:
-                            widget.story != null ? index - 1 : index)));
+            images.isNotEmpty
+                ? Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SlidablePhotoGallery(
+                            images: images,
+                            initialIndex:
+                                widget.story != null ? index - 1 : index)))
+                : null;
           },
           isStory: widget.isStory,
           image: widget.imagesList[index],

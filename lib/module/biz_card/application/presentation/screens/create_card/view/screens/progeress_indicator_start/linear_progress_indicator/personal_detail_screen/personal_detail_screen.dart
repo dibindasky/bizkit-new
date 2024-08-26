@@ -1,4 +1,6 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_create_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/dates_to_remember.dart';
@@ -9,11 +11,13 @@ import 'package:bizkit/module/biz_card/application/presentation/widgets/image_sl
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/date_bottom_sheet.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PersonalDetails extends StatelessWidget {
   PersonalDetails(
@@ -26,6 +30,8 @@ class PersonalDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardController = Get.find<CardController>();
+    final personalController = Get.find<PersonalDetailsController>();
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScope = FocusScope.of(context);
@@ -40,10 +46,7 @@ class PersonalDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               adjustHieght(khieght * .04),
-              const Text(
-                'Personal Details',
-                style: TextStyle(fontSize: 20),
-              ),
+              const Text('Personal Details', style: TextStyle(fontSize: 20)),
               adjustHieght(khieght * .02),
               //User info
               Form(
@@ -51,113 +54,106 @@ class PersonalDetails extends StatelessWidget {
                 child: Column(
                   children: [
                     // user personal images
-                    ImagePreviewUnderTextField(
-                      onItemTap: (item, index) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SlidablePhotoGallery(
-                                images: const [], initialIndex: index),
-                          ),
-                        );
-                      },
-                      removeItem: (index) => showCustomConfirmationDialogue(
-                        context: context,
-                        title: 'Remove image?',
-                        buttonText: 'Remove',
-                        onTap: () {
-                          // context.read<UserDataBloc>().add(
-                          //     UserDataEvent.removePersonalImage(
-                          //         id: state
-                          //             .personalImges[
-                          //                 state.personalImges.length -
-                          //                     index -
-                          //                     1]
-                          //             .id!));
+                    GetBuilder<PersonalDetailsController>(builder: (contet) {
+                      return ImagePreviewUnderTextField(
+                        onItemTap: (item, index) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SlidablePhotoGallery(
+                                  images: personalController.personalImages,
+                                  initialIndex: index),
+                            ),
+                          );
                         },
-                      ),
-                      list: const [],
-                      ontap: () {
-                        cameraAndGalleryPickImage(
-                            context: context,
-                            onPressCam: () {
-                              // context.read<UserDataBloc>().add(
-                              //     UserDataEvent.addPersonalImage(
-                              //         cam: true));
-                            },
-                            onPressGallery: () {
-                              // context.read<UserDataBloc>().add(
-                              //     UserDataEvent.addPersonalImage(
-                              //         cam: false));
-                            });
-                      },
-                      child: const CustomTextFormField(
-                        suffixIcon: Icon(Icons.add_a_photo_outlined),
-                        enabled: false,
-                        labelText: 'Personal Imges',
-                      ),
-                    ),
+                        removeItem: (index) => showCustomConfirmationDialogue(
+                          context: context,
+                          title: 'Remove image?',
+                          buttonText: 'Remove',
+                          onTap: () {
+                            personalController.removePersonalImages(index);
+                          },
+                        ),
+                        list: personalController.personalImages,
+                        ontap: () {
+                          cameraAndGalleryPickImage(
+                              tittle: 'Add Personal Images',
+                              context: context,
+                              onPressCam: () {
+                                personalController.personalImagesAdding(true);
+                              },
+                              onPressGallery: () {
+                                personalController.personalImagesAdding(false);
+                              });
+                        },
+                        child: const CustomTextFormField(
+                          suffixIcon: Icon(Icons.add_a_photo_outlined),
+                          enabled: false,
+                          labelText: 'Personal Imges',
+                        ),
+                      );
+                    }),
                     // personal name field
-                    const AutocompleteTextField(
+                    AutocompleteTextField(
                       validate: Validate.notNull,
                       label: 'Name',
-                      //controller: context.read<UserDataBloc>().nameController,
+                      controller: cardController.personalNameController,
                       inputType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
-                      autocompleteItems: ['febin', 'sebin'],
+                      // autocompleteItems: ['febin', 'sebin'],
                     ),
                     // personal phone number
-                    const AutocompleteTextField(
+                    AutocompleteTextField(
                       validate: Validate.phone,
                       maxLength: 10,
                       label: 'Personal Phone Number',
-                      //controller: context.read<UserDataBloc>().phoneController,
+                      controller: cardController.personalPhoneController,
                       inputType: TextInputType.phone,
-                      autocompleteItems: ['38947590', '837598'],
+                      //autocompleteItems: ['38947590', '837598'],
                     ),
                     // personal email
-                    const AutocompleteTextField(
+                    AutocompleteTextField(
                       validate: Validate.email,
                       label: 'Personal Email',
-                      // controller: context.read<UserDataBloc>().emailController,
+                      controller: cardController.personalEmailController,
                       inputType: TextInputType.emailAddress,
-                      autocompleteItems: ['Gmail', 'mail'],
+                      //autocompleteItems: ['Gmail', 'mail'],
                     ),
                     // business category
-                    AutocompleteTextField(
-                        onTap: () =>
-                            FocusManager.instance.primaryFocus?.unfocus(),
-                        enabled: false,
-                        validate: Validate.notNull,
-                        label: 'Business Category',
-                        // controller: context
-                        //     .read<UserDataBloc>()
-                        //     .businessCategoryController,
-                        // inputType: TextInputType.name,
-                        autocompleteItems: const ['Categery', 'Rupees']),
+                    // AutocompleteTextField(
+                    //     onTap: () =>
+                    //         FocusManager.instance.primaryFocus?.unfocus(),
+                    //     enabled: false,
+                    //     validate: Validate.notNull,
+                    //     label: 'Business Category',
+                    //     // controller: context
+                    //     //     .read<UserDataBloc>()
+                    //     //     .businessCategoryController,
+                    //     // inputType: TextInputType.name,
+                    //     autocompleteItems: const ['Categery', 'Rupees']),
                     // designation
-                    const AutocompleteTextField(
-                      showDropdownOnTap: true,
-                      validate: Validate.notNull,
-                      label: 'Designation',
-                      textCapitalization: TextCapitalization.words,
-                      // controller:
-                      //     context.read<UserDataBloc>().designationController,
-                      autocompleteItems: <String>['Desig', 'Over all'],
-                    ),
+                    // const AutocompleteTextField(
+                    //   showDropdownOnTap: true,
+                    //   validate: Validate.notNull,
+                    //   label: 'Designation',
+                    //   textCapitalization: TextCapitalization.words,
+                    //   // controller:
+                    //   //     context.read<UserDataBloc>().designationController,
+                    //   autocompleteItems: <String>['Desig', 'Over all'],
+                    // ),
                   ],
                 ),
               ),
               // home address text field
-              const AutocompleteTextField(
-                autocompleteItems: [],
+              AutocompleteTextField(
+                autocompleteItems: const [],
                 showDropdownOnTap: true,
                 validate: Validate.none,
                 maxLines: 2,
                 label: 'Home address',
                 textCapitalization: TextCapitalization.words,
                 maxLength: 250,
-                //controller: context.read<UserDataBloc>().homeAddress,
+                controller: cardController.personlAddressController,
                 inputType: TextInputType.name,
               ),
               // blood group selection
@@ -167,7 +163,7 @@ class PersonalDetails extends StatelessWidget {
                 autocompleteItems: bloodGroups,
                 showDropdown: true,
                 label: 'Blood Group',
-                //controller: context.read<UserDataBloc>().bloodGroup,
+                controller: cardController.bloodGroupController,
                 inputType: TextInputType.name,
                 onTap: () {
                   FocusScope.of(context).unfocus();
@@ -184,81 +180,79 @@ class PersonalDetails extends StatelessWidget {
                       return DatePickingBottomSheet(
                         year: 100,
                         onPressed: (date) {
-                          // context.read<UserDataBloc>().birthDaycontroller.text =
-                          //     date;
+                          cardController.dOBController.text = date;
                         },
                         datePicker: TextEditingController(),
                       );
                     },
                   );
                 },
-                child: const CustomTextFormField(
+                child: CustomTextFormField(
                   validate: Validate.notNull,
-                  labelText: 'Birthday',
+                  labelText: 'DOB',
                   enabled: false,
-                  //controller: context.read<UserDataBloc>().birthDaycontroller,
+                  controller: cardController.dOBController,
                   inputType: TextInputType.name,
                 ),
               ),
               adjustHieght(10),
               // accolades adding
               ImagePreviewUnderTextField(
-                  ontap: () {
-                    FocusScope.of(context).unfocus();
-                    Navigator.of(context).push(
-                      cardFadePageRoute(const CardScreenAccolodes()),
-                    );
-                  },
-                  onItemTap: (value, index) {
-                    return Navigator.push(
-                        context,
-                        cardFadePageRoute(
-                            const CardScreenAccoladesAddCreate()));
-                  },
-                  removeItem: (index) {
-                    showCustomConfirmationDialogue(
-                        context: context,
-                        title: 'are you sure want to delete ?',
-                        buttonText: 'Delete',
-                        onTap: () {
-                          // context.read<UserDataBloc>().add(
-                          //     UserDataEvent.removeAccolade(
-                          //         id: state.accolades[index].id!));
-                        });
-                  },
-                  list: const [],
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: textFieldFillColr,
-                      boxShadow: [
-                        BoxShadow(
-                          color: textFieldFillColr,
-                          spreadRadius: 0.4,
-                          blurRadius: 4,
-                          offset: Offset(0.4, .2),
+                ontap: () {
+                  FocusScope.of(context).unfocus();
+                  Navigator.of(context).push(
+                    cardFadePageRoute(const CardScreenAccolodes()),
+                  );
+                },
+                onItemTap: (value, index) {
+                  return Navigator.push(context,
+                      cardFadePageRoute(const CardScreenAccoladesAddCreate()));
+                },
+                removeItem: (index) {
+                  showCustomConfirmationDialogue(
+                      context: context,
+                      title: 'are you sure want to delete ?',
+                      buttonText: 'Delete',
+                      onTap: () {
+                        // context.read<UserDataBloc>().add(
+                        //     UserDataEvent.removeAccolade(
+                        //         id: state.accolades[index].id!));
+                      });
+                },
+                list: const [],
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: textFieldFillColr,
+                    boxShadow: [
+                      BoxShadow(
+                        color: textFieldFillColr,
+                        spreadRadius: 0.4,
+                        blurRadius: 4,
+                        offset: Offset(0.4, .2),
+                      ),
+                    ],
+                  ),
+                  padding: const EdgeInsets.only(left: 12, right: 12),
+                  height: 48.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Personal Achivements',
+                        style: custumText(
+                          fontSize: 16,
+                          colr: klightgrey,
                         ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.only(left: 12, right: 12),
-                    height: 48.0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Personal Achivements',
-                          style: custumText(
-                            fontSize: 16,
-                            colr: klightgrey,
-                          ),
-                        ),
-                        const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 16,
-                          color: klightgrey,
-                        ),
-                      ],
-                    ),
-                  )),
+                      ),
+                      const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 16,
+                        color: klightgrey,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               adjustHieght(20),
               // social media handles
               ImagePreviewUnderTextField(
@@ -276,8 +270,8 @@ class PersonalDetails extends StatelessWidget {
                 },
                 ontap: () {
                   FocusScope.of(context).unfocus();
-                  Navigator.of(context).push(
-                      cardFadePageRoute(const SocialMediahandlesScreen()));
+                  Navigator.of(context).push(cardFadePageRoute(
+                      const SocialMediahandlesScreen(fromBusiness: false)));
                 },
                 child: Container(
                   decoration: const BoxDecoration(
@@ -393,13 +387,24 @@ class PersonalDetails extends StatelessWidget {
               ),
               adjustHieght(khieght * .05),
               // continue button
-              CardLastSkipContinueButtons(
-                onTap: () {
-                  // if (personalDeatilFormKey.currentState!.validate()) {
-                  // context
-                  //     .read<UserDataBloc>()
-                  //     .add(UserDataEvent.createPersonalData());
-                  // }
+              Obx(
+                () {
+                  if (cardController.isLoading.value) {
+                    return const LoadingAnimation();
+                  }
+                  return CardLastSkipContinueButtons(
+                    onTap: () {
+                      if (personalDeatilFormKey.currentState!.validate()) {
+                        cardController.createPersonalDetails(
+                            bizcardId:
+                                cardController.bizcardDetail.value.bizcardId ??
+                                    '',
+                            personalDetailsId: cardController
+                                    .bizcardDetail.value.personalDetails?.id ??
+                                '');
+                      }
+                    },
+                  );
                 },
               ),
               adjustHieght(khieght * .02),

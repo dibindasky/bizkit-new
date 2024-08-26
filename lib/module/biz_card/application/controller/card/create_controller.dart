@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/archived_and_deleted_cards_responce/archived_or_deleted_card/archived_or_deleted_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/card_archive_model/card_archive_model.dart';
@@ -10,7 +11,11 @@ import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/car
 import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/personal_details.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/bizcard.dart';
-import 'package:bizkit/module/biz_card/domain/repository/service/card_repo.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/achievement/personal_achievement_request_model/personal_achievement_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/reminder/personal_dayes_to_reminder_model/personal_dayes_to_reminder_model.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/personal_details_request_model/personal_details_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,7 +33,6 @@ class CardController extends GetxController {
 
   final CardRepo cardRepo = CardService();
   RxList<Bizcard> bizcards = <Bizcard>[].obs;
-  RxList<Bizcard> bizcardsDetails = <Bizcard>[].obs;
 
   // Loading
   RxBool isLoading = false.obs;
@@ -40,6 +44,7 @@ class CardController extends GetxController {
   RxList<ArchivedOrDeletedCard> archivedCards = <ArchivedOrDeletedCard>[].obs;
   RxList<ArchivedOrDeletedCard> deletedCards = <ArchivedOrDeletedCard>[].obs;
 
+  // Card Profile Creation Text Controllers
   final mat.TextEditingController nameController = mat.TextEditingController();
   final mat.TextEditingController phoneController = mat.TextEditingController();
   final mat.TextEditingController emailController = mat.TextEditingController();
@@ -48,6 +53,26 @@ class CardController extends GetxController {
   final mat.TextEditingController designationController =
       mat.TextEditingController();
   final mat.TextEditingController businessCategeryController =
+      mat.TextEditingController();
+
+  // Personal Details Controllers
+  RxList<String> personalImages = <String>[].obs;
+  Rx<PersonalAchievementRequestModel> personalAcheivementModel =
+      PersonalAchievementRequestModel().obs;
+  Rx<PersonalDetailsRequestModel> personalSocialMediaMOdel =
+      PersonalDetailsRequestModel().obs;
+  Rx<PersonalDayesToReminderModel> personalDatesToReminder =
+      PersonalDayesToReminderModel().obs;
+  final mat.TextEditingController personalNameController =
+      mat.TextEditingController();
+  final mat.TextEditingController personalPhoneController =
+      mat.TextEditingController();
+  final mat.TextEditingController personalEmailController =
+      mat.TextEditingController();
+  final mat.TextEditingController bloodGroupController =
+      mat.TextEditingController();
+  final mat.TextEditingController dOBController = mat.TextEditingController();
+  final mat.TextEditingController personlAddressController =
       mat.TextEditingController();
 
   void createCard(BuildContext context) async {
@@ -170,6 +195,49 @@ class CardController extends GetxController {
         deletedCards.assignAll(r.disabledCards ?? []);
         update();
         isLoading.value = false;
+      },
+    );
+  }
+
+  void getPersonalDetails(CardDetailModel cardDetail) {
+    personalEmailController.text = cardDetail.personalDetails?.email ?? '';
+    personalNameController.text = cardDetail.personalDetails?.name ?? '';
+    personalPhoneController.text =
+        cardDetail.personalDetails?.phone?.first ?? '';
+  }
+
+  void createPersonalDetails(
+      {required String bizcardId, required String personalDetailsId}) async {
+    if (personalNameController.text.isEmpty) {
+      Get.snackbar('Fail', 'Please Add Name');
+      return;
+    }
+    final personalController = Get.find<PersonalDetailsController>();
+
+    PersonalDetailsRequestModel personalDetailsRequestModel =
+        PersonalDetailsRequestModel(
+      personalDetailsId: personalDetailsId,
+      address: personlAddressController.text,
+      bizcardId: bizcardId,
+      bloodGroup: bloodGroupController.text,
+      dob: dOBController.text,
+      email: personalEmailController.text,
+      images: personalController.personalImages,
+      name: personalNameController.text,
+      phone: [personalPhoneController.text],
+    );
+
+    isLoading.value = true;
+    final data = await cardRepo.personalDetailsAdding(
+        personalDetailsRequestModel: personalDetailsRequestModel);
+    data.fold(
+      (l) => null,
+      (r) {
+        isLoading.value = false;
+        Get.snackbar('Sucess', 'Successfully Added Personal Details',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: neonShade,
+            duration: const Duration(milliseconds: 300));
       },
     );
   }

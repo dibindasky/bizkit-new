@@ -7,6 +7,7 @@ import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/car
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/create_card_responce/create_card_responce.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/get_all_cards.dart';
+import 'package:bizkit/module/biz_card/domain/modell/cards/personal_details_request_model/personal_details_request_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class CardRepo {
@@ -28,6 +29,9 @@ abstract class CardRepo {
   // Delete a Card
   Future<Either<Failure, SuccessResponseModel>> deleteTheCard(
       {required CardDeleteModel cardDelete});
+
+  Future<Either<Failure, SuccessResponseModel>> personalDetailsAdding(
+      {required PersonalDetailsRequestModel personalDetailsRequestModel});
 
   // fetch all archived & deleted cards
   Future<Either<Failure, ArchivedAndDeletedCardsResponce>>

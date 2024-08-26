@@ -1,7 +1,9 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/controller/home/home_controller.dart';
 import 'package:bizkit/module/attendence/application/controller/navabar/navabar_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/prompt/prompt_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
@@ -45,6 +47,8 @@ class ModuleController extends GetxController {
     Get.lazyPut(() => CardController(), fenix: true);
     Get.lazyPut(() => NavbarController());
     Get.lazyPut(() => PromtController());
+    Get.lazyPut(() => PersonalDetailsController());
+    Get.lazyPut(() => BusineesDetailsController());
     Get.lazyPut(() => CardTextExtractionController());
     Get.lazyPut(() => VisitingCardController());
   }

@@ -16,7 +16,9 @@ import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
+import 'package:bizkit/utils/time.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class PersonalDetails extends StatelessWidget {
@@ -119,28 +121,6 @@ class PersonalDetails extends StatelessWidget {
                       inputType: TextInputType.emailAddress,
                       //autocompleteItems: ['Gmail', 'mail'],
                     ),
-                    // business category
-                    // AutocompleteTextField(
-                    //     onTap: () =>
-                    //         FocusManager.instance.primaryFocus?.unfocus(),
-                    //     enabled: false,
-                    //     validate: Validate.notNull,
-                    //     label: 'Business Category',
-                    //     // controller: context
-                    //     //     .read<UserDataBloc>()
-                    //     //     .businessCategoryController,
-                    //     // inputType: TextInputType.name,
-                    //     autocompleteItems: const ['Categery', 'Rupees']),
-                    // designation
-                    // const AutocompleteTextField(
-                    //   showDropdownOnTap: true,
-                    //   validate: Validate.notNull,
-                    //   label: 'Designation',
-                    //   textCapitalization: TextCapitalization.words,
-                    //   // controller:
-                    //   //     context.read<UserDataBloc>().designationController,
-                    //   autocompleteItems: <String>['Desig', 'Over all'],
-                    // ),
                   ],
                 ),
               ),
@@ -200,13 +180,14 @@ class PersonalDetails extends StatelessWidget {
               ImagePreviewUnderTextField(
                 ontap: () {
                   FocusScope.of(context).unfocus();
-                  Navigator.of(context).push(
-                    cardFadePageRoute(const CardScreenAccolodes()),
-                  );
+                  Navigator.of(context).push(cardFadePageRoute(
+                      const CardScreenAchievements(fromBusiness: false)));
                 },
                 onItemTap: (value, index) {
-                  return Navigator.push(context,
-                      cardFadePageRoute(const CardScreenAccoladesAddCreate()));
+                  return Navigator.push(
+                      context,
+                      cardFadePageRoute(const CardScreenAchievementsAddCreate(
+                          fromBusiness: false)));
                 },
                 removeItem: (index) {
                   showCustomConfirmationDialogue(
@@ -219,7 +200,12 @@ class PersonalDetails extends StatelessWidget {
                         //         id: state.accolades[index].id!));
                       });
                 },
-                list: const [],
+                list: cardController
+                    .bizcardDetail.value.personalDetails?.personalAchievements
+                    ?.map((e) => (e.images?.isEmpty) ?? true
+                        ? ''
+                        : e.images?[0].image ?? '')
+                    .toList(),
                 child: Container(
                   decoration: const BoxDecoration(
                     color: textFieldFillColr,
@@ -255,133 +241,146 @@ class PersonalDetails extends StatelessWidget {
               ),
               adjustHieght(20),
               // social media handles
-              ImagePreviewUnderTextField(
-                listString: const [],
-                removeItem: (index) {
-                  showCustomConfirmationDialogue(
-                      context: context,
-                      title: 'are you sure want to delete ?',
-                      buttonText: 'Delete',
-                      onTap: () {
-                        // context.read<UserDataBloc>().add(
-                        //     UserDataEvent.removeSocialMedia(
-                        //         id: state.socialMedias[index].id!));
-                      });
-                },
-                ontap: () {
-                  FocusScope.of(context).unfocus();
-                  Navigator.of(context).push(cardFadePageRoute(
-                      const SocialMediahandlesScreen(fromBusiness: false)));
-                },
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: textFieldFillColr,
-                    boxShadow: [
-                      BoxShadow(
-                        color: textFieldFillColr,
-                        spreadRadius: 0.4,
-                        blurRadius: 4,
-                        offset: Offset(0.4, .2),
-                      ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.only(left: 12, right: 12),
-                  height: 48.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Personal Social Media Handles',
-                        style: custumText(
-                          fontSize: 16,
-                          colr: klightgrey,
+              Obx(
+                () => ImagePreviewUnderTextField(
+                  listString: cardController.bizcardDetail.value.personalDetails
+                          ?.personalSocialMedia
+                          ?.map((e) => e.label ?? '')
+                          .toList() ??
+                      [],
+                  removeItem: (index) {
+                    showCustomConfirmationDialogue(
+                        context: context,
+                        title: 'Are you sure want to delete ?',
+                        buttonText: 'Delete',
+                        onTap: () {
+                          Get.find<PersonalDetailsController>()
+                              .personalDatesToReminderDelete(index);
+                        });
+                  },
+                  ontap: () {
+                    FocusScope.of(context).unfocus();
+                    Navigator.of(context).push(cardFadePageRoute(
+                        const SocialMediahandlesScreen(fromBusiness: false)));
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: textFieldFillColr,
+                      boxShadow: [
+                        BoxShadow(
+                          color: textFieldFillColr,
+                          spreadRadius: 0.4,
+                          blurRadius: 4,
+                          offset: Offset(0.4, .2),
                         ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 16,
-                        color: klightgrey,
-                      )
-                    ],
+                      ],
+                    ),
+                    padding: const EdgeInsets.only(left: 12, right: 12),
+                    height: 48.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Personal Social Media Handles',
+                          style: custumText(
+                            fontSize: 16,
+                            colr: klightgrey,
+                          ),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 16,
+                          color: klightgrey,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
               adjustHieght(20),
               // dates to remember
-              ImagePreviewUnderTextField(
-                listString: const [],
-                removeItem: (index) {
-                  showCustomConfirmationDialogue(
-                      context: context,
-                      title: 'are you sure want to delete ?',
-                      buttonText: 'Delete',
-                      onTap: () {
-                        // context.read<UserDataBloc>().add(
-                        //     UserDataEvent.removeDateToRemember(
-                        //         id: state.datesToRemember[index].id!));
-                      });
-                },
-                onItemTap: (value, index) {
-                  // final data = state.datesToRemember[index];
-                  showDialog(
-                      context: context,
-                      builder: (context) => Dialog(
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(20)),
-                                  border: Border.all(color: neonShade)),
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Text(
-                                      'Dates To Remember',
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                    adjustHieght(10),
-                                    const Text('Date :'),
-                                    adjustHieght(5),
-                                    const Text('Lebal')
-                                  ]),
-                            ),
-                          ));
-                },
-                ontap: () {
-                  FocusScope.of(context).unfocus();
-                  Navigator.of(context)
-                      .push(cardFadePageRoute(const DatesToRememberScreen()));
-                },
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: textFieldFillColr,
-                    boxShadow: [
-                      BoxShadow(
-                        color: textFieldFillColr,
-                        spreadRadius: 0.4,
-                        blurRadius: 4,
-                        offset: Offset(0.4, .2),
-                      ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.only(left: 12, right: 12),
-                  height: 48.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Dates To Remember',
-                        style: custumText(
-                          fontSize: 16,
-                          colr: klightgrey,
+              Obx(
+                () => ImagePreviewUnderTextField(
+                  listString: cardController
+                          .bizcardDetail.value.personalDetails?.datesToRemember
+                          ?.map((e) => e.date ?? '')
+                          .toList() ??
+                      [],
+                  removeItem: (index) {
+                    showCustomConfirmationDialogue(
+                        context: context,
+                        title: 'are you sure want to delete ?',
+                        buttonText: 'Delete',
+                        onTap: () {
+                          personalController
+                              .personalDatesToReminderDelete(index);
+                        });
+                  },
+                  onItemTap: (value, index) {
+                    final data = cardController.bizcardDetail.value
+                        .personalDetails?.datesToRemember?[index];
+                    showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20)),
+                                    border: Border.all(color: neonShade)),
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        'Dates To Remember',
+                                        style: TextStyle(fontSize: 14.sp),
+                                      ),
+                                      adjustHieght(10),
+                                      Text(
+                                          "Date : ${getDateByDayMonthYear(DateTime.parse(cardController.bizcardDetail.value.personalDetails?.datesToRemember?[index].date ?? ''))}"),
+                                      adjustHieght(5),
+                                      Text(
+                                          'Description : ${data?.description ?? ''}')
+                                    ]),
+                              ),
+                            ));
+                  },
+                  ontap: () {
+                    FocusScope.of(context).unfocus();
+                    Navigator.of(context)
+                        .push(cardFadePageRoute(const DatesToRememberScreen()));
+                  },
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: textFieldFillColr,
+                      boxShadow: [
+                        BoxShadow(
+                          color: textFieldFillColr,
+                          spreadRadius: 0.4,
+                          blurRadius: 4,
+                          offset: Offset(0.4, .2),
                         ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 16,
-                        color: klightgrey,
-                      )
-                    ],
+                      ],
+                    ),
+                    padding: const EdgeInsets.only(left: 12, right: 12),
+                    height: 48.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Dates To Remember',
+                          style: custumText(
+                            fontSize: 16,
+                            colr: klightgrey,
+                          ),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 16,
+                          color: klightgrey,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

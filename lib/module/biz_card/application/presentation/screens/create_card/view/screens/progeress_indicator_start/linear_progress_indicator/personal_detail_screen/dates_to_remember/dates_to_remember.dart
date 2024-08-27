@@ -1,10 +1,17 @@
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/date_bottom_sheet.dart';
 import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
+import 'package:bizkit/utils/time.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class DatesToRememberScreen extends StatefulWidget {
   const DatesToRememberScreen({super.key});
@@ -16,11 +23,10 @@ class DatesToRememberScreen extends StatefulWidget {
 }
 
 class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
-  final dateController = TextEditingController();
-  final labelController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    final personalController = Get.find<PersonalDetailsController>();
+    final cardController = Get.find<CardController>();
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScopeNode = FocusScope.of(context);
@@ -31,10 +37,7 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              size: 18,
-            ),
+            icon: const Icon(Icons.arrow_back_ios, size: 18),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -45,18 +48,6 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
             'Date to remember',
             style: textHeadStyle1,
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.check,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              color: kwhite,
-            ),
-            adjustWidth(20)
-          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -64,9 +55,9 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                adjustHieght(40),
+                kHeight20,
                 const Text('Select Date'),
-                adjustHieght(20),
+                kHeight10,
                 InkWell(
                   onTap: () => showModalBottomSheet(
                     context: context,
@@ -77,10 +68,12 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                         last: 500,
                         onPressed: (date) {
                           setState(() {
-                            dateController.text = date;
+                            personalController
+                                .personalDatesToReminderDate.text = date;
                           });
                         },
-                        datePicker: dateController,
+                        datePicker:
+                            personalController.personalDatesToReminderDate,
                       );
                     },
                   ),
@@ -96,11 +89,14 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            dateController.text.isEmpty
+                            personalController
+                                    .personalDatesToReminderDate.text.isEmpty
                                 ? 'Choose Date'
-                                : dateController.text,
-                            style: dateController.text.isEmpty
-                                ? const TextStyle(color: kwhite)
+                                : personalController
+                                    .personalDatesToReminderDate.text,
+                            style: personalController
+                                    .personalDatesToReminderDate.text.isEmpty
+                                ? const TextStyle(color: klightGrey)
                                 : const TextStyle(color: kwhite),
                           ),
                         ),
@@ -112,87 +108,121 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                     ),
                   ),
                 ),
-                adjustHieght(20),
+                kHeight20,
                 const Text('Message  *'),
+                kHeight10,
                 CustomTextFormField(
                   textCapitalization: TextCapitalization.sentences,
                   maxlegth: 250,
                   maxLines: 7,
                   labelText: 'Write your message here',
-                  controller: labelController,
+                  controller: personalController.personalDatesToReminderMessage,
                 ),
-                adjustHieght(40),
+                kHeight40,
                 Center(
-                  child: EventButton(
-                    text: 'Add',
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                      if (dateController.text.isEmpty ||
-                          labelController.text.isEmpty) {
-                        showSnackbar(context,
-                            message: dateController.text.isEmpty
-                                ? 'choose date'
-                                : 'add message',
-                            backgroundColor: kred);
-                        return;
+                  child: Obx(
+                    () {
+                      if (personalController.isLoading.value) {
+                        return const LoadingAnimation();
                       }
-                      // final DatesToRemember model = DatesToRemember(
-                      //     cardId: widget.cardId,
-                      //     label: labelController.text,
-                      //     date: dateController.text);
-                      // context.read<UserDataBloc>().add(
-                      //     UserDataEvent.addDateToRemember(
-                      //         datesToRemember: model));
-                      labelController.text = '';
-                      dateController.text = '';
+                      return EventButton(
+                        text: 'Add',
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          if (personalController
+                                  .personalDatesToReminderDate.text.isEmpty ||
+                              personalController.personalDatesToReminderMessage
+                                  .text.isEmpty) {
+                            showSnackbar(context,
+                                message: personalController
+                                        .personalDatesToReminderDate
+                                        .text
+                                        .isEmpty
+                                    ? 'Choose Date For Reminder'
+                                    : 'Enter Message',
+                                backgroundColor: kred);
+                            return;
+                          }
+                          personalController.personalDatesToRemiderAdding();
+                        },
+                      );
                     },
                   ),
                 ),
-                adjustHieght(40),
-                Wrap(
-                  children: List.generate(
-                    3,
-                    (index) => Stack(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(8),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 8),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: neonShade),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-                          child: const Text('Date'),
-                        ),
-                        Positioned(
-                          right: 0,
-                          top: 0,
-                          child: InkWell(
-                            onTap: () {
-                              showCustomConfirmationDialogue(
-                                  context: context,
-                                  title: 'are you sure want to delete ?',
-                                  buttonText: 'Delete',
-                                  onTap: () {
-                                    // context.read<UserDataBloc>().add(
-                                    //     UserDataEvent.removeDateToRemember(
-                                    //         id: state.datesToRemember[index]
-                                    //             .id!));
-                                  });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: const ColoredBox(
-                                color: neonShade,
-                                child: Padding(
-                                  padding: EdgeInsets.all(5),
-                                  child: Icon(Icons.close, size: 12),
-                                ),
+                kHeight40,
+                Obx(
+                  () => Wrap(
+                    children: List.generate(
+                      (cardController.bizcardDetail.value.personalDetails
+                              ?.datesToRemember?.length ??
+                          0),
+                      (index) {
+                        if (personalController.deleteLoading.value) {
+                          return const LoadingAnimation(width: 0.1);
+                        }
+                        return Stack(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              margin: const EdgeInsets.all(8),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 8),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: neonShade),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10))),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(cardController
+                                          .bizcardDetail
+                                          .value
+                                          .personalDetails
+                                          ?.datesToRemember?[index]
+                                          .description ??
+                                      ''),
+                                  Text(getDateByDayMonthYear(DateTime.parse(
+                                      cardController
+                                              .bizcardDetail
+                                              .value
+                                              .personalDetails
+                                              ?.datesToRemember?[index]
+                                              .date ??
+                                          ''))),
+                                ],
                               ),
                             ),
-                          ),
-                        )
-                      ],
+                            Positioned(
+                              right: 0,
+                              top: 0,
+                              child: InkWell(
+                                onTap: () {
+                                  showCustomConfirmationDialogue(
+                                      context: context,
+                                      title:
+                                          'Are you sure want to delete this Date to Reminder?',
+                                      buttonText: 'Delete',
+                                      onTap: () {
+                                        personalController
+                                            .personalDatesToReminderDelete(
+                                                index);
+                                      });
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: ColoredBox(
+                                    color: neonShade,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5),
+                                      child: Icon(Icons.close, size: 12.w),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      },
                     ),
                   ),
                 )

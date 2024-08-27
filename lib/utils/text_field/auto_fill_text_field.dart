@@ -23,11 +23,13 @@ class AutocompleteTextField extends StatefulWidget {
   final VoidCallback? onTap;
   final Function(String value)? onDropDownSelection;
   final FocusNode? focusNode;
+  final UnderlineInputBorder? border;
   final List<String>? autocompleteItems;
   final Validate? validate;
   final TextCapitalization textCapitalization;
 
   const AutocompleteTextField({
+    this.border,
     Key? key,
     this.doAutoFill = true,
     this.showDropdown = false,
@@ -185,7 +187,6 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                           ? IconButton(
                               onPressed: () {
                                 setState(() {
-                                  // myFocusNode.requestFocus();
                                   isDropdownVisible = !isDropdownVisible;
                                 });
                               },
@@ -205,10 +206,11 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                   filled: true,
                   labelText: widget.label,
                   labelStyle: custumText(colr: widget.hintColor ?? klightgrey),
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(7),
-                  ),
+                  border: widget.border ??
+                      UnderlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(7),
+                      ),
                 ),
                 validator: (value) {
                   // if value exist in textForm field then only this condtition true

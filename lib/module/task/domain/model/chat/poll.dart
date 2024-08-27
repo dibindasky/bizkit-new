@@ -34,10 +34,49 @@ class Poll {
     this.multipleAnswer,
     this.resonRequired,
     this.isLoadMore = false,
-    this.readByAll=false,
+    this.readByAll = false,
   });
 
-  // Convert a Poll instance to a Map
+  Poll copyWith({
+    bool? sender,
+    String? pollId,
+    String? currentUid,
+    String? messageId,
+    String? pollQuestion,
+    List<PollAnswer>? pollAnswers,
+    String? timestamp,
+    String? userName,
+    String? profilePicture,
+    String? userId,
+    List<String>? readBy,
+    bool? multipleAnswer,
+    bool? anonymousVote,
+    bool? resonRequired,
+    String? activeUntil,
+    bool? isLoadMore,
+    bool? readByAll,
+  }) {
+    return Poll(
+      sender: sender ?? this.sender,
+      pollId: pollId ?? this.pollId,
+      currentUid: currentUid ?? this.currentUid,
+      messageId: messageId ?? this.messageId,
+      pollQuestion: pollQuestion ?? this.pollQuestion,
+      pollAnswers: pollAnswers ?? this.pollAnswers,
+      timestamp: timestamp ?? this.timestamp,
+      userName: userName ?? this.userName,
+      profilePicture: profilePicture ?? this.profilePicture,
+      userId: userId ?? this.userId,
+      readBy: readBy ?? this.readBy,
+      multipleAnswer: multipleAnswer ?? this.multipleAnswer,
+      anonymousVote: anonymousVote ?? this.anonymousVote,
+      resonRequired: resonRequired ?? this.resonRequired,
+      activeUntil: activeUntil ?? this.activeUntil,
+      isLoadMore: isLoadMore ?? this.isLoadMore,
+      readByAll: readByAll ?? this.readByAll,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'sender': sender,
@@ -60,7 +99,6 @@ class Poll {
     };
   }
 
-  // Create a Poll instance from a Map
   factory Poll.fromJson(Map<String, dynamic> json, [String? uid]) {
     return Poll(
       sender: (json['user_id'] as String?) == uid,
@@ -106,7 +144,20 @@ class PollAnswer {
     this.supporters,
   });
 
-  // Convert a PollAnswer instance to a Map
+  PollAnswer copyWith({
+    String? answerId,
+    String? answerText,
+    int? answerVotes,
+    List<Supporter>? supporters,
+  }) {
+    return PollAnswer(
+      answerId: answerId ?? this.answerId,
+      answerText: answerText ?? this.answerText,
+      answerVotes: answerVotes ?? this.answerVotes,
+      supporters: supporters ?? this.supporters,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'answer_id': answerId,
@@ -116,7 +167,6 @@ class PollAnswer {
     };
   }
 
-  // Create a PollAnswer instance from a Map
   factory PollAnswer.fromJson(Map<String, dynamic> json, [String? uid]) {
     return PollAnswer(
       answerId: json['answer_id'] as String?,
@@ -147,7 +197,20 @@ class Supporter {
     this.reason,
   });
 
-  // Convert a Supporter instance to a Map
+  Supporter copyWith({
+    String? userId,
+    String? name,
+    String? profilePicture,
+    String? reason,
+  }) {
+    return Supporter(
+      userId: userId ?? this.userId,
+      name: name ?? this.name,
+      profilePicture: profilePicture ?? this.profilePicture,
+      reason: reason ?? this.reason,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'user_id': userId,
@@ -157,7 +220,6 @@ class Supporter {
     };
   }
 
-  // Create a Supporter instance from a Map
   factory Supporter.fromJson(Map<String, dynamic> json) {
     return Supporter(
       userId: json['user_id'] as String?,

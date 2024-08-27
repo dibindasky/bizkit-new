@@ -22,13 +22,17 @@ class PollContainerChat extends StatefulWidget {
 }
 
 class _PollContainerChatState extends State<PollContainerChat> {
+  late Poll message;
   List<String> selectedOption = [];
   String lastTapId = '';
   int totalVotes = 0;
   bool showTextField = false;
   bool completed = false;
   bool sender = false;
+  int? time;
+  bool expired = false;
   final TextEditingController reasonController = TextEditingController();
+  final controller = Get.find<ChatController>();
 
   @override
   void initState() {
@@ -36,36 +40,60 @@ class _PollContainerChatState extends State<PollContainerChat> {
     super.initState();
   }
 
+  void markAnswer([String? reason]) {
+    Map<String, String> reasons = {};
+    for (var e in selectedOption) {
+      reasons[e] = reason ?? '';
+    }
+    // message=widget.message.copyWith(pollAnswers:(widget.message.pollAnswers??[]) );
+    controller.addVoteforPol(
+      votePoll: VotePoll(
+        answerIds: selectedOption,
+        pollId: message.pollId,
+        reasons: reasons,
+      ),
+    );
+  }
+
+  timerCheck() async {
+    await Future.delayed(Duration(seconds: time ?? 0));
+    setState(() {
+      time = -1;
+      expired = true;
+    });
+  }
+
   initilize() {
-    sender = widget.message.sender;
+    message = widget.message;
+    sender = message.sender;
     selectedOption.clear();
     totalVotes = 0;
-    print('answer list :=> ${widget.message.pollAnswers?.length}');
-    print(widget.message.toString());
-    if (widget.message.pollAnswers != null) {
-      for (var x in widget.message.pollAnswers!) {
-        print('answer list :-> ${x.answerId} => ${x.supporters?.length}');
+    if (message.pollAnswers != null) {
+      for (var x in message.pollAnswers!) {
         if (x.supporters != null) {
           for (var y in x.supporters!) {
-            if (y.userId == widget.message.currentUid) {
+            if (y.userId == message.currentUid) {
               completed = true;
               selectedOption.add(x.answerId ?? '');
-              print('answered option id : ${x.answerId}');
             }
           }
         }
         totalVotes += x.answerVotes ?? 0;
       }
     }
-    print(selectedOption);
-    // Timer(const Duration(seconds: 1), () => setState(() {}));
+    time = DateTimeFormater.countdownInSeconds(message.activeUntil ?? '');
+    if (message.activeUntil == '' || message.activeUntil == 'Alwase') {
+      expired = false;
+    } else if (time != null && time! > 0) {
+      timerCheck();
+    } else {
+      expired = true;
+    }
   }
 
   @override
   void didUpdateWidget(covariant PollContainerChat oldWidget) {
-    print('didUpdateWidget 1');
     if (oldWidget.message != widget.message) {
-      print('didUpdateWidget');
       initilize();
     }
     super.didUpdateWidget(oldWidget);
@@ -73,7 +101,6 @@ class _PollContainerChatState extends State<PollContainerChat> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<ChatController>();
     return Padding(
       padding: EdgeInsets.only(
           top: 5.0.w,
@@ -100,90 +127,122 @@ class _PollContainerChatState extends State<PollContainerChat> {
             children: [
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(10.w),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
                 decoration: BoxDecoration(
                     color: kblack.withOpacity(0.1),
                     borderRadius: kBorderRadius5),
-                child: Text(widget.message.pollQuestion ?? '',
-                    style: textHeadStyle1.copyWith(color: kwhite)),
+                child: Text(message.pollQuestion ?? '',
+                    style: textStyle1.copyWith(color: kwhite)),
               ),
               adjustHieght(2.h),
               ListView(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: List.generate(
-                  widget.message.pollAnswers?.length ?? 0,
+                  message.pollAnswers?.length ?? 0,
                   (index) {
-                    final answer = widget.message.pollAnswers?[index];
+                    final answer = message.pollAnswers?[index];
+                    final selected =
+                        selectedOption.contains(answer?.answerId ?? '');
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            leading: Checkbox(
-                              value: selectedOption
-                                  .contains(answer?.answerId ?? ''),
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  if (value == true) {
-                                    selectedOption.add(answer?.answerId ?? '');
-                                  } else {
-                                    selectedOption
-                                        .remove(answer?.answerId ?? '');
-                                  }
-                                  if (!(widget.message.resonRequired ?? true) &&
-                                      !(widget.message.multipleAnswer ??
-                                          true)) {
-                                    controller.addVoteforPol(
-                                      votePoll: VotePoll(
-                                        answerIds: [answer?.answerId ?? ''],
-                                        pollId: widget.message.pollId,
-                                        reasons: {answer?.answerId ?? '': ''},
+                          child: Container(
+                            padding: EdgeInsets.zero,
+                            margin: const EdgeInsets.symmetric(vertical: 3),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // Checkbox
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: kwhite, width: 2.0),
+                                    borderRadius: BorderRadius.circular(
+                                        500.0), // To match the round checkbox
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      if (!expired) {
+                                        setState(() {
+                                          if (message.multipleAnswer ?? false) {
+                                            if (selectedOption.contains(
+                                                answer?.answerId ?? '')) {
+                                              selectedOption.remove(
+                                                  answer?.answerId ?? '');
+                                            } else {
+                                              selectedOption
+                                                  .add(answer?.answerId ?? '');
+                                            }
+                                          } else {
+                                            if (selectedOption.contains(
+                                                answer?.answerId ?? '')) {
+                                              selectedOption = [];
+                                            } else {
+                                              selectedOption = [
+                                                answer?.answerId ?? ''
+                                              ];
+                                            }
+                                          }
+                                          if (message.multipleAnswer ?? false) {
+                                            markAnswer();
+                                          } else if (message.resonRequired ??
+                                              false) {
+                                            lastTapId = answer?.answerId ?? '';
+                                            showTextField = true;
+                                          } else {
+                                            markAnswer();
+                                          }
+                                        });
+                                      }
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: selectedOption.contains(
+                                                answer?.answerId ?? '')
+                                            ? kwhite
+                                            : Colors.transparent,
+                                        borderRadius: BorderRadius.circular(
+                                            50), // Matching rounded corners
                                       ),
-                                    );
-                                  } else if (!(widget.message.multipleAnswer ??
-                                      true)) {
-                                    lastTapId = answer?.answerId ?? '';
-                                    showTextField = true;
-                                  }
-                                });
-                              },
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    50), // Makes the checkbox round
-                              ),
-                              side: MaterialStateBorderSide.resolveWith(
-                                (states) => const BorderSide(
-                                  color:
-                                      kwhite, // Border color when not selected
-                                  width: 2.0,
+                                      padding: EdgeInsets.all(selected
+                                          ? 0
+                                          : 8.0), // Adjust padding to center the checkmark
+                                      child: selected
+                                          ? const Icon(
+                                              Icons.check,
+                                              color: kblack,
+                                              size: 15,
+                                            )
+                                          : null, // No icon if not selected
+                                    ),
+                                  ),
+                                ),kWidth10,
+                                Expanded(
+                                  child: Container(
+                                    padding: completed
+                                        ? EdgeInsets.symmetric(
+                                            vertical: 2.h, horizontal: 8.w)
+                                        : null,
+                                    margin: EdgeInsets.only(
+                                        right: completed ? 5.w : 0),
+                                    decoration: completed
+                                        ? BoxDecoration(
+                                            color: sender
+                                                ? kblack.withOpacity(0.1)
+                                                : kwhite.withOpacity(0.5),
+                                            borderRadius: kBorderRadius5,
+                                          )
+                                        : null,
+                                    child: Text(
+                                      answer?.answerText ?? '',
+                                      style: textThinStyle1.copyWith(
+                                          color: kwhite),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              checkColor:
-                                  kblack, // Set check mark color to black
-                              activeColor:
-                                  kwhite, // Set background color to white when selected
-                            ),
-                            title: Container(
-                              padding: completed
-                                  ? EdgeInsets.symmetric(
-                                      vertical: 5.h, horizontal: 10.w)
-                                  : null,
-                              margin:
-                                  EdgeInsets.only(right: completed ? 5.w : 0),
-                              decoration: completed
-                                  ? BoxDecoration(
-                                      color: sender
-                                          ? kblack.withOpacity(0.1)
-                                          : kwhite.withOpacity(0.5),
-                                      borderRadius: kBorderRadius5,
-                                    )
-                                  : null,
-                              child: Text(
-                                answer?.answerText ?? '',
-                                style: textStyle1.copyWith(color: kwhite),
-                              ),
+                              ],
                             ),
                           ),
                         ),
@@ -192,7 +251,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                 child: FittedBox(
                                   child: Text(
                                     "${answer?.answerVotes ?? 0}",
-                                    style: textHeadStyle1,
+                                    style: textStyle1,
                                   ),
                                 ),
                               )
@@ -203,25 +262,23 @@ class _PollContainerChatState extends State<PollContainerChat> {
                 ),
               ),
               (completed || selectedOption.isNotEmpty) && !showTextField
-                  ? (widget.message.anonymousVote ?? false)
-                      ? kempty
-                      : Align(
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.pollDetail.value = widget.message;
-                              GoRouter.of(context).pushNamed(
-                                Routes.taskChatPollDetail,
-                              );
-                            },
-                            child: Text(
-                              'SEE VOTES',
-                              style: textThinStyle1.copyWith(
-                                color: kwhite.withOpacity(0.8),
-                                fontSize: 12.sp,
-                              ),
-                            ),
+                  ? Align(
+                      child: GestureDetector(
+                        onTap: () {
+                          controller.pollDetail.value = message;
+                          GoRouter.of(context).pushNamed(
+                            Routes.taskChatPollDetail,
+                          );
+                        },
+                        child: Text(
+                          'SEE VOTES',
+                          style: textThinStyle1.copyWith(
+                            color: kwhite.withOpacity(0.8),
+                            fontSize: 12.sp,
                           ),
-                        )
+                        ),
+                      ),
+                    )
                   : !showTextField && !completed
                       ? kempty
                       : Container(
@@ -241,15 +298,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                               suffix: GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    controller.addVoteforPol(
-                                      votePoll: VotePoll(
-                                        answerIds: [lastTapId],
-                                        pollId: widget.message.pollId,
-                                        reasons: {
-                                          lastTapId: reasonController.text
-                                        },
-                                      ),
-                                    );
+                                    markAnswer(reasonController.text);
                                     completed = true;
                                     showTextField = false;
                                   });
@@ -278,20 +327,17 @@ class _PollContainerChatState extends State<PollContainerChat> {
               Row(
                 children: [
                   Text(
-                    '$totalVotes votes •',
+                    '$totalVotes votes • ${expired ? 'Expired' : 'Active'}',
                     style: textThinStyle1.copyWith(fontSize: 10.sp),
                   ),
                   const Spacer(),
                   Text(
-                    DateTimeFormater.formatTimeAMPM(
-                        widget.message.timestamp ?? ''),
+                    DateTimeFormater.formatTimeAMPM(message.timestamp ?? ''),
                     style: textThinStyle1.copyWith(
                         color: sender ? kgrey : klightgrey, fontSize: 8.sp),
                   ),
                   sender ? kWidth10 : kempty,
-                  sender
-                      ? MessageReadMarker(read: widget.message.readByAll)
-                      : kempty
+                  sender ? MessageReadMarker(read: message.readByAll) : kempty
                 ],
               ),
             ],

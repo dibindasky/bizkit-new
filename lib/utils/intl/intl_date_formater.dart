@@ -103,6 +103,18 @@ class DateTimeFormater {
     return DateFormat('yyyy-MM-dd').format(dateTime);
   }
 
+  // return the difference between given time and current time
+  static int countdownInSeconds(String timeString) {
+    try {
+      DateTime targetTime = DateTime.parse(timeString);
+      DateTime currentTime = DateTime.now();
+      Duration difference = targetTime.difference(currentTime);
+      return difference.inSeconds;
+    } catch (e) {
+      return -1;
+    }
+  }
+
 // will return week day
   static String getWeekDay(int day) {
     switch (day) {

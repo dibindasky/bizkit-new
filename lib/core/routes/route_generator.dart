@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
@@ -150,14 +152,21 @@ class GoRouterConfig {
       },
     ),
     //second card detail
-    GoRoute(
-      name: Routes.secondcardDetail,
-      path: Routes.secondcardDetail,
-      builder: (context, state) {
-        //final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
-        return const ScreenCardSecondDetailView();
-      },
-    ),
+    // GoRoute(
+    //   name: Routes.secondcardDetail,
+    //   path: '${Routes.secondcardDetail}/:cardId',
+    //   builder: (context, state) {
+    //     final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
+    //     log('Card Id ==> $cardId');
+    //     if (cardId != null) {
+    //       return ScreenCardSecondDetailView(
+    //         cardId: cardId,
+    //       );
+    //     } else {
+    //       return _errorScreen();
+    //     }
+    //   },
+    // ),
 
     GoRoute(
       name: Routes.linerarProgressBar,

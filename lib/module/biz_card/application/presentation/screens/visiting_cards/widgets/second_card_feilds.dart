@@ -459,9 +459,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                             borderRadius: BorderRadius.circular(10),
                             child: Image.memory(
                               base64Decode(textExtractionController
-                                      .pickedSelfiesImageUrl[index].base64
-                                      ?.substring(22) ??
-                                  ''),
+                                  .pickedSelfiesImageUrl[index]),
                               height: 150.dm,
                               width: double.infinity,
                               fit: BoxFit.cover,

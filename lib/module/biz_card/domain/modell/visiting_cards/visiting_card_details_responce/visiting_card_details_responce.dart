@@ -21,7 +21,9 @@ class VisitingCardDetailsResponce {
   bool? isDisabled;
   @JsonKey(name: 'user_id')
   String? userId;
-  String? selfie;
+  List<String>? selfie;
+  @JsonKey(name: 'card_image')
+  String? cardImage;
 
   VisitingCardDetailsResponce({
     this.id,
@@ -38,6 +40,7 @@ class VisitingCardDetailsResponce {
     this.isDisabled,
     this.userId,
     this.selfie,
+    this.cardImage,
   });
 
   factory VisitingCardDetailsResponce.fromJson(Map<String, dynamic> json) {

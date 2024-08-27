@@ -20,7 +20,7 @@ class CardTextExtractionController extends GetxController {
   var extractedDetails = ExtractedDetails().obs;
 
   RxList<ImageModel> pickedImageUrl = <ImageModel>[].obs;
-  RxList<ImageModel> pickedSelfiesImageUrl = <ImageModel>[].obs;
+  RxList<String> pickedSelfiesImageUrl = <String>[].obs;
   RxList<String> extractedPhoneNumbers = <String>[].obs;
   RxList<String> extractedEmails = <String>[].obs;
   RxList<String> extractedLocations = <String>[].obs;
@@ -102,7 +102,7 @@ class CardTextExtractionController extends GetxController {
     );
 
     if (imageUrl != null) {
-      pickedSelfiesImageUrl.add(imageUrl);
+      pickedSelfiesImageUrl.add(imageUrl.base64?.substring(22) ?? '');
     } else {
       log('Image picking failed or was canceled.');
     }

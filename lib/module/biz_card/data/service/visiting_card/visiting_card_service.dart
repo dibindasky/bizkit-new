@@ -97,7 +97,7 @@ class VisitingCardService implements VisitingCardRepo {
   Future<Either<Failure, GetAllVisitingCards>> getAllVisitingCards() async {
     try {
       final responce = await apiService.get(ApiEndPoints.getAllVisitingCards);
-      log('getAllVisitingCards ==> success');
+      log('getAllVisitingCards ==> success ');
       return Right(GetAllVisitingCards.fromJson(responce.data));
     } on DioException catch (e) {
       log('getAllVisitingCards DioException ${e.response?.statusCode} $e');
@@ -109,9 +109,19 @@ class VisitingCardService implements VisitingCardRepo {
   }
 
   @override
-  Future<Either<Failure, VisitingCardDetailsResponce>>
-      getVisitingCardDetails() {
-    // TODO:  implement getVisitingCardDetails
-    throw UnimplementedError();
+  Future<Either<Failure, VisitingCardDetailsResponce>> getVisitingCardDetails(
+      {required String visitingCardId}) async {
+    try {
+      final responce = await apiService.get(ApiEndPoints.visitingCardDetails
+          .replaceAll('{visitingCardId}', visitingCardId));
+      log('getVisitingCardDetails ==> success ');
+      return Right(VisitingCardDetailsResponce.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getVisitingCardDetails DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('getVisitingCardDetails catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
   }
 }

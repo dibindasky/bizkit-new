@@ -22,13 +22,17 @@ class PollContainerChat extends StatefulWidget {
 }
 
 class _PollContainerChatState extends State<PollContainerChat> {
+  late Poll message;
   List<String> selectedOption = [];
   String lastTapId = '';
   int totalVotes = 0;
   bool showTextField = false;
   bool completed = false;
   bool sender = false;
+  int? time;
+  bool expired = false;
   final TextEditingController reasonController = TextEditingController();
+  final controller = Get.find<ChatController>();
 
   @override
   void initState() {
@@ -36,18 +40,43 @@ class _PollContainerChatState extends State<PollContainerChat> {
     super.initState();
   }
 
+  void markAnswer([String? reason]) {
+    print('mark answer => $selectedOption');
+    Map<String, String> reasons = {};
+    for (var e in selectedOption) {
+      reasons[e] = reason ?? '';
+    }
+    // message=widget.message.copyWith(pollAnswers:(widget.message.pollAnswers??[]) );
+    controller.addVoteforPol(
+      votePoll: VotePoll(
+        answerIds: selectedOption,
+        pollId: message.pollId,
+        reasons: reasons,
+      ),
+    );
+  }
+
+  timerCheck() async {
+    await Future.delayed(Duration(seconds: time ?? 0));
+    setState(() {
+      time = -1;
+      expired = true;
+    });
+  }
+
   initilize() {
-    sender = widget.message.sender;
+    message = widget.message;
+    sender = message.sender;
     selectedOption.clear();
     totalVotes = 0;
-    print('answer list :=> ${widget.message.pollAnswers?.length}');
-    print(widget.message.toString());
-    if (widget.message.pollAnswers != null) {
-      for (var x in widget.message.pollAnswers!) {
+    print('answer list :=> ${message.pollAnswers?.length}');
+    print(message.toString());
+    if (message.pollAnswers != null) {
+      for (var x in message.pollAnswers!) {
         print('answer list :-> ${x.answerId} => ${x.supporters?.length}');
         if (x.supporters != null) {
           for (var y in x.supporters!) {
-            if (y.userId == widget.message.currentUid) {
+            if (y.userId == message.currentUid) {
               completed = true;
               selectedOption.add(x.answerId ?? '');
               print('answered option id : ${x.answerId}');
@@ -56,6 +85,15 @@ class _PollContainerChatState extends State<PollContainerChat> {
         }
         totalVotes += x.answerVotes ?? 0;
       }
+    }
+    time = DateTimeFormater.countdownInSeconds(message.activeUntil ?? '');
+    print('time in secondes ${message.pollQuestion} => $time');
+    if (message.activeUntil == '' || message.activeUntil == 'Alwase') {
+      expired = false;
+    } else if (time != null && time! > 0) {
+      timerCheck();
+    } else {
+      expired = true;
     }
     print(selectedOption);
     // Timer(const Duration(seconds: 1), () => setState(() {}));
@@ -73,7 +111,6 @@ class _PollContainerChatState extends State<PollContainerChat> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<ChatController>();
     return Padding(
       padding: EdgeInsets.only(
           top: 5.0.w,
@@ -104,7 +141,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                 decoration: BoxDecoration(
                     color: kblack.withOpacity(0.1),
                     borderRadius: kBorderRadius5),
-                child: Text(widget.message.pollQuestion ?? '',
+                child: Text(message.pollQuestion ?? '',
                     style: textHeadStyle1.copyWith(color: kwhite)),
               ),
               adjustHieght(2.h),
@@ -112,9 +149,9 @@ class _PollContainerChatState extends State<PollContainerChat> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: List.generate(
-                  widget.message.pollAnswers?.length ?? 0,
+                  message.pollAnswers?.length ?? 0,
                   (index) {
-                    final answer = widget.message.pollAnswers?[index];
+                    final answer = message.pollAnswers?[index];
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -125,29 +162,45 @@ class _PollContainerChatState extends State<PollContainerChat> {
                               value: selectedOption
                                   .contains(answer?.answerId ?? ''),
                               onChanged: (bool? value) {
-                                setState(() {
-                                  if (value == true) {
-                                    selectedOption.add(answer?.answerId ?? '');
-                                  } else {
-                                    selectedOption
-                                        .remove(answer?.answerId ?? '');
-                                  }
-                                  if (!(widget.message.resonRequired ?? true) &&
-                                      !(widget.message.multipleAnswer ??
-                                          true)) {
-                                    controller.addVoteforPol(
-                                      votePoll: VotePoll(
-                                        answerIds: [answer?.answerId ?? ''],
-                                        pollId: widget.message.pollId,
-                                        reasons: {answer?.answerId ?? '': ''},
-                                      ),
-                                    );
-                                  } else if (!(widget.message.multipleAnswer ??
-                                      true)) {
-                                    lastTapId = answer?.answerId ?? '';
-                                    showTextField = true;
-                                  }
-                                });
+                                if (!expired) {
+                                  setState(() {
+                                    print(
+                                        'answer ==>${answer?.answerText ?? ''}');
+                                    if (message.multipleAnswer ?? false) {
+                                      print('multiple answer true');
+                                      if (value == true) {
+                                        selectedOption
+                                            .add(answer?.answerId ?? '');
+                                        print('answer == true');
+                                      } else {
+                                        print('answer == false');
+                                        selectedOption
+                                            .remove(answer?.answerId ?? '');
+                                      }
+                                    } else {
+                                      print('multiple answer false');
+                                      if (value == true) {
+                                        selectedOption = [
+                                          answer?.answerId ?? ''
+                                        ];
+                                        print('answer == true');
+                                      } else {
+                                        print('answer == false');
+                                        selectedOption = [];
+                                      }
+                                    }
+                                    if (message.multipleAnswer ?? false) {
+                                      print('mark multiple answer poll');
+                                      markAnswer();
+                                    } else if (message.resonRequired ?? false) {
+                                      print('show text field');
+                                      lastTapId = answer?.answerId ?? '';
+                                      showTextField = true;
+                                    } else {
+                                      markAnswer();
+                                    }
+                                  });
+                                }
                               },
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
@@ -203,25 +256,23 @@ class _PollContainerChatState extends State<PollContainerChat> {
                 ),
               ),
               (completed || selectedOption.isNotEmpty) && !showTextField
-                  ? (widget.message.anonymousVote ?? false)
-                      ? kempty
-                      : Align(
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.pollDetail.value = widget.message;
-                              GoRouter.of(context).pushNamed(
-                                Routes.taskChatPollDetail,
-                              );
-                            },
-                            child: Text(
-                              'SEE VOTES',
-                              style: textThinStyle1.copyWith(
-                                color: kwhite.withOpacity(0.8),
-                                fontSize: 12.sp,
-                              ),
-                            ),
+                  ? Align(
+                      child: GestureDetector(
+                        onTap: () {
+                          controller.pollDetail.value = message;
+                          GoRouter.of(context).pushNamed(
+                            Routes.taskChatPollDetail,
+                          );
+                        },
+                        child: Text(
+                          'SEE VOTES',
+                          style: textThinStyle1.copyWith(
+                            color: kwhite.withOpacity(0.8),
+                            fontSize: 12.sp,
                           ),
-                        )
+                        ),
+                      ),
+                    )
                   : !showTextField && !completed
                       ? kempty
                       : Container(
@@ -241,15 +292,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                               suffix: GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    controller.addVoteforPol(
-                                      votePoll: VotePoll(
-                                        answerIds: [lastTapId],
-                                        pollId: widget.message.pollId,
-                                        reasons: {
-                                          lastTapId: reasonController.text
-                                        },
-                                      ),
-                                    );
+                                    markAnswer(reasonController.text);
                                     completed = true;
                                     showTextField = false;
                                   });
@@ -278,20 +321,17 @@ class _PollContainerChatState extends State<PollContainerChat> {
               Row(
                 children: [
                   Text(
-                    '$totalVotes votes •',
+                    '$totalVotes votes • ${expired ? 'Expired' : 'Active'}',
                     style: textThinStyle1.copyWith(fontSize: 10.sp),
                   ),
                   const Spacer(),
                   Text(
-                    DateTimeFormater.formatTimeAMPM(
-                        widget.message.timestamp ?? ''),
+                    DateTimeFormater.formatTimeAMPM(message.timestamp ?? ''),
                     style: textThinStyle1.copyWith(
                         color: sender ? kgrey : klightgrey, fontSize: 8.sp),
                   ),
                   sender ? kWidth10 : kempty,
-                  sender
-                      ? MessageReadMarker(read: widget.message.readByAll)
-                      : kempty
+                  sender ? MessageReadMarker(read: message.readByAll) : kempty
                 ],
               ),
             ],

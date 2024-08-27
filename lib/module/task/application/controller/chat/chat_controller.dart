@@ -79,7 +79,10 @@ class ChatController extends GetxController {
           else if (decodedMessage['message_type'] == 'poll') {
             final poll = Poll.fromJson(decodedMessage, uid);
             final mess = Message(poll: poll, sender: poll.sender);
-            if (!messages.any((mess) => mess.poll?.pollId == poll.pollId)) {
+            if (poll.isLoadMore) {
+              messages.insert(0, mess);
+            } else if (!messages
+                .any((mess) => mess.poll?.pollId == poll.pollId)) {
               messages.add(mess);
             } else {
               doAnimate = false;
@@ -98,7 +101,9 @@ class ChatController extends GetxController {
           else if (decodedMessage['message_type'] == 'time_expense') {
             final m = TimeExpense.fromJson(decodedMessage, uid);
             final mess = Message(timeExpence: m, sender: m.sender);
-            if (!messages
+            if (m.isLoadMore) {
+              messages.insert(0, mess);
+            } else if (!messages
                 .any((mess) => mess.textMessage?.messageId == m.messageId)) {
               messages.add(mess);
             } else {

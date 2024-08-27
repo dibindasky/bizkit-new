@@ -25,9 +25,6 @@ class CardTextExtractionController extends GetxController {
   RxList<String> extractedEmails = <String>[].obs;
   RxList<String> extractedLocations = <String>[].obs;
 
-  final cardController = Get.find<CardController>();
-  final visitingCardController = Get.find<VisitingCardController>();
-
   void textExtraction(
       {required TextExtractionModel textExtractionModel,
       required bool fromVisitingCard}) async {
@@ -49,6 +46,7 @@ class CardTextExtractionController extends GetxController {
             .assignAll((extractedDetails.value.phoneNumbers ?? []));
         extractedLocations.assignAll((extractedDetails.value.location ?? []));
         if (fromVisitingCard == false) {
+          final cardController = Get.find<CardController>();
           cardController.nameController.text =
               extractedDetails.value.personName ?? '';
           cardController.phoneController.text =
@@ -64,6 +62,7 @@ class CardTextExtractionController extends GetxController {
           cardController.companyNameController.text =
               extractedDetails.value.businessName ?? '';
         } else {
+          final visitingCardController = Get.find<VisitingCardController>();
           visitingCardController.nameController.text =
               extractedDetails.value.personName ?? '';
           visitingCardController.phoneController.text =

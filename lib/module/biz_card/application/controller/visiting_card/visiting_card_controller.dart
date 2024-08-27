@@ -21,8 +21,6 @@ class VisitingCardController extends GetxController {
 
   RxList<VisitingCard> visitingCards = <VisitingCard>[].obs;
 
-  final cardTextExtractionController = Get.find<CardTextExtractionController>();
-
   final mat.TextEditingController nameController = mat.TextEditingController();
   final mat.TextEditingController companyNameController =
       mat.TextEditingController();
@@ -44,6 +42,8 @@ class VisitingCardController extends GetxController {
   // Create new visiting card
   void createVisitingCard({required BuildContext context}) async {
     isLoading.value = true;
+    final cardTextExtractionController =
+        Get.find<CardTextExtractionController>();
     final CreateVisitingCard createVisitingCard = CreateVisitingCard(
       name: nameController.text,
       company: companyNameController.text,

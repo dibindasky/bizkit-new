@@ -21,6 +21,7 @@ class CardTextExtractionController extends GetxController {
 
   RxList<ImageModel> pickedImageUrl = <ImageModel>[].obs;
   RxList<String> pickedSelfiesImageUrl = <String>[].obs;
+
   RxList<String> extractedPhoneNumbers = <String>[].obs;
   RxList<String> extractedEmails = <String>[].obs;
   RxList<String> extractedLocations = <String>[].obs;
@@ -78,7 +79,7 @@ class CardTextExtractionController extends GetxController {
           visitingCardController.companyNameController.text =
               extractedDetails.value.businessName ?? '';
         }
-        pickedImageUrl.clear();
+        // pickedImageUrl.clear();
         isLoading.value = false;
       },
     );

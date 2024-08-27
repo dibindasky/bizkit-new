@@ -111,6 +111,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
           IconButton(
               onPressed: () {
                 cardController.fetchDeletedAndArchivedCards();
+                visitingCardController.fetchAllDeletedVisitingCards();
                 Navigator.of(context).push(cardFadePageRoute(
                   const DeletedCards(),
                 ));
@@ -474,8 +475,8 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                     ),
                   ),
                   adjustHieght(khieght * .03),
-                  GetBuilder<VisitingCardController>(
-                    builder: (controller) {
+                  Obx(
+                    () {
                       if (visitingCardController.loadingForVisitingCard.value) {
                         return ShimmerLoaderTile(height: 255.w, width: 200.w);
                       } else if (visitingCardController.visitingCards.isEmpty) {
@@ -625,11 +626,29 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                           ),
                                         ),
                                         Positioned(
-                                          right: 0,
+                                          right: 3,
                                           top: 10,
-                                          child: PopupMenuButton<String>(
-                                            padding: const EdgeInsets.all(0),
-                                            icon: const CircleAvatar(
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              showConfirmationDialog(
+                                                  heading:
+                                                      'Are you sure you want to delete your card',
+                                                  context, onPressed: () {
+                                                visitingCardController
+                                                    .deleteVisitingCard(
+                                                        context: context,
+                                                        visitingCardDeleteModel:
+                                                            VisitingCardDeleteModel(
+                                                          cardId: visitingCardController
+                                                                  .visitingCards[
+                                                                      index]
+                                                                  .id ??
+                                                              '',
+                                                          isDisabled: true,
+                                                        ));
+                                              });
+                                            },
+                                            child: const CircleAvatar(
                                               backgroundColor: neonShade,
                                               child: Padding(
                                                 padding: EdgeInsets.all(2.0),
@@ -637,79 +656,12 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                   backgroundColor:
                                                       klightDarkGrey,
                                                   child: Icon(
-                                                    Icons.more_vert,
-                                                    size: 25,
-                                                    color: kwhite,
+                                                    Icons.delete,
+                                                    color: neonShade,
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                            itemBuilder: (context) {
-                                              List<PopupMenuEntry<String>>
-                                                  items = [
-                                                PopupMenuItem(
-                                                  onTap: () {
-                                                    // context
-                                                    //     .read<CardSecondBloc>()
-                                                    //     .add(const CardSecondEvent
-                                                    //         .imageClear());
-                                                    GoRouter.of(context)
-                                                        .pushNamed(
-                                                      Routes.cardUpdating,
-                                                      //extra: state.secondCards[index],
-                                                    );
-                                                  },
-                                                  value: 'Edit Card',
-                                                  child:
-                                                      const Text('Edit Card'),
-                                                ),
-                                              ];
-                                              items.addAll([
-                                                PopupMenuItem(
-                                                  onTap: () =>
-                                                      showConfirmationDialog(
-                                                    heading:
-                                                        'Are you sure you want to delete your card',
-                                                    context,
-                                                    onPressed: () {
-                                                      // CardActionRequestModel
-                                                      //     cardActionRewuestModel =
-                                                      //     CardActionRequestModel(
-                                                      //   isActive: false,
-                                                      // );
-                                                      // context
-                                                      //     .read<CardSecondBloc>()
-                                                      //     .add(
-                                                      //       CardSecondEvent
-                                                      //           .deleteCardSecond(
-                                                      //         cardActionRewuestModel:
-                                                      //             cardActionRewuestModel,
-                                                      //         id: secondCard.id!,
-                                                      //       ),
-                                                      //     );
-
-                                                      visitingCardController
-                                                          .deleteVisitingCard(
-                                                              context: context,
-                                                              visitingCardDeleteModel:
-                                                                  VisitingCardDeleteModel(
-                                                                cardId: visitingCardController
-                                                                        .visitingCards[
-                                                                            index]
-                                                                        .id ??
-                                                                    '',
-                                                                isDisabled:
-                                                                    true,
-                                                              ));
-                                                    },
-                                                  ),
-                                                  value: 'Delete Card',
-                                                  child:
-                                                      const Text('Delete Card'),
-                                                ),
-                                              ]);
-                                              return items;
-                                            },
                                           ),
                                         ),
                                       ],

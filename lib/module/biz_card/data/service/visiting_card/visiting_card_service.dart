@@ -22,7 +22,7 @@ class VisitingCardService implements VisitingCardRepo {
   Future<Either<Failure, CreateVisitingCardResponce>> createVisitingCard(
       {required CreateVisitingCard createVisitingCard}) async {
     try {
-      log('Create VIsiting cardd TOJOSN ==> ${createVisitingCard.toJson()}');
+      // log('Create VIsiting cardd TOJOSN ==> ${createVisitingCard.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.visitingCard,
         data: createVisitingCard.toJson(),
@@ -61,6 +61,7 @@ class VisitingCardService implements VisitingCardRepo {
   Future<Either<Failure, SuccessResponseModel>> editVisitingCard(
       {required VisitingCardEditModel visitingCardEditModel}) async {
     try {
+      log('Visiting card Edit To Json ----- > ${visitingCardEditModel.toJson()}');
       final responce = await apiService.patch(
         ApiEndPoints.visitingCard,
         data: visitingCardEditModel.toJson(),

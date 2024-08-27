@@ -18,6 +18,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/n
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
+import 'package:bizkit/module/biz_card/domain/modell/visiting_cards/visiting_card_details_responce/visiting_card_details_responce.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/signup_screen.dart';
@@ -152,21 +153,13 @@ class GoRouterConfig {
       },
     ),
     //second card detail
-    // GoRoute(
-    //   name: Routes.secondcardDetail,
-    //   path: '${Routes.secondcardDetail}/:cardId',
-    //   builder: (context, state) {
-    //     final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
-    //     log('Card Id ==> $cardId');
-    //     if (cardId != null) {
-    //       return ScreenCardSecondDetailView(
-    //         cardId: cardId,
-    //       );
-    //     } else {
-    //       return _errorScreen();
-    //     }
-    //   },
-    // ),
+    GoRoute(
+      name: Routes.secondcardDetail,
+      path: Routes.secondcardDetail,
+      builder: (context, state) {
+        return const ScreenCardSecondDetailView();
+      },
+    ),
 
     GoRoute(
       name: Routes.linerarProgressBar,

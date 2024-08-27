@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
@@ -13,6 +14,7 @@ import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ScreenCardSecondDetailView extends StatefulWidget {
@@ -47,6 +49,12 @@ class _ScreenCardSecondDetailViewState
     return Scaffold(
       appBar: AppBar(
         actions: [
+          IconButton(
+              onPressed: () {
+                GoRouter.of(context).pushNamed(Routes.cardUpdating,
+                    extra: visitingCardController.visitingCardDetails);
+              },
+              icon: const Icon(Icons.edit)),
           IconButton(
             onPressed: () async {
               // await sharePdfFromBase64(state.getSecondCardModel?.pdf ?? '',

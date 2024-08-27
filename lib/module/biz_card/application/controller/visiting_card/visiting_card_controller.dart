@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/second_card_detail_view.dart';
 import 'package:bizkit/module/biz_card/data/service/visiting_card/visiting_card_service.dart';
 import 'package:bizkit/module/biz_card/domain/modell/visiting_cards/create_visiting_card/create_visiting_card.dart';
 import 'package:bizkit/module/biz_card/domain/modell/visiting_cards/get_all_visiting_cards/visiting_card.dart';
@@ -21,6 +24,7 @@ class VisitingCardController extends GetxController {
   RxBool loadingForVisitingCard = false.obs;
 
   RxList<VisitingCard> visitingCards = <VisitingCard>[].obs;
+  RxList<VisitingCard> deletedVisitingCards = <VisitingCard>[].obs;
 
   RxList<String> selfie = <String>[].obs;
 
@@ -74,6 +78,8 @@ class VisitingCardController extends GetxController {
       occupation: occupationController.text,
       phoneNumber: phoneController.text,
       website: websiteController.text,
+      cardImage: cardTextExtractionController.pickedImageUrl.first.base64
+          ?.substring(22),
       selfie: cardTextExtractionController.pickedSelfiesImageUrl,
     );
     final data = await visitingCardService.createVisitingCard(
@@ -97,14 +103,35 @@ class VisitingCardController extends GetxController {
   // Edit visting card
   void editVisitingCard(
       {required VisitingCardEditModel visitingCardEditModel,
-      required BuildContext context}) async {}
+      required BuildContext context}) async {
+    isLoading.value = true;
+
+    final data = await visitingCardService.editVisitingCard(
+        visitingCardEditModel: visitingCardEditModel);
+
+    data.fold(
+      (l) {
+        isLoading.value = false;
+        showSnackbar(context, message: errorMessage);
+      },
+      (r) {
+        fetchVisitingCardDetails(
+            visitingCardId: visitingCardEditModel.cardId ?? '');
+        showSnackbar(context, message: 'Visiting Card Edited Successfully');
+        context.pop();
+        isLoading.value = false;
+      },
+    );
+  }
 
   // Fetch all visiting cards
   void fetchAllVisitingCards() async {
     loadingForVisitingCard.value = true;
     final data = await visitingCardService.getAllVisitingCards();
     data.fold(
-      (l) => loadingForVisitingCard.value = false,
+      (l) {
+        loadingForVisitingCard.value = false;
+      },
       (r) {
         visitingCards.assignAll(r.visitingCards ?? []);
         loadingForVisitingCard.value = false;
@@ -126,8 +153,10 @@ class VisitingCardController extends GetxController {
       },
       (r) {
         fetchAllVisitingCards();
-
-        showSnackbar(context, message: 'Deleted Successfully');
+        fetchAllDeletedVisitingCards();
+        visitingCardDeleteModel.isDisabled == true
+            ? showSnackbar(context, message: 'Deleted Successfully')
+            : showSnackbar(context, message: 'Restore Successfully');
 
         loadingForVisitingCard.value = false;
       },
@@ -135,7 +164,18 @@ class VisitingCardController extends GetxController {
   }
 
   // Fetch all deleted visiting cards
-  void fetchAllDeletedVisitingCards() async {}
+  void fetchAllDeletedVisitingCards() async {
+    isLoading.value = true;
+
+    final data = await visitingCardService.getAllDeletedVisitingCards();
+    data.fold(
+      (l) => isLoading.value = false,
+      (r) {
+        deletedVisitingCards.assignAll(r.visitingCards ?? []);
+        isLoading.value = false;
+      },
+    );
+  }
 
   // Fetch visiting card details
   void fetchVisitingCardDetails({required String visitingCardId}) async {

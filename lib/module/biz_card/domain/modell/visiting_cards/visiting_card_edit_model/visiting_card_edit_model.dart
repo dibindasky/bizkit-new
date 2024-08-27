@@ -6,18 +6,35 @@ part 'visiting_card_edit_model.g.dart';
 class VisitingCardEditModel {
   @JsonKey(name: 'card_id')
   String? cardId;
-  String? designation;
+  String? name;
+  String? company;
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
+  String? website;
+  String? designation;
+  String? email;
+  String? occation;
+  String? location;
+  String? occupation;
   String? notes;
-  String? selfie;
+  List<String>? selfie;
+  // @JsonKey(name: 'card_image')
+  // String? cardImage;
 
   VisitingCardEditModel({
     this.cardId,
-    this.designation,
+    this.name,
+    this.company,
     this.phoneNumber,
+    this.website,
+    this.designation,
+    this.email,
+    this.occation,
+    this.location,
+    this.occupation,
     this.notes,
     this.selfie,
+    // this.cardImage,
   });
 
   factory VisitingCardEditModel.fromJson(Map<String, dynamic> json) {

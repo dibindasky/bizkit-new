@@ -44,21 +44,21 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      SharedPreferences.getInstance().then((prefs) async {
-        const showed = false;
-        setState(() {
-          isShowcaseSeen = showed;
-        });
-        if (!isShowcaseSeen) {
-          ShowCaseWidget.of(context).startShowCase([
-            globalKeyBusinessCard,
-            globalKeyVisitingCard,
-          ]);
-          // await SecureStorage.setHasCard(hasCard: true);
-        }
-      });
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   SharedPreferences.getInstance().then((prefs) async {
+    //     const showed = false;
+    //     setState(() {
+    //       isShowcaseSeen = showed;
+    //     });
+    //     if (!isShowcaseSeen) {
+    //       ShowCaseWidget.of(context).startShowCase([
+    //         globalKeyBusinessCard,
+    //         globalKeyVisitingCard,
+    //       ]);
+    //       // await SecureStorage.setHasCard(hasCard: true);
+    //     }
+    //   });
+    // });
     super.initState();
     secondCardScrollController.addListener(() {
       if (secondCardScrollController.position.pixels ==
@@ -133,6 +133,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
             child: RefreshIndicator(
               onRefresh: () => onRefresh(),
               child: ListView(
+                shrinkWrap: true,
                 children: [
                   adjustHieght(khieght * .05),
                   SizedBox(
@@ -245,7 +246,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                   itemBuilder: (context) {
                                                     List<PopupMenuEntry<String>>
                                                         items = [];
-
                                                     items.add(
                                                       PopupMenuItem(
                                                         onTap: () {
@@ -473,23 +473,21 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                   ),
                   adjustHieght(khieght * .03),
                   adjustHieght(khieght * .02),
-                  SizedBox(
-                    height: 290,
-                    child: Obx(
-                      () {
-                        if (visitingCardController
-                            .loadingForVisitingCard.value) {
-                          return ShimmerLoaderTile(height: 125.w, width: 200.w);
-                        } else if (visitingCardController
-                            .visitingCards.isEmpty) {
-                          return const Expanded(
-                            flex: 2,
-                            child: Center(
-                              child: Text('No visiting cards'),
-                            ),
-                          );
-                        } else {
-                          return ListView.separated(
+                  GetBuilder<CardController>(
+                    builder: (controller) {
+                      if (visitingCardController.loadingForVisitingCard.value) {
+                        return ShimmerLoaderTile(height: 125.w, width: 200.w);
+                      } else if (visitingCardController.visitingCards.isEmpty) {
+                        return const Expanded(
+                          flex: 2,
+                          child: Center(
+                            child: Text('No visiting cards'),
+                          ),
+                        );
+                      } else {
+                        return SizedBox(
+                          height: 200.h,
+                          child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemCount:
                                 visitingCardController.visitingCards.length,
@@ -717,10 +715,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                 ),
                               );
                             },
-                          );
-                        }
-                      },
-                    ),
+                          ),
+                        );
+                      }
+                    },
                   )
                 ],
               ),

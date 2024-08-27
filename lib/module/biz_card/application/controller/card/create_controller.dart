@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';

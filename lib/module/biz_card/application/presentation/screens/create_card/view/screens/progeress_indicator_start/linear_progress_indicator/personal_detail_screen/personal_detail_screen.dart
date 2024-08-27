@@ -177,65 +177,70 @@ class PersonalDetails extends StatelessWidget {
               ),
               adjustHieght(10),
               // accolades adding
-              ImagePreviewUnderTextField(
-                ontap: () {
-                  FocusScope.of(context).unfocus();
-                  Navigator.of(context).push(cardFadePageRoute(
-                      const CardScreenAchievements(fromBusiness: false)));
-                },
-                onItemTap: (value, index) {
-                  return Navigator.push(
-                      context,
-                      cardFadePageRoute(const CardScreenAchievementsAddCreate(
-                          fromBusiness: false)));
-                },
-                removeItem: (index) {
-                  showCustomConfirmationDialogue(
-                      context: context,
-                      title: 'are you sure want to delete ?',
-                      buttonText: 'Delete',
-                      onTap: () {
-                        // context.read<UserDataBloc>().add(
-                        //     UserDataEvent.removeAccolade(
-                        //         id: state.accolades[index].id!));
-                      });
-                },
-                list: cardController
-                    .bizcardDetail.value.personalDetails?.personalAchievements
-                    ?.map((e) => (e.images?.isEmpty) ?? true
-                        ? ''
-                        : e.images?[0].image ?? '')
-                    .toList(),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: textFieldFillColr,
-                    boxShadow: [
-                      BoxShadow(
-                        color: textFieldFillColr,
-                        spreadRadius: 0.4,
-                        blurRadius: 4,
-                        offset: Offset(0.4, .2),
-                      ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.only(left: 12, right: 12),
-                  height: 48.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Personal Achivements',
-                        style: custumText(
-                          fontSize: 16,
-                          colr: klightgrey,
+              Obx(
+                () => ImagePreviewUnderTextField(
+                  ontap: () {
+                    FocusScope.of(context).unfocus();
+                    Navigator.of(context).push(cardFadePageRoute(
+                        const CardScreenAchievements(fromBusiness: false)));
+                  },
+                  onItemTap: (value, index) {
+                    return Navigator.push(
+                        context,
+                        cardFadePageRoute(CardScreenAchievementsCreate(
+                            achievement: cardController.bizcardDetail.value
+                                .personalDetails?.personalAchievements?[index],
+                            fromBusiness: false)));
+                  },
+                  removeItem: (index) {
+                    showCustomConfirmationDialogue(
+                        context: context,
+                        title: 'are you sure want to delete ?',
+                        buttonText: 'Delete',
+                        onTap: () {
+                          // context.read<UserDataBloc>().add(
+                          //     UserDataEvent.removeAccolade(
+                          //         id: state.accolades[index].id!));
+                        });
+                  },
+                  list: cardController.bizcardDetail.value.personalDetails
+                          ?.personalAchievements
+                          ?.map((e) => (e.images?.isEmpty) ?? true
+                              ? ''
+                              : e.images?[0].image ?? '')
+                          .toList() ??
+                      [],
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: textFieldFillColr,
+                      boxShadow: [
+                        BoxShadow(
+                          color: textFieldFillColr,
+                          spreadRadius: 0.4,
+                          blurRadius: 4,
+                          offset: Offset(0.4, .2),
                         ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 16,
-                        color: klightgrey,
-                      ),
-                    ],
+                      ],
+                    ),
+                    padding: const EdgeInsets.only(left: 12, right: 12),
+                    height: 48.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Personal Achivements',
+                          style: custumText(
+                            fontSize: 16,
+                            colr: klightgrey,
+                          ),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 16,
+                          color: klightgrey,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -337,7 +342,7 @@ class PersonalDetails extends StatelessWidget {
                                       ),
                                       adjustHieght(10),
                                       Text(
-                                          "Date : ${getDateByDayMonthYear(DateTime.parse(cardController.bizcardDetail.value.personalDetails?.datesToRemember?[index].date ?? ''))}"),
+                                          "Date : ${getDateByDayMonthYear(cardController.bizcardDetail.value.personalDetails?.datesToRemember?[index].date ?? '')}"),
                                       adjustHieght(5),
                                       Text(
                                           'Description : ${data?.description ?? ''}')

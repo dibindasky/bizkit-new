@@ -233,11 +233,11 @@ class CardController extends GetxController {
     data.fold(
       (l) => null,
       (r) {
-        isLoading.value = false;
         Get.snackbar('Sucess', 'Successfully Added Personal Details',
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: neonShade,
             duration: const Duration(milliseconds: 300));
+        isLoading.value = false;
       },
     );
   }

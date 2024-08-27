@@ -19,7 +19,6 @@ class PersonalDetailsController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool deleteLoading = false.obs;
   RxList<String> personalImages = <String>[].obs;
-  final cardController = Get.find<CardController>();
 
   // personaal Achivement Controllers
   RxList<ImageCard>? achievementImages = <ImageCard>[].obs;
@@ -52,8 +51,9 @@ class PersonalDetailsController extends GetxController {
     update();
   }
 
-  void acheievementAdding(List<String> images) async {
+  void acheievementAdding(List<String> images, BuildContext context) async {
     isLoading.value = true;
+    final cardController = Get.find<CardController>();
     PersonalAchievementRequestModel personalAchiment =
         PersonalAchievementRequestModel(
       bizcardId: cardController.bizcardDetail.value.bizcardId,
@@ -74,7 +74,7 @@ class PersonalDetailsController extends GetxController {
       isLoading.value = false;
       cardController.cardDetail(
           cardId: cardController.bizcardDetail.value.bizcardId ?? '');
-      Get.back();
+      Navigator.pop(context);
     });
   }
 
@@ -86,6 +86,7 @@ class PersonalDetailsController extends GetxController {
     data.fold(
       (l) => null,
       (r) {
+        final cardController = Get.find<CardController>();
         isLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
@@ -102,6 +103,7 @@ class PersonalDetailsController extends GetxController {
     data.fold(
       (l) => null,
       (r) {
+        final cardController = Get.find<CardController>();
         deleteLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
@@ -118,6 +120,7 @@ class PersonalDetailsController extends GetxController {
     data.fold(
       (l) => null,
       (r) {
+        final cardController = Get.find<CardController>();
         isLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
@@ -134,6 +137,7 @@ class PersonalDetailsController extends GetxController {
     data.fold(
       (l) => null,
       (r) {
+        final cardController = Get.find<CardController>();
         isLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
@@ -143,6 +147,7 @@ class PersonalDetailsController extends GetxController {
 
   void personalSocialMediaDelete(int socialMediaIndex) async {
     deleteLoading.value = true;
+    final cardController = Get.find<CardController>();
     PersonalSocialMediaDeletion personalSocialMediaDeletion =
         PersonalSocialMediaDeletion(
             personalDetailsId:
@@ -163,6 +168,7 @@ class PersonalDetailsController extends GetxController {
 
   void personalDatesToRemiderAdding() async {
     isLoading.value = true;
+    final cardController = Get.find<CardController>();
     PersonalDayesToReminderModel personalDatesToReminderModel =
         PersonalDayesToReminderModel(
             bizcardId: cardController.bizcardDetail.value.bizcardId,
@@ -193,6 +199,7 @@ class PersonalDetailsController extends GetxController {
     data.fold(
       (l) => null,
       (r) {
+        final cardController = Get.find<CardController>();
         isLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
@@ -202,6 +209,7 @@ class PersonalDetailsController extends GetxController {
 
   void personalDatesToReminderDelete(int datesToReminderIndex) async {
     deleteLoading.value = true;
+    final cardController = Get.find<CardController>();
     ReminderDeletion remiderDeletion = ReminderDeletion(
         dateId: cardController.bizcardDetail.value.personalDetails
             ?.datesToRemember?[datesToReminderIndex].id,

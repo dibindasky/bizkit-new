@@ -181,14 +181,13 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                                           ?.datesToRemember?[index]
                                           .description ??
                                       ''),
-                                  Text(getDateByDayMonthYear(DateTime.parse(
-                                      cardController
-                                              .bizcardDetail
-                                              .value
-                                              .personalDetails
-                                              ?.datesToRemember?[index]
-                                              .date ??
-                                          ''))),
+                                  Text(getDateByDayMonthYear(cardController
+                                          .bizcardDetail
+                                          .value
+                                          .personalDetails
+                                          ?.datesToRemember?[index]
+                                          .date ??
+                                      '')),
                                 ],
                               ),
                             ),

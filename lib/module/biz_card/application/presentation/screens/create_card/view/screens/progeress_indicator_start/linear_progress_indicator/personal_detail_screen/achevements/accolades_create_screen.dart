@@ -1,7 +1,5 @@
-import 'dart:collection';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
@@ -20,23 +18,24 @@ import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
+import 'package:bizkit/utils/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class CardScreenAchievementsAddCreate extends StatefulWidget {
-  const CardScreenAchievementsAddCreate(
+class CardScreenAchievementsCreate extends StatefulWidget {
+  const CardScreenAchievementsCreate(
       {super.key, this.achievement, required this.fromBusiness});
   final Achievement? achievement;
   final bool fromBusiness;
 
   @override
-  State<CardScreenAchievementsAddCreate> createState() =>
-      _CardScreenAchievementsAddCreateState();
+  State<CardScreenAchievementsCreate> createState() =>
+      _CardScreenAchievementsCreateState();
 }
 
-class _CardScreenAchievementsAddCreateState
-    extends State<CardScreenAchievementsAddCreate> {
+class _CardScreenAchievementsCreateState
+    extends State<CardScreenAchievementsCreate> {
   List<ImageCard> image = [];
   List<ImageCard> newimage = [];
   String titleChange = '';
@@ -54,9 +53,10 @@ class _CardScreenAchievementsAddCreateState
       personalController.personalAchievementDescription.text =
           widget.achievement!.description ?? '';
       personalController.personalAchievementDate.text =
-          widget.achievement!.date ?? '';
+          getDateByDayMonthYear(widget.achievement!.date ?? '');
       personalController.personalAchievementEvent.text =
           widget.achievement!.event ?? '';
+      log('${image.length}');
     }
     super.initState();
   }
@@ -74,8 +74,10 @@ class _CardScreenAchievementsAddCreateState
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size(kwidth, 70),
-          child: const CardAppbarCommen(
-            tittle: 'Company Achievements',
+          child: CardAppbarCommen(
+            tittle: widget.fromBusiness
+                ? 'Company Achievements'
+                : 'Personal Achievements',
           ),
         ),
         body: SingleChildScrollView(
@@ -289,8 +291,8 @@ class _CardScreenAchievementsAddCreateState
                                 .map((e) => e.image!.substring(22))
                                 .toList();
                             !widget.fromBusiness
-                                ? personalController
-                                    .acheievementAdding(sendImage)
+                                ? personalController.acheievementAdding(
+                                    sendImage, context)
                                 : null;
                           }
                         },

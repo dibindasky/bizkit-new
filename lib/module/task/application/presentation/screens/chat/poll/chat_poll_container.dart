@@ -41,7 +41,6 @@ class _PollContainerChatState extends State<PollContainerChat> {
   }
 
   void markAnswer([String? reason]) {
-    print('mark answer => $selectedOption');
     Map<String, String> reasons = {};
     for (var e in selectedOption) {
       reasons[e] = reason ?? '';
@@ -69,17 +68,13 @@ class _PollContainerChatState extends State<PollContainerChat> {
     sender = message.sender;
     selectedOption.clear();
     totalVotes = 0;
-    print('answer list :=> ${message.pollAnswers?.length}');
-    print(message.toString());
     if (message.pollAnswers != null) {
       for (var x in message.pollAnswers!) {
-        print('answer list :-> ${x.answerId} => ${x.supporters?.length}');
         if (x.supporters != null) {
           for (var y in x.supporters!) {
             if (y.userId == message.currentUid) {
               completed = true;
               selectedOption.add(x.answerId ?? '');
-              print('answered option id : ${x.answerId}');
             }
           }
         }
@@ -87,7 +82,6 @@ class _PollContainerChatState extends State<PollContainerChat> {
       }
     }
     time = DateTimeFormater.countdownInSeconds(message.activeUntil ?? '');
-    print('time in secondes ${message.pollQuestion} => $time');
     if (message.activeUntil == '' || message.activeUntil == 'Alwase') {
       expired = false;
     } else if (time != null && time! > 0) {
@@ -95,15 +89,11 @@ class _PollContainerChatState extends State<PollContainerChat> {
     } else {
       expired = true;
     }
-    print(selectedOption);
-    // Timer(const Duration(seconds: 1), () => setState(() {}));
   }
 
   @override
   void didUpdateWidget(covariant PollContainerChat oldWidget) {
-    print('didUpdateWidget 1');
     if (oldWidget.message != widget.message) {
-      print('didUpdateWidget');
       initilize();
     }
     super.didUpdateWidget(oldWidget);
@@ -137,12 +127,12 @@ class _PollContainerChatState extends State<PollContainerChat> {
             children: [
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(10.w),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
                 decoration: BoxDecoration(
                     color: kblack.withOpacity(0.1),
                     borderRadius: kBorderRadius5),
                 child: Text(message.pollQuestion ?? '',
-                    style: textHeadStyle1.copyWith(color: kwhite)),
+                    style: textStyle1.copyWith(color: kwhite)),
               ),
               adjustHieght(2.h),
               ListView(
@@ -152,91 +142,107 @@ class _PollContainerChatState extends State<PollContainerChat> {
                   message.pollAnswers?.length ?? 0,
                   (index) {
                     final answer = message.pollAnswers?[index];
+                    final selected =
+                        selectedOption.contains(answer?.answerId ?? '');
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            leading: Checkbox(
-                              value: selectedOption
-                                  .contains(answer?.answerId ?? ''),
-                              onChanged: (bool? value) {
-                                if (!expired) {
-                                  setState(() {
-                                    print(
-                                        'answer ==>${answer?.answerText ?? ''}');
-                                    if (message.multipleAnswer ?? false) {
-                                      print('multiple answer true');
-                                      if (value == true) {
-                                        selectedOption
-                                            .add(answer?.answerId ?? '');
-                                        print('answer == true');
-                                      } else {
-                                        print('answer == false');
-                                        selectedOption
-                                            .remove(answer?.answerId ?? '');
+                          child: Container(
+                            padding: EdgeInsets.zero,
+                            margin: const EdgeInsets.symmetric(vertical: 3),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // Checkbox
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: kwhite, width: 2.0),
+                                    borderRadius: BorderRadius.circular(
+                                        500.0), // To match the round checkbox
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      if (!expired) {
+                                        setState(() {
+                                          if (message.multipleAnswer ?? false) {
+                                            if (selectedOption.contains(
+                                                answer?.answerId ?? '')) {
+                                              selectedOption.remove(
+                                                  answer?.answerId ?? '');
+                                            } else {
+                                              selectedOption
+                                                  .add(answer?.answerId ?? '');
+                                            }
+                                          } else {
+                                            if (selectedOption.contains(
+                                                answer?.answerId ?? '')) {
+                                              selectedOption = [];
+                                            } else {
+                                              selectedOption = [
+                                                answer?.answerId ?? ''
+                                              ];
+                                            }
+                                          }
+                                          if (message.multipleAnswer ?? false) {
+                                            markAnswer();
+                                          } else if (message.resonRequired ??
+                                              false) {
+                                            lastTapId = answer?.answerId ?? '';
+                                            showTextField = true;
+                                          } else {
+                                            markAnswer();
+                                          }
+                                        });
                                       }
-                                    } else {
-                                      print('multiple answer false');
-                                      if (value == true) {
-                                        selectedOption = [
-                                          answer?.answerId ?? ''
-                                        ];
-                                        print('answer == true');
-                                      } else {
-                                        print('answer == false');
-                                        selectedOption = [];
-                                      }
-                                    }
-                                    if (message.multipleAnswer ?? false) {
-                                      print('mark multiple answer poll');
-                                      markAnswer();
-                                    } else if (message.resonRequired ?? false) {
-                                      print('show text field');
-                                      lastTapId = answer?.answerId ?? '';
-                                      showTextField = true;
-                                    } else {
-                                      markAnswer();
-                                    }
-                                  });
-                                }
-                              },
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    50), // Makes the checkbox round
-                              ),
-                              side: MaterialStateBorderSide.resolveWith(
-                                (states) => const BorderSide(
-                                  color:
-                                      kwhite, // Border color when not selected
-                                  width: 2.0,
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: selectedOption.contains(
+                                                answer?.answerId ?? '')
+                                            ? kwhite
+                                            : Colors.transparent,
+                                        borderRadius: BorderRadius.circular(
+                                            50), // Matching rounded corners
+                                      ),
+                                      padding: EdgeInsets.all(selected
+                                          ? 0
+                                          : 8.0), // Adjust padding to center the checkmark
+                                      child: selected
+                                          ? const Icon(
+                                              Icons.check,
+                                              color: kblack,
+                                              size: 15,
+                                            )
+                                          : null, // No icon if not selected
+                                    ),
+                                  ),
+                                ),kWidth10,
+                                Expanded(
+                                  child: Container(
+                                    padding: completed
+                                        ? EdgeInsets.symmetric(
+                                            vertical: 2.h, horizontal: 8.w)
+                                        : null,
+                                    margin: EdgeInsets.only(
+                                        right: completed ? 5.w : 0),
+                                    decoration: completed
+                                        ? BoxDecoration(
+                                            color: sender
+                                                ? kblack.withOpacity(0.1)
+                                                : kwhite.withOpacity(0.5),
+                                            borderRadius: kBorderRadius5,
+                                          )
+                                        : null,
+                                    child: Text(
+                                      answer?.answerText ?? '',
+                                      style: textThinStyle1.copyWith(
+                                          color: kwhite),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              checkColor:
-                                  kblack, // Set check mark color to black
-                              activeColor:
-                                  kwhite, // Set background color to white when selected
-                            ),
-                            title: Container(
-                              padding: completed
-                                  ? EdgeInsets.symmetric(
-                                      vertical: 5.h, horizontal: 10.w)
-                                  : null,
-                              margin:
-                                  EdgeInsets.only(right: completed ? 5.w : 0),
-                              decoration: completed
-                                  ? BoxDecoration(
-                                      color: sender
-                                          ? kblack.withOpacity(0.1)
-                                          : kwhite.withOpacity(0.5),
-                                      borderRadius: kBorderRadius5,
-                                    )
-                                  : null,
-                              child: Text(
-                                answer?.answerText ?? '',
-                                style: textStyle1.copyWith(color: kwhite),
-                              ),
+                              ],
                             ),
                           ),
                         ),
@@ -245,7 +251,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                 child: FittedBox(
                                   child: Text(
                                     "${answer?.answerVotes ?? 0}",
-                                    style: textHeadStyle1,
+                                    style: textStyle1,
                                   ),
                                 ),
                               )

@@ -9,6 +9,7 @@ class TimeExpense {
   TimeExpenseData? timeExpenseData;
   bool? readByAll;
   bool? sender;
+  bool isLoadMore;
 
   TimeExpense({
     this.messageType,
@@ -21,6 +22,7 @@ class TimeExpense {
     this.timeExpenseData,
     this.readByAll,
     this.sender,
+    this.isLoadMore = false,
   });
 
   factory TimeExpense.fromJson(Map<String, dynamic> json, [String? uid]) {
@@ -33,10 +35,12 @@ class TimeExpense {
       messageId: json['message_id'] as String?,
       timestamp: json['timestamp'] as String?,
       timeExpenseData: json['time_expense_data'] != null
-          ? TimeExpenseData.fromJson(json['time_expense_data'] as Map<String, dynamic>)
+          ? TimeExpenseData.fromJson(
+              json['time_expense_data'] as Map<String, dynamic>)
           : null,
       readByAll: json['read_by_all'] as bool?,
       sender: (json['user_id'] as String?) == uid,
+      isLoadMore: (json['is_load_more'] as bool?) ?? false,
     );
   }
 
@@ -52,6 +56,7 @@ class TimeExpense {
       'time_expense_data': timeExpenseData?.toJson(),
       'read_by_all': readByAll,
       'sender': sender,
+      'is_load_more': isLoadMore,
     };
   }
 }

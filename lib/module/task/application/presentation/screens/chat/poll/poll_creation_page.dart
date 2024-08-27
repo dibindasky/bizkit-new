@@ -54,7 +54,7 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                 isAnonymousVotingAllowed: anonymousVoting,
                 isMultipleSelectionAllowed: multipleAnswers,
                 isReasonRequired: mentionReason,
-                activeUntil: activeUntil == 3 ? '' : date.toString(),
+                activeUntil: activeUntil == 3 ? 'Alwase' : date.toString(),
                 answers: List.generate(_optionsControllers.length,
                     (x) => _optionsControllers[x].text));
             controller.createPollVoting(createPoll: createPoll);
@@ -75,6 +75,7 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                 style: TextStyle(color: klightgrey),
               ),
               TextFormField(
+                textCapitalization: TextCapitalization.sentences,
                 controller: _questionController,
                 decoration: const InputDecoration(
                   hintText: 'Which quest should we take?',
@@ -108,6 +109,7 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                     children: [
                       Expanded(
                         child: TextFormField(
+                          textCapitalization: TextCapitalization.sentences,
                           maxLength: 50,
                           controller: controller,
                           decoration: const InputDecoration(
@@ -206,6 +208,7 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SwitchListTile(
+                    splashRadius: double.minPositive,
                     title: Text('Anonymous Voting', style: textHeadStyle1),
                     value: anonymousVoting,
                     onChanged: (bool value) {
@@ -224,11 +227,15 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SwitchListTile(
+                    splashRadius: double.minPositive,
                     title: Text('Multiple Answers', style: textHeadStyle1),
                     value: multipleAnswers,
                     onChanged: (bool value) {
                       setState(() {
                         multipleAnswers = value;
+                        if (multipleAnswers) {
+                          mentionReason = false;
+                        }
                       });
                     },
                   ),
@@ -241,12 +248,16 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SwitchListTile(
+                      splashRadius: double.minPositive,
                       title: Text('Mention Reason for the answer',
                           style: textHeadStyle1),
                       value: mentionReason,
                       onChanged: (bool value) {
                         setState(() {
                           mentionReason = value;
+                          if (mentionReason) {
+                            multipleAnswers = false;
+                          }
                         });
                       }),
                   Text(

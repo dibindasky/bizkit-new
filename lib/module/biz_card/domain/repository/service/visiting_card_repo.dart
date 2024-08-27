@@ -20,7 +20,8 @@ abstract class VisitingCardRepo {
 
   Future<Either<Failure, GetAllVisitingCards>> getAllVisitingCards();
 
-  Future<Either<Failure, VisitingCardDetailsResponce>> getVisitingCardDetails();
+  Future<Either<Failure, VisitingCardDetailsResponce>> getVisitingCardDetails(
+      {required String visitingCardId});
 
   Future<Either<Failure, GetAllVisitingCards>> getAllDeletedVisitingCards();
 }

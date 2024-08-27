@@ -16,6 +16,8 @@ class CreateVisitingCard {
   String? occupation;
   String? notes;
   List<String>? selfie;
+  @JsonKey(name: 'card_image')
+  String? cardImage;
 
   CreateVisitingCard({
     this.name,
@@ -29,6 +31,7 @@ class CreateVisitingCard {
     this.occupation,
     this.notes,
     this.selfie,
+    this.cardImage,
   });
 
   factory CreateVisitingCard.fromJson(Map<String, dynamic> json) {
@@ -49,6 +52,7 @@ class CreateVisitingCard {
     String? occupation,
     String? notes,
     List<String>? selfie,
+    String? cardImage,
   }) {
     return CreateVisitingCard(
       name: name ?? this.name,
@@ -62,6 +66,7 @@ class CreateVisitingCard {
       occupation: occupation ?? this.occupation,
       notes: notes ?? this.notes,
       selfie: selfie ?? this.selfie,
+      cardImage: cardImage ?? this.cardImage,
     );
   }
 }

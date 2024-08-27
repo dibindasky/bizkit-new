@@ -37,6 +37,7 @@ class ApiEndPoints {
 
   // [ Visiting card ]
   static String visitingCard = '/visiting-cards/';
+  static String visitingCardDetails = '/visiting-cards/{visitingCardId}/';
   static String getAllDeletedVisitingCards = '/deleted-visiting-cards/';
   static String getAllVisitingCards = '/list-visiting-cards/';
 

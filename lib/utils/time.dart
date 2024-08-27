@@ -15,7 +15,9 @@ String formatDateTime(DateTime dateTime) {
   return '$day/$month/$year, $hours:$minutes:$seconds';
 }
 
-String getDateByDayMonthYear(DateTime? dateTime) {
-  if (dateTime == null) return '';
-  return DateFormat('dd-MM-yyyy').format(dateTime);
+String getDateByDayMonthYear(String date) {
+  if (date.isEmpty) return '';
+  DateTime dateTime = DateTime.parse(date);
+  String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+  return formattedDate;
 }

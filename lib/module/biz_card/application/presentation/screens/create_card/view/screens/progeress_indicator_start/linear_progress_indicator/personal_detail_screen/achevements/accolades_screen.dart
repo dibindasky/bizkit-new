@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
@@ -60,7 +61,7 @@ class _CardScreenAchievementsState extends State<CardScreenAchievements> {
                 child: InkWell(
                   onTap: () async {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CardScreenAchievementsAddCreate(
+                      builder: (context) => CardScreenAchievementsCreate(
                           fromBusiness: widget.fromBusiness),
                     ));
                   },
@@ -210,6 +211,7 @@ class AchivementListViewCreation extends StatelessWidget {
   Widget build(BuildContext context) {
     final personalController = Get.find<PersonalDetailsController>();
     final cardController = Get.find<CardController>();
+    log('Achivement ${achievements?.toList()}');
     return Obx(
       () {
         if (personalController.deleteLoading.value) {
@@ -298,8 +300,8 @@ class AchivementListViewCreation extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              getDateByDayMonthYear(DateTime.parse(
-                                  achievements?[index].date ?? '')),
+                              getDateByDayMonthYear(
+                                  achievements?[index].date ?? ''),
                               style: textStyle1.copyWith(
                                 fontSize: kwidth * .03,
                               ),

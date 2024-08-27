@@ -153,7 +153,6 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                                 e.startsWith('data') ? e.substring(22) : e)
                             .toList());
                       }
-                      // log('${images.length}');
                       return PreviewPageviewImageBuilder(
                         imagesList: images.isEmpty
                             ? [bizcardIconBAse64.substring(22)]

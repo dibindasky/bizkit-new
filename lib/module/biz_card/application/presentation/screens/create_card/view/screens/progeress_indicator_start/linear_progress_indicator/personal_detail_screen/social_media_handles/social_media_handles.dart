@@ -1,6 +1,5 @@
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/social_media/personal_social_media_deletion/personal_social_media_deletion.dart';
 import 'package:bizkit/module/biz_card/domain/modell/cards/social_media/personal_social_media_request_model/personal_social_media_request_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';

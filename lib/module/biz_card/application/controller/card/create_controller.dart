@@ -111,6 +111,7 @@ class CardController extends GetxController {
   }
 
   void cardDetail({required String cardId}) async {
+    bizcardDetail.value = CardDetailModel();
     isLoading.value = true;
     final data = await cardRepo.getCardDetail(cardId: cardId);
     data.fold(

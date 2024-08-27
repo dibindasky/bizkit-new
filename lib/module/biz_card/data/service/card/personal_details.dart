@@ -22,6 +22,7 @@ class PersonalDetailsService implements PersonalDetailsRepo {
   Future<Either<Failure, SuccessResponseModel>> personalAchivmentAdding(
       {required PersonalAchievementRequestModel personalAchiment}) async {
     try {
+      log('${personalAchiment.toJson()}');
       final responce = await apiService.post(ApiEndPoints.personalAchievement,
           data: personalAchiment.toJson());
       log('personalAchivmentAdding ==>success');
@@ -93,6 +94,7 @@ class PersonalDetailsService implements PersonalDetailsRepo {
   Future<Either<Failure, SuccessResponseModel>> personalDatesToReminderDeleting(
       {required ReminderDeletion remiderDeletion}) async {
     try {
+      log('${remiderDeletion.toJson()}');
       final responce = await apiService.delete(
           ApiEndPoints.personalDatesToReminder,
           data: remiderDeletion.toJson());

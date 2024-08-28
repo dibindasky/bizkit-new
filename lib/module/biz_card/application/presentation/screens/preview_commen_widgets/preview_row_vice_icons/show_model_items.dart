@@ -74,6 +74,8 @@ class _PreviewScreenRowIconsModelSheetState
                               ),
                               adjustHieght(5),
                               Text(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 data,
                                 style: const TextStyle(color: neonShade),
                               ),

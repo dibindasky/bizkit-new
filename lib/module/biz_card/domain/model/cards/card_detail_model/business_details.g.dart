@@ -8,6 +8,7 @@ part of 'business_details.dart';
 
 BusinessDetails _$BusinessDetailsFromJson(Map<String, dynamic> json) =>
     BusinessDetails(
+      websiteLink: json['business_website'] as String?,
       id: json['_id'] as String?,
       businessCategory: json['business_category'] as String?,
       designation: json['designation'] as String?,
@@ -34,6 +35,7 @@ BusinessDetails _$BusinessDetailsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$BusinessDetailsToJson(BusinessDetails instance) =>
     <String, dynamic>{
+      'business_website': instance.websiteLink,
       '_id': instance.id,
       'business_category': instance.businessCategory,
       'designation': instance.designation,

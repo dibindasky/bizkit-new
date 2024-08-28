@@ -1,24 +1,51 @@
-import 'dart:math';
-
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
 import 'package:bizkit/module/biz_card/data/service/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_achievement_request_model/personal_achievement_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_achievent_deletion_model/personal_achievent_deletion_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/personal_details_request_model/personal_details_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/reminder/personal_dayes_to_reminder_model/personal_dayes_to_reminder_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/reminder/reminder_deletion/reminder_deletion.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_social_media_deletion/personal_social_media_deletion.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_social_media_request_model/personal_social_media_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/personal_details_repo.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
+import 'package:bizkit/utils/time.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as mat;
 import 'package:get/get.dart';
 
 class PersonalDetailsController extends GetxController {
   final PersonalDetailsRepo personalRepo = PersonalDetailsService();
   RxBool isLoading = false.obs;
   RxBool deleteLoading = false.obs;
+  final CardRepo cardRepo = CardService();
+  final PersonalDetailsRepo personalDetailsRepo = PersonalDetailsService();
+
+  // Personal Details Controllers
   RxList<String> personalImages = <String>[].obs;
+  Rx<PersonalAchievementRequestModel> personalAcheivementModel =
+      PersonalAchievementRequestModel().obs;
+  Rx<PersonalDetailsRequestModel> personalSocialMediaMOdel =
+      PersonalDetailsRequestModel().obs;
+  Rx<PersonalDayesToReminderModel> personalDatesToReminder =
+      PersonalDayesToReminderModel().obs;
+  final mat.TextEditingController personalNameController =
+      mat.TextEditingController();
+  final mat.TextEditingController personalPhoneController =
+      mat.TextEditingController();
+  final mat.TextEditingController personalEmailController =
+      mat.TextEditingController();
+  final mat.TextEditingController bloodGroupController =
+      mat.TextEditingController();
+  final mat.TextEditingController dOBController = mat.TextEditingController();
+  final mat.TextEditingController personlAddressController =
+      mat.TextEditingController();
 
   // personaal Achivement Controllers
   RxList<ImageCard>? achievementImages = <ImageCard>[].obs;
@@ -38,6 +65,17 @@ class PersonalDetailsController extends GetxController {
   TextEditingController personalDatesToReminderMessage =
       TextEditingController();
 
+  void getPersonalDetails(CardDetailModel cardDetail) {
+    personalEmailController.text = cardDetail.personalDetails?.email ?? '';
+    personalNameController.text = cardDetail.personalDetails?.name ?? '';
+    personalPhoneController.text =
+        cardDetail.personalDetails?.phone?.first ?? '';
+    personlAddressController.text = cardDetail.personalDetails?.address ?? '';
+    dOBController.text =
+        getDateByDayMonthYear(cardDetail.personalDetails?.dob ?? '');
+    bloodGroupController.text = cardDetail.personalDetails?.bloodGroup ?? '';
+  }
+
   void personalImagesAdding(bool isCam) async {
     final image = await ImagePickerClass.getImage(camera: isCam);
     if (image != null) {
@@ -49,6 +87,42 @@ class PersonalDetailsController extends GetxController {
   void removePersonalImages(int index) {
     personalImages.removeAt(index);
     update();
+  }
+
+  void createPersonalDetails(
+      {required String bizcardId, required String personalDetailsId}) async {
+    if (personalNameController.text.isEmpty) {
+      Get.snackbar('Fail', 'Please Add Name');
+      return;
+    }
+    final personalController = Get.find<PersonalDetailsController>();
+
+    PersonalDetailsRequestModel personalDetailsRequestModel =
+        PersonalDetailsRequestModel(
+      personalDetailsId: personalDetailsId,
+      address: personlAddressController.text,
+      bizcardId: bizcardId,
+      bloodGroup: bloodGroupController.text,
+      dob: dOBController.text,
+      email: personalEmailController.text,
+      images: personalController.personalImages,
+      name: personalNameController.text,
+      phone: [personalPhoneController.text],
+    );
+
+    isLoading.value = true;
+    final data = await personalDetailsRepo.personalDetailsAdding(
+        personalDetailsRequestModel: personalDetailsRequestModel);
+    data.fold(
+      (l) => null,
+      (r) {
+        Get.snackbar('Sucess', 'Successfully Added Personal Details',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: neonShade,
+            duration: const Duration(milliseconds: 300));
+        isLoading.value = false;
+      },
+    );
   }
 
   void acheievementAdding(List<String> images, BuildContext context) async {
@@ -74,6 +148,7 @@ class PersonalDetailsController extends GetxController {
       isLoading.value = false;
       cardController.cardDetail(
           cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+      showSnackbar(context, message: 'Achievement Created Successfully');
       Navigator.pop(context);
     });
   }

@@ -15,6 +15,8 @@ class BusinessDetails {
   @JsonKey(name: 'business_category')
   String? businessCategory;
   String? designation;
+  @JsonKey(name: 'business_website')
+  String? websiteLink;
   @JsonKey(name: 'company_name')
   String? companyName;
   @JsonKey(name: 'business_name')
@@ -33,6 +35,7 @@ class BusinessDetails {
   String? logoStory;
 
   BusinessDetails({
+    this.websiteLink,
     this.id,
     this.businessCategory,
     this.designation,

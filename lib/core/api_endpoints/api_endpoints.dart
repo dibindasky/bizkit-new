@@ -1,6 +1,6 @@
 class ApiEndPoints {
-  static String baseUrl = 'https://bizkit.onrender.com';
-  //static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
+  // static String baseUrl = 'https://bizkit.onrender.com';
+  static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
 
   // refesh token
   static String refreshUrl = '/token/';
@@ -32,6 +32,7 @@ class ApiEndPoints {
   static String personalDatesToReminder = '/personal-dates-to-remember/';
 
   // Business Details
+  static String businessDetils = '/business-details/';
   static String businessAchievement = '/business-achievements/';
   static String businessSocialedia = '/business-social-media/';
   static String businessProduct = '/business-products/';

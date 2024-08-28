@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
@@ -13,7 +12,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/cards_li
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/deleted_cards.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
@@ -106,6 +104,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
     });
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: knill,
         actions: [
           IconButton(
@@ -140,11 +139,20 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                 children: [
                   adjustHieght(khieght * .05),
                   SizedBox(
-                    height: 340.h,
+                    height: 310.h,
                     child: GetBuilder<CardController>(
                       builder: (controller) {
                         if (controller.isLoading.value) {
-                          return ShimmerLoaderTile(height: 125.w, width: 200.w);
+                          return SizedBox(
+                            height: 310.h,
+                            child: ShimmerLoader(
+                              height: 310.h,
+                              seprator: kWidth10,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: cardController.bizcards.length,
+                              width: 300.w,
+                            ),
+                          );
                         } else if (controller.bizcards.isEmpty) {
                           return const Expanded(
                             flex: 2,
@@ -478,7 +486,17 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                   Obx(
                     () {
                       if (visitingCardController.loadingForVisitingCard.value) {
-                        return ShimmerLoaderTile(height: 255.w, width: 200.w);
+                        return SizedBox(
+                          height: 200.h,
+                          child: ShimmerLoader(
+                            height: 200.h,
+                            seprator: kWidth10,
+                            scrollDirection: Axis.horizontal,
+                            itemCount:
+                                visitingCardController.visitingCards.length,
+                            width: 300.w,
+                          ),
+                        );
                       } else if (visitingCardController.visitingCards.isEmpty) {
                         return const Expanded(
                           flex: 2,
@@ -488,7 +506,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                         );
                       } else {
                         return SizedBox(
-                          height: 240.h,
+                          height: 200.h,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemCount:
@@ -541,31 +559,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                       children: [
                                         SizedBox(
                                           width: 300,
-                                          height: 200,
+                                          height: 170,
                                           child: InkWell(
                                             onTap: () {
-                                              // Map<String, String> map =
-                                              //     visitingCardController
-                                              //                 .visitingCards[
-                                              //                     index]
-                                              //                 .id !=
-                                              //             null
-                                              //         ? {
-                                              //             'cardId':
-                                              //                 visitingCardController
-                                              //                     .visitingCards[
-                                              //                         index]
-                                              //                     .id
-                                              //                     .toString(),
-                                              //           }
-                                              //         : <String, String>{};
-
-                                              // log('Map ===> $map');
-                                              // GoRouter.of(context).pushNamed(
-                                              //   Routes.secondcardDetail,
-                                              //   pathParameters: map,
-                                              // );
-                                              log('Visitnig Card Id ==== >${visitingCardController.visitingCards[index].id} ');
+                                              // log('Visitnig Card Id ==== >${visitingCardController.visitingCards[index].id} ');
                                               visitingCardController
                                                   .fetchVisitingCardDetails(
                                                       visitingCardId:
@@ -594,18 +591,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                 topLeft: Radius.circular(25),
                                                 topRight: Radius.circular(20),
                                               ),
-                                              // child: Image.network(
-                                              //   imageDummyNetwork,
-                                              //   fit: BoxFit.cover,
-                                              //   errorBuilder: (context, error,
-                                              //       stackTrace) {
-                                              //     return const Icon(
-                                              //       Icons
-                                              //           .image_not_supported_outlined,
-                                              //     );
-                                              //   },
-                                              // )
-                                              // :
                                               child: Image.memory(
                                                 base64Decode(
                                                     visitingCardController
@@ -621,45 +606,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                         .image_not_supported_outlined,
                                                   );
                                                 },
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          right: 3,
-                                          top: 10,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              showConfirmationDialog(
-                                                  heading:
-                                                      'Are you sure you want to delete your card',
-                                                  context, onPressed: () {
-                                                visitingCardController
-                                                    .deleteVisitingCard(
-                                                        context: context,
-                                                        visitingCardDeleteModel:
-                                                            VisitingCardDeleteModel(
-                                                          cardId: visitingCardController
-                                                                  .visitingCards[
-                                                                      index]
-                                                                  .id ??
-                                                              '',
-                                                          isDisabled: true,
-                                                        ));
-                                              });
-                                            },
-                                            child: const CircleAvatar(
-                                              backgroundColor: neonShade,
-                                              child: Padding(
-                                                padding: EdgeInsets.all(2.0),
-                                                child: CircleAvatar(
-                                                  backgroundColor:
-                                                      klightDarkGrey,
-                                                  child: Icon(
-                                                    Icons.delete,
-                                                    color: neonShade,
-                                                  ),
-                                                ),
                                               ),
                                             ),
                                           ),

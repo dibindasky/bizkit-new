@@ -4,7 +4,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/create_c
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/image_preview_under_textfield.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/achievement.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
 import 'package:bizkit/utils/event_button.dart';

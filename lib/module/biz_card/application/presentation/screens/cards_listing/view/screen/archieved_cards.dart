@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_archive_model/card_archive_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';

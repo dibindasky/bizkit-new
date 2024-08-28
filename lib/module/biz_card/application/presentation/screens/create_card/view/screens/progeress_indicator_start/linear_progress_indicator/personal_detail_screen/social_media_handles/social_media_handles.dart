@@ -1,14 +1,22 @@
+import 'dart:developer';
+
+import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/personal_detail_screen.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/business_social_media.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/personal_social_media.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_social_media_request_model/personal_social_media_request_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/formating/text_input_formating.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class SocialMediahandlesScreen extends StatefulWidget {
@@ -28,8 +36,9 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
   List<String> socialMedias = socialMedia;
   @override
   Widget build(BuildContext context) {
-    final personalDetailsController = Get.find<PersonalDetailsController>();
+    final personalController = Get.find<PersonalDetailsController>();
     final cardController = Get.find<CardController>();
+    final businessController = Get.find<BusinesDetailsController>();
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScopeNode = FocusScope.of(context);
@@ -108,6 +117,10 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                   ),
                   kHeight20,
                   CustomTextFormField(
+                    inputFormatters: selectedCategory == 'Whatsapp' ||
+                            selectedCategory == 'Telegram'
+                        ? [FilteringTextInputFormatter.digitsOnly]
+                        : [],
                     maxlegth: selectedCategory == 'Whatsapp' ||
                             selectedCategory == 'Telegram'
                         ? 10
@@ -117,16 +130,20 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                         ? 'Enter Whatsap Number'
                         : selectedCategory == 'Telegram'
                             ? 'Enter Telegram Number'
-                            : 'Account link paste here',
+                            : 'Account Link Paste here',
                     inputType: selectedCategory == 'Whatsapp' ||
                             selectedCategory == 'Telegram'
                         ? TextInputType.number
                         : TextInputType.url,
                   ),
-                  adjustHieght(30),
+                  kHeight30,
                   Obx(
                     () {
-                      if (personalDetailsController.isLoading.value) {
+                      if (!widget.fromBusiness &&
+                          personalController.isLoading.value) {
+                        return const LoadingAnimation();
+                      } else if (widget.fromBusiness &&
+                          businessController.socialMediaLoading.value) {
                         return const LoadingAnimation();
                       }
                       return EventButton(
@@ -161,21 +178,23 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                               : selectedCategory == 'Telegram'
                                   ? 'https://t.me/+${linkController.text}'
                                   : linkController.text;
-                          PersonalSocialMediaRequestModel
-                              personalSocialMediaModel =
+                          PersonalSocialMediaRequestModel personalSocialMediaModel =
                               PersonalSocialMediaRequestModel(
                                   label: selectedCategory,
                                   link: link,
                                   bizcardId: cardController
                                       .bizcardDetail.value.bizcardId,
-                                  personalDetailsId: cardController
-                                      .bizcardDetail.value.personalDetails?.id);
+                                  personalDetailsId: !widget.fromBusiness
+                                      ? cardController.bizcardDetail.value
+                                          .personalDetails?.id
+                                      : cardController.bizcardDetail.value
+                                          .businessDetails?.id);
                           !widget.fromBusiness
-                              ? personalDetailsController
-                                  .personalSocialMediaAdding(
-                                      personalSocialMediaModel:
-                                          personalSocialMediaModel)
-                              : null;
+                              ? personalController.personalSocialMediaAdding(
+                                  personalSocialMediaModel:
+                                      personalSocialMediaModel)
+                              : businessController.socialMediaAdding(
+                                  selectedCategory, link);
                           linkController.text = '';
                           selectedCategory = 'Social Media';
                           setState(() {});
@@ -186,70 +205,99 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                   adjustHieght(30),
                   Wrap(
                     children: List.generate(
-                      (cardController.bizcardDetail.value.personalDetails
-                              ?.personalSocialMedia?.length ??
-                          0),
-                      (index) => Stack(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.all(8),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 8),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: neonShade),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(10))),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const CircleAvatar(
-                                  radius: 10,
-                                  backgroundImage:
-                                      AssetImage('asset/images/banking.png'),
-                                ),
-                                adjustWidth(10),
-                                Text(cardController
-                                        .bizcardDetail
-                                        .value
-                                        .personalDetails
-                                        ?.personalSocialMedia?[index]
-                                        .label ??
-                                    ''),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            right: 0,
-                            top: 0,
-                            child: InkWell(
+                      !widget.fromBusiness
+                          ? (cardController.bizcardDetail.value.personalDetails
+                                  ?.personalSocialMedia?.length ??
+                              0)
+                          : (cardController.bizcardDetail.value.businessDetails
+                                  ?.businessSocialMedia?.length ??
+                              0),
+                      (index) {
+                        final data = (!widget.fromBusiness)
+                            ? (cardController.bizcardDetail.value
+                                .personalDetails?.personalSocialMedia?[index])
+                            : cardController.bizcardDetail.value.businessDetails
+                                ?.businessSocialMedia?[index];
+                        return Stack(
+                          children: [
+                            GestureDetector(
                               onTap: () {
-                                FocusScope.of(context).unfocus();
-                                showCustomConfirmationDialogue(
-                                    context: context,
-                                    title:
-                                        'Are You Sure Do You Want To Delete?',
-                                    buttonText: 'Delete',
-                                    onTap: () {
-                                      !widget.fromBusiness
-                                          ? personalDetailsController
-                                              .personalSocialMediaDelete(index)
-                                          : null;
-                                    });
+                                log('message');
+                                showDailoges(context,
+                                    heading: 'Social Media',
+                                    tittle: data is PersonalSocialMedia
+                                        ? data.label ?? ''
+                                        : data is BusinessSocialMedia
+                                            ? data.label ?? ''
+                                            : '',
+                                    desc: data is PersonalSocialMedia
+                                        ? data.link ?? ''
+                                        : data is BusinessSocialMedia
+                                            ? data.link ?? ''
+                                            : '');
                               },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: const ColoredBox(
-                                  color: neonShade,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(5),
-                                    child: Icon(Icons.close, size: 12),
-                                  ),
+                              child: Container(
+                                margin: const EdgeInsets.all(8),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 8),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: neonShade),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const CircleAvatar(
+                                      radius: 10,
+                                      backgroundImage: AssetImage(
+                                          'asset/images/banking.png'),
+                                    ),
+                                    adjustWidth(10),
+                                    Text(cardController
+                                            .bizcardDetail
+                                            .value
+                                            .personalDetails
+                                            ?.personalSocialMedia?[index]
+                                            .label ??
+                                        ''),
+                                  ],
                                 ),
                               ),
                             ),
-                          )
-                        ],
-                      ),
+                            Positioned(
+                              right: 0,
+                              top: 0,
+                              child: InkWell(
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  showCustomConfirmationDialogue(
+                                      context: context,
+                                      title:
+                                          'Are You Sure Do You Want To Delete?',
+                                      buttonText: 'Delete',
+                                      onTap: () {
+                                        !widget.fromBusiness
+                                            ? personalController
+                                                .personalSocialMediaDelete(
+                                                    index)
+                                            : null;
+                                      });
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: const ColoredBox(
+                                    color: neonShade,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5),
+                                      child: Icon(Icons.close, size: 12),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      },
                     ),
                   )
                 ],

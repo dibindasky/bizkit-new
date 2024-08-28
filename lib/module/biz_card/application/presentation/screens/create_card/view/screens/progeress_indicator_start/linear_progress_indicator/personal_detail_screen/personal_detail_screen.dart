@@ -99,7 +99,7 @@ class PersonalDetails extends StatelessWidget {
                     AutocompleteTextField(
                       validate: Validate.notNull,
                       label: 'Name',
-                      controller: cardController.personalNameController,
+                      controller: personalController.personalNameController,
                       inputType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
                       // autocompleteItems: ['febin', 'sebin'],
@@ -109,7 +109,7 @@ class PersonalDetails extends StatelessWidget {
                       validate: Validate.phone,
                       maxLength: 10,
                       label: 'Personal Phone Number',
-                      controller: cardController.personalPhoneController,
+                      controller: personalController.personalPhoneController,
                       inputType: TextInputType.phone,
                       //autocompleteItems: ['38947590', '837598'],
                     ),
@@ -117,7 +117,7 @@ class PersonalDetails extends StatelessWidget {
                     AutocompleteTextField(
                       validate: Validate.email,
                       label: 'Personal Email',
-                      controller: cardController.personalEmailController,
+                      controller: personalController.personalEmailController,
                       inputType: TextInputType.emailAddress,
                       //autocompleteItems: ['Gmail', 'mail'],
                     ),
@@ -133,7 +133,7 @@ class PersonalDetails extends StatelessWidget {
                 label: 'Home address',
                 textCapitalization: TextCapitalization.words,
                 maxLength: 250,
-                controller: cardController.personlAddressController,
+                controller: personalController.personlAddressController,
                 inputType: TextInputType.name,
               ),
               // blood group selection
@@ -143,7 +143,7 @@ class PersonalDetails extends StatelessWidget {
                 autocompleteItems: bloodGroups,
                 showDropdown: true,
                 label: 'Blood Group',
-                controller: cardController.bloodGroupController,
+                controller: personalController.bloodGroupController,
                 inputType: TextInputType.name,
                 onTap: () {
                   FocusScope.of(context).unfocus();
@@ -160,7 +160,7 @@ class PersonalDetails extends StatelessWidget {
                       return DatePickingBottomSheet(
                         year: 100,
                         onPressed: (date) {
-                          cardController.dOBController.text = date;
+                          personalController.dOBController.text = date;
                         },
                         datePicker: TextEditingController(),
                       );
@@ -171,7 +171,7 @@ class PersonalDetails extends StatelessWidget {
                   validate: Validate.notNull,
                   labelText: 'DOB',
                   enabled: false,
-                  controller: cardController.dOBController,
+                  controller: personalController.dOBController,
                   inputType: TextInputType.name,
                 ),
               ),
@@ -248,6 +248,14 @@ class PersonalDetails extends StatelessWidget {
               // social media handles
               Obx(
                 () => ImagePreviewUnderTextField(
+                  onItemTap: (value, index) {
+                    final data = cardController.bizcardDetail.value
+                        .personalDetails?.personalSocialMedia?[index];
+                    showDailoges(context,
+                        heading: 'Social Media',
+                        tittle: "Name : ${data?.label ?? ''}",
+                        desc: 'Link : ${data?.link ?? ''}');
+                  },
                   listString: cardController.bizcardDetail.value.personalDetails
                           ?.personalSocialMedia
                           ?.map((e) => e.label ?? '')
@@ -308,7 +316,7 @@ class PersonalDetails extends StatelessWidget {
                 () => ImagePreviewUnderTextField(
                   listString: cardController
                           .bizcardDetail.value.personalDetails?.datesToRemember
-                          ?.map((e) => e.date ?? '')
+                          ?.map((e) => getDateByDayMonthYear(e.date ?? ''))
                           .toList() ??
                       [],
                   removeItem: (index) {
@@ -324,31 +332,11 @@ class PersonalDetails extends StatelessWidget {
                   onItemTap: (value, index) {
                     final data = cardController.bizcardDetail.value
                         .personalDetails?.datesToRemember?[index];
-                    showDialog(
-                        context: context,
-                        builder: (context) => Dialog(
-                              child: Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)),
-                                    border: Border.all(color: neonShade)),
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        'Dates To Remember',
-                                        style: TextStyle(fontSize: 14.sp),
-                                      ),
-                                      adjustHieght(10),
-                                      Text(
-                                          "Date : ${getDateByDayMonthYear(cardController.bizcardDetail.value.personalDetails?.datesToRemember?[index].date ?? '')}"),
-                                      adjustHieght(5),
-                                      Text(
-                                          'Description : ${data?.description ?? ''}')
-                                    ]),
-                              ),
-                            ));
+                    showDailoges(context,
+                        heading: 'Dates To Remember',
+                        tittle:
+                            "Date : ${getDateByDayMonthYear(data?.date ?? '')}",
+                        desc: 'Description : ${data?.description ?? ''}');
                   },
                   ontap: () {
                     FocusScope.of(context).unfocus();
@@ -399,7 +387,7 @@ class PersonalDetails extends StatelessWidget {
                   return CardLastSkipContinueButtons(
                     onTap: () {
                       if (personalDeatilFormKey.currentState!.validate()) {
-                        cardController.createPersonalDetails(
+                        personalController.createPersonalDetails(
                             bizcardId:
                                 cardController.bizcardDetail.value.bizcardId ??
                                     '',
@@ -418,4 +406,28 @@ class PersonalDetails extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<dynamic> showDailoges(BuildContext context,
+    {required String heading, required tittle, required String desc}) {
+  return showDialog(
+      context: context,
+      builder: (context) => Dialog(
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(color: neonShade)),
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Text(
+                  heading,
+                  style: TextStyle(fontSize: 14.sp),
+                ),
+                adjustHieght(10),
+                Text(tittle),
+                adjustHieght(5),
+                Text(desc)
+              ]),
+            ),
+          ));
 }

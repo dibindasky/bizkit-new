@@ -1,17 +1,24 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_create_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/image_preview_under_textfield.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/branch_office.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
 import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 final GlobalKey<FormState> businessFormKey = GlobalKey<FormState>();
 
@@ -25,6 +32,8 @@ class BusinessDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final businessController = Get.find<BusinesDetailsController>();
+    final cardController = Get.find<CardController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // context
       //     .read<BusinessDataBloc>()
@@ -50,6 +59,21 @@ class BusinessDetailsScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               adjustHieght(khieght * .02),
+              // Business category mail id
+              AutocompleteTextField(
+                doAutoFill: false,
+                validate: Validate.notNull,
+                label: 'Business Category',
+                inputType: TextInputType.emailAddress,
+                controller: businessController.businessCategory,
+                autocompleteItems: const [],
+              ),
+              //Business name
+              CustomTextFormField(
+                  labelText: 'Business Name',
+                  validate: Validate.notNull,
+                  textCapitalization: TextCapitalization.words,
+                  controller: businessController.businessName),
               // company name
               AutocompleteTextField(
                 validate: Validate.notNull,
@@ -57,157 +81,49 @@ class BusinessDetailsScreen extends StatelessWidget {
                 autocompleteItems: const [],
                 onChanged: (value) {},
                 onDropDownSelection: (value) {},
-                label: 'Company',
+                label: 'Company Name',
                 textCapitalization: TextCapitalization.words,
-                //controller: context.read<BusinessDataBloc>().companyController,
+                controller: businessController.commpanyName,
               ),
               // business name
-              const CustomTextFormField(
-                labelText: 'Business Name',
-                validate: Validate.notNull,
-                textCapitalization: TextCapitalization.words,
-                // controller:
-                //     context.read<BusinessDataBloc>().businessNameController,
-              ),
-              // company mail id
-              const AutocompleteTextField(
-                doAutoFill: false,
-                validate: Validate.email,
-                label: 'Company Mail ID',
-                inputType: TextInputType.emailAddress,
-                //controller: context.read<BusinessDataBloc>().mailController,
-                autocompleteItems: [],
-              ),
+
               // mobile number business
-              const AutocompleteTextField(
+              AutocompleteTextField(
+                label: 'Designation',
+                doAutoFill: false,
+                validate: Validate.notNull,
+                maxLength: 10,
+                controller: businessController.companyDesignation,
+                inputType: TextInputType.number,
+                autocompleteItems: const [],
+              ),
+              //
+              AutocompleteTextField(
+                inputType: TextInputType.emailAddress,
+                label: 'Combany Mail',
+                validate: Validate.email,
+                doAutoFill: false,
+                controller: businessController.companyEmail,
+                autocompleteItems: const [],
+              ),
+              // Company Number
+              AutocompleteTextField(
+                maxLength: 10,
+                validate: Validate.phone,
+                inputType: TextInputType.phone,
                 label: 'Company Number',
                 doAutoFill: false,
-                // validate: Validate.phone,
-                // maxLength: 10,
-                //controller: context.read<BusinessDataBloc>().mobileController,
-                inputType: TextInputType.number,
-                autocompleteItems: [],
-              ),
-              adjustHieght(10),
-              // address field
-              const AutocompleteTextField(
-                maxLines: 4, doAutoFill: false,
-                // maxlegth: 250,
-                maxLength: 250,
-                label: 'Company Address',
-                textCapitalization: TextCapitalization.words,
-                //controller: context.read<BusinessDataBloc>().addressController,
-                autocompleteItems: [],
+                controller: businessController.companyNumber,
+                autocompleteItems: const [],
               ),
               // website link business
-              const AutocompleteTextField(
+              AutocompleteTextField(
                 inputType: TextInputType.url,
                 label: 'Company Website link',
                 doAutoFill: false,
-                // controller:
-                //     context.read<BusinessDataBloc>().websiteLinkController,
-                autocompleteItems: [],
+                controller: businessController.companyWebsiteLink,
+                autocompleteItems: const [],
               ),
-              // social media handles
-              ImagePreviewUnderTextField(
-                listString: const [],
-                removeItem: (index) {
-                  showCustomConfirmationDialogue(
-                    context: context,
-                    title: 'are you sure want to delete ?',
-                    buttonText: 'Delete',
-                    onTap: () {
-                      // context.read<BusinessDataBloc>().add(
-                      //     BusinessDataEvent.removeBusinessSocialMedia(
-                      //         id: state.socialMedias[index].id!));
-                    },
-                  );
-                },
-                ontap: () {
-                  FocusScope.of(context).unfocus();
-                  Navigator.of(context)
-                      .push(cardFadePageRoute(const SocialMediahandlesScreen(
-                    fromBusiness: true,
-                  )));
-                },
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: textFieldFillColr,
-                    boxShadow: [
-                      BoxShadow(
-                        color: textFieldFillColr,
-                        spreadRadius: 0.4,
-                        blurRadius: 4,
-                        offset: Offset(0.4, .2),
-                      ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.only(left: 12, right: 12),
-                  height: 48.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Company Social Media Handles',
-                        style: custumText(colr: klightgrey, fontSize: 17),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 16,
-                        color: klightgrey,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              adjustHieght(10),
-              // company branchs adding section
-              ImagePreviewUnderTextField(
-                ontap: () {
-                  showBranchDialoge(context, null);
-                },
-                removeItem: (index) {
-                  showCustomConfirmationDialogue(
-                    context: context,
-                    title: 'are you sure want to delete ?',
-                    buttonText: 'Delete',
-                    onTap: () {
-                      // context.read<BusinessDataBloc>().add(
-                      //     BusinessDataEvent.removeBranch(
-                      //         id: state.branchOffices[index].id!));
-                    },
-                  );
-                },
-                onItemTap: (value, index) {
-                  //final BranchOffice data = state.branchOffices[index];
-                  // context
-                  //     .read<BusinessDataBloc>()
-                  //     .branchOfficeController
-                  //     .text = data.branch ?? '';
-                  // context
-                  //     .read<BusinessDataBloc>()
-                  //     .branchOfficePhoneController
-                  //     .text = data.phoneNumber ?? '';
-                  // context
-                  //     .read<BusinessDataBloc>()
-                  //     .branchOfficeNameController
-                  //     .text = data.name ?? '';
-                  // showBranchDialoge(
-                  //     context,
-                  //     state.branchOffices
-                  //         .firstWhere(
-                  //             (element) => element.branch == value)
-                  //         .id);
-                },
-                listString: const [],
-                child: const CustomTextFormField(
-                  enabled: false,
-                  labelText: 'Branch Offices',
-                  textCapitalization: TextCapitalization.words,
-                  suffixIcon: Icon(Icons.keyboard_arrow_right_outlined),
-                ),
-              ),
-              adjustHieght(10),
               // accredition data
               ImagePreviewUnderTextField(
                 ontap: () {
@@ -268,44 +184,130 @@ class BusinessDetailsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              adjustHieght(khieght * .03),
+              kHeight5,
+              // social media handles
+              ImagePreviewUnderTextField(
+                listString: cardController.bizcardDetail.value.businessDetails
+                        ?.businessSocialMedia
+                        ?.map((e) => e.label ?? '')
+                        .toList() ??
+                    [],
+                removeItem: (index) {
+                  showCustomConfirmationDialogue(
+                    context: context,
+                    title: 'are you sure want to delete ?',
+                    buttonText: 'Delete',
+                    onTap: () {
+                      businessController.socialMediaDelete(index: index);
+                    },
+                  );
+                },
+                ontap: () {
+                  FocusScope.of(context).unfocus();
+                  Navigator.of(context).push(cardFadePageRoute(
+                      const SocialMediahandlesScreen(fromBusiness: true)));
+                },
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: textFieldFillColr,
+                    boxShadow: [
+                      BoxShadow(
+                        color: textFieldFillColr,
+                        spreadRadius: 0.4,
+                        blurRadius: 4,
+                        offset: Offset(0.4, .2),
+                      ),
+                    ],
+                  ),
+                  padding: const EdgeInsets.only(left: 12, right: 12),
+                  height: 48.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Company Social Media Handles',
+                        style: custumText(colr: klightgrey, fontSize: 17),
+                      ),
+                      const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 16,
+                        color: klightgrey,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              adjustHieght(7),
+              // company branch adding section
+              Obx(
+                () => ImagePreviewUnderTextField(
+                  ontap: () {
+                    businessController.branchDataClear();
+                    showBranchDialoge(context, null, null);
+                  },
+                  removeItem: (index) {
+                    showCustomConfirmationDialogue(
+                      context: context,
+                      title: 'Are you sure want to delete?',
+                      buttonText: 'Delete',
+                      onTap: () {
+                        businessController.branchDelete(index);
+                        // context.read<BusinessDataBloc>().add(
+                        //     BusinessDataEvent.removeBranch(
+                        //         id: state.branchOffices[index].id!));
+                      },
+                    );
+                  },
+                  onItemTap: (value, index) {
+                    final BranchOffice? data = cardController.bizcardDetail
+                        .value.businessDetails?.branchOffices?[index];
+                    businessController.businessBranchOfficesAddress.text =
+                        data?.branchAddress ?? '';
+                    businessController.businessBranchOfficeName.text =
+                        data?.branchLocation ?? '';
+                    businessController.businessBranchOfficesPersonNumber.text =
+                        data?.branchContactNumber ?? '';
+                    businessController.businessBranchOfficesPersonName.text =
+                        data?.branchContactPerson ?? '';
+                    showBranchDialoge(
+                        context,
+                        cardController
+                            .bizcardDetail.value.businessDetails?.branchOffices
+                            ?.firstWhere(
+                                (element) => element.branchAddress == value)
+                            .id,
+                        index);
+                  },
+                  listString: cardController
+                          .bizcardDetail.value.businessDetails?.branchOffices
+                          ?.map((e) => e.branchAddress ?? '')
+                          .toList() ??
+                      [],
+                  child: const CustomTextFormField(
+                    enabled: false,
+                    labelText: 'Branch Offices',
+                    textCapitalization: TextCapitalization.words,
+                    suffixIcon: Icon(Icons.keyboard_arrow_right_outlined),
+                  ),
+                ),
+              ),
+              adjustHieght(7),
+
               // continue button
-              // BlocConsumer<BusinessDataBloc, BusinessDataState>(
-              //   listener: (context, state) {
-              //     if (state.businessAdded) {
-              //       context.read<CardBloc>().add(CardEvent.getCardyCardId(
-              //           id: state.currentCard!.id!));
-              //       if (state.isBusiness && fromBusiness) {
-              //         pageController.nextPage(
-              //           duration: const Duration(milliseconds: 500),
-              //           curve: Curves.ease,
-              //         );
-              //       } else {
-              //         Navigator.pop(context);
-              //       }
-              //     }
-              //   },
-              //   buildWhen: (previous, current) =>
-              //       previous.businessLoading != current.businessLoading,
-              //   builder: (context, state) {
-              //     if (state.businessLoading) {
-              //       return const LoadingAnimation();
-              //     }
-              //     return CardLastSkipContinueButtons(
-              //       onTap: () {
-              //         // if (businessFormKey.currentState!.validate()) {
-              //         //   pageController.nextPage(
-              //         //     duration: const Duration(milliseconds: 300),
-              //         //     curve: Curves.ease,
-              //         //   );
-              //         context.read<BusinessDataBloc>().add(
-              //             const BusinessDataEvent.createBusinessData());
-              //         // }
-              //       },
-              //     );
-              //   },
-              // ),
-              adjustHieght(khieght * .04),
+              Obx(
+                () => businessController.isLoading.value
+                    ? const LoadingAnimation()
+                    : CardLastSkipContinueButtons(
+                        onTap: () {
+                          if (businessFormKey.currentState!.validate()) {
+                            pageController.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.ease);
+                          }
+                        },
+                      ),
+              ),
+              kHeight30
             ],
           ),
         ),
@@ -315,116 +317,138 @@ class BusinessDetailsScreen extends StatelessWidget {
 }
 
 // branch office Dialoge box
-showBranchDialoge(context, int? id) {
+showBranchDialoge(context, String? id, int? index) {
   showDialog(
     context: context,
-    builder: (context) => Dialog(
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        child: ColoredBox(
-          color: kblack,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text('Enter Branch Office Details'),
-                  adjustHieght(10),
-                  const CustomTextFormField(
-                    labelText: 'Branch Address',
-                    maxLines: 4,
-                    maxlegth: 250,
-                    textCapitalization: TextCapitalization.words,
-                    // controller: context
-                    //     .read<BusinessDataBloc>()
-                    //     .branchOfficeController
-                  ),
-                  adjustHieght(10),
-                  const CustomTextFormField(
-                    labelText: 'Contact Person',
-                    textCapitalization: TextCapitalization.words,
-                    // controller: context
-                    //     .read<BusinessDataBloc>()
-                    //     .branchOfficeNameController
-                  ),
-                  adjustHieght(10),
-                  const CustomTextFormField(
-                    inputType: TextInputType.phone,
-                    labelText: 'Contact Number',
-                    // controller: context
-                    //     .read<BusinessDataBloc>()
-                    //     .branchOfficePhoneController
-                  ),
-                  adjustHieght(10),
-                  EventButton(
-                    text: id != null ? 'Update' : 'Add',
-                    onTap: () {
-                      // if (context
-                      //         .read<BusinessDataBloc>()
-                      //         .branchOfficeController
-                      //         .text !=
-                      //     '') {
-                      //   if (id == null) {
-                      //     context.read<BusinessDataBloc>().add(
-                      //           BusinessDataEvent.addBranch(
-                      //               branch: BranchOffice(
-                      //                   branch: context
-                      //                       .read<BusinessDataBloc>()
-                      //                       .branchOfficeController
-                      //                       .text,
-                      //                   name: context
-                      //                       .read<BusinessDataBloc>()
-                      //                       .branchOfficeNameController
-                      //                       .text,
-                      //                   phoneNumber: context
-                      //                       .read<BusinessDataBloc>()
-                      //                       .branchOfficePhoneController
-                      //                       .text,
-                      //                   cardId: state.currentCard!.id!)),
-                      //         );
-                      //   } else {
-                      //     context.read<BusinessDataBloc>().add(
-                      //           BusinessDataEvent.updateBranch(
-                      //               branch: BranchOffice(
-                      //                   branch: context
-                      //                       .read<BusinessDataBloc>()
-                      //                       .branchOfficeController
-                      //                       .text,
-                      //                   name: context
-                      //                       .read<BusinessDataBloc>()
-                      //                       .branchOfficeNameController
-                      //                       .text,
-                      //                   phoneNumber: context
-                      //                       .read<BusinessDataBloc>()
-                      //                       .branchOfficePhoneController
-                      //                       .text,
-                      //                   cardId: state.currentCard!.id!,
-                      //                   id: id),
-                      //               id: id),
-                      //         );
-                      //   }
-                      // }
-                      // context
-                      //     .read<BusinessDataBloc>()
-                      //     .branchOfficeController
-                      //     .text = '';
-                      // context
-                      //     .read<BusinessDataBloc>()
-                      //     .branchOfficeNameController
-                      //     .text = '';
-                      // context
-                      //     .read<BusinessDataBloc>()
-                      //     .branchOfficePhoneController
-                      //     .text = '';
-                    },
-                  )
-                ],
+    builder: (context) {
+      final businessController = Get.find<BusinesDetailsController>();
+      return Dialog(
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          child: ColoredBox(
+            color: kblack,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                        '${id != null ? 'Update' : 'Enter'} Branch Office Details'),
+                    kHeight10,
+                    CustomTextFormField(
+                        labelText: 'Branch name',
+                        textCapitalization: TextCapitalization.sentences,
+                        controller:
+                            businessController.businessBranchOfficeName),
+                    kHeight10,
+                    Form(
+                      key: businessController.branchFormKey,
+                      child: CustomTextFormField(
+                          validate: Validate.notNull,
+                          labelText: 'Branch Address',
+                          maxLines: 4,
+                          maxlegth: 250,
+                          textCapitalization: TextCapitalization.sentences,
+                          controller:
+                              businessController.businessBranchOfficesAddress),
+                    ),
+                    kHeight10,
+                    CustomTextFormField(
+                        labelText: 'Contact Person',
+                        textCapitalization: TextCapitalization.sentences,
+                        controller:
+                            businessController.businessBranchOfficesPersonName),
+                    kHeight10,
+                    CustomTextFormField(
+                      inputType: TextInputType.phone,
+                      labelText: 'Contact Number',
+                      controller:
+                          businessController.businessBranchOfficesPersonNumber,
+                    ),
+                    kHeight10,
+                    Obx(
+                      () => businessController.branchLoading.value
+                          ? const LoadingAnimation()
+                          : EventButton(
+                              text: id != null ? 'Update' : 'Add',
+                              onTap: () {
+                                if (businessController
+                                    .branchFormKey.currentState!
+                                    .validate()) {
+                                  id == null
+                                      ? businessController.branchAdding(
+                                          context: context)
+                                      : businessController.branchUpdate(
+                                          context: context, index: index ?? 0);
+                                }
+                                // if (context
+                                //         .read<BusinessDataBloc>()
+                                //         .branchOfficeController
+                                //         .text !=
+                                //     '') {
+                                //   if (id == null) {
+                                //     context.read<BusinessDataBloc>().add(
+                                //           BusinessDataEvent.addBranch(
+                                //               branch: BranchOffice(
+                                //                   branch: context
+                                //                       .read<BusinessDataBloc>()
+                                //                       .branchOfficeController
+                                //                       .text,
+                                //                   name: context
+                                //                       .read<BusinessDataBloc>()
+                                //                       .branchOfficeNameController
+                                //                       .text,
+                                //                   phoneNumber: context
+                                //                       .read<BusinessDataBloc>()
+                                //                       .branchOfficePhoneController
+                                //                       .text,
+                                //                   cardId: state.currentCard!.id!)),
+                                //         );
+                                //   } else {
+                                //     context.read<BusinessDataBloc>().add(
+                                //           BusinessDataEvent.updateBranch(
+                                //               branch: BranchOffice(
+                                //                   branch: context
+                                //                       .read<BusinessDataBloc>()
+                                //                       .branchOfficeController
+                                //                       .text,
+                                //                   name: context
+                                //                       .read<BusinessDataBloc>()
+                                //                       .branchOfficeNameController
+                                //                       .text,
+                                //                   phoneNumber: context
+                                //                       .read<BusinessDataBloc>()
+                                //                       .branchOfficePhoneController
+                                //                       .text,
+                                //                   cardId: state.currentCard!.id!,
+                                //                   id: id),
+                                //               id: id),
+                                //         );
+                                //   }
+                                // }
+                                // context
+                                //     .read<BusinessDataBloc>()
+                                //     .branchOfficeController
+                                //     .text = '';
+                                // context
+                                //     .read<BusinessDataBloc>()
+                                //     .branchOfficeNameController
+                                //     .text = '';
+                                // context
+                                //     .read<BusinessDataBloc>()
+                                //     .branchOfficePhoneController
+                                //     .text = '';
+                              },
+                            ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      ),
-    ),
+      );
+    },
   );
 }

@@ -1,6 +1,7 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 enum Validate {
   phone,
@@ -44,8 +45,10 @@ class CustomTextFormField extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final bool enabled;
   final double textSize;
+  final List<TextInputFormatter>? inputFormatters;
   const CustomTextFormField(
       {Key? key,
+      this.inputFormatters,
       this.enabled = true,
       this.prefix,
       this.onSubmitted,
@@ -104,6 +107,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         elevation: 3,
         color: textFieldFillColr,
         child: TextFormField(
+          inputFormatters: widget.inputFormatters,
           autofocus: false,
           onTapOutside: (event) {
             if (widget.onTapOutside != null) {

@@ -48,7 +48,7 @@ class ModuleController extends GetxController {
     Get.lazyPut(() => NavbarController());
     Get.lazyPut(() => PromtController());
     Get.lazyPut(() => PersonalDetailsController());
-    Get.lazyPut(() => BusineesDetailsController());
+    Get.lazyPut(() => BusinesDetailsController());
     Get.lazyPut(() => CardTextExtractionController());
     Get.lazyPut(() => VisitingCardController());
   }

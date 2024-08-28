@@ -8,6 +8,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/business/business_achi
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_branch_model/business_branch_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_brochure_model/business_brochure_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_deletion_model/business_deletion_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/business/business_detial_initial/business_detial_initial.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_product_adding/business_product_adding.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_social_media_model/business_social_media_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/logo_model/logo_model.dart';
@@ -15,6 +16,8 @@ import 'package:bizkit/module/biz_card/domain/model/cards/business/product_delet
 import 'package:dartz/dartz.dart';
 
 abstract class BusinessRepo {
+  Future<Either<Failure, SuccessResponseModel>> businessDetailInitial(
+      {required BusinessDetialInitial businessInitial});
   Future<Either<Failure, SuccessResponseModel>> businessSocialMediaAdding(
       {required BusinessSocialMediaModel businessAdding});
   Future<Either<Failure, SuccessResponseModel>> businessSocialMediaUpdating(
@@ -22,8 +25,6 @@ abstract class BusinessRepo {
   Future<Either<Failure, SuccessResponseModel>> businessSocialMediaDeleting(
       {required BusinessDeletionModel businessSocialMediaReoming});
   Future<Either<Failure, SuccessResponseModel>> businessAchievementAdding(
-      {required BusinessAchivementAddModel achievementModel});
-  Future<Either<Failure, SuccessResponseModel>> businessAchievementUpdatingg(
       {required BusinessAchivementAddModel achievementModel});
   Future<Either<Failure, SuccessResponseModel>> businessAchievementDeleting(
       {required BusinessAchievementDeletionmodel achievementDeletionModel});
@@ -49,6 +50,6 @@ abstract class BusinessRepo {
       {required LogoModel logoModel});
   Future<Either<Failure, SuccessResponseModel>> businessLogoDeleting(
       {required String bussinessId});
-  Future<Either<Failure, SuccessResponseModel>> businessBankDetailsAdding(
+  Future<Either<Failure, SuccessResponseModel>> businessBankDetails(
       {required BankingDetailsModel bankingDetail});
 }

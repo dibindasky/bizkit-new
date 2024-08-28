@@ -140,24 +140,4 @@ class CardService implements CardRepo {
       return Left(Failure(message: 'Failed to request'));
     }
   }
-
-  @override
-  Future<Either<Failure, SuccessResponseModel>> personalDetailsAdding(
-      {required PersonalDetailsRequestModel
-          personalDetailsRequestModel}) async {
-    try {
-      log('${personalDetailsRequestModel.toJson()}');
-      final responce = await apiService.put(
-          ApiEndPoints.cardCreationPersonalDetails,
-          data: personalDetailsRequestModel.toJson());
-      log('personalDetailsAdding ==> success');
-      return Right(SuccessResponseModel.fromJson(responce.data));
-    } on DioException catch (e) {
-      log('personalDetailsAdding DioException ${e.response?.statusCode} $e');
-      return Left(Failure(message: errorMessage));
-    } catch (e) {
-      log('personalDetailsAdding catch $e');
-      return Left(Failure(message: 'Failed to request'));
-    }
-  }
 }

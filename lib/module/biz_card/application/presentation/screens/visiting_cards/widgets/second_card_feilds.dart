@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
@@ -24,6 +26,7 @@ class CardSecondScannedDatas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final visitingCardController = Get.find<VisitingCardController>();
+    final navbarController = Get.find<NavbarController>();
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScope = FocusScope.of(context);
@@ -35,7 +38,7 @@ class CardSecondScannedDatas extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              GoRouter.of(context).pop(context);
+              GoRouter.of(context).pop();
             },
             icon: const Icon(
               Icons.arrow_back_ios,

@@ -140,11 +140,20 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                 children: [
                   adjustHieght(khieght * .05),
                   SizedBox(
-                    height: 340.h,
+                    height: 310.h,
                     child: GetBuilder<CardController>(
                       builder: (controller) {
                         if (controller.isLoading.value) {
-                          return ShimmerLoaderTile(height: 125.w, width: 200.w);
+                          return SizedBox(
+                            height: 310.h,
+                            child: ShimmerLoader(
+                              height: 310.h,
+                              seprator: kWidth10,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: cardController.bizcards.length,
+                              width: 300.w,
+                            ),
+                          );
                         } else if (controller.bizcards.isEmpty) {
                           return const Expanded(
                             flex: 2,
@@ -478,7 +487,17 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                   Obx(
                     () {
                       if (visitingCardController.loadingForVisitingCard.value) {
-                        return ShimmerLoaderTile(height: 255.w, width: 200.w);
+                        return SizedBox(
+                          height: 200.h,
+                          child: ShimmerLoader(
+                            height: 200.h,
+                            seprator: kWidth10,
+                            scrollDirection: Axis.horizontal,
+                            itemCount:
+                                visitingCardController.visitingCards.length,
+                            width: 300.w,
+                          ),
+                        );
                       } else if (visitingCardController.visitingCards.isEmpty) {
                         return const Expanded(
                           flex: 2,
@@ -488,7 +507,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                         );
                       } else {
                         return SizedBox(
-                          height: 240.h,
+                          height: 200.h,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemCount:
@@ -541,31 +560,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                       children: [
                                         SizedBox(
                                           width: 300,
-                                          height: 200,
+                                          height: 170,
                                           child: InkWell(
                                             onTap: () {
-                                              // Map<String, String> map =
-                                              //     visitingCardController
-                                              //                 .visitingCards[
-                                              //                     index]
-                                              //                 .id !=
-                                              //             null
-                                              //         ? {
-                                              //             'cardId':
-                                              //                 visitingCardController
-                                              //                     .visitingCards[
-                                              //                         index]
-                                              //                     .id
-                                              //                     .toString(),
-                                              //           }
-                                              //         : <String, String>{};
-
-                                              // log('Map ===> $map');
-                                              // GoRouter.of(context).pushNamed(
-                                              //   Routes.secondcardDetail,
-                                              //   pathParameters: map,
-                                              // );
-                                              log('Visitnig Card Id ==== >${visitingCardController.visitingCards[index].id} ');
+                                              // log('Visitnig Card Id ==== >${visitingCardController.visitingCards[index].id} ');
                                               visitingCardController
                                                   .fetchVisitingCardDetails(
                                                       visitingCardId:
@@ -594,18 +592,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                 topLeft: Radius.circular(25),
                                                 topRight: Radius.circular(20),
                                               ),
-                                              // child: Image.network(
-                                              //   imageDummyNetwork,
-                                              //   fit: BoxFit.cover,
-                                              //   errorBuilder: (context, error,
-                                              //       stackTrace) {
-                                              //     return const Icon(
-                                              //       Icons
-                                              //           .image_not_supported_outlined,
-                                              //     );
-                                              //   },
-                                              // )
-                                              // :
                                               child: Image.memory(
                                                 base64Decode(
                                                     visitingCardController
@@ -626,7 +612,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                           ),
                                         ),
                                         Positioned(
-                                          right: 3,
+                                          right: 4,
                                           top: 10,
                                           child: GestureDetector(
                                             onTap: () {

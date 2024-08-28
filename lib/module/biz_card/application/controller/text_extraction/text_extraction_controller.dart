@@ -62,6 +62,7 @@ class CardTextExtractionController extends GetxController {
               extractedDetails.value.designation ?? '';
           cardController.companyNameController.text =
               extractedDetails.value.businessName ?? '';
+          pickedImageUrl.clear();
         } else {
           final visitingCardController = Get.find<VisitingCardController>();
           visitingCardController.nameController.text =
@@ -78,8 +79,9 @@ class CardTextExtractionController extends GetxController {
               extractedDetails.value.designation ?? '';
           visitingCardController.companyNameController.text =
               extractedDetails.value.businessName ?? '';
+          pickedImageUrl.clear();
         }
-        // pickedImageUrl.clear();
+
         isLoading.value = false;
       },
     );
@@ -103,7 +105,7 @@ class CardTextExtractionController extends GetxController {
     );
 
     if (imageUrl != null) {
-      pickedSelfiesImageUrl.add(imageUrl.base64?.substring(22) ?? '');
+      pickedSelfiesImageUrl.add(imageUrl.base64 ?? '');
     } else {
       log('Image picking failed or was canceled.');
     }

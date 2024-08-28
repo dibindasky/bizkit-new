@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
@@ -13,7 +12,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/cards_li
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/deleted_cards.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
@@ -106,6 +104,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
     });
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: knill,
         actions: [
           IconButton(
@@ -607,45 +606,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                         .image_not_supported_outlined,
                                                   );
                                                 },
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          right: 4,
-                                          top: 10,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              showConfirmationDialog(
-                                                  heading:
-                                                      'Are you sure you want to delete your card',
-                                                  context, onPressed: () {
-                                                visitingCardController
-                                                    .deleteVisitingCard(
-                                                        context: context,
-                                                        visitingCardDeleteModel:
-                                                            VisitingCardDeleteModel(
-                                                          cardId: visitingCardController
-                                                                  .visitingCards[
-                                                                      index]
-                                                                  .id ??
-                                                              '',
-                                                          isDisabled: true,
-                                                        ));
-                                              });
-                                            },
-                                            child: const CircleAvatar(
-                                              backgroundColor: neonShade,
-                                              child: Padding(
-                                                padding: EdgeInsets.all(2.0),
-                                                child: CircleAvatar(
-                                                  backgroundColor:
-                                                      klightDarkGrey,
-                                                  child: Icon(
-                                                    Icons.delete,
-                                                    color: neonShade,
-                                                  ),
-                                                ),
                                               ),
                                             ),
                                           ),

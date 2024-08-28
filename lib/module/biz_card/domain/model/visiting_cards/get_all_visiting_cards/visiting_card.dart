@@ -11,6 +11,8 @@ class VisitingCard {
   String? designation;
   String? notes;
   String? selfie;
+  @JsonKey(name: 'card_image')
+  String? cardImage;
 
   VisitingCard(
       {this.name,
@@ -18,6 +20,7 @@ class VisitingCard {
       this.designation,
       this.notes,
       this.selfie,
+      this.cardImage,
       this.id});
 
   factory VisitingCard.fromJson(Map<String, dynamic> json) {
@@ -33,14 +36,15 @@ class VisitingCard {
     String? notes,
     String? selfie,
     String? id,
+    String? cardImage,
   }) {
     return VisitingCard(
-      name: name ?? this.name,
-      company: company ?? this.company,
-      designation: designation ?? this.designation,
-      notes: notes ?? this.notes,
-      selfie: selfie ?? this.selfie,
-      id: id ?? this.id,
-    );
+        name: name ?? this.name,
+        company: company ?? this.company,
+        designation: designation ?? this.designation,
+        notes: notes ?? this.notes,
+        selfie: selfie ?? this.selfie,
+        id: id ?? this.id,
+        cardImage: cardImage ?? this.cardImage);
   }
 }

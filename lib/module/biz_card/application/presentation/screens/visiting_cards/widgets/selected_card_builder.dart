@@ -146,8 +146,7 @@ class SelectedCard extends StatelessWidget {
                                       .pickedImageUrl.first.base64 ??
                                   ''));
 
-                      GoRouter.of(context)
-                          .pushReplacementNamed(Routes.scanedDataFeilds);
+                      GoRouter.of(context).pushNamed(Routes.scanedDataFeilds);
                     },
                   ),
                 ),

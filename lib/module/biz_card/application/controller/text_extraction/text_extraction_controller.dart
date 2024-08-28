@@ -62,7 +62,6 @@ class CardTextExtractionController extends GetxController {
               extractedDetails.value.designation ?? '';
           cardController.companyNameController.text =
               extractedDetails.value.businessName ?? '';
-          pickedImageUrl.clear();
         } else {
           final visitingCardController = Get.find<VisitingCardController>();
           visitingCardController.nameController.text =
@@ -79,7 +78,6 @@ class CardTextExtractionController extends GetxController {
               extractedDetails.value.designation ?? '';
           visitingCardController.companyNameController.text =
               extractedDetails.value.businessName ?? '';
-          pickedImageUrl.clear();
         }
 
         isLoading.value = false;

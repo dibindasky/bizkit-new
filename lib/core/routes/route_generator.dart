@@ -19,7 +19,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/onbaordi
 import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
+import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_details_responce/visiting_card_details_responce.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';

@@ -7,7 +7,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/create_c
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
+import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/date_bottom_sheet.dart';

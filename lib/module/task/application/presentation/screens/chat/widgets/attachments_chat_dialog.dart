@@ -1,9 +1,11 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/time_expence/expence_time_creation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class AttachmentsChatDialog extends StatelessWidget {
@@ -13,6 +15,7 @@ class AttachmentsChatDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<ChatController>();
     return SizedBox(
       height: 200.h,
       width: 200.h,
@@ -28,22 +31,24 @@ class AttachmentsChatDialog extends StatelessWidget {
               padding: EdgeInsets.all(10.w),
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 kHeight10,
-                AttachmentTile(
-                    iconData: Icons.camera_alt_outlined,
-                    onTap: () {
-                      GoRouter.of(context).pop();
-                    },
-                    text: 'Camera'),
+                // AttachmentTile(
+                // iconData: Icons.camera_alt_outlined,
+                // onTap: () {
+                //   GoRouter.of(context).pop();
+                // },
+                // text: 'Camera'),
                 AttachmentTile(
                     iconData: Icons.photo_size_select_actual_outlined,
                     onTap: () {
                       GoRouter.of(context).pop();
+                      controller.sendImageBase64(camera: false);
                     },
-                    text: 'Photo & Video Library'),
+                    text: 'Photo'),
                 AttachmentTile(
                     iconData: Icons.file_present_outlined,
                     onTap: () {
                       GoRouter.of(context).pop();
+                      controller.sendPdfBase64();
                     },
                     text: 'Document'),
                 AttachmentTile(

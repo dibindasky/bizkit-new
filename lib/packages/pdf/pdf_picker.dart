@@ -38,13 +38,12 @@ class PdfPickerImpl {
         final bytes = await File(filePath).readAsBytes();
         String base64 = base64Encode(bytes);
         base64 = 'data:application/pdf;base64,$base64';
-        log(base64);
-        print('pdf file pickeer ==========> $base64');
+        print('pdf ${filePath.split('/').last} pickeer ==========> ');
         return Right(PdfModel(
-          file: File(filePath),
-          multipartFile: multipartFile,
-          base64: base64,
-        ));
+            file: File(filePath),
+            multipartFile: multipartFile,
+            base64: base64,
+            name: filePath.split('/').last));
       } else {
         log('File not selected');
         return Left(Failure());

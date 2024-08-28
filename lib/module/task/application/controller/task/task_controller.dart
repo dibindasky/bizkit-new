@@ -769,6 +769,7 @@ class CreateTaskController extends GetxController {
   // Fetches a single task using the provided model
   void fetchSingleTask({required GetSingleTaskModel singleTaskModel}) async {
     isLoading.value = true;
+    singleTask.value = GetTaskResponce();
     final result = await taskService.getTask(singleTaskModel: singleTaskModel);
     result.fold(
       (failure) {

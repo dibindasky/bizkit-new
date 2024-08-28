@@ -79,7 +79,7 @@ class CardTextExtractionController extends GetxController {
           visitingCardController.companyNameController.text =
               extractedDetails.value.businessName ?? '';
         }
-        // pickedImageUrl.clear();
+
         isLoading.value = false;
       },
     );
@@ -103,7 +103,7 @@ class CardTextExtractionController extends GetxController {
     );
 
     if (imageUrl != null) {
-      pickedSelfiesImageUrl.add(imageUrl.base64?.substring(22) ?? '');
+      pickedSelfiesImageUrl.add(imageUrl.base64 ?? '');
     } else {
       log('Image picking failed or was canceled.');
     }

@@ -1,5 +1,7 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/qr_scanner_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
@@ -11,6 +13,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
@@ -74,6 +77,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
   @override
   Widget build(BuildContext context) {
     final textExtractionController = Get.find<CardTextExtractionController>();
+    final visitingCardController = Get.find<VisitingCardController>();
     return Scaffold(
       body: Container(
         width: kwidth,
@@ -168,12 +172,14 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                                 child: const Text('Create visiting card')),
                             ContainerPickImage(
                               onPressedCam: () {
+                                textExtractionController.pickedImageUrl.clear();
                                 Navigator.of(context).push(
                                     cardFadePageRoute(const SelectedCard()));
                                 textExtractionController.pickImageScanning(
                                     camera: true);
                               },
                               onPressedGallery: () {
+                                textExtractionController.pickedImageUrl.clear();
                                 Navigator.of(context).push(
                                     cardFadePageRoute(const SelectedCard()));
                                 textExtractionController.pickImageScanning(
@@ -186,9 +192,14 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                                 // context
                                 //     .read<CardSecondBloc>()
                                 //     .add(const CardSecondEvent.imageClear());
-                                Navigator.of(context).push(
-                                  cardFadePageRoute(CardSecondScannedDatas()),
-                                );
+                                textExtractionController.pickedImageUrl.clear();
+                                visitingCardController
+                                    .clearAllTextEditingControllers();
+                                GoRouter.of(context)
+                                    .pushNamed(Routes.scanedDataFeilds);
+                                // Navigator.of(context).push(
+                                //   cardFadePageRoute(CardSecondScannedDatas()),
+                                // );
                               },
                               child: const Text(
                                 'Create card without visiting card',

@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/second_card_detail_view.dart';
 import 'package:bizkit/module/biz_card/data/service/visiting_card/visiting_card_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/visiting_cards/create_visiting_card/create_visiting_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/visiting_cards/get_all_visiting_cards/visiting_card.dart';
@@ -60,6 +58,7 @@ class VisitingCardController extends GetxController {
     websiteController.clear();
     designationController.clear();
     locationController.clear();
+    phoneController.clear();
   }
 
   // Create new visiting card
@@ -67,6 +66,13 @@ class VisitingCardController extends GetxController {
     isLoading.value = true;
     final cardTextExtractionController =
         Get.find<CardTextExtractionController>();
+
+    final navbarController = Get.find<NavbarController>();
+
+    final image = cardTextExtractionController.pickedImageUrl.isNotEmpty
+        ? cardTextExtractionController.pickedImageUrl.first.base64 ?? ''
+        : null;
+
     final CreateVisitingCard createVisitingCard = CreateVisitingCard(
       name: nameController.text,
       company: companyNameController.text,
@@ -78,10 +84,11 @@ class VisitingCardController extends GetxController {
       occupation: occupationController.text,
       phoneNumber: phoneController.text,
       website: websiteController.text,
-      cardImage: cardTextExtractionController.pickedImageUrl.first.base64
-          ?.substring(22),
+      cardImage: image,
+      image: image != null,
       selfie: cardTextExtractionController.pickedSelfiesImageUrl,
     );
+
     final data = await visitingCardService.createVisitingCard(
         createVisitingCard: createVisitingCard);
     data.fold(
@@ -93,8 +100,11 @@ class VisitingCardController extends GetxController {
         visitingCardId.value = r.visitingCardId ?? '';
         clearAllTextEditingControllers();
         fetchAllVisitingCards();
+        cardTextExtractionController.pickedImageUrl.clear();
         showSnackbar(context, message: 'Visiting Card created Successfully');
-        context.push(Routes.cardListing);
+        navbarController.slectedtabIndex.value = 2;
+        context.push(Routes.bizCardNavbar);
+
         isLoading.value = false;
       },
     );
@@ -117,8 +127,9 @@ class VisitingCardController extends GetxController {
       (r) {
         fetchVisitingCardDetails(
             visitingCardId: visitingCardEditModel.cardId ?? '');
+        clearAllTextEditingControllers();
         showSnackbar(context, message: 'Visiting Card Edited Successfully');
-        context.pop();
+        GoRouter.of(context).pop();
         isLoading.value = false;
       },
     );
@@ -157,7 +168,7 @@ class VisitingCardController extends GetxController {
         visitingCardDeleteModel.isDisabled == true
             ? showSnackbar(context, message: 'Deleted Successfully')
             : showSnackbar(context, message: 'Restore Successfully');
-
+        GoRouter.of(context).pop();
         loadingForVisitingCard.value = false;
       },
     );
@@ -172,6 +183,7 @@ class VisitingCardController extends GetxController {
       (l) => isLoading.value = false,
       (r) {
         deletedVisitingCards.assignAll(r.visitingCards ?? []);
+        update();
         isLoading.value = false;
       },
     );

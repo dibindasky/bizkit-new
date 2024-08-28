@@ -84,8 +84,7 @@ class SelectedCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.memory(
                                   base64Decode(textExtractionController
-                                          .pickedImageUrl[index].base64
-                                          ?.substring(22) ??
+                                          .pickedImageUrl[index].base64 ??
                                       ''),
                                   fit: BoxFit.cover,
                                 ),
@@ -144,12 +143,10 @@ class SelectedCard extends StatelessWidget {
                           fromVisitingCard: true,
                           textExtractionModel: TextExtractionModel(
                               image: textExtractionController
-                                      .pickedImageUrl.first.base64
-                                      ?.substring(22) ??
+                                      .pickedImageUrl.first.base64 ??
                                   ''));
 
-                      GoRouter.of(context)
-                          .pushReplacementNamed(Routes.scanedDataFeilds);
+                      GoRouter.of(context).pushNamed(Routes.scanedDataFeilds);
                     },
                   ),
                 ),

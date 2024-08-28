@@ -1,10 +1,12 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/picked_scanning_cards/picked_scanning_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/card_uploading_showdailogue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 bool fromHomeAddCard = false;
@@ -28,6 +30,7 @@ class _ScreenCardCreationStartingState
 
   @override
   Widget build(BuildContext context) {
+    final textExtractionController = Get.find<CardTextExtractionController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       //   context.read<UserDataBloc>().add(UserDataEvent.clear());
       //   context.read<BusinessDataBloc>().add(BusinessDataEvent.clear());
@@ -42,6 +45,7 @@ class _ScreenCardCreationStartingState
         title: Text('Business Card', style: textHeadStyle1),
         leading: IconButton(
             onPressed: () {
+              textExtractionController.pickedImageUrl.clear();
               Navigator.pop(context);
             },
             icon: const Icon(
@@ -92,23 +96,6 @@ class _ScreenCardCreationStartingState
                     ),
                     TextButton(
                       onPressed: () {
-                        // context.read<UserDataBloc>().nameController.text = '';
-                        // context.read<UserDataBloc>().emailController.text = '';
-                        // context.read<UserDataBloc>().phoneController.text = '';
-                        // context
-                        //     .read<UserDataBloc>()
-                        //     .designationController
-                        //     .text = '';
-                        // context
-                        //     .read<UserDataBloc>()
-                        //     .businessCategoryController
-                        //     .text = '';
-                        // context
-                        //     .read<UserDataBloc>()
-                        //     .add(UserDataEvent.getBusinessCategories());
-                        // context
-                        //     .read<UserDataBloc>()
-                        //     .add(UserDataEvent.getUserDetail());
                         GoRouter.of(context).pushReplacementNamed(
                             Routes.cardCreationProfilePage);
                       },

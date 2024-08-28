@@ -25,23 +25,23 @@ class TimeAndExpenseCard extends StatelessWidget {
         clipper: PollChatClipper(isSender: sender),
         child: Container(
           padding: EdgeInsets.only(
-              bottom: 10.w,
-              top: 10.w,
-              left: sender ? 10.w : 20.w,
-              right: sender ? 20.w : 10.w),
+              bottom: 0.w,
+              top: 5.w,
+              left: sender ? 5.w : 15.w,
+              right: sender ? 15.w : 5.w),
           decoration: BoxDecoration(
             color: sender ? neonShade.withGreen(190) : kwhite.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.only(left: 5.w, top: 5.w, bottom: 5.w),
+                padding: EdgeInsets.only(
+                    left: 5.w, top: 5.w, bottom: 2.w, right: 5.w),
                 decoration: BoxDecoration(
-                    borderRadius: kBorderRadius10,
-                    color: sender ? kneonShade.withOpacity(0.5) : kgrey),
+                    borderRadius: kBorderRadius5,
+                    color: kwhite.withOpacity(0.2)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -49,7 +49,7 @@ class TimeAndExpenseCard extends StatelessWidget {
                       "Update on Expense / Time",
                       style: textThinStyle1.copyWith(
                         color: Colors.white,
-                        fontSize: 13.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w300,
                       ),
                     ),
@@ -63,12 +63,12 @@ class TimeAndExpenseCard extends StatelessWidget {
                               FittedBox(
                                 child: Text(
                                   "Money Spent on Task:",
-                                  style: textThinStyle1,
+                                  style: textThinStyle1.copyWith(fontSize: 10.sp),
                                 ),
                               ),
                               Text(
                                 "₹ ${(message.timeExpenseData?.expense) ?? 0}",
-                                style: textThinStyle1.copyWith(fontSize: 15.sp),
+                                style: textThinStyle1.copyWith(fontSize: 12.sp),
                               ),
                             ],
                           ),
@@ -90,7 +90,7 @@ class TimeAndExpenseCard extends StatelessWidget {
                               FittedBox(
                                 child: Text(
                                   "Time Spent on Task:",
-                                  style: textThinStyle1,
+                                  style: textThinStyle1.copyWith(fontSize: 10.sp),
                                 ),
                               ),
                               Text(
@@ -98,7 +98,7 @@ class TimeAndExpenseCard extends StatelessWidget {
                                     .convertMinutesToHourMinuteFormat(int.parse(
                                         (message.timeExpenseData?.time) ??
                                             '0')),
-                                style: textThinStyle1.copyWith(fontSize: 15.sp),
+                                style: textThinStyle1.copyWith(fontSize: 12.sp),
                               ),
                             ],
                           ),
@@ -108,7 +108,6 @@ class TimeAndExpenseCard extends StatelessWidget {
                   ],
                 ),
               ),
-              kHeight5,
               Padding(
                 padding: EdgeInsets.only(left: 5.w),
                 child: Column(
@@ -118,7 +117,6 @@ class TimeAndExpenseCard extends StatelessWidget {
                       "Description :",
                       style: textThinStyle1,
                     ),
-                    const SizedBox(height: 8),
                     Text(
                       message.timeExpenseData?.description ?? '',
                       style: textThinStyle1.copyWith(fontSize: 10.sp),

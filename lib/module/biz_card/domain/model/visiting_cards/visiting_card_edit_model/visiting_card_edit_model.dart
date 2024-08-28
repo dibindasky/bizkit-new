@@ -18,8 +18,9 @@ class VisitingCardEditModel {
   String? occupation;
   String? notes;
   List<String>? selfie;
-  // @JsonKey(name: 'card_image')
-  // String? cardImage;
+  @JsonKey(name: 'card_image')
+  String? cardImage;
+  bool scanedImage;
 
   VisitingCardEditModel({
     this.cardId,
@@ -34,12 +35,46 @@ class VisitingCardEditModel {
     this.occupation,
     this.notes,
     this.selfie,
-    // this.cardImage,
+    this.cardImage,
+    this.scanedImage = false,
   });
 
   factory VisitingCardEditModel.fromJson(Map<String, dynamic> json) {
     return _$VisitingCardEditModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$VisitingCardEditModelToJson(this);
+  // Map<String, dynamic> toJson() => _$VisitingCardEditModelToJson(this);
+
+  Map<String, dynamic> toJson() {
+    return scanedImage
+        ? {
+            'card_id': cardId,
+            'name': name,
+            'company': company,
+            'phone_number': phoneNumber,
+            'website': website,
+            'designation': designation,
+            'email': email,
+            'occation': occation,
+            'location': location,
+            'occupation': occupation,
+            'notes': notes,
+            'selfie': selfie,
+            'card_image': cardImage,
+          }
+        : {
+            'card_id': cardId,
+            'name': name,
+            'company': company,
+            'phone_number': phoneNumber,
+            'website': website,
+            'designation': designation,
+            'email': email,
+            'occation': occation,
+            'location': location,
+            'occupation': occupation,
+            'notes': notes,
+            'selfie': selfie,
+          };
+  }
 }

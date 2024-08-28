@@ -135,7 +135,7 @@ class AttachmentTile extends StatelessWidget {
             style: textThinStyle1,
           ),
           Text(
-            '.$type',
+            type == 'pdf' ? '.$type' : '',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: textThinStyle1,

@@ -22,7 +22,7 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
     TextEditingController(),
   ];
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  List<String> durations = ['Next 1 hour', '24 hours', '1 week', 'Alwase'];
+  List<String> durations = ['Next 1 hour', '24 hours', '1 week', 'Always'];
 
   bool anonymousVoting = false;
   bool multipleAnswers = false;
@@ -54,7 +54,7 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                 isAnonymousVotingAllowed: anonymousVoting,
                 isMultipleSelectionAllowed: multipleAnswers,
                 isReasonRequired: mentionReason,
-                activeUntil: activeUntil == 3 ? 'Alwase' : date.toString(),
+                activeUntil: activeUntil == 3 ? 'Always' : date.toString(),
                 answers: List.generate(_optionsControllers.length,
                     (x) => _optionsControllers[x].text));
             controller.createPollVoting(createPoll: createPoll);

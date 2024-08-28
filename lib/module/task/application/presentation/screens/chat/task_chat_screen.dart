@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/file_message/file_message_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/chat_bubble/chat_bubble.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/time_expence/time_expence_card.dart';
@@ -114,27 +115,35 @@ class ScreenTaskChat extends StatelessWidget {
                                     showArrow = false;
                                   }
                                 }
+                                // text message
                                 if (message.textMessage != null) {
                                   return ChatBubble(
                                     showArrow: showArrow,
                                     message: message.textMessage!,
                                   );
                                 }
+                                // poll message
                                 if (message.poll != null) {
                                   return PollContainerChat(
                                       message: message.poll!);
                                 }
+                                // time or expence
                                 if (message.timeExpence != null) {
                                   return TimeAndExpenseCard(
                                     message: message.timeExpence!,
                                   );
                                 }
-                                return kempty;
+                                // file type
+                                if (message.file != null) {
+                                  return FileMessageCard(
+                                      message: message.file!);
+                                }
+                                return const Text('Unknown type');
                               },
                             );
                           })),
                 ),
-                adjustHieght(10),
+                // adjustHieght(10),
                 const ChatTextfieldContainer(),
               ],
             ),

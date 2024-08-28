@@ -32,6 +32,7 @@ class ApiEndPoints {
   static String personalDatesToReminder = '/personal-dates-to-remember/';
 
   // Business Details
+  static String businessDetils = '/business-details/';
   static String businessAchievement = '/business-achievements/';
   static String businessSocialedia = '/business-social-media/';
   static String businessProduct = '/business-products/';

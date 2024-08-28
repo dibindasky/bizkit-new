@@ -8,7 +8,7 @@ import 'package:bizkit/module/biz_card/application/controller/card/create_contro
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/create_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/bizcard.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';

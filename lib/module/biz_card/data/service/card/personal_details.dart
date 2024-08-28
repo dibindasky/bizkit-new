@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/achievement/personal_achievement_request_model/personal_achievement_request_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/achievement/personal_achievent_deletion_model/personal_achievent_deletion_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/reminder/personal_dayes_to_reminder_model/personal_dayes_to_reminder_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/reminder/reminder_deletion/reminder_deletion.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/social_media/personal_social_media_deletion/personal_social_media_deletion.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/social_media/personal_social_media_request_model/personal_social_media_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_achievement_request_model/personal_achievement_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_achievent_deletion_model/personal_achievent_deletion_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/reminder/personal_dayes_to_reminder_model/personal_dayes_to_reminder_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/reminder/reminder_deletion/reminder_deletion.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_social_media_deletion/personal_social_media_deletion.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_social_media_request_model/personal_social_media_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/personal_details_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -22,6 +22,7 @@ class PersonalDetailsService implements PersonalDetailsRepo {
   Future<Either<Failure, SuccessResponseModel>> personalAchivmentAdding(
       {required PersonalAchievementRequestModel personalAchiment}) async {
     try {
+      log('${personalAchiment.toJson()}');
       final responce = await apiService.post(ApiEndPoints.personalAchievement,
           data: personalAchiment.toJson());
       log('personalAchivmentAdding ==>success');
@@ -93,6 +94,7 @@ class PersonalDetailsService implements PersonalDetailsRepo {
   Future<Either<Failure, SuccessResponseModel>> personalDatesToReminderDeleting(
       {required ReminderDeletion remiderDeletion}) async {
     try {
+      log('${remiderDeletion.toJson()}');
       final responce = await apiService.delete(
           ApiEndPoints.personalDatesToReminder,
           data: remiderDeletion.toJson());

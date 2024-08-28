@@ -1,8 +1,6 @@
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/reminder/reminder_deletion/reminder_deletion.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/social_media/personal_social_media_deletion/personal_social_media_deletion.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/social_media/personal_social_media_request_model/personal_social_media_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_social_media_request_model/personal_social_media_request_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
@@ -45,10 +43,7 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              size: 17,
-            ),
+            icon: const Icon(Icons.arrow_back_ios, size: 17),
           ),
           backgroundColor: knill,
           title: Text('Social media accounts', style: textHeadStyle1),
@@ -235,29 +230,10 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                         'Are You Sure Do You Want To Delete?',
                                     buttonText: 'Delete',
                                     onTap: () {
-                                      PersonalSocialMediaDeletion personalSocialMediaDeletion =
-                                          PersonalSocialMediaDeletion(
-                                              personalDetailsId: cardController
-                                                  .bizcardDetail
-                                                  .value
-                                                  .personalDetails
-                                                  ?.id,
-                                              socialMediaId: cardController
-                                                  .bizcardDetail
-                                                  .value
-                                                  .personalDetails
-                                                  ?.personalSocialMedia?[index]
-                                                  .id);
-
                                       !widget.fromBusiness
                                           ? personalDetailsController
-                                              .personalSocialMediaDelete(
-                                                  personalSocialMediaDeletion:
-                                                      personalSocialMediaDeletion)
+                                              .personalSocialMediaDelete(index)
                                           : null;
-                                      //         UserDataEvent.removeSocialMedia(
-                                      //             id: user
-                                      //                 .socialMedias[index].id!));
                                     });
                               },
                               child: ClipRRect(

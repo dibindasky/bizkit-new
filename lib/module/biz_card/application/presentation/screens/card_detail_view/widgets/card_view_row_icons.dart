@@ -1,7 +1,7 @@
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_vice_accounts_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/branch_office.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/branch_office.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/previewscreen_icons/detail_sharing_icon.dart';

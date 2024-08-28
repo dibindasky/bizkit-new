@@ -4,8 +4,8 @@ import 'package:bizkit/core/model/image/image_model.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/text_extraction/text_extraction_service.dart';
-import 'package:bizkit/module/biz_card/domain/modell/text_extraction/text_extraction_model/text_extraction_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/text_extraction/text_extraction_responce/extracted_details.dart';
+import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_model/text_extraction_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_responce/extracted_details.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/text_extraction_repo.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 
@@ -20,7 +20,8 @@ class CardTextExtractionController extends GetxController {
   var extractedDetails = ExtractedDetails().obs;
 
   RxList<ImageModel> pickedImageUrl = <ImageModel>[].obs;
-  RxList<ImageModel> pickedSelfiesImageUrl = <ImageModel>[].obs;
+  RxList<String> pickedSelfiesImageUrl = <String>[].obs;
+
   RxList<String> extractedPhoneNumbers = <String>[].obs;
   RxList<String> extractedEmails = <String>[].obs;
   RxList<String> extractedLocations = <String>[].obs;
@@ -78,7 +79,7 @@ class CardTextExtractionController extends GetxController {
           visitingCardController.companyNameController.text =
               extractedDetails.value.businessName ?? '';
         }
-        pickedImageUrl.clear();
+        // pickedImageUrl.clear();
         isLoading.value = false;
       },
     );
@@ -102,7 +103,7 @@ class CardTextExtractionController extends GetxController {
     );
 
     if (imageUrl != null) {
-      pickedSelfiesImageUrl.add(imageUrl);
+      pickedSelfiesImageUrl.add(imageUrl.base64?.substring(22) ?? '');
     } else {
       log('Image picking failed or was canceled.');
     }

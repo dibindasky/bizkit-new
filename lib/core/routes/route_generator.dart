@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
@@ -18,6 +20,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
+import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_details_responce/visiting_card_details_responce.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/signup_screen.dart';
@@ -161,7 +164,6 @@ class GoRouterConfig {
       name: Routes.secondcardDetail,
       path: Routes.secondcardDetail,
       builder: (context, state) {
-        //final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
         return const ScreenCardSecondDetailView();
       },
     ),

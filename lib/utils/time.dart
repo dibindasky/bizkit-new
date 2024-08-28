@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 String formatDateTime(DateTime dateTime) {
   // Convert UTC time to IST (UTC+5:30)
   dateTime = dateTime.add(const Duration(hours: 5, minutes: 30));
@@ -11,4 +13,11 @@ String formatDateTime(DateTime dateTime) {
 
   // Format the date and time using string interpolation
   return '$day/$month/$year, $hours:$minutes:$seconds';
+}
+
+String getDateByDayMonthYear(String date) {
+  if (date.isEmpty) return '';
+  DateTime dateTime = DateTime.parse(date);
+  String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+  return formattedDate;
 }

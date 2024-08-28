@@ -1,15 +1,19 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/second_card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/archieved_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/deleted_cards.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_archive_model/card_archive_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_delete_model/card_delete_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
@@ -18,8 +22,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 class ScreenCardsLists extends StatefulWidget {
   const ScreenCardsLists({super.key});
@@ -109,6 +111,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
           IconButton(
               onPressed: () {
                 cardController.fetchDeletedAndArchivedCards();
+                visitingCardController.fetchAllDeletedVisitingCards();
                 Navigator.of(context).push(cardFadePageRoute(
                   const DeletedCards(),
                 ));
@@ -472,11 +475,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                     ),
                   ),
                   adjustHieght(khieght * .03),
-                  adjustHieght(khieght * .02),
-                  GetBuilder<CardController>(
-                    builder: (controller) {
+                  Obx(
+                    () {
                       if (visitingCardController.loadingForVisitingCard.value) {
-                        return ShimmerLoaderTile(height: 125.w, width: 200.w);
+                        return ShimmerLoaderTile(height: 255.w, width: 200.w);
                       } else if (visitingCardController.visitingCards.isEmpty) {
                         return const Expanded(
                           flex: 2,
@@ -486,7 +488,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                         );
                       } else {
                         return SizedBox(
-                          height: 200.h,
+                          height: 240.h,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemCount:
@@ -543,125 +545,123 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                           child: InkWell(
                                             onTap: () {
                                               // Map<String, String> map =
-                                              //     state.secondCards[index].id != null
+                                              //     visitingCardController
+                                              //                 .visitingCards[
+                                              //                     index]
+                                              //                 .id !=
+                                              //             null
                                               //         ? {
-                                              //             'cardId': state
-                                              //                 .secondCards[index].id!
-                                              //                 .toString()
+                                              //             'cardId':
+                                              //                 visitingCardController
+                                              //                     .visitingCards[
+                                              //                         index]
+                                              //                     .id
+                                              //                     .toString(),
                                               //           }
                                               //         : <String, String>{};
-                                              GoRouter.of(context).pushNamed(
-                                                Routes.secondcardDetail,
-                                                //pathParameters: map,
+
+                                              // log('Map ===> $map');
+                                              // GoRouter.of(context).pushNamed(
+                                              //   Routes.secondcardDetail,
+                                              //   pathParameters: map,
+                                              // );
+                                              log('Visitnig Card Id ==== >${visitingCardController.visitingCards[index].id} ');
+                                              visitingCardController
+                                                  .fetchVisitingCardDetails(
+                                                      visitingCardId:
+                                                          visitingCardController
+                                                                  .visitingCards[
+                                                                      index]
+                                                                  .id ??
+                                                              '');
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ScreenCardSecondDetailView(
+                                                    visitingCardId:
+                                                        visitingCardController
+                                                                .visitingCards[
+                                                                    index]
+                                                                .id ??
+                                                            '',
+                                                  ),
+                                                ),
                                               );
                                             },
                                             child: ClipRRect(
-                                                borderRadius:
-                                                    const BorderRadius.only(
-                                                  topLeft: Radius.circular(25),
-                                                  topRight: Radius.circular(20),
-                                                ),
-                                                child: Image.network(
-                                                  imageDummyNetwork,
-                                                  fit: BoxFit.cover,
-                                                  errorBuilder: (context, error,
-                                                      stackTrace) {
-                                                    return const Icon(
-                                                      Icons
-                                                          .image_not_supported_outlined,
-                                                    );
-                                                  },
-                                                )
-                                                // : Image.memory(
-                                                //     base64Decode(imageBase64),
-                                                //     fit: BoxFit.cover,
-                                                //     errorBuilder: (context, error,
-                                                //         stackTrace) {
-                                                //       return const Icon(
-                                                //         Icons
-                                                //             .image_not_supported_outlined,
-                                                //       );
-                                                //     },
-                                                //   ),
-                                                ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(25),
+                                                topRight: Radius.circular(20),
+                                              ),
+                                              // child: Image.network(
+                                              //   imageDummyNetwork,
+                                              //   fit: BoxFit.cover,
+                                              //   errorBuilder: (context, error,
+                                              //       stackTrace) {
+                                              //     return const Icon(
+                                              //       Icons
+                                              //           .image_not_supported_outlined,
+                                              //     );
+                                              //   },
+                                              // )
+                                              // :
+                                              child: Image.memory(
+                                                base64Decode(
+                                                    visitingCardController
+                                                            .visitingCards[
+                                                                index]
+                                                            .selfie ??
+                                                        ''),
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return const Icon(
+                                                    Icons
+                                                        .image_not_supported_outlined,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
                                         ),
                                         Positioned(
-                                          right: 0,
+                                          right: 3,
                                           top: 10,
-                                          child: PopupMenuButton<String>(
-                                            padding: const EdgeInsets.all(0),
-                                            icon: const Icon(
-                                              Icons.more_vert,
-                                              size: 32,
-                                              color: kblack,
-                                            ),
-                                            itemBuilder: (context) {
-                                              List<PopupMenuEntry<String>>
-                                                  items = [
-                                                PopupMenuItem(
-                                                  onTap: () {
-                                                    // context
-                                                    //     .read<CardSecondBloc>()
-                                                    //     .add(const CardSecondEvent
-                                                    //         .imageClear());
-                                                    GoRouter.of(context)
-                                                        .pushNamed(
-                                                      Routes.cardUpdating,
-                                                      //extra: state.secondCards[index],
-                                                    );
-                                                  },
-                                                  value: 'Edit Card',
-                                                  child:
-                                                      const Text('Edit Card'),
-                                                ),
-                                              ];
-                                              items.addAll([
-                                                PopupMenuItem(
-                                                  onTap: () =>
-                                                      showConfirmationDialog(
-                                                    heading:
-                                                        'Are you sure you want to delete your card',
-                                                    context,
-                                                    onPressed: () {
-                                                      // CardActionRequestModel
-                                                      //     cardActionRewuestModel =
-                                                      //     CardActionRequestModel(
-                                                      //   isActive: false,
-                                                      // );
-                                                      // context
-                                                      //     .read<CardSecondBloc>()
-                                                      //     .add(
-                                                      //       CardSecondEvent
-                                                      //           .deleteCardSecond(
-                                                      //         cardActionRewuestModel:
-                                                      //             cardActionRewuestModel,
-                                                      //         id: secondCard.id!,
-                                                      //       ),
-                                                      //     );
-
-                                                      visitingCardController
-                                                          .deleteVisitingCard(
-                                                              context: context,
-                                                              visitingCardDeleteModel:
-                                                                  VisitingCardDeleteModel(
-                                                                cardId: visitingCardController
-                                                                        .visitingCards[
-                                                                            index]
-                                                                        .id ??
-                                                                    '',
-                                                                isDisabled:
-                                                                    true,
-                                                              ));
-                                                    },
-                                                  ),
-                                                  value: 'Delete Card',
-                                                  child:
-                                                      const Text('Delete Card'),
-                                                ),
-                                              ]);
-                                              return items;
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              showConfirmationDialog(
+                                                  heading:
+                                                      'Are you sure you want to delete your card',
+                                                  context, onPressed: () {
+                                                visitingCardController
+                                                    .deleteVisitingCard(
+                                                        context: context,
+                                                        visitingCardDeleteModel:
+                                                            VisitingCardDeleteModel(
+                                                          cardId: visitingCardController
+                                                                  .visitingCards[
+                                                                      index]
+                                                                  .id ??
+                                                              '',
+                                                          isDisabled: true,
+                                                        ));
+                                              });
                                             },
+                                            child: const CircleAvatar(
+                                              backgroundColor: neonShade,
+                                              child: Padding(
+                                                padding: EdgeInsets.all(2.0),
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                      klightDarkGrey,
+                                                  child: Icon(
+                                                    Icons.delete,
+                                                    color: neonShade,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -719,7 +719,8 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                         );
                       }
                     },
-                  )
+                  ),
+                  adjustHieght(khieght * .02),
                 ],
               ),
             ),

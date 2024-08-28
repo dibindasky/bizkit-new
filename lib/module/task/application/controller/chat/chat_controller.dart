@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
+import 'package:bizkit/module/task/domain/model/chat/file_model.dart';
+import 'package:bizkit/packages/pdf/pdf_picker.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/task/domain/model/chat/create_poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
@@ -10,6 +13,7 @@ import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/time_expence_creation.dart';
 import 'package:bizkit/module/task/domain/model/chat/time_expence_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
+import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_socket_channel/io.dart';
@@ -27,7 +31,7 @@ class ChatController extends GetxController {
 
   Rx<Poll> pollDetail = Poll().obs;
 
-  /// connect to the channel with task id
+  /// connect to the channel with task id and handle the messages form the channel
   void connectChannel({required String? taskId}) async {
     chatTaskId = taskId ?? '';
     chatScrollController.addListener(() {
@@ -69,7 +73,25 @@ class ChatController extends GetxController {
               doAnimate = false;
               print('message updation');
               final index = messages.indexWhere(
-                  (element) => element.timeExpence?.messageId == m.messageId);
+                  (element) => element.textMessage?.messageId == m.messageId);
+              if (index != -1) {
+                messages[index] = mess;
+              }
+            }
+          } // handle for file type
+          if (decodedMessage['message_type'] == 'file') {
+            final m = FileMessage.fromJson(decodedMessage, uid);
+            final mess = Message(file: m, sender: m.sender);
+            if (m.isLoadMore) {
+              messages.insert(0, mess);
+            } else if (!messages
+                .any((mess) => mess.file?.messageId == m.messageId)) {
+              messages.add(mess);
+            } else {
+              doAnimate = false;
+              print('message updation');
+              final index = messages.indexWhere(
+                  (element) => element.file?.messageId == m.messageId);
               if (index != -1) {
                 messages[index] = mess;
               }
@@ -144,12 +166,23 @@ class ChatController extends GetxController {
           if (channel.closeCode != null) {
             print('Connection closed with code: ${channel.closeCode}');
             _error = 'Connection closed with code: ${channel.closeCode}';
+            print('connection close reason => ${channel.closeReason}');
           }
         },
       );
     } catch (e) {
       print('Failed to connect: $e');
       _error = 'Failed to connect: $e';
+    }
+  }
+
+  /// responsible for adding message to the channel
+  void addMessage(Map<String, dynamic> data) {
+    try {
+      channel.sink.add(jsonEncode(data));
+    } catch (e) {
+      log('message sending error $e');
+      rethrow;
     }
   }
 
@@ -170,8 +203,7 @@ class ChatController extends GetxController {
     if (controller.text.isNotEmpty) {
       final message = controller.text;
       try {
-        channel.sink
-            .add(jsonEncode({"message_type": "text", "message": message}));
+        addMessage({"message_type": "text", "message": message});
         controller.clear();
         firstLoad = false;
       } catch (e) {
@@ -184,7 +216,7 @@ class ChatController extends GetxController {
   /// create poll voting
   void createPollVoting({required CreatePoll createPoll}) {
     try {
-      channel.sink.add(jsonEncode(createPoll.toJson()));
+      addMessage(createPoll.toJson());
       controller.clear();
       firstLoad = false;
     } catch (e) {
@@ -196,7 +228,7 @@ class ChatController extends GetxController {
   /// add vote for pole
   void addVoteforPol({required VotePoll votePoll}) {
     try {
-      channel.sink.add(jsonEncode(votePoll.toJson()));
+      addMessage(votePoll.toJson());
       controller.clear();
       firstLoad = false;
     } catch (e) {
@@ -210,26 +242,63 @@ class ChatController extends GetxController {
     if (chatScrollController.offset ==
         chatScrollController.position.minScrollExtent) {
       print('call load more message');
-      channel.sink.add(
-        jsonEncode({
-          "message_type": "load_more",
-          "last_message_id": messages.first.textMessage != null
-              ? (messages.first.textMessage!.messageId ?? '')
-              : messages.first.poll != null
-                  ? (messages.first.poll?.messageId ?? '')
-                  : ''
-        }),
-      );
+      addMessage({
+        "message_type": "load_more",
+        "last_message_id": messages.first.textMessage != null
+            ? (messages.first.textMessage!.messageId ?? '')
+            : messages.first.poll != null
+                ? (messages.first.poll?.messageId ?? '')
+                : ''
+      });
     }
   }
 
-  // create time and expence chat
+  /// create time and expence chat
   void addTimeExpence({required TimeExpenseUpdation timeExpenceUpdation}) {
     try {
-      channel.sink.add(jsonEncode(timeExpenceUpdation.toJson()));
+      addMessage(timeExpenceUpdation.toJson());
     } catch (e) {
       print('Failed to update time and expence: $e');
       _error = 'Failed to update time and expence: $e';
+    }
+  }
+
+  /// send image base64
+  void sendImageBase64({required bool camera}) async {
+    try {
+      final image = await ImagePickerClass.getImage(camera: camera);
+      if (image == null || image.base64 == null) return;
+      print('send picture');
+      addMessage({
+        "message_type": "file",
+        "files": [
+          {"file": image.base64 ?? '', "file_type": 'image'}
+        ],
+        "messages": [""]
+      });
+    } catch (e) {
+      print('Failed to send image: $e');
+      _error = 'Failed to send image: $e';
+      return;
+    }
+  }
+
+  /// send pdf base64
+  void sendPdfBase64() async {
+    try {
+      final pdf = await PdfPickerImpl().getPdf();
+      if (pdf == null || pdf.base64 == null) return;
+      final base64 = pdf.base64!.split('base64,').last;
+      print('send pdf => ${pdf.name}');
+      addMessage({
+        "message_type": "file",
+        "files": [
+          {"file": base64, "file_type": 'pdf'}
+        ],
+        "messages": [pdf.name ?? 'Document']
+      });
+    } catch (e) {
+      return;
     }
   }
 }

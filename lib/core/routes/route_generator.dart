@@ -14,8 +14,11 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/create_c
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
+import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
+import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_details_responce/visiting_card_details_responce.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/signup_screen.dart';
@@ -78,29 +81,6 @@ class GoRouterConfig {
       name: Routes.otpPage,
       path: Routes.otpPage,
       builder: (context, state) => const ScreenOtpValidation(),
-      // path: '${Routes.otpPage}/:email/:fromBusiness/:model',
-      // builder: (context, state) {
-      //   SignUpModel? businessModel;
-      //   SignUpIndivudalModel? individualModel;
-      //   if (state.pathParameters['model'] != null) {
-      //     final model = jsonDecode(state.pathParameters['model']!)
-      //         as Map<String, dynamic>;
-      //     if (model['signUpModel'] != null) {
-      //       businessModel = SignUpModel.fromJson(
-      //           jsonDecode(model['signUpModel']!) as Map<String, dynamic>);
-      //     }
-      //     if (model['signUpIndivudalModel'] != null) {
-      //       individualModel = SignUpIndivudalModel.fromJson(
-      //           jsonDecode(model['signUpIndivudalModel']!)
-      //               as Map<String, dynamic>);
-      //     }
-      //   }
-      //   return ScreenOtpValidation(
-      //       email: state.pathParameters['email']!,
-      //       fromBusiness: state.pathParameters['fromBusiness'] == 'true',
-      //       signUpIndivudalModel: individualModel,
-      //       signUpModel: businessModel);
-      // },
     ),
 
     // Module selector
@@ -108,6 +88,34 @@ class GoRouterConfig {
       name: Routes.moduleSelector,
       path: Routes.moduleSelector,
       builder: (context, state) => ScreenModuleSelector(),
+    ),
+
+    // slidable photo gallary
+    GoRoute(
+      name: Routes.slidablePhotoGallery,
+      path: Routes.slidablePhotoGallery,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        return SlidablePhotoGallery(
+          images: extra['images'] as List<String>,
+          initialIndex: extra['initial'],
+          isMemory: extra['memory'],
+        );
+      },
+    ),
+
+    // slidable photo gallary
+    GoRoute(
+      name: Routes.pdfPreview,
+      path: Routes.pdfPreview,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        return ScreenPdfPreview(
+          base64: extra['base64'],
+          filePath: extra['filePath'],
+          label: extra['label'],
+        );
+      },
     ),
   ];
 

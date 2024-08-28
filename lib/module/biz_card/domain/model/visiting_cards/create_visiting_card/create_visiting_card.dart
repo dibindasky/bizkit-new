@@ -18,27 +18,58 @@ class CreateVisitingCard {
   List<String>? selfie;
   @JsonKey(name: 'card_image')
   String? cardImage;
+  bool image;
 
-  CreateVisitingCard({
-    this.name,
-    this.company,
-    this.phoneNumber,
-    this.website,
-    this.designation,
-    this.email,
-    this.occation,
-    this.location,
-    this.occupation,
-    this.notes,
-    this.selfie,
-    this.cardImage,
-  });
+  CreateVisitingCard(
+      {this.name,
+      this.company,
+      this.phoneNumber,
+      this.website,
+      this.designation,
+      this.email,
+      this.occation,
+      this.location,
+      this.occupation,
+      this.notes,
+      this.selfie,
+      this.cardImage,
+      this.image = false});
 
   factory CreateVisitingCard.fromJson(Map<String, dynamic> json) {
     return _$CreateVisitingCardFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$CreateVisitingCardToJson(this);
+  // Map<String, dynamic> toJson() => _$CreateVisitingCardToJson(this);
+  Map<String, dynamic> toJson() {
+    return image
+        ? {
+            'name': name,
+            'company': company,
+            'phone_number': phoneNumber,
+            'website': website,
+            'designation': designation,
+            'email': email,
+            'occation': occation,
+            'location': location,
+            'occupation': occupation,
+            'notes': notes,
+            'selfie': selfie,
+            'card_image': cardImage,
+          }
+        : {
+            'name': name,
+            'company': company,
+            'phone_number': phoneNumber,
+            'website': website,
+            'designation': designation,
+            'email': email,
+            'occation': occation,
+            'location': location,
+            'occupation': occupation,
+            'notes': notes,
+            'selfie': selfie,
+          };
+  }
 
   CreateVisitingCard copyWith({
     String? name,

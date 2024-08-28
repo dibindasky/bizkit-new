@@ -7,8 +7,10 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
+import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/dailog.dart';
 import 'package:bizkit/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:bizkit/utils/shimmier/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -49,18 +51,57 @@ class _ScreenCardSecondDetailViewState
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-              onPressed: () {
-                GoRouter.of(context).pushNamed(Routes.cardUpdating,
-                    extra: visitingCardController.visitingCardDetails);
-              },
-              icon: const Icon(Icons.edit)),
-          IconButton(
-            onPressed: () async {
-              // await sharePdfFromBase64(state.getSecondCardModel?.pdf ?? '',
-              //     state.getSecondCardModel?.name ?? '');
+          PopupMenuButton<String>(
+            icon: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Icon(
+                Icons.more_vert,
+                size: 25,
+                color: kwhite,
+              ),
+            ),
+            onSelected: (value) {},
+            itemBuilder: (context) {
+              List<PopupMenuEntry<String>> items = [];
+
+              items.addAll(
+                [
+                  PopupMenuItem(
+                    onTap: () {
+                      GoRouter.of(context).pushNamed(Routes.cardUpdating,
+                          extra: visitingCardController.visitingCardDetails);
+                    },
+                    value: 'Edit card',
+                    child: const Text('Edit card'),
+                  ),
+                  PopupMenuItem(
+                    onTap: () => showConfirmationDialog(
+                      heading:
+                          'Are you sure you want to delete your visiting card',
+                      context,
+                      onPressed: () {
+                        visitingCardController.deleteVisitingCard(
+                            context: context,
+                            visitingCardDeleteModel: VisitingCardDeleteModel(
+                              cardId: visitingCardController
+                                      .visitingCardDetails.value.id ??
+                                  '',
+                              isDisabled: true,
+                            ));
+                      },
+                    ),
+                    value: 'Delete card',
+                    child: const Text('Delete card'),
+                  ),
+                  PopupMenuItem(
+                    onTap: () {},
+                    value: 'Share card',
+                    child: const Text('Share card'),
+                  )
+                ],
+              );
+              return items;
             },
-            icon: const Icon(Icons.share),
           )
         ],
         leading: IconButton(
@@ -252,6 +293,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final visitingCardController = Get.find<VisitingCardController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -259,22 +301,35 @@ class CardViewRowWiceIcons extends StatelessWidget {
 
         DetailSharingIconWidget(
           onTap: () {
-            List<String> items = [];
+            List<String> phone = [];
             // items.add(state.getSecondCardModel!.phoneNumber!);
-            log('${items.length}');
-            showModalBottomSheet(
-              context: context,
-              enableDrag: true,
-              isDismissible: true,
-              showDragHandle: true,
-              backgroundColor: kblack,
-              builder: (context) => PreviewScreenRowIconsModelSheet(
-                fromPreview: true,
-                image: imagePhone,
-                items: items,
-                itemsHeading: const ['Phone number'],
-              ),
-            );
+
+            if (visitingCardController.visitingCardDetails.value.phoneNumber !=
+                    null &&
+                visitingCardController
+                    .visitingCardDetails.value.phoneNumber!.isNotEmpty) {
+              phone.add(visitingCardController
+                      .visitingCardDetails.value.phoneNumber ??
+                  '');
+            }
+
+            if (visitingCardController.visitingCardDetails.value != null &&
+                visitingCardController.visitingCardDetails.value.phoneNumber !=
+                    null) {
+              showModalBottomSheet(
+                context: context,
+                enableDrag: true,
+                isDismissible: true,
+                showDragHandle: true,
+                backgroundColor: kblack,
+                builder: (context) => PreviewScreenRowIconsModelSheet(
+                  fromPreview: true,
+                  image: imagePhone,
+                  items: phone,
+                  itemsHeading: const ['Phone number'],
+                ),
+              );
+            }
           },
           image: imagePhone,
         ),
@@ -282,94 +337,117 @@ class CardViewRowWiceIcons extends StatelessWidget {
 
         DetailSharingIconWidget(
           onTap: () {
-            List<String> items = [];
-            // items.add(state.getSecondCardModel!.email!);
-            showModalBottomSheet(
-              context: context,
-              enableDrag: true,
-              isDismissible: true,
-              showDragHandle: true,
-              backgroundColor: kblack,
-              builder: (context) => PreviewScreenRowIconsModelSheet(
-                fromPreview: false,
-                image: imagePhone,
-                items: items,
-                itemsHeading: const ['Email'],
-              ),
-            );
+            List<String> emails = [];
+            if (visitingCardController.visitingCardDetails.value.email !=
+                    null &&
+                visitingCardController
+                    .visitingCardDetails.value.email!.isNotEmpty) {
+              emails.add(
+                  visitingCardController.visitingCardDetails.value.email ?? '');
+            }
+            if (visitingCardController.visitingCardDetails.value != null &&
+                visitingCardController.visitingCardDetails.value.email !=
+                    null) {
+              showModalBottomSheet(
+                context: context,
+                enableDrag: true,
+                isDismissible: true,
+                showDragHandle: true,
+                backgroundColor: kblack,
+                builder: (context) => PreviewScreenRowIconsModelSheet(
+                  fromPreview: false,
+                  image: gifMail,
+                  items: emails,
+                  itemsHeading: const ['Email'],
+                ),
+              );
+            }
           },
           image: gifMail,
         ),
         // website navigator
         DetailSharingIconWidget(
           onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) => Dialog(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: neonShade),
-                      borderRadius: BorderRadius.circular(10),
-                      color: backgroundColour),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('Website', style: textHeadStyle1),
-                      adjustHieght(10),
-                      TextButton(
-                        onPressed: () async {
-                          // await LaunchUrl.googleSearch(
-                          //   url: state.getSecondCardModel!.website!,
-                          // ).then((value) => Navigator.pop(context));
-                        },
-                        child: Text(
-                          'Text',
-                          style: textStyle1.copyWith(
-                            color: kblue,
-                            decoration: TextDecoration.underline,
-                            decorationColor: kblue,
+            String website = '';
+            if (visitingCardController.visitingCardDetails.value.website !=
+                    null &&
+                visitingCardController
+                    .visitingCardDetails.value.website!.isNotEmpty) {
+              website =
+                  visitingCardController.visitingCardDetails.value.website ??
+                      '';
+            }
+            if (visitingCardController.visitingCardDetails.value != null &&
+                visitingCardController.visitingCardDetails.value.website !=
+                    null) {
+              showDialog(
+                context: context,
+                builder: (context) => Dialog(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 20),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: neonShade),
+                        borderRadius: BorderRadius.circular(10),
+                        color: backgroundColour),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Website', style: textHeadStyle1),
+                        adjustHieght(10),
+                        TextButton(
+                          onPressed: () async {
+                            // await LaunchUrl.googleSearch(
+                            //   url: state.getSecondCardModel!.website!,
+                            // ).then((value) => Navigator.pop(context));
+                          },
+                          child: Text(
+                            website,
+                            style: textStyle1.copyWith(
+                              color: kblue,
+                              decoration: TextDecoration.underline,
+                              decorationColor: kblue,
+                            ),
                           ),
                         ),
-                      ),
-                      adjustHieght(10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          OutlinedButton.icon(
-                            style: OutlinedButton.styleFrom(
-                                side: const BorderSide(color: neonShade)),
-                            onPressed: () async {
-                              // await LaunchUrl.googleSearch(
-                              //   url: state.getSecondCardModel!.website!,
-                              // ).then((value) => Navigator.pop(context));
-                            },
-                            icon: const Icon(Icons.webhook_rounded),
-                            label: const Text(
-                              'View site',
-                              style: TextStyle(color: neonShade),
+                        adjustHieght(10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            OutlinedButton.icon(
+                              style: OutlinedButton.styleFrom(
+                                  side: const BorderSide(color: neonShade)),
+                              onPressed: () async {
+                                // await LaunchUrl.googleSearch(
+                                //   url: state.getSecondCardModel!.website!,
+                                // ).then((value) => Navigator.pop(context));
+                              },
+                              icon: const Icon(Icons.webhook_rounded),
+                              label: const Text(
+                                'View site',
+                                style: TextStyle(color: neonShade),
+                              ),
                             ),
-                          ),
-                          adjustWidth(10),
-                          OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                                side: const BorderSide(color: neonShade)),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'Cancel',
-                              style: TextStyle(color: neonShade),
+                            adjustWidth(10),
+                            OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                  side: const BorderSide(color: neonShade)),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(color: neonShade),
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
+              );
+            }
           },
           image: gifGlobe,
         ),
@@ -377,67 +455,84 @@ class CardViewRowWiceIcons extends StatelessWidget {
         //Address screen
         DetailSharingIconWidget(
           onTap: () async {
-            showDialog(
-              context: context,
-              builder: (context) => Dialog(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: neonShade),
-                      borderRadius: BorderRadius.circular(10),
-                      color: backgroundColour),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Address',
-                        style: textHeadStyle1,
-                      ),
-                      adjustHieght(10),
-                      const Text(
-                        'Text',
-                      ),
-                      adjustHieght(10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          OutlinedButton.icon(
-                            style: OutlinedButton.styleFrom(
-                                side: const BorderSide(color: neonShade)),
-                            onPressed: () async {
-                              // await LaunchUrl.launchMap(
-                              //   address: state.getSecondCardModel!.location!,
-                              //   context: context,
-                              // ).then((value) => Navigator.pop(context));
-                            },
-                            icon: const Icon(
-                              Icons.location_on_outlined,
+            String location = '';
+
+            if (visitingCardController.visitingCardDetails.value.location !=
+                    null &&
+                visitingCardController
+                    .visitingCardDetails.value.location!.isNotEmpty) {
+              location =
+                  visitingCardController.visitingCardDetails.value.location ??
+                      '';
+            }
+            if (visitingCardController.visitingCardDetails.value != null &&
+                visitingCardController.visitingCardDetails.value.location !=
+                    null) {
+              showDialog(
+                context: context,
+                builder: (context) => Dialog(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 20),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: neonShade),
+                        borderRadius: BorderRadius.circular(10),
+                        color: backgroundColour),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Address',
+                          style: textHeadStyle1,
+                        ),
+                        adjustHieght(10),
+                        Text(
+                          location,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: textThinStyle1,
+                        ),
+                        adjustHieght(10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            OutlinedButton.icon(
+                              style: OutlinedButton.styleFrom(
+                                  side: const BorderSide(color: neonShade)),
+                              onPressed: () async {
+                                // await LaunchUrl.launchMap(
+                                //   address: state.getSecondCardModel!.location!,
+                                //   context: context,
+                                // ).then((value) => Navigator.pop(context));
+                              },
+                              icon: const Icon(
+                                Icons.location_on_outlined,
+                              ),
+                              label: Text(
+                                'ViewMap',
+                                style: textThinStyle1,
+                              ),
                             ),
-                            label: const Text(
-                              'ViewMap',
-                              style: TextStyle(color: neonShade),
+                            adjustWidth(10),
+                            OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                  side: const BorderSide(color: neonShade)),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                'Cancel',
+                                style: textThinStyle1,
+                              ),
                             ),
-                          ),
-                          adjustWidth(10),
-                          OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                                side: const BorderSide(color: neonShade)),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'Cancel',
-                              style: TextStyle(color: neonShade),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
+              );
+            }
           },
           image: gifLocation,
         )

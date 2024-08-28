@@ -63,11 +63,15 @@ class _ArchivedCardsState extends State<ArchivedCards> {
           child: GetBuilder<CardController>(
             builder: (controller) {
               if (controller.isLoading.value) {
-                return ShimmerLoader(
-                  height: 125.w,
-                  width: 200.w,
-                  seprator: kHeight10,
-                  itemCount: controller.archivedCards.length,
+                return SizedBox(
+                  height: khieght,
+                  child: ShimmerLoader(
+                    height: 200.h,
+                    seprator: adjustHieght(khieght * .03),
+                    scrollDirection: Axis.vertical,
+                    itemCount: controller.archivedCards.length,
+                    width: 300.w,
+                  ),
                 );
               } else if (controller.archivedCards.isEmpty) {
                 return SizedBox(
@@ -88,7 +92,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                   // (state.archievedCards?.length ?? 0) +
                   //     (state.archiveCardLoading ? 1 : 0),
                   separatorBuilder: (context, index) =>
-                      adjustWidth(kwidth * .05),
+                      adjustHieght(khieght * .03),
                   itemBuilder: (context, index) {
                     // if (state.archiveCardLoading &&
                     //     index == state.archievedCards!.length) {
@@ -150,13 +154,10 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                             children: [
                               adjustWidth(kwidth * .02),
                               Text(
-                                controller.archivedCards[index].designation ??
-                                    'Designation',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
+                                  controller.archivedCards[index].designation ??
+                                      'Designation',
+                                  style:
+                                      textThinStyle1.copyWith(fontSize: 14.sp)),
                               const Spacer(),
                               InkWell(
                                 onTap: () {
@@ -185,7 +186,9 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                                   width: 100,
                                   height: 30,
                                   child: Center(
-                                    child: Text('Restore', style: textStyle1),
+                                    child: Text('Restore',
+                                        style: textThinStyle1.copyWith(
+                                            fontSize: 14.sp)),
                                   ),
                                 ),
                               ),

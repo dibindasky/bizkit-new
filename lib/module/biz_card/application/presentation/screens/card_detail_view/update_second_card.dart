@@ -5,7 +5,6 @@ import 'package:bizkit/module/biz_card/application/controller/text_extraction/te
 import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_preview.dart';
-import 'package:bizkit/module/biz_card/domain/model/visiting_cards/create_visiting_card/create_visiting_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_edit_model/visiting_card_edit_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
@@ -114,7 +113,7 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                 visitingCardController.visitingCardDetails.value.cardImage ==
                         null
                     ? kempty
-                    : const Text('Add visitig card image'),
+                    : const Text('visitig card image'),
                 adjustHieght(20),
                 visitingCardController.visitingCardDetails.value.cardImage ==
                         null
@@ -160,42 +159,42 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                               //         '')),
                             ),
                           ),
-                          Positioned(
-                            right: 10,
-                            bottom: 10,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: ColoredBox(
-                                color: neonShade,
-                                child: IconButton(
-                                  onPressed: () {
-                                    cameraAndGalleryPickImage(
-                                      context: context,
-                                      onPressCam: () {
-                                        // context.read<CardSecondBloc>().add(
-                                        //       const CardSecondEvent.scanImage(
-                                        //         isFront: false,
-                                        //         isCam: true,
-                                        //       ),
-                                        //     );
-                                      },
-                                      onPressGallery: () {
-                                        // context.read<CardSecondBloc>().add(
-                                        //       const CardSecondEvent.scanImage(
-                                        //           isFront: false, isCam: false),
-                                        //     );
-                                      },
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    size: 30,
-                                    color: kwhite,
-                                    Icons.add,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          // Positioned(
+                          //   right: 10,
+                          //   bottom: 10,
+                          //   child: ClipRRect(
+                          //     borderRadius: BorderRadius.circular(15),
+                          //     child: ColoredBox(
+                          //       color: neonShade,
+                          //       child: IconButton(
+                          //         onPressed: () {
+                          //           cameraAndGalleryPickImage(
+                          //             context: context,
+                          //             onPressCam: () {
+                          //               // context.read<CardSecondBloc>().add(
+                          //               //       const CardSecondEvent.scanImage(
+                          //               //         isFront: false,
+                          //               //         isCam: true,
+                          //               //       ),
+                          //               //     );
+                          //             },
+                          //             onPressGallery: () {
+                          //               // context.read<CardSecondBloc>().add(
+                          //               //       const CardSecondEvent.scanImage(
+                          //               //           isFront: false, isCam: false),
+                          //               //     );
+                          //             },
+                          //           );
+                          //         },
+                          //         icon: const Icon(
+                          //           size: 30,
+                          //           color: kwhite,
+                          //           Icons.add,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                 adjustHieght(20),
@@ -257,85 +256,85 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                                         ),
                                       ),
                                     ),
-                                    Positioned(
-                                      top: 10,
-                                      right: 10,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: ColoredBox(
-                                          color: neonShade,
-                                          child: IconButton(
-                                            onPressed: () {
-                                              showCustomConfirmationDialogue(
-                                                context: context,
-                                                buttonText: 'Delete',
-                                                title:
-                                                    'You want to delete product image',
-                                                onTap: () {
-                                                  // if (imageList[index].id != null) {
-                                                  //   // context
-                                                  //   //     .read<CardSecondBloc>()
-                                                  //   //     .add(CardSecondEvent
-                                                  //   //         .removeSelfieIndexImages(
-                                                  //   //             id: imageList[index]
-                                                  //   //                 .id!));
-                                                  // }
-                                                  // newImageList.removeWhere(
-                                                  //     (element) =>
-                                                  //         element ==
-                                                  //         imageList[index]);
-                                                  // imageList.removeAt(index);
-                                                  // setState(() {});
-                                                },
-                                              );
-                                            },
-                                            icon: const Icon(
-                                              size: 30,
-                                              color: kwhite,
-                                              Icons.delete,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    // Positioned(
+                                    //   top: 10,
+                                    //   right: 10,
+                                    //   child: ClipRRect(
+                                    //     borderRadius: BorderRadius.circular(10),
+                                    //     child: ColoredBox(
+                                    //       color: neonShade,
+                                    //       child: IconButton(
+                                    //         onPressed: () {
+                                    //           showCustomConfirmationDialogue(
+                                    //             context: context,
+                                    //             buttonText: 'Delete',
+                                    //             title:
+                                    //                 'You want to delete selfie image',
+                                    //             onTap: () {
+                                    //               // if (imageList[index].id != null) {
+                                    //               //   // context
+                                    //               //   //     .read<CardSecondBloc>()
+                                    //               //   //     .add(CardSecondEvent
+                                    //               //   //         .removeSelfieIndexImages(
+                                    //               //   //             id: imageList[index]
+                                    //               //   //                 .id!));
+                                    //               // }
+                                    //               // newImageList.removeWhere(
+                                    //               //     (element) =>
+                                    //               //         element ==
+                                    //               //         imageList[index]);
+                                    //               // imageList.removeAt(index);
+                                    //               // setState(() {});
+                                    //             },
+                                    //           );
+                                    //         },
+                                    //         icon: const Icon(
+                                    //           size: 30,
+                                    //           color: kwhite,
+                                    //           Icons.delete,
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 );
                               },
                             ),
                           ),
-                          Positioned(
-                            right: 5,
-                            bottom: 5,
-                            child: InkWell(
-                              onTap: () {
-                                cameraAndGalleryPickImage(
-                                  context: context,
-                                  onPressCam: () async {
-                                    final img = await ImagePickerClass.getImage(
-                                        camera: true);
-                                    if (img != null) {
-                                      // imageList.insert(0, Selfie(selfie: img.base64));
-                                      // newImageList.add(Selfie(selfie: img.base64));
-                                      setState(() {});
-                                    }
-                                  },
-                                  onPressGallery: () async {
-                                    final img = await ImagePickerClass.getImage(
-                                        camera: false);
-                                    if (img != null) {
-                                      // imageList.insert(0, Selfie(selfie: img.base64));
-                                      // newImageList.add(Selfie(selfie: img.base64));
-                                      setState(() {});
-                                    }
-                                  },
-                                );
-                              },
-                              child: const CircleAvatar(
-                                radius: 30,
-                                child: Icon(Icons.add_a_photo_outlined),
-                              ),
-                            ),
-                          )
+                          // Positioned(
+                          //   right: 5,
+                          //   bottom: 5,
+                          //   child: InkWell(
+                          //     onTap: () {
+                          //       cameraAndGalleryPickImage(
+                          //         context: context,
+                          //         onPressCam: () async {
+                          //           final img = await ImagePickerClass.getImage(
+                          //               camera: true);
+                          //           if (img != null) {
+                          //             // imageList.insert(0, Selfie(selfie: img.base64));
+                          //             // newImageList.add(Selfie(selfie: img.base64));
+                          //             setState(() {});
+                          //           }
+                          //         },
+                          //         onPressGallery: () async {
+                          //           final img = await ImagePickerClass.getImage(
+                          //               camera: false);
+                          //           if (img != null) {
+                          //             // imageList.insert(0, Selfie(selfie: img.base64));
+                          //             // newImageList.add(Selfie(selfie: img.base64));
+                          //             setState(() {});
+                          //           }
+                          //         },
+                          //       );
+                          //     },
+                          //     child: const CircleAvatar(
+                          //       radius: 30,
+                          //       child: Icon(Icons.add_a_photo_outlined),
+                          //     ),
+                          //   ),
+                          // )
                         ],
                       ),
                 Form(
@@ -446,7 +445,17 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                       CardLastSkipContinueButtons(
                         continueText: '  Save  ',
                         onTap: () {
-                          log('Clicked');
+                          final cardImage = visitingCardController
+                                          .visitingCardDetails
+                                          .value
+                                          .cardImage !=
+                                      null &&
+                                  visitingCardController.visitingCardDetails
+                                      .value.cardImage!.isNotEmpty
+                              ? visitingCardController
+                                      .visitingCardDetails.value.cardImage ??
+                                  ''
+                              : null;
                           visitingCardController.editVisitingCard(
                               visitingCardEditModel: VisitingCardEditModel(
                                 cardId: visitingCardController
@@ -474,77 +483,10 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                                     .websiteController.text,
                                 selfie: visitingCardController
                                     .visitingCardDetails.value.selfie,
-                                // cardImage: visitingCardController
-                                //     .visitingCardDetails.value.cardImage,
+                                cardImage: cardImage,
+                                scanedImage: cardImage != null,
                               ),
                               context: context);
-
-                          // if (context
-                          //     .read<CardSecondBloc>()
-                          //     .cardUpdateKey
-                          //     .currentState!
-                          //     .validate()) {
-                          // SecondCardNew secondCard = SecondCardNew(
-                          //   id: widget.secondCard.id,
-                          //   date: widget.secondCard.date,
-                          //   time: widget.secondCard.time,
-                          //   isActive: true,
-                          //   tag: '',
-                          //   whereWeMet: context
-                          //       .read<CardSecondBloc>()
-                          //       .updateoccationController
-                          //       .text,
-                          //   designation: context
-                          //       .read<CardSecondBloc>()
-                          //       .updatedesignationController
-                          //       .text,
-                          //   email: context
-                          //       .read<CardSecondBloc>()
-                          //       .updateEmailController
-                          //       .text,
-                          //   location: context
-                          //       .read<CardSecondBloc>()
-                          //       .updatelocatioNController
-                          //       .text,
-                          //   notes: context
-                          //       .read<CardSecondBloc>()
-                          //       .updatenotesController
-                          //       .text,
-                          //   occupation: context
-                          //       .read<CardSecondBloc>()
-                          //       .updateoccupationController
-                          //       .text,
-                          //   phoneNumber: context
-                          //       .read<CardSecondBloc>()
-                          //       .updatephoneController
-                          //       .text,
-                          //   website: context
-                          //       .read<CardSecondBloc>()
-                          //       .updatewebSiteController
-                          //       .text,
-                          //   image: state.scannedImagesSecondCardCreation
-                          //           .isNotEmpty
-                          //       ? state
-                          //           .scannedImagesSecondCardCreation
-                          //           .last
-                          //           .base64
-                          //       : widget.secondCard.image!,
-                          //   company: context
-                          //       .read<CardSecondBloc>()
-                          //       .updateCompanyController
-                          //       .text,
-                          //   name: context
-                          //       .read<CardSecondBloc>()
-                          //       .updateNameController
-                          //       .text,
-                          //   selfie: [],
-                          // );
-                          // AddSelfieModel addSelfieModel =
-                          //     AddSelfieModel(
-                          //   businessCardId: widget.secondCard.id,
-                          //   selfie: newImageList,
-                          // );
-                          // }
                         },
                       ),
                       adjustHieght(40)

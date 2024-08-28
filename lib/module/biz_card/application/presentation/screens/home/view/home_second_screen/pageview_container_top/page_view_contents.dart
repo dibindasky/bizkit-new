@@ -97,7 +97,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
                     ),
                   ),
                 ),
-                kWidth10
+                kHeight10,
               ],
             ),
           ],

@@ -1,4 +1,4 @@
-import 'package:bizkit/module/biz_card/domain/modell/cards/image_card/image_card.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'achievement.g.dart';

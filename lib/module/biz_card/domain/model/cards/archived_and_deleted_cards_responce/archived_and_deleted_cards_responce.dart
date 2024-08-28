@@ -1,4 +1,4 @@
-import 'package:bizkit/module/biz_card/domain/modell/cards/archived_and_deleted_cards_responce/archived_or_deleted_card/archived_or_deleted_card.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/archived_and_deleted_cards_responce/archived_or_deleted_card/archived_or_deleted_card.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'archived_and_deleted_cards_responce.g.dart';

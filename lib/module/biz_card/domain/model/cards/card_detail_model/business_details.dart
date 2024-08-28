@@ -1,4 +1,4 @@
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/achievement.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'branch_office.dart';

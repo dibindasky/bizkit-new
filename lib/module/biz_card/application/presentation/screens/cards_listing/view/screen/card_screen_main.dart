@@ -11,9 +11,9 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_det
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/archieved_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/deleted_cards.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_archive_model/card_archive_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_delete_model/card_delete_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';

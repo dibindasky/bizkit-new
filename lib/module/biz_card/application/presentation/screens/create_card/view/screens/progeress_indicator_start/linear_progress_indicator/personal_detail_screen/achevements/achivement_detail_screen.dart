@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/achievement.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/image_card/image_card.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';

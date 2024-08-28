@@ -1,12 +1,12 @@
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/archived_and_deleted_cards_responce/archived_and_deleted_cards_responce.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_archive_model/card_archive_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_delete_model/card_delete_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/card_detail_model.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/create_card/create_card.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/create_card_responce/create_card_responce.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/get_all_cards/get_all_cards.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/archived_and_deleted_cards_responce/archived_and_deleted_cards_responce.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/create_card/create_card.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/create_card_responce/create_card_responce.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/get_all_cards.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class CardRepo {

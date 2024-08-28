@@ -4,8 +4,8 @@ import 'dart:typed_data';
 
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/card_detail_model/achievement.dart';
-import 'package:bizkit/module/biz_card/domain/modell/cards/image_card/image_card.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/utils/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';

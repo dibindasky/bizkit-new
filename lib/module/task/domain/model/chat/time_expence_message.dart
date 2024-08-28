@@ -8,7 +8,7 @@ class TimeExpense {
   String? timestamp;
   TimeExpenseData? timeExpenseData;
   bool? readByAll;
-  bool? sender;
+  bool sender;
   bool isLoadMore;
 
   TimeExpense({
@@ -21,7 +21,7 @@ class TimeExpense {
     this.timestamp,
     this.timeExpenseData,
     this.readByAll,
-    this.sender,
+    this.sender =false,
     this.isLoadMore = false,
   });
 

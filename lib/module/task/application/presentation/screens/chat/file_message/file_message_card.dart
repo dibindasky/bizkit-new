@@ -18,7 +18,7 @@ class FileMessageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final sender = message.sender;
     return Align(
-      alignment: message.fileType == 'pdf'
+      alignment: message.fileType == 'pdf' && sender
           ? Alignment.centerRight
           : Alignment.centerLeft,
       child: Padding(
@@ -38,9 +38,17 @@ class FileMessageCard extends StatelessWidget {
                   right: sender ? 15.w : 5.w,
                   top: 5.h,
                   bottom: 0.h),
-              width: message.fileType == 'pdf' ? 150.h  : null,
+              width: message.fileType == 'pdf' ? 150.h : null,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  sender
+                      ? kempty
+                      : Text(
+                          message.username ?? '',
+                          style: textThinStyle1.copyWith(
+                              fontSize: 8.sp, color: kwhite.withOpacity(0.7)),
+                        ),
                   message.fileType == 'image'
                       ? ImageMessageCard(message: message)
                       : message.fileType == 'pdf'

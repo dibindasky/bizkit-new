@@ -123,6 +123,13 @@ class _PollContainerChatState extends State<PollContainerChat> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              sender
+                  ? kempty
+                  : Text(
+                      message.userName ?? '',
+                      style: textThinStyle1.copyWith(
+                          fontSize: 8.sp, color: kwhite.withOpacity(0.7)),
+                    ),
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),

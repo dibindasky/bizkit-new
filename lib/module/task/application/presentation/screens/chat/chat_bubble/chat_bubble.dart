@@ -61,16 +61,28 @@ class ChatBubble extends StatelessWidget {
                   right: !message.sender ? 10.w : 20.w,
                   top: 5.w,
                   bottom: 5.w),
-              child: showCol
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: data,
-                    )
-                  : Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.min,
-                      children: data,
-                    )),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  message.sender
+                      ? kempty
+                      : Text(
+                          message.username ?? '',
+                          style: textThinStyle1.copyWith(
+                              fontSize: 8.sp, color: kwhite.withOpacity(0.7)),
+                        ),
+                  showCol
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: data,
+                        )
+                      : Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: data,
+                        )
+                ],
+              )),
         ),
       ),
     );

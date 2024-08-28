@@ -82,7 +82,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
       }
     }
     time = DateTimeFormater.countdownInSeconds(message.activeUntil ?? '');
-    if (message.activeUntil == '' || message.activeUntil == 'Alwase') {
+    if (message.activeUntil == '' || message.activeUntil == 'Always') {
       expired = false;
     } else if (time != null && time! > 0) {
       timerCheck();
@@ -111,15 +111,13 @@ class _PollContainerChatState extends State<PollContainerChat> {
         clipper: PollChatClipper(isSender: sender),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          width: 300,
           padding: EdgeInsets.only(
-              left: !sender ? 20.w : 10.w,
-              right: sender ? 20.w : 10.w,
-              top: 10.h,
-              bottom: 10.h),
+              left: !sender ? 15.w : 5.w,
+              right: sender ? 15.w : 5.w,
+              top: 5.h,
+              bottom: 5.h),
           decoration: BoxDecoration(
             color: sender ? neonShade.withGreen(190) : kwhite.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -218,7 +216,8 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                           : null, // No icon if not selected
                                     ),
                                   ),
-                                ),kWidth10,
+                                ),
+                                kWidth10,
                                 Expanded(
                                   child: Container(
                                     padding: completed
@@ -231,7 +230,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                         ? BoxDecoration(
                                             color: sender
                                                 ? kblack.withOpacity(0.1)
-                                                : kwhite.withOpacity(0.5),
+                                                : kwhite.withOpacity(0.1),
                                             borderRadius: kBorderRadius5,
                                           )
                                         : null,
@@ -261,7 +260,9 @@ class _PollContainerChatState extends State<PollContainerChat> {
                   },
                 ),
               ),
-              (completed || selectedOption.isNotEmpty) && !showTextField
+              expired ||
+                      ((completed || selectedOption.isNotEmpty) &&
+                          !showTextField)
                   ? Align(
                       child: GestureDetector(
                         onTap: () {

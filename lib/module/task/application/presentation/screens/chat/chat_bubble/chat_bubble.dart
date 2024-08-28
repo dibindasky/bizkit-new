@@ -20,10 +20,6 @@ class ChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool showCol = (message.message ?? '').length > 15;
     List<Widget> data = [
-      // if (isImage && imageUrl != null) ...[
-      //   Image.network(imageUrl!),
-      //   SizedBox(height: 5.h),
-      // ],
       Text(
         message.message ?? '',
         style: textStyle1.copyWith(color: kwhite),
@@ -57,25 +53,24 @@ class ChatBubble extends StatelessWidget {
           clipper:
               ChatBubbleClipper(isSender: message.sender, showArrow: showArrow),
           child: Container(
-            color: message.sender
-                ? neonShade.withGreen(190)
-                : kwhite.withOpacity(.3),
-            padding: EdgeInsets.only(
-                left: message.sender ? 10.w : 20.w,
-                right: !message.sender ? 10.w : 20.w,
-                top: 5.w,
-                bottom: 5.w),
-            child: showCol
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: data,
-                  )
-                : Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: data,
-                  ),
-          ),
+              color: message.sender
+                  ? neonShade.withGreen(190)
+                  : kwhite.withOpacity(.3),
+              padding: EdgeInsets.only(
+                  left: message.sender ? 10.w : 20.w,
+                  right: !message.sender ? 10.w : 20.w,
+                  top: 5.w,
+                  bottom: 5.w),
+              child: showCol
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: data,
+                    )
+                  : Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: data,
+                    )),
         ),
       ),
     );

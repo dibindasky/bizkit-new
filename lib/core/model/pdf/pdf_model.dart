@@ -8,5 +8,11 @@ class PdfModel {
   MultipartFile? multipartFile;
   Image? imagePreview;
   String? base64;
-  PdfModel({this.file, this.multipartFile, this.base64, this.imagePreview});
+  String? name;
+  PdfModel(
+      {this.file,
+      this.multipartFile,
+      this.base64,
+      this.imagePreview,
+      this.name});
 }

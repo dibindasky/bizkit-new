@@ -134,7 +134,7 @@ class TasksListsWidget extends StatelessWidget {
                           return Center(
                             child: Text(
                               'No recent tasks ',
-                              style: textThinStyle1,
+                              style: textThinStyle1.copyWith(fontSize: 12.sp),
                             ),
                           );
                         } else {

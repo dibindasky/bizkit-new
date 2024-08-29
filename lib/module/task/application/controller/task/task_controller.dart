@@ -559,8 +559,6 @@ class CreateTaskController extends GetxController {
             .folderSpotLightOnOrOff(spotLightTask: spotLightTask);
         Get.find<TaskFolderController>()
             .innerFolderSpotLightOnOrOff(spotLightTask: spotLightTask);
-
-        log('SpotLightTask :=> $deadlineTasks');
       },
     );
   }
@@ -795,7 +793,6 @@ class CreateTaskController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
-        log('Search tasks ${success.tasks?.first.toJson()}');
         if (success.tasks != null) {
           tasksSearch.clear();
           tasksSearch.addAll(success.tasks ?? []);

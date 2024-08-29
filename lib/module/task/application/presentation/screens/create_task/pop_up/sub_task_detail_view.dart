@@ -52,7 +52,7 @@ class SubTaskDetailView extends StatelessWidget {
               ),
             ],
           ),
-          const Divider(color: kblack, indent: 0),
+          Divider(color: lightGrey, indent: 0),
           adjustHieght(10.h),
           Text(
             subTaskDes ?? 'Subtask des',

@@ -16,7 +16,7 @@ class AttendenceReportHistoryAppBar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                Get.toNamed(Routes.attendenceReport, id: 2);
+                Get.toNamed(Routes.attendenceReport, id: 22);
               },
               icon: const Icon(Icons.arrow_back_ios),
             ),

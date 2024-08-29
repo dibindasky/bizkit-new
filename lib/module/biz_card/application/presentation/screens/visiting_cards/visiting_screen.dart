@@ -58,7 +58,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
         setState(() {
           isShowcaseSeen = showed;
         });
-        if (!isShowcaseSeen) {
+        if (isShowcaseSeen) {
           ShowCaseWidget.of(context).startShowCase([
             globalKeyQRLists,
             globalKeyQRScan,

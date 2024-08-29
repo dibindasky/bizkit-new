@@ -39,7 +39,7 @@ class AttendenceGridContainer extends StatelessWidget {
               title,
               maxLines: 2,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 13),
+              style: textThinStyle1.copyWith(color: kwhite),
             )
           ],
         ),

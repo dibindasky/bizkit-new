@@ -17,7 +17,7 @@ class AttendenceReportAppbar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                Get.toNamed(Routes.attendenceSelection, id: 2);
+                Get.toNamed(Routes.attendenceSelectionManagementSide, id: 22);
               },
               icon: const Icon(Icons.arrow_back_ios),
             ),
@@ -31,7 +31,7 @@ class AttendenceReportAppbar extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           child: GestureDetector(
             onTap: () {
-              Get.toNamed(Routes.attendenceReportHistory, id: 2);
+              Get.toNamed(Routes.attendenceReportHistory, id: 22);
             },
             child: const CircleAvatar(
               radius: 25,

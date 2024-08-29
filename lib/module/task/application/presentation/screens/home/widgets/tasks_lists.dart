@@ -131,8 +131,11 @@ class TasksListsWidget extends StatelessWidget {
                         } else if (homeController.toMeTasks.isEmpty ||
                             homeController.toOthersTasks.isEmpty ||
                             homeController.selfieTasks.isEmpty) {
-                          return const Center(
-                            child: Text('No recent tasks '),
+                          return Center(
+                            child: Text(
+                              'No recent tasks ',
+                              style: textThinStyle1,
+                            ),
                           );
                         } else {
                           return ListView.builder(

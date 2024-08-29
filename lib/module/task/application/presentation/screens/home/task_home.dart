@@ -44,7 +44,7 @@ class ScreenTaskHome extends StatelessWidget {
                   onTap: () {
                     taskController.searchTasks(searchItem: '');
                     FocusScope.of(context).unfocus();
-                    log('Search bar clicked');
+                    // log('Search bar clicked');
                     Get.toNamed(Routes.taskSearch, id: 1);
                   },
                   child: TaskTextField(

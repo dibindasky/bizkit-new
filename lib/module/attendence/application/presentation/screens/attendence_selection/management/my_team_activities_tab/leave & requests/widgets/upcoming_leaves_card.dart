@@ -30,7 +30,7 @@ class UpcomingLeavesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(Routes.attendenceMsLeaveRequestDetailedView, id: 2);
+        Get.toNamed(Routes.attendenceMsLeaveRequestDetailedView, id: 22);
       },
       child: Container(
         width: 320.w,
@@ -158,29 +158,35 @@ class UpcomingLeavesCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                    width: 135.w,
-                    height: 36.h,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: neonShade),
-                      borderRadius: kBorderRadius5,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Decline',
-                        style: TextStyle(color: neonShade),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: 135.w,
+                      height: 36.h,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: neonShade),
+                        borderRadius: kBorderRadius5,
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Decline',
+                          style: TextStyle(color: neonShade),
+                        ),
                       ),
                     ),
                   ),
-                  Container(
-                    width: 135.w,
-                    height: 36.h,
-                    decoration: BoxDecoration(
-                        color: neonShade, borderRadius: kBorderRadius5),
-                    child: const Center(
-                      child: Text(
-                        'Approve',
-                        style: TextStyle(color: kblack),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: 135.w,
+                      height: 36.h,
+                      decoration: BoxDecoration(
+                          color: neonShade, borderRadius: kBorderRadius5),
+                      child: const Center(
+                        child: Text(
+                          'Approve',
+                          style: TextStyle(color: kblack),
+                        ),
                       ),
                     ),
                   )

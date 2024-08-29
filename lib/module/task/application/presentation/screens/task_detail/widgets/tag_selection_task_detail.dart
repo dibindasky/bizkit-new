@@ -12,6 +12,7 @@ class TaskDetailTagsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<CreateTaskController>();
+
     return Container(
       padding: EdgeInsets.all(10.w),
       width: double.infinity,
@@ -24,32 +25,43 @@ class TaskDetailTagsSection extends StatelessWidget {
         children: [
           Text(
             'Tags',
-            style: textHeadStyle1,
+            style: textHeadStyle1.copyWith(fontSize: 13.sp),
           ),
           adjustHieght(5.h),
           Obx(() {
-            return controller.isLoading.value
-                ? SizedBox(
-                    height: 30.h,
-                    child: ShimmerLoader(
-                      height: 30.h,
-                      itemCount: controller.singleTask.value.tags?.length ?? 5,
-                      width: 80.w,
-                      scrollDirection: Axis.horizontal,
-                      seprator: const SizedBox(
-                        width: 8,
-                      ),
-                    ),
-                  )
-                : Wrap(
-                    spacing: 8.w,
-                    runSpacing: 8.w,
-                    children: controller.singleTask.value.tags != null
-                        ? controller.singleTask.value.tags!.map((tag) {
-                            return TagChip(label: tag);
-                          }).toList()
-                        : [],
-                  );
+            if (controller.isLoading.value) {
+              return SizedBox(
+                height: 30.h,
+                child: ShimmerLoader(
+                  height: 30.h,
+                  itemCount: 5,
+                  width: 80.w,
+                  scrollDirection: Axis.horizontal,
+                  seprator: const SizedBox(
+                    width: 8,
+                  ),
+                ),
+              );
+            } else if (controller.singleTask.value.tags != null ||
+                controller.singleTask.value.tags!.isEmpty) {
+              return Center(
+                child: Text(
+                  'No Tags Available',
+                  style: textThinStyle1.copyWith(
+                      color: klightgrey, fontSize: 12.sp),
+                ),
+              );
+            } else {
+              return Wrap(
+                spacing: 8.w,
+                runSpacing: 8.w,
+                children: controller.singleTask.value.tags != null
+                    ? controller.singleTask.value.tags!.map((tag) {
+                        return TagChip(label: tag);
+                      }).toList()
+                    : [],
+              );
+            }
           }),
         ],
       ),

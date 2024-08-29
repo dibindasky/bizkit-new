@@ -24,7 +24,7 @@ class AttendencePPRequestToChangeScreen extends StatelessWidget {
                 AttendencePeltAndPellAppbar(
                   title: 'PELT & PELL Request',
                   onPressed: () {
-                    Get.toNamed(Routes.attendencePeltAndPell, id: 2);
+                    Get.toNamed(Routes.attendencePeltAndPell, id: 22);
                   },
                 ),
                 adjustHieght(15.h),
@@ -186,29 +186,37 @@ class AttendencePPRequestToChangeScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: 146.w,
-                        height: 42.h,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: neonShade),
-                          borderRadius: kBorderRadius5,
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'Cancel',
-                            style: TextStyle(color: neonShade),
+                      GestureDetector(
+                        onTap: () {
+                          Get.back(id: 22);
+                        },
+                        child: Container(
+                          width: 146.w,
+                          height: 42.h,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: neonShade),
+                            borderRadius: kBorderRadius5,
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(color: neonShade),
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        width: 146.w,
-                        height: 42.h,
-                        decoration: BoxDecoration(
-                            color: neonShade, borderRadius: kBorderRadius5),
-                        child: const Center(
-                          child: Text(
-                            'Request',
-                            style: TextStyle(color: kblack),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          width: 146.w,
+                          height: 42.h,
+                          decoration: BoxDecoration(
+                              color: neonShade, borderRadius: kBorderRadius5),
+                          child: const Center(
+                            child: Text(
+                              'Request',
+                              style: TextStyle(color: kblack),
+                            ),
                           ),
                         ),
                       ),

@@ -44,7 +44,7 @@ class AttendenceReportScreen extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(Routes.attendenceCreateNewReport, id: 2);
+                          Get.toNamed(Routes.attendenceCreateNewReport, id: 22);
                         },
                         child: ReportCard(
                           title1: '',

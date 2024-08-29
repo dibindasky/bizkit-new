@@ -31,7 +31,7 @@ class _AttendenceCreateNewReportScreenState
             padding: const EdgeInsets.only(left: 14.0, right: 14.0, top: 24),
             child: Column(
               children: [
-                CardAppbarCommen(
+                const CardAppbarCommen(
                   tittle: 'New Report',
                 ),
                 // const AttendenceReportAppbar(

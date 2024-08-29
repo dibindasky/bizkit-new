@@ -459,16 +459,16 @@ String maskEmail(String email) {
 
 List<void Function()> myTeamActivitiesOnTaps = [
   () {
-    Get.toNamed(Routes.attendenceMsTeamTimeSheet, id: 2);
+    Get.toNamed(Routes.attendenceMsTeamTimeSheet, id: 22);
   },
   () {
-    Get.toNamed(Routes.attendenceMSLeaveAndRequests, id: 2);
+    Get.toNamed(Routes.attendenceMSLeaveAndRequests, id: 22);
   },
   () {
-    Get.toNamed(Routes.attendenceMsCalendar, id: 2);
+    Get.toNamed(Routes.attendenceMsCalendar, id: 22);
   },
   () {
-    Get.toNamed(Routes.attendenceMsPeltAndPell, id: 2);
+    Get.toNamed(Routes.attendenceMsPeltAndPell, id: 22);
   },
 ];
 
@@ -493,21 +493,27 @@ const List<String> myActivitiesTitles = [
 List<void Function()> myActivitiesOnTaps = [
   () {
     log("Timesheet");
+    Get.toNamed(Routes.attendenceTimeSheet, id: 22);
   },
   () {
     log('Leaves');
+    Get.toNamed(Routes.attendenceLeaves, id: 22);
   },
   () {
     log('Rules');
+    Get.toNamed(Routes.attendenceRules, id: 22);
   },
   () {
     log('Reports');
+    Get.toNamed(Routes.attendenceReport, id: 22);
   },
   () {
     log('Calendar');
+    Get.toNamed(Routes.attendenceCalender, id: 22);
   },
   () {
     log('PELT&PELL');
+    Get.toNamed(Routes.attendencePeltAndPell, id: 22);
   },
 ];
 

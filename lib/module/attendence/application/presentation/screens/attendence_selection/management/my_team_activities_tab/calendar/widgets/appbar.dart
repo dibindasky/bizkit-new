@@ -16,7 +16,7 @@ class AttendenceMsCalendarAppbar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                Get.back(id: 2);
+                Get.back(id: 22);
               },
               icon: const Icon(Icons.arrow_back_ios),
             ),
@@ -30,7 +30,7 @@ class AttendenceMsCalendarAppbar extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           child: GestureDetector(
             onTap: () {
-              Get.toNamed(Routes.attendenceMsAddNewHoliday, id: 2);
+              Get.toNamed(Routes.attendenceMsAddNewHoliday, id: 22);
             },
             child: const CircleAvatar(
               radius: 25,

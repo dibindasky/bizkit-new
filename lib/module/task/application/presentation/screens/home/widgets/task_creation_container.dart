@@ -1,7 +1,9 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class TaskCreationContainer extends StatelessWidget {
@@ -14,11 +16,11 @@ class TaskCreationContainer extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          'Task Stats',
-          style: TextStyle(
-            fontSize: 17,
-            // fontWeight: FontWeight.bold,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Text(
+            'Task Stats',
+            style: textThinStyle1.copyWith(fontSize: 15.sp),
           ),
         ),
         EventButton(

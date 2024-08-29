@@ -137,7 +137,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  adjustHieght(khieght * .05),
+                  adjustHieght(khieght * .02),
                   SizedBox(
                     height: 310.h,
                     child: GetBuilder<CardController>(
@@ -492,8 +492,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                             height: 200.h,
                             seprator: kWidth10,
                             scrollDirection: Axis.horizontal,
-                            itemCount:
-                                visitingCardController.visitingCards.length,
+                            itemCount: 5,
                             width: 300.w,
                           ),
                         );

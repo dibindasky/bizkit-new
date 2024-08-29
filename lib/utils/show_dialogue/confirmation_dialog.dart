@@ -1,4 +1,5 @@
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 
 showCustomConfirmationDialogue(
@@ -11,11 +12,12 @@ showCustomConfirmationDialogue(
   showDialog(
     context: context,
     builder: (context) => Dialog(
+      backgroundColor: kblack,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
             border: Border.all(color: neonShade),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: kBorderRadius10,
             color: backgroundColour),
         child: Column(
           mainAxisSize: MainAxisSize.min,

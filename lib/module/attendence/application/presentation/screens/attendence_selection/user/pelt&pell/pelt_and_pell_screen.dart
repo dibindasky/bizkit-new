@@ -1,4 +1,5 @@
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,15 +23,19 @@ class AttendencePeltAndPellScreen extends StatelessWidget {
                 AttendencePeltAndPellAppbar(
                   title: 'PELT & PELL',
                   onPressed: () {
-                    Get.toNamed(Routes.attendenceSelection, id: 2);
+                    Get.toNamed(Routes.attendenceSelectionManagementSide,
+                        id: 22);
                   },
                 ),
                 adjustHieght(10.h),
-                const AttendencePeltAndPellCard(),
-                adjustHieght(25.h),
-                const AttendencePeltAndPellCard(),
-                adjustHieght(25.h),
-                const AttendencePeltAndPellCard(),
+                SizedBox(
+                  height: khieght * .7,
+                  child: ListView.separated(
+                      itemBuilder: (context, index) =>
+                          const AttendencePeltAndPellCard(),
+                      separatorBuilder: (context, index) => kHeight10,
+                      itemCount: 5),
+                ),
               ],
             ),
           ),

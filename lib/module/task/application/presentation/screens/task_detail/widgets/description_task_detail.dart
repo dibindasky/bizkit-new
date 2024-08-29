@@ -20,7 +20,10 @@ class TaskDetailDescriptionSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Description', style: textHeadStyle1),
+          Text(
+            'Description',
+            style: textHeadStyle1.copyWith(fontSize: 13.sp),
+          ),
           adjustHieght(5.h),
           Obx(
             () => taskController.isLoading.value
@@ -35,7 +38,8 @@ class TaskDetailDescriptionSection extends StatelessWidget {
                 : Text(
                     taskController.singleTask.value.description ??
                         'Description',
-                    style: textThinStyle1.copyWith(color: klightgrey),
+                    style: textThinStyle1.copyWith(
+                        color: klightgrey, fontSize: 12.sp),
                   ),
           ),
         ],

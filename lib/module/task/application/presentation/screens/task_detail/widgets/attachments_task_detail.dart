@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/image_viewer.dart';
-import 'package:bizkit/utils/shimmier/shimmer.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';

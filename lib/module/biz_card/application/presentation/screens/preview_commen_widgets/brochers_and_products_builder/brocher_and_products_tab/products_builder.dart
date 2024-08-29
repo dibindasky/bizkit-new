@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/product_detail_view.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 
 class ProductsBuilder extends StatelessWidget {
-  const ProductsBuilder({super.key});
-  //final List<Product> products;
+  const ProductsBuilder({super.key, required this.products});
+  final List<Product> products;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +24,11 @@ class ProductsBuilder extends StatelessWidget {
               ListView.separated(
                 separatorBuilder: (context, index) =>
                     adjustHieght(kwidth * .03),
-                itemCount: 3,
+                itemCount: products.length,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  // final data = products[index];
+                  final data = products[index];
                   return SizedBox(
                     height: 260,
                     width: double.infinity,
@@ -38,7 +38,7 @@ class ProductsBuilder extends StatelessWidget {
                             height: 200,
                             width: double.infinity,
                             child: Image.memory(
-                                base64.decode(imageTestingBase64.substring(22)),
+                                base64.decode(data.images?[index].image ?? ""),
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) =>
                                     const Icon(
@@ -60,7 +60,7 @@ class ProductsBuilder extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'Lebal',
+                                        data.title ?? '',
                                         style: textStyle1.copyWith(
                                           fontSize: kwidth * .04,
                                           fontWeight: FontWeight.w700,
@@ -74,7 +74,8 @@ class ProductsBuilder extends StatelessWidget {
                                       onTap: () {
                                         Navigator.of(context).push(
                                             cardFadePageRoute(
-                                                const CardProductDetailView(
+                                                CardProductDetailView(
+                                          product: data,
                                           myCard: false,
                                         )));
                                       },
@@ -83,7 +84,7 @@ class ProductsBuilder extends StatelessWidget {
                                 ),
                                 adjustWidth(kwidth * .02),
                                 Text(
-                                  'description',
+                                  data.description ?? '',
                                   style: textStyle1.copyWith(
                                     fontSize: kwidth * .03,
                                   ),

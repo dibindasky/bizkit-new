@@ -126,106 +126,89 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children:
-                          //         state.anotherCard!.businessDetails != null &&
-                          //         state.anotherCard!.businessDetails!
-                          //                 .websiteLink !=
-                          //             null
-                          //     ? [
-                          //         Text('Website Link', style: textHeadStyle1),
-                          //         adjustHieght(10),
-                          //         TextButton(
-                          //           onPressed: () async {
-                          //             if (state.anotherCard != null &&
-                          //                 state.anotherCard!.businessDetails !=
-                          //                     null &&
-                          //                 state.anotherCard!.businessDetails!
-                          //                         .websiteLink !=
-                          //                     null) {
-                          //               await LaunchUrl.googleSearch(
-                          //                 url: state.anotherCard!
-                          //                     .businessDetails!.websiteLink!,
-                          //               ).then(
-                          //                 (value) => Navigator.pop(context),
-                          //               );
-                          //             }
-                          //           },
-                          //           child: Text(
-                          //             '${state.anotherCard?.businessDetails?.websiteLink}',
-                          //             style: const TextStyle(
-                          //               color: kblue,
-                          //               decorationColor: kblue,
-                          //               decoration: TextDecoration.underline,
-                          //             ),
-                          //           ),
-                          //         ),
-                          //         // Text(
-                          //         //   state.anotherCard?.businessDetails
-                          //         //           ?.websiteLink ??
-                          //         //       '',
-                          //         // ),
-                          //         adjustHieght(10),
-                          //         FittedBox(
-                          //           child: Row(
-                          //             mainAxisAlignment: MainAxisAlignment.end,
-                          //             children: [
-                          //               OutlinedButton.icon(
-                          //                 style: OutlinedButton.styleFrom(
-                          //                     side: const BorderSide(
-                          //                         color: neonShade)),
-                          //                 onPressed: () async {
-                          //                   if (state.anotherCard != null &&
-                          //                       state.anotherCard!
-                          //                               .businessDetails !=
-                          //                           null &&
-                          //                       state
-                          //                               .anotherCard!
-                          //                               .businessDetails!
-                          //                               .websiteLink !=
-                          //                           null) {
-                          //                     await LaunchUrl.googleSearch(
-                          //                       url: state
-                          //                           .anotherCard!
-                          //                           .businessDetails!
-                          //                           .websiteLink!,
-                          //                     ).then(
-                          //                       (value) =>
-                          //                           Navigator.pop(context),
-                          //                     );
-                          //                   }
-                          //                 },
-                          //                 icon: const Icon(
-                          //                     Icons.open_in_browser_outlined),
-                          //                 label: const Text(
-                          //                   'View Website',
-                          //                   style: TextStyle(color: neonShade),
-                          //                 ),
-                          //               ),
-                          //               adjustWidth(10),
-                          //               OutlinedButton(
-                          //                 style: OutlinedButton.styleFrom(
-                          //                     side: const BorderSide(
-                          //                         color: neonShade)),
-                          //                 onPressed: () {
-                          //                   Navigator.pop(context);
-                          //                 },
-                          //                 child: const Text(
-                          //                   'Cancel',
-                          //                   style: TextStyle(color: neonShade),
-                          //                 ),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         )
-                          //       ]
-                          //     :
-                          [
-                        adjustHieght(10),
-                        Text(
-                          'Website details not available',
-                          style: textHeadStyle1,
-                        ),
-                        adjustHieght(10)
-                      ],
+                          cardController.bizcardDetail.value.businessDetails !=
+                                      null &&
+                                  cardController.bizcardDetail.value
+                                          .businessDetails?.websiteLink !=
+                                      null
+                              ? [
+                                  Text('Website Link', style: textHeadStyle1),
+                                  adjustHieght(10),
+                                  // TextButton(
+                                  //   onPressed: () async {
+                                  //     await LaunchUrl.googleSearch(
+                                  //       url: cardController.bizcardDetail.value
+                                  //           .businessDetails!.websiteLink!,
+                                  //     ).then(
+                                  //       (value) => Navigator.pop(context),
+                                  //     );
+                                  //   },
+                                  //   child: Text(
+                                  //     cardController.bizcardDetail.value
+                                  //         .businessDetails!.websiteLink!,
+                                  //     style: const TextStyle(
+                                  //       color: kblue,
+                                  //       decorationColor: kblue,
+                                  //       decoration: TextDecoration.underline,
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  Text(
+                                    cardController.bizcardDetail.value
+                                        .businessDetails!.websiteLink!,
+                                  ),
+                                  adjustHieght(10),
+                                  FittedBox(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        OutlinedButton.icon(
+                                          style: OutlinedButton.styleFrom(
+                                              side: const BorderSide(
+                                                  color: neonShade)),
+                                          onPressed: () async {
+                                            await LaunchUrl.googleSearch(
+                                              url: cardController
+                                                  .bizcardDetail
+                                                  .value
+                                                  .businessDetails!
+                                                  .websiteLink!,
+                                            ).then(
+                                              (value) => Navigator.pop(context),
+                                            );
+                                          },
+                                          icon: const Icon(
+                                              Icons.open_in_browser_outlined),
+                                          label: const Text(
+                                            'View Website',
+                                            style: TextStyle(color: neonShade),
+                                          ),
+                                        ),
+                                        adjustWidth(10),
+                                        OutlinedButton(
+                                          style: OutlinedButton.styleFrom(
+                                              side: const BorderSide(
+                                                  color: neonShade)),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text(
+                                            'Cancel',
+                                            style: TextStyle(color: neonShade),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ]
+                              : [
+                                  adjustHieght(10),
+                                  Text(
+                                    'Website details not available',
+                                    style: textHeadStyle1,
+                                  ),
+                                  adjustHieght(10)
+                                ],
                     ),
                   ),
                 ),

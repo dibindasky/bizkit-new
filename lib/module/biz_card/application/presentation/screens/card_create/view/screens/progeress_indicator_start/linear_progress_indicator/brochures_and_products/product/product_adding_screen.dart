@@ -1,46 +1,50 @@
 import 'dart:convert';
-
+import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
+import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/utils/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class AddPrductsScreen extends StatefulWidget {
-  const AddPrductsScreen({Key? key}) : super(key: key);
+  const AddPrductsScreen({Key? key, this.product}) : super(key: key);
 
-  //final Product? product;
+  final Product? product;
 
   @override
   State<AddPrductsScreen> createState() => _AddPrductsScreenState();
 }
 
 class _AddPrductsScreenState extends State<AddPrductsScreen> {
-  TextEditingController productTitleController = TextEditingController();
-  TextEditingController productDescriptionController = TextEditingController();
-
-  // List<ImageCard> imageList = [];
-  // List<ImageCard> newImageList = [];
-  bool switchValue = false;
-
   @override
   void initState() {
-    // if (widget.product != null) {
-    //   productTitleController.text = widget.product!.label ?? '';
-    //   productDescriptionController.text = widget.product!.description ?? '';
-    //   imageList = widget.product!.image ?? <ImageCard>[];
-    //   switchValue = widget.product!.enquiry ?? false;
-    // }
+    if (widget.product != null) {
+      final businessController = Get.find<BusinesDetailsController>();
+      businessController.businessProductName.text = widget.product!.title ?? '';
+      businessController.businessProductDescription.text =
+          widget.product!.description ?? '';
+      businessController.productExistingImages = widget.product!.images ?? [];
+      businessController.productEnquiry.value =
+          widget.product!.enquiry ?? false;
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final businessController = Get.find<BusinesDetailsController>();
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScope = FocusScope.of(context);
@@ -51,7 +55,11 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size(kwidth, 70),
-          child: const CardAppbarCommen(tittle: 'Update product'),
+          child: CardAppbarCommen(
+              // onTap: () => Navigator.pop(context),
+              tittle: widget.product?.id == null
+                  ? 'Add product'
+                  : 'Update product'),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -68,20 +76,19 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                           width: double.infinity,
                           child: ListView.separated(
                             shrinkWrap: true,
-                            itemCount: 2,
+                            itemCount:
+                                businessController.productExistingImages.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
-                              // final imageProduct =
-                              //     imageList[imageList.length - 1 - index];
                               return InkWell(
                                 onTap: () {
-                                  // Navigator.of(context).push(
-                                  //     cardFadePageRoute(
-                                  //         SlidablePhotoGallery(
-                                  //             initialIndex: index,
-                                  //             images: imageList.reversed
-                                  //                 .map((e) => e.image!)
-                                  //                 .toList())));
+                                  Navigator.of(context).push(cardFadePageRoute(
+                                      SlidablePhotoGallery(
+                                          initialIndex: index,
+                                          images: businessController
+                                              .productExistingImages.reversed
+                                              .map((e) => e.image!)
+                                              .toList())));
                                 },
                                 child: Stack(
                                   children: [
@@ -92,7 +99,11 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image.memory(
                                           base64.decode(
-                                              imageTestingBase64.substring(22)),
+                                            businessController
+                                                .productExistingImages
+                                                .map((e) => e.image ?? '')
+                                                .toList()[index],
+                                          ),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -112,53 +123,43 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                                 title:
                                                     'You want to delete product image',
                                                 onTap: () {
-                                                  //   if (widget.product !=
-                                                  //           null &&
-                                                  //       imageList.length ==
-                                                  //           1) {
-                                                  //     showSnackbar(context,
-                                                  //         message:
-                                                  //             'Atleast one product image should be there',
-                                                  //         backgroundColor:
-                                                  //             kred);
-                                                  //     return;
-                                                  //   }
-                                                  //   if (imageList[imageList
-                                                  //                   .length -
-                                                  //               1 -
-                                                  //               index]
-                                                  //           .id !=
-                                                  //       null) {
-                                                  //     context
-                                                  //         .read<
-                                                  //             BusinessDataBloc>()
-                                                  //         .add(BusinessDataEvent
-                                                  //             .removeProductIndexImages(
-                                                  //                 index: imageList[imageList.length -
-                                                  //                         1 -
-                                                  //                         index]
-                                                  //                     .id!));
-                                                  //   }
-                                                  //   newImageList.removeWhere(
-                                                  //       (element) =>
-                                                  //           element ==
-                                                  //           imageList[imageList
-                                                  //                   .length -
-                                                  //               1 -
-                                                  //               index]);
-                                                  //   imageList.removeAt(
-                                                  //       imageList.length -
-                                                  //           1 -
-                                                  //           index);
-                                                  //   setState(() {});
+                                                  if (widget.product != null &&
+                                                      businessController
+                                                              .productExistingImages
+                                                              .length ==
+                                                          1) {
+                                                    showSnackbar(context,
+                                                        message:
+                                                            'Atleast one product image should be there',
+                                                        backgroundColor: kred);
+                                                    return;
+                                                  }
+                                                  businessController
+                                                      .productNewImageList
+                                                      .removeWhere((element) =>
+                                                          element ==
+                                                          businessController
+                                                                  .productExistingImages[
+                                                              businessController
+                                                                      .productExistingImages
+                                                                      .length -
+                                                                  1 -
+                                                                  index]);
+                                                  businessController
+                                                      .productExistingImages
+                                                      .removeAt(businessController
+                                                              .productExistingImages
+                                                              .length -
+                                                          1 -
+                                                          index);
+                                                  setState(() {});
                                                 },
                                               );
                                             },
                                             icon: const Icon(
-                                              size: 30,
-                                              color: kwhite,
-                                              Icons.delete,
-                                            ),
+                                                size: 30,
+                                                color: kwhite,
+                                                Icons.delete),
                                           ),
                                         ),
                                       ),
@@ -168,7 +169,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                               );
                             },
                             separatorBuilder: (context, index) {
-                              return adjustWidth(10);
+                              return kWidth10;
                             },
                           ),
                         ),
@@ -182,37 +183,36 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                                   onPressCam: () async {
                                     final img = await ImagePickerClass.getImage(
                                         camera: true);
-                                    // if (img != null) {
-                                    //   imageList.add(
-                                    //       ImageCard(image: img.base64));
-                                    //   newImageList.add(
-                                    //       ImageCard(image: img.base64));
-                                    //   setState(() {});
-                                    // }
+                                    if (img != null) {
+                                      businessController.productExistingImages
+                                          .add(ImageCard(image: img.base64));
+                                      businessController.productNewImageList
+                                          .add(ImageCard(image: img.base64));
+                                      setState(() {});
+                                    }
                                   },
                                   onPressGallery: () async {
                                     final img = await ImagePickerClass.getImage(
                                         camera: false);
-                                    // if (img != null) {
-                                    //   imageList.add(
-                                    //       ImageCard(image: img.base64));
-                                    //   newImageList.add(
-                                    //       ImageCard(image: img.base64));
-                                    //   setState(() {});
-                                    // }
+                                    if (img != null) {
+                                      businessController.productExistingImages
+                                          .add(ImageCard(image: img.base64));
+                                      businessController.productNewImageList
+                                          .add(ImageCard(image: img.base64));
+                                      setState(() {});
+                                    }
                                   });
                             },
                             child: const CircleAvatar(
-                              radius: 30,
-                              child: Icon(Icons.add_a_photo_outlined),
-                            ),
+                                radius: 30,
+                                child: Icon(Icons.add_a_photo_outlined)),
                           ),
                         )
                       ])),
                   adjustHieght(khieght * .02),
                   CustomTextFormField(
                     labelText: 'Name',
-                    controller: productTitleController,
+                    controller: businessController.businessProductName,
                     inputType: TextInputType.name,
                     textCapitalization: TextCapitalization.words,
                     maxlegth: 50,
@@ -220,7 +220,7 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                   CustomTextFormField(
                     labelText: 'Description',
                     maxLines: 10,
-                    controller: productDescriptionController,
+                    controller: businessController.businessProductDescription,
                     inputType: TextInputType.name,
                     textCapitalization: TextCapitalization.sentences,
                     maxlegth: 500,
@@ -236,52 +236,46 @@ class _AddPrductsScreenState extends State<AddPrductsScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text('Add Enquire Button'),
-                        Switch(
-                          value: switchValue,
-                          onChanged: (value) {
-                            setState(() {
-                              switchValue = value;
-                            });
-                          },
+                        Obx(
+                          () => Switch(
+                            value: businessController.productEnquiry.value,
+                            onChanged: (value) {
+                              businessController.enquiryValueChange();
+                            },
+                          ),
                         ),
                       ],
                     ),
                   ),
                   adjustHieght(khieght * .03),
-                  EventButton(
-                    text: 'Save product',
-                    onTap: () {
-                      if (productDescriptionController.text.isEmpty ||
-                          productTitleController.text.isEmpty) {
-                        // showSnackbar(context,
-                        //     message: imageList.isEmpty
-                        //         ? 'Add atleast one product Image'
-                        //         : productTitleController.text.isEmpty
-                        //             ? 'Add product title'
-                        //             : 'Add product Description',
-                        //     textColor: kwhite,
-                        //     backgroundColor: kred);
-                        return;
-                      }
-
-                      // final product = Product(
-                      //   id: widget.product?.id,
-                      //   description:
-                      //       productDescriptionController.text.trim(),
-                      //   label: productTitleController.text.trim(),
-                      //   image: widget.product?.id == null
-                      //       ? imageList
-                      //       : newImageList,
-                      //   //[ImageCard(image: image!.base64)],
-                      //   enquiry: switchValue,
-                      //   cardId: state.currentCard!.id,
-                      // );
-                      // context.read<BusinessDataBloc>().add(
-                      //     BusinessDataEvent.addProduct(
-                      //         product: product,
-                      //         edit: widget.product != null));
-                      // Navigator.pop(context);
-                    },
+                  Obx(
+                    () => businessController.isLoading.value
+                        ? const LoadingAnimation()
+                        : EventButton(
+                            text: widget.product?.id == null
+                                ? 'Add product'
+                                : 'Update',
+                            onTap: () {
+                              if (businessController
+                                      .businessProductName.text.isEmpty ||
+                                  businessController.businessProductDescription
+                                      .text.isEmpty) {
+                                showSnackbar(context,
+                                    message: businessController
+                                            .productExistingImages.isEmpty
+                                        ? 'Add atleast one product Image'
+                                        : businessController.businessProductName
+                                                .text.isEmpty
+                                            ? 'Add product title'
+                                            : 'Add product Description',
+                                    textColor: kwhite,
+                                    backgroundColor: kred);
+                                return;
+                              }
+                              businessController.productAdding();
+                              Navigator.pop(context);
+                            },
+                          ),
                   ),
                   adjustHieght(khieght * .04),
                 ],

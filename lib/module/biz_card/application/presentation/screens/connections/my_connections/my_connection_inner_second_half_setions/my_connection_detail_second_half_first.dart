@@ -21,7 +21,10 @@ class CardMyConnectionDetailScreenSecondHalf extends StatelessWidget {
         const PreviewBankPersonAchivedRows(fromPreview: false),
         adjustHieght(khieght * .02),
         // brochers and product preview sestion
-        const CardProductsBrandsLists(),
+        const CardProductsBrandsLists(
+          networkImages: [],
+          pdf: [],
+        ),
         adjustHieght(khieght * .02),
         // meeting history section
         // const MeetingDetailHistoryLogTabBuilder()

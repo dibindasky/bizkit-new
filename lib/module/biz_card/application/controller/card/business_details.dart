@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/model/pdf/pdf_model.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/data/service/card/business_service.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/business/banking_details_model/banking_details_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/branch_deletion_model/branch_deletion_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/brocure_deletion/brocure_deletion.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_achievement_deletionmodel/business_achievement_deletionmodel.dart';
@@ -10,13 +13,16 @@ import 'package:bizkit/module/biz_card/domain/model/cards/business/business_bran
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_brochure_model/business_brochure_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_deletion_model/business_deletion_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_detial_initial/business_detial_initial.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/business/business_product_adding/business_product_adding.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_social_media_model/business_social_media_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/logo_model/logo_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/business/product_deletion/product_deletion.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/business_repo.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
+import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -71,7 +77,19 @@ class BusinesDetailsController extends GetxController {
   PdfModel? pdf;
 
   // Business Products Controllers
-  TextEditingController businessProductsLebel = TextEditingController();
+  RxList<ImageCard> productImages = <ImageCard>[].obs;
+  List<ImageCard> productExistingImages = [];
+  List<ImageCard> productNewImageList = [];
+  TextEditingController businessProductName = TextEditingController();
+  TextEditingController businessProductDescription = TextEditingController();
+  RxBool productEnquiry = false.obs;
+
+  //Banking Details
+  TextEditingController companyBankingName = TextEditingController();
+  TextEditingController accountNumberController = TextEditingController();
+  TextEditingController iFSCController = TextEditingController();
+  TextEditingController uPIIDController = TextEditingController();
+  TextEditingController gSTNumberController = TextEditingController();
 
   void getBusinessDetails(CardDetailModel cardDetail) {
     businessCategory.text = cardDetail.businessDetails?.businessCategory ?? '';
@@ -80,10 +98,11 @@ class BusinesDetailsController extends GetxController {
     companyWebsiteLink.text = cardDetail.businessDetails?.websiteLink ?? '';
     businessName.text = cardDetail.businessDetails?.businessName ?? '';
     takeLogoDetails();
+    takeBankingDetails();
   }
 
   void bussinessDetailsInitail() async {
-    branchLoading.value = true;
+    isLoading.value = true;
     final cardController = Get.find<CardController>();
     BusinessDetialInitial businessInitial = BusinessDetialInitial(
       businessEmail: companyEmail.text,
@@ -96,9 +115,9 @@ class BusinesDetailsController extends GetxController {
     final data = await businessRepo.businessDetailInitial(
         businessInitial: businessInitial);
     data.fold(
-      (l) => branchLoading.value = false,
+      (l) => isLoading.value = false,
       (r) {
-        branchLoading.value = false;
+        isLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
       },
@@ -377,8 +396,8 @@ class BusinesDetailsController extends GetxController {
         bizcardId: cardController.bizcardDetail.value.bizcardId,
         businessDetailsId:
             cardController.bizcardDetail.value.businessDetails?.id ?? '',
-        file: pdf!.base64!.startsWith('application')
-            ? pdf?.base64?.replaceAll('application/pdf;base64,', '')
+        file: pdf!.base64!.startsWith('data')
+            ? pdf?.base64?.replaceAll('data:application/pdf;base64,', '')
             : pdf!.base64!,
         title: businessBroshureLebel.text);
     final data =
@@ -386,11 +405,43 @@ class BusinesDetailsController extends GetxController {
     data.fold(
       (l) => brochureLoading.value = false,
       (r) {
+        brochureDataClear();
         brochureLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
       },
     );
+  }
+
+  void brochureUpdate({required int brochureIndex}) async {
+    brochureLoading.value = true;
+    final cardController = Get.find<CardController>();
+    BusinessBrochureModel brochureModel = BusinessBrochureModel(
+        bizcardId: cardController.bizcardDetail.value.bizcardId,
+        businessDetailsId:
+            cardController.bizcardDetail.value.businessDetails?.id ?? '',
+        file: pdf!.base64!.startsWith('data')
+            ? pdf?.base64?.replaceAll('data:application/pdf;base64,', '')
+            : pdf!.base64!,
+        title: businessBroshureLebel.text,
+        brochureId: cardController
+            .bizcardDetail.value.businessDetails?.brochure?[brochureIndex].id);
+    final data = await businessRepo.businessBrochureUpdating(
+        brochureModel: brochureModel);
+    data.fold(
+      (l) => brochureLoading.value = false,
+      (r) {
+        brochureDataClear();
+        brochureLoading.value = false;
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+      },
+    );
+  }
+
+  brochureDataClear() {
+    pdf = null;
+    businessBroshureLebel.clear();
   }
 
   void brochureDelete({required int bruchureIndex}) async {
@@ -411,5 +462,130 @@ class BusinesDetailsController extends GetxController {
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
       },
     );
+  }
+
+  void productAdding() async {
+    isLoading.value = true;
+    final cardController = Get.find<CardController>();
+    BusinessProductAdding productModel = BusinessProductAdding(
+      bizcardId: cardController.bizcardDetail.value.bizcardId,
+      businessDetailsId:
+          cardController.bizcardDetail.value.businessDetails?.id ?? '',
+      description: businessProductDescription.text,
+      enquiry: productEnquiry.value,
+      title: businessProductName.text,
+      images: productExistingImages.map((e) => e.image!).toList(),
+    );
+    final data =
+        await businessRepo.businessProductAdding(productModel: productModel);
+    data.fold(
+      (l) => isLoading.value = false,
+      (r) {
+        productDataClear();
+        isLoading.value = false;
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+      },
+    );
+  }
+
+  productDataClear() {
+    businessProductDescription.clear();
+    businessProductName.clear();
+    productExistingImages.clear();
+    productEnquiry.value = false;
+  }
+
+  void enquiryValueChange() async {
+    productEnquiry.value = !productEnquiry.value;
+  }
+
+  void productUpdating({required int productIndex}) async {
+    isLoading.value = true;
+    final cardController = Get.find<CardController>();
+    BusinessProductAdding productModel = BusinessProductAdding(
+        bizcardId: cardController.bizcardDetail.value.bizcardId,
+        businessDetailsId:
+            cardController.bizcardDetail.value.businessDetails?.id ?? '',
+        description: businessProductDescription.text,
+        enquiry: productEnquiry.value,
+        title: businessProductName.text,
+        images: productExistingImages.map((e) => e.image!).toList(),
+        productId: cardController
+            .bizcardDetail.value.businessDetails?.product?[productIndex].id);
+    final data =
+        await businessRepo.businessProductUpdating(productModel: productModel);
+    data.fold(
+      (l) => isLoading.value = false,
+      (r) {
+        productDataClear();
+        isLoading.value = false;
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+      },
+    );
+  }
+
+  void productDelete({required int productIndex}) async {
+    isLoading.value = true;
+    final cardController = Get.find<CardController>();
+    ProductDeletion productDeletion = ProductDeletion(
+        businessDetailsId:
+            cardController.bizcardDetail.value.businessDetails?.id ?? '',
+        productId: cardController
+            .bizcardDetail.value.businessDetails?.product?[productIndex].id);
+    final data = await businessRepo.businessProductDeleting(
+        productDeletion: productDeletion);
+    data.fold(
+      (l) => isLoading.value = false,
+      (r) {
+        isLoading.value = false;
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+      },
+    );
+  }
+
+  void bankingDetailsAdding(BuildContext context) async {
+    isLoading.value = true;
+    final cardController = Get.find<CardController>();
+    BankingDetailsModel bankingDetail = BankingDetailsModel(
+        accountNumber: accountNumberController.text,
+        bankingName: companyBankingName.text,
+        gst: gSTNumberController.text,
+        ifscCode: iFSCController.text,
+        upi: uPIIDController.text,
+        businessDetailsId:
+            cardController.bizcardDetail.value.businessDetails?.id ?? '');
+    final data =
+        await businessRepo.businessBankDetails(bankingDetail: bankingDetail);
+    data.fold(
+      (l) => isLoading.value = false,
+      (r) {
+        isLoading.value = false;
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  void takeBankingDetails() {
+    final cardController = Get.find<CardController>();
+    gSTNumberController.text = cardController
+            .bizcardDetail.value.businessDetails?.bankingDetails?.gst ??
+        '';
+    companyBankingName.text = cardController
+            .bizcardDetail.value.businessDetails?.bankingDetails?.bankingName ??
+        '';
+    accountNumberController.text = cardController.bizcardDetail.value
+            .businessDetails?.bankingDetails?.accountNumber ??
+        '';
+    uPIIDController.text = cardController
+            .bizcardDetail.value.businessDetails?.bankingDetails?.upi ??
+        '';
+    iFSCController.text = cardController
+            .bizcardDetail.value.businessDetails?.bankingDetails?.ifscCode ??
+        '';
   }
 }

@@ -1,3 +1,4 @@
+import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product.g.dart';
@@ -5,7 +6,7 @@ part 'product.g.dart';
 @JsonSerializable()
 class Product {
   String? title;
-  List<String>? images;
+  List<ImageCard>? images;
   String? description;
   bool? enquiry;
   @JsonKey(name: '_id')

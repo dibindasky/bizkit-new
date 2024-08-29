@@ -10,6 +10,7 @@ import 'package:bizkit/module/task/application/presentation/screens/total_tasks/
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
@@ -335,12 +336,20 @@ class PinnedTasks extends StatelessWidget {
                     // controller.longPress(isSelected, index);
                   },
                   onTap: () {
+                    taskController.fetchSingleTask(
+                        singleTaskModel:
+                            GetSingleTaskModel(taskId: pinnedTasks.id));
                     // if (controller.selectedFolderContainer.value) {
                     //   bool isSelected = !controller.selectedIndices.contains(index);
                     //   controller.longPress(isSelected, index);
                     // } else {
-                    GoRouter.of(context).push(Routes.taskChatScreen);
+                    // GoRouter.of(context).push(Routes.taskChatScreen);
                     //}
+
+                    GoRouter.of(context).pushNamed(
+                      Routes.taskDeail,
+                      pathParameters: {"taskId": '${pinnedTasks.id}'},
+                    );
                   },
                   child: TaskContainer(
                     tabIndex: tabController.index,

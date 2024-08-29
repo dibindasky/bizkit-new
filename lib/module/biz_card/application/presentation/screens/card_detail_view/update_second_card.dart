@@ -33,6 +33,7 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
   final visitingCardController = Get.find<VisitingCardController>();
   @override
   void initState() {
+    setState(() {});
     visitingCardController.nameController.text =
         visitingCardController.visitingCardDetails.value.name ?? '';
     visitingCardController.companyNameController.text =
@@ -75,7 +76,7 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
     //   log('${imageList.length}', name: 'imageList  legth');
     // }
     super.initState();
-    log('${selfieBase64List.length}', name: 'selfieBase64List');
+    // log('${selfieBase64List.length}', name: 'selfieBase64List');
   }
 
   @override
@@ -160,184 +161,198 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                               //         '')),
                             ),
                           ),
-                          // Positioned(
-                          //   right: 10,
-                          //   bottom: 10,
-                          //   child: ClipRRect(
-                          //     borderRadius: BorderRadius.circular(15),
-                          //     child: ColoredBox(
-                          //       color: neonShade,
-                          //       child: IconButton(
-                          //         onPressed: () {
-                          //           cameraAndGalleryPickImage(
-                          //             context: context,
-                          //             onPressCam: () {
-                          //               // context.read<CardSecondBloc>().add(
-                          //               //       const CardSecondEvent.scanImage(
-                          //               //         isFront: false,
-                          //               //         isCam: true,
-                          //               //       ),
-                          //               //     );
-                          //             },
-                          //             onPressGallery: () {
-                          //               // context.read<CardSecondBloc>().add(
-                          //               //       const CardSecondEvent.scanImage(
-                          //               //           isFront: false, isCam: false),
-                          //               //     );
-                          //             },
-                          //           );
-                          //         },
-                          //         icon: const Icon(
-                          //           size: 30,
-                          //           color: kwhite,
-                          //           Icons.add,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                          Positioned(
+                            right: 10,
+                            bottom: 10,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: ColoredBox(
+                                color: neonShade,
+                                child: IconButton(
+                                  onPressed: () {
+                                    cameraAndGalleryPickImage(
+                                      context: context,
+                                      onPressCam: () {
+                                        // context.read<CardSecondBloc>().add(
+                                        //       const CardSecondEvent.scanImage(
+                                        //         isFront: false,
+                                        //         isCam: true,
+                                        //       ),
+                                        //     );
+                                      },
+                                      onPressGallery: () {
+                                        // context.read<CardSecondBloc>().add(
+                                        //       const CardSecondEvent.scanImage(
+                                        //           isFront: false, isCam: false),
+                                        //     );
+                                      },
+                                    );
+                                  },
+                                  icon: const Icon(
+                                    size: 30,
+                                    color: kwhite,
+                                    Icons.add,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                 adjustHieght(20),
                 // const Text('Selfie image is empty'),
                 // adjustHieght(20),
-                visitingCardController.visitingCardDetails.value.selfie!.isEmpty
-                    ? const Text('Selfie image is empty')
-                    : Stack(
-                        children: [
-                          SizedBox(
-                            height: 200.dm,
-                            child: ListView.separated(
-                              separatorBuilder: (context, index) {
-                                return adjustWidth(10);
-                              },
-                              scrollDirection: Axis.horizontal,
-                              itemCount: visitingCardController
-                                      .visitingCardDetails
-                                      .value
-                                      .selfie
-                                      ?.length ??
-                                  0,
-                              itemBuilder: (context, index) {
-                                //  final imageSelfie = imageList[index];
-                                // if (imageSelfie.selfie == null) {
-                                //   return kempty;
-                                // }
-                                return Stack(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) =>
-                                        //         SlidablePhotoGallery(
-                                        //       images: imageList
-                                        //           .map((e) => e.selfie!)
-                                        //           .toList(),
-                                        //       initialIndex: index,
-                                        //     ),
-                                        //   ),
-                                        // );
-                                      },
-                                      child: SizedBox(
-                                        width: 300.dm,
-                                        height: 200.dm,
-                                        child: Image.memory(
-                                          base64.decode(visitingCardController
-                                                  .visitingCardDetails
-                                                  .value
-                                                  .selfie?[index] ??
-                                              ''),
-                                          fit: BoxFit.cover,
-                                          errorBuilder:
-                                              (context, error, stackTrace) {
-                                            return const Icon(Icons.error);
-                                          },
+                Obx(
+                  () => visitingCardController
+                          .visitingCardDetails.value.selfie!.isEmpty
+                      ? const Text('Selfie image is empty')
+                      : Stack(
+                          children: [
+                            SizedBox(
+                              height: 200.dm,
+                              child: ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return adjustWidth(10);
+                                },
+                                scrollDirection: Axis.horizontal,
+                                itemCount: visitingCardController
+                                    .selfiesListForEdit.length,
+                                itemBuilder: (context, index) {
+                                  //  final imageSelfie = imageList[index];
+                                  // if (imageSelfie.selfie == null) {
+                                  //   return kempty;
+                                  // }
+                                  return Stack(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         SlidablePhotoGallery(
+                                          //       images: imageList
+                                          //           .map((e) => e.selfie!)
+                                          //           .toList(),
+                                          //       initialIndex: index,
+                                          //     ),
+                                          //   ),
+                                          // );
+                                        },
+                                        child: SizedBox(
+                                          width: 300.dm,
+                                          height: 200.dm,
+                                          child: Image.memory(
+                                            base64.decode(visitingCardController
+                                                .selfiesListForEdit[index]),
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return const Icon(Icons.error);
+                                            },
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    // Positioned(
-                                    //   top: 10,
-                                    //   right: 10,
-                                    //   child: ClipRRect(
-                                    //     borderRadius: BorderRadius.circular(10),
-                                    //     child: ColoredBox(
-                                    //       color: neonShade,
-                                    //       child: IconButton(
-                                    //         onPressed: () {
-                                    //           showCustomConfirmationDialogue(
-                                    //             context: context,
-                                    //             buttonText: 'Delete',
-                                    //             title:
-                                    //                 'You want to delete selfie image',
-                                    //             onTap: () {
-                                    //               // if (imageList[index].id != null) {
-                                    //               //   // context
-                                    //               //   //     .read<CardSecondBloc>()
-                                    //               //   //     .add(CardSecondEvent
-                                    //               //   //         .removeSelfieIndexImages(
-                                    //               //   //             id: imageList[index]
-                                    //               //   //                 .id!));
-                                    //               // }
-                                    //               // newImageList.removeWhere(
-                                    //               //     (element) =>
-                                    //               //         element ==
-                                    //               //         imageList[index]);
-                                    //               // imageList.removeAt(index);
-                                    //               // setState(() {});
-                                    //             },
-                                    //           );
-                                    //         },
-                                    //         icon: const Icon(
-                                    //           size: 30,
-                                    //           color: kwhite,
-                                    //           Icons.delete,
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                  ],
-                                );
-                              },
+                                      Positioned(
+                                        top: 10,
+                                        right: 10,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: ColoredBox(
+                                            color: neonShade,
+                                            child: IconButton(
+                                              onPressed: () {
+                                                showCustomConfirmationDialogue(
+                                                  context: context,
+                                                  buttonText: 'Delete',
+                                                  title:
+                                                      'You want to delete selfie image',
+                                                  onTap: () {
+                                                    // if (imageList[index].id != null) {
+                                                    //   // context
+                                                    //   //     .read<CardSecondBloc>()
+                                                    //   //     .add(CardSecondEvent
+                                                    //   //         .removeSelfieIndexImages(
+                                                    //   //             id: imageList[index]
+                                                    //   //                 .id!));
+                                                    // }
+                                                    // newImageList.removeWhere(
+                                                    //     (element) =>
+                                                    //         element ==
+                                                    //         imageList[index]);
+                                                    // imageList.removeAt(index);
+                                                    // setState(() {});
+                                                    visitingCardController
+                                                        .selfiesListForEdit
+                                                        .removeWhere(
+                                                      (element) =>
+                                                          element ==
+                                                          visitingCardController
+                                                                  .selfiesListForEdit[
+                                                              index],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              icon: const Icon(
+                                                size: 30,
+                                                color: kwhite,
+                                                Icons.delete,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                          // Positioned(
-                          //   right: 5,
-                          //   bottom: 5,
-                          //   child: InkWell(
-                          //     onTap: () {
-                          //       cameraAndGalleryPickImage(
-                          //         context: context,
-                          //         onPressCam: () async {
-                          //           final img = await ImagePickerClass.getImage(
-                          //               camera: true);
-                          //           if (img != null) {
-                          //             // imageList.insert(0, Selfie(selfie: img.base64));
-                          //             // newImageList.add(Selfie(selfie: img.base64));
-                          //             setState(() {});
-                          //           }
-                          //         },
-                          //         onPressGallery: () async {
-                          //           final img = await ImagePickerClass.getImage(
-                          //               camera: false);
-                          //           if (img != null) {
-                          //             // imageList.insert(0, Selfie(selfie: img.base64));
-                          //             // newImageList.add(Selfie(selfie: img.base64));
-                          //             setState(() {});
-                          //           }
-                          //         },
-                          //       );
-                          //     },
-                          //     child: const CircleAvatar(
-                          //       radius: 30,
-                          //       child: Icon(Icons.add_a_photo_outlined),
-                          //     ),
-                          //   ),
-                          // )
-                        ],
-                      ),
+                            Positioned(
+                              right: 5,
+                              bottom: 5,
+                              child: InkWell(
+                                onTap: () {
+                                  cameraAndGalleryPickImage(
+                                    context: context,
+                                    onPressCam: () async {
+                                      final img =
+                                          await ImagePickerClass.getImage(
+                                              camera: true);
+                                      if (img != null) {
+                                        // imageList.insert(0, Selfie(selfie: img.base64));
+                                        // newImageList.add(Selfie(selfie: img.base64));
+                                        visitingCardController
+                                            .selfiesListForEdit
+                                            .add(img.base64 ?? '');
+                                        setState(() {});
+                                      }
+                                    },
+                                    onPressGallery: () async {
+                                      final img =
+                                          await ImagePickerClass.getImage(
+                                              camera: false);
+                                      if (img != null) {
+                                        // imageList.insert(0, Selfie(selfie: img.base64));
+                                        // newImageList.add(Selfie(selfie: img.base64));
+                                        visitingCardController
+                                            .selfiesListForEdit
+                                            .add(img.base64 ?? '');
+                                        setState(() {});
+                                      }
+                                    },
+                                  );
+                                },
+                                child: const CircleAvatar(
+                                  radius: 30,
+                                  child: Icon(Icons.add_a_photo_outlined),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                ),
                 Form(
                   //key: context.read<CardSecondBloc>().cardUpdateKey,
                   child: Column(
@@ -482,8 +497,8 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                                     visitingCardController.phoneController.text,
                                 website: visitingCardController
                                     .websiteController.text,
-                                selfie: visitingCardController
-                                    .visitingCardDetails.value.selfie,
+                                selfie:
+                                    visitingCardController.selfiesListForEdit,
                                 cardImage: cardImage,
                                 scanedImage: cardImage != null,
                               ),

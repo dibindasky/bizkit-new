@@ -47,33 +47,34 @@ class TaskCreationContainer extends StatelessWidget {
                 Get.toNamed(Routes.addTask, id: 1, arguments: 1);
               },
               child: Container(
-                width: 50.w,
+                width: 45.w,
                 height: 30.h,
                 decoration: BoxDecoration(
-                    color: neonShade, borderRadius: kBorderRadius10),
+                    color: neonShade, borderRadius: kBorderRadius5),
                 child: const Icon(
                   Icons.add,
-                  size: 18,
+                  size: 20,
                 ),
               ),
             ),
             adjustWidth(10.w),
             GestureDetector(
               onTap: () {
-                homeController.progresBarOrRecentTask.value == false
-                    ? homeController.changeToProgresBar(true)
-                    : homeController.changeToProgresBar(false);
+                homeController.changeToProgresBar();
               },
               child: Container(
-                width: 50.w,
+                width: 45.w,
                 height: 30.h,
                 decoration: BoxDecoration(
                   color: neonShade,
-                  borderRadius: kBorderRadius10,
+                  borderRadius: kBorderRadius5,
                 ),
-                child: const Icon(
-                  Icons.grid_view_outlined,
-                  size: 18,
+                child: Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Image.asset(
+                    taskProgresBarBtnImage,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),

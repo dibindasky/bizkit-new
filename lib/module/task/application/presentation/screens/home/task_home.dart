@@ -23,12 +23,12 @@ class ScreenTaskHome extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
     final messageCoutController = Get.find<MessageCountController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // homeController.fetchRecentTasks();
-      // taskController.searchTasks(searchItem: '');
-      messageCoutController.sendReqForUnread();
-      if (homeController.progresBarOrRecentTask.value == false) {
-        // homeController.progresBar();
+      homeController.fetchRecentTasks();
+      taskController.searchTasks(searchItem: '');
+      if (!homeController.progresBarOrRecentTask.value) {
+        homeController.progresBar();
       }
+      messageCoutController.sendReqForUnread();
     });
 
     return Scaffold(
@@ -67,8 +67,9 @@ class ScreenTaskHome extends StatelessWidget {
                   } else {
                     return Column(
                       children: [
-                        adjustHieght(30.h),
+                        adjustHieght(20.h),
                         TaskContainers(),
+                        adjustHieght(110.h),
                       ],
                     );
                   }

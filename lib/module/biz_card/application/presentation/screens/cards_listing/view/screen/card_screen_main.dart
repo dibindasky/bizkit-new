@@ -149,7 +149,9 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                               height: 310.h,
                               seprator: kWidth10,
                               scrollDirection: Axis.horizontal,
-                              itemCount: cardController.bizcards.length,
+                              itemCount: cardController.bizcards.isEmpty
+                                  ? 5
+                                  : cardController.bizcards.length,
                               width: 300.w,
                             ),
                           );
@@ -492,7 +494,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                             height: 200.h,
                             seprator: kWidth10,
                             scrollDirection: Axis.horizontal,
-                            itemCount: 5,
+                            itemCount: visitingCardController
+                                    .visitingCards.isEmpty
+                                ? 5
+                                : visitingCardController.visitingCards.length,
                             width: 300.w,
                           ),
                         );

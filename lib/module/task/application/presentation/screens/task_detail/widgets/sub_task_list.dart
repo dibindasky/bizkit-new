@@ -73,7 +73,7 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 6),
                 child: ShimmerLoader(
                   height: 30.h,
-                  itemCount: controller.singleTask.value.subTask?.length ?? 5,
+                  itemCount: controller.singleTask.value.subTask?.length ?? 2,
                   width: 80.w,
                   seprator: const SizedBox(
                     height: 10,

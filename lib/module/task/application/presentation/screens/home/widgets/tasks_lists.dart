@@ -221,8 +221,13 @@ class TasksListsWidget extends StatelessWidget {
                                                 : homeController
                                                     .selfieTasks[inx].taskId),
                                   );
-                                  GoRouter.of(context)
-                                      .pushNamed(Routes.taskDeail);
+                                  GoRouter.of(context).pushNamed(
+                                    Routes.taskDeail,
+                                    pathParameters: {
+                                      "taskId":
+                                          '${index == 0 ? homeController.toMeTasks[inx].taskId : index == 1 ? homeController.toOthersTasks[inx].taskId : homeController.selfieTasks[inx].taskId}'
+                                    },
+                                  );
                                 },
                                 child: RecentTaskContainer(
                                   taskTitle:

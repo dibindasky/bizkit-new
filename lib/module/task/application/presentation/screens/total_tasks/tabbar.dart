@@ -74,7 +74,10 @@ class TotalTaskListView extends StatelessWidget {
                     //   GoRouter.of(context).push(Routes.taskChatScreen);
                     // }
 
-                    GoRouter.of(context).push(Routes.taskDeail);
+                    GoRouter.of(context).pushNamed(
+                      Routes.taskDeail,
+                      pathParameters: {"taskId": '${typeTask.id}'},
+                    );
                     log('Task id form filter by type==> ${typeTask.id}');
                   },
                   child: TaskContainer(

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -120,117 +119,132 @@ class _ScreenCardSecondDetailViewState
       body: Obx(
         () => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                adjustHieght(20),
-                // image carosal view
-                Obx(
-                  () => visitingCardController.isLoading.value
-                      ? ShimmerLoaderTile(
-                          height: 200.h,
-                          width: 300.w,
-                        )
-                      : SizedBox(
-                          height: 200,
-                          child: PreviewPageviewImageBuilder(
-                            isStory: false,
-                            imagesList: visitingCardController.selfie,
-                          ),
-                        ),
-                ),
-                // name and designation
-                Column(
+          child: RefreshIndicator(
+            onRefresh: () async {
+              visitingCardController.fetchVisitingCardDetails(
+                  visitingCardId: widget.visitingCardId ?? '');
+            },
+            child: SingleChildScrollView(
+              child: SizedBox(
+                height: khieght,
+                child: Column(
                   children: [
-                    const SizedBox(height: 20),
-                    visitingCardController.isLoading.value
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: ShimmerLoaderTile(
-                              height: 9.h,
-                              width: 80.w,
+                    adjustHieght(20),
+                    // image carosal view
+                    Obx(
+                      () => visitingCardController.isLoading.value
+                          ? ShimmerLoaderTile(
+                              height: 200.h,
+                              width: 300.w,
+                            )
+                          : SizedBox(
+                              height: 200,
+                              child: PreviewPageviewImageBuilder(
+                                isStory: false,
+                                imagesList: visitingCardController.selfie,
+                              ),
                             ),
-                          )
-                        : Text(
-                            visitingCardController
-                                    .visitingCardDetails.value.company ??
-                                'Company',
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                    visitingCardController.isLoading.value
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: ShimmerLoaderTile(
-                              height: 9.h,
-                              width: 100.w,
-                            ),
-                          )
-                        : Text(
-                            visitingCardController
-                                    .visitingCardDetails.value.designation ??
-                                'designation',
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                    ),
+                    // name and designation
+                    Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        Obx(
+                          () => visitingCardController.isLoading.value
+                              ? Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: ShimmerLoaderTile(
+                                    height: 9.h,
+                                    width: 80.w,
+                                  ),
+                                )
+                              : Text(
+                                  visitingCardController
+                                          .visitingCardDetails.value.company ??
+                                      'Company',
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                        ),
+                        Obx(
+                          () => visitingCardController.isLoading.value
+                              ? Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: ShimmerLoaderTile(
+                                    height: 9.h,
+                                    width: 100.w,
+                                  ),
+                                )
+                              : Text(
+                                  visitingCardController.visitingCardDetails
+                                          .value.designation ??
+                                      'designation',
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                        ),
+                        adjustHieght(khieght * .02),
+                      ],
+                    ),
+                    const CardViewRowWiceIcons(),
                     adjustHieght(khieght * .02),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 4),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: neonShade),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        children: [
+                          adjustHieght(10),
+                          ItemsContainer(
+                            heading: 'Location',
+                            item: visitingCardController
+                                    .visitingCardDetails.value.location ??
+                                'Location',
+                          ),
+                          ItemsContainer(
+                            heading: 'Occasion',
+                            item: visitingCardController
+                                    .visitingCardDetails.value.occation ??
+                                'Occation',
+                          ),
+                          ItemsContainer(
+                            heading: 'Occupation',
+                            item: visitingCardController
+                                    .visitingCardDetails.value.occupation ??
+                                'Occupation',
+                          ),
+                          ItemsContainer(
+                            heading: 'Designation',
+                            item: visitingCardController
+                                    .visitingCardDetails.value.designation ??
+                                'Designation',
+                          ),
+                          ItemsContainer(
+                            heading: 'Notes',
+                            item: visitingCardController
+                                    .visitingCardDetails.value.notes ??
+                                'Notes',
+                          ),
+                          // const ItemsContainer(
+                          //   heading: 'Date',
+                          //   item: 'Date',
+                          // ),
+                          // const ItemsContainer(
+                          //   heading: 'Time',
+                          //   item: 'Time',
+                          //   istime: false,
+                          // ),
+                          // adjustHieght(10),
+                        ],
+                      ),
+                    ),
+                    adjustHieght(30),
                   ],
                 ),
-                const CardViewRowWiceIcons(),
-                adjustHieght(khieght * .02),
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: neonShade),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      adjustHieght(10),
-                      ItemsContainer(
-                        heading: 'Location',
-                        item: visitingCardController
-                                .visitingCardDetails.value.location ??
-                            'Location',
-                      ),
-                      ItemsContainer(
-                        heading: 'Occasion',
-                        item: visitingCardController
-                                .visitingCardDetails.value.occation ??
-                            'Occation',
-                      ),
-                      ItemsContainer(
-                        heading: 'Occupation',
-                        item: visitingCardController
-                                .visitingCardDetails.value.occupation ??
-                            'Occupation',
-                      ),
-                      ItemsContainer(
-                        heading: 'Designation',
-                        item: visitingCardController
-                                .visitingCardDetails.value.designation ??
-                            'Designation',
-                      ),
-                      ItemsContainer(
-                        heading: 'Notes',
-                        item: visitingCardController
-                                .visitingCardDetails.value.notes ??
-                            'Notes',
-                      ),
-                      // const ItemsContainer(
-                      //   heading: 'Date',
-                      //   item: 'Date',
-                      // ),
-                      // const ItemsContainer(
-                      //   heading: 'Time',
-                      //   item: 'Time',
-                      //   istime: false,
-                      // ),
-                      // adjustHieght(10),
-                    ],
-                  ),
-                ),
-                adjustHieght(30),
-              ],
+              ),
             ),
           ),
         ),
@@ -266,16 +280,17 @@ class ItemsContainer extends StatelessWidget {
                         child: Text(item != "" ? heading : '')),
                     const Text(':   ', style: TextStyle(color: neonShade)),
                     Expanded(
-                        child: visitingCardController.isLoading.value
-                            ? Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: ShimmerLoaderTile(
-                                  height: 9.h,
-                                  width: 100.w,
-                                ),
-                              )
-                            : Text(item ?? '')),
+                        child: Obx(
+                      () => visitingCardController.isLoading.value
+                          ? Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: ShimmerLoaderTile(
+                                height: 9.h,
+                                width: 100.w,
+                              ),
+                            )
+                          : Text(item ?? ''),
+                    )),
                   ],
                 ),
               )

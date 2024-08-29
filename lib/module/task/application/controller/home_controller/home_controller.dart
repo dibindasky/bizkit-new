@@ -39,6 +39,8 @@ class TaskHomeScreenController extends GetxController {
 
   RxBool progresBarOrRecentTask = true.obs;
 
+  late AnimationController animationController;
+
   // Function to add or remove fields from the selectedFields list
   void addField(String value) {
     if (selectedFields.contains(value)) {
@@ -54,9 +56,11 @@ class TaskHomeScreenController extends GetxController {
   }
 
   // method for change the [progresBarOrRecentTask] value for home page ui change
-  void changeToProgresBar(bool value) async {
-    progresBarOrRecentTask.value = value;
-    log('progresBarOrRecentTask ==  > ${progresBarOrRecentTask.value}');
+  void changeToProgresBar() async {
+    progresBarOrRecentTask.value = !progresBarOrRecentTask.value;
+    if (!progresBarOrRecentTask.value) {
+      progresBar();
+    }
   }
 
   void changeSelectedTaskCategory(String selectedTaskCategory) {

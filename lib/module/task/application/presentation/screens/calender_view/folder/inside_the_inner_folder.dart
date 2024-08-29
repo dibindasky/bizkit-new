@@ -86,7 +86,14 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                                             .taskId ??
                                         ''));
 
-                            GoRouter.of(context).push(Routes.taskDeail);
+                            GoRouter.of(context).pushNamed(
+                              Routes.taskDeail,
+                              pathParameters: {
+                                "taskId": folderController
+                                        .tasksInsideInnerFolder[index].taskId ??
+                                    ''
+                              },
+                            );
                           },
                           child: TaskContainer(
                             fromInnerfolder: true,

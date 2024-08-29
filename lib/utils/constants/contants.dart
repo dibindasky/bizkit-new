@@ -72,6 +72,7 @@ final kWidth20 = SizedBox(width: 20.w);
 final kWidth30 = SizedBox(width: 30.w);
 final kWidth50 = SizedBox(width: 50.w);
 
+const String mapMarker= 'asset/images/map marker.png';
 const String taskOnbaordfirst = 'asset/images/task_onboard/task onboard 1.png';
 const String taskOnbaordSecond =
     'asset/images/task_onboard/task onboard 2 .png';

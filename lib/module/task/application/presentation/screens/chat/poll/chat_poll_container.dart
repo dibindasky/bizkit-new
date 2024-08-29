@@ -104,7 +104,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
     return Padding(
       padding: EdgeInsets.only(
           top: 5.0.w,
-          bottom: 5.0.w,
+          bottom: 0.w,
           left: sender ? 50.w : 0.w,
           right: !sender ? 50.w : 0.w),
       child: ClipPath(
@@ -155,7 +155,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                         Expanded(
                           child: Container(
                             padding: EdgeInsets.zero,
-                            margin: const EdgeInsets.symmetric(vertical: 3),
+                            margin: EdgeInsets.symmetric(vertical: 5.h),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -164,8 +164,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                   decoration: BoxDecoration(
                                     border:
                                         Border.all(color: kwhite, width: 2.0),
-                                    borderRadius: BorderRadius.circular(
-                                        500.0), // To match the round checkbox
+                                    borderRadius: BorderRadius.circular(500.0),
                                   ),
                                   child: GestureDetector(
                                     onTap: () {
@@ -208,44 +207,81 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                                 answer?.answerId ?? '')
                                             ? kwhite
                                             : Colors.transparent,
-                                        borderRadius: BorderRadius.circular(
-                                            50), // Matching rounded corners
+                                        borderRadius: BorderRadius.circular(50),
                                       ),
-                                      padding: EdgeInsets.all(selected
-                                          ? 0
-                                          : 8.0), // Adjust padding to center the checkmark
+                                      padding:
+                                          EdgeInsets.all(selected ? 0 : 8.0),
                                       child: selected
                                           ? const Icon(
                                               Icons.check,
                                               color: kblack,
                                               size: 15,
                                             )
-                                          : null, // No icon if not selected
+                                          : null,
                                     ),
                                   ),
                                 ),
                                 kWidth10,
                                 Expanded(
-                                  child: Container(
-                                    padding: completed
-                                        ? EdgeInsets.symmetric(
-                                            vertical: 2.h, horizontal: 8.w)
-                                        : null,
-                                    margin: EdgeInsets.only(
-                                        right: completed ? 5.w : 0),
-                                    decoration: completed
-                                        ? BoxDecoration(
-                                            color: sender
-                                                ? kblack.withOpacity(0.1)
-                                                : kwhite.withOpacity(0.1),
-                                            borderRadius: kBorderRadius5,
-                                          )
-                                        : null,
-                                    child: Text(
-                                      answer?.answerText ?? '',
-                                      style: textThinStyle1.copyWith(
-                                          color: kwhite),
-                                    ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        answer?.answerText ?? '',
+                                        style: textThinStyle1.copyWith(
+                                            color: kwhite),
+                                      ),
+                                      LinearProgressIndicator(
+                                        borderRadius: kBorderRadius10,
+                                        backgroundColor: sender
+                                            ? kblack.withOpacity(0.1)
+                                            : kwhite.withOpacity(0.1),
+                                        minHeight: 5.h,
+                                        color: sender ? kwhite : kneonShade,
+                                        value: answer?.answerVotes == null ||
+                                                totalVotes == 0
+                                            ? 0
+                                            : ((answer!.answerVotes!) /
+                                                    totalVotes)
+                                                .toDouble(),
+                                      )
+                                      // Container(
+                                      //   // padding: completed
+                                      //   //     ? EdgeInsets.symmetric(
+                                      //   //         vertical: 2.h, horizontal: 8.w)
+                                      //   //     : null,
+                                      //   height: 5.h,
+                                      //   margin: EdgeInsets.only(
+                                      //     right: completed ? 5.w : 0,
+                                      //     top: 2.h,
+                                      //     bottom: 2.h,
+                                      //   ),
+                                      //   decoration: completed
+                                      //       ? BoxDecoration(
+                                      //           color: sender
+                                      //               ? kblack.withOpacity(0.1)
+                                      //               : kwhite.withOpacity(0.1),
+                                      //           borderRadius: kBorderRadius5,
+                                      //         )
+                                      //       : null,
+                                      //   child: AnimatedContainer(
+                                      //     duration:
+                                      //         const Duration(milliseconds: 300),
+                                      //     decoration: BoxDecoration(
+                                      //       color: sender ? kwhite : kneonShade,
+                                      //       borderRadius: kBorderRadius5,
+                                      //     ),
+                                      //     height: 5.h,
+                                      //     width: answer?.answerVotes == null
+                                      //         ? 0
+                                      //         : (double.infinity *
+                                      //             ((answer?.answerVotes ?? 1) /
+                                      //                 totalVotes)),
+                                      //   ),
+                                      // ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -253,8 +289,10 @@ class _PollContainerChatState extends State<PollContainerChat> {
                           ),
                         ),
                         sender || completed
-                            ? Center(
+                            ? SizedBox(
+                                width: 20.h,
                                 child: FittedBox(
+                                  fit: BoxFit.scaleDown,
                                   child: Text(
                                     "${answer?.answerVotes ?? 0}",
                                     style: textStyle1,

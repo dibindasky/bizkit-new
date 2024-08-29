@@ -74,6 +74,7 @@ class AttachmentsChatDialog extends StatelessWidget {
                     iconData: Icons.location_on_outlined,
                     onTap: () {
                       GoRouter.of(context).pop();
+                      controller.sendCurrentLocation();
                     },
                     text: 'Current Location'),
                 // AttachmentTile(

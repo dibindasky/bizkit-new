@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/current_location/current_location_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/file_message/file_message_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/chat_bubble/chat_bubble.dart';
@@ -138,12 +139,16 @@ class ScreenTaskChat extends StatelessWidget {
                                   return FileMessageCard(
                                       message: message.file!);
                                 }
+                                if (message.currentLocation != null) {
+                                  return CurrentLocationCard(
+                                      message: message.currentLocation!);
+                                }
                                 return const Text('Unknown type');
                               },
                             );
                           })),
                 ),
-                // adjustHieght(10),
+                adjustHieght(5.h),
                 const ChatTextfieldContainer(),
               ],
             ),

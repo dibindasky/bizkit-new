@@ -9,10 +9,29 @@ import 'package:url_launcher/url_launcher.dart';
 class LaunchUrl {
   static const urlMapTest = 'https://www.google.com/maps?q=';
   static const urlGoogleSearch = 'https://www.google.com/search?q=';
+  static const urlGoogleLatLong =
+      'https://www.google.com/maps/search/?api=1&query=LATITUDE,LONGITUDE';
   static Future<void> launchMap(
       {required String address, required BuildContext context}) async {
     try {
       launchUrl(Uri.parse(urlMapTest + address));
+    } catch (e) {
+      log('cannot launch url');
+      log(e.toString());
+      showSnackbar(context, message: errorMessage, backgroundColor: kneonShade);
+    }
+  }
+
+  static Future<void> launchMapLatLong(
+      {required List<double> location, required BuildContext context}) async {
+    try {
+      launchUrl(
+        Uri.parse(
+          urlGoogleLatLong
+              .replaceFirst('LATITUDE', location[0].toString())
+              .replaceFirst('LONGITUDE', location[1].toString()),
+        ),
+      );
     } catch (e) {
       log('cannot launch url');
       log(e.toString());

@@ -46,7 +46,7 @@ class ChatBubble extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(
             top: 5.0.w,
-            bottom: 5.0.w,
+            bottom: 0.w,
             left: message.sender ? 50.w : 0.w,
             right: !message.sender ? 50.w : 0.w),
         child: ClipPath(

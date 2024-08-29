@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
+import 'package:bizkit/module/task/domain/model/chat/current_location_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/file_model.dart';
+import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/packages/pdf/pdf_picker.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/task/domain/model/chat/create_poll.dart';
@@ -14,6 +16,7 @@ import 'package:bizkit/module/task/domain/model/chat/time_expence_creation.dart'
 import 'package:bizkit/module/task/domain/model/chat/time_expence_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_socket_channel/io.dart';
@@ -60,82 +63,94 @@ class ChatController extends GetxController {
 
           print(decodedMessage);
           bool doAnimate = true;
+
           // handle for text messages
           if (decodedMessage['message_type'] == 'text') {
             final m = TextMessage.fromJson(decodedMessage, uid);
-            final mess = Message(textMessage: m, sender: m.sender);
-            if (m.isLoadMore) {
-              messages.insert(0, mess);
-            } else if (!messages
-                .any((mess) => mess.textMessage?.messageId == m.messageId)) {
+            final mess = Message(
+                textMessage: m, sender: m.sender, messageId: m.messageId);
+            final index = messages.indexWhere(
+                (element) => element.textMessage?.messageId == m.messageId);
+            if (index != -1) {
+              messages[index] = mess;
+              doAnimate = false;
+            } else if (m.isLoadMore) {
+              doAnimate = false;
               messages.add(mess);
             } else {
-              doAnimate = false;
-              print('message updation');
-              final index = messages.indexWhere(
-                  (element) => element.textMessage?.messageId == m.messageId);
-              if (index != -1) {
-                messages[index] = mess;
-              }
+              messages.insert(0, mess);
             }
-          } // handle for file type
+          }
+
+          // handle for file type
           if (decodedMessage['message_type'] == 'file') {
             final m = FileMessage.fromJson(decodedMessage, uid);
-            final mess = Message(file: m, sender: m.sender);
-            if (m.isLoadMore) {
-              messages.insert(0, mess);
-            } else if (!messages
-                .any((mess) => mess.file?.messageId == m.messageId)) {
+            final mess =
+                Message(file: m, sender: m.sender, messageId: m.messageId);
+            final index = messages.indexWhere(
+                (element) => element.file?.messageId == m.messageId);
+            if (index != -1) {
+              messages[index] = mess;
+              doAnimate = false;
+            } else if (m.isLoadMore) {
+              doAnimate = false;
               messages.add(mess);
             } else {
-              doAnimate = false;
-              print('message updation');
-              final index = messages.indexWhere(
-                  (element) => element.file?.messageId == m.messageId);
-              if (index != -1) {
-                messages[index] = mess;
-              }
+              messages.insert(0, mess);
             }
           }
+
           // handle for polls
           else if (decodedMessage['message_type'] == 'poll') {
-            final poll = Poll.fromJson(decodedMessage, uid);
-            final mess = Message(poll: poll, sender: poll.sender);
-            if (poll.isLoadMore) {
-              messages.insert(0, mess);
-            } else if (!messages
-                .any((mess) => mess.poll?.pollId == poll.pollId)) {
+            final m = Poll.fromJson(decodedMessage, uid);
+            final mess =
+                Message(poll: m, sender: m.sender, messageId: m.messageId);
+            final index = messages.indexWhere(
+                (element) => element.poll?.messageId == m.messageId);
+            if (index != -1) {
+              messages[index] = mess;
+              doAnimate = false;
+            } else if (m.isLoadMore) {
+              doAnimate = false;
               messages.add(mess);
             } else {
-              doAnimate = false;
-              print('poll updation');
-              final index = messages
-                  .indexWhere((element) => element.poll?.pollId == poll.pollId);
-              if (index != -1) {
-                messages[index] = mess;
-                if (poll.pollId == pollDetail.value.pollId) {
-                  pollDetail.value = poll;
-                }
-              }
+              messages.insert(0, mess);
             }
           }
+
           // handle for expence and time
           else if (decodedMessage['message_type'] == 'time_expense') {
             final m = TimeExpense.fromJson(decodedMessage, uid);
-            final mess = Message(timeExpence: m, sender: m.sender);
-            if (m.isLoadMore) {
-              messages.insert(0, mess);
-            } else if (!messages
-                .any((mess) => mess.textMessage?.messageId == m.messageId)) {
+            final mess = Message(
+                timeExpence: m, sender: m.sender, messageId: m.messageId);
+            final index = messages.indexWhere(
+                (element) => element.timeExpence?.messageId == m.messageId);
+            if (index != -1) {
+              messages[index] = mess;
+              doAnimate = false;
+            } else if (m.isLoadMore) {
+              doAnimate = false;
               messages.add(mess);
             } else {
+              messages.insert(0, mess);
+            }
+          }
+
+          // handle for current location
+          else if (decodedMessage['message_type'] == 'location') {
+            final m = CurrentLocationMessage.fromJson(decodedMessage, uid);
+            final mess = Message(
+                currentLocation: m, sender: m.sender, messageId: m.messageId);
+            final index = messages.indexWhere(
+                (element) => element.currentLocation?.messageId == m.messageId);
+            if (index != -1) {
+              messages[index] = mess;
               doAnimate = false;
-              print('time expence updation');
-              final index = messages.indexWhere(
-                  (element) => element.timeExpence?.messageId == m.messageId);
-              if (index != -1) {
-                messages[index] = mess;
-              }
+            } else if (m.isLoadMore) {
+              doAnimate = false;
+              messages.add(mess);
+            } else {
+              messages.insert(0, mess);
             }
           }
 
@@ -146,8 +161,8 @@ class ChatController extends GetxController {
               () {
                 chatScrollController.animateTo(
                   firstLoad
-                      ? chatScrollController.position.maxScrollExtent
-                      : chatScrollController.position.pixels +
+                      ? chatScrollController.position.minScrollExtent
+                      : chatScrollController.position.pixels -
                           (decodedMessage['message_type'] == 'poll'
                               ? 500
                               : 100),
@@ -240,15 +255,11 @@ class ChatController extends GetxController {
   /// check for load more
   void checkLoading() {
     if (chatScrollController.offset ==
-        chatScrollController.position.minScrollExtent) {
+        chatScrollController.position.maxScrollExtent) {
       print('call load more message');
       addMessage({
         "message_type": "load_more",
-        "last_message_id": messages.first.textMessage != null
-            ? (messages.first.textMessage!.messageId ?? '')
-            : messages.first.poll != null
-                ? (messages.first.poll?.messageId ?? '')
-                : ''
+        "last_message_id": messages.last.messageId
       });
     }
   }
@@ -300,5 +311,29 @@ class ChatController extends GetxController {
     } catch (e) {
       return;
     }
+  }
+
+  /// send current location
+  void sendCurrentLocation() async {
+    try {
+      final locationService = LocationService();
+      print('location started');
+      final location = await locationService.getLatLong();
+      if (location == null) return;
+      print('send location => $location');
+      addMessage({
+        "message_type": "location",
+        "location": location,
+        "place":
+            await locationService.getAddressFromLatLng(location[0], location[1])
+      });
+    } catch (e) {
+      return;
+    }
+  }
+
+  /// get map for current location
+  void launchMapCurrentLocation(BuildContext context, List<double> location) {
+    LaunchUrl.launchMapLatLong(location: location, context: context);
   }
 }

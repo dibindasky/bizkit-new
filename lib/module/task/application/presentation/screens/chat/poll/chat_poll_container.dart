@@ -3,6 +3,7 @@ import 'package:bizkit/module/task/application/controller/chat/chat_controller.d
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/message_read_marker.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
+import 'package:bizkit/utils/animations/custom_linear_progress_bar.dart';
 import 'package:bizkit/utils/clipper/chat_pol_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -104,7 +105,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
     return Padding(
       padding: EdgeInsets.only(
           top: 5.0.w,
-          bottom: 5.0.w,
+          bottom: 0.w,
           left: sender ? 50.w : 0.w,
           right: !sender ? 50.w : 0.w),
       child: ClipPath(
@@ -153,108 +154,111 @@ class _PollContainerChatState extends State<PollContainerChat> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: Container(
-                            padding: EdgeInsets.zero,
-                            margin: const EdgeInsets.symmetric(vertical: 3),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                // Checkbox
-                                Container(
-                                  decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: kwhite, width: 2.0),
-                                    borderRadius: BorderRadius.circular(
-                                        500.0), // To match the round checkbox
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (!expired) {
-                                        setState(() {
-                                          if (message.multipleAnswer ?? false) {
-                                            if (selectedOption.contains(
-                                                answer?.answerId ?? '')) {
-                                              selectedOption.remove(
-                                                  answer?.answerId ?? '');
-                                            } else {
-                                              selectedOption
-                                                  .add(answer?.answerId ?? '');
-                                            }
-                                          } else {
-                                            if (selectedOption.contains(
-                                                answer?.answerId ?? '')) {
-                                              selectedOption = [];
-                                            } else {
-                                              selectedOption = [
-                                                answer?.answerId ?? ''
-                                              ];
-                                            }
-                                          }
-                                          if (message.multipleAnswer ?? false) {
-                                            markAnswer();
-                                          } else if (message.resonRequired ??
-                                              false) {
-                                            lastTapId = answer?.answerId ?? '';
-                                            showTextField = true;
-                                          } else {
-                                            markAnswer();
-                                          }
-                                        });
-                                      }
-                                    },
+                          child: GestureDetector(
+                            onTap: () {
+                              if (!expired) {
+                                setState(() {
+                                  if (message.multipleAnswer ?? false) {
+                                    if (selectedOption
+                                        .contains(answer?.answerId ?? '')) {
+                                      selectedOption
+                                          .remove(answer?.answerId ?? '');
+                                    } else {
+                                      selectedOption
+                                          .add(answer?.answerId ?? '');
+                                    }
+                                  } else {
+                                    if (selectedOption
+                                        .contains(answer?.answerId ?? '')) {
+                                      selectedOption = [];
+                                    } else {
+                                      selectedOption = [answer?.answerId ?? ''];
+                                    }
+                                  }
+                                  if (message.multipleAnswer ?? false) {
+                                    markAnswer();
+                                  } else if (message.resonRequired ?? false) {
+                                    lastTapId = answer?.answerId ?? '';
+                                    showTextField = true;
+                                  } else {
+                                    markAnswer();
+                                  }
+                                });
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.zero,
+                              margin: EdgeInsets.symmetric(vertical: 5.h),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  // Checkbox
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: kwhite, width: 2.0),
+                                      borderRadius:
+                                          BorderRadius.circular(500.0),
+                                    ),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: selectedOption.contains(
                                                 answer?.answerId ?? '')
                                             ? kwhite
                                             : Colors.transparent,
-                                        borderRadius: BorderRadius.circular(
-                                            50), // Matching rounded corners
+                                        borderRadius: BorderRadius.circular(50),
                                       ),
-                                      padding: EdgeInsets.all(selected
-                                          ? 0
-                                          : 8.0), // Adjust padding to center the checkmark
+                                      padding:
+                                          EdgeInsets.all(selected ? 0 : 8.0),
                                       child: selected
                                           ? const Icon(
                                               Icons.check,
                                               color: kblack,
                                               size: 15,
                                             )
-                                          : null, // No icon if not selected
+                                          : null,
                                     ),
                                   ),
-                                ),
-                                kWidth10,
-                                Expanded(
-                                  child: Container(
-                                    padding: completed
-                                        ? EdgeInsets.symmetric(
-                                            vertical: 2.h, horizontal: 8.w)
-                                        : null,
-                                    margin: EdgeInsets.only(
-                                        right: completed ? 5.w : 0),
-                                    decoration: completed
-                                        ? BoxDecoration(
-                                            color: sender
-                                                ? kblack.withOpacity(0.1)
-                                                : kwhite.withOpacity(0.1),
-                                            borderRadius: kBorderRadius5,
-                                          )
-                                        : null,
-                                    child: Text(
-                                      answer?.answerText ?? '',
-                                      style: textThinStyle1.copyWith(
-                                          color: kwhite),
+                                  kWidth10,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          answer?.answerText ?? '',
+                                          style: textThinStyle1.copyWith(
+                                              color: kwhite),
+                                        ),
+                                        CustomLinearProgressBar(
+                                          height: 5.h,
+                                          progress:
+                                              answer?.answerVotes == null ||
+                                                      totalVotes == 0
+                                                  ? 0
+                                                  : ((answer!.answerVotes!) /
+                                                          totalVotes)
+                                                      .toDouble(),
+                                          progressColor:
+                                              sender ? kwhite : kneonShade,
+                                          backgroundColor: sender
+                                              ? kblack.withOpacity(0.1)
+                                              : kwhite.withOpacity(0.1),
+                                        )
+                                      ],
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
                         sender || completed
-                            ? Center(
+                            ? SizedBox(
+                                width: 20.h,
                                 child: FittedBox(
+                                  fit: BoxFit.scaleDown,
                                   child: Text(
                                     "${answer?.answerVotes ?? 0}",
                                     style: textStyle1,

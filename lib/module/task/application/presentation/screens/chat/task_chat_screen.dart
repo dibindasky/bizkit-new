@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/current_location/current_location_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/file_message/file_message_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/chat_bubble/chat_bubble.dart';
@@ -46,10 +47,10 @@ class ScreenTaskChat extends StatelessWidget {
                           width: 100.w,
                         ),
                         adjustHieght(7.w),
-                        ShimmerLoaderTile(
-                          height: 5.h,
-                          width: 200.w,
-                        ),
+                        // ShimmerLoaderTile(
+                        //   height: 5.h,
+                        //   width: 200.w,
+                        // ),
                       ],
                     )
                   : Row(
@@ -69,10 +70,10 @@ class ScreenTaskChat extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: textHeadStyle1,
                               ),
-                              Text(
-                                'Tap here for more info',
-                                style: textStyle1.copyWith(color: kgrey),
-                              ),
+                              // Text(
+                              //   'Tap here for more info',
+                              //   style: textStyle1.copyWith(color: kgrey),
+                              // ),
                             ],
                           ),
                         ),
@@ -99,7 +100,7 @@ class ScreenTaskChat extends StatelessWidget {
                             print(
                                 'rebuid chat new chat arrived => ${chatController.messages.length}');
                             return ListView.builder(
-                              // reverse: true,
+                              reverse: true,
                               shrinkWrap: true,
                               controller: chatController.chatScrollController,
                               itemCount: chatController.messages.length,
@@ -138,12 +139,16 @@ class ScreenTaskChat extends StatelessWidget {
                                   return FileMessageCard(
                                       message: message.file!);
                                 }
+                                if (message.currentLocation != null) {
+                                  return CurrentLocationCard(
+                                      message: message.currentLocation!);
+                                }
                                 return const Text('Unknown type');
                               },
                             );
                           })),
                 ),
-                // adjustHieght(10),
+                adjustHieght(5.h),
                 const ChatTextfieldContainer(),
               ],
             ),

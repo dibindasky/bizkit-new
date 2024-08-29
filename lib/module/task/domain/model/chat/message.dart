@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/domain/model/chat/current_location_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/file_model.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
@@ -8,14 +9,20 @@ class Message {
   Poll? poll;
   TimeExpense? timeExpence;
   FileMessage? file;
+  CurrentLocationMessage? currentLocation;
+  bool isLoadMore;
   bool? sender;
+  String? messageId;
 
   Message({
     this.poll,
     this.textMessage,
     this.timeExpence,
     this.file,
+    this.currentLocation,
     this.sender,
+    this.messageId,
+    this.isLoadMore = false,
   });
 
   // Convert a Message instance to a Map
@@ -25,25 +32,72 @@ class Message {
       'poll': poll?.toJson(),
       'time_expence': timeExpence?.toJson(),
       'file': file?.toJson(),
+      'current_location': currentLocation?.toJson(),
       'sender': sender,
+      'message_id': messageId,
+      'is_load_more': isLoadMore,
     };
   }
 
   // Create a Message instance from a Map
   factory Message.fromJson(Map<String, dynamic> json, [String? uid]) {
     return Message(
-        textMessage: json['text_message'] != null
-            ? TextMessage.fromJson(json['text_message'] as Map<String, dynamic>)
-            : null,
-        poll: json['poll'] != null
-            ? Poll.fromJson(json['poll'] as Map<String, dynamic>)
-            : null,
-        timeExpence: json['time_expence'] != null
-            ? TimeExpense.fromJson(json['time_expence'] as Map<String, dynamic>)
-            : null,
-        file: json['file'] != null
-            ? FileMessage.fromJson(json['file'] as Map<String, dynamic>)
-            : null,
-        sender: false);
+      textMessage: json['text_message'] != null
+          ? TextMessage.fromJson(json['text_message'] as Map<String, dynamic>)
+          : null,
+      poll: json['poll'] != null
+          ? Poll.fromJson(json['poll'] as Map<String, dynamic>)
+          : null,
+      timeExpence: json['time_expence'] != null
+          ? TimeExpense.fromJson(json['time_expence'] as Map<String, dynamic>)
+          : null,
+      file: json['file'] != null
+          ? FileMessage.fromJson(json['file'] as Map<String, dynamic>)
+          : null,
+      currentLocation: json['current_location'] != null
+          ? CurrentLocationMessage.fromJson(
+              json['current_location'] as Map<String, dynamic>)
+          : null,
+      sender: json['sender'] as bool?,
+      messageId: json['message_id'] as String?,
+      isLoadMore: json['is_load_more'] as bool? ?? false,
+    );
+  }
+
+  // Get unique ID based on the type of message
+  String? getUniqueId() {
+    if (textMessage != null) {
+      return textMessage?.messageId;
+    } else if (poll != null) {
+      return poll?.pollId;
+    } else if (timeExpence != null) {
+      return timeExpence?.messageId;
+    } else if (file != null) {
+      return file?.messageId;
+    } else if (currentLocation != null) {
+      return currentLocation?.messageId;
+    }
+    return null;
+  }
+
+  // Get the unique field name based on the type of message
+  String? getUniqueField() {
+    if (textMessage != null) {
+      return 'text_message';
+    } else if (poll != null) {
+      return 'poll';
+    } else if (timeExpence != null) {
+      return 'time_expence';
+    } else if (file != null) {
+      return 'file';
+    } else if (currentLocation != null) {
+      return 'current_location';
+    }
+    return null;
+  }
+
+  // Method to check if the message is a load more type
+  bool get isLoadMoreMessage {
+    return isLoadMore;
   }
 }

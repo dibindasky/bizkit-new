@@ -19,6 +19,7 @@ class ChatTextfieldContainer extends StatefulWidget {
 
 class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
   int maxLines = 1;
+  bool typeing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +51,7 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
                   Timer(const Duration(milliseconds: 300), () {
                     controller.chatScrollController.animateTo(
                         controller
-                                .chatScrollController.position.maxScrollExtent +
-                            200,
+                            .chatScrollController.position.minScrollExtent,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.ease);
                   });
@@ -83,6 +83,7 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
                     });
                   }
                 },
+                textInputAction: TextInputAction.newline,
                 maxLines: maxLines,
                 style: textStyle1.copyWith(color: kblack),
                 decoration: InputDecoration(
@@ -101,7 +102,9 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
               ? Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        controller.sendImageBase64(camera: true);
+                      },
                       icon: const Icon(Icons.camera_alt_outlined,
                           color: neonShade),
                     ),

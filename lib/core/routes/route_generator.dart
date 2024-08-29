@@ -7,10 +7,10 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_det
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/update_second_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_view_deeplink/card_detail_view_deeplink.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/card_screen_main.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/card_profile_creation/card_profile_creation.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/create_card.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/picked_scanning_cards/picked_scanning_cards.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/progress_indicator_start.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/card_profile_creation/card_profile_creation.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/create_card.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/picked_scanning_cards/picked_scanning_cards.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
@@ -18,7 +18,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
-import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_details_responce/visiting_card_details_responce.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/signup_screen.dart';

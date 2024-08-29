@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:typed_data';
-
+import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
@@ -36,34 +35,33 @@ class CardScreenAchievementsCreate extends StatefulWidget {
 
 class _CardScreenAchievementsCreateState
     extends State<CardScreenAchievementsCreate> {
-  List<ImageCard> image = [];
-  List<ImageCard> newimage = [];
-  String titleChange = '';
-  String descriptionChange = '';
-
   @override
   void initState() {
     if (widget.achievement != null) {
       final personalController = Get.find<PersonalDetailsController>();
-      image = widget.achievement!.images ?? [];
-      titleChange = widget.achievement!.title ?? '';
-      personalController.personalAchievementTitle.text =
+      personalController.existingAchievementImages =
+          widget.achievement!.images ?? [];
+      personalController.achievementTitleChange =
           widget.achievement!.title ?? '';
-      descriptionChange = widget.achievement!.description ?? '';
-      personalController.personalAchievementDescription.text =
+      personalController.achievementTitle.text =
+          widget.achievement!.title ?? '';
+      personalController.achievementDescriptionChange =
           widget.achievement!.description ?? '';
-      personalController.personalAchievementDate.text =
+      personalController.achievementDescription.text =
+          widget.achievement!.description ?? '';
+      personalController.achievementDate.text =
           getDateByDayMonthYear(widget.achievement!.date ?? '');
-      personalController.personalAchievementEvent.text =
+      personalController.achievementEvent.text =
           widget.achievement!.event ?? '';
-      log('${image.length}');
     }
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final personalController = Get.find<PersonalDetailsController>();
+    final bussinessController = Get.find<BusinesDetailsController>();
     return GestureDetector(
       onTap: () {
         FocusNode focus = FocusScope.of(context);
@@ -96,8 +94,10 @@ class _CardScreenAchievementsCreateState
                             final img =
                                 await ImagePickerClass.getImage(camera: true);
                             if (img != null) {
-                              image.add(ImageCard(image: img.base64));
-                              newimage.add(ImageCard(image: img.base64));
+                              personalController.existingAchievementImages
+                                  .add(ImageCard(image: img.base64));
+                              personalController.newAchievementimage
+                                  .add(ImageCard(image: img.base64));
                               setState(() {});
                             }
                           },
@@ -105,8 +105,10 @@ class _CardScreenAchievementsCreateState
                             final img =
                                 await ImagePickerClass.getImage(camera: false);
                             if (img != null) {
-                              image.add(ImageCard(image: img.base64));
-                              newimage.add(ImageCard(image: img.base64));
+                              personalController.existingAchievementImages
+                                  .add(ImageCard(image: img.base64));
+                              personalController.newAchievementimage
+                                  .add(ImageCard(image: img.base64));
                               setState(() {});
                             }
                           });
@@ -116,10 +118,10 @@ class _CardScreenAchievementsCreateState
                       child: Stack(
                         children: [
                           ListView.separated(
-                            separatorBuilder: (context, index) =>
-                                adjustWidth(10),
+                            separatorBuilder: (context, index) => kWidth10,
                             scrollDirection: Axis.horizontal,
-                            itemCount: image.length,
+                            itemCount: personalController
+                                .existingAchievementImages.length,
                             itemBuilder: (context, index) {
                               return MemoryImageMaker(
                                   deleteTap: () {
@@ -128,16 +130,32 @@ class _CardScreenAchievementsCreateState
                                         title: 'Are you sure want to remove ?',
                                         buttonText: 'Delete',
                                         onTap: () {
-                                          newimage.removeWhere((element) =>
-                                              element ==
-                                              image[image.length - index - 1]);
-                                          image.removeAt(
-                                              image.length - index - 1);
+                                          personalController.newAchievementimage
+                                              .removeWhere((element) =>
+                                                  element ==
+                                                  personalController
+                                                          .existingAchievementImages[
+                                                      personalController
+                                                              .existingAchievementImages
+                                                              .length -
+                                                          index -
+                                                          1]);
+                                          personalController
+                                              .existingAchievementImages
+                                              .removeAt(personalController
+                                                      .existingAchievementImages
+                                                      .length -
+                                                  index -
+                                                  1);
                                           setState(() {});
                                         });
                                   },
-                                  image: image,
-                                  index: image.length - index - 1);
+                                  image: personalController
+                                      .existingAchievementImages,
+                                  index: personalController
+                                          .existingAchievementImages.length -
+                                      index -
+                                      1);
                             },
                           ),
                           Positioned(
@@ -153,10 +171,13 @@ class _CardScreenAchievementsCreateState
                                             await ImagePickerClass.getImage(
                                                 camera: true);
                                         if (img != null) {
-                                          image.add(
-                                              ImageCard(image: img.base64));
-                                          newimage.add(
-                                              ImageCard(image: img.base64));
+                                          personalController
+                                              .existingAchievementImages
+                                              .add(
+                                                  ImageCard(image: img.base64));
+                                          personalController.newAchievementimage
+                                              .add(
+                                                  ImageCard(image: img.base64));
                                           setState(() {});
                                         }
                                       },
@@ -165,10 +186,13 @@ class _CardScreenAchievementsCreateState
                                             await ImagePickerClass.getImage(
                                                 camera: false);
                                         if (img != null) {
-                                          image.add(
-                                              ImageCard(image: img.base64));
-                                          newimage.add(
-                                              ImageCard(image: img.base64));
+                                          personalController
+                                              .existingAchievementImages
+                                              .add(
+                                                  ImageCard(image: img.base64));
+                                          personalController.newAchievementimage
+                                              .add(
+                                                  ImageCard(image: img.base64));
                                           setState(() {});
                                         }
                                       });
@@ -193,12 +217,11 @@ class _CardScreenAchievementsCreateState
                           last: 500,
                           onPressed: (date) {
                             setState(() {
-                              personalController.personalAchievementDate.text =
-                                  date;
+                              personalController.achievementDate.text = date;
                             });
+                            Navigator.pop(context);
                           },
-                          datePicker:
-                              personalController.personalAchievementDate,
+                          datePicker: personalController.achievementDate,
                         );
                       },
                     ),
@@ -215,21 +238,16 @@ class _CardScreenAchievementsCreateState
                         children: [
                           Expanded(
                             child: Text(
-                              personalController
-                                      .personalAchievementDate.text.isEmpty
+                              personalController.achievementDate.text.isEmpty
                                   ? 'Choose Date'
-                                  : personalController
-                                      .personalAchievementDate.text,
+                                  : personalController.achievementDate.text,
                               style: personalController
-                                      .personalAchievementDate.text.isEmpty
+                                      .achievementDate.text.isEmpty
                                   ? const TextStyle(color: kwhite)
                                   : const TextStyle(color: kwhite),
                             ),
                           ),
-                          const Icon(
-                            Icons.calendar_month,
-                            color: neonShade,
-                          ),
+                          const Icon(Icons.calendar_month, color: neonShade),
                         ],
                       ),
                     ),
@@ -240,25 +258,24 @@ class _CardScreenAchievementsCreateState
                       onDropDownSelection: (value) {
                         FocusScope.of(context).unfocus();
                       },
-                      controller: personalController.personalAchievementEvent,
+                      controller: personalController.achievementEvent,
                       label: 'Event',
                       autocompleteItems: achivementEvents),
                   CustomTextFormField(
-                    controller: personalController.personalAchievementTitle,
+                    controller: personalController.achievementTitle,
                     maxlegth: 100,
                     textCapitalization: TextCapitalization.words,
                     onChanaged: (value) {
-                      titleChange = value;
+                      personalController.achievementTitleChange = value;
                     },
                     labelText: 'Title',
                     inputType: TextInputType.name,
                   ),
                   CustomTextFormField(
-                    controller:
-                        personalController.personalAchievementDescription,
+                    controller: personalController.achievementDescription,
                     maxlegth: 300,
                     onChanaged: (value) {
-                      descriptionChange = value;
+                      personalController.achievementDescriptionChange = value;
                     },
                     textCapitalization: TextCapitalization.sentences,
                     labelText: 'Description',
@@ -268,32 +285,57 @@ class _CardScreenAchievementsCreateState
                   adjustHieght(khieght * .02),
                   Obx(
                     () {
-                      if (personalController.isLoading.value) {
+                      if (!widget.fromBusiness &&
+                          personalController.achievementLoading.value) {
+                        return const LoadingAnimation();
+                      } else if (widget.fromBusiness &&
+                          bussinessController.achivementLoading.value) {
                         return const LoadingAnimation();
                       }
                       return EventButton(
                         hieght: 48,
-                        text: 'Save',
+                        text:
+                            widget.achievement?.id == null ? 'Save' : 'Update',
                         onTap: () {
-                          if (image.isEmpty ||
-                              titleChange == '' ||
-                              descriptionChange == '') {
+                          if (personalController
+                                  .existingAchievementImages.isEmpty ||
+                              personalController
+                                  .achievementTitleChange.isEmpty ||
+                              personalController
+                                  .achievementDescriptionChange.isEmpty) {
                             showSnackbar(context,
-                                message: image.isEmpty
+                                message: personalController
+                                        .existingAchievementImages.isEmpty
                                     ? 'Add image'
-                                    : titleChange == ''
+                                    : personalController
+                                                .achievementTitleChange ==
+                                            ''
                                         ? 'Add title'
                                         : 'Add description',
                                 backgroundColor: kred);
                             return;
                           } else {
-                            List<String> sendImage = image
-                                .map((e) => e.image!.substring(22))
+                            List<String> sendImage = personalController
+                                .existingAchievementImages
+                                .map((e) => e.image!)
                                 .toList();
-                            !widget.fromBusiness
-                                ? personalController.acheievementAdding(
-                                    sendImage, context)
-                                : null;
+                            if (widget.achievement?.id == null) {
+                              !widget.fromBusiness
+                                  ? personalController.acheievementAdding(
+                                      sendImage, context)
+                                  : bussinessController.achievementAdding(
+                                      sendImage, context);
+                            } else {
+                              !widget.fromBusiness
+                                  ? personalController.acheievementUpdate(
+                                      sendImage,
+                                      context,
+                                      widget.achievement!.id!)
+                                  : bussinessController.acheievementUpdate(
+                                      sendImage,
+                                      context,
+                                      widget.achievement!.id!);
+                            }
                           }
                         },
                       );

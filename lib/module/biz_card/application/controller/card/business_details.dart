@@ -1,13 +1,21 @@
+import 'package:bizkit/core/model/pdf/pdf_model.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/data/service/card/business_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/branch_deletion_model/branch_deletion_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/business/brocure_deletion/brocure_deletion.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/business/business_achievement_deletionmodel/business_achievement_deletionmodel.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/business/business_achivement_add_model/business_achivement_add_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_branch_model/business_branch_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/business/business_brochure_model/business_brochure_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_deletion_model/business_deletion_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_detial_initial/business_detial_initial.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_social_media_model/business_social_media_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/business/logo_model/logo_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/business_repo.dart';
+import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +27,9 @@ class BusinesDetailsController extends GetxController {
   RxBool updateLoading = false.obs;
   RxBool branchLoading = false.obs;
   RxBool socialMediaLoading = false.obs;
-  RxBool addAchivementLoading = false.obs;
+  RxBool achivementLoading = false.obs;
+  RxBool brochureLoading = false.obs;
+  RxBool productsLoading = false.obs;
 
   // Busiiness Initail Details
   //TextEditingController companyNumber = TextEditingController();
@@ -43,6 +53,10 @@ class BusinesDetailsController extends GetxController {
   TextEditingController businessSocialMediaLebal = TextEditingController();
   TextEditingController businessSocialMediaLink = TextEditingController();
 
+  // Logo
+  TextEditingController businessLogoLebel = TextEditingController();
+  Rx<ImageCard> logoImage = ImageCard().obs;
+
   // Branch Offices Controller
   final branchFormKey = GlobalKey<FormState>();
   TextEditingController businessBranchOfficesAddress = TextEditingController();
@@ -52,47 +66,56 @@ class BusinesDetailsController extends GetxController {
   TextEditingController businessBranchOfficesPersonNumber =
       TextEditingController();
 
+  // Business Brohure Controllers
+  TextEditingController businessBroshureLebel = TextEditingController();
+  PdfModel? pdf;
+
+  // Business Products Controllers
+  TextEditingController businessProductsLebel = TextEditingController();
+
   void getBusinessDetails(CardDetailModel cardDetail) {
     businessCategory.text = cardDetail.businessDetails?.businessCategory ?? '';
     commpanyName.text = cardDetail.businessDetails?.companyName ?? '';
     companyDesignation.text = cardDetail.businessDetails?.designation ?? '';
     companyWebsiteLink.text = cardDetail.businessDetails?.websiteLink ?? '';
     businessName.text = cardDetail.businessDetails?.businessName ?? '';
+    takeLogoDetails();
   }
 
   void bussinessDetailsInitail() async {
     branchLoading.value = true;
-    final cardCntroller = Get.find<CardController>();
+    final cardController = Get.find<CardController>();
     BusinessDetialInitial businessInitial = BusinessDetialInitial(
-        businessEmail: companyEmail.text,
-        bussinessPhone: [companyNumber.text],
-        businessName: businessName.text,
-        websiteLink: companyWebsiteLink.text,
-        businessDetailsId:
-            cardCntroller.bizcardDetail.value.businessDetails?.id ?? '');
+      businessEmail: companyEmail.text,
+      bussinessPhone: [companyNumber.text],
+      businessName: businessName.text,
+      websiteLink: companyWebsiteLink.text,
+      businessDetailsId:
+          cardController.bizcardDetail.value.businessDetails?.id ?? '',
+    );
     final data = await businessRepo.businessDetailInitial(
         businessInitial: businessInitial);
     data.fold(
       (l) => branchLoading.value = false,
       (r) {
         branchLoading.value = false;
-        cardCntroller.cardDetail(
-            cardId: cardCntroller.bizcardDetail.value.bizcardId ?? '');
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
       },
     );
   }
 
   void branchAdding({required BuildContext context}) async {
     branchLoading.value = true;
-    final cardCntroller = Get.find<CardController>();
+    final cardController = Get.find<CardController>();
     BusinessBranchModel branchModel = BusinessBranchModel(
-        bizcardId: cardCntroller.bizcardDetail.value.bizcardId,
+        bizcardId: cardController.bizcardDetail.value.bizcardId,
         branchAddress: businessBranchOfficesAddress.text,
         branchContactNumber: businessBranchOfficesPersonNumber.text,
         branchContactPerson: businessBranchOfficesPersonName.text,
         branchLocation: businessBranchOfficeName.text,
         businessDetailsId:
-            cardCntroller.bizcardDetail.value.businessDetails?.id);
+            cardController.bizcardDetail.value.businessDetails?.id);
     final data =
         await businessRepo.businessBranchAdding(branchModel: branchModel);
     data.fold(
@@ -100,8 +123,8 @@ class BusinesDetailsController extends GetxController {
       (r) {
         Navigator.pop(context);
         branchLoading.value = false;
-        cardCntroller.cardDetail(
-            cardId: cardCntroller.bizcardDetail.value.bizcardId ?? '');
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         branchDataClear();
       },
     );
@@ -109,26 +132,25 @@ class BusinesDetailsController extends GetxController {
 
   void branchUpdate({required int index, required BuildContext context}) async {
     branchLoading.value = true;
-    final cardCntroller = Get.find<CardController>();
+    final cardController = Get.find<CardController>();
     BusinessBranchModel branchModel = BusinessBranchModel(
-        branchId: cardCntroller
+        branchId: cardController
             .bizcardDetail.value.businessDetails?.branchOffices?[index].id,
         branchAddress: businessBranchOfficesAddress.text,
         branchContactNumber: businessBranchOfficesPersonNumber.text,
         branchContactPerson: businessBranchOfficesPersonName.text,
         branchLocation: businessBranchOfficeName.text,
         businessDetailsId:
-            cardCntroller.bizcardDetail.value.businessDetails?.id);
+            cardController.bizcardDetail.value.businessDetails?.id);
     final data =
         await businessRepo.businessBranchUpdating(branchModel: branchModel);
     data.fold(
       (l) => branchLoading.value = false,
       (r) {
         showSnackbar(context, message: 'Branch Updated Successfully');
-        //Get.snackbar('Succss', 'Branch Updated Successfully');
         branchLoading.value = false;
-        cardCntroller.cardDetail(
-            cardId: cardCntroller.bizcardDetail.value.bizcardId ?? '');
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         Navigator.pop(context);
         branchDataClear();
       },
@@ -144,11 +166,11 @@ class BusinesDetailsController extends GetxController {
 
   void branchDelete(int index) async {
     branchLoading.value = true;
-    final cardCntroller = Get.find<CardController>();
+    final cardController = Get.find<CardController>();
     BranchDeletionModel branchDeletion = BranchDeletionModel(
         businessDetailsId:
-            cardCntroller.bizcardDetail.value.businessDetails?.id,
-        branchOfficeId: cardCntroller
+            cardController.bizcardDetail.value.businessDetails?.id,
+        branchOfficeId: cardController
             .bizcardDetail.value.businessDetails?.branchOffices?[index].id);
     final data = await businessRepo.businessBranchDeleting(
         branchDeletion: branchDeletion);
@@ -156,20 +178,21 @@ class BusinesDetailsController extends GetxController {
       (l) => branchLoading.value = false,
       (r) {
         branchLoading.value = false;
-        cardCntroller.cardDetail(
-            cardId: cardCntroller.bizcardDetail.value.bizcardId ?? '');
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        branchDataClear();
       },
     );
   }
 
   void socialMediaAdding(String lebel, String link) async {
     socialMediaLoading.value = true;
-    final cardCntroller = Get.find<CardController>();
+    final cardController = Get.find<CardController>();
     BusinessSocialMediaModel businessAdding = BusinessSocialMediaModel(
-      businessDetailsId: cardCntroller.bizcardDetail.value.businessDetails?.id,
+      businessDetailsId: cardController.bizcardDetail.value.businessDetails?.id,
       label: lebel,
       link: link,
-      bizcardId: cardCntroller.bizcardDetail.value.bizcardId,
+      bizcardId: cardController.bizcardDetail.value.bizcardId,
     );
     final data = await businessRepo.businessSocialMediaAdding(
         businessAdding: businessAdding);
@@ -177,8 +200,8 @@ class BusinesDetailsController extends GetxController {
       (l) => socialMediaLoading.value = false,
       (r) {
         socialMediaLoading.value = false;
-        cardCntroller.cardDetail(
-            cardId: cardCntroller.bizcardDetail.value.bizcardId ?? '');
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
       },
     );
   }
@@ -208,20 +231,184 @@ class BusinesDetailsController extends GetxController {
 
   void socialMediaDelete({required int index}) async {
     socialMediaLoading.value = true;
-    final cardCntroller = Get.find<CardController>();
+    final cardController = Get.find<CardController>();
     BusinessDeletionModel businessSocialMediaReoming = BusinessDeletionModel(
-        socialMediaId: cardCntroller.bizcardDetail.value.businessDetails
+        socialMediaId: cardController.bizcardDetail.value.businessDetails
             ?.businessSocialMedia?[index].id,
         businessDetailsId:
-            cardCntroller.bizcardDetail.value.businessDetails?.id);
+            cardController.bizcardDetail.value.businessDetails?.id);
     final data = await businessRepo.businessSocialMediaDeleting(
         businessSocialMediaReoming: businessSocialMediaReoming);
     data.fold(
       (l) => socialMediaLoading.value = false,
       (r) {
         socialMediaLoading.value = false;
-        cardCntroller.cardDetail(
-            cardId: cardCntroller.bizcardDetail.value.bizcardId ?? '');
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+      },
+    );
+  }
+
+  void achievementAdding(List<String> images, BuildContext context) async {
+    achivementLoading.value = true;
+    final personalController = Get.find<PersonalDetailsController>();
+    final cardController = Get.find<CardController>();
+    BusinessAchivementAddModel achievementModel = BusinessAchivementAddModel(
+        bizcardId: cardController.bizcardDetail.value.bizcardId,
+        businessDetailsId:
+            cardController.bizcardDetail.value.businessDetails?.id ?? '',
+        date: personalController.achievementDate.text,
+        description: personalController.achievementDescription.text,
+        event: personalController.achievementEvent.text,
+        title: personalController.achievementTitle.text,
+        images: images);
+    final data = await businessRepo.businessAchievementAdding(
+        achievementModel: achievementModel);
+    data.fold(
+      (l) => achivementLoading.value = false,
+      (r) {
+        achivementLoading.value = false;
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+      },
+    );
+  }
+
+  void acheievementUpdate(
+      List<String> images, BuildContext context, String achievementId) async {
+    achivementLoading.value = true;
+    final personalController = Get.find<PersonalDetailsController>();
+    final cardController = Get.find<CardController>();
+    BusinessAchivementAddModel achievementModel = BusinessAchivementAddModel(
+      images: images,
+      achievementId: achievementId,
+      bizcardId: cardController.bizcardDetail.value.bizcardId,
+      businessDetailsId:
+          cardController.bizcardDetail.value.businessDetails?.id ?? '',
+      date: personalController.achievementDate.text,
+      description: personalController.achievementDescription.text,
+      event: personalController.achievementEvent.text,
+      title: personalController.achievementTitle.text,
+    );
+    final data = await businessRepo.businessAchievementUpdating(
+        achievementModel: achievementModel);
+    data.fold(
+      (l) => null,
+      (r) {
+        final cardController = Get.find<CardController>();
+        achivementLoading.value = false;
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+      },
+    );
+  }
+
+  void achievementDeleting({required int index}) async {
+    achivementLoading.value = true;
+    final cardController = Get.find<CardController>();
+    BusinessAchievementDeletionmodel achievementDeletionModel =
+        BusinessAchievementDeletionmodel(
+            achievementId: cardController.bizcardDetail.value.businessDetails
+                ?.businessAchievements?[index].id,
+            businessDetailsId:
+                cardController.bizcardDetail.value.businessDetails?.id ?? '');
+    final data = await businessRepo.businessAchievementDeleting(
+        achievementDeletionModel: achievementDeletionModel);
+    data.fold(
+      (l) => achivementLoading.value = false,
+      (r) {
+        achivementLoading.value = false;
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        Get.snackbar('Success', 'Achievement  Deleted Successfully');
+      },
+    );
+  }
+
+  void logImageAdding(bool isCam) async {
+    final image = await ImagePickerClass.getImage(camera: isCam);
+    if (image != null) {
+      logoImage.value = ImageCard(image: image.base64);
+    }
+  }
+
+  void logImagesRemove() {
+    logoImage.value = ImageCard();
+  }
+
+  void logoAdd() async {
+    isLoading.value = true;
+    final cardController = Get.find<CardController>();
+    LogoModel logoModel = LogoModel(
+        bizcardId: cardController.bizcardDetail.value.bizcardId,
+        businessDetailsId:
+            cardController.bizcardDetail.value.businessDetails?.id ?? '',
+        businessLogo: logoImage.value.image,
+        logoStory: businessLogoLebel.text);
+    final data = await businessRepo.businessLogoAdding(logoModel: logoModel);
+    data.fold(
+      (l) => isLoading.value = false,
+      (r) {
+        isLoading.value = false;
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+      },
+    );
+  }
+
+  void takeLogoDetails() async {
+    final cardController = Get.find<CardController>();
+    logoImage.value = ImageCard(
+        image:
+            cardController.bizcardDetail.value.businessDetails?.businessLogo);
+    businessLogoLebel.text =
+        cardController.bizcardDetail.value.businessDetails?.logoStory ?? '';
+  }
+
+  void addBrochure() async {
+    if (businessBroshureLebel.text.isEmpty &&
+        pdf == null &&
+        pdf!.base64 == null) {
+      return;
+    }
+    brochureLoading.value = true;
+    final cardController = Get.find<CardController>();
+    BusinessBrochureModel brochureModel = BusinessBrochureModel(
+        bizcardId: cardController.bizcardDetail.value.bizcardId,
+        businessDetailsId:
+            cardController.bizcardDetail.value.businessDetails?.id ?? '',
+        file: pdf!.base64!.startsWith('application')
+            ? pdf?.base64?.replaceAll('application/pdf;base64,', '')
+            : pdf!.base64!,
+        title: businessBroshureLebel.text);
+    final data =
+        await businessRepo.businessBrochureAdding(brochureModel: brochureModel);
+    data.fold(
+      (l) => brochureLoading.value = false,
+      (r) {
+        brochureLoading.value = false;
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+      },
+    );
+  }
+
+  void brochureDelete({required int bruchureIndex}) async {
+    brochureLoading.value = true;
+    final cardController = Get.find<CardController>();
+    BrocureDeletion brochureDeletion = BrocureDeletion(
+        businessDetailsId:
+            cardController.bizcardDetail.value.businessDetails?.id ?? '',
+        brochureId: cardController
+            .bizcardDetail.value.businessDetails?.brochure?[bruchureIndex].id);
+    final data = await businessRepo.businessBrochureDeleting(
+        brochureDeletion: brochureDeletion);
+    data.fold(
+      (l) => brochureLoading.value = false,
+      (r) {
+        brochureLoading.value = false;
+        cardController.cardDetail(
+            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
       },
     );
   }

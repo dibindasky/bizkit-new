@@ -2,12 +2,12 @@ import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_create_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/image_preview_under_textfield.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
-import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/achievements_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/create_achievement_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/personal_detail_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/widgets/image_preview_under_textfield.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/branch_office.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -124,69 +124,82 @@ class BusinessDetailsScreen extends StatelessWidget {
                 controller: businessController.companyWebsiteLink,
                 autocompleteItems: const [],
               ),
-              // accredition data
-              ImagePreviewUnderTextField(
-                ontap: () {
-                  FocusScope.of(context).unfocus();
-                  Navigator.of(context).push(cardFadePageRoute(
-                      const CardScreenAchievements(fromBusiness: true)));
-                },
-                onItemTap: (value, index) {
-                  // int index = state.accreditions
-                  //     .indexWhere((e) => e.images![0].image == value);
-                  return Navigator.push(
-                      context,
-                      cardFadePageRoute(CardScreenAchievementsCreate(
-                        fromBusiness: true,
-                        achievement: Achievement(),
-                      )));
-                },
-                removeItem: (index) {
-                  showCustomConfirmationDialogue(
-                    context: context,
-                    title: 'are you sure want to delete ?',
-                    buttonText: 'Delete',
-                    onTap: () {
-                      // context.read<BusinessDataBloc>().add(
-                      //     BusinessDataEvent.removeAccredition(
-                      //         id: state.accreditions[index].id!));
-                    },
-                  );
-                },
-                list: const [],
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: textFieldFillColr,
-                    boxShadow: [
-                      BoxShadow(
-                        color: textFieldFillColr,
-                        spreadRadius: 0.4,
-                        blurRadius: 4,
-                        offset: Offset(0.4, .2),
-                      ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.only(left: 12, right: 12),
-                  height: 48.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Company Achievements',
-                        style: custumText(colr: klightgrey, fontSize: 17),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 16,
-                        color: klightgrey,
-                      ),
-                    ],
+              // Accredition data
+              Obx(
+                () => ImagePreviewUnderTextField(
+                  ontap: () {
+                    FocusScope.of(context).unfocus();
+                    Navigator.of(context).push(cardFadePageRoute(
+                        const CardScreenAchievements(fromBusiness: true)));
+                  },
+                  onItemTap: (value, index) {
+                    return Navigator.push(
+                        context,
+                        cardFadePageRoute(CardScreenAchievementsCreate(
+                          fromBusiness: true,
+                          achievement: cardController.bizcardDetail.value
+                              .businessDetails?.businessAchievements?[index],
+                        )));
+                  },
+                  removeItem: (index) {
+                    showCustomConfirmationDialogue(
+                      context: context,
+                      title: 'Are you sure want to delete ?',
+                      buttonText: 'Delete',
+                      onTap: () {
+                        businessController.achievementDeleting(index: index);
+                      },
+                    );
+                  },
+                  list: cardController.bizcardDetail.value.businessDetails
+                          ?.businessAchievements
+                          ?.map((e) => (e.images?.isEmpty) ?? true
+                              ? ''
+                              : e.images?[0].image ?? '')
+                          .toList() ??
+                      [],
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: textFieldFillColr,
+                      boxShadow: [
+                        BoxShadow(
+                          color: textFieldFillColr,
+                          spreadRadius: 0.4,
+                          blurRadius: 4,
+                          offset: Offset(0.4, .2),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.only(left: 12, right: 12),
+                    height: 48.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Company Achievements',
+                          style: custumText(colr: klightgrey, fontSize: 17),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 16,
+                          color: klightgrey,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
               kHeight5,
               // social media handles
               ImagePreviewUnderTextField(
+                onItemTap: (value, index) {
+                  final data = cardController.bizcardDetail.value
+                      .businessDetails?.businessSocialMedia?[index];
+                  showDailoges(context,
+                      heading: 'Social Media',
+                      tittle: "Name : ${data?.label ?? ''}",
+                      desc: 'Link : ${data?.link ?? ''}');
+                },
                 listString: cardController.bizcardDetail.value.businessDetails
                         ?.businessSocialMedia
                         ?.map((e) => e.label ?? '')
@@ -228,17 +241,14 @@ class BusinessDetailsScreen extends StatelessWidget {
                         'Company Social Media Handles',
                         style: custumText(colr: klightgrey, fontSize: 17),
                       ),
-                      const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 16,
-                        color: klightgrey,
-                      )
+                      const Icon(Icons.arrow_forward_ios_rounded,
+                          size: 16, color: klightgrey)
                     ],
                   ),
                 ),
               ),
-              adjustHieght(7),
-              // company branch adding section
+              kHeight10,
+              // Company branch adding section
               Obx(
                 () => ImagePreviewUnderTextField(
                   ontap: () {

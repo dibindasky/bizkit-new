@@ -3,20 +3,20 @@ import 'dart:developer';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/personal_detail_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/personal_detail_screen.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/business_social_media.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/personal_social_media.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_social_media_request_model/personal_social_media_request_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
-import 'package:bizkit/utils/formating/text_input_formating.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SocialMediahandlesScreen extends StatefulWidget {
@@ -222,7 +222,6 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                log('message');
                                 showDailoges(context,
                                     heading: 'Social Media',
                                     tittle: data is PersonalSocialMedia
@@ -247,19 +246,26 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const CircleAvatar(
-                                      radius: 10,
-                                      backgroundImage: AssetImage(
-                                          'asset/images/banking.png'),
-                                    ),
-                                    adjustWidth(10),
-                                    Text(cardController
-                                            .bizcardDetail
-                                            .value
-                                            .personalDetails
-                                            ?.personalSocialMedia?[index]
-                                            .label ??
-                                        ''),
+                                    CircleAvatar(
+                                        radius: 10,
+                                        child: Icon(Icons.account_box,
+                                            size: 10.h)),
+                                    kWidth10,
+                                    Text(widget.fromBusiness
+                                        ? (cardController
+                                                .bizcardDetail
+                                                .value
+                                                .businessDetails
+                                                ?.businessSocialMedia?[index]
+                                                .label ??
+                                            '')
+                                        : cardController
+                                                .bizcardDetail
+                                                .value
+                                                .personalDetails
+                                                ?.personalSocialMedia?[index]
+                                                .label ??
+                                            ''),
                                   ],
                                 ),
                               ),

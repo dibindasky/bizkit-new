@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:animate_do/animate_do.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class LogoStory extends StatefulWidget {
   const LogoStory(
@@ -19,12 +24,12 @@ class LogoStory extends StatefulWidget {
 }
 
 class _LogoStoryState extends State<LogoStory> {
-  TextEditingController textEditingController = TextEditingController();
   GlobalKey<FormState> logokey = GlobalKey<FormState>();
   bool showLogoError = false;
 
   @override
   Widget build(BuildContext context) {
+    final businessController = Get.find<BusinesDetailsController>();
     return FadeIn(
       duration: const Duration(milliseconds: 900),
       delay: const Duration(milliseconds: 600),
@@ -46,14 +51,10 @@ class _LogoStoryState extends State<LogoStory> {
                   cameraAndGalleryPickImage(
                     context: context,
                     onPressCam: () {
-                      // context
-                      //     .read<BusinessDataBloc>()
-                      //     .add(const BusinessDataEvent.addLogo(isCam: true));
+                      businessController.logImageAdding(true);
                     },
                     onPressGallery: () {
-                      // context
-                      //     .read<BusinessDataBloc>()
-                      //     .add(const BusinessDataEvent.addLogo(isCam: false));
+                      businessController.logImageAdding(false);
                     },
                     tittle: 'Choose image',
                   );
@@ -65,24 +66,37 @@ class _LogoStoryState extends State<LogoStory> {
                   dashPattern: const [8, 8],
                   color: showLogoError ? kred : neonShade,
                   strokeWidth: 2.5,
-                  child: SizedBox(
-                    width: kwidth * 0.8,
-                    height: kwidth * 0.25,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 32.dm,
-                          height: 32.dm,
-                          child: const CircleAvatar(
-                            child: Icon(Icons.add),
-                          ),
-                        ),
-                        Text(
-                          'Add logo from file',
-                          style: TextStyle(fontSize: 10.sp),
-                        ),
-                      ],
+                  child: Obx(
+                    () => SizedBox(
+                      width: kwidth * 0.8,
+                      height: kwidth * 0.25,
+                      child: businessController.logoImage.value != null &&
+                              businessController.logoImage.value.image != null
+                          ? InkWell(
+                              onTap: () {},
+                              child: Image.memory(
+                                base64.decode(
+                                    businessController.logoImage.value.image ??
+                                        ''),
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 32.dm,
+                                  height: 32.dm,
+                                  child: const CircleAvatar(
+                                    child: Icon(Icons.add),
+                                  ),
+                                ),
+                                Text(
+                                  'Add logo from file',
+                                  style: TextStyle(fontSize: 10.sp),
+                                ),
+                              ],
+                            ),
                     ),
                   ),
                 ),
@@ -104,10 +118,9 @@ class _LogoStoryState extends State<LogoStory> {
             adjustHieght(khieght * .02),
             Form(
               key: logokey,
-              child: const CustomTextFormField(
+              child: CustomTextFormField(
                 validate: Validate.notNull,
-                // controller:
-                //     context.read<BusinessDataBloc>().logoStoryController,
+                controller: businessController.businessLogoLebel,
                 maxLines: 10,
                 labelText: 'Logo Story',
                 textCapitalization: TextCapitalization.sentences,
@@ -116,25 +129,26 @@ class _LogoStoryState extends State<LogoStory> {
               ),
             ),
             adjustHieght(khieght * .04),
-            CardLastSkipContinueButtons(onTap: () {
-              FocusScope.of(context).unfocus();
-              // // if (state.logoCard?.logo == null) {
-              // //   print('logo is not there');
-              // //   setState(() {
-              // //     showLogoError = true;
-              // //   });
-              // //   return;
-              // // }
-              // // setState(() {
-              // //   showLogoError = false;
-              // // });
-              // if (logokey.currentState!.validate()) {
-              //   context
-              //       .read<BusinessDataBloc>()
-              //       .add(const BusinessDataEvent.uploadLogo());
-              // }
-              Navigator.pop(context);
-            }),
+            Obx(
+              () => businessController.isLoading.value
+                  ? const LoadingAnimation()
+                  : CardLastSkipContinueButtons(onTap: () {
+                      FocusScope.of(context).unfocus();
+                      if (businessController.logoImage.value.image == null) {
+                        print('logo is not there');
+                        setState(() {
+                          showLogoError = true;
+                        });
+                        return;
+                      }
+                      setState(() {
+                        showLogoError = false;
+                      });
+                      if (logokey.currentState!.validate()) {
+                        businessController.logoAdd();
+                      }
+                    }),
+            ),
             adjustHieght(khieght * .1),
           ],
         ),

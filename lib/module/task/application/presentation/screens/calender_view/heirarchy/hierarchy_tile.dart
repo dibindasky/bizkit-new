@@ -18,7 +18,7 @@ import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_s
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
-import 'package:bizkit/utils/shimmier/shimmer.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';

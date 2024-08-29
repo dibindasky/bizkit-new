@@ -66,28 +66,32 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
         backgroundColor: knill,
         title: const Text('Card'),
         actions: [
-          IconButton(
-            onPressed: () {
-              // if (state.anotherCard!.percentage! == 10) {
-              //   companySearchNotifier.value = 2;
-              // } else if (state.anotherCard!.isCompanyAutofilled!) {
-              //   companySearchNotifier.value = 1;
-              // } else {
-              //   companySearchNotifier.value = 0;
-              // }
-              // companySearchNotifier.notifyListeners();
+          Obx(
+            () => !cardController.isLoading.value
+                ? IconButton(
+                    onPressed: () {
+                      // if (state.anotherCard!.percentage! == 10) {
+                      //   companySearchNotifier.value = 2;
+                      // } else if (state.anotherCard!.isCompanyAutofilled!) {
+                      //   companySearchNotifier.value = 1;
+                      // } else {
+                      //   companySearchNotifier.value = 0;
+                      // }
+                      // companySearchNotifier.notifyListeners();
 
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const ScreenCardDetailEditingList()));
-              personalDetailsController
-                  .getPersonalDetails(cardController.bizcardDetail.value);
-              businessDetailsController
-                  .getBusinessDetails(cardController.bizcardDetail.value);
-            },
-            icon: const Icon(Icons.edit),
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ScreenCardDetailEditingList()));
+                      personalDetailsController.getPersonalDetails(
+                          cardController.bizcardDetail.value);
+                      businessDetailsController.getBusinessDetails(
+                          cardController.bizcardDetail.value);
+                    },
+                    icon: const Icon(Icons.edit),
+                  )
+                : kempty,
           ),
           kWidth10
         ],

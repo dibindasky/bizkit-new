@@ -8,7 +8,7 @@ import 'package:bizkit/module/task/application/presentation/screens/task_detail/
 import 'package:bizkit/utils/animations/custom_shrinking_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/shimmier/shimmer.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

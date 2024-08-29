@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_create_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/create_achievement_screen.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_achievent_deletion_model/personal_achievent_deletion_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
@@ -21,7 +22,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CardScreenAchievements extends StatefulWidget {
-  const CardScreenAchievements({super.key, this.fromBusiness = false});
+  const CardScreenAchievements({super.key, required this.fromBusiness});
 
   final bool fromBusiness;
   //final int cardId;
@@ -37,6 +38,7 @@ class _CardScreenAchievementsState extends State<CardScreenAchievements> {
   @override
   Widget build(BuildContext context) {
     final cardController = Get.find<CardController>();
+    final personalController = Get.find<PersonalDetailsController>();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(kwidth, 70),
@@ -49,153 +51,164 @@ class _CardScreenAchievementsState extends State<CardScreenAchievements> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                "Add your ${!widget.fromBusiness ? 'Personal' : 'Company'}  Achievements here for people to know about you",
-                style: TextStyle(fontSize: kwidth * .043),
-              ),
-              kHeight10,
-              Center(
-                child: InkWell(
-                  onTap: () async {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CardScreenAchievementsCreate(
-                          fromBusiness: widget.fromBusiness),
-                    ));
-                  },
-                  child: DottedBorder(
-                    dashPattern: const [8, 8],
-                    color: neonShade,
-                    strokeWidth: 2.5,
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: kwidth * 0.25,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 32.dm,
-                            height: 32.dm,
-                            child: const CircleAvatar(
-                              child: Icon(Icons.add),
+          child: Obx(
+            () => Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  "Add your ${!widget.fromBusiness ? 'Personal' : 'Company'}  Achievements here for people to know about you",
+                  style: TextStyle(fontSize: kwidth * .043),
+                ),
+                kHeight10,
+                Center(
+                  child: InkWell(
+                    onTap: () async {
+                      personalController.achivementDataClear();
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CardScreenAchievementsCreate(
+                          fromBusiness: widget.fromBusiness,
+                        ),
+                      ));
+                    },
+                    child: DottedBorder(
+                      dashPattern: const [8, 8],
+                      color: neonShade,
+                      strokeWidth: 2.5,
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: kwidth * 0.25,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 32.dm,
+                              height: 32.dm,
+                              child: const CircleAvatar(
+                                child: Icon(Icons.add),
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Add Achievements',
-                            style: TextStyle(fontSize: 10.sp),
-                          ),
-                        ],
+                            Text(
+                              'Add Achievements',
+                              style: TextStyle(fontSize: 10.sp),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              adjustHieght(khieght * .04),
-              SizedBox(
-                height: 50,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
-                        onTap: () => showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (BuildContext context) {
-                            return DatePickingBottomSheet(
-                              // initialDate: DateTime.now(),
-                              year: 500,
-                              last: 500,
-                              onPressed: (date) {
-                                dateController.text = date;
-                                setState(() {});
-                              },
-                              datePicker: dateController,
-                            );
-                          },
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.only(left: 10, right: 12),
-                          height: 50,
-                          // width: double.infinity,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: kgrey),
-                            borderRadius: BorderRadius.circular(12),
+                adjustHieght(khieght * .04),
+                SizedBox(
+                  height: 50,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () => showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (BuildContext context) {
+                              return DatePickingBottomSheet(
+                                // initialDate: DateTime.now(),
+                                year: 500,
+                                last: 500,
+                                onPressed: (date) {
+                                  dateController.text = date;
+                                  setState(() {});
+                                  Navigator.pop(context);
+                                },
+                                datePicker: dateController,
+                              );
+                            },
                           ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  dateController.text.isEmpty
-                                      ? 'Date '
-                                      : dateController.text,
-                                  style: dateController.text.isEmpty
-                                      ? const TextStyle(color: kwhite)
-                                      : const TextStyle(color: kwhite),
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 10, right: 12),
+                            height: 50,
+                            // width: double.infinity,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: kgrey),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    dateController.text.isEmpty
+                                        ? 'Date '
+                                        : dateController.text,
+                                    style: dateController.text.isEmpty
+                                        ? const TextStyle(color: kwhite)
+                                        : const TextStyle(color: kwhite),
+                                  ),
                                 ),
-                              ),
-                              dateController.text != ''
-                                  ? InkWell(
-                                      onTap: () => setState(() {
-                                        dateController.text = '';
-                                      }),
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          child: const ColoredBox(
-                                              color: neonShade,
-                                              child: Icon(
-                                                Icons.close,
-                                                color: kblack,
-                                              ))),
-                                    )
-                                  : const Icon(
-                                      Icons.calendar_month,
-                                      color: neonShade,
-                                    ),
-                            ],
+                                dateController.text != ''
+                                    ? InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            dateController.text = '';
+                                          });
+                                        },
+                                        child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            child: const ColoredBox(
+                                                color: neonShade,
+                                                child: Icon(
+                                                  Icons.close,
+                                                  color: kblack,
+                                                ))),
+                                      )
+                                    : const Icon(
+                                        Icons.calendar_month,
+                                        color: neonShade,
+                                      ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    adjustWidth(20),
-                    Expanded(
-                        child: Container(
-                      padding: const EdgeInsets.only(left: 10, right: 12),
-                      height: 50,
-                      // width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: kgrey),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: CustomDropDown(
-                          title: 'Event',
-                          icon: Icons.sort,
-                          items: const [...achivementEvents, 'Others', 'All'],
-                          onTap: (value) {
-                            eventController.text = value ?? '';
-                            setState(() {});
-                          }),
-                    ))
-                  ],
+                      adjustWidth(20),
+                      Expanded(
+                          child: Container(
+                        padding: const EdgeInsets.only(left: 10, right: 12),
+                        height: 50,
+                        // width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: kgrey),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: CustomDropDown(
+                            title: 'Event',
+                            icon: Icons.sort,
+                            items: const [...achivementEvents, 'Others', 'All'],
+                            onTap: (value) {
+                              eventController.text = value ?? '';
+                              setState(() {});
+                            }),
+                      ))
+                    ],
+                  ),
                 ),
-              ),
-              adjustHieght(khieght * .04),
-              AchivementListViewCreation(
-                achievements: !widget.fromBusiness
-                    ? cardController.bizcardDetail.value.personalDetails
-                        ?.personalAchievements
-                    : [],
-              ),
-              adjustHieght(khieght * .03),
-              EventButton(
-                hieght: 48,
-                text: 'Go Back',
-                onTap: () => Navigator.of(context).pop(),
-              ),
-              adjustHieght(khieght * .02),
-            ],
+                adjustHieght(khieght * .04),
+                AchivementListViewCreation(
+                  fromBusiness: widget.fromBusiness,
+                  achievements: !widget.fromBusiness
+                      ? cardController.bizcardDetail.value.personalDetails
+                              ?.personalAchievements ??
+                          <Achievement>[]
+                      : cardController.bizcardDetail.value.businessDetails
+                              ?.businessAchievements ??
+                          <Achievement>[],
+                ),
+                adjustHieght(khieght * .03),
+                EventButton(
+                  hieght: 48,
+                  text: 'Go Back',
+                  onTap: () => Navigator.of(context).pop(),
+                ),
+                adjustHieght(khieght * .02),
+              ],
+            ),
           ),
         ),
       ),
@@ -204,14 +217,16 @@ class _CardScreenAchievementsState extends State<CardScreenAchievements> {
 }
 
 class AchivementListViewCreation extends StatelessWidget {
-  const AchivementListViewCreation({super.key, this.achievements});
+  const AchivementListViewCreation(
+      {super.key, this.achievements, required this.fromBusiness});
   final List<Achievement>? achievements;
+  final bool fromBusiness;
 
   @override
   Widget build(BuildContext context) {
     final personalController = Get.find<PersonalDetailsController>();
     final cardController = Get.find<CardController>();
-    log('Achivement ${achievements?.toList()}');
+    final businessController = Get.find<BusinesDetailsController>();
     return Obx(
       () {
         if (personalController.deleteLoading.value) {
@@ -226,21 +241,16 @@ class AchivementListViewCreation extends StatelessWidget {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                // if (accolades != null) {
-                //   Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) =>
-                //             AccoladesAddCreateScreen(accolade: accolades![index]),
-                //       ));
-                // } else {
-                //   Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => AccoladesAddCreateScreen(
-                //             accredition: accreditions![index]),
-                //       ));
-                // }
+                if (achievements != null) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CardScreenAchievementsCreate(
+                          achievement: achievements![index],
+                          fromBusiness: fromBusiness,
+                        ),
+                      ));
+                }
               },
               child: SizedBox(
                 height: 260,
@@ -267,11 +277,10 @@ class AchivementListViewCreation extends StatelessWidget {
                         width: double.infinity,
                         child: Image.memory(
                           base64.decode((achievements != null &&
-                                      achievements![index].images != null &&
-                                      achievements![index].images!.isNotEmpty
-                                  ? achievements![index].images![0].image!
-                                  : imageTestingBase64)
-                              .substring(22)),
+                                  achievements![index].images != null &&
+                                  achievements![index].images!.isNotEmpty
+                              ? achievements![index].images![0].image!
+                              : '')),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -341,28 +350,16 @@ class AchivementListViewCreation extends StatelessWidget {
                                               .personalDetails
                                               ?.personalAchievements?[index]
                                               .id);
-                                  achievements != null
+                                  !fromBusiness
                                       ? personalController
                                           .personalAcheievementDeleting(
                                               personalAchievementDeletion:
                                                   personalAchievementDeletion)
-                                      : null;
-                                  // accolades != null
-                                  //     ? context.read<UserDataBloc>().add(
-                                  //           UserDataEvent.removeAccolade(
-                                  //               id: accolades![index].id!),
-                                  //         )
-                                  //     : context.read<BusinessDataBloc>().add(
-                                  //           BusinessDataEvent
-                                  //               .removeAccredition(
-                                  //                   id: accreditions![index]
-                                  //                       .id!),
-                                  //         );
+                                      : businessController.achievementDeleting(
+                                          index: index);
                                 });
                           },
-                          icon: const Icon(
-                            Icons.delete,
-                          ),
+                          icon: const Icon(Icons.delete),
                         ),
                       ),
                     )

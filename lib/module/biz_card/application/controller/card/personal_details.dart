@@ -24,6 +24,7 @@ class PersonalDetailsController extends GetxController {
   final PersonalDetailsRepo personalRepo = PersonalDetailsService();
   RxBool isLoading = false.obs;
   RxBool deleteLoading = false.obs;
+  RxBool achievementLoading = false.obs;
   final CardRepo cardRepo = CardService();
   final PersonalDetailsRepo personalDetailsRepo = PersonalDetailsService();
 
@@ -48,12 +49,14 @@ class PersonalDetailsController extends GetxController {
       mat.TextEditingController();
 
   // personaal Achivement Controllers
-  RxList<ImageCard>? achievementImages = <ImageCard>[].obs;
-  TextEditingController personalAchievementDate = TextEditingController();
-  TextEditingController personalAchievementEvent = TextEditingController();
-  TextEditingController personalAchievementTitle = TextEditingController();
-  TextEditingController personalAchievementDescription =
-      TextEditingController();
+  List<ImageCard> existingAchievementImages = [];
+  List<ImageCard> newAchievementimage = [];
+  String achievementTitleChange = '';
+  String achievementDescriptionChange = '';
+  TextEditingController achievementDate = TextEditingController();
+  TextEditingController achievementEvent = TextEditingController();
+  TextEditingController achievementTitle = TextEditingController();
+  TextEditingController achievementDescription = TextEditingController();
   RxList<ImageCard> personalAchivementImage = <ImageCard>[].obs;
 
   // Personal Social Media Adding controllers
@@ -126,26 +129,26 @@ class PersonalDetailsController extends GetxController {
   }
 
   void acheievementAdding(List<String> images, BuildContext context) async {
-    isLoading.value = true;
+    achievementLoading.value = true;
     final cardController = Get.find<CardController>();
     PersonalAchievementRequestModel personalAchiment =
         PersonalAchievementRequestModel(
       bizcardId: cardController.bizcardDetail.value.bizcardId,
-      date: personalAchievementDate.text,
-      description: personalAchievementDescription.text,
-      event: personalAchievementEvent.text,
+      date: achievementDate.text,
+      description: achievementDescription.text,
+      event: achievementEvent.text,
       images: images,
       personalDetailsId: cardController.bizcardDetail.value.personalDetails?.id,
-      title: personalAchievementTitle.text,
+      title: achievementTitle.text,
     );
     final data = await personalRepo.personalAchivmentAdding(
         personalAchiment: personalAchiment);
     data.fold((l) => null, (r) {
-      personalAchievementDescription.clear();
-      personalAchievementEvent.clear();
-      personalAchievementDate.clear();
-      personalAchievementTitle.clear();
-      isLoading.value = false;
+      achievementDescription.clear();
+      achievementEvent.clear();
+      achievementDate.clear();
+      achievementTitle.clear();
+      achievementLoading.value = false;
       cardController.cardDetail(
           cardId: cardController.bizcardDetail.value.bizcardId ?? '');
       showSnackbar(context, message: 'Achievement Created Successfully');
@@ -153,16 +156,37 @@ class PersonalDetailsController extends GetxController {
     });
   }
 
+  void achivementDataClear() {
+    achievementDescription.clear();
+    achievementEvent.clear();
+    achievementDate.clear();
+    achievementTitle.clear();
+    newAchievementimage.clear();
+    existingAchievementImages.clear();
+  }
+
   void acheievementUpdate(
-      {required PersonalAchievementRequestModel personalAchiment}) async {
-    isLoading.value = true;
+      List<String> images, BuildContext context, String achievementId) async {
+    final cardController = Get.find<CardController>();
+    PersonalAchievementRequestModel personalAchiment =
+        PersonalAchievementRequestModel(
+            images: images,
+            bizcardId: cardController.bizcardDetail.value.bizcardId,
+            date: achievementDate.text,
+            description: achievementDescription.text,
+            event: achievementEvent.text,
+            personalAchievementId: achievementId,
+            title: achievementTitle.text,
+            personalDetailsId:
+                cardController.bizcardDetail.value.personalDetails?.id);
+    achievementLoading.value = true;
     final data = await personalRepo.personalAchivmentEditing(
         personalAchiment: personalAchiment);
     data.fold(
       (l) => null,
       (r) {
         final cardController = Get.find<CardController>();
-        isLoading.value = false;
+        achievementLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
       },

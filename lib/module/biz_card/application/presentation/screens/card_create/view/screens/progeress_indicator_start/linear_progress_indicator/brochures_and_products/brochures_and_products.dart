@@ -1,10 +1,11 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brocher_builder.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/brochure_adding_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/product_adding_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/brochers_and_products/product_builder.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/brochures_and_products/brochure/brochure_builder.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/brochures_and_products/brochure/brochure_adding_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/brochures_and_products/product/product_adding_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/brochures_and_products/product/product_builder.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,9 +77,6 @@ class BrochersAndProductsScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => const ScreenBrochureAdding(),
                         ));
-                    // context
-                    //     .read<BusinessDataBloc>()
-                    //     .add(const BusinessDataEvent.addBrochures());
                   },
                   child: DottedBorder(
                     dashPattern: const [8, 8],
@@ -111,10 +109,11 @@ class BrochersAndProductsScreen extends StatelessWidget {
               ),
               adjustHieght(30),
               const Text('Added Products'),
+              kHeight10,
               const ProductBuilder(),
-              adjustHieght(30),
+              kHeight30,
               const Text('Added Brochures'),
-              adjustHieght(10),
+              kHeight10,
               const BrocherBuilder(),
             ],
           ),

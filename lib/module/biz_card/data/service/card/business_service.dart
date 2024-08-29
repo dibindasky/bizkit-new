@@ -59,6 +59,23 @@ class BusinessService implements BusinessRepo {
   }
 
   @override
+  Future<Either<Failure, SuccessResponseModel>> businessAchievementUpdating(
+      {required BusinessAchivementAddModel achievementModel}) async {
+    try {
+      final responce = await apiService.patch(ApiEndPoints.businessAchievement,
+          data: achievementModel.toJson());
+      log('businessAchievementUpdating ==>success');
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('businessAchievementUpdating DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('businessAchievementUpdating catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
   Future<Either<Failure, SuccessResponseModel>> businessAchievementDeleting(
       {required BusinessAchievementDeletionmodel
           achievementDeletionModel}) async {
@@ -216,7 +233,7 @@ class BusinessService implements BusinessRepo {
   Future<Either<Failure, SuccessResponseModel>> businessLogoDeleting(
       {required String bussinessId}) async {
     try {
-      final responce = await apiService.put(ApiEndPoints.businessLogo,
+      final responce = await apiService.delete(ApiEndPoints.businessLogo,
           data: {"business_details_id": bussinessId});
       log('businessLogoAdding ==>success');
       return Right(SuccessResponseModel.fromJson(responce.data));

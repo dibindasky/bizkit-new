@@ -6,7 +6,7 @@ import 'package:bizkit/module/task/application/presentation/screens/chat/poll/ch
 import 'package:bizkit/module/task/application/presentation/screens/chat/chat_bubble/chat_bubble.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/time_expence/time_expence_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_text_field.dart';
-import 'package:bizkit/utils/shimmier/shimmer.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

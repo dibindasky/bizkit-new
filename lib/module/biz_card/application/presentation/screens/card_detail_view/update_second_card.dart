@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/image_preview/image_preview.dart';
 import 'package:bizkit/module/biz_card/domain/model/visiting_cards/create_visiting_card/create_visiting_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_edit_model/visiting_card_edit_model.dart';

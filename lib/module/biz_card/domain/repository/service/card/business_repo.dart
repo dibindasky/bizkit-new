@@ -26,6 +26,8 @@ abstract class BusinessRepo {
       {required BusinessDeletionModel businessSocialMediaReoming});
   Future<Either<Failure, SuccessResponseModel>> businessAchievementAdding(
       {required BusinessAchivementAddModel achievementModel});
+  Future<Either<Failure, SuccessResponseModel>> businessAchievementUpdating(
+      {required BusinessAchivementAddModel achievementModel});
   Future<Either<Failure, SuccessResponseModel>> businessAchievementDeleting(
       {required BusinessAchievementDeletionmodel achievementDeletionModel});
   Future<Either<Failure, SuccessResponseModel>> businessProductAdding(

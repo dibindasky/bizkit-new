@@ -1,12 +1,13 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_create_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/accolades_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/dates_to_remember.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/image_preview_under_textfield.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/create_achievement_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/achievements_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/dates_to_remember.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/widgets/image_preview_under_textfield.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_achievent_deletion_model/personal_achievent_deletion_model.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -195,12 +196,23 @@ class PersonalDetails extends StatelessWidget {
                   removeItem: (index) {
                     showCustomConfirmationDialogue(
                         context: context,
-                        title: 'are you sure want to delete ?',
+                        title: 'Are you sure want to delete ?',
                         buttonText: 'Delete',
                         onTap: () {
-                          // context.read<UserDataBloc>().add(
-                          //     UserDataEvent.removeAccolade(
-                          //         id: state.accolades[index].id!));
+                          PersonalAchieventDeletionModel
+                              personalAchievementDeletion =
+                              PersonalAchieventDeletionModel(
+                                  personalDetailsId: cardController
+                                      .bizcardDetail.value.personalDetails?.id,
+                                  personalAchievementId: cardController
+                                      .bizcardDetail
+                                      .value
+                                      .personalDetails
+                                      ?.personalAchievements?[index]
+                                      .id);
+                          personalController.personalAcheievementDeleting(
+                              personalAchievementDeletion:
+                                  personalAchievementDeletion);
                         });
                   },
                   list: cardController.bizcardDetail.value.personalDetails
@@ -367,11 +379,8 @@ class PersonalDetails extends StatelessWidget {
                             colr: klightgrey,
                           ),
                         ),
-                        const Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 16,
-                          color: klightgrey,
-                        )
+                        const Icon(Icons.arrow_forward_ios_rounded,
+                            size: 16, color: klightgrey)
                       ],
                     ),
                   ),

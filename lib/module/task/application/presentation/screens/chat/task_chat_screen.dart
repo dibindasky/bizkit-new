@@ -47,10 +47,10 @@ class ScreenTaskChat extends StatelessWidget {
                           width: 100.w,
                         ),
                         adjustHieght(7.w),
-                        ShimmerLoaderTile(
-                          height: 5.h,
-                          width: 200.w,
-                        ),
+                        // ShimmerLoaderTile(
+                        //   height: 5.h,
+                        //   width: 200.w,
+                        // ),
                       ],
                     )
                   : Row(
@@ -70,10 +70,10 @@ class ScreenTaskChat extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: textHeadStyle1,
                               ),
-                              Text(
-                                'Tap here for more info',
-                                style: textStyle1.copyWith(color: kgrey),
-                              ),
+                              // Text(
+                              //   'Tap here for more info',
+                              //   style: textStyle1.copyWith(color: kgrey),
+                              // ),
                             ],
                           ),
                         ),
@@ -100,7 +100,7 @@ class ScreenTaskChat extends StatelessWidget {
                             print(
                                 'rebuid chat new chat arrived => ${chatController.messages.length}');
                             return ListView.builder(
-                              // reverse: true,
+                              reverse: true,
                               shrinkWrap: true,
                               controller: chatController.chatScrollController,
                               itemCount: chatController.messages.length,

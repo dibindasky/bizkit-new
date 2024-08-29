@@ -3,6 +3,7 @@ import 'package:bizkit/module/task/application/controller/chat/chat_controller.d
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/message_read_marker.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
+import 'package:bizkit/utils/animations/custom_linear_progress_bar.dart';
 import 'package:bizkit/utils/clipper/chat_pol_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -153,54 +154,52 @@ class _PollContainerChatState extends State<PollContainerChat> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: Container(
-                            padding: EdgeInsets.zero,
-                            margin: EdgeInsets.symmetric(vertical: 5.h),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                // Checkbox
-                                Container(
-                                  decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: kwhite, width: 2.0),
-                                    borderRadius: BorderRadius.circular(500.0),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (!expired) {
-                                        setState(() {
-                                          if (message.multipleAnswer ?? false) {
-                                            if (selectedOption.contains(
-                                                answer?.answerId ?? '')) {
-                                              selectedOption.remove(
-                                                  answer?.answerId ?? '');
-                                            } else {
-                                              selectedOption
-                                                  .add(answer?.answerId ?? '');
-                                            }
-                                          } else {
-                                            if (selectedOption.contains(
-                                                answer?.answerId ?? '')) {
-                                              selectedOption = [];
-                                            } else {
-                                              selectedOption = [
-                                                answer?.answerId ?? ''
-                                              ];
-                                            }
-                                          }
-                                          if (message.multipleAnswer ?? false) {
-                                            markAnswer();
-                                          } else if (message.resonRequired ??
-                                              false) {
-                                            lastTapId = answer?.answerId ?? '';
-                                            showTextField = true;
-                                          } else {
-                                            markAnswer();
-                                          }
-                                        });
-                                      }
-                                    },
+                          child: GestureDetector(
+                            onTap: () {
+                              if (!expired) {
+                                setState(() {
+                                  if (message.multipleAnswer ?? false) {
+                                    if (selectedOption
+                                        .contains(answer?.answerId ?? '')) {
+                                      selectedOption
+                                          .remove(answer?.answerId ?? '');
+                                    } else {
+                                      selectedOption
+                                          .add(answer?.answerId ?? '');
+                                    }
+                                  } else {
+                                    if (selectedOption
+                                        .contains(answer?.answerId ?? '')) {
+                                      selectedOption = [];
+                                    } else {
+                                      selectedOption = [answer?.answerId ?? ''];
+                                    }
+                                  }
+                                  if (message.multipleAnswer ?? false) {
+                                    markAnswer();
+                                  } else if (message.resonRequired ?? false) {
+                                    lastTapId = answer?.answerId ?? '';
+                                    showTextField = true;
+                                  } else {
+                                    markAnswer();
+                                  }
+                                });
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.zero,
+                              margin: EdgeInsets.symmetric(vertical: 5.h),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  // Checkbox
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: kwhite, width: 2.0),
+                                      borderRadius:
+                                          BorderRadius.circular(500.0),
+                                    ),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: selectedOption.contains(
@@ -220,71 +219,38 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                           : null,
                                     ),
                                   ),
-                                ),
-                                kWidth10,
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        answer?.answerText ?? '',
-                                        style: textThinStyle1.copyWith(
-                                            color: kwhite),
-                                      ),
-                                      LinearProgressIndicator(
-                                        borderRadius: kBorderRadius10,
-                                        backgroundColor: sender
-                                            ? kblack.withOpacity(0.1)
-                                            : kwhite.withOpacity(0.1),
-                                        minHeight: 5.h,
-                                        color: sender ? kwhite : kneonShade,
-                                        value: answer?.answerVotes == null ||
-                                                totalVotes == 0
-                                            ? 0
-                                            : ((answer!.answerVotes!) /
-                                                    totalVotes)
-                                                .toDouble(),
-                                      )
-                                      // Container(
-                                      //   // padding: completed
-                                      //   //     ? EdgeInsets.symmetric(
-                                      //   //         vertical: 2.h, horizontal: 8.w)
-                                      //   //     : null,
-                                      //   height: 5.h,
-                                      //   margin: EdgeInsets.only(
-                                      //     right: completed ? 5.w : 0,
-                                      //     top: 2.h,
-                                      //     bottom: 2.h,
-                                      //   ),
-                                      //   decoration: completed
-                                      //       ? BoxDecoration(
-                                      //           color: sender
-                                      //               ? kblack.withOpacity(0.1)
-                                      //               : kwhite.withOpacity(0.1),
-                                      //           borderRadius: kBorderRadius5,
-                                      //         )
-                                      //       : null,
-                                      //   child: AnimatedContainer(
-                                      //     duration:
-                                      //         const Duration(milliseconds: 300),
-                                      //     decoration: BoxDecoration(
-                                      //       color: sender ? kwhite : kneonShade,
-                                      //       borderRadius: kBorderRadius5,
-                                      //     ),
-                                      //     height: 5.h,
-                                      //     width: answer?.answerVotes == null
-                                      //         ? 0
-                                      //         : (double.infinity *
-                                      //             ((answer?.answerVotes ?? 1) /
-                                      //                 totalVotes)),
-                                      //   ),
-                                      // ),
-                                    ],
+                                  kWidth10,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          answer?.answerText ?? '',
+                                          style: textThinStyle1.copyWith(
+                                              color: kwhite),
+                                        ),
+                                        CustomLinearProgressBar(
+                                          height: 5.h,
+                                          progress:
+                                              answer?.answerVotes == null ||
+                                                      totalVotes == 0
+                                                  ? 0
+                                                  : ((answer!.answerVotes!) /
+                                                          totalVotes)
+                                                      .toDouble(),
+                                          progressColor:
+                                              sender ? kwhite : kneonShade,
+                                          backgroundColor: sender
+                                              ? kblack.withOpacity(0.1)
+                                              : kwhite.withOpacity(0.1),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),

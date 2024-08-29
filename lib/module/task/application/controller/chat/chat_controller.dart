@@ -75,10 +75,10 @@ class ChatController extends GetxController {
               messages[index] = mess;
               doAnimate = false;
             } else if (m.isLoadMore) {
-              messages.insert(0, mess);
               doAnimate = false;
-            } else {
               messages.add(mess);
+            } else {
+              messages.insert(0, mess);
             }
           }
 
@@ -93,10 +93,10 @@ class ChatController extends GetxController {
               messages[index] = mess;
               doAnimate = false;
             } else if (m.isLoadMore) {
-              messages.insert(0, mess);
               doAnimate = false;
-            } else {
               messages.add(mess);
+            } else {
+              messages.insert(0, mess);
             }
           }
 
@@ -111,10 +111,10 @@ class ChatController extends GetxController {
               messages[index] = mess;
               doAnimate = false;
             } else if (m.isLoadMore) {
-              messages.insert(0, mess);
               doAnimate = false;
-            } else {
               messages.add(mess);
+            } else {
+              messages.insert(0, mess);
             }
           }
 
@@ -129,10 +129,10 @@ class ChatController extends GetxController {
               messages[index] = mess;
               doAnimate = false;
             } else if (m.isLoadMore) {
-              messages.insert(0, mess);
               doAnimate = false;
-            } else {
               messages.add(mess);
+            } else {
+              messages.insert(0, mess);
             }
           }
 
@@ -147,10 +147,10 @@ class ChatController extends GetxController {
               messages[index] = mess;
               doAnimate = false;
             } else if (m.isLoadMore) {
-              messages.insert(0, mess);
               doAnimate = false;
-            } else {
               messages.add(mess);
+            } else {
+              messages.insert(0, mess);
             }
           }
 
@@ -161,8 +161,8 @@ class ChatController extends GetxController {
               () {
                 chatScrollController.animateTo(
                   firstLoad
-                      ? chatScrollController.position.maxScrollExtent
-                      : chatScrollController.position.pixels +
+                      ? chatScrollController.position.minScrollExtent
+                      : chatScrollController.position.pixels -
                           (decodedMessage['message_type'] == 'poll'
                               ? 500
                               : 100),
@@ -255,19 +255,11 @@ class ChatController extends GetxController {
   /// check for load more
   void checkLoading() {
     if (chatScrollController.offset ==
-        chatScrollController.position.minScrollExtent) {
+        chatScrollController.position.maxScrollExtent) {
       print('call load more message');
       addMessage({
         "message_type": "load_more",
-        "last_message_id": messages.first.textMessage != null
-            ? (messages.first.textMessage!.messageId ?? '')
-            : messages.first.poll != null
-                ? (messages.first.poll?.messageId ?? '')
-                : messages.first.timeExpence != null
-                    ? (messages.first.timeExpence?.messageId ?? '')
-                    : messages.first.file != null
-                        ? (messages.first.file?.messageId ?? '')
-                        : ''
+        "last_message_id": messages.last.messageId
       });
     }
   }

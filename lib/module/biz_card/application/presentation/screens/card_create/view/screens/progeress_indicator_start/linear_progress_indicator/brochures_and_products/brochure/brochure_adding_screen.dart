@@ -61,7 +61,7 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                       textCapitalization: TextCapitalization.words,
                       labelText: 'Label',
                       controller: bussinessController.businessBroshureLebel),
-                  adjustHieght(10),
+                  kHeight10,
                   bussinessController.pdf == null
                       ? const SizedBox()
                       : SizedBox(
@@ -76,44 +76,45 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                                         builder: (context) => ScreenPdfPreview(
                                             base64: bussinessController
                                                 .pdf!.base64!,
-                                            label: ''),
+                                            label: bussinessController
+                                                .businessBroshureLebel.text),
                                       ));
                                 },
                                 child: AspectRatio(
                                     aspectRatio: 0.705,
                                     child: PdfViewer.openData(base64.decode(
                                         bussinessController.pdf!.base64!
-                                                .startsWith("application")
+                                                .startsWith("data")
                                             ? bussinessController.pdf!.base64!
                                                 .substring(
-                                                    "application/pdf;base64,"
+                                                    "data:application/pdf;base64,"
                                                         .length)
                                             : bussinessController
                                                 .pdf!.base64!))),
                               ),
-                              Positioned(
-                                right: 0,
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      bussinessController.pdf = null;
-                                      // context
-                                      //     .read<BusinessDataBloc>()
-                                      //     .brochureLabelController
-                                      //     .text = '';
-                                    });
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: const ColoredBox(
-                                        color: neonShade,
-                                        child: Padding(
-                                          padding: EdgeInsets.all(3.0),
-                                          child: Icon(Icons.close),
-                                        )),
-                                  ),
-                                ),
-                              )
+                              // Positioned(
+                              //   right: 0,
+                              //   child: InkWell(
+                              //     onTap: () {
+                              //       setState(() {
+                              //         //bussinessController.pdf = null;
+                              //         // context
+                              //         //     .read<BusinessDataBloc>()
+                              //         //     .brochureLabelController
+                              //         //     .text = '';
+                              //       });
+                              //     },
+                              //     child: ClipRRect(
+                              //       borderRadius: BorderRadius.circular(50),
+                              //       child: const ColoredBox(
+                              //           color: neonShade,
+                              //           child: Padding(
+                              //             padding: EdgeInsets.all(3.0),
+                              //             child: Icon(Icons.close),
+                              //           )),
+                              //     ),
+                              //   ),
+                              // )
                             ],
                           ),
                         ),

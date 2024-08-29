@@ -4,7 +4,6 @@ import 'package:bizkit/module/biz_card/application/controller/card/personal_deta
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/screen_detail_editing/card_detail_editing_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/card_bottom_part.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
-import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/business_details.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';

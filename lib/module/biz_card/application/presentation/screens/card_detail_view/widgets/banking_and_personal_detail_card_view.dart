@@ -17,6 +17,8 @@ class ScreenPreviewBankOrPersnalCArdView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cardController = Get.find<CardController>();
+    final bankDetails =
+        cardController.bizcardDetail.value.businessDetails?.bankingDetails;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -49,20 +51,26 @@ class ScreenPreviewBankOrPersnalCArdView extends StatelessWidget {
                     )
                   ]
                 : [
-                    const CardBankingPersonalTiles(
+                    CardBankingPersonalTiles(
+                      first: 'Banking Namer',
+                      second: bankDetails?.bankingName ??
+                          ''
+                              '',
+                    ),
+                    CardBankingPersonalTiles(
                       first: 'Account Number',
-                      second: '785275'
-                          '',
+                      second: bankDetails?.accountNumber ?? '',
                     ),
-                    const CardBankingPersonalTiles(
-                      first: 'IFSC',
-                      second: '23554',
+                    CardBankingPersonalTiles(
+                        first: 'IFSC', second: bankDetails?.ifscCode ?? ''),
+                    CardBankingPersonalTiles(
+                      first: 'UPI ',
+                      second: bankDetails?.upi ?? '',
                     ),
-                    const CardBankingPersonalTiles(
+                    CardBankingPersonalTiles(
                       first: 'GST ',
-                      second: '',
+                      second: bankDetails?.gst ?? '',
                     ),
-                    Image.asset(emptyNodata3)
                   ],
           ),
         ),

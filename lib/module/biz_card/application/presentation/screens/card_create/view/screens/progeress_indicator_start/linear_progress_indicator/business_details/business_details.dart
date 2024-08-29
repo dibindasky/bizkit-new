@@ -310,9 +310,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                     : CardLastSkipContinueButtons(
                         onTap: () {
                           if (businessFormKey.currentState!.validate()) {
-                            pageController.nextPage(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.ease);
+                            businessController.bussinessDetailsInitail();
                           }
                         },
                       ),

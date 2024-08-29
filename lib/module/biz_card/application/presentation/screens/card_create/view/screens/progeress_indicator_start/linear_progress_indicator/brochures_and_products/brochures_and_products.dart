@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/brochures_and_products/brochure/brochure_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/brochures_and_products/brochure/brochure_adding_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/brochures_and_products/product/product_adding_screen.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class BrochersAndProductsScreen extends StatelessWidget {
   const BrochersAndProductsScreen(
@@ -19,6 +21,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bussinessController = Get.find<BusinesDetailsController>();
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -34,6 +37,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
                   onTap: () async {
                     Navigator.push(
                         context, cardFadePageRoute(const AddPrductsScreen()));
+                    bussinessController.productDataClear();
                   },
                   child: DottedBorder(
                     dashPattern: const [8, 8],
@@ -68,15 +72,12 @@ class BrochersAndProductsScreen extends StatelessWidget {
               Center(
                 child: InkWell(
                   onTap: () async {
-                    // context
-                    //     .read<BusinessDataBloc>()
-                    //     .brochureLabelController
-                    //     .text = '';
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const ScreenBrochureAdding(),
                         ));
+                    bussinessController.brochureDataClear();
                   },
                   child: DottedBorder(
                     dashPattern: const [8, 8],

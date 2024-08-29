@@ -98,12 +98,11 @@ class _BrochureTileState extends State<BrochureTile> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: PdfViewer.openData(
-                      base64.decode(
-                          widget.brochure!.file!.startsWith('application')
-                              ? widget.brochure!.file!
-                                  .substring('application/pdf;base64,'.length)
-                              : widget.brochure!.file!),
-                      params: const PdfViewerParams()),
+                      base64.decode(widget.brochure!.file!.startsWith('data')
+                          ? widget.brochure!.file!
+                              .substring('data:application/pdf;base64,'.length)
+                          : widget.brochure!.file!),
+                      params: const PdfViewerParams(pageNumber: 1)),
                 ),
                 Expanded(child: Text(widget.brochure?.title ?? ''))
               ],
@@ -121,9 +120,6 @@ class _BrochureTileState extends State<BrochureTile> {
                 onTap: () {
                   businessController.brochureDelete(
                       bruchureIndex: widget.index);
-                  // context.read<BusinessDataBloc>().add(
-                  //     BusinessDataEvent.removeBrochure(
-                  //         id: widget.brochure!.id!));
                 }),
             borderRadius: BorderRadius.circular(10),
             child: ClipRRect(

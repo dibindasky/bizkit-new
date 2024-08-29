@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
@@ -9,9 +11,10 @@ import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:flutter/material.dart';
 
 class CardProductDetailView extends StatefulWidget {
-  const CardProductDetailView({super.key, required this.myCard});
+  const CardProductDetailView(
+      {super.key, required this.myCard, required this.product});
 
-  //final Product product;
+  final Product product;
   final bool myCard;
 
   @override
@@ -22,37 +25,37 @@ class _CardProductDetailViewState extends State<CardProductDetailView> {
   TextEditingController tittleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   late bool switchValue;
-  //late List<ImageCard> updateImageCard;
+  late List<ImageCard> updateImageCard;
   late PageController _pageController;
-  final int _currentPageIndex = 0;
+  int _currentPageIndex = 0;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   updateImageCard = widget.product.image ?? [];
-  //   switchValue = widget.product.enquiry ?? false;
-  //   tittleController.text = widget.product.label ?? '';
-  //   descriptionController.text = widget.product.description ?? '';
-  //   _pageController = PageController(initialPage: _currentPageIndex);
+  @override
+  void initState() {
+    super.initState();
+    updateImageCard = widget.product.images ?? [];
+    switchValue = widget.product.enquiry ?? false;
+    tittleController.text = widget.product.title ?? '';
+    descriptionController.text = widget.product.description ?? '';
+    _pageController = PageController(initialPage: _currentPageIndex);
 
-  //   bool forward = true;
-  //   Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-  //     if (_currentPageIndex == widget.product.image!.length - 1 ||
-  //         _currentPageIndex == 0) {
-  //       forward = !forward;
-  //     }
-  //     if (forward && _currentPageIndex < widget.product.image!.length - 1) {
-  //       _currentPageIndex++;
-  //     } else if (!forward && _currentPageIndex > 0) {
-  //       _currentPageIndex--;
-  //     }
-  //     _pageController.animateToPage(
-  //       _currentPageIndex,
-  //       duration: const Duration(milliseconds: 300),
-  //       curve: Curves.easeInOut,
-  //     );
-  //   });
-  // }
+    bool forward = true;
+    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+      if (_currentPageIndex == widget.product.images!.length - 1 ||
+          _currentPageIndex == 0) {
+        forward = !forward;
+      }
+      if (forward && _currentPageIndex < widget.product.images!.length - 1) {
+        _currentPageIndex++;
+      } else if (!forward && _currentPageIndex > 0) {
+        _currentPageIndex--;
+      }
+      _pageController.animateToPage(
+        _currentPageIndex,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -54,7 +54,6 @@ class _CardScreenAchievementsCreateState
       personalController.achievementEvent.text =
           widget.achievement!.event ?? '';
     }
-
     super.initState();
   }
 

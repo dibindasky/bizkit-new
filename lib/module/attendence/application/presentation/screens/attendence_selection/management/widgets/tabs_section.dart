@@ -22,14 +22,14 @@ class TabsSection extends StatelessWidget {
             Radius.circular(5),
           ),
         ),
-        tabs: const [
+        tabs: [
           Text(
             'My Activities',
-            style: TextStyle(color: kwhite),
+            style: textThinStyle1.copyWith(color: kwhite),
           ),
           Text(
             'My Team Activities',
-            style: TextStyle(color: kwhite),
+            style: textThinStyle1.copyWith(color: kwhite),
           ),
         ],
       ),

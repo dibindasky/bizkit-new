@@ -16,7 +16,7 @@ class AttendenceMsPeltAndPellAppbar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                Get.back(id: 2);
+                Get.back(id: 22);
               },
               icon: const Icon(Icons.arrow_back_ios),
             ),

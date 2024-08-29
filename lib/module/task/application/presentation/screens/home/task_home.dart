@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/generate_repor.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/home_appbar.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_creation_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/tasks_lists.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
@@ -24,9 +23,11 @@ class ScreenTaskHome extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
     final messageCoutController = Get.find<MessageCountController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      // homeController.progresBar();
       homeController.fetchRecentTasks();
       taskController.searchTasks(searchItem: '');
+      if (!homeController.progresBarOrRecentTask.value) {
+        homeController.progresBar();
+      }
       messageCoutController.sendReqForUnread();
     });
 
@@ -44,7 +45,6 @@ class ScreenTaskHome extends StatelessWidget {
                   onTap: () {
                     taskController.searchTasks(searchItem: '');
                     FocusScope.of(context).unfocus();
-                    log('Search bar clicked');
                     Get.toNamed(Routes.taskSearch, id: 1);
                   },
                   child: TaskTextField(
@@ -60,9 +60,21 @@ class ScreenTaskHome extends StatelessWidget {
               adjustHieght(16.h),
               const TaskCreationContainer(),
               adjustHieght(16.h),
-              // const LegendsContainer(),
-              const TasksListsWidget(),
-              // TaskContainers(),
+              Obx(
+                () {
+                  if (homeController.progresBarOrRecentTask.value) {
+                    return const TasksListsWidget();
+                  } else {
+                    return Column(
+                      children: [
+                        adjustHieght(20.h),
+                        TaskContainers(),
+                        adjustHieght(110.h),
+                      ],
+                    );
+                  }
+                },
+              ),
               adjustHieght(30.h),
               Center(
                 child: EventButton(

@@ -188,7 +188,7 @@ void showTaskSelectionBottomSheet(
             adjustHieght(10.h),
             Text(
               'Select Tasks to Add',
-              style: TextStyle(fontSize: 18.sp, color: kwhite),
+              style: textThinStyle1.copyWith(fontSize: 15.sp),
             ),
             adjustHieght(10.h),
             Padding(
@@ -246,7 +246,7 @@ void showTaskSelectionBottomSheet(
                             child: ListTile(
                               title: Text(
                                 task.title ?? 'Title',
-                                style: const TextStyle(color: kwhite),
+                                style: textThinStyle1.copyWith(),
                               ),
                               trailing: Obx(
                                 () => Checkbox(

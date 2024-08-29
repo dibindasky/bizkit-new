@@ -114,7 +114,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SendRequestsResponce>> getSendRequests() async {
     try {
       final response = await apiService.get(ApiEndPoints.taskTestSendRequests);
-      log("=> Response Send Requests : ${response.data}");
+      log("=> Response Send Requests :");
       return Right(SendRequestsResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException getSendRequests $e');
@@ -210,7 +210,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByType,
         data: filterPinnedTaskByType.toJson(),
       );
-      log("=> Response Filter Pinned Tasks By Type :  ${response.data} ");
+      log("=> Response Filter Pinned Tasks By Type :  ");
       return Right(
           FilterPinnedTaskByTypeSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -231,7 +231,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestAcceptOrReject,
         data: acceptOrReject.toJson(),
       );
-      // log("=> Response Accept or Reject  : ${response.data}");
+      log("=> Response Accept or Reject  : ");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException acceptOrReject $e');
@@ -277,7 +277,7 @@ class TaskService implements TaskRepo {
         data: singleTaskModel.toJson(),
       );
 
-      log("=> Response Get one task :  ${response.data}");
+      log("=> Response Get one task : ");
 
       return Right(GetTaskResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -313,7 +313,7 @@ class TaskService implements TaskRepo {
   Future<Either<ErrorModel, SuccessResponce>> editTask(
       {required EditTaskModel taskModel}) async {
     try {
-      log('Edit Task ToJson === >>>>>> ${taskModel.toJson()}');
+      // log('Edit Task ToJson === >>>>>> ${taskModel.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestEditTask,
         data: taskModel.toJson(),
@@ -333,14 +333,14 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SuccessResponce>> addSubTask(
       {required SubTaskAddModel newsubtask}) async {
     try {
-      log('SubTask datas  => ${newsubtask.toJson()}');
+      // log('SubTask datas  => ${newsubtask.toJson()}');
 
       final response = await apiService.patch(
         ApiEndPoints.taskTestSubtask,
         data: newsubtask.toJson(),
       );
 
-      log("=> Response Add New Subtask : ${response.data}");
+      log("=> Response Add New Subtask :");
 
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -361,7 +361,7 @@ class TaskService implements TaskRepo {
         data: deletesubtask.toJson(),
       );
 
-      log("=> Response Delete Subtask : ${response.data}");
+      log("=> Response Delete Subtask : ");
 
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -382,7 +382,7 @@ class TaskService implements TaskRepo {
         data: editsubtask.toJson(),
       );
 
-      log("=> Response Edit Subtask : ${response.data}");
+      log("=> Response Edit Subtask :");
 
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -398,13 +398,13 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SuccessResponce>> killATask(
       {required KillATaskModel killatask}) async {
     try {
-      log('Killed Task TOJSON === > ${killatask.toJson()}');
+      // log('Killed Task TOJSON === > ${killatask.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestEditTask,
         data: killatask.toJson(),
       );
 
-      log("=> Response kill A Task : ${response.data}");
+      log("=> Response kill A Task :");
 
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -420,12 +420,12 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SuccessResponce>> spotLightTask(
       {required SpotLightTask spotLightTask}) async {
     try {
-      log("=> spotLightTask : ${spotLightTask.toJson()}");
+      // log("=> spotLightTask : ${spotLightTask.toJson()}");
       final response = await apiService.patch(
         ApiEndPoints.taskTestSpotLightTask,
         data: spotLightTask.toJson(),
       );
-      log("=> spotLightTask response : ${response.data}");
+      log("=> spotLightTask response :");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException spotLightTask $e');
@@ -440,13 +440,13 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, TaskCountsResponce>> getTasksCountsWithDate(
       {required TasksCountModel tasksCountModel}) async {
     try {
-      log('tasksCountModel.toJson()=> ${tasksCountModel.toJson()}');
+      // log('tasksCountModel.toJson()=> ${tasksCountModel.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestGetTasksCounts,
         data: tasksCountModel.toJson(),
       );
 
-      log("=> Response get tasks counts with date : ${response.data}");
+      log("=> Response get tasks counts with date :");
 
       return Right(TaskCountsResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -466,7 +466,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestGetTasksCounts,
       );
 
-      log("=> Response get tasks counts without date : ${response.data}");
+      log("=> Response get tasks counts without date : ");
 
       return Right(TaskCountsResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -486,7 +486,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestReceivedRequests,
       );
 
-      log("=> Response Received Requests  : ${response.data}");
+      log("=> Response Received Requests  : ");
 
       return Right(ReceivedRequestsResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -505,7 +505,7 @@ class TaskService implements TaskRepo {
       final response = await apiService.patch(ApiEndPoints.taskTestEditTask,
           data: completedTaskModel.toJson());
 
-      log("=> Response Complete Task  : ${response.data}");
+      log("=> Response Complete Task  :");
 
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -609,7 +609,7 @@ class TaskService implements TaskRepo {
         data: completedSubTask.toJson(),
       );
 
-      log("=> Response Completed Subtask : ${response.data}");
+      log("=> Response Completed Subtask :");
 
       return Right(CompletedSubTaskSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -631,7 +631,7 @@ class TaskService implements TaskRepo {
         data: taskId.toJson(),
       );
 
-      log("=> Response Task Expense  : ${response.data}");
+      log("=> Response Task Expense  : ");
 
       return Right(response.data as Map<String, dynamic>);
     } on DioException catch (e) {
@@ -652,7 +652,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestGetTaskTotalTime,
         data: taskId.toJson(),
       );
-      log("=> Response Task total time  : ${response.data}");
+      log("=> Response Task total time  :");
 
       return Right(response.data as Map<String, dynamic>);
     } on DioException catch (e) {
@@ -673,7 +673,7 @@ class TaskService implements TaskRepo {
         data: restoreTask.toJson(),
       );
 
-      log("=> Response restore A Task : ${response.data}");
+      log("=> Response restore A Task :");
 
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {

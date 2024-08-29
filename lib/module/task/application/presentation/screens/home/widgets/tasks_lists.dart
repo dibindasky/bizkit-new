@@ -131,8 +131,11 @@ class TasksListsWidget extends StatelessWidget {
                         } else if (homeController.toMeTasks.isEmpty ||
                             homeController.toOthersTasks.isEmpty ||
                             homeController.selfieTasks.isEmpty) {
-                          return const Center(
-                            child: Text('No recent tasks '),
+                          return Center(
+                            child: Text(
+                              'No recent tasks ',
+                              style: textThinStyle1.copyWith(fontSize: 12.sp),
+                            ),
                           );
                         } else {
                           return ListView.builder(
@@ -218,8 +221,13 @@ class TasksListsWidget extends StatelessWidget {
                                                 : homeController
                                                     .selfieTasks[inx].taskId),
                                   );
-                                  GoRouter.of(context)
-                                      .pushNamed(Routes.taskDeail);
+                                  GoRouter.of(context).pushNamed(
+                                    Routes.taskDeail,
+                                    pathParameters: {
+                                      "taskId":
+                                          '${index == 0 ? homeController.toMeTasks[inx].taskId : index == 1 ? homeController.toOthersTasks[inx].taskId : homeController.selfieTasks[inx].taskId}'
+                                    },
+                                  );
                                 },
                                 child: RecentTaskContainer(
                                   taskTitle:

@@ -101,16 +101,29 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                 child: Obx(
                   () {
                     if (taskController.isLoading.value) {
-                      return SizedBox(
-                        child: ShimmerLoader(
-                          seprator: kHeight10,
-                          itemCount: isTotalTimeOrExpense == true
-                              ? taskController.taskTotalTime.length
-                              : taskController.taskExpense.length,
-                          height: 40.h,
-                          width: double.infinity,
-                        ),
-                      );
+                      if (isTotalTimeOrExpense == true
+                          ? taskController.taskTotalTime.isEmpty
+                          : taskController.taskExpense.isEmpty) {
+                        return SizedBox(
+                          child: ShimmerLoader(
+                            seprator: kHeight10,
+                            itemCount: 5,
+                            height: 40.h,
+                            width: double.infinity,
+                          ),
+                        );
+                      } else {
+                        return SizedBox(
+                          child: ShimmerLoader(
+                            seprator: kHeight10,
+                            itemCount: isTotalTimeOrExpense == true
+                                ? taskController.taskTotalTime.length
+                                : taskController.taskExpense.length,
+                            height: 40.h,
+                            width: double.infinity,
+                          ),
+                        );
+                      }
                     } else if (isTotalTimeOrExpense == true
                         ? taskController.taskTotalTime.isEmpty
                         : taskController.taskExpense.isEmpty) {

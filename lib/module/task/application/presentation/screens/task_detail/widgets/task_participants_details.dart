@@ -78,7 +78,8 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                                   .createdUserDetails?.id
                                           ? 'Created By'
                                           : 'Assigned By',
-                                      style: textThinStyle1,
+                                      style: textHeadStyle1.copyWith(
+                                          fontSize: 13.sp),
                                     ),
                               taskController.isLoading.value
                                   ? Padding(
@@ -93,7 +94,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                       taskController.singleTask.value
                                               .createdUserDetails?.name ??
                                           'creater name',
-                                      style: textHeadStyle1,
+                                      style: textThinStyle1,
                                     ),
                             ],
                           ),
@@ -126,7 +127,8 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                     )
                                   : Text(
                                       'Assigned By',
-                                      style: textThinStyle1,
+                                      style: textHeadStyle1.copyWith(
+                                          fontSize: 13.sp),
                                     ),
                               taskController.isLoading.value
                                   ? Padding(
@@ -141,7 +143,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                       taskController.singleTask.value
                                               .createdUserDetails?.name ??
                                           'Unknown',
-                                      style: textHeadStyle1,
+                                      style: textThinStyle1,
                                     ),
                             ],
                           ),
@@ -163,12 +165,20 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                   children: [
                     Text(
                       'Deadline',
-                      style: textThinStyle1,
+                      style: textHeadStyle1.copyWith(fontSize: 13.sp),
                     ),
-                    Text(
-                      formatDeadline(task.deadLine),
-                      style: textHeadStyle1,
-                    ),
+                    taskController.isLoading.value
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: ShimmerLoaderTile(
+                              height: 9.h,
+                              width: 50.w,
+                            ),
+                          )
+                        : Text(
+                            formatDeadline(task.deadLine),
+                            style: textThinStyle1,
+                          ),
                   ],
                 ),
               ],
@@ -193,7 +203,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                   children: [
                     Text(
                       'Participants',
-                      style: textThinStyle1,
+                      style: textHeadStyle1.copyWith(fontSize: 13.sp),
                     ),
                     Obx(
                       () => taskController.isLoading.value
@@ -206,7 +216,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                             )
                           : Text(
                               participants ?? 'Participants',
-                              style: textStyle1,
+                              style: textThinStyle1,
                               overflow: TextOverflow.ellipsis,
                             ),
                     ),

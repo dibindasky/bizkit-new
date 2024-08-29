@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
@@ -8,6 +10,7 @@ import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card
 import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_details_responce/visiting_card_details_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_edit_model/visiting_card_edit_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/visiting_card_repo.dart';
+import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +28,7 @@ class VisitingCardController extends GetxController {
   RxList<VisitingCard> deletedVisitingCards = <VisitingCard>[].obs;
 
   RxList<String> selfie = <String>[].obs;
+  RxList<String> selfiesListForEdit = <String>[].obs;
 
   // Holds a visiting card details response
   var visitingCardDetails = VisitingCardDetailsResponce().obs;
@@ -48,6 +52,10 @@ class VisitingCardController extends GetxController {
 
   RxString visitingCardId = ''.obs;
 
+  RxString location = ''.obs;
+
+  final LocationService locationService = LocationService();
+
   void clearAllTextEditingControllers() async {
     nameController.clear();
     emailController.clear();
@@ -59,6 +67,20 @@ class VisitingCardController extends GetxController {
     designationController.clear();
     locationController.clear();
     phoneController.clear();
+  }
+
+  getLocation() async {
+    final result = await locationService.getLoation();
+
+    result.fold(
+      (failure) {
+        log('Failed to get location: ${failure.message}');
+      },
+      (address) {
+        location.value = address;
+        locationController.text = location.value;
+      },
+    );
   }
 
   // Create new visiting card
@@ -202,6 +224,7 @@ class VisitingCardController extends GetxController {
         visitingCardDetails.value = r;
         selfie.assignAll(visitingCardDetails.value.selfie ?? []);
         selfie.add(visitingCardDetails.value.cardImage ?? '');
+        selfiesListForEdit.assignAll(visitingCardDetails.value.selfie ?? []);
         isLoading.value = false;
       },
     );

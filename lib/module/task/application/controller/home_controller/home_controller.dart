@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bizkit/module/task/data/service/home/home_service.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/genearate_report_model/genearate_report_model.dart';
-import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/recent_tasks/recent_tasks.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_report_model/get_report_model.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_report_success_responce/task.dart';
@@ -38,6 +37,10 @@ class TaskHomeScreenController extends GetxController {
   RxString selectedReportType = ''.obs;
   RxList<String> selectedTaskIds = <String>[].obs;
 
+  RxBool progresBarOrRecentTask = true.obs;
+
+  late AnimationController animationController;
+
   // Function to add or remove fields from the selectedFields list
   void addField(String value) {
     if (selectedFields.contains(value)) {
@@ -50,6 +53,14 @@ class TaskHomeScreenController extends GetxController {
   // Function to set the selected report type
   void setReportType(String type) {
     selectedReportType.value = type;
+  }
+
+  // method for change the [progresBarOrRecentTask] value for home page ui change
+  void changeToProgresBar() async {
+    progresBarOrRecentTask.value = !progresBarOrRecentTask.value;
+    if (!progresBarOrRecentTask.value) {
+      progresBar();
+    }
   }
 
   void changeSelectedTaskCategory(String selectedTaskCategory) {

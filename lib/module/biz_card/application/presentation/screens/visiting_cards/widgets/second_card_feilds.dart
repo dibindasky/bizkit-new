@@ -6,6 +6,7 @@ import 'package:bizkit/module/biz_card/application/controller/text_extraction/te
 import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/create_card/view/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/visiting_screen.dart';
+import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -74,16 +75,16 @@ class CardSecondScannedDatas extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SlidablePhotoGallery(
-                                    images: [],
-                                    initialIndex: 2,
-                                  ),
-                                ),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         const SlidablePhotoGallery(
+                              //       images: [],
+                              //       initialIndex: 2,
+                              //     ),
+                              //   ),
+                              // );
                             },
                             child: SizedBox(
                               height: 250,
@@ -175,6 +176,8 @@ class CardSecondScannedDatas extends StatelessWidget {
                         onTap: () {
                           if (autoFillDataKey.currentState!.validate()) {
                             FocusScope.of(context).unfocus();
+
+                            visitingCardController.getLocation();
                             Navigator.of(context).push(
                               cardFadePageRoute(const SelfieTextFields()),
                             );
@@ -256,7 +259,9 @@ class CardSecondScannedDatas extends StatelessWidget {
 }
 
 class SelfieTextFields extends StatefulWidget {
-  const SelfieTextFields({super.key});
+  const SelfieTextFields({
+    super.key,
+  });
 
   @override
   State<SelfieTextFields> createState() => _SelfieTextFieldsState();

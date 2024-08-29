@@ -23,7 +23,7 @@ class HomeService implements HomeRepo {
       final response = await apiService.get(
         ApiEndPoints.taskTestProgresBar,
       );
-      log("=> Response home screen progres bar : ${response.data}");
+      log("=> Response home screen progres bar : ");
       return Right(ProgresBarSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException progresBar $e');
@@ -38,12 +38,12 @@ class HomeService implements HomeRepo {
   Future<Either<Failure, GenearateTaskReportSuccessResponce>> generateReport(
       {required GenearateReportModel generateReportModel}) async {
     try {
-      log('Generate report toJson ===> ${generateReportModel.toJson()}');
+      // log('Generate report toJson ===> ${generateReportModel.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestGenerateTaskReport,
         data: generateReportModel.toJson(),
       );
-      log("=> Response generate report  :${response.data} ");
+      log("=> Response generate report  : ");
       return Right(GenearateTaskReportSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException generateReport $e');
@@ -62,7 +62,7 @@ class HomeService implements HomeRepo {
         ApiEndPoints.taskTestProvideTaskReport,
         data: getReportModel.toJson(),
       );
-      log("=> Response get report : ${response.data}");
+      log("=> Response get report : ");
       return Right(GetReportSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException getReport $e');

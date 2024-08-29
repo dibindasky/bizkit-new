@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_creation.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_detail_view.dart';
@@ -25,7 +27,7 @@ class TaskDetailSubtasksSection extends StatelessWidget {
           children: [
             Text(
               'Subtasks',
-              style: textHeadStyle1,
+              style: textHeadStyle1.copyWith(fontSize: 13.sp),
             ),
             const Spacer(),
             controller.singleTask.value.isOwned == true
@@ -46,9 +48,16 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                           color: neonShade, borderRadius: kBorderRadius5),
                       child: Row(
                         children: [
-                          const Icon(Icons.add, color: kwhite),
+                          const Icon(
+                            Icons.add,
+                            color: kwhite,
+                            size: 15,
+                          ),
                           adjustWidth(5.w),
-                          const Text('Add Sub Task')
+                          Text(
+                            'Add Sub Task',
+                            style: textThinStyle1.copyWith(fontSize: 13.sp),
+                          )
                         ],
                       ),
                     ),
@@ -64,7 +73,7 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 6),
                 child: ShimmerLoader(
                   height: 30.h,
-                  itemCount: controller.singleTask.value.subTask?.length ?? 5,
+                  itemCount: controller.singleTask.value.subTask?.length ?? 2,
                   width: 80.w,
                   seprator: const SizedBox(
                     height: 10,
@@ -78,7 +87,8 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                     adjustHieght(20.h),
                     Text(
                       'No Subtasks available',
-                      style: textThinStyle1,
+                      style: textThinStyle1.copyWith(
+                          color: klightgrey, fontSize: 12.sp),
                     ),
                   ],
                 ),
@@ -94,13 +104,14 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                     return GestureDetector(
                       onTap: () {},
                       child: SubTaskTileDetailPage(
-                        taskId: controller.singleTask.value.id,
-                        subTaskTitle: subTask?.title ?? '',
-                        subTaskDes: subTask?.description ?? '',
-                        subTaskId: subTask?.id ?? '',
-                        isCompleted: subTask?.isCompleted ?? false,
-                        duration: subTask?.duration ?? '',
-                      ),
+                          taskId: controller.singleTask.value.id,
+                          subTaskTitle: subTask?.title ?? '',
+                          subTaskDes: subTask?.description ?? '',
+                          subTaskId: subTask?.id ?? '',
+                          isCompleted: subTask?.isCompleted ?? false,
+                          duration: subTask?.duration ?? '',
+                          isOwned:
+                              controller.singleTask.value.isOwned ?? false),
                     );
                   },
                 ),
@@ -114,15 +125,15 @@ class TaskDetailSubtasksSection extends StatelessWidget {
 }
 
 class SubTaskTileDetailPage extends StatelessWidget {
-  const SubTaskTileDetailPage({
-    super.key,
-    this.subTaskTitle,
-    this.subTaskDes,
-    this.subTaskId,
-    this.taskId,
-    this.isCompleted,
-    this.duration,
-  });
+  const SubTaskTileDetailPage(
+      {super.key,
+      this.subTaskTitle,
+      this.subTaskDes,
+      this.subTaskId,
+      this.taskId,
+      this.isCompleted,
+      this.duration,
+      this.isOwned});
 
   final String? subTaskTitle;
   final String? subTaskDes;
@@ -130,9 +141,11 @@ class SubTaskTileDetailPage extends StatelessWidget {
   final String? taskId;
   final bool? isCompleted;
   final String? duration;
+  final bool? isOwned;
 
   @override
   Widget build(BuildContext context) {
+    log('isOwned  = $isOwned');
     String formatDateTimeWithTimeZone(DateTime dateTime) {
       final DateFormat formatter = DateFormat("yyyy-MM-ddTHH:mm:ss.SSS");
       final String formattedDate = formatter.format(dateTime);
@@ -168,10 +181,11 @@ class SubTaskTileDetailPage extends StatelessWidget {
                   Row(
                     children: [
                       // Image.asset('asset/images/icon/Vector.png', scale: 2),
-                      adjustWidth(10.w),
+                      adjustWidth(4.w),
                       Text(
                         subTaskTitle ?? 'Subtask Title',
-                        style: textHeadStyle1.copyWith(color: neonShade),
+                        style: textHeadStyle1.copyWith(
+                            fontSize: 13.sp, color: neonShade),
                       ),
                     ],
                   ),
@@ -185,7 +199,7 @@ class SubTaskTileDetailPage extends StatelessWidget {
               ),
             ),
             adjustWidth(20.w),
-            isCompleted == true
+            isCompleted == true || isOwned == false
                 ? kempty
                 : PopupMenuButton(
                     color: kwhite,

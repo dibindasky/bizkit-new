@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,8 +22,16 @@ class SubTaskDetailView extends StatelessWidget {
     String? formattedDuration = _formatDuration(duration);
 
     return Dialog(
+      backgroundColor: kblack,
+      shape: RoundedRectangleBorder(
+        borderRadius: kBorderRadius10,
+      ),
       child: Container(
-        padding: EdgeInsets.all(20.w),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        decoration: BoxDecoration(
+          border: Border.all(color: neonShade),
+          borderRadius: kBorderRadius10,
+        ),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,17 +52,17 @@ class SubTaskDetailView extends StatelessWidget {
               ),
             ],
           ),
-          const Divider(color: kblack, indent: 0),
+          Divider(color: lightGrey, indent: 0),
           adjustHieght(10.h),
           Text(
             subTaskDes ?? 'Subtask des',
-            style: TextStyle(fontSize: 14.sp, color: klightgrey),
+            style: TextStyle(fontSize: 14.sp, color: kwhite),
           ),
           adjustHieght(10.h),
           if (formattedDuration != null)
             Text(
               'Total Time Taken: $formattedDuration',
-              style: TextStyle(fontSize: 14.sp, color: klightgrey),
+              style: TextStyle(fontSize: 14.sp, color: kwhite),
             ),
           adjustHieght(10.h),
         ]),

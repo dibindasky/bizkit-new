@@ -4,7 +4,6 @@ import 'package:bizkit/module/biz_card/application/controller/text_extraction/te
 import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/qr_scanner_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -58,7 +57,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
         setState(() {
           isShowcaseSeen = showed;
         });
-        if (!isShowcaseSeen) {
+        if (isShowcaseSeen) {
           ShowCaseWidget.of(context).startShowCase([
             globalKeyQRLists,
             globalKeyQRScan,

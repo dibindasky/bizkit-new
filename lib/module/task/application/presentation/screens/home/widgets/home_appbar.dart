@@ -30,11 +30,11 @@ class _TaskHomeAppBarState extends State<TaskHomeAppBar> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Obx(
-          () => Text(
-            "Welcome ${authController.userName.value}",
-            style: TextStyle(
-              fontSize: 17.sp,
-              // fontWeight: FontWeight.bold,
+          () => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              "Welcome ${authController.userName.value}",
+              style: textHeadStyle1.copyWith(fontSize: 15),
             ),
           ),
         ),

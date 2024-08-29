@@ -559,8 +559,6 @@ class CreateTaskController extends GetxController {
             .folderSpotLightOnOrOff(spotLightTask: spotLightTask);
         Get.find<TaskFolderController>()
             .innerFolderSpotLightOnOrOff(spotLightTask: spotLightTask);
-
-        log('SpotLightTask :=> $deadlineTasks');
       },
     );
   }
@@ -769,7 +767,7 @@ class CreateTaskController extends GetxController {
   // Fetches a single task using the provided model
   void fetchSingleTask({required GetSingleTaskModel singleTaskModel}) async {
     isLoading.value = true;
-    singleTask.value = GetTaskResponce();
+    // singleTask.value = GetTaskResponce();
     final result = await taskService.getTask(singleTaskModel: singleTaskModel);
     result.fold(
       (failure) {
@@ -778,8 +776,6 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         singleTask.value = success;
-        // log('Single Task  After responce => $singleTask');
-
         isLoading.value = false;
       },
     );
@@ -797,7 +793,6 @@ class CreateTaskController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
-        log('Search tasks ${success.tasks?.first.toJson()}');
         if (success.tasks != null) {
           tasksSearch.clear();
           tasksSearch.addAll(success.tasks ?? []);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:get/get.dart';
 
-import '../../../../../core/routes/routes.dart';
+// import '../../../../../core/routes/routes.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../task/application/presentation/widgets/circle_avatar.dart';
 
@@ -17,15 +17,12 @@ class AttendenceAppBar extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
-            fontSize: 17.sp,
-            fontWeight: FontWeight.bold,
-          ),
+          style: textHeadStyle1,
         ),
         CustomCircleAvatar(
           backgroundColor: lightGrey,
           onTap: () {
-            Get.toNamed(Routes.attendencNotification, id: 1);
+            // Get.toNamed(Routes.attendencNotification, id: 22);
           },
           backgroundColorInner: kneonShade,
         ),

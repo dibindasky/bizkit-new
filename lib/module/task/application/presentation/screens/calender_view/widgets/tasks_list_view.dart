@@ -39,7 +39,7 @@ class TaskListView extends StatelessWidget {
             // itemCount: tasks.length,
             itemBuilder: (context, index) {
               // final task = tasks[index];
-              final deadlineTask = taskController.deadlineTasks[index];
+              // final deadlineTask = taskController.deadlineTasks[index];
               // final typeTask = taskController.typeTasks[index];
 
               return GestureDetector(
@@ -50,24 +50,30 @@ class TaskListView extends StatelessWidget {
                   if (controller.selectedFolderContainer.value) {
                     controller.longPress(index);
                   } else {
-                    log('id : ${deadlineTask.id}');
+                    // log('id : ${deadlineTask.id}');
                     taskController.fetchSingleTask(
-                      singleTaskModel:
-                          GetSingleTaskModel(taskId: deadlineTask.id),
+                      singleTaskModel: GetSingleTaskModel(
+                          taskId: taskController.deadlineTasks[index].id),
                     );
-                    if (deadlineTask.isOwned == false) {
+                    if (taskController.deadlineTasks[index].isOwned == false) {
                       taskController.spotLightTask(
                           spotLightTask: SpotLightTask(
-                              spotLightStatus: false, taskId: deadlineTask.id));
+                              spotLightStatus: false,
+                              taskId: taskController.deadlineTasks[index].id));
                     }
-                    GoRouter.of(context).pushNamed(Routes.taskDeail);
+                    GoRouter.of(context).pushNamed(
+                      Routes.taskDeail,
+                      pathParameters: {
+                        "taskId": '${taskController.deadlineTasks[index].id}'
+                      },
+                    );
                   }
                 },
                 child: TaskContainer(
                   fromFolders: false,
                   tasksFromFoldrs: false,
                   tasksFromInnerFolder: false,
-                  typeTask: deadlineTask,
+                  typeTask: taskController.deadlineTasks[index],
                   index: index,
                 ),
               );

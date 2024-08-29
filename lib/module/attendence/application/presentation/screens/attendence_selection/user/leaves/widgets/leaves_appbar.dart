@@ -16,7 +16,7 @@ class AttendenceLeavesAppbar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                Get.toNamed(Routes.attendenceSelection, id: 2);
+                Get.toNamed(Routes.attendenceSelectionManagementSide, id: 22);
               },
               icon: const Icon(Icons.arrow_back_ios),
             ),
@@ -30,7 +30,7 @@ class AttendenceLeavesAppbar extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           child: GestureDetector(
             onTap: () {
-              Get.offNamed(Routes.attendenceAddNewLeave, id: 2);
+              Get.offNamed(Routes.attendenceAddNewLeave, id: 22);
             },
             child: const CircleAvatar(
               radius: 25,

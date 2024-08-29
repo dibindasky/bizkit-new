@@ -42,7 +42,7 @@ class FolderService implements FolderRepo {
         ApiEndPoints.taskTestFolders,
         data: folder.toJson(),
       );
-      log("=> Response Create New Folder : ${response.data}");
+      log("=> Response Create New Folder : ");
       return Right(FolderSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException createNewFolder $e');
@@ -60,7 +60,7 @@ class FolderService implements FolderRepo {
       final response = await apiService.get(
         ApiEndPoints.taskTestFolders,
       );
-      log("=> Response Get All Folders : ${response.data}");
+      log("=> Response Get All Folders : ");
       return Right(AllFoldersResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException getAllFolder $e');
@@ -78,7 +78,7 @@ class FolderService implements FolderRepo {
       final response = await apiService.patch(ApiEndPoints.taskTestFolders,
           data: editFolderName.toJson());
 
-      log("=> Response Edit the folder name : ${response.data}");
+      log("=> Response Edit the folder name :");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException editFolderName $e');
@@ -97,7 +97,7 @@ class FolderService implements FolderRepo {
       final response = await apiService.delete(ApiEndPoints.taskTestFolders,
           data: deleteFolder.toJson());
 
-      log("=> Response Delete a folder : ${response.data}");
+      log("=> Response Delete a folder : ");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException deleteFolder $e');
@@ -113,7 +113,7 @@ class FolderService implements FolderRepo {
   Future<Either<Failure, SuccessResponce>> tasksAddToFolder(
       {required TaskAddToFolderModel taskAddToFolder}) async {
     try {
-      log('Tasks Add to folder => ${taskAddToFolder.toJson()}');
+      // log('Tasks Add to folder => ${taskAddToFolder.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestFolders,
         data: taskAddToFolder.toJson(),
@@ -154,7 +154,7 @@ class FolderService implements FolderRepo {
   Future<Either<Failure, SuccessResponce>> createNewFolderInsideFolder(
       {required CreateFolderInsideAFolder createNewFolderInsideFolder}) async {
     try {
-      log('Create Inner folder : =>> ${createNewFolderInsideFolder.toJson()}');
+      // log('Create Inner folder : =>> ${createNewFolderInsideFolder.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestFolders,
         data: createNewFolderInsideFolder.toJson(),
@@ -176,7 +176,7 @@ class FolderService implements FolderRepo {
       getTasksInsideFolder(
           {required GetTaskInsideAFolderParamsModel taskInsideFolder}) async {
     try {
-      log('taskInsideFolder => ${taskInsideFolder.toJson()}');
+      // log('taskInsideFolder => ${taskInsideFolder.toJson()}');
       final response = await apiService.get(
         ApiEndPoints.taskTestFolders,
         queryParameters: taskInsideFolder.toJson(),
@@ -202,7 +202,7 @@ class FolderService implements FolderRepo {
         data: deleteInnerFolder.toJson(),
       );
 
-      log("=> Response Delete a inner folder : ${response.data}");
+      log("=> Response Delete a inner folder : ");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException deleteInnerFolder $e');
@@ -220,7 +220,7 @@ class FolderService implements FolderRepo {
       final response = await apiService.patch(ApiEndPoints.taskTestFolders,
           data: editInnerFolder.toJson());
 
-      log("=> Response Edit the innerFolder name : ${response.data}");
+      log("=> Response Edit the innerFolder name :");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException editInnerFolder $e');
@@ -238,7 +238,7 @@ class FolderService implements FolderRepo {
       final response = await apiService.patch(ApiEndPoints.taskTestFolders,
           data: taskAddOrDelete.toJson());
 
-      log("=> Response Task Add OR Delete - inner folder : ${response.data}");
+      log("=> Response Task Add OR Delete - inner folder : ");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException taskAddOrDeleteInnerFolder $e');
@@ -255,7 +255,7 @@ class FolderService implements FolderRepo {
           {required InnerFolderTasksGetParamsModel
               innerFolderGetParams}) async {
     try {
-      log('taskInsideFolder => ${innerFolderGetParams.toJson()}');
+      // log('taskInsideFolder => ${innerFolderGetParams.toJson()}');
       final response = await apiService.get(
         ApiEndPoints.taskTestFolders,
         queryParameters: innerFolderGetParams.toJson(),
@@ -275,7 +275,7 @@ class FolderService implements FolderRepo {
   Future<Either<Failure, FilterInnerFolderSuccessResponce>>
       filterInnerFolderByDealine(
           {required FilterInnerFolderModel filterInnerFolder}) async {
-    log('Filter inner folder by dealine json => ${filterInnerFolder.toJson()}');
+    // log('Filter inner folder by dealine json => ${filterInnerFolder.toJson()}');
     try {
       final response = await apiService.post(
         ApiEndPoints.taskTestFilterFolders,
@@ -296,13 +296,13 @@ class FolderService implements FolderRepo {
   Future<Either<Failure, FilterFoldersByDeadlinSuccessResponce>>
       filterFolderByDeadline(
           {required FilterFolderByDeadlineModel filterFolder}) async {
-    log('Filter folders by dealine json => ${filterFolder.toJson()}');
+    // log('Filter folders by dealine json => ${filterFolder.toJson()}');
     try {
       final response = await apiService.post(
         ApiEndPoints.taskTestFilterFolders,
         data: filterFolder.toJson(),
       );
-      log("=> Response Filter folders by deadline: ${response.data}");
+      log("=> Response Filter folders by deadline: ");
       return Right(
           FilterFoldersByDeadlinSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -318,12 +318,12 @@ class FolderService implements FolderRepo {
   Future<Either<Failure, SuccessResponce>> mergeInnerFolders(
       {required MergeInnerFolderModel mergeInnerFolders}) async {
     try {
-      log('Merge Inner Folders ToJson ======> ${mergeInnerFolders.toJson()}');
+      // log('Merge Inner Folders ToJson ======> ${mergeInnerFolders.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestMergeInnerFolders,
         data: mergeInnerFolders.toJson(),
       );
-      log("=> Response Merge inner folders : ${response.data}");
+      log("=> Response Merge inner folders : ");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException mergeInnerFolders $e');

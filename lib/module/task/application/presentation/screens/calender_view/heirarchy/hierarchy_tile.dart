@@ -587,8 +587,16 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                                     index]
                                                                 .taskId ??
                                                             ''));
-                                            GoRouter.of(context)
-                                                .pushNamed(Routes.taskDeail);
+                                            GoRouter.of(context).pushNamed(
+                                              Routes.taskDeail,
+                                              pathParameters: {
+                                                "taskId": controller
+                                                        .tasksInsideFolder[
+                                                            index]
+                                                        .taskId ??
+                                                    ''
+                                              },
+                                            );
                                           },
                                           child: TaskContainer(
                                             tasksFromFoldrs: true,

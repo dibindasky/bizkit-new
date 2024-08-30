@@ -6,6 +6,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achi
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/time.dart';
 import 'package:flutter/material.dart';
 
 class ScreenAchivementDetail extends StatefulWidget {
@@ -36,7 +37,7 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
     _pageController = PageController(initialPage: _currentPageIndex);
 
     bool forward = true;
-    Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       if (_currentPageIndex == updateImageCard.length - 1 ||
           _currentPageIndex == 0) {
         forward = !forward;
@@ -48,7 +49,7 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
       }
       _pageController.animateToPage(
         _currentPageIndex,
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
       );
     });
@@ -78,7 +79,7 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
                 height: khieght * .3,
                 child: PageView.builder(
                   controller: _pageController,
-                  itemCount: 2,
+                  itemCount: updateImageCard.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return Stack(
@@ -94,19 +95,36 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
                           ),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.of(context).push(cardFadePageRoute(
-                                  SlidablePhotoGallery(
-                                      initialIndex: index, images: const [])));
+                              Navigator.of(context)
+                                  .push(cardFadePageRoute(SlidablePhotoGallery(
+                                initialIndex: index,
+                                images: updateImageCard
+                                    .map((e) => e.image ?? '')
+                                    .toList(),
+                              )));
                             },
                             child: SizedBox(
                               child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.memory(
-                                    base64.decode(
-                                        imageTestingBase64.substring(22)),
-                                    filterQuality: FilterQuality.high,
-                                    fit: BoxFit.cover,
-                                  )),
+                                borderRadius: BorderRadius.circular(10),
+                                child: updateImageCard.isNotEmpty
+                                    ? Image.memory(
+                                        base64.decode(
+                                          updateImageCard[index]
+                                                  .image!
+                                                  .startsWith('data')
+                                              ? updateImageCard[index]
+                                                  .image!
+                                                  .substring(22)
+                                              : updateImageCard[index].image!,
+                                        ),
+                                        filterQuality: FilterQuality.high,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset(
+                                        emptyNodata3,
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
                             ),
                           ),
                         ),
@@ -115,17 +133,16 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
                   },
                 ),
               ),
-              adjustHieght(30),
-              Text(dateController.text),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Text(
-                  tittleController.text,
-                  style: const TextStyle(fontSize: 20),
-                ),
+              kHeight20,
+              Text(getDateByDayMonthYear(dateController.text)),
+              kHeight10,
+              Text(
+                tittleController.text,
+                style: const TextStyle(fontSize: 20),
               ),
+              kHeight10,
               Text(descriptionController.text),
-              adjustHieght(30),
+              kHeight20,
             ],
           ),
         ),

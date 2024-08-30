@@ -235,7 +235,7 @@ class _CardAddPrductsScreenState extends State<CardAddPrductsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Add Enquire Button'),
+                        const Text('Add Enquiry Button'),
                         Obx(
                           () => Switch(
                             value: businessController.productEnquiry.value,

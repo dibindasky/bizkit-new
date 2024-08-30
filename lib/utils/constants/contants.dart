@@ -87,7 +87,13 @@ const onBoardScreenThird =
 
 const errorMessage = 'Something went wrong please try again';
 const empty = 'empty';
-const achivementEvents = ['Award', 'Certificate', 'Accolade', 'Accreditation'];
+const achivementEvents = [
+  'Award',
+  'Certificate',
+  'Accolade',
+  'Others',
+  'Accreditation'
+];
 const bloodGroups = [
   'O+',
   'A+',

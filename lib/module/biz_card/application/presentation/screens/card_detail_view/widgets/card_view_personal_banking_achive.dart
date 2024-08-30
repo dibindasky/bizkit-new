@@ -19,9 +19,8 @@ class CardViewBankPersonAchivedRows extends StatelessWidget {
             padding: const EdgeInsets.only(left: 5, right: 7),
             child: InkWell(
               onTap: () => Navigator.of(context).push(
-                cardFadePageRoute(const ScreenPreviewBankOrPersnalCArdView(
-                  isFromBankScreen: true,
-                )),
+                cardFadePageRoute(const CardScreenPreviewBankOrPersonal(
+                    isFromBankScreen: true)),
               ),
               child: containerStyle(iconBankingHouse, 'Banking'),
             ),
@@ -33,9 +32,7 @@ class CardViewBankPersonAchivedRows extends StatelessWidget {
             padding: const EdgeInsets.only(left: 5, right: 7),
             child: InkWell(
               onTap: () => Navigator.of(context).push(cardFadePageRoute(
-                const ScreenPreviewBankOrPersnalCArdView(
-                  isFromBankScreen: false,
-                ),
+                const CardScreenPreviewBankOrPersonal(isFromBankScreen: false),
               )),
               child: containerStyle(iconPersonOutline, 'Personal'),
             ),

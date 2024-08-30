@@ -46,27 +46,27 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
 
   late AnimationController _controller;
 
-  bool isShowcaseSeen = false;
-  final homeScreenShowCase = 'isShowCaseShareCard';
+  // bool isShowcaseSeen = false;
+  // final homeScreenShowCase = 'isShowCaseShareCard';
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      SharedPreferences.getInstance().then((prefs) async {
-        const showed = false;
-        setState(() {
-          isShowcaseSeen = showed;
-        });
-        if (isShowcaseSeen) {
-          ShowCaseWidget.of(context).startShowCase([
-            globalKeyQRLists,
-            globalKeyQRScan,
-            globalKeyNFCScan,
-            globalKeyCreateVsitingCard
-          ]);
-        }
-      });
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   SharedPreferences.getInstance().then((prefs) async {
+    //     const showed = false;
+    //     setState(() {
+    //       isShowcaseSeen = showed;
+    //     });
+    //     if (isShowcaseSeen) {
+    //       ShowCaseWidget.of(context).startShowCase([
+    //         globalKeyQRLists,
+    //         globalKeyQRScan,
+    //         globalKeyNFCScan,
+    //         globalKeyCreateVsitingCard
+    //       ]);
+    //     }
+    //   });
+    // });
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));
     _controller.forward();
@@ -104,18 +104,26 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                       MaterialPageRoute(
                           builder: (context) => const ScreenCardSharing()),
                     ),
-                    child: CustomShowCaseView(
-                      description: '',
-                      tittle: 'Created cards QR Lists',
-                      globalKey: globalKeyQRLists,
-                      image: '',
-                      child: CircleAvatar(
-                        radius: kwidth * 0.080,
-                        backgroundColor: textFieldFillColr,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Image.asset('asset/images/bizkitIcon.png'),
-                        ),
+                    // child: CustomShowCaseView(
+                    //   description: '',
+                    //   tittle: 'Created cards QR Lists',
+                    //   globalKey: globalKeyQRLists,
+                    //   image: '',
+                    //   child: CircleAvatar(
+                    //     radius: kwidth * 0.080,
+                    //     backgroundColor: textFieldFillColr,
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.all(10.0),
+                    //       child: Image.asset('asset/images/bizkitIcon.png'),
+                    //     ),
+                    //   ),
+                    // ),
+                    child: CircleAvatar(
+                      radius: kwidth * 0.080,
+                      backgroundColor: textFieldFillColr,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Image.asset('asset/images/bizkitIcon.png'),
                       ),
                     ),
                   ),
@@ -163,12 +171,13 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                   : indexofButton == 1
                       ? Column(
                           children: [
-                            CustomShowCaseView(
-                                image: personImage,
-                                globalKey: globalKeyCreateVsitingCard,
-                                tittle: 'See notification',
-                                description: '',
-                                child: const Text('Create visiting card')),
+                            // CustomShowCaseView(
+                            //     image: personImage,
+                            //     globalKey: globalKeyCreateVsitingCard,
+                            //     tittle: 'See notification',
+                            //     description: '',
+                            //     child: const Text('Create visiting card')),
+                            const Text('Create visiting card'),
                             ContainerPickImage(
                               onPressedCam: () {
                                 textExtractionController.pickedImageUrl.clear();

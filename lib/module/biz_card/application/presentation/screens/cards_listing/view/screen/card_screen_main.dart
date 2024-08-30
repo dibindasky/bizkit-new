@@ -149,9 +149,9 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                       builder: (controller) {
                         if (controller.isLoading.value) {
                           return SizedBox(
-                            height: 310.h,
+                            height: 200.h,
                             child: ShimmerLoader(
-                              height: 310.h,
+                              height: 200.h,
                               seprator: kWidth10,
                               scrollDirection: Axis.horizontal,
                               itemCount: cardController.bizcards.isEmpty
@@ -349,7 +349,8 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                             : kempty,
                                       ],
                                     ),
-                                    const Divider(color: neonShade),
+                                    // const Divider(color: neonShade),
+                                    kHeight10,
                                     Row(
                                       children: [
                                         Text(

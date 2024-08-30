@@ -17,7 +17,7 @@ class KilledTasksListView extends StatelessWidget {
     final homeController = Get.find<TaskHomeScreenController>();
     return Obx(
       () {
-        if (taskController.isLoading.value) {
+        if (taskController.filterByTypeLoading.value) {
           return const Center(
             child: CircularProgressIndicator(),
           );

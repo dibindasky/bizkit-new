@@ -20,7 +20,6 @@ import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_
 import 'package:bizkit/utils/animations/custom_shrinking_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -81,7 +80,7 @@ class TaskContainer extends StatelessWidget {
       taskId = tasksInsideInnerFolder?.taskId;
     }
 
-    final color = getSpotLightColor(created, deadline);
+    final color = taskSpotLightColorChanger(created, deadline);
     return AnimatedGrowShrinkContainer(
       animate: spotlightOn ?? false,
       begin: 0.95,
@@ -423,30 +422,30 @@ class TaskContainer extends StatelessWidget {
     );
   }
 
-  Color getSpotLightColor(String? date1, String? date2) {
-    if (date1 == null || date2 == null) {
-      log('Invalid date(s): date1=$date1, date2=$date2', name: 'TaskContainer');
-      return kwhite;
-    }
+  // Color getSpotLightColor(String? date1, String? date2) {
+  //   if (date1 == null || date2 == null) {
+  //     log('Invalid date(s): date1=$date1, date2=$date2', name: 'TaskContainer');
+  //     return kwhite;
+  //   }
 
-    try {
-      final int first =
-          DateTimeFormater.calculateDifferenceInHours(date1, date2);
-      final int second = DateTimeFormater.calculateDifferenceInHours(
-          date1, DateTime.now().toString());
+  //   try {
+  //     final int first =
+  //         DateTimeFormater.calculateDifferenceInHours(date1, date2);
+  //     final int second = DateTimeFormater.calculateDifferenceInHours(
+  //         date1, DateTime.now().toString());
 
-      if (first < second) return kred;
-      final int part = (first / 3).round();
-      if ((part * 2) <= second) {
-        return leaveBorderClr;
-      } else if (part <= second) {
-        return neonShade;
-      } else {
-        return kblue;
-      }
-    } catch (e) {
-      log('Error calculating difference in hours: $e', name: 'TaskContainer');
-      return kwhite;
-    }
-  }
+  //     if (first < second) return kred;
+  //     final int part = (first / 3).round();
+  //     if ((part * 2) <= second) {
+  //       return leaveBorderClr;
+  //     } else if (part <= second) {
+  //       return neonShade;
+  //     } else {
+  //       return kblue;
+  //     }
+  //   } catch (e) {
+  //     log('Error calculating difference in hours: $e', name: 'TaskContainer');
+  //     return kwhite;
+  //   }
+  // }
 }

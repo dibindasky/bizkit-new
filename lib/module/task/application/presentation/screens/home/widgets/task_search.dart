@@ -57,7 +57,7 @@ class TaskSearchScreen extends StatelessWidget {
               Expanded(
                 child: Obx(
                   () {
-                    if (taskController.isLoading.value) {
+                    if (taskController.taskSearchLoading.value) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );

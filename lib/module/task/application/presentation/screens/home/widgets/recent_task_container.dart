@@ -1,5 +1,4 @@
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
-import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/animations/custom_shrinking_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -13,16 +12,18 @@ class RecentTaskContainer extends StatelessWidget {
     required this.taskTitle,
     required this.taskDeadline,
     required this.taskId,
+    this.created,
   });
 
   final String taskTitle;
   final String taskDeadline;
   final String taskId;
+  final String? created;
 
   @override
   Widget build(BuildContext context) {
     final messageCountController = Get.find<MessageCountController>();
-
+    final color = taskSpotLightColorChanger(created, taskDeadline);
     return Padding(
       padding: const EdgeInsets.all(7.0),
       child: Container(
@@ -58,7 +59,7 @@ class RecentTaskContainer extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: textThinStyle1.copyWith(
-                color: neonShade,
+                color: color,
                 fontSize: 14,
               ),
             ),

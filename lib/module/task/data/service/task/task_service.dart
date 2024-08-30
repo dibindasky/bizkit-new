@@ -609,7 +609,7 @@ class TaskService implements TaskRepo {
         data: completedSubTask.toJson(),
       );
 
-      log("=> Response Completed Subtask :");
+      log("=> Response Completed Subtask  : ");
 
       return Right(CompletedSubTaskSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {

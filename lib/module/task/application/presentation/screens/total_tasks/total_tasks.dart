@@ -280,7 +280,8 @@ class PinnedTasks extends StatelessWidget {
     log('${taskController.allPinnedTasks.length}', name: 'Task Controller');
     return Obx(
       () {
-        if (taskController.isLoading.value || taskController.pinLoader.value) {
+        if (taskController.filterByTypeLoading.value ||
+            taskController.pinLoader.value) {
           return const Center(child: CircularProgressIndicator());
         } else if (taskController.allPinnedTasks.isEmpty) {
           return ErrorRefreshIndicator(

@@ -125,11 +125,14 @@ class CreateTaskController extends GetxController {
   // Reactive variable for loading state
   RxBool isLoading = false.obs;
   RxBool loadgingForFilterByType = false.obs;
+  RxBool filterByTypeLoading = false.obs;
   RxBool taskCreationLoading = false.obs;
   RxBool taskEditLoading = false.obs;
   RxBool searchLoading = false.obs;
+  RxBool taskSearchLoading = false.obs;
   RxBool pinLoader = false.obs;
   RxBool isLoadingForSpotLight = false.obs;
+  RxBool taksListLoading = false.obs;
 
   RxList<String> taskTotalTimeKeys = <String>[].obs;
   RxList<String> taskExpenseKeys = <String>[].obs;
@@ -497,19 +500,19 @@ class CreateTaskController extends GetxController {
   // Filters tasks by deadline using the provided model
   void taskFilterByDeadline(
       {required FilterByDeadlineModel filterByDeadline}) async {
-    isLoading.value = true;
+    taksListLoading.value = true;
 
     final result =
         await taskService.filterByDeadline(filterByDeadline: filterByDeadline);
     result.fold(
       (failure) {
         log(failure.message.toString());
-        isLoading.value = false;
+        taksListLoading.value = false;
       },
       (success) {
         deadlineTasks.assignAll(success.tasks ?? []);
 
-        isLoading.value = false;
+        taksListLoading.value = false;
       },
     );
   }
@@ -567,7 +570,7 @@ class CreateTaskController extends GetxController {
   void pinnedATask(
       {required PinnedATaskModel pinnedATask,
       required BuildContext context}) async {
-    isLoading.value = true;
+    filterByTypeLoading.value = true;
     pinLoader.value = true;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.pinnedATask(pinnedATask: pinnedATask);
@@ -665,17 +668,17 @@ class CreateTaskController extends GetxController {
 
   // Filters tasks by type using the provided model
   void filterByType({required FilterByTypeModel filterByType}) async {
-    isLoading.value = true;
+    filterByTypeLoading.value = true;
     final result = await taskService.filterByType(filterByType: filterByType);
 
     result.fold(
       (failure) {
-        isLoading.value = false;
+        filterByTypeLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         typeTasks.assignAll(success.tasks ?? []);
-        isLoading.value = false;
+        filterByTypeLoading.value = false;
         update(); // Update the UI or state
       },
     );
@@ -783,20 +786,20 @@ class CreateTaskController extends GetxController {
 
   // Searches for tasks based on the search term
   void searchTasks({required String searchItem}) async {
-    isLoading.value = true;
+    taskSearchLoading.value = true;
 
     final result = await taskService.taskSearch(
         taskSearchItem: UserSearchModel(searchTerm: searchItem));
     result.fold(
       (failure) {
-        isLoading.value = false;
+        taskSearchLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         if (success.tasks != null) {
           tasksSearch.clear();
           tasksSearch.addAll(success.tasks ?? []);
-          isLoading.value = false;
+          taskSearchLoading.value = false;
         } else {
           log("Received null tasks in the response");
         }
@@ -1035,31 +1038,31 @@ class CreateTaskController extends GetxController {
   }
 
   void fetchAllCompletedTasks() async {
-    isLoading.value = true;
+    filterByTypeLoading.value = true;
     final result = await taskService.getAllCompletedTasks();
     result.fold(
       (failure) {
-        isLoading.value = false;
+        filterByTypeLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         completedTasks.assignAll(success.tasks ?? []);
-        isLoading.value = false;
+        filterByTypeLoading.value = false;
       },
     );
   }
 
   void fetchAllKilledTasks() async {
-    isLoading.value = true;
+    filterByTypeLoading.value = true;
     final result = await taskService.getAllKilledTasks();
     result.fold(
       (failure) {
-        isLoading.value = false;
+        filterByTypeLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         killedTasks.assignAll(success.tasks ?? []);
-        isLoading.value = false;
+        filterByTypeLoading.value = false;
       },
     );
   }
@@ -1067,11 +1070,10 @@ class CreateTaskController extends GetxController {
   void completedSubTask({
     required CompletedSubTask completedSubTask,
     required BuildContext context,
-    required String taskId,
   }) async {
     isLoading.value = true;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    log('SubTask completed = > ${completedSubTask.toJson()}');
+    // log('SubTask completed = > ${completedSubTask.toJson()}');
 
     final result =
         await taskService.completedSubTask(completedSubTask: completedSubTask);
@@ -1090,7 +1092,9 @@ class CreateTaskController extends GetxController {
       (success) {
         log("${success.message}");
         completedSubTasks.assignAll(success.subTask ?? []);
-        fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
+        fetchSingleTask(
+            singleTaskModel:
+                GetSingleTaskModel(taskId: completedSubTask.taskId));
         scaffoldMessenger.showSnackBar(
           const SnackBar(
             content: Text('Subtask completed successfully'),

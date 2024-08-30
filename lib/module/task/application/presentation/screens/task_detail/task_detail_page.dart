@@ -32,24 +32,21 @@ class ScreenTaskDetailPage extends StatelessWidget {
                   singleTaskModel: GetSingleTaskModel(taskId: taskId ?? ''));
             },
             child: SingleChildScrollView(
-              child: SizedBox(
-                height: khieght,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const TaskDetailHeaderSection(),
-                    adjustHieght(15.h),
-                    const TaskDetailUserInfoSection(),
-                    adjustHieght(15.h),
-                    const TaskDetailDescriptionSection(),
-                    adjustHieght(15.h),
-                    const TaskDetailAttachmentsSection(),
-                    adjustHieght(15.h),
-                    const TaskDetailTagsSection(),
-                    adjustHieght(15.h),
-                    const TaskDetailSubtasksSection(),
-                  ],
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TaskDetailHeaderSection(),
+                  adjustHieght(15.h),
+                  const TaskDetailUserInfoSection(),
+                  adjustHieght(15.h),
+                  const TaskDetailDescriptionSection(),
+                  adjustHieght(15.h),
+                  const TaskDetailAttachmentsSection(),
+                  adjustHieght(15.h),
+                  const TaskDetailTagsSection(),
+                  adjustHieght(15.h),
+                  const TaskDetailSubtasksSection(),
+                ],
               ),
             ),
           ),

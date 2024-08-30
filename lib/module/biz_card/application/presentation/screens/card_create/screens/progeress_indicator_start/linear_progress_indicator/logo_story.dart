@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';

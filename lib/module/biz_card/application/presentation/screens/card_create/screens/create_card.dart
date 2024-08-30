@@ -1,7 +1,7 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/picked_scanning_cards/picked_scanning_cards.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/widgets/card_uploading_showdailogue.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/picked_scanning_cards/picked_scanning_cards.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/card_uploading_showdailogue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';

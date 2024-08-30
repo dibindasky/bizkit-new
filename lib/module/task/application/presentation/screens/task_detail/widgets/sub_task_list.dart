@@ -82,7 +82,7 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 6),
                 child: ShimmerLoader(
                   height: 30.h,
-                  itemCount: controller.singleTask.value.subTask?.length ?? 2,
+                  itemCount: 3,
                   width: 80.w,
                   seprator: const SizedBox(
                     height: 10,
@@ -285,15 +285,15 @@ class SubTaskTileDetailPage extends StatelessWidget {
                           context: context,
                           onTap: () {
                             taskController.completedSubTask(
-                                completedSubTask: CompletedSubTask(
-                                  isCompleted: true,
-                                  subTaskId: subTaskId ?? '',
-                                  taskId: taskId ?? '',
-                                  totalTimeTaken: formatDateTimeWithTimeZone(
-                                      DateTime.now()),
-                                ),
-                                context: context,
-                                taskId: taskId ?? '');
+                              completedSubTask: CompletedSubTask(
+                                isCompleted: true,
+                                subTaskId: subTaskId ?? '',
+                                taskId: taskId ?? '',
+                                totalTimeTaken:
+                                    formatDateTimeWithTimeZone(DateTime.now()),
+                              ),
+                              context: context,
+                            );
                           },
                           title: 'Complete Subtask',
                           buttonColor: neonShade,

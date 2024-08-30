@@ -21,7 +21,7 @@ class TaskListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if (taskController.isLoading.value) {
+        if (taskController.taksListLoading.value) {
           return const Center(
             child: CircularProgressIndicator(),
           );

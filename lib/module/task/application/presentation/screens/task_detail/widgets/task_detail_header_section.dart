@@ -100,7 +100,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
                             icon: const Icon(Icons.message_outlined,
                                 color: kwhite),
                             onPressed: () {
-                              Get.find<ChatController>().connectChannel(
+                              Get.find<ChatController>().connectChannel(context,
                                   taskId: taskController.singleTask.value.id);
                               GoRouter.of(context).push(
                                 Routes.taskChatScreen,

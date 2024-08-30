@@ -19,7 +19,8 @@ class ChatTextfieldContainer extends StatefulWidget {
 
 class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
   int maxLines = 1;
-  bool typeing = false;
+  final int maxAllowedLines = 5;
+  bool typing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,48 +49,23 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
               borderRadius: kBorderRadius25,
               child: TextField(
                 onTap: () {
-                  Timer(const Duration(milliseconds: 300), () {
+                  Timer(const Duration(milliseconds: 200), () {
                     controller.chatScrollController.animateTo(
-                        controller
-                            .chatScrollController.position.minScrollExtent,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.ease);
+                      controller.chatScrollController.position.minScrollExtent,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
                   });
                 },
                 controller: controller.controller,
-                onChanged: (value) {
-                  setState(() {});
-                  if (value == '') {
-                    setState(() {
-                      maxLines = 1;
-                    });
-                    return;
-                  }
-                  TextSpan span = TextSpan(
-                    style: textStyle1.copyWith(color: kblack),
-                    text: value,
-                  );
-
-                  TextPainter tp = TextPainter(
-                    text: span,
-                    textDirection: TextDirection.ltr,
-                    maxLines: maxLines,
-                  );
-
-                  tp.layout(maxWidth: MediaQuery.of(context).size.width);
-                  if (tp.didExceedMaxLines) {
-                    setState(() {
-                      maxLines++;
-                    });
-                  }
-                },
+                onChanged: onChanged,
                 textInputAction: TextInputAction.newline,
                 maxLines: maxLines,
                 style: textStyle1.copyWith(color: kblack),
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 10.w, vertical: 0),
-                  hintText: 'send message ...',
+                  hintText: 'Send message ...',
                   hintStyle: textStyle1.copyWith(color: kgrey),
                   filled: true,
                   fillColor: kwhite,
@@ -125,5 +101,38 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
         ],
       ),
     );
+  }
+
+  void onChanged(String value) {
+    if (value == '') {
+      setState(() {
+        maxLines = 1;
+      });
+      return;
+    }
+
+    // Calculate the height of the text to determine the number of lines
+    TextSpan span = TextSpan(
+      style: textStyle1.copyWith(color: kblack),
+      text: value,
+    );
+
+    TextPainter tp = TextPainter(
+      text: span,
+      textDirection: TextDirection.ltr,
+      maxLines: maxAllowedLines, // Set maxLines to the max allowed lines
+    );
+
+    tp.layout(maxWidth: MediaQuery.of(context).size.width - ((16 + 24) * 3));
+
+    if (tp.didExceedMaxLines) {
+      setState(() {
+        maxLines = maxAllowedLines;
+      });
+    } else {
+      setState(() {
+        maxLines = tp.computeLineMetrics().length;
+      });
+    }
   }
 }

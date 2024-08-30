@@ -76,8 +76,17 @@ class ScreenTaskChat extends StatelessWidget {
                                     itemBuilder: (context, index) {
                                       if (controller.loadMoreLoading.value &&
                                           index == length - 1) {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
+                                        return Container(
+                                          height: 15.h,
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 5.h),
+                                          child: FittedBox(
+                                            child: Center(
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 5.h,
+                                              ),
+                                            ),
+                                          ),
                                         );
                                       }
                                       final message =

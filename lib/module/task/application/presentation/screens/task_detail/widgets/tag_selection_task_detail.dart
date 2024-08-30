@@ -42,7 +42,7 @@ class TaskDetailTagsSection extends StatelessWidget {
                   ),
                 ),
               );
-            } else if (controller.singleTask.value.tags != null ||
+            } else if (controller.singleTask.value.tags == null ||
                 controller.singleTask.value.tags!.isEmpty) {
               return Center(
                 child: Text(

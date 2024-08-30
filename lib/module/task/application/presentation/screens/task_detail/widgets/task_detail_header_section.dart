@@ -24,11 +24,13 @@ class TaskDetailHeaderSection extends StatelessWidget {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 kWidth5,
                 GestureDetector(
@@ -108,9 +110,14 @@ class TaskDetailHeaderSection extends StatelessWidget {
                             onPressed: () {
                               Get.find<ChatController>().connectChannel(context,
                                   taskId: taskController.singleTask.value.id);
-                              GoRouter.of(context).push(
-                                Routes.taskChatScreen,
-                              );
+                              /// pass active task or not as param [(taskController.singleTask.value.isCompleted !=true &&taskController.singleTask.value.isKilled !=true)]
+                              GoRouter.of(context).push(Routes.taskChatScreen,
+                                  extra: (taskController
+                                              .singleTask.value.isCompleted !=
+                                          true &&
+                                      taskController
+                                              .singleTask.value.isKilled !=
+                                          true));
                               messageCountController.resetCount(
                                   id: taskController.singleTask.value.id ?? '');
                             },

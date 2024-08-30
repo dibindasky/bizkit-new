@@ -79,8 +79,12 @@ class TaskSearchScreen extends StatelessWidget {
                                         taskController.tasksSearch[index].id ??
                                             ''),
                               );
-                              GoRouter.of(context).push(
-                                Routes.taskChatScreen,
+                              GoRouter.of(context).pushNamed(
+                                Routes.taskDeail,
+                                pathParameters: {
+                                  "taskId":
+                                      taskController.tasksSearch[index].id ?? ''
+                                },
                               );
                             },
                             child: TaskContainer(

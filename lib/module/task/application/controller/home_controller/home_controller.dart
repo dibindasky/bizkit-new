@@ -15,7 +15,8 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TaskHomeScreenController extends GetxController {
+class TaskHomeScreenController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   final HomeRepo homeService = HomeService();
 
   RxBool isLoading = false.obs;
@@ -33,13 +34,28 @@ class TaskHomeScreenController extends GetxController {
   RxList<RecentTasks> selfieTasks = <RecentTasks>[].obs;
 
   // RxList to hold selected fields
-  RxList<String> selectedFields = <String>[].obs;
+  RxList<String> selectedFields = <String>['title'].obs;
   RxString selectedReportType = ''.obs;
   RxList<String> selectedTaskIds = <String>[].obs;
 
   RxBool progresBarOrRecentTask = true.obs;
 
-  late AnimationController animationController;
+  // late AnimationController animationController;
+
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   animationController = AnimationController(
+  //     duration: const Duration(milliseconds: 300),
+  //     vsync: this,
+  //   );
+  // }
+
+  // @override
+  // void onClose() {
+  //   animationController.dispose();
+  //   super.onClose();
+  // }
 
   // Function to add or remove fields from the selectedFields list
   void addField(String value) {

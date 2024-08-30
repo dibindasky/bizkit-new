@@ -68,11 +68,6 @@ class TotalTaskListView extends StatelessWidget {
                     taskController.fetchSingleTask(
                         singleTaskModel:
                             GetSingleTaskModel(taskId: typeTask.id));
-                    // if (controller.selectedFolderContainer.value) {
-                    //   controller.longPress(index);
-                    // } else {
-                    //   GoRouter.of(context).push(Routes.taskChatScreen);
-                    // }
 
                     GoRouter.of(context).pushNamed(
                       Routes.taskDeail,

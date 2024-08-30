@@ -24,11 +24,13 @@ class TaskDetailHeaderSection extends StatelessWidget {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 kWidth5,
                 GestureDetector(
@@ -68,24 +70,30 @@ class TaskDetailHeaderSection extends StatelessWidget {
         Row(
           children: [
             Obx(
-              () => taskController.singleTask.value.isOwned == true
-                  ? CircleAvatar(
-                      backgroundColor: kGrayLight,
-                      child: IconButton(
-                        icon: const Icon(Icons.mode_edit_outline_outlined,
-                            color: kwhite),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            barrierDismissible: true,
-                            builder: (context) => TaskStatusChangeDialog(
-                              taskId: taskController.singleTask.value.id,
-                            ),
-                          );
-                        },
-                      ),
-                    )
-                  : kempty,
+              () {
+                if ((taskController.singleTask.value.isCompleted != true &&
+                        taskController.singleTask.value.isKilled != true) &&
+                    taskController.singleTask.value.isOwned == true) {
+                  return CircleAvatar(
+                    backgroundColor: kGrayLight,
+                    child: IconButton(
+                      icon: const Icon(Icons.mode_edit_outline_outlined,
+                          color: kwhite),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (context) => TaskStatusChangeDialog(
+                            taskId: taskController.singleTask.value.id,
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                } else {
+                  return kempty;
+                }
+              },
             ),
             adjustWidth(10.w),
             Obx(
@@ -100,11 +108,16 @@ class TaskDetailHeaderSection extends StatelessWidget {
                             icon: const Icon(Icons.message_outlined,
                                 color: kwhite),
                             onPressed: () {
-                              Get.find<ChatController>().connectChannel(
+                              Get.find<ChatController>().connectChannel(context,
                                   taskId: taskController.singleTask.value.id);
-                              GoRouter.of(context).push(
-                                Routes.taskChatScreen,
-                              );
+                              /// pass active task or not as param [(taskController.singleTask.value.isCompleted !=true &&taskController.singleTask.value.isKilled !=true)]
+                              GoRouter.of(context).push(Routes.taskChatScreen,
+                                  extra: (taskController
+                                              .singleTask.value.isCompleted !=
+                                          true &&
+                                      taskController
+                                              .singleTask.value.isKilled !=
+                                          true));
                               messageCountController.resetCount(
                                   id: taskController.singleTask.value.id ?? '');
                             },

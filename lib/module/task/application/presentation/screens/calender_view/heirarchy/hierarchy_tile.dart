@@ -18,6 +18,7 @@ import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_s
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
@@ -66,7 +67,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('Main Folder Id :$folderId');
+    // log('Main Folder Id :$folderId');
     final controller = Get.find<TaskFolderController>();
     final taskController = Get.find<CreateTaskController>();
 
@@ -78,9 +79,12 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(innerFolderId == null
-                ? 'Create Inner Folder'
-                : 'Edit Inner Folder'),
+            title: Text(
+              innerFolderId == null
+                  ? 'Create Inner Folder'
+                  : 'Edit Inner Folder',
+              style: textThinStyle1.copyWith(fontSize: 15.sp),
+            ),
             content: TaskTextField(
               hintText: 'Folder name',
               controller: folderNameController,
@@ -312,9 +316,11 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                     );
                   } else if (controller.filteredInnerFolders.isEmpty &&
                       controller.tasksInsideFolder.isEmpty) {
-                    return const Expanded(
-                      child: Center(
-                        child: Text('No folders or tasks available'),
+                    return Expanded(
+                      child: ErrorRefreshIndicator(
+                        image: emptyNodata2,
+                        errorMessage: 'No folders or tasks available',
+                        onRefresh: () {},
                       ),
                     );
                   } else {
@@ -424,8 +430,10 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                           title: SizedBox(
                                             width: 100,
                                             child: Text(
-                                                innerFolder.innerFolderName ??
-                                                    ''),
+                                              innerFolder.innerFolderName ?? '',
+                                              style: textThinStyle1.copyWith(
+                                                  fontSize: 14.sp),
+                                            ),
                                           ),
                                           trailing: PopupMenuButton<String>(
                                             onSelected: (value) {
@@ -551,11 +559,11 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                         alignment: Alignment.centerLeft,
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
+                                              horizontal: 21),
                                           child: Text(
                                             'Tasks',
                                             style: textHeadStyle1.copyWith(
-                                                fontSize: 18),
+                                                fontSize: 15.sp),
                                           ),
                                         ),
                                       ),

@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/chat/current_location_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/file_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/packages/pdf/pdf_picker.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
@@ -19,6 +21,7 @@ import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:web_socket_channel/io.dart';
 
 class ChatController extends GetxController {
@@ -31,11 +34,18 @@ class ChatController extends GetxController {
   String _error = '';
   String chatTaskId = '';
   bool firstLoad = true;
+  RxBool currentLocationFetching = false.obs;
+  RxBool connectionLoading = false.obs;
+  RxBool loadMoreLoading = false.obs;
+  RxList<double> currentLocationLatLong = <double>[].obs;
+  RxString currentLocation = ''.obs;
 
   Rx<Poll> pollDetail = Poll().obs;
 
   /// connect to the channel with task id and handle the messages form the channel
-  void connectChannel({required String? taskId}) async {
+  void connectChannel(BuildContext context, {required String? taskId}) async {
+    _error = '';
+    connectionLoading.value = true;
     chatTaskId = taskId ?? '';
     chatScrollController.addListener(() {
       checkLoading();
@@ -54,7 +64,7 @@ class ChatController extends GetxController {
             SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
         headers: {'Authorization': 'Bearer $accessToken'},
       );
-
+      connectionLoading.value = false;
       channel.stream.listen(
         (message) {
           // Decode the message from JSON
@@ -75,6 +85,7 @@ class ChatController extends GetxController {
               messages[index] = mess;
               doAnimate = false;
             } else if (m.isLoadMore) {
+              loadMoreLoading.value = false;
               doAnimate = false;
               messages.add(mess);
             } else {
@@ -93,6 +104,7 @@ class ChatController extends GetxController {
               messages[index] = mess;
               doAnimate = false;
             } else if (m.isLoadMore) {
+              loadMoreLoading.value = false;
               doAnimate = false;
               messages.add(mess);
             } else {
@@ -111,6 +123,7 @@ class ChatController extends GetxController {
               messages[index] = mess;
               doAnimate = false;
             } else if (m.isLoadMore) {
+              loadMoreLoading.value = false;
               doAnimate = false;
               messages.add(mess);
             } else {
@@ -120,6 +133,8 @@ class ChatController extends GetxController {
 
           // handle for expence and time
           else if (decodedMessage['message_type'] == 'time_expense') {
+            Get.find<CreateTaskController>().fetchSingleTask(
+                singleTaskModel: GetSingleTaskModel(taskId: chatTaskId));
             final m = TimeExpense.fromJson(decodedMessage, uid);
             final mess = Message(
                 timeExpence: m, sender: m.sender, messageId: m.messageId);
@@ -129,6 +144,7 @@ class ChatController extends GetxController {
               messages[index] = mess;
               doAnimate = false;
             } else if (m.isLoadMore) {
+              loadMoreLoading.value = false;
               doAnimate = false;
               messages.add(mess);
             } else {
@@ -147,6 +163,7 @@ class ChatController extends GetxController {
               messages[index] = mess;
               doAnimate = false;
             } else if (m.isLoadMore) {
+              loadMoreLoading.value = false;
               doAnimate = false;
               messages.add(mess);
             } else {
@@ -163,9 +180,9 @@ class ChatController extends GetxController {
                   firstLoad
                       ? chatScrollController.position.minScrollExtent
                       : chatScrollController.position.pixels -
-                          (decodedMessage['message_type'] == 'poll'
-                              ? 500
-                              : 100),
+                          (decodedMessage['message_type'] == 'text'
+                              ? 100
+                              : 500),
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeIn,
                 );
@@ -176,6 +193,8 @@ class ChatController extends GetxController {
         onError: (error) {
           print('Connection error: $error');
           _error = 'Connection error: $error';
+          connectionLoading.value = false;
+          GoRouter.of(context).pop();
         },
         onDone: () {
           if (channel.closeCode != null) {
@@ -183,11 +202,15 @@ class ChatController extends GetxController {
             _error = 'Connection closed with code: ${channel.closeCode}';
             print('connection close reason => ${channel.closeReason}');
           }
+          connectionLoading.value = false;
+          GoRouter.of(context).pop();
         },
       );
     } catch (e) {
       print('Failed to connect: $e');
       _error = 'Failed to connect: $e';
+      connectionLoading.value = false;
+      GoRouter.of(context).pop();
     }
   }
 
@@ -254,9 +277,12 @@ class ChatController extends GetxController {
 
   /// check for load more
   void checkLoading() {
-    if (chatScrollController.offset ==
-        chatScrollController.position.maxScrollExtent) {
+    if (!loadMoreLoading.value &&
+        chatScrollController.offset ==
+            chatScrollController.position.maxScrollExtent) {
       print('call load more message');
+      loadMoreLoading.value = true;
+      update(['chat']);
       addMessage({
         "message_type": "load_more",
         "last_message_id": messages.last.messageId
@@ -313,20 +339,33 @@ class ChatController extends GetxController {
     }
   }
 
+  void getCurrentLocation() async {
+    currentLocation.value = '';
+    currentLocationLatLong.value = <double>[];
+    currentLocationFetching.value = true;
+    final locationService = LocationService();
+    print('location started');
+    final location = await locationService.getLatLong();
+    if (location == null) {
+      currentLocationFetching.value = false;
+      return;
+    }
+    currentLocationLatLong.value = location;
+    currentLocation.value =
+        await locationService.getAddressFromLatLng(location[0], location[1]) ??
+            '';
+    currentLocationFetching.value = false;
+  }
+
   /// send current location
-  void sendCurrentLocation() async {
+  void sendCurrentLocation(BuildContext context) {
     try {
-      final locationService = LocationService();
-      print('location started');
-      final location = await locationService.getLatLong();
-      if (location == null) return;
-      print('send location => $location');
       addMessage({
         "message_type": "location",
-        "location": location,
-        "place":
-            await locationService.getAddressFromLatLng(location[0], location[1])
+        "location": currentLocationLatLong,
+        "place": currentLocation.value
       });
+      GoRouter.of(context).pop();
     } catch (e) {
       return;
     }

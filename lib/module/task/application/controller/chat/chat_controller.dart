@@ -46,6 +46,7 @@ class ChatController extends GetxController {
   void connectChannel(BuildContext context, {required String? taskId}) async {
     _error = '';
     connectionLoading.value = true;
+    loadMoreLoading.value = false;
     chatTaskId = taskId ?? '';
     chatScrollController.addListener(() {
       checkLoading();
@@ -74,6 +75,13 @@ class ChatController extends GetxController {
           print(decodedMessage);
           bool doAnimate = true;
 
+          // WebSocket connection established successfully
+          if (decodedMessage['type'] == 'connection_success') {
+            print(
+                "connection success => WebSocket connection established successfully");
+            connectionLoading.value = false;
+          }
+
           // handle for text messages
           if (decodedMessage['message_type'] == 'text') {
             final m = TextMessage.fromJson(decodedMessage, uid);
@@ -94,7 +102,7 @@ class ChatController extends GetxController {
           }
 
           // handle for file type
-          if (decodedMessage['message_type'] == 'file') {
+          else if (decodedMessage['message_type'] == 'file') {
             final m = FileMessage.fromJson(decodedMessage, uid);
             final mess =
                 Message(file: m, sender: m.sender, messageId: m.messageId);

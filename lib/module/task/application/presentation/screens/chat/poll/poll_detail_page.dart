@@ -1,5 +1,4 @@
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
-import 'package:bizkit/module/task/domain/model/chat/poll.dart';
 import 'package:bizkit/utils/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -74,12 +73,10 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
   Widget build(BuildContext context) {
     final pollAnswer = controller.pollDetail.value.pollAnswers?[widget.index];
     final isAnonymous = controller.pollDetail.value.anonymousVote ?? true;
-    final isResonRequired = controller.pollDetail.value.resonRequired ?? true;
+    final isResonRequired = controller.pollDetail.value.resonRequired ?? false;
     final isMultipleAnswer =
         controller.pollDetail.value.multipleAnswer ?? false;
-    if (pollAnswer?.supporters?.isEmpty ?? true) {
-      return kempty;
-    }
+
     return Column(
       children: [
         Container(
@@ -101,73 +98,81 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
             ],
           ),
         ),
-        adjustHieght(10.h),
-        SizedBox(
-          height: 70.h,
-          child: ListView.separated(
-            itemCount: pollAnswer?.supporters?.length ?? 0,
-            scrollDirection: Axis.horizontal,
-            separatorBuilder: (context, index) => adjustWidth(20.w),
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () {
-                selectedIndex = index;
-                setState(() {});
-              },
-              child: Column(
-                children: [
-                  Container(
-                      height: 50.h,
-                      width: 50.h,
-                      decoration: BoxDecoration(
-                          border: index != selectedIndex
-                              ? null
-                              : Border.all(color: neonShade, width: 3.sp),
-                          borderRadius: kBorderRadius5,
-                          color: klightGreyClr,
-                          image: isAnonymous
-                              ? null
-                              : const DecorationImage(
-                                  image: AssetImage(imageDummyAsset),
-                                  fit: BoxFit.cover)),
-                      child: isAnonymous ? const Icon(Icons.person) : null),
-                  adjustHieght(3.h),
-                  Text(
-                    isAnonymous
-                        ? "User"
-                        : pollAnswer?.supporters?[index].name ?? '',
-                    style: textThinStyle1,
-                  )
-                ],
+        (pollAnswer?.supporters?.isEmpty ?? true) ? kempty : adjustHieght(10.h),
+        (pollAnswer?.supporters?.isEmpty ?? true)
+            ? kempty
+            : AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                height: (pollAnswer?.supporters?.isEmpty ?? true) ? 0.h : 70.h,
+                child: ListView.separated(
+                  itemCount: pollAnswer?.supporters?.length ?? 0,
+                  scrollDirection: Axis.horizontal,
+                  separatorBuilder: (context, index) => adjustWidth(20.w),
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      selectedIndex = index;
+                      setState(() {});
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                            height: 50.h,
+                            width: 50.h,
+                            decoration: BoxDecoration(
+                                border: index != selectedIndex
+                                    ? null
+                                    : Border.all(color: neonShade, width: 3.sp),
+                                borderRadius: kBorderRadius5,
+                                color: klightGreyClr,
+                                image: isAnonymous
+                                    ? null
+                                    : const DecorationImage(
+                                        image: AssetImage(imageDummyAsset),
+                                        fit: BoxFit.cover)),
+                            child:
+                                isAnonymous ? const Icon(Icons.person) : null),
+                        adjustHieght(3.h),
+                        Text(
+                          isAnonymous
+                              ? "User"
+                              : pollAnswer?.supporters?[index].name ?? '',
+                          style: textThinStyle1,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-        !isResonRequired || isMultipleAnswer ? kempty : adjustHieght(20.h),
-        !isResonRequired || isMultipleAnswer
+        !isResonRequired ||
+                isMultipleAnswer ||
+                (pollAnswer?.supporters?.isEmpty ?? true)
+            ? kempty
+            : adjustHieght(20.h),
+        !isResonRequired ||
+                isMultipleAnswer ||
+                (pollAnswer?.supporters?.isEmpty ?? true)
             ? kempty
             : SizedBox(
-                height: 200.h,
+                height: 100.h,
                 child: Stack(
                   children: [
                     Container(
-                      height: 200.h,
+                      height: 100.h,
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
                       padding: EdgeInsets.symmetric(
-                          horizontal: 25.w, vertical: 20.h),
+                          horizontal: 25.w, vertical: 10.h),
                       width: double.infinity,
                       decoration: BoxDecoration(
                           color: kGrayLight, borderRadius: kBorderRadius10),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Text(pollAnswer
-                                      ?.supporters?[selectedIndex].reason ??
-                                  ''),
-                            ),
+                      child: Column(children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Text(
+                                pollAnswer?.supporters?[selectedIndex].reason ??
+                                    ''),
                           ),
-                        ],
-                      ),
+                        )
+                      ]),
                     ),
                     ArrowMarkIndexChange(
                         alignment: Alignment.centerLeft,
@@ -191,7 +196,11 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
                   ],
                 ),
               ),
-        isMultipleAnswer ? kempty : adjustHieght(20.h)
+        !isResonRequired ||
+                isMultipleAnswer ||
+                (pollAnswer?.supporters?.isEmpty ?? true)
+            ? kempty
+            : adjustHieght(20.h)
       ],
     );
   }

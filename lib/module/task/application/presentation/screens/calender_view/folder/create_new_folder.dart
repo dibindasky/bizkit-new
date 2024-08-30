@@ -39,7 +39,10 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(folderName != null ? 'Edit Folder' : 'New Folder'),
+                  Text(
+                    folderName != null ? 'Edit Folder' : 'New Folder',
+                    style: textThinStyle1.copyWith(fontSize: 15.sp),
+                  ),
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -53,9 +56,13 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Folder Name', style: style),
+                    Text(
+                      'Folder Name',
+                      style: textThinStyle1.copyWith(color: neonShade),
+                    ),
                     adjustHieght(3.h),
                     TaskTextField(
+                      // showBorder: true,
                       hintText: 'Folder name',
                       controller: folderNameController,
                     ),
@@ -67,7 +74,7 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
                 Center(
                   child: EventButton(
                     color: const LinearGradient(colors: [neonShade, neonShade]),
-                    wdth: 150.w,
+                    wdth: 160.w,
                     text: folderName != null ? 'Save Changes' : 'Create Folder',
                     onTap: () {
                       if (folderName != null && folderId != null) {

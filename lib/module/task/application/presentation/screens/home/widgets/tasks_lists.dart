@@ -234,6 +234,8 @@ class TasksListsWidget extends StatelessWidget {
                                       '${index == 0 ? homeController.toMeTasks[inx].taskTitle : index == 1 ? homeController.toOthersTasks[inx].taskTitle : homeController.selfieTasks[inx].taskTitle ?? 'task title'}',
                                   taskDeadline:
                                       '${index == 0 ? homeController.toMeTasks[inx].deadLine : index == 1 ? homeController.toOthersTasks[inx].deadLine : homeController.selfieTasks[inx].deadLine ?? 'task deadline'}',
+                                  taskId:
+                                      '${index == 0 ? homeController.toMeTasks[inx].taskId : index == 1 ? homeController.toOthersTasks[inx].taskId : homeController.selfieTasks[inx].taskId ?? ''}',
                                 ),
                               );
                             },

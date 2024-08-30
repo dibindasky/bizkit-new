@@ -402,15 +402,19 @@ class TaskContainer extends StatelessWidget {
                 final count = messageCountController.unreadCounts[taskId];
                 if (count == null || count.value == 0) return kempty;
                 return Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.w, vertical: 3.h),
-                        decoration: BoxDecoration(
-                            borderRadius: kBorderRadius10, color: kneonShade),
-                        child: Text('$count',
-                            style: textThinStyle1.copyWith(color: kblack))));
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 3.h),
+                    decoration: BoxDecoration(
+                        borderRadius: kBorderRadius10, color: kneonShade),
+                    child: Text(
+                      '$count',
+                      style: textThinStyle1.copyWith(color: kblack),
+                    ),
+                  ),
+                );
               })
             ],
           ),

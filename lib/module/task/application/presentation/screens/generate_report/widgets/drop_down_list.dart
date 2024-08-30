@@ -38,7 +38,7 @@ class GenerateReportDropDownButton extends StatelessWidget {
             items: controller.taskFromOptions.toSet().map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value, style: const TextStyle(color: kwhite)),
+                child: Text(value, style: textThinStyle1),
               );
             }).toList(),
             onChanged: (newValue) {

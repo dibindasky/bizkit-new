@@ -17,7 +17,7 @@ class TabNotificationItemBuilder extends StatelessWidget {
       padding: EdgeInsets.only(left: 15.h, right: 15.h, top: 10.h),
       child: Obx(
         () {
-          if (taskController.isLoading.value) {
+          if (taskController.loadingForRecivedRequests.value) {
             return const Center(child: CircularProgressIndicator());
           } else if (taskController.receivedRequests.isEmpty) {
             return ErrorRefreshIndicator(

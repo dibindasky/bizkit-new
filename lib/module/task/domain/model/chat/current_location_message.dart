@@ -13,21 +13,20 @@ class CurrentLocationMessage {
   String? currentUid;
   String? place;
 
-  CurrentLocationMessage({
-    this.messageType,
-    this.message,
-    this.userId,
-    this.username,
-    this.profilePicture,
-    this.messageId,
-    this.timestamp,
-    this.location,
-    this.readByAll,
-    this.sender = false,
-    this.currentUid,
-    this.isLoadMore = false,
-    this.place
-  });
+  CurrentLocationMessage(
+      {this.messageType,
+      this.message,
+      this.userId,
+      this.username,
+      this.profilePicture,
+      this.messageId,
+      this.timestamp,
+      this.location,
+      this.readByAll,
+      this.sender = false,
+      this.currentUid,
+      this.isLoadMore = false,
+      this.place});
 
   factory CurrentLocationMessage.fromJson(Map<String, dynamic> json,
       [String? uid]) {
@@ -43,7 +42,7 @@ class CurrentLocationMessage {
           json['location'] != null ? List<double>.from(json['location']) : null,
       readByAll: json['read_by_all'],
       sender: (json['user_id'] as String?) == uid,
-      isLoadMore: json['is_load_more'],
+      isLoadMore: (json['is_load_more'] as bool?) ?? false,
       place: json['place'],
       currentUid: uid,
     );

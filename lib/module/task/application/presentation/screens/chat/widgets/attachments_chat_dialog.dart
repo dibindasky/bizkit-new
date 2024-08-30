@@ -74,7 +74,13 @@ class AttachmentsChatDialog extends StatelessWidget {
                     iconData: Icons.location_on_outlined,
                     onTap: () {
                       GoRouter.of(context).pop();
-                      controller.sendCurrentLocation();
+                      controller.getCurrentLocation();
+                      showDialog(
+                        context: context,
+                        builder: (context) => const Dialog(
+                          child: CurrentLocationFetchingDialog(),
+                        ),
+                      );
                     },
                     text: 'Current Location'),
                 // AttachmentTile(
@@ -93,6 +99,74 @@ class AttachmentsChatDialog extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class CurrentLocationFetchingDialog extends StatelessWidget {
+  const CurrentLocationFetchingDialog({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.find<ChatController>();
+    return Obx(() {
+      return Container(
+        padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.h),
+        decoration: BoxDecoration(borderRadius: kBorderRadius10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: controller.currentLocationFetching.value
+              ? [
+                  const Text('Fetching Location'),
+                  kHeight10,
+                  const Center(child: CircularProgressIndicator())
+                ]
+              : [
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.h),
+                    decoration: BoxDecoration(
+                        borderRadius: kBorderRadius5,
+                        color: kwhite.withOpacity(0.3)),
+                    child: Text(controller.currentLocation.value),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: CircleAvatar(
+                        radius: 25.h,
+                        backgroundImage: const AssetImage(mapMarker),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      controller.sendCurrentLocation(context);
+                    },
+                    child: Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.symmetric(
+                            vertical: 3.h, horizontal: 3.h),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.h, horizontal: 3.h),
+                        decoration: BoxDecoration(
+                            borderRadius: kBorderRadius5,
+                            color: kneonShade.withOpacity(0.3)),
+                        child: Row(
+                          children: [
+                            const Spacer(),
+                            const Text('Send Location'),
+                            const Spacer(),
+                            const Icon(Icons.send),
+                            kWidth10
+                          ],
+                        )),
+                  ),
+                ],
+        ),
+      );
+    });
   }
 }
 

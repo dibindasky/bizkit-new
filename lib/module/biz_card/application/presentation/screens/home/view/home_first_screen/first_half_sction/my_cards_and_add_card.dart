@@ -84,20 +84,21 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
                       ],
                     ),
                     width: 140,
-                    child: Column(
+                    child: const Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const CircleAvatar(
+                        CircleAvatar(
                             radius: 16,
                             backgroundImage:
                                 AssetImage('asset/images/home add circl.png')),
-                        CustomShowCaseView(
-                          image: personImage,
-                          description: '',
-                          tittle: 'Start Creating Business card from here',
-                          globalKey: globalKeyAddCard,
-                          child: const Text('Add Card'),
-                        ),
+                        // CustomShowCaseView(
+                        //   image: personImage,
+                        //   description: '',
+                        //   tittle: 'Start Creating Business card from here',
+                        //   globalKey: globalKeyAddCard,
+                        //   child: const Text('Add Card'),
+                        // ),
+                        Text('Add Card')
                       ],
                     ),
                   ),

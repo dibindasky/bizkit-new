@@ -10,6 +10,7 @@ import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
@@ -121,7 +122,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                       AutocompleteTextField(
                         textCapitalization: TextCapitalization.words,
                         autocompleteItems: const [],
-                        // validate: Validate.notNull,
+                        validate: Validate.notNull,
                         label: 'Company',
                         controller:
                             visitingCardController.companyNameController,
@@ -132,7 +133,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                       AutocompleteTextField(
                         //textCapitalization: TextCapitalization.words,
                         autocompleteItems: const [],
-                        validate: Validate.ifValidEmail,
+                        validate: Validate.email,
                         label: 'Email',
                         controller: visitingCardController.emailController,
                         // controller:
@@ -143,7 +144,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                         textCapitalization: TextCapitalization.words,
                         maxLength: 10,
                         autocompleteItems: const [],
-                        validate: Validate.ifValidnumber,
+                        validate: Validate.phone,
                         label: 'Phone Number',
                         controller: visitingCardController.phoneController,
                         // controller:
@@ -152,7 +153,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                       ),
                       AutocompleteTextField(
                         autocompleteItems: const [],
-                        validate: Validate.ifValidWebsite,
+                        validate: Validate.website,
                         label: 'Website',
                         controller: visitingCardController.websiteController,
                         // controller:
@@ -162,7 +163,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                       AutocompleteTextField(
                         textCapitalization: TextCapitalization.words,
                         autocompleteItems: const [],
-                        // validate: Validate.notNull,
+                        validate: Validate.notNull,
                         label: 'Designation',
                         // controller: context
                         // .read<CardSecondBloc>()
@@ -176,72 +177,10 @@ class CardSecondScannedDatas extends StatelessWidget {
                         onTap: () {
                           if (autoFillDataKey.currentState!.validate()) {
                             FocusScope.of(context).unfocus();
-
                             visitingCardController.getLocation();
                             Navigator.of(context).push(
                               cardFadePageRoute(const SelfieTextFields()),
                             );
-                            // Contact save
-                            // AddNewContact addNewContact = AddNewContact(
-                            //   name: context
-                            //       .read<CardSecondBloc>()
-                            //       .nameController
-                            //       .text,
-                            //   email: context
-                            //       .read<CardSecondBloc>()
-                            //       .emailController
-                            //       .text,
-                            //   phoneNumber: context
-                            //       .read<CardSecondBloc>()
-                            //       .phoneController
-                            //       .text,
-                            //   companyName: context
-                            //       .read<CardSecondBloc>()
-                            //       .copanyController
-                            //       .text,
-                            // );
-                            // context.read<CardSecondBloc>().add(
-                            //     CardSecondEvent.contactSaveToPhone(
-                            //         addNewContact: addNewContact));
-
-                            // context.read<CardSecondBloc>().add(
-                            //         CardSecondEvent
-                            //             .autoFillTExtfieldItems(
-                            //       name: context
-                            //           .read<CardSecondBloc>()
-                            //           .nameController
-                            //           .text,
-                            //       scannedImage: state
-                            //               .scannedImagesSecondCardCreation
-                            //               .isNotEmpty
-                            //           ? state
-                            //               .scannedImagesSecondCardCreation
-                            //               .first
-                            //               .base64
-                            //           : '',
-                            //       email: context
-                            //           .read<CardSecondBloc>()
-                            //           .emailController
-                            //           .text,
-                            //       company: context
-                            //           .read<CardSecondBloc>()
-                            //           .copanyController
-                            //           .text,
-                            //       number: context
-                            //           .read<CardSecondBloc>()
-                            //           .phoneController
-                            //           .text,
-                            //       website: context
-                            //           .read<CardSecondBloc>()
-                            //           .webSiteController
-                            //           .text,
-                            //       designation: context
-                            //           .read<CardSecondBloc>()
-                            //           .designationController
-                            //           .text,
-                            //     ));
-
-                            log('before navigating to selfie screen');
                           }
                         },
                       ),
@@ -316,147 +255,11 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                 onPressedGallery: () {
                   textExtractionController.pickSelfie(camera: false);
                 },
-
                 onPressedCam: () {
                   textExtractionController.pickSelfie(camera: true);
                 },
-                // context.read<CardSecondBloc>().add(
-                //       const CardSecondEvent.selfieImage(
-                //         isCam: true,
-                //         cameraDeviceFront: true,
-                //       ),
-                //     ),
                 heading: 'Take Selfie',
               ),
-              // Stack(
-              //   children: [
-              //     SizedBox(
-              //       height: 250,
-              //       child: ListView.separated(
-              //         separatorBuilder: (context, index) {
-              //           return adjustWidth(10);
-              //         },
-              //         scrollDirection: Axis.horizontal,
-              //         itemCount:
-              //             textExtractionController.pickedSelfiesImageUrl.length,
-              //         itemBuilder: (context, index) {
-              //           // final selfiImages = state.selfieImageModel[index];
-              //           return InkWell(
-              //             onTap: () {
-              //               Navigator.push(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                   builder: (context) => SlidablePhotoGallery(
-              //                     images: const [],
-              //                     initialIndex: index,
-              //                   ),
-              //                 ),
-              //               );
-              //             },
-              //             child: Stack(
-              //               children: [
-              //                 Obx(
-              //                   () => SizedBox(
-              //                     height: 150.dm,
-              //                     width: kwidth,
-              //                     // decoration: BoxDecoration(
-              //                     //   image: DecorationImage(
-              //                     //     image: FileImage(File(
-              //                     //         textExtractionController
-              //                     //             .pickedSelfiesImageUrl[index]
-              //                     //             .fileImage
-              //                     //             .toString())),
-              //                     //     fit: BoxFit.cover,
-              //                     //   ),
-              //                     // ),
-              //                     child: ClipRRect(
-              //                       borderRadius: BorderRadius.circular(10),
-              //                       child: Image.memory(
-              //                         base64Decode(textExtractionController
-              //                                 .pickedSelfiesImageUrl[index]
-              //                                 .base64
-              //                                 ?.substring(22) ??
-              //                             ''),
-              //                         fit: BoxFit.cover,
-              //                       ),
-              //                     ),
-              //                   ),
-              //                 ),
-              //                 Positioned(
-              //                   bottom: 70,
-              //                   right: 10,
-              //                   child: ClipRRect(
-              //                     borderRadius: BorderRadius.circular(15),
-              //                     child: ColoredBox(
-              //                       color: neonShade,
-              //                       child: IconButton(
-              //                         onPressed: () {
-              //                           showCustomConfirmationDialogue(
-              //                             context: context,
-              //                             buttonText: 'Delete',
-              //                             title:
-              //                                 'You want to remove your selfie',
-              //                             onTap: () {
-              //                               textExtractionController
-              //                                   .pickedSelfiesImageUrl
-              //                                   .removeAt(index);
-              //                             },
-              //                           );
-              //                         },
-              //                         icon: const Icon(
-              //                           size: 30,
-              //                           color: kwhite,
-              //                           Icons.delete,
-              //                         ),
-              //                       ),
-              //                     ),
-              //                   ),
-              //                 ),
-              //               ],
-              //             ),
-              //           );
-              //         },
-              //       ),
-              //     ),
-              //     // Positioned(
-              //     //   bottom: 10,
-              //     //   right: 10,
-              //     //   child: ClipRRect(
-              //     //     borderRadius: BorderRadius.circular(10),
-              //     //     child: ColoredBox(
-              //     //       color: neonShade,
-              //     //       child: IconButton(
-              //     //         onPressed: () {
-              //     //           cameraAndGalleryPickImage(
-              //     //               tittle: 'Choose image from ?',
-              //     //               context: context,
-              //     //               onPressCam: () {
-              //     //                 // context.read<CardSecondBloc>().add(
-              //     //                 //       const CardSecondEvent
-              //     //                 //           .selfieImage(
-              //     //                 //         isCam: true,
-              //     //                 //         cameraDeviceFront: true,
-              //     //                 //       ),
-              //     //                 //     );
-              //     //               },
-              //     //               onPressGallery: () {
-              //     //                 // context.read<CardSecondBloc>().add(
-              //     //                 //       const CardSecondEvent
-              //     //                 //           .selfieImage(
-              //     //                 //         isCam: false,
-              //     //                 //         cameraDeviceFront: false,
-              //     //                 //       ),
-              //     //                 //     );
-              //     //               });
-              //     //         },
-              //     //         icon: const Icon(Icons.camera),
-              //     //       ),
-              //     //     ),
-              //     //   ),
-              //     // )
-              //   ],
-              // ),
-
               Obx(
                 () => ListView.builder(
                   shrinkWrap: true,
@@ -524,52 +327,50 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                       adjustHieght(khieght * 0.008),
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
-                        // validate: Validate.notNull,
+                        validate: Validate.notNull,
                         labelText: 'Occasion',
                         controller: visitingCardController.occasionController,
-                        // controller: context
-                        // .read<CardSecondBloc>()
-                        // .occationController,
                         inputType: TextInputType.name,
                       ),
                       CustomTextFormField(
                         maxLines: 2,
                         suffixIcon: null,
                         textCapitalization: TextCapitalization.sentences,
-                        // validate: Validate.notNull,
+                        validate: Validate.notNull,
                         labelText: 'Location',
                         controller: visitingCardController.locationController,
                         inputType: TextInputType.name,
                       ),
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
-                        // validate: Validate.notNull,
+                        validate: Validate.notNull,
                         labelText: 'Occupation',
-                        // controller: context
-                        //     .read<CardSecondBloc>()
-                        //     .occupationController,
                         controller: visitingCardController.occupationController,
                         inputType: TextInputType.name,
                       ),
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.sentences,
-                        // validate: Validate.notNull,
+                        validate: Validate.notNull,
                         maxLines: 3,
                         labelText: 'Notes',
                         controller: visitingCardController.notesController,
-                        // controller:
-                        //     context.read<CardSecondBloc>().notesController,
                         inputType: TextInputType.name,
                       ),
                       adjustHieght(khieght * .02),
-                      CardLastSkipContinueButtons(
-                          continueText: 'Create Visiting Card',
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            visitingCardController.createVisitingCard(
-                                context: context);
-                          }),
-                      adjustHieght(khieght * .02),
+                      Obx(
+                        () => visitingCardController.isLoading.value
+                            ? const LoadingAnimation()
+                            : CardLastSkipContinueButtons(
+                                continueText: 'Create Visiting Card',
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  if (meetingDataKey.currentState!.validate()) {
+                                    visitingCardController.createVisitingCard(
+                                        context: context);
+                                  }
+                                }),
+                      ),
+                      kHeight10
                     ],
                   ),
                 ),

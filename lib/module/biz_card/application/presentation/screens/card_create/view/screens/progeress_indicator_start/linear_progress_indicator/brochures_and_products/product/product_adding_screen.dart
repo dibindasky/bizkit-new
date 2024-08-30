@@ -18,16 +18,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class AddPrductsScreen extends StatefulWidget {
-  const AddPrductsScreen({Key? key, this.product}) : super(key: key);
+class CardAddPrductsScreen extends StatefulWidget {
+  const CardAddPrductsScreen({Key? key, this.product}) : super(key: key);
 
   final Product? product;
 
   @override
-  State<AddPrductsScreen> createState() => _AddPrductsScreenState();
+  State<CardAddPrductsScreen> createState() => _CardAddPrductsScreenState();
 }
 
-class _AddPrductsScreenState extends State<AddPrductsScreen> {
+class _CardAddPrductsScreenState extends State<CardAddPrductsScreen> {
   @override
   void initState() {
     if (widget.product != null) {

@@ -159,7 +159,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                       }
                       return PreviewPageviewImageBuilder(
                         imagesList: images.isEmpty
-                            ? [bizcardIconBAse64.substring(22)]
+                            ? [bizcardIconBase64.substring(22)]
                             : images,
                         storyIndex: story ? 0 : null,
                         story: cardController

@@ -71,6 +71,9 @@ class ScreenPreviewBankOrPersnalCArdView extends StatelessWidget {
                       first: 'GST ',
                       second: bankDetails?.gst ?? '',
                     ),
+                    GetBuilder<CardController>(builder: (controler) {
+                      return Image.asset(emptyNodata1);
+                    })
                   ],
           ),
         ),

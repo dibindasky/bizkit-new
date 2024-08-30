@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/core/model/pdf/pdf_model.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
@@ -22,7 +20,6 @@ import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.
 import 'package:bizkit/module/biz_card/domain/repository/service/card/business_repo.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -97,6 +94,8 @@ class BusinesDetailsController extends GetxController {
     companyDesignation.text = cardDetail.businessDetails?.designation ?? '';
     companyWebsiteLink.text = cardDetail.businessDetails?.websiteLink ?? '';
     businessName.text = cardDetail.businessDetails?.businessName ?? '';
+    companyEmail.text = cardDetail.businessDetails?.businessEmail ?? '';
+    companyNumber.text = cardDetail.businessDetails?.businessPhone?.first ?? '';
     takeLogoDetails();
     takeBankingDetails();
   }

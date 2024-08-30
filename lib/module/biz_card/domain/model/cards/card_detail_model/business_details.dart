@@ -22,6 +22,10 @@ class BusinessDetails {
   String? companyName;
   @JsonKey(name: 'business_name')
   String? businessName;
+  @JsonKey(name: 'business_email')
+  String? businessEmail;
+  @JsonKey(name: 'business_phone')
+  List<String>? businessPhone;
   @JsonKey(name: 'business_achievements')
   List<Achievement>? businessAchievements;
   @JsonKey(name: 'business_social_media')
@@ -38,6 +42,8 @@ class BusinessDetails {
   String? logoStory;
 
   BusinessDetails({
+    this.businessEmail,
+    this.businessPhone,
     this.websiteLink,
     this.id,
     this.businessCategory,

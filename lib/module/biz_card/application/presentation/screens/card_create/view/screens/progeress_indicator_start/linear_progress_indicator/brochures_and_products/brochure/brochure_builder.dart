@@ -13,8 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pdf_render/pdf_render_widgets.dart';
 
-class BrocherBuilder extends StatelessWidget {
-  const BrocherBuilder({super.key});
+class BrochureBuilder extends StatelessWidget {
+  const BrochureBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +23,13 @@ class BrocherBuilder extends StatelessWidget {
       () {
         if (cardController.isLoading.value) {
           return SizedBox(
-            height: 100.h,
+            height: kwidth * 0.2,
             child: ShimmerLoader(
+              seprator: kWidth10,
               scrollDirection: Axis.horizontal,
               itemCount: 4,
-              height: 100.h,
-              width: 100.h,
+              height: kwidth * 0.5,
+              width: kwidth * 0.2,
             ),
           );
         } else if (cardController
@@ -80,20 +81,26 @@ class _BrochureTileState extends State<BrochureTile> {
     final businessController = Get.find<BusinesDetailsController>();
     return Stack(
       children: [
-        InkWell(
+        GestureDetector(
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
                     ScreenBrochureAdding(brochure: widget.brochure),
               )),
-          child: SizedBox(
+          child: Container(
+            height: kwidth * 0.4,
+            margin: const EdgeInsets.only(right: 10, left: 10, top: 10),
             width: kwidth * 0.2,
+            decoration: BoxDecoration(
+              border: Border.all(color: neonShade),
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Column(
               children: [
                 Container(
                   width: kwidth * 0.2,
-                  height: kwidth * 0.2,
+                  height: kwidth * 0.16,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -104,13 +111,17 @@ class _BrochureTileState extends State<BrochureTile> {
                           : widget.brochure!.file!),
                       params: const PdfViewerParams(pageNumber: 1)),
                 ),
-                Expanded(child: Text(widget.brochure?.title ?? ''))
+                Expanded(
+                    child: Text(
+                  widget.brochure?.title ?? '',
+                  textAlign: TextAlign.center,
+                ))
               ],
             ),
           ),
         ),
         Positioned(
-          top: 0,
+          top: 1,
           right: 5,
           child: InkWell(
             onTap: () => showCustomConfirmationDialogue(

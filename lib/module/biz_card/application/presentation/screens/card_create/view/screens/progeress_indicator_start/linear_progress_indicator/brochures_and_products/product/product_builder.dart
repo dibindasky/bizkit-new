@@ -52,7 +52,7 @@ class ProductBuilder extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              final data = cardController
+              final product = cardController
                   .bizcardDetail.value.businessDetails?.product?[index];
               return Stack(
                 children: [
@@ -60,9 +60,8 @@ class ProductBuilder extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        cardFadePageRoute(AddPrductsScreen(
-                          product: data,
-                        )),
+                        cardFadePageRoute(
+                            CardAddPrductsScreen(product: product)),
                       );
                     },
                     child: Container(
@@ -74,7 +73,7 @@ class ProductBuilder extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
                             image: MemoryImage(
-                              base64Decode(data?.images?[0].image ?? ''),
+                              base64Decode(product?.images?[0].image ?? ''),
                             ),
                             onError: (exception, stackTrace) {
                               const Icon(Icons.image_not_supported_outlined);

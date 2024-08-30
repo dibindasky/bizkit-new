@@ -55,11 +55,11 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                 children: [
                   kHeight10,
                   const Align(
-                      alignment: Alignment.centerLeft, child: Text('Label')),
+                      alignment: Alignment.centerLeft, child: Text('Tittle')),
                   kHeight10,
                   CustomTextFormField(
-                      textCapitalization: TextCapitalization.words,
-                      labelText: 'Label',
+                      textCapitalization: TextCapitalization.sentences,
+                      labelText: 'Tittle',
                       controller: bussinessController.businessBroshureLebel),
                   kHeight10,
                   bussinessController.pdf == null

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
@@ -12,14 +13,18 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/cards_li
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/view/screen/deleted_cards.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
+import 'package:bizkit/packages/share/share_product.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ScreenCardsLists extends StatefulWidget {
   const ScreenCardsLists({super.key});
@@ -172,8 +177,8 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                               final data = controller.bizcards[index];
                               return Container(
                                 decoration: BoxDecoration(
-                                  color: textFieldFillColr,
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: kBorderRadius10,
+                                  border: Border.all(color: neonShade),
                                 ),
                                 width: 300,
                                 child: Column(
@@ -181,8 +186,8 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                     Stack(
                                       children: [
                                         SizedBox(
-                                          width: 300,
-                                          height: 200,
+                                          width: 300.w,
+                                          height: 200.h,
                                           child: InkWell(
                                             onTap: () {
                                               final map = data.bizcardId != null
@@ -202,8 +207,9 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                   topLeft: Radius.circular(25),
                                                   topRight: Radius.circular(20),
                                                 ),
-                                                child: Image.asset(
-                                                  imageBackgroundCard,
+                                                child: Image.memory(
+                                                  base64Decode(bizcardIconBase64
+                                                      .substring(22)),
                                                   fit: BoxFit.cover,
                                                 )),
                                           ),
@@ -212,7 +218,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                 true
                                             ? Positioned(
                                                 right: 10,
-                                                bottom: 0,
+                                                bottom: 5,
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       const BorderRadius.all(
@@ -343,47 +349,15 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                             : kempty,
                                       ],
                                     ),
-                                    adjustHieght(khieght * .02),
+                                    const Divider(color: neonShade),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
                                       children: [
-                                        Expanded(
-                                          child: Text(
-                                            // 'Name\n Designation',
-                                            '${controller.bizcards[index].companyName} \n ${controller.bizcards[index].designation}',
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            // if (state.cards[index].cardLink != null) {
-                                            //   print(
-                                            //       'Checkout my Bizkit card ${state.cards[index].cardLink ?? ''}');
-                                            //   Share.share(
-                                            //       'Checkout my Bizkit card ${state.cards[index].cardLink ?? ''}');
-                                            // } else {
-                                            //   Fluttertoast.showToast(
-                                            //       msg: "can't share card");
-                                            // }
-                                          },
-                                          //  bottomSheet(context, card),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: kblue,
-                                            ),
-                                            width: 100,
-                                            height: 30,
-                                            child: Center(
-                                              child: Text('Share',
-                                                  style: textStyle1),
-                                            ),
+                                        Text(
+                                          ' ${controller.bizcards[index].companyName} \n ${controller.bizcards[index].designation}',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w700,
                                           ),
                                         ),
                                       ],
@@ -395,13 +369,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                         Expanded(
                                           child: InkWell(
                                             onTap: () {
-                                              // if (state.cards[index].views != null &&
-                                              //     state.cards[index].views! > 0) {
-                                              //   // context.read<CardBloc>().add(
-                                              //   //     CardEvent.getCardViews(
-                                              //   //         id: card.id!));
-
-                                              // }
                                               showModalBottomSheet(
                                                 context: context,
                                                 enableDrag: true,
@@ -414,61 +381,71 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                               );
                                             },
                                             child: Container(
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                border:
-                                                    Border.all(color: kwhite),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  adjustWidth(kwidth * .01),
-                                                  const Icon(
-                                                    Icons.remove_red_eye,
-                                                    size: 19,
-                                                    color: kwhite,
-                                                  ),
-                                                  adjustWidth(kwidth * .01),
-                                                  const Text('3'),
-                                                  adjustWidth(kwidth * .01),
-                                                  const Expanded(
-                                                    child: Text('Views',
-                                                        overflow: TextOverflow
-                                                            .ellipsis),
-                                                  ),
-                                                  adjustWidth(kwidth * .01),
-                                                ],
-                                              ),
-                                            ),
+                                                height: 30.h,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: kBorderRadius10,
+                                                  border: Border.all(
+                                                      color: neonShade),
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    kWidth10,
+                                                    const Icon(
+                                                        Icons.remove_red_eye,
+                                                        color: kwhite,
+                                                        size: 19),
+                                                    kWidth10,
+                                                    const Text('0'),
+                                                    kWidth10,
+                                                    const Expanded(
+                                                      child: Text('Views',
+                                                          overflow: TextOverflow
+                                                              .ellipsis),
+                                                    ),
+                                                    kWidth10
+                                                  ],
+                                                )),
                                           ),
                                         ),
                                         adjustWidth(kwidth * .04),
                                         Expanded(
-                                          child: Container(
-                                            height: 50,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(color: kwhite),
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                adjustWidth(kwidth * .01),
-                                                const Icon(
-                                                  Icons.share,
-                                                  color: kwhite,
-                                                  size: 19,
-                                                ),
-                                                adjustWidth(kwidth * .01),
-                                                const Text('3'),
-                                                adjustWidth(kwidth * .01),
-                                                const Expanded(
-                                                  child: Text('Share',
-                                                      overflow: TextOverflow
-                                                          .ellipsis),
-                                                ),
-                                                adjustWidth(kwidth * .01),
-                                              ],
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              final link = cardController
+                                                  .bizcards[index]
+                                                  .universalLink;
+                                              if (link != null &&
+                                                  link.isNotEmpty) {
+                                                Share.share(
+                                                    'Checkout my Bizkit card $link');
+                                              } else {
+                                                showSnackbar(context,
+                                                    message: "Can't share card",
+                                                    backgroundColor: kred);
+                                              }
+                                            },
+                                            child: Container(
+                                              height: 30.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius: kBorderRadius10,
+                                                border: Border.all(
+                                                    color: neonShade),
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  kWidth20,
+                                                  const Icon(Icons.share,
+                                                      color: kwhite, size: 19),
+                                                  kWidth10,
+                                                  kWidth5,
+                                                  const Expanded(
+                                                    child: Text('Share',
+                                                        overflow: TextOverflow
+                                                            .ellipsis),
+                                                  ),
+                                                  kWidth10
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -553,8 +530,8 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                               // print(secondName);
                               return Container(
                                 decoration: BoxDecoration(
-                                  color: textFieldFillColr,
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: kBorderRadius10,
+                                  border: Border.all(color: neonShade),
                                 ),
                                 width: 300,
                                 child: Column(
@@ -566,7 +543,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                           height: 170,
                                           child: InkWell(
                                             onTap: () {
-                                              // log('Visitnig Card Id ==== >${visitingCardController.visitingCards[index].id} ');
                                               visitingCardController
                                                   .fetchVisitingCardDetails(
                                                       visitingCardId:
@@ -592,8 +568,8 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                             child: ClipRRect(
                                               borderRadius:
                                                   const BorderRadius.only(
-                                                topLeft: Radius.circular(25),
-                                                topRight: Radius.circular(20),
+                                                topLeft: Radius.circular(10),
+                                                topRight: Radius.circular(10),
                                               ),
                                               child: Image.memory(
                                                 base64Decode(
@@ -623,10 +599,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            visitingCardController
-                                                    .visitingCards[index]
-                                                    .name ??
-                                                '',
+                                            ' ${visitingCardController.visitingCards[index].name ?? ''}',
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                               fontSize: 16.sp,
@@ -634,33 +607,35 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                             ),
                                           ),
                                         ),
-                                        // InkWell(
-                                        //   onTap: () async {
-                                        //     print(
-                                        //         'card share=> ${state.secondCards[index].pdf == null ? 'no data' : 'data'}');
-                                        //     await SharePlus.sharePdfFromBase64(
-                                        //         state.secondCards[index].pdf ??
-                                        //             '',
-                                        //         state.secondCards[index].name ??
-                                        //             '');
-                                        //   },
-                                        //   child: Container(
-                                        //     decoration: BoxDecoration(
-                                        //       borderRadius:
-                                        //           BorderRadius.circular(20),
-                                        //       color: kblue,
-                                        //     ),
-                                        //     width: 100,
-                                        //     height: 30,
-                                        //     child: Center(
-                                        //       child: Text('Share',
-                                        //           style: textStyle1),
-                                        //     ),
-                                        //   ),
-                                        // ),
+                                        InkWell(
+                                          onTap: () async {
+                                            // print(
+                                            //     'card share=> ${state.secondCards[index].pdf == null ? 'no data' : 'data'}');
+                                            // await SharePlus.sharePdfFromBase64(
+                                            //     state.secondCards[index].pdf ??
+                                            //         '',
+                                            //     state.secondCards[index].name ??
+                                            //         '');
+                                          },
+                                          child: Container(
+                                            margin: const EdgeInsets.only(
+                                                right: 10),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: kblue,
+                                            ),
+                                            width: 100,
+                                            height: 30,
+                                            child: Center(
+                                              child: Text('Share',
+                                                  style: textStyle1),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    adjustHieght(khieght * .02),
+                                    kHeight10
                                   ],
                                 ),
                               );

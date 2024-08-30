@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class ScreenPreviewBankOrPersnalCArdView extends StatelessWidget {
-  const ScreenPreviewBankOrPersnalCArdView({
+class CardScreenPreviewBankOrPersonal extends StatelessWidget {
+  const CardScreenPreviewBankOrPersonal({
     super.key,
     required this.isFromBankScreen,
   });
@@ -19,6 +19,7 @@ class ScreenPreviewBankOrPersnalCArdView extends StatelessWidget {
     final cardController = Get.find<CardController>();
     final bankDetails =
         cardController.bizcardDetail.value.businessDetails?.bankingDetails;
+    final personalDetails = cardController.bizcardDetail.value.personalDetails;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -43,36 +44,104 @@ class ScreenPreviewBankOrPersnalCArdView extends StatelessWidget {
           child: Column(
             children: !isFromBankScreen
                 ? [
-                    CardBankingPersonalTiles(
-                      first: 'Blood Group',
-                      second:
-                          cardController.personalDetails.value?.bloodGroup ??
-                              '',
-                    )
+                    GetBuilder<CardController>(builder: (context) {
+                      if (personalDetails?.name == null) {
+                        return kempty;
+                      }
+                      return CardBankingPersonalTiles(
+                        first: 'Name',
+                        second: personalDetails?.name ?? '',
+                      );
+                    }),
+                    GetBuilder<CardController>(builder: (context) {
+                      if (personalDetails?.bloodGroup == null) {
+                        return kempty;
+                      }
+                      return CardBankingPersonalTiles(
+                        first: 'Blood Group',
+                        second: personalDetails?.bloodGroup ?? '',
+                      );
+                    }),
+                    GetBuilder<CardController>(builder: (context) {
+                      if (personalDetails?.email == null) {
+                        return kempty;
+                      }
+                      return CardBankingPersonalTiles(
+                        first: 'Email',
+                        second: personalDetails?.email ?? '',
+                      );
+                    }),
+                    GetBuilder<CardController>(builder: (context) {
+                      if (personalDetails?.phone?.first == null) {
+                        return kempty;
+                      }
+                      return CardBankingPersonalTiles(
+                        first: 'Phone Number',
+                        second: personalDetails?.phone?.first ?? '',
+                      );
+                    }),
+                    GetBuilder<CardController>(builder: (contxt) {
+                      if (personalDetails?.bloodGroup == null &&
+                          personalDetails?.email == null &&
+                          personalDetails?.phone?.first == null) {
+                        return Image.asset(emptyNodata2, height: 400.h);
+                      }
+                      return kempty;
+                    })
                   ]
                 : [
-                    CardBankingPersonalTiles(
-                      first: 'Banking Namer',
-                      second: bankDetails?.bankingName ??
-                          ''
-                              '',
-                    ),
-                    CardBankingPersonalTiles(
-                      first: 'Account Number',
-                      second: bankDetails?.accountNumber ?? '',
-                    ),
-                    CardBankingPersonalTiles(
-                        first: 'IFSC', second: bankDetails?.ifscCode ?? ''),
-                    CardBankingPersonalTiles(
-                      first: 'UPI ',
-                      second: bankDetails?.upi ?? '',
-                    ),
-                    CardBankingPersonalTiles(
-                      first: 'GST ',
-                      second: bankDetails?.gst ?? '',
-                    ),
-                    GetBuilder<CardController>(builder: (controler) {
-                      return Image.asset(emptyNodata1);
+                    GetBuilder<CardController>(builder: (conext) {
+                      if (bankDetails?.bankingName == null) {
+                        return kempty;
+                      }
+                      return CardBankingPersonalTiles(
+                        first: 'Banking Namer',
+                        second: bankDetails?.bankingName ?? '',
+                      );
+                    }),
+                    GetBuilder<CardController>(builder: (conxt) {
+                      if (bankDetails?.accountNumber == null) {
+                        return kempty;
+                      }
+                      return CardBankingPersonalTiles(
+                        first: 'Account Number',
+                        second: bankDetails?.accountNumber ?? '',
+                      );
+                    }),
+                    GetBuilder<CardController>(builder: (cotext) {
+                      if (bankDetails?.ifscCode == null) {
+                        return kempty;
+                      }
+                      return CardBankingPersonalTiles(
+                          first: 'IFSC', second: bankDetails?.ifscCode ?? '');
+                    }),
+                    GetBuilder<CardController>(builder: (contet) {
+                      if (bankDetails?.upi == null) {
+                        return kempty;
+                      }
+                      return CardBankingPersonalTiles(
+                        first: 'UPI ',
+                        second: bankDetails?.upi ?? '',
+                      );
+                    }),
+                    GetBuilder<CardController>(builder: (cotext) {
+                      if (bankDetails?.gst == null) {
+                        return kempty;
+                      }
+                      return CardBankingPersonalTiles(
+                        first: 'GST ',
+                        second: bankDetails?.gst ?? '',
+                      );
+                    }),
+                    GetBuilder<CardController>(builder: (contxt) {
+                      if (bankDetails?.gst == null &&
+                          bankDetails?.upi == null &&
+                          bankDetails?.ifscCode == null &&
+                          bankDetails?.accountNumber == null &&
+                          bankDetails?.bankingName == null) {
+                        return Image.asset(emptyNodata2, height: 400.h);
+                      }
+                      return kempty;
                     })
                   ],
           ),

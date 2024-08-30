@@ -27,6 +27,7 @@ class ModuleController extends GetxController {
       case Module.card:
         initCardControllers();
         context.go(Routes.bizCardNavbar);
+        Get.find<NavbarController>().changeBottomBar(1);
         break;
       case Module.task:
         initTaskControllers();

@@ -133,6 +133,8 @@ class CreateTaskController extends GetxController {
   RxBool pinLoader = false.obs;
   RxBool isLoadingForSpotLight = false.obs;
   RxBool taksListLoading = false.obs;
+  RxBool loadingForSendRequests = false.obs;
+  RxBool loadingForRecivedRequests = false.obs;
 
   RxList<String> taskTotalTimeKeys = <String>[].obs;
   RxList<String> taskExpenseKeys = <String>[].obs;
@@ -466,15 +468,15 @@ class CreateTaskController extends GetxController {
 
   // Fetches the list of sent requests
   void fetchSendRequests() async {
-    isLoading.value = true;
+    loadingForSendRequests.value = true;
     final result = await taskService.getSendRequests();
     result.fold(
       (failure) {
-        isLoading.value = false;
+        loadingForSendRequests.value = false;
         log(failure.message.toString());
       },
       (success) {
-        isLoading.value = false;
+        loadingForSendRequests.value = false;
         sentRequests.assignAll(success.sentRequests ?? []);
       },
     );
@@ -482,17 +484,17 @@ class CreateTaskController extends GetxController {
 
   // Fetches the list of received requests
   void fetchReceivedRequests() async {
-    isLoading.value = true;
+    loadingForRecivedRequests.value = true;
     final result = await taskService.getReceivedRequests();
     result.fold(
       (failure) {
-        isLoading.value = false;
+        loadingForRecivedRequests.value = false;
         log(failure.message.toString());
       },
       (success) {
         receivedRequests.assignAll(success.tasks ?? []);
         log('receivedRequests :=> $receivedRequests');
-        isLoading.value = false;
+        loadingForRecivedRequests.value = false;
       },
     );
   }

@@ -22,7 +22,7 @@ class RequestSentBuilder extends StatelessWidget {
         },
         child: Obx(
           () {
-            if (taskController.isLoading.value) {
+            if (taskController.loadingForSendRequests.value) {
               return const Center(child: CircularProgressIndicator());
             }
 

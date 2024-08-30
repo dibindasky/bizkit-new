@@ -20,6 +20,7 @@ class TaskDetailSubtasksSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<CreateTaskController>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,39 +32,45 @@ class TaskDetailSubtasksSection extends StatelessWidget {
             ),
             const Spacer(),
             Obx(
-              () => controller.singleTask.value.isOwned == true
-                  ? GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => SubTaskCreationCustomDialog(
-                            taskId: controller.singleTask.value.id,
-                            afterTaskCreation: true,
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 3.h, horizontal: 10.w),
-                        decoration: BoxDecoration(
-                            color: neonShade, borderRadius: kBorderRadius5),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.add,
-                              color: kwhite,
-                              size: 15,
-                            ),
-                            adjustWidth(5.w),
-                            Text(
-                              'Add Sub Task',
-                              style: textThinStyle1.copyWith(fontSize: 13.sp),
-                            )
-                          ],
+              () {
+                if ((controller.singleTask.value.isCompleted != true &&
+                        controller.singleTask.value.isKilled != true) &&
+                    controller.singleTask.value.isOwned == true) {
+                  return GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => SubTaskCreationCustomDialog(
+                          taskId: controller.singleTask.value.id,
+                          afterTaskCreation: true,
                         ),
+                      );
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
+                      decoration: BoxDecoration(
+                          color: neonShade, borderRadius: kBorderRadius5),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.add,
+                            color: kwhite,
+                            size: 15,
+                          ),
+                          adjustWidth(5.w),
+                          Text(
+                            'Add Sub Task',
+                            style: textThinStyle1.copyWith(fontSize: 13.sp),
+                          )
+                        ],
                       ),
-                    )
-                  : kempty,
+                    ),
+                  );
+                } else {
+                  return kempty;
+                }
+              },
             ),
           ],
         ),
@@ -106,11 +113,15 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                     return GestureDetector(
                       onTap: () {},
                       child: SubTaskTileDetailPage(
+                          isKilled:
+                              controller.singleTask.value.isKilled ?? false,
                           taskId: controller.singleTask.value.id,
                           subTaskTitle: subTask?.title ?? '',
                           subTaskDes: subTask?.description ?? '',
                           subTaskId: subTask?.id ?? '',
-                          isCompleted: subTask?.isCompleted ?? false,
+                          isCompleted:
+                              controller.singleTask.value.isCompleted ?? false,
+                          isSubTaskCompleted: subTask?.isCompleted,
                           duration: subTask?.duration ?? '',
                           isOwned:
                               controller.singleTask.value.isOwned ?? false),
@@ -135,6 +146,8 @@ class SubTaskTileDetailPage extends StatelessWidget {
       this.taskId,
       this.isCompleted,
       this.duration,
+      this.isKilled,
+      this.isSubTaskCompleted,
       this.isOwned});
 
   final String? subTaskTitle;
@@ -144,10 +157,14 @@ class SubTaskTileDetailPage extends StatelessWidget {
   final bool? isCompleted;
   final String? duration;
   final bool? isOwned;
+  final bool? isKilled;
+  final bool? isSubTaskCompleted;
 
   @override
   Widget build(BuildContext context) {
-    log('isOwned  = $isOwned');
+    log('isOwned  ===> $isOwned');
+    log('isCompleted  ===> $isCompleted');
+    log('isKilled  ===> $isKilled');
     String formatDateTimeWithTimeZone(DateTime dateTime) {
       final DateFormat formatter = DateFormat("yyyy-MM-ddTHH:mm:ss.SSS");
       final String formattedDate = formatter.format(dateTime);
@@ -201,93 +218,97 @@ class SubTaskTileDetailPage extends StatelessWidget {
               ),
             ),
             adjustWidth(20.w),
-            isCompleted == true || isOwned == false
-                ? kempty
-                : PopupMenuButton(
-                    color: kwhite,
-                    icon: const Icon(Icons.more_vert_outlined, color: kwhite),
-                    itemBuilder: (context) {
-                      List<PopupMenuItem<String>> items = [
-                        PopupMenuItem<String>(
-                          value: 'Edit subtask',
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => SubTaskCreationCustomDialog(
-                                taskId: taskId,
-                                subtaskId: subTaskId,
-                                subtaskTitile: subTaskTitle,
-                                subtaskDescription: subTaskDes,
-                                afterTaskCreation: true,
-                                isEdit: true,
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'Edit subtask',
-                            style: TextStyle(color: kblack),
+            if (isCompleted == true ||
+                isKilled == true ||
+                isSubTaskCompleted == true)
+              kempty
+            else if (isOwned == false)
+              kempty
+            else
+              PopupMenuButton(
+                color: kwhite,
+                icon: const Icon(Icons.more_vert_outlined, color: kwhite),
+                itemBuilder: (context) {
+                  List<PopupMenuItem<String>> items = [
+                    PopupMenuItem<String>(
+                      value: 'Edit subtask',
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => SubTaskCreationCustomDialog(
+                            taskId: taskId,
+                            subtaskId: subTaskId,
+                            subtaskTitile: subTaskTitle,
+                            subtaskDescription: subTaskDes,
+                            afterTaskCreation: true,
+                            isEdit: true,
                           ),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'Delete subtask',
+                        );
+                      },
+                      child: const Text(
+                        'Edit subtask',
+                        style: TextStyle(color: kblack),
+                      ),
+                    ),
+                    PopupMenuItem<String>(
+                      value: 'Delete subtask',
+                      onTap: () {
+                        showCustomConfirmationDialogue(
+                          description:
+                              'Are you sure you want to delete this subtask ?',
+                          buttonText: 'Delete',
+                          context: context,
                           onTap: () {
-                            showCustomConfirmationDialogue(
-                              description:
-                                  'Are you sure you want to delete this subtask ?',
-                              buttonText: 'Delete',
-                              context: context,
-                              onTap: () {
-                                taskController.deleteSubTask(
-                                    context: context,
-                                    deletesubtask: DeleteSubTaskModel(
-                                        subTaskId: subTaskId ?? '',
-                                        taskId: taskId ?? ''),
-                                    taskId: taskId ?? '');
-                              },
-                              title: 'Delete Subtask',
-                              buttonColor: neonShade,
-                            );
+                            taskController.deleteSubTask(
+                                context: context,
+                                deletesubtask: DeleteSubTaskModel(
+                                    subTaskId: subTaskId ?? '',
+                                    taskId: taskId ?? ''),
+                                taskId: taskId ?? '');
                           },
-                          child: const Text(
-                            'Delete subtask',
-                            style: TextStyle(color: kblack),
-                          ),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'Complete subtask',
+                          title: 'Delete Subtask',
+                          buttonColor: neonShade,
+                        );
+                      },
+                      child: const Text(
+                        'Delete subtask',
+                        style: TextStyle(color: kblack),
+                      ),
+                    ),
+                    PopupMenuItem<String>(
+                      value: 'Complete subtask',
+                      onTap: () {
+                        showCustomConfirmationDialogue(
+                          description:
+                              'Are you sure you want to complete this subtask ?',
+                          buttonText: 'Complete',
+                          context: context,
                           onTap: () {
-                            showCustomConfirmationDialogue(
-                              description:
-                                  'Are you sure you want to complete this subtask ?',
-                              buttonText: 'Complete',
-                              context: context,
-                              onTap: () {
-                                taskController.completedSubTask(
-                                    completedSubTask: CompletedSubTask(
-                                      isCompleted: true,
-                                      subTaskId: subTaskId ?? '',
-                                      taskId: taskId ?? '',
-                                      totalTimeTaken:
-                                          formatDateTimeWithTimeZone(
-                                              DateTime.now()),
-                                    ),
-                                    context: context,
-                                    taskId: taskId ?? '');
-                              },
-                              title: 'Complete Subtask',
-                              buttonColor: neonShade,
-                            );
+                            taskController.completedSubTask(
+                                completedSubTask: CompletedSubTask(
+                                  isCompleted: true,
+                                  subTaskId: subTaskId ?? '',
+                                  taskId: taskId ?? '',
+                                  totalTimeTaken: formatDateTimeWithTimeZone(
+                                      DateTime.now()),
+                                ),
+                                context: context,
+                                taskId: taskId ?? '');
                           },
-                          child: const Text(
-                            'Complete subtask',
-                            style: TextStyle(color: kblack),
-                          ),
-                        ),
-                      ];
+                          title: 'Complete Subtask',
+                          buttonColor: neonShade,
+                        );
+                      },
+                      child: const Text(
+                        'Complete subtask',
+                        style: TextStyle(color: kblack),
+                      ),
+                    ),
+                  ];
 
-                      return items;
-                    },
-                  )
+                  return items;
+                },
+              )
           ],
         ),
       ),

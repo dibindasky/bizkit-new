@@ -35,72 +35,81 @@ class ScreenTaskHome extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 10.0, right: 10, top: 24),
-          child: ListView(
-            children: [
-              const TaskHomeAppBar(),
-              adjustHieght(16.h),
-              Hero(
-                tag: 'taskSearch',
-                child: GestureDetector(
-                  onTap: () {
-                    taskController.searchTasks(searchItem: '');
-                    FocusScope.of(context).unfocus();
-                    Get.toNamed(Routes.taskSearch, id: 1);
-                  },
-                  child: TaskTextField(
-                    showBorder: true,
-                    fillColor: textFieldFillColr,
-                    enabled: false,
-                    onTapOutside: () => FocusScope.of(context).unfocus(),
-                    hintText: 'Find your task',
-                    suffixIcon: const Icon(Icons.search, color: neonShade),
+          child: RefreshIndicator(
+            onRefresh: () async {
+              if (homeController.progresBarOrRecentTask.value) {
+                homeController.fetchRecentTasks();
+              } else {
+                homeController.progresBar();
+              }
+            },
+            child: ListView(
+              children: [
+                const TaskHomeAppBar(),
+                adjustHieght(16.h),
+                Hero(
+                  tag: 'taskSearch',
+                  child: GestureDetector(
+                    onTap: () {
+                      taskController.searchTasks(searchItem: '');
+                      FocusScope.of(context).unfocus();
+                      Get.toNamed(Routes.taskSearch, id: 1);
+                    },
+                    child: TaskTextField(
+                      showBorder: true,
+                      fillColor: textFieldFillColr,
+                      enabled: false,
+                      onTapOutside: () => FocusScope.of(context).unfocus(),
+                      hintText: 'Find your task',
+                      suffixIcon: const Icon(Icons.search, color: neonShade),
+                    ),
                   ),
                 ),
-              ),
-              adjustHieght(16.h),
-              const TaskCreationContainer(),
-              adjustHieght(16.h),
-              Obx(
-                () {
-                  if (homeController.progresBarOrRecentTask.value) {
-                    return const TasksListsWidget();
-                  } else {
-                    return Column(
-                      children: [
-                        adjustHieght(20.h),
-                        TaskContainers(),
-                        adjustHieght(110.h),
-                      ],
-                    );
-                  }
-                },
-              ),
-              adjustHieght(30.h),
-              Center(
-                child: EventButton(
-                  hieght: 40.h,
-                  wdth: 270.w,
-                  text: 'Generate Report',
-                  textColr: kblack,
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      enableDrag: true,
-                      isDismissible: true,
-                      showDragHandle: true,
-                      isScrollControlled: true,
-                      backgroundColor: backgroundColour,
-                      builder: (BuildContext context) {
-                        return const ScreenTaskReportGenerator();
-                      },
-                    );
+                adjustHieght(16.h),
+                const TaskCreationContainer(),
+                adjustHieght(16.h),
+                Obx(
+                  () {
+                    if (homeController.progresBarOrRecentTask.value) {
+                      return const TasksListsWidget();
+                    } else {
+                      return Column(
+                        children: [
+                          adjustHieght(20.h),
+                          TaskContainers(),
+                          adjustHieght(110.h),
+                        ],
+                      );
+                    }
                   },
-                  color: const LinearGradient(
-                    colors: [neonShade, neonShade],
+                ),
+                adjustHieght(30.h),
+                Center(
+                  child: EventButton(
+                    hieght: 40.h,
+                    wdth: 270.w,
+                    text: 'Generate Report',
+                    textColr: kblack,
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        enableDrag: true,
+                        isDismissible: true,
+                        showDragHandle: true,
+                        isScrollControlled: true,
+                        backgroundColor: backgroundColour,
+                        builder: (BuildContext context) {
+                          return const ScreenTaskReportGenerator();
+                        },
+                      );
+                    },
+                    color: const LinearGradient(
+                      colors: [neonShade, neonShade],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

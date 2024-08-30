@@ -30,39 +30,41 @@ class TaskDetailSubtasksSection extends StatelessWidget {
               style: textHeadStyle1.copyWith(fontSize: 13.sp),
             ),
             const Spacer(),
-            controller.singleTask.value.isOwned == true
-                ? GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => SubTaskCreationCustomDialog(
-                          taskId: controller.singleTask.value.id,
-                          afterTaskCreation: true,
-                        ),
-                      );
-                    },
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
-                      decoration: BoxDecoration(
-                          color: neonShade, borderRadius: kBorderRadius5),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.add,
-                            color: kwhite,
-                            size: 15,
+            Obx(
+              () => controller.singleTask.value.isOwned == true
+                  ? GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => SubTaskCreationCustomDialog(
+                            taskId: controller.singleTask.value.id,
+                            afterTaskCreation: true,
                           ),
-                          adjustWidth(5.w),
-                          Text(
-                            'Add Sub Task',
-                            style: textThinStyle1.copyWith(fontSize: 13.sp),
-                          )
-                        ],
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 3.h, horizontal: 10.w),
+                        decoration: BoxDecoration(
+                            color: neonShade, borderRadius: kBorderRadius5),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.add,
+                              color: kwhite,
+                              size: 15,
+                            ),
+                            adjustWidth(5.w),
+                            Text(
+                              'Add Sub Task',
+                              style: textThinStyle1.copyWith(fontSize: 13.sp),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                : kempty,
+                    )
+                  : kempty,
+            ),
           ],
         ),
         adjustHieght(5.h),

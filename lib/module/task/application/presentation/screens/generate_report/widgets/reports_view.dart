@@ -81,24 +81,29 @@ class ReportsView extends StatelessWidget {
                                 title: Text(
                                   controller.reportTasks[index].taskTitle ??
                                       'title',
+                                  style:
+                                      textHeadStyle1.copyWith(fontSize: 13.sp),
                                 ),
                                 subtitle: Text(
                                   controller.reportTasks[index].deadLine ??
                                       'deadLine',
-                                  style: textThinStyle1,
+                                  style:
+                                      textThinStyle1.copyWith(fontSize: 10.sp),
                                 ),
-                                trailing: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Created by',
-                                    ),
-                                    Text(
-                                      controller.reportTasks[index].createdBy ??
-                                          'createdBy',
-                                    ),
-                                  ],
-                                ),
+                                // trailing: Column(
+                                //   mainAxisAlignment: MainAxisAlignment.center,
+                                //   children: [
+                                //     Text(
+                                //       'Created by',
+                                //       style: textThinStyle1.copyWith(
+                                //           fontSize: 10.sp),
+                                //     ),
+                                //     Text(
+                                //       controller.reportTasks[index]. ??
+                                //           'createdBy',
+                                //     ),
+                                //   ],
+                                // ),
                               ),
                             ),
                           );

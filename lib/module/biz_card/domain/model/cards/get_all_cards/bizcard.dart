@@ -16,6 +16,10 @@ class Bizcard {
   bool? isArchived;
   @JsonKey(name: 'designation')
   String? designation;
+  @JsonKey(name: "universal_link")
+  String? universalLink;
+  @JsonKey(name: "qr_code")
+  String? qRLink;
   @JsonKey(name: 'name')
   String? name;
   @JsonKey(name: 'company_name')
@@ -23,17 +27,18 @@ class Bizcard {
   @JsonKey(name: 'logo')
   String? logo;
 
-  Bizcard({
-    this.bizcardId,
-    this.completionLevel,
-    this.isDefault,
-    this.isBusinessEditable,
-    this.isArchived,
-    this.designation,
-    this.name,
-    this.companyName,
-    this.logo,
-  });
+  Bizcard(
+      {this.bizcardId,
+      this.completionLevel,
+      this.isDefault,
+      this.isBusinessEditable,
+      this.isArchived,
+      this.designation,
+      this.name,
+      this.companyName,
+      this.logo,
+      this.qRLink,
+      this.universalLink});
 
   factory Bizcard.fromJson(Map<String, dynamic> json) {
     return _$BizcardFromJson(json);

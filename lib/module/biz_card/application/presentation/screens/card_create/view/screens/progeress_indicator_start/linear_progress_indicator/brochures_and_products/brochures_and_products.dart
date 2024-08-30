@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/brochures_and_products/brochure/brochure_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/brochures_and_products/brochure/brochure_adding_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/view/screens/progeress_indicator_start/linear_progress_indicator/brochures_and_products/product/product_adding_screen.dart';
@@ -22,6 +23,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bussinessController = Get.find<BusinesDetailsController>();
+    final cardController = Get.find<CardController>();
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -31,12 +33,30 @@ class BrochersAndProductsScreen extends StatelessWidget {
               adjustHieght(khieght * .03),
               const Text('Products / Brochures',
                   style: TextStyle(fontSize: 20)),
-              adjustHieght(30),
+              (cardController.bizcardDetail.value.businessDetails?.product
+                              ?.length ??
+                          0) ==
+                      0
+                  ? kempty
+                  : const Text('Added Products'),
+              kHeight10,
+              (cardController.bizcardDetail.value.businessDetails?.product
+                              ?.length ??
+                          0) ==
+                      0
+                  ? kempty
+                  : Obx(() => const ProductBuilder()),
+              (cardController.bizcardDetail.value.businessDetails?.product
+                              ?.length ??
+                          0) ==
+                      0
+                  ? kempty
+                  : kHeight30,
               Center(
                 child: InkWell(
                   onTap: () async {
-                    Navigator.push(
-                        context, cardFadePageRoute(const AddPrductsScreen()));
+                    Navigator.push(context,
+                        cardFadePageRoute(const CardAddPrductsScreen()));
                     bussinessController.productDataClear();
                   },
                   child: DottedBorder(
@@ -68,7 +88,26 @@ class BrochersAndProductsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              adjustHieght(30),
+              kHeight20,
+              (cardController.bizcardDetail.value.businessDetails?.brochure
+                              ?.length ??
+                          0) ==
+                      0
+                  ? kempty
+                  : const Text('Added Brochures'),
+              kHeight10,
+              (cardController.bizcardDetail.value.businessDetails?.brochure
+                              ?.length ??
+                          0) ==
+                      0
+                  ? kempty
+                  : const BrochureBuilder(),
+              (cardController.bizcardDetail.value.businessDetails?.brochure
+                              ?.length ??
+                          0) ==
+                      0
+                  ? kempty
+                  : kHeight30,
               Center(
                 child: InkWell(
                   onTap: () async {
@@ -109,13 +148,7 @@ class BrochersAndProductsScreen extends StatelessWidget {
                 ),
               ),
               adjustHieght(30),
-              const Text('Added Products'),
-              kHeight10,
-              const ProductBuilder(),
               kHeight30,
-              const Text('Added Brochures'),
-              kHeight10,
-              const BrocherBuilder(),
             ],
           ),
           adjustHieght(khieght * .03),

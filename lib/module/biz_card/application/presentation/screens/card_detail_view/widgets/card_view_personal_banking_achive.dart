@@ -7,9 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardViewBankPersonAchivedRows extends StatelessWidget {
-  const CardViewBankPersonAchivedRows({
-    super.key,
-  });
+  const CardViewBankPersonAchivedRows({super.key});
 
   @override
   Widget build(BuildContext context) {

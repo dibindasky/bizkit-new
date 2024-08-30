@@ -58,17 +58,24 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
               Navigator.of(context)
                   .push(cardFadePageRoute(const ScreenCardNotification()));
             },
-            child: CustomShowCaseView(
-              image: personImage,
-              globalKey: globalKeynotificationIcon,
-              tittle: 'See notification',
-              description: '',
-              child: CircleAvatar(
-                radius: kwidth * .060,
-                backgroundColor: textFieldFillColr,
-                backgroundImage: const AssetImage(
-                  iconNotification,
-                ),
+            // child: CustomShowCaseView(
+            //   image: personImage,
+            //   globalKey: globalKeynotificationIcon,
+            //   tittle: 'See notification',
+            //   description: '',
+            //   child: CircleAvatar(
+            //     radius: kwidth * .060,
+            //     backgroundColor: textFieldFillColr,
+            //     backgroundImage: const AssetImage(
+            //       iconNotification,
+            //     ),
+            //   ),
+            // ),
+            child: CircleAvatar(
+              radius: kwidth * .060,
+              backgroundColor: textFieldFillColr,
+              backgroundImage: const AssetImage(
+                iconNotification,
               ),
             ),
           ),
@@ -80,18 +87,26 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
                 const ScreenCardSharing(),
               ),
             ),
-            child: CustomShowCaseView(
-              image: personImage,
-              globalKey: globalKeylevelSharingIcon,
-              tittle: 'Share your card using QR code',
-              description: '',
-              child: CircleAvatar(
-                radius: kwidth * 0.060,
-                backgroundColor: textFieldFillColr,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Image.asset(iconBizkitPng),
-                ),
+            // child: CustomShowCaseView(
+            //   image: personImage,
+            //   globalKey: globalKeylevelSharingIcon,
+            //   tittle: 'Share your card using QR code',
+            //   description: '',
+            //   child: CircleAvatar(
+            //     radius: kwidth * 0.060,
+            //     backgroundColor: textFieldFillColr,
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(10.0),
+            //       child: Image.asset(iconBizkitPng),
+            //     ),
+            //   ),
+            // ),
+            child: CircleAvatar(
+              radius: kwidth * 0.060,
+              backgroundColor: textFieldFillColr,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Image.asset(iconBizkitPng),
               ),
             ),
           )

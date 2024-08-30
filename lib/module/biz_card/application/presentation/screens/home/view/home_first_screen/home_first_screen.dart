@@ -51,29 +51,29 @@ class _ScreenCardsHomeFirstAnimationState
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation2;
   late Animation<Offset> _slideAnimation2Move;
-  bool isShowcaseSeen = false;
-  final homeScreenShowCase = 'isShowcaseSeen';
+  // bool isShowcaseSeen = false;
+  // final homeScreenShowCase = 'isShowcaseSeen';
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      SharedPreferences.getInstance().then((prefs) async {
-        const showed = true;
-        //  await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
-        setState(() {
-          isShowcaseSeen = showed;
-        });
-        if (!isShowcaseSeen) {
-          ShowCaseWidget.of(context).startShowCase([
-            globalKeynotificationIcon,
-            globalKeylevelSharingIcon,
-            globalKeyAddCard,
-            globalKeyaddConnections,
-          ]);
-          // await SecureStorage.setHasCard(hasCard: true);
-        }
-      });
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   SharedPreferences.getInstance().then((prefs) async {
+    //     const showed = true;
+    //     //  await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
+    //     setState(() {
+    //       isShowcaseSeen = showed;
+    //     });
+    //     if (!isShowcaseSeen) {
+    //       ShowCaseWidget.of(context).startShowCase([
+    //         globalKeynotificationIcon,
+    //         globalKeylevelSharingIcon,
+    //         globalKeyAddCard,
+    //         globalKeyaddConnections,
+    //       ]);
+    //       // await SecureStorage.setHasCard(hasCard: true);
+    //     }
+    //   });
+    // });
 
     homeFirstAnimationController = AnimationController(
       vsync: this,

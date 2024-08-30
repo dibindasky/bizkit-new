@@ -114,16 +114,12 @@ class CardBottomNavigationBar extends StatelessWidget {
           }
         },
         child: Scaffold(
-          body: ShowCaseWidget(
-            builder: Builder(
-              builder: (context) => Stack(
-                children: [
-                  _widgetOptions.elementAt(controller.slectedtabIndex.value),
-                  CardPromptHomePage(
-                      showPrompt: controller.slectedtabIndex.value == 1)
-                ],
-              ),
-            ),
+          body: Stack(
+            children: [
+              _widgetOptions.elementAt(controller.slectedtabIndex.value),
+              CardPromptHomePage(
+                  showPrompt: controller.slectedtabIndex.value == 1)
+            ],
           ),
           bottomNavigationBar: Material(
             elevation: 5,

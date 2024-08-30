@@ -9,13 +9,15 @@ import 'package:bizkit/module/task/application/presentation/screens/chat/widgets
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 
 class ScreenTaskChat extends StatelessWidget {
   const ScreenTaskChat({
     super.key,
+    required this.active,
   });
+
+  final bool active;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,6 @@ class ScreenTaskChat extends StatelessWidget {
           appBar: AppBar(
             leading: IconButton(
               onPressed: () {
-                GoRouter.of(context).pop();
                 chatController.closeConnetion();
               },
               icon: const Icon(Icons.arrow_back_ios),
@@ -102,7 +103,9 @@ class ScreenTaskChat extends StatelessWidget {
                                       // poll message
                                       if (message.poll != null) {
                                         return PollContainerChat(
-                                            message: message.poll!);
+                                          message: message.poll!,
+                                          active: active,
+                                        );
                                       }
                                       // time or expence
                                       if (message.timeExpence != null) {
@@ -125,7 +128,7 @@ class ScreenTaskChat extends StatelessWidget {
                                 })),
                       ),
                       adjustHieght(5.h),
-                      const ChatTextfieldContainer(),
+                      active ? const ChatTextfieldContainer() : kempty,
                     ],
                   ),
           ),

@@ -14,9 +14,11 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class PollContainerChat extends StatefulWidget {
-  const PollContainerChat({super.key, required this.message});
+  const PollContainerChat(
+      {super.key, required this.message, required this.active});
 
   final Poll message;
+  final bool active;
 
   @override
   _PollContainerChatState createState() => _PollContainerChatState();
@@ -83,12 +85,42 @@ class _PollContainerChatState extends State<PollContainerChat> {
       }
     }
     time = DateTimeFormater.countdownInSeconds(message.activeUntil ?? '');
-    if (message.activeUntil == '' || message.activeUntil == 'Always') {
+    if (!widget.active) {
+      expired = true;
+    } else if (message.activeUntil == '' || message.activeUntil == 'Always') {
       expired = false;
     } else if (time != null && time! > 0) {
       timerCheck();
     } else {
       expired = true;
+    }
+  }
+
+  void markUnMarkAnswer(PollAnswer? answer) {
+    if (!expired) {
+      setState(() {
+        if (message.multipleAnswer ?? false) {
+          if (selectedOption.contains(answer?.answerId ?? '')) {
+            selectedOption.remove(answer?.answerId ?? '');
+          } else {
+            selectedOption.add(answer?.answerId ?? '');
+          }
+        } else {
+          if (selectedOption.contains(answer?.answerId ?? '')) {
+            selectedOption = [];
+          } else {
+            selectedOption = [answer?.answerId ?? ''];
+          }
+        }
+        if (message.multipleAnswer ?? false) {
+          markAnswer();
+        } else if (message.resonRequired ?? false) {
+          lastTapId = answer?.answerId ?? '';
+          showTextField = true;
+        } else {
+          markAnswer();
+        }
+      });
     }
   }
 
@@ -155,36 +187,9 @@ class _PollContainerChatState extends State<PollContainerChat> {
                       children: [
                         Expanded(
                           child: GestureDetector(
+                            behavior: HitTestBehavior.translucent,
                             onTap: () {
-                              if (!expired) {
-                                setState(() {
-                                  if (message.multipleAnswer ?? false) {
-                                    if (selectedOption
-                                        .contains(answer?.answerId ?? '')) {
-                                      selectedOption
-                                          .remove(answer?.answerId ?? '');
-                                    } else {
-                                      selectedOption
-                                          .add(answer?.answerId ?? '');
-                                    }
-                                  } else {
-                                    if (selectedOption
-                                        .contains(answer?.answerId ?? '')) {
-                                      selectedOption = [];
-                                    } else {
-                                      selectedOption = [answer?.answerId ?? ''];
-                                    }
-                                  }
-                                  if (message.multipleAnswer ?? false) {
-                                    markAnswer();
-                                  } else if (message.resonRequired ?? false) {
-                                    lastTapId = answer?.answerId ?? '';
-                                    showTextField = true;
-                                  } else {
-                                    markAnswer();
-                                  }
-                                });
-                              }
+                              markUnMarkAnswer(answer);
                             },
                             child: Container(
                               padding: EdgeInsets.zero,

@@ -68,24 +68,30 @@ class TaskDetailHeaderSection extends StatelessWidget {
         Row(
           children: [
             Obx(
-              () => taskController.singleTask.value.isOwned == true
-                  ? CircleAvatar(
-                      backgroundColor: kGrayLight,
-                      child: IconButton(
-                        icon: const Icon(Icons.mode_edit_outline_outlined,
-                            color: kwhite),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            barrierDismissible: true,
-                            builder: (context) => TaskStatusChangeDialog(
-                              taskId: taskController.singleTask.value.id,
-                            ),
-                          );
-                        },
-                      ),
-                    )
-                  : kempty,
+              () {
+                if ((taskController.singleTask.value.isCompleted != true &&
+                        taskController.singleTask.value.isKilled != true) &&
+                    taskController.singleTask.value.isOwned == true) {
+                  return CircleAvatar(
+                    backgroundColor: kGrayLight,
+                    child: IconButton(
+                      icon: const Icon(Icons.mode_edit_outline_outlined,
+                          color: kwhite),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (context) => TaskStatusChangeDialog(
+                            taskId: taskController.singleTask.value.id,
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                } else {
+                  return kempty;
+                }
+              },
             ),
             adjustWidth(10.w),
             Obx(

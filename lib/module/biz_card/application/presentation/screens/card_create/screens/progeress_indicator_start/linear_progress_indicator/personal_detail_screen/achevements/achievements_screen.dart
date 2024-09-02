@@ -353,10 +353,11 @@ class AchivementListViewCreation extends StatelessWidget {
                                   !fromBusiness
                                       ? personalController
                                           .personalAcheievementDeleting(
+                                              context: context,
                                               personalAchievementDeletion:
                                                   personalAchievementDeletion)
                                       : businessController.achievementDeleting(
-                                          index: index);
+                                          context: context, index: index);
                                 });
                           },
                           icon: const Icon(Icons.delete),

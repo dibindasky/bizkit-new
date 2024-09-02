@@ -53,16 +53,16 @@ class _LinearProgressIndicatorStartingState
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: LinearProgressIndicator(
-                  minHeight: 13,
-                  value: ((10.toDouble()) / 100),
-                  backgroundColor: smallBigGrey,
-                  valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
-                ),
-              ),
-              adjustHieght(10),
+              // ClipRRect(
+              //   borderRadius: BorderRadius.circular(12),
+              //   child: LinearProgressIndicator(
+              //     minHeight: 13,
+              //     value: ((10.toDouble()) / 100),
+              //     backgroundColor: smallBigGrey,
+              //     valueColor: const AlwaysStoppedAnimation<Color>(neonShade),
+              //   ),
+              // ),
+              // adjustHieght(10),
               Expanded(
                 child: PageView(
                   physics: const NeverScrollableScrollPhysics(),

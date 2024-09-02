@@ -96,6 +96,7 @@ class CardController extends GetxController {
         personalDetails.value = r.personalDetails;
         businessDetails.value = r.businessDetails;
         isLoading.value = false;
+        update();
       },
     );
   }

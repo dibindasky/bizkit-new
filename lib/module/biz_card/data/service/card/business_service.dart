@@ -97,7 +97,7 @@ class BusinessService implements BusinessRepo {
   Future<Either<Failure, SuccessResponseModel>> businessBankDetails(
       {required BankingDetailsModel bankingDetail}) async {
     try {
-      final responce = await apiService.patch(ApiEndPoints.businessBranch,
+      final responce = await apiService.patch(ApiEndPoints.bankDetails,
           data: bankingDetail.toJson());
       log('businessBankDetailsAdding ==>success');
       return Right(SuccessResponseModel.fromJson(responce.data));
@@ -199,7 +199,7 @@ class BusinessService implements BusinessRepo {
   Future<Either<Failure, SuccessResponseModel>> businessBrochureUpdating(
       {required BusinessBrochureModel brochureModel}) async {
     try {
-      final responce = await apiService.put(ApiEndPoints.businessBrochure,
+      final responce = await apiService.patch(ApiEndPoints.businessBrochure,
           data: brochureModel.toJson());
       log('businessBrochureUpdating ==>success');
       return Right(SuccessResponseModel.fromJson(responce.data));

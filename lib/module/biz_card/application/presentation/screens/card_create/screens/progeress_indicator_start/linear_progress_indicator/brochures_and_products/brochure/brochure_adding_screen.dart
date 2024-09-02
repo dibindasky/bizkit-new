@@ -9,6 +9,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,9 @@ import 'package:get/get.dart';
 import 'package:pdf_render/pdf_render_widgets.dart';
 
 class ScreenBrochureAdding extends StatefulWidget {
-  const ScreenBrochureAdding({super.key, this.brochure});
+  const ScreenBrochureAdding({super.key, this.brochure, this.selectedIndex});
   final Brochure? brochure;
+  final int? selectedIndex;
 
   @override
   State<ScreenBrochureAdding> createState() => _ScreenBrochureAddingState();
@@ -55,11 +57,11 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                 children: [
                   kHeight10,
                   const Align(
-                      alignment: Alignment.centerLeft, child: Text('Tittle')),
+                      alignment: Alignment.centerLeft, child: Text('Title')),
                   kHeight10,
                   CustomTextFormField(
                       textCapitalization: TextCapitalization.sentences,
-                      labelText: 'Tittle',
+                      labelText: 'Title',
                       controller: bussinessController.businessBroshureLebel),
                   kHeight10,
                   bussinessController.pdf == null
@@ -92,29 +94,6 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                                             : bussinessController
                                                 .pdf!.base64!))),
                               ),
-                              // Positioned(
-                              //   right: 0,
-                              //   child: InkWell(
-                              //     onTap: () {
-                              //       setState(() {
-                              //         //bussinessController.pdf = null;
-                              //         // context
-                              //         //     .read<BusinessDataBloc>()
-                              //         //     .brochureLabelController
-                              //         //     .text = '';
-                              //       });
-                              //     },
-                              //     child: ClipRRect(
-                              //       borderRadius: BorderRadius.circular(50),
-                              //       child: const ColoredBox(
-                              //           color: neonShade,
-                              //           child: Padding(
-                              //             padding: EdgeInsets.all(3.0),
-                              //             child: Icon(Icons.close),
-                              //           )),
-                              //     ),
-                              //   ),
-                              // )
                             ],
                           ),
                         ),
@@ -154,8 +133,8 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                             kHeight10,
                             Text(
                               bussinessController.pdf != null
-                                  ? 'Change Brochures'
-                                  : 'Choose Brochures',
+                                  ? 'Change Brochure'
+                                  : 'Choose Brochure',
                               style: TextStyle(fontSize: 10.sp),
                             ),
                           ],
@@ -168,24 +147,28 @@ class _ScreenBrochureAddingState extends State<ScreenBrochureAdding> {
                     () => bussinessController.brochureLoading.value
                         ? const LoadingAnimation()
                         : EventButton(
-                            text: "Add Brochure",
+                            text: widget.brochure?.id == null
+                                ? "Add Brochure"
+                                : 'Update Brochure',
                             onTap: () {
+                              if (bussinessController
+                                      .businessBroshureLebel.text.isEmpty ||
+                                  bussinessController.pdf == null) {
+                                showSnackbar(context,
+                                    message: bussinessController
+                                            .businessBroshureLebel.text.isEmpty
+                                        ? 'Add Brochure Title'
+                                        : 'Add Brochure',
+                                    backgroundColor: kred);
+                                return;
+                              }
                               if (widget.brochure == null) {
-                                bussinessController.addBrochure();
+                                bussinessController.addBrochure(
+                                    context: context);
                               } else {
-                                // context.read<BusinessDataBloc>().add(
-                                //       BusinessDataEvent.updateBrochure(
-                                //         brochure: Brochure(
-                                //             cardId: state.currentCard?.id,
-                                //             file: pdf!.base64,
-                                //             label: context
-                                //                 .read<BusinessDataBloc>()
-                                //                 .brochureLabelController
-                                //                 .text
-                                //                 .trim(),
-                                //             id: widget.brochure!.id),
-                                //       ),
-                                //     );
+                                bussinessController.brochureUpdate(
+                                    context: context,
+                                    brochureIndex: widget.selectedIndex ?? 0);
                               }
                             }),
                   ),

@@ -1,6 +1,5 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
-import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
@@ -18,7 +17,6 @@ class ScreenCardBankingDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final businessController = Get.find<BusinesDetailsController>();
-    final cardController = Get.find<CardController>();
     return FadeIn(
       duration: const Duration(milliseconds: 900),
       delay: const Duration(milliseconds: 600),
@@ -33,17 +31,13 @@ class ScreenCardBankingDetails extends StatelessWidget {
           key: bankingCardCreationKey,
           child: ListView(
             children: [
-              adjustHieght(khieght * .04),
-              const Text(
-                'Banking Details',
-                style: TextStyle(fontSize: 20),
-              ),
+              const Text('Banking Details', style: TextStyle(fontSize: 20)),
               adjustHieght(khieght * .02),
               // company banking name
               CustomTextFormField(
                   labelText: 'Company Banking Name',
                   validate: Validate.notNull,
-                  textCapitalization: TextCapitalization.words,
+                  textCapitalization: TextCapitalization.sentences,
                   controller: businessController.companyBankingName),
               // banking details accound number
               CustomTextFormField(

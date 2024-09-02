@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
@@ -90,7 +91,7 @@ class _CardProductDetailViewState extends State<CardProductDetailView> {
                 height: khieght * .3,
                 child: PageView.builder(
                   controller: _pageController,
-                  itemCount: 3,
+                  itemCount: widget.product.images?.length,
                   scrollDirection: Axis.horizontal,
                   // physics: const NeverScrollableScrollPhysics(),
                   // separatorBuilder: (context, index) => adjustWidth(10),
@@ -110,14 +111,17 @@ class _CardProductDetailViewState extends State<CardProductDetailView> {
                             onTap: () {
                               Navigator.of(context).push(cardFadePageRoute(
                                   SlidablePhotoGallery(
-                                      initialIndex: index, images: const [])));
+                                      initialIndex: index,
+                                      images: (widget.product.images ?? [])
+                                          .map((e) => e.image ?? '')
+                                          .toList())));
                             },
                             child: SizedBox(
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.memory(
                                     base64.decode(
-                                      imageTestingBase64.substring(22),
+                                      widget.product.images?[index].image ?? '',
                                     ),
                                     filterQuality: FilterQuality.high,
                                     fit: BoxFit.cover,

@@ -191,10 +191,13 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                           .businessDetails?.id);
                           !widget.fromBusiness
                               ? personalController.personalSocialMediaAdding(
+                                  context: context,
                                   personalSocialMediaModel:
                                       personalSocialMediaModel)
                               : businessController.socialMediaAdding(
-                                  selectedCategory, link);
+                                  context: context,
+                                  lebel: selectedCategory,
+                                  link: link);
                           linkController.text = '';
                           selectedCategory = 'Social Media';
                           setState(() {});
@@ -285,7 +288,7 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                         !widget.fromBusiness
                                             ? personalController
                                                 .personalSocialMediaDelete(
-                                                    index)
+                                                    context: context, index)
                                             : null;
                                       });
                                 },

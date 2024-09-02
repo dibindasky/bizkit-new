@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
@@ -42,7 +44,6 @@ class _LogoStoryState extends State<LogoStory> {
         },
         child: ListView(
           children: [
-            adjustHieght(khieght * .03),
             const Text('Logo', style: TextStyle(fontSize: 20)),
             adjustHieght(khieght * .02),
             Center(
@@ -58,9 +59,6 @@ class _LogoStoryState extends State<LogoStory> {
                     },
                     tittle: 'Choose image',
                   );
-                  // context
-                  //     .read<BusinessDataBloc>()
-                  //     .add(const BusinessDataEvent.addLogo());
                 },
                 child: DottedBorder(
                   dashPattern: const [8, 8],
@@ -69,16 +67,29 @@ class _LogoStoryState extends State<LogoStory> {
                   child: Obx(
                     () => SizedBox(
                       width: kwidth * 0.8,
-                      height: kwidth * 0.25,
+                      height:
+                          businessController.logoImage.value.image != null &&
+                                  businessController.logoImage.value.image != ''
+                              ? 400.h
+                              : kwidth * 0.25,
                       child: businessController.logoImage.value != null &&
                               businessController.logoImage.value.image != null
                           ? InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    cardFadePageRoute(SlidablePhotoGallery(
+                                        images: [
+                                          businessController
+                                                  .logoImage.value.image ??
+                                              ''
+                                        ])));
+                              },
                               child: Image.memory(
                                 base64.decode(
                                     businessController.logoImage.value.image ??
                                         ''),
-                                fit: BoxFit.contain,
+                                fit: BoxFit.cover,
                               ),
                             )
                           : Column(
@@ -135,7 +146,6 @@ class _LogoStoryState extends State<LogoStory> {
                   : CardLastSkipContinueButtons(onTap: () {
                       FocusScope.of(context).unfocus();
                       if (businessController.logoImage.value.image == null) {
-                        print('logo is not there');
                         setState(() {
                           showLogoError = true;
                         });
@@ -145,7 +155,7 @@ class _LogoStoryState extends State<LogoStory> {
                         showLogoError = false;
                       });
                       if (logokey.currentState!.validate()) {
-                        businessController.logoAdd();
+                        businessController.logoAdd(context: context);
                       }
                     }),
             ),

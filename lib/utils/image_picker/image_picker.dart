@@ -50,6 +50,7 @@ class ImagePickerClass {
         return ImageModel(
           fileImage: compressedFile,
           base64: base64,
+          type: extension,
         );
       }
       return null;

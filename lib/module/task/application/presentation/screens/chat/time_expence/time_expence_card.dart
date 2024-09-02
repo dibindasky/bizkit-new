@@ -26,7 +26,7 @@ class TimeAndExpenseCard extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.only(
               bottom: 0.w,
-              top: 5.w,
+              top: sender ? 5.w : 0.w,
               left: sender ? 5.w : 15.w,
               right: sender ? 15.w : 5.w),
           decoration: BoxDecoration(
@@ -35,6 +35,13 @@ class TimeAndExpenseCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              sender
+                  ? kempty
+                  : Text(
+                      message.username ?? '',
+                      style: textThinStyle1.copyWith(
+                          fontSize: 8.sp, color: kwhite.withOpacity(0.7)),
+                    ),
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.only(
@@ -63,7 +70,8 @@ class TimeAndExpenseCard extends StatelessWidget {
                               FittedBox(
                                 child: Text(
                                   "Money Spent on Task:",
-                                  style: textThinStyle1.copyWith(fontSize: 10.sp),
+                                  style:
+                                      textThinStyle1.copyWith(fontSize: 10.sp),
                                 ),
                               ),
                               Text(
@@ -90,7 +98,8 @@ class TimeAndExpenseCard extends StatelessWidget {
                               FittedBox(
                                 child: Text(
                                   "Time Spent on Task:",
-                                  style: textThinStyle1.copyWith(fontSize: 10.sp),
+                                  style:
+                                      textThinStyle1.copyWith(fontSize: 10.sp),
                                 ),
                               ),
                               Text(

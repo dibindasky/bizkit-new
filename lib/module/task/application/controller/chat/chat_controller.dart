@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
+import 'package:bizkit/core/model/image/image_model.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/chat/current_location_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/file_model.dart';
@@ -38,6 +39,7 @@ class ChatController extends GetxController {
   RxBool connectionLoading = false.obs;
   RxBool loadMoreLoading = false.obs;
   RxList<double> currentLocationLatLong = <double>[].obs;
+  RxList<ImageModel> loadedImages = <ImageModel>[].obs;
   RxString currentLocation = ''.obs;
 
   Rx<Poll> pollDetail = Poll().obs;
@@ -225,6 +227,7 @@ class ChatController extends GetxController {
   /// responsible for adding message to the channel
   void addMessage(Map<String, dynamic> data) {
     try {
+      print('addMessage => $data');
       channel.sink.add(jsonEncode(data));
     } catch (e) {
       log('message sending error $e');
@@ -247,7 +250,7 @@ class ChatController extends GetxController {
   /// send text message
   void sendTextMessage() {
     if (controller.text.isNotEmpty) {
-      final message = controller.text;
+      final message = controller.text.trim();
       try {
         addMessage({"message_type": "text", "message": message});
         controller.clear();
@@ -308,24 +311,49 @@ class ChatController extends GetxController {
     }
   }
 
-  /// send image base64
-  void sendImageBase64({required bool camera}) async {
+  /// getImage from Storage
+  void getImageBase64({required bool camera}) async {
     try {
-      final image = await ImagePickerClass.getImage(camera: camera);
-      if (image == null || image.base64 == null) return;
+      final images = await ImagePickerClass.getImage(camera: camera);
+      if (images != null && images.base64 != null) {
+        loadedImages.value = [images];
+      }
+    } catch (e) {
+      print('Failed to get image: $e');
+      _error = 'Failed to get image: $e';
+      return;
+    }
+  }
+
+  /// send image base64
+  void sendImageBase64() async {
+    try {
+      if (loadedImages.isEmpty) return;
       print('send picture');
       addMessage({
         "message_type": "file",
-        "files": [
-          {"file": image.base64 ?? '', "file_type": 'image'}
-        ],
-        "messages": [""]
+        "files": List.generate(
+          loadedImages.length,
+          (index) => {
+            "file": loadedImages[index].base64 ?? '',
+            "file_type": loadedImages[index].type ?? ''
+          },
+        ),
+        "messages": [controller.text.trim()]
       });
+      controller.clear();
+      loadedImages.clear();
     } catch (e) {
       print('Failed to send image: $e');
       _error = 'Failed to send image: $e';
       return;
     }
+  }
+
+  /// clear image form selected list
+  void clearImageFromSelectedList(int index) {
+    if (loadedImages.isEmpty) return;
+    loadedImages.removeAt(index);
   }
 
   /// send pdf base64
@@ -382,5 +410,10 @@ class ChatController extends GetxController {
   /// get map for current location
   void launchMapCurrentLocation(BuildContext context, List<double> location) {
     LaunchUrl.launchMapLatLong(location: location, context: context);
+  }
+
+  /// send audio message
+  void sendAudioMessage(String audio) {
+    print('send audio message ---::::...::.:::.::.');
   }
 }

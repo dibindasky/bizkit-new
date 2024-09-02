@@ -41,7 +41,7 @@ class AttachmentsChatDialog extends StatelessWidget {
                     iconData: Icons.photo_size_select_actual_outlined,
                     onTap: () {
                       GoRouter.of(context).pop();
-                      controller.sendImageBase64(camera: false);
+                      controller.getImageBase64(camera: false);
                     },
                     text: 'Photo'),
                 AttachmentTile(

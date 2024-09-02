@@ -342,7 +342,8 @@ class TaskService implements TaskRepo {
 
       log("=> Response Add New Subtask :");
 
-      return Right(SuccessResponce.fromJson(response.data));
+      return Right(SuccessResponce(
+          message: response.data['message'], data: response.data));
     } on DioException catch (e) {
       log('DioException addSubTask $e');
       return Left(Failure(message: e.message ?? errorMessage));

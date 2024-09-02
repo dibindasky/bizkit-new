@@ -9,7 +9,7 @@ class CompletedSubTasks {
   @JsonKey(name: 'is_completed')
   bool? isCompleted;
   @JsonKey(name: 'created_at')
-  DateTime? createdAt;
+  String? createdAt;
   @JsonKey(name: '_id')
   String? id;
   @JsonKey(name: 'total_time_taken')

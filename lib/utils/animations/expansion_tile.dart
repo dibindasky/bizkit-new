@@ -2,15 +2,18 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomExpansionTile extends StatefulWidget {
-  const CustomExpansionTile({
-    super.key,
-    this.isExpandable = true,
-    required this.children,
-    required this.title,
-  });
+  const CustomExpansionTile(
+      {super.key,
+      this.isExpandable = true,
+      required this.children,
+      required this.title,
+      this.expand,
+      this.padding = const EdgeInsets.all(8)});
   final List<Widget> children;
   final Widget title;
   final bool isExpandable;
+  final EdgeInsets padding;
+  final bool? expand;
 
   @override
   State<CustomExpansionTile> createState() => _CustomExpansionTileState();
@@ -18,11 +21,18 @@ class CustomExpansionTile extends StatefulWidget {
 
 class _CustomExpansionTileState extends State<CustomExpansionTile> {
   bool isExpanded = false;
+  @override
+  void initState() {
+    if (widget.expand != null) {
+      isExpanded = widget.expand!;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: widget.padding,
       child: Column(
         children: [
           InkWell(

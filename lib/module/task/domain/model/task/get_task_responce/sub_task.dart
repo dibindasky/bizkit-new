@@ -32,4 +32,24 @@ class SubTask {
   }
 
   Map<String, dynamic> toJson() => _$SubTaskToJson(this);
+
+   SubTask copyWith({
+    String? title,
+    String? description,
+    String? deadLine,
+    bool? isCompleted,
+    String? totalTimeTaken,
+    String? duration,
+    String? id,
+  }) {
+    return SubTask(
+      title: title ?? this.title,
+      description: description ?? this.description,
+      deadLine: deadLine ?? this.deadLine,
+      isCompleted: isCompleted ?? this.isCompleted,
+      totalTimeTaken: totalTimeTaken ?? this.totalTimeTaken,
+      duration: duration ?? this.duration,
+      id: id ?? this.id,
+    );
+  }
 }

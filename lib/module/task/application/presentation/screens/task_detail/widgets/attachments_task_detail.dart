@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pdf_render/pdf_render_widgets.dart';
 
 class TaskDetailAttachmentsSection extends StatelessWidget {
   const TaskDetailAttachmentsSection({super.key});
@@ -26,12 +28,16 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Row(crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'Attachments',
+                'Attachments ',
                 style: textHeadStyle1.copyWith(fontSize: 13.sp),
               ),
+              // Text(
+              //   ' (Images,Pdf)',
+              //   style: textThinStyle1.copyWith(fontSize: 8.sp),
+              // ),
               const Spacer(),
             ],
           ),
@@ -62,13 +68,15 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
                 );
               } else {
                 return SizedBox(
-                  height: 100,
+                  height: 90,
                   child: ListView.builder(
                     itemCount: controller.singleTask.value.attachments?.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       final attachment =
-                          controller.singleTask.value.attachments?[index];
+                          (controller.singleTask.value.attachments)
+                              ?.reversed
+                              .toList()[index];
                       return GestureDetector(
                         onTap: () {
                           log('Attachment Type ==== > ${attachment?.type}');
@@ -81,6 +89,7 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
                           );
                         },
                         child: AttachmentTile(
+                          // file: attachment.
                           attachmet: attachment?.attachment ?? 'No Attachment',
                           type: attachment?.type ?? 'Unknown Type',
                         ),
@@ -136,7 +145,9 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
         MaterialPageRoute(
           builder: (context) => ImagePreviewScreen(
             initialIndex: index,
-            attachments: controller.singleTask.value.attachments ?? [],
+            attachments: (controller.singleTask.value.attachments ?? [])
+                .reversed
+                .toList(),
             imageBase64: attachment,
           ),
         ),
@@ -172,31 +183,42 @@ class AttachmentTile extends StatelessWidget {
       width: 80.w,
       height: 80.w,
       decoration:
-          BoxDecoration(borderRadius: kBorderRadius10, color: lightColr),
-      padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.w),
+          BoxDecoration(borderRadius: kBorderRadius15, color: lightColr),
+      // padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.w),
       margin: EdgeInsets.symmetric(horizontal: 4.0.w),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            type == 'pdf' ? Icons.file_copy : Icons.image,
-            color: neonShade,
-            size: 35.w,
-          ),
-          SizedBox(height: 4.h),
-          Text(
-            attachmet,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: textThinStyle1.copyWith(fontSize: 10.sp),
-          ),
-          Text(
-            type == 'pdf' ? '.$type' : '',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: textThinStyle1.copyWith(fontSize: 10.sp),
-          ),
+          type == 'pdf'
+              ? Expanded(
+                  child: Container( decoration: BoxDecoration(borderRadius: kBorderRadius15,),
+                    child: PdfViewer.openData(
+                    base64Decode(attachmet.startsWith('data')
+                        ? attachmet
+                            .substring('data:application/pdf;base64,'.length)
+                        : attachmet),
+                    onError: (_) => const Center(
+                      child: Text('Could not load document please try again'),
+                    ),
+                                    ),
+                  ))
+              : Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    height: 35.w,
+                    decoration: BoxDecoration(borderRadius: kBorderRadius15,
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: MemoryImage(base64Decode(attachmet)))),
+                  ),
+                ),
+          // Text(
+          //   '.$type',
+          //   maxLines: 1,
+          //   overflow: TextOverflow.ellipsis,
+          //   style: textThinStyle1.copyWith(fontSize: 10.sp),
+          // ),
         ],
       ),
     );

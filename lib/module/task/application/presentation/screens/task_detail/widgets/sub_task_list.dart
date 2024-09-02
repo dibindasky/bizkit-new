@@ -218,7 +218,9 @@ class SubTaskTileDetailPage extends StatelessWidget {
               ),
             ),
             adjustWidth(20.w),
-            if (isCompleted == true ||
+            if (isCompleted == true)
+              const Icon(Icons.check_box_outlined,color: kwhite,)
+            else if (isCompleted == true ||
                 isKilled == true ||
                 isSubTaskCompleted == true)
               kempty

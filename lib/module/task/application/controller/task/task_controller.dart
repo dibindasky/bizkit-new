@@ -46,6 +46,8 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../domain/model/task/task_model/sub_task.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart'
+    as subtask;
 
 class CreateTaskController extends GetxController {
   //Controller for page comes bottom
@@ -317,7 +319,7 @@ class CreateTaskController extends GetxController {
         attachments.clear();
         attachments.clear;
         userslistNew.clear();
-
+        Get.find<TaskHomeScreenController>().fetchRecentTasks();
         showSnackbar(
           context,
           message: 'Task created successfully',
@@ -826,7 +828,12 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         log("${success.message}");
-        fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
+        final subTask = singleTask.value.subTask;
+        singleTask.value.subTask = [
+          ...subTask ?? [],
+          subtask.SubTask.fromJson(success.data['sub_task'])
+        ];
+        // fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
         GoRouter.of(context).pop();
         showSnackbar(
           context,
@@ -1093,10 +1100,16 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         log("${success.message}");
-        completedSubTasks.assignAll(success.subTask ?? []);
-        fetchSingleTask(
-            singleTaskModel:
-                GetSingleTaskModel(taskId: completedSubTask.taskId));
+        final index = singleTask.value.subTask?.indexWhere(
+          (element) => element.id == completedSubTask.subTaskId,
+        );
+        if (index != null && index != -1 && singleTask.value.subTask != null) {
+          singleTask.value.subTask![index] =
+              singleTask.value.subTask![index].copyWith(isCompleted: true);
+        }
+        // fetchSingleTask(
+        //     singleTaskModel:
+        //         GetSingleTaskModel(taskId: completedSubTask.taskId));
         scaffoldMessenger.showSnackBar(
           const SnackBar(
             content: Text('Subtask completed successfully'),

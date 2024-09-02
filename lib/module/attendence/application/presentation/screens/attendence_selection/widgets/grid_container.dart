@@ -22,7 +22,7 @@ class AttendenceGridContainer extends StatelessWidget {
         width: 100.w,
         height: 95.h,
         decoration: BoxDecoration(
-          color: klightGreyClr,
+          color: lightColr,
           border: Border.all(color: neonShade),
           borderRadius: kBorderRadius15,
         ),

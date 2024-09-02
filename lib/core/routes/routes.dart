@@ -87,4 +87,6 @@ class Routes {
   static const attendenceMsPeltAndPell = '/attendence_ms_pelt&pell';
   static const attendenceMsTeamTimeSheet = '/attendence_ms_team_timesheet';
   static const attendenceMsAddNewHoliday = '/attendence_ms_add_new_holiday';
+  static const attendenceMsChangePeltAndPell =
+      '/attendence_ms_change_pelt&pell';
 }

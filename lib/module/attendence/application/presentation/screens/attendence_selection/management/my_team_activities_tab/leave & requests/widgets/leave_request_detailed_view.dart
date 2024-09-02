@@ -35,7 +35,7 @@ class AttendenceMsLeaveRequestDetailedViewScreen extends StatelessWidget {
                       width: 320.w,
                       height: 50.h,
                       decoration: BoxDecoration(
-                        color: klightDarkGrey,
+                        color: lightColr,
                         borderRadius: kBorderRadius5,
                       ),
                       child: const Padding(
@@ -64,7 +64,7 @@ class AttendenceMsLeaveRequestDetailedViewScreen extends StatelessWidget {
                           width: 140.w,
                           height: 50.h,
                           decoration: BoxDecoration(
-                            color: klightDarkGrey,
+                            color: lightColr,
                             borderRadius: kBorderRadius5,
                           ),
                           child: Padding(
@@ -85,7 +85,7 @@ class AttendenceMsLeaveRequestDetailedViewScreen extends StatelessWidget {
                           width: 140.w,
                           height: 50.h,
                           decoration: BoxDecoration(
-                            color: klightDarkGrey,
+                            color: lightColr,
                             borderRadius: kBorderRadius5,
                           ),
                           child: Padding(
@@ -119,7 +119,7 @@ class AttendenceMsLeaveRequestDetailedViewScreen extends StatelessWidget {
                           width: 320.w,
                           height: 90.h,
                           decoration: BoxDecoration(
-                            color: klightDarkGrey,
+                            color: lightColr,
                             borderRadius: kBorderRadius5,
                           ),
                           child: const Padding(
@@ -144,7 +144,7 @@ class AttendenceMsLeaveRequestDetailedViewScreen extends StatelessWidget {
                           height: 79.h,
                           decoration: BoxDecoration(
                             borderRadius: kBorderRadius5,
-                            color: klightDarkGrey,
+                            color: lightColr,
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -168,7 +168,7 @@ class AttendenceMsLeaveRequestDetailedViewScreen extends StatelessWidget {
                           width: 75.w,
                           height: 79.h,
                           decoration: BoxDecoration(
-                            color: klightDarkGrey,
+                            color: lightColr,
                             borderRadius: kBorderRadius5,
                           ),
                           child: Column(
@@ -203,309 +203,91 @@ class AttendenceMsLeaveRequestDetailedViewScreen extends StatelessWidget {
                   ),
                 ),
                 adjustHieght(15.h),
-                Container(
-                  width: 390.w,
-                  height: 130.h,
-                  decoration: BoxDecoration(
-                    borderRadius: kBorderRadius10,
-                    color: klightGreyClr,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Date'),
-                              Text(
-                                'Pendings',
-                                style: TextStyle(color: kyellow),
-                              ),
-                            ],
-                          ),
-                          adjustHieght(10.h),
-                          const Text(
-                            '06 Dec 2023 - 09 Dec 2023',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          adjustHieght(7.h),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 45),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Apply Days',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                Text(
-                                  'Approved by',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          adjustHieght(7.h),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 45),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '3 Days',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Arun',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                SizedBox(
+                  height: khieght * .5,
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => kHeight10,
+                    itemCount: 12,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => Container(
+                      width: 390.w,
+                      height: 130.h,
+                      decoration: BoxDecoration(
+                        borderRadius: kBorderRadius10,
+                        color: lightColr,
                       ),
-                    ),
-                  ),
-                ),
-                adjustHieght(15.h),
-                Container(
-                  width: 390.w,
-                  height: 130.h,
-                  decoration: BoxDecoration(
-                    borderRadius: kBorderRadius10,
-                    color: klightGreyClr,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Date'),
-                              Text(
-                                'Pendings',
-                                style: TextStyle(color: kyellow),
+                              const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Date'),
+                                  Text(
+                                    'Pendings',
+                                    style: TextStyle(color: kyellow),
+                                  ),
+                                ],
+                              ),
+                              adjustHieght(10.h),
+                              const Text(
+                                '06 Dec 2023 - 09 Dec 2023',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              adjustHieght(7.h),
+                              const Padding(
+                                padding: EdgeInsets.only(right: 45),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Apply Days',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Approved by',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              adjustHieght(7.h),
+                              const Padding(
+                                padding: EdgeInsets.only(right: 45),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '3 Days',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      'Arun',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                          adjustHieght(10.h),
-                          const Text(
-                            '06 Dec 2023 - 09 Dec 2023',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          adjustHieght(7.h),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 45),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Apply Days',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                Text(
-                                  'Approved by',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          adjustHieght(7.h),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 45),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '3 Days',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Arun',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                adjustHieght(15.h),
-                Container(
-                  width: 390.w,
-                  height: 130.h,
-                  decoration: BoxDecoration(
-                    borderRadius: kBorderRadius10,
-                    color: klightGreyClr,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Date'),
-                              Text(
-                                'Pendings',
-                                style: TextStyle(color: kyellow),
-                              ),
-                            ],
-                          ),
-                          adjustHieght(10.h),
-                          const Text(
-                            '06 Dec 2023 - 09 Dec 2023',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          adjustHieght(7.h),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 45),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Apply Days',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                Text(
-                                  'Approved by',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          adjustHieght(7.h),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 45),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '3 Days',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Arun',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                adjustHieght(15.h),
-                Container(
-                  width: 390.w,
-                  height: 130.h,
-                  decoration: BoxDecoration(
-                    borderRadius: kBorderRadius10,
-                    color: klightGreyClr,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Date'),
-                              Text(
-                                'Pendings',
-                                style: TextStyle(color: kyellow),
-                              ),
-                            ],
-                          ),
-                          adjustHieght(10.h),
-                          const Text(
-                            '06 Dec 2023 - 09 Dec 2023',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                          adjustHieght(7.h),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 45),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Apply Days',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                Text(
-                                  'Approved by',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          adjustHieght(7.h),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 45),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '3 Days',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Arun',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),

@@ -27,7 +27,7 @@ class HolidayOrLeaveCard extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: kBorderRadius10,
-        color: klightDarkGrey,
+        color: lightColr,
         border: Border.all(
           color: borderClr,
         ),
@@ -69,16 +69,16 @@ class HolidayOrLeaveCard extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   children: [
                     CircleAvatar(
-                      radius: 23,
+                      radius: 15,
                       backgroundColor: kblack,
                       backgroundImage: AssetImage(
                         dummyPersonImage,
                       ),
                     ),
                     Positioned(
-                      right: 21,
+                      right: 15,
                       child: CircleAvatar(
-                        radius: 21,
+                        radius: 15,
                         backgroundColor: kwhite,
                         backgroundImage: AssetImage(
                           personDemoImg,

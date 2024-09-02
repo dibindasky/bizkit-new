@@ -13,7 +13,7 @@ class AttendenceMsLeaveRequestsSearchBar extends StatelessWidget {
       width: 320.w,
       height: 50.h,
       decoration: BoxDecoration(
-        color: klightGreyClr,
+        color: lightColr,
         borderRadius: kBorderRadius15,
       ),
       child: const Padding(

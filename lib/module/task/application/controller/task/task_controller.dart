@@ -112,9 +112,9 @@ class CreateTaskController extends GetxController {
     final DateTime todaydate = DateTime.now();
     // Initialize with today's date for deadline filtering
     deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
+    log('Deadline  === > ${deadlineDate.value}');
     taskFilterByDeadline(
-        filterByDeadline: FilterByDeadlineModel(
-            date: DateFormat('yyyy-MM-dd').format(todaydate)));
+        filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
 
     super.onInit();
   }
@@ -712,19 +712,19 @@ class CreateTaskController extends GetxController {
               filterByDeadline:
                   FilterByDeadlineModel(date: deadlineDate.value));
         }
-
-        scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Successfully Unpinned this task'),
-            backgroundColor: neonShade,
-          ),
-        );
         if (tasksFromTasksList) {
           taksListLoading.value = false;
         }
         if (tasksFromFilterSection) {
           filterByTypeLoading.value = false;
         }
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Successfully Unpinned this task'),
+            backgroundColor: neonShade,
+          ),
+        );
+
         update(); // Update the UI or state
       },
     );

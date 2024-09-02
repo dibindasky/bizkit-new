@@ -7,6 +7,7 @@ import 'package:bizkit/module/attendence/application/presentation/screens/attend
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/leave%20&%20requests/leave_and_requests.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/leave%20&%20requests/widgets/leave_request_detailed_view.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/pelt&pell/pelt_and_pell.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/pelt&pell/widgets/change_pelt_and_pell_view.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/team_timesheet/team_timesheet.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/attendence_selection.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/calender/calender_screen.dart';
@@ -165,6 +166,9 @@ class RouteGenerator {
       case Routes.attendenceMsAddNewHoliday:
         return MaterialPageRoute(
             builder: (ctx) => const AttendenceMsAddNewHolidayScreen());
+      case Routes.attendenceMsChangePeltAndPell:
+        return MaterialPageRoute(
+            builder: (ctx) => const AttendenceMsChangePeltAndPellView());
 
       default:
         return _errorScreen();

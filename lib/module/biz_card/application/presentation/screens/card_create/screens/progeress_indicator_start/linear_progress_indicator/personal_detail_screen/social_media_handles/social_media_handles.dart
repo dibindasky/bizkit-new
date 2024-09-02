@@ -289,7 +289,10 @@ class _SocialMediahandlesScreenState extends State<SocialMediahandlesScreen> {
                                             ? personalController
                                                 .personalSocialMediaDelete(
                                                     context: context, index)
-                                            : null;
+                                            : businessController
+                                                .socialMediaDelete(
+                                                    index: index,
+                                                    context: context);
                                       });
                                 },
                                 child: ClipRRect(

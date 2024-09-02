@@ -281,8 +281,8 @@ class PersonalDetails extends StatelessWidget {
                         buttonText: 'Delete',
                         onTap: () {
                           Get.find<PersonalDetailsController>()
-                              .personalDatesToReminderDelete(index,
-                                  fromInner: false, context: context);
+                              .personalSocialMediaDelete(index,
+                                  fromIner: false, context: context);
                         });
                   },
                   ontap: () {

@@ -10,6 +10,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CardProductDetailView extends StatefulWidget {
   const CardProductDetailView(

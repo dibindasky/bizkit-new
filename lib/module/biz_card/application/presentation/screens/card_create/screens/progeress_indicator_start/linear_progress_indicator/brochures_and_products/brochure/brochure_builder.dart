@@ -19,9 +19,11 @@ class BrochureBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cardController = Get.find<CardController>();
+    final businessController = Get.find<BusinesDetailsController>();
     return Obx(
       () {
-        if (cardController.isLoading.value) {
+        if (cardController.isLoading.value ||
+            businessController.brochureLoading.value) {
           return SizedBox(
             height: kwidth * 0.2,
             child: ShimmerLoader(

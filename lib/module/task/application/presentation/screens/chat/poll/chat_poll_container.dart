@@ -147,8 +147,8 @@ class _PollContainerChatState extends State<PollContainerChat> {
           padding: EdgeInsets.only(
               left: !sender ? 15.w : 5.w,
               right: sender ? 15.w : 5.w,
-              top: 5.h,
-              bottom: 5.h),
+              top: sender ? 5.w : 0.w,
+              bottom: 2.h),
           decoration: BoxDecoration(
             color: sender ? neonShade.withGreen(190) : kwhite.withOpacity(0.3),
           ),

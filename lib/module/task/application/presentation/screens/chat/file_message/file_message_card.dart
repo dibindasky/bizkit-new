@@ -36,7 +36,7 @@ class FileMessageCard extends StatelessWidget {
               padding: EdgeInsets.only(
                   left: !sender ? 15.w : 5.w,
                   right: sender ? 15.w : 5.w,
-                  top: 5.h,
+                  top: sender ? 5.w : 0.w,
                   bottom: 0.h),
               width: message.fileType == 'pdf' ? 150.h : null,
               child: Column(
@@ -49,11 +49,12 @@ class FileMessageCard extends StatelessWidget {
                           style: textThinStyle1.copyWith(
                               fontSize: 8.sp, color: kwhite.withOpacity(0.7)),
                         ),
-                  message.fileType == 'image'
-                      ? ImageMessageCard(message: message)
-                      : message.fileType == 'pdf'
-                          ? PdfMessageCard(message: message)
+                  message.fileType == 'pdf'
+                      ? PdfMessageCard(message: message)
+                      : message.fileType == 'jpg' || message.fileType == 'png'
+                          ? ImageMessageCard(message: message)
                           : const Text('Unknown file type'),
+                  Text(message.message ?? "", style: textStyle1),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Row(

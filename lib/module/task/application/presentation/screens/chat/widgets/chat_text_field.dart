@@ -43,61 +43,76 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
             icon: const Icon(Icons.add, color: neonShade),
           ),
           Expanded(
-              child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.h),
-            child: ClipRRect(
-              borderRadius: kBorderRadius25,
-              child: TextField(
-                onTap: () {
-                  Timer(const Duration(milliseconds: 200), () {
-                    controller.chatScrollController.animateTo(
-                      controller.chatScrollController.position.minScrollExtent,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.ease,
-                    );
-                  });
-                },
-                controller: controller.controller,
-                onChanged: onChanged,
-                textInputAction: TextInputAction.newline,
-                maxLines: maxLines,
-                style: textStyle1.copyWith(color: kblack),
-                decoration: InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 0),
-                  hintText: 'Send message ...',
-                  hintStyle: textStyle1.copyWith(color: kgrey),
-                  filled: true,
-                  fillColor: kwhite,
-                  border: InputBorder.none,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              child: ClipRRect(
+                borderRadius: kBorderRadius25,
+                child: TextField(
+                  onTap: () {
+                    Timer(const Duration(milliseconds: 200), () {
+                      if (controller.loadedImages.isEmpty) {
+                        controller.chatScrollController.animateTo(
+                          controller
+                              .chatScrollController.position.minScrollExtent,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.ease,
+                        );
+                      }
+                    });
+                  },
+                  controller: controller.controller,
+                  onChanged: onChanged,
+                  textInputAction: TextInputAction.newline,
+                  maxLines: maxLines == 1 ? null : maxLines,
+                  style: textStyle1.copyWith(color: kblack),
+                  decoration: InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 0),
+                    hintText: 'Send message ...',
+                    hintStyle: textStyle1.copyWith(color: kgrey),
+                    filled: true,
+                    fillColor: kwhite,
+                    border: InputBorder.none,
+                  ),
                 ),
               ),
             ),
-          )),
-          controller.controller.text == ''
-              ? Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        controller.sendImageBase64(camera: true);
-                      },
-                      icon: const Icon(Icons.camera_alt_outlined,
-                          color: neonShade),
+          ),
+          Obx(
+            () => controller.loadedImages.isNotEmpty ||
+                    controller.controller.text != ''
+                ? IconButton(
+                    onPressed: () {
+                      controller.loadedImages.isNotEmpty
+                          // send image if image is selected
+                          ? controller.sendImageBase64()
+                          // send text message
+                          : controller.sendTextMessage();
+                      setState(() {
+                        maxLines = 1;
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.send,
+                      color: neonShade,
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.mic, color: neonShade),
-                    ),
-                  ],
-                )
-              : IconButton(
-                  onPressed: () {
-                    controller.sendTextMessage();
-                    setState(() {
-                      maxLines = 1;
-                    });
-                  },
-                  icon: const Icon(Icons.send, color: neonShade)),
+                  )
+                : Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          controller.getImageBase64(camera: true);
+                        },
+                        icon: const Icon(Icons.camera_alt_outlined,
+                            color: neonShade),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.mic, color: neonShade),
+                      ),
+                    ],
+                  ),
+          )
         ],
       ),
     );

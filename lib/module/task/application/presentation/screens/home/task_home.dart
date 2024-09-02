@@ -8,7 +8,9 @@ import 'package:bizkit/module/task/application/presentation/screens/home/widgets
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_creation_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/tasks_lists.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
+import 'package:bizkit/utils/animations/expansion_tile.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,22 +69,24 @@ class ScreenTaskHome extends StatelessWidget {
                 ),
                 adjustHieght(16.h),
                 const TaskCreationContainer(),
+                Obx(() {
+                  return AnimatedCrossFade(
+                    duration: const Duration(milliseconds: 300),
+                    crossFadeState: !homeController.progresBarOrRecentTask.value
+                        ? CrossFadeState.showSecond
+                        : CrossFadeState.showFirst,
+                    firstChild: kempty,
+                    secondChild: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        kHeight20,
+                        TaskContainers(),
+                      ],
+                    ),
+                  );
+                }),
                 adjustHieght(16.h),
-                Obx(
-                  () {
-                    if (homeController.progresBarOrRecentTask.value) {
-                      return const TasksListsWidget();
-                    } else {
-                      return Column(
-                        children: [
-                          adjustHieght(20.h),
-                          TaskContainers(),
-                          adjustHieght(110.h),
-                        ],
-                      );
-                    }
-                  },
-                ),
+                const TasksListsWidget(),
                 adjustHieght(30.h),
                 Center(
                   child: EventButton(

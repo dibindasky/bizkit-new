@@ -13,9 +13,9 @@ CompletedSubTasks _$SubTaskFromJson(Map<String, dynamic> json) =>
       isCompleted: json['is_completed'] as bool?,
       createdAt: json['created_at'] == null
           ? null
-          : DateTime.parse(json['created_at'] as String),
+          : json['created_at'] as String,
       id: json['_id'] as String?,
-      totalTimeTaken: json['total_time_taken'] as String,
+      totalTimeTaken: json['total_time_taken'] as String?,
       duration: json['duration'] as String?,
     );
 
@@ -24,7 +24,7 @@ Map<String, dynamic> _$SubTaskToJson(CompletedSubTasks instance) =>
       'title': instance.title,
       'description': instance.description,
       'is_completed': instance.isCompleted,
-      'created_at': instance.createdAt?.toIso8601String(),
+      'created_at': instance.createdAt,
       '_id': instance.id,
       'total_time_taken': instance.totalTimeTaken,
       'duration': instance.duration,

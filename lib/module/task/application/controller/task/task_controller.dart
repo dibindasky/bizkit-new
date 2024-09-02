@@ -111,7 +111,7 @@ class CreateTaskController extends GetxController {
     getTasksCountWithoutDate();
     final DateTime todaydate = DateTime.now();
     // Initialize with today's date for deadline filtering
-    // deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
+    deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
     taskFilterByDeadline(
         filterByDeadline: FilterByDeadlineModel(
             date: DateFormat('yyyy-MM-dd').format(todaydate)));
@@ -571,9 +571,16 @@ class CreateTaskController extends GetxController {
   // Pins a task using the provided model
   void pinnedATask(
       {required PinnedATaskModel pinnedATask,
-      required BuildContext context}) async {
-    filterByTypeLoading.value = true;
+      required BuildContext context,
+      required bool tasksFromTasksList,
+      required bool tasksFromFilterSection}) async {
+    if (tasksFromFilterSection) {
+      filterByTypeLoading.value = true;
+    }
     pinLoader.value = true;
+    if (tasksFromTasksList) {
+      taksListLoading.value = true;
+    }
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.pinnedATask(pinnedATask: pinnedATask);
     result.fold(
@@ -584,6 +591,12 @@ class CreateTaskController extends GetxController {
             backgroundColor: kred,
           ),
         );
+        if (tasksFromFilterSection) {
+          filterByTypeLoading.value = false;
+        }
+        if (tasksFromTasksList) {
+          taksListLoading.value = false;
+        }
         pinLoader.value = false;
       },
       (success) {
@@ -591,23 +604,37 @@ class CreateTaskController extends GetxController {
         if (pinnedATask.isPinned == false) {
           allPinnedTasks.removeWhere((e) => e.id == pinnedATask.taskId);
           pinLoader.value = false;
+          if (tasksFromTasksList) {
+            taksListLoading.value = false;
+          }
+          if (tasksFromFilterSection) {
+            filterByTypeLoading.value = false;
+          }
           update();
         }
-        filterPinnedTasksByType(
-            filterPinnedTask: FilterPinnedTaskByTypeModel(
-                taskType: Get.find<TaskHomeScreenController>()
-                    .taskCategory
-                    .value
-                    .replaceAll(' ', '_')
-                    .toLowerCase(),
-                isPinned: true));
-        filterByType(
-            filterByType: FilterByTypeModel(
-                taskType: Get.find<TaskHomeScreenController>()
-                    .taskCategory
-                    .value
-                    .replaceAll(' ', '_')
-                    .toLowerCase()));
+
+        if (tasksFromFilterSection) {
+          filterPinnedTasksByType(
+              filterPinnedTask: FilterPinnedTaskByTypeModel(
+                  taskType: Get.find<TaskHomeScreenController>()
+                      .taskCategory
+                      .value
+                      .replaceAll(' ', '_')
+                      .toLowerCase(),
+                  isPinned: true));
+          filterByType(
+              filterByType: FilterByTypeModel(
+                  taskType: Get.find<TaskHomeScreenController>()
+                      .taskCategory
+                      .value
+                      .replaceAll(' ', '_')
+                      .toLowerCase()));
+        }
+        if (tasksFromTasksList) {
+          taskFilterByDeadline(
+              filterByDeadline:
+                  FilterByDeadlineModel(date: deadlineDate.value));
+        }
 
         scaffoldMessenger.showSnackBar(
           const SnackBar(
@@ -616,6 +643,12 @@ class CreateTaskController extends GetxController {
           ),
         );
         pinLoader.value = false;
+        if (tasksFromTasksList) {
+          taksListLoading.value = false;
+        }
+        if (tasksFromFilterSection) {
+          filterByTypeLoading.value = false;
+        }
         update();
       },
     );
@@ -624,13 +657,27 @@ class CreateTaskController extends GetxController {
   // Unpins a task using the provided model
   void unpinATask(
       {required UnpinATaskModel unpinATask,
-      required BuildContext context}) async {
+      required BuildContext context,
+      required bool tasksFromTasksList,
+      required bool tasksFromFilterSection}) async {
     isLoading.value = true;
+    if (tasksFromFilterSection) {
+      filterByTypeLoading.value = true;
+    }
+    if (tasksFromTasksList) {
+      taksListLoading.value = true;
+    }
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.unpinATask(unpinATask: unpinATask);
     result.fold(
       (failure) {
         isLoading.value = false;
+        if (tasksFromTasksList) {
+          taksListLoading.value = false;
+        }
+        if (tasksFromFilterSection) {
+          filterByTypeLoading.value = false;
+        }
         scaffoldMessenger.showSnackBar(
           const SnackBar(
             content: Text(errorMessage),
@@ -641,28 +688,43 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         isLoading.value = false;
-        log("${success.message}");
-        filterPinnedTasksByType(
-            filterPinnedTask: FilterPinnedTaskByTypeModel(
-                taskType: Get.find<TaskHomeScreenController>()
-                    .taskCategory
-                    .value
-                    .replaceAll(' ', '_')
-                    .toLowerCase(),
-                isPinned: true));
-        filterByType(
-            filterByType: FilterByTypeModel(
-                taskType: Get.find<TaskHomeScreenController>()
-                    .taskCategory
-                    .value
-                    .replaceAll(' ', '_')
-                    .toLowerCase()));
+
+        if (tasksFromFilterSection) {
+          filterPinnedTasksByType(
+              filterPinnedTask: FilterPinnedTaskByTypeModel(
+                  taskType: Get.find<TaskHomeScreenController>()
+                      .taskCategory
+                      .value
+                      .replaceAll(' ', '_')
+                      .toLowerCase(),
+                  isPinned: true));
+          filterByType(
+              filterByType: FilterByTypeModel(
+                  taskType: Get.find<TaskHomeScreenController>()
+                      .taskCategory
+                      .value
+                      .replaceAll(' ', '_')
+                      .toLowerCase()));
+        }
+
+        if (tasksFromTasksList) {
+          taskFilterByDeadline(
+              filterByDeadline:
+                  FilterByDeadlineModel(date: deadlineDate.value));
+        }
+
         scaffoldMessenger.showSnackBar(
           const SnackBar(
             content: Text('Successfully Unpinned this task'),
             backgroundColor: neonShade,
           ),
         );
+        if (tasksFromTasksList) {
+          taksListLoading.value = false;
+        }
+        if (tasksFromFilterSection) {
+          filterByTypeLoading.value = false;
+        }
         update(); // Update the UI or state
       },
     );
@@ -690,18 +752,18 @@ class CreateTaskController extends GetxController {
   void filterPinnedTasksByType(
       {required FilterPinnedTaskByTypeModel filterPinnedTask,
       bool pinn = false}) async {
-    isLoading.value = true;
+    filterByTypeLoading.value = true;
     final result = await taskService.filterPinnedTaskByType(
         filterPinnedTaskByType: filterPinnedTask);
     update();
     result.fold(
       (failure) {
-        isLoading.value = false;
+        filterByTypeLoading.value = false;
       },
       (success) {
         allPinnedTasks.assignAll(success.tasks ?? []);
-        isLoading.value = false;
-        log('${success.tasks ?? []}', name: 'all pinned tasks');
+        filterByTypeLoading.value = false;
+
         update();
       },
     );

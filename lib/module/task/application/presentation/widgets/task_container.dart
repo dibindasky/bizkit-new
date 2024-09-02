@@ -39,7 +39,9 @@ class TaskContainer extends StatelessWidget {
       this.fromFolders = false,
       this.tasksFromInnerFolder = false,
       this.tasksFromFoldrs = false,
-      this.fromInnerfolder = false});
+      this.fromInnerfolder = false,
+      this.tasksFromTasksList = false,
+      this.tasksFromFilterSection = false});
 
   final int index;
   final int? tabIndex;
@@ -53,6 +55,8 @@ class TaskContainer extends StatelessWidget {
   final bool? fromInnerfolder;
   final bool? tasksFromFoldrs;
   final bool? tasksFromInnerFolder;
+  final bool? tasksFromTasksList;
+  final bool? tasksFromFilterSection;
 
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
@@ -241,6 +245,10 @@ class TaskContainer extends StatelessWidget {
                                     value: 'Pin the task',
                                     onTap: () {
                                       taskController.pinnedATask(
+                                        tasksFromFilterSection:
+                                            tasksFromFilterSection ?? false,
+                                        tasksFromTasksList:
+                                            tasksFromTasksList ?? false,
                                         context: context,
                                         pinnedATask: PinnedATaskModel(
                                           isPinned: true,
@@ -258,6 +266,10 @@ class TaskContainer extends StatelessWidget {
                                     value: 'Unpin the task',
                                     onTap: () {
                                       taskController.unpinATask(
+                                        tasksFromFilterSection:
+                                            tasksFromFilterSection ?? false,
+                                        tasksFromTasksList:
+                                            tasksFromTasksList ?? false,
                                         context: context,
                                         unpinATask: UnpinATaskModel(
                                           taskId: typeTask?.id ?? '',

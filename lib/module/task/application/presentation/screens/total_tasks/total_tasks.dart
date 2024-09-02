@@ -353,6 +353,7 @@ class PinnedTasks extends StatelessWidget {
                     );
                   },
                   child: TaskContainer(
+                    tasksFromFilterSection: true,
                     tabIndex: tabController.index,
                     index: index,
                     typeTask: pinnedTasks,

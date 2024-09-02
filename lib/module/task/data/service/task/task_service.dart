@@ -94,7 +94,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SelfToOthersTypeResponce>> filterByType(
       {required FilterByTypeModel filterByType}) async {
     try {
-      log('${filterByType.toJson()}');
+      log('filterByType TO JSON ---=====---> ${filterByType.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestFilterByType,
         data: filterByType.toJson(),
@@ -184,7 +184,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, FilterByDeadlineResponce>> filterByDeadline(
       {required FilterByDeadlineModel filterByDeadline}) async {
     try {
-      log('Filter by deadline ToJson => ${filterByDeadline.toJson()}');
+      // log('Filter by deadline ToJson => ${filterByDeadline.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestFilterByDeadline,
         data: filterByDeadline.toJson(),
@@ -205,7 +205,7 @@ class TaskService implements TaskRepo {
       filterPinnedTaskByType(
           {required FilterPinnedTaskByTypeModel filterPinnedTaskByType}) async {
     try {
-      log('filter by pinned => ${filterPinnedTaskByType.toJson()}');
+      log('filter by pinned ==== > ${filterPinnedTaskByType.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestFilterByType,
         data: filterPinnedTaskByType.toJson(),

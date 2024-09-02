@@ -44,7 +44,7 @@ class CardBrochursAndProductsTab extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            BrochursBuilder(pdf: pdf),
+            BrochureBuilder(pdf: pdf),
             ProductsBuilder(products: networkImages),
           ],
         ),

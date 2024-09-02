@@ -25,7 +25,8 @@ class ProductBuilder extends StatelessWidget {
       height: kwidth * 0.2,
       child: Obx(
         () {
-          if (cardController.isLoading.value) {
+          if (cardController.isLoading.value ||
+              bussinessController.isLoading.value) {
             return SizedBox(
               height: 100.h,
               child: ShimmerLoader(

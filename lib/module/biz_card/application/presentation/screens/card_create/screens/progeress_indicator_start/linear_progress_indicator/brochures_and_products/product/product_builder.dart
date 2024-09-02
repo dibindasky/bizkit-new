@@ -6,6 +6,7 @@ import 'package:bizkit/module/biz_card/application/controller/card/create_contro
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/brochures_and_products/product/product_adding_screen.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class ProductBuilder extends StatelessWidget {
             return SizedBox(
               height: 100.h,
               child: ShimmerLoader(
+                seprator: kWidth10,
                 scrollDirection: Axis.horizontal,
                 itemCount: 4,
                 height: 100.h,
@@ -47,7 +49,7 @@ class ProductBuilder extends StatelessWidget {
           }
           return ListView.builder(
             itemCount: cardController
-                .bizcardDetail.value.businessDetails?.product?.length,
+                .bizcardDetail.value.businessDetails!.product!.length,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
@@ -58,22 +60,28 @@ class ProductBuilder extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
+                      bussinessController.productDataClear();
                       Navigator.push(
                         context,
-                        cardFadePageRoute(
-                            CardAddPrductsScreen(product: product)),
+                        cardFadePageRoute(CardAddPrductsScreen(
+                            product: product, selctedIndex: index)),
                       );
                     },
                     child: Container(
                       height: kwidth * 0.2,
-                      margin: const EdgeInsets.only(right: 10, left: 10),
+                      margin:
+                          const EdgeInsets.only(right: 10, left: 10, top: 10),
                       width: kwidth * 0.2,
                       decoration: BoxDecoration(
                           border: Border.all(color: neonShade),
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
                             image: MemoryImage(
-                              base64Decode(product?.images?[0].image ?? ''),
+                              base64Decode(product != null &&
+                                      product.images != null &&
+                                      product.images!.isNotEmpty
+                                  ? product.images![0].image ?? ''
+                                  : imageTestingBase64.substring(22)),
                             ),
                             onError: (exception, stackTrace) {
                               const Icon(Icons.image_not_supported_outlined);
@@ -94,7 +102,7 @@ class ProductBuilder extends StatelessWidget {
                           buttonText: 'Delete',
                           onTap: () {
                             bussinessController.productDelete(
-                                productIndex: index);
+                                context: context, productIndex: index);
                           },
                         );
                       },

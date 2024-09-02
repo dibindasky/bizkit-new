@@ -144,7 +144,8 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                                 backgroundColor: kred);
                             return;
                           }
-                          personalController.personalDatesToRemiderAdding();
+                          personalController.personalDatesToRemiderAdding(
+                              context: context);
                         },
                       );
                     },
@@ -205,7 +206,7 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                                       onTap: () {
                                         personalController
                                             .personalDatesToReminderDelete(
-                                                index);
+                                                context: context, index);
                                       });
                                 },
                                 child: ClipRRect(

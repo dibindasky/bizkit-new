@@ -44,7 +44,7 @@ class BrochureBuilder extends StatelessWidget {
               ));
         }
         return SizedBox(
-          height: kwidth * 0.25,
+          height: kwidth * 0.26,
           child: ListView.separated(
             separatorBuilder: (context, index) => const SizedBox(width: 10),
             scrollDirection: Axis.horizontal,
@@ -85,8 +85,10 @@ class _BrochureTileState extends State<BrochureTile> {
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    ScreenBrochureAdding(brochure: widget.brochure),
+                builder: (context) => ScreenBrochureAdding(
+                  brochure: widget.brochure,
+                  selectedIndex: widget.index,
+                ),
               )),
           child: Container(
             height: kwidth * 0.4,
@@ -111,9 +113,11 @@ class _BrochureTileState extends State<BrochureTile> {
                           : widget.brochure!.file!),
                       params: const PdfViewerParams(pageNumber: 1)),
                 ),
+                kHeight5,
                 Expanded(
                     child: Text(
                   widget.brochure?.title ?? '',
+                  overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                 ))
               ],
@@ -130,7 +134,7 @@ class _BrochureTileState extends State<BrochureTile> {
                 buttonText: 'Delete',
                 onTap: () {
                   businessController.brochureDelete(
-                      bruchureIndex: widget.index);
+                      context: context, bruchureIndex: widget.index);
                 }),
             borderRadius: BorderRadius.circular(10),
             child: ClipRRect(

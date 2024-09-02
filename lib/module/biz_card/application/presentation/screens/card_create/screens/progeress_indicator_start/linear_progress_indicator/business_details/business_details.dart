@@ -53,7 +53,6 @@ class BusinessDetailsScreen extends StatelessWidget {
           key: businessFormKey,
           child: ListView(
             children: [
-              adjustHieght(khieght * .03),
               const Text(
                 'Business Details',
                 style: TextStyle(fontSize: 20),
@@ -68,7 +67,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                 controller: businessController.businessCategory,
                 autocompleteItems: const [],
               ),
-              //Business name
+              // Business name
               CustomTextFormField(
                   labelText: 'Business Name',
                   validate: Validate.notNull,
@@ -147,7 +146,8 @@ class BusinessDetailsScreen extends StatelessWidget {
                       title: 'Are you sure want to delete ?',
                       buttonText: 'Delete',
                       onTap: () {
-                        businessController.achievementDeleting(index: index);
+                        businessController.achievementDeleting(
+                            fromInner: false, index: index, context: context);
                       },
                     );
                   },
@@ -163,11 +163,10 @@ class BusinessDetailsScreen extends StatelessWidget {
                       color: textFieldFillColr,
                       boxShadow: [
                         BoxShadow(
-                          color: textFieldFillColr,
-                          spreadRadius: 0.4,
-                          blurRadius: 4,
-                          offset: Offset(0.4, .2),
-                        ),
+                            color: textFieldFillColr,
+                            spreadRadius: 0.4,
+                            blurRadius: 4,
+                            offset: Offset(0.4, .2))
                       ],
                     ),
                     padding: const EdgeInsets.only(left: 12, right: 12),
@@ -211,7 +210,8 @@ class BusinessDetailsScreen extends StatelessWidget {
                     title: 'are you sure want to delete ?',
                     buttonText: 'Delete',
                     onTap: () {
-                      businessController.socialMediaDelete(index: index);
+                      businessController.socialMediaDelete(
+                          fromInner: false, index: index, context: context);
                     },
                   );
                 },
@@ -261,10 +261,8 @@ class BusinessDetailsScreen extends StatelessWidget {
                       title: 'Are you sure want to delete?',
                       buttonText: 'Delete',
                       onTap: () {
-                        businessController.branchDelete(index);
-                        // context.read<BusinessDataBloc>().add(
-                        //     BusinessDataEvent.removeBranch(
-                        //         id: state.branchOffices[index].id!));
+                        businessController.branchDelete(
+                            frominner: false, index: index, context: context);
                       },
                     );
                   },
@@ -310,7 +308,8 @@ class BusinessDetailsScreen extends StatelessWidget {
                     : CardLastSkipContinueButtons(
                         onTap: () {
                           if (businessFormKey.currentState!.validate()) {
-                            businessController.bussinessDetailsInitail();
+                            businessController.bussinessDetailsInitail(
+                                context: context);
                           }
                         },
                       ),
@@ -390,63 +389,6 @@ showBranchDialoge(context, String? id, int? index) {
                                       : businessController.branchUpdate(
                                           context: context, index: index ?? 0);
                                 }
-                                // if (context
-                                //         .read<BusinessDataBloc>()
-                                //         .branchOfficeController
-                                //         .text !=
-                                //     '') {
-                                //   if (id == null) {
-                                //     context.read<BusinessDataBloc>().add(
-                                //           BusinessDataEvent.addBranch(
-                                //               branch: BranchOffice(
-                                //                   branch: context
-                                //                       .read<BusinessDataBloc>()
-                                //                       .branchOfficeController
-                                //                       .text,
-                                //                   name: context
-                                //                       .read<BusinessDataBloc>()
-                                //                       .branchOfficeNameController
-                                //                       .text,
-                                //                   phoneNumber: context
-                                //                       .read<BusinessDataBloc>()
-                                //                       .branchOfficePhoneController
-                                //                       .text,
-                                //                   cardId: state.currentCard!.id!)),
-                                //         );
-                                //   } else {
-                                //     context.read<BusinessDataBloc>().add(
-                                //           BusinessDataEvent.updateBranch(
-                                //               branch: BranchOffice(
-                                //                   branch: context
-                                //                       .read<BusinessDataBloc>()
-                                //                       .branchOfficeController
-                                //                       .text,
-                                //                   name: context
-                                //                       .read<BusinessDataBloc>()
-                                //                       .branchOfficeNameController
-                                //                       .text,
-                                //                   phoneNumber: context
-                                //                       .read<BusinessDataBloc>()
-                                //                       .branchOfficePhoneController
-                                //                       .text,
-                                //                   cardId: state.currentCard!.id!,
-                                //                   id: id),
-                                //               id: id),
-                                //         );
-                                //   }
-                                // }
-                                // context
-                                //     .read<BusinessDataBloc>()
-                                //     .branchOfficeController
-                                //     .text = '';
-                                // context
-                                //     .read<BusinessDataBloc>()
-                                //     .branchOfficeNameController
-                                //     .text = '';
-                                // context
-                                //     .read<BusinessDataBloc>()
-                                //     .branchOfficePhoneController
-                                //     .text = '';
                               },
                             ),
                     )

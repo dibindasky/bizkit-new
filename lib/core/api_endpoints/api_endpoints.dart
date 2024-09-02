@@ -21,7 +21,6 @@ class ApiEndPoints {
   static String cardCreationInital = '/initial-details/';
   static String cardDetail = '/get-bizcard-detail/';
   static String cardCreationPersonalDetails = '/personal-details/';
-
   static String cardSetDefault = '/set-default/';
   static String getArchievedOrDeletedCards =
       '/list-disabled-and-archieved-cards/';

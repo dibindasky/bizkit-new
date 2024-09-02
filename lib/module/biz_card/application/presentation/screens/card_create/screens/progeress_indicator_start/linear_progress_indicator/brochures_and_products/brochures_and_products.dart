@@ -27,131 +27,133 @@ class BrochersAndProductsScreen extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              adjustHieght(khieght * .03),
-              const Text('Products / Brochures',
-                  style: TextStyle(fontSize: 20)),
-              (cardController.bizcardDetail.value.businessDetails?.product
-                              ?.length ??
-                          0) ==
-                      0
-                  ? kempty
-                  : const Text('Added Products'),
-              kHeight10,
-              (cardController.bizcardDetail.value.businessDetails?.product
-                              ?.length ??
-                          0) ==
-                      0
-                  ? kempty
-                  : Obx(() => const ProductBuilder()),
-              (cardController.bizcardDetail.value.businessDetails?.product
-                              ?.length ??
-                          0) ==
-                      0
-                  ? kempty
-                  : kHeight30,
-              Center(
-                child: InkWell(
-                  onTap: () async {
-                    Navigator.push(context,
-                        cardFadePageRoute(const CardAddPrductsScreen()));
-                    bussinessController.productDataClear();
-                  },
-                  child: DottedBorder(
-                    dashPattern: const [8, 8],
-                    color: neonShade,
-                    strokeWidth: 2.5,
-                    child: SizedBox(
-                      width: 290.dm,
-                      height: 81.dm,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 32.dm,
-                            height: 32.dm,
-                            child: const CircleAvatar(
-                              child: Icon(
-                                Icons.add,
+          GetBuilder<CardController>(builder: (cotext) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Products / Brochures',
+                    style: TextStyle(fontSize: 20)),
+                kHeight10,
+                (cardController.bizcardDetail.value.businessDetails?.product
+                                ?.length ??
+                            0) ==
+                        0
+                    ? kempty
+                    : const Text('Added Products'),
+                kHeight10,
+                (cardController.bizcardDetail.value.businessDetails?.product
+                                ?.length ??
+                            0) ==
+                        0
+                    ? kempty
+                    : const ProductBuilder(),
+                (cardController.bizcardDetail.value.businessDetails?.product
+                                ?.length ??
+                            0) ==
+                        0
+                    ? kempty
+                    : kHeight30,
+                Center(
+                  child: InkWell(
+                    onTap: () async {
+                      Navigator.push(context,
+                          cardFadePageRoute(const CardAddPrductsScreen()));
+                      bussinessController.productDataClear();
+                    },
+                    child: DottedBorder(
+                      dashPattern: const [8, 8],
+                      color: neonShade,
+                      strokeWidth: 2.5,
+                      child: SizedBox(
+                        width: 290.dm,
+                        height: 81.dm,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 32.dm,
+                              height: 32.dm,
+                              child: const CircleAvatar(
+                                child: Icon(
+                                  Icons.add,
+                                ),
                               ),
                             ),
-                          ),
-                          Text(
-                            'Add Products',
-                            style: TextStyle(fontSize: 10.sp),
-                          ),
-                        ],
+                            Text(
+                              'Add Products',
+                              style: TextStyle(fontSize: 10.sp),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              kHeight20,
-              (cardController.bizcardDetail.value.businessDetails?.brochure
-                              ?.length ??
-                          0) ==
-                      0
-                  ? kempty
-                  : const Text('Added Brochures'),
-              kHeight10,
-              (cardController.bizcardDetail.value.businessDetails?.brochure
-                              ?.length ??
-                          0) ==
-                      0
-                  ? kempty
-                  : const BrochureBuilder(),
-              (cardController.bizcardDetail.value.businessDetails?.brochure
-                              ?.length ??
-                          0) ==
-                      0
-                  ? kempty
-                  : kHeight30,
-              Center(
-                child: InkWell(
-                  onTap: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ScreenBrochureAdding(),
-                        ));
-                    bussinessController.brochureDataClear();
-                  },
-                  child: DottedBorder(
-                    dashPattern: const [8, 8],
-                    color: neonShade,
-                    strokeWidth: 2.5,
-                    child: SizedBox(
-                      width: 290.dm,
-                      height: 81.dm,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 32.dm,
-                            height: 32.dm,
-                            child: const CircleAvatar(
-                              child: Icon(
-                                Icons.add,
+                kHeight20,
+                (cardController.bizcardDetail.value.businessDetails?.brochure
+                                ?.length ??
+                            0) ==
+                        0
+                    ? kempty
+                    : const Text('Added Brochures'),
+                kHeight10,
+                (cardController.bizcardDetail.value.businessDetails?.brochure
+                                ?.length ??
+                            0) ==
+                        0
+                    ? kempty
+                    : const BrochureBuilder(),
+                (cardController.bizcardDetail.value.businessDetails?.brochure
+                                ?.length ??
+                            0) ==
+                        0
+                    ? kempty
+                    : kHeight30,
+                Center(
+                  child: InkWell(
+                    onTap: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ScreenBrochureAdding(),
+                          ));
+                      bussinessController.brochureDataClear();
+                    },
+                    child: DottedBorder(
+                      dashPattern: const [8, 8],
+                      color: neonShade,
+                      strokeWidth: 2.5,
+                      child: SizedBox(
+                        width: 290.dm,
+                        height: 81.dm,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 32.dm,
+                              height: 32.dm,
+                              child: const CircleAvatar(
+                                child: Icon(
+                                  Icons.add,
+                                ),
                               ),
                             ),
-                          ),
-                          Text(
-                            'Add Brochures',
-                            style: TextStyle(fontSize: 10.sp),
-                          ),
-                        ],
+                            Text(
+                              'Add Brochures',
+                              style: TextStyle(fontSize: 10.sp),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              adjustHieght(30),
-              kHeight30,
-            ],
-          ),
-          adjustHieght(khieght * .03),
+                adjustHieght(30),
+                kHeight30,
+              ],
+            );
+          }),
+          adjustHieght(khieght * .01),
           CardLastSkipContinueButtons(
             onTap: () {
               if (fromBusiness) {

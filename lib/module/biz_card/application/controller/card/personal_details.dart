@@ -18,6 +18,7 @@ import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as mat;
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class PersonalDetailsController extends GetxController {
@@ -151,7 +152,7 @@ class PersonalDetailsController extends GetxController {
       achievementLoading.value = false;
       cardController.cardDetail(
           cardId: cardController.bizcardDetail.value.bizcardId ?? '');
-      showSnackbar(context, message: 'Achievement Created Successfully');
+      showSnackbar(context, message: 'Achievement Added Successfully');
       Navigator.pop(context);
     });
   }
@@ -194,8 +195,9 @@ class PersonalDetailsController extends GetxController {
   }
 
   void personalAcheievementDeleting(
-      {required PersonalAchieventDeletionModel
-          personalAchievementDeletion}) async {
+      {required PersonalAchieventDeletionModel personalAchievementDeletion,
+      bool fromInner = true,
+      required BuildContext context}) async {
     deleteLoading.value = true;
     final data = await personalRepo.personalAchivmentDeleting(
         personalAchimentDeletion: personalAchievementDeletion);
@@ -206,13 +208,18 @@ class PersonalDetailsController extends GetxController {
         deleteLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        if (fromInner) {
+          Navigator.pop(context);
+        }
+
+        showSnackbar(context, message: 'Acheievement Deleted Successfully');
       },
     );
   }
 
   void personalSocialMediaAdding(
-      {required PersonalSocialMediaRequestModel
-          personalSocialMediaModel}) async {
+      {required PersonalSocialMediaRequestModel personalSocialMediaModel,
+      required BuildContext context}) async {
     isLoading.value = true;
     final data = await personalRepo.personalSocialMediaAdding(
         personalSocialMediaModel: personalSocialMediaModel);
@@ -223,13 +230,15 @@ class PersonalDetailsController extends GetxController {
         isLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        Navigator.pop(context);
+        showSnackbar(context, message: 'Social Media Added Successfully');
       },
     );
   }
 
   void personalSocialMediaUpdate(
-      {required PersonalSocialMediaRequestModel
-          personalSocialMediaModel}) async {
+      {required PersonalSocialMediaRequestModel personalSocialMediaModel,
+      required BuildContext context}) async {
     isLoading.value = true;
     final data = await personalRepo.personalSocialMediaEditing(
         personalSocialMediaModel: personalSocialMediaModel);
@@ -240,11 +249,14 @@ class PersonalDetailsController extends GetxController {
         isLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        Navigator.pop(context);
+        showSnackbar(context, message: 'Social Media Updated Successfully');
       },
     );
   }
 
-  void personalSocialMediaDelete(int socialMediaIndex) async {
+  void personalSocialMediaDelete(int socialMediaIndex,
+      {required BuildContext context, bool fromIner = true}) async {
     deleteLoading.value = true;
     final cardController = Get.find<CardController>();
     PersonalSocialMediaDeletion personalSocialMediaDeletion =
@@ -261,11 +273,14 @@ class PersonalDetailsController extends GetxController {
         deleteLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        if (fromIner) Navigator.pop(context);
+        showSnackbar(context, message: 'Social Media Deleted Successfully');
       },
     );
   }
 
-  void personalDatesToRemiderAdding() async {
+  void personalDatesToRemiderAdding(
+      {required BuildContext context, bool fromIner = true}) async {
     isLoading.value = true;
     final cardController = Get.find<CardController>();
     PersonalDayesToReminderModel personalDatesToReminderModel =
@@ -278,35 +293,40 @@ class PersonalDetailsController extends GetxController {
     final data = await personalRepo.personalDatesToReminderAdding(
         personalDatesToReminderModel: personalDatesToReminderModel);
     data.fold(
-      (l) => null,
+      (l) => isLoading.value = false,
       (r) {
         personalDatesToReminderDate.clear();
         personalDatesToReminderMessage.clear();
         isLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        Navigator.pop(context);
+        showSnackbar(context, message: 'Dates To Remider Added Successfully');
       },
     );
   }
 
   void personalDaatesToReminderUpdate(
-      {required PersonalDayesToReminderModel
-          personalDatesToReminderModel}) async {
+      {required PersonalDayesToReminderModel personalDatesToReminderModel,
+      required BuildContext context}) async {
     isLoading.value = true;
     final data = await personalRepo.personalDatesToReminderEditing(
         personalDatesToReminderModel: personalDatesToReminderModel);
     data.fold(
-      (l) => null,
+      (l) => isLoading.value = false,
       (r) {
         final cardController = Get.find<CardController>();
         isLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        Navigator.pop(context);
+        showSnackbar(context, message: 'Dates To Remider Updated Successfully');
       },
     );
   }
 
-  void personalDatesToReminderDelete(int datesToReminderIndex) async {
+  void personalDatesToReminderDelete(int datesToReminderIndex,
+      {bool fromInner = true, required BuildContext context}) async {
     deleteLoading.value = true;
     final cardController = Get.find<CardController>();
     ReminderDeletion remiderDeletion = ReminderDeletion(
@@ -317,11 +337,13 @@ class PersonalDetailsController extends GetxController {
     final data = await personalRepo.personalDatesToReminderDeleting(
         remiderDeletion: remiderDeletion);
     data.fold(
-      (l) => null,
+      (l) => deleteLoading.value = false,
       (r) {
         deleteLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        if (fromInner) Navigator.pop(context);
+        showSnackbar(context, message: 'Dates To Remider Deleted Successfully');
       },
     );
   }

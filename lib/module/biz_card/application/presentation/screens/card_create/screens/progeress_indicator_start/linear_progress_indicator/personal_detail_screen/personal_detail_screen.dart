@@ -48,7 +48,6 @@ class PersonalDetails extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              adjustHieght(khieght * .04),
               const Text('Personal Details', style: TextStyle(fontSize: 20)),
               adjustHieght(khieght * .02),
               //User info
@@ -211,6 +210,8 @@ class PersonalDetails extends StatelessWidget {
                                       ?.personalAchievements?[index]
                                       .id);
                           personalController.personalAcheievementDeleting(
+                              fromInner: false,
+                              context: context,
                               personalAchievementDeletion:
                                   personalAchievementDeletion);
                         });
@@ -280,7 +281,8 @@ class PersonalDetails extends StatelessWidget {
                         buttonText: 'Delete',
                         onTap: () {
                           Get.find<PersonalDetailsController>()
-                              .personalDatesToReminderDelete(index);
+                              .personalDatesToReminderDelete(index,
+                                  fromInner: false, context: context);
                         });
                   },
                   ontap: () {
@@ -337,8 +339,8 @@ class PersonalDetails extends StatelessWidget {
                         title: 'are you sure want to delete ?',
                         buttonText: 'Delete',
                         onTap: () {
-                          personalController
-                              .personalDatesToReminderDelete(index);
+                          personalController.personalDatesToReminderDelete(
+                              fromInner: false, index, context: context);
                         });
                   },
                   onItemTap: (value, index) {

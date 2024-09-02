@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/brochure.dart';
-import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -31,16 +30,22 @@ class BrochursBuilder extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ScreenPdfPreview(
-                              base64: imageTestingBase64.substring(
-                                  'data:application/pdf;base64,'.length))));
+                              base64: pdf[index].file != null &&
+                                      pdf[index].file!.startsWith('data')
+                                  ? pdf[index].file?.substring(
+                                      'data:application/pdf;base64,'.length)
+                                  : pdf[index].file)));
                 },
                 child: Column(
                   children: [
                     AspectRatio(
                       aspectRatio: 1,
                       child: PdfViewer.openData(
-                          base64Decode(imageTestingBase64.substring(
-                              'data:application/pdf;base64,'.length)),
+                          base64Decode(pdf[index].file != null &&
+                                  pdf[index].file!.startsWith('data')
+                              ? pdf[index].file!.substring(
+                                  'data:application/pdf;base64,'.length)
+                              : pdf[index].file ?? ''),
                           params: const PdfViewerParams(pageNumber: 1)),
                     ),
                     adjustHieght(5),

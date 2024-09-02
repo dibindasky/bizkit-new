@@ -38,7 +38,7 @@ class ProductsBuilder extends StatelessWidget {
                             height: 200,
                             width: double.infinity,
                             child: Image.memory(
-                                base64.decode(data.images?[index].image ?? ""),
+                                base64.decode(data.images?[0].image ?? ""),
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) =>
                                     const Icon(

@@ -96,8 +96,8 @@ class TaskFolderController extends GetxController {
     } else {
       selectedFolderIds.add(folderId);
     }
-    log('selectedFolderIds : = > $selectedFolderIds');
-    log('selectedFolderIds : => ${selectedFolderIds.length}');
+    // log('selectedFolderIds : = > $selectedFolderIds');
+    // log('selectedFolderIds : => ${selectedFolderIds.length}');
   }
 
   void toggleInnerFolderSelection(String innerFolderId) {
@@ -106,8 +106,8 @@ class TaskFolderController extends GetxController {
     } else {
       selectedInnerFolderIds.add(innerFolderId);
     }
-    log('selectedInnerFolderIds : = > $selectedInnerFolderIds');
-    log('selectedInnerFolderIds : => ${selectedInnerFolderIds.length}');
+    // log('selectedInnerFolderIds : = > $selectedInnerFolderIds');
+    // log('selectedInnerFolderIds : => ${selectedInnerFolderIds.length}');
   }
 
   void createNewFolder(
@@ -335,20 +335,20 @@ class TaskFolderController extends GetxController {
 
   void fetchTasksInsideFolder(
       {required GetTaskInsideAFolderParamsModel taskInsideFolder}) async {
-    folderNameLoading.value = true;
+    isLoading.value = true;
     final result = await folderService.getTasksInsideFolder(
         taskInsideFolder: taskInsideFolder);
 
     result.fold(
       (failure) {
-        folderNameLoading.value = false;
+        isLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         foldername.value = success.data?.first.folderName ?? 'Folder Name';
         tasksInsideFolder.assignAll(success.data?.first.tasks ?? []);
         innerFolders.assignAll(success.data?.first.innerFolders ?? []);
-        folderNameLoading.value = false;
+        isLoading.value = false;
       },
     );
   }

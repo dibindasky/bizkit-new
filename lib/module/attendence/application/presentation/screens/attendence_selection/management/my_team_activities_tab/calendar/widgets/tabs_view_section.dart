@@ -20,7 +20,7 @@ class AttendenceMsCalendarTabsViewSection extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                      color: klightDarkGrey, borderRadius: kBorderRadius20),
+                      color: lightColr, borderRadius: kBorderRadius20),
                   child: CalendarDatePicker(
                     initialDate: DateTime.now(),
                     firstDate: DateTime.now()
@@ -65,39 +65,35 @@ class AttendenceMsCalendarTabsViewSection extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                  child: HolidayOrLeaveCard(
-                    borderClr: holidayBorderClr,
-                    avatars: [],
-                    date: '10th June',
-                    names: 'Adam , Joshua',
-                    title: 'Regional Holiday',
-                  ),
-                );
-              },
-            ),
+          ListView.builder(
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                child: HolidayOrLeaveCard(
+                  borderClr: holidayBorderClr,
+                  avatars: [],
+                  date: '10th June',
+                  names: 'Adam , Joshua',
+                  title: 'Regional Holiday',
+                ),
+              );
+            },
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                  child: HolidayOrLeaveCard(
-                    borderClr: leaveBorderClr,
-                    avatars: [],
-                    date: '23rd June - 25th June',
-                    names: 'Adam madam',
-                    title: 'Leave',
-                  ),
-                );
-              },
-            ),
+          ListView.builder(
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return const Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                child: HolidayOrLeaveCard(
+                  borderClr: leaveBorderClr,
+                  avatars: [],
+                  date: '23rd June - 25th June',
+                  names: 'Adam madam',
+                  title: 'Leave',
+                ),
+              );
+            },
           ),
         ],
       ),

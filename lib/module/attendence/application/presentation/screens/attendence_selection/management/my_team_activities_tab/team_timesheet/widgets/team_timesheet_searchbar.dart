@@ -11,13 +11,13 @@ class AttendenceMsTeamTimesheetSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 320.w,
-      height: 50.h,
+      height: 45.h,
       decoration: BoxDecoration(
         color: klightGreyClr,
         borderRadius: kBorderRadius15,
       ),
       child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: 17, vertical: 3),
         child: TextField(
           decoration: InputDecoration(
               border: InputBorder.none,

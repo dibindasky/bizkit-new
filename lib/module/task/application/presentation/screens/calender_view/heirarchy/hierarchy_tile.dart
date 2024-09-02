@@ -619,7 +619,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                         );
                                       },
                                     ),
-                                  )
+                                  ),
                           ],
                         ),
                       ),

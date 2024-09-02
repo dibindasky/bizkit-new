@@ -70,6 +70,7 @@ class TaskListView extends StatelessWidget {
                   }
                 },
                 child: TaskContainer(
+                  tasksFromTasksList: true,
                   fromFolders: false,
                   tasksFromFoldrs: false,
                   tasksFromInnerFolder: false,

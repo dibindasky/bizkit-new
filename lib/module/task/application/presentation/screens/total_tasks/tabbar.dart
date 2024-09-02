@@ -77,6 +77,7 @@ class TotalTaskListView extends StatelessWidget {
                     log('Task id form filter by type==> ${typeTask.id}');
                   },
                   child: TaskContainer(
+                    tasksFromFilterSection: true,
                     index: index,
                     typeTask: typeTask,
                   ),

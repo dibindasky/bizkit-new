@@ -37,7 +37,7 @@ class UpcomingLeavesCard extends StatelessWidget {
         height: 185.h,
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
         decoration: BoxDecoration(
-          color: klightGreyClr,
+          color: lightColr,
           borderRadius: kBorderRadius15,
         ),
         child: Column(

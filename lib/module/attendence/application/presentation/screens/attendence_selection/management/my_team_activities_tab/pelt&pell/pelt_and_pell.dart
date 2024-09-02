@@ -1,8 +1,10 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import 'widgets/pelt_and_pell_appbar.dart';
 
@@ -83,7 +85,7 @@ class _AttendenceMsPeltAndPellScreenState
                       width: 320.w,
                       height: 150.h,
                       decoration: BoxDecoration(
-                        color: klightDarkGrey,
+                        color: lightColr,
                         borderRadius: kBorderRadius10,
                       ),
                       child: Column(
@@ -175,7 +177,10 @@ class _AttendenceMsPeltAndPellScreenState
                             wdth: 300.w,
                             text: 'Change PELT / PELL',
                             textColr: kblack,
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(Routes.attendenceMsChangePeltAndPell,
+                                  id: 22);
+                            },
                           ),
                         ],
                       ),

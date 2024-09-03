@@ -5,7 +5,7 @@ import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/last_skip_and_continue.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/visiting_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/received_card_screen.dart';
 import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -261,76 +261,72 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                 heading: 'Take Selfie',
               ),
               Obx(
-                () => SizedBox(
-                  height: 170.dm,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount:
-                        textExtractionController.pickedSelfiesImageUrl.length,
-                    itemBuilder: (context, index) {
-                      if (textExtractionController
-                                  .pickedSelfiesImageUrl[index] ==
-                              null ||
-                          textExtractionController.pickedSelfiesImageUrl[index]
-                              .isEmpty) return kempty;
-
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 15),
-                        child: SizedBox(
-                          height: 170.dm,
-                          width: 290.dm,
-                          child: Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.memory(
-                                  base64Decode(
-                                    textExtractionController
-                                        .pickedSelfiesImageUrl[index],
+                () {
+                  return SizedBox(
+                    height: 170.dm,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                          textExtractionController.pickedSelfiesImageUrl.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 15),
+                          child: SizedBox(
+                            height: 170.dm,
+                            width: 290.dm,
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.memory(
+                                    base64Decode(
+                                      textExtractionController
+                                          .pickedSelfiesImageUrl[index],
+                                    ),
+                                    height: 170.dm,
+                                    width: 290.dm,
+                                    fit: BoxFit.cover,
                                   ),
-                                  height: 170.dm,
-                                  width: 290.dm,
-                                  fit: BoxFit.cover,
                                 ),
-                              ),
-                              Positioned(
-                                bottom: 10,
-                                right: 10,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: ColoredBox(
-                                    color: neonShade,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        showCustomConfirmationDialogue(
-                                          context: context,
-                                          buttonText: 'Delete',
-                                          title:
-                                              'You want to remove your selfie',
-                                          onTap: () {
-                                            textExtractionController
-                                                .pickedSelfiesImageUrl
-                                                .removeAt(index);
-                                          },
-                                        );
-                                      },
-                                      icon: const Icon(
-                                        size: 30,
-                                        color: kwhite,
-                                        Icons.delete,
+                                Positioned(
+                                  bottom: 10,
+                                  right: 10,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: ColoredBox(
+                                      color: neonShade,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          showCustomConfirmationDialogue(
+                                            context: context,
+                                            buttonText: 'Delete',
+                                            title:
+                                                'You want to remove your selfie',
+                                            onTap: () {
+                                              textExtractionController
+                                                  .pickedSelfiesImageUrl
+                                                  .removeAt(index);
+                                            },
+                                          );
+                                        },
+                                        icon: const Icon(
+                                          size: 30,
+                                          color: kwhite,
+                                          Icons.delete,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                        );
+                      },
+                    ),
+                  );
+                },
               ),
               Padding(
                 padding:

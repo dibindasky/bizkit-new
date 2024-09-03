@@ -30,14 +30,13 @@ class FileMessageCard extends StatelessWidget {
         child: ClipPath(
           clipper: PollChatClipper(isSender: sender),
           child: AnimatedContainer(
-              color:
-                  sender ? neonShade.withGreen(190) : kwhite.withOpacity(0.3),
+              color: sender ? neonShade.withGreen(190) : klightDarkGrey,
               duration: const Duration(milliseconds: 300),
               padding: EdgeInsets.only(
                   left: !sender ? 15.w : 5.w,
                   right: sender ? 15.w : 5.w,
                   top: sender ? 5.w : 0.w,
-                  bottom: 0.h),
+                  bottom: 4.h),
               width: message.fileType == 'pdf' ? 150.h : null,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

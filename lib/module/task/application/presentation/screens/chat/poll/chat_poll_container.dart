@@ -150,7 +150,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
               top: sender ? 5.w : 0.w,
               bottom: 2.h),
           decoration: BoxDecoration(
-            color: sender ? neonShade.withGreen(190) : kwhite.withOpacity(0.3),
+            color: sender ? neonShade.withGreen(190) : klightDarkGrey,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,

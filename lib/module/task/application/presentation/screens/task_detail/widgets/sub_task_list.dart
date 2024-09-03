@@ -162,9 +162,9 @@ class SubTaskTileDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('isOwned  ===> $isOwned');
-    log('isCompleted  ===> $isCompleted');
-    log('isKilled  ===> $isKilled');
+    // log('isOwned  ===> $isOwned');
+    // log('isCompleted  ===> $isCompleted');
+    // log('isKilled  ===> $isKilled');
     String formatDateTimeWithTimeZone(DateTime dateTime) {
       final DateFormat formatter = DateFormat("yyyy-MM-ddTHH:mm:ss.SSS");
       final String formattedDate = formatter.format(dateTime);
@@ -219,7 +219,10 @@ class SubTaskTileDetailPage extends StatelessWidget {
             ),
             adjustWidth(20.w),
             if (isCompleted == true)
-              const Icon(Icons.check_box_outlined,color: kwhite,)
+              const Icon(
+                Icons.check_box_outlined,
+                color: kwhite,
+              )
             else if (isCompleted == true ||
                 isKilled == true ||
                 isSubTaskCompleted == true)

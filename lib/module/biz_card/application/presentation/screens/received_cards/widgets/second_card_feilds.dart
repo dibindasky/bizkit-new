@@ -3,9 +3,9 @@ import 'dart:developer';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
-import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/last_skip_and_continue.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/visiting_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/received_card_screen.dart';
 import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -25,7 +25,7 @@ class CardSecondScannedDatas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visitingCardController = Get.find<VisitingCardController>();
+    final receivedCardController = Get.find<ReceivedCardController>();
 
     final cardTextExtractionController =
         Get.find<CardTextExtractionController>();
@@ -41,7 +41,7 @@ class CardSecondScannedDatas extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              visitingCardController.clearAllTextEditingControllers();
+              receivedCardController.clearAllTextEditingControllers();
               GoRouter.of(context).pop();
             },
             icon: const Icon(
@@ -50,7 +50,7 @@ class CardSecondScannedDatas extends StatelessWidget {
             ),
           ),
           title: const Text(
-            'Make Visting Card',
+            'Make Received Card',
             style: TextStyle(
               fontFamily: 'Euclid',
               fontWeight: FontWeight.bold,
@@ -114,7 +114,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                         autocompleteItems: const [],
                         validate: Validate.notNull,
                         label: 'Name',
-                        controller: visitingCardController.nameController,
+                        controller: receivedCardController.nameController,
                         // controller:
                         //  context.read<CardSecondBloc>().nameController,
                         inputType: TextInputType.name,
@@ -122,10 +122,10 @@ class CardSecondScannedDatas extends StatelessWidget {
                       AutocompleteTextField(
                         textCapitalization: TextCapitalization.words,
                         autocompleteItems: const [],
-                        validate: Validate.notNull,
+                        // validate: Validate.notNull,
                         label: 'Company',
                         controller:
-                            visitingCardController.companyNameController,
+                            receivedCardController.companyNameController,
                         // controller:
                         //  context.read<CardSecondBloc>().copanyController,
                         inputType: TextInputType.emailAddress,
@@ -133,9 +133,9 @@ class CardSecondScannedDatas extends StatelessWidget {
                       AutocompleteTextField(
                         //textCapitalization: TextCapitalization.words,
                         autocompleteItems: const [],
-                        validate: Validate.email,
+                        // validate: Validate.email,
                         label: 'Email',
-                        controller: visitingCardController.emailController,
+                        controller: receivedCardController.emailController,
                         // controller:
                         // context.read<CardSecondBloc>().emailController,
                         inputType: TextInputType.emailAddress,
@@ -144,18 +144,18 @@ class CardSecondScannedDatas extends StatelessWidget {
                         textCapitalization: TextCapitalization.words,
                         maxLength: 10,
                         autocompleteItems: const [],
-                        validate: Validate.phone,
+                        // validate: Validate.phone,
                         label: 'Phone Number',
-                        controller: visitingCardController.phoneController,
+                        controller: receivedCardController.phoneController,
                         // controller:
                         // context.read<CardSecondBloc>().phoneController,
                         inputType: TextInputType.number,
                       ),
                       AutocompleteTextField(
                         autocompleteItems: const [],
-                        validate: Validate.website,
+                        // validate: Validate.website,
                         label: 'Website',
-                        controller: visitingCardController.websiteController,
+                        controller: receivedCardController.websiteController,
                         // controller:
                         // context.read<CardSecondBloc>().webSiteController,
                         inputType: TextInputType.url,
@@ -163,13 +163,13 @@ class CardSecondScannedDatas extends StatelessWidget {
                       AutocompleteTextField(
                         textCapitalization: TextCapitalization.words,
                         autocompleteItems: const [],
-                        validate: Validate.notNull,
+                        // validate: Validate.notNull,
                         label: 'Designation',
                         // controller: context
                         // .read<CardSecondBloc>()
                         // .designationController,
                         controller:
-                            visitingCardController.designationController,
+                            receivedCardController.designationController,
                         inputType: TextInputType.name,
                       ),
                       adjustHieght(khieght * .02),
@@ -177,7 +177,7 @@ class CardSecondScannedDatas extends StatelessWidget {
                         onTap: () {
                           if (autoFillDataKey.currentState!.validate()) {
                             FocusScope.of(context).unfocus();
-                            visitingCardController.getLocation();
+                            receivedCardController.getLocation();
                             Navigator.of(context).push(
                               cardFadePageRoute(const SelfieTextFields()),
                             );
@@ -218,7 +218,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
   @override
   Widget build(BuildContext context) {
     final textExtractionController = Get.find<CardTextExtractionController>();
-    final visitingCardController = Get.find<VisitingCardController>();
+    final receivedCardController = Get.find<ReceivedCardController>();
     return GestureDetector(
       onTap: () {
         FocusScopeNode focusScope = FocusScope.of(context);
@@ -238,7 +238,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
             ),
           ),
           title: const Text(
-            'Make Visting Card',
+            'Make Received Card',
             style: TextStyle(
               fontFamily: 'Euclid',
               fontWeight: FontWeight.bold,
@@ -261,61 +261,72 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                 heading: 'Take Selfie',
               ),
               Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount:
-                      textExtractionController.pickedSelfiesImageUrl.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 15),
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.memory(
-                              base64Decode(textExtractionController
-                                  .pickedSelfiesImageUrl[index]),
-                              height: 150.dm,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 10,
-                            right: 10,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: ColoredBox(
-                                color: neonShade,
-                                child: IconButton(
-                                  onPressed: () {
-                                    showCustomConfirmationDialogue(
-                                      context: context,
-                                      buttonText: 'Delete',
-                                      title: 'You want to remove your selfie',
-                                      onTap: () {
-                                        textExtractionController
-                                            .pickedSelfiesImageUrl
-                                            .removeAt(index);
-                                      },
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    size: 30,
-                                    color: kwhite,
-                                    Icons.delete,
+                () {
+                  return SizedBox(
+                    height: 170.dm,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                          textExtractionController.pickedSelfiesImageUrl.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 15),
+                          child: SizedBox(
+                            height: 170.dm,
+                            width: 290.dm,
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.memory(
+                                    base64Decode(
+                                      textExtractionController
+                                          .pickedSelfiesImageUrl[index],
+                                    ),
+                                    height: 170.dm,
+                                    width: 290.dm,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              ),
+                                Positioned(
+                                  bottom: 10,
+                                  right: 10,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: ColoredBox(
+                                      color: neonShade,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          showCustomConfirmationDialogue(
+                                            context: context,
+                                            buttonText: 'Delete',
+                                            title:
+                                                'You want to remove your selfie',
+                                            onTap: () {
+                                              textExtractionController
+                                                  .pickedSelfiesImageUrl
+                                                  .removeAt(index);
+                                            },
+                                          );
+                                        },
+                                        icon: const Icon(
+                                          size: 30,
+                                          color: kwhite,
+                                          Icons.delete,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                        );
+                      },
+                    ),
+                  );
+                },
               ),
               Padding(
                 padding:
@@ -327,45 +338,47 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                       adjustHieght(khieght * 0.008),
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
-                        validate: Validate.notNull,
+                        // validate: Validate.notNull,
                         labelText: 'Occasion',
-                        controller: visitingCardController.occasionController,
+                        controller: receivedCardController.occasionController,
                         inputType: TextInputType.name,
                       ),
                       CustomTextFormField(
                         maxLines: 2,
                         suffixIcon: null,
                         textCapitalization: TextCapitalization.sentences,
-                        validate: Validate.notNull,
+                        // validate: Validate.notNull,
                         labelText: 'Location',
-                        controller: visitingCardController.locationController,
+                        controller: receivedCardController.locationController,
                         inputType: TextInputType.name,
                       ),
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
-                        validate: Validate.notNull,
+                        // validate: Validate.notNull,
                         labelText: 'Occupation',
-                        controller: visitingCardController.occupationController,
+                        controller: receivedCardController.occupationController,
                         inputType: TextInputType.name,
                       ),
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.sentences,
-                        validate: Validate.notNull,
+                        // validate: Validate.notNull,
                         maxLines: 3,
                         labelText: 'Notes',
-                        controller: visitingCardController.notesController,
+                        controller: receivedCardController.notesController,
                         inputType: TextInputType.name,
                       ),
                       adjustHieght(khieght * .02),
                       Obx(
-                        () => visitingCardController.isLoading.value
+                        () => receivedCardController.isLoading.value
                             ? const LoadingAnimation()
                             : CardLastSkipContinueButtons(
-                                continueText: 'Create Visiting Card',
+                                continueText: 'Create Received Card',
                                 onTap: () {
                                   FocusScope.of(context).unfocus();
-                                  if (meetingDataKey.currentState!.validate()) {
-                                    visitingCardController.createVisitingCard(
+                                  if (meetingDataKey.currentState!.validate() &&
+                                      receivedCardController
+                                          .locationController.text.isNotEmpty) {
+                                    receivedCardController.createReceivedCard(
                                         context: context);
                                   }
                                 }),

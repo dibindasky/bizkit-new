@@ -15,8 +15,8 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/n
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/second_card_feilds.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/second_card_feilds.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
@@ -350,9 +350,13 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskChatScreen,
       path: Routes.taskChatScreen,
-      builder: (context, state) => ScreenTaskChat(
-        active: state.extra as bool,
-      ),
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        return ScreenTaskChat(
+          active: extra['active'],
+          taskTitle: extra['taskTitle'],
+        );
+      },
     ),
 
     // task attachmets detail list view

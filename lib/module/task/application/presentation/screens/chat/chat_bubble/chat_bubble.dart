@@ -53,9 +53,7 @@ class ChatBubble extends StatelessWidget {
           clipper:
               ChatBubbleClipper(isSender: message.sender, showArrow: showArrow),
           child: Container(
-              color: message.sender
-                  ? neonShade.withGreen(190)
-                  : kwhite.withOpacity(.3),
+              color: message.sender ? neonShade.withGreen(190) : klightDarkGrey,
               padding: EdgeInsets.only(
                   left: message.sender ? 10.w : 20.w,
                   right: !message.sender ? 10.w : 20.w,

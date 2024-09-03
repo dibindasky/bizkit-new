@@ -21,7 +21,7 @@ class CurrentLocationCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(
           top: 5.0.w,
-          bottom: 0.w,
+          bottom: 2.w,
           left: sender ? 50.w : 0.w,
           right: !sender ? 50.w : 0.w),
       child: ClipPath(
@@ -31,9 +31,9 @@ class CurrentLocationCard extends StatelessWidget {
               left: !sender ? 15.w : 5.w,
               right: sender ? 15.w : 5.w,
               top: 5.h,
-              bottom: 0.h),
+              bottom: 4.h),
           decoration: BoxDecoration(
-            color: sender ? neonShade.withGreen(190) : kwhite.withOpacity(0.3),
+            color: sender ? neonShade.withGreen(190) : klightDarkGrey,
           ),
           duration: const Duration(milliseconds: 300),
           child: Column(
@@ -50,8 +50,7 @@ class CurrentLocationCard extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.h),
                 decoration: BoxDecoration(
-                    borderRadius: kBorderRadius5,
-                    color: kwhite.withOpacity(0.3)),
+                    borderRadius: kBorderRadius5, color: lightGrey),
                 child: Text(message.place ?? ''),
               ),
               GestureDetector(

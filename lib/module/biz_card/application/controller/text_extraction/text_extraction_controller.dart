@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/image/image_model.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
-import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/text_extraction/text_extraction_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_model/text_extraction_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_responce/extracted_details.dart';
@@ -63,22 +63,22 @@ class CardTextExtractionController extends GetxController {
           cardController.companyNameController.text =
               extractedDetails.value.companyName ?? '';
         } else {
-          final visitingCardController = Get.find<VisitingCardController>();
-          visitingCardController.nameController.text =
+          final receivedCardController = Get.find<ReceivedCardController>();
+          receivedCardController.nameController.text =
               extractedDetails.value.personName ?? '';
-          visitingCardController.phoneController.text =
+          receivedCardController.phoneController.text =
               (extractedDetails.value.phoneNumbers?.isNotEmpty ?? false)
                   ? extractedDetails.value.phoneNumbers!.first
                   : '';
-          visitingCardController.emailController.text =
+          receivedCardController.emailController.text =
               (extractedDetails.value.emails?.isNotEmpty ?? false)
                   ? extractedDetails.value.emails!.first
                   : '';
-          visitingCardController.designationController.text =
+          receivedCardController.designationController.text =
               extractedDetails.value.designation ?? '';
-          visitingCardController.companyNameController.text =
+          receivedCardController.companyNameController.text =
               extractedDetails.value.companyName ?? '';
-          visitingCardController.websiteController.text =
+          receivedCardController.websiteController.text =
               (extractedDetails.value.websites?.isNotEmpty ?? false)
                   ? extractedDetails.value.websites!.first
                   : '';

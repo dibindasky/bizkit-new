@@ -1,10 +1,10 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
-import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/qr_scanner_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/visiting_cards/widgets/selected_card_builder.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/qr_scanner_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -76,7 +76,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
   @override
   Widget build(BuildContext context) {
     final textExtractionController = Get.find<CardTextExtractionController>();
-    final visitingCardController = Get.find<VisitingCardController>();
+    final receivedCardController = Get.find<ReceivedCardController>();
     return Scaffold(
       body: Container(
         width: kwidth,
@@ -177,7 +177,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                             //     tittle: 'See notification',
                             //     description: '',
                             //     child: const Text('Create visiting card')),
-                            const Text('Create visiting card'),
+                            const Text('Create received card'),
                             ContainerPickImage(
                               onPressedCam: () {
                                 textExtractionController.pickedImageUrl.clear();
@@ -201,7 +201,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                                 //     .read<CardSecondBloc>()
                                 //     .add(const CardSecondEvent.imageClear());
                                 textExtractionController.pickedImageUrl.clear();
-                                visitingCardController
+                                receivedCardController
                                     .clearAllTextEditingControllers();
                                 GoRouter.of(context)
                                     .pushNamed(Routes.scanedDataFeilds);
@@ -210,7 +210,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                                 // );
                               },
                               child: const Text(
-                                'Create card without visiting card',
+                                'Create card without received card',
                                 style: TextStyle(
                                   decorationColor: neonShade,
                                   decoration: TextDecoration.underline,

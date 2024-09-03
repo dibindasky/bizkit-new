@@ -6,13 +6,14 @@ import 'package:photo_view/photo_view.dart';
 import '../../../../../domain/model/task/get_task_responce/attachment.dart';
 
 class ImagePreviewScreen extends StatelessWidget {
-  const ImagePreviewScreen(
-      {super.key,
-      required this.imageBase64,
-      required this.attachments,
-      this.initialIndex = 0});
-  final String imageBase64;
+  const ImagePreviewScreen({
+    super.key,
+    required this.imageBase64,
+    required this.attachments,
+    this.initialIndex = 0,
+  });
 
+  final String imageBase64;
   final List<Attachment> attachments;
   final int initialIndex;
 

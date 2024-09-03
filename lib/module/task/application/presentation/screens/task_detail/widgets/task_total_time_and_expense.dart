@@ -84,13 +84,24 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                               : 'Total Expense'),
                         ],
                       ),
-                      Text(
-                        isTotalTimeOrExpense == true
-                            ? DateTimeFormater.convertMinutesToHourMinuteFormat(
-                                taskController.singleTask.value.totalTime ?? 0)
-                            : '₹${taskController.singleTask.value.totalExpense ?? 0}',
-                        style: textHeadStyle1.copyWith(color: neonShade),
-                      )
+                      Obx(
+                        () => taskController.isLoading.value
+                            ? ShimmerLoaderTile(
+                                height: 10.h,
+                                width: 100.w,
+                              )
+                            : Text(
+                                isTotalTimeOrExpense == true
+                                    ? DateTimeFormater
+                                        .convertMinutesToHourMinuteFormat(
+                                            taskController.singleTask.value
+                                                    .totalTime ??
+                                                0)
+                                    : '₹${taskController.singleTask.value.totalExpense ?? 0}',
+                                style:
+                                    textHeadStyle1.copyWith(color: neonShade),
+                              ),
+                      ),
                     ],
                   ),
                 ),
@@ -152,37 +163,41 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                             ? taskController.taskTotalTime.length
                             : taskController.taskExpense.length,
                         itemBuilder: (context, index) {
-                          return Card(
-                            color: klightDarkGrey,
-                            child: ListTile(
-                              leading: const CircleAvatar(
-                                  child:
-                                      Image(image: AssetImage(personDemoImg))),
-                              title: Text(
-                                isTotalTimeOrExpense == true
-                                    ? taskController
-                                            .taskTotalTime[index].name ??
-                                        'name'
-                                    : taskController.taskExpense[index].name ??
-                                        'name',
-                                style: textThinStyle1,
+                          return GestureDetector(
+                            onTap: () {},
+                            child: Card(
+                              color: klightDarkGrey,
+                              child: ListTile(
+                                leading: const CircleAvatar(
+                                    child: Image(
+                                        image: AssetImage(personDemoImg))),
+                                title: Text(
+                                  isTotalTimeOrExpense == true
+                                      ? taskController
+                                              .taskTotalTime[index].name ??
+                                          'name'
+                                      : taskController
+                                              .taskExpense[index].name ??
+                                          'name',
+                                  style: textThinStyle1,
+                                ),
+                                trailing: isTotalTimeOrExpense == true
+                                    ? Text(
+                                        DateTimeFormater
+                                            .convertMinutesToHourMinuteFormat(
+                                                taskController
+                                                        .taskTotalTime[index]
+                                                        .totalTime ??
+                                                    0),
+                                        style: textThinStyle1.copyWith(
+                                            color: neonShade),
+                                      )
+                                    : Text(
+                                        '₹ ${taskController.taskExpense[index].totalExpense ?? 0}',
+                                        style: textThinStyle1.copyWith(
+                                            color: neonShade),
+                                      ),
                               ),
-                              trailing: isTotalTimeOrExpense == true
-                                  ? Text(
-                                      DateTimeFormater
-                                          .convertMinutesToHourMinuteFormat(
-                                              taskController
-                                                      .taskTotalTime[index]
-                                                      .totalTime ??
-                                                  0),
-                                      style: textThinStyle1.copyWith(
-                                          color: neonShade),
-                                    )
-                                  : Text(
-                                      '₹ ${taskController.taskExpense[index].totalExpense ?? 0}',
-                                      style: textThinStyle1.copyWith(
-                                          color: neonShade),
-                                    ),
                             ),
                           );
                         },

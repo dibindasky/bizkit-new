@@ -25,12 +25,12 @@ class TimeAndExpenseCard extends StatelessWidget {
         clipper: PollChatClipper(isSender: sender),
         child: Container(
           padding: EdgeInsets.only(
-              bottom: 0.w,
+              bottom: 5.w,
               top: sender ? 5.w : 0.w,
               left: sender ? 5.w : 15.w,
               right: sender ? 15.w : 5.w),
           decoration: BoxDecoration(
-            color: sender ? neonShade.withGreen(190) : kwhite.withOpacity(0.3),
+            color: sender ? neonShade.withGreen(190) : klightDarkGrey,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,8 +47,7 @@ class TimeAndExpenseCard extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: 5.w, top: 5.w, bottom: 2.w, right: 5.w),
                 decoration: BoxDecoration(
-                    borderRadius: kBorderRadius5,
-                    color: kwhite.withOpacity(0.2)),
+                    borderRadius: kBorderRadius5, color: lightGrey),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

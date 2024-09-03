@@ -29,9 +29,12 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
       duration: const Duration(milliseconds: 500),
       height: 50.h + maxLines * 10.h,
       width: double.infinity,
-      decoration: BoxDecoration(
-          color: lightGrey,
-          border: const Border(top: BorderSide(color: klightgrey, width: 0))),
+      decoration: const BoxDecoration(
+        color: klightDarkGrey,
+        // border: Border(
+        //   top: BorderSide(color: klightgrey, width: 0),
+        // ),
+      ),
       child: Row(
         children: [
           IconButton(

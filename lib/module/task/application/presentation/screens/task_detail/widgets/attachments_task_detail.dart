@@ -28,7 +28,8 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(crossAxisAlignment: CrossAxisAlignment.end,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 'Attachments ',
@@ -79,7 +80,7 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
                               .toList()[index];
                       return GestureDetector(
                         onTap: () {
-                          log('Attachment Type ==== > ${attachment?.type}');
+                          // log('Attachment Type ==== > ${attachment?.type}');
                           _handleAttachmentTap(
                             context,
                             attachment?.attachment ?? '',
@@ -100,38 +101,6 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
               }
             },
           ),
-          // attachments.isEmpty
-          //     ? Center(
-          //         child: Text(
-          //           'No Attachments Available',
-          //           style: textThinStyle1.copyWith(color: klightgrey),
-          //         ),
-          //       )
-          //     : SizedBox(
-          //         height: 100,
-          //         child: ListView.builder(
-          //           itemCount: attachments.length,
-          //           scrollDirection: Axis.horizontal,
-          //           itemBuilder: (context, index) {
-          //             final attachment = attachments[index];
-          //             return GestureDetector(
-          //               onTap: () {
-          //                 _handleAttachmentTap(
-          //                   context,
-          //                   attachment.attachment ?? '',
-          //                   attachment.type ?? '',
-          //                   controller,
-          //                   index,
-          //                 );
-          //               },
-          //               child: AttachmentTile(
-          //                 attachmet: attachment.attachment ?? 'No Attachment',
-          //                 type: attachment.type ?? 'Unknown Type',
-          //               ),
-          //             );
-          //           },
-          //         ),
-          //       ),
         ],
       ),
     );
@@ -139,15 +108,24 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
 
   void _handleAttachmentTap(BuildContext context, String attachment,
       String type, CreateTaskController controller, int index) {
-    if (type == 'jpg' || type == 'png' || type == 'image') {
+    //  Filter out non-image attachments
+    final imageAttachments = controller.singleTask.value.attachments
+            ?.where((att) => att.type == 'jpg' || att.type == 'png')
+            .toList()
+            .reversed
+            .toList() ??
+        [];
+
+    final imageIndex = imageAttachments.indexWhere(
+      (element) => controller.singleTask.value.attachments?[index] == element,
+    );
+    if (type == 'jpg' || type == 'png') {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ImagePreviewScreen(
-            initialIndex: index,
-            attachments: (controller.singleTask.value.attachments ?? [])
-                .reversed
-                .toList(),
+            initialIndex: imageIndex,
+            attachments: imageAttachments,
             imageBase64: attachment,
           ),
         ),
@@ -192,8 +170,11 @@ class AttachmentTile extends StatelessWidget {
         children: [
           type == 'pdf'
               ? Expanded(
-                  child: Container( decoration: BoxDecoration(borderRadius: kBorderRadius15,),
-                    child: PdfViewer.openData(
+                  child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: kBorderRadius15,
+                  ),
+                  child: PdfViewer.openData(
                     base64Decode(attachmet.startsWith('data')
                         ? attachmet
                             .substring('data:application/pdf;base64,'.length)
@@ -201,13 +182,14 @@ class AttachmentTile extends StatelessWidget {
                     onError: (_) => const Center(
                       child: Text('Could not load document please try again'),
                     ),
-                                    ),
-                  ))
+                  ),
+                ))
               : Expanded(
                   child: Container(
                     width: double.infinity,
                     height: 35.w,
-                    decoration: BoxDecoration(borderRadius: kBorderRadius15,
+                    decoration: BoxDecoration(
+                        borderRadius: kBorderRadius15,
                         image: DecorationImage(
                             fit: BoxFit.cover,
                             image: MemoryImage(base64Decode(attachmet)))),

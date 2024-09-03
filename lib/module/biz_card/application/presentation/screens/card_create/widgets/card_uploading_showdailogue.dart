@@ -13,7 +13,7 @@ Future<dynamic> cardscanimagesSelectingDailogue(
         ElevatedButton(
           onPressed: () async {
             Navigator.pop(context);
-
+            // textExtractionController.pickedImageUrl.clear();
             textExtractionController.pickImageScanning(camera: false);
             if (!fromAddMoreCards) {
               Navigator.of(context).push(MaterialPageRoute(
@@ -29,6 +29,7 @@ Future<dynamic> cardscanimagesSelectingDailogue(
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
+            // textExtractionController.pickedImageUrl.clear();
             textExtractionController.pickImageScanning(
               camera: true,
             );

@@ -110,14 +110,23 @@ class TaskDetailHeaderSection extends StatelessWidget {
                             onPressed: () {
                               Get.find<ChatController>().connectChannel(context,
                                   taskId: taskController.singleTask.value.id);
+
                               /// pass active task or not as param [(taskController.singleTask.value.isCompleted !=true &&taskController.singleTask.value.isKilled !=true)]
-                              GoRouter.of(context).push(Routes.taskChatScreen,
-                                  extra: (taskController
+                              GoRouter.of(context).push(
+                                Routes.taskChatScreen,
+                                extra: {
+                                  'active': taskController
                                               .singleTask.value.isCompleted !=
                                           true &&
                                       taskController
                                               .singleTask.value.isKilled !=
-                                          true));
+                                          true,
+                                  'taskTitle':
+                                      taskController.singleTask.value.title ??
+                                          ''
+                                },
+                              );
+
                               messageCountController.resetCount(
                                   id: taskController.singleTask.value.id ?? '');
                             },

@@ -124,6 +124,8 @@ class CreateTaskController extends GetxController {
   // Test task ID for validation or testing purposes
   String testTaskId = '';
 
+  RxBool fetchSingleTaskError = false.obs;
+
   // Reactive variable for loading state
   RxBool isLoading = false.obs;
   RxBool loadgingForFilterByType = false.obs;
@@ -836,11 +838,13 @@ class CreateTaskController extends GetxController {
   // Fetches a single task using the provided model
   void fetchSingleTask({required GetSingleTaskModel singleTaskModel}) async {
     isLoading.value = true;
+    fetchSingleTaskError.value = false;
     singleTask.value = GetTaskResponce();
     final result = await taskService.getTask(singleTaskModel: singleTaskModel);
     result.fold(
       (failure) {
         isLoading.value = false;
+        fetchSingleTaskError.value = true;
         log(failure.message.toString());
       },
       (success) {

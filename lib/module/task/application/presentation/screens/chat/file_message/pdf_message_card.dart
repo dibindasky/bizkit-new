@@ -13,6 +13,7 @@ class PdfMessageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sender = message.sender;
     const image = 'asset/images/fa-solid_file-pdf.png';
     return GestureDetector(
       onTap: () {
@@ -22,7 +23,8 @@ class PdfMessageCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.h),
         decoration: BoxDecoration(
-            borderRadius: kBorderRadius5, color: kwhite.withOpacity(0.3)),
+            borderRadius: kBorderRadius5,
+            color: sender ? kwhite.withOpacity(0.3) : lightGrey),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,

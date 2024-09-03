@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -30,6 +31,7 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
     Get.put(CardController());
     final cardController = Get.find<CardController>();
     final navbarController = Get.find<NavbarController>();
+    final textExtractionController = Get.find<CardTextExtractionController>();
     final size = MediaQuery.of(context).size;
     final khieght = size.height;
     return Scaffold(
@@ -40,6 +42,13 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
             size: 18,
           ),
           onPressed: () {
+            cardController.nameController.clear();
+            cardController.phoneController.clear();
+            cardController.emailController.clear();
+            cardController.companyNameController.clear();
+            cardController.designationController.clear();
+            cardController.businessCategeryController.clear();
+            textExtractionController.pickedImageUrl.clear();
             navbarController.slectedtabIndex.value = 1;
             GoRouter.of(context).pushNamed(Routes.bizCardNavbar);
           },

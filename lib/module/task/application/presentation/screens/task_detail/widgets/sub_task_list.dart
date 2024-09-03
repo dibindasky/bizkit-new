@@ -99,6 +99,7 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                       style: textThinStyle1.copyWith(
                           color: klightgrey, fontSize: 12.sp),
                     ),
+                    adjustHieght(150.h)
                   ],
                 ),
               );

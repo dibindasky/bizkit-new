@@ -350,9 +350,13 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskChatScreen,
       path: Routes.taskChatScreen,
-      builder: (context, state) => ScreenTaskChat(
-        active: state.extra as bool,
-      ),
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        return ScreenTaskChat(
+          active: extra['active'],
+          taskTitle: extra['taskTitle'],
+        );
+      },
     ),
 
     // task attachmets detail list view

@@ -40,7 +40,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.0
-  image_picker: ^1.0.5
+  image_picker: ^1.1.0
   alphabet_scroll_view: ^0.3.2
   permission_handler: ^11.1.0
   contacts_service: ^0.6.3

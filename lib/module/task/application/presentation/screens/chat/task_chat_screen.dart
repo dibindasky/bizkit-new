@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
-import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/current_location/current_location_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/file_message/file_message_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
@@ -18,13 +17,14 @@ class ScreenTaskChat extends StatelessWidget {
   const ScreenTaskChat({
     super.key,
     required this.active,
+    required this.taskTitle,
   });
 
   final bool active;
+  final String taskTitle;
 
   @override
   Widget build(BuildContext context) {
-    final taskController = Get.find<CreateTaskController>();
     final chatController = Get.find<ChatController>();
     return Obx(
       () {
@@ -37,7 +37,8 @@ class ScreenTaskChat extends StatelessWidget {
               icon: const Icon(Icons.arrow_back_ios),
             ),
             title: Text(
-              taskController.singleTask.value.title ?? '',
+              // taskController.singleTask.value.title ?? '',
+              taskTitle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: textHeadStyle1,

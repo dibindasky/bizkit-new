@@ -108,18 +108,23 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
 
   void _handleAttachmentTap(BuildContext context, String attachment,
       String type, CreateTaskController controller, int index) {
-    // Filter out non-image attachments
+    //  Filter out non-image attachments
     final imageAttachments = controller.singleTask.value.attachments
-            ?.where((att) =>
-                att.type == 'jpg' || att.type == 'png' || att.type == 'image')
+            ?.where((att) => att.type == 'jpg' || att.type == 'png')
+            .toList()
+            .reversed
             .toList() ??
         [];
-    if (type == 'jpg' || type == 'png' || type == 'image') {
+
+    final imageIndex = imageAttachments.indexWhere(
+      (element) => controller.singleTask.value.attachments?[index] == element,
+    );
+    if (type == 'jpg' || type == 'png') {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ImagePreviewScreen(
-            initialIndex: index,
+            initialIndex: imageIndex,
             attachments: imageAttachments,
             imageBase64: attachment,
           ),

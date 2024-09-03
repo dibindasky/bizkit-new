@@ -31,23 +31,49 @@ class ScreenTaskDetailPage extends StatelessWidget {
               taskController.fetchSingleTask(
                   singleTaskModel: GetSingleTaskModel(taskId: taskId ?? ''));
             },
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const TaskDetailHeaderSection(),
-                  adjustHieght(15.h),
-                  const TaskDetailUserInfoSection(),
-                  adjustHieght(15.h),
-                  const TaskDetailDescriptionSection(),
-                  adjustHieght(15.h),
-                  const TaskDetailAttachmentsSection(),
-                  adjustHieght(15.h),
-                  const TaskDetailTagsSection(),
-                  adjustHieght(15.h),
-                  const TaskDetailSubtasksSection(),
-                ],
-              ),
+            child: Obx(
+              () {
+                if (taskController.fetchSingleTaskError.value) {
+                  return GestureDetector(
+                    onTap: () {
+                      taskController.fetchSingleTask(
+                          singleTaskModel:
+                              GetSingleTaskModel(taskId: taskId ?? ''));
+                    },
+                    child: const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.refresh,
+                            color: neonShade,
+                          ),
+                          Text('Tap to retry'),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TaskDetailHeaderSection(),
+                      adjustHieght(15.h),
+                      const TaskDetailUserInfoSection(),
+                      adjustHieght(15.h),
+                      const TaskDetailDescriptionSection(),
+                      adjustHieght(15.h),
+                      const TaskDetailAttachmentsSection(),
+                      adjustHieght(15.h),
+                      const TaskDetailTagsSection(),
+                      adjustHieght(15.h),
+                      const TaskDetailSubtasksSection(),
+                      adjustHieght(150.h),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         ),

@@ -7,7 +7,7 @@ import 'package:bizkit/module/biz_card/application/controller/card/personal_deta
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/prompt/prompt_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
-import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
@@ -51,7 +51,7 @@ class ModuleController extends GetxController {
     Get.lazyPut(() => PersonalDetailsController());
     Get.lazyPut(() => BusinesDetailsController());
     Get.lazyPut(() => CardTextExtractionController());
-    Get.lazyPut(() => VisitingCardController());
+    Get.lazyPut(() => ReceivedCardController());
   }
 
   /// initilize all controllers in TASK module [Module.task]

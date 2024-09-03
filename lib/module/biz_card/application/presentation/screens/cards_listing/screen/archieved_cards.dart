@@ -64,15 +64,9 @@ class _ArchivedCardsState extends State<ArchivedCards> {
             builder: (controller) {
               if (controller.isLoading.value) {
                 return SizedBox(
-                  height: khieght,
-                  child: ShimmerLoader(
-                    height: 200.h,
-                    seprator: adjustHieght(khieght * .03),
-                    scrollDirection: Axis.vertical,
-                    itemCount: controller.archivedCards.length,
-                    width: 300.w,
-                  ),
-                );
+                    height: 550.h,
+                    child: const Center(
+                        child: CircularProgressIndicator(color: neonShade)));
               } else if (controller.archivedCards.isEmpty) {
                 return SizedBox(
                   height: 400.h,

@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
-import 'package:bizkit/module/biz_card/data/service/visiting_card/visiting_card_service.dart';
-import 'package:bizkit/module/biz_card/domain/model/visiting_cards/create_visiting_card/create_visiting_card.dart';
-import 'package:bizkit/module/biz_card/domain/model/visiting_cards/get_all_visiting_cards/visiting_card.dart';
-import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_details_responce/visiting_card_details_responce.dart';
-import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_edit_model/visiting_card_edit_model.dart';
-import 'package:bizkit/module/biz_card/domain/repository/service/visiting_card_repo.dart';
+import 'package:bizkit/module/biz_card/data/service/received_card/received_card_service.dart';
+import 'package:bizkit/module/biz_card/domain/model/received_cards/create_visiting_card/create_visiting_card.dart';
+import 'package:bizkit/module/biz_card/domain/model/received_cards/get_all_visiting_cards/visiting_card.dart';
+import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_details_responce/visiting_card_details_responce.dart';
+import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_edit_model/visiting_card_edit_model.dart';
+import 'package:bizkit/module/biz_card/domain/repository/service/received_card_repo.dart';
 import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
@@ -18,8 +18,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart' as mat;
 import 'package:go_router/go_router.dart';
 
-class VisitingCardController extends GetxController {
-  final VisitingCardRepo visitingCardService = VisitingCardService();
+class ReceivedCardController extends GetxController {
+  final ReceivedCardRepo receivedCardService = ReceivedCardService();
 
   RxBool isLoading = false.obs;
   RxBool loadingForVisitingCard = false.obs;
@@ -83,47 +83,83 @@ class VisitingCardController extends GetxController {
     );
   }
 
-  // Create new visiting card
-  void createVisitingCard({required BuildContext context}) async {
+  // Create new received cards
+  void createReceivedCard({required BuildContext context}) async {
     isLoading.value = true;
     final cardTextExtractionController =
         Get.find<CardTextExtractionController>();
 
     final navbarController = Get.find<NavbarController>();
 
-    final image = cardTextExtractionController.pickedImageUrl.isNotEmpty
+    final cardImage = cardTextExtractionController.pickedImageUrl.isNotEmpty
         ? cardTextExtractionController.pickedImageUrl.first.base64 ?? ''
         : null;
 
-    final CreateVisitingCard createVisitingCard = CreateVisitingCard(
+    final selfies =
+        cardTextExtractionController.pickedSelfiesImageUrl.isNotEmpty
+            ? cardTextExtractionController.pickedSelfiesImageUrl
+            : null;
+
+    final company = companyNameController.text.isNotEmpty
+        ? companyNameController.text
+        : null;
+
+    final designation = designationController.text.isNotEmpty
+        ? designationController.text
+        : null;
+
+    final occasion =
+        occasionController.text.isNotEmpty ? occasionController.text : null;
+    final occupation =
+        occupationController.text.isNotEmpty ? occupationController.text : null;
+    final location =
+        locationController.text.isNotEmpty ? locationController.text : null;
+    final email = emailController.text.isNotEmpty ? emailController.text : null;
+    final notes = notesController.text.isNotEmpty ? notesController.text : null;
+    final phoneNumber =
+        phoneController.text.isNotEmpty ? phoneController.text : null;
+    final webSite =
+        websiteController.text.isNotEmpty ? websiteController.text : null;
+    final CreateVisitingCard receivedCard = CreateVisitingCard(
       name: nameController.text,
       company: companyNameController.text,
+      checkCompany: company != null,
       designation: designationController.text,
+      checkDesignation: designation != null,
       email: emailController.text,
+      checkEmail: email != null,
       location: locationController.text,
+      checkLocation: location != null,
       notes: notesController.text,
+      checkNotes: notes != null,
       occation: occasionController.text,
+      checkOccation: occasion != null,
       occupation: occupationController.text,
+      checkOccupation: occupation != null,
       phoneNumber: phoneController.text,
+      checkPhoneNumber: phoneNumber != null,
       website: websiteController.text,
-      cardImage: image,
-      image: image != null,
-      selfie: cardTextExtractionController.pickedSelfiesImageUrl,
+      checkWebsite: webSite != null,
+      cardImage: cardImage,
+      checkCardImage: cardImage != null,
+      selfie: selfies,
+      checkSelfie: selfies != null,
     );
 
-    final data = await visitingCardService.createVisitingCard(
-        createVisitingCard: createVisitingCard);
+    final data = await receivedCardService.createReceivedCard(
+        receivedCard: receivedCard);
     data.fold(
       (l) {
         isLoading.value = false;
+        clearAllTextEditingControllers();
         showSnackbar(context, message: errorMessage);
       },
       (r) {
         visitingCardId.value = r.visitingCardId ?? '';
         clearAllTextEditingControllers();
-        fetchAllVisitingCards();
+        fetchAllreceivedCards();
         cardTextExtractionController.pickedImageUrl.clear();
-        showSnackbar(context, message: 'Visiting Card created Successfully');
+        showSnackbar(context, message: 'Received card created successfully');
         navbarController.slectedtabIndex.value = 2;
         context.push(Routes.bizCardNavbar);
 
@@ -138,7 +174,7 @@ class VisitingCardController extends GetxController {
       required BuildContext context}) async {
     isLoading.value = true;
 
-    final data = await visitingCardService.editVisitingCard(
+    final data = await receivedCardService.editVisitingCard(
         visitingCardEditModel: visitingCardEditModel);
 
     data.fold(
@@ -147,8 +183,8 @@ class VisitingCardController extends GetxController {
         showSnackbar(context, message: errorMessage);
       },
       (r) {
-        fetchVisitingCardDetails(
-            visitingCardId: visitingCardEditModel.cardId ?? '');
+        fetchReceivedCardDetails(
+            receivedCardId: visitingCardEditModel.cardId ?? '');
         clearAllTextEditingControllers();
         showSnackbar(context, message: 'Visiting Card Edited Successfully');
         GoRouter.of(context).pop();
@@ -157,10 +193,10 @@ class VisitingCardController extends GetxController {
     );
   }
 
-  // Fetch all visiting cards
-  void fetchAllVisitingCards() async {
+  // Fetch all received cards
+  void fetchAllreceivedCards() async {
     loadingForVisitingCard.value = true;
-    final data = await visitingCardService.getAllVisitingCards();
+    final data = await receivedCardService.getAllReceivedCards();
     data.fold(
       (l) {
         loadingForVisitingCard.value = false;
@@ -177,7 +213,7 @@ class VisitingCardController extends GetxController {
       {required VisitingCardDeleteModel visitingCardDeleteModel,
       required BuildContext context}) async {
     loadingForVisitingCard.value = true;
-    final data = await visitingCardService.deleteVisitingCard(
+    final data = await receivedCardService.deleteVisitingCard(
         visitingCardDeleteModel: visitingCardDeleteModel);
     data.fold(
       (l) {
@@ -185,7 +221,7 @@ class VisitingCardController extends GetxController {
         loadingForVisitingCard.value = false;
       },
       (r) {
-        fetchAllVisitingCards();
+        fetchAllreceivedCards();
         fetchAllDeletedVisitingCards();
         visitingCardDeleteModel.isDisabled == true
             ? showSnackbar(context, message: 'Deleted Successfully')
@@ -200,7 +236,7 @@ class VisitingCardController extends GetxController {
   void fetchAllDeletedVisitingCards() async {
     isLoading.value = true;
 
-    final data = await visitingCardService.getAllDeletedVisitingCards();
+    final data = await receivedCardService.getAllDeletedVisitingCards();
     data.fold(
       (l) => isLoading.value = false,
       (r) {
@@ -212,18 +248,18 @@ class VisitingCardController extends GetxController {
   }
 
   // Fetch visiting card details
-  void fetchVisitingCardDetails({required String visitingCardId}) async {
+  void fetchReceivedCardDetails({required String receivedCardId}) async {
     isLoading.value = true;
 
-    final data = await visitingCardService.getVisitingCardDetails(
-        visitingCardId: visitingCardId);
+    final data = await receivedCardService.getReceivedCardDetails(
+        receivedCardId: receivedCardId);
 
     data.fold(
       (l) => isLoading.value = false,
       (r) {
         visitingCardDetails.value = r;
         selfie.assignAll(visitingCardDetails.value.selfie ?? []);
-        selfie.add(visitingCardDetails.value.cardImage ?? '');
+        selfie.insert(0, visitingCardDetails.value.cardImage ?? '');
         selfiesListForEdit.assignAll(visitingCardDetails.value.selfie ?? []);
         isLoading.value = false;
       },

@@ -3,17 +3,16 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
-import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
 import 'package:bizkit/utils/previewscreen_icons/detail_sharing_icon.dart';
-import 'package:bizkit/utils/shimmer/shimmer.dart';
+import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
@@ -45,7 +44,7 @@ class _ScreenCardSecondDetailViewState
 
   @override
   Widget build(BuildContext context) {
-    final visitingCardController = Get.find<VisitingCardController>();
+    final visitingCardController = Get.find<ReceivedCardController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -117,137 +116,133 @@ class _ScreenCardSecondDetailViewState
         title: null,
       ),
       body: Obx(
-        () => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: RefreshIndicator(
-            onRefresh: () async {
-              visitingCardController.fetchVisitingCardDetails(
-                  visitingCardId: widget.visitingCardId ?? '');
-            },
-            child: SingleChildScrollView(
-              child: SizedBox(
-                height: khieght,
+        () {
+          if (visitingCardController.isLoading.value) {
+            return const Center(
+                child: CircularProgressIndicator(color: neonShade));
+          } else if (visitingCardController.visitingCards == null) {
+            return GestureDetector(
+              onTap: () {
+                if (widget.visitingCardId != null) {
+                  visitingCardController.fetchReceivedCardDetails(
+                      receivedCardId: widget.visitingCardId ?? '');
+                }
+              },
+              child: const Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    adjustHieght(20),
-                    // image carosal view
-                    Obx(
-                      () => visitingCardController.isLoading.value
-                          ? ShimmerLoaderTile(
-                              height: 200.h,
-                              width: 300.w,
-                            )
-                          : SizedBox(
-                              height: 200,
-                              child: PreviewPageviewImageBuilder(
-                                isStory: false,
-                                imagesList: visitingCardController.selfie,
-                              ),
-                            ),
-                    ),
-                    // name and designation
-                    Column(
-                      children: [
-                        const SizedBox(height: 20),
-                        Obx(
-                          () => visitingCardController.isLoading.value
-                              ? Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: ShimmerLoaderTile(
-                                    height: 9.h,
-                                    width: 80.w,
-                                  ),
-                                )
-                              : Text(
-                                  visitingCardController
-                                          .visitingCardDetails.value.company ??
-                                      'Company',
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                        ),
-                        Obx(
-                          () => visitingCardController.isLoading.value
-                              ? Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: ShimmerLoaderTile(
-                                    height: 9.h,
-                                    width: 100.w,
-                                  ),
-                                )
-                              : Text(
-                                  visitingCardController.visitingCardDetails
-                                          .value.designation ??
-                                      'designation',
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                        ),
-                        adjustHieght(khieght * .02),
-                      ],
-                    ),
-                    const CardViewRowWiceIcons(),
-                    adjustHieght(khieght * .02),
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 4),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: neonShade),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        children: [
-                          adjustHieght(10),
-                          ItemsContainer(
-                            heading: 'Location',
-                            item: visitingCardController
-                                    .visitingCardDetails.value.location ??
-                                'Location',
-                          ),
-                          ItemsContainer(
-                            heading: 'Occasion',
-                            item: visitingCardController
-                                    .visitingCardDetails.value.occation ??
-                                'Occation',
-                          ),
-                          ItemsContainer(
-                            heading: 'Occupation',
-                            item: visitingCardController
-                                    .visitingCardDetails.value.occupation ??
-                                'Occupation',
-                          ),
-                          ItemsContainer(
-                            heading: 'Designation',
-                            item: visitingCardController
-                                    .visitingCardDetails.value.designation ??
-                                'Designation',
-                          ),
-                          ItemsContainer(
-                            heading: 'Notes',
-                            item: visitingCardController
-                                    .visitingCardDetails.value.notes ??
-                                'Notes',
-                          ),
-                          // const ItemsContainer(
-                          //   heading: 'Date',
-                          //   item: 'Date',
-                          // ),
-                          // const ItemsContainer(
-                          //   heading: 'Time',
-                          //   item: 'Time',
-                          //   istime: false,
-                          // ),
-                          // adjustHieght(10),
-                        ],
-                      ),
-                    ),
-                    adjustHieght(30),
+                    Icon(Icons.refresh),
+                    Text('Tap to retry'),
                   ],
                 ),
               ),
+            );
+          }
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: RefreshIndicator(
+              onRefresh: () async {
+                visitingCardController.fetchReceivedCardDetails(
+                    receivedCardId: widget.visitingCardId ?? '');
+              },
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height: khieght,
+                  child: Column(
+                    children: [
+                      adjustHieght(20),
+                      // image carosal view
+                      SizedBox(
+                        height: 200,
+                        child: PreviewPageviewImageBuilder(
+                          isStory: false,
+                          imagesList: visitingCardController.selfie,
+                        ),
+                      ),
+                      // name and designation
+                      Column(
+                        children: [
+                          const SizedBox(height: 20),
+                          Text(
+                            visitingCardController
+                                    .visitingCardDetails.value.company ??
+                                'Company',
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            visitingCardController
+                                    .visitingCardDetails.value.designation ??
+                                'designation',
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          adjustHieght(khieght * .02),
+                        ],
+                      ),
+                      const CardViewRowWiceIcons(),
+                      adjustHieght(khieght * .02),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 4),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: neonShade),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            adjustHieght(10),
+                            ItemsContainer(
+                              heading: 'Location',
+                              item: visitingCardController
+                                      .visitingCardDetails.value.location ??
+                                  'Location',
+                            ),
+                            ItemsContainer(
+                              heading: 'Occasion',
+                              item: visitingCardController
+                                      .visitingCardDetails.value.occation ??
+                                  'Occation',
+                            ),
+                            ItemsContainer(
+                              heading: 'Occupation',
+                              item: visitingCardController
+                                      .visitingCardDetails.value.occupation ??
+                                  'Occupation',
+                            ),
+                            ItemsContainer(
+                              heading: 'Designation',
+                              item: visitingCardController
+                                      .visitingCardDetails.value.designation ??
+                                  'Designation',
+                            ),
+                            ItemsContainer(
+                              heading: 'Notes',
+                              item: visitingCardController
+                                      .visitingCardDetails.value.notes ??
+                                  'Notes',
+                            ),
+                            // const ItemsContainer(
+                            //   heading: 'Date',
+                            //   item: 'Date',
+                            // ),
+                            // const ItemsContainer(
+                            //   heading: 'Time',
+                            //   item: 'Time',
+                            //   istime: false,
+                            // ),
+                            // adjustHieght(10),
+                          ],
+                        ),
+                      ),
+                      adjustHieght(30),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -266,7 +261,6 @@ class ItemsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visitingCardController = Get.find<VisitingCardController>();
     return Column(
       children: [
         item != ''
@@ -280,17 +274,8 @@ class ItemsContainer extends StatelessWidget {
                         child: Text(item != "" ? heading : '')),
                     const Text(':   ', style: TextStyle(color: neonShade)),
                     Expanded(
-                        child: Obx(
-                      () => visitingCardController.isLoading.value
-                          ? Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: ShimmerLoaderTile(
-                                height: 9.h,
-                                width: 100.w,
-                              ),
-                            )
-                          : Text(item ?? ''),
-                    )),
+                      child: Text(item ?? ''),
+                    ),
                   ],
                 ),
               )
@@ -308,7 +293,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visitingCardController = Get.find<VisitingCardController>();
+    final visitingCardController = Get.find<ReceivedCardController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -412,9 +397,9 @@ class CardViewRowWiceIcons extends StatelessWidget {
                         adjustHieght(10),
                         TextButton(
                           onPressed: () async {
-                            // await LaunchUrl.googleSearch(
-                            //   url: state.getSecondCardModel!.website!,
-                            // ).then((value) => Navigator.pop(context));
+                            await LaunchUrl.googleSearch(
+                              url: website,
+                            ).then((value) => Navigator.pop(context));
                           },
                           child: Text(
                             website,
@@ -433,9 +418,9 @@ class CardViewRowWiceIcons extends StatelessWidget {
                               style: OutlinedButton.styleFrom(
                                   side: const BorderSide(color: neonShade)),
                               onPressed: () async {
-                                // await LaunchUrl.googleSearch(
-                                //   url: state.getSecondCardModel!.website!,
-                                // ).then((value) => Navigator.pop(context));
+                                await LaunchUrl.googleSearch(
+                                  url: website,
+                                ).then((value) => Navigator.pop(context));
                               },
                               icon: const Icon(Icons.webhook_rounded),
                               label: const Text(
@@ -515,10 +500,10 @@ class CardViewRowWiceIcons extends StatelessWidget {
                               style: OutlinedButton.styleFrom(
                                   side: const BorderSide(color: neonShade)),
                               onPressed: () async {
-                                // await LaunchUrl.launchMap(
-                                //   address: state.getSecondCardModel!.location!,
-                                //   context: context,
-                                // ).then((value) => Navigator.pop(context));
+                                await LaunchUrl.launchMap(
+                                  address: location,
+                                  context: context,
+                                ).then((value) => Navigator.pop(context));
                               },
                               icon: const Icon(
                                 Icons.location_on_outlined,

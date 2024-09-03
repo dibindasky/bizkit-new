@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
-import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/visiting_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
@@ -93,11 +93,11 @@ class _DeletedCardsState extends State<DeletedCards>
                 tabs: [
                   SizedBox(
                     width: kwidth * 0.5,
-                    child: const Tab(text: 'Biz Cards'),
+                    child: const Tab(text: 'My Cards'),
                   ),
                   SizedBox(
                     width: kwidth * 0.5,
-                    child: const Tab(text: 'Visiting Cards'),
+                    child: const Tab(text: 'Received Cards'),
                   ),
                 ],
               ),
@@ -284,26 +284,14 @@ class _DeletedCardsState extends State<DeletedCards>
                 child: GetBuilder<CardController>(
                   builder: (controller) {
                     if (controller.isLoading.value) {
-                      return SizedBox(
-                        height: khieght,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 10),
-                          child: ShimmerLoader(
-                            seprator: adjustHieght(khieght * .03),
-                            scrollDirection: Axis.vertical,
-                            itemCount: controller.deletedCards.length,
-                            height: 250.h,
-                            width: 360.w,
-                          ),
-                        ),
-                      );
+                      return const Center(
+                          child: CircularProgressIndicator(color: neonShade));
                     } else if (controller.deletedCards.isEmpty) {
                       return SizedBox(
                         height: 400.h,
                         child: ErrorRefreshIndicator(
                           image: emptyNodata2,
-                          errorMessage: 'No deleted biz cards',
+                          errorMessage: 'No deleted my cards',
                           onRefresh: () {
                             controller.fetchDeletedAndArchivedCards();
                           },
@@ -457,28 +445,17 @@ class _DeletedCardsState extends State<DeletedCards>
             children: [
               SizedBox(
                   height: khieght * 0.8,
-                  child: GetBuilder<VisitingCardController>(
+                  child: GetBuilder<ReceivedCardController>(
                     builder: (controller) {
                       if (controller.isLoading.value) {
-                        return SizedBox(
-                          height: khieght,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 10),
-                            child: ShimmerLoader(
-                              height: 250.h,
-                              width: 360.w,
-                              seprator: kHeight10,
-                              itemCount: controller.deletedVisitingCards.length,
-                            ),
-                          ),
-                        );
+                        return const Center(
+                            child: CircularProgressIndicator(color: neonShade));
                       } else if (controller.deletedVisitingCards.isEmpty) {
                         return SizedBox(
                           height: 400.h,
                           child: ErrorRefreshIndicator(
                             image: emptyNodata2,
-                            errorMessage: 'No deleted visiting cards',
+                            errorMessage: 'No deleted recevied cards',
                             onRefresh: () {
                               controller.fetchAllDeletedVisitingCards();
                             },

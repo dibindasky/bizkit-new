@@ -1,19 +1,17 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
-import 'package:bizkit/module/biz_card/application/controller/visiting_card/visiting_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/second_card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/screen/archieved_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/screen/deleted_cards.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
-import 'package:bizkit/packages/share/share_product.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
@@ -21,7 +19,6 @@ import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
@@ -86,6 +83,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
   }
 
   Future<void> onRefresh() async {
+    final cardController = Get.find<CardController>();
+    final visitingCardController = Get.find<ReceivedCardController>();
+    cardController.getAllcards(true);
+    visitingCardController.fetchAllreceivedCards();
     // context.read<CardBloc>().add(const CardEvent.getCards(call: true));
     // context
     //     .read<CardSecondBloc>()
@@ -102,10 +103,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
   @override
   Widget build(BuildContext context) {
     final cardController = Get.find<CardController>();
-    final visitingCardController = Get.find<VisitingCardController>();
+    final visitingCardController = Get.find<ReceivedCardController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       cardController.getAllcards(true);
-      visitingCardController.fetchAllVisitingCards();
+      visitingCardController.fetchAllreceivedCards();
     });
     return Scaffold(
       appBar: AppBar(
@@ -541,12 +542,12 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                       children: [
                                         SizedBox(
                                           width: 300,
-                                          height: 170,
+                                          height: 165,
                                           child: InkWell(
                                             onTap: () {
                                               visitingCardController
-                                                  .fetchVisitingCardDetails(
-                                                      visitingCardId:
+                                                  .fetchReceivedCardDetails(
+                                                      receivedCardId:
                                                           visitingCardController
                                                                   .visitingCards[
                                                                       index]
@@ -574,11 +575,14 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                               ),
                                               child: Image.memory(
                                                 base64Decode(
-                                                    visitingCardController
-                                                            .visitingCards[
-                                                                index]
-                                                            .selfie ??
-                                                        ''),
+                                                  visitingCardController
+                                                          .visitingCards[index]
+                                                          .cardImage ??
+                                                      visitingCardController
+                                                          .visitingCards[index]
+                                                          .selfie ??
+                                                      '',
+                                                ),
                                                 fit: BoxFit.cover,
                                                 errorBuilder: (context, error,
                                                     stackTrace) {

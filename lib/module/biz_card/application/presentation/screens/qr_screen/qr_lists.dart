@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,13 +19,13 @@ class ScreenCardSharing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final levelSharingController = Get.find<LevelSharingController>();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      //context.read<QrBloc>().add(const QrEvent.getQrCodes());
-    });
+    final cardController = Get.find<CardController>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
+              levelSharingController.updateSelectedCardQRData('');
               Navigator.of(context).pop();
             },
             icon: const Icon(
@@ -52,53 +55,92 @@ class ScreenCardSharing extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 70.dm,
-              child: ListView.builder(
-                itemCount: 3,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.only(left: 7.w),
-                  child: InkWell(
-                    onTap: () {
-                      // context
-                      //     .read<QrBloc>()
-                      //     .add(QrEvent.changeQRSelection(index: index));
-                    },
-                    child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: neonShade, width: 3),
-                        ),
-                        height: 50.dm,
-                        width: 50.dm,
-                        child: Image.memory(
-                          base64.decode(imageTestingBase64.substring(22)),
-                          fit: BoxFit.cover,
+            Obx(
+              () {
+                if (cardController.isLoading.value) {
+                  return SizedBox(
+                    height: 70.dm,
+                    child: ShimmerLoader(
+                      itemCount: 5,
+                      height: 40.h,
+                      width: 90.w,
+                      seprator: kWidth10,
+                      scrollDirection: Axis.horizontal,
+                    ),
+                  );
+                } else if (cardController.bizcards.isEmpty) {
+                  return ErrorRefreshIndicator(
+                    onRefresh: () {},
+                    errorMessage: 'No cards ',
+                    image: emptyNodata2,
+                    shrinkWrap: true,
+                  );
+                } else {
+                  return SizedBox(
+                    height: 70.dm,
+                    child: ListView.builder(
+                      itemCount: cardController.bizcards.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.only(left: 7.w),
+                        child: InkWell(
+                          onTap: () {
+                            levelSharingController.updateSelectedCardQRData(
+                                cardController.bizcards[index].qRLink ?? '');
+                            // context
+                            //     .read<QrBloc>()
+                            //     .add(QrEvent.changeQRSelection(index: index));
+                          },
+                          child:
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: neonShade, width: 3),
+                              ),
+                              height: 50.dm,
+                              width: 50.dm,
+                              child: Image.memory(
+                                base64.decode(bizcardIconBase64.substring(22)),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Text(
+                              // 'CARD ${index + 1}',
+                              '${cardController.bizcards[index].name}',
+                              style: textThinStyle1,
+                            ),
+                          ]),
                         ),
                       ),
-                      Text(
-                        'CARD ${index + 1}',
-                        style: const TextStyle(color: kwhite),
-                      ),
-                    ]),
-                  ),
-                ),
-              ),
+                    ),
+                  );
+                }
+              },
             ),
             kHeight20,
-            SizedBox(
-              width: 250.dm,
-              height: 250.dm,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.memory(
-                  base64Decode(imageTestingBase64.substring(22)),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+            Obx(() {
+              final qrData = levelSharingController.selectedCardQRData.value;
+              if (qrData.isEmpty) {
+                return SizedBox(
+                  width: 250.dm,
+                  height: 250.dm,
+                  child: const Center(child: Text('Select a card')),
+                );
+              } else {
+                return SizedBox(
+                  width: 250.dm,
+                  height: 250.dm,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.memory(
+                      base64Decode(qrData),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              }
+            }),
             kHeight20,
             Column(
               children: [

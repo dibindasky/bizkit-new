@@ -1,7 +1,6 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScreenCardLevelSharing extends StatelessWidget {
   const ScreenCardLevelSharing({super.key});
@@ -33,44 +32,44 @@ class ScreenCardLevelSharing extends StatelessWidget {
             child: Column(
               children: [
                 adjustHieght(khieght * .03),
-                GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 15, right: 10),
-                    height: 57.dm,
-                    width: 300.dm,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: kwhite),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Level Sharing',
-                              style: TextStyle(fontSize: kwidth * 0.037),
-                            ),
-                            Text(
-                              'Professional, Emergency, Company',
-                              style: TextStyle(
-                                fontSize: kwidth * 0.027,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Icon(
-                          Icons.keyboard_arrow_down_outlined,
-                          color: kwhite,
-                          size: 30,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                adjustHieght(khieght * .04),
+                // GestureDetector(
+                //   onTap: () => Navigator.of(context).pop(),
+                //   child: Container(
+                //     padding: const EdgeInsets.only(left: 15, right: 10),
+                //     height: 57.dm,
+                //     width: 300.dm,
+                //     decoration: BoxDecoration(
+                //       border: Border.all(color: kwhite),
+                //     ),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Column(
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //           children: [
+                //             Text(
+                //               'Level Sharing',
+                //               style: TextStyle(fontSize: kwidth * 0.037),
+                //             ),
+                //             Text(
+                //               'Professional, Emergency, Company',
+                //               style: TextStyle(
+                //                 fontSize: kwidth * 0.027,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //         const Icon(
+                //           Icons.keyboard_arrow_down_outlined,
+                //           color: kwhite,
+                //           size: 30,
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // adjustHieght(khieght * .04),
                 const SwitchButtons(),
                 adjustHieght(khieght * .02),
                 EventButton(

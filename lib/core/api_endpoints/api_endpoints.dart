@@ -3,15 +3,15 @@ class ApiEndPoints {
   //static String baseUrl = 'https://bizkit.onrender.com';
 
   // [ Local base url  ]
-  // static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
+  static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
 
   // [ AWS base url ]
-  static String baseUrl = 'http://13.53.126.162';
+  // static String baseUrl = 'http://13.53.126.162';
 
   // refesh token
   static String refreshUrl = '/token/';
 
-  // auth
+  // [ Auth ]
   static String login = '/login/';
   static String logOut = '/logout/';
   static String register = '/register/';
@@ -22,7 +22,9 @@ class ApiEndPoints {
   static String forgottPassword = '/verification/change_password/';
   static String forgottPasswordProfile = '/accounts/password_change/';
 
-  // Card Creation
+  // [ Bizcard Module  ]
+
+  // [ Card Creation ]
   static String card = '/get-bizcards/';
   static String cardCreationInital = '/initial-details/';
   static String cardDetail = '/get-bizcard-detail/';
@@ -31,12 +33,13 @@ class ApiEndPoints {
   static String getArchievedOrDeletedCards =
       '/list-disabled-and-archieved-cards/';
   static String cardArchiveOrDelete = '/archieve-or-disable-card/';
+
   //Personl Details
   static String personalAchievement = '/personal-achievements/';
   static String personalSocialedia = '/personal-social-media/';
   static String personalDatesToReminder = '/personal-dates-to-remember/';
 
-  // Business Details
+  // [ Business Details ]
   static String businessDetils = '/business-details/';
   static String businessAchievement = '/business-achievements/';
   static String businessSocialedia = '/business-social-media/';
@@ -57,8 +60,11 @@ class ApiEndPoints {
   static String getAllDeletedVisitingCards = '/deleted-visiting-cards/';
   static String getAllVisitingCards = '/list-visiting-cards/';
 
-  // ------------------------------------------------------------------------------------------
-  // [ TASK MODULE TEST APIENDPOINTS ]
+  // [ Level Sharing ]
+  static String commonLevelSharing = '/common-shared-fields/';
+  static String individualLevelSharing = '/individual-shared-fields/';
+
+  // [ TASK MODULE ]
 
   static const taskTestgetAllTasks = '/user-tasks/';
   static const taskTestCreateTask = '/tasks/create/';

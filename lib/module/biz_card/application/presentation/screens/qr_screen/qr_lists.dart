@@ -1,18 +1,21 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ScreenCardSharing extends StatelessWidget {
   const ScreenCardSharing({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final levelSharingController = Get.find<LevelSharingController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       //context.read<QrBloc>().add(const QrEvent.getQrCodes());
     });
@@ -35,10 +38,15 @@ class ScreenCardSharing extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
+                levelSharingController.fetchAllCommonSharedFields();
                 Navigator.of(context)
                     .push(cardFadePageRoute(const CardDefaultLevelSharing()));
               },
-              icon: const Icon(Icons.ios_share_rounded))
+              icon: const Icon(
+                Icons.read_more,
+                size: 30,
+              )),
+          kWidth5
         ],
       ),
       body: SingleChildScrollView(

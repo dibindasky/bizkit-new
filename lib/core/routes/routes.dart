@@ -29,6 +29,9 @@ class Routes {
   static const String linerarProgressBar = '/card_linear_progress_bar';
   static const String newPasswordScreen = '/new_password_screen';
   static const String otpScreen = '/otp_screen';
+  static const String commonLevelSharing = '/bizcard_common_level_sharing';
+  static const String individualLevelSharing =
+      '/bizcard_individual_level_sharing';
 
   static const String cardPickedScanningCards = '/picked_scanning_cards';
 

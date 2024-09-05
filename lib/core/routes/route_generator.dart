@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
@@ -15,6 +16,8 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/n
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
@@ -243,6 +246,30 @@ class GoRouterConfig {
       name: Routes.cardPickedScanningCards,
       path: Routes.cardPickedScanningCards,
       builder: (context, state) => const PickedScanningCards(),
+    ),
+
+    // individual Level sharing  screen
+    GoRoute(
+      name: Routes.individualLevelSharing,
+      path: Routes.individualLevelSharing,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const ScreenCardLevelSharing(),
+        );
+      },
+    ),
+
+    // Common Level sharing screen
+    GoRoute(
+      name: Routes.commonLevelSharing,
+      path: Routes.commonLevelSharing,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const CardDefaultLevelSharing(),
+        );
+      },
     ),
   ];
 

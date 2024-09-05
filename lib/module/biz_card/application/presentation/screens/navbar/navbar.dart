@@ -12,7 +12,6 @@ import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 class CardBottomNavigationBar extends StatelessWidget {
   CardBottomNavigationBar({super.key});

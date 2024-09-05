@@ -54,7 +54,8 @@ class _TaskHomeAppBarState extends State<TaskHomeAppBar> {
                 taskController.fetchReceivedRequests();
               },
               image: taskHomeNNOtificationAsset,
-              dotColor: kOrange,
+              // dotColor:
+              //     kOrange,
             ),
             adjustWidth(3.w),
           ],

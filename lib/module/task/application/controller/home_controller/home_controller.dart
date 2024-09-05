@@ -185,5 +185,9 @@ class TaskHomeScreenController extends GetxController
     selectedFields.clear();
     selectedTaskIds.clear();
     selectedReportType.value = '';
+    reportTasks.clear();
+    toMeTasks.clear();
+    toOthersTasks.clear();
+    selfieTasks.clear();
   }
 }

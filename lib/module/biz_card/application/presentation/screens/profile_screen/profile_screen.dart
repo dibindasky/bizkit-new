@@ -24,23 +24,23 @@ class _ProfileScreenState extends State<ProfileScreen>
 
   bool isShowcaseSeen = false;
   final homeScreenShowCase = 'isShowcaseProfile';
-  final GlobalKey globalKeyProfilPicUploading = GlobalKey();
+  // final GlobalKey globalKeyProfilPicUploading = GlobalKey();
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      SharedPreferences.getInstance().then((prefs) async {
-        final showed =
-            await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
-        setState(() {
-          isShowcaseSeen = showed;
-        });
-        if (!isShowcaseSeen) {
-          ShowCaseWidget.of(context)
-              .startShowCase([globalKeyProfilPicUploading]);
-          await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
-        }
-      });
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   SharedPreferences.getInstance().then((prefs) async {
+    //     final showed =
+    //         await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
+    //     setState(() {
+    //       isShowcaseSeen = showed;
+    //     });
+    //     if (!isShowcaseSeen) {
+    //       ShowCaseWidget.of(context)
+    //           .startShowCase([globalKeyProfilPicUploading]);
+    //       await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
+    //     }
+    //   });
+    // });
     super.initState();
     animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
@@ -72,56 +72,31 @@ class _ProfileScreenState extends State<ProfileScreen>
           backgroundColor: knill,
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 0),
           child: FadeTransition(
             opacity: animation,
             child: Column(
               children: [
-                Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: 70,
-                      backgroundColor: neonShade,
-                      child: CustomShowCaseView(
-                        image: personImage,
-                        globalKey: globalKeyProfilPicUploading,
-                        tittle: 'Add your Profile image',
-                        description: '',
-                        child: const CircleAvatar(
-                          radius: 66,
-                          backgroundColor: backgroundColour,
-                          child: Center(
-                            child: Icon(
-                              Icons.person,
-                              color: neonShade,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 20,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: neonShade,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        height: 30,
-                        width: 34,
-                        child: InkWell(
-                          onTap: () {
-                            cardscanimagesSelectingDailogue(context);
-                          },
-                          child: const Icon(
-                            Icons.add,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                // Positioned(
+                //   bottom: 0,
+                //   right: 20,
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //       color: neonShade,
+                //       borderRadius: BorderRadius.circular(6),
+                //     ),
+                //     height: 30,
+                //     width: 34,
+                //     child: InkWell(
+                //       onTap: () {
+                //         cardscanimagesSelectingDailogue(context);
+                //       },
+                //       child: const Icon(
+                //         Icons.add,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 adjustHieght(khieght * .06),
                 // const ProfileTiles(
                 //   heading: 'Account Settings',
@@ -163,18 +138,6 @@ class _ProfileScreenState extends State<ProfileScreen>
                       context,
                       onPressed: () {
                         Get.find<AuthenticationController>().logOut(context);
-                        // context
-                        //     .read<CardSecondBloc>()
-                        //     .add(const CardSecondEvent.clear());
-                        // context.read<AuthBloc>().add(const AuthEvent.logOut());
-                        // context.read<CardBloc>().add(const CardEvent.clear());
-                        // context
-                        //     .read<ConnectionRequestBloc>()
-                        //     .add(const ConnectionRequestEvent.clear());
-                        // context
-                        //     .read<NotificationBloc>()
-                        //     .add(const NotificationEvent.clear());
-                        //context.go(Routes.loginPage);
                       },
                     );
                   },

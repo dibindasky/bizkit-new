@@ -1,4 +1,8 @@
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
+import 'package:bizkit/module/biz_card/domain/model/level_sharing/business_shared_fields/business_shared_fields.dart';
+import 'package:bizkit/module/biz_card/domain/model/level_sharing/personal_shared_fields/personal_shared_fields.dart';
+import 'package:bizkit/module/biz_card/domain/model/level_sharing/update_common_shared_fields_model/shared_fields.dart';
+import 'package:bizkit/module/biz_card/domain/model/level_sharing/update_common_shared_fields_model/update_common_shared_fields_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +24,9 @@ class _CardDefaultLevelSharingState extends State<CardDefaultLevelSharing> {
 
   @override
   Widget build(BuildContext context) {
+    final levelSharingController = Get.find<LevelSharingController>();
     WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        //context.read<QrBloc>().add(const QrEvent.getDefaultQr());
-      },
+      (timeStamp) {},
     );
     return Scaffold(
       appBar: AppBar(
@@ -43,39 +46,28 @@ class _CardDefaultLevelSharingState extends State<CardDefaultLevelSharing> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Container(
-              //   height: 80,
-              //   padding: const EdgeInsets.only(left: 15, right: 10),
-              //   decoration: BoxDecoration(
-              //     border: Border.all(color: kwhite),
-              //   ),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       Column(
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //           children: [
-              //             Text(
-              //               'Commen Level Sharing',
-              //               style: TextStyle(fontSize: kwidth * 0.037),
-              //             )
-              //           ]),
-              //       const Icon(Icons.keyboard_arrow_down_outlined,
-              //           color: kwhite, size: 30)
-              //     ],
-              //   ),
-              // ),
               adjustHieght(khieght * .04),
               const DefaultSwitchButtons(),
               adjustHieght(khieght * .05),
               EventButton(
                   text: 'Save',
                   onTap: () {
-                    // context.read<QrBloc>().add(QrEvent.defaultQr(
-                    //     defauiltQr: context.read<QrBloc>().defauiltQr));
-
-                    Navigator.pop(context);
+                    levelSharingController.updateCommonSharedFields(
+                      context: context,
+                      updateCommonSharedFields: UpdateCommonSharedFieldsModel(
+                        applicableToIndividual: levelSharingController
+                                .commonLevelSharedFields
+                                .value
+                                .applicableToIndividual ??
+                            false,
+                        sharedFields: SharedFields(
+                          business:
+                              levelSharingController.businessSharedFields.value,
+                          personal:
+                              levelSharingController.personalSharedFields.value,
+                        ),
+                      ),
+                    );
                   }),
               adjustHieght(khieght * .03),
             ],
@@ -127,76 +119,63 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
           buildSwitch("Name",
               levelSharingController.personalSharedFields.value.name ?? false,
               (value) {
-            setState(() {
-              // state.defauiltQr!.company = value;
-              // context.read<QrBloc>().defauiltQr =
-              //     context.read<QrBloc>().defauiltQr.copyWith(company: value);
-            });
+            levelSharingController.changePersonalCommonLevelSharing(
+                personalSharedFields: levelSharingController
+                    .personalSharedFields.value
+                    .copyWith(name: value));
           }),
           buildSwitch("Email",
               levelSharingController.personalSharedFields.value.email ?? false,
               (value) {
-            setState(() {
-              //state.defauiltQr!.email = value;
-              // context.read<QrBloc>().defauiltQr =
-              //     context.read<QrBloc>().defauiltQr.copyWith(email: value);
-            });
+            levelSharingController.changePersonalCommonLevelSharing(
+                personalSharedFields: levelSharingController
+                    .personalSharedFields.value
+                    .copyWith(email: value));
           }),
           buildSwitch("Phone number",
               levelSharingController.personalSharedFields.value.phone ?? false,
               (value) {
-            setState(() {
-              // state.defauiltQr!.phoneNumber = value;
-              // context.read<QrBloc>().defauiltQr =
-              //     context.read<QrBloc>().defauiltQr.copyWith(phoneNumber: value);
-            });
+            levelSharingController.changePersonalCommonLevelSharing(
+                personalSharedFields: levelSharingController
+                    .personalSharedFields.value
+                    .copyWith(phone: value));
           }),
           buildSwitch(
               "Personal social medias",
               levelSharingController
                       .personalSharedFields.value.personalSocialMedia ??
                   false, (value) {
-            setState(() {
-              // state.defauiltQr!.personalSocialMedia = value;
-              // context.read<QrBloc>().defauiltQr = context
-              //     .read<QrBloc>()
-              //     .defauiltQr
-              //     .copyWith(personalSocialMedia: value);
-            });
+            levelSharingController.changePersonalCommonLevelSharing(
+                personalSharedFields: levelSharingController
+                    .personalSharedFields.value
+                    .copyWith(personalSocialMedia: value));
           }),
           buildSwitch(
               "Personal achievements",
               levelSharingController
                       .personalSharedFields.value.personalAchievements ??
                   false, (value) {
-            // setState(() {
-            //   state.defauiltQr!.accolades = value;
-            //   context.read<QrBloc>().defauiltQr =
-            //       context.read<QrBloc>().defauiltQr.copyWith(accolades: value);
-            // });
+            levelSharingController.changePersonalCommonLevelSharing(
+                personalSharedFields: levelSharingController
+                    .personalSharedFields.value
+                    .copyWith(personalAchievements: value));
           }),
           buildSwitch("Date of birth ",
               levelSharingController.personalSharedFields.value.dob ?? false,
               (value) {
-            setState(() {
-              // state.defauiltQr!.personalSocialMedia = value;
-              // context.read<QrBloc>().defauiltQr = context
-              //     .read<QrBloc>()
-              //     .defauiltQr
-              //     .copyWith(personalSocialMedia: value);
-            });
+            levelSharingController.changePersonalCommonLevelSharing(
+                personalSharedFields: levelSharingController
+                    .personalSharedFields.value
+                    .copyWith(dob: value));
           }),
           buildSwitch(
               "Blood group",
               levelSharingController.personalSharedFields.value.bloodGroup ??
                   false, (value) {
-            setState(() {
-              // state.defauiltQr!.personalSocialMedia = value;
-              // context.read<QrBloc>().defauiltQr = context
-              //     .read<QrBloc>()
-              //     .defauiltQr
-              //     .copyWith(personalSocialMedia: value);
-            });
+            levelSharingController.changePersonalCommonLevelSharing(
+                personalSharedFields: levelSharingController
+                    .personalSharedFields.value
+                    .copyWith(bloodGroup: value));
           }),
           adjustHieght(5),
           adjustHieght(khieght * .02),
@@ -219,85 +198,70 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
               levelSharingController
                       .businessSharedFields.value.businessCategory ??
                   false, (value) {
-            setState(() {
-              // state.defauiltQr!.businessDetailsMobileNumber = value;
-              // context.read<QrBloc>().defauiltQr = context
-              //     .read<QrBloc>()
-              //     .defauiltQr
-              //     .copyWith(businessDetailsMobileNumber: value);
-            });
+            levelSharingController.changeBusinessSharedFieldsCommonLevelSharing(
+                businessSharedFields: levelSharingController
+                    .businessSharedFields.value
+                    .copyWith(businessCategory: value));
           }),
           buildSwitch(
               "Designation",
               levelSharingController.businessSharedFields.value.designation ??
                   false, (value) {
-            setState(() {
-              // state.defauiltQr!.businessEmail = value;
-              // context.read<QrBloc>().defauiltQr = context
-              //     .read<QrBloc>()
-              //     .defauiltQr
-              //     .copyWith(businessEmail: value);
-            });
+            levelSharingController.changeBusinessSharedFieldsCommonLevelSharing(
+                businessSharedFields: levelSharingController
+                    .businessSharedFields.value
+                    .copyWith(designation: value));
           }),
           buildSwitch(
               "Product",
               levelSharingController.businessSharedFields.value.product ??
                   false, (value) {
-            setState(() {
-              // state.defauiltQr!.websiteLink = value;
-              // context.read<QrBloc>().defauiltQr =
-              //     context.read<QrBloc>().defauiltQr.copyWith(websiteLink: value);
-            });
+            levelSharingController.changeBusinessSharedFieldsCommonLevelSharing(
+                businessSharedFields: levelSharingController
+                    .businessSharedFields.value
+                    .copyWith(product: value));
           }),
           buildSwitch(
               "Business achievements",
               levelSharingController
                       .businessSharedFields.value.businessAchievements ??
                   false, (value) {
-            // setState(() {
-            //   state.defauiltQr!.address = value;
-            //   context.read<QrBloc>().defauiltQr =
-            //       context.read<QrBloc>().defauiltQr.copyWith(address: value);
-            // });
+            levelSharingController.changeBusinessSharedFieldsCommonLevelSharing(
+                businessSharedFields: levelSharingController
+                    .businessSharedFields.value
+                    .copyWith(businessAchievements: value));
           }),
           buildSwitch(
               "Business social medias",
               levelSharingController
                       .businessSharedFields.value.businessSocialMedia ??
                   false, (value) {
-            setState(() {
-              // state.defauiltQr!.socialMediaHandles = value;
-              // context.read<QrBloc>().defauiltQr = context
-              //     .read<QrBloc>()
-              //     .defauiltQr
-              //     .copyWith(socialMediaHandles: value);
-            });
+            levelSharingController.changeBusinessSharedFieldsCommonLevelSharing(
+                businessSharedFields: levelSharingController
+                    .businessSharedFields.value
+                    .copyWith(businessSocialMedia: value));
           }),
           buildSwitch(
             "Branch offices",
             levelSharingController.businessSharedFields.value.branchOffices ??
                 false,
             (value) {
-              // setState(() {
-              //   state.defauiltQr!.accreditation = value;
-              //   context.read<QrBloc>().defauiltQr = context
-              //       .read<QrBloc>()
-              //       .defauiltQr
-              //       .copyWith(accreditation: value);
-              // });
+              levelSharingController
+                  .changeBusinessSharedFieldsCommonLevelSharing(
+                      businessSharedFields: levelSharingController
+                          .businessSharedFields.value
+                          .copyWith(branchOffices: value));
             },
           ),
           buildSwitch(
             "Brochure",
             levelSharingController.businessSharedFields.value.brochure ?? false,
             (value) {
-              // setState(() {
-              //   state.defauiltQr!.accreditation = value;
-              //   context.read<QrBloc>().defauiltQr = context
-              //       .read<QrBloc>()
-              //       .defauiltQr
-              //       .copyWith(accreditation: value);
-              // });
+              levelSharingController
+                  .changeBusinessSharedFieldsCommonLevelSharing(
+                      businessSharedFields: levelSharingController
+                          .businessSharedFields.value
+                          .copyWith(brochure: value));
             },
           ),
           buildSwitch(
@@ -305,13 +269,11 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
             levelSharingController.businessSharedFields.value.businessLogo ??
                 false,
             (value) {
-              // setState(() {
-              //   state.defauiltQr!.accreditation = value;
-              //   context.read<QrBloc>().defauiltQr = context
-              //       .read<QrBloc>()
-              //       .defauiltQr
-              //       .copyWith(accreditation: value);
-              // });
+              levelSharingController
+                  .changeBusinessSharedFieldsCommonLevelSharing(
+                      businessSharedFields: levelSharingController
+                          .businessSharedFields.value
+                          .copyWith(businessLogo: value));
             },
           ),
           buildSwitch(
@@ -319,27 +281,24 @@ class _DefaultSwitchButtonsState extends State<DefaultSwitchButtons> {
             levelSharingController.businessSharedFields.value.logoStory ??
                 false,
             (value) {
-              // setState(() {
-              //   state.defauiltQr!.accreditation = value;
-              //   context.read<QrBloc>().defauiltQr = context
-              //       .read<QrBloc>()
-              //       .defauiltQr
-              //       .copyWith(accreditation: value);
-              // });
+              levelSharingController
+                  .changeBusinessSharedFieldsCommonLevelSharing(
+                      businessSharedFields: levelSharingController
+                          .businessSharedFields.value
+                          .copyWith(logoStory: value));
             },
           ),
-          // adjustHieght(khieght * .03),
-          // buildSwitch("Update all cards", false, (value) {
-          //   setState(
-          //     () {
-          //       // state.defauiltQr!.updateAllCards = value;
-          //       // context.read<QrBloc>().defauiltQr = context
-          //       //     .read<QrBloc>()
-          //       //     .defauiltQr
-          //       //     .copyWith(updateAllCards: value);
-          //     },
-          //   );
-          // }, wantShowDailogue: true),
+          adjustHieght(khieght * .05),
+          buildSwitch(
+              "Applicable To Individual",
+              levelSharingController
+                      .commonLevelSharedFields.value.applicableToIndividual ??
+                  false, (value) {
+            levelSharingController.changeComSharingApplicableToIndividual(
+                applicableToIndividual: levelSharingController
+                    .commonLevelSharedFields.value
+                    .copyWith(applicableToIndividual: value));
+          }),
         ],
       ),
     );

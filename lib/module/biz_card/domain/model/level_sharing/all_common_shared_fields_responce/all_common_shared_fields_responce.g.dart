@@ -13,10 +13,12 @@ AllCommonSharedFieldsResponce _$AllCommonSharedFieldsResponceFromJson(
           ? null
           : SharedFields.fromJson(
               json['shared_fields'] as Map<String, dynamic>),
+      applicableToIndividual: json['applicable_to_individual'] as bool?,
     );
 
 Map<String, dynamic> _$AllCommonSharedFieldsResponceToJson(
         AllCommonSharedFieldsResponce instance) =>
     <String, dynamic>{
       'shared_fields': instance.sharedFields,
+      'applicable_to_individual': instance.applicableToIndividual,
     };

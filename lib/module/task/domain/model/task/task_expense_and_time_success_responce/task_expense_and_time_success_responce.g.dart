@@ -13,6 +13,9 @@ TaskExpenseAndTimeSuccessResponce _$TaskExpenseAndTimeSuccessResponceFromJson(
       totalExpense: (json['total_expense'] as num?)?.toInt(),
       name: json['name'] as String?,
       profilePicture: json['profile_picture'] as String?,
+      details: (json['details'] as List<dynamic>?)
+          ?.map((e) => Detail.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$TaskExpenseAndTimeSuccessResponceToJson(
@@ -22,4 +25,5 @@ Map<String, dynamic> _$TaskExpenseAndTimeSuccessResponceToJson(
       'total_expense': instance.totalExpense,
       'name': instance.name,
       'profile_picture': instance.profilePicture,
+      'details': instance.details,
     };

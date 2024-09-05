@@ -70,6 +70,7 @@ class TaskFolderController extends GetxController {
   void onInit() {
     final DateTime todaydate = DateTime.now();
     deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
+
     // Initialize with today's date for deadline filtering
     filterFoldersByDeadline(
         filterFolder:

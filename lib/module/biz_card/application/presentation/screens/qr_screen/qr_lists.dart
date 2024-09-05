@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing.dart';
@@ -10,10 +11,10 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ScreenCardSharing extends StatelessWidget {
   const ScreenCardSharing({super.key});
@@ -22,12 +23,15 @@ class ScreenCardSharing extends StatelessWidget {
   Widget build(BuildContext context) {
     final levelSharingController = Get.find<LevelSharingController>();
     final cardController = Get.find<CardController>();
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      levelSharingController.updateSelectedCardQRData(
+          cardController.bizcards.first.qRLink ?? '',
+          cardController.bizcards.first.bizcardId ?? '');
+    });
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              levelSharingController.updateSelectedCardQRData('', '');
               Navigator.of(context).pop();
             },
             icon: const Icon(
@@ -44,8 +48,7 @@ class ScreenCardSharing extends StatelessWidget {
           IconButton(
               onPressed: () {
                 levelSharingController.fetchAllCommonSharedFields();
-                Navigator.of(context)
-                    .push(cardFadePageRoute(const CardDefaultLevelSharing()));
+                GoRouter.of(context).pushNamed(Routes.commonLevelSharing);
               },
               icon: const Icon(
                 Icons.read_more,
@@ -74,7 +77,7 @@ class ScreenCardSharing extends StatelessWidget {
                   return ErrorRefreshIndicator(
                     onRefresh: () {},
                     errorMessage: 'No cards ',
-                    image: emptyNodata2,
+                    // image: emptyNodata2,
                     shrinkWrap: true,
                   );
                 } else {
@@ -124,11 +127,10 @@ class ScreenCardSharing extends StatelessWidget {
             kHeight20,
             Obx(() {
               final qrData = levelSharingController.selectedCardQRData.value;
-              if (qrData.isEmpty) {
-                return SizedBox(
+              if (cardController.isLoading.value) {
+                return ShimmerLoaderTile(
                   width: 250.dm,
                   height: 250.dm,
-                  child: const Center(child: Text('Select a card')),
                 );
               } else {
                 return SizedBox(
@@ -149,19 +151,13 @@ class ScreenCardSharing extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    if (levelSharingController.selectedCardId.isNotEmpty &&
-                        levelSharingController.selectedCardQRData.isNotEmpty) {
-                      levelSharingController.fetchIndividualSharedFields(
-                          queryParameter:
-                              IndividualSharedFieldsQueryParamsModel(
-                                  bizcardId: levelSharingController
-                                      .selectedCardId.value));
-                      Navigator.of(context).push(
-                        cardFadePageRoute(const ScreenCardLevelSharing()),
-                      );
-                    } else {
-                      showSnackbar(context, message: 'Select a card');
-                    }
+                    levelSharingController.fetchIndividualSharedFields(
+                        queryParameter: IndividualSharedFieldsQueryParamsModel(
+                            bizcardId:
+                                levelSharingController.selectedCardId.value));
+
+                    GoRouter.of(context)
+                        .pushNamed(Routes.individualLevelSharing);
                   },
                   child: Container(
                     width: 300.dm,

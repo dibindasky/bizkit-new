@@ -230,11 +230,16 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).pushNamed(
-                          Routes.taskTotalTimeAndExpense,
-                          extra: true);
-                      taskController.fetchTaskTotalTime(
-                          taskId: GetSingleTaskModel(taskId: task.id));
+                      if ((task.totalExpense != 0 &&
+                              task.totalExpense != null) &&
+                          (task.totalTime != 0 && task.totalTime != null)) {
+                        GoRouter.of(context).pushNamed(
+                            Routes.taskTotalTimeAndExpense,
+                            extra: task.id ?? '');
+                        taskController.fetchTaskTotalTimeAndExpense(
+                            context: context,
+                            taskId: GetSingleTaskModel(taskId: task.id ?? ''));
+                      }
                     },
                     child: Container(
                       height: 50.h,
@@ -301,11 +306,16 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).pushNamed(
-                          Routes.taskTotalTimeAndExpense,
-                          extra: false);
-                      taskController.fetchTaskExpense(
-                          taskId: GetSingleTaskModel(taskId: task.id));
+                      if ((task.totalExpense != 0 &&
+                              task.totalExpense != null) &&
+                          (task.totalTime != 0 && task.totalTime != null)) {
+                        GoRouter.of(context).pushNamed(
+                            Routes.taskTotalTimeAndExpense,
+                            extra: task.id ?? '');
+                        taskController.fetchTaskTotalTimeAndExpense(
+                            context: context,
+                            taskId: GetSingleTaskModel(taskId: task.id ?? ''));
+                      }
                     },
                     child: Container(
                       height: 50.h,

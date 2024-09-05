@@ -53,7 +53,9 @@ class FileMessageCard extends StatelessWidget {
                       : message.fileType == 'jpg' || message.fileType == 'png'
                           ? ImageMessageCard(message: message)
                           : const Text('Unknown file type'),
-                  Text(message.message ?? "", style: textStyle1),
+                  message.message!.isEmpty
+                      ? kempty
+                      : Text(message.message ?? "", style: textStyle1),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Row(

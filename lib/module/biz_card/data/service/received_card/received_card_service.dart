@@ -22,7 +22,7 @@ class ReceivedCardService implements ReceivedCardRepo {
   Future<Either<Failure, CreateVisitingCardResponce>> createReceivedCard(
       {required CreateVisitingCard receivedCard}) async {
     try {
-      log('Create received card TOJOSN ==> ${receivedCard.toJson()}');
+      // log('Create received card TOJOSN ==> ${receivedCard.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.visitingCard,
         data: receivedCard.toJson(),

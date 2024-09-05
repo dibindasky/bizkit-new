@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
@@ -33,6 +34,7 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
   @override
   Widget build(BuildContext context) {
     final authController = Get.find<AuthenticationController>();
+    final cardController = Get.find<CardController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
@@ -81,12 +83,15 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
           ),
           const SizedBox(width: 10),
           GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              cardFadePageRoute(
-                const ScreenCardSharing(),
-              ),
-            ),
+            onTap: () {
+              cardController.getAllcards(true);
+              Navigator.push(
+                context,
+                cardFadePageRoute(
+                  const ScreenCardSharing(),
+                ),
+              );
+            },
             // child: CustomShowCaseView(
             //   image: personImage,
             //   globalKey: globalKeylevelSharingIcon,

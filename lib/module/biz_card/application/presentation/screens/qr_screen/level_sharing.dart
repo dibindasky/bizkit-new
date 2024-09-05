@@ -1,8 +1,8 @@
+import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ScreenCardLevelSharing extends StatelessWidget {
   const ScreenCardLevelSharing({super.key});
@@ -34,44 +34,44 @@ class ScreenCardLevelSharing extends StatelessWidget {
             child: Column(
               children: [
                 adjustHieght(khieght * .03),
-                GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 15, right: 10),
-                    height: 57.dm,
-                    width: 300.dm,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: kwhite),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Level Sharing',
-                              style: TextStyle(fontSize: kwidth * 0.037),
-                            ),
-                            Text(
-                              'Professional, Emergency, Company',
-                              style: TextStyle(
-                                fontSize: kwidth * 0.027,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Icon(
-                          Icons.keyboard_arrow_down_outlined,
-                          color: kwhite,
-                          size: 30,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                adjustHieght(khieght * .04),
+                // GestureDetector(
+                //   onTap: () => Navigator.of(context).pop(),
+                //   child: Container(
+                //     padding: const EdgeInsets.only(left: 15, right: 10),
+                //     height: 57.dm,
+                //     width: 300.dm,
+                //     decoration: BoxDecoration(
+                //       border: Border.all(color: kwhite),
+                //     ),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Column(
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //           children: [
+                //             Text(
+                //               'Level Sharing',
+                //               style: TextStyle(fontSize: kwidth * 0.037),
+                //             ),
+                //             Text(
+                //               'Professional, Emergency, Company',
+                //               style: TextStyle(
+                //                 fontSize: kwidth * 0.027,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //         const Icon(
+                //           Icons.keyboard_arrow_down_outlined,
+                //           color: kwhite,
+                //           size: 30,
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // adjustHieght(khieght * .04),
                 const SwitchButtons(),
                 adjustHieght(khieght * .02),
                 EventButton(
@@ -106,196 +106,310 @@ class _SwitchButtonsState extends State<SwitchButtons> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        buildSwitch("Personal Details", personalDetals, (value) {
-          setState(() {
-            personalDetals = value;
-            // If "Personal Details" is false, disable other switches
-            if (!value) {
-              // context.read<QrBloc>().createQrModel = context
+    final levelSharingController = Get.find<LevelSharingController>();
+    return Obx(
+      () => Column(
+        children: [
+          buildSwitch("Personal Details", personalDetals, (value) {
+            setState(() {
+              personalDetals = value;
+              // If "Personal Details" is false, disable other switches
+              if (!value) {
+                // context.read<QrBloc>().createQrModel = context
+                //     .read<QrBloc>()
+                //     .createQrModel
+                //     .copyWith(
+                //       email: context.read<QrBloc>().createQrModel.email == null
+                //           ? null
+                //           : false,
+                //       phoneNumber:
+                //           context.read<QrBloc>().createQrModel.phoneNumber == null
+                //               ? null
+                //               : false,
+                //       personalSocialMedia: context
+                //                   .read<QrBloc>()
+                //                   .createQrModel
+                //                   .personalSocialMedia ==
+                //               null
+                //           ? null
+                //           : false,
+                //       accolades:
+                //           context.read<QrBloc>().createQrModel.accolades == null
+                //               ? null
+                //               : false,
+                //     );
+              }
+            });
+          }, neonShade),
+          adjustHieght(17),
+          buildSwitch(
+              "Name",
+              levelSharingController
+                      .individualPersonalSharedFields.value.name ??
+                  false, (value) {
+            setState(() {
+              // state.defauiltQr!.company = value;
+              // context.read<QrBloc>().defauiltQr =
+              //     context.read<QrBloc>().defauiltQr.copyWith(company: value);
+            });
+          }),
+          buildSwitch(
+              "Email",
+              levelSharingController
+                      .individualPersonalSharedFields.value.email ??
+                  false, (value) {
+            setState(() {
+              if (personalDetals) {
+                // context.read<QrBloc>().createQrModel =
+                //     context.read<QrBloc>().createQrModel.copyWith(email: value);
+              }
+            });
+          }),
+          buildSwitch(
+              "Phone Number",
+              levelSharingController
+                      .individualPersonalSharedFields.value.phone ??
+                  false, (value) {
+            setState(() {
+              if (personalDetals) {
+                // context.read<QrBloc>().createQrModel = context
+                //     .read<QrBloc>()
+                //     .createQrModel
+                //     .copyWith(phoneNumber: value);
+              }
+            });
+          }),
+          buildSwitch(
+              "Personal social medias",
+              levelSharingController.individualPersonalSharedFields.value
+                      .personalSocialMedia ??
+                  false, (value) {
+            setState(() {
+              if (personalDetals) {
+                // context.read<QrBloc>().createQrModel = context
+                //     .read<QrBloc>()
+                //     .createQrModel
+                //     .copyWith(personalSocialMedia: value);
+              }
+            });
+          }),
+          buildSwitch(
+              "Personal achievements",
+              levelSharingController.individualPersonalSharedFields.value
+                      .personalAchievements ??
+                  false, (value) {
+            setState(() {
+              if (personalDetals) {
+                // context.read<QrBloc>().createQrModel = context
+                //     .read<QrBloc>()
+                //     .createQrModel
+                //     .copyWith(accolades: value);
+              }
+            });
+          }),
+          buildSwitch(
+              "Date of birth ",
+              levelSharingController.individualPersonalSharedFields.value.dob ??
+                  false, (value) {
+            setState(() {
+              // state.defauiltQr!.personalSocialMedia = value;
+              // context.read<QrBloc>().defauiltQr = context
               //     .read<QrBloc>()
-              //     .createQrModel
-              //     .copyWith(
-              //       email: context.read<QrBloc>().createQrModel.email == null
-              //           ? null
-              //           : false,
-              //       phoneNumber:
-              //           context.read<QrBloc>().createQrModel.phoneNumber == null
-              //               ? null
-              //               : false,
-              //       personalSocialMedia: context
-              //                   .read<QrBloc>()
-              //                   .createQrModel
-              //                   .personalSocialMedia ==
-              //               null
-              //           ? null
-              //           : false,
-              //       accolades:
-              //           context.read<QrBloc>().createQrModel.accolades == null
-              //               ? null
-              //               : false,
-              //     );
-            }
-          });
-        }, neonShade),
-        adjustHieght(5),
-        buildSwitch("Email", true, (value) {
-          setState(() {
-            if (personalDetals) {
-              // context.read<QrBloc>().createQrModel =
-              //     context.read<QrBloc>().createQrModel.copyWith(email: value);
-            }
-          });
-        }),
-        buildSwitch("Phone Number", false, (value) {
-          setState(() {
-            if (personalDetals) {
-              // context.read<QrBloc>().createQrModel = context
-              //     .read<QrBloc>()
-              //     .createQrModel
-              //     .copyWith(phoneNumber: value);
-            }
-          });
-        }),
-        buildSwitch("Personal Social Medias", true, (value) {
-          setState(() {
-            if (personalDetals) {
-              // context.read<QrBloc>().createQrModel = context
-              //     .read<QrBloc>()
-              //     .createQrModel
+              //     .defauiltQr
               //     .copyWith(personalSocialMedia: value);
-            }
-          });
-        }),
-        buildSwitch("Personal Achievements", true, (value) {
-          setState(() {
-            if (personalDetals) {
-              // context.read<QrBloc>().createQrModel = context
+            });
+          }),
+          buildSwitch(
+              "Blood group",
+              levelSharingController
+                      .individualPersonalSharedFields.value.bloodGroup ??
+                  false, (value) {
+            setState(() {
+              // state.defauiltQr!.personalSocialMedia = value;
+              // context.read<QrBloc>().defauiltQr = context
               //     .read<QrBloc>()
-              //     .createQrModel
-              //     .copyWith(accolades: value);
-            }
-          });
-        }),
-        adjustHieght(khieght * .02),
-        buildSwitch("Business Details", businessDetals, (value) {
-          setState(() {
-            businessDetals = value;
-            // If "Busiess Details" is false, disable other switches
-            if (!value) {
-              // context.read<QrBloc>().createQrModel = context
+              //     .defauiltQr
+              //     .copyWith(personalSocialMedia: value);
+            });
+          }),
+          adjustHieght(khieght * .02),
+          buildSwitch("Business Details", businessDetals, (value) {
+            setState(() {
+              businessDetals = value;
+              // If "Busiess Details" is false, disable other switches
+              if (!value) {
+                // context.read<QrBloc>().createQrModel = context
+                //     .read<QrBloc>()
+                //     .createQrModel
+                //     .copyWith(
+                //       address:
+                //           context.read<QrBloc>().createQrModel.address == null
+                //               ? null
+                //               : false,
+                //       socialMediaHandles: context
+                //                   .read<QrBloc>()
+                //                   .createQrModel
+                //                   .socialMediaHandles ==
+                //               null
+                //           ? null
+                //           : false,
+                //       businessDetailsMobileNumber: context
+                //                   .read<QrBloc>()
+                //                   .createQrModel
+                //                   .businessDetailsMobileNumber ==
+                //               null
+                //           ? null
+                //           : false,
+                //       businessEmail:
+                //           context.read<QrBloc>().createQrModel.businessEmail ==
+                //                   null
+                //               ? null
+                //               : false,
+                //       websiteLink:
+                //           context.read<QrBloc>().createQrModel.websiteLink == null
+                //               ? null
+                //               : false,
+                //       accreditation:
+                //           context.read<QrBloc>().createQrModel.accreditation ==
+                //                   null
+                //               ? null
+                //               : false,
+                //       company:
+                //           context.read<QrBloc>().createQrModel.company == null
+                //               ? null
+                //               : false,
+                //     );
+              }
+            });
+          }, neonShade),
+          adjustHieght(5),
+          buildSwitch(
+              "Business category",
+              levelSharingController
+                      .individualBusinessSharedFields.value.businessCategory ??
+                  false, (value) {
+            setState(() {
+              // state.defauiltQr!.businessDetailsMobileNumber = value;
+              // context.read<QrBloc>().defauiltQr = context
               //     .read<QrBloc>()
-              //     .createQrModel
-              //     .copyWith(
-              //       address:
-              //           context.read<QrBloc>().createQrModel.address == null
-              //               ? null
-              //               : false,
-              //       socialMediaHandles: context
-              //                   .read<QrBloc>()
-              //                   .createQrModel
-              //                   .socialMediaHandles ==
-              //               null
-              //           ? null
-              //           : false,
-              //       businessDetailsMobileNumber: context
-              //                   .read<QrBloc>()
-              //                   .createQrModel
-              //                   .businessDetailsMobileNumber ==
-              //               null
-              //           ? null
-              //           : false,
-              //       businessEmail:
-              //           context.read<QrBloc>().createQrModel.businessEmail ==
-              //                   null
-              //               ? null
-              //               : false,
-              //       websiteLink:
-              //           context.read<QrBloc>().createQrModel.websiteLink == null
-              //               ? null
-              //               : false,
-              //       accreditation:
-              //           context.read<QrBloc>().createQrModel.accreditation ==
-              //                   null
-              //               ? null
-              //               : false,
-              //       company:
-              //           context.read<QrBloc>().createQrModel.company == null
-              //               ? null
-              //               : false,
-              //     );
-            }
-          });
-        }, neonShade),
-        adjustHieght(5),
-        buildSwitch("Company Name", false, (value) {
-          setState(() {
-            if (personalDetals) {
-              // context.read<QrBloc>().createQrModel =
-              //     context.read<QrBloc>().createQrModel.copyWith(company: value);
-            }
-          });
-        }),
-        buildSwitch("Business Phone Number", true, (value) {
-          setState(() {
-            if (businessDetals) {
-              // context.read<QrBloc>().createQrModel = context
-              //     .read<QrBloc>()
-              //     .createQrModel
+              //     .defauiltQr
               //     .copyWith(businessDetailsMobileNumber: value);
-            }
-          });
-        }),
-        buildSwitch("Business Email", true, (value) {
-          setState(() {
-            if (businessDetals) {
-              // context.read<QrBloc>().createQrModel = context
+            });
+          }),
+          buildSwitch(
+              "Designation",
+              levelSharingController
+                      .individualBusinessSharedFields.value.designation ??
+                  false, (value) {
+            setState(() {
+              // state.defauiltQr!.businessEmail = value;
+              // context.read<QrBloc>().defauiltQr = context
               //     .read<QrBloc>()
-              //     .createQrModel
+              //     .defauiltQr
               //     .copyWith(businessEmail: value);
-            }
-          });
-        }),
-        buildSwitch("Website Link", true, (value) {
-          setState(() {
-            if (businessDetals) {
-              // context.read<QrBloc>().createQrModel = context
-              //     .read<QrBloc>()
-              //     .createQrModel
-              //     .copyWith(websiteLink: value);
-            }
-          });
-        }),
-        buildSwitch("Company Achievements", false, (value) {
-          setState(() {
-            if (businessDetals) {
-              // context.read<QrBloc>().createQrModel = context
-              //     .read<QrBloc>()
-              //     .createQrModel
-              //     .copyWith(accreditation: value);
-            }
-          });
-        }),
-        buildSwitch("Address", true, (value) {
-          setState(() {
-            if (businessDetals) {
-              // context.read<QrBloc>().createQrModel =
-              //     context.read<QrBloc>().createQrModel.copyWith(address: value);
-            }
-          });
-        }),
-        buildSwitch("Business Social Medias", true, (value) {
-          setState(() {
-            if (businessDetals) {
-              // context.read<QrBloc>().createQrModel = context
-              //     .read<QrBloc>()
-              //     .createQrModel
-              //     .copyWith(socialMediaHandles: value);
-            }
-          });
-        }),
-      ],
+            });
+          }),
+          buildSwitch(
+              "Product",
+              levelSharingController
+                      .individualBusinessSharedFields.value.product ??
+                  false, (value) {
+            setState(() {
+              // state.defauiltQr!.websiteLink = value;
+              // context.read<QrBloc>().defauiltQr =
+              //     context.read<QrBloc>().defauiltQr.copyWith(websiteLink: value);
+            });
+          }),
+          buildSwitch(
+              "Business achievements",
+              levelSharingController.individualBusinessSharedFields.value
+                      .businessAchievements ??
+                  false, (value) {
+            // setState(() {
+            //   state.defauiltQr!.address = value;
+            //   context.read<QrBloc>().defauiltQr =
+            //       context.read<QrBloc>().defauiltQr.copyWith(address: value);
+            // });
+          }),
+          buildSwitch(
+              "Business Social Medias",
+              levelSharingController.individualBusinessSharedFields.value
+                      .businessSocialMedia ??
+                  false, (value) {
+            setState(() {
+              if (businessDetals) {
+                // context.read<QrBloc>().createQrModel = context
+                //     .read<QrBloc>()
+                //     .createQrModel
+                //     .copyWith(socialMediaHandles: value);
+              }
+            });
+          }),
+          buildSwitch(
+            "Branch offices",
+            levelSharingController
+                    .individualBusinessSharedFields.value.branchOffices ??
+                false,
+            (value) {
+              // setState(() {
+              //   state.defauiltQr!.accreditation = value;
+              //   context.read<QrBloc>().defauiltQr = context
+              //       .read<QrBloc>()
+              //       .defauiltQr
+              //       .copyWith(accreditation: value);
+              // });
+            },
+          ),
+          buildSwitch(
+            "Brochure",
+            levelSharingController
+                    .individualBusinessSharedFields.value.brochure ??
+                false,
+            (value) {
+              // setState(() {
+              //   state.defauiltQr!.accreditation = value;
+              //   context.read<QrBloc>().defauiltQr = context
+              //       .read<QrBloc>()
+              //       .defauiltQr
+              //       .copyWith(accreditation: value);
+              // });
+            },
+          ),
+          buildSwitch(
+            "Business logo",
+            levelSharingController
+                    .individualBusinessSharedFields.value.businessLogo ??
+                false,
+            (value) {
+              // setState(() {
+              //   state.defauiltQr!.accreditation = value;
+              //   context.read<QrBloc>().defauiltQr = context
+              //       .read<QrBloc>()
+              //       .defauiltQr
+              //       .copyWith(accreditation: value);
+              // });
+            },
+          ),
+          buildSwitch(
+            "Logo story",
+            levelSharingController
+                    .individualBusinessSharedFields.value.logoStory ??
+                false,
+            (value) {
+              levelSharingController.individualBusinessSharedFields.value
+                  .copyWith(logoStory: value);
+
+              // setState(() {
+              //   state.defauiltQr!.accreditation = value;
+              //   context.read<QrBloc>().defauiltQr = context
+              //       .read<QrBloc>()
+              //       .defauiltQr
+              //       .copyWith(accreditation: value);
+              // });
+            },
+          ),
+        ],
+      ),
     );
   }
 

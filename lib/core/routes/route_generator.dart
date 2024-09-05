@@ -341,9 +341,10 @@ class GoRouterConfig {
       name: Routes.taskTotalTimeAndExpense,
       path: Routes.taskTotalTimeAndExpense,
       builder: (context, state) {
-        final isTotalTimeOrExpense = state.extra as bool;
+        final extra = state.extra as Map<String, dynamic>;
         return TaskTotalTimeAndExpenseView(
-          isTotalTimeOrExpense: isTotalTimeOrExpense,
+          totalExpense: extra['totalExpense'],
+          totalTime: extra['totalTime'],
         );
       },
     ),

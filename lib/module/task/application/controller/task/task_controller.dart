@@ -68,9 +68,7 @@ class CreateTaskController extends GetxController {
   var userslistNew = <UserSearchSuccessResponce>[].obs;
   var participantsForEditTask = <AssignedToDetail>[].obs;
 
-  RxList<TaskExpenseAndTimeSuccessResponce> taskTotalTime =
-      <TaskExpenseAndTimeSuccessResponce>[].obs;
-  RxList<TaskExpenseAndTimeSuccessResponce> taskExpense =
+  RxList<TaskExpenseAndTimeSuccessResponce> taskExpenseAndTime =
       <TaskExpenseAndTimeSuccessResponce>[].obs;
 
   // Lists for storing various task types and deadlines
@@ -139,9 +137,12 @@ class CreateTaskController extends GetxController {
   RxBool taksListLoading = false.obs;
   RxBool loadingForSendRequests = false.obs;
   RxBool loadingForRecivedRequests = false.obs;
+  RxBool loadingFortTaskExpenseAndTime = false.obs;
 
   RxList<String> taskTotalTimeKeys = <String>[].obs;
   RxList<String> taskExpenseKeys = <String>[].obs;
+
+  RxList<String> taskTotalTimeExpenseKeys = <String>[].obs;
 
   // Task service instance for API interactions
   final TaskRepo taskService = TaskService();
@@ -1188,55 +1189,28 @@ class CreateTaskController extends GetxController {
     );
   }
 
-  void fetchTaskExpense({required GetSingleTaskModel taskId}) async {
-    isLoading.value = true;
-    final result = await taskService.getTaskExpense(taskId: taskId);
+  void fetchTaskTotalTimeAndExpense(
+      {required GetSingleTaskModel taskId}) async {
+    loadingFortTaskExpenseAndTime.value = true;
+    final result = await taskService.getTaskTotalTimeAndExpense(taskId: taskId);
 
     result.fold(
       (failure) {
-        isLoading.value = false;
+        loadingFortTaskExpenseAndTime.value = false;
         log(failure.message.toString());
       },
       (success) {
-        taskExpenseKeys.value = success.keys.toList();
+        taskTotalTimeExpenseKeys.value = success.keys.toList();
         List<TaskExpenseAndTimeSuccessResponce> tempList = [];
 
-        for (var element in taskExpenseKeys) {
+        for (var element in taskTotalTimeExpenseKeys) {
           tempList.add(
             TaskExpenseAndTimeSuccessResponce.fromJson(success[element]),
           );
         }
 
-        taskExpense.value = tempList;
-        log('taskExpense  ====> ${taskExpense.toJson()}');
-
-        isLoading.value = false;
-      },
-    );
-  }
-
-  void fetchTaskTotalTime({required GetSingleTaskModel taskId}) async {
-    isLoading.value = true;
-    final result = await taskService.getTaskTotalTime(taskId: taskId);
-
-    result.fold(
-      (failure) {
-        isLoading.value = false;
-        log(failure.message.toString());
-      },
-      (success) {
-        taskTotalTimeKeys.value = success.keys.toList();
-        List<TaskExpenseAndTimeSuccessResponce> tempList = [];
-
-        for (var element in taskTotalTimeKeys) {
-          tempList.add(
-            TaskExpenseAndTimeSuccessResponce.fromJson(success[element]),
-          );
-        }
-
-        taskTotalTime.value = tempList;
-        log('taskTotalTime  ====> ${taskTotalTime.toJson()}');
-        isLoading.value = false;
+        taskExpenseAndTime.value = tempList;
+        loadingFortTaskExpenseAndTime.value = false;
       },
     );
   }

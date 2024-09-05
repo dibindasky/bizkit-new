@@ -92,5 +92,6 @@ class ApiEndPoints {
   static const taskTestGetTaskExpense = '/get-expense-data/';
   static const taskTestGetTaskTotalTime = '/get-time-data/';
   static const taskTestGetRecentTasks = '/get-recent-tasks/';
+  static const taskTestGetTaskTotalTimeAndExpense = '/get-time-expense-data/';
   static const taskTestRestoreTask = '/restore-task/';
 }

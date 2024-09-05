@@ -231,9 +231,15 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       GoRouter.of(context).pushNamed(
-                          Routes.taskTotalTimeAndExpense,
-                          extra: true);
-                      taskController.fetchTaskTotalTime(
+                        Routes.taskTotalTimeAndExpense,
+                        extra: {
+                          'totalTime':
+                              taskController.singleTask.value.totalTime ?? 0,
+                          'totalExpense':
+                              taskController.singleTask.value.totalExpense ?? 0
+                        },
+                      );
+                      taskController.fetchTaskTotalTimeAndExpense(
                           taskId: GetSingleTaskModel(taskId: task.id));
                     },
                     child: Container(
@@ -304,7 +310,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                       GoRouter.of(context).pushNamed(
                           Routes.taskTotalTimeAndExpense,
                           extra: false);
-                      taskController.fetchTaskExpense(
+                      taskController.fetchTaskTotalTimeAndExpense(
                           taskId: GetSingleTaskModel(taskId: task.id));
                     },
                     child: Container(

@@ -47,7 +47,8 @@ class TimeAndExpenseCard extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: 5.w, top: 5.w, bottom: 2.w, right: 5.w),
                 decoration: BoxDecoration(
-                    borderRadius: kBorderRadius5, color: lightGrey),
+                    borderRadius: kBorderRadius5,
+                    color: sender ? kwhite.withOpacity(0.3) : lightGrey),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

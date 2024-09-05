@@ -8,7 +8,6 @@ import 'package:bizkit/module/task/application/presentation/screens/home/widgets
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_creation_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/tasks_lists.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
-import 'package:bizkit/utils/animations/expansion_tile.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';
@@ -26,7 +25,7 @@ class ScreenTaskHome extends StatelessWidget {
     final messageCoutController = Get.find<MessageCountController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       homeController.fetchRecentTasks();
-      taskController.searchTasks(searchItem: '');
+
       if (!homeController.progresBarOrRecentTask.value) {
         homeController.progresBar();
       }

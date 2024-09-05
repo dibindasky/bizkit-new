@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/animations/expansion_tile.dart';
-import 'package:bizkit/utils/clipper/chat_pol_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
@@ -10,17 +12,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:path/path.dart';
 
 class TaskTotalTimeAndExpenseView extends StatelessWidget {
-  const TaskTotalTimeAndExpenseView(
-      {super.key, this.totalExpense, this.totalTime});
+  const TaskTotalTimeAndExpenseView({
+    super.key,
+    required this.taskId,
+  });
 
-  final int? totalTime;
-  final int? totalExpense;
+  final String taskId;
 
   @override
   Widget build(BuildContext context) {
+    log('Task id === >$taskId');
     final taskController = Get.find<CreateTaskController>();
     return Scaffold(
       appBar: AppBar(
@@ -47,108 +50,124 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: 50.h,
-                          decoration: BoxDecoration(
-                            borderRadius: kBorderRadius10,
-                            border: Border.all(color: neonShade),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CircleAvatar(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(1.w),
-                                    child: CircleAvatar(
-                                      backgroundColor: lightGrey,
-                                      child: const Icon(
-                                        Icons.access_time_filled_sharp,
-                                        color: neonShade,
-                                      ),
+                      child: Container(
+                        height: 50.h,
+                        decoration: BoxDecoration(
+                          borderRadius: kBorderRadius10,
+                          border: Border.all(color: neonShade),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CircleAvatar(
+                                child: Padding(
+                                  padding: EdgeInsets.all(1.w),
+                                  child: CircleAvatar(
+                                    backgroundColor: lightGrey,
+                                    child: const Icon(
+                                      Icons.access_time_filled_sharp,
+                                      color: neonShade,
                                     ),
                                   ),
                                 ),
-                                adjustWidth(8.w),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      FittedBox(
-                                        child: Text(
-                                          'Time For the Task',
-                                          style: textThinStyle1.copyWith(
-                                              fontSize: 10.sp),
-                                        ),
+                              ),
+                              adjustWidth(8.w),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    FittedBox(
+                                      child: Text(
+                                        'Time For the Task',
+                                        style: textThinStyle1.copyWith(
+                                            fontSize: 10.sp),
                                       ),
-                                      FittedBox(
-                                        child: Text(
-                                          DateTimeFormater
-                                              .convertMinutesToHourMinuteFormat(
-                                                  totalTime ?? 0),
-                                          style: textThinStyle1,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    taskController.isLoading.value
+                                        ? Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 5),
+                                            child: ShimmerLoaderTile(
+                                              height: 9.h,
+                                              width: 100.w,
+                                            ),
+                                          )
+                                        : FittedBox(
+                                            child: Text(
+                                              DateTimeFormater
+                                                  .convertMinutesToHourMinuteFormat(
+                                                      taskController
+                                                              .singleTask
+                                                              .value
+                                                              .totalTime ??
+                                                          0),
+                                              style: textThinStyle1,
+                                            ),
+                                          ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
                     adjustWidth(15.w),
                     Expanded(
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: 50.h,
-                          decoration: BoxDecoration(
-                            borderRadius: kBorderRadius10,
-                            border: Border.all(color: neonShade),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                CircleAvatar(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(1.w),
-                                    child: CircleAvatar(
-                                        backgroundColor: lightGrey,
-                                        child: Image.asset(
-                                          width: 20.w,
-                                          taskExpenseIconImage,
-                                        )),
-                                  ),
+                      child: Container(
+                        height: 50.h,
+                        decoration: BoxDecoration(
+                          borderRadius: kBorderRadius10,
+                          border: Border.all(color: neonShade),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              CircleAvatar(
+                                child: Padding(
+                                  padding: EdgeInsets.all(1.w),
+                                  child: CircleAvatar(
+                                      backgroundColor: lightGrey,
+                                      child: Image.asset(
+                                        width: 20.w,
+                                        taskExpenseIconImage,
+                                      )),
                                 ),
-                                // adjustWidth(8.w),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      FittedBox(
-                                        fit: BoxFit.scaleDown,
-                                        child: Text(
-                                          'Expense',
-                                          style: textThinStyle1.copyWith(
-                                              fontSize: 10.sp),
-                                        ),
+                              ),
+                              // adjustWidth(8.w),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        'Expense',
+                                        style: textThinStyle1.copyWith(
+                                            fontSize: 10.sp),
                                       ),
-                                      FittedBox(
-                                        child: Text(
-                                          '₹${totalExpense ?? 0}',
-                                          style: textThinStyle1,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
+                                    ),
+                                    taskController.isLoading.value
+                                        ? Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 5),
+                                            child: ShimmerLoaderTile(
+                                              height: 9.h,
+                                              width: 100.w,
+                                            ),
+                                          )
+                                        : FittedBox(
+                                            child: Text(
+                                              '₹${taskController.singleTask.value.totalExpense ?? 0}',
+                                              style: textThinStyle1,
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -167,14 +186,16 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                       width: double.infinity,
                     );
                   } else if (taskController.taskExpenseAndTime.isEmpty) {
-                    return ErrorRefreshIndicator(
-                      image: emptyNodata2,
-                      errorMessage:
-                          'No total expense and time  on the task available',
-                      onRefresh: () {
-                        // taskController.fetchTaskTotalTimeAndExpense(
-                        //     taskId: GetSingleTaskModel(taskId: ''));
-                      },
+                    return Expanded(
+                      child: ErrorRefreshIndicator(
+                        image: emptyNodata2,
+                        errorMessage: 'No total expense and time  on the task',
+                        onRefresh: () {
+                          taskController.fetchTaskTotalTimeAndExpense(
+                              context: context,
+                              taskId: GetSingleTaskModel(taskId: taskId));
+                        },
+                      ),
                     );
                   } else {
                     return Expanded(

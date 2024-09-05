@@ -621,49 +621,6 @@ class TaskService implements TaskRepo {
     }
   }
 
-  // Task Expense
-  @override
-  Future<Either<Failure, Map<String, dynamic>>> getTaskExpense(
-      {required GetSingleTaskModel taskId}) async {
-    try {
-      final response = await apiService.get(
-        ApiEndPoints.taskTestGetTaskExpense,
-        data: taskId.toJson(),
-      );
-
-      log("=> Response Task Expense  : ");
-
-      return Right(response.data as Map<String, dynamic>);
-    } on DioException catch (e) {
-      log('DioException getTaskExpense $e');
-      return Left(Failure(message: e.message ?? errorMessage));
-    } catch (e) {
-      log('catch getTaskExpense $e');
-      return Left(Failure(message: e.toString()));
-    }
-  }
-
-  // Task total time
-  @override
-  Future<Either<Failure, Map<String, dynamic>>> getTaskTotalTime(
-      {required GetSingleTaskModel taskId}) async {
-    try {
-      final response = await apiService.get(
-        ApiEndPoints.taskTestGetTaskTotalTime,
-        data: taskId.toJson(),
-      );
-      log("=> Response Task total time  :");
-
-      return Right(response.data as Map<String, dynamic>);
-    } on DioException catch (e) {
-      log('DioException getTaskTotalTime $e');
-      return Left(Failure(message: e.message ?? errorMessage));
-    } catch (e) {
-      log('catch getTaskTotalTime $e');
-      return Left(Failure(message: e.toString()));
-    }
-  }
-
   @override
   Future<Either<Failure, SuccessResponce>> restoreATask(
       {required KillATaskModel restoreTask}) async {
@@ -685,10 +642,12 @@ class TaskService implements TaskRepo {
     }
   }
 
+  // Get task total time and expense
   @override
   Future<Either<Failure, Map<String, dynamic>>> getTaskTotalTimeAndExpense(
       {required GetSingleTaskModel taskId}) async {
     try {
+      log('Task id for getTaskTotalTimeAndExpense TOJSON -= > ${taskId.toJson()} ');
       final response = await apiService.get(
         ApiEndPoints.taskTestGetTaskTotalTimeAndExpense,
         data: taskId.toJson(),

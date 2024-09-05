@@ -112,7 +112,7 @@ class CreateTaskController extends GetxController {
     final DateTime todaydate = DateTime.now();
     // Initialize with today's date for deadline filtering
     deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
-    log('Deadline  === > ${deadlineDate.value}');
+
     taskFilterByDeadline(
         filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
 
@@ -239,16 +239,6 @@ class CreateTaskController extends GetxController {
     selectedFiles.clear();
   }
 
-  // Function to toggle the selection of a tag
-  // void toggleTagSelection(String tag) {
-  //   if (selectedTags.contains(tag)) {
-  //     selectedTags.remove(tag);
-  //   } else {
-  //     selectedTags.add(tag);
-  //     log('selectedTags : $selectedTags');
-  //   }
-  // }
-
   // Function to add a new tag to the list
   void addTag(String tag) {
     if (tag.isNotEmpty && !tags.contains(tag)) {
@@ -312,7 +302,7 @@ class CreateTaskController extends GetxController {
         deadlineDateForTaskCreation.value = '';
         getTasksCountWithoutDate();
         taskCreationLoading.value = false;
-        log('${success.message}');
+
         testTaskId = success.taskId.toString();
         Get.back(id: navigationId);
         clearSelectedFiles();
@@ -381,8 +371,6 @@ class CreateTaskController extends GetxController {
     required BuildContext context,
   }) async {
     taskEditLoading.value = true;
-
-    log('Edit assignedTo  ==> ${taskModel.assignedTo}');
 
     List<TaskAssignedTo> templist = [];
     for (var i = 0; i < participantsForEditTask.length; i++) {
@@ -498,7 +486,6 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         receivedRequests.assignAll(success.tasks ?? []);
-        log('receivedRequests :=> $receivedRequests');
         loadingForRecivedRequests.value = false;
       },
     );
@@ -1190,13 +1177,21 @@ class CreateTaskController extends GetxController {
   }
 
   void fetchTaskTotalTimeAndExpense(
-      {required GetSingleTaskModel taskId}) async {
+      {required GetSingleTaskModel taskId,
+      required BuildContext context}) async {
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     loadingFortTaskExpenseAndTime.value = true;
     final result = await taskService.getTaskTotalTimeAndExpense(taskId: taskId);
 
     result.fold(
       (failure) {
         loadingFortTaskExpenseAndTime.value = false;
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: kred,
+          ),
+        );
         log(failure.message.toString());
       },
       (success) {
@@ -1227,5 +1222,6 @@ class CreateTaskController extends GetxController {
     deadlineDate.value = '';
     selectedFiles.clear();
     selectedTasks.clear();
+    taskExpenseAndTime.clear();
   }
 }

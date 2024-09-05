@@ -4,7 +4,6 @@ import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_
 import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
-// import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/add_new_assined_users_model/add_new_assined_users_model.dart';
@@ -122,12 +121,6 @@ abstract class TaskRepo {
   Future<Either<Failure, CompletedOrKilledSuccessResponce>> getAllKilledTasks();
   Future<Either<Failure, CompletedSubTaskSuccessResponce>> completedSubTask(
       {required CompletedSubTask completedSubTask});
-
-  Future<Either<Failure, Map<String, dynamic>>> getTaskExpense(
-      {required GetSingleTaskModel taskId});
-
-  Future<Either<Failure, Map<String, dynamic>>> getTaskTotalTime(
-      {required GetSingleTaskModel taskId});
 
   Future<Either<Failure, Map<String, dynamic>>> getTaskTotalTimeAndExpense(
       {required GetSingleTaskModel taskId});

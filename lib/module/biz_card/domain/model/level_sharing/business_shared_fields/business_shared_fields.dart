@@ -37,4 +37,27 @@ class BusinessSharedFields {
   }
 
   Map<String, dynamic> toJson() => _$BusinessSharedFieldsToJson(this);
+  BusinessSharedFields copyWith({
+    bool? businessCategory,
+    bool? designation,
+    bool? product,
+    bool? businessAchievements,
+    bool? businessSocialMedia,
+    bool? branchOffices,
+    bool? brochure,
+    bool? businessLogo,
+    bool? logoStory,
+  }) {
+    return BusinessSharedFields(
+      businessCategory: businessCategory ?? this.businessCategory,
+      designation: designation ?? this.designation,
+      product: product ?? this.product,
+      businessAchievements: businessAchievements ?? this.businessAchievements,
+      businessSocialMedia: businessSocialMedia ?? this.businessSocialMedia,
+      branchOffices: branchOffices ?? this.branchOffices,
+      brochure: brochure ?? this.brochure,
+      businessLogo: businessLogo ?? this.businessLogo,
+      logoStory: logoStory ?? this.logoStory,
+    );
+  }
 }

@@ -30,4 +30,23 @@ class PersonalSharedFields {
   }
 
   Map<String, dynamic> toJson() => _$PersonalSharedFieldsToJson(this);
+  PersonalSharedFields copyWith({
+    bool? name,
+    bool? email,
+    bool? phone,
+    bool? personalAchievements,
+    bool? personalSocialMedia,
+    bool? dob,
+    bool? bloodGroup,
+  }) {
+    return PersonalSharedFields(
+      name: name ?? this.name,
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+      personalAchievements: personalAchievements ?? this.personalAchievements,
+      personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
+      dob: dob ?? this.dob,
+      bloodGroup: bloodGroup ?? this.bloodGroup,
+    );
+  }
 }

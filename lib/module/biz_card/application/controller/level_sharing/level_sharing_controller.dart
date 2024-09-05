@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/biz_card/data/service/level_sharing/level_sharing_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/business_shared_fields/business_shared_fields.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_query_params_model/individual_shared_fields_query_params_model.dart';
@@ -23,6 +25,9 @@ class LevelSharingController extends GetxController {
 
   // Variable to store the selected card's QR code
   var selectedCardQRData = ''.obs;
+
+  // Variable to store the selected card's ID
+  var selectedCardId = ''.obs;
 
   // get all Common shared fields
   void fetchAllCommonSharedFields() async {
@@ -61,8 +66,10 @@ class LevelSharingController extends GetxController {
   }
 
   // Method to update the selected card's QR code
-  void updateSelectedCardQRData(String qrData) {
+  void updateSelectedCardQRData(String qrData, cardId) {
     selectedCardQRData.value = qrData;
+    selectedCardId.value = cardId;
+    log('CArd id = > ${selectedCardId.value}');
   }
 
   // get all Individual shared fields

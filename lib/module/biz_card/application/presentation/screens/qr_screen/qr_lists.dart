@@ -5,10 +5,12 @@ import 'package:bizkit/module/biz_card/application/controller/card/create_contro
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing_settings.dart';
+import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_query_params_model/individual_shared_fields_query_params_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -25,7 +27,7 @@ class ScreenCardSharing extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              levelSharingController.updateSelectedCardQRData('');
+              levelSharingController.updateSelectedCardQRData('', '');
               Navigator.of(context).pop();
             },
             icon: const Icon(
@@ -86,7 +88,8 @@ class ScreenCardSharing extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             levelSharingController.updateSelectedCardQRData(
-                                cardController.bizcards[index].qRLink ?? '');
+                                cardController.bizcards[index].qRLink ?? '',
+                                cardController.bizcards[index].bizcardId ?? '');
                             // context
                             //     .read<QrBloc>()
                             //     .add(QrEvent.changeQRSelection(index: index));
@@ -145,9 +148,21 @@ class ScreenCardSharing extends StatelessWidget {
             Column(
               children: [
                 GestureDetector(
-                  onTap: () => Navigator.of(context).push(
-                    cardFadePageRoute(const ScreenCardLevelSharing()),
-                  ),
+                  onTap: () {
+                    if (levelSharingController.selectedCardId.isNotEmpty &&
+                        levelSharingController.selectedCardQRData.isNotEmpty) {
+                      levelSharingController.fetchIndividualSharedFields(
+                          queryParameter:
+                              IndividualSharedFieldsQueryParamsModel(
+                                  bizcardId: levelSharingController
+                                      .selectedCardId.value));
+                      Navigator.of(context).push(
+                        cardFadePageRoute(const ScreenCardLevelSharing()),
+                      );
+                    } else {
+                      showSnackbar(context, message: 'Select a card');
+                    }
+                  },
                   child: Container(
                     width: 300.dm,
                     decoration: BoxDecoration(

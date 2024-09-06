@@ -1,11 +1,8 @@
 import 'dart:convert';
 
-import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_query_params_model/individual_shared_fields_query_params_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -32,7 +29,7 @@ class ScreenCardSharing extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              GoRouter.of(context).pop();
             },
             icon: const Icon(
               Icons.arrow_back_ios,
@@ -48,7 +45,8 @@ class ScreenCardSharing extends StatelessWidget {
           IconButton(
               onPressed: () {
                 levelSharingController.fetchAllCommonSharedFields();
-                GoRouter.of(context).pushNamed(Routes.commonLevelSharing);
+                GoRouter.of(context)
+                    .pushNamed(Routes.levelSharing, extra: true);
               },
               icon: const Icon(
                 Icons.read_more,
@@ -76,7 +74,7 @@ class ScreenCardSharing extends StatelessWidget {
                 } else if (cardController.bizcards.isEmpty) {
                   return ErrorRefreshIndicator(
                     onRefresh: () {},
-                    errorMessage: 'No cards ',
+                    errorMessage: 'No cards',
                     // image: emptyNodata2,
                     shrinkWrap: true,
                   );
@@ -93,9 +91,6 @@ class ScreenCardSharing extends StatelessWidget {
                             levelSharingController.updateSelectedCardQRData(
                                 cardController.bizcards[index].qRLink ?? '',
                                 cardController.bizcards[index].bizcardId ?? '');
-                            // context
-                            //     .read<QrBloc>()
-                            //     .add(QrEvent.changeQRSelection(index: index));
                           },
                           child:
                               Column(mainAxisSize: MainAxisSize.min, children: [
@@ -112,8 +107,7 @@ class ScreenCardSharing extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              // 'CARD ${index + 1}',
-                              '${cardController.bizcards[index].name}',
+                              cardController.bizcards[index].name ?? '',
                               style: textThinStyle1,
                             ),
                           ]),
@@ -157,7 +151,7 @@ class ScreenCardSharing extends StatelessWidget {
                                 levelSharingController.selectedCardId.value));
 
                     GoRouter.of(context)
-                        .pushNamed(Routes.individualLevelSharing);
+                        .pushNamed(Routes.levelSharing, extra: false);
                   },
                   child: Container(
                     width: 300.dm,

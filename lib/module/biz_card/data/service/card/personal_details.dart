@@ -32,7 +32,8 @@ class PersonalDetailsService implements PersonalDetailsRepo {
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('personalDetailsAdding DioException ${e.response?.statusCode} $e');
-      return Left(Failure(message: errorMessage));
+
+      return Left(Failure(message: errorMessage, data: e.response?.statusCode));
     } catch (e) {
       log('personalDetailsAdding catch $e');
       return Left(Failure(message: 'Failed to request'));

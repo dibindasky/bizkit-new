@@ -50,7 +50,7 @@ class PersonalDetails extends StatelessWidget {
             children: [
               const Text('Personal Details', style: TextStyle(fontSize: 20)),
               adjustHieght(khieght * .02),
-              //User info
+              // User info
               Form(
                 key: personalDataFirstFormKey,
                 child: Column(
@@ -149,6 +149,7 @@ class PersonalDetails extends StatelessWidget {
                   FocusScope.of(context).unfocus();
                 },
               ),
+              kHeight10,
               // date of birth
               InkWell(
                 onTap: () {
@@ -390,26 +391,22 @@ class PersonalDetails extends StatelessWidget {
               ),
               adjustHieght(khieght * .05),
               // continue button
-              Obx(
-                () {
-                  if (cardController.isLoading.value) {
-                    return const LoadingAnimation();
-                  }
-                  return CardLastSkipContinueButtons(
-                    onTap: () {
-                      if (personalDeatilFormKey.currentState!.validate()) {
-                        personalController.createPersonalDetails(
-                            bizcardId:
-                                cardController.bizcardDetail.value.bizcardId ??
-                                    '',
-                            personalDetailsId: cardController
-                                    .bizcardDetail.value.personalDetails?.id ??
-                                '');
-                      }
-                    },
-                  );
-                },
-              ),
+              Obx(() => personalController.isLoading.value
+                  ? const Center(child: LoadingAnimation())
+                  : CardLastSkipContinueButtons(
+                      onTap: () {
+                        if (personalDeatilFormKey.currentState!.validate()) {
+                          personalController.createPersonalDetails(
+                              context: context,
+                              bizcardId: cardController
+                                      .bizcardDetail.value.bizcardId ??
+                                  '',
+                              personalDetailsId: cardController.bizcardDetail
+                                      .value.personalDetails?.id ??
+                                  '');
+                        }
+                      },
+                    )),
               adjustHieght(khieght * .02),
             ],
           ),

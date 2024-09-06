@@ -126,29 +126,30 @@ class SelectedCard extends StatelessWidget {
                 ),
                 adjustHieght(khieght * .02),
                 Obx(
-                  () => EventButton(
-                    text: textExtractionController.isLoading.value == true
-                        ? 'Loading....'
-                        : 'Continue',
-                    onTap: () {
-                      if (textExtractionController.pickedImageUrl.isEmpty) {
-                        showSnackbar(
-                          context,
-                          message: 'Select atleast one Image',
-                          backgroundColor: kred,
-                        );
-                      }
+                  () => textExtractionController.isLoading.value
+                      ? const Center(
+                          child: CircularProgressIndicator(color: neonShade))
+                      : EventButton(
+                          text: 'Continue',
+                          onTap: () {
+                            if (textExtractionController
+                                .pickedImageUrl.isEmpty) {
+                              showSnackbar(
+                                context,
+                                message: 'Select atleast one Image',
+                                backgroundColor: kred,
+                              );
+                            }
 
-                      textExtractionController.textExtraction(
-                          fromVisitingCard: true,
-                          textExtractionModel: TextExtractionModel(
-                              image: textExtractionController
-                                      .pickedImageUrl.first.base64 ??
-                                  ''));
-
-                      GoRouter.of(context).pushNamed(Routes.scanedDataFeilds);
-                    },
-                  ),
+                            textExtractionController.textExtraction(
+                                context: context,
+                                fromVisitingCard: true,
+                                textExtractionModel: TextExtractionModel(
+                                    image: textExtractionController
+                                            .pickedImageUrl.first.base64 ??
+                                        ''));
+                          },
+                        ),
                 ),
                 adjustHieght(khieght * .02),
               ],

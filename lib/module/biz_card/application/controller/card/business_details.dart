@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bizkit/core/model/pdf/pdf_model.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
@@ -63,6 +65,7 @@ class BusinesDetailsController extends GetxController {
   // Logo
   TextEditingController businessLogoLebel = TextEditingController();
   Rx<ImageCard> logoImage = ImageCard().obs;
+  RxBool logoLoading = false.obs;
 
   // Branch Offices Controller
   final branchFormKey = GlobalKey<FormState>();
@@ -389,6 +392,12 @@ class BusinesDetailsController extends GetxController {
     }
   }
 
+  addCropedLogoImage({required String base64}) {
+    logoLoading.value = true;
+    logoImage.value.image = base64;
+    logoLoading.value = false;
+  }
+
   void logImagesRemove() {
     logoImage.value = ImageCard();
   }
@@ -402,6 +411,7 @@ class BusinesDetailsController extends GetxController {
             cardController.bizcardDetail.value.businessDetails?.id ?? '',
         businessLogo: logoImage.value.image,
         logoStory: businessLogoLebel.text);
+    log('businessController.logoImage.value.image ${logoImage.value.image}');
     final data = await businessRepo.businessLogoAdding(logoModel: logoModel);
     data.fold(
       (l) => isLoading.value = false,

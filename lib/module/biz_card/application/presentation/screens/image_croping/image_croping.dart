@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class Croper extends StatefulWidget {
   const Croper({super.key, this.imageToCrop});
@@ -50,40 +52,27 @@ class _CroperState extends State<Croper> {
               image: widget.imageToCrop!,
               controller: _controller,
               onCropped: (image) {
-                // print('croppoing complete');
-                // do something with image data
-                // writeUint8ListToFile(image, croppedImage.path);
-                // cropped = !cropped;
                 croppedImage = base64Encode(image);
-                // context.read<BusinessDataBloc>().add(
-                //       BusinessDataEvent.addCropedLogo(base64: croppedImage!),
-                //     );
+                Get.find<BusinesDetailsController>()
+                    .addCropedLogoImage(base64: croppedImage!);
+
                 Navigator.pop(context);
-                // setState(() {});
               },
               aspectRatio: 3 / 4,
-              // initialSize: 0.5,
-              // initialArea: Rect.fromLTWH(240, 212, 800, 600),
               initialRectBuilder: (rect, imageRect) => Rect.fromLTRB(
                 rect.left + 24,
                 rect.top + 32,
                 rect.right - 24,
                 rect.bottom - 32,
               ),
-              // withCircleUi: true,
               baseColor: textFieldFillColr,
-              maskColor: Colors.white.withAlpha(100),
+              maskColor: Colors.grey.withOpacity(.8),
               radius: 20,
-              onMoved: (newRect) {
-                // do something with current cropping area.
-              },
-              onStatusChanged: (status) {
-                // do something with current CropStatus
-              },
+              onMoved: (newRect) {},
+              onStatusChanged: (status) {},
               cornerDotBuilder: (size, edgeAlignment) =>
                   const DotControl(color: Color.fromARGB(255, 9, 207, 214)),
               interactive: true,
-              // fixArea: true,
             ),
           ),
           adjustHieght(20),

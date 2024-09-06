@@ -6,8 +6,6 @@ import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/create_card.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -160,7 +158,6 @@ class _CardPageSliderState extends State<CardPageSlider>
 
   @override
   Widget build(BuildContext context) {
-    Bizcard data = widget.bizcards[0];
     return SizedBox(
       height: kwidth * 0.35,
       width: kwidth * 0.55,
@@ -171,7 +168,7 @@ class _CardPageSliderState extends State<CardPageSlider>
         controller: _pageController,
         itemCount: widget.bizcards.length,
         itemBuilder: (context, index) {
-          data = widget.bizcards[index];
+          Bizcard data = widget.bizcards[index];
           return InkWell(
             onTap: () {
               final map = data.bizcardId != null
@@ -191,12 +188,6 @@ class _CardPageSliderState extends State<CardPageSlider>
                     color: neonShade,
                   ),
                   borderRadius: BorderRadius.circular(5),
-                  // image: DecorationImage(
-                  //     image: MemoryImage(base64Decode(getBase64(
-                  //         data.logo == ''
-                  //             ? imageTestingBase64
-                  //             : data.logo ?? imageTestingBase64))),
-                  //     fit: BoxFit.cover)),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -234,21 +225,19 @@ class _CardPageSliderState extends State<CardPageSlider>
                                 ],
                               ),
                             ),
-                            adjustHieght(10),
+                            kHeight10,
                             Row(
                               children: [
                                 SizedBox(
                                   height: kwidth * 0.10,
                                   width: kwidth * 0.10,
                                   child: data.logo != null && data.logo != ''
-                                      ? Image.memory(
-                                          base64Decode(
-                                              imageTestingBase64.substring(22)),
-                                          fit: BoxFit.cover)
+                                      ? Image.memory(base64Decode(data.logo!),
+                                          fit: BoxFit.fill)
                                       : Image.asset(iconBizkitPng,
                                           fit: BoxFit.cover),
                                 ),
-                                adjustWidth(10),
+                                kWidth10,
                                 data.isDefault ?? false
                                     ? const ClipRRect(
                                         borderRadius: BorderRadius.all(
@@ -261,7 +250,7 @@ class _CardPageSliderState extends State<CardPageSlider>
                                           ),
                                         ),
                                       )
-                                    : const SizedBox()
+                                    : kempty
                               ],
                             ),
                           ],

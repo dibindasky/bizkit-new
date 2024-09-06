@@ -26,7 +26,8 @@ class SlidablePhotoGallery extends StatelessWidget {
               itemCount: images.length,
               controller: PageController(initialPage: initialIndex),
               itemBuilder: (context, index) {
-                return Hero(tag: 'photo',
+                return Hero(
+                  tag: 'photo',
                   child: PhotoView(
                     imageProvider: MemoryImage(
                       base64.decode(images[index].startsWith('data')

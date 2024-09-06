@@ -79,9 +79,7 @@ class _LinearProgressIndicatorStartingState
                     BusinessDetailsScreen(
                         pageController: _pageController,
                         fromBusiness: widget.index == null),
-                    LogoStory(
-                        pageController: _pageController,
-                        fromBusiness: widget.index == null),
+                    LogoStory(fromBusiness: widget.index == null),
                     BrochersAndProductsScreen(
                         pageController: _pageController,
                         fromBusiness: widget.index == null),

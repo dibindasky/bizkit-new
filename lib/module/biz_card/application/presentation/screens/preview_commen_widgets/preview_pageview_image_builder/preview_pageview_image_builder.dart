@@ -114,11 +114,11 @@ class _ImagePreviewScrollViewState extends State<ImagePreviewScrollView> {
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
           onTap: () {
-            if (widget.isStory ?? false == false) {
-              Navigator.of(context).push(cardFadePageRoute(ScreenImagePreview(
-                image: widget.image,
-              )));
-            }
+            // if (widget.isStory ?? false) {
+            //   Navigator.of(context).push(cardFadePageRoute(ScreenImagePreview(
+            //     image: widget.image,
+            //   )));
+            // }
             if (widget.story != null) {
               showModalBottomSheet(
                 context: context,

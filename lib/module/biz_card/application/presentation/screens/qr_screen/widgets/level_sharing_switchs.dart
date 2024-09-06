@@ -44,18 +44,19 @@ class _SwitchButtonsState extends State<SwitchButtons> {
                     if (!levelSharingController
                         .individualPersonalDetails.value) {
                       levelSharingController.changePersonalSharedFields(
-                          isCommonBusinessSharedField:
-                              widget.isCommonLevelSharing,
-                          individualPersonalSharedFields: levelSharingController
-                              .individualPersonalSharedFields.value
-                              .copyWith(
-                                  name: false,
-                                  bloodGroup: false,
-                                  dob: false,
-                                  email: false,
-                                  personalAchievements: false,
-                                  personalSocialMedia: false,
-                                  phone: false));
+                        isCommonBusinessSharedField:
+                            widget.isCommonLevelSharing,
+                        individualPersonalSharedFields: levelSharingController
+                            .individualPersonalSharedFields.value
+                            .copyWith(
+                                name: false,
+                                bloodGroup: false,
+                                dob: false,
+                                email: false,
+                                personalAchievements: false,
+                                personalSocialMedia: false,
+                                phone: false),
+                      );
                       levelSharingController.individualPersonalDetails.value =
                           false;
                     }
@@ -587,6 +588,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
 
   Widget buildSwitch(String label, bool? value, Function(bool) onChanged,
       [Color color = textFieldFillColr]) {
+    // final levelSharingController = Get.find<LevelSharingController>();
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: Container(

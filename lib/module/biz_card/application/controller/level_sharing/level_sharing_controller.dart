@@ -160,6 +160,11 @@ class LevelSharingController extends GetxController {
             success.sharedFields?.business ?? BusinessSharedFields();
         individualPersonalSharedFields.value =
             success.sharedFields?.personal ?? PersonalSharedFields();
+
+        individualPersonalDetails.value =
+            individualPersonalSharedFields.value.checkBoolValue();
+        individualBusinessDetails.value =
+            individualBusinessSharedFields.value.checkBoolValue();
       },
     );
   }

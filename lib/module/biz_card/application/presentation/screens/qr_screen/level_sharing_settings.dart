@@ -42,51 +42,67 @@ class CardDefaultLevelSharing extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              adjustHieght(khieght * .04),
-              SwitchButtons(
-                isCommonLevelSharing: isCommonLevelSharing,
-              ),
-              adjustHieght(khieght * .05),
-              EventButton(
-                text: 'Save',
-                onTap: () {
-                  if (isCommonLevelSharing) {
-                    levelSharingController.updateCommonSharedFields(
-                      context: context,
-                      updateCommonSharedFields: UpdateCommonSharedFieldsModel(
-                        applicableToIndividual: levelSharingController
-                                .commonLevelSharedFields
-                                .value
-                                .applicableToIndividual ??
-                            false,
-                        sharedFields: SharedFields(
-                          business:
-                              levelSharingController.businessSharedFields.value,
-                          personal:
-                              levelSharingController.personalSharedFields.value,
-                        ),
-                      ),
-                    );
-                  } else {
-                    levelSharingController.updateIndividualSharedFields(
-                      context: context,
-                      updateIndividualSharedFields:
-                          IndividualSharedFieldsResponce(
-                        sharedFields: IndividualSharedFields(
-                            business: levelSharingController
-                                .individualBusinessSharedFields.value,
-                            personal: levelSharingController
-                                .individualPersonalSharedFields.value),
-                        bizcardId: levelSharingController.selectedCardId.value,
-                      ),
-                    );
-                  }
-                },
-              ),
-              adjustHieght(khieght * .03),
-            ],
+          child: Obx(
+            () {
+              if (!isCommonLevelSharing
+                  ? levelSharingController.individualLevelSharingLoading.value
+                  : levelSharingController.commonLevelSharingLoading.value) {
+                return SizedBox(
+                  height: khieght * .9,
+                  child: const Center(
+                      child: CircularProgressIndicator(color: neonShade)),
+                );
+              } else {
+                return Column(
+                  children: [
+                    adjustHieght(khieght * .04),
+                    SwitchButtons(
+                      isCommonLevelSharing: isCommonLevelSharing,
+                    ),
+                    adjustHieght(khieght * .05),
+                    EventButton(
+                      text: 'Save',
+                      onTap: () {
+                        if (isCommonLevelSharing) {
+                          levelSharingController.updateCommonSharedFields(
+                            context: context,
+                            updateCommonSharedFields:
+                                UpdateCommonSharedFieldsModel(
+                              applicableToIndividual: levelSharingController
+                                      .commonLevelSharedFields
+                                      .value
+                                      .applicableToIndividual ??
+                                  false,
+                              sharedFields: SharedFields(
+                                business: levelSharingController
+                                    .businessSharedFields.value,
+                                personal: levelSharingController
+                                    .personalSharedFields.value,
+                              ),
+                            ),
+                          );
+                        } else {
+                          levelSharingController.updateIndividualSharedFields(
+                            context: context,
+                            updateIndividualSharedFields:
+                                IndividualSharedFieldsResponce(
+                              sharedFields: IndividualSharedFields(
+                                  business: levelSharingController
+                                      .individualBusinessSharedFields.value,
+                                  personal: levelSharingController
+                                      .individualPersonalSharedFields.value),
+                              bizcardId:
+                                  levelSharingController.selectedCardId.value,
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    adjustHieght(khieght * .03),
+                  ],
+                );
+              }
+            },
           ),
         ),
       ),

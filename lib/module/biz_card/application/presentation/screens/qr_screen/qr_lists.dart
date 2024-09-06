@@ -63,12 +63,15 @@ class ScreenCardSharing extends StatelessWidget {
                 if (cardController.isLoading.value) {
                   return SizedBox(
                     height: 70.dm,
-                    child: ShimmerLoader(
-                      itemCount: 5,
-                      height: 40.h,
-                      width: 90.w,
-                      seprator: kWidth10,
-                      scrollDirection: Axis.horizontal,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 7.w),
+                      child: ShimmerLoader(
+                        itemCount: 5,
+                        height: 35.h,
+                        width: 80.w,
+                        seprator: kWidth10,
+                        scrollDirection: Axis.horizontal,
+                      ),
                     ),
                   );
                 } else if (cardController.bizcards.isEmpty) {

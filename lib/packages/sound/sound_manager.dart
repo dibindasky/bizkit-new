@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart'; // Import path_provider
 
 class SoundManager {
   FlutterSoundRecorder? _recorder;
@@ -14,6 +15,10 @@ class SoundManager {
 
   SoundManager() {
     _initRecorder();
+    _initPlayer();
+  }
+
+  SoundManager.player() {
     _initPlayer();
   }
 
@@ -56,12 +61,18 @@ class SoundManager {
     }
   }
 
+  // Get the directory to store the audio file
+  Future<String> _getFilePath() async {
+    final directory = await getApplicationDocumentsDirectory();
+    return '${directory.path}/audio_record.aac';
+  }
+
   // Start recording
   Future<void> startRecording() async {
     if (!_isRecorderInitialized) return;
 
     try {
-      _filePath = 'audio_record.aac';
+      _filePath = await _getFilePath(); // Get the correct file path
       await _recorder!.startRecorder(
         toFile: _filePath,
         codec: Codec.aacADTS,

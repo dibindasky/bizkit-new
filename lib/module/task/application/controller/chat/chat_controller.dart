@@ -10,6 +10,7 @@ import 'package:bizkit/module/task/domain/model/chat/file_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/packages/pdf/pdf_picker.dart';
+import 'package:bizkit/packages/sound/sound_manager.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/task/domain/model/chat/create_poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
@@ -29,6 +30,7 @@ class ChatController extends GetxController {
   late IOWebSocketChannel channel;
   final TextEditingController controller = TextEditingController();
   final ScrollController chatScrollController = ScrollController();
+  final SoundManager soundManager = SoundManager();
 
   /// chat message list
   RxList<Message> messages = <Message>[].obs;
@@ -37,7 +39,10 @@ class ChatController extends GetxController {
   bool firstLoad = true;
   RxBool currentLocationFetching = false.obs;
   RxBool connectionLoading = false.obs;
+  RxBool connected = false.obs;
   RxBool loadMoreLoading = false.obs;
+  RxBool isRecording = false.obs;
+  RxBool isPlaying = false.obs;
   RxList<double> currentLocationLatLong = <double>[].obs;
   RxList<ImageModel> loadedImages = <ImageModel>[].obs;
   RxString currentLocation = ''.obs;
@@ -82,6 +87,7 @@ class ChatController extends GetxController {
             print(
                 "connection success => WebSocket connection established successfully");
             connectionLoading.value = false;
+            connected.value = true;
           }
 
           // handle for text messages
@@ -182,20 +188,21 @@ class ChatController extends GetxController {
           }
 
           update(['chat']);
+          // animate the scroll controller if necessary
           if (decodedMessage['is_load_more'] != true && doAnimate) {
             Timer(
               const Duration(milliseconds: 200),
               () {
-                chatScrollController.animateTo(
-                  firstLoad
-                      ? chatScrollController.position.minScrollExtent
-                      : chatScrollController.position.pixels -
-                          (decodedMessage['message_type'] == 'text'
-                              ? 100
-                              : 500),
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeIn,
-                );
+                // chatScrollController.animateTo(
+                //   firstLoad
+                //       ? chatScrollController.position.minScrollExtent
+                //       : chatScrollController.position.pixels -
+                //           (decodedMessage['message_type'] == 'text'
+                //               ? 100
+                //               : 500),
+                //   duration: const Duration(milliseconds: 300),
+                //   curve: Curves.easeIn,
+                // );
               },
             );
           }
@@ -204,6 +211,7 @@ class ChatController extends GetxController {
           print('Connection error: $error');
           _error = 'Connection error: $error';
           connectionLoading.value = false;
+          connected.value = false;
           GoRouter.of(context).pop();
         },
         onDone: () {
@@ -213,6 +221,7 @@ class ChatController extends GetxController {
             print('connection close reason => ${channel.closeReason}');
           }
           connectionLoading.value = false;
+          connected.value = false;
           GoRouter.of(context).pop();
         },
       );
@@ -220,6 +229,7 @@ class ChatController extends GetxController {
       print('Failed to connect: $e');
       _error = 'Failed to connect: $e';
       connectionLoading.value = false;
+      connected.value = false;
       GoRouter.of(context).pop();
     }
   }
@@ -236,10 +246,15 @@ class ChatController extends GetxController {
   }
 
   /// close channel connection
-  void closeConnetion() {
+  void closeConnetion(BuildContext context) {
+    if (!connected.value) {
+      GoRouter.of(context).pop();
+      return;
+    }
     try {
       messages.clear();
       channel.sink.close();
+      connected.value = false;
       print('connection closed');
       // channel.sink.close(status.goingAway);
     } catch (e) {
@@ -415,5 +430,31 @@ class ChatController extends GetxController {
   /// send audio message
   void sendAudioMessage(String audio) {
     print('send audio message ---::::...::.:::.::.');
+  }
+
+  /// on mic tap record and stop
+  void micTap() {
+    if (isRecording.value) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  }
+
+  /// start recording audio
+  void startRecording() {
+    isRecording.value = true;
+    soundManager.startRecording();
+  }
+
+  /// stop recording audio
+  void stopRecording() {
+    soundManager.stopRecording();
+    isRecording.value = false;
+  }
+
+  /// send audio
+  void sendAudio() {
+    addMessage({});
   }
 }

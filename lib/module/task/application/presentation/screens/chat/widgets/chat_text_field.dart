@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/attachments_chat_dialog.dart';
+import 'package:bizkit/packages/sound/sound_manager.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ChatTextfieldContainer extends StatefulWidget {
   const ChatTextfieldContainer({
@@ -109,10 +111,38 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
                         icon: const Icon(Icons.camera_alt_outlined,
                             color: neonShade),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.mic, color: neonShade),
-                      ),
+                      Obx(() {
+                        return GestureDetector(
+                          onTap: controller.micTap,
+                          onLongPress: controller
+                              .startRecording,
+                          onLongPressUp: controller
+                              .stopRecording,
+                          child: CircleAvatar(
+                            radius: 30,
+                            backgroundColor: controller.isRecording.value
+                                ? neonShade.withOpacity(0.5)
+                                : knill,
+                            child: Icon(
+                              controller.isRecording.value
+                                  ? Icons.mic_off
+                                  : Icons.mic,
+                              color: neonShade,
+                            ),
+                          ),
+                        );
+                      })
+                      // IconButton(
+                      //   onPressed: () {
+
+                      //     // Navigator.push(
+                      //     //     context,
+                      //     //     MaterialPageRoute(
+                      //     //       builder: (context) => AudioRecorderScreen(),
+                      //     //     ));
+                      //   },
+                      //   icon: const Icon(Icons.mic, color: neonShade),
+                      // ),
                     ],
                   ),
           )
@@ -152,5 +182,86 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
         maxLines = tp.computeLineMetrics().length;
       });
     }
+  }
+}
+
+class AudioRecorderScreen extends StatefulWidget {
+  @override
+  _AudioRecorderScreenState createState() => _AudioRecorderScreenState();
+}
+
+class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
+  final SoundManager _soundManager = SoundManager();
+  bool _isRecording = false;
+  bool _isPlaying = false;
+
+  @override
+  void dispose() {
+    _soundManager.dispose();
+    super.dispose();
+  }
+
+  void _toggleRecording() async {
+    if (_isRecording) {
+      await _soundManager.stopRecording();
+    } else {
+      await _soundManager.startRecording();
+    }
+
+    setState(() {
+      _isRecording = !_isRecording;
+    });
+  }
+
+  void _togglePlayback() async {
+    if (_isPlaying) {
+      await _soundManager.stopPlayback();
+    } else {
+      await _soundManager.playRecording();
+    }
+
+    setState(() {
+      _isPlaying = !_isPlaying;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Audio Recorder'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: _toggleRecording,
+              child: Text(_isRecording ? 'Stop Recording' : 'Start Recording'),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: _isRecording ? Colors.red : Colors.blue,
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _soundManager.getBase64Audio() != null
+                  ? _togglePlayback
+                  : null,
+              child: Text(_isPlaying ? 'Stop Playback' : 'Play Recording'),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: _isPlaying ? Colors.green : Colors.orange,
+              ),
+            ),
+            SizedBox(height: 20),
+            if (_soundManager.getBase64Audio() != null)
+              Text(
+                'Audio recorded and converted to base64 successfully!',
+                style: TextStyle(color: Colors.green),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }

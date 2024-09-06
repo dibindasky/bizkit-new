@@ -36,7 +36,7 @@ class FileMessageCard extends StatelessWidget {
                   left: !sender ? 15.w : 5.w,
                   right: sender ? 15.w : 5.w,
                   top: sender ? 5.w : 0.w,
-                  bottom: 4.h),
+                  bottom: 0.h),
               width: message.fileType == 'pdf' ? 150.h : null,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

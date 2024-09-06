@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'shared_fields.dart';
+import '../shared_fields/shared_fields.dart';
 
 part 'update_common_shared_fields_model.g.dart';
 

@@ -3,13 +3,14 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/qr_scree
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_responce/individual_shared_fields_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_responce/shared_fields.dart';
 
-import 'package:bizkit/module/biz_card/domain/model/level_sharing/update_common_shared_fields_model/shared_fields.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/update_common_shared_fields_model/update_common_shared_fields_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../domain/model/level_sharing/shared_fields/shared_fields.dart';
 
 class CardDefaultLevelSharing extends StatelessWidget {
   const CardDefaultLevelSharing({super.key, this.isCommonLevelSharing = false});

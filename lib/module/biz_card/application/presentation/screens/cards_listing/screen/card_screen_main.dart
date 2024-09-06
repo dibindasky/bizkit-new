@@ -837,11 +837,11 @@ class CardViewsListPopUp extends StatelessWidget {
       () {
         if (cardController.loadingForCardViews.value) {
           return SizedBox(
-            height: 250.h,
+            height: 350.h,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ShimmerLoader(
-                height: 30.h,
+                height: 50.h,
                 seprator: kHeight10,
                 itemCount: cardController.cardViews.isEmpty
                     ? 5

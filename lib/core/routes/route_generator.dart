@@ -18,6 +18,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/onbaordi
 import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing_settings.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
@@ -249,25 +250,39 @@ class GoRouterConfig {
     ),
 
     // individual Level sharing  screen
+    // GoRoute(
+    //   name: Routes.individualLevelSharing,
+    //   path: Routes.individualLevelSharing,
+    //   pageBuilder: (context, state) {
+    //     return FadeTransitionPage(
+    //       key: state.pageKey,
+    //       child: const ScreenCardLevelSharing(),
+    //     );
+    //   },
+    // ),
+
+    //  Level sharing screen
     GoRoute(
-      name: Routes.individualLevelSharing,
-      path: Routes.individualLevelSharing,
+      name: Routes.levelSharing,
+      path: Routes.levelSharing,
       pageBuilder: (context, state) {
+        final extra = state.extra as bool;
         return FadeTransitionPage(
           key: state.pageKey,
-          child: const ScreenCardLevelSharing(),
+          child: CardDefaultLevelSharing(
+            isCommonLevelSharing: extra,
+          ),
         );
       },
     ),
-
-    // Common Level sharing screen
+    //  Card QR code screen
     GoRoute(
-      name: Routes.commonLevelSharing,
-      path: Routes.commonLevelSharing,
+      name: Routes.cardQrCode,
+      path: Routes.cardQrCode,
       pageBuilder: (context, state) {
         return FadeTransitionPage(
           key: state.pageKey,
-          child: const CardDefaultLevelSharing(),
+          child: const ScreenCardSharing(),
         );
       },
     ),

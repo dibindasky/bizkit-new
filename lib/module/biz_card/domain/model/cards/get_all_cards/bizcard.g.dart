@@ -16,6 +16,7 @@ Bizcard _$BizcardFromJson(Map<String, dynamic> json) => Bizcard(
       isArchived: json['is_archived'] as bool?,
       designation: json['designation'] as String?,
       name: json['name'] as String?,
+      views: (json['views'] as num?)?.toInt(),
       companyName: json['company_name'] as String?,
       logo: json['logo'] as String?,
     );
@@ -30,6 +31,7 @@ Map<String, dynamic> _$BizcardToJson(Bizcard instance) => <String, dynamic>{
       'is_archived': instance.isArchived,
       'designation': instance.designation,
       'name': instance.name,
+      'views': instance.views,
       'company_name': instance.companyName,
       'logo': instance.logo,
     };

@@ -12,7 +12,7 @@ IndividualSharedFieldsResponce _$IndividualSharedFieldsResponceFromJson(
       bizcardId: json['bizcard_id'] as String?,
       sharedFields: json['shared_fields'] == null
           ? null
-          : SharedFields.fromJson(
+          : IndividualSharedFields.fromJson(
               json['shared_fields'] as Map<String, dynamic>),
     );
 

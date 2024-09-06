@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
@@ -8,6 +9,7 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeFirstAppBar extends StatefulWidget {
   const HomeFirstAppBar({super.key});
@@ -60,12 +62,7 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
           GestureDetector(
             onTap: () {
               cardController.getAllcards(true);
-              Navigator.push(
-                context,
-                cardFadePageRoute(
-                  const ScreenCardSharing(),
-                ),
-              );
+              GoRouter.of(context).pushNamed(Routes.cardQrCode);
             },
             child: CircleAvatar(
               radius: kwidth * 0.060,

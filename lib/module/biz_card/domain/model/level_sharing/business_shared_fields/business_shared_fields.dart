@@ -60,4 +60,16 @@ class BusinessSharedFields {
       logoStory: logoStory ?? this.logoStory,
     );
   }
+
+  bool checkBoolValue() {
+    return (businessCategory ?? false) ||
+        (designation ?? false) ||
+        (product ?? false) ||
+        (businessAchievements ?? false) ||
+        (businessSocialMedia ?? false) ||
+        (branchOffices ?? false) ||
+        (brochure ?? false) ||
+        (businessLogo ?? false) ||
+        (logoStory ?? false);
+  }
 }

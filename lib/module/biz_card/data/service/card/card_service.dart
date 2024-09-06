@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
+import 'package:bizkit/core/model/bizcard_id_parameter_model/bizcard_id_parameter_model.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/archived_and_deleted_cards_responce/archived_and_deleted_cards_responce.dart';
@@ -10,7 +11,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card
 import 'package:bizkit/module/biz_card/domain/model/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/create_card_responce/create_card_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/get_all_cards.dart';
-import 'package:bizkit/module/biz_card/domain/model/cards/personal_details_request_model/personal_details_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responce/get_card_views_responce.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -137,6 +138,25 @@ class CardService implements CardRepo {
       return Left(Failure(message: errorMessage));
     } catch (e) {
       log('getAllArchivedAndDeletedCards catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetCardViewsResponce>> getCardViews(
+      {required BizcardIdParameterModel bizcardIdParameterModel}) async {
+    try {
+      final responce = await apiService.post(
+        ApiEndPoints.cardViews,
+        data: bizcardIdParameterModel.toJson(),
+      );
+      log('getCardViews ==> success');
+      return Right(GetCardViewsResponce.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getCardViews DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('getCardViews catch $e');
       return Left(Failure(message: 'Failed to request'));
     }
   }

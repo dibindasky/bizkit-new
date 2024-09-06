@@ -50,20 +50,24 @@ class ShimmerLoader extends StatelessWidget {
 }
 
 class ShimmerLoaderTile extends StatelessWidget {
-  const ShimmerLoaderTile({
-    Key? key,
-    required this.height,
-    required this.width,
-  }) : super(key: key);
+  const ShimmerLoaderTile(
+      {Key? key,
+      required this.height,
+      required this.width,
+      this.baseColor,
+      this.highlightColor})
+      : super(key: key);
 
   final double height;
   final double width;
+  final Color? baseColor;
+  final Color? highlightColor;
 
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: const Color.fromARGB(255, 54, 54, 54),
-      highlightColor: const Color.fromARGB(255, 85, 85, 85),
+      baseColor: baseColor ?? const Color.fromARGB(255, 54, 54, 54),
+      highlightColor: highlightColor ?? const Color.fromARGB(255, 85, 85, 85),
       child: Container(
         height: height,
         width: width,

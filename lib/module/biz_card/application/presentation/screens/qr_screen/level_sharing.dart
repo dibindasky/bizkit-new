@@ -3,6 +3,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ScreenCardLevelSharing extends StatelessWidget {
   const ScreenCardLevelSharing({super.key});
@@ -13,7 +14,7 @@ class ScreenCardLevelSharing extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            GoRouter.of(context).pop();
           },
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -40,8 +41,6 @@ class ScreenCardLevelSharing extends StatelessWidget {
                   wdth: 100,
                   text: 'Save',
                   onTap: () {
-                    // context.read<QrBloc>().add(QrEvent.addNewLevelSharing(
-                    //     createQrModel: context.read<QrBloc>().createQrModel));
                     Navigator.pop(context);
                   },
                 ),

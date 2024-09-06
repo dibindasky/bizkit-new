@@ -49,4 +49,14 @@ class PersonalSharedFields {
       bloodGroup: bloodGroup ?? this.bloodGroup,
     );
   }
+
+  bool checkBoolValue() {
+    return (name ?? false) ||
+        (email ?? false) ||
+        (personalAchievements ?? false) ||
+        (personalSocialMedia ?? false) ||
+        (phone ?? false) ||
+        (bloodGroup ?? false) ||
+        (dob ?? false);
+  }
 }

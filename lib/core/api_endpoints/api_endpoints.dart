@@ -33,6 +33,7 @@ class ApiEndPoints {
   static String getArchievedOrDeletedCards =
       '/list-disabled-and-archieved-cards/';
   static String cardArchiveOrDelete = '/archieve-or-disable-card/';
+  static const String cardViews = '/card-views/';
 
   //Personl Details
   static String personalAchievement = '/personal-achievements/';

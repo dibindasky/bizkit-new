@@ -22,6 +22,7 @@ class Bizcard {
   String? qRLink;
   @JsonKey(name: 'name')
   String? name;
+  int? views;
   @JsonKey(name: 'company_name')
   String? companyName;
   @JsonKey(name: 'logo')
@@ -38,6 +39,7 @@ class Bizcard {
       this.companyName,
       this.logo,
       this.qRLink,
+      this.views,
       this.universalLink});
 
   factory Bizcard.fromJson(Map<String, dynamic> json) {

@@ -76,6 +76,7 @@ class LevelSharingService implements LevelSharingRepo {
       {required IndividualSharedFieldsResponce
           updateIndividualSharedFields}) async {
     try {
+      log('Update Individual shared fields TOJSON ====  ${updateIndividualSharedFields.toJson()}');
       final responce = await apiService.patch(
         ApiEndPoints.individualLevelSharing,
         data: updateIndividualSharedFields.toJson(),

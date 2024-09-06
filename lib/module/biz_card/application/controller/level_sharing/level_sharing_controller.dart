@@ -1,3 +1,4 @@
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/level_sharing/level_sharing_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/all_common_shared_fields_responce/all_common_shared_fields_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/business_shared_fields/business_shared_fields.dart';
@@ -36,6 +37,58 @@ class LevelSharingController extends GetxController {
 
   // Variable to store the selected card's ID
   var selectedCardId = ''.obs;
+
+  RxBool individualBusinessDetails = true.obs;
+  RxBool individualPersonalDetails = true.obs;
+
+  // Method to update the selected card's QR code
+  void updateSelectedCardQRData(String qrData, cardId) {
+    selectedCardQRData.value = qrData;
+    selectedCardId.value = cardId;
+  }
+
+  void changePersonalSharedFields({
+    required bool isCommonBusinessSharedField,
+    PersonalSharedFields? commonPersonalSharedFields,
+    PersonalSharedFields? individualPersonalSharedFields,
+  }) {
+    if (isCommonBusinessSharedField) {
+      personalSharedFields.value =
+          commonPersonalSharedFields ?? PersonalSharedFields();
+    } else {
+      this.individualPersonalSharedFields.value =
+          individualPersonalSharedFields ?? PersonalSharedFields();
+    }
+  }
+
+  void changeBusinessSharedFields({
+    required bool isCommonBusinessSharedField,
+    BusinessSharedFields? commonBusinessSharedFields,
+    BusinessSharedFields? individualBusinessSharedFields,
+  }) {
+    if (isCommonBusinessSharedField) {
+      businessSharedFields.value =
+          commonBusinessSharedFields ?? BusinessSharedFields();
+    } else {
+      this.individualBusinessSharedFields.value =
+          individualBusinessSharedFields ?? BusinessSharedFields();
+    }
+  }
+
+  void changeComSharingApplicableToIndividual(
+      {required AllCommonSharedFieldsResponce applicableToIndividual}) {
+    commonLevelSharedFields.value = applicableToIndividual;
+  }
+
+  void changeIndividualBusinessDetails(bool value) {
+    // If [ Individual BusinessDetails ] is false, disable other switches
+    individualBusinessDetails.value = value;
+  }
+
+  void changeindividualPersonalDetails(bool value) {
+    // If [ Individual PersonalDetails ] is false, disable other switches
+    individualPersonalDetails.value = value;
+  }
 
   // get all Common shared fields
   void fetchAllCommonSharedFields() async {
@@ -90,27 +143,6 @@ class LevelSharingController extends GetxController {
     );
   }
 
-  // Method to update the selected card's QR code
-  void updateSelectedCardQRData(String qrData, cardId) {
-    selectedCardQRData.value = qrData;
-    selectedCardId.value = cardId;
-  }
-
-  void changePersonalCommonLevelSharing(
-      {required PersonalSharedFields personalSharedFields}) {
-    this.personalSharedFields.value = personalSharedFields;
-  }
-
-  void changeBusinessSharedFieldsCommonLevelSharing(
-      {required BusinessSharedFields businessSharedFields}) {
-    this.businessSharedFields.value = businessSharedFields;
-  }
-
-  void changeComSharingApplicableToIndividual(
-      {required AllCommonSharedFieldsResponce applicableToIndividual}) {
-    commonLevelSharedFields.value = applicableToIndividual;
-  }
-
   // get all Individual shared fields
   void fetchIndividualSharedFields(
       {required IndividualSharedFieldsQueryParamsModel queryParameter}) async {
@@ -128,24 +160,43 @@ class LevelSharingController extends GetxController {
             success.sharedFields?.business ?? BusinessSharedFields();
         individualPersonalSharedFields.value =
             success.sharedFields?.personal ?? PersonalSharedFields();
+
+        individualPersonalDetails.value =
+            individualPersonalSharedFields.value.checkBoolValue();
+        individualBusinessDetails.value =
+            individualBusinessSharedFields.value.checkBoolValue();
       },
     );
   }
 
   // Method for update the Individual shared fields
   void updateIndividualSharedFields(
-      {required IndividualSharedFieldsResponce
-          updateIndividualSharedFields}) async {
+      {required IndividualSharedFieldsResponce updateIndividualSharedFields,
+      required BuildContext context}) async {
     individualLevelSharingLoading.value = true;
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final data = await levelSharingService.updateIndividualSharedFields(
         updateIndividualSharedFields: updateIndividualSharedFields);
 
     data.fold(
       (failure) {
         individualLevelSharingLoading.value = false;
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: kred,
+          ),
+        );
       },
       (success) {
         individualLevelSharingLoading.value = false;
+        scaffoldMessenger.showSnackBar(
+          const SnackBar(
+            content: Text('Individual shared fields updated successfully'),
+            backgroundColor: neonShade,
+          ),
+        );
+        GoRouter.of(context).pop();
       },
     );
   }

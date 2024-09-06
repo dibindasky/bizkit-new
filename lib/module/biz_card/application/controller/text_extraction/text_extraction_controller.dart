@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/core/model/image/image_model.dart';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/text_extraction/text_extraction_service.dart';
@@ -8,8 +9,10 @@ import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extract
 import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_responce/extracted_details.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/text_extraction_repo.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class CardTextExtractionController extends GetxController {
   final TextExtractionRepo textExtractionService = TextExtractionService();
@@ -28,6 +31,7 @@ class CardTextExtractionController extends GetxController {
 
   void textExtraction(
       {required TextExtractionModel textExtractionModel,
+      required BuildContext context,
       required bool fromVisitingCard}) async {
     isLoading.value = true;
 
@@ -46,7 +50,7 @@ class CardTextExtractionController extends GetxController {
         extractedPhoneNumbers
             .assignAll((extractedDetails.value.phoneNumbers ?? []));
         extractedLocations.assignAll((extractedDetails.value.location ?? []));
-        if (fromVisitingCard == false) {
+        if (fromVisitingCard) {
           final cardController = Get.find<CardController>();
           cardController.nameController.text =
               extractedDetails.value.personName ?? '';
@@ -62,6 +66,7 @@ class CardTextExtractionController extends GetxController {
               extractedDetails.value.designation ?? '';
           cardController.companyNameController.text =
               extractedDetails.value.companyName ?? '';
+          GoRouter.of(context).pushNamed(Routes.scanedDataFeilds);
         } else {
           final receivedCardController = Get.find<ReceivedCardController>();
           receivedCardController.nameController.text =
@@ -82,6 +87,8 @@ class CardTextExtractionController extends GetxController {
               (extractedDetails.value.websites?.isNotEmpty ?? false)
                   ? extractedDetails.value.websites!.first
                   : '';
+          GoRouter.of(context)
+              .pushReplacementNamed(Routes.cardCreationProfilePage);
         }
 
         isLoading.value = false;

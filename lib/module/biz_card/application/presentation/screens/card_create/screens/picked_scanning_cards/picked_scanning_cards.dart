@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/card_uploading_showdailogue.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_model/text_extraction_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/event_button.dart';
@@ -20,7 +18,6 @@ class PickedScanningCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textExtractionController = Get.find<CardTextExtractionController>();
-    // final cardController = Get.find<CardController>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -52,13 +49,17 @@ class PickedScanningCards extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              // Navigator.of(context).push(
-                              //   cardFadePageRoute(ScreenImagePreview(
-                              //     image: state
-                              //         .scannedImagesCardCreation[index].base64,
-                              //     isFileIamge: false,
-                              //   )),
-                              // );
+                              GoRouter.of(context).pushNamed(
+                                  Routes.slidablePhotoGallery,
+                                  extra: {
+                                    'initial': index,
+                                    'images': [
+                                      textExtractionController
+                                              .pickedImageUrl[index].base64 ??
+                                          ''
+                                    ],
+                                    'memory': true
+                                  });
                             },
                             child: Container(
                               width: 310.dm,
@@ -132,28 +133,29 @@ class PickedScanningCards extends StatelessWidget {
                 ),
                 adjustHieght(khieght * .02),
                 Obx(
-                  () => EventButton(
-                    text: textExtractionController.isLoading.value == true
-                        ? 'Loading....'
-                        : 'Continue',
-                    onTap: () {
-                      if (textExtractionController.pickedImageUrl.isEmpty) {
-                        showSnackbar(
-                          context,
-                          message: 'Select atleast Image',
-                          backgroundColor: kred,
-                        );
-                      }
-                      textExtractionController.textExtraction(
-                          fromVisitingCard: false,
-                          textExtractionModel: TextExtractionModel(
-                              image: textExtractionController
-                                      .pickedImageUrl.first.base64 ??
-                                  ''));
-                      GoRouter.of(context)
-                          .pushReplacementNamed(Routes.cardCreationProfilePage);
-                    },
-                  ),
+                  () => textExtractionController.isLoading.value
+                      ? const Center(
+                          child: CircularProgressIndicator(color: neonShade))
+                      : EventButton(
+                          text: 'Continue',
+                          onTap: () {
+                            if (textExtractionController
+                                .pickedImageUrl.isEmpty) {
+                              showSnackbar(
+                                context,
+                                message: 'Select atleast Image',
+                                backgroundColor: kred,
+                              );
+                            }
+                            textExtractionController.textExtraction(
+                                context: context,
+                                fromVisitingCard: false,
+                                textExtractionModel: TextExtractionModel(
+                                    image: textExtractionController
+                                            .pickedImageUrl.first.base64 ??
+                                        ''));
+                          },
+                        ),
                 ),
                 adjustHieght(khieght * .02),
               ],

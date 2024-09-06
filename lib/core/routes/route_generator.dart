@@ -275,6 +275,7 @@ class GoRouterConfig {
         );
       },
     ),
+
     //  Card QR code screen
     GoRoute(
       name: Routes.cardQrCode,

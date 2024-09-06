@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bizkit/core/model/bizcard_id_parameter_model/bizcard_id_parameter_model.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/archived_and_deleted_cards_responce/archived_or_deleted_card/archived_or_deleted_card.dart';
@@ -10,10 +11,10 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/personal_details.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responce/view.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as mat;
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,10 @@ class CardController extends GetxController {
 
   // Loading
   RxBool isLoading = false.obs;
+  RxBool loadingForCardViews = false.obs;
   final CardRepo cardRepo = CardService();
+
+  RxList<Views> cardViews = <Views>[].obs;
   RxList<Bizcard> bizcards = <Bizcard>[].obs;
 
   Rx<CardDetailModel> bizcardDetail = CardDetailModel().obs;
@@ -171,6 +175,21 @@ class CardController extends GetxController {
         deletedCards.assignAll(r.disabledCards ?? []);
         update();
         isLoading.value = false;
+      },
+    );
+  }
+
+  // fetch card views
+  void fetchCardViews(
+      {required BizcardIdParameterModel bizcardIdParameterModel}) async {
+    loadingForCardViews.value = true;
+    final data = await cardRepo.getCardViews(
+        bizcardIdParameterModel: bizcardIdParameterModel);
+    data.fold(
+      (l) => loadingForCardViews.value = false,
+      (r) {
+        cardViews.assignAll(r.views ?? []);
+        loadingForCardViews.value = false;
       },
     );
   }

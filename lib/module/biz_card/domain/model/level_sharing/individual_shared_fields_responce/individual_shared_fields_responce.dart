@@ -9,7 +9,7 @@ class IndividualSharedFieldsResponce {
   @JsonKey(name: 'bizcard_id')
   String? bizcardId;
   @JsonKey(name: 'shared_fields')
-  SharedFields? sharedFields;
+  IndividualSharedFields? sharedFields;
 
   IndividualSharedFieldsResponce({this.bizcardId, this.sharedFields});
 

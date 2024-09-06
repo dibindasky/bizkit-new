@@ -6,7 +6,9 @@ part of 'shared_fields.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SharedFields _$SharedFieldsFromJson(Map<String, dynamic> json) => SharedFields(
+IndividualSharedFields _$IndividualSharedFieldsFromJson(
+        Map<String, dynamic> json) =>
+    IndividualSharedFields(
       personal: json['personal'] == null
           ? null
           : PersonalSharedFields.fromJson(
@@ -17,7 +19,8 @@ SharedFields _$SharedFieldsFromJson(Map<String, dynamic> json) => SharedFields(
               json['business'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$SharedFieldsToJson(SharedFields instance) =>
+Map<String, dynamic> _$IndividualSharedFieldsToJson(
+        IndividualSharedFields instance) =>
     <String, dynamic>{
       'personal': instance.personal,
       'business': instance.business,

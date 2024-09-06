@@ -6,15 +6,15 @@ import 'package:json_annotation/json_annotation.dart';
 part 'shared_fields.g.dart';
 
 @JsonSerializable()
-class SharedFields {
+class IndividualSharedFields {
   PersonalSharedFields? personal;
   BusinessSharedFields? business;
 
-  SharedFields({this.personal, this.business});
+  IndividualSharedFields({this.personal, this.business});
 
-  factory SharedFields.fromJson(Map<String, dynamic> json) {
-    return _$SharedFieldsFromJson(json);
+  factory IndividualSharedFields.fromJson(Map<String, dynamic> json) {
+    return _$IndividualSharedFieldsFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$SharedFieldsToJson(this);
+  Map<String, dynamic> toJson() => _$IndividualSharedFieldsToJson(this);
 }

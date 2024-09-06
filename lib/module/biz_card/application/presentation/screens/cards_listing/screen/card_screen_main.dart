@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:bizkit/core/model/bizcard_id_parameter_model/bizcard_id_parameter_model.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
@@ -371,16 +372,28 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                         Expanded(
                                           child: InkWell(
                                             onTap: () {
-                                              showModalBottomSheet(
-                                                context: context,
-                                                enableDrag: true,
-                                                isDismissible: true,
-                                                showDragHandle: true,
-                                                backgroundColor: kblack,
-                                                builder: (context) {
-                                                  return const CardViewsListPopUp();
-                                                },
-                                              );
+                                              if (cardController
+                                                      .bizcards[index].views !=
+                                                  0) {
+                                                cardController.fetchCardViews(
+                                                    bizcardIdParameterModel:
+                                                        BizcardIdParameterModel(
+                                                            bizcardId: cardController
+                                                                    .bizcards[
+                                                                        index]
+                                                                    .bizcardId ??
+                                                                ''));
+                                                showModalBottomSheet(
+                                                  context: context,
+                                                  enableDrag: true,
+                                                  isDismissible: true,
+                                                  showDragHandle: true,
+                                                  backgroundColor: kblack,
+                                                  builder: (context) {
+                                                    return const CardViewsListPopUp();
+                                                  },
+                                                );
+                                              }
                                             },
                                             child: Container(
                                                 height: 30.h,
@@ -397,7 +410,8 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                         color: kwhite,
                                                         size: 19),
                                                     kWidth10,
-                                                    const Text('0'),
+                                                    Text(
+                                                        '${cardController.bizcards[index].views ?? 0}'),
                                                     kWidth10,
                                                     const Expanded(
                                                       child: Text('Views',
@@ -494,42 +508,9 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                             scrollDirection: Axis.horizontal,
                             itemCount:
                                 visitingCardController.visitingCards.length,
-                            // (state.secondCards.length) +
-                            //     (state.secondCardEventLoading ? 1 : 0),
                             separatorBuilder: (context, index) =>
                                 adjustWidth(kwidth * .05),
                             itemBuilder: (context, index) {
-                              // if (state.secondCardEventLoading &&
-                              //     index == state.secondCards.length) {
-                              //   return const LoadingAnimation();
-                              // }
-                              //final secondCard = state.secondCards[index];
-                              // String imageBase64 = '';
-                              // if (secondCard.image != null &&
-                              //     secondCard.image!.isNotEmpty) {
-                              //   imageBase64 = secondCard.image!;
-                              //   imageBase64 = imageBase64.startsWith('data')
-                              //       ? imageBase64.substring(22)
-                              //       : imageBase64;
-                              // } else if (secondCard.selfie != null &&
-                              //     secondCard.selfie!.isNotEmpty) {
-                              //   final imageList =
-                              //       secondCard.selfie!.map((e) => e.selfie).toList();
-                              //   imageBase64 = imageList.first ?? '';
-                              //   imageBase64 = imageBase64.startsWith('data')
-                              //       ? imageBase64.substring(22)
-                              //       : imageBase64;
-                              // } else {
-                              //   imageBase64 = '';
-                              // }
-                              // String secondName = secondCard.company != null &&
-                              //         secondCard.company != ''
-                              //     ? secondCard.company!
-                              //     : secondCard.designation != null &&
-                              //             secondCard.designation != ''
-                              //         ? secondCard.designation!
-                              //         : '';
-                              // print(secondName);
                               return Container(
                                 decoration: BoxDecoration(
                                   borderRadius: kBorderRadius10,
@@ -673,30 +654,56 @@ class CardViewsListPopUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: ListView.builder(
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          //final data = state.cardViewList![index].profile;
-          return Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            decoration: const BoxDecoration(
-              color: smallBigGrey,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            child: const ListTile(
-              leading: CircleAvatar(
-                backgroundColor: kgrey,
-                child: Icon(Icons.person),
-              ),
-              title: Text(
-                'Date',
+    final cardController = Get.find<CardController>();
+    return Obx(
+      () {
+        if (cardController.loadingForCardViews.value) {
+          return SizedBox(
+            height: 250.h,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ShimmerLoader(
+                height: 30.h,
+                seprator: kHeight10,
+                itemCount: cardController.cardViews.isEmpty
+                    ? 5
+                    : cardController.cardViews.length,
+                width: 300.w,
               ),
             ),
           );
-        },
-      ),
+        } else if (cardController.cardViews.isEmpty) {
+          return const Center(
+            child: Text('No views'),
+          );
+        } else {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ListView.builder(
+              itemCount: cardController.cardViews.length,
+              itemBuilder: (context, index) {
+                final data = cardController.cardViews[index];
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 10),
+                  decoration: const BoxDecoration(
+                    color: smallBigGrey,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: kgrey,
+                      child: Image.asset(personDemoImg),
+                    ),
+                    title: Text(
+                      data.name ?? 'name',
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        }
+      },
     );
   }
 }

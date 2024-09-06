@@ -1,6 +1,5 @@
+import 'package:bizkit/module/biz_card/domain/model/level_sharing/shared_fields/shared_fields.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'shared_fields.dart';
 
 part 'all_common_shared_fields_responce.g.dart';
 

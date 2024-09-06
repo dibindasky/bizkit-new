@@ -65,6 +65,14 @@ class ApiEndPoints {
   static String commonLevelSharing = '/common-shared-fields/';
   static String individualLevelSharing = '/individual-shared-fields/';
 
+  // [ Bizcard connection ]
+  static String sentConnectionRequest = '/sent-connection-request/';
+  static String recievedConnectionRequests = '/recieved-connection-requests/';
+  static String myConnections = '/my-connections/';
+  static String getAllSendConnectionRequests = '/send-connection-requests/';
+  static String followBackRequest = '/follow-back-request/';
+  static String cancelConnectionRequest = '/cancel-connection-request/';
+
   // [ TASK MODULE ]
 
   static const taskTestgetAllTasks = '/user-tasks/';

@@ -72,6 +72,7 @@ class ApiEndPoints {
   static String getAllSendConnectionRequests = '/send-connection-requests/';
   static String followBackRequest = '/follow-back-request/';
   static String cancelConnectionRequest = '/cancel-connection-request/';
+  static String searchConnection = '/search-connection/';
 
   // [ TASK MODULE ]
 

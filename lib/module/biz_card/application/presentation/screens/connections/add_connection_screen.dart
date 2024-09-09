@@ -205,7 +205,7 @@ class _GridTileAddRequestConnectionState
           overflow: TextOverflow.ellipsis,
           style: textStyle1,
         ),
-        adjustHieght(10),
+        adjustHieght(7),
         GestureDetector(
           onTap: () {
             if (widget.fromPendingRequests) {

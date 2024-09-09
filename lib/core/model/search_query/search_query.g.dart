@@ -7,10 +7,10 @@ part of 'search_query.dart';
 // **************************************************************************
 
 SearchQuery _$SearchQueryFromJson(Map<String, dynamic> json) => SearchQuery(
-      search: json['search'] as String?,
+      search: json['search_term'] as String?,
     );
 
 Map<String, dynamic> _$SearchQueryToJson(SearchQuery instance) =>
     <String, dynamic>{
-      'search': instance.search,
+      'search_term': instance.search,
     };

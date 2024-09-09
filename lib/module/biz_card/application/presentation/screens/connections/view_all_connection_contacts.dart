@@ -239,8 +239,10 @@ class _MyConnectionsViewAllContactsState
             shape: const CircleBorder(),
             // label: Text('Add Connection',style: textStyle1),
             // icon: const Icon(Icons.add),
-            onPressed: () => Navigator.push(
-                context, cardFadePageRoute(const ScreenCardAddConnections())),
+            onPressed: () {
+              Navigator.push(
+                  context, cardFadePageRoute(const ScreenCardAddConnections()));
+            },
             child: const Icon(Icons.add)),
       ),
     );

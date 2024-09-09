@@ -33,8 +33,8 @@ import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart
 import 'package:bizkit/module/task/domain/model/task/task_model/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/tasks_count_model/tasks_count_model.dart';
-import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
-import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
+import 'package:bizkit/core/model/userSearch/user_search_model/user_search_model.dart';
+import 'package:bizkit/core/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';

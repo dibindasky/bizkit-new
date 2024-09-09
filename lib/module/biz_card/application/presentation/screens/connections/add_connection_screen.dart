@@ -1,9 +1,16 @@
 import 'dart:convert';
 
+import 'package:bizkit/core/model/search_query/search_query.dart';
+import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/result.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ScreenCardAddConnections extends StatefulWidget {
   const ScreenCardAddConnections({super.key});
@@ -30,8 +37,13 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
     return true;
   }
 
+  final TextEditingController searchBizkitUsersController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final connectionController = Get.find<ConnectionsController>();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // context.read<ConnectionRequestBloc>().connectionController.text = '';
       _focusNode.requestFocus();
@@ -54,14 +66,14 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                 size: 18,
               ),
               onPressed: () {
-                Navigator.of(context).pop();
+                GoRouter.of(context).pop(); // Navigator.of(context).pop();
               },
               color: kwhite,
             ),
             backgroundColor: knill,
             title: Text(
               'New Connection',
-              style: textHeadStyle1,
+              style: textStyle1.copyWith(fontWeight: FontWeight.w700),
             ),
             actions: [
               IconButton(
@@ -80,6 +92,7 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
               children: [
                 CustomTextFormField(
                   focusNode: _focusNode,
+                  controller: searchBizkitUsersController,
                   // controller: context
                   //     .read<ConnectionRequestBloc>()
                   //     .connectionController,
@@ -89,6 +102,8 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                     } else {
                       show = true;
                     }
+                    connectionController.searchBizkitUsers(
+                        searchQuery: SearchQuery(search: value));
                     // context.read<ConnectionRequestBloc>().add(
                     //     ConnectionRequestEvent.searchBizkitUsers(
                     //         searchQuery: SearchQuery(search: value)));
@@ -100,30 +115,45 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () async {
-                      // context.read<ConnectionRequestBloc>().add(
-                      //     ConnectionRequestEvent.searchBizkitUsers(
-                      //         searchQuery: SearchQuery(
-                      //             search: context
-                      //                 .read<ConnectionRequestBloc>()
-                      //                 .connectionController
-                      //                 .text)));
+                      connectionController.searchBizkitUsers(
+                          searchQuery: SearchQuery(search: ''));
                       await Future.delayed(const Duration(milliseconds: 1500));
                     },
-                    child: GridView.builder(
-                      itemCount: 3,
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 1 / 1.15,
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 20,
-                      ),
-                      itemBuilder: (context, index) {
-                        return GridTileAddRequestConnection(
-                          // data: state.bizkitUsers![index],
-                          index: index,
-                        );
+                    child: Obx(
+                      () {
+                        if (connectionController
+                            .searchBizkitUsersLoading.value) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (connectionController.bizkitUsers.isEmpty) {
+                          return ErrorRefreshIndicator(
+                            onRefresh: () {
+                              connectionController
+                                  .fetchRecievedConnectionRequests();
+                            },
+                            errorMessage: 'No bizcard users',
+                            image: emptyNodata2,
+                          );
+                        } else {
+                          return GridView.builder(
+                            itemCount: connectionController.bizkitUsers.length,
+                            shrinkWrap: true,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: 1 / 1.15,
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 20,
+                              mainAxisSpacing: 20,
+                            ),
+                            itemBuilder: (context, index) {
+                              return GridTileAddRequestConnection(
+                                data: connectionController.bizkitUsers[index],
+                                index: index,
+                              );
+                            },
+                          );
+                        }
                       },
                     ),
                   ),
@@ -140,12 +170,12 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
 class GridTileAddRequestConnection extends StatefulWidget {
   const GridTileAddRequestConnection({
     super.key,
-    //required this.data,
+    required this.data,
     required this.index,
     this.fromPendingRequests = false,
   });
 
-  //final BizkitUser data;
+  final BizCardUsers data;
   final int index;
   final bool fromPendingRequests;
 
@@ -168,6 +198,7 @@ class _GridTileAddRequestConnectionState
 
   @override
   Widget build(BuildContext context) {
+    final connectionController = Get.find<ConnectionsController>();
     // final name = widget.data.name ?? '';
     // final company = widget.data.company ?? '';
     // final designation = widget.data.designation ?? '';
@@ -196,14 +227,14 @@ class _GridTileAddRequestConnectionState
             ),
         adjustHieght(10),
         Text(
-          'Name',
+          widget.data.username ?? 'Name',
           overflow: TextOverflow.ellipsis,
-          style: textStyle1.copyWith(fontSize: kwidth * 0.045),
+          style: textThinStyle1.copyWith(fontWeight: FontWeight.w600),
         ),
         Text(
-          'Designation',
+          widget.data.designation ?? 'Designation',
           overflow: TextOverflow.ellipsis,
-          style: textStyle1,
+          style: textThinStyle1,
         ),
         adjustHieght(7),
         GestureDetector(
@@ -231,6 +262,13 @@ class _GridTileAddRequestConnectionState
               //               connectionRequestId: widget.data.connectionId),
               //           id: widget.data.id!));
               // }
+
+              if (widget.data.connectionExist == false) {
+                connectionController.sendConnectionRequest(
+                    connectionRequest:
+                        SendConnectionRequest(toUser: widget.data.userId ?? ''),
+                    context: context);
+              }
             }
           },
           child: Container(
@@ -238,12 +276,14 @@ class _GridTileAddRequestConnectionState
             decoration: BoxDecoration(
                 gradient: neonShadeGradient,
                 borderRadius: const BorderRadius.all(Radius.circular(10))),
-            child: const FittedBox(
-              child: Text('Remove Request',
-                  // : widget.data.connectionId != null
-                  //     ? 'Remove Request'
-                  //     : 'Add Connection',
-                  style: TextStyle(color: kwhite)),
+            child: FittedBox(
+              child: Text(
+                widget.data.connectionExist == true ||
+                        widget.data.connectionRequestId != null
+                    ? 'Remove Request'
+                    : 'Add Connection',
+                style: textThinStyle1,
+              ),
             ),
           ),
         ),
@@ -257,6 +297,7 @@ class ConnectionPendingRequests extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final connectionController = Get.find<ConnectionsController>();
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         // context
@@ -302,7 +343,7 @@ class ConnectionPendingRequests extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GridTileAddRequestConnection(
                   fromPendingRequests: true,
-                  // data: state.connectionRequestedList![index],
+                  data: connectionController.bizkitUsers[index],
                   index: index,
                 );
               },

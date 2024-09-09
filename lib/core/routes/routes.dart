@@ -33,6 +33,9 @@ class Routes {
   static const String individualLevelSharing =
       '/bizcard_individual_level_sharing';
   static const String cardQrCode = '/bizcard_qr_code';
+  static const String addConnection = '/add_new_connection';
+  static const String recievedConnectionRequests =
+      '/recieved_connection_requests';
 
   static const String cardPickedScanningCards = '/picked_scanning_cards';
 

@@ -12,7 +12,7 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/task_type_radio_button.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
-import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
+import 'package:bizkit/core/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/event_button.dart';

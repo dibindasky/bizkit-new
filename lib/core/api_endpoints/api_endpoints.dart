@@ -24,6 +24,8 @@ class ApiEndPoints {
 
   // [ Bizcard Module  ]
 
+  static String searchCardUsers = '/search-card-users/';
+
   // [ Card Creation ]
   static String card = '/get-bizcards/';
   static String cardCreationInital = '/initial-details/';

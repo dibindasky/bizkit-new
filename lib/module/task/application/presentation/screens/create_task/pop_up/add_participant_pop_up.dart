@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
-import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
-import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
+import 'package:bizkit/core/model/userSearch/user_search_model/user_search_model.dart';
+import 'package:bizkit/core/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';

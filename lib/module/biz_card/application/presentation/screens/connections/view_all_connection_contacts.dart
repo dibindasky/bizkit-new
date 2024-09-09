@@ -1,5 +1,8 @@
+import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
+import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+// import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/bizkit_connection_tab.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/contacts_connection_tab.dart';
@@ -8,9 +11,11 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:showcaseview/showcaseview.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:showcaseview/showcaseview.dart';
 
 final GlobalKey globalSearchConnection = GlobalKey();
 final GlobalKey globalKeycontactList = GlobalKey();
@@ -35,28 +40,29 @@ class _MyConnectionsViewAllContactsState
 
   @override
   void initState() {
-    SharedPreferences.getInstance().then((prefs) async {
-      const showCase = false;
-      setState(() {
-        isShowcaseSeen = showCase;
-      });
-      if (!isShowcaseSeen) {
-        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-          ShowCaseWidget.of(context).startShowCase([
-            globalSearchConnection,
-            globalKeycontactList,
-            globalKeyBizkitConnections,
-            globalKeyConnectionRequest,
-            globalKeyVisitingCard,
-          ]);
-        });
-      }
-    });
+    // SharedPreferences.getInstance().then((prefs) async {
+    //   const showCase = false;
+    //   setState(() {
+    //     isShowcaseSeen = showCase;
+    //   });
+    //   if (!isShowcaseSeen) {
+    //     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //       ShowCaseWidget.of(context).startShowCase([
+    //         globalSearchConnection,
+    //         globalKeycontactList,
+    //         globalKeyBizkitConnections,
+    //         globalKeyConnectionRequest,
+    //         globalKeyVisitingCard,
+    //       ]);
+    //     });
+    //   }
+    // });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final connectionsController = Get.find<ConnectionsController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // context
       //     .read<ConnectionRequestBloc>()
@@ -85,8 +91,13 @@ class _MyConnectionsViewAllContactsState
           ),
           actions: [
             InkWell(
-              onTap: () => Navigator.push(
-                  context, cardFadePageRoute(const ScreenConnectionRequests())),
+              onTap: () {
+                connectionsController.fetchRecievedConnectionRequests();
+                GoRouter.of(context)
+                    .pushNamed(Routes.recievedConnectionRequests);
+                // Navigator.push(context,
+                //     cardFadePageRoute(const ScreenConnectionRequests()));
+              },
               child: SizedBox(
                 height: 20,
                 width: 26,
@@ -120,17 +131,19 @@ class _MyConnectionsViewAllContactsState
               CupertinoTextField(
                 controller: searchController,
                 onChanged: (value) {
-                  print('search bar =====================');
-                  if (tabNotifier.value == 1) {
-                    // context
-                    //     .read<ContactsBloc>()
-                    //     .add(ContactsEvent.searchContact(query: value));
-                  } else {
-                    // search for bizkit connection
-                    // context.read<ConnectionRequestBloc>().add(
-                    //     ConnectionRequestEvent.getBizkitConnections(
-                    //         query: value));
-                  }
+                  connectionsController.searchConnections(
+                      searchQuery: SearchQuery(search: value));
+                  // if (tabNotifier.value == 1) {
+                  //   // print('search bar =====================');
+                  //   // context
+                  //   //     .read<ContactsBloc>()
+                  //   //     .add(ContactsEvent.searchContact(query: value));
+                  // } else {
+                  //   // search for bizkit connection
+                  //   // context.read<ConnectionRequestBloc>().add(
+                  //   //     ConnectionRequestEvent.getBizkitConnections(
+                  //   //         query: value));
+                  // }
                 },
                 prefix: const Icon(
                   Icons.search,
@@ -156,15 +169,15 @@ class _MyConnectionsViewAllContactsState
                         builder: (context, value, _) {
                           return InkWell(
                               onTap: () {
-                                if (tabNotifier.value == 0) {
-                                  tabNotifier.value = 1;
-                                  searchController.clear();
-                                  tabNotifier.notifyListeners();
-                                } else {
-                                  tabNotifier.value = 0;
-                                  searchController.clear();
-                                  tabNotifier.notifyListeners();
-                                }
+                                // if (tabNotifier.value == 0) {
+                                //   tabNotifier.value = 1;
+                                //   searchController.clear();
+                                //   // tabNotifier.notifyListeners();
+                                // } else {
+                                //   tabNotifier.value = 0;
+                                //   searchController.clear();
+                                //   // tabNotifier.notifyListeners();
+                                // }
                                 // FocusScope.of(context).unfocus();
                               },
                               child: Icon(value == 0
@@ -186,8 +199,8 @@ class _MyConnectionsViewAllContactsState
                                 BorderRadius.all(Radius.circular(10))),
                         onPressed: () {
                           tabNotifier.value = 0;
-                          searchController.clear();
-                          tabNotifier.notifyListeners();
+                          // searchController.clear();
+                          // tabNotifier.notifyListeners();
                           // context.read<ConnectionRequestBloc>().add(
                           //     const ConnectionRequestEvent.getBizkitConnections(
                           //         query: ''));
@@ -208,8 +221,8 @@ class _MyConnectionsViewAllContactsState
                                 BorderRadius.all(Radius.circular(10))),
                         onPressed: () {
                           tabNotifier.value = 1;
-                          searchController.clear();
-                          tabNotifier.notifyListeners();
+                          // searchController.clear();
+                          // tabNotifier.notifyListeners();
                           // context.read<ConnectionRequestBloc>().add(
                           //     const ConnectionRequestEvent.getBizkitConnections(
                           //         query: ''));
@@ -239,8 +252,13 @@ class _MyConnectionsViewAllContactsState
             shape: const CircleBorder(),
             // label: Text('Add Connection',style: textStyle1),
             // icon: const Icon(Icons.add),
-            onPressed: () => Navigator.push(
-                context, cardFadePageRoute(const ScreenCardAddConnections())),
+            onPressed: () {
+              connectionsController.searchBizkitUsers(
+                  searchQuery: SearchQuery(search: ''));
+              GoRouter.of(context).pushNamed(Routes.addConnection);
+              // Navigator.push(
+              //     context, cardFadePageRoute(const ScreenCardAddConnections()));
+            },
             child: const Icon(Icons.add)),
       ),
     );

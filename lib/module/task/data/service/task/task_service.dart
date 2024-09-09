@@ -36,8 +36,8 @@ import 'package:bizkit/module/task/domain/model/task/task_search_responce/task_s
 import 'package:bizkit/module/task/domain/model/task/task_success_responce/task_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/tasks_count_model/task_counts_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/tasks_count_model/tasks_count_model.dart';
-import 'package:bizkit/module/task/domain/model/userSearch/user_search_model/user_search_model.dart';
-import 'package:bizkit/module/task/domain/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
+import 'package:bizkit/core/model/userSearch/user_search_model/user_search_model.dart';
+import 'package:bizkit/core/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';

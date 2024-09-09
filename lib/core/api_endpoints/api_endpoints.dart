@@ -24,6 +24,8 @@ class ApiEndPoints {
 
   // [ Bizcard Module  ]
 
+  static String searchCardUsers = '/search-card-users/';
+
   // [ Card Creation ]
   static String card = '/get-bizcards/';
   static String cardCreationInital = '/initial-details/';
@@ -72,6 +74,7 @@ class ApiEndPoints {
   static String getAllSendConnectionRequests = '/send-connection-requests/';
   static String followBackRequest = '/follow-back-request/';
   static String cancelConnectionRequest = '/cancel-connection-request/';
+  static String searchConnection = '/search-connection/';
 
   // [ TASK MODULE ]
 

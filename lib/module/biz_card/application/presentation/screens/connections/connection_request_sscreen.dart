@@ -1,14 +1,20 @@
 import 'dart:convert';
 
+import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/dailog.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ScreenConnectionRequests extends StatelessWidget {
   const ScreenConnectionRequests({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final connectionController = Get.find<ConnectionsController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // context
       //     .read<ConnectionRequestBloc>()
@@ -22,7 +28,7 @@ class ScreenConnectionRequests extends StatelessWidget {
             size: 18,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            GoRouter.of(context).pop();
           },
           color: kwhite,
         ),
@@ -36,146 +42,186 @@ class ScreenConnectionRequests extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: RefreshIndicator(
           onRefresh: () async {
-            // context
-            //     .read<ConnectionRequestBloc>()
-            //     .add(const ConnectionRequestEvent.getRequestLists());
+            connectionController.fetchRecievedConnectionRequests();
             await Future.delayed(const Duration(seconds: 2));
           },
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 1 / 1.2,
-                crossAxisCount: 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20),
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              // final data = state.requestList![index];
-              return Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: kneonShade),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                child: Column(children: [
-                  // image profile
-                  CircleAvatar(
-                    radius: kwidth * 0.08,
-                    backgroundImage: MemoryImage(base64.decode(
-                        imageTestingBase64.startsWith('data')
-                            ? imageTestingBase64.substring(22)
-                            : imageTestingBase64)),
-                    backgroundColor: smallBigGrey,
-                  ),
-                  adjustHieght(10),
-                  Text(
-                    'Name',
-                    overflow: TextOverflow.ellipsis,
-                    style: textStyle1.copyWith(fontSize: kwidth * 0.045),
-                  ),
-                  Text(
-                    'Designation',
-                    overflow: TextOverflow.ellipsis,
-                    style: textStyle1.copyWith(fontSize: kwidth * 0.045),
-                  ),
-                  adjustHieght(10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      // cancel request
-                      InkWell(
-                        onTap: () {
-                          // context.read<ConnectionRequestBloc>().add(
-                          //     ConnectionRequestEvent.deleteRequest(
-                          //         id: data.id!));
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                title: const Text('Reject  Connection'),
-                                actions: [
-                                  OutlinedButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('Cancel')),
-                                  OutlinedButton(
-                                      onPressed: () {
-                                        //context
-                                        // .read<
-                                        //     ConnectionRequestBloc>()
-                                        // .add(ConnectionRequestEvent
-                                        //     .addConnectionRequests(
-                                        //         addConnectionRequestModel:
-                                        //             AddConnectionRequestModel(
-                                        //                 cardUserId:
-                                        //                     data.userId),
-                                        //         index: index));
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('Reject'))
-                                ]),
-                          );
-                        },
-                        child: CircleAvatar(
-                          child: Padding(
-                            padding: const EdgeInsets.all(1),
-                            child: CircleAvatar(
-                                backgroundColor: kDefaultIconDarkColor,
-                                child: const Icon(
-                                  Icons.close,
-                                  color: kwhite,
-                                )),
-                          ),
+          child: Obx(
+            () {
+              if (connectionController.recievedConnectionRequestLoading.value) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (connectionController
+                  .recievedConnectionRequests.isEmpty) {
+                return ErrorRefreshIndicator(
+                  onRefresh: () {
+                    connectionController.fetchRecievedConnectionRequests();
+                  },
+                  errorMessage: 'No recieved connection requests',
+                  image: emptyNodata2,
+                );
+              } else {
+                return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 1 / 1.2,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20),
+                  itemCount:
+                      connectionController.recievedConnectionRequests.length,
+                  itemBuilder: (context, index) {
+                    // final data = state.requestList![index];
+                    return Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: kneonShade),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
                         ),
                       ),
-                      // accept request
-                      InkWell(
-                          onTap: () {
-                            // context.read<ConnectionRequestBloc>().add(
-                            //       ConnectionRequestEvent.addConnection(
-                            //         createConnectionWithCardIdModel:
-                            //             CreateConnectionWithCardIdModel(
-                            //           connectionRequestId: data.id,
-                            //         ),
-                            //       ),
-                            //     );
-                            // if (data.hasConnection == false) {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                  title: const Text(
-                                      'Request back to Add Connection'),
-                                  actions: [
-                                    OutlinedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Cancel')),
-                                    OutlinedButton(
-                                        onPressed: () {
-                                          //context
-                                          // .read<
-                                          //     ConnectionRequestBloc>()
-                                          // .add(ConnectionRequestEvent
-                                          //     .addConnectionRequests(
-                                          //         addConnectionRequestModel:
-                                          //             AddConnectionRequestModel(
-                                          //                 cardUserId:
-                                          //                     data.userId),
-                                          //         index: index));
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('Request'))
-                                  ]),
-                            );
-                          },
-                          child: const CircleAvatar(
-                              child: Icon(Icons.check, color: kwhite))),
-                    ],
-                  )
-                ]),
-              );
+                      child: Column(children: [
+                        // image profile
+                        CircleAvatar(
+                          radius: kwidth * 0.08,
+                          backgroundImage: MemoryImage(base64.decode(
+                              imageTestingBase64.startsWith('data')
+                                  ? imageTestingBase64.substring(22)
+                                  : imageTestingBase64)),
+                          backgroundColor: smallBigGrey,
+                        ),
+                        adjustHieght(10),
+                        Text(
+                          connectionController.recievedConnectionRequests[index]
+                                  .fromUserName ??
+                              'Name',
+                          overflow: TextOverflow.ellipsis,
+                          style: textThinStyle1,
+                        ),
+                        Text(
+                          connectionController.recievedConnectionRequests[index]
+                                  .fromUserDesignation ??
+                              'Designation',
+                          overflow: TextOverflow.ellipsis,
+                          style: textThinStyle1,
+                        ),
+                        adjustHieght(10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            // cancel request
+                            InkWell(
+                              onTap: () {
+                                // context.read<ConnectionRequestBloc>().add(
+                                //     ConnectionRequestEvent.deleteRequest(
+                                //         id: data.id!));
+                                // showDialog(
+                                //   context: context,
+                                //   builder: (context) => AlertDialog(
+                                //       title: const Text('Reject  Connection'),
+                                //       actions: [
+                                //         OutlinedButton(
+                                //             onPressed: () {
+                                //               Navigator.pop(context);
+                                //             },
+                                //             child: const Text('Cancel')),
+                                //         OutlinedButton(
+                                //             onPressed: () {
+                                //               //context
+                                //               // .read<
+                                //               //     ConnectionRequestBloc>()
+                                //               // .add(ConnectionRequestEvent
+                                //               //     .addConnectionRequests(
+                                //               //         addConnectionRequestModel:
+                                //               //             AddConnectionRequestModel(
+                                //               //                 cardUserId:
+                                //               //                     data.userId),
+                                //               //         index: index));
+                                //               Navigator.pop(context);
+                                //             },
+                                //             child: const Text('Reject'))
+                                //       ]),
+                                // );
+
+                                showConfirmationDialog(
+                                  context,
+                                  heading: 'Reject  connection',
+                                  actionButton: 'Reject',
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
+                              },
+                              child: CircleAvatar(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(1),
+                                  child: CircleAvatar(
+                                      backgroundColor: kDefaultIconDarkColor,
+                                      child: const Icon(
+                                        Icons.close,
+                                        color: kwhite,
+                                      )),
+                                ),
+                              ),
+                            ),
+                            // accept request
+                            InkWell(
+                                onTap: () {
+                                  // context.read<ConnectionRequestBloc>().add(
+                                  //       ConnectionRequestEvent.addConnection(
+                                  //         createConnectionWithCardIdModel:
+                                  //             CreateConnectionWithCardIdModel(
+                                  //           connectionRequestId: data.id,
+                                  //         ),
+                                  //       ),
+                                  //     );
+                                  // if (data.hasConnection == false) {
+                                  // showDialog(
+                                  //   context: context,
+                                  //   builder: (context) => AlertDialog(
+                                  //       title: const Text(
+                                  //           'Request back to Add Connection'),
+                                  //       actions: [
+                                  //         OutlinedButton(
+                                  //             onPressed: () {
+                                  //               Navigator.pop(context);
+                                  //             },
+                                  //             child: const Text('Cancel')),
+                                  //         OutlinedButton(
+                                  //             onPressed: () {
+                                  //               //context
+                                  //               // .read<
+                                  //               //     ConnectionRequestBloc>()
+                                  //               // .add(ConnectionRequestEvent
+                                  //               //     .addConnectionRequests(
+                                  //               //         addConnectionRequestModel:
+                                  //               //             AddConnectionRequestModel(
+                                  //               //                 cardUserId:
+                                  //               //                     data.userId),
+                                  //               //         index: index));
+                                  //               Navigator.pop(context);
+                                  //             },
+                                  //             child: const Text('Request'))
+                                  //       ]),
+                                  // );
+
+                                  showConfirmationDialog(
+                                    context,
+                                    heading: 'Request back to add Connection',
+                                    actionButton: 'Request',
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  );
+                                },
+                                child: const CircleAvatar(
+                                    child: Icon(Icons.check, color: kwhite))),
+                          ],
+                        )
+                      ]),
+                    );
+                  },
+                );
+              }
             },
           ),
         ),

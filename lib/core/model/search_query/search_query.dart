@@ -4,6 +4,7 @@ part 'search_query.g.dart';
 
 @JsonSerializable()
 class SearchQuery {
+  @JsonKey(name: 'search_term')
   String? search;
 
   SearchQuery({this.search});

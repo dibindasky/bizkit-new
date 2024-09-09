@@ -12,6 +12,8 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_cre
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/create_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/picked_scanning_cards/picked_scanning_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/progress_indicator_start.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
@@ -284,6 +286,29 @@ class GoRouterConfig {
         return FadeTransitionPage(
           key: state.pageKey,
           child: const ScreenCardSharing(),
+        );
+      },
+    ),
+    // Add  new connection screen
+    GoRoute(
+      name: Routes.addConnection,
+      path: Routes.addConnection,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const ScreenCardAddConnections(),
+        );
+      },
+    ),
+
+    // recieved Connections Requests
+    GoRoute(
+      name: Routes.recievedConnectionRequests,
+      path: Routes.recievedConnectionRequests,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const ScreenConnectionRequests(),
         );
       },
     ),

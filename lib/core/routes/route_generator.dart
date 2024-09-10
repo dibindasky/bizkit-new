@@ -14,6 +14,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_cre
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/connections/view_all_connection_contacts.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
@@ -309,6 +310,18 @@ class GoRouterConfig {
         return FadeTransitionPage(
           key: state.pageKey,
           child: const ScreenConnectionRequests(),
+        );
+      },
+    ),
+
+    // My all connections and contacts screen
+    GoRoute(
+      name: Routes.myAllConnectionsAndContacts,
+      path: Routes.myAllConnectionsAndContacts,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const MyConnectionsViewAllContacts(),
         );
       },
     ),

@@ -76,7 +76,8 @@ class _MyConnectionsViewAllContactsState
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
+              GoRouter.of(context).pop();
             },
             icon: const Icon(
               Icons.arrow_back_ios,
@@ -104,24 +105,24 @@ class _MyConnectionsViewAllContactsState
                 child: Stack(
                   children: [
                     Image.asset(iconConnectionPeople),
-                    const Positioned(
-                        right: 10,
-                        child: Text(
-                          '0',
-                          style: TextStyle(color: kblack),
-                        ))
+                    // const Positioned(
+                    //     right: 10,
+                    //     child: Text(
+                    //       '0',
+                    //       style: TextStyle(color: kblack),
+                    //     ))
                   ],
                 ),
               ),
             ),
             kWidth10,
-            IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      cardFadePageRoute(const CardBlockedConnections()));
-                },
-                icon: const Icon(Icons.block, color: kred)),
-            const SizedBox(width: 3)
+            // IconButton(
+            //     onPressed: () {
+            //       Navigator.push(context,
+            //           cardFadePageRoute(const CardBlockedConnections()));
+            //     },
+            //     icon: const Icon(Icons.block, color: kred)),
+            kWidth10
           ],
         ),
         body: Padding(
@@ -209,7 +210,7 @@ class _MyConnectionsViewAllContactsState
                           //     .add(const ContactsEvent.searchContact(query: ''));
                           FocusScope.of(context).unfocus();
                         },
-                        color: value != 0 ? kgrey : neonShade,
+                        color: value != 0 ? klightDarkGrey : neonShade,
                         child: const Text('Bizkit Connections'),
                       ),
                     ),
@@ -231,7 +232,7 @@ class _MyConnectionsViewAllContactsState
                           //     .add(const ContactsEvent.searchContact(query: ''));
                           FocusScope.of(context).unfocus();
                         },
-                        color: value != 1 ? kgrey : neonShade,
+                        color: value != 1 ? klightDarkGrey : neonShade,
                         child: const Text('All Contacts'),
                       ),
                     ),

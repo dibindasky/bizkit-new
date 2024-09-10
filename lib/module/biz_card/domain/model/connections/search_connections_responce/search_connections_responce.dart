@@ -1,3 +1,4 @@
+import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'result.dart';
@@ -6,7 +7,7 @@ part 'search_connections_responce.g.dart';
 
 @JsonSerializable()
 class SearchConnectionsResponce {
-  List<ConnectionsList>? results;
+  List<MyConnection>? results;
 
   SearchConnectionsResponce({this.results});
 

@@ -1,11 +1,15 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/result.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/request.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +70,8 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                 size: 18,
               ),
               onPressed: () {
-                GoRouter.of(context).pop(); // Navigator.of(context).pop();
+                GoRouter.of(context).pop();
+                // Navigator.of(context).pop();
               },
               color: kwhite,
             ),
@@ -78,6 +83,7 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
             actions: [
               IconButton(
                 onPressed: () {
+                  connectionController.fetchAllSendConnectionRequests();
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const ConnectionPendingRequests()));
                 },
@@ -93,9 +99,6 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                 CustomTextFormField(
                   focusNode: _focusNode,
                   controller: searchBizkitUsersController,
-                  // controller: context
-                  //     .read<ConnectionRequestBloc>()
-                  //     .connectionController,
                   onChanaged: (value) {
                     if (value.length < 3) {
                       show = false;
@@ -104,9 +107,6 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                     }
                     connectionController.searchBizkitUsers(
                         searchQuery: SearchQuery(search: value));
-                    // context.read<ConnectionRequestBloc>().add(
-                    //     ConnectionRequestEvent.searchBizkitUsers(
-                    //         searchQuery: SearchQuery(search: value)));
                   },
                   labelText: 'Search',
                   prefixIcon: const Icon(Icons.search),
@@ -129,8 +129,8 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                         } else if (connectionController.bizkitUsers.isEmpty) {
                           return ErrorRefreshIndicator(
                             onRefresh: () {
-                              connectionController
-                                  .fetchRecievedConnectionRequests();
+                              connectionController.searchBizkitUsers(
+                                  searchQuery: SearchQuery(search: ''));
                             },
                             errorMessage: 'No bizcard users',
                             image: emptyNodata2,
@@ -150,6 +150,7 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                               return GridTileAddRequestConnection(
                                 data: connectionController.bizkitUsers[index],
                                 index: index,
+                                fromPendingRequests: false,
                               );
                             },
                           );
@@ -170,12 +171,14 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
 class GridTileAddRequestConnection extends StatefulWidget {
   const GridTileAddRequestConnection({
     super.key,
-    required this.data,
+    this.data,
     required this.index,
+    this.allSendRequests,
     this.fromPendingRequests = false,
   });
 
-  final BizCardUsers data;
+  final BizCardUsers? data;
+  final SendConnectionRequet? allSendRequests;
   final int index;
   final bool fromPendingRequests;
 
@@ -227,12 +230,16 @@ class _GridTileAddRequestConnectionState
             ),
         adjustHieght(10),
         Text(
-          widget.data.username ?? 'Name',
+          widget.fromPendingRequests
+              ? widget.allSendRequests?.toUserName ?? 'name'
+              : widget.data?.username ?? 'name',
           overflow: TextOverflow.ellipsis,
           style: textThinStyle1.copyWith(fontWeight: FontWeight.w600),
         ),
         Text(
-          widget.data.designation ?? 'Designation',
+          widget.fromPendingRequests
+              ? widget.allSendRequests?.toUserDesignation ?? 'designation'
+              : widget.data?.designation ?? 'designation',
           overflow: TextOverflow.ellipsis,
           style: textThinStyle1,
         ),
@@ -240,52 +247,59 @@ class _GridTileAddRequestConnectionState
         GestureDetector(
           onTap: () {
             if (widget.fromPendingRequests) {
-              // context.read<ConnectionRequestBloc>().add(
-              //     ConnectionRequestEvent
-              //         .removeConnectionRequestFromPendingScreen(
-              //             connectionRequestIdModel:
-              //                 ConnectionRequestIdModel(
-              //                     connectionRequestId: widget.data.id!),
-              //             id: widget.data.id!));
+              connectionController.cancelConnectionRequest(
+                  fromSendrequests: true,
+                  cancelConnectionRequest: CancelConnectionRequestModel(
+                      connectionId: widget.allSendRequests?.requestId ?? ''));
             } else {
-              // if (widget.data.connectionId == null) {
-              //   context.read<ConnectionRequestBloc>().add(
-              //       ConnectionRequestEvent.addConnectionRequests(
-              //           addConnectionRequestModel:
-              //               AddConnectionRequestModel(
-              //                   cardUserId: widget.data.id),
-              //           index: widget.data.id!));
-              // } else {
-              //   context.read<ConnectionRequestBloc>().add(
-              //       ConnectionRequestEvent.removeConnectionRequest(
-              //           connectionRequestIdModel: ConnectionRequestIdModel(
-              //               connectionRequestId: widget.data.connectionId),
-              //           id: widget.data.id!));
-              // }
-
-              if (widget.data.connectionExist == false) {
+              if (widget.data?.connectionExist == false) {
                 connectionController.sendConnectionRequest(
-                    connectionRequest:
-                        SendConnectionRequest(toUser: widget.data.userId ?? ''),
+                    connectionRequest: SendConnectionRequest(
+                        toUser: widget.data?.userId ?? ''),
                     context: context);
+              } else {
+                connectionController.cancelConnectionRequest(
+                    fromSendrequests: false,
+                    cancelConnectionRequest: CancelConnectionRequestModel(
+                        connectionId: widget.data?.connectionRequestId));
               }
             }
           },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            decoration: BoxDecoration(
-                gradient: neonShadeGradient,
-                borderRadius: const BorderRadius.all(Radius.circular(10))),
-            child: FittedBox(
-              child: Text(
-                widget.data.connectionExist == true ||
-                        widget.data.connectionRequestId != null
-                    ? 'Remove Request'
-                    : 'Add Connection',
-                style: textThinStyle1,
-              ),
-            ),
-          ),
+          child: widget.fromPendingRequests &&
+                  widget.allSendRequests?.requestId != null
+              ? Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  decoration: BoxDecoration(
+                      gradient: neonShadeGradient,
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10))),
+                  child: FittedBox(
+                    child: Text(
+                      'Remove Connection',
+                      style: textThinStyle1,
+                    ),
+                  ),
+                )
+              : connectionController.sendConnectionRequestLoading.value
+                  ? const LoadingAnimation()
+                  : Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 8),
+                      decoration: BoxDecoration(
+                          gradient: neonShadeGradient,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10))),
+                      child: FittedBox(
+                        child: Text(
+                          widget.data?.connectionExist == true ||
+                                  widget.data?.connectionRequestId != null
+                              ? 'Remove Connection'
+                              : 'Add Connection',
+                          style: textThinStyle1,
+                        ),
+                      ),
+                    ),
         ),
       ]),
     );
@@ -327,25 +341,46 @@ class ConnectionPendingRequests extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: RefreshIndicator(
             onRefresh: () async {
-              // context.read<ConnectionRequestBloc>().add(
-              //     const ConnectionRequestEvent
-              //         .getConnectionRequestedList());
+              connectionController.fetchAllSendConnectionRequests();
               await Future.delayed(const Duration(milliseconds: 1500));
             },
-            child: GridView.builder(
-              itemCount: 3,
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 1 / 1.15,
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20),
-              itemBuilder: (context, index) {
-                return GridTileAddRequestConnection(
-                  fromPendingRequests: true,
-                  data: connectionController.bizkitUsers[index],
-                  index: index,
-                );
+            child: Obx(
+              () {
+                if (connectionController
+                    .allSendConnectionRequestsLoading.value) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (connectionController
+                    .allSendConnectionRequests.isEmpty) {
+                  return ErrorRefreshIndicator(
+                    onRefresh: () {
+                      connectionController.fetchAllSendConnectionRequests();
+                    },
+                    errorMessage: 'No send connection requests',
+                    image: emptyNodata2,
+                  );
+                } else {
+                  return GridView.builder(
+                    itemCount:
+                        connectionController.allSendConnectionRequests.length,
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 1 / 1.15,
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20),
+                    itemBuilder: (context, index) {
+                      return GridTileAddRequestConnection(
+                        fromPendingRequests: true,
+                        index: index,
+                        allSendRequests: connectionController
+                            .allSendConnectionRequests[index],
+                      );
+                    },
+                  );
+                }
               },
             ),
           )),

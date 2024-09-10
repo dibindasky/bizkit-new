@@ -36,6 +36,8 @@ class Routes {
   static const String addConnection = '/add_new_connection';
   static const String recievedConnectionRequests =
       '/recieved_connection_requests';
+  static const String myAllConnectionsAndContacts =
+      '/my_all_connections_and_contacts';
 
   static const String cardPickedScanningCards = '/picked_scanning_cards';
 

@@ -16,6 +16,8 @@ class SendConnectionRequet {
   String? fromUserId;
   @JsonKey(name: 'from_card_id')
   String? fromCardId;
+  @JsonKey(name: 'to_user_designation')
+  String? toUserDesignation;
 
   SendConnectionRequet({
     this.requestId,
@@ -23,6 +25,7 @@ class SendConnectionRequet {
     this.toUserName,
     this.toUserProfilePicture,
     this.fromUserId,
+    this.toUserDesignation,
     this.fromCardId,
   });
 

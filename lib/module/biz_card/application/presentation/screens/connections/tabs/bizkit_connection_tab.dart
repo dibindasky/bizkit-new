@@ -4,6 +4,7 @@ import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,6 +32,12 @@ class BizkitConnectionsTab extends StatelessWidget {
               return const Center(
                 child: CircularProgressIndicator(),
               );
+            } else if (connectionsController.connectionsSearchList.isEmpty) {
+              return ErrorRefreshIndicator(
+                onRefresh: () {},
+                errorMessage: 'No bizcard connections',
+                image: emptyNodata2,
+              );
             } else {
               return ListView.separated(
                 separatorBuilder: (context, index) => const SizedBox(
@@ -41,7 +48,9 @@ class BizkitConnectionsTab extends StatelessWidget {
                 itemCount: connectionsController.connectionsSearchList.length,
                 itemBuilder: (context, index) {
                   //final data = state.bizkitConnections![index];
-                  return ListTile(
+                  return Card(
+                    color: lightColr,
+                    child: ListTile(
                       onTap: () {
                         //print(data.toJson());
                         // Navigator.push(
@@ -60,25 +69,29 @@ class BizkitConnectionsTab extends StatelessWidget {
                       ),
                       subtitle: Text(
                         connectionsController.connectionsSearchList[index]
-                                .businessDesignation ??
+                                .cards?[index].businessDesignation ??
                             'Designation',
                         overflow: TextOverflow.ellipsis,
                       ),
-                      trailing: PopupMenuButton(itemBuilder: (context) {
-                        return [
-                          PopupMenuItem(
-                              onTap: () {
-                                // context.read<ConnectionRequestBloc>().add(
-                                //     ConnectionRequestEvent
-                                //         .blockBizkitConnections(
-                                //             blockBizkitConnection:
-                                //                 BlockBizkitConnection(
-                                //                     isBlock: true),
-                                //             connectionId: data.id!));
-                              },
-                              child: const Text('Block'))
-                        ];
-                      }));
+                      // trailing: PopupMenuButton(
+                      //   itemBuilder: (context) {
+                      //     return [
+                      //       PopupMenuItem(
+                      //           onTap: () {
+                      //             // context.read<ConnectionRequestBloc>().add(
+                      //             //     ConnectionRequestEvent
+                      //             //         .blockBizkitConnections(
+                      //             //             blockBizkitConnection:
+                      //             //                 BlockBizkitConnection(
+                      //             //                     isBlock: true),
+                      //             //             connectionId: data.id!));
+                      //           },
+                      //           child: const Text('Block'))
+                      //     ];
+                      //   },
+                      // ),
+                    ),
+                  );
                 },
               );
             }

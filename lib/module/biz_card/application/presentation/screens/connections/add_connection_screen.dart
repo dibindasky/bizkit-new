@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/result.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/request.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -68,7 +70,8 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                 size: 18,
               ),
               onPressed: () {
-                GoRouter.of(context).pop(); // Navigator.of(context).pop();
+                GoRouter.of(context).pop();
+                // Navigator.of(context).pop();
               },
               color: kwhite,
             ),
@@ -244,13 +247,20 @@ class _GridTileAddRequestConnectionState
         GestureDetector(
           onTap: () {
             if (widget.fromPendingRequests) {
+              connectionController.cancelConnectionRequest(
+                  cancelConnectionRequest: CancelConnectionRequestModel(
+                      connectionId: widget.allSendRequests?.requestId ?? ''));
             } else {
               if (widget.data?.connectionExist == false) {
                 connectionController.sendConnectionRequest(
                     connectionRequest: SendConnectionRequest(
                         toUser: widget.data?.userId ?? ''),
                     context: context);
-              } else {}
+              } else {
+                connectionController.cancelConnectionRequest(
+                    cancelConnectionRequest: CancelConnectionRequestModel(
+                        connectionId: widget.data?.connectionRequestId));
+              }
             }
           },
           child: widget.fromPendingRequests &&
@@ -264,7 +274,7 @@ class _GridTileAddRequestConnectionState
                           const BorderRadius.all(Radius.circular(10))),
                   child: FittedBox(
                     child: Text(
-                      'Remove Request',
+                      'Remove Connection',
                       style: textThinStyle1,
                     ),
                   ),
@@ -282,7 +292,7 @@ class _GridTileAddRequestConnectionState
                         child: Text(
                           widget.data?.connectionExist == true ||
                                   widget.data?.connectionRequestId != null
-                              ? 'Remove Request'
+                              ? 'Remove Connection'
                               : 'Add Connection',
                           style: textThinStyle1,
                         ),

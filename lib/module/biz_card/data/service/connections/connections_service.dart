@@ -141,8 +141,10 @@ class ConnectionsService implements ConnectionsRepo {
   Future<Either<Failure, SuccessResponseModel>> cancelConnectionRequest(
       {required CancelConnectionRequestModel cancelConnectionRequest}) async {
     try {
+      log('cancelConnectionRequest == > ${cancelConnectionRequest.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.cancelConnectionRequest,
+        data: cancelConnectionRequest.toJson(),
       );
       log('cancelConnectionRequest ==> success ');
 
@@ -160,9 +162,8 @@ class ConnectionsService implements ConnectionsRepo {
   Future<Either<Failure, SuccessResponseModel>> folowbackRequest(
       {required FollowBackRequestModel folowbackRequest}) async {
     try {
-      final responce = await apiService.post(
-        ApiEndPoints.followbackRequest,
-      );
+      final responce = await apiService.post(ApiEndPoints.followbackRequest,
+          data: folowbackRequest.toJson());
       log('folowbackRequest ==> success ');
 
       return Right(SuccessResponseModel.fromJson(responce.data));

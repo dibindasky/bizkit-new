@@ -67,8 +67,9 @@ class ConnectionsController extends GetxController {
         );
 
         if (index != -1) {
-          bizkitUsers[index] = bizkitUsers[index]
-              .copyWith(connectionRequestId: success.connectionRequestId);
+          bizkitUsers[index] = bizkitUsers[index].copyWith(
+              connectionRequestId: success.connectionRequestId,
+              connectionExist: true);
         }
       },
     );
@@ -157,8 +158,9 @@ class ConnectionsController extends GetxController {
   }
 
   // Cancel connection request
-  void cancelConnectionRequest(
-      {required CancelConnectionRequestModel cancelConnectionRequest}) async {
+  void cancelConnectionRequest({
+    required CancelConnectionRequestModel cancelConnectionRequest,
+  }) async {
     cancelConnectionRequestLoading.value = true;
     final result = await connectionService.cancelConnectionRequest(
         cancelConnectionRequest: cancelConnectionRequest);

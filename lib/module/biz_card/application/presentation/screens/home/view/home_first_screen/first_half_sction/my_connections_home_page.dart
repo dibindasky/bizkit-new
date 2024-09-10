@@ -23,7 +23,7 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final connectionsController = Get.find<ConnectionsController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      connectionsController.fetchMyConnections();
+      // connectionsController.fetchMyConnections();
     });
     return Column(
       children: [
@@ -86,14 +86,57 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
             () {
               if (connectionsController.myConnectionsLoading.value) {
                 return ShimmerLoader(
-                    seprator: kWidth10,
+                    seprator: adjustWidth(kwidth * .02),
                     scrollDirection: Axis.horizontal,
                     itemCount: 8,
-                    height: 30.h,
-                    width: 60.w);
+                    height: 20.h,
+                    width: 75.w);
               } else if (connectionsController.myConnections.isEmpty) {
-                return const Center(
-                  child: Text('No connections'),
+                return Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: GestureDetector(
+                          onTap: () {
+                            connectionsController.searchBizkitUsers(
+                                searchQuery: SearchQuery(search: ''));
+                            GoRouter.of(context)
+                                .pushNamed(Routes.addConnection);
+                          },
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: ColoredBox(
+                                  color: textFieldFillColr,
+                                  child: SizedBox(
+                                    height: 47.h,
+                                    width: 50.w,
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.add,
+                                        size: 18.h,
+                                        color: kwhite,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Text(
+                                'Add',
+                                style: textThinStyle1,
+                              )),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Text('No connections'),
+                      kWidth20
+                    ],
+                  ),
                 );
               } else {
                 return ListView.separated(
@@ -166,7 +209,8 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const Expanded(child: Text('Add')),
+                              Expanded(
+                                  child: Text('Add', style: textThinStyle1)),
                             ],
                           ),
                         ),

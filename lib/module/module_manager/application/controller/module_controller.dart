@@ -8,6 +8,7 @@ import 'package:bizkit/module/biz_card/application/controller/connections/connec
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/prompt/prompt_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
@@ -56,6 +57,7 @@ class ModuleController extends GetxController {
     Get.lazyPut(() => ReceivedCardController());
     Get.lazyPut(() => LevelSharingController());
     Get.lazyPut(() => ConnectionsController());
+    Get.lazyPut(() => ReminderController());
   }
 
   /// initilize all controllers in TASK module [Module.task]

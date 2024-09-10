@@ -48,7 +48,9 @@ class BizkitConnectionsTab extends StatelessWidget {
                 itemCount: connectionsController.connectionsSearchList.length,
                 itemBuilder: (context, index) {
                   //final data = state.bizkitConnections![index];
-                  return ListTile(
+                  return Card(
+                    color: lightColr,
+                    child: ListTile(
                       onTap: () {
                         //print(data.toJson());
                         // Navigator.push(
@@ -71,21 +73,25 @@ class BizkitConnectionsTab extends StatelessWidget {
                             'Designation',
                         overflow: TextOverflow.ellipsis,
                       ),
-                      trailing: PopupMenuButton(itemBuilder: (context) {
-                        return [
-                          PopupMenuItem(
-                              onTap: () {
-                                // context.read<ConnectionRequestBloc>().add(
-                                //     ConnectionRequestEvent
-                                //         .blockBizkitConnections(
-                                //             blockBizkitConnection:
-                                //                 BlockBizkitConnection(
-                                //                     isBlock: true),
-                                //             connectionId: data.id!));
-                              },
-                              child: const Text('Block'))
-                        ];
-                      }));
+                      // trailing: PopupMenuButton(
+                      //   itemBuilder: (context) {
+                      //     return [
+                      //       PopupMenuItem(
+                      //           onTap: () {
+                      //             // context.read<ConnectionRequestBloc>().add(
+                      //             //     ConnectionRequestEvent
+                      //             //         .blockBizkitConnections(
+                      //             //             blockBizkitConnection:
+                      //             //                 BlockBizkitConnection(
+                      //             //                     isBlock: true),
+                      //             //             connectionId: data.id!));
+                      //           },
+                      //           child: const Text('Block'))
+                      //     ];
+                      //   },
+                      // ),
+                    ),
+                  );
                 },
               );
             }

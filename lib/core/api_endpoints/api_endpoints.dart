@@ -76,6 +76,9 @@ class ApiEndPoints {
   static String cancelConnectionRequest = '/cancel-connection-request/';
   static String searchConnection = '/search-connection/';
 
+  // [ Reminder ]
+  static String reminder = '/reminder/';
+
   // [ TASK MODULE ]
 
   static const taskTestgetAllTasks = '/user-tasks/';

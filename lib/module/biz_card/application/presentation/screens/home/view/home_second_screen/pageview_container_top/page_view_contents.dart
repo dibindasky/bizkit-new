@@ -68,7 +68,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
                 ],
               ),
             ),
-            kHeight20,
+            kHeight10,
             Row(
               children: [
                 kWidth10,
@@ -97,7 +97,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
                     ),
                   ),
                 ),
-                kHeight10,
+                kWidth10,
               ],
             ),
           ],

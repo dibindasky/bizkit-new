@@ -248,6 +248,7 @@ class _GridTileAddRequestConnectionState
           onTap: () {
             if (widget.fromPendingRequests) {
               connectionController.cancelConnectionRequest(
+                  fromSendrequests: true,
                   cancelConnectionRequest: CancelConnectionRequestModel(
                       connectionId: widget.allSendRequests?.requestId ?? ''));
             } else {
@@ -258,6 +259,7 @@ class _GridTileAddRequestConnectionState
                     context: context);
               } else {
                 connectionController.cancelConnectionRequest(
+                    fromSendrequests: false,
                     cancelConnectionRequest: CancelConnectionRequestModel(
                         connectionId: widget.data?.connectionRequestId));
               }

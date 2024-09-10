@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/data/service/connections/connections_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
@@ -8,7 +6,6 @@ import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connectio
 import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/recieved_connection_requests_responce/request.dart';
-import 'package:bizkit/module/biz_card/domain/model/connections/search_connections_responce/result.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/request.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
@@ -158,9 +155,9 @@ class ConnectionsController extends GetxController {
   }
 
   // Cancel connection request
-  void cancelConnectionRequest({
-    required CancelConnectionRequestModel cancelConnectionRequest,
-  }) async {
+  void cancelConnectionRequest(
+      {required CancelConnectionRequestModel cancelConnectionRequest,
+      required bool fromSendrequests}) async {
     cancelConnectionRequestLoading.value = true;
     final result = await connectionService.cancelConnectionRequest(
         cancelConnectionRequest: cancelConnectionRequest);
@@ -171,6 +168,9 @@ class ConnectionsController extends GetxController {
       },
       (success) {
         cancelConnectionRequestLoading.value = false;
+        if (fromSendrequests) {
+          fetchAllSendConnectionRequests();
+        }
       },
     );
   }

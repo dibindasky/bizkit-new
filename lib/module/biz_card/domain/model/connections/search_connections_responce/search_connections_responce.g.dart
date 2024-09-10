@@ -10,7 +10,7 @@ SearchConnectionsResponce _$SearchConnectionsResponceFromJson(
         Map<String, dynamic> json) =>
     SearchConnectionsResponce(
       results: (json['results'] as List<dynamic>?)
-          ?.map((e) => ConnectionsList.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => MyConnection.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

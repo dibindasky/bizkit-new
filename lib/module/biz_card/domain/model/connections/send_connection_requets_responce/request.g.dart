@@ -15,6 +15,7 @@ SendConnectionRequet _$SendConnectionRequetFromJson(
       toUserProfilePicture: json['to_user_profile_picture'] as String?,
       fromUserId: json['from_user_id'] as String?,
       fromCardId: json['from_card_id'] as String?,
+      toUserDesignation: json['to_user_designation'] as String?,
     );
 
 Map<String, dynamic> _$SendConnectionRequetToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$SendConnectionRequetToJson(
       'to_user_profile_picture': instance.toUserProfilePicture,
       'from_user_id': instance.fromUserId,
       'from_card_id': instance.fromCardId,
+      'to_user_designation': instance.toUserDesignation,
     };

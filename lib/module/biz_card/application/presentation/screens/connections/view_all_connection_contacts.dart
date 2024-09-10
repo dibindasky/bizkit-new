@@ -76,7 +76,8 @@ class _MyConnectionsViewAllContactsState
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              // Navigator.of(context).pop();
+              GoRouter.of(context).pop();
             },
             icon: const Icon(
               Icons.arrow_back_ios,
@@ -104,12 +105,12 @@ class _MyConnectionsViewAllContactsState
                 child: Stack(
                   children: [
                     Image.asset(iconConnectionPeople),
-                    const Positioned(
-                        right: 10,
-                        child: Text(
-                          '0',
-                          style: TextStyle(color: kblack),
-                        ))
+                    // const Positioned(
+                    //     right: 10,
+                    //     child: Text(
+                    //       '0',
+                    //       style: TextStyle(color: kblack),
+                    //     ))
                   ],
                 ),
               ),

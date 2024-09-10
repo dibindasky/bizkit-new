@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
@@ -147,6 +148,17 @@ class ScreenConnectionRequests extends StatelessWidget {
                                   heading: 'Reject  connection',
                                   actionButton: 'Reject',
                                   onPressed: () {
+                                    connectionController
+                                        .connectionRequestAcceptOrReject(
+                                            acceptOrReject:
+                                                AcceptOrRejectConnectionRequest(
+                                                    connectionId:
+                                                        connectionController
+                                                                .recievedConnectionRequests[
+                                                                    index]
+                                                                .id ??
+                                                            '',
+                                                    status: 'rejected'));
                                     Navigator.pop(context);
                                   },
                                 );
@@ -207,8 +219,19 @@ class ScreenConnectionRequests extends StatelessWidget {
                                   showConfirmationDialog(
                                     context,
                                     heading: 'Request back to add Connection',
-                                    actionButton: 'Request',
+                                    actionButton: 'Accept',
                                     onPressed: () {
+                                      connectionController
+                                          .connectionRequestAcceptOrReject(
+                                              acceptOrReject:
+                                                  AcceptOrRejectConnectionRequest(
+                                                      connectionId:
+                                                          connectionController
+                                                                  .recievedConnectionRequests[
+                                                                      index]
+                                                                  .id ??
+                                                              '',
+                                                      status: 'accepted'));
                                       Navigator.pop(context);
                                     },
                                   );

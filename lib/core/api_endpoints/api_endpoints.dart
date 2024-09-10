@@ -72,7 +72,7 @@ class ApiEndPoints {
   static String recievedConnectionRequests = '/recieved-connection-requests/';
   static String myConnections = '/my-connections/';
   static String getAllSendConnectionRequests = '/send-connection-requests/';
-  static String followBackRequest = '/follow-back-request/';
+  static String followbackRequest = '/follow-back-request/';
   static String cancelConnectionRequest = '/cancel-connection-request/';
   static String searchConnection = '/search-connection/';
 

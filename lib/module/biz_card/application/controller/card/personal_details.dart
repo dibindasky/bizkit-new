@@ -215,7 +215,6 @@ class PersonalDetailsController extends GetxController {
       (l) => null,
       (r) {
         final cardController = Get.find<CardController>();
-
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         if (fromInner) {

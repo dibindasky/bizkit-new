@@ -10,11 +10,13 @@ import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_r
 import 'package:bizkit/module/biz_card/domain/model/connections/recieved_connection_requests_responce/request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/request.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class ConnectionsController extends GetxController {
@@ -43,6 +45,8 @@ class ConnectionsController extends GetxController {
   RxList<MyConnection> myConnections = <MyConnection>[].obs;
 
   RxString connectionRequestId = ''.obs;
+
+  RxBool followBackPossible = false.obs;
 
   // Send connection request
   void sendConnectionRequest(
@@ -261,6 +265,29 @@ class ConnectionsController extends GetxController {
     );
   }
 
+  // Unfollow a connection
+  void unfollowRequest(
+      {required UnfollowConnectionModel unfollowRequest,
+      required BuildContext context}) async {
+    myConnectionsLoading.value = true;
+    final result = await connectionService.unfollowRequest(
+        unfollowRequest: unfollowRequest);
+    result.fold(
+      (failure) {
+        myConnectionsLoading.value = false;
+        showSnackbar(context, message: errorMessage, backgroundColor: kred);
+      },
+      (success) {
+        myConnectionsLoading.value = false;
+
+        showSnackbar(context,
+            message: 'Unfollow successfully', backgroundColor: neonShade);
+        fetchMyConnections();
+        searchConnections(searchQuery: SearchQuery(search: ''));
+      },
+    );
+  }
+
   // Connection request accept Or reject
   void connectionRequestAcceptOrReject(
       {required AcceptOrRejectConnectionRequest acceptOrReject}) async {
@@ -274,7 +301,9 @@ class ConnectionsController extends GetxController {
       },
       (success) {
         recievedConnectionRequestLoading.value = false;
+        followBackPossible.value = success.followBackPossible ?? false;
         fetchMyConnections();
+        searchConnections(searchQuery: SearchQuery(search: ''));
       },
     );
   }

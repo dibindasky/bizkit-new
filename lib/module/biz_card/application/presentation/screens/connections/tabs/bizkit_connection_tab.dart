@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
@@ -79,23 +80,28 @@ class BizkitConnectionsTab extends StatelessWidget {
                             : 'No Designation',
                         overflow: TextOverflow.ellipsis,
                       ),
-                      // trailing: PopupMenuButton(
-                      //   itemBuilder: (context) {
-                      //     return [
-                      //       PopupMenuItem(
-                      //           onTap: () {
-                      //             // context.read<ConnectionRequestBloc>().add(
-                      //             //     ConnectionRequestEvent
-                      //             //         .blockBizkitConnections(
-                      //             //             blockBizkitConnection:
-                      //             //                 BlockBizkitConnection(
-                      //             //                     isBlock: true),
-                      //             //             connectionId: data.id!));
-                      //           },
-                      //           child: const Text('Block'))
-                      //     ];
-                      //   },
-                      // ),
+                      trailing: PopupMenuButton(
+                        itemBuilder: (context) {
+                          return [
+                            PopupMenuItem(
+                              onTap: () {
+                                connectionsController.unfollowRequest(
+                                    context: context,
+                                    unfollowRequest: UnfollowConnectionModel(
+                                        connectionId: connectionsController
+                                            .connectionsSearchList[index]
+                                            .cards!
+                                            .first
+                                            .connectionId));
+                              },
+                              child: Text(
+                                'Unfollow',
+                                style: textThinStyle1.copyWith(color: kred),
+                              ),
+                            )
+                          ];
+                        },
+                      ),
                     ),
                   );
                 },

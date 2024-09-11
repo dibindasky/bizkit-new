@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
@@ -233,6 +235,27 @@ class ScreenConnectionRequests extends StatelessWidget {
                                                               '',
                                                       status: 'accepted'));
                                       Navigator.pop(context);
+                                      if (connectionController
+                                          .followBackPossible.value) {
+                                        showConfirmationDialog(
+                                          context,
+                                          heading:
+                                              'Request back to add Connection',
+                                          actionButton: 'Follow back',
+                                          onPressed: () {
+                                            // connectionController.followbackRequest(
+                                            //     folowbackRequest:
+                                            //         FollowBackRequestModel(
+                                            //             toUser: connectionController
+                                            //                     .recievedConnectionRequests[
+                                            //                         index]
+                                            //                     .id ??
+                                            //                 ''));
+                                            log('follow back request');
+                                            // Navigator.pop(context);
+                                          },
+                                        );
+                                      }
                                     },
                                   );
                                 },

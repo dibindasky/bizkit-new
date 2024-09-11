@@ -65,8 +65,8 @@ class ConnectionsController extends GetxController {
 
         if (index != -1) {
           bizkitUsers[index] = bizkitUsers[index].copyWith(
-              connectionRequestId: success.connectionRequestId,
-              connectionExist: true);
+            connectionRequestId: success.connectionRequestId,
+          );
         }
       },
     );

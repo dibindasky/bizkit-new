@@ -8,7 +8,7 @@ class Card {
   String? connectionId;
   @JsonKey(name: 'to_user')
   String? toUser;
-  String? username;
+  String? name;
   @JsonKey(name: 'to_card')
   String? toCard;
   @JsonKey(name: 'business_name')
@@ -25,7 +25,7 @@ class Card {
   Card({
     this.connectionId,
     this.toUser,
-    this.username,
+    this.name,
     this.toCard,
     this.businessName,
     this.businessDesignation,

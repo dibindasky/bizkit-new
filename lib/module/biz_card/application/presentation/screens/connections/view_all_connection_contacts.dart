@@ -93,7 +93,6 @@ class _MyConnectionsViewAllContactsState
           actions: [
             InkWell(
               onTap: () {
-                connectionsController.fetchRecievedConnectionRequests();
                 GoRouter.of(context)
                     .pushNamed(Routes.recievedConnectionRequests);
                 // Navigator.push(context,
@@ -105,12 +104,15 @@ class _MyConnectionsViewAllContactsState
                 child: Stack(
                   children: [
                     Image.asset(iconConnectionPeople),
-                    // const Positioned(
-                    //     right: 10,
-                    //     child: Text(
-                    //       '0',
-                    //       style: TextStyle(color: kblack),
-                    //     ))
+                    Positioned(
+                      right: 10,
+                      child: Obx(
+                        () => Text(
+                          '${connectionsController.recievedConnectionRequests.length}',
+                          style: const TextStyle(color: kblack),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

@@ -40,10 +40,7 @@ class BizkitConnectionsTab extends StatelessWidget {
               );
             } else {
               return ListView.separated(
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 1,
-                  child: ColoredBox(color: kgrey),
-                ),
+                separatorBuilder: (context, index) => kHeight5,
                 shrinkWrap: true,
                 itemCount: connectionsController.connectionsSearchList.length,
                 itemBuilder: (context, index) {
@@ -68,9 +65,18 @@ class BizkitConnectionsTab extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       subtitle: Text(
-                        connectionsController.connectionsSearchList[index]
-                                .cards?[index].businessDesignation ??
-                            'Designation',
+                        // Check if the cards list exists and is not empty
+                        (connectionsController
+                                        .connectionsSearchList[index].cards !=
+                                    null &&
+                                connectionsController
+                                    .connectionsSearchList[index]
+                                    .cards!
+                                    .isNotEmpty)
+                            ? connectionsController.connectionsSearchList[index]
+                                    .cards!.first.businessDesignation ??
+                                'Designation'
+                            : 'No Designation',
                         overflow: TextOverflow.ellipsis,
                       ),
                       // trailing: PopupMenuButton(

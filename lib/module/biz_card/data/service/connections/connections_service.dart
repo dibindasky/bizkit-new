@@ -50,7 +50,7 @@ class ConnectionsService implements ConnectionsRepo {
         ApiEndPoints.searchConnection,
         data: searchQuery.toJson(),
       );
-      log('searchConnections ==> success ');
+      log('searchConnections ==--> success ${responce.data}');
       return Right(MyConnectionsResponce.fromJson(responce.data));
     } on DioException catch (e) {
       log('searchConnections DioException ${e.response?.statusCode} $e');

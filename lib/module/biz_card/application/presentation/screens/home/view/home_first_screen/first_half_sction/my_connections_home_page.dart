@@ -37,6 +37,7 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                 onTap: () {
                   connectionsController.searchConnections(
                       searchQuery: SearchQuery(search: ''));
+                  connectionsController.fetchRecievedConnectionRequests();
                   GoRouter.of(context)
                       .pushNamed(Routes.myAllConnectionsAndContacts);
                   // Navigator.of(context).push(

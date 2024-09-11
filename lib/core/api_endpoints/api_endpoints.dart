@@ -6,7 +6,8 @@ class ApiEndPoints {
   static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
 
   // [ AWS base url ]
-  //static String baseUrl = 'http://13.53.126.162';
+  // static String baseUrl = 'http://13.53.126.162';
+
 
   // refesh token
   static String refreshUrl = '/token/';

@@ -117,53 +117,55 @@ class ScreenConnectionRequests extends StatelessWidget {
                                 // context.read<ConnectionRequestBloc>().add(
                                 //     ConnectionRequestEvent.deleteRequest(
                                 //         id: data.id!));
-                                // showDialog(
-                                //   context: context,
-                                //   builder: (context) => AlertDialog(
-                                //       title: const Text('Reject  Connection'),
-                                //       actions: [
-                                //         OutlinedButton(
-                                //             onPressed: () {
-                                //               Navigator.pop(context);
-                                //             },
-                                //             child: const Text('Cancel')),
-                                //         OutlinedButton(
-                                //             onPressed: () {
-                                //               //context
-                                //               // .read<
-                                //               //     ConnectionRequestBloc>()
-                                //               // .add(ConnectionRequestEvent
-                                //               //     .addConnectionRequests(
-                                //               //         addConnectionRequestModel:
-                                //               //             AddConnectionRequestModel(
-                                //               //                 cardUserId:
-                                //               //                     data.userId),
-                                //               //         index: index));
-                                //               Navigator.pop(context);
-                                //             },
-                                //             child: const Text('Reject'))
-                                //       ]),
-                                // );
 
-                                showConfirmationDialog(
-                                  context,
-                                  heading: 'Reject  connection',
-                                  actionButton: 'Reject',
-                                  onPressed: () {
-                                    connectionController
-                                        .connectionRequestAcceptOrReject(
-                                            acceptOrReject:
-                                                AcceptOrRejectConnectionRequest(
-                                                    connectionId:
-                                                        connectionController
-                                                                .recievedConnectionRequests[
-                                                                    index]
-                                                                .id ??
-                                                            '',
-                                                    status: 'rejected'));
-                                    Navigator.pop(context);
-                                  },
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                      title: const Text(
+                                          'Reject Connection Request'),
+                                      actions: [
+                                        OutlinedButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text('Cancel')),
+                                        OutlinedButton(
+                                            onPressed: () {
+                                              connectionController.connectionRequestAcceptOrReject(
+                                                  acceptOrReject:
+                                                      AcceptOrRejectConnectionRequest(
+                                                          connectionId:
+                                                              connectionController
+                                                                      .recievedConnectionRequests[
+                                                                          index]
+                                                                      .id ??
+                                                                  '',
+                                                          status: 'rejected'));
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text('Reject'))
+                                      ]),
                                 );
+
+                                // showConfirmationDialog(
+                                //   context,
+                                //   heading: 'Reject Connection Request',
+                                //   actionButton: 'Reject',
+                                //   onPressed: () {
+                                //     connectionController
+                                //         .connectionRequestAcceptOrReject(
+                                //             acceptOrReject:
+                                //                 AcceptOrRejectConnectionRequest(
+                                //                     connectionId:
+                                //                         connectionController
+                                //                                 .recievedConnectionRequests[
+                                //                                     index]
+                                //                                 .id ??
+                                //                             '',
+                                //                     status: 'rejected'));
+                                //     Navigator.pop(context);
+                                //   },
+                                // );
                               },
                               child: CircleAvatar(
                                 child: Padding(
@@ -180,84 +182,100 @@ class ScreenConnectionRequests extends StatelessWidget {
                             // accept request
                             InkWell(
                                 onTap: () {
-                                  // context.read<ConnectionRequestBloc>().add(
-                                  //       ConnectionRequestEvent.addConnection(
-                                  //         createConnectionWithCardIdModel:
-                                  //             CreateConnectionWithCardIdModel(
-                                  //           connectionRequestId: data.id,
-                                  //         ),
-                                  //       ),
-                                  //     );
-                                  // if (data.hasConnection == false) {
-                                  // showDialog(
-                                  //   context: context,
-                                  //   builder: (context) => AlertDialog(
-                                  //       title: const Text(
-                                  //           'Request back to Add Connection'),
-                                  //       actions: [
-                                  //         OutlinedButton(
-                                  //             onPressed: () {
-                                  //               Navigator.pop(context);
-                                  //             },
-                                  //             child: const Text('Cancel')),
-                                  //         OutlinedButton(
-                                  //             onPressed: () {
-                                  //               //context
-                                  //               // .read<
-                                  //               //     ConnectionRequestBloc>()
-                                  //               // .add(ConnectionRequestEvent
-                                  //               //     .addConnectionRequests(
-                                  //               //         addConnectionRequestModel:
-                                  //               //             AddConnectionRequestModel(
-                                  //               //                 cardUserId:
-                                  //               //                     data.userId),
-                                  //               //         index: index));
-                                  //               Navigator.pop(context);
-                                  //             },
-                                  //             child: const Text('Request'))
-                                  //       ]),
-                                  // );
-
-                                  showConfirmationDialog(
-                                    context,
-                                    heading: 'Request back to add Connection',
-                                    actionButton: 'Accept',
-                                    onPressed: () {
-                                      connectionController
-                                          .connectionRequestAcceptOrReject(
-                                              acceptOrReject:
-                                                  AcceptOrRejectConnectionRequest(
-                                                      connectionId:
-                                                          connectionController
-                                                                  .recievedConnectionRequests[
-                                                                      index]
-                                                                  .id ??
-                                                              '',
-                                                      status: 'accepted'));
-                                      Navigator.pop(context);
-                                      if (connectionController
-                                          .followBackPossible.value) {
-                                        showConfirmationDialog(
-                                          context,
-                                          heading:
-                                              'Request back to add Connection',
-                                          actionButton: 'Follow back',
-                                          onPressed: () {
-                                            // connectionController.followbackRequest(
-                                            //     folowbackRequest:
-                                            //         FollowBackRequestModel(
-                                            //             toUser: connectionController
-                                            //                     .recievedConnectionRequests[
-                                            //                         index]
-                                            //                     .id ??
-                                            //                 ''));
-                                            log('follow back request');
-                                            // Navigator.pop(context);
-                                          },
-                                        );
-                                      }
-                                    },
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                        title: const Text(
+                                            'Accept Connection Request'),
+                                        actions: [
+                                          OutlinedButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text('Cancel')),
+                                          OutlinedButton(
+                                              onPressed: () {
+                                                connectionController.connectionRequestAcceptOrReject(
+                                                    acceptOrReject:
+                                                        AcceptOrRejectConnectionRequest(
+                                                            connectionId:
+                                                                connectionController
+                                                                        .recievedConnectionRequests[
+                                                                            index]
+                                                                        .id ??
+                                                                    '',
+                                                            status:
+                                                                'accepted'));
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) => AlertDialog(
+                                                      title: const Text(
+                                                          'Follow Back to Connect'),
+                                                      actions: [
+                                                        OutlinedButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: const Text(
+                                                                'Cancel')),
+                                                        OutlinedButton(
+                                                            onPressed: () {
+                                                              // connectionController.followbackRequest(
+                                                              //     folowbackRequest:
+                                                              //         FollowBackRequestModel(
+                                                              //             toUser:
+                                                              //                 connectionController.recievedConnectionRequests[index].id ?? ''));
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: const Text(
+                                                                'Follow'))
+                                                      ]),
+                                                );
+                                              },
+                                              child: const Text('Accept'))
+                                        ]),
                                   );
+                                  // showConfirmationDialog(
+                                  //   context,
+                                  //   heading: 'Accept Connection Request',
+                                  //   actionButton: 'Accept',
+                                  //   onPressed: () {
+                                  //     // connectionController
+                                  //     //     .connectionRequestAcceptOrReject(
+                                  //     //         acceptOrReject:
+                                  //     //             AcceptOrRejectConnectionRequest(
+                                  //     //                 connectionId:
+                                  //     //                     connectionController
+                                  //     //                             .recievedConnectionRequests[
+                                  //     //                                 index]
+                                  //     //                             .id ??
+                                  //     //                         '',
+                                  //     //                 status: 'accepted'));
+                                  //     Navigator.pop(context);
+                                  //     Navigator.pop(context);
+                                  //     showConfirmationDialog(
+                                  //       context,
+                                  //       heading: 'Follow Back to Connect',
+                                  //       actionButton: 'follow',
+                                  //       onPressed: () {
+                                  //         // connectionController.followbackRequest(
+                                  //         //     folowbackRequest:
+                                  //         //         FollowBackRequestModel(
+                                  //         //             toUser: connectionController
+                                  //         //                     .recievedConnectionRequests[
+                                  //         //                         index]
+                                  //         //                     .id ??
+                                  //         //                 ''));
+                                  //         log('follow back request');
+                                  //         Navigator.pop(context);
+                                  //       },
+                                  //     );
+                                  //   },
+                                  // );
                                 },
                                 child: const CircleAvatar(
                                     child: Icon(Icons.check, color: kwhite))),

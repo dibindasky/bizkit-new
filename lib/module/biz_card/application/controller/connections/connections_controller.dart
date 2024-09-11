@@ -251,6 +251,7 @@ class ConnectionsController extends GetxController {
   // Follow back request
   void followbackRequest(
       {required FollowBackRequestModel folowbackRequest}) async {
+    log('folowbackRequest TO JSON =  >${folowbackRequest.toJson()}');
     followbackRequestLoading.value = true;
     final result = await connectionService.folowbackRequest(
         folowbackRequest: folowbackRequest);
@@ -303,6 +304,7 @@ class ConnectionsController extends GetxController {
         recievedConnectionRequestLoading.value = false;
         followBackPossible.value = success.followBackPossible ?? false;
         fetchMyConnections();
+        fetchRecievedConnectionRequests();
         searchConnections(searchQuery: SearchQuery(search: ''));
       },
     );

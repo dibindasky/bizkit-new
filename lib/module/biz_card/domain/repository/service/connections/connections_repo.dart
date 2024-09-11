@@ -11,6 +11,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/recieved_connect
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/send_connection_requets_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_responce/send_connection_responce.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class ConnectionsRepo {
@@ -44,6 +45,10 @@ abstract class ConnectionsRepo {
   // Folow back request
   Future<Either<Failure, SuccessResponseModel>> folowbackRequest(
       {required FollowBackRequestModel folowbackRequest});
+
+  // Unfollow a connection
+  Future<Either<Failure, SuccessResponseModel>> unfollowRequest(
+      {required UnfollowConnectionModel unfollowRequest});
 
   //  Accept OR Reject connection request
   Future<Either<Failure, ConnectionRequestAcceptOrRejectResponce>>

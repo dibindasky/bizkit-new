@@ -14,6 +14,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/recieved_connect
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/send_connection_requets_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_responce/send_connection_responce.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
@@ -137,6 +138,7 @@ class ConnectionsService implements ConnectionsRepo {
   Future<Either<Failure, SuccessResponseModel>> cancelConnectionRequest(
       {required CancelConnectionRequestModel cancelConnectionRequest}) async {
     try {
+      log('cancelConnectionRequest  TO JSON  ==> ${cancelConnectionRequest.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.cancelConnectionRequest,
         data: cancelConnectionRequest.toJson(),
@@ -189,6 +191,26 @@ class ConnectionsService implements ConnectionsRepo {
       return Left(Failure(message: errorMessage));
     } catch (e) {
       log('acceptOrRejectConnectionRequest catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> unfollowRequest(
+      {required UnfollowConnectionModel unfollowRequest}) async {
+    try {
+      final responce = await apiService.delete(
+        ApiEndPoints.unfollowConnection,
+        data: unfollowRequest.toJson(),
+      );
+      log('unfollowRequest ==> success ');
+
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('unfollowRequest DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('unfollowRequest catch $e');
       return Left(Failure(message: 'Failed to request'));
     }
   }

@@ -8,7 +8,6 @@ class ApiEndPoints {
   // [ AWS base url ]
   // static String baseUrl = 'http://13.53.126.162';
 
-
   // refesh token
   static String refreshUrl = '/token/';
 
@@ -76,6 +75,7 @@ class ApiEndPoints {
   static String followbackRequest = '/follow-back-request/';
   static String cancelConnectionRequest = '/cancel-connection-request/';
   static String searchConnection = '/search-connection/';
+  static String unfollowConnection = '/un-follow-connection/';
 
   // [ Reminder ]
   static String reminder = '/reminder/';

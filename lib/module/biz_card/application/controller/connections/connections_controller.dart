@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/data/service/connections/connections_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
@@ -8,11 +10,13 @@ import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_r
 import 'package:bizkit/module/biz_card/domain/model/connections/recieved_connection_requests_responce/request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/request.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class ConnectionsController extends GetxController {
@@ -42,28 +46,33 @@ class ConnectionsController extends GetxController {
 
   RxString connectionRequestId = ''.obs;
 
+  RxBool followBackPossible = false.obs;
+
   // Send connection request
   void sendConnectionRequest(
       {required SendConnectionRequest connectionRequest,
       required BuildContext context}) async {
-    sendConnectionRequestLoading.value = true;
-
+    final index = bizkitUsers.indexWhere(
+      (element) => element.userId == connectionRequest.toUser,
+    );
+    if (index != -1) {
+      bizkitUsers[index] = bizkitUsers[index].copyWith(checkLoading: true);
+    }
     final result = await connectionService.sendConnectionRequest(
         connectionRequest: connectionRequest);
 
     result.fold(
       (failure) {
-        sendConnectionRequestLoading.value = false;
+        if (index != -1) {
+          bizkitUsers[index] = bizkitUsers[index].copyWith(checkLoading: false);
+        }
         showSnackbar(context, message: errorMessage, backgroundColor: kred);
       },
       (success) {
-        sendConnectionRequestLoading.value = false;
-        final index = bizkitUsers.indexWhere(
-          (element) => element.userId == connectionRequest.toUser,
-        );
         if (index != -1) {
           bizkitUsers[index] = bizkitUsers[index].copyWith(
             connectionRequestId: success.connectionRequestId,
+            checkLoading: false,
           );
         }
       },
@@ -114,7 +123,12 @@ class ConnectionsController extends GetxController {
         searchBizkitUsersLoading.value = false;
       },
       (success) {
-        bizkitUsers.assignAll(success.results ?? []);
+        final filteredUsers = (success.results ?? [])
+            .where((user) => user.connectionExist != true)
+            .toList();
+
+        bizkitUsers.assignAll(filteredUsers);
+
         searchBizkitUsersLoading.value = false;
       },
     );
@@ -156,17 +170,79 @@ class ConnectionsController extends GetxController {
       {required CancelConnectionRequestModel cancelConnectionRequest,
       required bool fromSendrequests}) async {
     cancelConnectionRequestLoading.value = true;
+
+    final index = bizkitUsers.indexWhere(
+      (element) => element.userId == cancelConnectionRequest.userId,
+    );
+    if (index != -1) {
+      bizkitUsers[index] = bizkitUsers[index].copyWith(checkLoading: true);
+    }
+    if (fromSendrequests) {
+      final index = allSendConnectionRequests.indexWhere(
+        (element) => element.toUserId == cancelConnectionRequest.userId,
+      );
+
+      if (index != -1) {
+        allSendConnectionRequests[index] =
+            allSendConnectionRequests[index].copyWith(checkLoading: true);
+      }
+    }
     final result = await connectionService.cancelConnectionRequest(
         cancelConnectionRequest: cancelConnectionRequest);
 
     result.fold(
       (failure) {
+        final index = bizkitUsers.indexWhere(
+          (element) => element.userId == cancelConnectionRequest.userId,
+        );
+        if (index != -1) {
+          bizkitUsers[index] = bizkitUsers[index].copyWith(
+            checkLoading: false,
+          );
+        }
+        if (fromSendrequests) {
+          final index = allSendConnectionRequests.indexWhere(
+            (element) => element.toUserId == cancelConnectionRequest.userId,
+          );
+
+          if (index != -1) {
+            allSendConnectionRequests[index] =
+                allSendConnectionRequests[index].copyWith(checkLoading: false);
+          }
+        }
         cancelConnectionRequestLoading.value = false;
       },
       (success) {
         cancelConnectionRequestLoading.value = false;
+        final index = bizkitUsers.indexWhere(
+          (element) => element.userId == cancelConnectionRequest.userId,
+        );
+        if (index != -1) {
+          bizkitUsers[index] = BizCardUsers(
+              connectionRequestId: null,
+              checkLoading: false,
+              bizcardId: bizkitUsers[index].bizcardId,
+              companyName: bizkitUsers[index].companyName,
+              connectionExist: bizkitUsers[index].connectionExist,
+              designation: bizkitUsers[index].designation,
+              email: bizkitUsers[index].email,
+              phoneNumber: bizkitUsers[index].phoneNumber,
+              profilePicture: bizkitUsers[index].profilePicture,
+              userId: bizkitUsers[index].userId,
+              username: bizkitUsers[index].username);
+        }
         if (fromSendrequests) {
-          fetchAllSendConnectionRequests();
+          final index = allSendConnectionRequests.indexWhere(
+            (element) => element.toUserId == cancelConnectionRequest.userId,
+          );
+
+          if (index != -1) {
+            allSendConnectionRequests[index] =
+                allSendConnectionRequests[index].copyWith(
+              checkLoading: false,
+            );
+            allSendConnectionRequests.removeAt(index);
+          }
         }
       },
     );
@@ -189,6 +265,29 @@ class ConnectionsController extends GetxController {
     );
   }
 
+  // Unfollow a connection
+  void unfollowRequest(
+      {required UnfollowConnectionModel unfollowRequest,
+      required BuildContext context}) async {
+    myConnectionsLoading.value = true;
+    final result = await connectionService.unfollowRequest(
+        unfollowRequest: unfollowRequest);
+    result.fold(
+      (failure) {
+        myConnectionsLoading.value = false;
+        showSnackbar(context, message: errorMessage, backgroundColor: kred);
+      },
+      (success) {
+        myConnectionsLoading.value = false;
+
+        showSnackbar(context,
+            message: 'Unfollow successfully', backgroundColor: neonShade);
+        fetchMyConnections();
+        searchConnections(searchQuery: SearchQuery(search: ''));
+      },
+    );
+  }
+
   // Connection request accept Or reject
   void connectionRequestAcceptOrReject(
       {required AcceptOrRejectConnectionRequest acceptOrReject}) async {
@@ -202,7 +301,9 @@ class ConnectionsController extends GetxController {
       },
       (success) {
         recievedConnectionRequestLoading.value = false;
+        followBackPossible.value = success.followBackPossible ?? false;
         fetchMyConnections();
+        searchConnections(searchQuery: SearchQuery(search: ''));
       },
     );
   }

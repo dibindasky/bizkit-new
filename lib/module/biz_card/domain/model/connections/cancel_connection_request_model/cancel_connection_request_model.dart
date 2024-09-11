@@ -7,7 +7,9 @@ class CancelConnectionRequestModel {
   @JsonKey(name: 'connection_id')
   String? connectionId;
 
-  CancelConnectionRequestModel({this.connectionId});
+  String? userId;
+
+  CancelConnectionRequestModel({this.connectionId, this.userId});
 
   factory CancelConnectionRequestModel.fromJson(Map<String, dynamic> json) {
     return _$CancelConnectionRequestModelFromJson(json);

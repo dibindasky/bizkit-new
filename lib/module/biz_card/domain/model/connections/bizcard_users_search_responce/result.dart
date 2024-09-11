@@ -21,6 +21,7 @@ class BizCardUsers {
   bool? connectionExist;
 
   String? connectionRequestId;
+  bool? checkLoading;
 
   BizCardUsers(
       {this.userId,
@@ -32,6 +33,7 @@ class BizCardUsers {
       this.profilePicture,
       this.bizcardId,
       this.connectionRequestId,
+      this.checkLoading = false,
       this.connectionExist});
 
   factory BizCardUsers.fromJson(Map<String, dynamic> json) {
@@ -51,6 +53,7 @@ class BizCardUsers {
     String? bizcardId,
     bool? connectionExist,
     String? connectionRequestId,
+    bool? checkLoading,
   }) {
     return BizCardUsers(
       userId: userId ?? this.userId,
@@ -63,6 +66,7 @@ class BizCardUsers {
       bizcardId: bizcardId ?? this.bizcardId,
       connectionExist: connectionExist ?? this.connectionExist,
       connectionRequestId: connectionRequestId ?? this.connectionRequestId,
+      checkLoading: checkLoading ?? this.checkLoading,
     );
   }
 }

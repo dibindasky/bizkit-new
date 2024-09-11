@@ -19,6 +19,8 @@ class SendConnectionRequet {
   @JsonKey(name: 'to_user_designation')
   String? toUserDesignation;
 
+  bool? checkLoading;
+
   SendConnectionRequet({
     this.requestId,
     this.toUserId,
@@ -27,6 +29,7 @@ class SendConnectionRequet {
     this.fromUserId,
     this.toUserDesignation,
     this.fromCardId,
+    this.checkLoading = false,
   });
 
   factory SendConnectionRequet.fromJson(Map<String, dynamic> json) {
@@ -34,4 +37,26 @@ class SendConnectionRequet {
   }
 
   Map<String, dynamic> toJson() => _$SendConnectionRequetToJson(this);
+
+  SendConnectionRequet copyWith({
+    String? requestId,
+    String? toUserId,
+    String? toUserName,
+    String? toUserProfilePicture,
+    String? fromUserId,
+    String? fromCardId,
+    String? toUserDesignation,
+    bool? checkLoading,
+  }) {
+    return SendConnectionRequet(
+      requestId: requestId ?? this.requestId,
+      toUserId: toUserId ?? this.toUserId,
+      toUserName: toUserName ?? this.toUserName,
+      toUserProfilePicture: toUserProfilePicture ?? this.toUserProfilePicture,
+      fromUserId: fromUserId ?? this.fromUserId,
+      fromCardId: fromCardId ?? this.fromCardId,
+      toUserDesignation: toUserDesignation ?? this.toUserDesignation,
+      checkLoading: checkLoading ?? this.checkLoading,
+    );
+  }
 }

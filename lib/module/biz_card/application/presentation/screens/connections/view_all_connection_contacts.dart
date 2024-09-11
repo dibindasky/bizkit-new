@@ -134,19 +134,19 @@ class _MyConnectionsViewAllContactsState
               CupertinoTextField(
                 controller: searchController,
                 onChanged: (value) {
-                  connectionsController.searchConnections(
-                      searchQuery: SearchQuery(search: value));
-                  // if (tabNotifier.value == 1) {
-                  //   // print('search bar =====================');
-                  //   // context
-                  //   //     .read<ContactsBloc>()
-                  //   //     .add(ContactsEvent.searchContact(query: value));
-                  // } else {
-                  //   // search for bizkit connection
-                  //   // context.read<ConnectionRequestBloc>().add(
-                  //   //     ConnectionRequestEvent.getBizkitConnections(
-                  //   //         query: value));
-                  // }
+                  if (tabNotifier.value == 1) {
+                    // print('search bar =====================');
+                    // context
+                    //     .read<ContactsBloc>()
+                    //     .add(ContactsEvent.searchContact(query: value));
+                  } else {
+                    connectionsController.searchConnections(
+                        searchQuery: SearchQuery(search: value));
+                    // search for bizkit connection
+                    // context.read<ConnectionRequestBloc>().add(
+                    //     ConnectionRequestEvent.getBizkitConnections(
+                    //         query: value));
+                  }
                 },
                 prefix: const Icon(
                   Icons.search,

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:path_provider/path_provider.dart'; // Import path_provider
+import 'package:path_provider/path_provider.dart';
 
 class SoundManager {
   FlutterSoundRecorder? _recorder;
@@ -13,12 +13,14 @@ class SoundManager {
   String? _filePath;
   String? _base64Audio;
 
+  // Default constructor
   SoundManager() {
     _initRecorder();
     _initPlayer();
   }
 
-  SoundManager.player() {
+  // Named constructor to initialize with Base64 audio
+  SoundManager.fromBase64(this._base64Audio) {
     _initPlayer();
   }
 
@@ -27,12 +29,7 @@ class SoundManager {
     PermissionStatus micStatus = await Permission.microphone.request();
     PermissionStatus storageStatus = await Permission.storage.request();
 
-    if (micStatus.isGranted && storageStatus.isGranted) {
-      return true;
-    } else {
-      print('Permissions not granted');
-      return false;
-    }
+    return micStatus.isGranted && storageStatus.isGranted;
   }
 
   // Initialize the recorder
@@ -72,7 +69,7 @@ class SoundManager {
     if (!_isRecorderInitialized) return;
 
     try {
-      _filePath = await _getFilePath(); // Get the correct file path
+      _filePath = await _getFilePath();
       await _recorder!.startRecorder(
         toFile: _filePath,
         codec: Codec.aacADTS,
@@ -99,10 +96,11 @@ class SoundManager {
   }
 
   // Play the base64-encoded audio
-  Future<void> playRecording() async {
-    if (!_isPlayerInitialized || _base64Audio == null) return;
+  Future<bool> playRecording() async {
+    if (!_isPlayerInitialized || _base64Audio == null) return false;
 
     try {
+      _filePath ??= await _getFilePath();
       final bytes = base64Decode(_base64Audio!);
       final tempFile = await File(_filePath!).writeAsBytes(bytes);
 
@@ -110,8 +108,10 @@ class SoundManager {
         fromURI: tempFile.path,
         codec: Codec.aacADTS,
       );
+      return true;
     } catch (e) {
       print('Failed to play recording: $e');
+      return false;
     }
   }
 

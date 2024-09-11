@@ -7,6 +7,7 @@ import 'package:bizkit/core/model/image/image_model.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/chat/current_location_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/file_model.dart';
+import 'package:bizkit/module/task/domain/model/chat/voice_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/packages/pdf/pdf_picker.dart';
@@ -42,6 +43,7 @@ class ChatController extends GetxController {
   RxBool connected = false.obs;
   RxBool loadMoreLoading = false.obs;
   RxBool isRecording = false.obs;
+  RxString recordedAudio = ''.obs;
   RxBool isPlaying = false.obs;
   RxList<double> currentLocationLatLong = <double>[].obs;
   RxList<ImageModel> loadedImages = <ImageModel>[].obs;
@@ -175,6 +177,25 @@ class ChatController extends GetxController {
                 currentLocation: m, sender: m.sender, messageId: m.messageId);
             final index = messages.indexWhere(
                 (element) => element.currentLocation?.messageId == m.messageId);
+            if (index != -1) {
+              messages[index] = mess;
+              doAnimate = false;
+            } else if (m.isLoadMore) {
+              loadMoreLoading.value = false;
+              doAnimate = false;
+              messages.add(mess);
+            } else {
+              messages.insert(0, mess);
+            }
+          }
+
+          // handle for voice messages
+          else if (decodedMessage['message_type'] == 'voice') {
+            final m = VoiceMessage.fromJson(decodedMessage, uid);
+            final mess = Message(
+                voiceMessage: m, sender: m.sender, messageId: m.messageId);
+            final index = messages.indexWhere(
+                (element) => element.voiceMessage?.messageId == m.messageId);
             if (index != -1) {
               messages[index] = mess;
               doAnimate = false;
@@ -427,11 +448,6 @@ class ChatController extends GetxController {
     LaunchUrl.launchMapLatLong(location: location, context: context);
   }
 
-  /// send audio message
-  void sendAudioMessage(String audio) {
-    print('send audio message ---::::...::.:::.::.');
-  }
-
   /// on mic tap record and stop
   void micTap() {
     if (isRecording.value) {
@@ -442,19 +458,57 @@ class ChatController extends GetxController {
   }
 
   /// start recording audio
-  void startRecording() {
+  void startRecording() async{
+    recordedAudio.value = '';
     isRecording.value = true;
-    soundManager.startRecording();
+    await soundManager.startRecording();
   }
 
   /// stop recording audio
-  void stopRecording() {
-    soundManager.stopRecording();
+  void stopRecording() async{
+    await soundManager.stopRecording();
+    recordedAudio.value = soundManager.getBase64Audio() ?? '';
+    print('recorded audio => ${recordedAudio.value}');
     isRecording.value = false;
+  }
+
+  /// play pause controller
+  void playPauseRecordedAudio() {
+    if (isPlaying.value) {
+      pauseRecordedAudio();
+    } else {
+      playPauseRecordedAudio();
+    }
+  }
+
+  /// play recorded audio
+  void playRecordedAudio() async {
+    isPlaying.value = true;
+    await soundManager.playRecording();
+    print('playing recorded audio');
+  }
+
+  /// pause recorded audio
+  void pauseRecordedAudio() async {
+    await soundManager.pausePlayback();
+    isPlaying.value = false;
+    print('pause recorded audio');
+  }
+
+  /// resume recorded audio
+  void resumeRecordedAudio() async {
+    await soundManager.resumePlayback();
+    isPlaying.value = true;
+    print('pause recorded audio');
   }
 
   /// send audio
   void sendAudio() {
-    addMessage({});
+    addMessage({
+      "message_type": "voice",
+      "voice_message": recordedAudio.value,
+      "duration": "10s"
+    });
+    recordedAudio.value = '';
   }
 }

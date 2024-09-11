@@ -3,12 +3,14 @@ import 'package:bizkit/module/task/domain/model/chat/file_model.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/time_expence_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/voice_model.dart';
 
 class Message {
   TextMessage? textMessage;
   Poll? poll;
   TimeExpense? timeExpence;
   FileMessage? file;
+  VoiceMessage? voiceMessage;
   CurrentLocationMessage? currentLocation;
   bool isLoadMore;
   bool? sender;
@@ -19,6 +21,7 @@ class Message {
     this.textMessage,
     this.timeExpence,
     this.file,
+    this.voiceMessage,
     this.currentLocation,
     this.sender,
     this.messageId,
@@ -33,6 +36,7 @@ class Message {
       'time_expence': timeExpence?.toJson(),
       'file': file?.toJson(),
       'current_location': currentLocation?.toJson(),
+      'voice': voiceMessage?.toJson(),
       'sender': sender,
       'message_id': messageId,
       'is_load_more': isLoadMore,
@@ -53,6 +57,9 @@ class Message {
           : null,
       file: json['file'] != null
           ? FileMessage.fromJson(json['file'] as Map<String, dynamic>)
+          : null,
+      voiceMessage: json['voice'] != null
+          ? VoiceMessage.fromJson(json['voice'] as Map<String, dynamic>)
           : null,
       currentLocation: json['current_location'] != null
           ? CurrentLocationMessage.fromJson(
@@ -76,6 +83,8 @@ class Message {
       return file?.messageId;
     } else if (currentLocation != null) {
       return currentLocation?.messageId;
+    } else if (voiceMessage != null) {
+      return voiceMessage?.messageId;
     }
     return null;
   }
@@ -92,6 +101,8 @@ class Message {
       return 'file';
     } else if (currentLocation != null) {
       return 'current_location';
+    } else if (voiceMessage != null) {
+      return 'voice';
     }
     return null;
   }

@@ -229,7 +229,7 @@ class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Audio Recorder'),
+        title: const Text('Audio Recorder'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -238,24 +238,24 @@ class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
           children: [
             ElevatedButton(
               onPressed: _toggleRecording,
-              child: Text(_isRecording ? 'Stop Recording' : 'Start Recording'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: _isRecording ? Colors.red : Colors.blue,
               ),
+              child: Text(_isRecording ? 'Stop Recording' : 'Start Recording'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _soundManager.getBase64Audio() != null
                   ? _togglePlayback
                   : null,
-              child: Text(_isPlaying ? 'Stop Playback' : 'Play Recording'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: _isPlaying ? Colors.green : Colors.orange,
               ),
+              child: Text(_isPlaying ? 'Stop Playback' : 'Play Recording'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (_soundManager.getBase64Audio() != null)
-              Text(
+              const Text(
                 'Audio recorded and converted to base64 successfully!',
                 style: TextStyle(color: Colors.green),
               ),

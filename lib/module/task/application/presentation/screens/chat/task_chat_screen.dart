@@ -1,10 +1,8 @@
-import 'dart:async';
-
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/preview_widgets/voice_preview_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_list.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_text_field.dart';
-import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/preview_container_chat.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/preview_widgets/preview_container_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -60,16 +58,7 @@ class ScreenTaskChat extends StatelessWidget {
                         ),
                       ),
                       adjustHieght(5.h),
-                      // Container(
-                      //   height: 40.h,
-                      //   margin: const EdgeInsets.all(5),
-                      //   padding: const EdgeInsets.all(5),
-                      //   decoration: BoxDecoration(
-                      //     color: kGrayLight,
-                      //     borderRadius: kBorderRadius10,
-                      //   ),
-                      //   // child: 
-                      // ),
+                      const VoicePreviewChat(),
                       active ? const ChatTextfieldContainer() : kempty,
                     ],
                   ),

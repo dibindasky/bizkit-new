@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/data/service/connections/connections_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
@@ -46,24 +48,27 @@ class ConnectionsController extends GetxController {
   void sendConnectionRequest(
       {required SendConnectionRequest connectionRequest,
       required BuildContext context}) async {
-    sendConnectionRequestLoading.value = true;
-
+    final index = bizkitUsers.indexWhere(
+      (element) => element.userId == connectionRequest.toUser,
+    );
+    if (index != -1) {
+      bizkitUsers[index] = bizkitUsers[index].copyWith(checkLoading: true);
+    }
     final result = await connectionService.sendConnectionRequest(
         connectionRequest: connectionRequest);
 
     result.fold(
       (failure) {
-        sendConnectionRequestLoading.value = false;
+        if (index != -1) {
+          bizkitUsers[index] = bizkitUsers[index].copyWith(checkLoading: false);
+        }
         showSnackbar(context, message: errorMessage, backgroundColor: kred);
       },
       (success) {
-        sendConnectionRequestLoading.value = false;
-        final index = bizkitUsers.indexWhere(
-          (element) => element.userId == connectionRequest.toUser,
-        );
         if (index != -1) {
           bizkitUsers[index] = bizkitUsers[index].copyWith(
             connectionRequestId: success.connectionRequestId,
+            checkLoading: false,
           );
         }
       },
@@ -114,7 +119,12 @@ class ConnectionsController extends GetxController {
         searchBizkitUsersLoading.value = false;
       },
       (success) {
-        bizkitUsers.assignAll(success.results ?? []);
+        final filteredUsers = (success.results ?? [])
+            .where((user) => user.connectionExist != true)
+            .toList();
+
+        bizkitUsers.assignAll(filteredUsers);
+
         searchBizkitUsersLoading.value = false;
       },
     );
@@ -156,15 +166,47 @@ class ConnectionsController extends GetxController {
       {required CancelConnectionRequestModel cancelConnectionRequest,
       required bool fromSendrequests}) async {
     cancelConnectionRequestLoading.value = true;
+
+    final index = bizkitUsers.indexWhere(
+      (element) => element.userId == cancelConnectionRequest.userId,
+    );
+    if (index != -1) {
+      bizkitUsers[index] = bizkitUsers[index].copyWith(checkLoading: true);
+    }
     final result = await connectionService.cancelConnectionRequest(
         cancelConnectionRequest: cancelConnectionRequest);
 
     result.fold(
       (failure) {
+        final index = bizkitUsers.indexWhere(
+          (element) => element.userId == cancelConnectionRequest.userId,
+        );
+        if (index != -1) {
+          bizkitUsers[index] = bizkitUsers[index].copyWith(
+            checkLoading: false,
+          );
+        }
         cancelConnectionRequestLoading.value = false;
       },
       (success) {
         cancelConnectionRequestLoading.value = false;
+        final index = bizkitUsers.indexWhere(
+          (element) => element.userId == cancelConnectionRequest.userId,
+        );
+        if (index != -1) {
+          bizkitUsers[index] = BizCardUsers(
+              connectionRequestId: null,
+              checkLoading: false,
+              bizcardId: bizkitUsers[index].bizcardId,
+              companyName: bizkitUsers[index].companyName,
+              connectionExist: bizkitUsers[index].connectionExist,
+              designation: bizkitUsers[index].designation,
+              email: bizkitUsers[index].email,
+              phoneNumber: bizkitUsers[index].phoneNumber,
+              profilePicture: bizkitUsers[index].profilePicture,
+              userId: bizkitUsers[index].userId,
+              username: bizkitUsers[index].username);
+        }
         if (fromSendrequests) {
           fetchAllSendConnectionRequests();
         }

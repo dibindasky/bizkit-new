@@ -250,39 +250,32 @@ class _GridTileAddRequestConnectionState
               connectionController.cancelConnectionRequest(
                   fromSendrequests: true,
                   cancelConnectionRequest: CancelConnectionRequestModel(
-                      connectionId: widget.allSendRequests?.requestId ?? ''));
+                      connectionId: widget.allSendRequests?.requestId,
+                      userId: widget.data?.userId));
             } else {
-              if (widget.data?.connectionExist == false) {
+              if (widget.data?.connectionRequestId != null) {
+                connectionController.cancelConnectionRequest(
+                    fromSendrequests: false,
+                    cancelConnectionRequest: CancelConnectionRequestModel(
+                        connectionId: widget.data?.connectionRequestId,
+                        userId: widget.data?.userId));
+              } else if (widget.data?.connectionExist == false) {
                 connectionController.sendConnectionRequest(
                     connectionRequest: SendConnectionRequest(
                         toUser: widget.data?.userId ?? ''),
                     context: context);
-              } else {
-                connectionController.cancelConnectionRequest(
-                    fromSendrequests: false,
-                    cancelConnectionRequest: CancelConnectionRequestModel(
-                        connectionId: widget.data?.connectionRequestId));
               }
             }
           },
           child: widget.fromPendingRequests &&
                   widget.allSendRequests?.requestId != null
-              ? Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  decoration: BoxDecoration(
-                      gradient: neonShadeGradient,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(10))),
-                  child: FittedBox(
-                    child: Text(
-                      'Remove Connection',
-                      style: textThinStyle1,
-                    ),
-                  ),
-                )
-              : connectionController.sendConnectionRequestLoading.value
-                  ? const LoadingAnimation()
+              ? widget.allSendRequests?.checkLoading == true
+                  ? Container(
+                      height: 30,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 8),
+                      child: const LoadingAnimation(),
+                    )
                   : Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 8),
@@ -292,8 +285,28 @@ class _GridTileAddRequestConnectionState
                               const BorderRadius.all(Radius.circular(10))),
                       child: FittedBox(
                         child: Text(
-                          widget.data?.connectionExist == true ||
-                                  widget.data?.connectionRequestId != null
+                          'Remove Connection',
+                          style: textThinStyle1,
+                        ),
+                      ),
+                    )
+              : widget.data?.checkLoading == true
+                  ? Container(
+                      height: 30,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 8),
+                      child: const LoadingAnimation(),
+                    )
+                  : Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 8),
+                      decoration: BoxDecoration(
+                          gradient: neonShadeGradient,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10))),
+                      child: FittedBox(
+                        child: Text(
+                          widget.data?.connectionRequestId != null
                               ? 'Remove Connection'
                               : 'Add Connection',
                           style: textThinStyle1,

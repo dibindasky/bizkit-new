@@ -137,6 +137,7 @@ class ConnectionsService implements ConnectionsRepo {
   Future<Either<Failure, SuccessResponseModel>> cancelConnectionRequest(
       {required CancelConnectionRequestModel cancelConnectionRequest}) async {
     try {
+      log('cancelConnectionRequest  TO JSON  ==> ${cancelConnectionRequest.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.cancelConnectionRequest,
         data: cancelConnectionRequest.toJson(),

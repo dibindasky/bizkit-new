@@ -121,11 +121,8 @@ class ConnectionsService implements ConnectionsRepo {
   @override
   Future<Either<Failure, MyConnectionsResponce>> getMyconnections() async {
     try {
-      final responce = await apiService.get(
-        ApiEndPoints.myConnections,
-      );
+      final responce = await apiService.get(ApiEndPoints.myConnections);
       log('getMyconnections ==> success ');
-
       return Right(MyConnectionsResponce.fromJson(responce.data));
     } on DioException catch (e) {
       log('getMyconnections DioException ${e.response?.statusCode} $e');

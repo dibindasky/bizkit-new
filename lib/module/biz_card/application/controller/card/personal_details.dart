@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
 import 'package:bizkit/module/biz_card/data/service/card/personal_details.dart';
@@ -14,7 +12,6 @@ import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_
 import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_social_media_request_model/personal_social_media_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/personal_details_repo.dart';
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/time.dart';
@@ -135,9 +132,9 @@ class PersonalDetailsController extends GetxController {
       (r) {
         showSnackbar(context, message: 'Successfully Added Personal Details');
         GoRouter.of(context).pop();
-        isLoading.value = false;
       },
     );
+    isLoading.value = false;
   }
 
   void acheievementAdding(List<String> images, BuildContext context) async {
@@ -160,12 +157,13 @@ class PersonalDetailsController extends GetxController {
       achievementEvent.clear();
       achievementDate.clear();
       achievementTitle.clear();
-      achievementLoading.value = false;
+
       cardController.cardDetail(
           cardId: cardController.bizcardDetail.value.bizcardId ?? '');
       showSnackbar(context, message: 'Achievement Added Successfully');
       GoRouter.of(context).pop();
     });
+    achievementLoading.value = false;
   }
 
   void achivementDataClear() {
@@ -198,11 +196,12 @@ class PersonalDetailsController extends GetxController {
       (l) => null,
       (r) {
         final cardController = Get.find<CardController>();
-        achievementLoading.value = false;
+
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
       },
     );
+    achievementLoading.value = false;
   }
 
   void personalAcheievementDeleting(
@@ -216,7 +215,7 @@ class PersonalDetailsController extends GetxController {
       (l) => null,
       (r) {
         final cardController = Get.find<CardController>();
-        deleteLoading.value = false;
+
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         if (fromInner) {
@@ -226,6 +225,7 @@ class PersonalDetailsController extends GetxController {
         showSnackbar(context, message: 'Acheievement Deleted Successfully');
       },
     );
+    deleteLoading.value = false;
   }
 
   void personalSocialMediaAdding(
@@ -238,13 +238,14 @@ class PersonalDetailsController extends GetxController {
       (l) => null,
       (r) {
         final cardController = Get.find<CardController>();
-        isLoading.value = false;
+
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
         showSnackbar(context, message: 'Social Media Added Successfully');
       },
     );
+    isLoading.value = false;
   }
 
   void personalSocialMediaUpdate(
@@ -257,13 +258,13 @@ class PersonalDetailsController extends GetxController {
       (l) => null,
       (r) {
         final cardController = Get.find<CardController>();
-        isLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
         showSnackbar(context, message: 'Social Media Updated Successfully');
       },
     );
+    isLoading.value = false;
   }
 
   void personalSocialMediaDelete(int socialMediaIndex,
@@ -281,13 +282,13 @@ class PersonalDetailsController extends GetxController {
     data.fold(
       (l) => null,
       (r) {
-        deleteLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         if (fromIner) GoRouter.of(context).pop();
         showSnackbar(context, message: 'Social Media Deleted Successfully');
       },
     );
+    deleteLoading.value = false;
   }
 
   void personalDatesToRemiderAdding(
@@ -308,13 +309,14 @@ class PersonalDetailsController extends GetxController {
       (r) {
         personalDatesToReminderDate.clear();
         personalDatesToReminderMessage.clear();
-        isLoading.value = false;
+
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
         showSnackbar(context, message: 'Dates To Remider Added Successfully');
       },
     );
+    isLoading.value = false;
   }
 
   void personalDaatesToReminderUpdate(

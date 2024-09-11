@@ -251,7 +251,7 @@ class _GridTileAddRequestConnectionState
                   fromSendrequests: true,
                   cancelConnectionRequest: CancelConnectionRequestModel(
                       connectionId: widget.allSendRequests?.requestId,
-                      userId: widget.data?.userId));
+                      userId: widget.allSendRequests?.toUserId));
             } else {
               if (widget.data?.connectionRequestId != null) {
                 connectionController.cancelConnectionRequest(

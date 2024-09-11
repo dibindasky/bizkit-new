@@ -173,6 +173,16 @@ class ConnectionsController extends GetxController {
     if (index != -1) {
       bizkitUsers[index] = bizkitUsers[index].copyWith(checkLoading: true);
     }
+    if (fromSendrequests) {
+      final index = allSendConnectionRequests.indexWhere(
+        (element) => element.toUserId == cancelConnectionRequest.userId,
+      );
+
+      if (index != -1) {
+        allSendConnectionRequests[index] =
+            allSendConnectionRequests[index].copyWith(checkLoading: true);
+      }
+    }
     final result = await connectionService.cancelConnectionRequest(
         cancelConnectionRequest: cancelConnectionRequest);
 
@@ -185,6 +195,16 @@ class ConnectionsController extends GetxController {
           bizkitUsers[index] = bizkitUsers[index].copyWith(
             checkLoading: false,
           );
+        }
+        if (fromSendrequests) {
+          final index = allSendConnectionRequests.indexWhere(
+            (element) => element.toUserId == cancelConnectionRequest.userId,
+          );
+
+          if (index != -1) {
+            allSendConnectionRequests[index] =
+                allSendConnectionRequests[index].copyWith(checkLoading: false);
+          }
         }
         cancelConnectionRequestLoading.value = false;
       },
@@ -208,7 +228,17 @@ class ConnectionsController extends GetxController {
               username: bizkitUsers[index].username);
         }
         if (fromSendrequests) {
-          fetchAllSendConnectionRequests();
+          final index = allSendConnectionRequests.indexWhere(
+            (element) => element.toUserId == cancelConnectionRequest.userId,
+          );
+
+          if (index != -1) {
+            allSendConnectionRequests[index] =
+                allSendConnectionRequests[index].copyWith(
+              checkLoading: false,
+            );
+            allSendConnectionRequests.removeAt(index);
+          }
         }
       },
     );

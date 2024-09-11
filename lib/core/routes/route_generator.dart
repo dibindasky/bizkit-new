@@ -15,11 +15,11 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_cre
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/view_all_connection_contacts.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/widgets/cards_based_on_user.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/second_card_feilds.dart';
@@ -133,6 +133,13 @@ class GoRouterConfig {
       name: Routes.onBoardingBizCard,
       path: Routes.onBoardingBizCard,
       builder: (context, state) => const ScreenCardOnBoarding(),
+    ),
+
+    // Connection all cards Listing
+    GoRoute(
+      name: Routes.myConnectionsAllCards,
+      path: Routes.myConnectionsAllCards,
+      builder: (context, state) => const CardsbasedOnUserConnection(),
     ),
 
     // Card view

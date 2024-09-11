@@ -1,15 +1,11 @@
 import 'package:bizkit/core/model/search_query/search_query.dart';
-import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/view_all_connection_contacts.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/widgets/cards_based_on_user.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/dailog.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -198,7 +194,7 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                                 child: ColoredBox(
                                   color: textFieldFillColr,
                                   child: SizedBox(
-                                    height: 47.h,
+                                    height: 45.h,
                                     width: 50.w,
                                     child: Center(
                                       child: Icon(
@@ -219,14 +215,30 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                     }
                     return InkWell(
                       onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => Dialog(
+                            shape: BeveledRectangleBorder(
+                                borderRadius: kBorderRadius10),
+                            child: const CardsbasedOnUserConnection(),
+                          ),
+                        );
+
+                        const Dialog();
+                        GoRouter.of(context)
+                            .pushNamed(Routes.myConnectionsAllCards);
                         // Navigator.push(
                         //     context, cardFadePageRoute(const ScreenCardDetailView()));
                       },
                       child: Column(
                         children: [
                           Expanded(
-                              child: Image.asset(dummyPersonImage,
-                                  height: 30.h, width: 50.w)),
+                              child: Image.asset(
+                            dummyPersonImage,
+                            height: 30.h,
+                            width: 50.w,
+                            fit: BoxFit.cover,
+                          )),
                           Text(data.username ?? 'Name',
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center)

@@ -8,8 +8,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/home/vie
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 // enum and notifier below are used to shift the screens in home page without shifting home bottom bar
 enum HomeScreensList { first, second, third }
@@ -57,25 +55,6 @@ class _ScreenCardsHomeFirstAnimationState
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   SharedPreferences.getInstance().then((prefs) async {
-    //     const showed = true;
-    //     //  await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
-    //     setState(() {
-    //       isShowcaseSeen = showed;
-    //     });
-    //     if (!isShowcaseSeen) {
-    //       ShowCaseWidget.of(context).startShowCase([
-    //         globalKeynotificationIcon,
-    //         globalKeylevelSharingIcon,
-    //         globalKeyAddCard,
-    //         globalKeyaddConnections,
-    //       ]);
-    //       // await SecureStorage.setHasCard(hasCard: true);
-    //     }
-    //   });
-    // });
-
     homeFirstAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -91,7 +70,7 @@ class _ScreenCardsHomeFirstAnimationState
 
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0),
-      end: const Offset(0, -1.1), // Move upwards by the height of the screen
+      end: const Offset(0, -1.1),
     ).animate(
       CurvedAnimation(
         parent: homeFirstAnimationController,
@@ -134,12 +113,7 @@ class _ScreenCardsHomeFirstAnimationState
   @override
   Widget build(BuildContext context) {
     final connectionsController = Get.find<ConnectionsController>();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // context
-      //     .read<ReminderBloc>()
-      //     .add(const ReminderEvent.getAllRemindersEvent());
-      // context.read<QrBloc>().add(const QrEvent.getQrCodes());
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
     final size = MediaQuery.of(context).size;
     khieght = size.height;
     kwidth = size.width;

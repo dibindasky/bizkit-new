@@ -221,7 +221,6 @@ class PersonalDetailsController extends GetxController {
         if (fromInner) {
           GoRouter.of(context).pop();
         }
-
         showSnackbar(context, message: 'Acheievement Deleted Successfully');
       },
     );

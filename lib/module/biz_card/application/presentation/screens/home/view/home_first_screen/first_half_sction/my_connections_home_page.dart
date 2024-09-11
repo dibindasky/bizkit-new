@@ -23,7 +23,7 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final connectionsController = Get.find<ConnectionsController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // connectionsController.fetchMyConnections();
+      connectionsController.fetchMyConnections();
     });
     return Column(
       children: [

@@ -54,7 +54,6 @@ class ConnectionsController extends GetxController {
     result.fold(
       (failure) {
         sendConnectionRequestLoading.value = false;
-
         showSnackbar(context, message: errorMessage, backgroundColor: kred);
       },
       (success) {
@@ -62,7 +61,6 @@ class ConnectionsController extends GetxController {
         final index = bizkitUsers.indexWhere(
           (element) => element.userId == connectionRequest.toUser,
         );
-
         if (index != -1) {
           bizkitUsers[index] = bizkitUsers[index].copyWith(
               connectionRequestId: success.connectionRequestId,
@@ -126,7 +124,6 @@ class ConnectionsController extends GetxController {
   void fetchAllSendConnectionRequests() async {
     allSendConnectionRequestsLoading.value = true;
     final result = await connectionService.getAllSendConnectionRequests();
-
     result.fold(
       (failure) {
         allSendConnectionRequestsLoading.value = false;
@@ -140,9 +137,9 @@ class ConnectionsController extends GetxController {
 
   // Get my all connections
   void fetchMyConnections() async {
+    if (myConnections.isNotEmpty) return;
     myConnectionsLoading.value = true;
     final result = await connectionService.getMyconnections();
-
     result.fold(
       (failure) {
         myConnectionsLoading.value = false;
@@ -205,6 +202,7 @@ class ConnectionsController extends GetxController {
       },
       (success) {
         recievedConnectionRequestLoading.value = false;
+        fetchMyConnections();
       },
     );
   }

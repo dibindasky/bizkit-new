@@ -8,6 +8,16 @@ part of 'card_detail_model.dart';
 
 CardDetailModel _$CardDetailModelFromJson(Map<String, dynamic> json) =>
     CardDetailModel(
+      matchoMeter: json['matchoMeterComparison'] == null
+          ? null
+          : MatchMeter.fromJson(
+              json['matchoMeterComparison'] as Map<String, dynamic>),
+      category: json['category'] as String?,
+      location: json['location'] as String?,
+      notes: json['notes'] as String?,
+      occasion: json['occasion'] as String?,
+      selfie:
+          (json['selfie'] as List<dynamic>?)?.map((e) => e as String).toList(),
       bizcardId: json['bizcard_id'] as String?,
       personalDetails: json['personal_details'] == null
           ? null
@@ -27,6 +37,11 @@ CardDetailModel _$CardDetailModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CardDetailModelToJson(CardDetailModel instance) =>
     <String, dynamic>{
+      'category': instance.category,
+      'location': instance.location,
+      'notes': instance.notes,
+      'occasion': instance.occasion,
+      'selfie': instance.selfie,
       'bizcard_id': instance.bizcardId,
       'personal_details': instance.personalDetails,
       'business_details': instance.businessDetails,

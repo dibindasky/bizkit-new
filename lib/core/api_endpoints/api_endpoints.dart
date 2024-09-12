@@ -76,6 +76,7 @@ class ApiEndPoints {
   static String cancelConnectionRequest = '/cancel-connection-request/';
   static String searchConnection = '/search-connection/';
   static String unfollowConnection = '/un-follow-connection/';
+  static String viewConnectionCards = '/view-shared-bizcard-details/';
 
   // [ Reminder ]
   static String reminder = '/reminder/';

@@ -1,5 +1,6 @@
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/match_meter.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/matcho_meter_comparison.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 import 'business_details.dart';
 import 'personal_details.dart';
 
@@ -25,8 +26,21 @@ class CardDetailModel {
   bool? isDisabled;
   @JsonKey(name: 'qr_code')
   String? qrCode;
+  String? notes;
+  String? occasion;
+  String? location;
+  String? category;
+  List<String>? selfie;
+  @JsonKey(name: 'matcho_meter_comparison')
+  MatchMeter? matchoMeter;
 
   CardDetailModel({
+    this.matchoMeter,
+    this.selfie,
+    this.notes,
+    this.occasion,
+    this.location,
+    this.category,
     this.bizcardId,
     this.personalDetails,
     this.businessDetails,

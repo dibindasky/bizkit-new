@@ -214,4 +214,11 @@ class ConnectionsService implements ConnectionsRepo {
       return Left(Failure(message: 'Failed to request'));
     }
   }
+
+  @override
+  Future<Either<Failure, ConnectionRequestAcceptOrRejectResponce>>
+      getConnectionCard({required String cardId}) {
+    // TODO: implement getConnectionCard
+    throw UnimplementedError();
+  }
 }

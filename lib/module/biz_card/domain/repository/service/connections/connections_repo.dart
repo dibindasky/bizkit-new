@@ -54,4 +54,7 @@ abstract class ConnectionsRepo {
   Future<Either<Failure, ConnectionRequestAcceptOrRejectResponce>>
       acceptOrRejectConnectionRequest(
           {required AcceptOrRejectConnectionRequest acceptOrReject});
+  //  Accept OR Reject connection request
+  Future<Either<Failure, ConnectionRequestAcceptOrRejectResponce>>
+      getConnectionCard({required String cardId});
 }

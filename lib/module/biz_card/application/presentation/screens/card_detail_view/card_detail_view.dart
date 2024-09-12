@@ -1,6 +1,7 @@
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
+import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/screen_detail_editing/card_detail_editing_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/card_bottom_part.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
@@ -25,6 +26,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
   final cardController = Get.find<CardController>();
   final personalDetailsController = Get.find<PersonalDetailsController>();
   final businessDetailsController = Get.find<BusinesDetailsController>();
+  final connectionController = Get.find<ConnectionsController>();
 
   @override
   void initState() {
@@ -33,13 +35,15 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
   }
 
   Future getCard() async {
-    if (widget.cardId != null) {
+    if (widget.cardId != null && widget.myCard) {
       cardController.cardDetail(cardId: widget.cardId!);
       //   // context
       //   //     .read<CardBloc>()
       //   //     .add(CardEvent.getCardyCardId(id: widget.cardId!));
       //   // context.read<ReminderBloc>().add(ReminderEvent.getCardReminder(
       //   //     cardIdModel: CardIdModel(cardId: widget.cardId!)));
+    } else if (!widget.myCard) {
+      connectionController.getConnectionCardDetail(cardId: widget.cardId ?? '');
     }
     //if (widget.userId != null) {
     // context
@@ -66,7 +70,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
         title: const Text('Card'),
         actions: [
           Obx(
-            () => !cardController.isLoading.value
+            () => !cardController.isLoading.value && !widget.myCard
                 ? IconButton(
                     onPressed: () {
                       // if (state.anotherCard!.percentage! == 10) {
@@ -97,7 +101,8 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
       ),
       body: Obx(
         () {
-          if (cardController.isLoading.value) {
+          if (cardController.isLoading.value ||
+              connectionController.cardLoading.value) {
             return const Center(
                 child: CircularProgressIndicator(color: neonShade));
           } else if (cardController.bizcards == null) {
@@ -105,6 +110,9 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
               onTap: () {
                 if (widget.cardId != null) {
                   cardController.cardDetail(cardId: widget.cardId!);
+                } else if (!widget.myCard && widget.cardId != null) {
+                  connectionController.getConnectionCardDetail(
+                      cardId: widget.cardId ?? '');
                 }
               },
               child: const Center(

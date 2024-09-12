@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
@@ -5,7 +7,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/home/vie
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
-import 'package:bizkit/utils/dailog.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -215,16 +216,17 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                     }
                     return InkWell(
                       onTap: () {
-                        // final id = connectionsController
-                        //     .myConnections[index].cards
-                        //     ?.map((e) => e.toCard);
-                        // Map<String, String> map = id != null
-                        //     ? {'myCard': 'true', 'cardId': id.toString()}
-                        //     : <String, String>{};
+                        final id = connectionsController
+                            .myConnections[index].cards
+                            ?.map((e) => e.toCard)
+                            .toList();
+                        Map<String, String> map = id != null
+                            ? {'myCard': 'false', 'cardId': id.first ?? ''}
+                            : <String, String>{};
                         (connectionsController.myConnections[index - 1].cards
                                         ?.length ??
                                     0) >
-                                0
+                                1
                             ? showDialog(
                                 context: context,
                                 builder: (context) => Dialog(
@@ -237,7 +239,8 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                               )
                             : GoRouter.of(context).pushNamed(
                                 Routes.cardDetailView,
-                              );
+                                pathParameters: map);
+                        log('map $map');
                       },
                       child: Column(
                         children: [

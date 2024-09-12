@@ -215,20 +215,29 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                     }
                     return InkWell(
                       onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => Dialog(
-                            shape: BeveledRectangleBorder(
-                                borderRadius: kBorderRadius10),
-                            child: const CardsbasedOnUserConnection(),
-                          ),
-                        );
-
-                        const Dialog();
-                        GoRouter.of(context)
-                            .pushNamed(Routes.myConnectionsAllCards);
-                        // Navigator.push(
-                        //     context, cardFadePageRoute(const ScreenCardDetailView()));
+                        // final id = connectionsController
+                        //     .myConnections[index].cards
+                        //     ?.map((e) => e.toCard);
+                        // Map<String, String> map = id != null
+                        //     ? {'myCard': 'true', 'cardId': id.toString()}
+                        //     : <String, String>{};
+                        (connectionsController.myConnections[index - 1].cards
+                                        ?.length ??
+                                    0) >
+                                0
+                            ? showDialog(
+                                context: context,
+                                builder: (context) => Dialog(
+                                  shape: BeveledRectangleBorder(
+                                      borderRadius: kBorderRadius10),
+                                  child: CardsbasedOnUserConnection(
+                                      card: connectionsController
+                                          .myConnections[index - 1].cards),
+                                ),
+                              )
+                            : GoRouter.of(context).pushNamed(
+                                Routes.cardDetailView,
+                              );
                       },
                       child: Column(
                         children: [

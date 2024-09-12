@@ -1,6 +1,7 @@
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/bizcard_users_search_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
@@ -56,6 +57,6 @@ abstract class ConnectionsRepo {
       acceptOrRejectConnectionRequest(
           {required AcceptOrRejectConnectionRequest acceptOrReject});
   //  Accept OR Reject connection request
-  Future<Either<Failure, ConnectionRequestAcceptOrRejectResponce>>
-      getConnectionCard({required String cardId});
+  Future<Either<Failure, CardDetailModel>> getConnectionCard(
+      {required String cardId});
 }

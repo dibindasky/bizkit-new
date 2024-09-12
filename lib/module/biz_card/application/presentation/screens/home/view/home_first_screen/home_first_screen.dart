@@ -160,16 +160,6 @@ class _ScreenCardsHomeFirstAnimationState
                                           .getAllcards(true);
                                       connectionsController
                                           .fetchMyConnections();
-                                      // context.read<CardBloc>().add(
-                                      //     const CardEvent.getCards(call: true));
-                                      // context.read<ConnectionRequestBloc>().add(
-                                      //     const ConnectionRequestEvent
-                                      //         .getBizkitConnections(query: ''));
-                                      // context.read<ReminderBloc>().add(
-                                      //     const ReminderEvent
-                                      //         .getAllRemindersEvent());
-                                      // await Future.delayed(
-                                      //     const Duration(milliseconds: 1500));
                                     },
                                     child: ListView(
                                       children: [

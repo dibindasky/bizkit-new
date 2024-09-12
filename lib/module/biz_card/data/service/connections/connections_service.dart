@@ -4,6 +4,7 @@ import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/bizcard_users_search_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
@@ -217,9 +218,21 @@ class ConnectionsService implements ConnectionsRepo {
   }
 
   @override
-  Future<Either<Failure, ConnectionRequestAcceptOrRejectResponce>>
-      getConnectionCard({required String cardId}) {
-    // TODO: implement getConnectionCard
-    throw UnimplementedError();
+  Future<Either<Failure, CardDetailModel>> getConnectionCard(
+      {required String cardId}) async {
+    try {
+      final responce = await apiService.get(
+        ApiEndPoints.viewConnectionCards,
+        data: {'bizcard_id': cardId},
+      );
+      log('getConnectionCard ==> success ');
+      return Right(CardDetailModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getConnectionCard DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('getConnectionCard catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
   }
 }

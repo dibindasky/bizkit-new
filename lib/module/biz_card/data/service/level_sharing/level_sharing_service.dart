@@ -56,6 +56,7 @@ class LevelSharingService implements LevelSharingRepo {
           {required IndividualSharedFieldsQueryParamsModel
               queryParameter}) async {
     try {
+      log('getAllIndividualSharedFields TO JSON ===== > ${queryParameter.toJson()}');
       final responce = await apiService.get(
         ApiEndPoints.individualLevelSharing,
         queryParameters: queryParameter.toJson(),

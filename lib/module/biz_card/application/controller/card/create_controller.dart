@@ -35,6 +35,8 @@ class CardController extends GetxController {
   RxList<Views> cardViews = <Views>[].obs;
   RxList<Bizcard> bizcards = <Bizcard>[].obs;
 
+  RxString bizcardId = ''.obs;
+
   Rx<CardDetailModel> bizcardDetail = CardDetailModel().obs;
   Rx<PersonalDetails?> personalDetails = PersonalDetails().obs;
   Rx<BusinessDetails?> businessDetails = BusinessDetails().obs;
@@ -83,7 +85,11 @@ class CardController extends GetxController {
     final data = await cardRepo.getAllCards();
     data.fold(
       (l) => isLoading.value = false,
-      (r) => bizcards.value = r.bizcards ?? <Bizcard>[],
+      (r) {
+        bizcards.value = r.bizcards ?? <Bizcard>[];
+        bizcardId.value = r.bizcards?.first.bizcardId ?? '';
+        log('Bizcard Id === > ${bizcardId.value}');
+      },
     );
     update();
     isLoading.value = false;

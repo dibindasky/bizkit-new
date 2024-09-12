@@ -53,7 +53,7 @@ class ConnectionsService implements ConnectionsRepo {
         ApiEndPoints.searchConnection,
         data: searchQuery.toJson(),
       );
-      log('searchConnections ==--> success ${responce.data}');
+      log('searchConnections ==--> success ');
       return Right(SearchConnectionResponce.fromJson(responce.data));
     } on DioException catch (e) {
       log('searchConnections DioException ${e.response?.statusCode} $e');
@@ -140,7 +140,6 @@ class ConnectionsService implements ConnectionsRepo {
   Future<Either<Failure, SuccessResponseModel>> cancelConnectionRequest(
       {required CancelConnectionRequestModel cancelConnectionRequest}) async {
     try {
-      log('cancelConnectionRequest  TO JSON  ==> ${cancelConnectionRequest.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.cancelConnectionRequest,
         data: cancelConnectionRequest.toJson(),
@@ -184,7 +183,7 @@ class ConnectionsService implements ConnectionsRepo {
         ApiEndPoints.recievedConnectionRequests,
         data: acceptOrReject.toJson(),
       );
-      log('acceptOrRejectConnectionRequest ==> success ${responce.data} ');
+      log('acceptOrRejectConnectionRequest ==> success  ');
 
       return Right(
           ConnectionRequestAcceptOrRejectResponce.fromJson(responce.data));

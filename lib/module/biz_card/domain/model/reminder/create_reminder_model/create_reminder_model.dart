@@ -9,16 +9,18 @@ class CreateReminderModel {
   String? venue;
   String? occasion;
   String? description;
+  @JsonKey(name: 'meeting_label')
+  String? meetingLabel;
   @JsonKey(name: 'reminder_date')
   String? reminderDate;
 
-  CreateReminderModel({
-    this.bizcardId,
-    this.venue,
-    this.occasion,
-    this.description,
-    this.reminderDate,
-  });
+  CreateReminderModel(
+      {this.bizcardId,
+      this.venue,
+      this.occasion,
+      this.description,
+      this.reminderDate,
+      this.meetingLabel});
 
   factory CreateReminderModel.fromJson(Map<String, dynamic> json) {
     return _$CreateReminderModelFromJson(json);

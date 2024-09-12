@@ -11,14 +11,16 @@ class UpdateReminderModel {
   String? description;
   @JsonKey(name: 'reminder_date')
   String? reminderDate;
+  @JsonKey(name: 'meeting_label')
+  String? meetingLabel;
 
-  UpdateReminderModel({
-    this.reminderId,
-    this.venue,
-    this.occasion,
-    this.description,
-    this.reminderDate,
-  });
+  UpdateReminderModel(
+      {this.reminderId,
+      this.venue,
+      this.occasion,
+      this.description,
+      this.reminderDate,
+      this.meetingLabel});
 
   factory UpdateReminderModel.fromJson(Map<String, dynamic> json) {
     return _$UpdateReminderModelFromJson(json);

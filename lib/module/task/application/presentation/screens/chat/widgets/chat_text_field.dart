@@ -114,10 +114,8 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
                       Obx(() {
                         return GestureDetector(
                           onTap: controller.micTap,
-                          onLongPress: controller
-                              .startRecording,
-                          onLongPressUp: controller
-                              .stopRecording,
+                          onLongPress: controller.micTap,
+                          onLongPressUp: controller.micTap,
                           child: CircleAvatar(
                             radius: 30,
                             backgroundColor: controller.isRecording.value

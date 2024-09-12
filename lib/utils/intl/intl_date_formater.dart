@@ -200,4 +200,18 @@ class DateTimeFormater {
       return 'Just now';
     }
   }
+
+  // return time from int second (MM:SS)
+  static String getDurtionFromSeconds(int sec) {
+    // Calculate minutes and seconds
+    int minutes = sec ~/ 60; // Integer division to get minutes
+    int seconds = sec % 60; // Remainder to get seconds
+
+    // Format minutes and seconds to always have two digits
+    String formattedMinutes = minutes.toString().padLeft(2, '0');
+    String formattedSeconds = seconds.toString().padLeft(2, '0');
+
+    // Return the formatted duration
+    return '$formattedMinutes:$formattedSeconds';
+  }
 }

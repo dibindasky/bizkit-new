@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
+import 'package:intl/intl.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -12,6 +14,8 @@ class SoundManager {
   bool _isPlayerInitialized = false;
   String? _filePath;
   String? _base64Audio;
+  int _recordDuration = 0; // Variable to store the recorded audio duration
+  int _playbackPosition = 0; // Variable to track the playback position
 
   // Default constructor
   SoundManager() {
@@ -61,7 +65,9 @@ class SoundManager {
   // Get the directory to store the audio file
   Future<String> _getFilePath() async {
     final directory = await getApplicationDocumentsDirectory();
-    return '${directory.path}/audio_record.aac';
+    String timestamp = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
+    _filePath = '${directory.path}/audio_$timestamp.aac';
+    return _filePath!;
   }
 
   // Start recording
@@ -74,10 +80,29 @@ class SoundManager {
         toFile: _filePath,
         codec: Codec.aacADTS,
       );
+      _recordDuration = 0; // Reset the record duration
+      _updateRecordDuration(); // Start updating the record duration
     } catch (e) {
       print('Failed to start recording: $e');
     }
   }
+
+  // Update the record duration every second
+  void _updateRecordDuration() {
+    Timer.periodic(Duration(seconds: 1), (timer) async {
+      if (_recorder != null && _recorder!.isRecording) {
+        _recordDuration++;
+      } else {
+        timer.cancel();
+      }
+    });
+  }
+
+  // Get the recorded audio duration in seconds
+  int getRecordDuration() => _recordDuration;
+  bool isPlaying() => _player!.isPlaying;
+  bool isPaused() => _player!.isPaused;
+  bool isStopped() => _player!.isStopped;
 
   // Stop recording and encode to base64
   Future<void> stopRecording() async {
@@ -96,7 +121,7 @@ class SoundManager {
   }
 
   // Play the base64-encoded audio
-  Future<bool> playRecording() async {
+  Future<bool> playRecording({VoidCallback? whenFinished}) async {
     if (!_isPlayerInitialized || _base64Audio == null) return false;
 
     try {
@@ -107,12 +132,29 @@ class SoundManager {
       await _player!.startPlayer(
         fromURI: tempFile.path,
         codec: Codec.aacADTS,
+        whenFinished: whenFinished,
       );
+      _playbackPosition = 0; // Reset the playback position
+      _updatePlaybackPosition(); // Start updating the playback position
       return true;
     } catch (e) {
       print('Failed to play recording: $e');
       return false;
     }
+  }
+
+  // Get the current playback position in seconds
+  int getPlaybackPosition() => _playbackPosition;
+
+  // Update the playback position every second
+  void _updatePlaybackPosition() {
+    Timer.periodic(Duration(seconds: 1), (timer) async {
+      if (_player != null && _player!.isPlaying) {
+        _playbackPosition++;
+      } else {
+        timer.cancel();
+      }
+    });
   }
 
   // Pause playback

@@ -21,6 +21,7 @@ import 'package:bizkit/module/task/domain/model/chat/time_expence_creation.dart'
 import 'package:bizkit/module/task/domain/model/chat/time_expence_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,24 +32,61 @@ class ChatController extends GetxController {
   late IOWebSocketChannel channel;
   final TextEditingController controller = TextEditingController();
   final ScrollController chatScrollController = ScrollController();
-  final SoundManager soundManager = SoundManager();
+  SoundManager soundManager = SoundManager();
 
-  /// chat message list
+  /// chat messages list
   RxList<Message> messages = <Message>[].obs;
   String _error = '';
+
+  /// currently active chat task id
   String chatTaskId = '';
+
+  /// messages first loading or not
   bool firstLoad = true;
+
+  /// current loaction fetching loading
   RxBool currentLocationFetching = false.obs;
+
+  /// socket connection loading
   RxBool connectionLoading = false.obs;
+
+  /// connected to socket or not
   RxBool connected = false.obs;
+
+  /// loading for more messages history
   RxBool loadMoreLoading = false.obs;
+
+  /// audio is been currently recording or not
   RxBool isRecording = false.obs;
+
+  /// recorded base64 audio
   RxString recordedAudio = ''.obs;
+
+  /// recorded audio is playing or not
   RxBool isPlaying = false.obs;
+
+  /// recorded audio is paused or not
+  RxBool isPaused = false.obs;
+
+  /// used to store the current location for sending location
   RxList<double> currentLocationLatLong = <double>[].obs;
-  RxList<ImageModel> loadedImages = <ImageModel>[].obs;
+
+  /// current location name
   RxString currentLocation = ''.obs;
 
+  /// images before sending
+  RxList<ImageModel> loadedImages = <ImageModel>[].obs;
+
+  /// record Duration
+  RxInt recordDuration = 0.obs;
+
+  /// recorder current positon
+  RxInt playBackPosition = 0.obs;
+
+  /// timer for audio
+  Timer recordTimer = Timer(Duration.zero, () {});
+
+  /// currently active poll details
   Rx<Poll> pollDetail = Poll().obs;
 
   /// connect to the channel with task id and handle the messages form the channel
@@ -60,7 +98,10 @@ class ChatController extends GetxController {
     chatScrollController.addListener(() {
       checkLoading();
     });
-
+    soundManager = SoundManager();
+    isPlaying.value = false;
+    isPaused.value = false;
+    recordedAudio.value = '';
     final token = await SecureStorage.getToken();
     final accessToken = token.accessToken ?? '';
     final uid = token.uid ?? '';
@@ -259,6 +300,10 @@ class ChatController extends GetxController {
   void addMessage(Map<String, dynamic> data) {
     try {
       print('addMessage => $data');
+//       channel.sink.add(jsonEncode({
+//     "message_type":"track_voice",
+//     "message_id":"66e2cba737601258a10dfec7"
+// }));
       channel.sink.add(jsonEncode(data));
     } catch (e) {
       log('message sending error $e');
@@ -451,63 +496,103 @@ class ChatController extends GetxController {
   /// on mic tap record and stop
   void micTap() {
     if (isRecording.value) {
-      stopRecording();
+      _stopRecording();
     } else {
-      startRecording();
+      _startRecording();
     }
   }
 
   /// start recording audio
-  void startRecording() async{
+  void _startRecording() async {
     recordedAudio.value = '';
     isRecording.value = true;
     await soundManager.startRecording();
   }
 
   /// stop recording audio
-  void stopRecording() async{
+  void _stopRecording() async {
     await soundManager.stopRecording();
     recordedAudio.value = soundManager.getBase64Audio() ?? '';
     print('recorded audio => ${recordedAudio.value}');
     isRecording.value = false;
+    getRecordDuration();
   }
 
   /// play pause controller
   void playPauseRecordedAudio() {
-    if (isPlaying.value) {
-      pauseRecordedAudio();
+    if (isPaused.value) {
+      _resumeRecordedAudio();
+    } else if (isPlaying.value) {
+      _pauseRecordedAudio();
+      // _stopPlayingRecordedAudio();
     } else {
-      playPauseRecordedAudio();
+      _playRecordedAudio();
     }
   }
 
+  void getRecordDuration() {
+    recordDuration.value = soundManager.getRecordDuration();
+  }
+
+  void getPlaybackPosition() {
+    playBackPosition.value = soundManager.getPlaybackPosition();
+  }
+
+  /// when recording finished
+  void _whenFinished() {
+    isPlaying.value = false;
+    isPaused.value = false;
+  }
+
   /// play recorded audio
-  void playRecordedAudio() async {
+  void _playRecordedAudio() async {
     isPlaying.value = true;
-    await soundManager.playRecording();
+    isPaused.value = false;
     print('playing recorded audio');
+    final play = await soundManager.playRecording(whenFinished: _whenFinished);
+    print('played or not  ---------------------------==> $play');
+    if (!play) {
+      isPlaying.value = false;
+      print('-------------------error playing audio------------------');
+    }
+    print('player status -> ${soundManager.isPlaying()}');
+    // while (soundManager.isPlaying() && isPlaying.value && !isPaused.value) {
+    //   print('playing');
+    // }
+    // isPlaying.value = false;
   }
 
   /// pause recorded audio
-  void pauseRecordedAudio() async {
+  void _pauseRecordedAudio() async {
     await soundManager.pausePlayback();
     isPlaying.value = false;
+    isPaused.value = true;
     print('pause recorded audio');
   }
 
+  /// pause recorded audio
+  void _stopPlayingRecordedAudio() async {
+    await soundManager.stopPlayback();
+    isPlaying.value = false;
+    isPaused.value = false;
+    print('stop playing recorded audio');
+  }
+
   /// resume recorded audio
-  void resumeRecordedAudio() async {
+  void _resumeRecordedAudio() async {
     await soundManager.resumePlayback();
     isPlaying.value = true;
+    isPaused.value = false;
     print('pause recorded audio');
   }
 
   /// send audio
   void sendAudio() {
+    getRecordDuration();
     addMessage({
       "message_type": "voice",
       "voice_message": recordedAudio.value,
-      "duration": "10s"
+      "duration": DateTimeFormater.getDurtionFromSeconds(recordDuration.value)
     });
     recordedAudio.value = '';
   }

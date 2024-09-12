@@ -11,6 +11,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/connection_reque
 import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/my_connections_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/recieved_connection_requests_responce/recieved_connection_requests_responce.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/search_connection_responce/search_connection_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/send_connection_requets_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_responce/send_connection_responce.dart';
@@ -44,15 +45,16 @@ class ConnectionsService implements ConnectionsRepo {
   }
 
   @override
-  Future<Either<Failure, MyConnectionsResponce>> searchConnections(
+  Future<Either<Failure, SearchConnectionResponce>> searchConnections(
       {required SearchQuery searchQuery}) async {
     try {
+      log('search tojson = ${searchQuery.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.searchConnection,
         data: searchQuery.toJson(),
       );
-      log('searchConnections ==--> success ${responce.data}');
-      return Right(MyConnectionsResponce.fromJson(responce.data));
+      log('searchConnections ==--> success ');
+      return Right(SearchConnectionResponce.fromJson(responce.data));
     } on DioException catch (e) {
       log('searchConnections DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));
@@ -138,7 +140,6 @@ class ConnectionsService implements ConnectionsRepo {
   Future<Either<Failure, SuccessResponseModel>> cancelConnectionRequest(
       {required CancelConnectionRequestModel cancelConnectionRequest}) async {
     try {
-      log('cancelConnectionRequest  TO JSON  ==> ${cancelConnectionRequest.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.cancelConnectionRequest,
         data: cancelConnectionRequest.toJson(),
@@ -182,7 +183,7 @@ class ConnectionsService implements ConnectionsRepo {
         ApiEndPoints.recievedConnectionRequests,
         data: acceptOrReject.toJson(),
       );
-      log('acceptOrRejectConnectionRequest ==> success ');
+      log('acceptOrRejectConnectionRequest ==> success  ');
 
       return Right(
           ConnectionRequestAcceptOrRejectResponce.fromJson(responce.data));

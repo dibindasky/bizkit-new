@@ -28,7 +28,7 @@ class BusinessDetailsScreen extends StatelessWidget {
 
   final bool fromBusiness;
   final PageController pageController;
-  final Debouncer debouncer = Debouncer();
+  final Debouncer debouncer = Debouncer(milliseconds: 300);
 
   @override
   Widget build(BuildContext context) {

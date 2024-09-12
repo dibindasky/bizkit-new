@@ -1,12 +1,12 @@
 import 'package:bizkit/core/model/search_query/search_query.dart';
-import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 // import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/bizkit_connection_tab.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/tabs/contacts_connection_tab.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/blocked_connections.dart';
+import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_query_params_model/individual_shared_fields_query_params_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/cupertino.dart';
@@ -63,6 +63,8 @@ class _MyConnectionsViewAllContactsState
   @override
   Widget build(BuildContext context) {
     final connectionsController = Get.find<ConnectionsController>();
+    final cardController = Get.find<CardController>();
+    final levelSharingController = Get.find<LevelSharingController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // context
       //     .read<ConnectionRequestBloc>()
@@ -93,28 +95,37 @@ class _MyConnectionsViewAllContactsState
           actions: [
             InkWell(
               onTap: () {
+                levelSharingController.fetchIndividualSharedFields(
+                    queryParameter: IndividualSharedFieldsQueryParamsModel(
+                        bizcardId: cardController.bizcardId.value));
                 GoRouter.of(context)
                     .pushNamed(Routes.recievedConnectionRequests);
-                // Navigator.push(context,
-                //     cardFadePageRoute(const ScreenConnectionRequests()));
               },
-              child: SizedBox(
-                height: 20,
-                width: 26,
-                child: Stack(
-                  children: [
-                    Image.asset(iconConnectionPeople),
-                    Positioned(
-                      right: 10,
-                      child: Obx(
-                        () => Text(
-                          '${connectionsController.recievedConnectionRequests.length}',
-                          style: const TextStyle(color: kblack),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              child: Obx(
+                () =>
+                    connectionsController.recievedConnectionRequestLoading.value
+                        ? SizedBox(
+                            height: 20,
+                            width: 26,
+                            child: Image.asset(iconConnectionPeople))
+                        : SizedBox(
+                            height: 20,
+                            width: 26,
+                            child: Stack(
+                              children: [
+                                Image.asset(iconConnectionPeople),
+                                Positioned(
+                                  right: 10,
+                                  child: Obx(
+                                    () => Text(
+                                      '${connectionsController.recievedConnectionRequests.length}',
+                                      style: const TextStyle(color: kblack),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
               ),
             ),
             kWidth10,

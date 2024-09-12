@@ -8,20 +8,21 @@ import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connectio
 import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/recieved_connection_requests_responce/request.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/search_connection_responce/result.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/debouncer/debouncer.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class ConnectionsController extends GetxController {
   final ConnectionsRepo connectionService = ConnectionsService();
-
+  final Debouncer debouncer = Debouncer(milliseconds: 300);
   // Loadings
   RxBool sendConnectionRequestLoading = false.obs;
   RxBool searchConnectionsLoading = false.obs;
@@ -32,7 +33,7 @@ class ConnectionsController extends GetxController {
   RxBool cancelConnectionRequestLoading = false.obs;
   RxBool followbackRequestLoading = false.obs;
 
-  RxList<MyConnection> connectionsSearchList = <MyConnection>[].obs;
+  RxList<SearchConnection> connectionsSearchList = <SearchConnection>[].obs;
 
   RxList<RecievedConnectionRequest> recievedConnectionRequests =
       <RecievedConnectionRequest>[].obs;
@@ -45,8 +46,6 @@ class ConnectionsController extends GetxController {
   RxList<MyConnection> myConnections = <MyConnection>[].obs;
 
   RxString connectionRequestId = ''.obs;
-
-  RxBool followBackPossible = false.obs;
 
   // Send connection request
   void sendConnectionRequest(
@@ -80,18 +79,22 @@ class ConnectionsController extends GetxController {
   }
 
   // Search connections
-  void searchConnections({required SearchQuery searchQuery}) async {
-    searchConnectionsLoading.value = true;
-    final result =
-        await connectionService.searchConnections(searchQuery: searchQuery);
+  void searchConnections({required SearchQuery searchQuery}) {
+    debouncer.run(
+      () async {
+        searchConnectionsLoading.value = true;
+        final result =
+            await connectionService.searchConnections(searchQuery: searchQuery);
 
-    result.fold(
-      (failure) {
-        searchConnectionsLoading.value = false;
-      },
-      (success) {
-        connectionsSearchList.assignAll(success.connections ?? []);
-        searchConnectionsLoading.value = false;
+        result.fold(
+          (failure) {
+            searchConnectionsLoading.value = false;
+          },
+          (success) {
+            connectionsSearchList.assignAll(success.results ?? []);
+            searchConnectionsLoading.value = false;
+          },
+        );
       },
     );
   }
@@ -113,23 +116,27 @@ class ConnectionsController extends GetxController {
   }
 
   // Search bizkit users
-  void searchBizkitUsers({required SearchQuery searchQuery}) async {
-    searchBizkitUsersLoading.value = true;
-    final result =
-        await connectionService.searchBizkitUsers(searchQuery: searchQuery);
+  void searchBizkitUsers({required SearchQuery searchQuery}) {
+    debouncer.run(
+      () async {
+        searchBizkitUsersLoading.value = true;
+        final result =
+            await connectionService.searchBizkitUsers(searchQuery: searchQuery);
 
-    result.fold(
-      (failure) {
-        searchBizkitUsersLoading.value = false;
-      },
-      (success) {
-        final filteredUsers = (success.results ?? [])
-            .where((user) => user.connectionExist != true)
-            .toList();
+        result.fold(
+          (failure) {
+            searchBizkitUsersLoading.value = false;
+          },
+          (success) {
+            final filteredUsers = (success.results ?? [])
+                .where((user) => user.connectionExist != true)
+                .toList();
 
-        bizkitUsers.assignAll(filteredUsers);
+            bizkitUsers.assignAll(filteredUsers);
 
-        searchBizkitUsersLoading.value = false;
+            searchBizkitUsersLoading.value = false;
+          },
+        );
       },
     );
   }
@@ -251,7 +258,6 @@ class ConnectionsController extends GetxController {
   // Follow back request
   void followbackRequest(
       {required FollowBackRequestModel folowbackRequest}) async {
-    log('folowbackRequest TO JSON =  >${folowbackRequest.toJson()}');
     followbackRequestLoading.value = true;
     final result = await connectionService.folowbackRequest(
         folowbackRequest: folowbackRequest);
@@ -290,9 +296,11 @@ class ConnectionsController extends GetxController {
   }
 
   // Connection request accept Or reject
-  void connectionRequestAcceptOrReject(
-      {required AcceptOrRejectConnectionRequest acceptOrReject}) async {
+  Future<bool> connectionRequestAcceptOrReject(
+      {required AcceptOrRejectConnectionRequest acceptOrReject,
+      required BuildContext context}) async {
     recievedConnectionRequestLoading.value = true;
+    bool followBackPossible = false;
     final result = await connectionService.acceptOrRejectConnectionRequest(
         acceptOrReject: acceptOrReject);
 
@@ -302,11 +310,13 @@ class ConnectionsController extends GetxController {
       },
       (success) {
         recievedConnectionRequestLoading.value = false;
-        followBackPossible.value = success.followBackPossible ?? false;
+
         fetchMyConnections();
         fetchRecievedConnectionRequests();
         searchConnections(searchQuery: SearchQuery(search: ''));
+        followBackPossible = success.followBackPossible ?? false;
       },
     );
+    return followBackPossible;
   }
 }

@@ -4,10 +4,7 @@ import 'package:bizkit/module/task/application/presentation/screens/chat/current
 import 'package:bizkit/module/task/application/presentation/screens/chat/file_message/file_message_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/time_expence/time_expence_card.dart';
-import 'package:bizkit/module/task/domain/model/chat/voice_model.dart';
-import 'package:bizkit/packages/sound/sound_manager.dart';
-import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/voice/voice_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -93,81 +90,5 @@ class ChatListView extends StatelessWidget {
             },
           );
         });
-  }
-}
-
-class VoiceMessageCard extends StatefulWidget {
-  const VoiceMessageCard({
-    super.key,
-    required this.message,
-  });
-
-  final VoiceMessage message;
-
-  @override
-  State<VoiceMessageCard> createState() => _VoiceMessageCardState();
-}
-
-class _VoiceMessageCardState extends State<VoiceMessageCard> {
-  late SoundManager soundManager;
-  @override
-  void initState() {
-    soundManager = SoundManager.fromBase64(widget.message.voice);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final sender = widget.message.sender;
-    return Padding(
-        padding: EdgeInsets.only(
-            top: 5.0.w,
-            bottom: 2.w,
-            left: sender ? 50.w : 10.w,
-            right: !sender ? 50.w : 10.w),
-        child: AnimatedContainer(
-          padding:
-              EdgeInsets.only(left: 5.w, right: 5.w, top: 5.h, bottom: 4.h),
-          decoration: BoxDecoration(
-            borderRadius: kBorderRadius5,
-            color: sender ? neonShade.withGreen(190) : klightDarkGrey,
-          ),
-          duration: const Duration(milliseconds: 300),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              sender
-                  ? kempty
-                  : Text(
-                      widget.message.username ?? '',
-                      style: textThinStyle1.copyWith(
-                          fontSize: 8.sp, color: kwhite.withOpacity(0.7)),
-                    ),
-              Row(
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        soundManager.playRecording();
-                      }, child: const Icon(Icons.play_arrow)),
-                  Expanded(
-                    child: SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          trackHeight: 2.h,
-                          thumbShape:
-                              RoundSliderThumbShape(enabledThumbRadius: 6.h),
-                          activeTrackColor: kwhite,
-                          inactiveTrackColor: Colors.grey,
-                          thumbColor: kwhite,
-                          overlayColor: kwhite,
-                          overlayShape: const RoundSliderOverlayShape(
-                              overlayRadius: 20.0), // Overlay size
-                        ),
-                        child: Slider(value: 1, onChanged: (value) {})),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ));
   }
 }

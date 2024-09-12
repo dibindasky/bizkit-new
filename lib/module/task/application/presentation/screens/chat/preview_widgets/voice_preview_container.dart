@@ -2,6 +2,7 @@ import 'package:bizkit/module/task/application/controller/chat/chat_controller.d
 import 'package:bizkit/utils/animations/custom_shrinking_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -34,26 +35,25 @@ class VoicePreviewChat extends StatelessWidget {
                           Icons.mic,
                           color: neonShade,
                         )
-                      : GestureDetector(
-                          onTap: () {
-                            if(controller.isPlaying.value){
-                              controller.pauseRecordedAudio();
-                            }else{
-                              controller.playRecordedAudio();
-                            }
-                          },
-                          child: Obx(() {
-                            return controller.isPlaying.value
-                                ? const Icon(
-                                    Icons.pause,
-                                    color: neonShade,
-                                  )
-                                : const Icon(
-                                    Icons.play_arrow,
-                                    color: neonShade,
-                                  );
-                          })),
-                  kWidth10,
+                      : GestureDetector(onTap: () {
+                          controller.playPauseRecordedAudio();
+                        }, child: Obx(() {
+                          return controller.isPlaying.value
+                              ? const Icon(
+                                  Icons.pause,
+                                  color: neonShade,
+                                )
+                              : const Icon(
+                                  Icons.play_arrow,
+                                  color: neonShade,
+                                );
+                        })),
+                  kWidth5,
+                  Obx(() => Text(
+                        DateTimeFormater.getDurtionFromSeconds(
+                            controller.recordDuration.value),
+                        style: textThinStyle1.copyWith(fontSize: 10.sp),
+                      )),
                   Expanded(child: Obx(() {
                     return controller.isRecording.value ||
                             controller.isPlaying.value

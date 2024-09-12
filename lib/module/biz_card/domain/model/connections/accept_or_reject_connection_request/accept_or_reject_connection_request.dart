@@ -14,6 +14,7 @@ class AcceptOrRejectConnectionRequest {
   AcceptOrRejectConnectionRequest({
     this.connectionId,
     this.status,
+
     // this.sharedFields,
   });
 

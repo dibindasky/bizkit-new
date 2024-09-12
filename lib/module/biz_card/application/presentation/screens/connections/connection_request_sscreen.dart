@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:developer';
 
@@ -132,6 +134,7 @@ class ScreenConnectionRequests extends StatelessWidget {
                                         OutlinedButton(
                                             onPressed: () {
                                               connectionController.connectionRequestAcceptOrReject(
+                                                  context: context,
                                                   acceptOrReject:
                                                       AcceptOrRejectConnectionRequest(
                                                           connectionId:
@@ -194,10 +197,16 @@ class ScreenConnectionRequests extends StatelessWidget {
                                               },
                                               child: const Text('Cancel')),
                                           OutlinedButton(
-                                              onPressed: () {
-                                                connectionController.connectionRequestAcceptOrReject(
-                                                    acceptOrReject:
-                                                        AcceptOrRejectConnectionRequest(
+                                              onPressed: () async {
+                                                final userId = connectionController
+                                                        .recievedConnectionRequests[
+                                                            index]
+                                                        .fromUser ??
+                                                    '';
+                                                final followBackPossible = await connectionController
+                                                    .connectionRequestAcceptOrReject(
+                                                        context: context,
+                                                        acceptOrReject: AcceptOrRejectConnectionRequest(
                                                             connectionId:
                                                                 connectionController
                                                                         .recievedConnectionRequests[
@@ -206,11 +215,15 @@ class ScreenConnectionRequests extends StatelessWidget {
                                                                     '',
                                                             status:
                                                                 'accepted'));
+
                                                 Navigator.pop(context);
                                                 Navigator.pop(context);
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (context) => AlertDialog(
+                                                if (followBackPossible ==
+                                                    true) {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        AlertDialog(
                                                       title: const Text(
                                                           'Follow Back to Connect'),
                                                       actions: [
@@ -223,18 +236,20 @@ class ScreenConnectionRequests extends StatelessWidget {
                                                                 'Cancel')),
                                                         OutlinedButton(
                                                             onPressed: () {
-                                                              // connectionController.followbackRequest(
-                                                              //     folowbackRequest:
-                                                              //         FollowBackRequestModel(
-                                                              //             toUser:
-                                                              //                 connectionController.recievedConnectionRequests[index].id ?? ''));
+                                                              connectionController.followbackRequest(
+                                                                  folowbackRequest:
+                                                                      FollowBackRequestModel(
+                                                                          toUser:
+                                                                              userId));
                                                               Navigator.pop(
                                                                   context);
                                                             },
                                                             child: const Text(
                                                                 'Follow'))
-                                                      ]),
-                                                );
+                                                      ],
+                                                    ),
+                                                  );
+                                                }
                                               },
                                               child: const Text('Accept'))
                                         ]),

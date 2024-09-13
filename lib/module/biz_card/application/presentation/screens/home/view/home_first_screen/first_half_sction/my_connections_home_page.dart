@@ -216,16 +216,16 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                     }
                     return InkWell(
                       onTap: () {
-                        final id = connectionsController
-                            .myConnections[index].cards
-                            ?.map((e) => e.toCard)
-                            .toList();
-                        Map<String, String> map = id != null
-                            ? {'myCard': 'false', 'cardId': id.first ?? ''}
-                            : <String, String>{};
+                        // final id = connectionsController
+                        //     .myConnections[index].cards
+                        //     ?.map((e) => e.toCard)
+                        //     .toList();
+                        // Map<String, String> map = id != null
+                        //     ? {'myCard': 'false', 'cardId': id.first ?? ''}
+                        //     : <String, String>{};
                         (connectionsController.myConnections[index - 1].cards
                                         ?.length ??
-                                    0) >
+                                    0) ==
                                 1
                             ? showDialog(
                                 context: context,
@@ -239,8 +239,8 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                               )
                             : GoRouter.of(context).pushNamed(
                                 Routes.cardDetailView,
-                                pathParameters: map);
-                        log('map $map');
+                              );
+                        //log('map $map');
                       },
                       child: Column(
                         children: [

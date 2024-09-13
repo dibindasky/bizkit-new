@@ -157,7 +157,7 @@ class ConnectionsController extends GetxController {
   }
 
   // Get my all connections
-  void fetchMyConnections() async {
+  void fetchMyConnections(bool isLoad) async {
     if (myConnections.isNotEmpty) return;
     myConnectionsLoading.value = true;
     final result = await connectionService.getMyconnections();

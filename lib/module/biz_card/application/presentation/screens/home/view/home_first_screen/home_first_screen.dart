@@ -159,7 +159,7 @@ class _ScreenCardsHomeFirstAnimationState
                                       Get.find<CardController>()
                                           .getAllcards(true);
                                       connectionsController
-                                          .fetchMyConnections();
+                                          .fetchMyConnections(true);
                                     },
                                     child: ListView(
                                       children: [

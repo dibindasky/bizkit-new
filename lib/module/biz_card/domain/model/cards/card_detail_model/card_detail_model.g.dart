@@ -8,10 +8,10 @@ part of 'card_detail_model.dart';
 
 CardDetailModel _$CardDetailModelFromJson(Map<String, dynamic> json) =>
     CardDetailModel(
-      matchoMeter: json['matcho_meter_comparison'] == null
-          ? null
-          : MatchMeter.fromJson(
-              json['matchoMeterComparison'] as Map<String, dynamic>),
+      // matchoMeter: json['matcho_meter_comparison'] == null
+      //     ? null
+      //     : MatchMeter.fromJson(
+      //         json['matchoMeterComparison'] as Map<String, dynamic>),
       category: json['category'] as String?,
       location: json['location'] as String?,
       notes: json['notes'] as String?,
@@ -51,5 +51,5 @@ Map<String, dynamic> _$CardDetailModelToJson(CardDetailModel instance) =>
       'is_archived': instance.isArchived,
       'is_disabled': instance.isDisabled,
       'qr_code': instance.qrCode,
-      'matcho_meter_comparison': instance.matchoMeter
+      //'matcho_meter_comparison': instance.matchoMeter
     };

@@ -9,8 +9,8 @@ final GlobalKey<FormState> reminderKey = GlobalKey<FormState>();
 class ScreenCardReminderCreating extends StatefulWidget {
   const ScreenCardReminderCreating({super.key, this.connectionId, this.cardId});
 
-  final int? connectionId;
-  final int? cardId;
+  final String? connectionId;
+  final String? cardId;
   //final Reminders? reminder;
 
   @override
@@ -51,9 +51,7 @@ class _ScreenCardReminderCreatingState
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-          ),
+          icon: const Icon(Icons.arrow_back_ios, size: 17),
         ),
         title: const Text('Reminder'),
       ),

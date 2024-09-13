@@ -1,20 +1,24 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class CardViewAddReminderContainer extends StatelessWidget {
-  const CardViewAddReminderContainer({super.key});
-
+  const CardViewAddReminderContainer(
+      {super.key, this.cardID, this.connectionId});
+  final String? cardID;
+  final String? connectionId;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         // if (createdConnectionID != null) {
-        //   Navigator.push(
-        //     context,
-        //     cardFadePageRoute(PreviewHomeAddReminderScreen(
-        //         cardId: cardState.anotherCard!.id!,
-        //         connectionId: createdConnectionID!)),
-        //   );
+        // Map<String, String> map = cardID != null && connectionId != null
+        //     ? {'cardID': cardID!, 'connectionId': connectionId!}
+        //     : <String, String>{};
+        GoRouter.of(context).pushNamed(Routes.reminderCreation);
+
         // } else if (cardState.anotherCard?.connectionId != null) {
         //   Navigator.push(
         //     context,
@@ -33,15 +37,15 @@ class CardViewAddReminderContainer extends StatelessWidget {
         // }
       },
       child: Container(
+        margin: EdgeInsets.only(bottom: 10.w),
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(
             Radius.circular(7),
           ),
-          border: Border.all(
-            color: textFieldFillColr,
-          ),
+          border: Border.all(color: neonShade),
         ),
-        height: 70,
+        height: 50.w,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +57,7 @@ class CardViewAddReminderContainer extends StatelessWidget {
               ),
             ),
             adjustWidth(kwidth * .03),
-            Text('Add Connection', style: textHeadStyle1),
+            Text('Add Reminder', style: textHeadStyle1),
           ],
         ),
       ),

@@ -327,6 +327,8 @@ class ConnectionsController extends GetxController {
       (r) {
         final cardController = Get.find<CardController>();
         cardController.bizcardDetail.value = r;
+        cardController.personalDetails.value = r.personalDetails;
+        cardController.businessDetails.value = r.businessDetails;
       },
     );
     cardLoading.value = false;

@@ -70,7 +70,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
         title: const Text('Card'),
         actions: [
           Obx(
-            () => !cardController.isLoading.value && !widget.myCard
+            () => !cardController.isLoading.value && widget.myCard
                 ? IconButton(
                     onPressed: () {
                       // if (state.anotherCard!.percentage! == 10) {
@@ -206,8 +206,8 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                       adjustHieght(khieght * .02),
                     ],
                   ),
-                  // card details
-                  const ScreenCardDetailSecondHalf()
+                  // Card details
+                  ScreenCardDetailSecondHalf(mycard: widget.myCard)
                 ],
               ),
             ),

@@ -216,31 +216,31 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                     }
                     return InkWell(
                       onTap: () {
-                        // final id = connectionsController
-                        //     .myConnections[index].cards
-                        //     ?.map((e) => e.toCard)
-                        //     .toList();
-                        // Map<String, String> map = id != null
-                        //     ? {'myCard': 'false', 'cardId': id.first ?? ''}
-                        //     : <String, String>{};
-                        (connectionsController.myConnections[index - 1].cards
-                                        ?.length ??
-                                    0) ==
-                                1
-                            ? showDialog(
-                                context: context,
-                                builder: (context) => Dialog(
-                                  shape: BeveledRectangleBorder(
-                                      borderRadius: kBorderRadius10),
-                                  child: CardsbasedOnUserConnection(
-                                      card: connectionsController
-                                          .myConnections[index - 1].cards),
-                                ),
-                              )
-                            : GoRouter.of(context).pushNamed(
-                                Routes.cardDetailView,
-                              );
-                        //log('map $map');
+                        if ((connectionsController
+                                    .myConnections[index - 1].cards?.length ??
+                                0) >
+                            1) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => Dialog(
+                              shape: BeveledRectangleBorder(
+                                  borderRadius: kBorderRadius10),
+                              child: CardsbasedOnUserConnection(
+                                  card: connectionsController
+                                      .myConnections[index - 1].cards),
+                            ),
+                          );
+                        } else {
+                          final id = connectionsController
+                              .myConnections[index - 1].cards
+                              ?.map((e) => e.toCard)
+                              .toList();
+                          Map<String, String> map = id != null
+                              ? {'myCard': 'false', 'cardId': id.first ?? ''}
+                              : <String, String>{};
+                          GoRouter.of(context).pushNamed(Routes.cardDetailView,
+                              pathParameters: map);
+                        }
                       },
                       child: Column(
                         children: [

@@ -2,6 +2,7 @@ import 'package:bizkit/module/biz_card/application/controller/card/create_contro
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/card_persentage_completion_indicator.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/card_view_personal_banking_achive.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/card_view_row_icons.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/reminder_adding_session.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/brochers_and_products_builder/brocher_and_products_tab/preview_products_and_brands.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/brochure.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
@@ -10,16 +11,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ScreenCardDetailSecondHalf extends StatelessWidget {
-  const ScreenCardDetailSecondHalf({super.key});
-
+  const ScreenCardDetailSecondHalf({super.key, this.mycard});
+  final bool? mycard;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // completion persentage indicator
-        // add reminder button
-        const CardViewCompletionPersentageIndicator(),
-        //const CardViewAddReminderContainer(),
+
+        mycard != null && mycard!
+            ? const CardViewCompletionPersentageIndicator() // Progress idicator for our card
+            : const CardViewAddReminderContainer(
+                cardID: 'da',
+                connectionId:
+                    'dfsd'), // Reminder button for otheres card while connection
         // row icons call,mail,website,socialmedia ,location
         const CardViewRowWiceIcons(),
         adjustHieght(khieght * .02),

@@ -1,5 +1,6 @@
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/message_read_marker.dart';
 import 'package:bizkit/module/task/domain/model/chat/voice_model.dart';
+import 'package:bizkit/packages/sound/just_audio.dart';
 // import 'package:bizkit/packages/sound/audio_player_manager.dart';
 import 'package:bizkit/packages/sound/sound_manager.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -21,18 +22,20 @@ class VoiceMessageCard extends StatefulWidget {
 }
 
 class _VoiceMessageCardState extends State<VoiceMessageCard> {
-  late SoundManager soundManager;
+  // late SoundManager soundManager;
   // late AudioPlayerManager audioPlayerManager;
+  final AudioPlayerHandler audioPlayerHandler = AudioPlayerHandler();
   @override
   void initState() {
-    soundManager = SoundManager.fromBase64(widget.message.voice);
+    // soundManager = SoundManager.fromBase64(widget.message.voice);
     // audioPlayerManager = AudioPlayerManager();
     super.initState();
   }
 
   @override
   void dispose() {
-    soundManager.dispose();
+    // soundManager.dispose();
+    audioPlayerHandler.dispose();
     // audioPlayerManager.dispose();
     super.dispose();
   }
@@ -68,7 +71,11 @@ class _VoiceMessageCardState extends State<VoiceMessageCard> {
                 children: [
                   GestureDetector(
                       onTap: () {
-                        soundManager.playRecording();
+                        // soundManager.playRecording();
+                        audioPlayerHandler.playAudioFromBase64(
+                            widget.message.voice ?? '',
+                            (currentPosition) {},
+                            () {});
                         // audioPlayerManager.playAudioFromBase64(widget.message.voice);
                       },
                       child: const Icon(Icons.play_arrow)),

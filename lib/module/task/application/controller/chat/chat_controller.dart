@@ -11,6 +11,7 @@ import 'package:bizkit/module/task/domain/model/chat/voice_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/packages/pdf/pdf_picker.dart';
+import 'package:bizkit/packages/sound/just_audio.dart';
 import 'package:bizkit/packages/sound/sound_manager.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/task/domain/model/chat/create_poll.dart';
@@ -33,6 +34,7 @@ class ChatController extends GetxController {
   final TextEditingController controller = TextEditingController();
   final ScrollController chatScrollController = ScrollController();
   SoundManager soundManager = SoundManager();
+  AudioPlayerHandler audioPlayerHandler = AudioPlayerHandler();
 
   /// chat messages list
   RxList<Message> messages = <Message>[].obs;
@@ -233,6 +235,7 @@ class ChatController extends GetxController {
           // handle for voice messages
           else if (decodedMessage['message_type'] == 'voice') {
             final m = VoiceMessage.fromJson(decodedMessage, uid);
+            // recordedAudio.value = decodedMessage['new_voice'] ?? "";
             final mess = Message(
                 voiceMessage: m, sender: m.sender, messageId: m.messageId);
             final index = messages.indexWhere(
@@ -507,6 +510,7 @@ class ChatController extends GetxController {
     recordedAudio.value = '';
     isRecording.value = true;
     await soundManager.startRecording();
+    print('recording started ==> ');
   }
 
   /// stop recording audio
@@ -549,13 +553,15 @@ class ChatController extends GetxController {
     isPlaying.value = true;
     isPaused.value = false;
     print('playing recorded audio');
-    final play = await soundManager.playRecording(whenFinished: _whenFinished);
+    // final play = await soundManager.playRecording(whenFinished: _whenFinished);
+    final play = await audioPlayerHandler.playAudioFromBase64(
+        recordedAudio.value, (currentPosition) {}, _whenFinished);
     print('played or not  ---------------------------==> $play');
     if (!play) {
       isPlaying.value = false;
       print('-------------------error playing audio------------------');
     }
-    print('player status -> ${soundManager.isPlaying()}');
+    // print('player status -> ${soundManager.isPlaying()}');
     // while (soundManager.isPlaying() && isPlaying.value && !isPaused.value) {
     //   print('playing');
     // }
@@ -564,7 +570,8 @@ class ChatController extends GetxController {
 
   /// pause recorded audio
   void _pauseRecordedAudio() async {
-    await soundManager.pausePlayback();
+    // await soundManager.pausePlayback();
+    audioPlayerHandler.pauseAudio();
     isPlaying.value = false;
     isPaused.value = true;
     print('pause recorded audio');
@@ -572,7 +579,8 @@ class ChatController extends GetxController {
 
   /// pause recorded audio
   void _stopPlayingRecordedAudio() async {
-    await soundManager.stopPlayback();
+    // await soundManager.stopPlayback();
+    audioPlayerHandler.stopAudio();
     isPlaying.value = false;
     isPaused.value = false;
     print('stop playing recorded audio');
@@ -580,7 +588,8 @@ class ChatController extends GetxController {
 
   /// resume recorded audio
   void _resumeRecordedAudio() async {
-    await soundManager.resumePlayback();
+    // await soundManager.resumePlayback();
+    audioPlayerHandler.resumeAudio();
     isPlaying.value = true;
     isPaused.value = false;
     print('pause recorded audio');

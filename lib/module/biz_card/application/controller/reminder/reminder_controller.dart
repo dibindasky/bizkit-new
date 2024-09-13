@@ -7,7 +7,7 @@ import 'package:bizkit/module/biz_card/domain/repository/service/reminder/remind
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:flutter/material.dart' as mt;
+import 'package:flutter/material.dart' as mat;
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -27,6 +27,21 @@ class ReminderController extends GetxController {
   RxList<Reminder> upcomingReminders = <Reminder>[].obs;
   RxList<Reminder> historyReminders = <Reminder>[].obs;
 
+  final mat.TextEditingController messageController =
+      mat.TextEditingController();
+  final mat.TextEditingController meetingLabelController =
+      mat.TextEditingController();
+  final mat.TextEditingController occasionController =
+      mat.TextEditingController();
+  final mat.TextEditingController venueController = mat.TextEditingController();
+
+  void clearAllTextEditingControllers() {
+    venueController.clear();
+    occasionController.clear();
+    meetingLabelController.clear();
+    messageController.clear();
+  }
+
   // Create a new reminder
   void createReminder(
       {required CreateReminderModel createReminderModel,
@@ -43,6 +58,7 @@ class ReminderController extends GetxController {
       },
       (success) {
         createReminderLoading.value = false;
+        clearAllTextEditingControllers();
         showSnackbar(context,
             message: success.message ?? '', backgroundColor: neonShade);
       },

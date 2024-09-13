@@ -207,7 +207,10 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                     ],
                   ),
                   // Card details
-                  ScreenCardDetailSecondHalf(mycard: widget.myCard)
+                  ScreenCardDetailSecondHalf(
+                    mycard: widget.myCard,
+                    cardId: widget.cardId,
+                  )
                 ],
               ),
             ),

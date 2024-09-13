@@ -11,8 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ScreenCardDetailSecondHalf extends StatelessWidget {
-  const ScreenCardDetailSecondHalf({super.key, this.mycard});
+  const ScreenCardDetailSecondHalf(
+      {super.key, this.mycard, this.cardId, this.connectionId});
   final bool? mycard;
+  final String? cardId, connectionId;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,7 +24,10 @@ class ScreenCardDetailSecondHalf extends StatelessWidget {
 
         mycard != null && mycard!
             ? const CardViewCompletionPersentageIndicator() // Progress idicator for our card
-            : const CardViewAddReminderContainer(), // Reminder button for otheres card while connection
+            : CardViewAddReminderContainer(
+                cardID: cardId,
+              ), // Reminder button for otheres card while connection
+
         // row icons call,mail,website,socialmedia ,location
         const CardViewRowWiceIcons(),
         adjustHieght(khieght * .02),

@@ -225,6 +225,7 @@ class ConnectionsService implements ConnectionsRepo {
         ApiEndPoints.viewConnectionCards,
         data: {'bizcard_id': cardId},
       );
+      log('getConnectionCard data ${responce.data}');
       log('getConnectionCard ==> success ');
       return Right(CardDetailModel.fromJson(responce.data));
     } on DioException catch (e) {

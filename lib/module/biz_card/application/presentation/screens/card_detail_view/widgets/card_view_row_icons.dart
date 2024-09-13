@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_vice_accounts_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
@@ -15,6 +17,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cardController = Get.find<CardController>();
+    log('${cardController.personalDetails.value!.phone}');
     return FittedBox(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

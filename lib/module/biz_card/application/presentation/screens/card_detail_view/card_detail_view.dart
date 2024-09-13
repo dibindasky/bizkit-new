@@ -42,7 +42,8 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
       //   //     .add(CardEvent.getCardyCardId(id: widget.cardId!));
       //   // context.read<ReminderBloc>().add(ReminderEvent.getCardReminder(
       //   //     cardIdModel: CardIdModel(cardId: widget.cardId!)));
-    } else if (!widget.myCard) {
+    }
+    if (widget.cardId != null && !widget.myCard) {
       connectionController.getConnectionCardDetail(cardId: widget.cardId ?? '');
     }
     //if (widget.userId != null) {
@@ -70,7 +71,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
         title: const Text('Card'),
         actions: [
           Obx(
-            () => !cardController.isLoading.value && !widget.myCard
+            () => !cardController.isLoading.value && widget.myCard
                 ? IconButton(
                     onPressed: () {
                       // if (state.anotherCard!.percentage! == 10) {
@@ -108,7 +109,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
           } else if (cardController.bizcards == null) {
             return GestureDetector(
               onTap: () {
-                if (widget.cardId != null) {
+                if (widget.cardId != null && widget.myCard) {
                   cardController.cardDetail(cardId: widget.cardId!);
                 } else if (!widget.myCard && widget.cardId != null) {
                   connectionController.getConnectionCardDetail(
@@ -130,7 +131,10 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: RefreshIndicator(
               onRefresh: () async {
-                cardController.cardDetail(cardId: widget.cardId!);
+                widget.myCard
+                    ? cardController.cardDetail(cardId: widget.cardId!)
+                    : connectionController.getConnectionCardDetail(
+                        cardId: widget.cardId ?? '');
               },
               child: ListView(
                 children: [
@@ -207,7 +211,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                     ],
                   ),
                   // card details
-                  const ScreenCardDetailSecondHalf()
+                  ScreenCardDetailSecondHalf(mycard: widget.myCard)
                 ],
               ),
             ),

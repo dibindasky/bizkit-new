@@ -128,7 +128,6 @@ class _CardPageSliderState extends State<CardPageSlider>
 
   @override
   void initState() {
-    log('Cards length ${widget.bizcards.length}');
     super.initState();
     _pageController = PageController(initialPage: _currentPageIndex);
     _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {

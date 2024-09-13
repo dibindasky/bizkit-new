@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/connections/connections_service.dart';
@@ -158,7 +160,7 @@ class ConnectionsController extends GetxController {
 
   // Get my all connections
   void fetchMyConnections(bool isLoad) async {
-    if (myConnections.isNotEmpty) return;
+    if (myConnections.isNotEmpty && isLoad) return;
     myConnectionsLoading.value = true;
     final result = await connectionService.getMyconnections();
     result.fold(
@@ -289,7 +291,7 @@ class ConnectionsController extends GetxController {
 
         showSnackbar(context,
             message: 'Unfollow successfully', backgroundColor: neonShade);
-        fetchMyConnections();
+        fetchMyConnections(true);
         searchConnections(searchQuery: SearchQuery(search: ''));
       },
     );
@@ -310,7 +312,7 @@ class ConnectionsController extends GetxController {
       },
       (success) {
         recievedConnectionRequestLoading.value = false;
-        fetchMyConnections();
+        fetchMyConnections(true);
         fetchRecievedConnectionRequests();
         searchConnections(searchQuery: SearchQuery(search: ''));
         followBackPossible = success.followBackPossible ?? false;
@@ -327,6 +329,8 @@ class ConnectionsController extends GetxController {
       (r) {
         final cardController = Get.find<CardController>();
         cardController.bizcardDetail.value = r;
+        cardController.personalDetails.value = r.personalDetails;
+        cardController.businessDetails.value = r.businessDetails;
       },
     );
     cardLoading.value = false;

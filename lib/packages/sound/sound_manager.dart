@@ -89,7 +89,7 @@ class SoundManager {
 
   // Update the record duration every second
   void _updateRecordDuration() {
-    Timer.periodic(Duration(seconds: 1), (timer) async {
+    Timer.periodic(const Duration(seconds: 1), (timer) async {
       if (_recorder != null && _recorder!.isRecording) {
         _recordDuration++;
       } else {
@@ -103,14 +103,14 @@ class SoundManager {
   bool isPlaying() => _player!.isPlaying;
   bool isPaused() => _player!.isPaused;
   bool isStopped() => _player!.isStopped;
+  String getFileName() => _filePath ?? '';
 
   // Stop recording and encode to base64
   Future<void> stopRecording() async {
     if (!_isRecorderInitialized) return;
-
     try {
       await _recorder!.stopRecorder();
-
+      print('stop recording');
       if (_filePath != null) {
         final bytes = await File(_filePath!).readAsBytes();
         _base64Audio = base64Encode(bytes);

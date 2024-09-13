@@ -7,7 +7,7 @@ import 'package:bizkit/module/biz_card/domain/repository/service/reminder/remind
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as mt;
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 

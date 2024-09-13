@@ -289,7 +289,7 @@ class ConnectionsController extends GetxController {
 
         showSnackbar(context,
             message: 'Unfollow successfully', backgroundColor: neonShade);
-        fetchMyConnections();
+        fetchMyConnections(true);
         searchConnections(searchQuery: SearchQuery(search: ''));
       },
     );
@@ -310,7 +310,7 @@ class ConnectionsController extends GetxController {
       },
       (success) {
         recievedConnectionRequestLoading.value = false;
-        fetchMyConnections();
+        fetchMyConnections(true);
         fetchRecievedConnectionRequests();
         searchConnections(searchQuery: SearchQuery(search: ''));
         followBackPossible = success.followBackPossible ?? false;

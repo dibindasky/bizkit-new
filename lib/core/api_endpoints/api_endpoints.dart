@@ -80,6 +80,7 @@ class ApiEndPoints {
 
   // [ Reminder ]
   static String reminder = '/reminder/';
+  static String getReminders = '/get-reminders/';
 
   // [ TASK MODULE ]
 

@@ -151,7 +151,12 @@ class GoRouterConfig {
         // final cardId = state.pathParameters['cardID'] ?? '';
         // final connectionId = state.pathParameters['connectionId'] ?? '';
         // if (cardId != '' && connectionId != '') {
-        return const ScreenCardReminderCreating();
+
+        final extra = state.extra as Map<String, dynamic>;
+        return ScreenCardReminderCreating(
+          cardId: extra['cardId'],
+          connectionId: extra['connectionId'],
+        );
         // } else {
         //   return _errorScreen();
         // }

@@ -21,10 +21,7 @@ class ScreenCardDetailSecondHalf extends StatelessWidget {
 
         mycard != null && mycard!
             ? const CardViewCompletionPersentageIndicator() // Progress idicator for our card
-            : const CardViewAddReminderContainer(
-                cardID: 'da',
-                connectionId:
-                    'dfsd'), // Reminder button for otheres card while connection
+            : const CardViewAddReminderContainer(), // Reminder button for otheres card while connection
         // row icons call,mail,website,socialmedia ,location
         const CardViewRowWiceIcons(),
         adjustHieght(khieght * .02),

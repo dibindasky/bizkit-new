@@ -1,8 +1,10 @@
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 final GlobalKey<FormState> reminderKey = GlobalKey<FormState>();
 
@@ -43,6 +45,7 @@ class _ScreenCardReminderCreatingState
 
   @override
   Widget build(BuildContext context) {
+    final reminderController = Get.find<ReminderController>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: knill,
@@ -71,6 +74,7 @@ class _ScreenCardReminderCreatingState
                   labelText: 'Write Meeting Label',
                   textCapitalization: TextCapitalization.words,
                   maxlegth: 100,
+                  // controller: reminderController.,
                   //controller: context.read<ReminderBloc>().labelController,
                   inputType: TextInputType.text,
                 ),

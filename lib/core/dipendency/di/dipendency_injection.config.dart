@@ -20,7 +20,6 @@ import 'package:bizkit/module/biz_card/domain/repository/service/contact_repo.da
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/contact_local_repo.dart'
     as _i41;
 import 'package:bizkit/packages/contacts/contacts_fetch.dart' as _i14;
-import 'package:bizkit/packages/device_info/device_ino.dart' as _i17;
 import 'package:bizkit/packages/location/location_service.dart' as _i21;
 import 'package:bizkit/packages/pdf/pdf_picker.dart' as _i24;
 import 'package:bizkit/service/api_service/api_service.dart' as _i3;
@@ -48,7 +47,6 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i14.ContactFetchService());
     gh.lazySingleton<_i15.ContactsRepo>(
         () => _i16.ContactServiceImpl(gh<_i3.ApiService>()));
-    gh.lazySingleton<_i17.DeviceInformation>(() => _i17.DeviceInformation());
     gh.lazySingleton<_i18.Dio>(() => dioModule.dioInstance);
 
     gh.lazySingleton<_i20.LocalService>(() => _i20.LocalService());

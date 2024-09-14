@@ -7,25 +7,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardViewBankPersonAchivedRows extends StatelessWidget {
-  const CardViewBankPersonAchivedRows({super.key});
+  const CardViewBankPersonAchivedRows({super.key, this.mycard});
+
+  final bool? mycard;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         // Banking
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 5, right: 7),
-            child: InkWell(
-              onTap: () => Navigator.of(context).push(
-                cardFadePageRoute(const CardScreenPreviewBankOrPersonal(
-                    isFromBankScreen: true)),
+        mycard != null && !mycard!
+            ? kempty
+            : Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5, right: 7),
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).push(
+                      cardFadePageRoute(const CardScreenPreviewBankOrPersonal(
+                          isFromBankScreen: true)),
+                    ),
+                    child: containerStyle(iconBankingHouse, 'Banking'),
+                  ),
+                ),
               ),
-              child: containerStyle(iconBankingHouse, 'Banking'),
-            ),
-          ),
-        ),
         // Personal
         Expanded(
           child: Padding(

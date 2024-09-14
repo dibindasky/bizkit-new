@@ -83,37 +83,74 @@ class ScreenCardSharing extends StatelessWidget {
                   );
                 } else {
                   return SizedBox(
-                    height: 70.dm,
+                    height: 100.dm,
                     child: ListView.builder(
                       itemCount: cardController.bizcards.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => Padding(
                         padding: EdgeInsets.only(left: 7.w),
-                        child: InkWell(
-                          onTap: () {
-                            levelSharingController.updateSelectedCardQRData(
-                                cardController.bizcards[index].qRLink ?? '',
-                                cardController.bizcards[index].bizcardId ?? '');
-                          },
-                          child:
-                              Column(mainAxisSize: MainAxisSize.min, children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: neonShade, width: 3),
-                              ),
-                              height: 50.dm,
-                              width: 50.dm,
-                              child: Image.memory(
-                                base64.decode(bizcardIconBase64.substring(22)),
-                                fit: BoxFit.cover,
-                              ),
+                        child: Obx(
+                          () => Container(
+                            padding: EdgeInsets.all(4.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                  color: levelSharingController
+                                              .selectedRrCode.value ==
+                                          index
+                                      ? neonShade
+                                      : klightGreyClr,
+                                  width: levelSharingController
+                                              .selectedRrCode.value ==
+                                          index
+                                      ? 3
+                                      : 1),
                             ),
-                            Text(
-                              cardController.bizcards[index].name ?? '',
-                              style: textThinStyle1,
+                            width: 80.w,
+                            child: InkWell(
+                              onTap: () {
+                                levelSharingController.selectedQr(index);
+                                levelSharingController.updateSelectedCardQRData(
+                                    cardController.bizcards[index].qRLink ?? '',
+                                    cardController.bizcards[index].bizcardId ??
+                                        '');
+                              },
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: klightGrey, width: 3),
+                                      ),
+                                      height: 60.dm,
+                                      width: 50.dm,
+                                      child: cardController
+                                                      .bizcards[index].logo !=
+                                                  null &&
+                                              cardController.bizcards[index]
+                                                  .logo!.isNotEmpty
+                                          ? Image.memory(
+                                              base64.decode(cardController
+                                                  .bizcards[index].logo!),
+                                              fit: BoxFit.cover,
+                                            )
+                                          : Image.memory(
+                                              base64.decode(bizcardIconBase64
+                                                  .substring(22)),
+                                              fit: BoxFit.cover,
+                                            ),
+                                    ),
+                                    kHeight5,
+                                    Text(
+                                      cardController.bizcards[index].name ?? '',
+                                      style: textThinStyle1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ]),
                             ),
-                          ]),
+                          ),
                         ),
                       ),
                     ),

@@ -29,7 +29,7 @@ class ScreenCardDetailSecondHalf extends StatelessWidget {
         const CardViewRowWiceIcons(),
         adjustHieght(khieght * .02),
         // banking, personal, achivements butons
-        const CardViewBankPersonAchivedRows(),
+        CardViewBankPersonAchivedRows(mycard: mycard),
         adjustHieght(khieght * .02),
         // brochers and product preview section
         GetBuilder<CardController>(builder: (controller) {

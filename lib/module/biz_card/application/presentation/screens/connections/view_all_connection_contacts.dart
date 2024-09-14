@@ -183,16 +183,16 @@ class _MyConnectionsViewAllContactsState
                         builder: (context, value, _) {
                           return InkWell(
                               onTap: () {
-                                // if (tabNotifier.value == 0) {
-                                //   tabNotifier.value = 1;
-                                //   searchController.clear();
-                                //   // tabNotifier.notifyListeners();
-                                // } else {
-                                //   tabNotifier.value = 0;
-                                //   searchController.clear();
-                                //   // tabNotifier.notifyListeners();
-                                // }
-                                // FocusScope.of(context).unfocus();
+                                if (tabNotifier.value == 0) {
+                                  tabNotifier.value = 1;
+                                  searchController.clear();
+                                  tabNotifier.notifyListeners();
+                                } else {
+                                  tabNotifier.value = 0;
+                                  searchController.clear();
+                                  tabNotifier.notifyListeners();
+                                }
+                                FocusScope.of(context).unfocus();
                               },
                               child: Icon(value == 0
                                   ? Icons.arrow_circle_right_outlined

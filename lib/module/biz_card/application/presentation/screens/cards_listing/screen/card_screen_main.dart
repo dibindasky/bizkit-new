@@ -206,14 +206,17 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                             child: ClipRRect(
                                                 borderRadius:
                                                     const BorderRadius.only(
-                                                  topLeft: Radius.circular(25),
-                                                  topRight: Radius.circular(20),
+                                                  topLeft: Radius.circular(10),
+                                                  topRight: Radius.circular(10),
                                                 ),
-                                                child: Image.memory(
-                                                  base64Decode(bizcardIconBase64
-                                                      .substring(22)),
-                                                  fit: BoxFit.cover,
-                                                )),
+                                                child: data.logo != null &&
+                                                        data.logo!.isNotEmpty
+                                                    ? Image.memory(
+                                                        base64Decode(
+                                                            data.logo!),
+                                                        fit: BoxFit.fill)
+                                                    : Image.asset(iconBizkitPng,
+                                                        fit: BoxFit.contain)),
                                           ),
                                         ),
                                         controller.bizcards[index].isDefault ==

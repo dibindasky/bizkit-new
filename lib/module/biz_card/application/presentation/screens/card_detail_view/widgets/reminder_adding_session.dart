@@ -21,7 +21,6 @@ class CardViewAddReminderContainer extends StatelessWidget {
           'cardId': cardID,
           'connectionId': connectionId,
         });
-
         // } else if (cardState.anotherCard?.connectionId != null) {
         //   Navigator.push(
         //     context,

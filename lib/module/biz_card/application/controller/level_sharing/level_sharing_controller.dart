@@ -40,10 +40,16 @@ class LevelSharingController extends GetxController {
   RxBool individualBusinessDetails = true.obs;
   RxBool individualPersonalDetails = true.obs;
 
+  RxInt selectedRrCode = 0.obs;
+
   // Method to update the selected card's QR code
   void updateSelectedCardQRData(String qrData, cardId) {
     selectedCardQRData.value = qrData;
     selectedCardId.value = cardId;
+  }
+
+  void selectedQr(int index) {
+    selectedRrCode.value = index;
   }
 
   void changePersonalSharedFields({

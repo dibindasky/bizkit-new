@@ -20,8 +20,7 @@ class ContactConnectionsTab extends StatelessWidget {
     });
     return Expanded(
       child: BlocConsumer<ContactsBloc, ContactsState>(
-        listener: (context, state) {
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           print('contacts list length ==> (${state.contactList?.length})');
 
@@ -85,11 +84,7 @@ class ContactConnectionsTab extends StatelessWidget {
                   final data = state.contactList![index];
                   return GestureDetector(
                     onTap: () {
-                      if (data.id != null && data.id != 0) {
-                        // Navigator.of(context).push(
-                        //   cardFadePageRoute(const ScreenCardDetailView()),
-                        // );
-                      }
+                      if (data.id != null && data.id != 0) {}
                     },
                     child: ListTile(
                       leading: data.photo != null && data.photo!.isNotEmpty

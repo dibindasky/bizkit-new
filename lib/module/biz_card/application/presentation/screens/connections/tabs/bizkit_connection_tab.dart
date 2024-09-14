@@ -1,13 +1,16 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/model/search_query/search_query.dart';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/widgets/cards_based_on_user.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class BizkitConnectionsTab extends StatelessWidget {
   const BizkitConnectionsTab({
@@ -35,7 +38,11 @@ class BizkitConnectionsTab extends StatelessWidget {
               );
             } else if (connectionsController.connectionsSearchList.isEmpty) {
               return ErrorRefreshIndicator(
-                onRefresh: () {},
+                onRefresh: () async {
+                  connectionsController.searchConnections(
+                      searchQuery: SearchQuery(search: ''));
+                  await Future.delayed(const Duration(seconds: 2));
+                },
                 errorMessage: 'No bizcard connections',
                 image: emptyNodata2,
               );
@@ -50,9 +57,31 @@ class BizkitConnectionsTab extends StatelessWidget {
                     color: lightColr,
                     child: ListTile(
                       onTap: () {
-                        //print(data.toJson());
-                        // Navigator.push(
-                        //     context, cardFadePageRoute(const ScreenCardDetailView()));
+                        if ((connectionsController
+                                    .myConnections[index].cards?.length ??
+                                0) >
+                            1) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => Dialog(
+                              shape: BeveledRectangleBorder(
+                                  borderRadius: kBorderRadius10),
+                              child: CardsbasedOnUserConnection(
+                                  card: connectionsController
+                                      .myConnections[index].cards),
+                            ),
+                          );
+                        } else {
+                          final id = connectionsController
+                              .myConnections[index].cards
+                              ?.map((e) => e.toCard)
+                              .toList();
+                          Map<String, String> map = id != null
+                              ? {'myCard': 'false', 'cardId': id.first ?? ''}
+                              : <String, String>{};
+                          GoRouter.of(context).pushNamed(Routes.cardDetailView,
+                              pathParameters: map);
+                        }
                       },
                       leading: CircleAvatar(
                         backgroundColor: textFieldFillColr,

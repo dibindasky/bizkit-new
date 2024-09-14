@@ -21,6 +21,7 @@ class ReminderService implements ReminderRepo {
   Future<Either<Failure, CreateReminderResponce>> createReminder(
       {required CreateReminderModel createReminderModel}) async {
     try {
+      log('Create reminder TO JSON  === > ${createReminderModel.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.reminder,
         data: createReminderModel.toJson(),

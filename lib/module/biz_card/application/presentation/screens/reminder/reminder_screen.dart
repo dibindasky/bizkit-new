@@ -1,8 +1,13 @@
+import 'dart:developer';
+
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminder/create_reminder_model/create_reminder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 final GlobalKey<FormState> reminderKey = GlobalKey<FormState>();
 
@@ -23,6 +28,8 @@ class _ScreenCardReminderCreatingState
   String time = '';
   String date = '';
   bool showError = false;
+  DateTime dates = DateTime.now();
+  TimeOfDay timeOfDay = TimeOfDay.now();
 
   // @override
   // void initState() {
@@ -43,6 +50,8 @@ class _ScreenCardReminderCreatingState
 
   @override
   Widget build(BuildContext context) {
+    log('Card id == > ${widget.cardId}');
+    final reminderController = Get.find<ReminderController>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: knill,
@@ -71,6 +80,7 @@ class _ScreenCardReminderCreatingState
                   labelText: 'Write Meeting Label',
                   textCapitalization: TextCapitalization.words,
                   maxlegth: 100,
+                  controller: reminderController.meetingLabelController,
                   //controller: context.read<ReminderBloc>().labelController,
                   inputType: TextInputType.text,
                 ),
@@ -81,6 +91,7 @@ class _ScreenCardReminderCreatingState
                       color: kwhite.withOpacity(0.5),
                     ),
                     labelText: 'Venue',
+                    controller: reminderController.venueController,
                     textCapitalization: TextCapitalization.words,
                     maxlegth: 100,
                     //controller: context.read<ReminderBloc>().venueController,
@@ -92,6 +103,7 @@ class _ScreenCardReminderCreatingState
                     color: kwhite.withOpacity(0.5),
                   ),
                   labelText: 'Occasion',
+                  controller: reminderController.occasionController,
                   textCapitalization: TextCapitalization.words,
                   maxlegth: 100,
                   //controller: context.read<ReminderBloc>().occationController,
@@ -117,7 +129,8 @@ class _ScreenCardReminderCreatingState
                             fontSize: 12.sp),
                       ),
                       kHeight5,
-                      const CustomTextFormField(
+                      CustomTextFormField(
+                        controller: reminderController.messageController,
                         // controller:
                         //     context.read<ReminderBloc>().messageController,
                         validate: Validate.notNull,
@@ -169,6 +182,7 @@ class _ScreenCardReminderCreatingState
                           DateTime.now().add(const Duration(days: 365 * 100)),
                       onDateChanged: (dates) {
                         setState(() {
+                          dates = dates;
                           date = '${dates.year}-${dates.month}-${dates.day}';
                         });
                       },
@@ -184,6 +198,7 @@ class _ScreenCardReminderCreatingState
                       setState(() {
                         time =
                             '${'${selectedTime.hour}'.length == 1 ? '0${selectedTime.hour}' : selectedTime.hour}:${'${selectedTime.minute}'.length == 1 ? '0${selectedTime.minute}' : selectedTime.minute}';
+                        timeOfDay = selectedTime;
                       });
                     }
                   },
@@ -238,6 +253,25 @@ class _ScreenCardReminderCreatingState
                     Expanded(
                       child: InkWell(
                         onTap: () {
+                          // log('date ttime  -> ${dates.add(Duration(hours: timeOfDay.hour ?? 0, minutes: timeOfDay?.minute ?? 0)).toUtc().toString()}');
+                          reminderController.createReminder(
+                              createReminderModel: CreateReminderModel(
+                                  bizcardId: widget.cardId,
+                                  description:
+                                      reminderController.messageController.text,
+                                  meetingLabel: reminderController
+                                      .meetingLabelController.text,
+                                  occasion: reminderController
+                                      .occasionController.text,
+                                  reminderDate: dates
+                                      .add(Duration(
+                                          hours: timeOfDay.hour,
+                                          minutes: timeOfDay.minute))
+                                      .toUtc()
+                                      .toString(),
+                                  venue:
+                                      reminderController.venueController.text),
+                              context: context);
                           Navigator.pop(context);
                           // if (reminderKey.currentState!.validate()) {
                           //   if (date == '') {

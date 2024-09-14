@@ -17,7 +17,10 @@ class CardViewAddReminderContainer extends StatelessWidget {
         // Map<String, String> map = cardID != null && connectionId != null
         //     ? {'cardID': cardID!, 'connectionId': connectionId!}
         //     : <String, String>{};
-        GoRouter.of(context).pushNamed(Routes.reminderCreation);
+        GoRouter.of(context).pushNamed(Routes.reminderCreation, extra: {
+          'cardId': cardID,
+          'connectionId': connectionId,
+        });
         // } else if (cardState.anotherCard?.connectionId != null) {
         //   Navigator.push(
         //     context,

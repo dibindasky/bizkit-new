@@ -214,4 +214,22 @@ class DateTimeFormater {
     // Return the formatted duration
     return '$formattedMinutes:$formattedSeconds';
   }
+
+  // retrun total seconds from (MM:SS)
+  static int convertMMSSToTotalSeconds(String time) {
+    try {
+      // Split the string into minutes and seconds
+      List<String> parts = time.split(':');
+      if (parts.length == 1) return 1;
+
+      // Parse minutes and seconds as integers
+      int minutes = int.parse(parts[0]);
+      int seconds = int.parse(parts[1]);
+
+      // Calculate total seconds
+      return (minutes * 60) + seconds;
+    } catch (e) {
+      return 1;
+    }
+  }
 }

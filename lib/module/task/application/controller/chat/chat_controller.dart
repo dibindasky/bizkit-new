@@ -555,7 +555,9 @@ class ChatController extends GetxController {
     print('playing recorded audio');
     // final play = await soundManager.playRecording(whenFinished: _whenFinished);
     final play = await audioPlayerHandler.playAudioFromBase64(
-        recordedAudio.value, (currentPosition) {}, _whenFinished);
+        recordedAudio.value,
+        onCurrentPositionChanged: (currentPosition) {},
+        whenFinished: _whenFinished);
     print('played or not  ---------------------------==> $play');
     if (!play) {
       isPlaying.value = false;
@@ -598,6 +600,7 @@ class ChatController extends GetxController {
   /// send audio
   void sendAudio() {
     getRecordDuration();
+    if (isPlaying.value) _stopPlayingRecordedAudio();
     addMessage({
       "message_type": "voice",
       "voice_message": recordedAudio.value,

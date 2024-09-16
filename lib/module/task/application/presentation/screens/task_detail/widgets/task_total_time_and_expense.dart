@@ -245,7 +245,7 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                               taskController.taskExpenseAndTime[index].details
                                       ?.length ??
                                   0,
-                              (index) => Padding(
+                              (detailIndex) => Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 4),
                                 child: ClipPath(
@@ -303,7 +303,7 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                                                           ),
                                                         ),
                                                         Text(
-                                                          "₹ ${(taskController.taskExpenseAndTime[index].details?[index].expense ?? 0)}",
+                                                          "₹ ${(taskController.taskExpenseAndTime[index].details?[detailIndex].expense ?? 0)}",
                                                           style: textThinStyle1
                                                               .copyWith(
                                                                   fontSize:
@@ -345,7 +345,7 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                                                                       .taskExpenseAndTime[
                                                                           index]
                                                                       .details?[
-                                                                          index]
+                                                                          detailIndex]
                                                                       .time ??
                                                                   0),
                                                           style: textThinStyle1
@@ -375,7 +375,7 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                                                 taskController
                                                         .taskExpenseAndTime[
                                                             index]
-                                                        .details?[index]
+                                                        .details?[detailIndex]
                                                         .description ??
                                                     '',
                                                 style: textThinStyle1.copyWith(

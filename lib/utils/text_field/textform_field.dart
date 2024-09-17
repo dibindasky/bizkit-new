@@ -45,9 +45,11 @@ class CustomTextFormField extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final bool enabled;
   final double textSize;
+  final double? padding;
   final List<TextInputFormatter>? inputFormatters;
   const CustomTextFormField(
       {Key? key,
+      this.padding,
       this.inputFormatters,
       this.enabled = true,
       this.prefix,
@@ -102,7 +104,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 0),
+      padding: EdgeInsets.symmetric(horizontal: widget.padding ?? 0),
       child: TextFormField(
         inputFormatters: widget.inputFormatters,
         autofocus: false,

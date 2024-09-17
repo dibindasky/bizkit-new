@@ -20,6 +20,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/n
 import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/matcho_meter.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/second_card_feilds.dart';
@@ -229,6 +230,12 @@ class GoRouterConfig {
       name: Routes.cardCreationProfilePage,
       path: Routes.cardCreationProfilePage,
       builder: (context, state) => const ScreenCardProfileCreation(),
+    ),
+
+    GoRoute(
+      name: Routes.matchoMeter,
+      path: Routes.matchoMeter,
+      builder: (context, state) => CardMatchoMeter(),
     ),
 
     // Second card creation selected scanned images
@@ -541,7 +548,7 @@ class _ScreenDeeplinkTestState extends State<ScreenDeeplinkTest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Deeplink Test'),
+        title: const Text('Deeplink Test'),
       ),
       body: Center(
           child: Container(

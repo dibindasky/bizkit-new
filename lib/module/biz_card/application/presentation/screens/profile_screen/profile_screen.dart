@@ -1,13 +1,12 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/show_case_view.dart';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
-import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/dailog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -58,11 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        // context.read<ProfileBloc>().add(
-        //     const ProfileEvent.getProfile(isLoad: false),
-        //   );
-      },
+      (timeStamp) {},
     );
     return SafeArea(
       child: Scaffold(
@@ -71,63 +66,12 @@ class _ProfileScreenState extends State<ProfileScreen>
           backgroundColor: knill,
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0),
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: FadeTransition(
             opacity: animation,
             child: Column(
               children: [
-                // Positioned(
-                //   bottom: 0,
-                //   right: 20,
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //       color: neonShade,
-                //       borderRadius: BorderRadius.circular(6),
-                //     ),
-                //     height: 30,
-                //     width: 34,
-                //     child: InkWell(
-                //       onTap: () {
-                //         cardscanimagesSelectingDailogue(context);
-                //       },
-                //       child: const Icon(
-                //         Icons.add,
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 adjustHieght(khieght * .06),
-                // const ProfileTiles(
-                //   heading: 'Account Settings',
-                //   subtittle: 'Username, Password, Email, Report Problem Etc.',
-                //   widget: AccountSettigsScreen(),
-                // ),
-                // BlocBuilder<ProfileBloc, ProfileState>(
-                //   builder: (context, state) {
-                //     return !state.isBusiness
-                //         ? const ProfileTiles(
-                //             heading: 'Privacy and Security',
-                //             subtittle: 'Level Or Security Preferences Etc.',
-                //             widget: PrivacyAndSecurityScreen(),
-                //           )
-                //         : kempty;
-                //   },
-                // ),
-                // const ProfileTiles(
-                //   heading: 'Data Management',
-                //   subtittle: 'Archived Cards, Soft Deleted Cards.',
-                //   widget: DataManagement(),
-                // ),
-                // ProfileTiles(
-                //   heading: 'Connections & Networking',
-                //   subtittle: 'Blocked Connections$business',
-                //   widget: const ConnectionNetworkScreen(),
-                // ),
-                // const ProfileTiles(
-                //   heading: 'Help & Support',
-                //   subtittle: ' Faq',
-                //   widget: HelpSupport(),
-                // ),
                 ProfileTiles(
                   heading: 'Log Out',
                   onTap: () {
@@ -139,6 +83,12 @@ class _ProfileScreenState extends State<ProfileScreen>
                         Get.find<AuthenticationController>().logOut(context);
                       },
                     );
+                  },
+                ),
+                ProfileTiles(
+                  heading: 'Matcho Meter',
+                  onTap: () {
+                    GoRouter.of(context).pushNamed(Routes.matchoMeter);
                   },
                 ),
               ],

@@ -1,7 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:typed_data';
-
 import 'package:bizkit/module/biz_card/data/service/contact/contact_service.dart';
 import 'package:bizkit/module/biz_card/data/sqflite/contacts/contact_local_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/contact.dart';
@@ -87,7 +84,6 @@ class ContactsController extends GetxController {
       contactList.value = contactsList;
       contactFilteredList.value = contactsList;
       firstLoading.value = contactsList.isEmpty ? false : true;
-      update();
       getContactsList();
     });
   }

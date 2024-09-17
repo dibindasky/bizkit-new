@@ -1,5 +1,6 @@
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/home_first_app_bar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_cards_and_add_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/my_connections_home_page.dart';
@@ -54,6 +55,9 @@ class _ScreenCardsHomeFirstAnimationState
   // final homeScreenShowCase = 'isShowcaseSeen';
   @override
   void initState() {
+    final reminderController = Get.find<ReminderController>();
+    reminderController.fetchAllReminders();
+    reminderController.fetchUpcomingReminders();
     super.initState();
     homeFirstAnimationController = AnimationController(
       vsync: this,

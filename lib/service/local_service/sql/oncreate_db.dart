@@ -1,6 +1,5 @@
 import 'dart:developer';
-
-import 'package:bizkit/module/biz_card/domain/model/contact/get_contacts_response_model/contact.dart';
+import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/contact.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 class Sql {

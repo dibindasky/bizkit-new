@@ -8,27 +8,25 @@ part of 'contact.dart';
 
 ContactModel _$ContactModelFromJson(Map<String, dynamic> json) => ContactModel(
       id: json['id'] as int?,
-      email: json['email'] as String?,
+      userId: json['user_id'] as String?,
       name: json['name'] as String?,
-      companyName: json['company_name'] as String?,
-      address: json['address'] as String?,
-      isBusiness: json['is_business'] as bool?,
-      password: json['password'] as String?,
+      email: json['email'] as String?,
       phoneNumber: json['phone_number'] as String?,
-      photo: json['photo_url'] as String?,
-      localId: json['localId'] as int?,
+      profilePicture: json['profile_picture'] as String?,
+      connectionExist: json['connection_exist'] as bool?,
+      connectionId: json['connection_id'],
+      cardId: json['card_id'],
     );
 
 Map<String, dynamic> _$ContactModelToJson(ContactModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'email': instance.email,
+      'user_id': instance.userId,
       'name': instance.name,
-      'company_name': instance.companyName,
-      'address': instance.address,
-      'is_business': instance.isBusiness,
-      'password': instance.password,
+      'email': instance.email,
       'phone_number': instance.phoneNumber,
-      'photo_url': instance.photo,
-      'localId': instance.localId,
+      'profile_picture': instance.profilePicture,
+      'connection_exist': instance.connectionExist,
+      'connection_id': instance.connectionId,
+      'card_id': instance.cardId,
     };

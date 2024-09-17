@@ -1,6 +1,8 @@
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/listview_items/reminder_tile.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SecondAnimationPageListViewHistoryReminders extends StatefulWidget {
   SecondAnimationPageListViewHistoryReminders({
@@ -57,28 +59,36 @@ class _SecondAnimationPageListViewHistoryRemindersState
     return AnimatedBuilder(
         animation: _animationController,
         builder: (context, child) {
-          return ListView.separated(
-            controller: widget.scrollController,
-            separatorBuilder: (context, index) => adjustHieght(khieght * .02),
-            itemCount: 4,
-            // (state.historyReminderList?.length ?? 0) +
-            //     (state.historyLoading ? 1 : 0),
-            itemBuilder: (context, index) {
-              // if (state.historyLoading &&
-              //     index == state.historyReminderList!.length) {
-              //   return const LoadingAnimation();
-              // }
-              if (widget.doTransition && index == 0) {
-                return Transform.translate(
-                    offset: Offset(0, 100 * _animation.value),
-                    child: const ReminderTile());
-              } else if (widget.doTransition && index == 1) {
-                return Transform.translate(
-                    offset: Offset(0, -100 * _animation.value),
-                    child: const ReminderTile());
-              }
-              return const ReminderTile();
-            },
+          final reminderController = Get.find<ReminderController>();
+          return Obx(
+            () => ListView.separated(
+              controller: widget.scrollController,
+              separatorBuilder: (context, index) => adjustHieght(khieght * .02),
+              itemCount: reminderController.historyReminders.length,
+              // (state.historyReminderList?.length ?? 0) +
+              //     (state.historyLoading ? 1 : 0),
+              itemBuilder: (context, index) {
+                // if (state.historyLoading &&
+                //     index == state.historyReminderList!.length) {
+                //   return const LoadingAnimation();
+                // }
+                if (widget.doTransition && index == 0) {
+                  return Transform.translate(
+                      offset: Offset(0, 100 * _animation.value),
+                      child: ReminderTile(
+                          reminder:
+                              reminderController.historyReminders[index]));
+                } else if (widget.doTransition && index == 1) {
+                  return Transform.translate(
+                      offset: Offset(0, -100 * _animation.value),
+                      child: ReminderTile(
+                          reminder:
+                              reminderController.historyReminders[index]));
+                }
+                return ReminderTile(
+                    reminder: reminderController.historyReminders[index]);
+              },
+            ),
           );
         });
   }

@@ -7,7 +7,7 @@ import 'package:bizkit/module/biz_card/application/controller/received_card/rece
 import 'package:bizkit/module/biz_card/data/service/text_extraction/text_extraction_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_model/text_extraction_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_responce/extracted_details.dart';
-import 'package:bizkit/module/biz_card/domain/repository/service/text_extraction_repo.dart';
+import 'package:bizkit/module/biz_card/domain/repository/service/text_extraction/text_extraction_repo.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 

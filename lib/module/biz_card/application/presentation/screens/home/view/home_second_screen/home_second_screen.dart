@@ -1,3 +1,4 @@
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/listview_items/history_list_reminders.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/listview_items/second_animation_all_reminders_list.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/listview_items/upcoming_reminder_list.dart';
@@ -8,6 +9,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/home/wid
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 //used to shift the tab bar
 ValueNotifier<String> selectedTabNotifier = ValueNotifier(tabBarNames[1]);
@@ -99,13 +101,13 @@ class _ScreenCardSecondAnimationState extends State<ScreenCardSecondAnimation>
     });
     int count = 0;
     List<Widget> stackChild = [
-      Align(
-        alignment: Alignment.topLeft,
-        child: FadeTransition(
-          opacity: _firstOpacityAnimation,
-          child: MeetingDetailScreen(fadeCallBack: _toggleScreen),
-        ),
-      ),
+      // Align(
+      //   alignment: Alignment.topLeft,
+      //   child: FadeTransition(
+      //     opacity: _firstOpacityAnimation,
+      //     child: MeetingDetailScreen(fadeCallBack: _toggleScreen),
+      //   ),
+      // ),
       FadeTransition(
         opacity: _secondOpacityAnimation,
         child: Column(

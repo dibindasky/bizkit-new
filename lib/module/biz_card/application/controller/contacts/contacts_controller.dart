@@ -1,10 +1,14 @@
+import 'dart:developer';
+
+import 'package:bizkit/module/biz_card/data/service/contact/contact_service.dart';
+import 'package:bizkit/module/biz_card/data/sqflite/contacts/contact_local_service.dart';
+import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/contact.dart';
 import 'package:get/get.dart';
 import 'dart:async';
-import 'package:bizkit/module/biz_card/domain/repository/service/contact_repo.dart';
+import 'package:bizkit/module/biz_card/domain/repository/service/contact/contact_repo.dart';
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/contact_local_repo.dart';
 import 'package:bizkit/packages/contacts/contacts_fetch.dart';
 import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_model/get_contact_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/contact/get_contacts_response_model/contact.dart';
 import 'package:contacts_service/contacts_service.dart';
 
 class ContactsController extends GetxController {
@@ -18,11 +22,9 @@ class ContactsController extends GetxController {
   var hasError = false.obs;
   var message = ''.obs;
 
-  ContactsController(
-      this.contactFetchFeature, this.contactService, this.contactLocalService);
-  final ContactFetchService contactFetchFeature;
-  final ContactsRepo contactService;
-  final ContactLocalRepo contactLocalService;
+  ContactFetchService contactFetchFeature = ContactFetchService();
+  ContactsRepo contactService = ContactService();
+  ContactLocalRepo contactLocalService = ContactLocalService();
   @override
   void onInit() {
     super.onInit();
@@ -63,7 +65,6 @@ class ContactsController extends GetxController {
     if (contactList.isNotEmpty) return;
     isLoading.value = true;
     hasError.value = false;
-
     final result = await contactLocalService.getContactFromLocalStorage();
     result.fold((failure) {
       isLoading.value = false;
@@ -71,7 +72,8 @@ class ContactsController extends GetxController {
     }, (contactsList) {
       contactList.value = contactsList;
       contactFilteredList.value = contactsList;
-      firstLoading.value = contactsList.isEmpty;
+      firstLoading.value = contactsList.isEmpty ? false : true;
+      update();
       getContactsList();
     });
   }
@@ -134,7 +136,7 @@ class ContactsController extends GetxController {
                             .replaceAll('+91', '')
                             .replaceAll(' ', ''),
                         name: contact.displayName ?? '',
-                        photo: '',
+                        profilePicture: '',
                       ),
                     );
                   }
@@ -155,7 +157,7 @@ class ContactsController extends GetxController {
                               .replaceAll(' ', '') ??
                           '',
                       name: contact.displayName ?? '',
-                      photo: '',
+                      profilePicture: '',
                     ),
                   );
                 }

@@ -1,9 +1,8 @@
 import 'dart:developer';
-
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/contact.dart';
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/contact_local_repo.dart';
-import 'package:bizkit/module/biz_card/domain/model/contact/get_contacts_response_model/contact.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/oncreate_db.dart';
 import 'package:dartz/dartz.dart';
@@ -12,9 +11,9 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: ContactLocalRepo)
 @injectable
 class ContactLocalService implements ContactLocalRepo {
-  final LocalService localService;
+  final LocalService localService = LocalService();
 
-  ContactLocalService(this.localService);
+  ContactLocalService();
 
   @override
   Future<Either<Failure, SuccessResponseModel>> addContactToLocalStorage(
@@ -31,7 +30,7 @@ class ContactLocalService implements ContactLocalRepo {
       await localService.rawInsert(query, [
         contact.name ?? '',
         contact.phoneNumber ?? '',
-        contact.photo ?? '',
+        contact.profilePicture ?? '',
         // contact.id ?? 0
       ]);
       return Right(SuccessResponseModel());

@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/application/controller/card/business_deta
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/prompt/prompt_controller.dart';
@@ -48,6 +49,7 @@ class ModuleController extends GetxController {
 
   /// initilize all controllers in CARD module [Module.card]
   void initCardControllers() {
+    Get.lazyPut(() => ContactsController());
     Get.lazyPut(() => CardController(), fenix: true);
     Get.lazyPut(() => NavbarController());
     Get.lazyPut(() => PromtController());

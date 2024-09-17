@@ -8,7 +8,6 @@ import 'package:bizkit/utils/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

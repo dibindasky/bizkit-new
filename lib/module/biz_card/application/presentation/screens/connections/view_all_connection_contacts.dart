@@ -71,6 +71,22 @@ class _MyConnectionsViewAllContactsState
       //     .add(const ConnectionRequestEvent.getRequestLists());
     });
     return GestureDetector(
+      onHorizontalDragEnd: (DragEndDetails details) {
+        if (details.primaryVelocity! > 0) {
+          // Swiped right
+          if (tabNotifier.value == 1) {
+            tabNotifier.value = 0;
+            tabNotifier.notifyListeners();
+          }
+        }
+        if (details.primaryVelocity! < 0) {
+          // Swiped left
+          if (tabNotifier.value == 0) {
+            tabNotifier.value = 1;
+            tabNotifier.notifyListeners();
+          }
+        }
+      },
       onTap: () {
         FocusScope.of(context).unfocus();
       },

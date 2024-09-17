@@ -28,9 +28,9 @@ class LocalService {
             await Sql.onCreate(db));
   }
 
-  // get data from sql
-  Future<List<Map<String, Object?>>> rawQuery(
-      String query,[ List<String>? listParams]) async {
+  /// Get data from sql
+  Future<List<Map<String, Object?>>> rawQuery(String query,
+      [List<String>? listParams]) async {
     try {
       final db = await database;
       return await db.rawQuery(query, listParams);
@@ -53,7 +53,7 @@ class LocalService {
   }
 
   // insert data
-  Future rawInsert(String query,[ List<String>? listParams]) async {
+  Future rawInsert(String query, [List<String>? listParams]) async {
     try {
       final db = await database;
       final id = await db.rawInsert(query, listParams);

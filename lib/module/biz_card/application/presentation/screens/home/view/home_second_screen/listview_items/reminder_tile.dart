@@ -2,14 +2,15 @@ import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_without_animation.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReminderTile extends StatelessWidget {
-  const ReminderTile({super.key});
-  // final Reminders reminder;
+  const ReminderTile({super.key, required this.reminder});
+  final Reminder reminder;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,8 @@ class ReminderTile extends StatelessWidget {
         //     .add(ReminderEvent.getReminderDetails(id: reminder.id!));
         Navigator.push(
           context,
-          cardFadePageRoute(const ScreenCardReminderDetailWithoutAnimation()),
+          cardFadePageRoute(
+              ScreenCardReminderDetailWithoutAnimation(reminder: reminder)),
         );
       },
       child: Container(
@@ -39,39 +41,26 @@ class ReminderTile extends StatelessWidget {
         child: Row(
           children: [
             kWidth5,
-            Image.memory(base64Decode(imageTestingBase64.substring(22)),
-                height: 50.h),
-            // SizedBox(
-            //   width: kwidth * 0.24,
-            //   // decoration: BoxDecoration(
-            //   //   image: reminder.image != null
-            //   //       ? DecorationImage(
-            //   //           image: NetworkImage(
-            //   //             reminder.image!,
-            //   //           ),
-            //   //           fit: BoxFit.cover,
-            //   //         )
-            //   //       : null,
-            //   //   borderRadius: const BorderRadius.only(
-            //   //     topLeft: Radius.circular(12),
-            //   //     bottomLeft: Radius.circular(12),
-            //   //   ),
-            //   // ),
-            //   child:
-            //       //  reminder.image != null && reminder.image!.isNotEmpty
-            //       //     ? Image.memory(base64Decode(reminder.image!.startsWith('data')
-            //       //         ? reminder.image!.substring(22)
-            //       //         : reminder.image!))
-            //       //     :
-            //       const Icon(Icons.person_2),
-            // ),
+            // Image.memory(base64Decode(imageTestingBase64.substring(22)),
+            //     height: 50.h),
+            SizedBox(
+              width: kwidth * 0.24,
+              child: reminder.profilePicture != null &&
+                      reminder.profilePicture!.isNotEmpty
+                  ? Image.memory(base64Decode(
+                      reminder.profilePicture!.startsWith('data')
+                          ? reminder.profilePicture!.substring(22)
+                          : reminder.profilePicture!))
+                  : const Icon(Icons.person_2),
+            ),
             kWidth10,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text('Discussion with', style: textHeadStyle1),
-                Text('Date', style: textStyle1.copyWith(fontSize: 11.sp)),
+                Text(reminder.ownerName ?? '',
+                    style: textHeadStyle1.copyWith()),
               ],
             ),
             const Spacer(),

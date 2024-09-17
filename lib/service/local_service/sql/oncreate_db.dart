@@ -1,6 +1,5 @@
 import 'dart:developer';
-
-import 'package:bizkit/module/biz_card/domain/model/contact/get_contacts_response_model/contact.dart';
+import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/contact.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 class Sql {
@@ -11,7 +10,7 @@ class Sql {
   static Future onCreate(sql.Database db) async {
     try {
       log('-----------------oncreate database---------------------');
-      //await db.execute(queryUserTableCreation);
+      // await db.execute(queryUserTableCreation);
       await db.execute(queryContactTableCreation);
       await db.execute(queryLocalStorageTableCreation);
     } catch (e) {
@@ -31,24 +30,11 @@ class Sql {
   static const String queryContactTableCreation = '''
       CREATE TABLE IF NOT EXISTS $contactTable (
         ${ContactModel.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${ContactModel.colCurrentUserId} TEXT,
         ${ContactModel.colUserId} INTEGER,
         ${ContactModel.colName} TEXT,
         ${ContactModel.colPhone} TEXT,
         ${ContactModel.colPhoto} TEXT
       )
     ''';
-
-  // static const String queryUserTableCreation = '''
-  //     CREATE TABLE IF NOT EXISTS $userTable (
-  //       ${User.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
-  //       ${User.colId} INTEGER,
-  //       ${User.colName} TEXT,
-  //       ${User.colEmail} TEXT,
-  //       ${User.colPhone} TEXT,
-  //       ${User.colCompanyName} TEXT,
-  //       ${User.colAddress} TEXT,
-  //       ${User.colWebsite} TEXT,
-  //       ${User.colIsBusiness} INTEGER DEFAULT 0
-  //     )
-  //   ''';
 }

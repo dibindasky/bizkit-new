@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:bizkit/core/model/token/token_model.dart';
+import 'package:bizkit/core/model/token/access_token/token_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SecureStorage {

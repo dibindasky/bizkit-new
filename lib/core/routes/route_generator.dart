@@ -24,7 +24,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/qr_scree
 import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/selected_card_builder.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_create_update.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';

@@ -7,10 +7,7 @@ import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/oncreate_db.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
-import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: ContactLocalRepo)
-@injectable
 class ContactLocalService implements ContactLocalRepo {
   final LocalService localService = LocalService();
 

@@ -1,10 +1,7 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:injectable/injectable.dart';
 
-@LazySingleton()
-@injectable
 class DeviceInformation {
   static Future<String> getDeviceInformation() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();

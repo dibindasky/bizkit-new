@@ -168,7 +168,22 @@ class GoRouterConfig {
       name: Routes.cardView,
       path: '${Routes.cardView}/:cardId',
       builder: (context, state) {
-        final cardId = state.pathParameters['cardId'] ?? '';
+        String? cardId = state.pathParameters['cardId'];
+        cardId ?? (state.extra) as String?;
+        if (cardId != null) {
+          return CardDetailViewDeeplinkScreen(cardId: cardId);
+        } else {
+          return _errorScreen();
+        }
+      },
+    ),
+
+    // Card view
+    GoRoute(
+      name: Routes.cardViewDeeplinking,
+      path: Routes.cardViewDeeplinking,
+      builder: (context, state) {
+        String? cardId = (state.extra) as String?;
         if (cardId != null) {
           return CardDetailViewDeeplinkScreen(cardId: cardId);
         } else {

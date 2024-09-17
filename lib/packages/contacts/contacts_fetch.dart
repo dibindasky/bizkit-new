@@ -4,11 +4,8 @@ import 'package:bizkit/core/model/success_response_model/success_response_model.
 import 'package:bizkit/module/biz_card/domain/model/contact/add_new_contact/add_new_contact.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:dartz/dartz.dart';
-import 'package:injectable/injectable.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-@LazySingleton()
-@injectable
 class ContactFetchService {
   Future<Either<Failure, List<Contact>>> getContactsList() async {
     List<Contact> contactsList = [];

@@ -7,13 +7,10 @@ import 'package:bizkit/core/model/pdf/pdf_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:injectable/injectable.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf_render/pdf_render.dart';
 
-@LazySingleton()
-@injectable
 class PdfPickerImpl {
   Future<PdfModel?> getPdf() async {
     PdfModel? pdf;

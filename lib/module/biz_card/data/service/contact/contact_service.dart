@@ -2,31 +2,26 @@ import 'dart:developer';
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_model/get_contact_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/contact/get_contacts_response_model/get_contacts_response_model.dart';
-import 'package:bizkit/module/biz_card/domain/repository/service/contact_repo.dart';
+import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/get_contact_responce_model.dart';
+import 'package:bizkit/module/biz_card/domain/repository/service/contact/contact_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: ContactsRepo)
-@injectable
-class ContactServiceImpl implements ContactsRepo {
-  final ApiService apiService;
-
-  ContactServiceImpl(this.apiService);
+class ContactService implements ContactsRepo {
+  ApiService apiService = ApiService();
 
   @override
-  Future<Either<Failure, GetContactsResponseModel>> getBizkitUserByContact(
+  Future<Either<Failure, GetContactResponceModel>> getBizkitUserByContact(
       {required GetContactModel getContactModel}) async {
     try {
       print(getContactModel.toJson());
-      final response = await apiService.get(ApiEndPoints.contacts,
+      final response = await apiService.post(ApiEndPoints.contacts,
           data: getContactModel.toJson());
       log('getBizkitUserByContact success==> ${response.statusCode.toString()}');
       log('getBizkitUserByContact success==> ${response.data.toString()}');
-      return Right(GetContactsResponseModel.fromJson(response.data));
+      return Right(GetContactResponceModel.fromJson(response.data));
     } on DioException catch (e) {
       log('getBizkitUserByContact dioException==> ${e.toString()}');
       log('getBizkitUserByContact dioException==> ${e.response?.statusCode.toString()}');

@@ -8,19 +8,5 @@ class AllControllerBinding implements Bindings {
     // Module manager
     Get.lazyPut(() => AuthenticationController());
     Get.lazyPut(() => ModuleController());
-
-    // // Task Module
-    // Get.lazyPut(() => TaskNavbarController());
-    // Get.lazyPut(() => TaskCalenderViewController());
-    // Get.lazyPut(() => CreateTaskController());
-    // Get.lazyPut(() => TaskGenerateReportController());
-    // Get.lazyPut(() => TaskHomeScreenController());
-    // Get.lazyPut(() => TaskFolderController());
-    // Get.lazyPut(() => ChatController());
-    // Get.lazyPut(() => MessageCountController());
-
-    // // Attendence module
-    // Get.lazyPut(() => AttendenceNavBarConroller());
-    // Get.lazyPut(() => AttendenceHomeConroller());
   }
 }

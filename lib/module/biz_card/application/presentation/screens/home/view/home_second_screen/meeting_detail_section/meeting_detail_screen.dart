@@ -1,17 +1,21 @@
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_tab/history_log_tab_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/pageview_container_top/page_view_contents.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class MeetingDetailScreen extends StatelessWidget {
-  const MeetingDetailScreen({super.key, this.fadeCallBack});
-
+  const MeetingDetailScreen({super.key, this.fadeCallBack, this.reminder});
+  final Reminder? reminder;
   final VoidCallback? fadeCallBack;
 
   @override
   Widget build(BuildContext context) {
+    final reminerController = Get.find<ReminderController>();
     return Scaffold(
       body: PopScope(
         canPop: fadeCallBack == null,
@@ -41,7 +45,7 @@ class MeetingDetailScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        const SecondScreenPageViewContents(),
+                        SecondScreenPageViewContents(reminder: reminder),
                         adjustHieght(khieght * .02),
                         // const Expanded(
                         //   child: MeetingDetailTabBarItems(),

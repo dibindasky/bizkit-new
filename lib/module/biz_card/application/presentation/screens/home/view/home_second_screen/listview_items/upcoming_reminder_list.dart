@@ -1,6 +1,11 @@
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/listview_items/reminder_tile.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class SecondAnimationPageListViewUpcomingReminders extends StatefulWidget {
   SecondAnimationPageListViewUpcomingReminders({
@@ -54,26 +59,50 @@ class _SecondAnimationPageListViewUpcomingRemindersState
 
   @override
   Widget build(BuildContext context) {
+    final reminderController = Get.find<ReminderController>();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) => reminderController.fetchHistoryReminders(),
+    );
     return AnimatedBuilder(
         animation: _animationController,
         builder: (context, child) {
-          return ListView.separated(
-            controller: widget.scrollController,
-            separatorBuilder: (context, index) => adjustHieght(khieght * .02),
-            itemCount: 3,
-            // (state.upcomingRminderList?.length ?? 0) +
-            //     (state.upcomingReminderLoading ? 1 : 0),
-            itemBuilder: (context, index) {
-              if (widget.doTransition && index == 0) {
-                return Transform.translate(
-                    offset: Offset(0, 100 * _animation.value),
-                    child: const ReminderTile());
-              } else if (widget.doTransition && index == 1) {
-                return Transform.translate(
-                    offset: Offset(0, -100 * _animation.value),
-                    child: const ReminderTile());
+          return Obx(
+            () {
+              if (reminderController.upcomingReminderLoading.value) {
+                return ShimmerLoader(
+                    seprator: kHeight10,
+                    itemCount: 3,
+                    height: 80.h,
+                    width: double.infinity);
               }
-              return const ReminderTile();
+              if (reminderController.upcomingReminders.isEmpty) {
+                return const Center(child: Text('No upcoming Reminders'));
+              }
+              return ListView.separated(
+                controller: widget.scrollController,
+                separatorBuilder: (context, index) =>
+                    adjustHieght(khieght * .02),
+                itemCount: reminderController.upcomingReminders.length,
+                // (state.upcomingRminderList?.length ?? 0) +
+                //     (state.upcomingReminderLoading ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (widget.doTransition && index == 0) {
+                    return Transform.translate(
+                        offset: Offset(0, 100 * _animation.value),
+                        child: ReminderTile(
+                            reminder:
+                                reminderController.upcomingReminders[index]));
+                  } else if (widget.doTransition && index == 1) {
+                    return Transform.translate(
+                        offset: Offset(0, -100 * _animation.value),
+                        child: ReminderTile(
+                            reminder:
+                                reminderController.upcomingReminders[index]));
+                  }
+                  return ReminderTile(
+                      reminder: reminderController.upcomingReminders[index]);
+                },
+              );
             },
           );
         });

@@ -1,27 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_contacts_response_model.dart';
+part of 'get_contact_responce_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetContactsResponseModel _$GetContactsResponseModelFromJson(
+GetContactResponceModel _$GetContactResponceModelFromJson(
         Map<String, dynamic> json) =>
-    GetContactsResponseModel(
-      count: json['count'] as int?,
-      next: json['next'],
-      previous: json['previous'],
+    GetContactResponceModel(
       results: (json['results'] as List<dynamic>?)
           ?.map((e) => ContactModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$GetContactsResponseModelToJson(
-        GetContactsResponseModel instance) =>
+Map<String, dynamic> _$GetContactResponceModelToJson(
+        GetContactResponceModel instance) =>
     <String, dynamic>{
-      'count': instance.count,
-      'next': instance.next,
-      'previous': instance.previous,
       'results': instance.results,
     };

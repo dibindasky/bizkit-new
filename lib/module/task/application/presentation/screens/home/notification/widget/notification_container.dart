@@ -3,7 +3,6 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class NotificationCard extends StatelessWidget {
   const NotificationCard({
@@ -57,7 +56,7 @@ class NotificationCard extends StatelessWidget {
                       Text(
                         createdAtDateTime != null
                             // ? DateTimeFormater.timeAgo(createdAtDateTime)
-                            ? timeago.format(createdAtDateTime)
+                            ? DateTimeFormater.timeAgo(createdAtDateTime)
                             : 'Unknown time',
                         style: const TextStyle(
                           color: klightgrey,

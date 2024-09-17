@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:bizkit/core/model/token/token_model.dart';
+import 'package:bizkit/core/model/token/access_token/token_model.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/module/module_manager/data/local_storage/local_storage_preference.dart';

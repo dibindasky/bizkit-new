@@ -9,7 +9,7 @@ import 'package:bizkit/module/biz_card/domain/model/received_cards/get_all_visit
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_details_responce/visiting_card_details_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_edit_model/visiting_card_edit_model.dart';
-import 'package:bizkit/module/biz_card/domain/repository/service/received_card_repo.dart';
+import 'package:bizkit/module/biz_card/domain/repository/service/recieved_cards/received_card_repo.dart';
 import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/biz_card/data/service/reminder/reminder_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/create_reminder_model/create_reminder_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminder_id_model/reminder_id_model.dart';
@@ -9,8 +11,8 @@ import 'package:bizkit/utils/constants/contants.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart' as mat;
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ReminderController extends GetxController {
   final ReminderRepo reminderSerivce = ReminderService();
@@ -72,6 +74,7 @@ class ReminderController extends GetxController {
             backgroundColor: neonShade,
           ),
         );
+        GoRouter.of(context).pop();
       },
     );
   }
@@ -132,6 +135,7 @@ class ReminderController extends GetxController {
       (success) {
         allReminderLoading.value = false;
         allReminders.assignAll(success.reminders ?? []);
+        log('allReminders length ${allReminders.length}');
       },
     );
   }
@@ -149,6 +153,7 @@ class ReminderController extends GetxController {
       (success) {
         todaysReminderLoading.value = false;
         todaysReminders.assignAll(success.reminders ?? []);
+        log('todaysReminders length ${todaysReminders.length}');
       },
     );
   }
@@ -166,6 +171,7 @@ class ReminderController extends GetxController {
       (success) {
         upcomingReminderLoading.value = false;
         upcomingReminders.assignAll(success.reminders ?? []);
+        log('upcomingReminders length ${upcomingReminders.length}');
       },
     );
   }
@@ -183,6 +189,7 @@ class ReminderController extends GetxController {
       (success) {
         historyReminderLoading.value = false;
         historyReminders.assignAll(success.reminders ?? []);
+        log('historyReminders length ${historyReminders.length}');
       },
     );
   }

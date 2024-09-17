@@ -1,15 +1,17 @@
 import 'dart:convert';
+
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_create_update.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SecondScreenPageViewContents extends StatelessWidget {
-  const SecondScreenPageViewContents({super.key});
+  const SecondScreenPageViewContents({super.key, this.reminder});
 
-  //Reminders? reminder = Reminders();
+  final Reminder? reminder;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +32,17 @@ class SecondScreenPageViewContents extends StatelessWidget {
                         backgroundColor: kgrey,
                         radius: 25.w,
                         //  reminder != null &&
-                        //         reminder!.image != null &&
-                        //         reminder!.image!.isNotEmpty
+                        //         reminder!.profilePicture != null &&
+                        //         reminder!.profilePicture!.isNotEmpty? ,
                         child: Image.memory(
                           base64Decode(
-                            imageTestingBase64.startsWith('data')
-                                ? imageTestingBase64.substring(22)
+                            reminder != null &&
+                                    reminder!.profilePicture != null &&
+                                    reminder!.profilePicture!.isNotEmpty
+                                ? reminder!.profilePicture!.startsWith('data')
+                                    ? reminder!.profilePicture!.replaceAll(
+                                        'data:image/png;base64,', '')
+                                    : reminder!.profilePicture!
                                 : imageTestingBase64,
                           ),
                           fit: BoxFit.cover,
@@ -45,7 +52,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
                 kWidth20,
                 Expanded(
                   child: Text(
-                    'Meeting lebel',
+                    reminder?.meetingLabel ?? 'Lebel',
                     overflow: TextOverflow.clip,
                     style: TextStyle(
                       fontSize: kwidth * .047,
@@ -61,10 +68,11 @@ class SecondScreenPageViewContents extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildTextRow('Name', 'Febin'),
-                  buildTextRow('Venue', 'Wayanad'),
-                  buildTextRow('Created', '22/08/2022'),
-                  buildTextRow('Occation', 'Padinjarathara'),
+                  buildTextRow('Name', reminder?.ownerName ?? ''),
+                  buildTextRow('Description', reminder?.description ?? ''),
+                  buildTextRow('Venue', reminder?.venue ?? ''),
+                  buildTextRow('Created', reminder?.reminderDate ?? ''),
+                  buildTextRow('Occation', reminder?.occasion ?? ''),
                 ],
               ),
             ),
@@ -77,12 +85,13 @@ class SecondScreenPageViewContents extends StatelessWidget {
                   backgroundColor: neonShade,
                   text: 'View card',
                   onTap: () {
-                    //   Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const ScreenCardDetailView(),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ScreenCardDetailView(
+                            cardId: reminder?.cardId ?? '', myCard: false),
+                      ),
+                    );
                   },
                 ),
                 kWidth5,
@@ -93,7 +102,8 @@ class SecondScreenPageViewContents extends StatelessWidget {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ScreenCardReminderCreating(),
+                      builder: (context) =>
+                          ScreenCardReminderCreating(reminder: reminder),
                     ),
                   ),
                 ),
@@ -117,9 +127,10 @@ class SecondScreenPageViewContents extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            ' :  ${value ?? ''}',
+            value ?? '',
             overflow: TextOverflow.ellipsis,
             style: textThinStyle1.copyWith(fontSize: 11.sp),
+            maxLines: 2,
           ),
         ),
       ],

@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/archived_and_deleted_c
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/scan_and_connect_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/create_card_responce/create_card_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/get_all_cards.dart';
@@ -19,7 +20,10 @@ abstract class CardRepo {
   Future<Either<Failure, CardDetailModel>> getCardDetail(
       {required String cardId});
 
-  // Set default card
+  Future<Either<Failure, ScanAndConnectModel>> scanAndConnect(
+      {required String cardId});
+
+  /// Set default card
   Future<Either<Failure, SuccessResponseModel>> setDefaultCard(
       {required String cardId});
 

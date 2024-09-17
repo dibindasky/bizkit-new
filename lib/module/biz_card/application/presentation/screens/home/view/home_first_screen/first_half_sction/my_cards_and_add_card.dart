@@ -171,6 +171,7 @@ class _CardPageSliderState extends State<CardPageSlider>
           Bizcard data = widget.bizcards[index];
           return InkWell(
             onTap: () {
+              // log('${data.bizcardId}');
               final map = data.bizcardId != null
                   ? {'myCard': 'true', 'cardId': data.bizcardId.toString()}
                   : <String, String>{};

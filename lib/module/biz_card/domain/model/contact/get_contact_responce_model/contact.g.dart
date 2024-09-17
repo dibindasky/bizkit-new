@@ -7,20 +7,20 @@ part of 'contact.dart';
 // **************************************************************************
 
 ContactModel _$ContactModelFromJson(Map<String, dynamic> json) => ContactModel(
-      id: json['id'] as int?,
+      currentUserId: json['currentUserId'] as String?,
       userId: json['user_id'] as String?,
       name: json['name'] as String?,
       email: json['email'] as String?,
       phoneNumber: json['phone_number'] as String?,
       profilePicture: json['profile_picture'] as String?,
       connectionExist: json['connection_exist'] as bool?,
-      connectionId: json['connection_id'],
-      cardId: json['card_id'],
+      connectionId: json['connection_id'] as String?,
+      cardId: json['card_id'] as String?,
     );
 
 Map<String, dynamic> _$ContactModelToJson(ContactModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'currentUserId': instance.currentUserId,
       'user_id': instance.userId,
       'name': instance.name,
       'email': instance.email,

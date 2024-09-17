@@ -85,7 +85,7 @@ class ContactConnectionsTab extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     // log('phone ${data.phoneNumber}');
-                    if (data.id != null && data.id != 0) {
+                    if (data.userId != null && data.userId!.isNotEmpty) {
                       Navigator.of(context).push(
                         cardFadePageRoute(ScreenCardDetailView(
                           cardId: data.userId,
@@ -121,7 +121,7 @@ class ContactConnectionsTab extends StatelessWidget {
                         ),
                       ],
                     ),
-                    trailing: data.userId == null || data.id == 0
+                    trailing: data.userId == null || data.userId!.isNotEmpty
                         ? Wrap(
                             children: [
                               InkWell(

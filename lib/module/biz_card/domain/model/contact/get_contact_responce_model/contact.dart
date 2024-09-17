@@ -6,7 +6,7 @@ part 'contact.g.dart';
 class ContactModel {
   @JsonKey(name: 'user_id')
   String? userId;
-  int? id;
+  //int? id;
   String? name;
   String? email;
   @JsonKey(name: 'phone_number')
@@ -16,12 +16,14 @@ class ContactModel {
   @JsonKey(name: 'connection_exist')
   bool? connectionExist;
   @JsonKey(name: 'connection_id')
-  dynamic connectionId;
+  String? connectionId;
   @JsonKey(name: 'card_id')
-  dynamic cardId;
+  String? cardId;
+  String? currentUserId;
 
   ContactModel({
-    this.id,
+    this.currentUserId,
+    // this.id,
     this.userId,
     this.name,
     this.email,
@@ -32,7 +34,7 @@ class ContactModel {
     this.cardId,
   });
 
-  static const String colId = 'id';
+  static const String colCurrentUserId = 'currentUserId';
   static const String colUserId = 'userId';
   static const String colLocalId = 'localId';
   static const String colPhone = 'phone_number';

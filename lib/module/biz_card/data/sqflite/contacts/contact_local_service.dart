@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/contact_local_repo.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/oncreate_db.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -19,19 +20,23 @@ class ContactLocalService implements ContactLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addContactToLocalStorage(
       {required ContactModel contact}) async {
     try {
+      final userId = await SecureStorage.getUserId();
       const query = '''
           INSERT INTO ${Sql.contactTable} (
+          ${ContactModel.colCurrentUserId},
             ${ContactModel.colName},
             ${ContactModel.colPhone},
             ${ContactModel.colPhoto},
-            ${ContactModel.colUserId}) 
-          VALUES (?,?,?,?)
+            ${ContactModel.colUserId})
+          VALUES (?,?,?,?,?)
           ''';
+
       await localService.rawInsert(query, [
+        userId ?? '',
         contact.name ?? '',
         contact.phoneNumber ?? '',
         contact.profilePicture ?? '',
-        // contact.id ?? 0
+        contact.userId ?? ''
       ]);
       return Right(SuccessResponseModel());
     } catch (e) {
@@ -44,8 +49,10 @@ class ContactLocalService implements ContactLocalRepo {
   Future<Either<Failure, List<ContactModel>>>
       getContactFromLocalStorage() async {
     try {
-      const String query = 'SELECT * FROM ${Sql.contactTable}';
-      final data = await localService.rawQuery(query);
+      final userId = await SecureStorage.getUserId();
+      const String query =
+          'SELECT * FROM ${Sql.contactTable} WHERE ${ContactModel.colCurrentUserId} = ?';
+      final data = await localService.rawQuery(query, [userId ?? '']);
       log('getContactFromLocalStorage => length => ${data.length}');
       List<ContactModel> contacts = [];
       for (var x in data) {

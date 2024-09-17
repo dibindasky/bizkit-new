@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:bizkit/module/biz_card/data/service/contact/contact_service.dart';
 import 'package:bizkit/module/biz_card/data/sqflite/contacts/contact_local_service.dart';
@@ -25,10 +27,22 @@ class ContactsController extends GetxController {
   ContactFetchService contactFetchFeature = ContactFetchService();
   ContactsRepo contactService = ContactService();
   ContactLocalRepo contactLocalService = ContactLocalService();
+
+  Timer? periodicTimer;
+
   @override
   void onInit() {
     super.onInit();
     getConnections();
+    periodicTimer = Timer.periodic(const Duration(days: 1), (timer) {
+      getContactsList();
+    });
+  }
+
+  @override
+  void onClose() {
+    periodicTimer?.cancel();
+    super.onClose();
   }
 
   // Search contacts
@@ -60,7 +74,7 @@ class ContactsController extends GetxController {
     searchLoading.value = false;
   }
 
-  // Get connections from local storage
+  /// Get connections from local storage
   Future<void> getConnections() async {
     if (contactList.isNotEmpty) return;
     isLoading.value = true;
@@ -130,36 +144,30 @@ class ContactsController extends GetxController {
                     await contactLocalService
                         .addContactToLocalStorageIfNotPresentInStorage(
                       contact: ContactModel(
-                        id: 0,
+                        //id: 0,
                         phoneNumber: phone.value
                             ?.replaceAll('+91 ', '')
                             .replaceAll('+91', '')
                             .replaceAll(' ', ''),
                         name: contact.displayName ?? '',
-                        profilePicture: '',
+                        profilePicture: base64Encode(contact.avatar!),
+                      ),
+                    );
+                  } else {
+                    await contactLocalService
+                        .addContactToLocalStorageIfNotPresentInStorage(
+                      contact: ContactModel(
+                        // id: 0,
+                        phoneNumber: phone.value
+                                ?.replaceAll('+91 ', '')
+                                .replaceAll('+91', '')
+                                .replaceAll(' ', '') ??
+                            '',
+                        name: contact.displayName ?? '',
+                        profilePicture: base64Encode(contact.avatar!),
                       ),
                     );
                   }
-                }
-              }
-            }
-          } else {
-            for (var contact in contactList) {
-              if (contact.phones?.isNotEmpty ?? false) {
-                for (var phone in contact.phones!) {
-                  await contactLocalService
-                      .addContactToLocalStorageIfNotPresentInStorage(
-                    contact: ContactModel(
-                      id: 0,
-                      phoneNumber: phone.value
-                              ?.replaceAll('+91 ', '')
-                              .replaceAll('+91', '')
-                              .replaceAll(' ', '') ??
-                          '',
-                      name: contact.displayName ?? '',
-                      profilePicture: '',
-                    ),
-                  );
                 }
               }
             }

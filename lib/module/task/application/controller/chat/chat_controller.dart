@@ -303,10 +303,6 @@ class ChatController extends GetxController {
   void addMessage(Map<String, dynamic> data) {
     try {
       print('addMessage => $data');
-//       channel.sink.add(jsonEncode({
-//     "message_type":"track_voice",
-//     "message_id":"66e2cba737601258a10dfec7"
-// }));
       channel.sink.add(jsonEncode(data));
     } catch (e) {
       log('message sending error $e');

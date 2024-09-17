@@ -19,7 +19,8 @@
     <application
         android:label="bizkit"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true">
         <provider
            android:name="androidx.core.content.FileProvider"
            android:authorities="${applicationId}.provider"
@@ -60,7 +61,11 @@
                 <!-- Accepts URIs that begin with https://YOUR_HOST -->
                 <data
                     android:scheme="https"
-                    android:host="bizkit.onrender.com"  
+                    android:host="bizkit-card.vercel.app"
+                    android:pathPrefix="/" />
+                <data
+                    android:scheme="http"
+                    android:host="bizkit-card.vercel.app"
                     android:pathPrefix="/" />
             </intent-filter>
         </activity>

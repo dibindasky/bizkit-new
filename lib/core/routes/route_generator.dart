@@ -168,7 +168,7 @@ class GoRouterConfig {
       name: Routes.cardView,
       path: '${Routes.cardView}/:cardId',
       builder: (context, state) {
-        final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
+        final cardId = state.pathParameters['cardId'] ?? '';
         if (cardId != null) {
           return CardDetailViewDeeplinkScreen(cardId: cardId);
         } else {
@@ -526,3 +526,40 @@ class GoRouterConfig {
     );
   }
 }
+
+class ScreenDeeplinkTest extends StatefulWidget {
+  const ScreenDeeplinkTest({super.key, required this.id});
+
+  final String id;
+
+  @override
+  State<ScreenDeeplinkTest> createState() => _ScreenDeeplinkTestState();
+}
+
+class _ScreenDeeplinkTestState extends State<ScreenDeeplinkTest> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Deeplink Test'),
+      ),
+      body: Center(
+          child: Container(
+        child: Text(widget.id),
+      )),
+    );
+  }
+}
+
+const a = [
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "com.bizkit.mobile",
+      "package_name": "com.bizkit.mobile",
+      "sha256_cert_fingerprints": [
+        "E9:85:EB:08:C4:7A:47:D3:E7:37:52:CB:8F:61:32:77:2D:E6:13:45:D3:C9:34:5C:36:4D:70:7A:A1:11:A1:91"
+      ]
+    }
+  }
+];

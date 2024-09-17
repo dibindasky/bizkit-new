@@ -21,7 +21,6 @@ class ScreenCardDetailSecondHalf extends StatelessWidget {
     return Column(
       children: [
         // completion persentage indicator
-
         mycard != null && mycard!
             ? const CardViewCompletionPersentageIndicator() // Progress idicator for our card
             : CardViewAddReminderContainer(

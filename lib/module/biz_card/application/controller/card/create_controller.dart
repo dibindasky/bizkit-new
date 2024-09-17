@@ -30,6 +30,13 @@ class CardController extends GetxController {
   // Loading
   RxBool isLoading = false.obs;
   RxBool loadingForCardViews = false.obs;
+
+  /// scanned card is my card or not
+  RxBool myCardDeeplinkPage = false.obs;
+
+  /// connection alredy exist with scanned card or not
+  RxBool connectionExist = false.obs;
+
   final CardRepo cardRepo = CardService();
 
   RxList<Views> cardViews = <Views>[].obs;
@@ -96,6 +103,7 @@ class CardController extends GetxController {
   }
 
   void cardDetail({required String cardId}) async {
+    log('Bizcard ID -> $cardId');
     bizcardDetail.value = CardDetailModel();
     isLoading.value = true;
     final data = await cardRepo.getCardDetail(cardId: cardId);
@@ -196,6 +204,27 @@ class CardController extends GetxController {
       (r) {
         cardViews.assignAll(r.views ?? []);
         loadingForCardViews.value = false;
+      },
+    );
+  }
+
+  /// scan qr or come to the app throught link
+  /// then need to call this api to create connection if there is no connection
+  void scanAndConnect({required String cardId}) async {
+    myCardDeeplinkPage.value = false;
+    isLoading.value = true;
+    bizcardDetail.value = CardDetailModel();
+    final data = await cardRepo.scanAndConnect(cardId: cardId);
+    data.fold(
+      (l) => isLoading.value = false,
+      (r) {
+        bizcardDetail.value = r.sharedDetails!;
+        personalDetails.value = r.sharedDetails!.personalDetails;
+        businessDetails.value = r.sharedDetails!.businessDetails;
+        myCardDeeplinkPage.value = r.newConnection == null;
+        connectionExist.value = r.newConnection ?? false;
+        update();
+        isLoading.value = false;
       },
     );
   }

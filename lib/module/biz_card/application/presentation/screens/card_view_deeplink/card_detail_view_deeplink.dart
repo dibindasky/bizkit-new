@@ -1,120 +1,238 @@
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/my_connections/my_connection_inner_second_half_setions/add_tag/add_tag_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/my_connections/my_connection_inner_second_half_setions/my_connection_detail_second_half_first.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navbar.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/card_bottom_part.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
+import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-enum Changing {
-  first,
-  second,
+class CardDetailViewDeeplinkScreen extends StatefulWidget {
+  const CardDetailViewDeeplinkScreen({super.key, required this.cardId});
+  final String? cardId;
+
+  @override
+  State<CardDetailViewDeeplinkScreen> createState() =>
+      _CardDetailViewDeeplinkScreenState();
 }
 
-ValueNotifier changeScreenNotifier = ValueNotifier(Changing.first);
+class _CardDetailViewDeeplinkScreenState
+    extends State<CardDetailViewDeeplinkScreen> {
+  bool formDeeplink = false;
+  @override
+  void initState() {
+    if (!Get.isRegistered<ModuleController>()) {
+      Get.lazyPut(() => AuthenticationController());
+      Get.lazyPut(() => ModuleController());
+      formDeeplink = true;
+    }
+    getCard();
+    super.initState();
+  }
 
-class CardDetailViewDeeplinkScreen extends StatelessWidget {
-  const CardDetailViewDeeplinkScreen({super.key, this.userId, this.cardId});
-  final int? userId;
-  final int? cardId;
+  Future getCard() async {
+    if (!Get.isRegistered<CardController>()) {
+      Get.find<ModuleController>().initCardControllers();
+    }
+    Get.find<CardController>().scanAndConnect(cardId: widget.cardId ?? '');
+  }
+
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (userId != null) {
-        //context.read<CardBloc>().add(CardEvent.getCardyUserId(id: userId!));
-      } else if (cardId != null) {
-        //context.read<CardBloc>().add(CardEvent.getCardyCardId(id: cardId!));
-      }
-    });
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              Navigator.canPop(context)
-                  ? Navigator.of(context).pop()
-                  : Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CardBottomNavigationBar(),
-                      ),
-                      (route) => false);
-            },
-            icon: const Icon(Icons.arrow_back_ios, color: kwhite, size: 18)),
-        backgroundColor: knill,
-        title: Text('Name', style: textHeadStyle1),
-        actions: [
-          PopupMenuButton<String>(
-            icon: const Icon(
-              Icons.more_vert,
-              size: 24,
-              color: kwhite,
-            ),
-            onSelected: (value) {
-              if (value == 'Add Tag') {
-                changeScreenNotifier.value = Changing.second;
-                changeScreenNotifier.notifyListeners();
-              }
-            },
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'Add Tag',
-                child: Text('Add Tag'),
-              ),
-              const PopupMenuItem(
-                value: 'Emergency',
-                child: Text('Emergency'),
-              ),
-              const PopupMenuItem(
-                value: 'Remove Connection',
-                child: Text('Remove Connection'),
-              ),
-              const PopupMenuItem(
-                value: 'Block Connection',
-                child: Text('Block Connection'),
-              ),
-              const PopupMenuItem(
-                value: 'Report Connection',
-                child: Text('Report Connection'),
-              ),
-            ],
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              adjustHieght(20),
-              // image carosal view
-              const SizedBox(
-                  height: 200,
-                  child: PreviewPageviewImageBuilder(imagesList: [])),
-              // name and designation
-              Column(
-                children: [
-                  const SizedBox(height: 20),
-                  Text(
-                    'Name',
-                    style: custumText(fontSize: kwidth * 0.06),
-                  ),
-                  const Text('Designation'),
-                  adjustHieght(khieght * .02),
-                ],
-              ),
-              // card details
-              ValueListenableBuilder(
-                valueListenable: changeScreenNotifier,
-                builder: (context, value, child) {
-                  if (value == Changing.first) {
-                    return const CardMyConnectionDetailScreenSecondHalf();
-                  }
-                  return AddTagScreen();
-                },
-              ),
-            ],
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: kwhite,
+            size: 18,
           ),
         ),
+        backgroundColor: knill,
+        title: const Text('Card'),
+        actions: [
+          Obx(
+            () => !Get.find<CardController>().isLoading.value &&
+                    Get.find<CardController>().myCardDeeplinkPage.value
+                ? IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.edit),
+                  )
+                : kempty,
+          ),
+          kWidth10
+        ],
+      ),
+      body: Obx(
+        () {
+          if (Get.find<CardController>().isLoading.value) {
+            return const Center(
+                child: CircularProgressIndicator(color: neonShade));
+          } else if (Get.find<CardController>().bizcards == null) {
+            return GestureDetector(
+              onTap: () {},
+              child: const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.refresh),
+                    Text('Tap to retry'),
+                  ],
+                ),
+              ),
+            );
+          }
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: RefreshIndicator(
+              onRefresh: () async {
+                Get.find<CardController>().cardDetail(cardId: widget.cardId!);
+              },
+              child: ListView(
+                children: [
+                  kHeight20,
+                  // Image carosal view
+                  SizedBox(
+                    height: 200.h,
+                    child: GetBuilder<CardController>(builder: (controller) {
+                      List<String> images = [];
+                      bool story = false;
+                      if (Get.find<CardController>()
+                              .bizcardDetail
+                              .value
+                              .businessDetails
+                              ?.businessLogo !=
+                          null) {
+                        images.add(Get.find<CardController>()
+                                .bizcardDetail
+                                .value
+                                .businessDetails!
+                                .businessLogo!
+                                .startsWith('data:')
+                            ? Get.find<CardController>()
+                                .bizcardDetail
+                                .value
+                                .businessDetails!
+                                .businessLogo!
+                                .substring(22)
+                            : Get.find<CardController>()
+                                .bizcardDetail
+                                .value
+                                .businessDetails!
+                                .businessLogo!);
+                        story = true;
+                      }
+                      if (Get.find<CardController>()
+                                  .bizcardDetail
+                                  .value
+                                  .personalDetails
+                                  ?.images !=
+                              null &&
+                          Get.find<CardController>()
+                              .bizcardDetail
+                              .value
+                              .personalDetails!
+                              .images!
+                              .isNotEmpty) {
+                        images.addAll(Get.find<CardController>()
+                            .bizcardDetail
+                            .value
+                            .personalDetails!
+                            .images!
+                            .map((e) =>
+                                e.startsWith('data') ? e.substring(22) : e)
+                            .toList());
+                      }
+                      return PreviewPageviewImageBuilder(
+                        imagesList: images.isEmpty
+                            ? [bizcardIconBase64.substring(22)]
+                            : images,
+                        storyIndex: story ? 0 : null,
+                        story: Get.find<CardController>()
+                            .bizcardDetail
+                            .value
+                            .businessDetails
+                            ?.logoStory,
+                      );
+                    }),
+                  ),
+                  Column(
+                    children: [
+                      kHeight20,
+                      Text(
+                        Get.find<CardController>()
+                                    .personalDetails
+                                    .value
+                                    ?.name !=
+                                null
+                            ? Get.find<CardController>()
+                                    .personalDetails
+                                    .value
+                                    ?.name ??
+                                ''
+                            : Get.find<CardController>()
+                                        .businessDetails
+                                        .value
+                                        ?.businessName !=
+                                    null
+                                ? Get.find<CardController>()
+                                        .businessDetails
+                                        .value
+                                        ?.businessName ??
+                                    ""
+                                : '',
+                        overflow: TextOverflow.ellipsis,
+                        style: custumText(fontSize: kwidth * 0.06),
+                      ),
+                      Text(
+                        Get.find<CardController>()
+                                    .personalDetails
+                                    .value
+                                    ?.email !=
+                                null
+                            ? Get.find<CardController>()
+                                    .personalDetails
+                                    .value
+                                    ?.email ??
+                                ''
+                            : Get.find<CardController>()
+                                        .businessDetails
+                                        .value
+                                        ?.designation !=
+                                    null
+                                ? Get.find<CardController>()
+                                        .businessDetails
+                                        .value
+                                        ?.designation ??
+                                    ""
+                                : '',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      adjustHieght(khieght * .02),
+                    ],
+                  ),
+                  // Card details
+                  ScreenCardDetailSecondHalf(
+                    mycard: Get.find<CardController>().myCardDeeplinkPage.value,
+                    cardId: widget.cardId,
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.find<ModuleController>()
+              .chooseModule(context, module: Module.card);
+        },
+        child: const Icon(Icons.home),
       ),
     );
   }

@@ -8,7 +8,7 @@ class Routes {
   // biz card module
   static const String onBoardingBizCard = '/on_boarding_bizcard';
   static const String initialBizCard = '/initial_bizcard';
-  static const String cardView = '/card';
+  static const String cardView = '/get-bizcard';
   static const String cardDetailView = '/card_detail';
   static const String loginPage = '/login';
   static const String signUpPage = '/signup_page';

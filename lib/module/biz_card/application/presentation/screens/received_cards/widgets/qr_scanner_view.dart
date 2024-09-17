@@ -1,10 +1,8 @@
-import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer';
-import 'dart:io';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QrScannerView extends StatefulWidget {
   const QrScannerView({super.key});
@@ -14,84 +12,63 @@ class QrScannerView extends StatefulWidget {
 }
 
 class _QrScannerViewState extends State<QrScannerView> {
-  Barcode? result;
-  QRViewController? controller;
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  BarcodeCapture? result;
   bool goturl = false;
+  late MobileScannerController cameraController;
 
   @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid) {
-      controller!.pauseCamera();
-    }
-    controller!.resumeCamera();
+  void initState() {
+    super.initState();
+    cameraController = MobileScannerController();
   }
 
   @override
   Widget build(BuildContext context) {
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: _onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-          borderColor: const Color.fromARGB(255, 8, 231, 183),
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: 200),
-      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
+    return MobileScanner(
+      controller: cameraController,
+
+      // allowDuplicates: false, // Avoid multiple scans of the same QR code
+      onDetect: (barcode) {
+        setState(() {
+          result = barcode;
+        });
+        print('===========================scan===========================');
+        if (result != null && result!.barcodes.isNotEmpty) {
+          final code = result!.barcodes.first.rawValue;
+          if (code != null) {
+            print(code);
+            _launchUrl(code);
+          }
+        }
+      },
     );
   }
 
-  void _onQRViewCreated(QRViewController controller) {
-    setState(() {
-      this.controller = controller;
-    });
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-        print('===========================scan===========================');
-        print(result!.code);
-        if (result != null && result!.code != null) {
-          _launchUrl(result!.code!);
-        }
-      });
-    });
-  }
-
-  // launch scanned url to the web page
+  // launch scanned URL to the web page
   Future<void> _launchUrl(String url) async {
-    if (url.contains('bizkit-frontend.netlify.app')) {
+    if (url.contains('/get-bizcard/')) {
       try {
         if (!goturl) {
           print(
               '===========================got url and navigated===========================');
-          final id = int.parse(url.split('/').last);
+          final id = url.split('/').last;
           goturl = true;
-          reassemble();
-          // await Navigator.push(
-          //     context, cardFadePageRoute(const ScreenCardDetailView()));
+          cameraController.stop(); // Pause the scanner
+          await GoRouter.of(context)
+              .pushNamed(Routes.cardViewDeeplinking, extra: id);
           goturl = false;
-          reassemble();
+          cameraController.start(); // Resume the scanner
         }
       } catch (e) {
+        print('launch web ------------------web');
         await LaunchUrl.launchUrls(url: url);
       }
     }
   }
 
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
-      );
-    }
-  }
-
   @override
   void dispose() {
-    controller?.dispose();
+    cameraController.dispose();
     super.dispose();
   }
 }

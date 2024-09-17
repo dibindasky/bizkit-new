@@ -87,6 +87,8 @@ class _CardDetailViewDeeplinkScreenState
               ),
             );
           }
+          print(
+              'Get.find<CardController>().myCardDeeplinkPage.value ====> ${Get.find<CardController>().myCardDeeplinkPage.value}');
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: RefreshIndicator(

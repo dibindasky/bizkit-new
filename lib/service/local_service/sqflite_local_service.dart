@@ -1,11 +1,8 @@
 import 'dart:developer';
 import 'package:bizkit/service/local_service/sql/oncreate_db.dart';
-import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart';
 
-@LazySingleton()
-@injectable
 class LocalService {
   static const _databaseName = "bizkit.db";
   static const _databaseVersion = 1;

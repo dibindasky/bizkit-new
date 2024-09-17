@@ -4,9 +4,7 @@ import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/token/refresh_response/refresh_response.dart';
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 
-@injectable
 class ApiService {
   final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
   // final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));

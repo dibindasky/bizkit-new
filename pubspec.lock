@@ -534,14 +534,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_barcode_scanner:
-    dependency: "direct main"
-    description:
-      name: flutter_barcode_scanner
-      sha256: a4ba37daf9933f451a5e812c753ddd045d6354e4a3280342d895b07fecaab3fa
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   flutter_image_compress:
     dependency: "direct main"
     description:
@@ -840,14 +832,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.6"
-  get_it:
-    dependency: transitive
-    description:
-      name: get_it
-      sha256: e6017ce7fdeaf218dc51a100344d8cb70134b80e28b760f8bb23c242437bafd7
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.6.7"
   glob:
     dependency: transitive
     description:
@@ -992,14 +976,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1+1"
-  injectable:
-    dependency: "direct main"
-    description:
-      name: injectable
-      sha256: cd3c422e13270c81f64ab73c80406b2b2ed563fe59d0ff2093eb7eee63d0bbeb
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.2"
   intl:
     dependency: "direct main"
     description:
@@ -1152,6 +1128,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  mobile_scanner:
+    dependency: "direct main"
+    description:
+      name: mobile_scanner
+      sha256: d234581c090526676fd8fab4ada92f35c6746e3fb4f05a399665d75a399fb760
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.3"
   nested:
     dependency: transitive
     description:
@@ -1408,14 +1392,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  qr_code_scanner:
-    dependency: "direct main"
-    description:
-      name: qr_code_scanner
-      sha256: f23b68d893505a424f0bd2e324ebea71ed88465d572d26bb8d2e78a4749591fd
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   quiver:
     dependency: transitive
     description:

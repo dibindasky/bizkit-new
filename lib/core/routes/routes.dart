@@ -9,6 +9,7 @@ class Routes {
   static const String onBoardingBizCard = '/on_boarding_bizcard';
   static const String initialBizCard = '/initial_bizcard';
   static const String cardView = '/get-bizcard';
+  static const String cardViewDeeplinking = '/get-bizcard-deeplinking';
   static const String cardDetailView = '/card_detail';
   static const String loginPage = '/login';
   static const String signUpPage = '/signup_page';

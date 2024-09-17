@@ -4,10 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:injectable/injectable.dart';
 
-@LazySingleton()
-@injectable
 class LocationService {
   Future<Either<Failure, String>> getLoation() async {
     try {

@@ -8,6 +8,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/bizcard_users_search_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/connection_detail/connection_detail.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/connection_request_accept_or_reject_responce/connection_request_accept_or_reject_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/my_connections_responce.dart';
@@ -19,7 +20,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
@@ -232,6 +233,25 @@ class ConnectionsService implements ConnectionsRepo {
       return Left(Failure(message: errorMessage));
     } catch (e) {
       log('getConnectionCard catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> addOrUpdateConnectionDetails(
+      {required ConnectionDetail connectionDetail}) async {
+    try {
+      final responce = await apiService.patch(
+        ApiEndPoints.viewConnectionCards,
+        data: connectionDetail.toJson(),
+      );
+      log('addOrUpdateConnectionDetails ==> success ');
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('addOrUpdateConnectionDetails DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('addOrUpdateConnectionDetails catch $e');
       return Left(Failure(message: 'Failed to request'));
     }
   }

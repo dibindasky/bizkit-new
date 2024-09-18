@@ -5,7 +5,7 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/mod
 import 'package:bizkit/module/task/application/presentation/screens/profile/task_profile.dart';
 import 'package:bizkit/utils/clipper/bottom_bar_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';

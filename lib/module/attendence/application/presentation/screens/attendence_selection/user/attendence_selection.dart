@@ -3,7 +3,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../../../utils/constants/contants.dart';
+import '../../../../../../../utils/constants/constant.dart';
 import 'widgets/attendence_grid_view.dart';
 
 class AttendenceSelection extends StatelessWidget {

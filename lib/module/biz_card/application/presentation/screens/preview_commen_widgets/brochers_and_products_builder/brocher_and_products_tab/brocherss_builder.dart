@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/brochure.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';

@@ -15,7 +15,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/get_all_
 import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responce/get_card_views_responce.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 

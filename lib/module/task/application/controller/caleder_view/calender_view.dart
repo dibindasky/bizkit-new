@@ -1,7 +1,7 @@
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/data/service/folder/folder_service.dart';
 import 'package:bizkit/module/task/domain/repository/service/folder_repo.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:get/get.dart';
 
 class TaskCalenderViewController extends GetxController {

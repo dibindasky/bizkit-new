@@ -4,6 +4,7 @@ import 'package:bizkit/module/biz_card/data/service/connections/connections_serv
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/result.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/connection_detail/connection_detail.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/recieved_connection_requests_responce/request.dart';
@@ -13,11 +14,12 @@ import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ConnectionsController extends GetxController {
   final ConnectionsRepo connectionService = ConnectionsService();
@@ -32,6 +34,9 @@ class ConnectionsController extends GetxController {
   RxBool cancelConnectionRequestLoading = false.obs;
   RxBool followbackRequestLoading = false.obs;
   RxBool cardLoading = false.obs;
+
+  /// Loading responsible for connection detail api loading
+  RxBool connectionDetailLoading = false.obs;
 
   RxList<SearchConnection> connectionsSearchList = <SearchConnection>[].obs;
 
@@ -332,5 +337,17 @@ class ConnectionsController extends GetxController {
       },
     );
     cardLoading.value = false;
+  }
+
+  /// patch for connection detail filling
+  void addOrUpdateConnectionDetails(BuildContext context,
+      {required ConnectionDetail connectionDtail}) async {
+    connectionDetailLoading.value = true;
+    final result = await connectionService.addOrUpdateConnectionDetails(
+        connectionDetail: connectionDtail);
+    result.fold((l) => connectionDetailLoading.value = false, (r) {
+      GoRouter.of(context).pop();
+      connectionDetailLoading.value = false;
+    });
   }
 }

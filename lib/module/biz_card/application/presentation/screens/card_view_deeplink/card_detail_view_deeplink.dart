@@ -4,7 +4,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/preview_
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -41,6 +41,9 @@ class _CardDetailViewDeeplinkScreenState
 
   @override
   Widget build(BuildContext context) {
+    if (Get.find<CardController>().connectionExist.value) {
+      Get.find<CardController>().showConnectionDetailPopUp(context);
+    }
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -58,10 +61,10 @@ class _CardDetailViewDeeplinkScreenState
         actions: [
           Obx(
             () => !Get.find<CardController>().isLoading.value &&
-                    Get.find<CardController>().myCardDeeplinkPage.value
+                    !Get.find<CardController>().myCardDeeplinkPage.value
                 ? IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons.edit),
+                    icon: const Icon(Icons.people),
                   )
                 : kempty,
           ),

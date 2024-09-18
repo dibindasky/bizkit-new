@@ -5,7 +5,7 @@ import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_model/ge
 import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/get_contact_responce_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/contact/contact_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 

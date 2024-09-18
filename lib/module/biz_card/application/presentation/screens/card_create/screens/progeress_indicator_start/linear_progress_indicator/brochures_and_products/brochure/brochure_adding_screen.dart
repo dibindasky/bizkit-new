@@ -5,7 +5,7 @@ import 'package:bizkit/module/biz_card/application/controller/card/business_deta
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/brochure.dart';
 import 'package:bizkit/packages/pdf/pdf_picker.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/pdf/pdf_preview_screen.dart';

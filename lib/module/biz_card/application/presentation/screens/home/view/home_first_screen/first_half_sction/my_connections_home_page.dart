@@ -6,7 +6,7 @@ import 'package:bizkit/module/biz_card/application/controller/connections/connec
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/widgets/cards_based_on_user.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -214,10 +214,11 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                         ),
                       );
                     }
+                    final cIndex = index - 1;
                     return InkWell(
                       onTap: () {
                         if ((connectionsController
-                                    .myConnections[index - 1].cards?.length ??
+                                    .myConnections[cIndex].cards?.length ??
                                 0) >
                             1) {
                           showDialog(
@@ -227,12 +228,12 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                                   borderRadius: kBorderRadius10),
                               child: CardsbasedOnUserConnection(
                                   card: connectionsController
-                                      .myConnections[index - 1].cards),
+                                      .myConnections[cIndex].cards),
                             ),
                           );
                         } else {
                           final id = connectionsController
-                              .myConnections[index - 1].cards
+                              .myConnections[cIndex].cards
                               ?.map((e) => e.toCard)
                               .toList();
                           Map<String, String> map = id != null

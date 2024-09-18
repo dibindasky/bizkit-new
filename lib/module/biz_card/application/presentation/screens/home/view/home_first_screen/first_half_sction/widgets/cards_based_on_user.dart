@@ -33,11 +33,13 @@ class CardsbasedOnUserConnection extends StatelessWidget {
                 borderRadius: kBorderRadius10),
             child: ListTile(
               onTap: () {
-                final id = connectionsController.myConnections[index].cards
-                    ?.map((e) => e.toCard)
+                final id = card
+                    ?.map(
+                      (e) => e.toCard ?? '',
+                    )
                     .toList();
                 Map<String, String> map = id != null
-                    ? {'myCard': 'false', 'cardId': id[index] ?? ''}
+                    ? {'myCard': 'false', 'cardId': id[index]}
                     : <String, String>{};
                 GoRouter.of(context)
                     .pushNamed(Routes.cardDetailView, pathParameters: map);

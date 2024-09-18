@@ -213,7 +213,9 @@ class GoRouterConfig {
       name: Routes.connectionDetailFilling,
       path: Routes.connectionDetailFilling,
       builder: (context, state) {
-        return const ScreenConnectionDetailFilling();
+        return ScreenConnectionDetailFilling(
+          connectionId: (state.extra as String?) ?? '',
+        );
       },
     ),
     //second card detail

@@ -70,18 +70,13 @@ class ApiService {
     try {
       final accessToken =
           await SecureStorage.getToken().then((token) => token.accessToken);
-      _dio.options.headers.addAll(
-        {
-          'Authorization': "Bearer $accessToken",
-          ...headers ?? {'content-Type': 'application/json'}
-        },
-      );
+      _dio.options.headers.addAll({
+        'Authorization': "Bearer $accessToken",
+        ...headers ?? {'content-Type': 'application/json'}
+      });
       log('api uri ==> post  ${_dio.options.baseUrl + url}');
-      final response = await _dio.post(
-        url,
-        data: data is FormData ? data : data as Map<String, dynamic>?,
-        queryParameters: queryParameters,
-      );
+      final response =
+          await _dio.post(url, data: data, queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
       if (exception.response?.statusCode == 401 ||

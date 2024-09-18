@@ -1,9 +1,15 @@
+import 'package:bizkit/module/biz_card/application/controller/matcho_meter/matcho_meter_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/custom_expanstion_tile.dart';
+import 'package:bizkit/module/biz_card/domain/model/profile/matchometer/matcho_meter_model/matcho_meter_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class CardMatchoMeter extends StatelessWidget {
@@ -13,6 +19,9 @@ class CardMatchoMeter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final matchoMeterController = Get.find<MatchoMeterController>();
+    WidgetsBinding.instance.addPostFrameCallback(
+        (timeStamp) => matchoMeterController.getAllMatchoMeters());
     return Scaffold(
       appBar: AppBar(
         title: const Text('Matcho Meter'),
@@ -28,70 +37,87 @@ class CardMatchoMeter extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: SingleChildScrollView(
-          child: Column(children: [
-            ...List.generate(
-                questions.length,
-                (index) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4.w),
-                      child: CustomExpansionTile(
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 300.w,
-                                  child: CustomTextFormField(
-                                    controller: textEditingController,
-                                    padding: 4.w,
-                                    labelText: 'Type Your answer',
+          child: Obx(
+            () {
+              if (matchoMeterController.isLoading.value) {
+                return SizedBox(
+                  height: 400.h,
+                  child: const Center(
+                      child: CircularProgressIndicator(color: neonShade)),
+                );
+              } else if (matchoMeterController
+                          .allMatchoMeters.value.matchoMeter !=
+                      null &&
+                  matchoMeterController
+                      .allMatchoMeters.value.matchoMeter!.isEmpty) {
+                return ErrorRefreshIndicator(
+                    image: emptyNodata1,
+                    errorMessage: 'No Matcho Meters Found',
+                    onRefresh: () =>
+                        matchoMeterController.getAllMatchoMeters());
+              }
+              return Column(
+                children: [
+                  ...List.generate(
+                      matchoMeterController.questionAnswers.length,
+                      (questionIndex) => Padding(
+                            padding: EdgeInsets.symmetric(vertical: 4.w),
+                            child: CustomExpansionTile(
+                                children: [
+                                  GetBuilder<MatchoMeterController>(
+                                    builder: (controller) =>
+                                        ImagePreviewUnderTextField(
+                                            removeItem: (answerIndex) {
+                                              matchoMeterController
+                                                  .removeAnswer(questionIndex,
+                                                      answerIndex);
+                                            },
+                                            listString: matchoMeterController
+                                                .allMatchoMeters
+                                                .value
+                                                .matchoMeter?[questionIndex]
+                                                .answers,
+                                            ontap: () {},
+                                            child: CustomTextFormField(
+                                              suffixIcon: GestureDetector(
+                                                  onTap: () {
+                                                    matchoMeterController
+                                                        .addMatchoMeter(
+                                                            matchoMeter: [
+                                                          MatchoMeterModel(
+                                                              answers:
+                                                                  matchoMeterController
+                                                                      .answers,
+                                                              question: matchoMeterController
+                                                                  .questionAnswers[
+                                                                      questionIndex]
+                                                                  .question)
+                                                        ]);
+                                                    textEditingController
+                                                        .clear();
+                                                  },
+                                                  child: const Icon(Icons.add)),
+                                              controller: textEditingController,
+                                              padding: 4.w,
+                                              labelText: 'Type Your answer',
+                                            )),
                                   ),
-                                ),
-                                textEditingController.text.isNotEmpty
-                                    ? Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              border:
-                                                  Border.all(color: neonShade),
-                                              borderRadius: kBorderRadius10),
-                                          child: IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(Icons.add)),
-                                        ),
-                                      )
-                                    : kempty
-                              ],
-                            )
-                          ],
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(questions[index]),
+                                ],
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(matchoMeterController
+                                          .questionAnswers[questionIndex]
+                                          .question ??
+                                      ''),
+                                )),
                           )),
-                    ))
-          ]),
+                  kHeight20
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
   }
 }
-
-List questions = [
-  "What is your dream job?",
-  "Where would you like to travel next?",
-  "What is your favorite book?",
-  "Who is your role model?",
-  "What is your favorite movie?",
-  "If you could have any superpower, what would it be?",
-  "What is your favorite type of cuisine?",
-  "What is the most exciting thing you've ever done?",
-  "What do you like to do on weekends?",
-  "What is your favorite season of the year?",
-  "Which historical figure would you like to meet?",
-  "What is your favorite kind of music?",
-  "What was your favorite subject in school?",
-  "If you could live in any country, where would it be?",
-  "What is your favorite way to relax?",
-  "What is the best gift you've ever received?",
-  "What are your biggest strengths?",
-  "If you could learn any new skill, what would it be?",
-  "What is your favorite type of animal?",
-  "What is one goal you hope to achieve this year?"
-];

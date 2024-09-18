@@ -128,8 +128,8 @@ class TasksListsWidget extends StatelessWidget {
                               width: 130.w,
                             ),
                           );
-                        } else if (homeController.toMeTasks.isEmpty ||
-                            homeController.toOthersTasks.isEmpty ||
+                        } else if (homeController.toMeTasks.isEmpty &&
+                            homeController.toOthersTasks.isEmpty &&
                             homeController.selfieTasks.isEmpty) {
                           return Center(
                             child: Text(
@@ -138,12 +138,27 @@ class TasksListsWidget extends StatelessWidget {
                             ),
                           );
                         } else {
+                          final itemCount = index == 0
+                              ? homeController.toMeTasks.isEmpty
+                                  ? 0
+                                  : homeController.toMeTasks.length + 1
+                              : index == 1
+                                  ? homeController.toOthersTasks.isEmpty
+                                      ? 0
+                                      : homeController.toOthersTasks.length + 1
+                                  : homeController.selfieTasks.isEmpty
+                                      ? 0
+                                      : homeController.selfieTasks.length + 1;
+                          if (itemCount == 0) {
+                            return Center(
+                              child: Text(
+                                'No recent tasks ',
+                                style: textThinStyle1.copyWith(fontSize: 12.sp),
+                              ),
+                            );
+                          }
                           return ListView.builder(
-                            itemCount: index == 0
-                                ? homeController.toMeTasks.length + 1
-                                : index == 1
-                                    ? homeController.toOthersTasks.length + 1
-                                    : homeController.selfieTasks.length + 1,
+                            itemCount: itemCount,
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, inx) {
@@ -151,9 +166,14 @@ class TasksListsWidget extends StatelessWidget {
                                   (index == 0
                                       ? homeController.toMeTasks.length
                                       : index == 1
-                                          ? homeController.toOthersTasks.length
-                                          : homeController
-                                              .selfieTasks.length)) {
+                                          ? homeController.toOthersTasks.isEmpty
+                                              ? 0
+                                              : homeController
+                                                  .toOthersTasks.length
+                                          : homeController.selfieTasks.isEmpty
+                                              ? 0
+                                              : homeController
+                                                  .selfieTasks.length)) {
                                 return GestureDetector(
                                   onTap: () {
                                     if (index == 0) {

@@ -233,13 +233,12 @@ class CardController extends GetxController {
   }
 
   /// pop up for adding connection details
-  void showConnectionDetailPopUp(BuildContext context) {
-    showConfirmationDialog(context,
-    heading: 'Add Selfie And Details About This Connection..',
-        content: Text('Add Selfie And Details About This Connection..',style: textThinStyle1.copyWith(color: kwhite),),
-        actionButton: 'Add Details',
-        onPressed: () =>
-            GoRouter.of(context).pushNamed(Routes.connectionDetailFilling));
+  void showConnectionDetailPopUp(BuildContext context) async {
+    await Future.delayed(const Duration(seconds: 5)).then((_) =>
+        showConfirmationDialog(context,
+            heading: 'Add Selfie And Details About This Connection..',
+            actionButton: 'Add Details',
+            onPressed: () => GoRouter.of(context)
+                .pushNamed(Routes.connectionDetailFilling)));
   }
-
 }

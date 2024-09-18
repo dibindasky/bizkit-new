@@ -194,20 +194,14 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                             adjustHieght(20),
                             TextButton(
                               onPressed: () {
-                                // context
-                                //     .read<CardSecondBloc>()
-                                //     .add(const CardSecondEvent.imageClear());
                                 textExtractionController.pickedImageUrl.clear();
                                 receivedCardController
                                     .clearAllTextEditingControllers();
                                 GoRouter.of(context)
                                     .pushNamed(Routes.scanedDataFeilds);
-                                // Navigator.of(context).push(
-                                //   cardFadePageRoute(CardSecondScannedDatas()),
-                                // );
                               },
                               child: const Text(
-                                'Create card without received card',
+                                'Create card without image',
                                 style: TextStyle(
                                   decorationColor: neonShade,
                                   decoration: TextDecoration.underline,

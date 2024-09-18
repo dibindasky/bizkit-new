@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/connection_detail/connection_detail.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/event_button.dart';
@@ -5,9 +9,12 @@ import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ScreenConnectionDetailFilling extends StatefulWidget {
-  const ScreenConnectionDetailFilling({super.key});
+  const ScreenConnectionDetailFilling({super.key, required this.connectionId});
+
+  final String connectionId;
 
   @override
   State<ScreenConnectionDetailFilling> createState() =>
@@ -22,6 +29,7 @@ class _ScreenConnectionDetailFillingState
   TextEditingController categoryController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<ConnectionsController>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Make a Biskit Card'),
@@ -33,23 +41,40 @@ class _ScreenConnectionDetailFillingState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(
-                height: 200.h,
-                child: ListView.builder(
-                  itemBuilder: (context, index) => Container(
+              Stack(
+                children: [
+                  SizedBox(
                     height: 200.h,
-                    // width: ,
-                    decoration: BoxDecoration(
-                      borderRadius: kBorderRadius10,
-                      color: klightGreyClr,
-                      image: const DecorationImage(
-                        image: NetworkImage(
-                            'https://example.com/placeholder-image.jpg'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    child: Obx(() {
+                      return ListView.builder(
+                        itemCount: controller.connectionSelfieIamges.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => Container(
+                          margin: EdgeInsets.symmetric(horizontal: 5.h),
+                          height: 200.h,
+                          width: 250.h,
+                          decoration: BoxDecoration(
+                            borderRadius: kBorderRadius10,
+                            color: klightGreyClr,
+                            image: DecorationImage(
+                              image: MemoryImage(base64Decode(
+                                  controller.connectionSelfieIamges[index])),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
                   ),
-                ),
+                  Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: GestureDetector(
+                          onTap: () => controller.addSelfieimageToList(),
+                          child: const CircleAvatar(
+                            child: Icon(Icons.add),
+                          )))
+                ],
               ),
               const SizedBox(height: 20),
               CustomTextFormField(
@@ -69,7 +94,12 @@ class _ScreenConnectionDetailFillingState
                 controller: categoryController,
               ),
               const SizedBox(height: 20),
-              EventButton(text: 'Update Details', onTap: () {})
+              EventButton(
+                  text: 'Update Details',
+                  onTap: () {
+                    controller.addOrUpdateConnectionDetails(context,
+                        connectionDtail: ConnectionDetail());
+                  })
             ],
           ),
         ),

@@ -16,6 +16,7 @@ import 'package:bizkit/module/biz_card/domain/repository/service/connections/con
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
+import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,6 +38,9 @@ class ConnectionsController extends GetxController {
 
   /// Loading responsible for connection detail api loading
   RxBool connectionDetailLoading = false.obs;
+
+  /// selfi images from connection details
+  RxList<String> connectionSelfieIamges = <String>[].obs;
 
   RxList<SearchConnection> connectionsSearchList = <SearchConnection>[].obs;
 
@@ -349,5 +353,17 @@ class ConnectionsController extends GetxController {
       GoRouter.of(context).pop();
       connectionDetailLoading.value = false;
     });
+  }
+
+  /// add selfie image to list
+  void addSelfieimageToList() async {
+    final image = await ImagePickerClass.getImage(camera: true);
+    if (image == null) return;
+    connectionSelfieIamges.insert(0, image.base64 ?? '');
+  }
+
+  /// remove selfi image form list
+  void removeSelfieImage(int index) {
+    connectionSelfieIamges.removeAt(index);
   }
 }

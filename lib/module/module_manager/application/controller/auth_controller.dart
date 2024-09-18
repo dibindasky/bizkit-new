@@ -155,9 +155,8 @@ class AuthenticationController extends GetxController {
     SecureStorage.saveToken(tokenModel: model);
     log('user name => ${model.name ?? ''}');
     SecureStorage.setLogin();
-    Get.find<ModuleController>().chooseModule(context, module: Module.card);
-    //context.go(Routes.taskNavbar);
-    //context.go(Routes.moduleSelector);
+    // Get.find<ModuleController>().chooseModule(context, module: Module.card);
+    Get.find<ModuleController>().chooseModule(context, module: Module.task);
   }
 
   void logOut(BuildContext context) async {

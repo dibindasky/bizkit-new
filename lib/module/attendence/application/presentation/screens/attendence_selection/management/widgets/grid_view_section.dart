@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../../utils/constants/contants.dart';
+import '../../../../../../../../utils/constants/constant.dart';
 import '../../user/widgets/attendence_grid_view.dart';
 
 class GridViewSection extends StatelessWidget {

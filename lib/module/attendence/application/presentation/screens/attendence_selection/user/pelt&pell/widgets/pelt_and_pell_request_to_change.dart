@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../../../../../../core/routes/routes.dart';
 import '../../../../../../../../../utils/constants/colors.dart';
-import '../../../../../../../../../utils/constants/contants.dart';
+import '../../../../../../../../../utils/constants/constant.dart';
 
 class AttendencePPRequestToChangeScreen extends StatelessWidget {
   AttendencePPRequestToChangeScreen({super.key});

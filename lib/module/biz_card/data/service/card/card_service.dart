@@ -15,7 +15,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/get_all_
 import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responce/get_card_views_responce.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
@@ -74,12 +74,17 @@ class CardService implements CardRepo {
   Future<Either<Failure, ScanAndConnectModel>> scanAndConnect(
       {required String cardId}) async {
     try {
+      print('deeplink id -> $cardId');
       final responce = await apiService
-          .post(ApiEndPoints.cardDetail, data: {'bizcard_id': cardId});
+          .post(ApiEndPoints.scanAndConnect, data: {'bizcard_id': cardId});
       log('scanAndConnect ==>success');
-      if (responce.data['shared_details'] == null) {
+      log('mycard  ==> ${responce.data['shared_details'] == null}');
+      if ((responce.data as Map<String, dynamic>)['shared_details'] == null &&
+          (responce.data as Map<String, dynamic>)['new_connection'] == null) {
+        log('own card response');
         return Right(ScanAndConnectModel(
-            sharedDetails: CardDetailModel.fromJson(responce.data)));
+            sharedDetails: CardDetailModel.fromJson(responce.data),
+            newConnection: null));
       }
       return Right(ScanAndConnectModel.fromJson(responce.data));
     } on DioException catch (e) {

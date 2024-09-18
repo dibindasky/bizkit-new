@@ -10,7 +10,7 @@ import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_r
 import 'package:bizkit/module/biz_card/domain/model/reminder/update_reminder_model/update_reminder_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/reminder/reminder_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 

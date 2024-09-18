@@ -2,7 +2,7 @@ import 'package:bizkit/module/attendence/application/presentation/screens/attend
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/report/widgets/report_card.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/report/widgets/report_searchbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

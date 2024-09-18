@@ -10,7 +10,7 @@ import 'package:bizkit/module/task/domain/model/dashboard/get_report_success_res
 import 'package:bizkit/module/task/domain/model/dashboard/progres_bar_success_responce/progres_bar_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/home_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 

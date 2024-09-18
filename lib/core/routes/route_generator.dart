@@ -4,6 +4,7 @@ import 'package:bizkit/module/attendence/application/presentation/screens/home/h
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/connection_details/connection_detail_filling.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/second_card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/update_second_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_view_deeplink/card_detail_view_deeplink.dart';
@@ -66,7 +67,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.initial,
       path: Routes.initial,
-      // builder: (context, state) => const ScreenTaskChat(),
+      // builder: (context, state) => const ScreenConnectionDetailFilling(),
       builder: (context, state) => const ScreenGeneralSplash(),
     ),
 
@@ -169,7 +170,22 @@ class GoRouterConfig {
       name: Routes.cardView,
       path: '${Routes.cardView}/:cardId',
       builder: (context, state) {
-        final cardId = state.pathParameters['cardId'] ?? '';
+        String? cardId = state.pathParameters['cardId'];
+        cardId ?? (state.extra) as String?;
+        if (cardId != null) {
+          return CardDetailViewDeeplinkScreen(cardId: cardId);
+        } else {
+          return _errorScreen();
+        }
+      },
+    ),
+
+    // Card view
+    GoRoute(
+      name: Routes.cardViewDeeplinking,
+      path: Routes.cardViewDeeplinking,
+      builder: (context, state) {
+        String? cardId = (state.extra) as String?;
         if (cardId != null) {
           return CardDetailViewDeeplinkScreen(cardId: cardId);
         } else {
@@ -190,6 +206,14 @@ class GoRouterConfig {
         } else {
           return _errorScreen();
         }
+      },
+    ),
+    // connection detail filling
+    GoRoute(
+      name: Routes.connectionDetailFilling,
+      path: Routes.connectionDetailFilling,
+      builder: (context, state) {
+        return const ScreenConnectionDetailFilling();
       },
     ),
     //second card detail
@@ -530,30 +554,6 @@ class GoRouterConfig {
     return Scaffold(
       appBar: AppBar(title: const Text('Error')),
       body: const Center(child: Text('Page not found')),
-    );
-  }
-}
-
-class ScreenDeeplinkTest extends StatefulWidget {
-  const ScreenDeeplinkTest({super.key, required this.id});
-
-  final String id;
-
-  @override
-  State<ScreenDeeplinkTest> createState() => _ScreenDeeplinkTestState();
-}
-
-class _ScreenDeeplinkTestState extends State<ScreenDeeplinkTest> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Deeplink Test'),
-      ),
-      body: Center(
-          child: Container(
-        child: Text(widget.id),
-      )),
     );
   }
 }

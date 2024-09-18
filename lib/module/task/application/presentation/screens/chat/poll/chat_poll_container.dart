@@ -6,7 +6,7 @@ import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
 import 'package:bizkit/utils/animations/custom_linear_progress_bar.dart';
 import 'package:bizkit/utils/clipper/chat_pol_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

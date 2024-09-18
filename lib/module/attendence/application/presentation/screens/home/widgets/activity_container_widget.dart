@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../utils/constants/colors.dart';
-import '../../../../../../../utils/constants/contants.dart';
+import '../../../../../../../utils/constants/constant.dart';
 
 class AttendenceActivityContainerWidget extends StatelessWidget {
   final String title;

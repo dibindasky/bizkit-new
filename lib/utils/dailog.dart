@@ -1,5 +1,6 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 showConfirmationDialog(
   BuildContext context, {
@@ -29,7 +30,7 @@ showConfirmationDialog(
                 const SizedBox(width: 20),
                 Expanded(
                   child: InkWell(
-                    onTap: () => Navigator.pop(context, false),
+                    onTap: () => GoRouter.of(context).pop(false),
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
@@ -46,7 +47,7 @@ showConfirmationDialog(
                   child: InkWell(
                     onTap: () {
                       onPressed?.call(); // Invoke onPressed function
-                      Navigator.pop(context, false);
+                      GoRouter.of(context).pop(false);
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),

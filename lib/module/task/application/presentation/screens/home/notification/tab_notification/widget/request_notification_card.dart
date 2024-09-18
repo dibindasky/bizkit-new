@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/widget/request_dicline_dailog.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/widget/request_mark_dailog.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';

@@ -9,7 +9,7 @@ import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_sha
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/update_common_shared_fields_model/update_common_shared_fields_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/level_sharing/level_sharing_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 

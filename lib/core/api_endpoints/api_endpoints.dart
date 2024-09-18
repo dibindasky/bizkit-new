@@ -6,7 +6,7 @@ class ApiEndPoints {
   static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
 
   // [ AWS base url ]
-  //static String baseUrl = 'http://13.53.126.162';
+  // static String baseUrl = 'http://13.53.126.162';
 
   // Refesh token
   static String refreshUrl = '/token/';
@@ -25,6 +25,8 @@ class ApiEndPoints {
   // [ Bizcard Module  ]
 
   static String searchCardUsers = '/search-card-users/';
+  static String scanAndConnect = '/scan-and-connect/';
+  
   // [ Card Creation ]
   static String card = '/get-bizcards/';
   static String cardCreationInital = '/initial-details/';

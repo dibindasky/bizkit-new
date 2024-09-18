@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../../../utils/constants/colors.dart';
-import '../../../../../../../../utils/constants/contants.dart';
+import '../../../../../../../../utils/constants/constant.dart';
 import '../../../home/widgets/activity_container_widget.dart';
 
 class AttendenceTimeSheetScreen extends StatefulWidget {

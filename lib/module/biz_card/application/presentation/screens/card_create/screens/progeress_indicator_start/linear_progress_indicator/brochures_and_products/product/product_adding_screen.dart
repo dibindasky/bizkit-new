@@ -6,7 +6,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/prod
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/utils/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';

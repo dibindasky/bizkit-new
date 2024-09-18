@@ -11,7 +11,7 @@ import 'package:bizkit/module/task/domain/model/dashboard/progres_bar_success_re
 import 'package:bizkit/module/task/domain/repository/service/home_repo.dart';
 import 'package:bizkit/packages/pdf/pdf_generator.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

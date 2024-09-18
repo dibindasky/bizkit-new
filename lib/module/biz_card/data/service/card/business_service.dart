@@ -18,7 +18,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/business/logo_model/lo
 import 'package:bizkit/module/biz_card/domain/model/cards/business/product_deletion/product_deletion.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/business_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 

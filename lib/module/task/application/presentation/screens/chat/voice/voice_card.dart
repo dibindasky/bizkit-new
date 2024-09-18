@@ -2,7 +2,7 @@ import 'package:bizkit/module/task/application/presentation/screens/chat/widgets
 import 'package:bizkit/module/task/domain/model/chat/voice_model.dart';
 import 'package:bizkit/packages/sound/just_audio.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

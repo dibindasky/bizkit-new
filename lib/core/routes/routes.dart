@@ -42,6 +42,7 @@ class Routes {
   static const String myConnectionsAllCards = '/my_connections_all_cards';
   static const String reminderCreation = '/reminder_creation';
   static const String cardPickedScanningCards = '/picked_scanning_cards';
+  static const String connectionDetailFilling = '/connection_detail_filling';
 
   // Task module
   static const String initaltask = '/taskInitail';

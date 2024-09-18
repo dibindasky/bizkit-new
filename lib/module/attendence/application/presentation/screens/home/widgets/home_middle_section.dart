@@ -1,6 +1,6 @@
 import 'package:bizkit/module/attendence/application/presentation/screens/home/widgets/clocks_widget.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/widgets/three_cards.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

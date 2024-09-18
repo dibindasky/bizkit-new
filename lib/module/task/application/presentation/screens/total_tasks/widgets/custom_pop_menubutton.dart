@@ -1,5 +1,5 @@
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 
 class CustomPopupMenuItem extends StatelessWidget {

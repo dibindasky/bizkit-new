@@ -13,8 +13,11 @@ import 'package:bizkit/module/biz_card/domain/model/cards/create_card/create_car
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responce/view.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/dailog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as mat;
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -150,10 +153,10 @@ class CardController extends GetxController {
       (r) {
         getAllcards(true);
         fetchDeletedAndArchivedCards();
-
-        cardArchive.isArchived == true
-            ? showSnackbar(context, message: 'Archived Successfully')
-            : showSnackbar(context, message: 'Restore Successfully');
+        showSnackbar(context,
+            message: cardArchive.isArchived == true
+                ? 'Archived Successfully'
+                : 'Restore Successfully');
         isLoading.value = false;
       },
     );
@@ -228,4 +231,15 @@ class CardController extends GetxController {
       },
     );
   }
+
+  /// pop up for adding connection details
+  void showConnectionDetailPopUp(BuildContext context) {
+    showConfirmationDialog(context,
+    heading: 'Add Selfie And Details About This Connection..',
+        content: Text('Add Selfie And Details About This Connection..',style: textThinStyle1.copyWith(color: kwhite),),
+        actionButton: 'Add Details',
+        onPressed: () =>
+            GoRouter.of(context).pushNamed(Routes.connectionDetailFilling));
+  }
+
 }

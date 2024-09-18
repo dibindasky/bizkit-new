@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/module/attendence/application/controller/home/home_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

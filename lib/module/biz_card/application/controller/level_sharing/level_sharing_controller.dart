@@ -7,7 +7,7 @@ import 'package:bizkit/module/biz_card/domain/model/level_sharing/personal_share
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/update_common_shared_fields_model/update_common_shared_fields_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/level_sharing/level_sharing_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';

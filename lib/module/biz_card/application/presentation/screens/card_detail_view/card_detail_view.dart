@@ -182,10 +182,10 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                         cardController.personalDetails.value?.name != null
                             ? cardController.personalDetails.value?.name ?? ''
                             : cardController
-                                        .businessDetails.value?.businessName !=
+                                        .businessDetails.value?.designation !=
                                     null
                                 ? cardController
-                                        .businessDetails.value?.businessName ??
+                                        .businessDetails.value?.designation ??
                                     ""
                                 : 'Name',
                         overflow: TextOverflow.ellipsis,

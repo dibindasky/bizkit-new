@@ -78,6 +78,9 @@ class ApiEndPoints {
   static String unfollowConnection = '/un-follow-connection/';
   static String viewConnectionCards = '/view-shared-bizcard-details/';
 
+  ///  [  Matcho meter ]
+  static String matchoMeter = '/matcho-meter/';
+
   // [ Reminder ]
   static String reminder = '/reminder/';
   static String getReminders = '/get-reminders/';

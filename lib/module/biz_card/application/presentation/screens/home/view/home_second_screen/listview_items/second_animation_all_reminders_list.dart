@@ -82,12 +82,7 @@ class _SecondAnimationPageListViewAllRemindersState
               controller: widget.scrollController,
               separatorBuilder: (context, index) => adjustHieght(khieght * .02),
               itemCount: reminderController.allReminders.length,
-              //  (state.allReminderList?.length ?? 0) +
-              //     (state.allReminderLoading ? 1 : 0),
               itemBuilder: (context, index) {
-                // if (state.allReminderLoading &&
-                //     index == state.allReminderList!.length) {
-                //   return const LoadingAnimation();
                 if (widget.doTransition && index == 0) {
                   return Transform.translate(
                       offset: Offset(0, 100 * _animation.value),

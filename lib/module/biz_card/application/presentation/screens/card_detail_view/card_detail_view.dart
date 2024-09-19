@@ -64,15 +64,6 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
             () => !cardController.isLoading.value && widget.myCard
                 ? IconButton(
                     onPressed: () {
-                      // if (state.anotherCard!.percentage! == 10) {
-                      //   companySearchNotifier.value = 2;
-                      // } else if (state.anotherCard!.isCompanyAutofilled!) {
-                      //   companySearchNotifier.value = 1;
-                      // } else {
-                      //   companySearchNotifier.value = 0;
-                      // }
-                      // companySearchNotifier.notifyListeners();
-
                       Navigator.push(
                           context,
                           MaterialPageRoute(

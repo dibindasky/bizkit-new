@@ -163,6 +163,8 @@ class _ScreenCardsHomeFirstAnimationState
                                           .getAllcards(true);
                                       connectionsController
                                           .fetchMyConnections(true);
+                                      Get.find<ReminderController>()
+                                          .fetchAllReminders();
                                     },
                                     child: ListView(
                                       children: [

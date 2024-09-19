@@ -9,6 +9,8 @@ class UpdateReminderModel {
   String? venue;
   String? occasion;
   String? description;
+  @JsonKey(name: 'bizcard_id')
+  String? bizcardId;
   @JsonKey(name: 'reminder_date')
   String? reminderDate;
   @JsonKey(name: 'meeting_label')
@@ -16,6 +18,7 @@ class UpdateReminderModel {
 
   UpdateReminderModel(
       {this.reminderId,
+      this.bizcardId,
       this.venue,
       this.occasion,
       this.description,

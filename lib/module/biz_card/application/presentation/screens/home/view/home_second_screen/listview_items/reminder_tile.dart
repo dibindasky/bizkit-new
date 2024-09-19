@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_without_animation.dart';
@@ -14,11 +15,9 @@ class ReminderTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('image ${reminder.profilePicture}');
     return InkWell(
       onTap: () {
-        // context
-        //     .read<ReminderBloc>()
-        //     .add(ReminderEvent.getReminderDetails(id: reminder.id!));
         Navigator.push(
           context,
           cardFadePageRoute(
@@ -32,17 +31,12 @@ class ReminderTile extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(8)),
             boxShadow: [
               BoxShadow(
-                blurRadius: 5.0,
-                offset: Offset(3.0, 3.0),
-                spreadRadius: -2.0,
-              )
+                  blurRadius: 5.0, offset: Offset(3.0, 3.0), spreadRadius: -2.0)
             ],
             color: backgroundColour),
         child: Row(
           children: [
             kWidth5,
-            // Image.memory(base64Decode(imageTestingBase64.substring(22)),
-            //     height: 50.h),
             SizedBox(
               width: kwidth * 0.24,
               child: reminder.profilePicture != null &&
@@ -51,7 +45,8 @@ class ReminderTile extends StatelessWidget {
                       reminder.profilePicture!.startsWith('data')
                           ? reminder.profilePicture!.substring(22)
                           : reminder.profilePicture!))
-                  : const Icon(Icons.person_2),
+                  : Image.memory(
+                      base64Decode(imageTestingBase64.substring(22))),
             ),
             kWidth10,
             Column(

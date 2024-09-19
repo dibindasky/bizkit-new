@@ -8,6 +8,7 @@ part of 'update_reminder_model.dart';
 
 UpdateReminderModel _$UpdateReminderModelFromJson(Map<String, dynamic> json) =>
     UpdateReminderModel(
+      bizcardId: json['bizcard_id'] as String?,
       reminderId: json['reminder_id'] as String?,
       venue: json['venue'] as String?,
       occasion: json['occasion'] as String?,
@@ -19,6 +20,7 @@ UpdateReminderModel _$UpdateReminderModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$UpdateReminderModelToJson(
         UpdateReminderModel instance) =>
     <String, dynamic>{
+      'bizcard_id': instance.bizcardId,
       'reminder_id': instance.reminderId,
       'venue': instance.venue,
       'occasion': instance.occasion,

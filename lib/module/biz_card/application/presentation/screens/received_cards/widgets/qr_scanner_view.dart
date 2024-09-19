@@ -26,7 +26,6 @@ class _QrScannerViewState extends State<QrScannerView> {
   Widget build(BuildContext context) {
     return MobileScanner(
       controller: cameraController,
-
       // allowDuplicates: false, // Avoid multiple scans of the same QR code
       onDetect: (barcode) {
         setState(() {

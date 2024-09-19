@@ -41,7 +41,7 @@ class _CardDetailViewDeeplinkScreenState
 
   @override
   Widget build(BuildContext context) {
-    if (Get.find<CardController>().connectionExist.value ) {
+    if (Get.find<CardController>().connectionExist.value) {
       Get.find<CardController>().showConnectionDetailPopUp(context);
     }
     return Scaffold(

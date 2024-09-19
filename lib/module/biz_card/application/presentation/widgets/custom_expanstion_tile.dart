@@ -2,7 +2,6 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class CustomExpansionTile extends StatefulWidget {
   const CustomExpansionTile(
@@ -12,6 +11,7 @@ class CustomExpansionTile extends StatefulWidget {
       this.isExpandable = true,
       this.children,
       this.expansionColor,
+      this.onExpansionChanged,
       this.expand = false,
       required this.child});
   final List<Widget>? children;
@@ -21,6 +21,7 @@ class CustomExpansionTile extends StatefulWidget {
   final bool isBorder;
   final Color? expansionColor;
   final Function(bool)? whileTap;
+  final Function(bool)? onExpansionChanged;
 
   @override
   State<CustomExpansionTile> createState() => _CustomExpansionTileState();
@@ -63,7 +64,6 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               width: double.infinity,
-              // padding: EdgeInsets.symmetric(vertical: 5.h),
               child: widget.child,
             ),
           ),

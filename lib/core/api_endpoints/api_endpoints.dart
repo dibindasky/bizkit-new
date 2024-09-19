@@ -3,10 +3,10 @@ class ApiEndPoints {
   //static String baseUrl = 'https://bizkit.onrender.com';
 
   // [ Local base url  ]
-  // static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
+  static String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
 
   // [ AWS base url ]
-  static String baseUrl = 'http://13.53.126.162';
+  // static String baseUrl = 'http://13.53.126.162';
 
   // Refesh token
   static String refreshUrl = '/token/';
@@ -79,6 +79,7 @@ class ApiEndPoints {
   static String searchConnection = '/search-connection/';
   static String unfollowConnection = '/un-follow-connection/';
   static String viewConnectionCards = '/view-shared-bizcard-details/';
+  static String updateConnectionDetails = '/update-connection-details/';
 
   ///  [  Matcho meter ]
   static String matchoMeter = '/matcho-meter/';

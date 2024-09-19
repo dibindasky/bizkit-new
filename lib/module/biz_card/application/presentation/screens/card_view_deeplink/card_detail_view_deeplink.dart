@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/card_bottom_part.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
@@ -8,6 +9,7 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class CardDetailViewDeeplinkScreen extends StatefulWidget {
   const CardDetailViewDeeplinkScreen({super.key, required this.cardId});
@@ -41,13 +43,17 @@ class _CardDetailViewDeeplinkScreenState
 
   @override
   Widget build(BuildContext context) {
-    if (Get.find<CardController>().connectionExist.value ) {
+    if (Get.find<CardController>().connectionExist.value) {
       Get.find<CardController>().showConnectionDetailPopUp(context);
     }
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
+            if (formDeeplink) {
+              Get.find<ModuleController>()
+                  .chooseModule(context, module: Module.card);
+            }
             Navigator.of(context).pop();
           },
           icon: const Icon(
@@ -63,7 +69,11 @@ class _CardDetailViewDeeplinkScreenState
             () => !Get.find<CardController>().isLoading.value &&
                     !Get.find<CardController>().myCardDeeplinkPage.value
                 ? IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      GoRouter.of(context).pushNamed(
+                          Routes.connectionDetailFilling,
+                          extra: widget.cardId);
+                    },
                     icon: const Icon(Icons.people),
                   )
                 : kempty,
@@ -232,13 +242,15 @@ class _CardDetailViewDeeplinkScreenState
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.find<ModuleController>()
-              .chooseModule(context, module: Module.card);
-        },
-        child: const Icon(Icons.home),
-      ),
+      floatingActionButton: formDeeplink
+          ? FloatingActionButton(
+              onPressed: () {
+                Get.find<ModuleController>()
+                    .chooseModule(context, module: Module.card);
+              },
+              child: const Icon(Icons.home),
+            )
+          : null,
     );
   }
 }

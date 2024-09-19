@@ -8,7 +8,7 @@ import 'package:bizkit/module/biz_card/domain/model/profile/matchometer/matcho_m
 import 'package:bizkit/module/biz_card/domain/model/profile/matchometer/update_matcho_meter/update_matcho_meter.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/matcho_meter/matcho_meter_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
-import 'package:bizkit/utils/constants/contants.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 

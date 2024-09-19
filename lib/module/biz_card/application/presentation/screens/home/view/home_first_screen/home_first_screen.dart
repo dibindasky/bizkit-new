@@ -117,7 +117,6 @@ class _ScreenCardsHomeFirstAnimationState
   @override
   Widget build(BuildContext context) {
     final connectionsController = Get.find<ConnectionsController>();
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
     final size = MediaQuery.of(context).size;
     khieght = size.height;
     kwidth = size.width;

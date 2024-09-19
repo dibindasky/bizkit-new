@@ -13,7 +13,6 @@ import 'package:bizkit/module/biz_card/domain/model/cards/create_card/create_car
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responce/view.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/dailog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
@@ -234,7 +233,8 @@ class CardController extends GetxController {
 
   /// pop up for adding connection details
   void showConnectionDetailPopUp(BuildContext context) async {
-    await Future.delayed(const Duration(seconds: 5)).then((_) =>
+    connectionExist.value = false;
+    await Future.delayed(const Duration(seconds: 3)).then((_) =>
         showConfirmationDialog(context,
             heading: 'Add Selfie And Details About This Connection..',
             actionButton: 'Add Details',

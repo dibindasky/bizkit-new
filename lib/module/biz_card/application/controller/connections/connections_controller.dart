@@ -167,7 +167,7 @@ class ConnectionsController extends GetxController {
 
   // Get my all connections
   void fetchMyConnections(bool isLoad) async {
-    if (myConnections.isNotEmpty) return;
+    if (myConnections.isNotEmpty && !isLoad) return;
     myConnectionsLoading.value = true;
     final result = await connectionService.getMyconnections();
     result.fold(
@@ -349,15 +349,20 @@ class ConnectionsController extends GetxController {
     connectionDetailLoading.value = true;
     final result = await connectionService.addOrUpdateConnectionDetails(
         connectionDetail: connectionDtail);
-    result.fold((l) => connectionDetailLoading.value = false, (r) {
+    result.fold((l) {
+      connectionDetailLoading.value = false;
+      showSnackbar(context, message: l.message??errorMessage);
+    }, (r) {
       GoRouter.of(context).pop();
+      connectionSelfieIamges.value=[];
       connectionDetailLoading.value = false;
     });
   }
 
   /// add selfie image to list
-  void addSelfieimageToList() async {
-    final image = await ImagePickerClass.getImage(camera: true);
+  void addSelfieimageToList({required bool cameraOrGallery}) async {
+    final image = await ImagePickerClass.getImage(
+        camera: cameraOrGallery, cameraDeviceFront: true);
     if (image == null) return;
     connectionSelfieIamges.insert(0, image.base64 ?? '');
   }

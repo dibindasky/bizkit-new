@@ -1,6 +1,6 @@
-import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/match_meter.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'business_details.dart';
+import 'matcho_meter_comparison.dart';
 import 'personal_details.dart';
 
 part 'card_detail_model.g.dart';
@@ -31,7 +31,9 @@ class CardDetailModel {
   String? category;
   List<String>? selfie;
   @JsonKey(name: 'matcho_meter_comparison')
-  MatchMeter? matchoMeter;
+  List<MatchoMeterComparison>? matchoMeter;
+  @JsonKey(name: 'connection_id')
+  String? connectionId;
 
   CardDetailModel({
     this.matchoMeter,
@@ -49,6 +51,7 @@ class CardDetailModel {
     this.isArchived,
     this.isDisabled,
     this.qrCode,
+    this.connectionId,
   });
 
   factory CardDetailModel.fromJson(Map<String, dynamic> json) {

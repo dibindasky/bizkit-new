@@ -70,7 +70,35 @@ class _ScreenConnectionDetailFillingState
                       bottom: 10,
                       right: 10,
                       child: GestureDetector(
-                          onTap: () => controller.addSelfieimageToList(),
+                          onTap: () => showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Choose an option'),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      ListTile(
+                                        leading: const Icon(Icons.camera_alt),
+                                        title: const Text('Take a photo'),
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                          controller.addSelfieimageToList(
+                                              cameraOrGallery: true);
+                                        },
+                                      ),
+                                      ListTile(
+                                        leading: const Icon(Icons.photo_library),
+                                        title: const Text('Choose from gallery'),
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                          controller.addSelfieimageToList(
+                                              cameraOrGallery: false);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                           child: const CircleAvatar(
                             child: Icon(Icons.add),
                           )))
@@ -94,12 +122,24 @@ class _ScreenConnectionDetailFillingState
                 controller: categoryController,
               ),
               const SizedBox(height: 20),
-              EventButton(
-                  text: 'Update Details',
-                  onTap: () {
-                    controller.addOrUpdateConnectionDetails(context,
-                        connectionDtail: ConnectionDetail());
-                  })
+              Obx(() {
+                return controller.connectionDetailLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : EventButton(
+                        text: 'Update Details',
+                        onTap: () {
+                          controller.addOrUpdateConnectionDetails(context,
+                              connectionDtail: ConnectionDetail(
+                                  category: categoryController.text,
+                                  connectionId: widget.connectionId,
+                                  location: locationController.text,
+                                  notes: notesController.text,
+                                  occasion: occasionController.text,
+                                  selfie: controller.connectionSelfieIamges));
+                        });
+              })
             ],
           ),
         ),

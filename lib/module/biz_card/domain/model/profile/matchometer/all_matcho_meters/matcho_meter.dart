@@ -16,4 +16,11 @@ class MatchoMeter {
   }
 
   Map<String, dynamic> toJson() => _$MatchoMeterToJson(this);
+
+  MatchoMeter copyWith(String? id, String? question, List<String>? answers) {
+    return MatchoMeter(
+        answers: answers ?? this.answers,
+        id: id ?? this.id,
+        question: question ?? this.question);
+  }
 }

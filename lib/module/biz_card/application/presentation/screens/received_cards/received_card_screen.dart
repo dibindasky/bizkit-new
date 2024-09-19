@@ -32,38 +32,21 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
     'asset/images/camerFromgalleryIcon.png',
     'asset/images/ic_twotone-tap-and-play.png'
   ];
+
   final centerButtons = [
     'asset/images/camera select Icon.png',
     'asset/images/solar_gallery-bold.png',
     'asset/images/phone_connectivity_bold.png'
   ];
-  int indexofButton = 1;
-  int leftButton = 0;
+
+  int indexofButton = 0;
+  int leftButton = 1;
   int rightButton = 2;
 
   late AnimationController _controller;
 
-  // bool isShowcaseSeen = false;
-  // final homeScreenShowCase = 'isShowCaseShareCard';
-
   @override
   void initState() {
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   SharedPreferences.getInstance().then((prefs) async {
-    //     const showed = false;
-    //     setState(() {
-    //       isShowcaseSeen = showed;
-    //     });
-    //     if (isShowcaseSeen) {
-    //       ShowCaseWidget.of(context).startShowCase([
-    //         globalKeyQRLists,
-    //         globalKeyQRScan,
-    //         globalKeyNFCScan,
-    //         globalKeyCreateVsitingCard
-    //       ]);
-    //     }
-    //   });
-    // });
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));
     _controller.forward();

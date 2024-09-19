@@ -210,7 +210,7 @@ class CardController extends GetxController {
     );
   }
 
-  /// scan qr or come to the app throught link
+  /// scan qr or come to the app through link
   /// then need to call this api to create connection if there is no connection
   void scanAndConnect({required String cardId}) async {
     myCardDeeplinkPage.value = false;

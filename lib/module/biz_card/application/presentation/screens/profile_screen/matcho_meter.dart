@@ -1,26 +1,39 @@
 import 'package:bizkit/module/biz_card/application/controller/matcho_meter/matcho_meter_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/custom_expanstion_tile.dart';
-import 'package:bizkit/module/biz_card/domain/model/profile/matchometer/matcho_meter_model/matcho_meter_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
-class CardMatchoMeter extends StatelessWidget {
-  CardMatchoMeter({super.key});
+class CardMatchoMeter extends StatefulWidget {
+  const CardMatchoMeter({super.key});
 
+  @override
+  State<CardMatchoMeter> createState() => _CardMatchoMeterState();
+}
+
+class _CardMatchoMeterState extends State<CardMatchoMeter> {
   final TextEditingController textEditingController = TextEditingController();
+  int? expandedIndex; // Track the expanded tile index
+
+  @override
+  void initState() {
+    final matchoMeterController = Get.find<MatchoMeterController>();
+    matchoMeterController.getAllMatchoMeters();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final matchoMeterController = Get.find<MatchoMeterController>();
-    WidgetsBinding.instance.addPostFrameCallback(
-        (timeStamp) => matchoMeterController.getAllMatchoMeters());
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
     return Scaffold(
       appBar: AppBar(
         title: const Text('Matcho Meter'),
@@ -72,28 +85,22 @@ class CardMatchoMeter extends StatelessWidget {
                                                       answerIndex);
                                             },
                                             listString: matchoMeterController
-                                                .allMatchoMeters
-                                                .value
-                                                .matchoMeter?[questionIndex]
+                                                .questionAnswers[questionIndex]
                                                 .answers,
                                             ontap: () {},
                                             child: CustomTextFormField(
                                               suffixIcon: GestureDetector(
                                                   onTap: () {
-                                                    matchoMeterController
-                                                        .addMatchoMeter(
-                                                            matchoMeter: [
-                                                          MatchoMeterModel(
-                                                              answers:
-                                                                  matchoMeterController
-                                                                      .answers,
-                                                              question: matchoMeterController
-                                                                  .questionAnswers[
-                                                                      questionIndex]
-                                                                  .question)
-                                                        ]);
-                                                    textEditingController
-                                                        .clear();
+                                                    if (textEditingController
+                                                        .text.isNotEmpty) {
+                                                      matchoMeterController
+                                                          .addAnswers(
+                                                              textEditingController
+                                                                  .text,
+                                                              questionIndex);
+                                                      textEditingController
+                                                          .clear();
+                                                    }
                                                   },
                                                   child: const Icon(Icons.add)),
                                               controller: textEditingController,
@@ -110,7 +117,13 @@ class CardMatchoMeter extends StatelessWidget {
                                       ''),
                                 )),
                           )),
-                  kHeight20
+                  kHeight20,
+                  EventButton(
+                    text: 'Add Questions',
+                    onTap: () {
+                      matchoMeterController.addMatchoMeter();
+                    },
+                  )
                 ],
               );
             },

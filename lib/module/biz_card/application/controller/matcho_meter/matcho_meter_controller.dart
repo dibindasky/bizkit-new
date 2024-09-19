@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/biz_card/data/service/matcho_meter/matcho_meter_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/profile/matchometer/all_matcho_meters/all_matcho_meters.dart';
-import 'package:bizkit/module/biz_card/domain/model/profile/matchometer/matcho_meter_model/matcho_meter_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/profile/matchometer/all_matcho_meters/matcho_meter.dart';
 import 'package:bizkit/module/biz_card/domain/model/profile/matchometer/update_matcho_meter/update_matcho_meter.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/matcho_meter/matcho_meter_repo.dart';
 import 'package:get/get.dart';
@@ -11,12 +13,12 @@ class MatchoMeterController extends GetxController {
   RxBool updateLoading = false.obs;
   Rx<AllMatchoMeters> allMatchoMeters = AllMatchoMeters().obs;
   RxList<String> answers = <String>[].obs;
+  var openedTileIndex = (-1).obs;
 
-  List<MatchoMeterModel> questionAnswers = [
-    MatchoMeterModel(question: "What is your dream job?", answers: []),
-    MatchoMeterModel(
-        question: "Where would you like to travel next?", answers: []),
-    MatchoMeterModel(question: "What is your favorite book?", answers: []),
+  List<MatchoMeter> questionAnswers = [
+    MatchoMeter(question: "What is your dream job?", answers: []),
+    MatchoMeter(question: "Where would you like to travel next?", answers: []),
+    MatchoMeter(question: "What is your favorite book?", answers: []),
   ];
 
   void addAnswers(String text, int index) {
@@ -36,6 +38,15 @@ class MatchoMeterController extends GetxController {
       (l) => null,
       (r) {
         allMatchoMeters.value = r;
+        for (var e in allMatchoMeters.value.matchoMeter ?? <MatchoMeter>[]) {
+          //log('First ${e.answers}');
+          final index = questionAnswers
+              .indexWhere((element) => element.question == e.question);
+          if (index != -1) {
+            questionAnswers[index].answers = e.answers;
+            //log('second ${e.answers}');
+          }
+        }
       },
     );
     isLoading.value = false;
@@ -55,9 +66,10 @@ class MatchoMeterController extends GetxController {
     updateLoading.value = false;
   }
 
-  void addMatchoMeter({required List<MatchoMeterModel> matchoMeter}) async {
+  void addMatchoMeter() async {
     isLoading.value = true;
-    final data = await matchoMeterRepo.addMatchoMeter(matchoMeter: matchoMeter);
+    final data =
+        await matchoMeterRepo.addMatchoMeter(matchoMeter: questionAnswers);
     data.fold(
       (l) => null,
       (r) {

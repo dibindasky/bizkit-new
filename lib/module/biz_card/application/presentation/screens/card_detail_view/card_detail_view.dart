@@ -17,7 +17,6 @@ class ScreenCardDetailView extends StatefulWidget {
   const ScreenCardDetailView(
       {super.key, required this.myCard, required this.cardId});
   final String? cardId;
-  //final int? userId;
   final bool myCard;
 
   @override
@@ -38,20 +37,10 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
 
   Future getCard() async {
     if (widget.cardId != null && widget.myCard) {
-      cardController.cardDetail(cardId: widget.cardId!);
-      //   // context
-      //   //     .read<CardBloc>()
-      //   //     .add(CardEvent.getCardyCardId(id: widget.cardId!));
-      //   // context.read<ReminderBloc>().add(ReminderEvent.getCardReminder(
-      //   //     cardIdModel: CardIdModel(cardId: widget.cardId!)));
+      cardController.cardDetail(cardId: widget.cardId ?? '');
     } else if (!widget.myCard) {
       connectionController.getConnectionCardDetail(cardId: widget.cardId ?? '');
     }
-    //if (widget.userId != null) {
-    // context
-    //     .read<CardBloc>()
-    //     .add(CardEvent.getCardyUserId(id: widget.userId!));
-    //}
   }
 
   @override
@@ -193,10 +182,10 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                         cardController.personalDetails.value?.name != null
                             ? cardController.personalDetails.value?.name ?? ''
                             : cardController
-                                        .businessDetails.value?.designation !=
+                                        .businessDetails.value?.businessName !=
                                     null
                                 ? cardController
-                                        .businessDetails.value?.designation ??
+                                        .businessDetails.value?.businessName ??
                                     ""
                                 : 'Name',
                         overflow: TextOverflow.ellipsis,

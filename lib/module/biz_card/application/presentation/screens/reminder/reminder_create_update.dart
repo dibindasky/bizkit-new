@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/create_reminder_model/create_reminder_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminder/update_reminder_model/update_reminder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
+import 'package:bizkit/utils/time_format/time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -38,8 +40,9 @@ class _ScreenCardReminderCreatingState
   void initState() {
     if (widget.reminder != null) {
       final reminderController = Get.find<ReminderController>();
-      time = widget.reminder?.reminderDate ?? '';
-      date = widget.reminder?.reminderDate ?? '';
+      time = TimeDateFormating.extractTime(widget.reminder?.reminderDate ?? '');
+      date = TimeDateFormating.formatYearMonthDate(
+          widget.reminder?.reminderDate ?? '');
       reminderController.meetingLabelController.text =
           widget.reminder?.meetingLabel ?? '';
       reminderController.venueController.text = widget.reminder?.venue ?? '';
@@ -53,10 +56,11 @@ class _ScreenCardReminderCreatingState
 
   @override
   Widget build(BuildContext context) {
-    log('Card id == > ${widget.cardId}');
     final reminderController = Get.find<ReminderController>();
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
+        forceMaterialTransparency: false,
         backgroundColor: knill,
         foregroundColor: kwhite,
         leading: IconButton(
@@ -186,13 +190,15 @@ class _ScreenCardReminderCreatingState
                       onDateChanged: (dates) {
                         setState(() {
                           dates = dates;
-                          date = '${dates.year}-${dates.month}-${dates.day}';
+                          date = TimeDateFormating.formatYearMonthDate(
+                              dates.toString());
+                          '${dates.year}-${dates.month}-${dates.day}';
                         });
                       },
                     ),
                   ),
                 ),
-                adjustHieght(kwidth * 0.10),
+                kHeight10,
                 InkWell(
                   onTap: () async {
                     final selectedTime = await showTimePicker(
@@ -220,23 +226,20 @@ class _ScreenCardReminderCreatingState
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          time == '' ? 'Choose time' : time,
+                          time == '' ? 'Choose Time' : time,
                           style: TextStyle(
                               color: time == '' ? klightgrey : kwhite,
                               fontSize: time == '' ? 11.sp : 12.sp),
                         ),
-                        const Icon(
-                          Icons.alarm_add_sharp,
-                          color: neonShade,
-                        )
+                        const Icon(Icons.alarm_add_sharp, color: neonShade)
                       ],
                     ),
                   ),
                 ),
-                adjustHieght(kwidth * 0.10),
+                kHeight20,
                 Row(
                   children: [
-                    adjustWidth(kwidth * 0.30),
+                    kWidth50,
                     Expanded(
                       child: InkWell(
                         onTap: () => Navigator.of(context).pop(),
@@ -256,7 +259,6 @@ class _ScreenCardReminderCreatingState
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          // log('date ttime  -> ${dates.add(Duration(hours: timeOfDay.hour ?? 0, minutes: timeOfDay?.minute ?? 0)).toUtc().toString()}');
                           if (date == '') {
                             setState(() {
                               showError = true;
@@ -273,87 +275,36 @@ class _ScreenCardReminderCreatingState
                             setState(() {
                               showError = false;
                             });
-
                             if (reminderKey.currentState!.validate()) {
-                              reminderController.createReminder(
-                                  createReminderModel: CreateReminderModel(
-                                      bizcardId: widget.cardId,
-                                      description: reminderController
-                                          .messageController.text,
-                                      meetingLabel: reminderController
-                                          .meetingLabelController.text,
-                                      occasion: reminderController
-                                          .occasionController.text,
-                                      reminderDate: dates
-                                          .add(Duration(
-                                              hours: timeOfDay.hour,
-                                              minutes: timeOfDay.minute))
-                                          .toUtc()
-                                          .toString(),
-                                      venue: reminderController
-                                          .venueController.text),
-                                  context: context);
-
-                              // Navigator.pop(context);
-                              // if (reminderKey.currentState!.validate()) {
-                              //   if (date == '') {
-                              //     setState(() {
-                              //       showError = true;
-                              //     });
-                              //     showSnackbar(context,
-                              //         message: 'Choose date to continue');
-                              //   } else if (time == '') {
-                              //     setState(() {
-                              //       showError = true;
-                              //     });
-                              //     showSnackbar(context,
-                              //         message: 'Choose time to continue');
-                              //   } else {
-                              //     setState(() {
-                              //       showError = false;
-                              //     });
-                              //     final model = CreateReminderModel(
-                              //         cardId: widget.cardId,
-                              //         connectionId: widget.connectionId,
-                              //         date: date,
-                              //         time: time,
-                              //         meetingLabel: context
-                              //             .read<ReminderBloc>()
-                              //             .labelController
-                              //             .text
-                              //             .trim(),
-                              //         message: context
-                              //             .read<ReminderBloc>()
-                              //             .messageController
-                              //             .text
-                              //             .trim(),
-                              //         occation: context
-                              //             .read<ReminderBloc>()
-                              //             .occationController
-                              //             .text
-                              //             .trim(),
-                              //         venue: context
-                              //             .read<ReminderBloc>()
-                              //             .venueController
-                              //             .text
-                              //             .trim());
-                              //     if (widget.reminder == null) {
-                              //       context.read<ReminderBloc>().add(
-                              //           ReminderEvent.createReminder(
-                              //               createReminderModel: model));
-                              //     } else {
-                              //       final data = model.copyWith(
-                              //           cardId: widget.reminder!.cardId,
-                              //           id: widget.reminder!.id,
-                              //           connectionId:
-                              //               widget.reminder!.connectionId);
-                              //       context.read<ReminderBloc>().add(
-                              //             ReminderEvent.editReminder(
-                              //               createReminderModel: data,
-                              //             ),
-                              //           );
-                              //     }
-                              //   }
+                              widget.reminder?.id == null
+                                  ? reminderController.createReminder(
+                                      createReminderModel: CreateReminderModel(
+                                          bizcardId: widget.cardId,
+                                          description: reminderController
+                                              .messageController.text,
+                                          meetingLabel: reminderController
+                                              .meetingLabelController.text,
+                                          occasion: reminderController
+                                              .occasionController.text,
+                                          reminderDate: dates
+                                              .add(Duration(
+                                                  hours: timeOfDay.hour,
+                                                  minutes: timeOfDay.minute))
+                                              .toUtc()
+                                              .toString(),
+                                          venue: reminderController
+                                              .venueController.text),
+                                      context: context)
+                                  : reminderController.updateReminder(
+                                      updateReminderModel: UpdateReminderModel(
+                                          bizcardId: widget.cardId,
+                                          reminderId: widget.reminder!.id,
+                                          description: reminderController.messageController.text,
+                                          meetingLabel: reminderController.meetingLabelController.text,
+                                          occasion: reminderController.occasionController.text,
+                                          reminderDate: dates.add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute)).toUtc().toString(),
+                                          venue: reminderController.venueController.text),
+                                      context: context);
                             }
                           }
                         },
@@ -367,8 +318,11 @@ class _ScreenCardReminderCreatingState
                             ),
                           ),
                           padding: const EdgeInsets.all(10),
-                          child: const Center(
-                            child: FittedBox(child: Text('Save & Notify')),
+                          child: Center(
+                            child: FittedBox(
+                                child: Text(widget.reminder?.id == null
+                                    ? 'Save & Notify'
+                                    : 'Update and notify')),
                           ),
                         ),
                       ),

@@ -32,7 +32,6 @@ class HomeScreenPagviewAnimateBuilderState
   @override
   void initState() {
     super.initState();
-
     // Auto-scroll every 3 seconds
     _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       if (widget.pageCount == 1) return;

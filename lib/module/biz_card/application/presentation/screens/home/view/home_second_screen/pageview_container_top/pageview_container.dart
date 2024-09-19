@@ -26,6 +26,8 @@ class _CardTodaysRemiderBuilderState extends State<CardTodaysRemiderBuilder> {
 
   @override
   void initState() {
+    final reminderCOntroller = Get.find<ReminderController>();
+    reminderCOntroller.fetchTodaysReminders();
     super.initState();
     pageController = PageController(
       viewportFraction: 0.8,
@@ -39,64 +41,58 @@ class _CardTodaysRemiderBuilderState extends State<CardTodaysRemiderBuilder> {
   @override
   Widget build(BuildContext context) {
     final reminderCOntroller = Get.find<ReminderController>();
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) => reminderCOntroller.fetchTodaysReminders(),
-    );
+
     return Obx(
       () {
-        return reminderCOntroller.todaysReminderLoading.value
-            ? SizedBox(
-                height: 220.h,
-                child: ShimmerLoader(
-                  itemCount: 4,
-                  height: 220.h,
-                  width: double.infinity,
-                  scrollDirection: Axis.horizontal,
-                ),
-              )
-            : reminderCOntroller.todaysReminders.isEmpty
-                ? Center(
-                    child: ErrorRefreshIndicator(
-                        onRefresh: () =>
-                            reminderCOntroller.fetchTodaysReminders()),
-                  )
-                : SizedBox(
-                    height: 220.h,
-                    child: HomeScreenPagviewAnimateBuilder(
-                      pageController: pageController,
-                      pageValue: pageValue,
-                      pageCount: reminderCOntroller.todaysReminders.length,
-                      onpageCallBack: (index) {
-                        setState(() {
-                          currentIndex = index;
-                        });
-                      },
-                      child: (index, _) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              // context.read<ReminderBloc>().add(
-                              //     ReminderEvent.getReminderDetails(
-                              //         id: state.toDaysRminderList![index].id!));
-                              showCardsNotifier.value = HomeScreensList.third;
-                              widget.fadeCallBack();
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(bottom: 6.h),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: neonShade, width: 2),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: SecondScreenPageViewContents(
-                                  reminder: reminderCOntroller
-                                      .todaysReminders[index]),
-                            ),
-                          ),
-                        );
-                      },
+        if (reminderCOntroller.todaysReminderLoading.value) {
+          return SizedBox(
+            height: 220.h,
+            child: ShimmerLoader(
+              itemCount: 4,
+              height: 220.h,
+              width: double.infinity,
+              scrollDirection: Axis.horizontal,
+            ),
+          );
+        } else if (reminderCOntroller.todaysReminders.isEmpty) {
+          return Center(
+            child: ErrorRefreshIndicator(
+                onRefresh: () => reminderCOntroller.fetchTodaysReminders()),
+          );
+        }
+        return SizedBox(
+          height: 230.h,
+          child: HomeScreenPagviewAnimateBuilder(
+            pageController: pageController,
+            pageValue: pageValue,
+            pageCount: reminderCOntroller.todaysReminders.length,
+            onpageCallBack: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            child: (index, _) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    showCardsNotifier.value = HomeScreensList.third;
+                    widget.fadeCallBack();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 6.h),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: neonShade, width: 2),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                  );
+                    child: SecondScreenPageViewContents(
+                        reminder: reminderCOntroller.todaysReminders[index]),
+                  ),
+                ),
+              );
+            },
+          ),
+        );
       },
     );
   }

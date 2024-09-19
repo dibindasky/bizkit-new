@@ -75,6 +75,7 @@ class ReminderController extends GetxController {
           ),
         );
         GoRouter.of(context).pop();
+        fetchAllReminders();
       },
     );
   }

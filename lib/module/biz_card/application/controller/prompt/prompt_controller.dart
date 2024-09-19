@@ -15,7 +15,6 @@ class PromtController extends GetxController {
     await Future.delayed(const Duration(seconds: 3));
     hasCard.value = await SecureStorage.getHasCard();
     hasConnection.value = await SecureStorage.getHasConnection();
-
     if (!hasCard.value || !hasConnection.value) {
       show.value = true;
       message.value = !hasCard.value

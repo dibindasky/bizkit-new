@@ -5,7 +5,6 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/event_button.dart';
-import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +32,7 @@ class _CardMatchoMeterState extends State<CardMatchoMeter> {
   @override
   Widget build(BuildContext context) {
     final matchoMeterController = Get.find<MatchoMeterController>();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Matcho Meter'),
@@ -119,7 +118,7 @@ class _CardMatchoMeterState extends State<CardMatchoMeter> {
                           )),
                   kHeight20,
                   EventButton(
-                    text: 'Add Questions',
+                    text: 'Add Answers',
                     onTap: () {
                       matchoMeterController.addMatchoMeter();
                     },

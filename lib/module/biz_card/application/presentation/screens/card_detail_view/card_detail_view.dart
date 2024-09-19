@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
@@ -10,6 +11,7 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ScreenCardDetailView extends StatefulWidget {
   const ScreenCardDetailView(
@@ -83,7 +85,16 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                     },
                     icon: const Icon(Icons.edit),
                   )
-                : kempty,
+                : !widget.myCard && !cardController.isLoading.value
+                    ? IconButton(
+                        onPressed: () {
+                          GoRouter.of(context).pushNamed(
+                              Routes.connectionDetailFilling,
+                              extra: widget.cardId);
+                        },
+                        icon: const Icon(Icons.people),
+                      )
+                    : kempty,
           ),
           kWidth10
         ],

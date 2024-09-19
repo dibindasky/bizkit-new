@@ -241,15 +241,20 @@ class ConnectionsService implements ConnectionsRepo {
   Future<Either<Failure, SuccessResponseModel>> addOrUpdateConnectionDetails(
       {required ConnectionDetail connectionDetail}) async {
     try {
+      var map = connectionDetail.toJson();
+      map.remove('selfie');
+      log('addOrUpdateConnectionDetails data => $map');
       final responce = await apiService.patch(
-        ApiEndPoints.viewConnectionCards,
+        ApiEndPoints.updateConnectionDetails,
         data: connectionDetail.toJson(),
       );
       log('addOrUpdateConnectionDetails ==> success ');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
-      log('addOrUpdateConnectionDetails DioException ${e.response?.statusCode} $e');
-      return Left(Failure(message: errorMessage));
+      log('addOrUpdateConnectionDetails DioException ${e.response?.data['error']} $e');
+      return Left(Failure(
+          message: (e.response?.data as Map<String, dynamic>?)?['error'] ??
+              errorMessage));
     } catch (e) {
       log('addOrUpdateConnectionDetails catch $e');
       return Left(Failure(message: 'Failed to request'));

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/connections/connections_service.dart';
@@ -329,6 +331,7 @@ class ConnectionsController extends GetxController {
   }
 
   void getConnectionCardDetail({required String cardId}) async {
+    log('Bizcard ID -->> $cardId');
     cardLoading.value = true;
     final data = await connectionService.getConnectionCard(cardId: cardId);
     data.fold(
@@ -353,6 +356,8 @@ class ConnectionsController extends GetxController {
       connectionDetailLoading.value = false;
       showSnackbar(context, message: l.message ?? errorMessage);
     }, (r) {
+      Get.find<CardController>().bizcardDetail.value.selfie =
+          connectionSelfieIamges;
       GoRouter.of(context).pop();
       connectionSelfieIamges.value = [];
       connectionDetailLoading.value = false;
@@ -373,8 +378,8 @@ class ConnectionsController extends GetxController {
   }
 
   /// reset images and loader for connection detail filling
-  void restConnectionDetails() {
-    connectionSelfieIamges.value = [];
+  void restConnectionDetails(List<String> imgs) {
+    connectionSelfieIamges.value = imgs;
     connectionDetailLoading.value = false;
   }
 }

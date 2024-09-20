@@ -44,9 +44,6 @@ class _CardDetailViewDeeplinkScreenState
 
   @override
   Widget build(BuildContext context) {
-    if (Get.find<CardController>().connectionExist.value) {
-      Get.find<CardController>().showConnectionDetailPopUp(context);
-    }
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -67,18 +64,22 @@ class _CardDetailViewDeeplinkScreenState
         title: const Text('Card'),
         actions: [
           Obx(
-            () => !Get.find<CardController>().isLoading.value &&
-                    !Get.find<CardController>().myCardDeeplinkPage.value
-                ? IconButton(
-                    onPressed: () {
-                      GoRouter.of(context).pushNamed(
-                          Routes.connectionDetailFilling,
-                          extra: Get.find<CardController>().bizcardDetail.value.connectionId);
-                          Get.find<ConnectionsController>().restConnectionDetails();
-                    },
-                    icon: const Icon(Icons.people),
-                  )
-                : kempty,
+            () {
+              if (Get.find<CardController>().connectionExist.value) {
+                Get.find<CardController>().showConnectionDetailPopUp(context);
+              }
+              return !Get.find<CardController>().isLoading.value &&
+                      !Get.find<CardController>().myCardDeeplinkPage.value
+                  ? IconButton(
+                      onPressed: () {
+                        GoRouter.of(context).pushNamed(
+                            Routes.connectionDetailFilling,
+                            extra:
+                                Get.find<CardController>().bizcardDetail.value);                      },
+                      icon: const Icon(Icons.people),
+                    )
+                  : kempty;
+            },
           ),
           kWidth10
         ],
@@ -102,8 +103,6 @@ class _CardDetailViewDeeplinkScreenState
               ),
             );
           }
-          print(
-              'Get.find<CardController>().myCardDeeplinkPage.value ====> ${Get.find<CardController>().myCardDeeplinkPage.value}');
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: RefreshIndicator(

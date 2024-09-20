@@ -351,10 +351,10 @@ class ConnectionsController extends GetxController {
         connectionDetail: connectionDtail);
     result.fold((l) {
       connectionDetailLoading.value = false;
-      showSnackbar(context, message: l.message??errorMessage);
+      showSnackbar(context, message: l.message ?? errorMessage);
     }, (r) {
       GoRouter.of(context).pop();
-      connectionSelfieIamges.value=[];
+      connectionSelfieIamges.value = [];
       connectionDetailLoading.value = false;
     });
   }
@@ -370,5 +370,11 @@ class ConnectionsController extends GetxController {
   /// remove selfi image form list
   void removeSelfieImage(int index) {
     connectionSelfieIamges.removeAt(index);
+  }
+
+  /// reset images and loader for connection detail filling
+  void restConnectionDetails() {
+    connectionSelfieIamges.value = [];
+    connectionDetailLoading.value = false;
   }
 }

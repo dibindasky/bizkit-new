@@ -90,7 +90,10 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                         onPressed: () {
                           GoRouter.of(context).pushNamed(
                               Routes.connectionDetailFilling,
-                              extra: widget.cardId);
+                              extra: cardController
+                                  .bizcardDetail.value.connectionId);
+                          Get.find<ConnectionsController>()
+                              .restConnectionDetails();
                         },
                         icon: const Icon(Icons.people),
                       )

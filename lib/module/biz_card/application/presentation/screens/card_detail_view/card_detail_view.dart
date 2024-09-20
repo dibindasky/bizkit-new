@@ -78,13 +78,11 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                   )
                 : !widget.myCard && !cardController.isLoading.value
                     ? IconButton(
-                        onPressed: () {
-                          GoRouter.of(context).pushNamed(
+                        onPressed: () async {
+                          await GoRouter.of(context).pushNamed(
                               Routes.connectionDetailFilling,
-                              extra: cardController
-                                  .bizcardDetail.value.connectionId);
-                          Get.find<ConnectionsController>()
-                              .restConnectionDetails();
+                              extra: cardController.bizcardDetail.value);
+                          setState(() {});
                         },
                         icon: const Icon(Icons.people),
                       )
@@ -135,6 +133,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                     child: GetBuilder<CardController>(builder: (controller) {
                       List<String> images = [];
                       bool story = false;
+                      // add images from business logo
                       if (cardController.bizcardDetail.value.businessDetails
                               ?.businessLogo !=
                           null) {
@@ -148,16 +147,22 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                                 .businessDetails!.businessLogo!);
                         story = true;
                       }
+                      // add personal images
                       if (cardController.bizcardDetail.value.personalDetails
-                                  ?.images !=
-                              null &&
-                          cardController.bizcardDetail.value.personalDetails!
-                              .images!.isNotEmpty) {
+                              ?.images?.isNotEmpty ??
+                          false) {
                         images.addAll(cardController
                             .bizcardDetail.value.personalDetails!.images!
                             .map((e) =>
                                 e.startsWith('data') ? e.substring(22) : e)
                             .toList());
+                      }
+                      // add selfie from cocnnection details
+                      if (cardController
+                              .bizcardDetail.value.selfie?.isNotEmpty ??
+                          false) {
+                        images
+                            .addAll(cardController.bizcardDetail.value.selfie!);
                       }
                       return PreviewPageviewImageBuilder(
                         imagesList: images.isEmpty

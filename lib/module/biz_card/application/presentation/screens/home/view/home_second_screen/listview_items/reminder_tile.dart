@@ -41,12 +41,18 @@ class ReminderTile extends StatelessWidget {
               width: kwidth * 0.24,
               child: reminder.profilePicture != null &&
                       reminder.profilePicture!.isNotEmpty
-                  ? Image.memory(base64Decode(
-                      reminder.profilePicture!.startsWith('data')
+                  ? Image.memory(
+                      base64Decode(reminder.profilePicture!.startsWith('data')
                           ? reminder.profilePicture!.substring(22)
-                          : reminder.profilePicture!))
+                          : reminder.profilePicture!),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.image),
+                    )
                   : Image.memory(
-                      base64Decode(imageTestingBase64.substring(22))),
+                      base64Decode(imageTestingBase64.substring(22)),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.image),
+                    ),
             ),
             kWidth10,
             Column(

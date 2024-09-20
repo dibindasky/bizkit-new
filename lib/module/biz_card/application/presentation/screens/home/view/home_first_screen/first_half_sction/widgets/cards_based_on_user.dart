@@ -47,9 +47,13 @@ class CardsbasedOnUserConnection extends StatelessWidget {
               },
               leading: CircleAvatar(
                 radius: 18,
-                backgroundColor: textFieldFillColr,
+                backgroundColor: lightGrey,
                 child: card?[index].imageUrl != null
-                    ? Image.memory(base64Decode(card?[index].imageUrl))
+                    ? Image.memory(
+                        base64Decode(card?[index].imageUrl),
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.image),
+                      )
                     : const Center(
                         child: Icon(
                           Icons.person,

@@ -182,6 +182,7 @@ class _ScreenCardsHomeFirstAnimationState
                           );
                         },
                       ),
+                      // home screen second part Reminders section list view
                       Expanded(
                         child: AnimatedBuilder(
                           animation: Listenable.merge([

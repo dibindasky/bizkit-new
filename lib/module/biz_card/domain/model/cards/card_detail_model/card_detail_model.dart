@@ -54,8 +54,11 @@ class CardDetailModel {
     this.connectionId,
   });
 
-  factory CardDetailModel.fromJson(Map<String, dynamic> json) {
-    return _$CardDetailModelFromJson(json);
+  factory CardDetailModel.fromJson(Map<String, dynamic> json,
+      {String? connectionId}) {
+    CardDetailModel model = _$CardDetailModelFromJson(json);
+    if (model.connectionId != null) return model;
+    return model..connectionId = connectionId;
   }
 
   Map<String, dynamic> toJson() => _$CardDetailModelToJson(this);

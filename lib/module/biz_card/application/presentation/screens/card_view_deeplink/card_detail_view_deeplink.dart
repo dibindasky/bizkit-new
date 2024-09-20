@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/widgets/card_bottom_part.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
@@ -72,7 +73,8 @@ class _CardDetailViewDeeplinkScreenState
                     onPressed: () {
                       GoRouter.of(context).pushNamed(
                           Routes.connectionDetailFilling,
-                          extra: widget.cardId);
+                          extra: Get.find<CardController>().bizcardDetail.value.connectionId);
+                          Get.find<ConnectionsController>().restConnectionDetails();
                     },
                     icon: const Icon(Icons.people),
                   )

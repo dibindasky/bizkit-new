@@ -6,6 +6,8 @@ import 'package:dartz/dartz.dart';
 abstract class ContactLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addContactToLocalStorage(
       {required ContactModel contact});
+  Future<Either<Failure, SuccessResponseModel>> updateContactInLocalStorage(
+      {required ContactModel contact});
   Future<Either<Failure, List<ContactModel>>> getContactFromLocalStorage();
   Future<Either<Failure, SuccessResponseModel>>
       addContactToLocalStorageIfNotPresentInStorage(

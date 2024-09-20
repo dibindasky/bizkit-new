@@ -20,12 +20,15 @@ class ContactLocalService implements ContactLocalRepo {
       final userId = await SecureStorage.getUserId();
       const query = '''
           INSERT INTO ${Sql.contactTable} (
-          ${ContactModel.colCurrentUserId},
+            ${ContactModel.colCurrentUserId},
             ${ContactModel.colName},
             ${ContactModel.colPhone},
             ${ContactModel.colPhoto},
+            ${ContactModel.colEmail},
+            ${ContactModel.colConnectionId},
+            ${ContactModel.colCardId},
             ${ContactModel.colUserId})
-          VALUES (?,?,?,?,?)
+          VALUES (?,?,?,?,?,?,?,?)
           ''';
 
       await localService.rawInsert(query, [
@@ -33,11 +36,51 @@ class ContactLocalService implements ContactLocalRepo {
         contact.name ?? '',
         contact.phoneNumber ?? '',
         contact.profilePicture ?? '',
+        contact.email ?? '',
+        contact.connectionId ?? '',
+        contact.cardId ?? '',
         contact.userId ?? ''
       ]);
       return Right(SuccessResponseModel());
     } catch (e) {
-      log('addContactToLocalStorage =====> ${e.toString()}');
+      log('addContactToLocalStorage error=====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> updateContactInLocalStorage({
+    required ContactModel contact,
+  }) async {
+    try {
+      final userId = await SecureStorage.getUserId();
+      const query = '''
+        UPDATE ${Sql.contactTable}
+        SET 
+          ${ContactModel.colName} = ?, 
+          ${ContactModel.colPhoto} = ?, 
+          ${ContactModel.colEmail} = ?, 
+          ${ContactModel.colConnectionId} = ?, 
+          ${ContactModel.colCardId} = ?, 
+          ${ContactModel.colUserId} = ?
+        WHERE 
+          ${ContactModel.colPhone} = ? AND ${ContactModel.colCurrentUserId} = ?
+        ''';
+
+      await localService.rawUpdate(query, [
+        contact.name ?? '',
+        contact.profilePicture ?? '',
+        contact.email ?? '',
+        contact.connectionId ?? '',
+        contact.cardId ?? '',
+        contact.userId ?? '',
+        contact.phoneNumber ?? '',
+        userId ?? ''
+      ]);
+
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('updateContactInLocalStorage error=====> ${e.toString()}');
       return Left(Failure());
     }
   }
@@ -68,13 +111,17 @@ class ContactLocalService implements ContactLocalRepo {
       addContactToLocalStorageIfNotPresentInStorage(
           {required ContactModel contact}) async {
     try {
+      final userId = await SecureStorage.getUserId();
       const String query =
-          '''SELECT COUNT(*) FROM ${Sql.contactTable} WHERE ${ContactModel.colPhone} = ?''';
-      final bool present =
-          await localService.presentOrNot(query, [contact.phoneNumber!]);
+          '''SELECT COUNT(*) FROM ${Sql.contactTable} WHERE ${ContactModel.colPhone} = ? AND ${ContactModel.colCurrentUserId} = ?''';
+      final bool present = await localService
+          .presentOrNot(query, [contact.phoneNumber!, userId ?? '']);
       log('contact present in db => $present');
-      if (present) return Left(Failure());
-      return await addContactToLocalStorage(contact: contact);
+      if (present) {
+        return await updateContactInLocalStorage(contact: contact);
+      } else {
+        return await addContactToLocalStorage(contact: contact);
+      }
     } catch (e) {
       log('addContactToLocalStorageIfNotPresentInStorage ======> ${e.toString()}');
       return Left(Failure());
@@ -85,9 +132,10 @@ class ContactLocalService implements ContactLocalRepo {
   Future<Either<Failure, SuccessResponseModel>>
       removeExistingContactAndAddAsNew({required ContactModel contact}) async {
     try {
+      final userId = await SecureStorage.getUserId();
       String sql =
-          'DELETE FROM ${Sql.contactTable} WHERE ${ContactModel.colPhone} = ?';
-      await localService.rawDelete(sql, [contact.phoneNumber!]);
+          'DELETE FROM ${Sql.contactTable} WHERE ${ContactModel.colPhone} = ? AND ${ContactModel.colCurrentUserId} = ?';
+      await localService.rawDelete(sql, [contact.phoneNumber!, userId ?? '']);
       return await addContactToLocalStorage(contact: contact);
     } catch (e) {
       log('removeExistingContactAndAddAsNew =====> ${e.toString()}');

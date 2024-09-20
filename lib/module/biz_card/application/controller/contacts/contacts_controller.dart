@@ -21,8 +21,13 @@ class ContactsController extends GetxController {
   var hasError = false.obs;
   var message = ''.obs;
 
+  /// for actions from device
   ContactFetchService contactFetchFeature = ContactFetchService();
+
+  /// for api services
   ContactsRepo contactService = ContactService();
+
+  /// for local db sqflite
   ContactLocalRepo contactLocalService = ContactLocalService();
 
   Timer? periodicTimer;

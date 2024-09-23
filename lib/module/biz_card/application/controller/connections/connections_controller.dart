@@ -15,6 +15,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
+import 'package:bizkit/module/biz_card/domain/repository/service/contact/contact_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
@@ -381,5 +382,12 @@ class ConnectionsController extends GetxController {
   void restConnectionDetails(List<String> imgs) {
     connectionSelfieIamges.value = imgs;
     connectionDetailLoading.value = false;
+  }
+
+  /// check connection exists if exist then call for card
+  void checkConnecitonExistsAndCallCardDetail({required String userID}) async {
+    final result =
+        await connectionService.checkConnecitonExists(userID: userID);
+    result.fold((l)=>null, (r)=>null);
   }
 }

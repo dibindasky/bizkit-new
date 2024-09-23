@@ -1,11 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:alphabet_scroll_view/alphabet_scroll_view.dart';
-import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
@@ -21,9 +17,6 @@ class ContactConnectionsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final contactController = Get.find<ContactsController>();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      contactController.getConnections();
-    });
     return Expanded(child: Scrollbar(
       child: Obx(
         () {
@@ -84,23 +77,27 @@ class ContactConnectionsTab extends StatelessWidget {
                 final data = contactController.contactList[index];
                 return GestureDetector(
                   onTap: () {
-                    // log('phone ${data.phoneNumber}');
-                    if (data.userId != null && data.userId!.isNotEmpty) {
-                      Navigator.of(context).push(
-                        cardFadePageRoute(ScreenCardDetailView(
-                          cardId: data.userId,
-                          myCard: false,
-                        )),
-                      );
-                    }
+                    if (data.userId != null && data.userId!.isNotEmpty) {}
                   },
                   child: ListTile(
                     leading: data.profilePicture != null &&
                             data.profilePicture!.isNotEmpty
                         ? CircleAvatar(
+                            backgroundColor: kGrayLight,
                             radius: 18,
-                            backgroundImage: MemoryImage(
-                                base64.decode(getBase64(data.profilePicture!))))
+                            backgroundImage: data.profilePicture != null &&
+                                    data.profilePicture!.isNotEmpty
+                                ? MemoryImage(
+                                    base64.decode(
+                                      getBase64(data.profilePicture ?? ''),
+                                    ),
+                                  )
+                                : null,
+                            child: data.profilePicture != null &&
+                                    data.profilePicture!.isNotEmpty
+                                ? null
+                                : const Icon(Icons.person),
+                          )
                         : const CircleAvatar(
                             radius: 18,
                             backgroundColor: textFieldFillColr,
@@ -111,17 +108,13 @@ class ContactConnectionsTab extends StatelessWidget {
                               ),
                             ),
                           ),
-                    title: Row(
-                      children: [
-                        Text(
-                          data.name ?? data.phoneNumber ?? '',
-                          style: TextStyle(
-                            fontSize: kwidth * .040,
-                          ),
-                        ),
-                      ],
+                    title: Text(
+                      data.name ?? data.phoneNumber ?? '',
+                      style: TextStyle(
+                        fontSize: kwidth * .040,
+                      ),
                     ),
-                    trailing: data.userId == null || data.userId!.isNotEmpty
+                    trailing: data.userId == null || data.userId!.isEmpty
                         ? Wrap(
                             children: [
                               InkWell(
@@ -143,7 +136,9 @@ class ContactConnectionsTab extends StatelessWidget {
             );
           } else {
             return ErrorRefreshIndicator(
-              onRefresh: () {},
+              onRefresh: () {
+                contactController.getConnections();
+              },
               errorMessage: 'No Contacts',
               image: emptyNodata2,
             );

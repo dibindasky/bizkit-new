@@ -31,10 +31,13 @@ class Sql {
       CREATE TABLE IF NOT EXISTS $contactTable (
         ${ContactModel.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
         ${ContactModel.colCurrentUserId} TEXT,
-        ${ContactModel.colUserId} INTEGER,
+        ${ContactModel.colUserId} TEXT,
         ${ContactModel.colName} TEXT,
         ${ContactModel.colPhone} TEXT,
-        ${ContactModel.colPhoto} TEXT
+        ${ContactModel.colPhoto} TEXT,
+        ${ContactModel.colEmail} TEXT,
+        ${ContactModel.colCardId} TEXT,
+        ${ContactModel.colConnectionId} TEXT
       )
     ''';
 }

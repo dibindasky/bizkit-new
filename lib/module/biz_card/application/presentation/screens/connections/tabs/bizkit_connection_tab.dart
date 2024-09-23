@@ -23,9 +23,6 @@ class BizkitConnectionsTab extends StatelessWidget {
     return Expanded(
       child: RefreshIndicator(
         onRefresh: () async {
-          // context.read<ConnectionRequestBloc>().add(
-          //     const ConnectionRequestEvent.getBizkitConnections(
-          //         query: ''));
           connectionsController.searchConnections(
               searchQuery: SearchQuery(search: ''));
           await Future.delayed(const Duration(seconds: 2));

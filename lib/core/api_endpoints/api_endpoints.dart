@@ -22,11 +22,12 @@ class ApiEndPoints {
   static String forgottPassword = '/verification/change_password/';
   static String forgottPasswordProfile = '/accounts/password_change/';
 
+  // ---------------------------------------------------------------------------------------------
   // [ Bizcard Module  ]
 
   static String searchCardUsers = '/search-card-users/';
   static String scanAndConnect = '/scan-and-connect/';
-  
+
   // [ Card Creation ]
   static String card = '/get-bizcards/';
   static String cardCreationInital = '/initial-details/';
@@ -80,6 +81,7 @@ class ApiEndPoints {
   static String unfollowConnection = '/un-follow-connection/';
   static String viewConnectionCards = '/view-shared-bizcard-details/';
   static String updateConnectionDetails = '/update-connection-details/';
+  static String checkConnectionExists = '/check-connection/';
 
   ///  [  Matcho meter ]
   static String matchoMeter = '/matcho-meter/';
@@ -88,6 +90,7 @@ class ApiEndPoints {
   static String reminder = '/reminder/';
   static String getReminders = '/get-reminders/';
 
+  // ---------------------------------------------------------------------------------------------
   // [ TASK MODULE ]
 
   static const taskTestgetAllTasks = '/user-tasks/';

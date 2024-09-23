@@ -5,6 +5,8 @@ import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 class LocalStorageService {
   static LocalService localService = LocalService();
   static String uid = '';
+
+  /// get user id
   static Future<String> get getUid async {
     if (uid != '') return uid;
     return await SecureStorage.getUserId() ?? '';
@@ -59,7 +61,7 @@ class LocalStorageService {
   }
 
   /// store key value pain bool
-  static Future<void> setBool(String key, bool value) async {
+  static Future<bool> setBool(String key, bool value) async {
     try {
       {
         final uid = await getUid;
@@ -77,8 +79,9 @@ class LocalStorageService {
           await localService.rawUpdate(query, [value.toString(), uid, key]);
         }
       }
+      return true;
     } catch (e) {
-      return;
+      return false;
     }
   }
 
@@ -120,7 +123,7 @@ class LocalStorageService {
           '''SELECT * FROM ${Sql.localStorageTable} WHERE id = ? AND key = ?''';
       final data = await localService.rawQuery(query, [uid, key]);
       if (data.isEmpty) return null;
-      return data.first['value'] as bool?;
+      return (data.first['value'] as String?) == 'true';
     } catch (e) {
       return null;
     }

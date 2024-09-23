@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bizkit/module/biz_card/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/module/biz_card/data/service/contact/contact_service.dart';
 import 'package:bizkit/module/biz_card/data/sqflite/contacts/contact_local_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/contact.dart';
@@ -30,21 +31,11 @@ class ContactsController extends GetxController {
   /// for local db sqflite
   ContactLocalRepo contactLocalService = ContactLocalService();
 
-  Timer? periodicTimer;
 
   @override
   void onInit() {
     super.onInit();
     getConnections();
-    periodicTimer = Timer.periodic(const Duration(days: 1), (timer) {
-      getContactsList();
-    });
-  }
-
-  @override
-  void onClose() {
-    periodicTimer?.cancel();
-    super.onClose();
   }
 
   // Search contacts
@@ -76,127 +67,122 @@ class ContactsController extends GetxController {
     searchLoading.value = false;
   }
 
-  /// Get connections from local storage
+  /// check contacts fetching happend before or not and fetch if not else get data form local db
   Future<void> getConnections() async {
-    if (contactList.isNotEmpty) return;
-    isLoading.value = true;
-    hasError.value = false;
-    final result = await contactLocalService.getContactFromLocalStorage();
-    result.fold((failure) {
-      isLoading.value = false;
-      hasError.value = true;
-    }, (contactsList) {
-      contactList.value = contactsList;
-      contactFilteredList.value = contactsList;
-      firstLoading.value = contactsList.isEmpty ? false : true;
-      getContactsList();
-    });
-  }
-
-  // Fetch contacts from phone
-  Future<void> getContactsList() async {
-    fetchingLoading.value = true;
-    hasError.value = false;
-
-    final result = await contactFetchFeature.getContactsList();
-    result.fold(
-      (failure) {
-        firstLoading.value = false;
-        hasError.value = true;
-        isLoading.value = false;
-        fetchingLoading.value = false;
-      },
-      (contactList) {
-        fetchingLoading.value = false;
-        checkContactsInBizkit(contactList);
-      },
-    );
-  }
-
-  // Check if phone numbers belong to bizkit users and store them
-  Future<void> checkContactsInBizkit(List<Contact> contactList) async {
     try {
-      List<String> phoneNumbers = [];
-      for (var contact in contactList) {
-        phoneNumbers
-            .addAll(contact.phones?.map((e) => e.value ?? '').toList() ?? []);
+      final fetched =
+          await LocalStoragePreferenceCard.getContactsFetchedOrNot();
+      print(
+          '---------------------------------fetched ------------------------$fetched');
+      if (fetched) {
+        await getConnectionsFromSqlTable();
+      } else {
+        print(
+            '---------------------------------first fetched ------------------------${await LocalStoragePreferenceCard.getContactsFirstFetchedOrNot()}');
+        if (await LocalStoragePreferenceCard.getContactsFirstFetchedOrNot()) {
+          firstLoading.value = true;
+        }
+        fetchCheckAndSave();
       }
-
-      final result = await contactService.getBizkitUserByContact(
-          getContactModel: GetContactModel(phoneNumbers: phoneNumbers));
-
-      result.fold(
-        (failure) {
-          isLoading.value = false;
-          hasError.value = true;
-          fetchingLoading.value = false;
-        },
-        (contactResponseModel) async {
-          if (contactResponseModel.results != null) {
-            for (var x in contactResponseModel.results!) {
-              await contactLocalService.removeExistingContactAndAddAsNew(
-                  contact: x);
-            }
-            for (var contact in contactList) {
-              if (contact.phones?.isNotEmpty ?? false) {
-                for (var phone in contact.phones!) {
-                  if (!contactResponseModel.results!
-                      .any((z) => z.phoneNumber == phone.value)) {
-                    await contactLocalService
-                        .addContactToLocalStorageIfNotPresentInStorage(
-                      contact: ContactModel(
-                        //id: 0,
-                        phoneNumber: phone.value
-                            ?.replaceAll('+91 ', '')
-                            .replaceAll('+91', '')
-                            .replaceAll(' ', ''),
-                        name: contact.displayName ?? '',
-                        profilePicture: base64Encode(contact.avatar!),
-                      ),
-                    );
-                  } else {
-                    await contactLocalService
-                        .addContactToLocalStorageIfNotPresentInStorage(
-                      contact: ContactModel(
-                        // id: 0,
-                        phoneNumber: phone.value
-                                ?.replaceAll('+91 ', '')
-                                .replaceAll('+91', '')
-                                .replaceAll(' ', '') ??
-                            '',
-                        name: contact.displayName ?? '',
-                        profilePicture: base64Encode(contact.avatar!),
-                      ),
-                    );
-                  }
-                }
-              }
-            }
-          }
-        },
-      );
-      getConnectionsFromLocalStorage();
     } catch (e) {
-      print('Error: $e');
-      getConnectionsFromLocalStorage();
+      return;
     }
   }
 
-  // Fetch connections from local storage
-  Future<void> getConnectionsFromLocalStorage() async {
-    final result = await contactLocalService.getContactFromLocalStorage();
-    result.fold(
-      (failure) {
-        isLoading.value = false;
-        hasError.value = true;
-        fetchingLoading.value = false;
-      },
-      (connections) {
-        contactList.value = connections;
-        contactFilteredList.value = connections;
-        fetchingLoading.value = false;
-        firstLoading.value = false;
-      },
-    );
+  /// fetch contacts and check for connection save it
+  Future<void> fetchCheckAndSave() async {
+    List<String> phoneNumbers = [];
+
+    /// contact list form device
+    final contactList = await fetchContactsFromDevice();
+    for (var contact in contactList) {
+      phoneNumbers
+          .addAll(contact.phones?.map((e) => e.value ?? '').toList() ?? []);
+    }
+
+    /// bizkit users list after search with server
+    List<ContactModel> bizkitUsers =
+        await checkContactsWithMainServer(phoneNumbers: phoneNumbers);
+
+    /// add the bizkit users find from server using contact
+    if (bizkitUsers.isNotEmpty) {
+      for (var x in bizkitUsers) {
+        await contactLocalService.removeExistingContactAndAddAsNew(contact: x);
+      }
+    }
+    for (var contact in contactList) {
+      if (contact.phones?.isNotEmpty ?? false) {
+        for (var phone in contact.phones!) {
+          if (!bizkitUsers.any((z) => z.phoneNumber == phone.value)) {
+            await contactLocalService
+                .addContactToLocalStorageIfNotPresentInStorage(
+              contact: ContactModel(
+                  phoneNumber: phone.value
+                      ?.replaceAll('+91 ', '')
+                      .replaceAll('+91', '')
+                      .replaceAll(' ', ''),
+                  name: contact.displayName ?? '',
+                  profilePicture: contact.avatar != null
+                      ? base64Encode(contact.avatar!)
+                      : null,
+                  email: contact.emails != null && contact.emails!.isNotEmpty
+                      ? (contact.emails?.first.value)
+                      : ''),
+            );
+          }
+        }
+      }
+    }
+    LocalStoragePreferenceCard.setContactsFetchedOrNot(true);
+    LocalStoragePreferenceCard.setContactsFirstFetchedOrNot(false);
+    getConnectionsFromSqlTable();
+  }
+
+  /// get connections from local db
+  Future<void> getConnectionsFromSqlTable() async {
+    try {
+      fetchingLoading.value = true;
+      final result = await contactLocalService.getContactFromLocalStorage();
+      result.fold((l) => null, (r) {
+        contactFilteredList.value = r;
+        contactList.value = r;
+      });
+      fetchingLoading.value = false;
+      firstLoading.value = false;
+    } catch (e) {
+      fetchingLoading.value = false;
+      firstLoading.value = false;
+      return;
+    }
+  }
+
+  /// get contacts form device
+  Future<List<Contact>> fetchContactsFromDevice() async {
+    try {
+      List<Contact> contacts = [];
+      final result = await contactFetchFeature.getContactsList();
+      result.fold((l) => null, (r) => contacts = r);
+      return contacts;
+    } catch (e) {
+      firstLoading.value = false;
+      return [];
+    }
+  }
+
+  /// check contacts with server
+  Future<List<ContactModel>> checkContactsWithMainServer(
+      {required List<String> phoneNumbers}) async {
+    try {
+      List<ContactModel> contacts = <ContactModel>[];
+      final result = await contactService.getBizkitUserByContact(
+          getContactModel: GetContactModel(phoneNumbers: phoneNumbers));
+      result.fold((l) => null, (r) {
+        contacts = r.results ?? <ContactModel>[];
+      });
+      return contacts;
+    } catch (e) {
+      firstLoading.value = false;
+      return [];
+    }
   }
 }

@@ -8,6 +8,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/bizcard_users_search_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/connection_check/connection_check_response_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/connection_detail/connection_detail.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/connection_request_accept_or_reject_responce/connection_request_accept_or_reject_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
@@ -257,6 +258,31 @@ class ConnectionsService implements ConnectionsRepo {
               errorMessage));
     } catch (e) {
       log('addOrUpdateConnectionDetails catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ConnectionCheckResponseModel>>>
+      checkConnecitonExists({required String userID}) async {
+    try {
+      log('checkConnecitonExists data => $userID');
+      final responce = await apiService.post(
+        ApiEndPoints.checkConnectionExists,
+        data: {"user_id": userID},
+      );
+      log('checkConnecitonExists ==> success ');
+      return Right((responce.data['result'] as List<dynamic>)
+          .map((e) =>
+              ConnectionCheckResponseModel.fromJson(e as Map<String, dynamic>))
+          .toList());
+    } on DioException catch (e) {
+      log('checkConnecitonExists DioException ${e.response?.data['error']} $e');
+      return Left(Failure(
+          message: (e.response?.data as Map<String, dynamic>?)?['error'] ??
+              errorMessage));
+    } catch (e) {
+      log('checkConnecitonExists catch $e');
       return Left(Failure(message: 'Failed to request'));
     }
   }

@@ -19,6 +19,7 @@ class AuthenticationService implements AuthenticationRepo {
       {required AuthPostmodel authPostmodel}) async {
     try {
       log('data ${authPostmodel.toJson()}');
+      log('api uri ==> post  ${_dio.options.baseUrl + ApiEndPoints.register}');
       final responce = await _dio.post(
         ApiEndPoints.register,
         data: authPostmodel.toJson(),
@@ -40,6 +41,7 @@ class AuthenticationService implements AuthenticationRepo {
       {required AuthPostmodel authPostmodel}) async {
     try {
       log('OTP data ${authPostmodel.toJson()}');
+      log('api uri ==> post  ${_dio.options.baseUrl + ApiEndPoints.verifyOtp}');
       final responce = await _dio.post(
         ApiEndPoints.verifyOtp,
         data: authPostmodel.toJson(),
@@ -61,6 +63,7 @@ class AuthenticationService implements AuthenticationRepo {
       {required Map<String, dynamic> authPostmodel}) async {
     try {
       log('OTP data $authPostmodel');
+      log('api uri ==> post  ${_dio.options.baseUrl + ApiEndPoints.verifyOtp}');
       final responce = await _dio.post(
         ApiEndPoints.verifyOtp,
         data: authPostmodel,
@@ -69,6 +72,7 @@ class AuthenticationService implements AuthenticationRepo {
       return Right(TokenModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException otpVerification $e');
+      log('DioException otpVerification ${e.response?.data}');
       return Left(
           Failure(message: e.response?.data["message"] ?? errorMessage));
     } catch (e) {
@@ -82,6 +86,7 @@ class AuthenticationService implements AuthenticationRepo {
       {required AuthPostmodel authPostmodel}) async {
     try {
       log('OTP data ${authPostmodel.toJson()}');
+      log('api uri ==> post  ${_dio.options.baseUrl + ApiEndPoints.login}');
       final responce = await _dio.post(
         ApiEndPoints.login,
         data: authPostmodel.toJson(),
@@ -90,6 +95,7 @@ class AuthenticationService implements AuthenticationRepo {
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException loginUser $e');
+      log('DioException loginUser ${e.response?.data}');
       return Left(
           Failure(message: e.response?.data["message"] ?? errorMessage));
     } catch (e) {
@@ -105,6 +111,8 @@ class AuthenticationService implements AuthenticationRepo {
       final token = await SecureStorage.getToken();
       Dio dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
       dio.options.headers = {'Authorization': "Bearer ${token.accessToken}"};
+      log('api uri ==> post  ${_dio.options.baseUrl + ApiEndPoints.logOut}');
+
       final responce = await dio.post(
         ApiEndPoints.logOut,
         data: TokenModel(refreshToken: token.refreshToken).toJson(),

@@ -90,8 +90,10 @@ class ContactLocalService implements ContactLocalRepo {
       getContactFromLocalStorage() async {
     try {
       final userId = await SecureStorage.getUserId();
-      const String query =
-          'SELECT * FROM ${Sql.contactTable} WHERE ${ContactModel.colCurrentUserId} = ?';
+      const String query = '''SELECT * 
+      FROM ${Sql.contactTable} 
+      WHERE ${ContactModel.colCurrentUserId} = ? 
+      ORDER BY ${ContactModel.colName} ASC''';
       final data = await localService.rawQuery(query, [userId ?? '']);
       log('getContactFromLocalStorage => length => ${data.length}');
       List<ContactModel> contacts = [];

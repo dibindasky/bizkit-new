@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/bizcard_users_search_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/connection_check/connection_check_response_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/connection_detail/connection_detail.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/connection_request_accept_or_reject_responce/connection_request_accept_or_reject_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
@@ -18,7 +19,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connect
 import 'package:dartz/dartz.dart';
 
 abstract class ConnectionsRepo {
-  // Send a connection request
+  /// Send a connection request
   Future<Either<Failure, SendConnectionResponce>> sendConnectionRequest(
       {required SendConnectionRequest connectionRequest});
 
@@ -30,38 +31,42 @@ abstract class ConnectionsRepo {
   Future<Either<Failure, RecievedConnectionRequestsResponce>>
       recievedConnectionRequests();
 
-  // Search bizkit users
+  /// Search bizkit users
   Future<Either<Failure, BizcardUsersSearchResponce>> searchBizkitUsers(
       {required SearchQuery searchQuery});
 
-  // List of send connection requests
+  /// List of send connection requests
   Future<Either<Failure, SendConnectionRequetsResponce>>
       getAllSendConnectionRequests();
 
   // Get all My connections
   Future<Either<Failure, MyConnectionsResponce>> getMyconnections();
 
-  // Cancel connection request
+  /// Cancel connection request
   Future<Either<Failure, SuccessResponseModel>> cancelConnectionRequest(
       {required CancelConnectionRequestModel cancelConnectionRequest});
 
-  // Folow back request
+  /// Folow back request
   Future<Either<Failure, SuccessResponseModel>> folowbackRequest(
       {required FollowBackRequestModel folowbackRequest});
 
-  // Unfollow a connection
+  /// Unfollow a connection
   Future<Either<Failure, SuccessResponseModel>> unfollowRequest(
       {required UnfollowConnectionModel unfollowRequest});
 
-  //  Accept OR Reject connection request
+  ///  Accept OR Reject connection request
   Future<Either<Failure, ConnectionRequestAcceptOrRejectResponce>>
       acceptOrRejectConnectionRequest(
           {required AcceptOrRejectConnectionRequest acceptOrReject});
-  //  Accept OR Reject connection request
+  ///  Accept OR Reject connection request
   Future<Either<Failure, CardDetailModel>> getConnectionCard(
       {required String cardId});
 
-  // update connection detail
+  /// update connection detail
   Future<Either<Failure, SuccessResponseModel>> addOrUpdateConnectionDetails(
       {required ConnectionDetail connectionDetail});
+
+  /// check wether a connection exist with the given user id
+  Future<Either<Failure, List<ConnectionCheckResponseModel>>>
+      checkConnecitonExists({required String userID});
 }

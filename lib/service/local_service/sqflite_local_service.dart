@@ -50,11 +50,12 @@ class LocalService {
   }
 
   // insert data
-  Future rawInsert(String query, [List<String>? listParams]) async {
+  Future<int> rawInsert(String query, [List<String>? listParams]) async {
     try {
       final db = await database;
       final id = await db.rawInsert(query, listParams);
       log('inserted connecton id-> $id');
+      return id;
     } catch (e) {
       log('insert = > ${e.toString()}');
       rethrow;
@@ -79,10 +80,12 @@ class LocalService {
 
   /// 'UPDATE Test SET name = ?, value = ? WHERE name = ?',
   ///  ['updated name', '9876', 'some name'];
-  Future rawUpdate(String query, [List<String>? listParam]) async {
+  Future<int> rawUpdate(String query, [List<String>? listParam]) async {
     try {
       final db = await database;
-      return await db.rawUpdate(query, listParam);
+      final rawAffected = await db.rawUpdate(query, listParam);
+      log('no of raw affected -> $rawAffected');
+      return rawAffected;
     } catch (e) {
       log('update = > ${e.toString()}');
       rethrow;

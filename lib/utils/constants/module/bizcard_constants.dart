@@ -10,3 +10,5 @@ const bizcardCategories = [
   'Mentor',
   'Other'
 ];
+
+const inviteToBizkitSMS = 'Join Bizkit {app link}';

@@ -1,11 +1,13 @@
 import 'dart:developer';
 
 import 'package:bizkit/core/model/search_query/search_query.dart';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/connections/connections_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/result.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/connection_check/connection_check_response_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/connection_detail/connection_detail.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
@@ -15,10 +17,10 @@ import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
-import 'package:bizkit/module/biz_card/domain/repository/service/contact/contact_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
+import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +40,12 @@ class ConnectionsController extends GetxController {
   RxBool cancelConnectionRequestLoading = false.obs;
   RxBool followbackRequestLoading = false.obs;
   RxBool cardLoading = false.obs;
+
+  /// for loading in list tile of contact list
+  RxString loadingContact = ''.obs;
+
+  /// lading for pop up while requseting form contact list
+  RxBool connecionRequestingLoadingFromContactPopup = false.obs;
 
   /// Loading responsible for connection detail api loading
   RxBool connectionDetailLoading = false.obs;
@@ -63,6 +71,7 @@ class ConnectionsController extends GetxController {
   void sendConnectionRequest(
       {required SendConnectionRequest connectionRequest,
       required BuildContext context}) async {
+    connecionRequestingLoadingFromContactPopup.value = true;
     final index = bizkitUsers.indexWhere(
       (element) => element.userId == connectionRequest.toUser,
     );
@@ -74,12 +83,18 @@ class ConnectionsController extends GetxController {
 
     result.fold(
       (failure) {
+        final index = bizkitUsers.indexWhere(
+          (element) => element.userId == connectionRequest.toUser,
+        );
         if (index != -1) {
           bizkitUsers[index] = bizkitUsers[index].copyWith(checkLoading: false);
         }
         showSnackbar(context, message: errorMessage, backgroundColor: kred);
       },
       (success) {
+        final index = bizkitUsers.indexWhere(
+          (element) => element.userId == connectionRequest.toUser,
+        );
         if (index != -1) {
           bizkitUsers[index] = bizkitUsers[index].copyWith(
             connectionRequestId: success.connectionRequestId,
@@ -88,6 +103,7 @@ class ConnectionsController extends GetxController {
         }
       },
     );
+    connecionRequestingLoadingFromContactPopup.value = false;
   }
 
   // Search connections
@@ -331,6 +347,7 @@ class ConnectionsController extends GetxController {
     return followBackPossible;
   }
 
+  /// get card detail connection
   void getConnectionCardDetail({required String cardId}) async {
     log('Bizcard ID -->> $cardId');
     cardLoading.value = true;
@@ -385,9 +402,62 @@ class ConnectionsController extends GetxController {
   }
 
   /// check connection exists if exist then call for card
-  void checkConnecitonExistsAndCallCardDetail({required String userID}) async {
+  void checkConnecitonExistsAndCallCardDetail(BuildContext context,
+      {required String userID}) async {
+    loadingContact.value = userID;
     final result =
         await connectionService.checkConnecitonExists(userID: userID);
-    result.fold((l)=>null, (r)=>null);
+    result.fold((l) => loadingContact.value = '', (r) {
+      List<ConnectionCheckResponseModel> connected = [], requested = [];
+      if (r.isNotEmpty) {
+        for (var e in r) {
+          if (e.connectionId != null && e.status == 'accepted') {
+            connected.add(e);
+          } else if (e.connectionId != null && e.status == null) {
+            requested.add(e);
+          }
+        }
+        loadingContact.value = '';
+        if (connected.isNotEmpty) {
+          GoRouter.of(context).pushNamed(Routes.cardDetailView);
+          getConnectionCardDetail(cardId: connected.first.toCard ?? '');
+        } else if (requested.isNotEmpty) {
+          Get.dialog(Container(
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                borderRadius: kBorderRadius10,
+                border: Border.all(color: kneonShade)),
+            child:
+                const Text('Your request is still not accepeted by the user'),
+          ));
+        }
+      } else {
+        loadingContact.value = '';
+        Get.dialog(Container(
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              borderRadius: kBorderRadius10,
+              border: Border.all(color: kneonShade)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Request Connection'),
+              kHeight10,
+              EventButton(
+                  text: 'Request',
+                  onTap: () {
+                    sendConnectionRequest(
+                        connectionRequest:
+                            SendConnectionRequest(toUser: userID),
+                        context: context);
+                  })
+            ],
+          ),
+        ));
+      }
+      loadingContact.value = '';
+    });
   }
 }

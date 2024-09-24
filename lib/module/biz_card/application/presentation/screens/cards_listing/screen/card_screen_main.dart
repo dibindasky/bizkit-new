@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
 
 import 'package:bizkit/core/model/bizcard_id_parameter_model/bizcard_id_parameter_model.dart';
@@ -11,6 +9,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_det
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/screen/archieved_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/screen/deleted_cards.dart';
+import 'package:bizkit/module/biz_card/application/presentation/widgets/contacts_list_bottom_share_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -47,21 +46,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
 
   @override
   void initState() {
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   SharedPreferences.getInstance().then((prefs) async {
-    //     const showed = false;
-    //     setState(() {
-    //       isShowcaseSeen = showed;
-    //     });
-    //     if (!isShowcaseSeen) {
-    //       ShowCaseWidget.of(context).startShowCase([
-    //         globalKeyBusinessCard,
-    //         globalKeyVisitingCard,
-    //       ]);
-    //       // await SecureStorage.setHasCard(hasCard: true);
-    //     }
-    //   });
-    // });
     super.initState();
     secondCardScrollController.addListener(() {
       if (secondCardScrollController.position.pixels ==
@@ -77,10 +61,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
     );
     animation = Tween<double>(begin: 0, end: 1).animate(animationController);
     animationController.forward();
-    // context.read<CardBloc>().add(const CardEvent.getCards(call: false));
-    // context
-    //     .read<CardSecondBloc>()
-    //     .add(const CardSecondEvent.getAllCardsSecond(isLoad: false));
   }
 
   Future<void> onRefresh() async {
@@ -88,10 +68,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
     final visitingCardController = Get.find<ReceivedCardController>();
     cardController.getAllcards(true);
     visitingCardController.fetchAllreceivedCards();
-    // context.read<CardBloc>().add(const CardEvent.getCards(call: true));
-    // context
-    //     .read<CardSecondBloc>()
-    //     .add(const CardSecondEvent.getAllCardsSecond(isLoad: true));
     await Future.delayed(const Duration(milliseconds: 500));
   }
 
@@ -146,7 +122,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                 children: [
                   adjustHieght(khieght * .02),
                   SizedBox(
-                    height: 310.h,
+                    height: 280.h,
                     child: GetBuilder<CardController>(
                       builder: (controller) {
                         if (controller.isLoading.value) {
@@ -179,17 +155,19 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                               final data = controller.bizcards[index];
                               return Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: kBorderRadius10,
-                                  border: Border.all(color: neonShade),
+                                  borderRadius: kBorderRadius25,
+                                  color: textFieldFillColr,
+                                  // border: Border.all(color: neonShade),
                                 ),
                                 width: 300,
                                 child: Column(
                                   children: [
                                     Stack(
                                       children: [
+                                        // image card logo
                                         SizedBox(
                                           width: 300.w,
-                                          height: 200.h,
+                                          height: 180.h,
                                           child: InkWell(
                                             onTap: () {
                                               final map = data.bizcardId != null
@@ -206,15 +184,15 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                             child: ClipRRect(
                                                 borderRadius:
                                                     const BorderRadius.only(
-                                                  topLeft: Radius.circular(10),
-                                                  topRight: Radius.circular(10),
+                                                  topLeft: Radius.circular(25),
+                                                  topRight: Radius.circular(25),
                                                 ),
                                                 child: data.logo != null &&
                                                         data.logo!.isNotEmpty
                                                     ? Image.memory(
                                                         base64Decode(
                                                             data.logo!),
-                                                        fit: BoxFit.fill)
+                                                        fit: BoxFit.cover)
                                                     : Image.asset(iconBizkitPng,
                                                         fit: BoxFit.contain)),
                                           ),
@@ -243,10 +221,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                       )),
                                                 ),
                                               )
-                                            : kempty,
-                                        controller.bizcards[index].isDefault ==
-                                                false
-                                            ? Positioned(
+                                            : Positioned(
                                                 right: 10,
                                                 top: 10,
                                                 child: PopupMenuButton<String>(
@@ -351,126 +326,237 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                   },
                                                 ),
                                               )
-                                            : kempty,
                                       ],
                                     ),
-                                    // const Divider(color: neonShade),
-                                    kHeight10,
-                                    Row(
+                                    // card name share and view button
+                                    Expanded(
+                                        child: Column(
                                       children: [
-                                        Text(
-                                          ' ${controller.bizcards[index].companyName} \n ${controller.bizcards[index].designation}',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    adjustHieght(khieght * .02),
-                                    Row(
-                                      children: [
-                                        adjustWidth(kwidth * .02),
-                                        Expanded(
-                                          child: InkWell(
-                                            onTap: () {
-                                              if (cardController
-                                                      .bizcards[index].views !=
-                                                  0) {
-                                                cardController.fetchCardViews(
-                                                    bizcardIdParameterModel:
-                                                        BizcardIdParameterModel(
-                                                            bizcardId: cardController
-                                                                    .bizcards[
-                                                                        index]
-                                                                    .bizcardId ??
-                                                                ''));
-                                                showModalBottomSheet(
-                                                  context: context,
-                                                  enableDrag: true,
-                                                  isDismissible: true,
-                                                  showDragHandle: true,
-                                                  backgroundColor: kblack,
-                                                  builder: (context) {
-                                                    return const CardViewsListPopUp();
-                                                  },
-                                                );
-                                              }
-                                            },
-                                            child: Container(
-                                                height: 30.h,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: kBorderRadius10,
-                                                  border: Border.all(
-                                                      color: neonShade),
-                                                ),
-                                                child: Row(
-                                                  children: [
-                                                    kWidth10,
-                                                    const Icon(
-                                                        Icons.remove_red_eye,
-                                                        color: kwhite,
-                                                        size: 19),
-                                                    kWidth10,
-                                                    Text(
-                                                        '${cardController.bizcards[index].views ?? 0}'),
-                                                    kWidth10,
-                                                    const Expanded(
-                                                      child: Text('Views',
-                                                          overflow: TextOverflow
-                                                              .ellipsis),
-                                                    ),
-                                                    kWidth10
-                                                  ],
-                                                )),
-                                          ),
-                                        ),
-                                        adjustWidth(kwidth * .04),
-                                        Expanded(
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              final link = cardController
-                                                  .bizcards[index]
-                                                  .universalLink;
-                                              if (link != null &&
-                                                  link.isNotEmpty) {
-                                                Share.share(
-                                                    'Checkout my Bizkit card $link');
-                                              } else {
-                                                showSnackbar(context,
-                                                    message: "Can't share card",
-                                                    backgroundColor: kred);
-                                              }
-                                            },
-                                            child: Container(
-                                              height: 30.h,
-                                              decoration: BoxDecoration(
-                                                borderRadius: kBorderRadius10,
-                                                border: Border.all(
-                                                    color: neonShade),
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  kWidth20,
-                                                  const Icon(Icons.share,
-                                                      color: kwhite, size: 19),
-                                                  kWidth10,
-                                                  kWidth5,
-                                                  const Expanded(
-                                                    child: Text('Share',
-                                                        overflow: TextOverflow
-                                                            .ellipsis),
-                                                  ),
-                                                  kWidth10
-                                                ],
+                                        kHeight5,
+                                        Row(
+                                          children: [
+                                            Text(
+                                              ' ${controller.bizcards[index].companyName} \n ${controller.bizcards[index].designation}',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.w700,
                                               ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                        adjustWidth(kwidth * .02),
+                                        kHeight10,
+                                        Row(
+                                          children: [
+                                            adjustWidth(kwidth * .02),
+                                            // views list
+                                            Expanded(
+                                              child: InkWell(
+                                                onTap: () {
+                                                  if (cardController
+                                                          .bizcards[index]
+                                                          .views !=
+                                                      0) {
+                                                    cardController.fetchCardViews(
+                                                        bizcardIdParameterModel:
+                                                            BizcardIdParameterModel(
+                                                                bizcardId: cardController
+                                                                        .bizcards[
+                                                                            index]
+                                                                        .bizcardId ??
+                                                                    ''));
+                                                    showModalBottomSheet(
+                                                      context: context,
+                                                      enableDrag: true,
+                                                      isDismissible: true,
+                                                      showDragHandle: true,
+                                                      backgroundColor: kblack,
+                                                      builder: (context) {
+                                                        return const CardViewsListPopUp();
+                                                      },
+                                                    );
+                                                  }
+                                                },
+                                                child: Container(
+                                                    height: 30.h,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          kBorderRadius5,
+                                                      border: Border.all(
+                                                          color: kwhite),
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        kWidth10,
+                                                        const Icon(
+                                                            Icons
+                                                                .remove_red_eye,
+                                                            color: kwhite,
+                                                            size: 19),
+                                                        kWidth10,
+                                                        Text(
+                                                            '${cardController.bizcards[index].views ?? 0}'),
+                                                        kWidth10,
+                                                        const Expanded(
+                                                          child: Text('Views',
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis),
+                                                        ),
+                                                        kWidth10
+                                                      ],
+                                                    )),
+                                              ),
+                                            ),
+                                            adjustWidth(kwidth * .04),
+                                            // share card
+                                            Expanded(
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (ctx) => Dialog(
+                                                      child: Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              kBorderRadius20,
+                                                          border: Border.all(
+                                                              color:
+                                                                  kneonShade),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            ListTile(
+                                                              onTap: () {
+                                                                GoRouter.of(
+                                                                        context)
+                                                                    .pop();
+                                                                showBottomSheet(
+                                                                  context: Scaffold.of(
+                                                                          context)
+                                                                      .context,
+                                                                  showDragHandle:
+                                                                      true,
+                                                                  backgroundColor:
+                                                                      kblack,
+                                                                  builder: (context) =>
+                                                                      ShareCardThroughContactBottomSheet(
+                                                                          cardId:
+                                                                              data.bizcardId ?? ''),
+                                                                );
+                                                              },
+                                                              title: const Text(
+                                                                  'share to Bizkit contacts'),
+                                                              leading: const Icon(
+                                                                  Icons
+                                                                      .phone_forwarded_rounded),
+                                                            ),
+                                                            const Divider(),
+                                                            ListTile(
+                                                              onTap: () {
+                                                                GoRouter.of(
+                                                                        context)
+                                                                    .pop();
+                                                                if (data.qRLink !=
+                                                                    null) {
+                                                                  GoRouter.of(
+                                                                          context)
+                                                                      .pushNamed(
+                                                                          Routes
+                                                                              .slidablePhotoGallery,
+                                                                          extra: {
+                                                                        'memory':
+                                                                            true,
+                                                                        'images':
+                                                                            [
+                                                                          data.qRLink!
+                                                                        ],
+                                                                        'initial':
+                                                                            0
+                                                                      });
+                                                                }
+                                                              },
+                                                              title: const Text(
+                                                                  'show QR'),
+                                                              leading: const Icon(
+                                                                  Icons
+                                                                      .qr_code_2_rounded),
+                                                            ),
+                                                            const Divider(),
+                                                            ListTile(
+                                                              onTap: () {
+                                                                GoRouter.of(
+                                                                        context)
+                                                                    .pop();
+                                                                final link =
+                                                                    cardController
+                                                                        .bizcards[
+                                                                            index]
+                                                                        .universalLink;
+                                                                if (link !=
+                                                                        null &&
+                                                                    link.isNotEmpty) {
+                                                                  Share.share(
+                                                                      'Checkout my Bizkit card $link');
+                                                                } else {
+                                                                  showSnackbar(
+                                                                      context,
+                                                                      message:
+                                                                          "Something went wrong please try again",
+                                                                      backgroundColor:
+                                                                          kred);
+                                                                }
+                                                              },
+                                                              title: const Text(
+                                                                  'share'),
+                                                              leading: const Icon(
+                                                                  Icons.share),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Container(
+                                                  height: 30.h,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        kBorderRadius5,
+                                                    border: Border.all(
+                                                        color: kwhite),
+                                                  ),
+                                                  child: Row(
+                                                    children: [
+                                                      kWidth20,
+                                                      const Icon(Icons.share,
+                                                          color: kwhite,
+                                                          size: 19),
+                                                      kWidth10,
+                                                      kWidth5,
+                                                      const Expanded(
+                                                        child: Text('Share',
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis),
+                                                      ),
+                                                      kWidth10
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            adjustWidth(kwidth * .02),
+                                          ],
+                                        ),
                                       ],
-                                    ),
+                                    ))
                                   ],
                                 ),
                               );
@@ -481,6 +567,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                     ),
                   ),
                   adjustHieght(khieght * .03),
+                  // visiting card
                   Obx(
                     () {
                       if (visitingCardController.loadingForVisitingCard.value) {
@@ -498,12 +585,13 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                           ),
                         );
                       } else if (visitingCardController.visitingCards.isEmpty) {
-                        return const Expanded(
-                          flex: 2,
-                          child: Center(
-                            child: Text('No visiting cards'),
-                          ),
-                        );
+                        // return const Expanded(
+                        //   flex: 2,
+                        //   child: Center(
+                        //     child: Text('No visiting cards'),
+                        //   ),
+                        // );
+                        return kempty;
                       } else {
                         return SizedBox(
                           height: 200.h,

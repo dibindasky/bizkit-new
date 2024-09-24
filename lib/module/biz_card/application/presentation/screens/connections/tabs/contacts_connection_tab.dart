@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:alphabet_scroll_view/alphabet_scroll_view.dart';
+import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ContactConnectionsTab extends StatelessWidget {
@@ -77,7 +79,15 @@ class ContactConnectionsTab extends StatelessWidget {
                 final data = contactController.contactList[index];
                 return GestureDetector(
                   onTap: () {
-                    if (data.userId != null && data.userId!.isNotEmpty) {}
+                    if (data.userId == null || data.userId == '') {
+                      LaunchUrl.openSMS(
+                          phoneNumber: data.phoneNumber ?? '',
+                          message: inviteToBizkitSMS);
+                    } else {
+                      Get.find<ConnectionsController>()
+                          .checkConnecitonExistsAndCallCardDetail(context,
+                              userID: data.userId!);
+                    }
                   },
                   child: ListTile(
                     leading: data.profilePicture != null &&
@@ -121,7 +131,7 @@ class ContactConnectionsTab extends StatelessWidget {
                                   onTap: () {
                                     LaunchUrl.openSMS(
                                         phoneNumber: data.phoneNumber ?? '',
-                                        message: 'Join bizkit');
+                                        message: inviteToBizkitSMS);
                                   },
                                   child: Text('Invite',
                                       style: textStyle1.copyWith(
@@ -129,7 +139,23 @@ class ContactConnectionsTab extends StatelessWidget {
                               adjustWidth(20)
                             ],
                           )
-                        : null,
+                        : Wrap(
+                            children: [
+                              Obx(() => Get.find<ConnectionsController>()
+                                              .loadingContact
+                                              .value !=
+                                          '' &&
+                                      Get.find<ConnectionsController>()
+                                              .loadingContact
+                                              .value ==
+                                          data.userId
+                                  ? SizedBox(
+                                      width: 50.h,
+                                      child: const LinearProgressIndicator(),
+                                    )
+                                  : kempty)
+                            ],
+                          ),
                   ),
                 );
               },

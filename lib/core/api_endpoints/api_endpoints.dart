@@ -59,6 +59,7 @@ class ApiEndPoints {
 
   // [ Contacts ]
   static String contacts = '/check-contacts/';
+  static String shareCardToContacts = '/share-my-card/';
 
   // [ Visiting card ]
   static String visitingCard = '/visiting-cards/';

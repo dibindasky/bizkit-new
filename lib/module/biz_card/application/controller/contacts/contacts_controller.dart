@@ -3,6 +3,11 @@ import 'package:bizkit/module/biz_card/data/local_storage/local_storage_preferen
 import 'package:bizkit/module/biz_card/data/service/contact/contact_service.dart';
 import 'package:bizkit/module/biz_card/data/sqflite/contacts/contact_local_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/contact.dart';
+import 'package:bizkit/module/biz_card/domain/model/contact/share_card_contact/share_card_contact.dart';
+import 'package:bizkit/module/biz_card/domain/model/contact/share_card_contact/share_card_contact_model.dart';
+import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 import 'package:bizkit/module/biz_card/domain/repository/service/contact/contact_repo.dart';
@@ -10,6 +15,7 @@ import 'package:bizkit/module/biz_card/domain/repository/sqflite/contact_local_r
 import 'package:bizkit/packages/contacts/contacts_fetch.dart';
 import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_model/get_contact_model.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:go_router/go_router.dart';
 
 class ContactsController extends GetxController {
   // Observables
@@ -22,6 +28,12 @@ class ContactsController extends GetxController {
   var hasError = false.obs;
   var message = ''.obs;
 
+  /// loader for card sharing to contacts list
+  RxBool cardSharingLoading = false.obs;
+
+  /// model used to share the card to contacts
+  Rx<ShareCardContactModel> shareCardContactModel = ShareCardContactModel().obs;
+
   /// for actions from device
   ContactFetchService contactFetchFeature = ContactFetchService();
 
@@ -30,7 +42,6 @@ class ContactsController extends GetxController {
 
   /// for local db sqflite
   ContactLocalRepo contactLocalService = ContactLocalService();
-
 
   @override
   void onInit() {
@@ -142,6 +153,7 @@ class ContactsController extends GetxController {
   Future<void> getConnectionsFromSqlTable() async {
     try {
       fetchingLoading.value = true;
+      update(['share_contact']);
       final result = await contactLocalService.getContactFromLocalStorage();
       result.fold((l) => null, (r) {
         contactFilteredList.value = r;
@@ -154,6 +166,7 @@ class ContactsController extends GetxController {
       firstLoading.value = false;
       return;
     }
+    update(['share_contact']);
   }
 
   /// get contacts form device
@@ -184,5 +197,46 @@ class ContactsController extends GetxController {
       firstLoading.value = false;
       return [];
     }
+  }
+
+  /// share card to contacts list
+  void shareCardToContacts(BuildContext context,
+      {required String cardId}) async {
+    if (shareCardContactModel.value.contacts?.isEmpty ?? true) {
+      showSnackbar(context,
+          message: 'Choose atleast one contact',
+          backgroundColor: kred,
+          duration: 1);
+      return;
+    }
+    cardSharingLoading.value = true;
+    final result = await contactService.shareBizcardToContacts(
+        shareCardContactModel:
+            shareCardContactModel.value.copyWith(cardId: cardId));
+    result.fold((l) {
+      showSnackbar(context,
+          message: 'Failed to share Card', backgroundColor: kred);
+    },
+        (r) => showSnackbar(context,
+            message: 'Card Shared Successfully'));
+    cardSharingLoading.value = false;
+    shareCardContactModel.value = ShareCardContactModel();
+    update(['share_contact']);
+    // ignore: use_build_context_synchronously
+    GoRouter.of(context).pop();
+  }
+
+  /// add or remove to List for sharing
+  void addOrRemoveContactToList(
+      {required ContactModel model, required bool selected}) {
+    shareCardContactModel.value.contacts ??= [];
+    if (selected) {
+      shareCardContactModel.value.contacts!.removeWhere(
+          (e) => e.email == model.email && e.phoneNumber == model.phoneNumber);
+    } else {
+      shareCardContactModel.value.contacts!.add(ShareCardContact(
+          email: model.email ?? '', phoneNumber: model.phoneNumber ?? ''));
+    }
+    update(['share_contact']);
   }
 }

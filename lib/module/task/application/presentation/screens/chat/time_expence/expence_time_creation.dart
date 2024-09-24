@@ -104,8 +104,9 @@ class _TimeExpenceCreationState extends State<TimeExpenceCreation> {
                               : hourController.text);
                           int min = int.parse(minuteController.text == ''
                               ? '0'
-                              : hourController.text);
-
+                              : minuteController.text);
+                          print('hour -$hour, min -> $min');
+                          print(((hour * 60) + min).toString());
                           controller.addTimeExpence(
                               timeExpenceUpdation: TimeExpenseUpdation(
                                   description: descriptionController.text,

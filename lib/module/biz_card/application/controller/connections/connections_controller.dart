@@ -15,6 +15,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/recieved_connect
 import 'package:bizkit/module/biz_card/domain/model/connections/search_connection_responce/result.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/request.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/shared_cards/shared_card_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -25,6 +26,7 @@ import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:go_router/go_router.dart';
 
 class ConnectionsController extends GetxController {
@@ -40,6 +42,10 @@ class ConnectionsController extends GetxController {
   RxBool cancelConnectionRequestLoading = false.obs;
   RxBool followbackRequestLoading = false.obs;
   RxBool cardLoading = false.obs;
+
+  /// loading for shared card
+  RxBool sharedCardLoading = false.obs;
+  RxString sharedCardLoadingId = ''.obs;
 
   /// for loading in list tile of contact list
   RxString loadingContact = ''.obs;
@@ -66,6 +72,9 @@ class ConnectionsController extends GetxController {
   RxList<MyConnection> myConnections = <MyConnection>[].obs;
 
   RxString connectionRequestId = ''.obs;
+
+  /// shared card list
+  RxList<SharedCardModel> sharedCards = <SharedCardModel>[].obs;
 
   // Send connection request
   void sendConnectionRequest(
@@ -458,6 +467,38 @@ class ConnectionsController extends GetxController {
         ));
       }
       loadingContact.value = '';
+    });
+  }
+
+  /// get shared card list
+  void getSharedCardList() async {
+    sharedCardLoading.value = true;
+    final result = await connectionService.getMySharedCards();
+    result.fold((l) {
+      sharedCards.value = [];
+      sharedCardLoading.value = false;
+    }, (r) {
+      sharedCards.value = r.results ?? [];
+      sharedCardLoading.value = false;
+    });
+  }
+
+  /// get shared card list
+  void acceptOrRejectSharedCard(BuildContext context,
+      {required String id, required bool accept}) async {
+    sharedCardLoadingId.value = id;
+    final result = await connectionService.sharedCardAcceptOrReject(
+        id: id, accept: accept);
+    result.fold((l) {
+      sharedCardLoadingId.value = '';
+      showSnackbar(context,
+          message: 'Failed to ${accept ? 'accept' : 'reject'} request',
+          backgroundColor: kred);
+    }, (r) {
+      sharedCards.removeWhere((e) => e.id == id);
+      sharedCardLoadingId.value = '';
+      showSnackbar(context,
+          message: 'Succesfully ${accept ? 'accepted' : 'rejected'} request');
     });
   }
 }

@@ -1,5 +1,7 @@
 class Routes {
+  // general
   static const String initial = '/';
+  static const String accountSwitching = '/account_switching';
   static const String onBoarding = '/on_boarding';
   static const String moduleSelector = '/module_selector';
   static const String slidablePhotoGallery = '/slidable_photo_gallery';
@@ -43,6 +45,7 @@ class Routes {
   static const String reminderCreation = '/reminder_creation';
   static const String cardPickedScanningCards = '/picked_scanning_cards';
   static const String connectionDetailFilling = '/connection_detail_filling';
+  static const String sharedCardsScreeen = '/shared_cards_screeen';
 
   // Task module
   static const String initaltask = '/taskInitail';

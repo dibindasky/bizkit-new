@@ -83,6 +83,7 @@ class ApiEndPoints {
   static String viewConnectionCards = '/view-shared-bizcard-details/';
   static String updateConnectionDetails = '/update-connection-details/';
   static String checkConnectionExists = '/check-connection/';
+  static String sharedCardRequests = '/shared-cards-requests/';
 
   ///  [  Matcho meter ]
   static String matchoMeter = '/matcho-meter/';

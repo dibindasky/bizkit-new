@@ -15,6 +15,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_cre
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/progress_indicator_start.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/connections/shared_cards_list_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/view_all_connection_contacts.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/widgets/cards_based_on_user.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navbar.dart';
@@ -28,6 +29,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/received
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_create_update.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/account_switching/account_switching_screen.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
@@ -70,6 +72,14 @@ class GoRouterConfig {
       path: Routes.initial,
       // builder: (context, state) => const ScreenConnectionDetailFilling(),
       builder: (context, state) => const ScreenGeneralSplash(),
+    ),
+
+    // Account switching loader
+    GoRoute(
+      name: Routes.accountSwitching,
+      path: Routes.accountSwitching,
+      // builder: (context, state) => const ScreenConnectionDetailFilling(),
+      builder: (context, state) => const ScreenAccountSwitchingLoader(),
     ),
 
     // login page
@@ -144,6 +154,13 @@ class GoRouterConfig {
       name: Routes.myConnectionsAllCards,
       path: Routes.myConnectionsAllCards,
       builder: (context, state) => const CardsbasedOnUserConnection(),
+    ),
+
+    // shared cards listing screen
+    GoRoute(
+      name: Routes.sharedCardsScreeen,
+      path: Routes.sharedCardsScreeen,
+      builder: (context, state) => const ScreenSharedCardListing(),
     ),
 
     // Reminder creation

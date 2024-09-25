@@ -15,6 +15,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/search_connectio
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/send_connection_requets_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_responce/send_connection_responce.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/shared_cards/shared_cards_response.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:dartz/dartz.dart';
 
@@ -58,6 +59,7 @@ abstract class ConnectionsRepo {
   Future<Either<Failure, ConnectionRequestAcceptOrRejectResponce>>
       acceptOrRejectConnectionRequest(
           {required AcceptOrRejectConnectionRequest acceptOrReject});
+
   ///  Accept OR Reject connection request
   Future<Either<Failure, CardDetailModel>> getConnectionCard(
       {required String cardId});
@@ -69,4 +71,11 @@ abstract class ConnectionsRepo {
   /// check wether a connection exist with the given user id
   Future<Either<Failure, List<ConnectionCheckResponseModel>>>
       checkConnecitonExists({required String userID});
+
+  /// get all the shared cards of user
+  Future<Either<Failure, SharedCardsResponseModel>> getMySharedCards();
+
+  /// accept or reject shared card
+  Future<Either<Failure, SuccessResponseModel>> sharedCardAcceptOrReject(
+      {required String id, required bool accept});
 }

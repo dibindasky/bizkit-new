@@ -48,6 +48,8 @@ class ModuleController extends GetxController {
     }
   }
 
+// [--------------------------------init controlleres------------------------]
+
   /// initilize all controllers in CARD module [Module.card]
   void initCardControllers() {
     Get.lazyPut(() => ContactsController());
@@ -80,5 +82,85 @@ class ModuleController extends GetxController {
   void initAttendanceControllers() {
     Get.lazyPut(() => AttendenceNavBarConroller());
     Get.lazyPut(() => AttendenceHomeConroller());
+  }
+
+// [--------------------------------delete controlleres------------------------]
+
+  /// delete all controllers
+  /// except module managers
+  void deleteAllControlers() {
+    deleteTaskControllers();
+    deleteCardControllers();
+    deleteAttendanceControllers();
+  }
+
+  /// delete card controllers
+  void deleteCardControllers() {
+    if (Get.isRegistered<ContactsController>()) {
+      Get.delete<ContactsController>();
+    }
+    if (Get.isRegistered<MatchoMeterController>()) {
+      Get.delete<MatchoMeterController>();
+    }
+    if (Get.isRegistered<CardController>()) Get.delete<CardController>();
+    if (Get.isRegistered<NavbarController>()) Get.delete<NavbarController>();
+    if (Get.isRegistered<PromtController>()) Get.delete<PromtController>();
+    if (Get.isRegistered<PersonalDetailsController>()) {
+      Get.delete<PersonalDetailsController>();
+    }
+    if (Get.isRegistered<BusinesDetailsController>()) {
+      Get.delete<BusinesDetailsController>();
+    }
+    if (Get.isRegistered<CardTextExtractionController>()) {
+      Get.delete<CardTextExtractionController>();
+    }
+    if (Get.isRegistered<ReceivedCardController>()) {
+      Get.delete<ReceivedCardController>();
+    }
+    if (Get.isRegistered<LevelSharingController>()) {
+      Get.delete<LevelSharingController>();
+    }
+    if (Get.isRegistered<ConnectionsController>()) {
+      Get.delete<ConnectionsController>();
+    }
+    if (Get.isRegistered<ReminderController>()) {
+      Get.delete<ReminderController>();
+    }
+  }
+
+  /// delete task controllers
+  void deleteTaskControllers() {
+    if (Get.isRegistered<TaskNavbarController>()) {
+      Get.delete<TaskNavbarController>();
+    }
+    if (Get.isRegistered<TaskCalenderViewController>()) {
+      Get.delete<TaskCalenderViewController>();
+    }
+    if (Get.isRegistered<CreateTaskController>()) {
+      Get.delete<CreateTaskController>();
+    }
+    if (Get.isRegistered<TaskGenerateReportController>()) {
+      Get.delete<TaskGenerateReportController>();
+    }
+    if (Get.isRegistered<TaskHomeScreenController>()) {
+      Get.delete<TaskHomeScreenController>();
+    }
+    if (Get.isRegistered<TaskFolderController>()) {
+      Get.delete<TaskFolderController>();
+    }
+    if (Get.isRegistered<ChatController>()) Get.delete<ChatController>();
+    if (Get.isRegistered<MessageCountController>()) {
+      Get.delete<MessageCountController>();
+    }
+  }
+
+  /// delete attendance controllers
+  void deleteAttendanceControllers() {
+    if (Get.isRegistered<AttendenceNavBarConroller>()) {
+      Get.delete<AttendenceNavBarConroller>();
+    }
+    if (Get.isRegistered<AttendenceHomeConroller>()) {
+      Get.delete<AttendenceHomeConroller>();
+    }
   }
 }

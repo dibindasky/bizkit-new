@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/connections/shared_cards_list_screen.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/result.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
@@ -81,6 +81,13 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
               style: textStyle1.copyWith(fontWeight: FontWeight.w700),
             ),
             actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ScreenSharedCardListing()));
+                },
+                icon: const Icon(Icons.folder_shared_outlined),
+              ),
               IconButton(
                 onPressed: () {
                   connectionController.fetchAllSendConnectionRequests();

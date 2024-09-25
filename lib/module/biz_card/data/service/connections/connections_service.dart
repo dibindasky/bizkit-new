@@ -18,6 +18,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/search_connectio
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/send_connection_requets_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_responce/send_connection_responce.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/shared_cards/shared_cards_response.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
 import 'package:bizkit/service/api_service/api_service.dart';
@@ -283,6 +284,43 @@ class ConnectionsService implements ConnectionsRepo {
               errorMessage));
     } catch (e) {
       log('checkConnecitonExists catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SharedCardsResponseModel>> getMySharedCards() async {
+    try {
+      final responce = await apiService.get(ApiEndPoints.sharedCardRequests);
+      log('getMySharedCards ==> success ');
+      return Right(SharedCardsResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getMySharedCards DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('getMySharedCards catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> sharedCardAcceptOrReject(
+      {required String id, required bool accept}) async {
+    try {
+      final responce = await apiService.patch(ApiEndPoints.sharedCardRequests,
+          data: {
+            "shared_card_collection_id": id,
+            "status": accept ? 'accepted' : 'rejected'
+          });
+      log('sharedCardAcceptOrReject ==> success ');
+      log('sharedCardAcceptOrReject ==> ${responce.data} ');
+      return Right(SuccessResponseModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('sharedCardAcceptOrReject message=> ${e.response}');
+      log('sharedCardAcceptOrReject DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('sharedCardAcceptOrReject catch $e');
       return Left(Failure(message: 'Failed to request'));
     }
   }

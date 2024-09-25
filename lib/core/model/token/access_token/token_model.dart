@@ -19,4 +19,9 @@ class TokenModel {
       _$TokenModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$TokenModelToJson(this);
+
+  static const String colUserId = 'user_id';
+  static const String colAccess = 'access';
+  static const String colRefresh = 'refresh';
+  static const String colName = 'name';
 }

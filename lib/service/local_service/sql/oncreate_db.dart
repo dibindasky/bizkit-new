@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:bizkit/core/model/token/access_token/token_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/contact.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
@@ -10,13 +11,23 @@ class Sql {
   static Future onCreate(sql.Database db) async {
     try {
       log('-----------------oncreate database---------------------');
-      // await db.execute(queryUserTableCreation);
+      await db.execute(queryUserTableCreation);
       await db.execute(queryContactTableCreation);
       await db.execute(queryLocalStorageTableCreation);
     } catch (e) {
       log('onCreate ==> ${e.toString()}');
     }
   }
+
+  static const String queryUserTableCreation = '''
+      CREATE TABLE IF NOT EXISTS $userTable (
+        localId INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${TokenModel.colUserId} TEXT,
+        ${TokenModel.colName} TEXT,
+        ${TokenModel.colAccess} TEXT,
+        ${TokenModel.colRefresh} TEXT
+      )
+    ''';
 
   static const String queryLocalStorageTableCreation = '''
       CREATE TABLE IF NOT EXISTS $localStorageTable (

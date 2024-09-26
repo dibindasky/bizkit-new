@@ -36,12 +36,18 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
                 Obx(
                   () => GestureDetector(
                     onTap: () => accountSwitchingBottomSheet(context),
-                    child: Text(
-                      "Welcome ${authController.userName.value}",
-                      style: TextStyle(
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "Welcome ${authController.userName.value}",
+                          style: TextStyle(
+                            fontSize: 17.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Icon(Icons.arrow_drop_down)
+                      ],
                     ),
                   ),
                 ),

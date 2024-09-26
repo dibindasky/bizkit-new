@@ -96,12 +96,15 @@ class CardController extends GetxController {
       (l) => isLoading.value = false,
       (r) {
         bizcards.value = r.bizcards ?? <Bizcard>[];
-        bizcardId.value = r.bizcards?.first.bizcardId ?? '';
-        log('Bizcard Id === > ${bizcardId.value}');
+       if(bizcards.value.isNotEmpty){
+         bizcardId.value = r.bizcards?.first.bizcardId ?? '';
+        log('defalt Bizcard Id === > ${bizcardId.value}');
+       }
+    isLoading.value = false;
       },
     );
-    update();
     isLoading.value = false;
+    update();
   }
 
   void cardDetail({required String cardId}) async {

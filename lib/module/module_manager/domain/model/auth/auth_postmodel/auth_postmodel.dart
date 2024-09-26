@@ -1,25 +1,40 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'auth_postmodel.g.dart';
-
-@JsonSerializable()
 class AuthPostmodel {
   String? otp;
   String? name;
   String? email;
-  @JsonKey(name: 'phone_number')
   String? phoneNumber;
-  @JsonKey(name: 'password')
   String? password;
+  String? emailOrPhone;
 
   AuthPostmodel(
-      {this.otp, this.name, this.email, this.phoneNumber, this.password});
+      {this.otp,
+      this.name,
+      this.email,
+      this.phoneNumber,
+      this.password,
+      this.emailOrPhone});
 
   factory AuthPostmodel.fromJson(Map<String, dynamic> json) {
-    return _$AuthPostmodelFromJson(json);
+    return AuthPostmodel(
+      otp: json['otp'] as String?,
+      name: json['name'] as String?,
+      email: json['email'] as String?,
+      phoneNumber: json['phone_number'] as String?,
+      password: json['password'] as String?,
+      emailOrPhone: json['email_or_phone'] as String?,
+    );
   }
 
-  Map<String, dynamic> toJson() => _$AuthPostmodelToJson(this);
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (otp != null) data['otp'] = otp;
+    if (name != null) data['name'] = name;
+    if (email != null) data['email'] = email;
+    if (phoneNumber != null) data['phone_number'] = phoneNumber;
+    if (password != null) data['password'] = password;
+    if (emailOrPhone != null) data['email_or_phone'] = emailOrPhone;
+    return data;
+  }
 
   AuthPostmodel copyWith({
     String? otp,

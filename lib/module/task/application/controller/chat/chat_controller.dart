@@ -135,6 +135,12 @@ class ChatController extends GetxController {
             connected.value = true;
           }
 
+          // if there is nothing to load more then stop loading
+          if (loadMoreLoading.value &&
+              decodedMessage['is_last_batch'] != null) {
+            loadMoreLoading.value = false;
+          }
+
           // handle for text messages
           if (decodedMessage['message_type'] == 'text') {
             final m = TextMessage.fromJson(decodedMessage, uid);

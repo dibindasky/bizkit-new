@@ -17,6 +17,7 @@ class ApiEndPoints {
   static String register = '/register/';
   static String sendOtpMail = '/verification/send_verification_email/';
   static String verifyOtp = '/verify-otp/';
+  static String passwordLogin = '/password-login/';
   static String forgotPassword = '/verification/forgot_password/';
   static String verifyforgotPassword = '/verification/verify_forgot_password/';
   static String forgottPassword = '/verification/change_password/';
@@ -91,6 +92,7 @@ class ApiEndPoints {
   // [ Reminder ]
   static String reminder = '/reminder/';
   static String getReminders = '/get-reminders/';
+  static String getCardRemindersHistory = '/get-card-reminders/';
 
   // ---------------------------------------------------------------------------------------------
   // [ TASK MODULE ]

@@ -11,6 +11,7 @@ TokenModel _$TokenModelFromJson(Map<String, dynamic> json) => TokenModel(
       refreshToken: json['refresh'] as String?,
       name: json['name'] as String?,
       uid: json['user_id'] as String?,
+      logoutFromDevice: json['logout_form_device'] as String?,
     );
 
 Map<String, dynamic> _$TokenModelToJson(TokenModel instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$TokenModelToJson(TokenModel instance) =>
       'refresh': instance.refreshToken,
       'name': instance.name,
       'user_id': instance.uid,
+      'logout_form_device': instance.logoutFromDevice,
     };

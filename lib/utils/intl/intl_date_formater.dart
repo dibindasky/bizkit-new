@@ -51,6 +51,17 @@ class DateTimeFormater {
     return '$formattedDate, $formattedTime';
   }
 
+  /// format date string to DD-MM-YYYY
+  static String formatDateToDDMMYYYY(String dateStr) {
+    try {
+      DateTime dateTime = DateTime.parse(dateStr);
+      String formattedDate = DateFormat('dd-MM-yyyy').format(dateTime);
+      return formattedDate;
+    } catch (e) {
+      return '';
+    }
+  }
+
   static String dateTimeFormat(
     DateTime date,
   ) {

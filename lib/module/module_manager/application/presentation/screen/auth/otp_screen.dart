@@ -7,9 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class ScreenOtpValidation extends StatelessWidget {
-  const ScreenOtpValidation({
-    super.key,
-  });
+  const ScreenOtpValidation({super.key, required this.isEmail});
+
+  final bool isEmail;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +32,12 @@ class ScreenOtpValidation extends StatelessWidget {
                   style: textHeadStyle1.copyWith(
                       color: neonShade, fontSize: kwidth * 0.07)),
               adjustHieght(20),
-              const Text('A 4 digit OTP has been sent to your mail address'),
-              const Text(
-                "email",
-                style: TextStyle(color: neonShade),
-              ),
+              Text(
+                  'A 4 digit OTP has been sent to your ${isEmail ? 'email address' : 'phone number'}'),
+              // const Text(
+              //   "email",
+              //   style: TextStyle(color: neonShade),
+              // ),
               adjustHieght(20),
               Text('Enter OTP Text', style: textHeadStyle1),
               adjustHieght(20),
@@ -46,7 +47,8 @@ class ScreenOtpValidation extends StatelessWidget {
                   if (controller.otpFromRegisterUser.value) {
                     controller.verifyOtpEmailRegestration(context, otp: value);
                   } else {
-                    controller.verifyOtpLoginPhone(context, otp: value);
+                    controller.verifyOtpLogin(context,
+                        otp: value, isEmail: isEmail);
                   }
                 },
                 length: 4,

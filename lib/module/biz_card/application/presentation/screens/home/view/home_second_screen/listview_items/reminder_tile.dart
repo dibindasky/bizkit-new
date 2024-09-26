@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_without_animation.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ReminderTile extends StatelessWidget {
   const ReminderTile({super.key, required this.reminder});
@@ -18,6 +20,8 @@ class ReminderTile extends StatelessWidget {
     log('image ${reminder.profilePicture}');
     return InkWell(
       onTap: () {
+        Get.find<ReminderController>()
+            .getCardRemiderHistory(id: reminder.id ?? '');
         Navigator.push(
           context,
           cardFadePageRoute(

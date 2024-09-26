@@ -153,4 +153,25 @@ class ReminderService implements ReminderRepo {
       return Left(Failure(message: 'Failed to request'));
     }
   }
+
+  @override
+  Future<Either<Failure, RemindersSuccessResponce>> getCardReminderHistory(
+      {required String id}) async {
+    try {
+      final responce = await apiService.get(
+        ApiEndPoints.getCardRemindersHistory,
+        queryParameters: {
+          'reminder_id': id,
+        },
+      );
+      log('getCardReminderHistory ==> success ');
+      return Right(RemindersSuccessResponce.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('getCardReminderHistory DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('getCardReminderHistory catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
 }

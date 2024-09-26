@@ -6,6 +6,8 @@ part 'reminder.g.dart';
 class Reminder {
   @JsonKey(name: '_id')
   String? id;
+  @JsonKey(name: 'reminder_id')
+  String? reminderId;
   @JsonKey(name: 'user_id')
   String? userId;
   @JsonKey(name: 'card_id')
@@ -33,6 +35,7 @@ class Reminder {
     this.description,
     this.meetingLabel,
     this.ownerName,
+    this.reminderId,
   });
 
   factory Reminder.fromJson(Map<String, dynamic> json) {

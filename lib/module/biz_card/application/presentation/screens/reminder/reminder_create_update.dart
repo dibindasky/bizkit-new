@@ -6,6 +6,7 @@ import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_r
 import 'package:bizkit/module/biz_card/domain/model/reminder/update_reminder_model/update_reminder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/time_format/time_format.dart';
@@ -237,98 +238,103 @@ class _ScreenCardReminderCreatingState
                   ),
                 ),
                 kHeight20,
-                Row(
-                  children: [
-                    kWidth50,
-                    Expanded(
-                      child: InkWell(
-                        onTap: () => Navigator.of(context).pop(),
-                        child: Container(
-                          height: kwidth * 0.1,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: neonShade),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(8),
+                Obx(() {
+                  if (reminderController.createReminderLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return Row(
+                    children: [
+                      kWidth50,
+                      Expanded(
+                        child: InkWell(
+                          onTap: () => Navigator.of(context).pop(),
+                          child: Container(
+                            height: kwidth * 0.1,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: neonShade),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(8),
+                              ),
                             ),
+                            child: const Center(child: Text('Cancel')),
                           ),
-                          child: const Center(child: Text('Cancel')),
                         ),
                       ),
-                    ),
-                    adjustWidth(kwidth * 0.10),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          if (date == '') {
-                            setState(() {
-                              showError = true;
-                            });
-                            showSnackbar(context,
-                                message: 'Choose date to continue');
-                          } else if (time == '') {
-                            setState(() {
-                              showError = true;
-                            });
-                            showSnackbar(context,
-                                message: 'Choose time to continue');
-                          } else {
-                            setState(() {
-                              showError = false;
-                            });
-                            if (reminderKey.currentState!.validate()) {
-                              widget.reminder?.id == null
-                                  ? reminderController.createReminder(
-                                      createReminderModel: CreateReminderModel(
-                                          bizcardId: widget.cardId,
-                                          description: reminderController
-                                              .messageController.text,
-                                          meetingLabel: reminderController
-                                              .meetingLabelController.text,
-                                          occasion: reminderController
-                                              .occasionController.text,
-                                          reminderDate: dates
-                                              .add(Duration(
-                                                  hours: timeOfDay.hour,
-                                                  minutes: timeOfDay.minute))
-                                              .toUtc()
-                                              .toString(),
-                                          venue: reminderController
-                                              .venueController.text),
-                                      context: context)
-                                  : reminderController.updateReminder(
-                                      updateReminderModel: UpdateReminderModel(
-                                          bizcardId: widget.cardId,
-                                          reminderId: widget.reminder!.id,
-                                          description: reminderController.messageController.text,
-                                          meetingLabel: reminderController.meetingLabelController.text,
-                                          occasion: reminderController.occasionController.text,
-                                          reminderDate: dates.add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute)).toUtc().toString(),
-                                          venue: reminderController.venueController.text),
-                                      context: context);
+                      adjustWidth(kwidth * 0.10),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            if (date == '') {
+                              setState(() {
+                                showError = true;
+                              });
+                              showSnackbar(context,
+                                  message: 'Choose date to continue');
+                            } else if (time == '') {
+                              setState(() {
+                                showError = true;
+                              });
+                              showSnackbar(context,
+                                  message: 'Choose time to continue');
+                            } else {
+                              setState(() {
+                                showError = false;
+                              });
+                              if (reminderKey.currentState!.validate()) {
+                                widget.reminder?.id == null
+                                    ? reminderController.createReminder(
+                                        createReminderModel: CreateReminderModel(
+                                            bizcardId: widget.cardId,
+                                            description: reminderController
+                                                .messageController.text,
+                                            meetingLabel: reminderController
+                                                .meetingLabelController.text,
+                                            occasion: reminderController
+                                                .occasionController.text,
+                                            reminderDate: dates
+                                                .add(Duration(
+                                                    hours: timeOfDay.hour,
+                                                    minutes: timeOfDay.minute))
+                                                .toUtc()
+                                                .toString(),
+                                            venue: reminderController
+                                                .venueController.text),
+                                        context: context)
+                                    : reminderController.updateReminder(
+                                        updateReminderModel: UpdateReminderModel(
+                                            bizcardId: widget.cardId,
+                                            reminderId: widget.reminder!.id,
+                                            description: reminderController.messageController.text,
+                                            meetingLabel: reminderController.meetingLabelController.text,
+                                            occasion: reminderController.occasionController.text,
+                                            reminderDate: dates.add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute)).toUtc().toString(),
+                                            venue: reminderController.venueController.text),
+                                        context: context);
+                              }
                             }
-                          }
-                        },
-                        child: Container(
-                          height: kwidth * 0.1,
-                          decoration: BoxDecoration(
-                            color: textFieldFillColr,
-                            border: Border.all(color: neonShade),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(8),
+                          },
+                          child: Container(
+                            height: kwidth * 0.1,
+                            decoration: BoxDecoration(
+                              color: textFieldFillColr,
+                              border: Border.all(color: neonShade),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(8),
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(10),
+                            child: Center(
+                              child: FittedBox(
+                                  child: Text(widget.reminder?.id == null
+                                      ? 'Save & Notify'
+                                      : 'Update and notify')),
                             ),
                           ),
-                          padding: const EdgeInsets.all(10),
-                          child: Center(
-                            child: FittedBox(
-                                child: Text(widget.reminder?.id == null
-                                    ? 'Save & Notify'
-                                    : 'Update and notify')),
-                          ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
+                      )
+                    ],
+                  );
+                }),
                 adjustHieght(kwidth * 0.10),
               ],
             ),

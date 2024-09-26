@@ -32,4 +32,8 @@ abstract class ReminderRepo {
 
   // Get upcoming reminders
   Future<Either<Failure, RemindersSuccessResponce>> getUpcomingReminders();
+
+  // Get card reminder history
+  Future<Either<Failure, RemindersSuccessResponce>> getCardReminderHistory(
+      {required String id});
 }

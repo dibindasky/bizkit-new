@@ -25,10 +25,16 @@ class ReminderController extends GetxController {
   RxBool upcomingReminderLoading = false.obs;
   RxBool todaysReminderLoading = false.obs;
 
+  /// loading for history of a reminder
+  RxBool reminderHistoryCardLoading = false.obs;
+
   RxList<Reminder> allReminders = <Reminder>[].obs;
   RxList<Reminder> todaysReminders = <Reminder>[].obs;
   RxList<Reminder> upcomingReminders = <Reminder>[].obs;
   RxList<Reminder> historyReminders = <Reminder>[].obs;
+
+  /// history of a reminder for detail view
+  RxList<Reminder> historyCardReminders = <Reminder>[].obs;
 
   final mat.TextEditingController messageController =
       mat.TextEditingController();
@@ -96,6 +102,7 @@ class ReminderController extends GetxController {
       },
       (success) {
         createReminderLoading.value = false;
+        GoRouter.of(context).pop();
         showSnackbar(context,
             message: success.message ?? '', backgroundColor: neonShade);
       },
@@ -193,5 +200,17 @@ class ReminderController extends GetxController {
         log('historyReminders length ${historyReminders.length}');
       },
     );
+  }
+
+  void getCardRemiderHistory({required String id}) async {
+    reminderHistoryCardLoading.value = true;
+    historyCardReminders.value = [];
+    final result = await reminderSerivce.getCardReminderHistory(id: id);
+    result.fold((l) {
+      reminderHistoryCardLoading.value = false;
+    }, (r) {
+      historyCardReminders.value = r.reminders ?? [];
+      reminderHistoryCardLoading.value = false;
+    });
   }
 }

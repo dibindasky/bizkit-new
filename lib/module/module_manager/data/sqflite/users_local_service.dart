@@ -20,15 +20,17 @@ class UsersLocalService implements UsersLocalRepo {
                   ${TokenModel.colUserId},
                   ${TokenModel.colName},
                   ${TokenModel.colAccess},
-                  ${TokenModel.colRefresh})
-          VALUES (?,?,?,?)
+                  ${TokenModel.colRefresh},
+                  ${TokenModel.colLogout})
+          VALUES (?,?,?,?,?)
           ''';
 
       await localService.rawInsert(query, [
         model.uid ?? '',
         model.name ?? '',
         model.accessToken ?? '',
-        model.refreshToken ?? ''
+        model.refreshToken ?? '',
+        model.logoutFromDevice ?? 'login'
       ]);
       return Right(SuccessResponseModel());
     } catch (e) {
@@ -47,7 +49,8 @@ class UsersLocalService implements UsersLocalRepo {
         SET 
           ${TokenModel.colName} = ?,
           ${TokenModel.colAccess} = ?,
-          ${TokenModel.colRefresh} = ?
+          ${TokenModel.colRefresh} = ?,
+          ${TokenModel.colLogout} = ?
         WHERE 
           ${TokenModel.colUserId} = ? 
         ''';
@@ -56,6 +59,7 @@ class UsersLocalService implements UsersLocalRepo {
         model.name ?? '',
         model.accessToken ?? '',
         model.refreshToken ?? '',
+        model.logoutFromDevice ?? 'login',
         model.uid ?? ''
       ]);
 
@@ -70,8 +74,9 @@ class UsersLocalService implements UsersLocalRepo {
   Future<Either<Failure, List<TokenModel>>> getUsersFromLocalStorage() async {
     try {
       const String query = '''SELECT * 
-      FROM ${Sql.userTable}''';
-      final data = await localService.rawQuery(query);
+      FROM ${Sql.userTable}
+      WHERE ${TokenModel.colLogout} = ?''';
+      final data = await localService.rawQuery(query, ['login']);
       log('getUsersFromLocalStorage => length => ${data.length}');
       List<TokenModel> tokens = [];
       for (var x in data) {

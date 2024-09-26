@@ -130,4 +130,27 @@ class AuthenticationService implements AuthenticationRepo {
       return Left(Failure(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, TokenModel>> loginUsingPassword(
+      {required AuthPostmodel authPostmodel}) async {
+    try {
+      log('loginUsingPassword data ${authPostmodel.toJson()}');
+      log('api uri ==> post  ${_dio.options.baseUrl + ApiEndPoints.verifyOtp}');
+      final responce = await _dio.post(
+        ApiEndPoints.passwordLogin,
+        data: authPostmodel.toJson(),
+      );
+      log('Success loginUsingPassword');
+      return Right(TokenModel.fromJson(responce.data));
+    } on DioException catch (e) {
+      log('DioException loginUsingPassword $e');
+      log('DioException loginUsingPassword ${e.response?.data}');
+      return Left(
+          Failure(message: e.response?.data["message"] ?? errorMessage));
+    } catch (e) {
+      log('catch loginUsingPassword $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
 }

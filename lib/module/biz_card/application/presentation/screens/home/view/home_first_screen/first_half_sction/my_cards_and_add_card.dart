@@ -31,10 +31,6 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
 
   @override
   Widget build(BuildContext context) {
-    //final cardController = Get.put(CardController());
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      //cardController.getAllcards(true);
-    });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(

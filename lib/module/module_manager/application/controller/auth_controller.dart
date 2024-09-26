@@ -31,6 +31,9 @@ class AuthenticationController extends GetxController {
   RxBool loadingOtpEmail = false.obs;
   RxBool loadingOtpPhone = false.obs;
 
+  /// loading for pasword login
+  RxBool loadingLoginPassword = false.obs;
+
   /// varibale to navigate ot to clal functions according to the otp type
   RxBool otpFromRegisterUser = false.obs;
 
@@ -43,7 +46,7 @@ class AuthenticationController extends GetxController {
   /// loading for account fetching
   RxBool loadingAccountFetching = false.obs;
 
-  /// model used to save data temproraly for signup
+  /// model used to save data temproraly for signup and login
   Rx<AuthPostmodel> registerPostModel = AuthPostmodel().obs;
 
   /// account TokenModel list for account switching
@@ -60,7 +63,7 @@ class AuthenticationController extends GetxController {
     super.onInit();
   }
 
-  // register
+  /// register user to bizkit
   void registerUser(BuildContext context,
       {required AuthPostmodel authPostModel}) async {
     loadingregister.value = true;
@@ -76,7 +79,7 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     }, (r) {
       otpFromRegisterUser.value = true;
-      GoRouter.of(context).pushNamed(Routes.otpPage);
+      GoRouter.of(context).pushNamed(Routes.otpPage, extra: true);
       showSnackbar(context,
           message: r.message ?? 'Otp send to your mail id',
           backgroundColor: kneonShade,
@@ -85,6 +88,7 @@ class AuthenticationController extends GetxController {
     loadingregister.value = false;
   }
 
+  /// verify email otp otp for regestration
   void verifyOtpEmailRegestration(BuildContext context,
       {required String otp}) async {
     loadingOtpEmail.value = true;
@@ -113,17 +117,18 @@ class AuthenticationController extends GetxController {
     );
   }
 
+  /// get user name from local storage
   void getUserName() async {
     userName.value = await SecureStorage.getName();
     log('USer name ${userName.value}');
   }
 
+  /// login user using email and phone
   void loginUser(BuildContext context,
-      {required AuthPostmodel authPostModel}) async {
+      {required AuthPostmodel authPostModel, required bool emailLogin}) async {
     loadingLogin.value = true;
     registerPostModel.value = authPostModel;
-    final result = await authRepo.loginUser(
-        authPostmodel: AuthPostmodel(phoneNumber: authPostModel.phoneNumber));
+    final result = await authRepo.loginUser(authPostmodel: authPostModel);
     result.fold((l) {
       log('Otp resent failed');
       showSnackbar(context,
@@ -133,21 +138,27 @@ class AuthenticationController extends GetxController {
     }, (r) {
       log('Otp resent successs');
       otpFromRegisterUser.value = false;
-      GoRouter.of(context).pushNamed(Routes.otpPage);
+      GoRouter.of(context).pushNamed(Routes.otpPage, extra: emailLogin);
       showSnackbar(context,
-          message: 'Otp send to your registered mobile number',
+          message:
+              'Otp send to your registered ${emailLogin ? 'email address' : 'mobile number'}',
           backgroundColor: kneonShade,
           textColor: kblack);
     });
     loadingLogin.value = false;
   }
 
-  void verifyOtpLoginPhone(BuildContext context, {required String otp}) async {
+  /// verify otp login using email and phone number
+  void verifyOtpLogin(BuildContext context,
+      {required String otp, required bool isEmail}) async {
     loadingOtpPhone.value = true;
-    final result = await authRepo.otpVerificationPhone(authPostmodel: {
-      'otp': otp,
-      'phone_number': registerPostModel.value.phoneNumber
-    });
+    final result = await authRepo.otpVerificationPhone(
+        authPostmodel: isEmail
+            ? {'otp': otp, 'email': registerPostModel.value.email}
+            : {
+                'otp': otp,
+                'phone_number': registerPostModel.value.phoneNumber
+              });
     result.fold((l) {
       GoRouter.of(context).pop();
       showSnackbar(context,
@@ -170,13 +181,32 @@ class AuthenticationController extends GetxController {
     );
   }
 
+  /// login using [password] and ([email] / [phone])
+  void loginUsingPassword(BuildContext context,
+      {required AuthPostmodel authPostModel}) async {
+    loadingLoginPassword.value = true;
+    final data =
+        await authRepo.loginUsingPassword(authPostmodel: authPostModel);
+    data.fold((l) {
+      loadingLoginPassword.value = false;
+    }, (r) {
+      completeLogin(context, r);
+      showSnackbar(context,
+          message: 'User Logged In Successfully',
+          backgroundColor: kneonShade,
+          textColor: kblack);
+      loadingLoginPassword.value = false;
+    });
+  }
+
   /// complete all steps related to login in this function
   void completeLogin(BuildContext context, TokenModel model) async {
     await SecureStorage.saveToken(tokenModel: model);
     log('user name => ${model.name ?? ''}');
     SecureStorage.setLogin();
     Get.find<ModuleController>().chooseModule(context, module: Module.card);
-    usersLocalRepo.addUserToLocalStorageIfNotPresentInStorage(model: model);
+    usersLocalRepo.addUserToLocalStorageIfNotPresentInStorage(
+        model: model.copyWith(logoutFromDevice: 'login'));
     loadingAccountSwitching.value = false;
     getUserName();
   }
@@ -193,7 +223,12 @@ class AuthenticationController extends GetxController {
   /// user account will be avaliable forn account switching in the future use
   /// if dont want to keep account for accoutn switching call usign [logout] false
   Future<void> clearDataWhileLogout([bool logout = true]) async {
-    if (logout) await authRepo.logOut();
+    if (logout) {
+      await authRepo.logOut();
+      final model = await SecureStorage.getToken();
+      usersLocalRepo.updateUserInLocalStorage(
+          model: model.copyWith(logoutFromDevice: 'logout'));
+    }
     SecureStorage.clearLogin();
     Get.find<ModuleController>().deleteAllControlers();
   }

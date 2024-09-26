@@ -104,7 +104,7 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.linear,
-                    height: tapOnPassword ? 50 : 0,
+                    height: tapOnPassword ? null : 0,
                     child: tapOnPassword
                         ? Padding(
                             padding: const EdgeInsets.all(3.0),

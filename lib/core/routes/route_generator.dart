@@ -100,7 +100,8 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.otpPage,
       path: Routes.otpPage,
-      builder: (context, state) => const ScreenOtpValidation(),
+      builder: (context, state) =>
+          ScreenOtpValidation(isEmail: state.extra as bool),
     ),
 
     // Module selector

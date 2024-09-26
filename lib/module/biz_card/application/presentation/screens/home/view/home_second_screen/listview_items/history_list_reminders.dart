@@ -65,13 +65,7 @@ class _SecondAnimationPageListViewHistoryRemindersState
               controller: widget.scrollController,
               separatorBuilder: (context, index) => adjustHieght(khieght * .02),
               itemCount: reminderController.historyReminders.length,
-              // (state.historyReminderList?.length ?? 0) +
-              //     (state.historyLoading ? 1 : 0),
               itemBuilder: (context, index) {
-                // if (state.historyLoading &&
-                //     index == state.historyReminderList!.length) {
-                //   return const LoadingAnimation();
-                // }
                 if (widget.doTransition && index == 0) {
                   return Transform.translate(
                       offset: Offset(0, 100 * _animation.value),

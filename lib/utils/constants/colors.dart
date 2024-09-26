@@ -69,6 +69,10 @@ TextStyle textThinStyle1 = TextStyle(
   fontSize: 13.sp,
   fontWeight: FontWeight.w200,
 );
+TextStyle textThinerStyle1 = TextStyle(
+  fontSize: 10.sp,
+  fontWeight: FontWeight.w200,
+);
 
 LinearGradient neonShadeGradient = const LinearGradient(
   colors: [

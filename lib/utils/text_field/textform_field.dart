@@ -18,6 +18,7 @@ enum Validate {
   ifValidnumber,
   ifValidWebsite,
   ifValidEmail,
+  emailOrPhone,
 }
 
 class CustomTextFormField extends StatefulWidget {
@@ -175,6 +176,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               return 'Enter ${widget.labelText}';
             }
             return 'Please enter ${widget.labelText}';
+          } else if (widget.validate == Validate.emailOrPhone) {
+            if (isValidEmail(value!)) {
+              return null;
+            }
+            if (isValidPhoneNumber(value)) {
+              return null;
+            }
+            return 'Enter valid email or phone number';
           } else if (widget.validate == Validate.email &&
               !isValidEmail(value!)) {
             return 'Please enter a valid email address';

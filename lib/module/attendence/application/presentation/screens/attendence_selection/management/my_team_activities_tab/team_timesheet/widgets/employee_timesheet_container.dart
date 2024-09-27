@@ -21,7 +21,7 @@ class EmployeeTimeSheetContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: klightDarkGrey,
+      color: lightColr,
       child: ListTile(
         leading: CircleAvatar(
           radius: 25,
@@ -34,7 +34,7 @@ class EmployeeTimeSheetContainer extends StatelessWidget {
         ),
         subtitle: Text(
           employeDesignation,
-          style: textThinStyle1.copyWith(color: kgrey, fontSize: 11.sp),
+          style: textThinStyle1.copyWith(color: kgrey, fontSize: 10.sp),
         ),
         trailing: Card(
           color: attendenceColor,

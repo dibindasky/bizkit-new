@@ -1,8 +1,11 @@
+import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/calender/widgets/employe_leave_view.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarWidget extends StatefulWidget {
@@ -150,10 +153,15 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             Positioned(
               bottom: 1,
               right: 1,
-              child: CircleAvatar(
-                radius: 15,
-                backgroundColor: Colors.transparent,
-                backgroundImage: AssetImage(events.first.imageUrl),
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.attendenceEmployeeLeaveView, id: 22);
+                },
+                child: CircleAvatar(
+                  radius: 15,
+                  backgroundColor: Colors.transparent,
+                  backgroundImage: AssetImage(events.first.imageUrl),
+                ),
               ),
             ),
         ],

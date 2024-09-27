@@ -11,6 +11,7 @@ import 'package:bizkit/module/attendence/application/presentation/screens/attend
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/team_timesheet/team_timesheet.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/attendence_selection.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/calender/calender_screen.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/calender/widgets/employe_leave_view.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/leaves/leaves_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/leaves/widgets/add_new_leave.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/pelt&pell/pelt_and_pell_screen.dart';
@@ -142,6 +143,8 @@ class RouteGenerator {
       case Routes.attendencePeltAndPellRequestChange:
         return MaterialPageRoute(
             builder: (ctx) => AttendencePPRequestToChangeScreen());
+      case Routes.attendenceEmployeeLeaveView:
+        return MaterialPageRoute(builder: (ctx) => EmployeeLeaveView());
 
 // Attendence Module Management Side
       case Routes.attendenceSelectionManagementSide:

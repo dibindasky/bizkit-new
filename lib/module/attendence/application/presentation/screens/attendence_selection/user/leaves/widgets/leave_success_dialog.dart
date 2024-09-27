@@ -61,7 +61,7 @@ showLeaveSuccessDialog({required BuildContext context}) {
                         ),
                         text: 'Done',
                         onTap: () {
-                          Get.offNamed(Routes.attendenceLeaves, id: 2);
+                          Get.offNamed(Routes.attendenceLeaves, id: 22);
                           Navigator.of(context).pop();
                         },
                         wdth: 300.w,

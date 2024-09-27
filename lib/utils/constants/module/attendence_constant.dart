@@ -61,6 +61,8 @@ const String calendarImg =
 const String reportImg =
     'asset/images/attendence module/attendence secetion/report_img.png';
 
+const String swapLeaveImage =
+    'asset/images/attendence module/attendence secetion/swap_leave.png';
 // => Attendence selection screen- userside
 
 const List<String> imageUrls = [

@@ -91,6 +91,8 @@ class Routes {
   static const String attendenceReportHistory = '/attendence_report_history';
   static const String attendencePeltAndPellRequestChange =
       '/attendence_peltAndPell_request_change';
+  static const String attendenceEmployeeLeaveView =
+      '/attendence_employee_leave_view';
 
   // Attendence Module Management Side
   static const String attendenceSelectionManagementSide =

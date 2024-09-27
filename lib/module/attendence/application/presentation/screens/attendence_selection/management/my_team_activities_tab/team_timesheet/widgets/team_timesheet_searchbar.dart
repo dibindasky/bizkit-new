@@ -13,7 +13,7 @@ class AttendenceMsTeamTimesheetSearchBar extends StatelessWidget {
       width: 320.w,
       height: 45.h,
       decoration: BoxDecoration(
-        color: klightGreyClr,
+        color: lightColr,
         borderRadius: kBorderRadius15,
       ),
       child: const Padding(

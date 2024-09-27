@@ -99,7 +99,7 @@ class BusinessDetailsScreen extends StatelessWidget {
               //
               AutocompleteTextField(
                 inputType: TextInputType.emailAddress,
-                label: 'Combany Mail',
+                label: 'Company Mail',
                 validate: Validate.email,
                 doAutoFill: false,
                 controller: businessController.companyEmail,

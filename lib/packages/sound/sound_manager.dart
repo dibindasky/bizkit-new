@@ -72,8 +72,15 @@ class SoundManager {
 
   // Start recording
   Future<void> startRecording() async {
-    if (!_isRecorderInitialized) return;
-
+    if (!_isRecorderInitialized) {
+      print('-----------> > > > -----init recorder---------->,./');
+      // Wait for the recorder to be initialized
+      await _initRecorder();
+      if (!_isRecorderInitialized) {
+        print('Recorder not initialized, cannot start recording.');
+        return;
+      }
+    }
     try {
       _filePath = await _getFilePath();
       await _recorder!.startRecorder(

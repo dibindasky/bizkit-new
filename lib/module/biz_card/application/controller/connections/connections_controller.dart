@@ -428,7 +428,8 @@ class ConnectionsController extends GetxController {
         }
         loadingContact.value = '';
         if (connected.isNotEmpty) {
-          GoRouter.of(context).pushNamed(Routes.cardDetailView);
+          GoRouter.of(context).pushNamed(Routes.cardView,
+              pathParameters: {'cardId': connected.first.toCard ?? ''});
           getConnectionCardDetail(cardId: connected.first.toCard ?? '');
         } else if (requested.isNotEmpty) {
           Get.dialog(Container(

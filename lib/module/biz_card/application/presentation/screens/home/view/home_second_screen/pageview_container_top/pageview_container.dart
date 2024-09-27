@@ -28,6 +28,8 @@ class _CardTodaysRemiderBuilderState extends State<CardTodaysRemiderBuilder> {
   void initState() {
     final reminderCOntroller = Get.find<ReminderController>();
     reminderCOntroller.fetchTodaysReminders();
+    reminderCOntroller.fetchHistoryReminders();
+    reminderCOntroller.fetchUpcomingReminders();
     super.initState();
     pageController = PageController(
       viewportFraction: 0.8,
@@ -41,27 +43,27 @@ class _CardTodaysRemiderBuilderState extends State<CardTodaysRemiderBuilder> {
   @override
   Widget build(BuildContext context) {
     final reminderCOntroller = Get.find<ReminderController>();
-
     return Obx(
       () {
         if (reminderCOntroller.todaysReminderLoading.value) {
-          return SizedBox(
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 20.h),
             height: 220.h,
-            child: ShimmerLoader(
-              itemCount: 4,
-              height: 220.h,
-              width: double.infinity,
-              scrollDirection: Axis.horizontal,
-            ),
+            child: ShimmerLoaderTile(height: 220.h, width: double.infinity),
           );
         } else if (reminderCOntroller.todaysReminders.isEmpty) {
-          return Center(
-            child: ErrorRefreshIndicator(
-                onRefresh: () => reminderCOntroller.fetchTodaysReminders()),
+          return SizedBox(
+            height: 210.h,
+            width: double.infinity,
+            child: Center(
+              child: ErrorRefreshIndicator(
+                  errorMessage: 'Pull to Refresh',
+                  onRefresh: () => reminderCOntroller.fetchTodaysReminders()),
+            ),
           );
         }
         return SizedBox(
-          height: 230.h,
+          height: 220.h,
           child: HomeScreenPagviewAnimateBuilder(
             pageController: pageController,
             pageValue: pageValue,
@@ -80,6 +82,7 @@ class _CardTodaysRemiderBuilderState extends State<CardTodaysRemiderBuilder> {
                     widget.fadeCallBack();
                   },
                   child: Container(
+                    height: 220.h,
                     padding: EdgeInsets.only(bottom: 6.h),
                     decoration: BoxDecoration(
                       border: Border.all(color: neonShade, width: 2),

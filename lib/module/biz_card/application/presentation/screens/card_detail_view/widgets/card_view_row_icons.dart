@@ -34,19 +34,26 @@ class CardViewRowWiceIcons extends StatelessWidget {
                         cardController.personalDetails.value!.phone != null &&
                         cardController
                             .personalDetails.value!.phone!.isNotEmpty) {
-                      phone = cardController.personalDetails.value!.phone!;
+                      phone
+                          .addAll(cardController.personalDetails.value!.phone!);
                       itemsHead.add('Personal');
                     }
-                    // if (cardController.businessDetails.value != null &&
-                    //     cardController.businessDetails.value. != null &&
-                    //     state.anotherCard!.businessDetails!.mobileNumber !=
-                    //         null) {
-                    //   items
-                    //       .add(state.anotherCard!.businessDetails!.mobileNumber!);
-                    //   itemsHead.add('Business');
-                    // }
-                    if (cardController.personalDetails.value != null &&
-                        cardController.personalDetails.value!.phone != null) {
+                    if (cardController.businessDetails.value != null &&
+                        cardController.businessDetails.value!.businessPhone !=
+                            null &&
+                        cardController
+                            .businessDetails.value!.businessPhone!.isNotEmpty) {
+                      phone.addAll(
+                          cardController.businessDetails.value!.businessPhone!);
+                      itemsHead.add('Business');
+                    }
+                    if ((cardController.personalDetails.value != null &&
+                            cardController.personalDetails.value!.phone !=
+                                null) ||
+                        (cardController.businessDetails.value != null &&
+                            cardController
+                                    .businessDetails.value!.businessPhone !=
+                                null)) {
                       showModalBottomSheet(
                         context: context,
                         enableDrag: true,
@@ -75,23 +82,21 @@ class CardViewRowWiceIcons extends StatelessWidget {
               }
               return DetailSharingIconWidget(
                 onTap: () {
-                  String email = '';
+                  List<String> email = [];
                   List<String> itemsHead = [];
                   if (cardController.personalDetails.value != null &&
                       cardController.personalDetails.value!.email != null) {
-                    email = cardController.personalDetails.value!.email!;
-                    itemsHead.add('Email');
+                    email.add(cardController.personalDetails.value!.email!);
+                    itemsHead.add('Personal Email');
                   }
-                  // if (state.anotherCard != null &&
-                  //     state.anotherCard!.businessDetails != null &&
-                  //     state.anotherCard!.businessDetails!.email != null) {
-                  //   items.add(state.anotherCard!.businessDetails!.email!);
-                  //   itemsHead.add('Business');
-                  // }
-                  // if (state.anotherCard != null &&
-                  //     state.anotherCard!.personalDetails != null &&
-                  //     state.anotherCard!.personalDetails!.email != null) {
-                  // }
+                  if (cardController.businessDetails.value != null &&
+                      cardController.businessDetails.value!.businessEmail !=
+                          null) {
+                    email.add(
+                        cardController.businessDetails.value!.businessEmail!);
+                    itemsHead.add('Business Email');
+                  }
+
                   showModalBottomSheet(
                     context: context,
                     enableDrag: true,
@@ -101,7 +106,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     builder: (context) => PreviewScreenRowIconsModelSheet(
                       fromPreview: false,
                       image: imagePhone,
-                      items: [email],
+                      items: email,
                       itemsHeading: itemsHead,
                     ),
                   );

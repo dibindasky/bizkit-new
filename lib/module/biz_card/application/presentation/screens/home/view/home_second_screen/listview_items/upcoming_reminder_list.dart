@@ -70,12 +70,11 @@ class _SecondAnimationPageListViewUpcomingRemindersState
             () {
               if (reminderController.upcomingReminderLoading.value) {
                 return ShimmerLoader(
-                    seprator: kHeight10,
-                    itemCount: 3,
-                    height: 80.h,
-                    width: double.infinity);
-              }
-              if (reminderController.upcomingReminders.isEmpty) {
+                    itemCount: 6,
+                    height: 65.h,
+                    width: double.infinity,
+                    seprator: kHeight10);
+              } else if (reminderController.upcomingReminders.isEmpty) {
                 return const Center(child: Text('No upcoming Reminders'));
               }
               return ListView.separated(

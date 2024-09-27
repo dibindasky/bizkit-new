@@ -15,10 +15,10 @@ class SecondScreenPageViewContents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
+    return 
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
           children: [
             kHeight10,
             Row(
@@ -111,9 +111,8 @@ class SecondScreenPageViewContents extends StatelessWidget {
               ],
             ),
           ],
-        ),
-      ],
-    );
+        );
+
   }
 
   Widget buildTextRow(String label, String? value) {

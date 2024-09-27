@@ -37,8 +37,6 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                   connectionsController.fetchRecievedConnectionRequests();
                   GoRouter.of(context)
                       .pushNamed(Routes.myAllConnectionsAndContacts);
-                  // Navigator.of(context).push(
-                  //     cardFadePageRoute(const MyConnectionsViewAllContacts()));
                 },
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(1)),
@@ -47,20 +45,6 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 8),
-                      // child: CustomShowCaseView(
-                      //   image: personImage,
-                      //   globalKey: globalKeyViewAllConnections,
-                      //   tittle: 'View your added conecctions',
-                      //   description: '',
-                      //   child: Text(
-                      //     'View All',
-                      //     style: textThinStyle1.copyWith(
-                      //         decorationColor: kwhite,
-                      //         decorationThickness: 1.5,
-                      //         color: kwhite,
-                      //         fontSize: 10.sp),
-                      //   ),
-                      // ),
                       child: Text(
                         'View All',
                         style: textThinStyle1.copyWith(
@@ -160,34 +144,6 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                             GoRouter.of(context)
                                 .pushNamed(Routes.addConnection);
                           },
-                          // child: CustomShowCaseView(
-                          //   description: '',
-                          //   globalKey: globalKeyaddConnections,
-                          //   tittle: 'Start Add connections from here',
-                          //   image: '',
-                          //   child: Column(
-                          //     children: [
-                          //       ClipRRect(
-                          //         borderRadius: BorderRadius.circular(12),
-                          //         child: ColoredBox(
-                          //           color: textFieldFillColr,
-                          //           child: SizedBox(
-                          //             height: 47.h,
-                          //             width: 50.w,
-                          //             child: Center(
-                          //               child: Icon(
-                          //                 Icons.add,
-                          //                 size: 18.h,
-                          //                 color: kwhite,
-                          //               ),
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //       const Expanded(child: Text('Add')),
-                          //     ],
-                          //   ),
-                          // ),
                           child: Column(
                             children: [
                               ClipRRect(

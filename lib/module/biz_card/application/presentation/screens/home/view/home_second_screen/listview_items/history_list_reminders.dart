@@ -1,7 +1,10 @@
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/listview_items/reminder_tile.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SecondAnimationPageListViewHistoryReminders extends StatefulWidget {
@@ -61,28 +64,35 @@ class _SecondAnimationPageListViewHistoryRemindersState
         builder: (context, child) {
           final reminderController = Get.find<ReminderController>();
           return Obx(
-            () => ListView.separated(
-              controller: widget.scrollController,
-              separatorBuilder: (context, index) => adjustHieght(khieght * .02),
-              itemCount: reminderController.historyReminders.length,
-              itemBuilder: (context, index) {
-                if (widget.doTransition && index == 0) {
-                  return Transform.translate(
-                      offset: Offset(0, 100 * _animation.value),
-                      child: ReminderTile(
-                          reminder:
-                              reminderController.historyReminders[index]));
-                } else if (widget.doTransition && index == 1) {
-                  return Transform.translate(
-                      offset: Offset(0, -100 * _animation.value),
-                      child: ReminderTile(
-                          reminder:
-                              reminderController.historyReminders[index]));
-                }
-                return ReminderTile(
-                    reminder: reminderController.historyReminders[index]);
-              },
-            ),
+            () => reminderController.historyReminderLoading.value
+                ? ShimmerLoader(
+                    itemCount: 6,
+                    height: 65.h,
+                    width: double.infinity,
+                    seprator: kHeight10)
+                : ListView.separated(
+                    controller: widget.scrollController,
+                    separatorBuilder: (context, index) =>
+                        adjustHieght(khieght * .02),
+                    itemCount: reminderController.historyReminders.length,
+                    itemBuilder: (context, index) {
+                      if (widget.doTransition && index == 0) {
+                        return Transform.translate(
+                            offset: Offset(0, 100 * _animation.value),
+                            child: ReminderTile(
+                                reminder: reminderController
+                                    .historyReminders[index]));
+                      } else if (widget.doTransition && index == 1) {
+                        return Transform.translate(
+                            offset: Offset(0, -100 * _animation.value),
+                            child: ReminderTile(
+                                reminder: reminderController
+                                    .historyReminders[index]));
+                      }
+                      return ReminderTile(
+                          reminder: reminderController.historyReminders[index]);
+                    },
+                  ),
           );
         });
   }

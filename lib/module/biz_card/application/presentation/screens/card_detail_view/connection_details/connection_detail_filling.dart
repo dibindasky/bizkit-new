@@ -8,7 +8,6 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/event_button.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -106,50 +105,48 @@ class _ScreenConnectionDetailFillingState
                     }),
                   ),
                   Positioned(
-                      bottom: 10,
-                      right: 10,
-                      child: GestureDetector(
-                          onTap: () => showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  title: const Text('Choose an option'),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      ListTile(
-                                        leading: const Icon(Icons.camera_alt),
-                                        title: const Text('Take a photo'),
-                                        onTap: () {
-                                          Navigator.of(context).pop();
-                                          controller.addSelfieimageToList(
-                                              cameraOrGallery: true);
-                                        },
-                                      ),
-                                      ListTile(
-                                        leading:
-                                            const Icon(Icons.photo_library),
-                                        title:
-                                            const Text('Choose from gallery'),
-                                        onTap: () {
-                                          Navigator.of(context).pop();
-                                          controller.addSelfieimageToList(
-                                              cameraOrGallery: false);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                    bottom: 10,
+                    right: 10,
+                    child: GestureDetector(
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Choose an option'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ListTile(
+                                leading: const Icon(Icons.camera_alt),
+                                title: const Text('Take a photo'),
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  controller.addSelfieimageToList(
+                                      cameraOrGallery: true);
+                                },
                               ),
-                          child: const CircleAvatar(
-                            child: Icon(Icons.add),
-                          )))
+                              ListTile(
+                                leading: const Icon(Icons.photo_library),
+                                title: const Text('Choose from gallery'),
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  controller.addSelfieimageToList(
+                                      cameraOrGallery: false);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      child: const CircleAvatar(
+                        child: Icon(Icons.add),
+                      ),
+                    ),
+                  )
                 ],
               ),
               const SizedBox(height: 20),
               CustomTextFormField(
-                labelText: 'notes',
-                controller: notesController,
-              ),
+                  labelText: 'notes', controller: notesController),
               const SizedBox(height: 10),
               CustomTextFormField(
                   labelText: 'Occasion', controller: occasionController),
@@ -158,10 +155,9 @@ class _ScreenConnectionDetailFillingState
                   labelText: 'Location', controller: locationController),
               const SizedBox(height: 10),
               AutocompleteTextField(
-                label: 'Category',
-                autocompleteItems: bizcardCategories,
-                controller: categoryController,
-              ),
+                  label: 'Category',
+                  autocompleteItems: bizcardCategories,
+                  controller: categoryController),
               const SizedBox(height: 20),
               Obx(() {
                 return controller.connectionDetailLoading.value

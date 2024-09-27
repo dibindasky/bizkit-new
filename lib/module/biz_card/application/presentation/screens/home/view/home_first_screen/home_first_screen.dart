@@ -57,7 +57,6 @@ class _ScreenCardsHomeFirstAnimationState
   void initState() {
     final reminderController = Get.find<ReminderController>();
     reminderController.fetchAllReminders();
-    reminderController.fetchUpcomingReminders();
     super.initState();
     homeFirstAnimationController = AnimationController(
       vsync: this,

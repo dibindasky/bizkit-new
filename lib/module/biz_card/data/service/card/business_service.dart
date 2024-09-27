@@ -28,12 +28,14 @@ class BusinessService implements BusinessRepo {
   Future<Either<Failure, SuccessResponseModel>> businessDetailInitial(
       {required BusinessDetialInitial businessInitial}) async {
     try {
+      log('businessDetailInitial data ==> ${businessInitial.toJson()}');
       final responce = await apiService.put(ApiEndPoints.businessDetils,
           data: businessInitial.toJson());
       log('businessDetailInitial ==>success');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('businessDetailInitial DioException ${e.response?.statusCode} $e');
+      log('businessDetailInitial DioException data => ${e.response?.data}');
       return Left(Failure(message: errorMessage));
     } catch (e) {
       log('businessDetailInitial catch $e');

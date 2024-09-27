@@ -6,9 +6,11 @@ part 'business_detial_initial.g.dart';
 class BusinessDetialInitial {
   @JsonKey(name: 'business_name')
   String? businessName;
-  @JsonKey(name: 'business_emai')
+  @JsonKey(name: 'company_name')
+  String? companyName;
+  @JsonKey(name: 'business_email')
   String? businessEmail;
-  @JsonKey(name: 'bussiness_phone')
+  @JsonKey(name: 'business_phone')
   List<String>? bussinessPhone;
   @JsonKey(name: 'business_website')
   String? websiteLink;
@@ -21,6 +23,7 @@ class BusinessDetialInitial {
     this.businessEmail,
     this.bussinessPhone,
     this.businessDetailsId,
+    this.companyName,
   });
 
   factory BusinessDetialInitial.fromJson(Map<String, dynamic> json) {

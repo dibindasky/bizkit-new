@@ -113,6 +113,7 @@ class BusinesDetailsController extends GetxController {
       bussinessPhone: [companyNumber.text],
       businessName: businessName.text,
       websiteLink: companyWebsiteLink.text,
+      companyName: commpanyName.text,
       businessDetailsId:
           cardController.bizcardDetail.value.businessDetails?.id ?? '',
     );

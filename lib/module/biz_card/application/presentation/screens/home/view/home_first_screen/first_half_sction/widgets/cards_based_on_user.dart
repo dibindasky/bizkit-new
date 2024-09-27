@@ -1,15 +1,12 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/card.dart'
     as cards;
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class CardsbasedOnUserConnection extends StatelessWidget {
@@ -19,10 +16,9 @@ class CardsbasedOnUserConnection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final connectionsController = Get.find<ConnectionsController>();
     return SizedBox(
-      height: 300.h,
-      child: Column(children: [
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Text('Cards', style: textStyle1),
         ...List.generate(
           (card?.length ?? 0),
           (index) => Container(

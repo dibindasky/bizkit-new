@@ -7,6 +7,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/home/vie
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,6 @@ class ReminderTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('image ${reminder.profilePicture}');
     return InkWell(
       onTap: () {
         Get.find<ReminderController>()
@@ -63,9 +63,10 @@ class ReminderTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text('Discussion with', style: textHeadStyle1),
-                Text(reminder.ownerName ?? '',
-                    style: textHeadStyle1.copyWith()),
+                Text('Discussion with', style: textStyle1),
+                Text(reminder.ownerName ?? '', style: textStyle1.copyWith()),
+                Text(DateTimeFormater.getDDMMHHMMformat(reminder.reminderDate),
+                    style: textThinerStyle1),
               ],
             ),
             const Spacer(),

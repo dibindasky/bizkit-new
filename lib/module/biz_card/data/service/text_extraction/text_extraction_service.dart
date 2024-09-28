@@ -20,7 +20,7 @@ class TextExtractionService implements TextExtractionRepo {
         ApiEndPoints.textExtraction,
         data: textExtractionModel.toJson(),
       );
-      log('Text Extracion ==>success');
+      log('Text Extracion ==>success ${responce.data}');
       return Right(TextExtractionResponce.fromJson(responce.data));
     } on DioException catch (e) {
       log('textExtracion DioException ${e.response?.statusCode} $e');

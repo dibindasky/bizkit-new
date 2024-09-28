@@ -154,6 +154,7 @@ class _TimeExpenceCreationState extends State<TimeExpenceCreation> {
           border: InputBorder.none,
         ),
         onChanged: (value) {
+          if (description) return;
           controller.text = value.replaceAll(' ', '');
         },
         validator: (value) {

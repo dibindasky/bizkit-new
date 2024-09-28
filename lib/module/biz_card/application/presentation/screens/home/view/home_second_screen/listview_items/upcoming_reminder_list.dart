@@ -75,7 +75,12 @@ class _SecondAnimationPageListViewUpcomingRemindersState
                     width: double.infinity,
                     seprator: kHeight10);
               } else if (reminderController.upcomingReminders.isEmpty) {
-                return const Center(child: Text('No upcoming Reminders'));
+                return Column(
+              children: [
+                Expanded(child: Image.asset(emptyNodata2)),
+                const Text('No Reminders Created'),
+              ],
+            );
               }
               return ListView.separated(
                 controller: widget.scrollController,

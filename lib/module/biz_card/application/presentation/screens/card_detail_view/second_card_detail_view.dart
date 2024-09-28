@@ -7,6 +7,7 @@ import 'package:bizkit/module/biz_card/application/controller/received_card/rece
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
+import 'package:bizkit/packages/share/share_plus.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/dailog.dart';
@@ -92,7 +93,10 @@ class _ScreenCardSecondDetailViewState
                     child: const Text('Delete card'),
                   ),
                   PopupMenuItem(
-                    onTap: () {},
+                    onTap: () {
+                      SharePlus.shareVisitingCardDetails(
+                          visitingCardController.visitingCardDetails.value);
+                    },
                     value: 'Share card',
                     child: const Text('Share card'),
                   )

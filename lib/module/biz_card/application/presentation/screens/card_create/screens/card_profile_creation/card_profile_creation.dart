@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
@@ -68,60 +65,60 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
               children: [
                 adjustHieght(khieght * .03),
                 // pick user photo
-                Stack(
-                  children: [
-                    imageTestingBase64 == null
-                        ? const CircleAvatar(
-                            radius: 70,
-                            backgroundColor: kblack,
-                            backgroundImage: AssetImage(
-                              'asset/images/profileCircle.png',
-                            ),
-                          )
-                        : CircleAvatar(
-                            radius: 70,
-                            backgroundColor: kblack,
-                            backgroundImage: MemoryImage(
-                                base64.decode(getBase64(imageTestingBase64))),
-                          ),
-                    Positioned(
-                      bottom: 17,
-                      right: 3,
-                      child: InkWell(
-                        onTap: () {
-                          // if (state.userPhotos != null) {
-                          //   showCustomConfirmationDialogue(
-                          //       context: context,
-                          //       title: 'Remove profile image ?',
-                          //       buttonText: 'Remove',
-                          //       onTap: () {
-                          //         context
-                          //             .read<UserDataBloc>()
-                          //             .add(UserDataEvent.removeUserPhoto());
-                          //       });
-                          // } else {
-                          //   cameraAndGalleryPickImage(
-                          //       context: context,
-                          //       onPressCam: () {
-                          //         context.read<UserDataBloc>().add(
-                          //             UserDataEvent.pickUserPhotos(cam: true));
-                          //       },
-                          //       onPressGallery: () {
-                          //         context.read<UserDataBloc>().add(
-                          //             UserDataEvent.pickUserPhotos(cam: false));
-                          //       });
-                          // }
-                        },
-                        child: CircleAvatar(
-                          radius: 13,
-                          child: Icon(imageTestingBase64 != null
-                              ? Icons.close
-                              : Icons.add),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // Stack(
+                //   children: [
+                //     imageTestingBase64 == null
+                //         ? const CircleAvatar(
+                //             radius: 70,
+                //             backgroundColor: kblack,
+                //             backgroundImage: AssetImage(
+                //               'asset/images/profileCircle.png',
+                //             ),
+                //           )
+                //         : CircleAvatar(
+                //             radius: 70,
+                //             backgroundColor: kblack,
+                //             backgroundImage: MemoryImage(
+                //                 base64.decode(getBase64(imageTestingBase64))),
+                //           ),
+                //     Positioned(
+                //       bottom: 17,
+                //       right: 3,
+                //       child: InkWell(
+                //         onTap: () {
+                //           // if (state.userPhotos != null) {
+                //           //   showCustomConfirmationDialogue(
+                //           //       context: context,
+                //           //       title: 'Remove profile image ?',
+                //           //       buttonText: 'Remove',
+                //           //       onTap: () {
+                //           //         context
+                //           //             .read<UserDataBloc>()
+                //           //             .add(UserDataEvent.removeUserPhoto());
+                //           //       });
+                //           // } else {
+                //           //   cameraAndGalleryPickImage(
+                //           //       context: context,
+                //           //       onPressCam: () {
+                //           //         context.read<UserDataBloc>().add(
+                //           //             UserDataEvent.pickUserPhotos(cam: true));
+                //           //       },
+                //           //       onPressGallery: () {
+                //           //         context.read<UserDataBloc>().add(
+                //           //             UserDataEvent.pickUserPhotos(cam: false));
+                //           //       });
+                //           // }
+                //         },
+                //         child: CircleAvatar(
+                //           radius: 13,
+                //           child: Icon(imageTestingBase64 != null
+                //               ? Icons.close
+                //               : Icons.add),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 adjustHieght(khieght * .04),
 
                 // user data form
@@ -136,7 +133,8 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
                         controller: cardController.nameController,
                         inputType: TextInputType.text,
                         textCapitalization: TextCapitalization.words,
-                        autocompleteItems: const [],
+                        autocompleteItems:
+                            textExtractionController.extractedNames,
                       ),
                       // personal phone number
                       AutocompleteTextField(
@@ -145,7 +143,8 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
                         label: 'Phone Number *',
                         controller: cardController.phoneController,
                         inputType: TextInputType.phone,
-                        autocompleteItems: const [],
+                        autocompleteItems:
+                            textExtractionController.extractedPhoneNumbers,
                       ),
                       // personal email
                       AutocompleteTextField(
@@ -153,7 +152,8 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
                         label: 'Email *',
                         controller: cardController.emailController,
                         inputType: TextInputType.emailAddress,
-                        autocompleteItems: const [],
+                        autocompleteItems:
+                            textExtractionController.extractedEmails,
                       ),
                       //Company name
                       AutocompleteTextField(
@@ -162,7 +162,8 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
                         label: 'Company Name *',
                         textCapitalization: TextCapitalization.words,
                         controller: cardController.companyNameController,
-                        autocompleteItems: const <String>[],
+                        autocompleteItems:
+                            textExtractionController.extractedCompany,
                       ),
                       // business category
                       AutocompleteTextField(
@@ -183,7 +184,8 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
                         label: 'Designation *',
                         textCapitalization: TextCapitalization.words,
                         controller: cardController.designationController,
-                        autocompleteItems: const <String>[],
+                        autocompleteItems:
+                            textExtractionController.extractedDesignation,
                       ),
                       adjustHieght(khieght * .05),
                     ],
@@ -207,38 +209,8 @@ class _ScreenCardProfileCreationState extends State<ScreenCardProfileCreation> {
                           showSnackbar(context,
                               message: 'Please Fill the Required Feilds');
                         }
-                        // context.push(Routes.bizCardNavbar);
                         if (personalDataFirstFormKey.currentState!.validate()) {
                           cardController.createCard(context);
-                          // context.read<UserDataBloc>().add(UserDataEvent.createCard(
-                          //     cardFirstCreationModel: CardFirstCreationModel(
-                          //         cardJson: state.scannedImageDatasModel == null
-                          //             ? null
-                          //             : ExtractedTextModel(
-                          //                 designations: state
-                          //                     .scannedImageDatasModel
-                          //                     ?.designations,
-                          //                 emails: state
-                          //                     .scannedImageDatasModel?.emails,
-                          //                 names: state
-                          //                     .scannedImageDatasModel?.names,
-                          //                 phoneNumbers: state
-                          //                     .scannedImageDatasModel?.phone,
-                          //                 websites: state.scannedImageDatasModel
-                          //                     ?.websites),
-                          //         cardImage: state.scannedImagesCardCreation
-                          //             .map((e) => ImageCard(image: e.base64))
-                          //             .toList(),
-                          //         name: context
-                          //             .read<UserDataBloc>()
-                          //             .nameController
-                          //             .text
-                          //             .trim(),
-                          //         designation: context.read<UserDataBloc>().designationController.text.trim(),
-                          //         phoneNumber: context.read<UserDataBloc>().phoneController.text.trim(),
-                          //         email: context.read<UserDataBloc>().emailController.text.trim(),
-                          //         photos: state.userPhotos ?? [],
-                          //         businessCategoryId: state.businessCategories.firstWhere((element) => element.category == context.read<UserDataBloc>().businessCategoryController.text.trim()).id)));
                         }
                       },
                     );

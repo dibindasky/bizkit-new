@@ -21,7 +21,7 @@ class PickedScanningCards extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         backgroundColor: knill,
         title: Text(
           'Selecetd Images',
@@ -143,17 +143,19 @@ class PickedScanningCards extends StatelessWidget {
                                 .pickedImageUrl.isEmpty) {
                               showSnackbar(
                                 context,
-                                message: 'Select atleast Image',
+                                message: 'Select atleast one Image',
                                 backgroundColor: kred,
                               );
+                            } else {
+                              textExtractionController.textExtraction(
+                                  context: context,
+                                  fromVisitingCard: false,
+                                  textExtractionModel: TextExtractionModel(
+                                      images: textExtractionController
+                                          .pickedImageUrl
+                                          .map((e) => e.base64!)
+                                          .toList()));
                             }
-                            textExtractionController.textExtraction(
-                                context: context,
-                                fromVisitingCard: false,
-                                textExtractionModel: TextExtractionModel(
-                                    image: textExtractionController
-                                            .pickedImageUrl.first.base64 ??
-                                        ''));
                           },
                         ),
                 ),

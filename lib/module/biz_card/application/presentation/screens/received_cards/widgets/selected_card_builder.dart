@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/received_card_screen.dart';
 import 'package:bizkit/utils/image_preview/image_preview.dart';
@@ -12,7 +11,6 @@ import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 class SelectedCard extends StatelessWidget {
   const SelectedCard({super.key});
@@ -47,19 +45,6 @@ class SelectedCard extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: textExtractionController.pickedImageUrl.length,
                     itemBuilder: (context, index) {
-                      // if (state.pickImageLoading) {
-                      //   length += 1;
-                      //   if (index + 1 == length) {
-                      //     return SizedBox(
-                      //       height: 150.dm,
-                      //       child: const Center(
-                      //         child: CircularProgressIndicator(
-                      //           color: neonShade,
-                      //         ),
-                      //       ),
-                      //     );
-                      //   }
-                      // }
                       return Stack(
                         children: [
                           InkWell(
@@ -145,9 +130,10 @@ class SelectedCard extends StatelessWidget {
                                 context: context,
                                 fromVisitingCard: true,
                                 textExtractionModel: TextExtractionModel(
-                                    image: textExtractionController
-                                            .pickedImageUrl.first.base64 ??
-                                        ''));
+                                    images: textExtractionController
+                                        .pickedImageUrl
+                                        .map((e) => e.base64!)
+                                        .toList()));
                           },
                         ),
                 ),

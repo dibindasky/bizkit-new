@@ -4,6 +4,7 @@ import 'package:bizkit/module/biz_card/application/controller/connections/connec
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ScreenSharedCardListing extends StatelessWidget {
@@ -26,7 +27,15 @@ class ScreenSharedCardListing extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (controller.sharedCards.isEmpty) {
-            return const Center(child: Text('No Cards found'));
+            return Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.h),
+                  child: Image.asset(emptyDataGif),
+                ),
+                const Text('No Shared Cards Found')
+              ],
+            );
           } else {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -19,24 +19,29 @@ class DateTimeFormater {
       final formattedTime = DateFormat.jm().format(updatedDateTime);
 
       return formattedTime;
+    } catch (_) {
+      return '';
+    }
+  }
+
+  /// return format "11 NOV 12:15 AM"
+  static String getDDMMHHMMformat(String? date) {
+    if (date == null) return '';
+    try {
+      DateTime dateTime = DateTime.now(); // Example DateTime
+      return DateFormat('d MMM h:mm a').format(dateTime);
     } catch (e) {
-      // Handle parsing or formatting errors
-      print('Error formatting time: $e');
       return '';
     }
   }
 
   static String formatDateTime(String dateString, String timeString) {
-    // Parse the date and time strings
     DateTime dateTime;
     try {
       dateTime = DateTime.parse('$dateString $timeString');
-    } on FormatException catch (e) {
-      // Handle parsing error (optional: throw exception or return default value)
-      print('Invalid date or time format: $e');
+    } on FormatException catch (_) {
       return '$dateString , $timeString'; // Or return any default value you prefer
     } catch (e) {
-      print('Invalid date time exxception: $e');
       return '$dateString , $timeString';
     }
 

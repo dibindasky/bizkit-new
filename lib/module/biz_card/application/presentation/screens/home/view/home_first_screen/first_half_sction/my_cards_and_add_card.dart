@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -60,10 +58,8 @@ class _MyCardsAndAddCardSectionState extends State<MyCardsAndAddCardSection> {
               adjustWidth(kwidth * .03),
               Expanded(
                 child: GestureDetector(
-                  onTap: () => Navigator.of(context).push(
-                    cardFadePageRoute(
-                        const ScreenCardCreationStarting(fromHome: true)),
-                  ),
+                  onTap: () =>
+                      GoRouter.of(context).pushNamed(Routes.cardCreation),
                   child: Container(
                     height: kwidth * 0.35,
                     decoration: BoxDecoration(

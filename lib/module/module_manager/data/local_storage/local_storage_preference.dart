@@ -2,9 +2,7 @@ import 'package:bizkit/service/secure_storage/local_storage.dart';
 
 class LocalStoragePreference {
   static const String _userName = 'user_name_key';
-  static const String _accessToken = 'access_token_key';
-  static const String _refreshToken = 'refresh_token_key';
-  static const String _userId = 'user_id_key';
+  static const String _lastUsedModule = 'module_last_used';
 
   static void setName(String name) async {
     await LocalStorageService.setString(_userName, name);
@@ -15,30 +13,13 @@ class LocalStoragePreference {
     return name ?? '';
   }
 
-  // static void setAccessToken(String token) async {
-  //   await LocalStorageService.setString(_accessToken, token);
-  // }
+  static void setLastUsedModule(String module) async {
+    await LocalStorageService.setString(_lastUsedModule, module);
+  }
 
-  // static Future<String> getAccessToken() async {
-  //   final token = await LocalStorageService.getString(_accessToken);
-  //   return token ?? '';
-  // }
+  static Future<String?> getLastUsedModule() async {
+    final module = await LocalStorageService.getString(_lastUsedModule);
+    return module;
+  }
 
-  // static void setRefreshToken(String token) async {
-  //   await LocalStorageService.setString(_refreshToken, token);
-  // }
-
-  // static Future<String> getRefreshToken() async {
-  //   final token = await LocalStorageService.getString(_refreshToken);
-  //   return token ?? '';
-  // }
-
-  // static void setUserId(String token) async {
-  //   await LocalStorageService.setString(_userId, token);
-  // }
-
-  // static Future<String> getUserId() async {
-  //   final token = await LocalStorageService.getString(_userId);
-  //   return token ?? '';
-  // }
 }

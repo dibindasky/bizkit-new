@@ -288,7 +288,8 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
             ),
           ),
           if (isDropdownVisible && filteredAutocompleteItems.isNotEmpty)
-            Container(
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
               padding: const EdgeInsets.all(8),
               child: ListView.builder(
                 scrollDirection: Axis.vertical,

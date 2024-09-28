@@ -116,7 +116,7 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
             .toList() ??
         [];
 
-    final imageIndex = imageAttachments.indexWhere(
+    final imageIndex = (imageAttachments.reversed.toList()).indexWhere(
       (element) => controller.singleTask.value.attachments?[index] == element,
     );
     if (type == 'jpg' || type == 'png') {

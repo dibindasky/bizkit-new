@@ -86,7 +86,7 @@ class ChatController extends GetxController {
   RxInt playBackPosition = 0.obs;
 
   /// timer for audio
-  Timer recordTimer = Timer(Duration.zero, () {});
+  late Timer recordTimer;
 
   /// currently active poll details
   Rx<Poll> pollDetail = Poll().obs;
@@ -507,17 +507,33 @@ class ChatController extends GetxController {
     }
   }
 
+  /// add counter for timer voice chat
+  void _startRecordTimer() {
+    recordDuration.value = 0;
+    recordTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      recordDuration.value++;
+    });
+  }
+
+  /// end record timer
+  void _endRecordTimer() {
+    recordTimer.cancel();
+  }
+
   /// start recording audio
   void _startRecording() async {
+    recordDuration.value = 0;
     recordedAudio.value = '';
     isRecording.value = true;
     await soundManager.startRecording();
+    _startRecordTimer();
     print('recording started ==> ');
   }
 
   /// stop recording audio
   void _stopRecording() async {
     await soundManager.stopRecording();
+    _endRecordTimer();
     recordedAudio.value = soundManager.getBase64Audio() ?? '';
     print('recorded audio => ${recordedAudio.value}');
     isRecording.value = false;
@@ -534,6 +550,11 @@ class ChatController extends GetxController {
     } else {
       _playRecordedAudio();
     }
+  }
+
+  /// delete recorded audio
+  void deleteRecordedAudio() {
+    recordedAudio.value = '';
   }
 
   void getRecordDuration() {

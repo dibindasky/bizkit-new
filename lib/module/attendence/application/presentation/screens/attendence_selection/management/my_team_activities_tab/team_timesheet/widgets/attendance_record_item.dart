@@ -21,7 +21,6 @@ class AttendanceRecordItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 5),
       decoration: BoxDecoration(
         color: lightColr,

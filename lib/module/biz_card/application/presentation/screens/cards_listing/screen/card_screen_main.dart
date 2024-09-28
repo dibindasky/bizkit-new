@@ -12,6 +12,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/cards_li
 import 'package:bizkit/module/biz_card/application/presentation/widgets/contacts_list_bottom_share_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
+import 'package:bizkit/packages/share/share_plus.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/dailog.dart';
@@ -87,6 +88,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
     });
     return Scaffold(
       appBar: AppBar(
+        title: Text('  Cards', style: textHeadStyle1),
         automaticallyImplyLeading: false,
         backgroundColor: knill,
         actions: [
@@ -121,6 +123,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                 shrinkWrap: true,
                 children: [
                   adjustHieght(khieght * .02),
+                  // biz card
                   SizedBox(
                     height: 280.h,
                     child: GetBuilder<CardController>(
@@ -139,11 +142,11 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                             ),
                           );
                         } else if (controller.bizcards.isEmpty) {
-                          return const Expanded(
-                            flex: 2,
-                            child: Center(
-                              child: Text('No cards'),
-                            ),
+                          return Column(
+                            children: [
+                              Expanded(child: Image.asset(emptyDataGif)),
+                              const Text('No Cards Found')
+                            ],
                           );
                         } else {
                           return ListView.separated(
@@ -568,159 +571,172 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                   ),
                   adjustHieght(khieght * .03),
                   // visiting card
-                  Obx(
-                    () {
-                      if (visitingCardController.loadingForVisitingCard.value) {
-                        return SizedBox(
-                          height: 200.h,
-                          child: ShimmerLoader(
+                  SizedBox(
+                    height: 200.h,
+                    child: Obx(
+                      () {
+                        if (visitingCardController
+                            .loadingForVisitingCard.value) {
+                          return SizedBox(
                             height: 200.h,
-                            seprator: kWidth10,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: visitingCardController
-                                    .visitingCards.isEmpty
-                                ? 5
-                                : visitingCardController.visitingCards.length,
-                            width: 300.w,
-                          ),
-                        );
-                      } else if (visitingCardController.visitingCards.isEmpty) {
-                        // return const Expanded(
-                        //   flex: 2,
-                        //   child: Center(
-                        //     child: Text('No visiting cards'),
-                        //   ),
-                        // );
-                        return kempty;
-                      } else {
-                        return SizedBox(
-                          height: 200.h,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount:
-                                visitingCardController.visitingCards.length,
-                            separatorBuilder: (context, index) =>
-                                adjustWidth(kwidth * .05),
-                            itemBuilder: (context, index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: kBorderRadius10,
-                                  border: Border.all(color: neonShade),
-                                ),
-                                width: 300,
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        SizedBox(
-                                          width: 300,
-                                          height: 165,
-                                          child: InkWell(
-                                            onTap: () {
-                                              visitingCardController
-                                                  .fetchReceivedCardDetails(
-                                                      receivedCardId:
+                            child: ShimmerLoader(
+                              height: 200.h,
+                              seprator: kWidth10,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: visitingCardController
+                                      .visitingCards.isEmpty
+                                  ? 5
+                                  : visitingCardController.visitingCards.length,
+                              width: 300.w,
+                            ),
+                          );
+                        } else if (visitingCardController
+                            .visitingCards.isEmpty) {
+                          // return const Expanded(
+                          //   flex: 2,
+                          //   child: Center(
+                          //     child: Text('No visiting cards'),
+                          //   ),
+                          // );
+                          return kempty;
+                        } else {
+                          return SizedBox(
+                            height: 200.h,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemCount:
+                                  visitingCardController.visitingCards.length,
+                              separatorBuilder: (context, index) =>
+                                  adjustWidth(kwidth * .05),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: kBorderRadius10,
+                                    border: Border.all(color: neonShade),
+                                  ),
+                                  width: 300,
+                                  child: Column(
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          SizedBox(
+                                            width: 300,
+                                            height: 165,
+                                            child: InkWell(
+                                              onTap: () {
+                                                visitingCardController
+                                                    .fetchReceivedCardDetails(
+                                                        receivedCardId:
+                                                            visitingCardController
+                                                                    .visitingCards[
+                                                                        index]
+                                                                    .id ??
+                                                                '');
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ScreenCardSecondDetailView(
+                                                      visitingCardId:
                                                           visitingCardController
                                                                   .visitingCards[
                                                                       index]
                                                                   .id ??
-                                                              '');
-                                              Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ScreenCardSecondDetailView(
-                                                    visitingCardId:
-                                                        visitingCardController
-                                                                .visitingCards[
-                                                                    index]
-                                                                .id ??
-                                                            '',
+                                                              '',
+                                                    ),
                                                   ),
+                                                );
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(10),
+                                                  topRight: Radius.circular(10),
                                                 ),
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(10),
-                                                topRight: Radius.circular(10),
-                                              ),
-                                              child: Image.memory(
-                                                base64Decode(
-                                                  visitingCardController
-                                                          .visitingCards[index]
-                                                          .cardImage ??
-                                                      visitingCardController
-                                                          .visitingCards[index]
-                                                          .selfie ??
-                                                      '',
+                                                child: Image.memory(
+                                                  base64Decode(
+                                                    visitingCardController
+                                                            .visitingCards[
+                                                                index]
+                                                            .cardImage ??
+                                                        visitingCardController
+                                                            .visitingCards[
+                                                                index]
+                                                            .selfie ??
+                                                        '',
+                                                  ),
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    return const Icon(
+                                                      Icons
+                                                          .image_not_supported_outlined,
+                                                    );
+                                                  },
                                                 ),
-                                                fit: BoxFit.cover,
-                                                errorBuilder: (context, error,
-                                                    stackTrace) {
-                                                  return const Icon(
-                                                    Icons
-                                                        .image_not_supported_outlined,
-                                                  );
-                                                },
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    adjustHieght(khieght * .02),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            ' ${visitingCardController.visitingCards[index].name ?? ''}',
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () async {
-                                            // print(
-                                            //     'card share=> ${state.secondCards[index].pdf == null ? 'no data' : 'data'}');
-                                            // await SharePlus.sharePdfFromBase64(
-                                            //     state.secondCards[index].pdf ??
-                                            //         '',
-                                            //     state.secondCards[index].name ??
-                                            //         '');
-                                          },
-                                          child: Container(
-                                            margin: const EdgeInsets.only(
-                                                right: 10),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: kblue,
-                                            ),
-                                            width: 100,
-                                            height: 30,
-                                            child: Center(
-                                              child: Text('Share',
-                                                  style: textStyle1),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    kHeight10
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      }
-                    },
+                                        ],
+                                      ),
+                                      adjustHieght(khieght * .02),
+                                      Text(
+                                          ' ${visitingCardController.visitingCards[index].name ?? ''}',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: textHeadStyle1),
+                                      Text(
+                                        ' ${visitingCardController.visitingCards[index].company ?? ''}',
+                                        overflow: TextOverflow.ellipsis,
+                                        style: textStyle1,
+                                      ),
+                                      // Row(
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.spaceAround,
+                                      //   children: [
+                                      //     Expanded(
+                                      //       child: Text(
+                                      //         ' ${visitingCardController.visitingCards[index].name ?? ''}',
+                                      //         overflow: TextOverflow.ellipsis,
+                                      //         style: TextStyle(
+                                      //           fontSize: 16.sp,
+                                      //           fontWeight: FontWeight.w700,
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //     // InkWell(
+                                      //     //   onTap: () async {
+                                      //     //     SharePlus.shareVisitingCard(
+                                      //     //         visitingCardController
+                                      //     //             .visitingCards[index]);
+                                      //     //   },
+                                      //     //   child: Container(
+                                      //     //     margin: const EdgeInsets.only(
+                                      //     //         right: 10),
+                                      //     //     decoration: BoxDecoration(
+                                      //     //       borderRadius:
+                                      //     //           BorderRadius.circular(10),
+                                      //     //       color: kblue,
+                                      //     //     ),
+                                      //     //     width: 100,
+                                      //     //     height: 30,
+                                      //     //     child: Center(
+                                      //     //       child: Text('Share',
+                                      //     //           style: textStyle1),
+                                      //     //     ),
+                                      //     //   ),
+                                      //     // ),
+                                      //   ],
+                                      // ),
+
+                                      // kHeight10
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
                   adjustHieght(khieght * .02),
                 ],

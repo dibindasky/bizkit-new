@@ -43,7 +43,7 @@ class CardPromptHomePage extends StatelessWidget {
                                 neonShade.withOpacity(.5))),
                         onPressed: () {
                           Navigator.of(context).push(cardFadePageRoute(
-                            const ScreenCardCreationStarting(fromHome: true),
+                            const ScreenCardCreationStarting(),
                           ));
                         },
                         child: FittedBox(

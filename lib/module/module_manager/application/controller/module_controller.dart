@@ -13,6 +13,7 @@ import 'package:bizkit/module/biz_card/application/controller/prompt/prompt_cont
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
+import 'package:bizkit/module/module_manager/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
@@ -27,31 +28,36 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class ModuleController extends GetxController {
-  void chooseModule(BuildContext context, {required Module module}) {
+  void chooseModule(BuildContext context, {required Module? module}) {
     switch (module) {
       case Module.card:
         initCardControllers();
         context.go(Routes.bizCardNavbar);
         Get.find<NavbarController>().changeBottomBar(1);
+        LocalStoragePreference.setLastUsedModule(getStringFromModule(module)!);
         break;
       case Module.task:
         initTaskControllers();
         context.go(Routes.taskNavbar);
         Get.find<TaskNavbarController>().changeBottomIndex(1);
+        LocalStoragePreference.setLastUsedModule(getStringFromModule(module)!);
         break;
       case Module.attendance:
         initAttendanceControllers();
         context.go(Routes.attendenceNavbar);
         Get.find<AttendenceNavBarConroller>().changeBottomIndex(1);
+        LocalStoragePreference.setLastUsedModule(getStringFromModule(module)!);
         break;
       default:
+        context.go(Routes.moduleSelector);
     }
   }
 
 // [--------------------------------init controlleres------------------------]
 
-  /// initilize all controllers in CARD module [Module.card]
+  /// initilize all controllers in CARD module [Module.card] and delte other module controllers
   void initCardControllers() {
+    deleteAllControlers(Module.card);
     Get.lazyPut(() => ContactsController());
     Get.lazyPut(() => MatchoMeterController());
     Get.lazyPut(() => CardController(), fenix: true);
@@ -66,8 +72,9 @@ class ModuleController extends GetxController {
     Get.lazyPut(() => ReminderController());
   }
 
-  /// initilize all controllers in TASK module [Module.task]
+  /// initilize all controllers in TASK module [Module.task] and delte other module controllers
   void initTaskControllers() {
+    deleteAllControlers(Module.task);
     Get.lazyPut(() => TaskNavbarController());
     Get.lazyPut(() => TaskCalenderViewController());
     Get.lazyPut(() => CreateTaskController());
@@ -78,8 +85,9 @@ class ModuleController extends GetxController {
     Get.lazyPut(() => MessageCountController());
   }
 
-  /// initilize all controllers in ATTENDANCE module [Module.attendance]
+  /// initilize all controllers in ATTENDANCE module [Module.attendance] and delte other module controllers
   void initAttendanceControllers() {
+    deleteAllControlers(Module.attendance);
     Get.lazyPut(() => AttendenceNavBarConroller());
     Get.lazyPut(() => AttendenceHomeConroller());
   }
@@ -87,11 +95,13 @@ class ModuleController extends GetxController {
 // [--------------------------------delete controlleres------------------------]
 
   /// delete all controllers
-  /// except module managers
-  void deleteAllControlers() {
-    deleteTaskControllers();
-    deleteCardControllers();
-    deleteAttendanceControllers();
+  /// except module managers and except the [Module] passed as a optional param
+  void deleteAllControlers([Module? module]) {
+    if (module == null || module != Module.task) deleteTaskControllers();
+    if (module == null || module != Module.card) deleteCardControllers();
+    if (module == null || module != Module.attendance) {
+      deleteAttendanceControllers();
+    }
   }
 
   /// delete card controllers

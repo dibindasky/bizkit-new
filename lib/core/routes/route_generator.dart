@@ -280,7 +280,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.matchoMeter,
       path: Routes.matchoMeter,
-      builder: (context, state) => CardMatchoMeter(),
+      builder: (context, state) => const CardMatchoMeter(),
     ),
 
     // Second card creation selected scanned images
@@ -290,6 +290,7 @@ class GoRouterConfig {
       builder: (context, state) => const SelectedCard(),
     ),
 
+    // card creation starting page
     GoRoute(
       name: Routes.cardCreation,
       path: Routes.cardCreation,

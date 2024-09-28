@@ -4,9 +4,9 @@ part 'text_extraction_model.g.dart';
 
 @JsonSerializable()
 class TextExtractionModel {
-  String? image;
+  List<String>? images;
 
-  TextExtractionModel({this.image});
+  TextExtractionModel({this.images});
 
   factory TextExtractionModel.fromJson(Map<String, dynamic> json) {
     return _$TextExtractionModelFromJson(json);

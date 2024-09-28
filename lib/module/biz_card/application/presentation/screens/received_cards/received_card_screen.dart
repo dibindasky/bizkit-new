@@ -84,20 +84,6 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                       MaterialPageRoute(
                           builder: (context) => const ScreenCardSharing()),
                     ),
-                    // child: CustomShowCaseView(
-                    //   description: '',
-                    //   tittle: 'Created cards QR Lists',
-                    //   globalKey: globalKeyQRLists,
-                    //   image: '',
-                    //   child: CircleAvatar(
-                    //     radius: kwidth * 0.080,
-                    //     backgroundColor: textFieldFillColr,
-                    //     child: Padding(
-                    //       padding: const EdgeInsets.all(10.0),
-                    //       child: Image.asset('asset/images/bizkitIcon.png'),
-                    //     ),
-                    //   ),
-                    // ),
                     child: CircleAvatar(
                       radius: kwidth * 0.080,
                       backgroundColor: textFieldFillColr,
@@ -120,43 +106,11 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                           child: const QrScannerView(),
                         ),
                         adjustHieght(10),
-                        // TextButton(
-                        // onPressed: () async {
-                        // context.read<CardSecondBloc>().add(
-                        //     const CardSecondEvent.galeryScannedImage());
-                        // final image = await ImagePicker()
-                        //     .pickImage(source: ImageSource.gallery);
-                        // if (image == null) {
-                        //   return; // Handle no image selected case
-                        // }
-                        // final file = File(image.path);
-                        // final barcodeScanner = BarcodeScannerPlugin();
-                        // List<Barcode> barcodes =
-                        //     await barcodeScanner.scan(file
-                        //         .path); // Replace with _image!.path
-
-                        // if (barcodes.isEmpty) {
-                        //   print('No QR codes found in the image.');
-                        // } else {
-                        //   // Process the extracted data (first barcode assumed):
-                        //   final data = barcodes[0].displayValue;
-                        //   print('Extracted QR code data: $data');
-                        //   // Use the extracted data as needed in your app
-                        //}
-                        // },
-                        // child: const Text('Upload from gallery'),
-                        //),
                       ],
                     )
                   : indexofButton == 1
                       ? Column(
                           children: [
-                            // CustomShowCaseView(
-                            //     image: personImage,
-                            //     globalKey: globalKeyCreateVsitingCard,
-                            //     tittle: 'See notification',
-                            //     description: '',
-                            //     child: const Text('Create visiting card')),
                             const Text('Create received card'),
                             ContainerPickImage(
                               onPressedCam: () {

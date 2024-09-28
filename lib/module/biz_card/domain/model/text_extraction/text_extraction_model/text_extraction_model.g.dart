@@ -8,11 +8,13 @@ part of 'text_extraction_model.dart';
 
 TextExtractionModel _$TextExtractionModelFromJson(Map<String, dynamic> json) =>
     TextExtractionModel(
-      image: json['image'] as String?,
+      images: json['images'] == null
+          ? null
+          : (json['images'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$TextExtractionModelToJson(
         TextExtractionModel instance) =>
     <String, dynamic>{
-      'image': instance.image,
+      'images': instance.images,
     };

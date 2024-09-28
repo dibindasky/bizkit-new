@@ -70,29 +70,37 @@ class _SecondAnimationPageListViewHistoryRemindersState
                     height: 65.h,
                     width: double.infinity,
                     seprator: kHeight10)
-                : ListView.separated(
-                    controller: widget.scrollController,
-                    separatorBuilder: (context, index) =>
-                        adjustHieght(khieght * .02),
-                    itemCount: reminderController.historyReminders.length,
-                    itemBuilder: (context, index) {
-                      if (widget.doTransition && index == 0) {
-                        return Transform.translate(
-                            offset: Offset(0, 100 * _animation.value),
-                            child: ReminderTile(
-                                reminder: reminderController
-                                    .historyReminders[index]));
-                      } else if (widget.doTransition && index == 1) {
-                        return Transform.translate(
-                            offset: Offset(0, -100 * _animation.value),
-                            child: ReminderTile(
-                                reminder: reminderController
-                                    .historyReminders[index]));
-                      }
-                      return ReminderTile(
-                          reminder: reminderController.historyReminders[index]);
-                    },
-                  ),
+                : reminderController.historyCardReminders.isEmpty
+                    ? Column(
+                        children: [
+                          Expanded(child: Image.asset(emptyNodata2)),
+                          const Text('No Reminders Found'),
+                        ],
+                      )
+                    : ListView.separated(
+                        controller: widget.scrollController,
+                        separatorBuilder: (context, index) =>
+                            adjustHieght(khieght * .02),
+                        itemCount: reminderController.historyReminders.length,
+                        itemBuilder: (context, index) {
+                          if (widget.doTransition && index == 0) {
+                            return Transform.translate(
+                                offset: Offset(0, 100 * _animation.value),
+                                child: ReminderTile(
+                                    reminder: reminderController
+                                        .historyReminders[index]));
+                          } else if (widget.doTransition && index == 1) {
+                            return Transform.translate(
+                                offset: Offset(0, -100 * _animation.value),
+                                child: ReminderTile(
+                                    reminder: reminderController
+                                        .historyReminders[index]));
+                          }
+                          return ReminderTile(
+                              reminder:
+                                  reminderController.historyReminders[index]);
+                        },
+                      ),
           );
         });
   }

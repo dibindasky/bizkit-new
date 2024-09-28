@@ -20,6 +20,9 @@ ExtractedDetails _$ExtractedDetailsFromJson(Map<String, dynamic> json) =>
       websites: (json['websites'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      unIdentifiedText: (json['unidentified_text'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       designation: json['designation'] as String?,
       personName: json['person_name'] as String?,
       companyName: json['company_name'] as String?,
@@ -35,4 +38,5 @@ Map<String, dynamic> _$ExtractedDetailsToJson(ExtractedDetails instance) =>
       'designation': instance.designation,
       'person_name': instance.personName,
       'company_name': instance.companyName,
+      'unidentified_text': instance.unIdentifiedText,
     };

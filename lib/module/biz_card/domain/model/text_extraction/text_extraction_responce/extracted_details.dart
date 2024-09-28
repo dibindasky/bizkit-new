@@ -16,6 +16,8 @@ class ExtractedDetails {
   String? personName;
   @JsonKey(name: 'company_name')
   String? companyName;
+  @JsonKey(name: 'unidentified_text')
+  List<String>? unIdentifiedText;
 
   ExtractedDetails({
     this.businessName,
@@ -26,6 +28,7 @@ class ExtractedDetails {
     this.designation,
     this.personName,
     this.companyName,
+    this.unIdentifiedText,
   });
 
   factory ExtractedDetails.fromJson(Map<String, dynamic> json) {

@@ -13,6 +13,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/create_card/create_car
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responce/view.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
+import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/dailog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
@@ -81,11 +82,13 @@ class CardController extends GetxController {
       },
       (r) {
         showSnackbar(context, message: 'Card Created Successfully');
-        context.push(Routes.bizCardNavbar);
+        // context.push(Routes.bizCardNavbar);
+        Get.find<ModuleController>().chooseModule(context, module: Module.card);
         getAllcards(true);
         isLoading.value = false;
       },
     );
+    isLoading.value = false;
   }
 
   void getAllcards(bool isLoad) async {
@@ -96,11 +99,11 @@ class CardController extends GetxController {
       (l) => isLoading.value = false,
       (r) {
         bizcards.value = r.bizcards ?? <Bizcard>[];
-       if(bizcards.value.isNotEmpty){
-         bizcardId.value = r.bizcards?.first.bizcardId ?? '';
-        log('defalt Bizcard Id === > ${bizcardId.value}');
-       }
-    isLoading.value = false;
+        if (bizcards.isNotEmpty) {
+          bizcardId.value = r.bizcards?.first.bizcardId ?? '';
+          log('defalt Bizcard Id === > ${bizcardId.value}');
+        }
+        isLoading.value = false;
       },
     );
     isLoading.value = false;

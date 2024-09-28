@@ -6,7 +6,6 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/dailog.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
-import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -83,16 +82,10 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                   controller: scrollController,
                   shrinkWrap: true,
                   itemCount: controller.archivedCards.length,
-                  // (state.archievedCards?.length ?? 0) +
-                  //     (state.archiveCardLoading ? 1 : 0),
                   separatorBuilder: (context, index) =>
                       adjustHieght(khieght * .03),
                   itemBuilder: (context, index) {
-                    // if (state.archiveCardLoading &&
-                    //     index == state.archievedCards!.length) {
-                    //   return const LoadingAnimation();
-                    // }
-                    // final card = state.archievedCards![index];
+                    final card = controller.archivedCards[index];
                     return Container(
                       decoration: BoxDecoration(
                         color: textFieldFillColr,
@@ -107,38 +100,15 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                                 width: 300,
                                 height: 200,
                                 child: InkWell(
-                                  onTap: () {
-                                    // final Map<String, String> map = state
-                                    //                 .archievedCards !=
-                                    //             null &&
-                                    //         state.archievedCards![index].id != null
-                                    //     ? {
-                                    //         'myCard': 'true',
-                                    //         'cardId': state.archievedCards![index].id!
-                                    //             .toString()
-                                    //       }
-                                    //     : <String, String>{};
-                                    // GoRouter.of(context).pushNamed(
-                                    //   Routes.cardDetailView,
-                                    //   pathParameters: map,
-                                    // );
-                                  },
+                                  onTap: () {},
                                   child: ClipRRect(
                                       borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(25),
                                         topRight: Radius.circular(20),
                                       ),
                                       child: Image.memory(base64Decode(
-                                          imageTestingBase64.substring(22)))
-                                      // state.archievedCards == null ||
-                                      //         state.archievedCards![index].logo == null
-                                      //     ? Image.network(imageDummyNetwork,
-                                      //         fit: BoxFit.cover)
-                                      //     : Image.network(
-                                      //         card.logo!,
-                                      //         fit: BoxFit.cover,
-                                      //       ),
-                                      ),
+                                          '${card.logo ?? bizcardIconBase64}'
+                                              .substring(22)))),
                                 ),
                               ),
                             ],
@@ -147,9 +117,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                           Row(
                             children: [
                               adjustWidth(kwidth * .02),
-                              Text(
-                                  controller.archivedCards[index].designation ??
-                                      'Designation',
+                              Text(card.designation ?? '',
                                   style:
                                       textThinStyle1.copyWith(fontSize: 14.sp)),
                               const Spacer(),
@@ -163,10 +131,7 @@ class _ArchivedCardsState extends State<ArchivedCards> {
                                       controller.archiveACard(
                                         context: context,
                                         cardArchive: CardArchiveModel(
-                                            bizcardId: controller
-                                                    .archivedCards[index]
-                                                    .bizcardId ??
-                                                '',
+                                            bizcardId: card.bizcardId ?? '',
                                             isArchived: false),
                                       );
                                     },

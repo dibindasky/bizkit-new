@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'package:bizkit/core/model/token/access_token/token_model.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
+import 'package:bizkit/module/module_manager/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/module/module_manager/data/sqflite/users_local_service.dart';
 import 'package:bizkit/module/module_manager/domain/repository/sqflite/users_local_service_repo.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
@@ -204,11 +205,18 @@ class AuthenticationController extends GetxController {
     await SecureStorage.saveToken(tokenModel: model);
     log('user name => ${model.name ?? ''}');
     SecureStorage.setLogin();
-    Get.find<ModuleController>().chooseModule(context, module: Module.card);
+    final module = await getLastUsedModule();
+    Get.find<ModuleController>().chooseModule(context, module: module);
     usersLocalRepo.addUserToLocalStorageIfNotPresentInStorage(
         model: model.copyWith(logoutFromDevice: 'login'));
     loadingAccountSwitching.value = false;
     getUserName();
+  }
+
+  /// will return the last used [Module] by the user if not will return [null]
+  Future<Module?> getLastUsedModule() async {
+    final module = await LocalStoragePreference.getLastUsedModule();
+    return getModuleFromString(module);
   }
 
   /// if [logOut] is send as false then user will not be log out form the server
@@ -233,15 +241,14 @@ class AuthenticationController extends GetxController {
     Get.find<ModuleController>().deleteAllControlers();
   }
 
-  void checkLoginStatus(BuildContext context) async {
-    await SecureStorage.getLogin().then((loginStatus) {
+  Future<void> checkLoginStatus(BuildContext context) async {
+    await SecureStorage.getLogin().then((loginStatus) async {
       if (!loginStatus) {
         // if user not loged in navigate to loginpage
         context.go(Routes.loginPage);
       } else {
-        // change this according to the module need to be shown
-        context.go(Routes.moduleSelector);
-        //context.go(Routes.bizCardNavbar);
+        final module = await getLastUsedModule();
+        Get.find<ModuleController>().chooseModule(context, module: module);
       }
     });
   }

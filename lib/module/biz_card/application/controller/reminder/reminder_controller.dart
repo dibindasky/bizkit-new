@@ -44,6 +44,12 @@ class ReminderController extends GetxController {
       mat.TextEditingController();
   final mat.TextEditingController venueController = mat.TextEditingController();
 
+  @override
+  void onInit() {
+    fetchTodaysReminders();
+    super.onInit();
+  }
+
   void clearAllTextEditingControllers() {
     venueController.clear();
     occasionController.clear();
@@ -152,7 +158,7 @@ class ReminderController extends GetxController {
   void fetchTodaysReminders() async {
     todaysReminderLoading.value = true;
 
-    final result = await reminderSerivce.getAllReminders();
+    final result = await reminderSerivce.getTodaysReminders();
 
     result.fold(
       (failure) {
@@ -170,7 +176,7 @@ class ReminderController extends GetxController {
   void fetchUpcomingReminders() async {
     upcomingReminderLoading.value = true;
 
-    final result = await reminderSerivce.getAllReminders();
+    final result = await reminderSerivce.getUpcomingReminders();
 
     result.fold(
       (failure) {
@@ -188,7 +194,7 @@ class ReminderController extends GetxController {
   void fetchHistoryReminders() async {
     historyReminderLoading.value = true;
 
-    final result = await reminderSerivce.getAllReminders();
+    final result = await reminderSerivce.getHistoryReminders();
 
     result.fold(
       (failure) {

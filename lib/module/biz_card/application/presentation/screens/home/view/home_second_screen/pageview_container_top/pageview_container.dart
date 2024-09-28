@@ -1,8 +1,10 @@
+import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/first_and_second_commen/pageview_animated_builder.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/meeting_detail_section/meeting_detail_without_animation.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_second_screen/pageview_container_top/page_view_contents.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -55,10 +57,16 @@ class _CardTodaysRemiderBuilderState extends State<CardTodaysRemiderBuilder> {
           return SizedBox(
             height: 210.h,
             width: double.infinity,
-            child: Center(
-              child: ErrorRefreshIndicator(
-                  errorMessage: 'Pull to Refresh',
-                  onRefresh: () => reminderCOntroller.fetchTodaysReminders()),
+            // child: Center(
+            //   child: ErrorRefreshIndicator(
+            //       errorMessage: 'Pull to Refresh',
+            //       onRefresh: () => reminderCOntroller.fetchTodaysReminders()),
+            // ),
+            child: Column(
+              children: [
+                Expanded(child: Image.asset(emptyDataGif)),
+                const Text('No Reminders For Today'),
+              ],
             ),
           );
         }
@@ -78,8 +86,17 @@ class _CardTodaysRemiderBuilderState extends State<CardTodaysRemiderBuilder> {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    showCardsNotifier.value = HomeScreensList.third;
-                    widget.fadeCallBack();
+                    Get.find<ReminderController>().getCardRemiderHistory(
+                        id: reminderCOntroller.todaysReminders[index].id ?? '');
+                    Navigator.push(
+                      context,
+                      cardFadePageRoute(
+                          ScreenCardReminderDetailWithoutAnimation(
+                              reminder:
+                                  reminderCOntroller.todaysReminders[index])),
+                    );
+                    // showCardsNotifier.value = HomeScreensList.third;
+                    // widget.fadeCallBack();
                   },
                   child: Container(
                     height: 220.h,

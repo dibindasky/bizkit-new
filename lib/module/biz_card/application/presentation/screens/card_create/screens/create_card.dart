@@ -12,8 +12,7 @@ import 'package:go_router/go_router.dart';
 bool fromHomeAddCard = false;
 
 class ScreenCardCreationStarting extends StatefulWidget {
-  const ScreenCardCreationStarting({super.key, this.fromHome = false});
-  final bool fromHome;
+  const ScreenCardCreationStarting({super.key});
 
   @override
   State<ScreenCardCreationStarting> createState() =>
@@ -22,19 +21,9 @@ class ScreenCardCreationStarting extends StatefulWidget {
 
 class _ScreenCardCreationStartingState
     extends State<ScreenCardCreationStarting> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     fromHomeAddCard = widget.fromHome;
-//   }
-
   @override
   Widget build(BuildContext context) {
     final textExtractionController = Get.find<CardTextExtractionController>();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      //   context.read<UserDataBloc>().add(UserDataEvent.clear());
-      //   context.read<BusinessDataBloc>().add(BusinessDataEvent.clear());
-    });
     final size = MediaQuery.of(context).size;
     final khieght = size.height;
     final kwidth = size.width;
@@ -65,6 +54,7 @@ class _ScreenCardCreationStartingState
                   children: [
                     GestureDetector(
                       onTap: () {
+                        textExtractionController.clearCardImages();
                         cardscanimagesSelectingDailogue(
                             context, const PickedScanningCards(), false);
                       },
@@ -96,7 +86,7 @@ class _ScreenCardCreationStartingState
                     ),
                     TextButton(
                       onPressed: () {
-                        GoRouter.of(context).pushReplacementNamed(
+                        GoRouter.of(context).pushNamed(
                             Routes.cardCreationProfilePage);
                       },
                       child: Text(
@@ -114,12 +104,7 @@ class _ScreenCardCreationStartingState
               ),
               InkWell(
                 onTap: () {
-                  if (widget.fromHome) {
-                    Navigator.pop(context);
-                  } else {
-                    GoRouter.of(context)
-                        .pushReplacementNamed(Routes.bizCardNavbar);
-                  }
+                    GoRouter.of(context).pop();
                 },
                 child: Container(
                   decoration: BoxDecoration(

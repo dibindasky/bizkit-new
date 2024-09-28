@@ -9,6 +9,7 @@ import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extract
 import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_responce/extracted_details.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/text_extraction/text_extraction_repo.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -28,6 +29,9 @@ class CardTextExtractionController extends GetxController {
   RxList<String> extractedPhoneNumbers = <String>[].obs;
   RxList<String> extractedEmails = <String>[].obs;
   RxList<String> extractedLocations = <String>[].obs;
+  RxList<String> extractedNames = <String>[].obs;
+  RxList<String> extractedCompany = <String>[].obs;
+  RxList<String> extractedDesignation = <String>[].obs;
 
   void textExtraction(
       {required TextExtractionModel textExtractionModel,
@@ -42,51 +46,61 @@ class CardTextExtractionController extends GetxController {
       (failure) {
         isLoading.value = false;
         log('${failure.message}');
+        showSnackbar(context,
+            message: 'failed to decode text from given image');
       },
       (success) {
         extractedDetails.value = success.extractedDetails!;
-
         extractedEmails.assignAll((extractedDetails.value.emails ?? []));
-        extractedPhoneNumbers
-            .assignAll((extractedDetails.value.phoneNumbers ?? []));
+        extractedPhoneNumbers.assignAll((extractedDetails.value.phoneNumbers
+                ?.map((e) => e.removeAllWhitespace
+                    .replaceAll('+91', '')
+                    .substring(0, 10))
+                .toList() ??
+            []));
         extractedLocations.assignAll((extractedDetails.value.location ?? []));
+        extractedNames
+            .assignAll((success.extractedDetails?.unIdentifiedText ?? []));
+        extractedCompany
+            .assignAll((success.extractedDetails?.unIdentifiedText ?? []));
+        extractedDesignation
+            .assignAll((success.extractedDetails?.unIdentifiedText ?? []));
+        final cardController = Get.find<CardController>();
+        cardController.nameController.text =
+            extractedDetails.value.personName ?? '';
+        cardController.phoneController.text = (extractedPhoneNumbers.isNotEmpty)
+            ? extractedPhoneNumbers.first
+            : '';
+        cardController.emailController.text =
+            (extractedDetails.value.emails?.isNotEmpty ?? false)
+                ? extractedDetails.value.emails!.first
+                : '';
+        cardController.designationController.text =
+            extractedDetails.value.designation ?? '';
+        cardController.companyNameController.text =
+            extractedDetails.value.companyName ?? '';
+        final receivedCardController = Get.find<ReceivedCardController>();
+        receivedCardController.nameController.text =
+            extractedDetails.value.personName ?? '';
+        receivedCardController.phoneController.text =
+            (extractedPhoneNumbers.isNotEmpty)
+                ? extractedPhoneNumbers.first
+                : '';
+        receivedCardController.emailController.text =
+            (extractedDetails.value.emails?.isNotEmpty ?? false)
+                ? extractedDetails.value.emails!.first
+                : '';
+        receivedCardController.designationController.text =
+            extractedDetails.value.designation ?? '';
+        receivedCardController.companyNameController.text =
+            extractedDetails.value.companyName ?? '';
+        receivedCardController.websiteController.text =
+            (extractedDetails.value.websites?.isNotEmpty ?? false)
+                ? extractedDetails.value.websites!.first
+                : '';
         if (fromVisitingCard) {
-          final cardController = Get.find<CardController>();
-          cardController.nameController.text =
-              extractedDetails.value.personName ?? '';
-          cardController.phoneController.text =
-              (extractedDetails.value.phoneNumbers?.isNotEmpty ?? false)
-                  ? extractedDetails.value.phoneNumbers!.first
-                  : '';
-          cardController.emailController.text =
-              (extractedDetails.value.emails?.isNotEmpty ?? false)
-                  ? extractedDetails.value.emails!.first
-                  : '';
-          cardController.designationController.text =
-              extractedDetails.value.designation ?? '';
-          cardController.companyNameController.text =
-              extractedDetails.value.companyName ?? '';
           GoRouter.of(context).pushNamed(Routes.scanedDataFeilds);
         } else {
-          final receivedCardController = Get.find<ReceivedCardController>();
-          receivedCardController.nameController.text =
-              extractedDetails.value.personName ?? '';
-          receivedCardController.phoneController.text =
-              (extractedDetails.value.phoneNumbers?.isNotEmpty ?? false)
-                  ? extractedDetails.value.phoneNumbers!.first
-                  : '';
-          receivedCardController.emailController.text =
-              (extractedDetails.value.emails?.isNotEmpty ?? false)
-                  ? extractedDetails.value.emails!.first
-                  : '';
-          receivedCardController.designationController.text =
-              extractedDetails.value.designation ?? '';
-          receivedCardController.companyNameController.text =
-              extractedDetails.value.companyName ?? '';
-          receivedCardController.websiteController.text =
-              (extractedDetails.value.websites?.isNotEmpty ?? false)
-                  ? extractedDetails.value.websites!.first
-                  : '';
           GoRouter.of(context)
               .pushReplacementNamed(Routes.cardCreationProfilePage);
         }
@@ -118,5 +132,9 @@ class CardTextExtractionController extends GetxController {
     } else {
       log('Image picking failed or was canceled.');
     }
+  }
+
+  void clearCardImages() {
+    pickedImageUrl.value = [];
   }
 }

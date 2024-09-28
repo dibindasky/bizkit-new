@@ -117,8 +117,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (ctx) => const AttendenceLeavesScreeen());
       case Routes.attendenceRules:
-        return MaterialPageRoute(
-            builder: (ctx) => const AttendenceRulesScreen());
+        return MaterialPageRoute(builder: (ctx) => AttendenceRulesScreen());
       case Routes.attendenceTeamTimeSheet:
         return MaterialPageRoute(
             builder: (ctx) => const AttendenceTeamTimeSheetScreen());

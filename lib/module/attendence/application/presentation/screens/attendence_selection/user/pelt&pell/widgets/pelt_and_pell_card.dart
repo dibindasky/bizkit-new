@@ -15,7 +15,7 @@ class AttendencePeltAndPellCard extends StatelessWidget {
       width: 361.w,
       height: 250.h,
       decoration: BoxDecoration(
-        color: klightDarkGrey,
+        color: lightColr,
         borderRadius: kBorderRadius20,
       ),
       child: Padding(

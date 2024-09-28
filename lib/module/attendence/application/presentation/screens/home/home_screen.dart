@@ -39,7 +39,7 @@ class AttendenceHomeScreen extends StatelessWidget {
               ),
               adjustHieght(15.h),
               AttendenceActivityContainerWidget(
-                color: lightGrey,
+                color: lightColr,
                 icon: Icons.logout,
                 title: 'Clock-Out',
                 subTitle: '31 Septermber 2023',
@@ -48,7 +48,7 @@ class AttendenceHomeScreen extends StatelessWidget {
               ),
               adjustHieght(13.h),
               AttendenceActivityContainerWidget(
-                color: lightGrey,
+                color: lightColr,
                 icon: Icons.coffee,
                 title: 'Coffee Break',
                 subTitle: '31 Septermber 2023',
@@ -57,7 +57,7 @@ class AttendenceHomeScreen extends StatelessWidget {
               ),
               adjustHieght(13.h),
               AttendenceActivityContainerWidget(
-                color: lightGrey,
+                color: lightColr,
                 icon: Icons.logout,
                 title: 'Clock-Out',
                 subTitle: '31 Septermber 2023',

@@ -1,7 +1,10 @@
+import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/team_timesheet/widgets/employee_attendence_view.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/team_timesheet/widgets/employee_timesheet_container.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EmployesListView extends StatelessWidget {
   const EmployesListView({
@@ -22,12 +25,19 @@ class EmployesListView extends StatelessWidget {
                 itemCount: 2,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return const EmployeeTimeSheetContainer(
-                    employeProfile: chatSectionPersonDummyImg1,
-                    attendence: 'Leaves',
-                    employeDesignation: 'UI/UX Designer',
-                    employeName: 'Darrell Steward',
-                    attendenceColor: kyellow,
+                  return GestureDetector(
+                    onTap: () {
+                      Get.toNamed(Routes.attendenceEmployeeAttendanceCard,
+                          id: 22,
+                          arguments: {'employeeName': 'Darrell Steward'});
+                    },
+                    child: const EmployeeTimeSheetContainer(
+                      employeProfile: chatSectionPersonDummyImg1,
+                      attendence: 'Leaves',
+                      employeDesignation: 'UI/UX Designer',
+                      employeName: 'Darrell Steward',
+                      attendenceColor: kyellow,
+                    ),
                   );
                 },
               ),

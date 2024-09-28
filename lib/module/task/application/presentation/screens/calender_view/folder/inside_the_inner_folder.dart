@@ -17,7 +17,7 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
   final Map<String, dynamic>? arguments;
   @override
   Widget build(BuildContext context) {
-    log('Arguments => : $arguments');
+    // log('Arguments => : $arguments');
 
     final folderController = Get.find<TaskFolderController>();
     final taskController = Get.find<CreateTaskController>();

@@ -1,7 +1,7 @@
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/rules/widgets/category_buttons.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/rules/widgets/rule_card.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class AttendenceRulesScreen extends StatelessWidget {
@@ -34,30 +34,17 @@ class AttendenceRulesScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              adjustHieght(15.h),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: SizedBox(
-                  height: 50.h,
-                  child: Expanded(
-                    child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          return Chip(
-                            labelStyle: textThinStyle1,
-                            side: BorderSide.none,
-                            backgroundColor:
-                                index == 0 ? neonShade : klightDarkGrey,
-                            label: const Text('General'),
-                            labelPadding: EdgeInsets.symmetric(horizontal: 26),
-                          );
-                        },
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        separatorBuilder: (context, index) => kWidth10,
-                        itemCount: 10),
-                  ),
+              adjustHieght(16),
+              const CategoryButtons(),
+              adjustHieght(16),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return RuleCard(ruleNumber: index + 1);
+                  },
                 ),
-              )
+              ),
             ],
           ),
         ),

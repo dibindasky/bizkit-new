@@ -20,7 +20,7 @@ class AttedenceMsLeavesAndRequestsTabsViewsSection extends StatelessWidget {
               itemBuilder: (context, index) {
                 return const UpcomingLeavesCard(
                   imageUrl: personDemoImg,
-                  appliedDays: '03',
+                  appliedDays: '09',
                   date: 'June 15th 2024 - June 25th 2024',
                   employeeName: 'Jane Cooper',
                   lastLeave: 'Jan 1st 2024',
@@ -33,7 +33,7 @@ class AttedenceMsLeavesAndRequestsTabsViewsSection extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemCount: 10,
-              itemBuilder: (context, index) {
+              itemBuilder: (context, inx) {
                 return const UpcomingLeavesCard(
                   imageUrl: personDemoImg,
                   appliedDays: '03',

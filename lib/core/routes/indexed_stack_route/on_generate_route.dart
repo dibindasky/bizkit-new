@@ -9,6 +9,7 @@ import 'package:bizkit/module/attendence/application/presentation/screens/attend
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/pelt&pell/pelt_and_pell.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/pelt&pell/widgets/change_pelt_and_pell_view.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/team_timesheet/team_timesheet.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/team_timesheet/widgets/employee_attendence_view.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/attendence_selection.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/calender/calender_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/calender/widgets/employe_leave_view.dart';
@@ -66,7 +67,6 @@ class RouteGenerator {
 
       case Routes.taskInsideTheInnerFolderScreen:
         if (arguments is Map<String, dynamic>?) {
-          log('arguments --> $arguments');
           return MaterialPageRoute(
             builder: (ctx) => TaskInsideTheInnerFolderScreen(
               arguments: arguments,
@@ -171,6 +171,17 @@ class RouteGenerator {
       case Routes.attendenceMsChangePeltAndPell:
         return MaterialPageRoute(
             builder: (ctx) => const AttendenceMsChangePeltAndPellView());
+      case Routes.attendenceEmployeeAttendanceCard:
+        if (arguments is Map<String, dynamic>?) {
+          return MaterialPageRoute(
+            builder: (ctx) => EmployeeAttendanceCard(
+              arguments: arguments,
+            ),
+            settings: RouteSettings(arguments: arguments),
+          );
+        } else {
+          return _errorScreen();
+        }
 
       default:
         return _errorScreen();

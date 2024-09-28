@@ -33,7 +33,7 @@ class AttendenceLeavesScreeen extends StatelessWidget {
                       height: 40.h,
                       decoration: BoxDecoration(
                         borderRadius: kBorderRadius10,
-                        color: klightGreyClr,
+                        color: lightColr,
                       ),
                       child: const Center(
                         child: Text(
@@ -60,7 +60,7 @@ class AttendenceLeavesScreeen extends StatelessWidget {
                   height: 130.h,
                   decoration: BoxDecoration(
                     borderRadius: kBorderRadius10,
-                    color: klightGreyClr,
+                    color: lightColr,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -137,7 +137,7 @@ class AttendenceLeavesScreeen extends StatelessWidget {
                   height: 130.h,
                   decoration: BoxDecoration(
                     borderRadius: kBorderRadius10,
-                    color: klightGreyClr,
+                    color: lightColr,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -214,7 +214,7 @@ class AttendenceLeavesScreeen extends StatelessWidget {
                   height: 130.h,
                   decoration: BoxDecoration(
                     borderRadius: kBorderRadius10,
-                    color: klightGreyClr,
+                    color: lightColr,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -291,7 +291,7 @@ class AttendenceLeavesScreeen extends StatelessWidget {
                   height: 130.h,
                   decoration: BoxDecoration(
                     borderRadius: kBorderRadius10,
-                    color: klightGreyClr,
+                    color: lightColr,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

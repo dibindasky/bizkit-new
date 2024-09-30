@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../utils/constants/colors.dart';
 import '../../../../../../../../utils/constants/constant.dart';
-import '../../../../../../../../utils/event_button.dart';
+import '../../../../../../../../utils/widgets/event_button.dart';
 
 class ShowBreakDialog extends StatefulWidget {
   const ShowBreakDialog({super.key});

@@ -5,7 +5,7 @@ import 'package:bizkit/module/task/application/presentation/widgets/task_textfro
 import 'package:bizkit/module/task/domain/model/folders/edit_folder_model/edit_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/folder_model/folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

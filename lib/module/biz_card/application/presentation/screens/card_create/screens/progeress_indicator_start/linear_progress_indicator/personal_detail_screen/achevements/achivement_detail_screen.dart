@@ -6,7 +6,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achi
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/time.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 
 class ScreenAchivementDetail extends StatefulWidget {
@@ -134,7 +134,7 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
                 ),
               ),
               kHeight20,
-              Text(getDateByDayMonthYear(dateController.text)),
+              Text(DateTimeFormater.getDateByDayMonthYear(dateController.text)),
               kHeight10,
               Text(
                 tittleController.text,

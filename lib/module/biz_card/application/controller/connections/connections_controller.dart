@@ -21,7 +21,7 @@ import 'package:bizkit/module/biz_card/domain/repository/service/connections/con
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
-import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';

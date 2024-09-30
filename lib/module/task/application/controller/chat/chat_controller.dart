@@ -9,11 +9,6 @@ import 'package:bizkit/module/task/domain/model/chat/current_location_message.da
 import 'package:bizkit/module/task/domain/model/chat/file_model.dart';
 import 'package:bizkit/module/task/domain/model/chat/voice_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
-import 'package:bizkit/packages/location/location_service.dart';
-import 'package:bizkit/packages/pdf/pdf_picker.dart';
-import 'package:bizkit/packages/sound/just_audio.dart';
-import 'package:bizkit/packages/sound/sound_manager.dart';
-import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/task/domain/model/chat/create_poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll.dart';
@@ -21,6 +16,11 @@ import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/time_expence_creation.dart';
 import 'package:bizkit/module/task/domain/model/chat/time_expence_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
+import 'package:bizkit/packages/location/location_service.dart';
+import 'package:bizkit/packages/pdf/pdf_picker.dart';
+import 'package:bizkit/packages/sound/just_audio.dart';
+import 'package:bizkit/packages/sound/sound_manager.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
@@ -538,6 +538,8 @@ class ChatController extends GetxController {
     print('recorded audio => ${recordedAudio.value}');
     isRecording.value = false;
     getRecordDuration();
+    audioPlayerHandler = AudioPlayerHandler()
+      ..totalDuration = Duration(seconds: recordDuration.value);
   }
 
   /// play pause controller

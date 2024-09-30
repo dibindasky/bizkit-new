@@ -45,6 +45,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
           children: [
             Row(
               children: [
+                // created by or assigined by
                 taskController.singleTask.value.isOwned == true
                     ? Row(
                         children: [
@@ -150,6 +151,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                         ],
                       ),
                 const Spacer(),
+                // Dead line
                 CircleAvatar(
                   backgroundColor: neonShade,
                   child: Padding(
@@ -184,6 +186,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
               ],
             ),
             adjustHieght(10.h),
+            // participants
             Row(
               children: [
                 CircleAvatar(
@@ -225,6 +228,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
               ],
             ),
             adjustHieght(20.h),
+            // time and expense
             Row(
               children: [
                 Expanded(

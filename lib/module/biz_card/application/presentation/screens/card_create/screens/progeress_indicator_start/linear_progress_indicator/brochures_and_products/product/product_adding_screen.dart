@@ -4,10 +4,10 @@ import 'package:bizkit/module/biz_card/application/controller/card/business_deta
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
-import 'package:bizkit/utils/appbar.dart';
+import 'package:bizkit/utils/widgets/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';

@@ -1,5 +1,5 @@
 import 'package:bizkit/module/attendence/application/presentation/screens/home/widgets/home_dialogs/outside_or_office_dialog.dart';
-import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

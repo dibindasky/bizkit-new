@@ -8,7 +8,7 @@ import 'package:bizkit/module/task/application/presentation/screens/generate_rep
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_report_model/get_report_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 
 import 'package:flutter/material.dart';

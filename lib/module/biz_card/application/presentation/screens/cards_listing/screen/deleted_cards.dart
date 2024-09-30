@@ -6,7 +6,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/dailog.dart';
+import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

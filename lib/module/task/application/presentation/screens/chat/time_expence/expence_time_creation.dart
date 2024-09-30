@@ -4,7 +4,7 @@ import 'package:bizkit/module/task/application/controller/chat/chat_controller.d
 import 'package:bizkit/module/task/domain/model/chat/time_expence_creation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

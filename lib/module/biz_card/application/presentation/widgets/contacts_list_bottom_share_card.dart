@@ -4,7 +4,7 @@ import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_
 import 'package:bizkit/module/biz_card/domain/model/contact/share_card_contact/share_card_contact.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

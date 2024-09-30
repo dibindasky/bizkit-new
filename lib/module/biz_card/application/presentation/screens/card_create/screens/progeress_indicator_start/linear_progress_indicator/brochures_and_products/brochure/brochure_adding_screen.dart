@@ -6,7 +6,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/broc
 import 'package:bizkit/packages/pdf/pdf_picker.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';

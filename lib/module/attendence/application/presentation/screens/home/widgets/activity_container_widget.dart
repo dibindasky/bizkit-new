@@ -59,15 +59,14 @@ class AttendenceActivityContainerWidget extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 16),
+                      style: textThinStyle1.copyWith(
+                        fontSize: 15.sp,
+                      ),
                     ),
                     Text(
                       subTitle,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w200,
-                        fontSize: 12,
-                      ),
+                      style: textThinStyle1.copyWith(
+                          color: kgrey, fontSize: 12.sp),
                     ),
                   ],
                 ),
@@ -78,13 +77,13 @@ class AttendenceActivityContainerWidget extends StatelessWidget {
               children: [
                 Text(
                   trailingTime,
-                  style:
-                      TextStyle(fontWeight: FontWeight.w400, fontSize: 16.sp),
+                  style: textThinStyle1.copyWith(
+                    fontSize: 15.sp,
+                  ),
                 ),
                 Text(
                   trailingStatus,
-                  style:
-                      TextStyle(fontWeight: FontWeight.w200, fontSize: 13.sp),
+                  style: textThinStyle1.copyWith(color: kgrey, fontSize: 12.sp),
                 ),
               ],
             ),

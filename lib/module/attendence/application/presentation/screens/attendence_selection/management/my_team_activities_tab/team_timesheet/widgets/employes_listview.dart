@@ -1,5 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/team_timesheet/widgets/employee_attendence_view.dart';
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/team_timesheet/widgets/employee_attendence_last_month_view.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/team_timesheet/widgets/employee_timesheet_container.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -27,7 +27,8 @@ class EmployesListView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Get.toNamed(Routes.attendenceEmployeeAttendanceCard,
+                      Get.toNamed(
+                          Routes.attendenceEmployeeAttendanceLastMonthCard,
                           id: 22,
                           arguments: {'employeeName': 'Darrell Steward'});
                     },

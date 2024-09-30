@@ -6,14 +6,14 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_cre
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_achievent_deletion_model/personal_achievent_deletion_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
-import 'package:bizkit/utils/appbar.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
+import 'package:bizkit/utils/widgets/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/date_bottom_sheet.dart';
-import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
+import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
-import 'package:bizkit/utils/time.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -307,7 +307,7 @@ class AchivementListViewCreation extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              getDateByDayMonthYear(
+                              DateTimeFormater.getDateByDayMonthYear(
                                   achievements?[index].date ?? ''),
                               style: textStyle1.copyWith(
                                 fontSize: kwidth * .03,

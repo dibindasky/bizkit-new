@@ -11,13 +11,13 @@ import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_a
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/date_bottom_sheet.dart';
+import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
-import 'package:bizkit/utils/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -331,7 +331,8 @@ class PersonalDetails extends StatelessWidget {
                 () => ImagePreviewUnderTextField(
                   listString: cardController
                           .bizcardDetail.value.personalDetails?.datesToRemember
-                          ?.map((e) => getDateByDayMonthYear(e.date ?? ''))
+                          ?.map((e) => DateTimeFormater.getDateByDayMonthYear(
+                              e.date ?? ''))
                           .toList() ??
                       [],
                   removeItem: (index) {
@@ -350,7 +351,7 @@ class PersonalDetails extends StatelessWidget {
                     showDailoges(context,
                         heading: 'Dates To Remember',
                         tittle:
-                            "Date : ${getDateByDayMonthYear(data?.date ?? '')}",
+                            "Date : ${DateTimeFormater.getDateByDayMonthYear(data?.date ?? '')}",
                         desc: 'Description : ${data?.description ?? ''}');
                   },
                   ontap: () {

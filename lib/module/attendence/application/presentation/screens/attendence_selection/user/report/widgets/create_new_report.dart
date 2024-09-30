@@ -6,8 +6,8 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../../../../../utils/appbar.dart';
-import '../../../../../../../../../utils/event_button.dart';
+import '../../../../../../../../../utils/widgets/appbar.dart';
+import '../../../../../../../../../utils/widgets/event_button.dart';
 
 class AttendenceCreateNewReportScreen extends StatefulWidget {
   const AttendenceCreateNewReportScreen({super.key});

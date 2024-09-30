@@ -13,8 +13,8 @@ import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/personal_details_repo.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:bizkit/utils/time.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as mat;
@@ -77,7 +77,7 @@ class PersonalDetailsController extends GetxController {
         cardDetail.personalDetails?.phone?.first ?? '';
     personlAddressController.text = cardDetail.personalDetails?.address ?? '';
     dOBController.text =
-        getDateByDayMonthYear(cardDetail.personalDetails?.dob ?? '');
+        DateTimeFormater.getDateByDayMonthYear(cardDetail.personalDetails?.dob ?? '');
     bloodGroupController.text = cardDetail.personalDetails?.bloodGroup ?? '';
   }
 

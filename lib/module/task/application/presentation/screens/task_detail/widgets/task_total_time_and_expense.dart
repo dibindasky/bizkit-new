@@ -201,8 +201,11 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                     return Expanded(
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: taskController.taskExpenseAndTime.length,
+                        itemCount: taskController.taskExpenseAndTime.length+1,
                         itemBuilder: (context, index) {
+                          if(index ==  taskController.taskExpenseAndTime.length){
+                            return kHeight10;
+                          }
                           return CustomExpansionTileWidget(
                             isBorder: true,
                             child: Card(

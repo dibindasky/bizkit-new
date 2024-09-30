@@ -5,11 +5,12 @@ import 'package:bizkit/module/biz_card/application/controller/card/personal_deta
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
-import 'package:bizkit/utils/appbar.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
+import 'package:bizkit/utils/widgets/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/date_bottom_sheet.dart';
-import 'package:bizkit/utils/event_button.dart';
+import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
+import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
@@ -17,7 +18,6 @@ import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
-import 'package:bizkit/utils/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -50,7 +50,7 @@ class _CardScreenAchievementsCreateState
       personalController.achievementDescription.text =
           widget.achievement!.description ?? '';
       personalController.achievementDate.text =
-          getDateByDayMonthYear(widget.achievement!.date ?? '');
+          DateTimeFormater.getDateByDayMonthYear(widget.achievement!.date ?? '');
       personalController.achievementEvent.text =
           widget.achievement!.event ?? '';
     }

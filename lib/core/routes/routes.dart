@@ -107,6 +107,8 @@ class Routes {
   static const attendenceMsAddNewHoliday = '/attendence_ms_add_new_holiday';
   static const attendenceMsChangePeltAndPell =
       '/attendence_ms_change_pelt&pell';
-  static const attendenceEmployeeAttendanceCard =
-      '/attendence_employee_attendance_card';
+  static const attendenceEmployeeAttendanceLastMonthCard =
+      '/attendence_employee_attendance_last_month_card';
+  static const attendenceEmployeeAttendanceTodayCard =
+      '/attendence_employee_attendance_today_card';
 }

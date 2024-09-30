@@ -49,7 +49,7 @@ class _AttendenceTimeSheetScreenState extends State<AttendenceTimeSheetScreen> {
                   width: 140.w,
                   height: 30.h,
                   decoration: BoxDecoration(
-                    color: lightGrey,
+                    color: lightColr,
                     border: Border.all(color: neonShade),
                     borderRadius: kBorderRadius5,
                   ),
@@ -57,7 +57,7 @@ class _AttendenceTimeSheetScreenState extends State<AttendenceTimeSheetScreen> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton<String>(
-                        dropdownColor: lightGrey,
+                        dropdownColor: klightDarkGrey,
                         isExpanded: true,
                         borderRadius: kBorderRadius5,
                         hint: Padding(
@@ -125,7 +125,7 @@ class _AttendenceTimeSheetScreenState extends State<AttendenceTimeSheetScreen> {
                   ),
                   inactiveDayStyle: DayStyle(
                     decoration: BoxDecoration(
-                      color: lightGrey,
+                      color: lightColr,
                       borderRadius: kBorderRadius15,
                     ),
                     dayNumStyle: TextStyle(
@@ -160,7 +160,7 @@ class _AttendenceTimeSheetScreenState extends State<AttendenceTimeSheetScreen> {
                 child: Column(
                   children: [
                     AttendenceActivityContainerWidget(
-                      color: lightGrey,
+                      color: lightColr,
                       icon: Icons.logout,
                       title: 'Clock-Out',
                       subTitle: '31 September 2023',
@@ -171,7 +171,7 @@ class _AttendenceTimeSheetScreenState extends State<AttendenceTimeSheetScreen> {
                     ),
                     adjustHieght(10.h),
                     AttendenceActivityContainerWidget(
-                      color: lightGrey,
+                      color: lightColr,
                       icon: Icons.food_bank,
                       title: 'Lunch',
                       subTitle: '31 September 2023',
@@ -182,7 +182,7 @@ class _AttendenceTimeSheetScreenState extends State<AttendenceTimeSheetScreen> {
                     ),
                     adjustHieght(10.h),
                     AttendenceActivityContainerWidget(
-                      color: lightGrey,
+                      color: lightColr,
                       icon: Icons.coffee,
                       title: 'Break',
                       subTitle: '1 September 2023',
@@ -193,7 +193,7 @@ class _AttendenceTimeSheetScreenState extends State<AttendenceTimeSheetScreen> {
                     ),
                     adjustHieght(10.h),
                     AttendenceActivityContainerWidget(
-                      color: lightGrey,
+                      color: lightColr,
                       icon: Icons.logout,
                       title: 'Clock-In',
                       subTitle: '02 September 2023',

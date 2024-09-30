@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/team_timesheet/widgets/attendance_record_item.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/team_timesheet/widgets/employee_statsbar_widget.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -6,16 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class EmployeeAttendanceCard extends StatefulWidget {
+class EmployeeAttendanceLastMonthCard extends StatefulWidget {
   final Map<String, dynamic>? arguments;
 
-  const EmployeeAttendanceCard({super.key, this.arguments});
+  const EmployeeAttendanceLastMonthCard({super.key, this.arguments});
 
   @override
-  State<EmployeeAttendanceCard> createState() => _EmployeeAttendanceCardState();
+  State<EmployeeAttendanceLastMonthCard> createState() =>
+      _EmployeeAttendanceLastMonthCardState();
 }
 
-class _EmployeeAttendanceCardState extends State<EmployeeAttendanceCard> {
+class _EmployeeAttendanceLastMonthCardState
+    extends State<EmployeeAttendanceLastMonthCard> {
   String? _selectedModeOfWork = 'Last month';
 
   @override
@@ -140,12 +143,26 @@ class _EmployeeAttendanceCardState extends State<EmployeeAttendanceCard> {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return const AttendanceRecordItem(
-                                date: '31 June 2024',
-                                location: 'Office',
-                                checkIn: '09:30',
-                                checkOut: '16:30',
-                                totalHours: '22:30',
+                              return GestureDetector(
+                                onTap: () {
+                                  if (index < 2) {
+                                    Get.toNamed(
+                                        Routes
+                                            .attendenceEmployeeAttendanceTodayCard,
+                                        id: 22,
+                                        arguments: {
+                                          'employeeName':
+                                              widget.arguments?['employeeName'],
+                                        });
+                                  }
+                                },
+                                child: const AttendanceRecordItem(
+                                  date: '31 June 2024',
+                                  location: 'Office',
+                                  checkIn: '09:30',
+                                  checkOut: '16:30',
+                                  totalHours: '22:30',
+                                ),
                               );
                             },
                             separatorBuilder: (context, index) => kHeight10,

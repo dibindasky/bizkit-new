@@ -561,9 +561,9 @@ class ChatController extends GetxController {
     recordDuration.value = soundManager.getRecordDuration();
   }
 
-  void getPlaybackPosition() {
-    playBackPosition.value = soundManager.getPlaybackPosition();
-  }
+  // void getPlaybackPosition() {
+  //   playBackPosition.value = soundManager.getPlaybackPosition();
+  // }
 
   /// when recording finished
   void _whenFinished() {

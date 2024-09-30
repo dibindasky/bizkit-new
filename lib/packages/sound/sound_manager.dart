@@ -20,20 +20,21 @@ class SoundManager {
   // Default constructor
   SoundManager() {
     _initRecorder();
-    _initPlayer();
+    // _initPlayer();
   }
 
-  // Named constructor to initialize with Base64 audio
-  SoundManager.fromBase64(this._base64Audio) {
-    _initPlayer();
-  }
+  // // Named constructor to initialize with Base64 audio
+  // SoundManager.fromBase64(this._base64Audio) {
+  //   _initPlayer();
+  // }
 
   // Request permissions
   Future<bool> _requestPermissions() async {
     PermissionStatus micStatus = await Permission.microphone.request();
-    PermissionStatus storageStatus = await Permission.storage.request();
+    // PermissionStatus storageStatus = await Permission.storage.request();
 
-    return micStatus.isGranted && storageStatus.isGranted;
+    return micStatus.isGranted;
+    // return micStatus.isGranted && storageStatus.isGranted;
   }
 
   // Initialize the recorder
@@ -49,18 +50,18 @@ class SoundManager {
     }
   }
 
-  // Initialize the player
-  Future<void> _initPlayer() async {
-    if (await _requestPermissions()) {
-      try {
-        _player = FlutterSoundPlayer();
-        await _player!.openPlayer();
-        _isPlayerInitialized = true;
-      } catch (e) {
-        print('Failed to initialize player: $e');
-      }
-    }
-  }
+  // // Initialize the player
+  // Future<void> _initPlayer() async {
+  //   if (await _requestPermissions()) {
+  //     try {
+  //       _player = FlutterSoundPlayer();
+  //       await _player!.openPlayer();
+  //       _isPlayerInitialized = true;
+  //     } catch (e) {
+  //       print('Failed to initialize player: $e');
+  //     }
+  //   }
+  // }
 
   // Get the directory to store the audio file
   Future<String> _getFilePath() async {
@@ -107,9 +108,9 @@ class SoundManager {
 
   // Get the recorded audio duration in seconds
   int getRecordDuration() => _recordDuration;
-  bool isPlaying() => _player!.isPlaying;
-  bool isPaused() => _player!.isPaused;
-  bool isStopped() => _player!.isStopped;
+  // bool isPlaying() => _player!.isPlaying;
+  // bool isPaused() => _player!.isPaused;
+  // bool isStopped() => _player!.isStopped;
   String getFileName() => _filePath ?? '';
 
   // Stop recording and encode to base64
@@ -127,75 +128,75 @@ class SoundManager {
     }
   }
 
-  // Play the base64-encoded audio
-  Future<bool> playRecording({VoidCallback? whenFinished}) async {
-    if (!_isPlayerInitialized || _base64Audio == null) return false;
+  // // Play the base64-encoded audio
+  // Future<bool> playRecording({VoidCallback? whenFinished}) async {
+  //   if (!_isPlayerInitialized || _base64Audio == null) return false;
 
-    try {
-      _filePath ??= await _getFilePath();
-      final bytes = base64Decode(_base64Audio!);
-      final tempFile = await File(_filePath!).writeAsBytes(bytes);
+  //   try {
+  //     _filePath ??= await _getFilePath();
+  //     final bytes = base64Decode(_base64Audio!);
+  //     final tempFile = await File(_filePath!).writeAsBytes(bytes);
 
-      await _player!.startPlayer(
-        fromURI: tempFile.path,
-        codec: Codec.aacADTS,
-        whenFinished: whenFinished,
-      );
-      _playbackPosition = 0; // Reset the playback position
-      _updatePlaybackPosition(); // Start updating the playback position
-      return true;
-    } catch (e) {
-      print('Failed to play recording: $e');
-      return false;
-    }
-  }
+  //     await _player!.startPlayer(
+  //       fromURI: tempFile.path,
+  //       codec: Codec.aacADTS,
+  //       whenFinished: whenFinished,
+  //     );
+  //     _playbackPosition = 0; // Reset the playback position
+  //     _updatePlaybackPosition(); // Start updating the playback position
+  //     return true;
+  //   } catch (e) {
+  //     print('Failed to play recording: $e');
+  //     return false;
+  //   }
+  // }
 
   // Get the current playback position in seconds
   int getPlaybackPosition() => _playbackPosition;
 
   // Update the playback position every second
-  void _updatePlaybackPosition() {
-    Timer.periodic(Duration(seconds: 1), (timer) async {
-      if (_player != null && _player!.isPlaying) {
-        _playbackPosition++;
-      } else {
-        timer.cancel();
-      }
-    });
-  }
+  // void _updatePlaybackPosition() {
+  //   Timer.periodic(Duration(seconds: 1), (timer) async {
+  //     if (_player != null && _player!.isPlaying) {
+  //       _playbackPosition++;
+  //     } else {
+  //       timer.cancel();
+  //     }
+  //   });
+  // }
 
-  // Pause playback
-  Future<void> pausePlayback() async {
-    if (!_isPlayerInitialized) return;
+  // // Pause playback
+  // Future<void> pausePlayback() async {
+  //   if (!_isPlayerInitialized) return;
 
-    try {
-      await _player!.pausePlayer();
-    } catch (e) {
-      print('Failed to pause playback: $e');
-    }
-  }
+  //   try {
+  //     await _player!.pausePlayer();
+  //   } catch (e) {
+  //     print('Failed to pause playback: $e');
+  //   }
+  // }
 
-  // Resume playback
-  Future<void> resumePlayback() async {
-    if (!_isPlayerInitialized) return;
+  // // Resume playback
+  // Future<void> resumePlayback() async {
+  //   if (!_isPlayerInitialized) return;
 
-    try {
-      await _player!.resumePlayer();
-    } catch (e) {
-      print('Failed to resume playback: $e');
-    }
-  }
+  //   try {
+  //     await _player!.resumePlayer();
+  //   } catch (e) {
+  //     print('Failed to resume playback: $e');
+  //   }
+  // }
 
-  // Stop playback
-  Future<void> stopPlayback() async {
-    if (!_isPlayerInitialized) return;
+  // // Stop playback
+  // Future<void> stopPlayback() async {
+  //   if (!_isPlayerInitialized) return;
 
-    try {
-      await _player!.stopPlayer();
-    } catch (e) {
-      print('Failed to stop playback: $e');
-    }
-  }
+  //   try {
+  //     await _player!.stopPlayer();
+  //   } catch (e) {
+  //     print('Failed to stop playback: $e');
+  //   }
+  // }
 
   // Get the base64-encoded audio
   String? getBase64Audio() => _base64Audio;

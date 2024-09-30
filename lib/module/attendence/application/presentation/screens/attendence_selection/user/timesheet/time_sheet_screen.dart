@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/user/timesheet/widgets/late_login_card.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -202,44 +203,10 @@ class _AttendenceTimeSheetScreenState extends State<AttendenceTimeSheetScreen> {
                       height: 72,
                     ),
                     adjustHieght(10.h),
-                    Container(
-                      width: 390.w,
-                      height: 130.h,
-                      decoration: BoxDecoration(
-                        borderRadius: kBorderRadius20,
-                        color: lightGrey,
-                      ),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Date'),
-                              Text(
-                                'Approved',
-                                style: TextStyle(color: kgreen),
-                              ),
-                            ],
-                          ),
-                          Text('Late login by 20 mins'),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Reason'),
-                              Text('Approved by'),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Traffic'),
-                              Text('Joshua'),
-                            ],
-                          ),
-                        ],
-                      ),
+                    const LateLoginCard(
+                      duration: 20,
+                      reason: 'Traffic',
+                      approvedBy: 'Joshua',
                     ),
                   ],
                 ),

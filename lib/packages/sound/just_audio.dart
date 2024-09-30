@@ -13,12 +13,12 @@ class AudioPlayerHandler {
   Duration? totalDuration;
   Duration? currentPosition;
 
-  Future<void> requestPermissions() async {
+  Future<bool> requestPermissions() async {
     var status = await Permission.storage.request();
     if (status.isGranted) {
-      // Permission granted
+      return true;
     } else {
-      // Handle permission denied
+      return false;
     }
   }
 
@@ -64,8 +64,10 @@ class AudioPlayerHandler {
         return false;
       }
     } else {
-      requestPermissions();
-      return false;
+      await requestPermissions();
+      return await playAudioFromBase64(base64Audio,
+          onCurrentPositionChanged: onCurrentPositionChanged,
+          whenFinished: whenFinished);
     }
   }
 

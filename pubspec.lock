@@ -305,14 +305,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
-  custom_sliding_segmented_control:
-    dependency: "direct main"
-    description:
-      name: custom_sliding_segmented_control
-      sha256: "53c3e931c3ae1f696085d1ec70ac8e934da836595a9b7d9b88fdd0fcbf2a5574"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.8.3"
   dart_style:
     dependency: transitive
     description:
@@ -888,30 +880,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.7"
-  image_cropper:
-    dependency: "direct main"
-    description:
-      name: image_cropper
-      sha256: f4bad5ed2dfff5a7ce0dfbad545b46a945c702bb6182a921488ef01ba7693111
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.1"
-  image_cropper_for_web:
-    dependency: transitive
-    description:
-      name: image_cropper_for_web
-      sha256: "865d798b5c9d826f1185b32e5d0018c4183ddb77b7b82a931e1a06aa3b74974e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
-  image_cropper_platform_interface:
-    dependency: transitive
-    description:
-      name: image_cropper_platform_interface
-      sha256: ee160d686422272aa306125f3b6fb1c1894d9b87a5e20ed33fa008e7285da11e
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.0"
   image_picker:
     dependency: "direct main"
     description:
@@ -1673,18 +1641,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: fd4d2cdbf8d0d1e3441817cb8a03f896566fad5187788957e78492fe16800388
+      sha256: "6e67726b85812afc7105725a23620b876ab7f6b04b8410e211330ffb8c2cdbe8"
       url: "https://pub.dev"
     source: hosted
-    version: "26.2.7"
+    version: "26.2.14"
   syncfusion_flutter_datepicker:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datepicker
-      sha256: e541929ccf95a9188ef9f32dfca544f29b3fc222d4dc5da9cb1112305021a615
+      sha256: "9d0e1db2f49cef3fde28c5a42c7ef9b64fc9a49c52557eb6961cd41af3cf8adc"
       url: "https://pub.dev"
     source: hosted
-    version: "26.2.7"
+    version: "26.2.14"
   synchronized:
     dependency: transitive
     description:

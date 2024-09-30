@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/attachments_chat_dialog.dart';
-import 'package:bizkit/packages/sound/sound_manager.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 class ChatTextfieldContainer extends StatefulWidget {
   const ChatTextfieldContainer({
@@ -183,83 +181,3 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
   }
 }
 
-class AudioRecorderScreen extends StatefulWidget {
-  @override
-  _AudioRecorderScreenState createState() => _AudioRecorderScreenState();
-}
-
-class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
-  final SoundManager _soundManager = SoundManager();
-  bool _isRecording = false;
-  bool _isPlaying = false;
-
-  @override
-  void dispose() {
-    _soundManager.dispose();
-    super.dispose();
-  }
-
-  void _toggleRecording() async {
-    if (_isRecording) {
-      await _soundManager.stopRecording();
-    } else {
-      await _soundManager.startRecording();
-    }
-
-    setState(() {
-      _isRecording = !_isRecording;
-    });
-  }
-
-  void _togglePlayback() async {
-    if (_isPlaying) {
-      await _soundManager.stopPlayback();
-    } else {
-      await _soundManager.playRecording();
-    }
-
-    setState(() {
-      _isPlaying = !_isPlaying;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Audio Recorder'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: _toggleRecording,
-              style: ElevatedButton.styleFrom(
-                foregroundColor: _isRecording ? Colors.red : Colors.blue,
-              ),
-              child: Text(_isRecording ? 'Stop Recording' : 'Start Recording'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _soundManager.getBase64Audio() != null
-                  ? _togglePlayback
-                  : null,
-              style: ElevatedButton.styleFrom(
-                foregroundColor: _isPlaying ? Colors.green : Colors.orange,
-              ),
-              child: Text(_isPlaying ? 'Stop Playback' : 'Play Recording'),
-            ),
-            const SizedBox(height: 20),
-            if (_soundManager.getBase64Audio() != null)
-              const Text(
-                'Audio recorded and converted to base64 successfully!',
-                style: TextStyle(color: Colors.green),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}

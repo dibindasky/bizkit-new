@@ -50,7 +50,7 @@ class PersonalDetailsService implements PersonalDetailsRepo {
       log('personalAchivmentAdding ==>success');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
-      log('personalAchivmentAdding DioException ${e.response?.statusCode} $e');
+      log('personalAchivmentAdding DioException ${e.response?.data} $e');
       return Left(Failure(message: errorMessage));
     } catch (e) {
       log('personalAchivmentAdding catch $e');

@@ -76,8 +76,8 @@ class PersonalDetailsController extends GetxController {
     personalPhoneController.text =
         cardDetail.personalDetails?.phone?.first ?? '';
     personlAddressController.text = cardDetail.personalDetails?.address ?? '';
-    dOBController.text =
-        DateTimeFormater.getDateByDayMonthYear(cardDetail.personalDetails?.dob ?? '');
+    dOBController.text = DateTimeFormater.getDateByDayMonthYear(
+        cardDetail.personalDetails?.dob ?? '');
     bloodGroupController.text = cardDetail.personalDetails?.bloodGroup ?? '';
   }
 
@@ -143,7 +143,7 @@ class PersonalDetailsController extends GetxController {
     PersonalAchievementRequestModel personalAchiment =
         PersonalAchievementRequestModel(
       bizcardId: cardController.bizcardDetail.value.bizcardId,
-      date: achievementDate.text,
+      date: achievementDate.text == '' ? null : achievementDate.text,
       description: achievementDescription.text,
       event: achievementEvent.text,
       images: images,

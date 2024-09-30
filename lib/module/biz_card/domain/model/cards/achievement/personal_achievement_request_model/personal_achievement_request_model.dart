@@ -1,18 +1,11 @@
-import 'package:json_annotation/json_annotation.dart';
-part 'personal_achievement_request_model.g.dart';
-
-@JsonSerializable()
 class PersonalAchievementRequestModel {
   String? title;
   String? description;
   List<String>? images;
   String? event;
   String? date;
-  @JsonKey(name: 'bizcard_id')
   String? bizcardId;
-  @JsonKey(name: 'personal_details_id')
   String? personalDetailsId;
-  @JsonKey(name: 'personal_achievement_id')
   String? personalAchievementId;
 
   PersonalAchievementRequestModel({
@@ -27,10 +20,46 @@ class PersonalAchievementRequestModel {
   });
 
   factory PersonalAchievementRequestModel.fromJson(Map<String, dynamic> json) {
-    return _$PersonalAchievementRequestModelFromJson(json);
+    return PersonalAchievementRequestModel(
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      images: (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      event: json['event'] as String?,
+      date: json['date'] as String?,
+      bizcardId: json['bizcard_id'] as String?,
+      personalDetailsId: json['personal_details_id'] as String?,
+      personalAchievementId: json['personal_achievement_id'] as String?,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    return _$PersonalAchievementRequestModelToJson(this);
+    final Map<String, dynamic> data = {};
+    
+    if (title != null) {
+      data['title'] = title;
+    }
+    if (description != null) {
+      data['description'] = description;
+    }
+    if (images != null) {
+      data['images'] = images;
+    }
+    if (event != null) {
+      data['event'] = event;
+    }
+    if (date != null) {
+      data['date'] = date;
+    }
+    if (bizcardId != null) {
+      data['bizcard_id'] = bizcardId;
+    }
+    if (personalDetailsId != null) {
+      data['personal_details_id'] = personalDetailsId;
+    }
+    if (personalAchievementId != null) {
+      data['personal_achievement_id'] = personalAchievementId;
+    }
+
+    return data;
   }
 }

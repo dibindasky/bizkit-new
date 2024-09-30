@@ -306,7 +306,9 @@ class BusinesDetailsController extends GetxController {
         bizcardId: cardController.bizcardDetail.value.bizcardId,
         businessDetailsId:
             cardController.bizcardDetail.value.businessDetails?.id ?? '',
-        date: personalController.achievementDate.text,
+        date: personalController.achievementDate.text != ''
+            ? null
+            : personalController.achievementDate.text,
         description: personalController.achievementDescription.text,
         event: personalController.achievementEvent.text,
         title: personalController.achievementTitle.text,

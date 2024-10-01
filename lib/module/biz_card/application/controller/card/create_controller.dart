@@ -231,8 +231,10 @@ class CardController extends GetxController {
         businessDetails.value = r.sharedDetails!.businessDetails;
         myCardDeeplinkPage.value = r.newConnection == null;
         connectionExist.value = r.newConnection ?? false;
+        print('bizcardDetail.value -> ${bizcardDetail.value.connectionId}');
         update();
         isLoading.value = false;
+        print('connection is scan and cpnncet -> ${r.connectionId}');
       },
     );
   }
@@ -244,7 +246,8 @@ class CardController extends GetxController {
         showConfirmationDialog(context,
             heading: 'Add Selfie And Details About This Connection..',
             actionButton: 'Add Details',
-            onPressed: () => GoRouter.of(context)
-                .pushNamed(Routes.connectionDetailFilling)));
+            onPressed: () => GoRouter.of(context).pushNamed(
+                Routes.connectionDetailFilling,
+                extra: bizcardDetail.value)));
   }
 }

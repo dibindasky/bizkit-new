@@ -1,19 +1,11 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'business_achivement_add_model.g.dart';
-
-@JsonSerializable()
 class BusinessAchivementAddModel {
   String? title;
   List<String>? images;
   String? description;
   String? event;
   String? date;
-  @JsonKey(name: 'business_details_id')
   String? businessDetailsId;
-  @JsonKey(name: 'bizcard_id')
   String? bizcardId;
-  @JsonKey(name: 'achievement_id')
   String? achievementId;
 
   BusinessAchivementAddModel({
@@ -27,9 +19,52 @@ class BusinessAchivementAddModel {
     this.bizcardId,
   });
 
+  // Custom fromJson
   factory BusinessAchivementAddModel.fromJson(Map<String, dynamic> json) {
-    return _$BusinessAchivementAddModelFromJson(json);
+    return BusinessAchivementAddModel(
+      title: json['title'] as String?,
+      images:
+          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      description: json['description'] as String?,
+      event: json['event'] as String?,
+      date: json['date'] as String?,
+      businessDetailsId: json['business_details_id'] as String?,
+      bizcardId: json['bizcard_id'] as String?,
+      achievementId: json['achievement_id'] as String?,
+    );
   }
 
-  Map<String, dynamic> toJson() => _$BusinessAchivementAddModelToJson(this);
+  // Custom toJson
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+
+    if (title != null && title!.isNotEmpty) {
+      data['title'] = title;
+    }
+    if (images != null && images!.isNotEmpty) {
+      data['images'] = images;
+    }
+    if (description != null && description!.isNotEmpty) {
+      data['description'] = description;
+    }
+    if (event != null && event!.isNotEmpty) {
+      data['event'] = event;
+    } else {
+      data['event'] = 'Other';
+    }
+    if (date != null && date!.isNotEmpty) {
+      data['date'] = date;
+    }
+    if (businessDetailsId != null && businessDetailsId!.isNotEmpty) {
+      data['business_details_id'] = businessDetailsId;
+    }
+    if (bizcardId != null && bizcardId!.isNotEmpty) {
+      data['bizcard_id'] = bizcardId;
+    }
+    if (achievementId != null && achievementId!.isNotEmpty) {
+      data['achievement_id'] = achievementId;
+    }
+
+    return data;
+  }
 }

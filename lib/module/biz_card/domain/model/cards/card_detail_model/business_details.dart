@@ -1,10 +1,10 @@
 import 'package:bizkit/module/biz_card/domain/model/cards/business/banking_details_model/banking_details_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/social_media_handle.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'branch_office.dart';
 import 'brochure.dart';
-import 'business_social_media.dart';
 import 'product.dart';
 
 part 'business_details.g.dart';
@@ -29,7 +29,7 @@ class BusinessDetails {
   @JsonKey(name: 'business_achievements')
   List<Achievement>? businessAchievements;
   @JsonKey(name: 'business_social_media')
-  List<BusinessSocialMedia>? businessSocialMedia;
+  List<SocialMediaHandles>? businessSocialMedia;
   @JsonKey(name: 'bank_details')
   BankingDetailsModel? bankingDetails;
   List<Product>? product;

@@ -51,7 +51,7 @@ class CardViewBankPersonAchivedRows extends StatelessWidget {
                 cardFadePageRoute(
                     const ScreenCardAchivements(isPreview: false)),
               ),
-              child: containerStyle(iconAchivementsMedal, 'Achieved'),
+              child: containerStyle(iconAchivementsMedal, 'Achievement'),
             ),
           ),
         )

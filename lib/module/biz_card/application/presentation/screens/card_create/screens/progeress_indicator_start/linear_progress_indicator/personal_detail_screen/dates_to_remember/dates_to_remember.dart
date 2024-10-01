@@ -153,80 +153,85 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                 ),
                 kHeight40,
                 Obx(
-                  () => Wrap(
-                    children: List.generate(
-                      (cardController.bizcardDetail.value.personalDetails
-                              ?.datesToRemember?.length ??
-                          0),
-                      (index) {
-                        if (personalController.deleteLoading.value) {
-                          return const LoadingAnimation(width: 0.1);
-                        }
-                        return Stack(
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              margin: const EdgeInsets.all(8),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 8),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: neonShade),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10))),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                  () => personalController.deleteLoading.value
+                      ? const Center(child: CircularProgressIndicator())
+                      : Wrap(
+                          children: List.generate(
+                            (cardController.bizcardDetail.value.personalDetails
+                                    ?.datesToRemember?.length ??
+                                0),
+                            (index) {
+                              return Stack(
                                 children: [
-                                  Text(cardController
-                                          .bizcardDetail
-                                          .value
-                                          .personalDetails
-                                          ?.datesToRemember?[index]
-                                          .description ??
-                                      ''),
-                                  Text(DateTimeFormater.getDateByDayMonthYear(cardController
-                                          .bizcardDetail
-                                          .value
-                                          .personalDetails
-                                          ?.datesToRemember?[index]
-                                          .date ??
-                                      '')),
-                                ],
-                              ),
-                            ),
-                            Positioned(
-                              right: 0,
-                              top: 0,
-                              child: InkWell(
-                                onTap: () {
-                                  showCustomConfirmationDialogue(
-                                      context: context,
-                                      title:
-                                          'Are you sure want to delete this Date to Reminder?',
-                                      buttonText: 'Delete',
-                                      onTap: () {
-                                        personalController
-                                            .personalDatesToReminderDelete(
-                                                context: context, index);
-                                      });
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: ColoredBox(
-                                    color: neonShade,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: Icon(Icons.close, size: 12.w),
+                                  Container(
+                                    width: double.infinity,
+                                    margin: const EdgeInsets.all(8),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 8),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: neonShade),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10))),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(cardController
+                                                .bizcardDetail
+                                                .value
+                                                .personalDetails
+                                                ?.datesToRemember?[index]
+                                                .description ??
+                                            ''),
+                                        Text(DateTimeFormater
+                                            .getDateByDayMonthYear(
+                                                cardController
+                                                        .bizcardDetail
+                                                        .value
+                                                        .personalDetails
+                                                        ?.datesToRemember?[
+                                                            index]
+                                                        .date ??
+                                                    '')),
+                                      ],
                                     ),
                                   ),
-                                ),
-                              ),
-                            )
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                )
+                                  Positioned(
+                                    right: 0,
+                                    top: 0,
+                                    child: InkWell(
+                                      onTap: () {
+                                        showCustomConfirmationDialogue(
+                                            context: context,
+                                            title:
+                                                'Are you sure want to delete this Date to Reminder?',
+                                            buttonText: 'Delete',
+                                            onTap: () {
+                                              personalController
+                                                  .personalDatesToReminderDelete(
+                                                      context: context, index);
+                                            });
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: ColoredBox(
+                                          color: neonShade,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child:
+                                                Icon(Icons.close, size: 12.w),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                ),
+                kHeight20
               ],
             ),
           ),

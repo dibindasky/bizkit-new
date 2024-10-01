@@ -57,9 +57,49 @@ class CardDetailModel {
   factory CardDetailModel.fromJson(Map<String, dynamic> json,
       {String? connectionId}) {
     CardDetailModel model = _$CardDetailModelFromJson(json);
-    if (model.connectionId != null) return model;
-    return model..connectionId = connectionId;
+    print('connectionid in from json ==>>1 $connectionId');
+    print(
+        'connectionid in from json ==>>2 ${model.copyWith(connectionId: connectionId).connectionId}');
+    return model.copyWith(connectionId: connectionId);
   }
 
   Map<String, dynamic> toJson() => _$CardDetailModelToJson(this);
+
+  CardDetailModel copyWith({
+    String? bizcardId,
+    PersonalDetails? personalDetails,
+    BusinessDetails? businessDetails,
+    int? completionLevel,
+    bool? isDefault,
+    bool? isBusinessEditable,
+    bool? isArchived,
+    bool? isDisabled,
+    String? qrCode,
+    String? notes,
+    String? occasion,
+    String? location,
+    String? category,
+    List<String>? selfie,
+    List<MatchoMeterComparison>? matchoMeter,
+    String? connectionId,
+  }) {
+    return CardDetailModel(
+      bizcardId: bizcardId ?? this.bizcardId,
+      personalDetails: personalDetails ?? this.personalDetails,
+      businessDetails: businessDetails ?? this.businessDetails,
+      completionLevel: completionLevel ?? this.completionLevel,
+      isDefault: isDefault ?? this.isDefault,
+      isBusinessEditable: isBusinessEditable ?? this.isBusinessEditable,
+      isArchived: isArchived ?? this.isArchived,
+      isDisabled: isDisabled ?? this.isDisabled,
+      qrCode: qrCode ?? this.qrCode,
+      notes: notes ?? this.notes,
+      occasion: occasion ?? this.occasion,
+      location: location ?? this.location,
+      category: category ?? this.category,
+      selfie: selfie ?? this.selfie,
+      matchoMeter: matchoMeter ?? this.matchoMeter,
+      connectionId: connectionId ?? this.connectionId,
+    );
+  }
 }

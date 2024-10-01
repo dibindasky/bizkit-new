@@ -22,7 +22,7 @@ PersonalDetails _$PersonalDetailsFromJson(Map<String, dynamic> json) =>
           ?.map((e) => Achievement.fromJson(e as Map<String, dynamic>))
           .toList(),
       personalSocialMedia: (json['personal_social_media'] as List<dynamic>?)
-          ?.map((e) => PersonalSocialMedia.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => SocialMediaHandles.fromJson(e as Map<String, dynamic>))
           .toList(),
       datesToRemember: (json['dates_to_remember'] as List<dynamic>?)
           ?.map((e) => DatesToRemember.fromJson(e as Map<String, dynamic>))

@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/achivements_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/create_achievement_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/achievements_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/dates_to_remember/dates_to_remember.dart';
@@ -63,7 +64,9 @@ class PersonalDetails extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => SlidablePhotoGallery(
-                                  images: personalController.personalImages,
+                                  images: personalController
+                                      .personalImages.reversed
+                                      .toList(),
                                   initialIndex: index),
                             ),
                           );
@@ -76,7 +79,8 @@ class PersonalDetails extends StatelessWidget {
                             personalController.removePersonalImages(index);
                           },
                         ),
-                        list: personalController.personalImages,
+                        list:
+                            personalController.personalImages.reversed.toList(),
                         ontap: () {
                           cameraAndGalleryPickImage(
                               tittle: 'Add Personal Images',
@@ -163,7 +167,7 @@ class PersonalDetails extends StatelessWidget {
                         onPressed: (date) {
                           personalController.dOBController.text = date;
                         },
-                        datePicker: TextEditingController(),
+                        datePicker: personalController.dOBController,
                       );
                     },
                   );
@@ -177,13 +181,13 @@ class PersonalDetails extends StatelessWidget {
                 ),
               ),
               adjustHieght(10),
-              // accolades adding
+              // personal achivements (accolades)
               Obx(
                 () => ImagePreviewUnderTextField(
                   ontap: () {
                     FocusScope.of(context).unfocus();
                     Navigator.of(context).push(cardFadePageRoute(
-                        const CardScreenAchievements(fromBusiness: false)));
+                        const ScreenCardAchivements(fromBusiness: false)));
                   },
                   onItemTap: (value, index) {
                     return Navigator.push(

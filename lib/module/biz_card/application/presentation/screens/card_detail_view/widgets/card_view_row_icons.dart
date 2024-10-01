@@ -2,6 +2,7 @@ import 'package:bizkit/module/biz_card/application/controller/card/create_contro
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_vice_accounts_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/branch_office.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/social_media_handle.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/previewscreen_icons/detail_sharing_icon.dart';
@@ -262,7 +263,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                         showDragHandle: true,
                         backgroundColor: kblack,
                         builder: (context) {
-                          List personal = cardController.personalDetails.value
+                          List<SocialMediaHandles> personal = cardController.personalDetails.value
                                       ?.personalSocialMedia ??
                                   [],
                               business = cardController.businessDetails.value

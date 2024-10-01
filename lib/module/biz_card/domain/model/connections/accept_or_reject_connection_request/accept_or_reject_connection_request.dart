@@ -1,6 +1,5 @@
-// import 'package:bizkit/module/biz_card/domain/model/level_sharing/shared_fields/shared_fields.dart';
-import 'package:bizkit/module/biz_card/domain/model/level_sharing/shared_fields/shared_fields.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:bizkit/module/biz_card/domain/model/level_sharing/shared_fields/shared_fields.dart';
 
 part 'accept_or_reject_connection_request.g.dart';
 
@@ -23,6 +22,18 @@ class AcceptOrRejectConnectionRequest {
   }
 
   Map<String, dynamic> toJson() {
-    return _$AcceptOrRejectConnectionRequestToJson(this);
+    final Map<String, dynamic> data = {};
+
+    if (connectionId != null && connectionId!.isNotEmpty) {
+      data['connection_id'] = connectionId;
+    }
+    if (status != null && status!.isNotEmpty) {
+      data['status'] = status;
+    }
+    if (sharedFields != null) {
+      data['shared_fields'] = sharedFields!.toJson();
+    }
+
+    return data;
   }
 }

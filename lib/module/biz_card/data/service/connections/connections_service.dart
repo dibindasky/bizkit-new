@@ -192,7 +192,7 @@ class ConnectionsService implements ConnectionsRepo {
       return Right(
           ConnectionRequestAcceptOrRejectResponce.fromJson(responce.data));
     } on DioException catch (e) {
-      log('acceptOrRejectConnectionRequest DioException ${e.response?.statusCode} $e');
+      log('acceptOrRejectConnectionRequest DioException ${e.response?.data} $e');
       return Left(Failure(message: errorMessage));
     } catch (e) {
       log('acceptOrRejectConnectionRequest catch $e');

@@ -40,11 +40,11 @@ class _CroperState extends State<Croper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('crop')),
+      appBar: AppBar(title: const Text('Crop')),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('crop your logo from image'),
+          const Text('Crop your logo from image'),
           adjustHieght(10),
           SizedBox(
             height: khieght * 0.6,
@@ -79,7 +79,7 @@ class _CroperState extends State<Croper> {
           showLoader
               ? const Center(child: CircularProgressIndicator(color: neonShade))
               : EventButton(
-                  text: 'Crop',
+                  text: 'Add',
                   onTap: () {
                     setState(() {
                       showLoader = true;

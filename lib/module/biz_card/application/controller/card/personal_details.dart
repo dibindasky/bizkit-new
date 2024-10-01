@@ -12,6 +12,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_
 import 'package:bizkit/module/biz_card/domain/model/cards/social_media/personal_social_media_request_model/personal_social_media_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/personal_details_repo.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
@@ -76,8 +77,8 @@ class PersonalDetailsController extends GetxController {
     personalPhoneController.text =
         cardDetail.personalDetails?.phone?.first ?? '';
     personlAddressController.text = cardDetail.personalDetails?.address ?? '';
-    dOBController.text =
-        DateTimeFormater.getDateByDayMonthYear(cardDetail.personalDetails?.dob ?? '');
+    dOBController.text = DateTimeFormater.getDateByDayMonthYear(
+        cardDetail.personalDetails?.dob ?? '');
     bloodGroupController.text = cardDetail.personalDetails?.bloodGroup ?? '';
   }
 
@@ -143,7 +144,7 @@ class PersonalDetailsController extends GetxController {
     PersonalAchievementRequestModel personalAchiment =
         PersonalAchievementRequestModel(
       bizcardId: cardController.bizcardDetail.value.bizcardId,
-      date: achievementDate.text,
+      date: achievementDate.text == '' ? null : achievementDate.text,
       description: achievementDescription.text,
       event: achievementEvent.text,
       images: images,
@@ -152,7 +153,10 @@ class PersonalDetailsController extends GetxController {
     );
     final data = await personalRepo.personalAchivmentAdding(
         personalAchiment: personalAchiment);
-    data.fold((l) => null, (r) {
+    data.fold(
+        (l) => showSnackbar(context,
+            message: 'Failed to add achivement, please try again',
+            backgroundColor: kred), (r) {
       achievementDescription.clear();
       achievementEvent.clear();
       achievementDate.clear();
@@ -193,7 +197,9 @@ class PersonalDetailsController extends GetxController {
     final data = await personalRepo.personalAchivmentEditing(
         personalAchiment: personalAchiment);
     data.fold(
-      (l) => null,
+      (l) => showSnackbar(context,
+          message: 'Failed to update achivement, please try again',
+          backgroundColor: kred),
       (r) {
         final cardController = Get.find<CardController>();
 
@@ -350,10 +356,10 @@ class PersonalDetailsController extends GetxController {
     data.fold(
       (l) => deleteLoading.value = false,
       (r) {
-        deleteLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         if (fromInner) GoRouter.of(context).pop();
+        deleteLoading.value = false;
         showSnackbar(context, message: 'Dates To Remider Deleted Successfully');
       },
     );

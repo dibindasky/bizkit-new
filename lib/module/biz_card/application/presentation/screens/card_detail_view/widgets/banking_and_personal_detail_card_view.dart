@@ -84,7 +84,12 @@ class CardScreenPreviewBankOrPersonal extends StatelessWidget {
                       if (personalDetails?.bloodGroup == null &&
                           personalDetails?.email == null &&
                           personalDetails?.phone?.first == null) {
-                        return Image.asset(emptyNodata2, height: 400.h);
+                        return Column(
+                          children: [
+                            Image.asset(emptyNodata2, height: 400.h),
+                            const Text('Bank details empty')
+                          ],
+                        );
                       }
                       return kempty;
                     })
@@ -139,7 +144,12 @@ class CardScreenPreviewBankOrPersonal extends StatelessWidget {
                           bankDetails?.ifscCode == null &&
                           bankDetails?.accountNumber == null &&
                           bankDetails?.bankingName == null) {
-                        return Image.asset(emptyNodata2, height: 400.h);
+                        return Column(
+                          children: [
+                            Image.asset(emptyNodata2, height: 400.h),
+                            const Text('Personal details empty')
+                          ],
+                        );
                       }
                       return kempty;
                     })

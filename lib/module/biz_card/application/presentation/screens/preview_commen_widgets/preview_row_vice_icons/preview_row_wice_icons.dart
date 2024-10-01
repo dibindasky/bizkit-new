@@ -1,5 +1,6 @@
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/preview_row_vice_accounts_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/social_media_handle.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/previewscreen_icons/detail_sharing_icon.dart';
@@ -133,7 +134,7 @@ class PreviewRowWiceIcons extends StatelessWidget {
             showDragHandle: true,
             backgroundColor: kblack,
             builder: (context) {
-              List personal = [], business = [];
+              List<SocialMediaHandles> personal = [], business = [];
               // if (fromPreview) {
               //   // if (userState.personalData?.personalSocialMedia !=
               //   //     null) {

@@ -81,9 +81,12 @@ class CardService implements CardRepo {
       log('mycard  ==> ${responce.data['shared_details'] == null}');
       if ((responce.data as Map<String, dynamic>)['shared_details'] == null &&
           (responce.data as Map<String, dynamic>)['new_connection'] == null) {
+        final connectionId =
+            (responce.data as Map<String, dynamic>)['connection_id'] as String?;
         log('own card response');
         return Right(ScanAndConnectModel(
-            sharedDetails: CardDetailModel.fromJson(responce.data),
+            sharedDetails: CardDetailModel.fromJson(responce.data,
+                connectionId: connectionId),
             newConnection: null));
       }
       return Right(ScanAndConnectModel.fromJson(responce.data));

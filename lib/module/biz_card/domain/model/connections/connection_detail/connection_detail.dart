@@ -29,12 +29,13 @@ class ConnectionDetail {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    if (notes != null) data['notes'] = notes;
-    if (selfie != null) data['selfie'] = selfie;
-    if (occasion != null) data['occasion'] = occasion;
-    if (location != null) data['location'] = location;
-    if (category != null) data['category'] = category;
-    if (connectionId != null) data['connection_id'] = connectionId;
+    if (notes != null && notes!.isNotEmpty) data['notes'] = notes;
+    if (selfie != null && selfie!.isNotEmpty) data['selfie'] = selfie;
+    if (occasion != null && occasion!.isNotEmpty) data['occasion'] = occasion;
+    if (location != null && location!.isNotEmpty) data['location'] = location;
+    if (category != null && category!.isNotEmpty) data['category'] = category;
+    if (connectionId != null && connectionId!.isNotEmpty) data['connection_id'] = connectionId;
     return data;
   }
+
 }

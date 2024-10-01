@@ -122,7 +122,7 @@ class _DeletedCardsState extends State<DeletedCards>
                         height: 400.h,
                         child: ErrorRefreshIndicator(
                           image: emptyNodata2,
-                          errorMessage: 'No deleted my cards',
+                          errorMessage: 'No deleted cards',
                           onRefresh: () {
                             controller.fetchDeletedAndArchivedCards();
                           },
@@ -260,7 +260,7 @@ class _DeletedCardsState extends State<DeletedCards>
                           height: 400.h,
                           child: ErrorRefreshIndicator(
                             image: emptyNodata2,
-                            errorMessage: 'No deleted recevied cards',
+                            errorMessage: 'No deleted cards',
                             onRefresh: () {
                               controller.fetchAllDeletedVisitingCards();
                             },

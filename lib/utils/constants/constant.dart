@@ -122,13 +122,6 @@ const onBoardScreenThird =
 
 const errorMessage = 'Something went wrong please try again';
 const empty = 'empty';
-const achivementEvents = [
-  'Award',
-  'Certificate',
-  'Accolade',
-  'Others',
-  'Accreditation'
-];
 const bloodGroups = [
   'O+',
   'A+',
@@ -193,18 +186,6 @@ const iconBizkitPng = 'asset/images/bizkitIcon.png';
 const iconAchivementsMedal = 'asset/images/achivements_medal.png';
 const iconPersonOutline = 'asset/images/person_outline.png';
 const iconBankingHouse = 'asset/images/bank_house.png';
-
-// history log images bizcard
-const imageHistoryList = [
-  imageHistoryLog1,
-  imageHistoryLog2,
-  imageHistoryLog3,
-  imageHistoryLog4,
-];
-const imageHistoryLog1 = 'asset/images/meeting profile png1.png';
-const imageHistoryLog2 = 'asset/images/meeting profile png2.png';
-const imageHistoryLog3 = 'asset/images/meeting profile png3.png';
-const imageHistoryLog4 = 'asset/images/meeting profile png4.png';
 
 // empty images
 const emptyDataGif = 'asset/images/Reminders.gif';

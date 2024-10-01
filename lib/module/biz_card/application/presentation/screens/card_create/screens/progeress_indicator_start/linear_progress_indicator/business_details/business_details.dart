@@ -3,6 +3,7 @@ import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/achievements_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/achivements_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/create_achievement_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/personal_detail_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/social_media_handles/social_media_handles.dart';
@@ -84,19 +85,16 @@ class BusinessDetailsScreen extends StatelessWidget {
                 textCapitalization: TextCapitalization.words,
                 controller: businessController.commpanyName,
               ),
-              // business name
-
-              // mobile number business
+              // designation
               AutocompleteTextField(
                 label: 'Designation',
                 doAutoFill: false,
                 validate: Validate.notNull,
                 maxLength: 10,
                 controller: businessController.companyDesignation,
-                inputType: TextInputType.number,
                 autocompleteItems: const [],
               ),
-              //
+              // compnay mail
               AutocompleteTextField(
                 inputType: TextInputType.emailAddress,
                 label: 'Company Mail',
@@ -107,8 +105,8 @@ class BusinessDetailsScreen extends StatelessWidget {
               ),
               // Company Number
               AutocompleteTextField(
-                maxLength: 10,
-                validate: Validate.phone,
+                maxLength: 12,
+                validate: Validate.mobOrLandline,
                 inputType: TextInputType.phone,
                 label: 'Company Number',
                 doAutoFill: false,
@@ -129,7 +127,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   ontap: () {
                     FocusScope.of(context).unfocus();
                     Navigator.of(context).push(cardFadePageRoute(
-                        const CardScreenAchievements(fromBusiness: true)));
+                        const ScreenCardAchivements(fromBusiness: true)));
                   },
                   onItemTap: (value, index) {
                     return Navigator.push(
@@ -300,7 +298,6 @@ class BusinessDetailsScreen extends StatelessWidget {
                 ),
               ),
               adjustHieght(7),
-
               // continue button
               Obx(
                 () => businessController.isLoading.value

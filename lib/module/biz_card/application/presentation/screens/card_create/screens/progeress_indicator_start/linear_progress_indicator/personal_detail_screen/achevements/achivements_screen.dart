@@ -2,21 +2,27 @@ import 'dart:convert';
 
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/achievements_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/achivement_detail_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/create_achievement_screen.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/widgets/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ScreenCardAchivements extends StatefulWidget {
-  const ScreenCardAchivements({super.key, this.isPreview = true});
+  const ScreenCardAchivements(
+      {super.key, this.isPreview = true, this.fromBusiness});
 
   final bool isPreview;
+  final bool? fromBusiness;
 
   @override
   State<ScreenCardAchivements> createState() => _ScreenCardAchivementsState();
@@ -49,7 +55,8 @@ class _ScreenCardAchivementsState extends State<ScreenCardAchivements> {
             if (dateController.text != '') {
               achivement = achivement
                   .where((element) =>
-                      DateTimeFormater.getDateByDayMonthYear(element.date ?? '') ==
+                      DateTimeFormater.getDateByDayMonthYear(
+                          element.date ?? '') ==
                       dateController.text)
                   .toList();
             }
@@ -67,6 +74,48 @@ class _ScreenCardAchivementsState extends State<ScreenCardAchivements> {
             return SingleChildScrollView(
               child: Column(
                 children: [
+                  widget.fromBusiness != null
+                      ? Center(
+                          child: InkWell(
+                            onTap: () async {
+                              Get.find<PersonalDetailsController>()
+                                  .achivementDataClear();
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    CardScreenAchievementsCreate(
+                                  fromBusiness: widget.fromBusiness!,
+                                ),
+                              ));
+                            },
+                            child: DottedBorder(
+                              dashPattern: const [8, 8],
+                              color: neonShade,
+                              strokeWidth: 2.5,
+                              child: SizedBox(
+                                width: double.infinity,
+                                height: kwidth * 0.25,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 32.dm,
+                                      height: 32.dm,
+                                      child: const CircleAvatar(
+                                        child: Icon(Icons.add),
+                                      ),
+                                    ),
+                                    Text(
+                                      'Add Achievements',
+                                      style: TextStyle(fontSize: 10.sp),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : kempty,
+                  kHeight10,
                   Row(
                     children: [
                       Expanded(
@@ -146,7 +195,6 @@ class _ScreenCardAchivementsState extends State<ScreenCardAchivements> {
                             items: const [
                               'All',
                               ...achivementEvents,
-                              'Others',
                             ],
                             onTap: (value) {
                               eventController.text = value ?? '';
@@ -237,5 +285,61 @@ class _ScreenCardAchivementsState extends State<ScreenCardAchivements> {
             );
           })),
     );
+  }
+}
+
+class CustomDropDown extends StatefulWidget {
+  const CustomDropDown(
+      {super.key,
+      required this.title,
+      required this.icon,
+      this.showError = false,
+      required this.items,
+      required this.onTap});
+  final String title;
+  final bool showError;
+  final IconData icon;
+  final List<String> items;
+  final Function(String? value) onTap;
+
+  @override
+  State<CustomDropDown> createState() => _CustomDropDownState();
+}
+
+class _CustomDropDownState extends State<CustomDropDown> {
+  @override
+  void initState() {
+    title = widget.title;
+    super.initState();
+  }
+
+  String title = '';
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonHideUnderline(
+        child: DropdownButton(
+            hint: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(title, style: const TextStyle(color: kwhite)),
+              ],
+            ),
+            items: widget.items.map<DropdownMenuItem<String>>(
+              (String value) {
+                return DropdownMenuItem<String>(
+                  onTap: () => setState(() {
+                    title = value;
+                  }),
+                  value: value,
+                  child: Text(
+                    value,
+                    // style: textHeadSemiBold1.copyWith(
+                    //   fontSize: sWidth * 0.04,
+                    // ),
+                  ),
+                );
+              },
+            ).toList(),
+            onChanged: widget.onTap));
   }
 }

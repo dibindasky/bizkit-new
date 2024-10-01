@@ -34,6 +34,9 @@ class BusinessService implements BusinessRepo {
       log('businessDetailInitial ==>success');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
+      if (e.response?.statusCode == 304) {
+        return Right(SuccessResponseModel(message: 'Updated Successfully'));
+      }
       log('businessDetailInitial DioException ${e.response?.statusCode} $e');
       log('businessDetailInitial DioException data => ${e.response?.data}');
       return Left(Failure(message: errorMessage));
@@ -52,7 +55,7 @@ class BusinessService implements BusinessRepo {
       log('businessAchievementAdding ==>success');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
-      log('businessAchievementAdding DioException ${e.response?.statusCode} $e');
+      log('businessAchievementAdding DioException ${e.response?.data} $e');
       return Left(Failure(message: errorMessage));
     } catch (e) {
       log('businessAchievementAdding catch $e');

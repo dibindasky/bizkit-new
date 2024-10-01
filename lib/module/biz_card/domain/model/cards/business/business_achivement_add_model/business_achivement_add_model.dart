@@ -23,7 +23,8 @@ class BusinessAchivementAddModel {
   factory BusinessAchivementAddModel.fromJson(Map<String, dynamic> json) {
     return BusinessAchivementAddModel(
       title: json['title'] as String?,
-      images: (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      images:
+          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       description: json['description'] as String?,
       event: json['event'] as String?,
       date: json['date'] as String?,
@@ -36,31 +37,34 @@ class BusinessAchivementAddModel {
   // Custom toJson
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    
-    if (title != null) {
+
+    if (title != null && title!.isNotEmpty) {
       data['title'] = title;
     }
-    if (images != null) {
+    if (images != null && images!.isNotEmpty) {
       data['images'] = images;
     }
-    if (description != null) {
+    if (description != null && description!.isNotEmpty) {
       data['description'] = description;
     }
-    if (event != null) {
+    if (event != null && event!.isNotEmpty) {
       data['event'] = event;
+    } else {
+      data['event'] = 'Other';
     }
-    if (date != null) {
+    if (date != null && date!.isNotEmpty) {
       data['date'] = date;
     }
-    if (businessDetailsId != null) {
+    if (businessDetailsId != null && businessDetailsId!.isNotEmpty) {
       data['business_details_id'] = businessDetailsId;
     }
-    if (bizcardId != null) {
+    if (bizcardId != null && bizcardId!.isNotEmpty) {
       data['bizcard_id'] = bizcardId;
     }
-    if (achievementId != null) {
+    if (achievementId != null && achievementId!.isNotEmpty) {
       data['achievement_id'] = achievementId;
     }
+
     return data;
   }
 }

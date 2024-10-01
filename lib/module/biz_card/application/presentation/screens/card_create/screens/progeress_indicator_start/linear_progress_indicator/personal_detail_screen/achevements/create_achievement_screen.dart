@@ -35,6 +35,7 @@ class CardScreenAchievementsCreate extends StatefulWidget {
 
 class _CardScreenAchievementsCreateState
     extends State<CardScreenAchievementsCreate> {
+  final GlobalKey<FormState> achivementFormKey = GlobalKey<FormState>();
   @override
   void initState() {
     if (widget.achievement != null) {
@@ -50,7 +51,8 @@ class _CardScreenAchievementsCreateState
       personalController.achievementDescription.text =
           widget.achievement!.description ?? '';
       personalController.achievementDate.text =
-          DateTimeFormater.getDateByDayMonthYear(widget.achievement!.date ?? '');
+          DateTimeFormater.getDateByDayMonthYear(
+              widget.achievement!.date ?? '');
       personalController.achievementEvent.text =
           widget.achievement!.event ?? '';
     }
@@ -81,267 +83,271 @@ class _CardScreenAchievementsCreateState
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Center(
-              child: Column(
-                children: [
-                  adjustHieght(khieght * .05),
-                  InkWell(
-                    onTap: () async {
-                      cameraAndGalleryPickImage(
-                          tittle: "Choose image from",
-                          context: context,
-                          onPressCam: () async {
-                            final img =
-                                await ImagePickerClass.getImage(camera: true);
-                            if (img != null) {
-                              personalController.existingAchievementImages
-                                  .add(ImageCard(image: img.base64));
-                              personalController.newAchievementimage
-                                  .add(ImageCard(image: img.base64));
-                              setState(() {});
-                            }
-                          },
-                          onPressGallery: () async {
-                            final img =
-                                await ImagePickerClass.getImage(camera: false);
-                            if (img != null) {
-                              personalController.existingAchievementImages
-                                  .add(ImageCard(image: img.base64));
-                              personalController.newAchievementimage
-                                  .add(ImageCard(image: img.base64));
-                              setState(() {});
-                            }
-                          });
-                    },
-                    child: SizedBox(
-                      height: 170.dm,
-                      child: Stack(
-                        children: [
-                          ListView.separated(
-                            separatorBuilder: (context, index) => kWidth10,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: personalController
-                                .existingAchievementImages.length,
-                            itemBuilder: (context, index) {
-                              return MemoryImageMaker(
-                                  deleteTap: () {
-                                    showCustomConfirmationDialogue(
+              child: Form(
+                key: achivementFormKey,
+                child: Column(
+                  children: [
+                    adjustHieght(khieght * .05),
+                    // images adding or deleting section
+                    InkWell(
+                      onTap: () async {
+                        cameraAndGalleryPickImage(
+                            tittle: "Choose image from",
+                            context: context,
+                            onPressCam: () async {
+                              final img =
+                                  await ImagePickerClass.getImage(camera: true);
+                              if (img != null) {
+                                personalController.existingAchievementImages
+                                    .add(ImageCard(image: img.base64));
+                                personalController.newAchievementimage
+                                    .add(ImageCard(image: img.base64));
+                                setState(() {});
+                              }
+                            },
+                            onPressGallery: () async {
+                              final img = await ImagePickerClass.getImage(
+                                  camera: false);
+                              if (img != null) {
+                                personalController.existingAchievementImages
+                                    .add(ImageCard(image: img.base64));
+                                personalController.newAchievementimage
+                                    .add(ImageCard(image: img.base64));
+                                setState(() {});
+                              }
+                            });
+                      },
+                      child: SizedBox(
+                        height: 170.dm,
+                        child: Stack(
+                          children: [
+                            ListView.separated(
+                              separatorBuilder: (context, index) => kWidth10,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: personalController
+                                  .existingAchievementImages.length,
+                              itemBuilder: (context, index) {
+                                return MemoryImageMaker(
+                                    deleteTap: () {
+                                      showCustomConfirmationDialogue(
+                                          context: context,
+                                          title:
+                                              'Are you sure want to remove ?',
+                                          buttonText: 'Delete',
+                                          onTap: () {
+                                            personalController
+                                                .newAchievementimage
+                                                .removeWhere((element) =>
+                                                    element ==
+                                                    personalController
+                                                            .existingAchievementImages[
+                                                        personalController
+                                                                .existingAchievementImages
+                                                                .length -
+                                                            index -
+                                                            1]);
+                                            personalController
+                                                .existingAchievementImages
+                                                .removeAt(personalController
+                                                        .existingAchievementImages
+                                                        .length -
+                                                    index -
+                                                    1);
+                                            setState(() {});
+                                          });
+                                    },
+                                    image: personalController
+                                        .existingAchievementImages,
+                                    index: personalController
+                                            .existingAchievementImages.length -
+                                        index -
+                                        1);
+                              },
+                            ),
+                            Positioned(
+                              bottom: 5,
+                              right: 5,
+                              child: InkWell(
+                                  onTap: () {
+                                    cameraAndGalleryPickImage(
+                                        tittle: "Choose image from",
                                         context: context,
-                                        title: 'Are you sure want to remove ?',
-                                        buttonText: 'Delete',
-                                        onTap: () {
-                                          personalController.newAchievementimage
-                                              .removeWhere((element) =>
-                                                  element ==
-                                                  personalController
-                                                          .existingAchievementImages[
-                                                      personalController
-                                                              .existingAchievementImages
-                                                              .length -
-                                                          index -
-                                                          1]);
-                                          personalController
-                                              .existingAchievementImages
-                                              .removeAt(personalController
-                                                      .existingAchievementImages
-                                                      .length -
-                                                  index -
-                                                  1);
-                                          setState(() {});
+                                        onPressCam: () async {
+                                          final img =
+                                              await ImagePickerClass.getImage(
+                                                  camera: true);
+                                          if (img != null) {
+                                            personalController
+                                                .existingAchievementImages
+                                                .add(ImageCard(
+                                                    image: img.base64));
+                                            personalController
+                                                .newAchievementimage
+                                                .add(ImageCard(
+                                                    image: img.base64));
+                                            setState(() {});
+                                          }
+                                        },
+                                        onPressGallery: () async {
+                                          final img =
+                                              await ImagePickerClass.getImage(
+                                                  camera: false);
+                                          if (img != null) {
+                                            personalController
+                                                .existingAchievementImages
+                                                .add(ImageCard(
+                                                    image: img.base64));
+                                            personalController
+                                                .newAchievementimage
+                                                .add(ImageCard(
+                                                    image: img.base64));
+                                            setState(() {});
+                                          }
                                         });
                                   },
-                                  image: personalController
-                                      .existingAchievementImages,
-                                  index: personalController
-                                          .existingAchievementImages.length -
-                                      index -
-                                      1);
-                            },
-                          ),
-                          Positioned(
-                            bottom: 5,
-                            right: 5,
-                            child: InkWell(
-                                onTap: () {
-                                  cameraAndGalleryPickImage(
-                                      tittle: "Choose image from",
-                                      context: context,
-                                      onPressCam: () async {
-                                        final img =
-                                            await ImagePickerClass.getImage(
-                                                camera: true);
-                                        if (img != null) {
-                                          personalController
-                                              .existingAchievementImages
-                                              .add(
-                                                  ImageCard(image: img.base64));
-                                          personalController.newAchievementimage
-                                              .add(
-                                                  ImageCard(image: img.base64));
-                                          setState(() {});
-                                        }
-                                      },
-                                      onPressGallery: () async {
-                                        final img =
-                                            await ImagePickerClass.getImage(
-                                                camera: false);
-                                        if (img != null) {
-                                          personalController
-                                              .existingAchievementImages
-                                              .add(
-                                                  ImageCard(image: img.base64));
-                                          personalController.newAchievementimage
-                                              .add(
-                                                  ImageCard(image: img.base64));
-                                          setState(() {});
-                                        }
-                                      });
-                                },
-                                child: const CircleAvatar(
-                                  radius: 30,
-                                  child: Icon(Icons.add_a_photo_outlined),
-                                )),
-                          )
-                        ],
+                                  child: const CircleAvatar(
+                                    radius: 30,
+                                    child: Icon(Icons.add_a_photo_outlined),
+                                  )),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  adjustHieght(khieght * .02),
-                  InkWell(
-                    onTap: () => showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (BuildContext context) {
-                        return DatePickingBottomSheet(
-                          year: 500,
-                          last: 500,
-                          onPressed: (date) {
-                            setState(() {
-                              personalController.achievementDate.text = date;
-                            });
-                            Navigator.pop(context);
+                    adjustHieght(khieght * .02),
+                    // date selection section
+                    InkWell(
+                      onTap: () => showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (BuildContext context) {
+                          return DatePickingBottomSheet(
+                            year: 500,
+                            last: 500,
+                            onPressed: (date) {
+                              setState(() {
+                                personalController.achievementDate.text = date;
+                              });
+                              Navigator.pop(context);
+                            },
+                            datePicker: personalController.achievementDate,
+                          );
+                        },
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 10, right: 12),
+                        height: 60,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: klightDarkGrey,
+                          border: Border.all(color: kgrey),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                personalController.achievementDate.text.isEmpty
+                                    ? 'Choose Date'
+                                    : personalController.achievementDate.text,
+                                style: personalController
+                                        .achievementDate.text.isEmpty
+                                    ? const TextStyle(color: kwhite)
+                                    : const TextStyle(color: kwhite),
+                              ),
+                            ),
+                            const Icon(Icons.calendar_month, color: neonShade),
+                          ],
+                        ),
+                      ),
+                    ),
+                    kHeight5,
+                    // Events section
+                    AutocompleteTextField(
+                        textCapitalization: TextCapitalization.words,
+                        onDropDownSelection: (value) {
+                          FocusScope.of(context).unfocus();
+                        },
+                        controller: personalController.achievementEvent,
+                        label: 'Event',
+                        autocompleteItems: achivementEvents),
+                    // Title
+                    CustomTextFormField(
+                      controller: personalController.achievementTitle,
+                      maxlegth: 100,
+                      textCapitalization: TextCapitalization.words,
+                      onChanaged: (value) {
+                        personalController.achievementTitleChange = value;
+                      },
+                      labelText: 'Title',
+                      inputType: TextInputType.name,
+                      validate: Validate.notNull,
+                    ),
+                    // Description section
+                    CustomTextFormField(
+                      controller: personalController.achievementDescription,
+                      maxlegth: 300,
+                      onChanaged: (value) {
+                        personalController.achievementDescriptionChange = value;
+                      },
+                      textCapitalization: TextCapitalization.sentences,
+                      labelText: 'Description',
+                      maxLines: 8,
+                      inputType: TextInputType.name,
+                      validate: Validate.notNull,
+                    ),
+                    adjustHieght(khieght * .02),
+                    // save or update button
+                    Obx(
+                      () {
+                        if ((!widget.fromBusiness &&
+                                personalController.achievementLoading.value) ||
+                            (widget.fromBusiness &&
+                                bussinessController.achivementLoading.value)) {
+                          return const LoadingAnimation();
+                        }
+                        return EventButton(
+                          hieght: 48,
+                          text: widget.achievement?.id == null
+                              ? 'Save'
+                              : 'Update',
+                          onTap: () {
+                            if (personalController
+                                .existingAchievementImages.isEmpty) {
+                              showSnackbar(context,
+                                  message: 'Add image', backgroundColor: kred);
+                              return;
+                            } else if (achivementFormKey.currentState!
+                                .validate()) {
+                              List<String> sendImage = personalController
+                                  .existingAchievementImages
+                                  .map((e) => e.image!)
+                                  .toList();
+                              if (widget.achievement?.id == null) {
+                                !widget.fromBusiness
+                                    ? personalController.acheievementAdding(
+                                        sendImage, context)
+                                    : bussinessController.achievementAdding(
+                                        sendImage, context);
+                              } else {
+                                !widget.fromBusiness
+                                    ? personalController.acheievementUpdate(
+                                        sendImage,
+                                        context,
+                                        widget.achievement!.id!)
+                                    : bussinessController.acheievementUpdate(
+                                        sendImage,
+                                        context,
+                                        widget.achievement!.id!);
+                              }
+                            }
                           },
-                          datePicker: personalController.achievementDate,
                         );
                       },
                     ),
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 10, right: 12),
-                      height: 60,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: klightDarkGrey,
-                        border: Border.all(color: kgrey),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              personalController.achievementDate.text.isEmpty
-                                  ? 'Choose Date'
-                                  : personalController.achievementDate.text,
-                              style: personalController
-                                      .achievementDate.text.isEmpty
-                                  ? const TextStyle(color: kwhite)
-                                  : const TextStyle(color: kwhite),
-                            ),
-                          ),
-                          const Icon(Icons.calendar_month, color: neonShade),
-                        ],
-                      ),
-                    ),
-                  ),
-                  kHeight5,
-                  AutocompleteTextField(
-                      textCapitalization: TextCapitalization.words,
-                      onDropDownSelection: (value) {
-                        FocusScope.of(context).unfocus();
-                      },
-                      controller: personalController.achievementEvent,
-                      label: 'Event',
-                      autocompleteItems: achivementEvents),
-                  CustomTextFormField(
-                    controller: personalController.achievementTitle,
-                    maxlegth: 100,
-                    textCapitalization: TextCapitalization.words,
-                    onChanaged: (value) {
-                      personalController.achievementTitleChange = value;
-                    },
-                    labelText: 'Title',
-                    inputType: TextInputType.name,
-                  ),
-                  CustomTextFormField(
-                    controller: personalController.achievementDescription,
-                    maxlegth: 300,
-                    onChanaged: (value) {
-                      personalController.achievementDescriptionChange = value;
-                    },
-                    textCapitalization: TextCapitalization.sentences,
-                    labelText: 'Description',
-                    maxLines: 8,
-                    inputType: TextInputType.name,
-                  ),
-                  adjustHieght(khieght * .02),
-                  Obx(
-                    () {
-                      if (!widget.fromBusiness &&
-                          personalController.achievementLoading.value) {
-                        return const LoadingAnimation();
-                      } else if (widget.fromBusiness &&
-                          bussinessController.achivementLoading.value) {
-                        return const LoadingAnimation();
-                      }
-                      return EventButton(
-                        hieght: 48,
-                        text:
-                            widget.achievement?.id == null ? 'Save' : 'Update',
-                        onTap: () {
-                          if (personalController
-                                  .existingAchievementImages.isEmpty ||
-                              personalController
-                                  .achievementTitleChange.isEmpty ||
-                              personalController
-                                  .achievementDescriptionChange.isEmpty) {
-                            showSnackbar(context,
-                                message: personalController
-                                        .existingAchievementImages.isEmpty
-                                    ? 'Add image'
-                                    : personalController
-                                                .achievementTitleChange ==
-                                            ''
-                                        ? 'Add title'
-                                        : 'Add description',
-                                backgroundColor: kred);
-                            return;
-                          } else {
-                            List<String> sendImage = personalController
-                                .existingAchievementImages
-                                .map((e) => e.image!)
-                                .toList();
-                            if (widget.achievement?.id == null) {
-                              !widget.fromBusiness
-                                  ? personalController.acheievementAdding(
-                                      sendImage, context)
-                                  : bussinessController.achievementAdding(
-                                      sendImage, context);
-                            } else {
-                              !widget.fromBusiness
-                                  ? personalController.acheievementUpdate(
-                                      sendImage,
-                                      context,
-                                      widget.achievement!.id!)
-                                  : bussinessController.acheievementUpdate(
-                                      sendImage,
-                                      context,
-                                      widget.achievement!.id!);
-                            }
-                          }
-                        },
-                      );
-                    },
-                  ),
-                  adjustHieght(30)
-                ],
+                    adjustHieght(30)
+                  ],
+                ),
               ),
             ),
           ),

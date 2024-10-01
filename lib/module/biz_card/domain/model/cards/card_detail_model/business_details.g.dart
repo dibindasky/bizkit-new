@@ -26,7 +26,7 @@ BusinessDetails _$BusinessDetailsFromJson(Map<String, dynamic> json) =>
           ?.map((e) => Achievement.fromJson(e as Map<String, dynamic>))
           .toList(),
       businessSocialMedia: (json['business_social_media'] as List<dynamic>?)
-          ?.map((e) => BusinessSocialMedia.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => SocialMediaHandles.fromJson(e as Map<String, dynamic>))
           .toList(),
       product: (json['product'] as List<dynamic>?)
           ?.map((e) => Product.fromJson(e as Map<String, dynamic>))

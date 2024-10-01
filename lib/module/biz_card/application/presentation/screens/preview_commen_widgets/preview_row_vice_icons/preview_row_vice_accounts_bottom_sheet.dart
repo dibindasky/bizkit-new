@@ -1,3 +1,4 @@
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/social_media_handle.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/copy_clipboard/copy_clipboard.dart';
@@ -9,8 +10,8 @@ class AccountsListsBottomSheet extends StatelessWidget {
   const AccountsListsBottomSheet(
       {super.key, required this.personal, required this.business});
 
-  final List personal;
-  final List business;
+  final List<SocialMediaHandles> personal;
+  final List<SocialMediaHandles> business;
 
   void handleCopyToClipboard(BuildContext context, String text) {
     copyToClipboard(text: text, context: context);
@@ -68,7 +69,7 @@ class AccountsListviewBuilder extends StatelessWidget {
       required this.socialMedia});
   final Function(String) onCopyToClipboard;
   final bool acountIsCompany;
-  final List socialMedia;
+  final List<SocialMediaHandles> socialMedia;
   final Map<String, String> map = {
     'Instagram': imageInstagram,
     'LinkedIn': imageLinkedIn,
@@ -88,35 +89,6 @@ class AccountsListviewBuilder extends StatelessWidget {
         ),
         Column(
           children: [
-            // GestureDetector(
-            //   onTap: () => Navigator.of(context).push(fadePageRoute(
-            //        SocialMediahandlesScreen(fromBusiness: !acountIsCompany))),
-            //   child: Container(
-            //     margin: const EdgeInsets.symmetric(vertical: 8.0),
-            //     height: 70,
-            //     child: ClipRRect(
-            //       borderRadius: const BorderRadius.all(
-            //         Radius.circular(10),
-            //       ),
-            //       child: ColoredBox(
-            //         color: lightColr,
-            //         child: Row(
-            //           children: [
-            //             adjustWidth(kwidth * .03),
-            //             const CircleAvatar(
-            //               radius: 14,
-            //               backgroundImage: AssetImage(
-            //                 'asset/images/addButtunIconImage.png',
-            //               ),
-            //             ),
-            //             adjustWidth(kwidth * .03),
-            //             const Text('Add new')
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: 450,
               child: ListView.builder(
@@ -137,7 +109,7 @@ class AccountsListviewBuilder extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         LaunchUrl.launchUrls(
-                            url: socialMedia[index].socialMedia);
+                            url: socialMedia[index].link ?? "");
                       },
                       child: Row(
                         children: [
@@ -153,8 +125,7 @@ class AccountsListviewBuilder extends StatelessWidget {
                           const Spacer(),
                           TextButton(
                             onPressed: () {
-                              onCopyToClipboard(
-                                  socialMedia[index].socialMedia!);
+                              onCopyToClipboard(socialMedia[index].link ?? '');
                             },
                             child: Text(
                               'Copy Link',

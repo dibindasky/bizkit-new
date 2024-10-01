@@ -31,7 +31,7 @@ class PersonalDetailsService implements PersonalDetailsRepo {
       log('personalDetailsAdding ==> success');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
-      log('personalDetailsAdding DioException ${e.response?.statusCode} $e');
+      log('personalDetailsAdding DioException ${e.response?.data} $e');
 
       return Left(Failure(message: errorMessage, data: e.response?.statusCode));
     } catch (e) {
@@ -44,7 +44,6 @@ class PersonalDetailsService implements PersonalDetailsRepo {
   Future<Either<Failure, SuccessResponseModel>> personalAchivmentAdding(
       {required PersonalAchievementRequestModel personalAchiment}) async {
     try {
-      log('${personalAchiment.toJson()}');
       final responce = await apiService.post(ApiEndPoints.personalAchievement,
           data: personalAchiment.toJson());
       log('personalAchivmentAdding ==>success');

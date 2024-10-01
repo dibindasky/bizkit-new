@@ -23,7 +23,8 @@ class PersonalAchievementRequestModel {
     return PersonalAchievementRequestModel(
       title: json['title'] as String?,
       description: json['description'] as String?,
-      images: (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      images:
+          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       event: json['event'] as String?,
       date: json['date'] as String?,
       bizcardId: json['bizcard_id'] as String?,
@@ -34,32 +35,32 @@ class PersonalAchievementRequestModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    
-    if (title != null) {
+    if (title != null && title!.isNotEmpty) {
       data['title'] = title;
     }
-    if (description != null) {
-      data['description'] = description;
-    }
-    if (images != null) {
+    if (images != null && images!.isNotEmpty) {
       data['images'] = images;
     }
-    if (event != null) {
-      data['event'] = event;
+    if (description != null && description!.isNotEmpty) {
+      data['description'] = description;
     }
-    if (date != null) {
+    if (event != null && event!.isNotEmpty) {
+      data['event'] = event;
+    } else {
+      data['event'] = 'Other';
+    }
+    if (date != null && date!.isNotEmpty) {
       data['date'] = date;
     }
-    if (bizcardId != null) {
-      data['bizcard_id'] = bizcardId;
-    }
-    if (personalDetailsId != null) {
+    if (personalDetailsId != null && personalDetailsId!.isNotEmpty) {
       data['personal_details_id'] = personalDetailsId;
     }
-    if (personalAchievementId != null) {
+    if (bizcardId != null && bizcardId!.isNotEmpty) {
+      data['bizcard_id'] = bizcardId;
+    }
+    if (personalAchievementId != null && personalAchievementId!.isNotEmpty) {
       data['personal_achievement_id'] = personalAchievementId;
     }
-
     return data;
   }
 }

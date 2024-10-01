@@ -11,6 +11,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -253,26 +254,33 @@ class _GridTileAddRequestConnectionState
         adjustHieght(7),
         GestureDetector(
           onTap: () {
-            if (widget.fromPendingRequests) {
-              connectionController.cancelConnectionRequest(
-                  fromSendrequests: true,
-                  cancelConnectionRequest: CancelConnectionRequestModel(
-                      connectionId: widget.allSendRequests?.requestId,
-                      userId: widget.allSendRequests?.toUserId));
-            } else {
-              if (widget.data?.connectionRequestId != null) {
-                connectionController.cancelConnectionRequest(
-                    fromSendrequests: false,
-                    cancelConnectionRequest: CancelConnectionRequestModel(
-                        connectionId: widget.data?.connectionRequestId,
-                        userId: widget.data?.userId));
-              } else if (widget.data?.connectionExist == false) {
-                connectionController.sendConnectionRequest(
-                    connectionRequest: SendConnectionRequest(
-                        toUser: widget.data?.userId ?? ''),
-                    context: context);
-              }
-            }
+            showCustomConfirmationDialogue(
+              context: context,
+              title: 'Remove Request?',
+              buttonText: 'remove',
+              onTap: () {
+                if (widget.fromPendingRequests) {
+                  connectionController.cancelConnectionRequest(
+                      fromSendrequests: true,
+                      cancelConnectionRequest: CancelConnectionRequestModel(
+                          connectionId: widget.allSendRequests?.requestId,
+                          userId: widget.allSendRequests?.toUserId));
+                } else {
+                  if (widget.data?.connectionRequestId != null) {
+                    connectionController.cancelConnectionRequest(
+                        fromSendrequests: false,
+                        cancelConnectionRequest: CancelConnectionRequestModel(
+                            connectionId: widget.data?.connectionRequestId,
+                            userId: widget.data?.userId));
+                  } else if (widget.data?.connectionExist == false) {
+                    connectionController.sendConnectionRequest(
+                        connectionRequest: SendConnectionRequest(
+                            toUser: widget.data?.userId ?? ''),
+                        context: context);
+                  }
+                }
+              },
+            );
           },
           child: widget.fromPendingRequests &&
                   widget.allSendRequests?.requestId != null

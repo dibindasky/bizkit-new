@@ -569,7 +569,7 @@ class _SwitchButtonsState extends State<SwitchButtons> {
             if (widget.isCommonLevelSharing) adjustHieght(khieght * .05),
             widget.isCommonLevelSharing
                 ? buildSwitch(
-                    "Applicable To Individual",
+                    "Apply to all",
                     levelSharingController.commonLevelSharedFields.value
                             .applicableToIndividual ??
                         false, (value) {

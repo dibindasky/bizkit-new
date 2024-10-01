@@ -1,17 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'personal_social_media.g.dart';
+part 'social_media_handle.g.dart';
 
 @JsonSerializable()
-class PersonalSocialMedia {
+class SocialMediaHandles {
   String? label;
   String? link;
   @JsonKey(name: '_id')
   String? id;
 
-  PersonalSocialMedia({this.label, this.link, this.id});
+  SocialMediaHandles({this.label, this.link, this.id});
 
-  factory PersonalSocialMedia.fromJson(Map<String, dynamic> json) {
+  factory SocialMediaHandles.fromJson(Map<String, dynamic> json) {
     return _$PersonalSocialMediaFromJson(json);
   }
 

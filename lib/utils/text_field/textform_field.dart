@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 enum Validate {
   phone,
+  mobOrLandline,
   email,
   password,
   none,
@@ -166,75 +167,98 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           ),
         ),
         validator: (value) {
-          if (Validate.none == widget.validate) {
-            return null;
-          } else if ((value == null || value.isEmpty) &&
-              widget.validate == Validate.notNull) {
-            if (value == 'Content' && value!.length < 20) {
-              return 'Content must be at least 20 characters';
-            } else if (widget.labelText == '') {
-              return 'Enter ${widget.labelText}';
-            }
-            return 'Please enter ${widget.labelText}';
-          } else if (widget.validate == Validate.emailOrPhone) {
-            if (isValidEmail(value!)) {
+          switch (widget.validate) {
+            case Validate.none:
               return null;
-            }
-            if (isValidPhoneNumber(value)) {
-              return null;
-            }
-            return 'Enter valid email or phone number';
-          } else if (widget.validate == Validate.email &&
-              !isValidEmail(value!)) {
-            return 'Please enter a valid email address';
-          } else if (widget.validate == Validate.password &&
-              value!.length < 8) {
-            return 'Password must contain at least 8 characters';
-          } else if (widget.validate == Validate.password) {
-            if (!hasLowerCase(value!)) {
-              return 'Password must contains lowerCase letters';
-            } else if (!hasCapsLetter(value)) {
-              return 'Password must contains UpperCase letters';
-            } else if (!hasNumbers(value)) {
-              return 'Password must contains numbers';
-            } else if (!hasSpecialChar(value)) {
-              return 'Password must contains special characters';
-            } else if (value.length < 8) {
-              return 'Password must contains 8 characters';
-            } else {
-              return null;
-            }
-          } else if (Validate.phone == widget.validate) {
-            if (!RegExp(r'^[0-9]+$').hasMatch(value!)) {
-              return 'Enter valid phone number (numeric characters only)';
-            } else if (value.length != 10) {
-              return 'Phone number should have exactly 10 digits';
-            } else {
-              return null;
-            }
-          } else if (Validate.rePassword == widget.validate &&
-              widget.password!.text.trim() != value) {
-            return 'Password must be same';
-          } else if (Validate.ifsc == widget.validate) {
-            if (value != '' && !isValidIFSC(value!)) {
-              return 'Enter valid IFSC code';
-            } else {
-              return null;
-            }
-          } else if (Validate.upi == widget.validate) {
-            if (value != '' && !isValidUpiId(value!)) {
-              return 'Enter valid upi id';
-            } else {
-              return null;
-            }
-          } else if (Validate.gst == widget.validate) {
-            if (value != '' && !isValidGst(value!)) {
-              return 'Enter valid gst no';
-            } else {
-              return null;
-            }
-          } else if (value == 'Content' && value!.length < 20) {
-            return 'Content must be at least 20 characters';
+
+            case Validate.notNull:
+              if (value == null || value.isEmpty) {
+                if (value == 'Content' && value!.length < 20) {
+                  return 'Content must be at least 20 characters';
+                } else if (widget.labelText == '') {
+                  return 'Enter ${widget.labelText}';
+                }
+                return 'Please enter ${widget.labelText}';
+              }
+              break;
+
+            case Validate.emailOrPhone:
+              if (isValidEmail(value!)) {
+                return null;
+              }
+              if (isValidPhoneNumber(value)) {
+                return null;
+              }
+              return 'Enter valid email or phone number';
+
+            case Validate.email:
+              if (!isValidEmail(value!)) {
+                return 'Please enter a valid email address';
+              }
+              break;
+
+            case Validate.password:
+              if (value!.length < 8) {
+                return 'Password must contain at least 8 characters';
+              }
+              if (!hasLowerCase(value)) {
+                return 'Password must contain lowercase letters';
+              } else if (!hasCapsLetter(value)) {
+                return 'Password must contain uppercase letters';
+              } else if (!hasNumbers(value)) {
+                return 'Password must contain numbers';
+              } else if (!hasSpecialChar(value)) {
+                return 'Password must contain special characters';
+              } else if (value.length < 8) {
+                return 'Password must contain 8 characters';
+              }
+              break;
+
+            case Validate.phone:
+              if (!RegExp(r'^[0-9]+$').hasMatch(value!)) {
+                return 'Enter valid phone number (numeric characters only)';
+              } else if (value.length != 10) {
+                return 'Phone number should have exactly 10 digits';
+              }
+              break;
+
+            case Validate.mobOrLandline:
+              if (isValidPhoneNumber(value!)) {
+                return null;
+              } else if (isValidLandlineNumber(value)) {
+                return null;
+              } else {
+                return 'enter valid mobile or landline number';
+              }
+
+            case Validate.rePassword:
+              if (widget.password!.text.trim() != value) {
+                return 'Passwords must be the same';
+              }
+              break;
+
+            case Validate.ifsc:
+              if (value != '' && !isValidIFSC(value!)) {
+                return 'Enter valid IFSC code';
+              }
+              break;
+
+            case Validate.upi:
+              if (value != '' && !isValidUpiId(value!)) {
+                return 'Enter valid UPI ID';
+              }
+              break;
+
+            case Validate.gst:
+              if (value != '' && !isValidGst(value!)) {
+                return 'Enter valid GST number';
+              }
+              break;
+
+            default:
+              if (value == 'Content' && value!.length < 20) {
+                return 'Content must be at least 20 characters';
+              }
           }
           return null;
         },

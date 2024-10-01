@@ -19,6 +19,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/business/product_delet
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/business_repo.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -316,7 +317,12 @@ class BusinesDetailsController extends GetxController {
     final data = await businessRepo.businessAchievementAdding(
         achievementModel: achievementModel);
     data.fold(
-      (l) => achivementLoading.value = false,
+      (l) {
+        achivementLoading.value = false;
+        showSnackbar(context,
+            message: 'Failed to add achivement, please try again',
+            backgroundColor: kred);
+      },
       (r) {
         achivementLoading.value = false;
         cardController.cardDetail(
@@ -346,7 +352,9 @@ class BusinesDetailsController extends GetxController {
     final data = await businessRepo.businessAchievementUpdating(
         achievementModel: achievementModel);
     data.fold(
-      (l) => null,
+      (l) => showSnackbar(context,
+          message: 'Failed to update achivement, please try again',
+          backgroundColor: kred),
       (r) {
         final cardController = Get.find<CardController>();
         achivementLoading.value = false;
@@ -625,6 +633,8 @@ class BusinesDetailsController extends GetxController {
         upi: uPIIDController.text,
         businessDetailsId:
             cardController.bizcardDetail.value.businessDetails?.id ?? '');
+    print(
+        'patch banking data => businessDetails id --->  ${cardController.bizcardDetail.value.businessDetails?.id ?? 'empty'}');
     final data =
         await businessRepo.businessBankDetails(bankingDetail: bankingDetail);
     data.fold(

@@ -57,7 +57,7 @@ class _AttendenceNavbarModuleScreenState
           child: BottomBarBubble(
             color: neonShade,
             height: 60.h,
-            backgroundColor: lightGrey,
+            backgroundColor: lightColr,
             selectedIndex: selectedIndex,
             items: [
               BottomBarItem(

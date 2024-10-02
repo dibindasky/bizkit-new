@@ -51,7 +51,7 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
           child: BottomBarBubble(
             color: neonShade,
             height: 60.h,
-            backgroundColor: lightGrey,
+            backgroundColor: klightDarkGrey,
             selectedIndex: selectedIndex,
             items: [
               BottomBarItem(

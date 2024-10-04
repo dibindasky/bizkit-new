@@ -101,7 +101,8 @@ class ScreenEditTask extends StatelessWidget {
                               suffixIcon: Icons.arrow_right,
                               onTap: () {
                                 createTaskController.searchParticipants(
-                                    user: UserSearchModel(searchTerm: ''));
+                                    user: UserSearchModel(
+                                        searchTerm: '', page: 2, pageSize: 10));
                                 showModalBottomSheet(
                                   enableDrag: true,
                                   context: context,

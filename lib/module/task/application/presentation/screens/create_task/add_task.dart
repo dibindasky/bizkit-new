@@ -41,7 +41,7 @@ class ScreenAddTask extends StatelessWidget {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.searchParticipants(
-        user: UserSearchModel(searchTerm: ''),
+        user: UserSearchModel(searchTerm: '', page: 2, pageSize: 10),
       );
     });
 

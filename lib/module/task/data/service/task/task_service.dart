@@ -252,7 +252,7 @@ class TaskService implements TaskRepo {
 
       log("=> Response Search Participants :");
 
-      List<UserSearchSuccessResponce> users = (response.data as List)
+      List<UserSearchSuccessResponce> users = (response.data['data'] as List)
           .map((userData) => UserSearchSuccessResponce.fromJson(userData))
           .toList();
 

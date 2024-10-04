@@ -35,11 +35,13 @@ class AddParticipentForTaskEditBottomSheet extends StatelessWidget {
             onChanged: (value) {
               if (value.isNotEmpty) {
                 taskController.searchParticipants(
-                  user: UserSearchModel(searchTerm: value),
+                  user:
+                      UserSearchModel(searchTerm: value, page: 2, pageSize: 10),
                 );
               } else {
                 taskController.searchParticipants(
-                  user: UserSearchModel(searchTerm: value),
+                  user:
+                      UserSearchModel(searchTerm: value, page: 2, pageSize: 10),
                 );
               }
             },

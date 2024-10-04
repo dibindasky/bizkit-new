@@ -6,8 +6,10 @@ part 'user_search_model.g.dart';
 class UserSearchModel {
   @JsonKey(name: 'search_term')
   String? searchTerm;
-
-  UserSearchModel({this.searchTerm});
+  int? page;
+  @JsonKey(name: 'page_size')
+  int? pageSize;
+  UserSearchModel({this.searchTerm, this.page, this.pageSize});
 
   factory UserSearchModel.fromJson(Map<String, dynamic> json) {
     return _$UserSearchModelFromJson(json);

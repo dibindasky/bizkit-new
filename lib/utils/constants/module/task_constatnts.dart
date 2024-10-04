@@ -16,3 +16,11 @@ const String taskTimeIconImage = 'asset/images/task/task_time_icon.png';
 const String taskExpenseIconImage = 'asset/images/task/task_expense_icon.png';
 
 const String taskProgresBarBtnImage = 'asset/images/task/progres_bar_btn.png';
+
+enum TaskType { official, personal, others }
+
+enum PriorityLevel { medium, low, high }
+
+enum FilterTypes { all, selftoself, selftoothers, otherstoself }
+
+enum RecurringTimePeriod { everyDay, everyWeek, everyMoth, custom, none }

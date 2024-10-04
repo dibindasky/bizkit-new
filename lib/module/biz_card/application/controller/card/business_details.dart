@@ -75,7 +75,10 @@ class BusinesDetailsController extends GetxController {
   TextEditingController businessBranchOfficesPersonNumber =
       TextEditingController();
 
-  // Business Brohure Controllers
+  /// business phone numbers
+  RxList<String> businessPhoneNumbers = <String>[].obs;
+
+  /// Business Brohure Controllers
   TextEditingController businessBroshureLebel = TextEditingController();
   PdfModel? pdf;
 
@@ -87,7 +90,7 @@ class BusinesDetailsController extends GetxController {
   TextEditingController businessProductDescription = TextEditingController();
   RxBool productEnquiry = false.obs;
 
-  //Banking Details
+  // Banking Details
   TextEditingController companyBankingName = TextEditingController();
   TextEditingController accountNumberController = TextEditingController();
   TextEditingController iFSCController = TextEditingController();
@@ -101,7 +104,7 @@ class BusinesDetailsController extends GetxController {
     companyWebsiteLink.text = cardDetail.businessDetails?.websiteLink ?? '';
     businessName.text = cardDetail.businessDetails?.businessName ?? '';
     companyEmail.text = cardDetail.businessDetails?.businessEmail ?? '';
-    companyNumber.text = cardDetail.businessDetails?.businessPhone?.first ?? '';
+    businessPhoneNumbers.value = cardDetail.businessDetails?.businessPhone?? <String>[];
     takeLogoDetails();
     takeBankingDetails();
   }
@@ -111,7 +114,7 @@ class BusinesDetailsController extends GetxController {
     final cardController = Get.find<CardController>();
     BusinessDetialInitial businessInitial = BusinessDetialInitial(
       businessEmail: companyEmail.text,
-      bussinessPhone: [companyNumber.text],
+      bussinessPhone: businessPhoneNumbers,
       businessName: businessName.text,
       websiteLink: companyWebsiteLink.text,
       companyName: commpanyName.text,
@@ -130,6 +133,23 @@ class BusinesDetailsController extends GetxController {
         showSnackbar(context, message: 'Business Data Added Successfully');
       },
     );
+  }
+
+  /// add business phone numbers to list
+  void addBusinessPhoneNumber(BuildContext context, String phone) {
+    if (businessPhoneNumbers.contains(phone)) {
+      showSnackbar(context, message: 'Phone number alredy exist');
+    } else {
+      businessPhoneNumbers.add(phone);
+      companyNumber.text = '';
+    }
+    update(['businessPhoneNumber']);
+  }
+
+  /// remove business numbers from business data
+  void deleteBusinessPhoneNumber(int index) {
+    businessPhoneNumbers.removeAt(index);
+    update(['businessPhoneNumber']);
   }
 
   void branchAdding({required BuildContext context}) async {

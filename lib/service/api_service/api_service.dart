@@ -3,12 +3,11 @@ import 'dart:developer';
 import 'package:bizkit/core/routes/route_generator.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
-import 'package:bizkit/module/module_manager/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/token/refresh_response/refresh_response.dart';
 import 'package:dio/dio.dart';
-import 'package:get/get.dart' as getX;
+import 'package:get/get.dart' as getx;
 
 class ApiService {
   final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
@@ -209,7 +208,7 @@ class ApiService {
       // logout if cannot refresh access token and got 401 or 403
       if (exception.response?.statusCode == 401 ||
           exception.response?.statusCode == 403) {
-        getX.Get.find<AuthenticationController>().clearDataWhileLogout();
+        getx.Get.find<AuthenticationController>().clearDataWhileLogout();
         GoRouterConfig.router.go(Routes.initial);
         rethrow;
       } else {

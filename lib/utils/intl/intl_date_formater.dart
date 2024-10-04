@@ -28,7 +28,7 @@ class DateTimeFormater {
   static String getDDMMHHMMformat(String? date) {
     if (date == null) return '';
     try {
-      DateTime dateTime = DateTime.now(); // Example DateTime
+      DateTime dateTime = DateTime.parse(date);
       return DateFormat('d MMM h:mm a').format(dateTime);
     } catch (e) {
       return '';

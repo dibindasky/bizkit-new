@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/achievements_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/achivements_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/achevements/create_achievement_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/linear_progress_indicator/personal_detail_screen/personal_detail_screen.dart';
@@ -21,8 +20,6 @@ import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-final GlobalKey<FormState> businessFormKey = GlobalKey<FormState>();
-
 class BusinessDetailsScreen extends StatelessWidget {
   BusinessDetailsScreen(
       {super.key, required this.pageController, required this.fromBusiness});
@@ -30,16 +27,13 @@ class BusinessDetailsScreen extends StatelessWidget {
   final bool fromBusiness;
   final PageController pageController;
   final Debouncer debouncer = Debouncer(milliseconds: 300);
+  final GlobalKey<FormState> businessFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> businessDataPhoneNumber = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final businessController = Get.find<BusinesDetailsController>();
     final cardController = Get.find<CardController>();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // context
-      //     .read<BusinessDataBloc>()
-      //     .add(const BusinessDataEvent.getCompnayList(search: null));
-    });
     return FadeIn(
       duration: const Duration(milliseconds: 900),
       delay: const Duration(milliseconds: 600),
@@ -104,14 +98,36 @@ class BusinessDetailsScreen extends StatelessWidget {
                 autocompleteItems: const [],
               ),
               // Company Number
-              AutocompleteTextField(
-                maxLength: 12,
-                validate: Validate.mobOrLandline,
-                inputType: TextInputType.phone,
-                label: 'Company Number',
-                doAutoFill: false,
-                controller: businessController.companyNumber,
-                autocompleteItems: const [],
+              Form(
+                key: businessDataPhoneNumber,
+                child: GetBuilder<BusinesDetailsController>(
+                    id: 'businessPhoneNumber',
+                    builder: (controller) => ImagePreviewUnderTextField(
+                          removeItem: (index) {
+                            businessController.deleteBusinessPhoneNumber(index);
+                          },
+                          listString: businessController.businessPhoneNumbers,
+                          child: AutocompleteTextField(
+                            suffixIcon: InkWell(
+                                onTap: () {
+                                  if (businessDataPhoneNumber.currentState!
+                                      .validate()) {
+                                    FocusScopeNode().unfocus();
+                                    businessController.addBusinessPhoneNumber(
+                                        context,
+                                        businessController.companyNumber.text);
+                                  }
+                                },
+                                child: const Icon(Icons.add)),
+                            maxLength: 12,
+                            validate: Validate.mobOrLandline,
+                            inputType: TextInputType.phone,
+                            label: 'Company Number',
+                            doAutoFill: false,
+                            controller: businessController.companyNumber,
+                            autocompleteItems: const [],
+                          ),
+                        )),
               ),
               // website link business
               AutocompleteTextField(

@@ -51,7 +51,10 @@ class PersonalDetailsController extends GetxController {
   final mat.TextEditingController personlAddressController =
       mat.TextEditingController();
 
-  // personaal Achivement Controllers
+  /// personal phone numberes
+  RxList<String> personalPhoneNumbers = <String>[].obs;
+
+  // personal Achivement Controllers
   List<ImageCard> existingAchievementImages = [];
   List<ImageCard> newAchievementimage = [];
   String achievementTitleChange = '';
@@ -74,12 +77,29 @@ class PersonalDetailsController extends GetxController {
   void getPersonalDetails(CardDetailModel cardDetail) {
     personalEmailController.text = cardDetail.personalDetails?.email ?? '';
     personalNameController.text = cardDetail.personalDetails?.name ?? '';
-    personalPhoneController.text =
-        cardDetail.personalDetails?.phone?.first ?? '';
+    personalPhoneNumbers.value =
+        cardDetail.personalDetails?.phone ?? <String>[];
     personlAddressController.text = cardDetail.personalDetails?.address ?? '';
     dOBController.text = DateTimeFormater.getDateByDayMonthYear(
         cardDetail.personalDetails?.dob ?? '');
     bloodGroupController.text = cardDetail.personalDetails?.bloodGroup ?? '';
+  }
+
+  /// add phone number to personal data
+  void addPeresonalPhoneNumber(BuildContext context, String phone) {
+    if (personalPhoneNumbers.contains(phone)) {
+      showSnackbar(context, message: 'Phone number alredy exist');
+    } else {
+      personalPhoneNumbers.add(phone);
+      personalPhoneController.text = '';
+    }
+    update(['personalPhoneNumber']);
+  }
+
+  /// remove phoneNumber from personal data
+  void deletePersonalPhoneNumber(int index) {
+    personalPhoneNumbers.removeAt(index);
+    update(['personalPhoneNumber']);
   }
 
   void personalImagesAdding(bool isCam) async {
@@ -116,7 +136,7 @@ class PersonalDetailsController extends GetxController {
       email: personalEmailController.text,
       images: personalController.personalImages,
       name: personalNameController.text,
-      phone: [personalPhoneController.text],
+      phone: personalPhoneNumbers,
     );
 
     final data = await personalDetailsRepo.personalDetailsAdding(

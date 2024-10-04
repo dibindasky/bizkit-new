@@ -33,13 +33,9 @@ class SearchTasksWidget extends StatelessWidget {
                 child: TaskTextField(
                   showBorder: true,
                   fillColor: textFieldFillColr,
-                  controller: searchController,
+                  controller: taskController.taskSearchController,
                   onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      taskController.searchTasks(searchItem: value);
-                    } else {
-                      taskController.searchTasks(searchItem: value);
-                    }
+                    taskController.searchTasks();
                   },
                   onTapOutside: () => FocusScope.of(context).unfocus(),
                   hintText: 'Search with title , des , type etc..',

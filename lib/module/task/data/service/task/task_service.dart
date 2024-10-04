@@ -245,6 +245,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, List<UserSearchSuccessResponce>>> participantsSearch(
       {required UserSearchModel user}) async {
     try {
+      log('participantsSearch TO JSON ===== > ${user.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestFindUser,
         data: user.toJson(),
@@ -270,13 +271,13 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, GetTaskResponce>> getTask(
       {required GetSingleTaskModel singleTaskModel}) async {
     try {
-      log('GetTask Json => ${singleTaskModel.toJson()}');
+      // log('GetTask Json => ${singleTaskModel.toJson()}');
       final response = await apiService.get(
         ApiEndPoints.taskTestEditTask,
         data: singleTaskModel.toJson(),
       );
 
-      log("=> Response Get one task : ");
+      log("=> Response getTask : ");
 
       return Right(GetTaskResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -293,11 +294,12 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, TaskSearchResponce>> taskSearch(
       {required UserSearchModel taskSearchItem}) async {
     try {
+      // log('taskSearch TO JSON ===== > ${taskSearchItem.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestTaskSearch,
         data: taskSearchItem.toJson(),
       );
-      log('=> Response Task Search : ');
+      log('=> Response taskSearch : ');
       return Right(TaskSearchResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException taskSearch $e');

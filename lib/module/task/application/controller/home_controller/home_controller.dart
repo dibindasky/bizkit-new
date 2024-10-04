@@ -42,20 +42,11 @@ class TaskHomeScreenController extends GetxController
 
   // late AnimationController animationController;
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   animationController = AnimationController(
-  //     duration: const Duration(milliseconds: 300),
-  //     vsync: this,
-  //   );
-  // }
-
-  // @override
-  // void onClose() {
-  //   animationController.dispose();
-  //   super.onClose();
-  // }
+  @override
+  void onInit() {
+    super.onInit();
+    fetchRecentTasks();
+  }
 
   // Function to add or remove fields from the selectedFields list
   void addField(String value) {

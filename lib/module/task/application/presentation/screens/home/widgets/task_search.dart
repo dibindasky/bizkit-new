@@ -6,6 +6,7 @@ import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_s
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,6 @@ class TaskSearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-    final TextEditingController searchController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -32,21 +32,17 @@ class TaskSearchScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: Column(
             children: [
               Hero(
                 tag: 'taskSearch',
                 child: TaskTextField(
                   // showBorder: true,
-                  controller: searchController,
+                  controller: taskController.taskSearchController,
                   // fillColor: textFieldFillColr,
                   onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      taskController.searchTasks(searchItem: value);
-                    } else {
-                      taskController.searchTasks(searchItem: value);
-                    }
+                    taskController.searchTasks();
                   },
                   onTapOutside: () => FocusScope.of(context).unfocus(),
                   hintText: 'Find your task',
@@ -58,8 +54,14 @@ class TaskSearchScreen extends StatelessWidget {
                 child: Obx(
                   () {
                     if (taskController.taskSearchLoading.value) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        child: ShimmerLoader(
+                          itemCount: 7,
+                          height: 60.h,
+                          width: 200.w,
+                          seprator: kHeight10,
+                        ),
                       );
                     } else if (taskController.tasksSearch.isEmpty) {
                       return ErrorRefreshIndicator(
@@ -69,29 +71,47 @@ class TaskSearchScreen extends StatelessWidget {
                       );
                     } else {
                       return ListView.builder(
-                        itemCount: taskController.tasksSearch.length,
+                        controller: taskController.taskSearchScrollController,
+                        itemCount: taskController.tasksSearch.length +
+                            (taskController.taskSearchLoadMoreLoading.value
+                                ? 1
+                                : 0),
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              taskController.fetchSingleTask(
-                                singleTaskModel: GetSingleTaskModel(
-                                    taskId:
+                          if (index == taskController.tasksSearch.length &&
+                              taskController.taskSearchLoadMoreLoading.value) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 5.w),
+                              child: ShimmerLoader(
+                                itemCount: 1,
+                                height: 60.h,
+                                width: 200.w,
+                                seprator: kHeight10,
+                              ),
+                            );
+                          } else {
+                            return GestureDetector(
+                              onTap: () {
+                                taskController.fetchSingleTask(
+                                  singleTaskModel: GetSingleTaskModel(
+                                      taskId: taskController
+                                              .tasksSearch[index].id ??
+                                          ''),
+                                );
+                                GoRouter.of(context).pushNamed(
+                                  Routes.taskDeail,
+                                  pathParameters: {
+                                    "taskId":
                                         taskController.tasksSearch[index].id ??
-                                            ''),
-                              );
-                              GoRouter.of(context).pushNamed(
-                                Routes.taskDeail,
-                                pathParameters: {
-                                  "taskId":
-                                      taskController.tasksSearch[index].id ?? ''
-                                },
-                              );
-                            },
-                            child: TaskContainer(
-                              index: index,
-                              typeTask: taskController.tasksSearch[index],
-                            ),
-                          );
+                                            ''
+                                  },
+                                );
+                              },
+                              child: TaskContainer(
+                                index: index,
+                                typeTask: taskController.tasksSearch[index],
+                              ),
+                            );
+                          }
                         },
                       );
                     }

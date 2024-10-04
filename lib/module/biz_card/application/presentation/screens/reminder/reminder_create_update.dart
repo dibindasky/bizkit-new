@@ -291,7 +291,7 @@ class _ScreenCardReminderCreatingState
                                                 .meetingLabelController.text,
                                             occasion: reminderController
                                                 .occasionController.text,
-                                            reminderDate: DateTime(dates.year,)
+                                            reminderDate: DateTime(dates.year, dates.month, dates.day)
                                                 .add(Duration(
                                                     hours: timeOfDay.hour,
                                                     minutes: timeOfDay.minute))
@@ -301,14 +301,7 @@ class _ScreenCardReminderCreatingState
                                                 .venueController.text),
                                         context: context)
                                     : reminderController.updateReminder(
-                                        updateReminderModel: UpdateReminderModel(
-                                            bizcardId: widget.cardId,
-                                            reminderId: widget.reminder!.id,
-                                            description: reminderController.messageController.text,
-                                            meetingLabel: reminderController.meetingLabelController.text,
-                                            occasion: reminderController.occasionController.text,
-                                            reminderDate: dates.add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute)).toUtc().toString(),
-                                            venue: reminderController.venueController.text),
+                                        updateReminderModel: UpdateReminderModel(bizcardId: widget.cardId, reminderId: widget.reminder!.id, description: reminderController.messageController.text, meetingLabel: reminderController.meetingLabelController.text, occasion: reminderController.occasionController.text, reminderDate: dates.add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute)).toUtc().toString(), venue: reminderController.venueController.text),
                                         context: context);
                               }
                             }

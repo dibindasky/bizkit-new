@@ -6,6 +6,7 @@ class Routes {
   static const String moduleSelector = '/module_selector';
   static const String slidablePhotoGallery = '/slidable_photo_gallery';
   static const String pdfPreview = '/pdf_preview';
+  static const String editProfile = '/edit_profile';
 
   // biz card module
   static const String onBoardingBizCard = '/on_boarding_bizcard';

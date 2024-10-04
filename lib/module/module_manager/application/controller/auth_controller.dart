@@ -12,7 +12,7 @@ import 'package:bizkit/module/module_manager/domain/repository/sqflite/users_loc
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/data/service/auth/auth_service.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
-import 'package:bizkit/module/module_manager/domain/repository/service/authentication_repo.dart';
+import 'package:bizkit/module/module_manager/domain/repository/service/authentication_repo/authentication_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';

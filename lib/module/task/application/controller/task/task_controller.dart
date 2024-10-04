@@ -72,6 +72,8 @@ class CreateTaskController extends GetxController {
   RxList<TaskExpenseAndTimeSuccessResponce> taskExpenseAndTime =
       <TaskExpenseAndTimeSuccessResponce>[].obs;
 
+  ScrollController searchScrollController = ScrollController();
+
   // Lists for storing various task types and deadlines
   RxList<Task> typeTasks = <Task>[].obs;
   RxList<Task> deadlineTasks = <Task>[].obs;
@@ -87,6 +89,8 @@ class CreateTaskController extends GetxController {
   RxList<ReceivedTask> receivedRequests = <ReceivedTask>[].obs;
   RxMap<String, RxInt> tasksCounts = <String, RxInt>{}.obs;
   RxList<CompletedSubTasks> completedSubTasks = <CompletedSubTasks>[].obs;
+
+  int pageNumber = 1, pageSize = 5;
 
   // Holds a single task response
   var singleTask = GetTaskResponce().obs;
@@ -107,6 +111,8 @@ class CreateTaskController extends GetxController {
   // List of colors for tags
   final List<Color> tagColor = [kred, kblue, kgreen, kgrey, kOrange];
 
+  final TextEditingController searchController = TextEditingController();
+
   @override
   void onInit() {
     getTasksCountWithoutDate();
@@ -116,7 +122,18 @@ class CreateTaskController extends GetxController {
 
     taskFilterByDeadline(
         filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
-
+    searchScrollController.addListener(
+      () {
+        if (searchScrollController.position.pixels ==
+            searchScrollController.position.maxScrollExtent) {
+          searchParticipantsLoadMore(
+              user: UserSearchModel(
+                  page: pageNumber,
+                  pageSize: pageSize,
+                  searchTerm: searchController.text));
+        }
+      },
+    );
     super.onInit();
   }
 
@@ -132,6 +149,7 @@ class CreateTaskController extends GetxController {
   RxBool taskCreationLoading = false.obs;
   RxBool taskEditLoading = false.obs;
   RxBool searchLoading = false.obs;
+  RxBool searchLoadMoreLoading = false.obs;
   RxBool taskSearchLoading = false.obs;
   RxBool pinLoader = false.obs;
   RxBool isLoadingForSpotLight = false.obs;
@@ -806,20 +824,54 @@ class CreateTaskController extends GetxController {
   }
 
   // Searches for participants based on user input
-  void searchParticipants({required UserSearchModel user}) async {
+  void searchParticipants() async {
     searchLoading.value = true;
+    update(['searchUser']);
+    userslist.value = [];
+    pageNumber = 1;
+    final user = UserSearchModel(
+        page: pageNumber,
+        pageSize: pageSize,
+        searchTerm: searchController.text);
+
     final result = await taskService.participantsSearch(user: user);
-    update();
+
     result.fold(
       (failure) {
         searchLoading.value = false;
         log(failure.message.toString());
-        update();
+        update(['searchUser']);
       },
       (success) {
         userslist.assignAll(success);
         searchLoading.value = false;
-        update();
+        update(['searchUser']);
+      },
+    );
+  }
+
+  void searchParticipantsLoadMore({required UserSearchModel user}) async {
+    if (searchLoadMoreLoading.value == true) {
+      return;
+    }
+    searchLoadMoreLoading.value = true;
+    update(['searchUser']);
+    final result = await taskService.participantsSearch(
+        user: user.copyWith(page: ++pageNumber, pageSize: pageSize));
+    await Future.delayed(Duration(seconds: 2));
+    result.fold(
+      (failure) {
+        searchLoadMoreLoading.value = false;
+        log(failure.message.toString());
+        update(['searchUser']);
+      },
+      (success) {
+        userslist.addAll(success.where(
+          (newUser) => !userslist
+              .any((existingUser) => existingUser.userId == newUser.userId),
+        ));
+        searchLoadMoreLoading.value = false;
+        update(['searchUser']);
       },
     );
   }

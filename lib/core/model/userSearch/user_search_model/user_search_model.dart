@@ -9,6 +9,7 @@ class UserSearchModel {
   int? page;
   @JsonKey(name: 'page_size')
   int? pageSize;
+
   UserSearchModel({this.searchTerm, this.page, this.pageSize});
 
   factory UserSearchModel.fromJson(Map<String, dynamic> json) {
@@ -16,4 +17,16 @@ class UserSearchModel {
   }
 
   Map<String, dynamic> toJson() => _$UserSearchModelToJson(this);
+
+  UserSearchModel copyWith({
+    String? searchTerm,
+    int? page,
+    int? pageSize,
+  }) {
+    return UserSearchModel(
+      searchTerm: searchTerm ?? this.searchTerm,
+      page: page ?? this.page,
+      pageSize: pageSize ?? this.pageSize,
+    );
+  }
 }

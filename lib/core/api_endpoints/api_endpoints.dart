@@ -26,8 +26,13 @@ class ApiEndPoints {
   static const String forgottPassword = '/verification/change_password/';
   static const String forgottPasswordProfile = '/accounts/password_change/';
 
+
+  /// [ profile ]
+  static const String nameAndImage='/update-pic-or-name/';
+
   //  [  Matcho meter ]
   static const String matchoMeter = '/matcho-meter/';
+
 
   // ---------------------------------------------------------------------------------------------
   /// [ Bizcard Module  ]

@@ -2,7 +2,7 @@ import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_cont
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/home_first_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/widgets/prompt.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/profile_screen/profile_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/profile_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/received_card_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
 import 'package:bizkit/utils/constants/colors.dart';

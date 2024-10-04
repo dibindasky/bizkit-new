@@ -6,7 +6,7 @@ import 'package:bizkit/core/model/success_response_model/success_response_model.
 import 'package:bizkit/core/model/token/access_token/token_model.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
-import 'package:bizkit/module/module_manager/domain/repository/service/authentication_repo.dart';
+import 'package:bizkit/module/module_manager/domain/repository/service/authentication_repo/authentication_repo.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';

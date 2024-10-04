@@ -23,51 +23,94 @@ class AudioPlayerHandler {
   }
 
   // Play audio from base64
+  // Future<bool> playAudioFromBase64(String base64Audio,
+  //     {required Function(Duration currentPosition) onCurrentPositionChanged,
+  //     required VoidCallback whenFinished}) async {
+  //   if (await Permission.storage.request().isGranted) {
+  //     try {
+  //       // Decode the base64 string into Uint8List (binary data)
+  //       Uint8List audioBytes = base64.decode(base64Audio);
+
+  //       // Set audio source with appropriate MIME type
+  //       await audioPlayer.setAudioSource(
+  //         AudioSource.uri(
+  //           Uri.dataFromBytes(audioBytes, mimeType: 'audio/aac'),
+  //         ),
+  //       );
+
+  //       // Listen to the total duration of the audio
+  //       _durationSubscription = audioPlayer.durationStream.listen((duration) {
+  //         totalDuration = duration;
+  //         print("Total Duration: $totalDuration");
+  //       });
+
+  //       // Listen to the current position of the audio while playing
+  //       _positionSubscription = audioPlayer.positionStream.listen((position) {
+  //         currentPosition = position;
+  //         onCurrentPositionChanged(currentPosition!);
+
+  //         // When audio finishes, invoke the callback
+  //         if (currentPosition == totalDuration) {
+  //           whenFinished();
+  //           currentPosition = Duration.zero;
+  //         }
+  //       });
+
+  //       // Start playing the audio
+  //       await audioPlayer.play();
+  //       return true;
+  //     } catch (e) {
+  //       print("Error playing audio: $e");
+  //       return false;
+  //     }
+  //   } else {
+  //     await requestPermissions();
+  //     return await playAudioFromBase64(base64Audio,
+  //         onCurrentPositionChanged: onCurrentPositionChanged,
+  //         whenFinished: whenFinished);
+  //   }
+  // }
+
+  // Play audio from base64
   Future<bool> playAudioFromBase64(String base64Audio,
       {required Function(Duration currentPosition) onCurrentPositionChanged,
       required VoidCallback whenFinished}) async {
-    if (await Permission.storage.request().isGranted) {
-      try {
-        // Decode the base64 string into Uint8List (binary data)
-        Uint8List audioBytes = base64.decode(base64Audio);
+    try {
+      // Decode the base64 string into Uint8List (binary data)
+      Uint8List audioBytes = base64.decode(base64Audio);
 
-        // Set audio source with appropriate MIME type
-        await audioPlayer.setAudioSource(
-          AudioSource.uri(
-            Uri.dataFromBytes(audioBytes, mimeType: 'audio/aac'),
-          ),
-        );
+      // Set audio source with appropriate MIME type
+      await audioPlayer.setAudioSource(
+        AudioSource.uri(
+          Uri.dataFromBytes(audioBytes,
+              mimeType: 'audio/aac'), // Change MIME type if necessary
+        ),
+      );
 
-        // Listen to the total duration of the audio
-        _durationSubscription = audioPlayer.durationStream.listen((duration) {
-          totalDuration = duration;
-          print("Total Duration: $totalDuration");
-        });
+      // Listen to the total duration of the audio
+      _durationSubscription = audioPlayer.durationStream.listen((duration) {
+        totalDuration = duration;
+        print("Total Duration: $totalDuration");
+      });
 
-        // Listen to the current position of the audio while playing
-        _positionSubscription = audioPlayer.positionStream.listen((position) {
-          currentPosition = position;
-          onCurrentPositionChanged(currentPosition!);
+      // Listen to the current position of the audio while playing
+      _positionSubscription = audioPlayer.positionStream.listen((position) {
+        currentPosition = position;
+        onCurrentPositionChanged(currentPosition!);
 
-          // When audio finishes, invoke the callback
-          if (currentPosition == totalDuration) {
-            whenFinished();
-            currentPosition = Duration.zero;
-          }
-        });
+        // When audio finishes, invoke the callback
+        if (currentPosition == totalDuration) {
+          whenFinished();
+          currentPosition = Duration.zero;
+        }
+      });
 
-        // Start playing the audio
-        await audioPlayer.play();
-        return true;
-      } catch (e) {
-        print("Error playing audio: $e");
-        return false;
-      }
-    } else {
-      await requestPermissions();
-      return await playAudioFromBase64(base64Audio,
-          onCurrentPositionChanged: onCurrentPositionChanged,
-          whenFinished: whenFinished);
+      // Start playing the audio
+      await audioPlayer.play();
+      return true;
+    } catch (e) {
+      print("Error playing audio: $e");
+      return false;
     }
   }
 

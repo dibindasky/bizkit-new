@@ -61,6 +61,7 @@ class CreateTaskController extends GetxController {
   RxBool createRecurring = false.obs;
   RxString deadlineDate = ''.obs;
   RxString deadlineDateForTaskCreation = ''.obs;
+  RxString deadlineDateForTaskEdit = ''.obs;
   RxBool taskscountChanged = false.obs;
 
   // List of participants involved in the task

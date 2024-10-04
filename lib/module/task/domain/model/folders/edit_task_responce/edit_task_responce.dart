@@ -10,11 +10,18 @@ class EditTaskModel {
   List<String>? tags;
   @JsonKey(name: 'task_id')
   String? taskId;
+  @JsonKey(name: 'dead_line')
+  String? deadLine;
   @JsonKey(name: 'assigned_to')
   List<TaskAssignedTo>? assignedTo;
 
   EditTaskModel(
-      {this.title, this.description, this.tags, this.taskId, this.assignedTo});
+      {this.title,
+      this.description,
+      this.tags,
+      this.taskId,
+      this.assignedTo,
+      this.deadLine});
 
   factory EditTaskModel.fromJson(Map<String, dynamic> json) {
     return _$EditTaskModelFromJson(json);

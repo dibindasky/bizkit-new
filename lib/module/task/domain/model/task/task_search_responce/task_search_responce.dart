@@ -5,9 +5,17 @@ part 'task_search_responce.g.dart';
 
 @JsonSerializable()
 class TaskSearchResponce {
-  List<Task>? tasks;
+  @JsonKey(name: 'data')
+  List<Task>? data;
+  @JsonKey(name: 'has_more')
+  bool? hasMore;
+  @JsonKey(name: 'current_page')
+  int? currentPage;
+  @JsonKey(name: 'page_size')
+  int? pageSize;
 
-  TaskSearchResponce({this.tasks});
+  TaskSearchResponce(
+      {this.data, this.currentPage, this.hasMore, this.pageSize});
 
   factory TaskSearchResponce.fromJson(Map<String, dynamic> json) {
     return _$TaskSearchResponceFromJson(json);

@@ -245,6 +245,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, List<UserSearchSuccessResponce>>> participantsSearch(
       {required UserSearchModel user}) async {
     try {
+      log('participantsSearch TO JSON ===== > ${user.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestFindUser,
         data: user.toJson(),
@@ -252,7 +253,7 @@ class TaskService implements TaskRepo {
 
       log("=> Response Search Participants :");
 
-      List<UserSearchSuccessResponce> users = (response.data as List)
+      List<UserSearchSuccessResponce> users = (response.data['data'] as List)
           .map((userData) => UserSearchSuccessResponce.fromJson(userData))
           .toList();
 
@@ -270,13 +271,13 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, GetTaskResponce>> getTask(
       {required GetSingleTaskModel singleTaskModel}) async {
     try {
-      log('GetTask Json => ${singleTaskModel.toJson()}');
+      // log('GetTask Json => ${singleTaskModel.toJson()}');
       final response = await apiService.get(
         ApiEndPoints.taskTestEditTask,
         data: singleTaskModel.toJson(),
       );
 
-      log("=> Response Get one task : ");
+      log("=> Response getTask : ");
 
       return Right(GetTaskResponce.fromJson(response.data));
     } on DioException catch (e) {
@@ -293,11 +294,12 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, TaskSearchResponce>> taskSearch(
       {required UserSearchModel taskSearchItem}) async {
     try {
+      // log('taskSearch TO JSON ===== > ${taskSearchItem.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestTaskSearch,
         data: taskSearchItem.toJson(),
       );
-      log('=> Response Task Search : ');
+      log('=> Response taskSearch : ');
       return Right(TaskSearchResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException taskSearch $e');
@@ -312,7 +314,7 @@ class TaskService implements TaskRepo {
   Future<Either<ErrorModel, SuccessResponce>> editTask(
       {required EditTaskModel taskModel}) async {
     try {
-      // log('Edit Task ToJson === >>>>>> ${taskModel.toJson()}');
+      log('Edit Task ToJson === >>>>>> ${taskModel.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestEditTask,
         data: taskModel.toJson(),
@@ -647,12 +649,12 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, Map<String, dynamic>>> getTaskTotalTimeAndExpense(
       {required GetSingleTaskModel taskId}) async {
     try {
-      log('Task id for getTaskTotalTimeAndExpense TOJSON -= > ${taskId.toJson()} ');
+      // log('Task id for getTaskTotalTimeAndExpense TOJSON -= > ${taskId.toJson()} ');
       final response = await apiService.get(
         ApiEndPoints.taskTestGetTaskTotalTimeAndExpense,
         data: taskId.toJson(),
       );
-      log("=> Response TaskTotal Time And Expense : ${response.data}");
+      log("=> Response TaskTotal Time And Expense : ");
 
       return Right(response.data as Map<String, dynamic>);
     } on DioException catch (e) {

@@ -88,7 +88,7 @@ class TaskFolderSection extends StatelessWidget {
         trailing: PopupMenuButton<String>(
           onSelected: (value) {
             if (value == 'Add New Task to Folder') {
-              taskcontroller.searchTasks(searchItem: '');
+              taskcontroller.searchTasks();
               showTaskSelectionBottomSheet(context, folderId, '', false);
             } else if (value == 'Edit folder name') {
               showCreateFolderDialog(context,
@@ -169,7 +169,6 @@ void showTaskSelectionBottomSheet(
   bool? isFromInner,
 ) {
   final taskController = Get.find<CreateTaskController>();
-  final TextEditingController searchController = TextEditingController();
   final folderController = Get.find<TaskFolderController>();
 
   taskController.selectedTasks.clear();
@@ -195,13 +194,9 @@ void showTaskSelectionBottomSheet(
               padding: const EdgeInsets.all(8.0),
               child: TaskTextField(
                 onChanged: (value) {
-                  if (value.isNotEmpty) {
-                    taskController.searchTasks(searchItem: value);
-                  } else {
-                    taskController.searchTasks(searchItem: value);
-                  }
+                  taskController.searchTasks();
                 },
-                controller: searchController,
+                controller: taskController.taskSearchController,
                 hintText: 'Search Tasks',
                 showBorder: true,
                 fillColor: textFieldFillColr,

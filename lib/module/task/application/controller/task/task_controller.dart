@@ -50,8 +50,9 @@ import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.
     as subtask;
 
 class CreateTaskController extends GetxController {
-  //Controller for page comes bottom
+  //  ScrollControllers
   final ScrollController scrollController = ScrollController();
+  final ScrollController taskSearchScrollController = ScrollController();
 
   Rx<TaskType> createTaskTupe = TaskType.official.obs;
   Rx<PriorityLevel> createPriorityLevel = PriorityLevel.medium.obs;
@@ -61,6 +62,7 @@ class CreateTaskController extends GetxController {
   RxBool createRecurring = false.obs;
   RxString deadlineDate = ''.obs;
   RxString deadlineDateForTaskCreation = ''.obs;
+  RxString deadlineDateForTaskEdit = ''.obs;
   RxBool taskscountChanged = false.obs;
 
   // List of participants involved in the task
@@ -70,6 +72,8 @@ class CreateTaskController extends GetxController {
 
   RxList<TaskExpenseAndTimeSuccessResponce> taskExpenseAndTime =
       <TaskExpenseAndTimeSuccessResponce>[].obs;
+
+  ScrollController searchScrollController = ScrollController();
 
   // Lists for storing various task types and deadlines
   RxList<Task> typeTasks = <Task>[].obs;
@@ -86,6 +90,9 @@ class CreateTaskController extends GetxController {
   RxList<ReceivedTask> receivedRequests = <ReceivedTask>[].obs;
   RxMap<String, RxInt> tasksCounts = <String, RxInt>{}.obs;
   RxList<CompletedSubTasks> completedSubTasks = <CompletedSubTasks>[].obs;
+
+  int pageNumber = 1, pageSize = 5;
+  int taskSearchPageNumber = 1, taskSearchPageSize = 8;
 
   // Holds a single task response
   var singleTask = GetTaskResponce().obs;
@@ -106,6 +113,9 @@ class CreateTaskController extends GetxController {
   // List of colors for tags
   final List<Color> tagColor = [kred, kblue, kgreen, kgrey, kOrange];
 
+  final TextEditingController searchController = TextEditingController();
+  final TextEditingController taskSearchController = TextEditingController();
+
   @override
   void onInit() {
     getTasksCountWithoutDate();
@@ -115,6 +125,9 @@ class CreateTaskController extends GetxController {
 
     taskFilterByDeadline(
         filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
+
+    searchScrollController.addListener(searchParticipantsScrollListener);
+    taskSearchScrollController.addListener(tasksSearchScrollListener);
 
     super.onInit();
   }
@@ -131,7 +144,9 @@ class CreateTaskController extends GetxController {
   RxBool taskCreationLoading = false.obs;
   RxBool taskEditLoading = false.obs;
   RxBool searchLoading = false.obs;
+  RxBool searchLoadMoreLoading = false.obs;
   RxBool taskSearchLoading = false.obs;
+  RxBool taskSearchLoadMoreLoading = false.obs;
   RxBool pinLoader = false.obs;
   RxBool isLoadingForSpotLight = false.obs;
   RxBool taksListLoading = false.obs;
@@ -148,6 +163,20 @@ class CreateTaskController extends GetxController {
   final TaskRepo taskService = TaskService();
 
   Rx<DateTime> selectedDate = DateTime.now().obs;
+
+  void searchParticipantsScrollListener() {
+    if (searchScrollController.position.pixels ==
+        searchScrollController.position.maxScrollExtent) {
+      searchParticipantsLoadMore();
+    }
+  }
+
+  void tasksSearchScrollListener() {
+    if (taskSearchScrollController.position.pixels ==
+        taskSearchScrollController.position.maxScrollExtent) {
+      searchTasksLoadMore();
+    }
+  }
 
   // Converts TaskType enum to string
   String taskTypeEnumToString(TaskType tasktype) {
@@ -805,20 +834,57 @@ class CreateTaskController extends GetxController {
   }
 
   // Searches for participants based on user input
-  void searchParticipants({required UserSearchModel user}) async {
+  void searchParticipants() async {
     searchLoading.value = true;
+    update(['searchUser']);
+    userslist.value = [];
+    pageNumber = 1;
+    final user = UserSearchModel(
+        page: pageNumber,
+        pageSize: pageSize,
+        searchTerm: searchController.text);
+
     final result = await taskService.participantsSearch(user: user);
-    update();
+
     result.fold(
       (failure) {
         searchLoading.value = false;
         log(failure.message.toString());
-        update();
+        update(['searchUser']);
       },
       (success) {
         userslist.assignAll(success);
         searchLoading.value = false;
-        update();
+        update(['searchUser']);
+      },
+    );
+  }
+
+  void searchParticipantsLoadMore() async {
+    if (searchLoadMoreLoading.value == true) {
+      return;
+    }
+    searchLoadMoreLoading.value = true;
+    update(['searchUser']);
+    final result = await taskService.participantsSearch(
+        user: UserSearchModel(
+            page: ++pageNumber,
+            pageSize: pageSize,
+            searchTerm: searchController.text));
+
+    result.fold(
+      (failure) {
+        searchLoadMoreLoading.value = false;
+        log(failure.message.toString());
+        update(['searchUser']);
+      },
+      (success) {
+        userslist.addAll(success.where(
+          (newUser) => !userslist
+              .any((existingUser) => existingUser.userId == newUser.userId),
+        ));
+        searchLoadMoreLoading.value = false;
+        update(['searchUser']);
       },
     );
   }
@@ -843,24 +909,50 @@ class CreateTaskController extends GetxController {
   }
 
   // Searches for tasks based on the search term
-  void searchTasks({required String searchItem}) async {
+  void searchTasks() async {
     taskSearchLoading.value = true;
-
+    taskSearchPageNumber = 1;
+    tasksSearch.value = [];
     final result = await taskService.taskSearch(
-        taskSearchItem: UserSearchModel(searchTerm: searchItem));
+        taskSearchItem: UserSearchModel(
+            page: taskSearchPageNumber,
+            pageSize: taskSearchPageSize,
+            searchTerm: taskSearchController.text));
     result.fold(
       (failure) {
         taskSearchLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
-        if (success.tasks != null) {
-          tasksSearch.clear();
-          tasksSearch.addAll(success.tasks ?? []);
-          taskSearchLoading.value = false;
-        } else {
-          log("Received null tasks in the response");
-        }
+        tasksSearch.assignAll(success.data ?? []);
+        taskSearchLoading.value = false;
+      },
+    );
+  }
+
+  void searchTasksLoadMore() async {
+    if (taskSearchLoadMoreLoading.value == true) {
+      return;
+    }
+    taskSearchLoadMoreLoading.value = true;
+
+    final result = await taskService.taskSearch(
+        taskSearchItem: UserSearchModel(
+            searchTerm: taskSearchController.text,
+            page: ++taskSearchPageNumber,
+            pageSize: taskSearchPageSize));
+    result.fold(
+      (failure) {
+        taskSearchLoadMoreLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        tasksSearch.addAll(success.data!.where(
+          (task) => !tasksSearch.any(
+            (existingTask) => existingTask.id == task.id,
+          ),
+        ));
+        taskSearchLoadMoreLoading.value = false;
       },
     );
   }

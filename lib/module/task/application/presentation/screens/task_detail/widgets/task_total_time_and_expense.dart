@@ -23,7 +23,6 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('Task id === >$taskId');
     final taskController = Get.find<CreateTaskController>();
     return Scaffold(
       appBar: AppBar(
@@ -201,9 +200,10 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                     return Expanded(
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: taskController.taskExpenseAndTime.length+1,
+                        itemCount: taskController.taskExpenseAndTime.length + 1,
                         itemBuilder: (context, index) {
-                          if(index ==  taskController.taskExpenseAndTime.length){
+                          if (index ==
+                              taskController.taskExpenseAndTime.length) {
                             return kHeight10;
                           }
                           return CustomExpansionTileWidget(
@@ -279,14 +279,6 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                "Update on Expense / Time",
-                                                style: textThinStyle1.copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                              ),
                                               kHeight5,
                                               Row(
                                                 children: [
@@ -364,16 +356,13 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                                             ],
                                           ),
                                         ),
+                                        kHeight5,
                                         Padding(
                                           padding: EdgeInsets.only(left: 5.w),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                "Description :",
-                                                style: textThinStyle1,
-                                              ),
                                               Text(
                                                 taskController
                                                         .taskExpenseAndTime[

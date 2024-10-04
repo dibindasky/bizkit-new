@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/container_textfield_dummy.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -7,19 +9,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class DeadlineChooserCreateTask extends StatelessWidget {
-  const DeadlineChooserCreateTask({
-    super.key,
-    required this.onPressed,
-    this.showTitle = true,
-  });
+  const DeadlineChooserCreateTask(
+      {super.key,
+      required this.onPressed,
+      this.showTitle = true,
+      this.deadlineFromEdit = false});
 
   final Function(String) onPressed;
   final bool showTitle;
-
+  final bool? deadlineFromEdit;
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<CreateTaskController>();
     final dateController = TextEditingController();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,10 +40,20 @@ class DeadlineChooserCreateTask extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
+              log('date : ${controller.singleTask.value.deadLine}');
+              final date = controller.singleTask.value.deadLine == ''
+                  ? []
+                  : controller.singleTask.value.deadLine?.split('-') ?? [];
               return DatePickingBottomSheet(
-                year: 0,
+                year: 1,
                 last: 500,
-                initialDate: DateTime.now(),
+                initialDate: date.isNotEmpty
+                    ? DateTime(
+                        int.parse(date.first),
+                        int.parse(date[1]),
+                        int.parse(date.last),
+                      )
+                    : null,
                 onPressed: onPressed,
                 datePicker: dateController,
               );
@@ -48,10 +61,15 @@ class DeadlineChooserCreateTask extends StatelessWidget {
           ),
           child: Obx(
             () => ContainerTextFieldDummy(
-                text: controller.deadlineDateForTaskCreation.value.isEmpty
-                    ? 'Choose Deadline'
-                    : controller.deadlineDateForTaskCreation.value,
-                suffixIcon: Icons.calendar_month),
+              text: deadlineFromEdit == false
+                  ? controller.deadlineDateForTaskCreation.value.isEmpty
+                      ? 'Choose Deadline'
+                      : controller.deadlineDateForTaskCreation.value
+                  : controller.singleTask.value.deadLine == ''
+                      ? 'Choose Deadline'
+                      : controller.singleTask.value.deadLine ?? '',
+              suffixIcon: Icons.calendar_month,
+            ),
           ),
         ),
       ],

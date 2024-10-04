@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_paricipant_pop_for_edit_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/container_textfield_dummy.dart';
+import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/deadline_chooser.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/tag_contaner.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
@@ -39,7 +40,7 @@ class ScreenEditTask extends StatelessWidget {
     descriptionController.text =
         createTaskController.singleTask.value.description ?? 'description';
 
-    createTaskController.deadlineDate.value =
+    createTaskController.deadlineDateForTaskEdit.value =
         createTaskController.singleTask.value.deadLine ?? 'deadLine';
 
     createTaskController.createRecurring.value =
@@ -94,8 +95,7 @@ class ScreenEditTask extends StatelessWidget {
                             hintText: 'Description',
                             controller: descriptionController,
                           ),
-                          adjustHieght(3.h),
-                          adjustHieght(10.h),
+                          adjustHieght(15.h),
                           ContainerTextFieldDummy(
                               text: 'Assign to',
                               suffixIcon: Icons.arrow_right,
@@ -109,6 +109,16 @@ class ScreenEditTask extends StatelessWidget {
                                       const AddParticipentForTaskEditBottomSheet(),
                                 );
                               }),
+                          adjustHieght(10.h),
+                          DeadlineChooserCreateTask(
+                            deadlineFromEdit: true,
+                            showTitle: true,
+                            onPressed: (date) {
+                              createTaskController.singleTask.value.deadLine =
+                                  date;
+                              FocusScope.of(context).unfocus();
+                            },
+                          ),
                           adjustHieght(10.h),
                           Obx(() {
                             return Wrap(
@@ -150,6 +160,8 @@ class ScreenEditTask extends StatelessWidget {
                                     createTaskController.editTask(
                                         context: context,
                                         taskModel: EditTaskModel(
+                                          deadLine: createTaskController
+                                              .deadlineDateForTaskEdit.value,
                                           assignedTo: [],
                                           tags: [],
                                           taskId: taskId ?? '',

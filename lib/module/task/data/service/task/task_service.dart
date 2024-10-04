@@ -312,7 +312,7 @@ class TaskService implements TaskRepo {
   Future<Either<ErrorModel, SuccessResponce>> editTask(
       {required EditTaskModel taskModel}) async {
     try {
-      // log('Edit Task ToJson === >>>>>> ${taskModel.toJson()}');
+      log('Edit Task ToJson === >>>>>> ${taskModel.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestEditTask,
         data: taskModel.toJson(),
@@ -647,12 +647,12 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, Map<String, dynamic>>> getTaskTotalTimeAndExpense(
       {required GetSingleTaskModel taskId}) async {
     try {
-      log('Task id for getTaskTotalTimeAndExpense TOJSON -= > ${taskId.toJson()} ');
+      // log('Task id for getTaskTotalTimeAndExpense TOJSON -= > ${taskId.toJson()} ');
       final response = await apiService.get(
         ApiEndPoints.taskTestGetTaskTotalTimeAndExpense,
         data: taskId.toJson(),
       );
-      log("=> Response TaskTotal Time And Expense : ${response.data}");
+      log("=> Response TaskTotal Time And Expense : ");
 
       return Right(response.data as Map<String, dynamic>);
     } on DioException catch (e) {

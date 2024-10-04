@@ -24,7 +24,7 @@ class ScreenTaskHome extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
     final messageCoutController = Get.find<MessageCountController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeController.fetchRecentTasks();
+      // homeController.fetchRecentTasks();
 
       if (!homeController.progresBarOrRecentTask.value) {
         homeController.progresBar();
@@ -52,7 +52,7 @@ class ScreenTaskHome extends StatelessWidget {
                   tag: 'taskSearch',
                   child: GestureDetector(
                     onTap: () {
-                      taskController.searchTasks(searchItem: '');
+                      taskController.searchTasks();
                       FocusScope.of(context).unfocus();
                       Get.toNamed(Routes.taskSearch, id: 1);
                     },

@@ -439,8 +439,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                             onSelected: (value) {
                                               if (value ==
                                                   'Add New Task to Folder') {
-                                                taskController.searchTasks(
-                                                    searchItem: '');
+                                                taskController.searchTasks();
                                                 showTaskSelectionBottomSheet(
                                                   context,
                                                   folderId ?? '',

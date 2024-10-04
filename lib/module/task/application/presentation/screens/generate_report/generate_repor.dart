@@ -182,13 +182,9 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                     TaskTextField(
                       onTapOutside: () => FocusScope.of(context).unfocus(),
                       onChanged: (value) {
-                        if (value.isNotEmpty) {
-                          taskController.searchTasks(searchItem: value);
-                        } else {
-                          taskController.searchTasks(searchItem: value);
-                        }
+                        taskController.searchTasks();
                       },
-                      controller: searchController,
+                      controller: taskController.taskSearchController,
                       hintText: 'Search with title , des , type etc..',
                       showBorder: true,
                       fillColor: textFieldFillColr,

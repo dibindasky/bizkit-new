@@ -3,15 +3,14 @@ import 'dart:convert';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-// this widget will return the images under the text fieldor any widget it was wraped with
-// if the imagelist is not null then will return images
-// or if the listString is not null it will return the string as list
-// it also accepts two functions one on the clear(x) button tap removeItem one on the widget tap
-
+/// this widget will return the images under the text fieldor any widget it was wraped with
+/// if the imagelist is not null then will return images
+/// or if the listString is not null it will return the string as list
+/// it also accepts two functions one on the clear(x) button tap removeItem one on the widget tap
 class ImagePreviewUnderTextField extends StatelessWidget {
   const ImagePreviewUnderTextField({
     super.key,
-    required this.ontap,
+    this.ontap,
     required this.child,
     this.removeItem,
     this.list,
@@ -19,11 +18,20 @@ class ImagePreviewUnderTextField extends StatelessWidget {
     this.onItemTap,
   });
 
-  final VoidCallback ontap;
+  /// on tap to the widget wrap by [ImagePreviewUnderTextField]
+  final VoidCallback? ontap;
+
+  /// call back for the remove item button
   final Function(int index)? removeItem;
+
+  /// call back for on item tap in the preview list
   final Function(String? value, int index)? onItemTap;
   final Widget child;
+
+  /// List of images to be shown under the [child]
   final List<String?>? list;
+
+  /// List of String to be displayed under the [child]
   final List<String>? listString;
 
   @override

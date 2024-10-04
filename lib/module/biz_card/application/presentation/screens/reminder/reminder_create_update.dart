@@ -291,7 +291,7 @@ class _ScreenCardReminderCreatingState
                                                 .meetingLabelController.text,
                                             occasion: reminderController
                                                 .occasionController.text,
-                                            reminderDate: dates
+                                            reminderDate: DateTime(dates.year,)
                                                 .add(Duration(
                                                     hours: timeOfDay.hour,
                                                     minutes: timeOfDay.minute))

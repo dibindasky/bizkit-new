@@ -31,6 +31,7 @@ class PersonalDetails extends StatelessWidget {
   final PageController pageController;
   final GlobalKey<FormState> personalDeatilFormKey = GlobalKey();
   final GlobalKey<FormState> personalDataFirstFormKey = GlobalKey();
+  final GlobalKey<FormState> personalDataPhoneNumber = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -109,13 +110,37 @@ class PersonalDetails extends StatelessWidget {
                       // autocompleteItems: ['febin', 'sebin'],
                     ),
                     // personal phone number
-                    AutocompleteTextField(
-                      validate: Validate.phone,
-                      maxLength: 10,
-                      label: 'Personal Phone Number',
-                      controller: personalController.personalPhoneController,
-                      inputType: TextInputType.phone,
-                      //autocompleteItems: ['38947590', '837598'],
+                    Form(
+                      key: personalDataPhoneNumber,
+                      child: GetBuilder<PersonalDetailsController>(
+                        id: 'personalPhoneNumber',
+                        builder: (controller) => ImagePreviewUnderTextField(
+                          listString: personalController.personalPhoneNumbers,
+                          removeItem: (index) {
+                            personalController.deletePersonalPhoneNumber(index);
+                          },
+                          child: AutocompleteTextField(
+                            validate: Validate.phone,
+                            suffixIcon: InkWell(
+                                onTap: () {
+                                  if (personalDataPhoneNumber.currentState!
+                                      .validate()) {
+                                    FocusScopeNode().unfocus();
+                                    personalController.addPeresonalPhoneNumber(
+                                        context,
+                                        personalController
+                                            .personalPhoneController.text);
+                                  }
+                                },
+                                child: const Icon(Icons.add)),
+                            maxLength: 10,
+                            label: 'Personal Phone Number',
+                            controller:
+                                personalController.personalPhoneController,
+                            inputType: TextInputType.phone,
+                          ),
+                        ),
+                      ),
                     ),
                     // personal email
                     AutocompleteTextField(

@@ -37,14 +37,26 @@ String getBase64(String? base64) {
 
 TextStyle fontPopins = const TextStyle(fontFamily: 'Poppins');
 
-enum TaskType { official, personal, others }
+enum Validate {
+  phone,
+  mobOrLandline,
+  email,
+  password,
+  none,
+  rePassword,
+  adminEmail,
+  notNull,
+  ifsc,
+  upi,
+  gst,
+  website,
+  ifValidnumber,
+  ifValidWebsite,
+  ifValidEmail,
+  emailOrPhone,
+}
 
-enum PriorityLevel { medium, low, high }
-
-enum FilterTypes { all, self_to_self, self_to_others, others_to_self }
-
-enum RecurringTimePeriod { everyDay, everyWeek, everyMoth, custom, none }
-
+/// modules enum
 enum Module { card, task, attendance }
 
 /// will return the enum string
@@ -60,6 +72,7 @@ String? getStringFromModule(Module? module) {
       return null;
   }
 }
+
 /// will return the [Module] form String
 Module? getModuleFromString(String? moduleString) {
   switch (moduleString) {

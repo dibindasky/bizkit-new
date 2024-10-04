@@ -4,6 +4,7 @@ import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/image_preview/image_preview.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/create_visiting_card/create_visiting_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_edit_model/visiting_card_edit_model.dart';

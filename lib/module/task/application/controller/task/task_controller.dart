@@ -203,11 +203,11 @@ class CreateTaskController extends GetxController {
     switch (filterTypes) {
       case FilterTypes.all:
         return 'all';
-      case FilterTypes.self_to_self:
+      case FilterTypes.selftoself:
         return 'self_to_self';
-      case FilterTypes.self_to_others:
+      case FilterTypes.selftoothers:
         return 'self_to_others';
-      case FilterTypes.others_to_self:
+      case FilterTypes.otherstoself:
         return 'others_to_self';
       default:
         return '';

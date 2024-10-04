@@ -21,60 +21,57 @@ class CardViewRowWiceIcons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // phone number botom sheet
-          Obx(
-            () {
-              if (cardController.personalDetails.value?.phone == null) {
-                return const SizedBox();
-              }
-              {
-                return DetailSharingIconWidget(
-                  onTap: () {
-                    List<String> phone = [];
-                    List<String> itemsHead = [];
-                    if (cardController.personalDetails.value != null &&
-                        cardController.personalDetails.value!.phone != null &&
-                        cardController
-                            .personalDetails.value!.phone!.isNotEmpty) {
-                      phone
-                          .addAll(cardController.personalDetails.value!.phone!);
-                      itemsHead.add('Personal');
-                    }
-                    if (cardController.businessDetails.value != null &&
+          Obx(() {
+            if (cardController.personalDetails.value?.phone == null) {
+              return kempty;
+            }
+            return DetailSharingIconWidget(
+              onTap: () {
+                List<String> phone = [];
+                List<String> itemsHead = [];
+                if (cardController.personalDetails.value != null &&
+                    cardController.personalDetails.value!.phone != null &&
+                    cardController.personalDetails.value!.phone!.isNotEmpty) {
+                  phone.addAll(cardController.personalDetails.value!.phone!);
+                  itemsHead.addAll(List.generate(
+                      cardController.personalDetails.value!.phone!.length,
+                      (index) => 'Personal'));
+                }
+                if (cardController.businessDetails.value != null &&
+                    cardController.businessDetails.value!.businessPhone !=
+                        null &&
+                    cardController
+                        .businessDetails.value!.businessPhone!.isNotEmpty) {
+                  phone.addAll(
+                      cardController.businessDetails.value!.businessPhone!);
+                  itemsHead.addAll(List.generate(
+                      cardController
+                          .businessDetails.value!.businessPhone!.length,
+                      (index) => 'Business'));
+                }
+                if ((cardController.personalDetails.value != null &&
+                        cardController.personalDetails.value!.phone != null) ||
+                    (cardController.businessDetails.value != null &&
                         cardController.businessDetails.value!.businessPhone !=
-                            null &&
-                        cardController
-                            .businessDetails.value!.businessPhone!.isNotEmpty) {
-                      phone.addAll(
-                          cardController.businessDetails.value!.businessPhone!);
-                      itemsHead.add('Business');
-                    }
-                    if ((cardController.personalDetails.value != null &&
-                            cardController.personalDetails.value!.phone !=
-                                null) ||
-                        (cardController.businessDetails.value != null &&
-                            cardController
-                                    .businessDetails.value!.businessPhone !=
-                                null)) {
-                      showModalBottomSheet(
-                        context: context,
-                        enableDrag: true,
-                        isDismissible: true,
-                        showDragHandle: true,
-                        backgroundColor: kblack,
-                        builder: (context) => PreviewScreenRowIconsModelSheet(
-                          fromPreview: false,
-                          image: imagePhone,
-                          items: phone,
-                          itemsHeading: itemsHead,
-                        ),
-                      );
-                    }
-                  },
-                  image: imagePhone,
-                );
-              }
-            },
-          ),
+                            null)) {
+                  showModalBottomSheet(
+                    context: context,
+                    enableDrag: true,
+                    isDismissible: true,
+                    showDragHandle: true,
+                    backgroundColor: kblack,
+                    builder: (context) => PreviewScreenRowIconsModelSheet(
+                      fromPreview: false,
+                      image: imagePhone,
+                      items: phone,
+                      itemsHeading: itemsHead,
+                    ),
+                  );
+                }
+              },
+              image: imagePhone,
+            );
+          }),
           // email bottom sheet
           Obx(
             () {
@@ -263,7 +260,9 @@ class CardViewRowWiceIcons extends StatelessWidget {
                         showDragHandle: true,
                         backgroundColor: kblack,
                         builder: (context) {
-                          List<SocialMediaHandles> personal = cardController.personalDetails.value
+                          List<SocialMediaHandles> personal = cardController
+                                      .personalDetails
+                                      .value
                                       ?.personalSocialMedia ??
                                   [],
                               business = cardController.businessDetails.value

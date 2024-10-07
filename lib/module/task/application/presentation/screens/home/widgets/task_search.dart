@@ -56,12 +56,11 @@ class TaskSearchScreen extends StatelessWidget {
                     if (taskController.taskSearchLoading.value) {
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        child: ShimmerLoader(
-                          itemCount: 7,
-                          height: 60.h,
-                          width: 200.w,
-                          seprator: kHeight10,
-                        ),
+                        child:ShimmerLoaderTaskContainer(
+              height: 50.h,
+              itemCount: 10,
+              width: double.infinity,
+            ),
                       );
                     } else if (taskController.tasksSearch.isEmpty) {
                       return ErrorRefreshIndicator(
@@ -81,12 +80,11 @@ class TaskSearchScreen extends StatelessWidget {
                               taskController.taskSearchLoadMoreLoading.value) {
                             return Padding(
                               padding: EdgeInsets.symmetric(horizontal: 5.w),
-                              child: ShimmerLoader(
-                                itemCount: 1,
-                                height: 60.h,
-                                width: 200.w,
-                                seprator: kHeight10,
-                              ),
+                              child: ShimmerLoaderTaskContainer(
+              height: 50.h,
+              itemCount: 1,
+              width: double.infinity,
+            ),
                             );
                           } else {
                             return GestureDetector(

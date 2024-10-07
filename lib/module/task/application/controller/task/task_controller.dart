@@ -50,122 +50,205 @@ import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.
     as subtask;
 
 class CreateTaskController extends GetxController {
-  //  ScrollControllers
-  final ScrollController scrollController = ScrollController();
-  final ScrollController taskSearchScrollController = ScrollController();
-  final ScrollController deadlineTasksScrollController = ScrollController();
+  /// ScrollControllers for different task-related lists and search functionality
+  final ScrollController scrollController =
+      ScrollController(); // search participants scroll controller
+  final ScrollController taskSearchScrollController =
+      ScrollController(); // Scroll controller for task search
+  final ScrollController deadlineTasksScrollController =
+      ScrollController(); // Scroll controller for tasks filtered by deadline
+  final ScrollController typeTasksScrollController =
+      ScrollController(); // Scroll controller for tasks filtered by type
 
+// Stores selected task type for task creation
   Rx<TaskType> createTaskTupe = TaskType.official.obs;
+
+  // Stores selected priority level for task creation
   Rx<PriorityLevel> createPriorityLevel = PriorityLevel.medium.obs;
+
+  // Stores selected filter type for task filtering
   Rx<FilterTypes> filterTypes = FilterTypes.all.obs;
+
+  // Stores selected recurring time period for task creation
   Rx<RecurringTimePeriod> createRecurringTimePeriod =
       RecurringTimePeriod.none.obs;
+
+  // Boolean to determine if the task is recurring
   RxBool createRecurring = false.obs;
+
+  // Stores deadline date for filtering tasks
   RxString deadlineDate = ''.obs;
+
+  // Stores deadline date for creating a new task
   RxString deadlineDateForTaskCreation = ''.obs;
+
+  // Stores deadline date for editing an existing task
   RxString deadlineDateForTaskEdit = ''.obs;
+
+  // Boolean to detect changes in task count
   RxBool taskscountChanged = false.obs;
 
-  // List of participants involved in the task
-  // var participants = <TaskAssignedTo>[].obs;
+  /// Task type filter string [  Stores selected task TYPE in string format ]
+  RxString taskType = ''.obs;
+
+  /// Lists to store participants and user search responses
+// List of users available for participant selection
   var userslistNew = <UserSearchSuccessResponce>[].obs;
+
+  // List of participants assigned for task editing
   var participantsForEditTask = <AssignedToDetail>[].obs;
 
+// Stores time and expense information related to tasks
   RxList<TaskExpenseAndTimeSuccessResponce> taskExpenseAndTime =
       <TaskExpenseAndTimeSuccessResponce>[].obs;
 
-  ScrollController searchScrollController = ScrollController();
+// Scroll controller for participant search
+  ScrollController searchScrollController =
+      ScrollController(); // Scroll controller for participant search
 
-  // Lists for storing various task types and deadlines
+  /// Lists for storing task data filtered by different criteria
+
+  // List of tasks filtered by type
   RxList<Task> typeTasks = <Task>[].obs;
+
+  // List of tasks filtered by deadline
   RxList<Task> deadlineTasks = <Task>[].obs;
+
+  // List of sent task requests
   RxList<SentRequest> sentRequests = <SentRequest>[].obs;
+
+  // List of pinned tasks
   RxList<Task> allPinnedTasks = <Task>[].obs;
+
+  // List of completed tasks
   RxList<TasksCompletedOrKilled> completedTasks =
       <TasksCompletedOrKilled>[].obs;
+
+  // List of killed tasks
   RxList<TasksCompletedOrKilled> killedTasks = <TasksCompletedOrKilled>[].obs;
+
+  // List of users for task assignment search
   RxList<UserSearchSuccessResponce> userslist =
       <UserSearchSuccessResponce>[].obs;
+
+  // List of tasks based on search results
   RxList<Task> tasksSearch = <Task>[].obs;
+
+  // List of tasks selected by the user
   RxList<Task> selectedTasks = <Task>[].obs;
+
+  // List of received task requests
   RxList<ReceivedTask> receivedRequests = <ReceivedTask>[].obs;
+
+  // Map of task counts
   RxMap<String, RxInt> tasksCounts = <String, RxInt>{}.obs;
+
+  // List of completed subtasks
   RxList<CompletedSubTasks> completedSubTasks = <CompletedSubTasks>[].obs;
 
-  int pageNumber = 1, pageSize = 5;
-  int taskSearchPageNumber = 1, taskSearchPageSize = 8;
-  int deadlineTasksPageNumber = 1, deadlineTasksPageSize = 11;
+// Pagination controls for different task lists
+  int pageNumber = 1, pageSize = 5; // Pagination for general tasks
+  int taskSearchPageNumber = 1,
+      taskSearchPageSize = 8; // Pagination for task search results
+  int deadlineTasksPageNumber = 1,
+      deadlineTasksPageSize = 11; // Pagination for deadline-filtered tasks
+  int typeTasksPageNumber = 1,
+      typeTasksPageSize = 15; // Pagination for type-filtered tasks
 
-  // Holds a single task response
+// Holds the data of a single task
   var singleTask = GetTaskResponce().obs;
 
-  // Reactive list to store selected files
+  // List of selected files for upload (e.g., attachments)
   RxList<PlatformFile> selectedFiles = <PlatformFile>[].obs;
 
-  // List of subtasks related to the main task
+// List of subtasks for a given task
   RxList<SubTask> subTasks = <SubTask>[].obs;
 
-  // List of all available tags
-  var tags = <String>[].obs;
-  var tagsForEdit = <String>[].obs;
+  /// Lists to store available and selected tags for tasks
+  var tags = <String>[].obs; // List of available tags for task creation
+  var tagsForEdit = <String>[].obs; // List of available tags for task editing
 
-  // List of selected tags
-  // var selectedTags = <String>[].obs;
-
-  // List of colors for tags
+  /// Predefined colors for tags
   final List<Color> tagColor = [kred, kblue, kgreen, kgrey, kOrange];
 
+  // Text editing controller for participant search input
   final TextEditingController searchController = TextEditingController();
+
+  //  Text editing controller for task search input
   final TextEditingController taskSearchController = TextEditingController();
 
   @override
   void onInit() {
-    getTasksCountWithoutDate();
-    final DateTime todaydate = DateTime.now();
-    // Initialize with today's date for deadline filtering
-    deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
+    getTasksCountWithoutDate(); // Fetch task counts without date filtering
+    final DateTime todaydate = DateTime.now(); // Get today's date
+    deadlineDate.value = DateFormat('yyyy-MM-dd')
+        .format(todaydate); // Set today's date as default deadline
 
-    taskFilterByDeadline();
+    taskFilterByDeadline(); // Filter tasks by today's deadline
 
+    // Add scroll listeners for various scroll controllers
     searchScrollController.addListener(searchParticipantsScrollListener);
     taskSearchScrollController.addListener(tasksSearchScrollListener);
     deadlineTasksScrollController.addListener(deadlineTasksScrollListener);
+    typeTasksScrollController.addListener(typeTasksScrollListener);
 
     super.onInit();
   }
 
-  // Test task ID for validation or testing purposes
-  String testTaskId = '';
+// Test task ID for validation or testing purposes
+  String testTaskId = ''; // Placeholder for a test task ID
 
-  RxBool fetchSingleTaskError = false.obs;
+// Error state for fetching single task data
+  RxBool fetchSingleTaskError =
+      false.obs; // Boolean for tracking errors when fetching a single task
 
-  // Reactive variable for loading state
-  RxBool isLoading = false.obs;
-  RxBool deadlineTasksLoadMoreLoading = false.obs;
-  RxBool loadgingForFilterByType = false.obs;
-  RxBool filterByTypeLoading = false.obs;
-  RxBool taskCreationLoading = false.obs;
-  RxBool taskEditLoading = false.obs;
-  RxBool searchLoading = false.obs;
-  RxBool searchLoadMoreLoading = false.obs;
-  RxBool taskSearchLoading = false.obs;
-  RxBool taskSearchLoadMoreLoading = false.obs;
-  RxBool pinLoader = false.obs;
-  RxBool isLoadingForSpotLight = false.obs;
-  RxBool taksListLoading = false.obs;
-  RxBool loadingForSendRequests = false.obs;
-  RxBool loadingForRecivedRequests = false.obs;
-  RxBool loadingFortTaskExpenseAndTime = false.obs;
+// Loading states for various UI components
+  RxBool isLoading = false.obs; // General loading state
+  RxBool deadlineTasksLoadMoreLoading =
+      false.obs; // Loading state for loading more deadline tasks
+  RxBool loadgingForFilterByType =
+      false.obs; // Loading state for filtering tasks by type
+  RxBool filterByTypeLoading =
+      false.obs; // Loading state when filtering tasks by type
+  RxBool filterByTypeLoadMoreLoading =
+      false.obs; // Loading state for loading more type-filtered tasks
+  RxBool taskCreationLoading = false.obs; // Loading state during task creation
+  RxBool taskEditLoading = false.obs; // Loading state during task editing
+  RxBool searchLoading = false.obs; // Loading state for participant search
+  RxBool searchLoadMoreLoading =
+      false.obs; // Loading state for loading more participants during search
+  RxBool taskSearchLoading = false.obs; // Loading state for task search results
+  RxBool taskSearchLoadMoreLoading =
+      false.obs; // Loading state for loading more task search results
+  RxBool pinLoader = false.obs; // Loading state for pinning tasks
+  RxBool isLoadingForSpotLight =
+      false.obs; // Loading state for spotlight feature
+  RxBool taksListLoading = false.obs; // Loading state for task list
+  RxBool loadingForSendRequests =
+      false.obs; // Loading state for sending task requests
+  RxBool loadingForRecivedRequests =
+      false.obs; // Loading state for receiving task requests
+  RxBool loadingFortTaskExpenseAndTime =
+      false.obs; // Loading state for fetching task time and expense data
 
-  RxList<String> taskTotalTimeKeys = <String>[].obs;
-  RxList<String> taskExpenseKeys = <String>[].obs;
+// Keys to track task time and expense data
+  RxList<String> taskTotalTimeKeys =
+      <String>[].obs; // List of keys for task total time
+  RxList<String> taskExpenseKeys =
+      <String>[].obs; // List of keys for task expenses
 
-  RxList<String> taskTotalTimeExpenseKeys = <String>[].obs;
+// Combined keys for task total time and expense data
+  RxList<String> taskTotalTimeExpenseKeys =
+      <String>[].obs; // List of combined keys for total time and expense data
 
   // Task service instance for API interactions
   final TaskRepo taskService = TaskService();
 
   Rx<DateTime> selectedDate = DateTime.now().obs;
+
+  void changeFilterTaskType(String taskType) {
+    this.taskType.value = taskType;
+  }
 
   void searchParticipantsScrollListener() {
     if (searchScrollController.position.pixels ==
@@ -185,6 +268,13 @@ class CreateTaskController extends GetxController {
     if (deadlineTasksScrollController.position.pixels ==
         deadlineTasksScrollController.position.maxScrollExtent) {
       taskFilterByDeadlineLoadMore();
+    }
+  }
+
+  void typeTasksScrollListener() {
+    if (typeTasksScrollController.position.pixels ==
+        typeTasksScrollController.position.maxScrollExtent) {
+      filterByTypeTasksLoadMore();
     }
   }
 
@@ -548,7 +638,6 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         deadlineTasks.assignAll(success.data ?? []);
-
         taksListLoading.value = false;
       },
     );
@@ -790,6 +879,32 @@ class CreateTaskController extends GetxController {
   void filterByType({required FilterByTypeModel filterByType}) async {
     filterByTypeLoading.value = true;
     final result = await taskService.filterByType(filterByType: filterByType);
+
+    result.fold(
+      (failure) {
+        filterByTypeLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        typeTasks.assignAll(success.tasks ?? []);
+        filterByTypeLoading.value = false;
+        update(); // Update the UI or state
+      },
+    );
+  }
+
+  // Filters tasks by type - [ Pagination ]
+  void filterByTypeTasksLoadMore() async {
+    if (filterByTypeLoadMoreLoading.value = true) {
+      return;
+    }
+    final result = await taskService.filterByType(
+      filterByType: FilterByTypeModel(
+        page: ++typeTasksPageNumber,
+        pageSize: typeTasksPageSize,
+        taskType: '',
+      ),
+    );
 
     result.fold(
       (failure) {

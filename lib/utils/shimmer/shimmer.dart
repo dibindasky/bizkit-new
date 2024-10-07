@@ -56,6 +56,10 @@ class ShimmerLoaderTile extends StatelessWidget {
       required this.height,
       required this.width,
       this.baseColor,
+      this.boxDecoration = const BoxDecoration(
+        color: klightgrey,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
       this.highlightColor})
       : super(key: key);
 
@@ -63,6 +67,7 @@ class ShimmerLoaderTile extends StatelessWidget {
   final double width;
   final Color? baseColor;
   final Color? highlightColor;
+  final BoxDecoration? boxDecoration;
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +77,7 @@ class ShimmerLoaderTile extends StatelessWidget {
       child: Container(
         height: height,
         width: width,
-        decoration: const BoxDecoration(
-          color: klightgrey,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
+        decoration: boxDecoration,
       ),
     );
   }

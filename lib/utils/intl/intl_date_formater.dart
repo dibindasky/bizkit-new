@@ -253,7 +253,11 @@ class DateTimeFormater {
   static String timeAgo(DateTime dateTime) {
     final Duration difference = DateTime.now().difference(dateTime);
 
-    if (difference.inDays > 1) {
+    if (difference.inDays >= 30) {
+      // Divide total days by 30 to get the approximate number of months
+      final int months = (difference.inDays / 30).floor();
+      return months > 1 ? '$months months ago' : '1 month ago';
+    } else if (difference.inDays > 1) {
       return '${difference.inDays} days ago';
     } else if (difference.inDays == 1) {
       return '1 day ago';
@@ -300,5 +304,21 @@ class DateTimeFormater {
     } catch (e) {
       return 1;
     }
+  }
+
+  //  2020-10-12
+  static String formatYearMonthDate(String date) {
+    if (date.isEmpty) return '';
+    DateTime dateTime = DateTime.parse(date);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+    return formattedDate;
+  }
+
+  /// return format  == > 13:30
+  static String extractTime(String date) {
+    if (date == '') return '';
+    DateTime dateTime = DateTime.parse(date);
+    final DateFormat formatter = DateFormat('HH:mm');
+    return formatter.format(dateTime);
   }
 }

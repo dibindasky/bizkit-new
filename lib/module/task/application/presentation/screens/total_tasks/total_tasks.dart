@@ -35,6 +35,7 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(length: 2, vsync: this);
   }
 
@@ -73,10 +74,11 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
                 taskType: 'all',
                 isPinned: true,
               ));
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(taskType: 'all'));
+              // taskController.filterByType(
+              //     filterByType: FilterByTypeModel(taskType: 'all'));
 
-              log('=> ${homeController.taskCategory.value}');
+              taskController.changeFilterTaskType('all');
+              log('TASK TYPE === > ${taskController.taskType.value}');
 
               Navigator.of(context).pop();
             },
@@ -92,10 +94,12 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
                 taskType: 'self_to_self',
                 isPinned: true,
               ));
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(taskType: 'self_to_self'));
+              // taskController.filterByType(
+              //     filterByType: FilterByTypeModel(taskType: 'self_to_self'));
 
-              log('=> ${homeController.taskCategory.value}');
+              taskController.changeFilterTaskType('self_to_self');
+              log('TASK TYPE === > ${taskController.taskType.value}');
+
               Navigator.of(context).pop();
             },
           ),
@@ -110,10 +114,12 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
                 taskType: 'self_to_others',
                 isPinned: true,
               ));
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(taskType: 'self_to_others'));
+              // taskController.filterByType(
+              //     filterByType: FilterByTypeModel(taskType: 'self_to_others'));
 
-              log('=> ${homeController.taskCategory.value}');
+              taskController.changeFilterTaskType('self_to_others');
+              log('TASK TYPE === > ${taskController.taskType.value}');
+
               Navigator.of(context).pop();
               log(homeController.taskCategory.value);
             },
@@ -129,8 +135,10 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
                 taskType: 'others_to_self',
                 isPinned: true,
               ));
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(taskType: 'others_to_self'));
+              // taskController.filterByType(
+              //     filterByType: FilterByTypeModel(taskType: 'others_to_self'));
+              taskController.changeFilterTaskType('others_to_self');
+              log('TASK TYPE === > ${taskController.taskType.value}');
 
               Navigator.of(context).pop();
             },

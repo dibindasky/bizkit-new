@@ -13,6 +13,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
+import 'dart:developer';
+
+
 class TasksListsWidget extends StatelessWidget {
   const TasksListsWidget({super.key});
 
@@ -39,9 +42,12 @@ class TasksListsWidget extends StatelessWidget {
                       if (index == 0) {
                         homeController
                             .changeSelectedTaskCategory('Others to self');
-                        taskController.filterByType(
-                            filterByType:
-                                FilterByTypeModel(taskType: 'others_to_self'));
+                        // taskController.filterByType(
+                        //     filterByType:
+                        //         FilterByTypeModel(taskType: 'others_to_self'));
+              taskController.changeFilterTaskType('others_to_self');
+              log('TASK TYPE  FROM HOME PAGE === > ${taskController.taskType.value}');
+                        
                         taskController.filterPinnedTasksByType(
                             filterPinnedTask: FilterPinnedTaskByTypeModel(
                           taskType: 'others_to_self',
@@ -51,9 +57,12 @@ class TasksListsWidget extends StatelessWidget {
                       } else if (index == 1) {
                         homeController
                             .changeSelectedTaskCategory('Self to others');
-                        taskController.filterByType(
-                            filterByType:
-                                FilterByTypeModel(taskType: 'self_to_others'));
+                        // taskController.filterByType(
+                        //     filterByType:
+                        //         FilterByTypeModel(taskType: 'self_to_others'));
+
+                                  taskController.changeFilterTaskType('self_to_others');
+              log('TASK TYPE  FROM HOME PAGE === > ${taskController.taskType.value}');
                         taskController.filterPinnedTasksByType(
                             filterPinnedTask: FilterPinnedTaskByTypeModel(
                           taskType: 'self_to_others',
@@ -63,9 +72,11 @@ class TasksListsWidget extends StatelessWidget {
                       } else {
                         homeController
                             .changeSelectedTaskCategory('Self to self');
-                        taskController.filterByType(
-                            filterByType:
-                                FilterByTypeModel(taskType: 'self_to_self'));
+                        // taskController.filterByType(
+                        //     filterByType:
+                        //         FilterByTypeModel(taskType: 'self_to_self'));
+                                   taskController.changeFilterTaskType('self_to_self');
+              log('TASK TYPE  FROM HOME PAGE === > ${taskController.taskType.value}');
                         taskController.filterPinnedTasksByType(
                             filterPinnedTask: FilterPinnedTaskByTypeModel(
                           taskType: 'self_to_self',

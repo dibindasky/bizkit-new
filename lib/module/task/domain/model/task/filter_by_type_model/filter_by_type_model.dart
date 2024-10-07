@@ -6,8 +6,12 @@ part 'filter_by_type_model.g.dart';
 class FilterByTypeModel {
   @JsonKey(name: 'task_type')
   String? taskType;
+  @JsonKey(name: 'page')
+  int? page;
+  @JsonKey(name: 'page_size')
+  int? pageSize;
 
-  FilterByTypeModel({this.taskType});
+  FilterByTypeModel({this.taskType, this.page, this.pageSize});
 
   factory FilterByTypeModel.fromJson(Map<String, dynamic> json) {
     return _$FilterByTypeModelFromJson(json);

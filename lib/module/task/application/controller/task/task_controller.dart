@@ -53,6 +53,7 @@ class CreateTaskController extends GetxController {
   //  ScrollControllers
   final ScrollController scrollController = ScrollController();
   final ScrollController taskSearchScrollController = ScrollController();
+  final ScrollController deadlineTasksScrollController = ScrollController();
 
   Rx<TaskType> createTaskTupe = TaskType.official.obs;
   Rx<PriorityLevel> createPriorityLevel = PriorityLevel.medium.obs;
@@ -93,6 +94,7 @@ class CreateTaskController extends GetxController {
 
   int pageNumber = 1, pageSize = 5;
   int taskSearchPageNumber = 1, taskSearchPageSize = 8;
+  int deadlineTasksPageNumber = 1, deadlineTasksPageSize = 11;
 
   // Holds a single task response
   var singleTask = GetTaskResponce().obs;
@@ -123,11 +125,11 @@ class CreateTaskController extends GetxController {
     // Initialize with today's date for deadline filtering
     deadlineDate.value = DateFormat('yyyy-MM-dd').format(todaydate);
 
-    taskFilterByDeadline(
-        filterByDeadline: FilterByDeadlineModel(date: deadlineDate.value));
+    taskFilterByDeadline();
 
     searchScrollController.addListener(searchParticipantsScrollListener);
     taskSearchScrollController.addListener(tasksSearchScrollListener);
+    deadlineTasksScrollController.addListener(deadlineTasksScrollListener);
 
     super.onInit();
   }
@@ -139,6 +141,7 @@ class CreateTaskController extends GetxController {
 
   // Reactive variable for loading state
   RxBool isLoading = false.obs;
+  RxBool deadlineTasksLoadMoreLoading = false.obs;
   RxBool loadgingForFilterByType = false.obs;
   RxBool filterByTypeLoading = false.obs;
   RxBool taskCreationLoading = false.obs;
@@ -175,6 +178,13 @@ class CreateTaskController extends GetxController {
     if (taskSearchScrollController.position.pixels ==
         taskSearchScrollController.position.maxScrollExtent) {
       searchTasksLoadMore();
+    }
+  }
+
+  void deadlineTasksScrollListener() {
+    if (deadlineTasksScrollController.position.pixels ==
+        deadlineTasksScrollController.position.maxScrollExtent) {
+      taskFilterByDeadlineLoadMore();
     }
   }
 
@@ -521,21 +531,50 @@ class CreateTaskController extends GetxController {
   }
 
   // Filters tasks by deadline using the provided model
-  void taskFilterByDeadline(
-      {required FilterByDeadlineModel filterByDeadline}) async {
+  void taskFilterByDeadline() async {
     taksListLoading.value = true;
-
-    final result =
-        await taskService.filterByDeadline(filterByDeadline: filterByDeadline);
+    deadlineTasksPageNumber = 1;
+    deadlineTasks.value = [];
+    final result = await taskService.filterByDeadline(
+        filterByDeadline: FilterByDeadlineModel(
+      date: deadlineDate.value,
+      page: deadlineTasksPageNumber,
+      pageSize: deadlineTasksPageSize,
+    ));
     result.fold(
       (failure) {
         log(failure.message.toString());
         taksListLoading.value = false;
       },
       (success) {
-        deadlineTasks.assignAll(success.tasks ?? []);
+        deadlineTasks.assignAll(success.data ?? []);
 
         taksListLoading.value = false;
+      },
+    );
+  }
+
+// / Filters tasks by deadline  - [ Pagination ]
+  void taskFilterByDeadlineLoadMore() async {
+    if (deadlineTasksLoadMoreLoading.value == true) {
+      return;
+    }
+    deadlineTasksLoadMoreLoading.value = true;
+    final result = await taskService.filterByDeadline(
+        filterByDeadline: FilterByDeadlineModel(
+      date: deadlineDate.value,
+      page: ++deadlineTasksPageNumber,
+      pageSize: deadlineTasksPageSize,
+    ));
+    result.fold(
+      (failure) {
+        log(failure.message.toString());
+        deadlineTasksLoadMoreLoading.value = false;
+      },
+      (success) {
+        deadlineTasks.addAll(success.data ?? []);
+
+        deadlineTasksLoadMoreLoading.value = false;
       },
     );
   }
@@ -652,9 +691,7 @@ class CreateTaskController extends GetxController {
                       .toLowerCase()));
         }
         if (tasksFromTasksList) {
-          taskFilterByDeadline(
-              filterByDeadline:
-                  FilterByDeadlineModel(date: deadlineDate.value));
+          taskFilterByDeadline();
         }
 
         scaffoldMessenger.showSnackBar(
@@ -729,9 +766,7 @@ class CreateTaskController extends GetxController {
         }
 
         if (tasksFromTasksList) {
-          taskFilterByDeadline(
-              filterByDeadline:
-                  FilterByDeadlineModel(date: deadlineDate.value));
+          taskFilterByDeadline();
         }
         if (tasksFromTasksList) {
           taksListLoading.value = false;
@@ -930,6 +965,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // searchTasks [ Pagination ]
   void searchTasksLoadMore() async {
     if (taskSearchLoadMoreLoading.value == true) {
       return;

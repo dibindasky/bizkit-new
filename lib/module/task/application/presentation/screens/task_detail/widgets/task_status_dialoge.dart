@@ -50,9 +50,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                         KillATaskModel(isKilled: true, taskId: taskId ?? ''),
                   );
                   GoRouter.of(context).pop();
-                  controller.taskFilterByDeadline(
-                      filterByDeadline: FilterByDeadlineModel(
-                          date: controller.deadlineDate.value));
+                  controller.taskFilterByDeadline();
                   homeController.progresBar();
                   controller.getTasksCountWithoutDate();
 
@@ -88,9 +86,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                       completedTaskModel: CompletedTaskModel(
                           isCompleted: true, taskId: taskId ?? ''));
                   GoRouter.of(context).pop();
-                  controller.taskFilterByDeadline(
-                      filterByDeadline: FilterByDeadlineModel(
-                          date: controller.deadlineDate.value));
+                  controller.taskFilterByDeadline();
                   homeController.progresBar();
                   controller.getTasksCountWithoutDate();
 

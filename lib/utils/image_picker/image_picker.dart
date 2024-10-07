@@ -16,7 +16,7 @@ class ImagePickerClass {
         pickedImage = await ImagePicker().pickImage(
           source: ImageSource.camera,
           preferredCameraDevice:
-            cameraDeviceFront ? CameraDevice.front : CameraDevice.rear,
+              cameraDeviceFront ? CameraDevice.front : CameraDevice.rear,
         );
       } else {
         pickedImage =

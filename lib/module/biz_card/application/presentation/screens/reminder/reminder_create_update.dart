@@ -6,6 +6,7 @@ import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_r
 import 'package:bizkit/module/biz_card/domain/model/reminder/update_reminder_model/update_reminder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
@@ -41,8 +42,8 @@ class _ScreenCardReminderCreatingState
   void initState() {
     if (widget.reminder != null) {
       final reminderController = Get.find<ReminderController>();
-      time = TimeDateFormating.extractTime(widget.reminder?.reminderDate ?? '');
-      date = TimeDateFormating.formatYearMonthDate(
+      time = DateTimeFormater.extractTime(widget.reminder?.reminderDate ?? '');
+      date = DateTimeFormater.formatYearMonthDate(
           widget.reminder?.reminderDate ?? '');
       reminderController.meetingLabelController.text =
           widget.reminder?.meetingLabel ?? '';
@@ -191,7 +192,7 @@ class _ScreenCardReminderCreatingState
                       onDateChanged: (dates) {
                         setState(() {
                           dates = dates;
-                          date = TimeDateFormating.formatYearMonthDate(
+                          date = DateTimeFormater.formatYearMonthDate(
                               dates.toString());
                           '${dates.year}-${dates.month}-${dates.day}';
                         });

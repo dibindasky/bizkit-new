@@ -6,9 +6,17 @@ part 'self_to_others_type_responce.g.dart';
 
 @JsonSerializable()
 class SelfToOthersTypeResponce {
-  List<Task>? tasks;
+  @JsonKey(name: 'data')
+  List<Task>? data;
+  @JsonKey(name: 'current_page')
+  int? currentPage;
+  @JsonKey(name: 'page_size')
+  int? pageSize;
+  @JsonKey(name: 'has_more')
+  bool? hasMore;
 
-  SelfToOthersTypeResponce({this.tasks});
+  SelfToOthersTypeResponce(
+      {this.data, this.currentPage, this.hasMore, this.pageSize});
 
   factory SelfToOthersTypeResponce.fromJson(Map<String, dynamic> json) {
     return _$SelfToOthersTypeResponceFromJson(json);

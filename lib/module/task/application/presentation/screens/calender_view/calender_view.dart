@@ -78,13 +78,7 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                                         taskController.deadlineDate.value =
                                             DateTimeFormater.dateTimeFormat(
                                                 date);
-                                        taskController.taskFilterByDeadline(
-                                          filterByDeadline:
-                                              FilterByDeadlineModel(
-                                            date: taskController
-                                                .deadlineDate.value,
-                                          ),
-                                        );
+                                        taskController.taskFilterByDeadline();
                                       } else if (taskCalenderViewController
                                               .taskTabChangeIndex.value ==
                                           2) {

@@ -8,7 +8,9 @@ import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_s
 import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,8 +24,13 @@ class TaskListView extends StatelessWidget {
     return Obx(
       () {
         if (taskController.taksListLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: ShimmerLoaderTaskContainer(
+              height: 50.h,
+              itemCount: 10,
+              width: double.infinity,
+            ),
           );
         } else if (taskController.deadlineTasks.isEmpty) {
           return ErrorRefreshIndicator(
@@ -34,50 +41,63 @@ class TaskListView extends StatelessWidget {
           );
         } else {
           return ListView.builder(
+            controller: taskController.deadlineTasksScrollController,
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            itemCount: taskController.deadlineTasks.length,
+            itemCount: taskController.deadlineTasks.length +
+                (taskController.deadlineTasksLoadMoreLoading.value ? 1 : 0),
             // itemCount: tasks.length,
             itemBuilder: (context, index) {
               // final task = tasks[index];
               // final deadlineTask = taskController.deadlineTasks[index];
               // final typeTask = taskController.typeTasks[index];
 
-              return GestureDetector(
-                onLongPress: () {
-                  controller.longPress(index);
-                },
-                onTap: () {
-                  if (controller.selectedFolderContainer.value) {
+              if (index == taskController.deadlineTasks.length &&
+                  taskController.deadlineTasksLoadMoreLoading.value) {
+                return ShimmerLoaderTaskContainer(
+                  height: 50.h,
+                  itemCount: 1,
+                  width: double.infinity,
+                );
+              } else {
+                return GestureDetector(
+                  onLongPress: () {
                     controller.longPress(index);
-                  } else {
-                    // log('id : ${deadlineTask.id}');
-                    taskController.fetchSingleTask(
-                      singleTaskModel: GetSingleTaskModel(
-                          taskId: taskController.deadlineTasks[index].id),
-                    );
-                    if (taskController.deadlineTasks[index].isOwned == false) {
-                      taskController.spotLightTask(
-                          spotLightTask: SpotLightTask(
-                              spotLightStatus: false,
-                              taskId: taskController.deadlineTasks[index].id));
+                  },
+                  onTap: () {
+                    if (controller.selectedFolderContainer.value) {
+                      controller.longPress(index);
+                    } else {
+                      // log('id : ${deadlineTask.id}');
+                      taskController.fetchSingleTask(
+                        singleTaskModel: GetSingleTaskModel(
+                            taskId: taskController.deadlineTasks[index].id),
+                      );
+                      if (taskController.deadlineTasks[index].isOwned ==
+                          false) {
+                        taskController.spotLightTask(
+                            spotLightTask: SpotLightTask(
+                                spotLightStatus: false,
+                                taskId:
+                                    taskController.deadlineTasks[index].id));
+                      }
+                      GoRouter.of(context).pushNamed(
+                        Routes.taskDeail,
+                        pathParameters: {
+                          "taskId": '${taskController.deadlineTasks[index].id}'
+                        },
+                      );
                     }
-                    GoRouter.of(context).pushNamed(
-                      Routes.taskDeail,
-                      pathParameters: {
-                        "taskId": '${taskController.deadlineTasks[index].id}'
-                      },
-                    );
-                  }
-                },
-                child: TaskContainer(
-                  tasksFromTasksList: true,
-                  fromFolders: false,
-                  tasksFromFoldrs: false,
-                  tasksFromInnerFolder: false,
-                  typeTask: taskController.deadlineTasks[index],
-                  index: index,
-                ),
-              );
+                  },
+                  child: TaskContainer(
+                    tasksFromTasksList: true,
+                    fromFolders: false,
+                    tasksFromFoldrs: false,
+                    tasksFromInnerFolder: false,
+                    typeTask: taskController.deadlineTasks[index],
+                    index: index,
+                  ),
+                );
+              }
             },
           );
         }

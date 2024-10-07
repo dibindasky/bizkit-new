@@ -5,9 +5,17 @@ part 'filter_by_deadline_responce.g.dart';
 
 @JsonSerializable()
 class FilterByDeadlineResponce {
-  List<Task>? tasks;
+  @JsonKey(name: 'data')
+  List<Task>? data;
+  @JsonKey(name: 'current_page')
+  int? currentPage;
+  @JsonKey(name: 'page_size')
+  int? pageSize;
+  @JsonKey(name: 'has_more')
+  bool? hasMore;
 
-  FilterByDeadlineResponce({this.tasks});
+  FilterByDeadlineResponce(
+      {this.data, this.currentPage, this.hasMore, this.pageSize});
 
   factory FilterByDeadlineResponce.fromJson(Map<String, dynamic> json) {
     return _$FilterByDeadlineResponceFromJson(json);

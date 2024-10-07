@@ -138,6 +138,7 @@ class ShimmerLoaderSearchParticipants extends StatelessWidget {
     );
   }
 }
+
 class ShimmerLoaderTaskContainer extends StatelessWidget {
   const ShimmerLoaderTaskContainer({
     Key? key,
@@ -230,4 +231,4 @@ class ShimmerLoaderTaskContainer extends StatelessWidget {
       },
     );
   }
-}
+

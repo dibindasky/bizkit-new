@@ -8,7 +8,9 @@ import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_s
 import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_task.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,8 +24,13 @@ class TaskListView extends StatelessWidget {
     return Obx(
       () {
         if (taskController.taksListLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: ShimmerLoaderTaskContainer(
+              height: 50.h,
+              itemCount: 10,
+              width: double.infinity,
+            ),
           );
         } else if (taskController.deadlineTasks.isEmpty) {
           return ErrorRefreshIndicator(
@@ -46,8 +53,10 @@ class TaskListView extends StatelessWidget {
 
               if (index == taskController.deadlineTasks.length &&
                   taskController.deadlineTasksLoadMoreLoading.value) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return ShimmerLoaderTaskContainer(
+                  height: 50.h,
+                  itemCount: 1,
+                  width: double.infinity,
                 );
               } else {
                 return GestureDetector(

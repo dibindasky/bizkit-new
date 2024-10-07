@@ -32,7 +32,7 @@ class AuthenticationService implements AuthenticationRepo {
           Failure(message: e.response?.data["message"] ?? errorMessage));
     } catch (e) {
       log('catch registerUser $e');
-      return Left(Failure(message: e.toString()));
+      return Left(Failure(message: errorMessage));
     }
   }
 

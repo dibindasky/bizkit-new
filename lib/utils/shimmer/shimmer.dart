@@ -231,4 +231,4 @@ class ShimmerLoaderTaskContainer extends StatelessWidget {
       },
     );
   }
-}
+

@@ -30,7 +30,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/received
 import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_create_update.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/account_switching/account_switching_screen.dart';
-import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/widgets/profile_edit.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/profile_edit_screen.dart';
 import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';

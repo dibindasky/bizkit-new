@@ -29,6 +29,10 @@ class ApiEndPoints {
 
   /// [ profile ]
   static const String nameAndImage='/update-pic-or-name/';
+  ///update phone and update email
+  static const String updateEmailorPhone = '/update-contact/';
+  static const String getUserProfileDetais = '/get-user-profile/';
+
 
   //  [  Matcho meter ]
   static const String matchoMeter = '/matcho-meter/';

@@ -9,7 +9,7 @@ import 'package:bizkit/core/model/token/refresh_response/refresh_response.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
 
-class ApiService {
+class   ApiService {
   final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
   // final Dio _dio = Dio(BaseOptions(baseUrl: ApiEndPoints.baseUrl));
 

@@ -304,13 +304,13 @@ class PinnedTasks extends StatelessWidget {
                           .replaceAll(' ', '_')
                           .toLowerCase(),
                       isPinned: true));
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(
-                      taskType: Get.find<TaskHomeScreenController>()
-                          .taskCategory
-                          .value
-                          .replaceAll(' ', '_')
-                          .toLowerCase()));
+              // taskController.filterByType(
+              //     filterByType: FilterByTypeModel(
+              //         taskType: Get.find<TaskHomeScreenController>()
+              //             .taskCategory
+              //             .value
+              //             .replaceAll(' ', '_')
+              //             .toLowerCase()));
             },
           );
         } else {
@@ -324,13 +324,13 @@ class PinnedTasks extends StatelessWidget {
                           .replaceAll(' ', '_')
                           .toLowerCase(),
                       isPinned: true));
-              taskController.filterByType(
-                  filterByType: FilterByTypeModel(
-                      taskType: Get.find<TaskHomeScreenController>()
-                          .taskCategory
-                          .value
-                          .replaceAll(' ', '_')
-                          .toLowerCase()));
+              // taskController.filterByType(
+              //     filterByType: FilterByTypeModel(
+              //         taskType: Get.find<TaskHomeScreenController>()
+              //             .taskCategory
+              //             .value
+              //             .replaceAll(' ', '_')
+              //             .toLowerCase()));
             },
             child: ListView.builder(
               shrinkWrap: true,

@@ -771,13 +771,13 @@ class CreateTaskController extends GetxController {
                       .replaceAll(' ', '_')
                       .toLowerCase(),
                   isPinned: true));
-          filterByType(
-              filterByType: FilterByTypeModel(
-                  taskType: Get.find<TaskHomeScreenController>()
-                      .taskCategory
-                      .value
-                      .replaceAll(' ', '_')
-                      .toLowerCase()));
+          // filterByType(
+          //     filterByType: FilterByTypeModel(
+          //         taskType: Get.find<TaskHomeScreenController>()
+          //             .taskCategory
+          //             .value
+          //             .replaceAll(' ', '_')
+          //             .toLowerCase()));
         }
         if (tasksFromTasksList) {
           taskFilterByDeadline();
@@ -845,13 +845,13 @@ class CreateTaskController extends GetxController {
                       .replaceAll(' ', '_')
                       .toLowerCase(),
                   isPinned: true));
-          filterByType(
-              filterByType: FilterByTypeModel(
-                  taskType: Get.find<TaskHomeScreenController>()
-                      .taskCategory
-                      .value
-                      .replaceAll(' ', '_')
-                      .toLowerCase()));
+          // filterByType(
+          //     filterByType: FilterByTypeModel(
+          //         taskType: Get.find<TaskHomeScreenController>()
+          //             .taskCategory
+          //             .value
+          //             .replaceAll(' ', '_')
+          //             .toLowerCase()));
         }
 
         if (tasksFromTasksList) {
@@ -876,9 +876,17 @@ class CreateTaskController extends GetxController {
   }
 
   // Filters tasks by type using the provided model
-  void filterByType({required FilterByTypeModel filterByType}) async {
+  void filterByType() async {
     filterByTypeLoading.value = true;
-    final result = await taskService.filterByType(filterByType: filterByType);
+    typeTasksPageNumber = 1;
+    typeTasks.value = [];
+    final result = await taskService.filterByType(
+      filterByType: FilterByTypeModel(
+        page: typeTasksPageNumber,
+        pageSize: typeTasksPageSize,
+        taskType: taskType.value,
+      ),
+    );
 
     result.fold(
       (failure) {
@@ -886,7 +894,7 @@ class CreateTaskController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
-        typeTasks.assignAll(success.tasks ?? []);
+        typeTasks.assignAll(success.data ?? []);
         filterByTypeLoading.value = false;
         update(); // Update the UI or state
       },
@@ -902,7 +910,7 @@ class CreateTaskController extends GetxController {
       filterByType: FilterByTypeModel(
         page: ++typeTasksPageNumber,
         pageSize: typeTasksPageSize,
-        taskType: '',
+        taskType: taskType.value,
       ),
     );
 
@@ -912,7 +920,7 @@ class CreateTaskController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
-        typeTasks.assignAll(success.tasks ?? []);
+        typeTasks.addAll(success.data ?? []);
         filterByTypeLoading.value = false;
         update(); // Update the UI or state
       },

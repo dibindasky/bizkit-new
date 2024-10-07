@@ -5,6 +5,7 @@ part 'filter_by_deadline_responce.g.dart';
 
 @JsonSerializable()
 class FilterByDeadlineResponce {
+  @JsonKey(name: 'data')
   List<Task>? data;
   @JsonKey(name: 'current_page')
   int? currentPage;

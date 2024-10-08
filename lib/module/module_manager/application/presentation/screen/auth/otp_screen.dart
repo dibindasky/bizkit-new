@@ -7,9 +7,10 @@ import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class ScreenOtpValidation extends StatelessWidget {
-  const ScreenOtpValidation({super.key, required this.isEmail});
+  const ScreenOtpValidation({super.key, required this.isEmail,this.route});
 
   final bool isEmail;
+  final String? route;
 
   @override
   Widget build(BuildContext context) {

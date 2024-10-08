@@ -11,7 +11,7 @@ class ScreenOtpValidation extends StatelessWidget {
       {super.key, required this.isEmail, this.onComplete});
 
   final bool isEmail;
-  final VoidCallback? onComplete;
+  final Function(String value)? onComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class ScreenOtpValidation extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 onCompleted: (value) {
                   if (onComplete != null) {
-                    onComplete!();
+                    onComplete!(value);
                   } else {
                     if (controller.otpFromRegisterUser.value) {
                       controller.verifyOtpEmailRegestration(context,

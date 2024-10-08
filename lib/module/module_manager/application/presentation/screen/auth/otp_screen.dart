@@ -1,4 +1,6 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +9,15 @@ import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class ScreenOtpValidation extends StatelessWidget {
-  const ScreenOtpValidation(
-      {super.key, required this.isEmail, this.onComplete});
+  const ScreenOtpValidation({super.key, required this.isEmail, this.route});
 
   final bool isEmail;
-  final Function(String value)? onComplete;
+  final String? route;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<AuthenticationController>();
+    final profileController = Get.find<ProfileController>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -46,8 +48,13 @@ class ScreenOtpValidation extends StatelessWidget {
               Pinput(
                 mainAxisAlignment: MainAxisAlignment.start,
                 onCompleted: (value) {
-                  if (onComplete != null) {
-                    onComplete!(value);
+                  if (route != null) {
+                    if (route == Routes.editProfile) {
+                      isEmail
+                          ? profileController.emailOtp(context, emailOtp: value)
+                          : profileController.phoneOtp(context,
+                              phoneOtp: value);
+                    }
                   } else {
                     if (controller.otpFromRegisterUser.value) {
                       controller.verifyOtpEmailRegestration(context,
@@ -82,7 +89,8 @@ class ScreenOtpValidation extends StatelessWidget {
               const Spacer(),
               Obx(() {
                 if (controller.loadingOtpEmail.value ||
-                    controller.loadingOtpPhone.value) {
+                    controller.loadingOtpPhone.value ||
+                    profileController.otpChangingLoading.value) {
                   return const LoadingAnimation();
                 }
                 return kempty;

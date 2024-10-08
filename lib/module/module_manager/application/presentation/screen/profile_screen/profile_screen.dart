@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:flutter/material.dart';
@@ -56,9 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen>
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {},
-    );
+    final profileController= Get.find<ProfileController>();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -81,7 +80,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                    ProfileTiles(
                   heading: 'Edit Personal Details',
                   onTap: () {
-                    GoRouter.of(context).pushNamed(Routes.editProfile);
+                    profileController.getProfileDetails();
+                    GoRouter.of(context).pushNamed(Routes.editProfile);                  
                   },
                 ),
                 ProfileTiles(

@@ -104,7 +104,8 @@ class GoRouterConfig {
         builder: (context, state) {
           final data = state.extra as Map<String, dynamic>;
           return ScreenOtpValidation(
-              isEmail: data['email'] as bool, route: data['route'] as String?);
+              isEmail: data['email'] as bool,
+              onComplete: data['onComplete'] as VoidCallback?);
         }),
 
     // Module selector

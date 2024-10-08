@@ -8,7 +8,9 @@ import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_s
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
@@ -47,9 +49,15 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
               ),
               adjustHieght(10),
               if (folderController.isLoading.value)
-                const Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 5),
+                    child: ShimmerLoaderTaskContainer(
+                      height: 50.h,
+                      itemCount: 10,
+                      width: double.infinity,
+                    ),
                   ),
                 )
               else if (folderController.tasksInsideInnerFolder.isEmpty)
@@ -69,46 +77,57 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                 )
               else
                 Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    itemCount: folderController.tasksInsideInnerFolder.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          log('Task from inner folder ==> ${folderController.tasksInsideInnerFolder[index].taskId}');
-                        },
-                        child: GestureDetector(
-                          onTap: () {
-                            taskController.fetchSingleTask(
-                                singleTaskModel: GetSingleTaskModel(
-                                    taskId: folderController
-                                            .tasksInsideInnerFolder[index]
-                                            .taskId ??
-                                        ''));
-
-                            GoRouter.of(context).pushNamed(
-                              Routes.taskDeail,
-                              pathParameters: {
-                                "taskId": folderController
-                                        .tasksInsideInnerFolder[index].taskId ??
-                                    ''
-                              },
-                            );
-                          },
-                          child: TaskContainer(
-                            fromInnerfolder: true,
-                            fromFolders: true,
-                            tasksFromInnerFolder: true,
-                            folderId: arguments?['folderId'],
-                            innerFolderId: arguments?['innerFolderId'],
-                            isInnerFolderTask: true,
-                            index: index,
-                            tasksInsideInnerFolder:
-                                folderController.tasksInsideInnerFolder[index],
-                          ),
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      folderController.fetchAllTasksInsideAInnerFolder(
+                        InnerFolderTasksGetParamsModel(
+                          folderId: arguments?['folderId'],
+                          innerFolderId: arguments?['innerFolderId'],
                         ),
                       );
                     },
+                    child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      itemCount: folderController.tasksInsideInnerFolder.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            log('Task from inner folder ==> ${folderController.tasksInsideInnerFolder[index].taskId}');
+                          },
+                          child: GestureDetector(
+                            onTap: () {
+                              taskController.fetchSingleTask(
+                                  singleTaskModel: GetSingleTaskModel(
+                                      taskId: folderController
+                                              .tasksInsideInnerFolder[index]
+                                              .taskId ??
+                                          ''));
+
+                              GoRouter.of(context).pushNamed(
+                                Routes.taskDeail,
+                                pathParameters: {
+                                  "taskId": folderController
+                                          .tasksInsideInnerFolder[index]
+                                          .taskId ??
+                                      ''
+                                },
+                              );
+                            },
+                            child: TaskContainer(
+                              fromInnerfolder: true,
+                              fromFolders: true,
+                              tasksFromInnerFolder: true,
+                              folderId: arguments?['folderId'],
+                              innerFolderId: arguments?['innerFolderId'],
+                              isInnerFolderTask: true,
+                              index: index,
+                              tasksInsideInnerFolder: folderController
+                                  .tasksInsideInnerFolder[index],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
             ],

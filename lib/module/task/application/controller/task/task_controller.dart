@@ -784,7 +784,7 @@ class CreateTaskController extends GetxController {
 
         scaffoldMessenger.showSnackBar(
           const SnackBar(
-            content: Text('Successfully Pinned this task'),
+            content: Text('Successfully pinned this task'),
             backgroundColor: neonShade,
           ),
         );

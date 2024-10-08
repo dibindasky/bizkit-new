@@ -26,35 +26,26 @@ class TotalTaskListView extends StatelessWidget {
       () {
         if (taskController.filterByTypeLoading.value ||
             taskController.pinLoader.value) {
-          return ShimmerLoaderTaskContainer(
-            height: 50.h,
-            itemCount: 10,
-            width: double.infinity,
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+            child: ShimmerLoaderTaskContainer(
+              height: 50.h,
+              itemCount: 10,
+              width: double.infinity,
+            ),
           );
         } else if (taskController.typeTasks.isEmpty) {
           return ErrorRefreshIndicator(
             image: emptyNodata2,
             errorMessage: 'No Tasks',
             onRefresh: () {
-              // taskController.filterByType(
-              //     filterByType: FilterByTypeModel(
-              //         taskType: Get.find<TaskHomeScreenController>()
-              //             .taskCategory
-              //             .value
-              //             .replaceAll(' ', '_')
-              //             .toLowerCase()));
+              taskController.filterByType();
             },
           );
         } else {
           return RefreshIndicator(
             onRefresh: () async {
-              // taskController.filterByType(
-              //     filterByType: FilterByTypeModel(
-              //         taskType: Get.find<TaskHomeScreenController>()
-              //             .taskCategory
-              //             .value
-              //             .replaceAll(' ', '_')
-              //             .toLowerCase()));
+              taskController.filterByType();
             },
             child: ListView.builder(
               controller: taskController.typeTasksScrollController,

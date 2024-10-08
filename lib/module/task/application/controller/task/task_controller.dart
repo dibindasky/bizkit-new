@@ -59,6 +59,8 @@ class CreateTaskController extends GetxController {
       ScrollController(); // Scroll controller for tasks filtered by deadline
   final ScrollController typeTasksScrollController =
       ScrollController(); // Scroll controller for tasks filtered by type
+  final ScrollController pinnedTasksScrollController =
+      ScrollController(); // Scroll controller for pinned tasks
 
 // Stores selected task type for task creation
   Rx<TaskType> createTaskTupe = TaskType.official.obs;
@@ -155,6 +157,8 @@ class CreateTaskController extends GetxController {
   int typeTasksPageNumber = 1,
       typeTasksPageSize = 15; // Pagination for type-filtered tasks
 
+  int pinnedTasksPageNumber = 1; // Pagination for pinned tasks
+
 // Holds the data of a single task
   var singleTask = GetTaskResponce().obs;
 
@@ -191,7 +195,7 @@ class CreateTaskController extends GetxController {
     taskSearchScrollController.addListener(tasksSearchScrollListener);
     deadlineTasksScrollController.addListener(deadlineTasksScrollListener);
     typeTasksScrollController.addListener(typeTasksScrollListener);
-
+    pinnedTasksScrollController.addListener(pinnedTasksScrollListener);
     super.onInit();
   }
 
@@ -210,6 +214,8 @@ class CreateTaskController extends GetxController {
       false.obs; // Loading state for filtering tasks by type
   RxBool filterByTypeLoading =
       false.obs; // Loading state when filtering tasks by type
+  RxBool pinnedTasksLoadMoreLoading =
+      false.obs; // Loading state for loading more pinned tasks
   RxBool filterByTypeLoadMoreLoading =
       false.obs; // Loading state for loading more type-filtered tasks
   RxBool taskCreationLoading = false.obs; // Loading state during task creation
@@ -275,6 +281,13 @@ class CreateTaskController extends GetxController {
     if (typeTasksScrollController.position.pixels ==
         typeTasksScrollController.position.maxScrollExtent) {
       filterByTypeTasksLoadMore();
+    }
+  }
+
+  void pinnedTasksScrollListener() {
+    if (pinnedTasksScrollController.position.pixels ==
+        pinnedTasksScrollController.position.maxScrollExtent) {
+      filterPinnedTasksByTypeLoadMore();
     }
   }
 
@@ -763,21 +776,7 @@ class CreateTaskController extends GetxController {
         }
 
         if (tasksFromFilterSection) {
-          filterPinnedTasksByType(
-              filterPinnedTask: FilterPinnedTaskByTypeModel(
-                  taskType: Get.find<TaskHomeScreenController>()
-                      .taskCategory
-                      .value
-                      .replaceAll(' ', '_')
-                      .toLowerCase(),
-                  isPinned: true));
-          // filterByType(
-          //     filterByType: FilterByTypeModel(
-          //         taskType: Get.find<TaskHomeScreenController>()
-          //             .taskCategory
-          //             .value
-          //             .replaceAll(' ', '_')
-          //             .toLowerCase()));
+          filterPinnedTasksByType();
         }
         if (tasksFromTasksList) {
           taskFilterByDeadline();
@@ -837,14 +836,7 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
 
         if (tasksFromFilterSection) {
-          filterPinnedTasksByType(
-              filterPinnedTask: FilterPinnedTaskByTypeModel(
-                  taskType: Get.find<TaskHomeScreenController>()
-                      .taskCategory
-                      .value
-                      .replaceAll(' ', '_')
-                      .toLowerCase(),
-                  isPinned: true));
+          filterPinnedTasksByType();
           // filterByType(
           //     filterByType: FilterByTypeModel(
           //         taskType: Get.find<TaskHomeScreenController>()
@@ -896,16 +888,18 @@ class CreateTaskController extends GetxController {
       (success) {
         typeTasks.assignAll(success.data ?? []);
         filterByTypeLoading.value = false;
-        update(); // Update the UI or state
+        update();
       },
     );
   }
 
   // Filters tasks by type - [ Pagination ]
   void filterByTypeTasksLoadMore() async {
-    if (filterByTypeLoadMoreLoading.value = true) {
+    if (filterByTypeLoadMoreLoading.value == true) {
       return;
     }
+
+    filterByTypeLoadMoreLoading.value = true;
     final result = await taskService.filterByType(
       filterByType: FilterByTypeModel(
         page: ++typeTasksPageNumber,
@@ -916,32 +910,65 @@ class CreateTaskController extends GetxController {
 
     result.fold(
       (failure) {
-        filterByTypeLoading.value = false;
+        filterByTypeLoadMoreLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         typeTasks.addAll(success.data ?? []);
-        filterByTypeLoading.value = false;
-        update(); // Update the UI or state
+        filterByTypeLoadMoreLoading.value = false;
+        update();
       },
     );
   }
 
   // Filters pinned tasks by type using the provided model
-  void filterPinnedTasksByType(
-      {required FilterPinnedTaskByTypeModel filterPinnedTask,
-      bool pinn = false}) async {
+  void filterPinnedTasksByType({bool pinn = false}) async {
     filterByTypeLoading.value = true;
+    pinnedTasksPageNumber = 1;
+    allPinnedTasks.value = [];
+
     final result = await taskService.filterPinnedTaskByType(
-        filterPinnedTaskByType: filterPinnedTask);
+        filterPinnedTaskByType: FilterPinnedTaskByTypeModel(
+      isPinned: true,
+      page: pinnedTasksPageNumber,
+      pageSize: typeTasksPageSize,
+      taskType: taskType.value,
+    ));
     update();
     result.fold(
       (failure) {
         filterByTypeLoading.value = false;
       },
       (success) {
-        allPinnedTasks.assignAll(success.tasks ?? []);
+        allPinnedTasks.assignAll(success.data ?? []);
         filterByTypeLoading.value = false;
+
+        update();
+      },
+    );
+  }
+
+  void filterPinnedTasksByTypeLoadMore() async {
+    if (pinnedTasksLoadMoreLoading.value == true) {
+      return;
+    }
+    pinnedTasksLoadMoreLoading.value = true;
+    final result = await taskService.filterPinnedTaskByType(
+        filterPinnedTaskByType: FilterPinnedTaskByTypeModel(
+      isPinned: true,
+      page: ++pinnedTasksPageNumber,
+      pageSize: typeTasksPageSize,
+      taskType: taskType.value,
+    ));
+    update();
+    result.fold(
+      (failure) {
+        pinnedTasksLoadMoreLoading.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        allPinnedTasks.addAll(success.data ?? []);
+        pinnedTasksLoadMoreLoading.value = false;
 
         update();
       },

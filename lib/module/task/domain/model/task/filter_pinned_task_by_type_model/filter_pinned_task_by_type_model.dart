@@ -8,8 +8,13 @@ class FilterPinnedTaskByTypeModel {
   String? taskType;
   @JsonKey(name: 'is_pinned')
   bool? isPinned;
+  @JsonKey(name: 'page')
+  int? page;
+  @JsonKey(name: 'page_size')
+  int? pageSize;
 
-  FilterPinnedTaskByTypeModel({this.taskType, this.isPinned});
+  FilterPinnedTaskByTypeModel(
+      {this.taskType, this.isPinned, this.page, this.pageSize});
 
   factory FilterPinnedTaskByTypeModel.fromJson(Map<String, dynamic> json) {
     return _$FilterPinnedTaskByTypeModelFromJson(json);

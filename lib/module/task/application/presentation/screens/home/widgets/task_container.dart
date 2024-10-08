@@ -93,14 +93,10 @@ class TaskContainers extends StatelessWidget {
                         100,
                 onTap: () {
                   homeController.changeSelectedTaskCategory('Others to self');
-                  // taskController.filterByType(
-                  //     filterByType:
-                  //         FilterByTypeModel(taskType: 'others_to_self'));
-                  taskController.filterPinnedTasksByType(
-                      filterPinnedTask: FilterPinnedTaskByTypeModel(
-                    taskType: 'others_to_self',
-                    isPinned: true,
-                  ));
+
+                  taskController.changeFilterTaskType('others_to_self');
+                  taskController.filterByType();
+                  taskController.filterPinnedTasksByType();
                   Get.toNamed(Routes.taskLists, id: 1);
                 },
               ),
@@ -157,14 +153,10 @@ class TaskContainers extends StatelessWidget {
                         100,
                 onTap: () {
                   homeController.changeSelectedTaskCategory('Self to Others');
-                  // taskController.filterByType(
-                  //     filterByType:
-                  //         FilterByTypeModel(taskType: 'self_to_others'));
-                  taskController.filterPinnedTasksByType(
-                      filterPinnedTask: FilterPinnedTaskByTypeModel(
-                    taskType: 'self_to_others',
-                    isPinned: true,
-                  ));
+
+                  taskController.changeFilterTaskType('self_to_others');
+                  taskController.filterByType();
+                  taskController.filterPinnedTasksByType();
                   Get.toNamed(Routes.taskLists, id: 1);
                 },
               ),
@@ -221,14 +213,9 @@ class TaskContainers extends StatelessWidget {
                         100,
                 onTap: () {
                   homeController.changeSelectedTaskCategory('Self to Self');
-                  // taskController.filterByType(
-                  //     filterByType:
-                  //         FilterByTypeModel(taskType: 'self_to_self'));
-                  taskController.filterPinnedTasksByType(
-                      filterPinnedTask: FilterPinnedTaskByTypeModel(
-                    taskType: 'self_to_self',
-                    isPinned: true,
-                  ));
+                  taskController.changeFilterTaskType('self_to_self');
+                  taskController.filterByType();
+                  taskController.filterPinnedTasksByType();
                   Get.toNamed(Routes.taskLists, id: 1);
                 },
               ),

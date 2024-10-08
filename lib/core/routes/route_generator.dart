@@ -99,11 +99,14 @@ class GoRouterConfig {
 
     // Otp page
     GoRoute(
-      name: Routes.otpPage,
-      path: Routes.otpPage,
-      builder: (context, state) =>
-          ScreenOtpValidation(isEmail: state.extra as bool),
-    ),
+        name: Routes.otpPage,
+        path: Routes.otpPage,
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
+          return ScreenOtpValidation(
+              isEmail: data['email'] as bool,
+              onComplete: data['onComplete'] as VoidCallback?);
+        }),
 
     // Module selector
     GoRoute(
@@ -139,8 +142,8 @@ class GoRouterConfig {
         );
       },
     ),
-     GoRoute(
-      name: Routes.editProfile, 
+    GoRoute(
+      name: Routes.editProfile,
       path: Routes.editProfile,
       builder: (context, state) => const ScreenProfileEdit(),
     ),

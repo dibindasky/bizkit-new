@@ -80,7 +80,7 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     }, (r) {
       otpFromRegisterUser.value = true;
-      GoRouter.of(context).pushNamed(Routes.otpPage, extra: true);
+      GoRouter.of(context).pushNamed(Routes.otpPage, extra: {'email': true});
       showSnackbar(context,
           message: r.message ?? 'Otp send to your mail id',
           backgroundColor: kneonShade,
@@ -139,7 +139,8 @@ class AuthenticationController extends GetxController {
     }, (r) {
       log('Otp resent successs');
       otpFromRegisterUser.value = false;
-      GoRouter.of(context).pushNamed(Routes.otpPage, extra: emailLogin);
+      GoRouter.of(context)
+          .pushNamed(Routes.otpPage, extra: {'email': emailLogin});
       showSnackbar(context,
           message:
               'Otp send to your registered ${emailLogin ? 'email address' : 'mobile number'}',

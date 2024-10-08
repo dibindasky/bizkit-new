@@ -7,9 +7,11 @@ import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 
 class ScreenOtpValidation extends StatelessWidget {
-  const ScreenOtpValidation({super.key, required this.isEmail});
+  const ScreenOtpValidation(
+      {super.key, required this.isEmail, this.onComplete});
 
   final bool isEmail;
+  final VoidCallback? onComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +46,16 @@ class ScreenOtpValidation extends StatelessWidget {
               Pinput(
                 mainAxisAlignment: MainAxisAlignment.start,
                 onCompleted: (value) {
-                  if (controller.otpFromRegisterUser.value) {
-                    controller.verifyOtpEmailRegestration(context, otp: value);
+                  if (onComplete != null) {
+                    onComplete!();
                   } else {
-                    controller.verifyOtpLogin(context,
-                        otp: value, isEmail: isEmail);
+                    if (controller.otpFromRegisterUser.value) {
+                      controller.verifyOtpEmailRegestration(context,
+                          otp: value);
+                    } else {
+                      controller.verifyOtpLogin(context,
+                          otp: value, isEmail: isEmail);
+                    }
                   }
                 },
                 length: 4,

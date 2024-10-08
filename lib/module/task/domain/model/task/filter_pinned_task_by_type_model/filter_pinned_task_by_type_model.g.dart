@@ -11,6 +11,8 @@ FilterPinnedTaskByTypeModel _$FilterPinnedTaskByTypeModelFromJson(
     FilterPinnedTaskByTypeModel(
       taskType: json['task_type'] as String?,
       isPinned: json['is_pinned'] as bool?,
+      page: json['page'] as int?,
+      pageSize: json['page_size'] as int?,
     );
 
 Map<String, dynamic> _$FilterPinnedTaskByTypeModelToJson(
@@ -18,4 +20,6 @@ Map<String, dynamic> _$FilterPinnedTaskByTypeModelToJson(
     <String, dynamic>{
       'task_type': instance.taskType,
       'is_pinned': instance.isPinned,
+      'page': instance.page,
+      'page_size': instance.pageSize,
     };

@@ -3,10 +3,10 @@ class ApiEndPoints {
   //static const String baseUrl = 'https://bizkit.onrender.com';
 
   // [ Local base url  ]
-  static const String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
+  // static const String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
 
   // [ AWS base url ]
-  // static const String baseUrl = 'http://16.171.232.253';
+  static const String baseUrl = 'http://16.171.232.253';
 
   // Refesh token
   static const String refreshUrl = '/token/';
@@ -22,21 +22,20 @@ class ApiEndPoints {
   static const String verifyOtp = '/verify-otp/';
   static const String passwordLogin = '/password-login/';
   static const String forgotPassword = '/verification/forgot_password/';
-  static const String verifyforgotPassword = '/verification/verify_forgot_password/';
+  static const String verifyforgotPassword =
+      '/verification/verify_forgot_password/';
   static const String forgottPassword = '/verification/change_password/';
   static const String forgottPasswordProfile = '/accounts/password_change/';
 
-
   /// [ profile ]
-  static const String nameAndImage='/update-pic-or-name/';
+  static const String nameAndImage = '/update-pic-or-name/';
+
   ///update phone and update email
   static const String updateEmailorPhone = '/update-contact/';
   static const String getUserProfileDetais = '/get-user-profile/';
 
-
   //  [  Matcho meter ]
   static const String matchoMeter = '/matcho-meter/';
-
 
   // ---------------------------------------------------------------------------------------------
   /// [ Bizcard Module  ]
@@ -89,9 +88,11 @@ class ApiEndPoints {
 
   // [ Bizcard connection ]
   static const String sentConnectionRequest = '/sent-connection-request/';
-  static const String recievedConnectionRequests = '/recieved-connection-requests/';
+  static const String recievedConnectionRequests =
+      '/recieved-connection-requests/';
   static const String myConnections = '/my-connections/';
-  static const String getAllSendConnectionRequests = '/send-connection-requests/';
+  static const String getAllSendConnectionRequests =
+      '/send-connection-requests/';
   static const String followbackRequest = '/follow-back-request/';
   static const String cancelConnectionRequest = '/cancel-connection-request/';
   static const String searchConnection = '/search-connection/';
@@ -135,6 +136,7 @@ class ApiEndPoints {
   static const String taskTestGetTaskExpense = '/get-expense-data/';
   static const String taskTestGetTaskTotalTime = '/get-time-data/';
   static const String taskTestGetRecentTasks = '/get-recent-tasks/';
-  static const String taskTestGetTaskTotalTimeAndExpense = '/get-time-expense-data/';
+  static const String taskTestGetTaskTotalTimeAndExpense =
+      '/get-time-expense-data/';
   static const String taskTestRestoreTask = '/restore-task/';
 }

@@ -24,6 +24,7 @@ class TaskSearchScreen extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             Get.back(id: 1);
+            taskController.taskSearchController.clear();
             FocusScope.of(context).unfocus();
           },
           icon: const Icon(Icons.arrow_back_ios),
@@ -56,11 +57,11 @@ class TaskSearchScreen extends StatelessWidget {
                     if (taskController.taskSearchLoading.value) {
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        child:ShimmerLoaderTaskContainer(
-              height: 50.h,
-              itemCount: 10,
-              width: double.infinity,
-            ),
+                        child: ShimmerLoaderTaskContainer(
+                          height: 50.h,
+                          itemCount: 10,
+                          width: double.infinity,
+                        ),
                       );
                     } else if (taskController.tasksSearch.isEmpty) {
                       return ErrorRefreshIndicator(
@@ -81,10 +82,10 @@ class TaskSearchScreen extends StatelessWidget {
                             return Padding(
                               padding: EdgeInsets.symmetric(horizontal: 5.w),
                               child: ShimmerLoaderTaskContainer(
-              height: 50.h,
-              itemCount: 1,
-              width: double.infinity,
-            ),
+                                height: 50.h,
+                                itemCount: 1,
+                                width: double.infinity,
+                              ),
                             );
                           } else {
                             return GestureDetector(

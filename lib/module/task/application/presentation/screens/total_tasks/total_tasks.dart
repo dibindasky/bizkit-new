@@ -14,6 +14,7 @@ import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_s
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -69,16 +70,15 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             text: 'All Tasks',
             onTap: () {
               homeController.changeSelectedTaskCategory('All');
-              taskController.filterPinnedTasksByType(
-                  filterPinnedTask: FilterPinnedTaskByTypeModel(
-                taskType: 'all',
-                isPinned: true,
-              ));
-              // taskController.filterByType(
-              //     filterByType: FilterByTypeModel(taskType: 'all'));
-
               taskController.changeFilterTaskType('all');
-              log('TASK TYPE === > ${taskController.taskType.value}');
+              taskController.filterPinnedTasksByType(
+                  // filterPinnedTask: FilterPinnedTaskByTypeModel(
+                  //   taskType: 'all',
+                  //   isPinned: true,
+                  // ),
+                  );
+              // taskController.taskType.value = 'all';
+              taskController.filterByType();
 
               Navigator.of(context).pop();
             },
@@ -89,16 +89,15 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             text: 'Self to Self',
             onTap: () {
               homeController.changeSelectedTaskCategory('Self to self');
-              taskController.filterPinnedTasksByType(
-                  filterPinnedTask: FilterPinnedTaskByTypeModel(
-                taskType: 'self_to_self',
-                isPinned: true,
-              ));
-              // taskController.filterByType(
-              //     filterByType: FilterByTypeModel(taskType: 'self_to_self'));
-
               taskController.changeFilterTaskType('self_to_self');
-              log('TASK TYPE === > ${taskController.taskType.value}');
+              taskController.filterPinnedTasksByType(
+                  // filterPinnedTask: FilterPinnedTaskByTypeModel(
+                  //   taskType: 'self_to_self',
+                  //   isPinned: true,
+                  // ),
+                  );
+              // taskController.taskType.value = 'self_to_self';
+              taskController.filterByType();
 
               Navigator.of(context).pop();
             },
@@ -109,16 +108,15 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             text: 'Self to others',
             onTap: () {
               homeController.changeSelectedTaskCategory('Self to others');
-              taskController.filterPinnedTasksByType(
-                  filterPinnedTask: FilterPinnedTaskByTypeModel(
-                taskType: 'self_to_others',
-                isPinned: true,
-              ));
-              // taskController.filterByType(
-              //     filterByType: FilterByTypeModel(taskType: 'self_to_others'));
-
               taskController.changeFilterTaskType('self_to_others');
-              log('TASK TYPE === > ${taskController.taskType.value}');
+              taskController.filterPinnedTasksByType(
+                  // filterPinnedTask: FilterPinnedTaskByTypeModel(
+                  //   taskType: 'self_to_others',
+                  //   isPinned: true,
+                  // ),
+                  );
+              // taskController.taskType.value = 'self_to_others';
+              taskController.filterByType();
 
               Navigator.of(context).pop();
               log(homeController.taskCategory.value);
@@ -131,14 +129,15 @@ class _ScreenTotalTasksScreenState extends State<ScreenTotalTasksScreen>
             onTap: () {
               homeController.changeSelectedTaskCategory('Others to self');
               taskController.filterPinnedTasksByType(
-                  filterPinnedTask: FilterPinnedTaskByTypeModel(
-                taskType: 'others_to_self',
-                isPinned: true,
-              ));
-              // taskController.filterByType(
-              //     filterByType: FilterByTypeModel(taskType: 'others_to_self'));
+                  // filterPinnedTask: FilterPinnedTaskByTypeModel(
+                  //   taskType: 'others_to_self',
+                  //   isPinned: true,
+                  // ),
+                  );
+
+              taskController.taskType.value = 'others_to_self';
+              taskController.filterByType();
               taskController.changeFilterTaskType('others_to_self');
-              log('TASK TYPE === > ${taskController.taskType.value}');
 
               Navigator.of(context).pop();
             },
@@ -285,88 +284,77 @@ class PinnedTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-    log('${taskController.allPinnedTasks.length}', name: 'Task Controller');
+
     return Obx(
       () {
         if (taskController.filterByTypeLoading.value ||
             taskController.pinLoader.value) {
-          return const Center(child: CircularProgressIndicator());
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+            child: ShimmerLoaderTaskContainer(
+              height: 50.h,
+              itemCount: 10,
+              width: double.infinity,
+            ),
+          );
         } else if (taskController.allPinnedTasks.isEmpty) {
           return ErrorRefreshIndicator(
             image: emptyNodata2,
             errorMessage: 'No Pinned Tasks',
             onRefresh: () {
-              taskController.filterPinnedTasksByType(
-                  filterPinnedTask: FilterPinnedTaskByTypeModel(
-                      taskType: Get.find<TaskHomeScreenController>()
-                          .taskCategory
-                          .value
-                          .replaceAll(' ', '_')
-                          .toLowerCase(),
-                      isPinned: true));
-              // taskController.filterByType(
-              //     filterByType: FilterByTypeModel(
-              //         taskType: Get.find<TaskHomeScreenController>()
-              //             .taskCategory
-              //             .value
-              //             .replaceAll(' ', '_')
-              //             .toLowerCase()));
+              taskController.filterPinnedTasksByType();
             },
           );
         } else {
           return RefreshIndicator(
             onRefresh: () async {
-              taskController.filterPinnedTasksByType(
-                  filterPinnedTask: FilterPinnedTaskByTypeModel(
-                      taskType: Get.find<TaskHomeScreenController>()
-                          .taskCategory
-                          .value
-                          .replaceAll(' ', '_')
-                          .toLowerCase(),
-                      isPinned: true));
-              // taskController.filterByType(
-              //     filterByType: FilterByTypeModel(
-              //         taskType: Get.find<TaskHomeScreenController>()
-              //             .taskCategory
-              //             .value
-              //             .replaceAll(' ', '_')
-              //             .toLowerCase()));
+              taskController.filterPinnedTasksByType();
             },
             child: ListView.builder(
+              controller: taskController.pinnedTasksScrollController,
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              itemCount: taskController.allPinnedTasks.length,
-              // itemCount: tasks.length,
+              itemCount: taskController.allPinnedTasks.length +
+                  (taskController.pinnedTasksLoadMoreLoading.value ? 1 : 0),
               itemBuilder: (context, index) {
-                final pinnedTasks = taskController.allPinnedTasks[index];
-                return GestureDetector(
-                  onLongPress: () {
-                    // bool isSelected = !controller.selectedIndices.contains(index);
-                    // controller.longPress(isSelected, index);
-                  },
-                  onTap: () {
-                    taskController.fetchSingleTask(
-                        singleTaskModel:
-                            GetSingleTaskModel(taskId: pinnedTasks.id));
-                    // if (controller.selectedFolderContainer.value) {
-                    //   bool isSelected = !controller.selectedIndices.contains(index);
-                    //   controller.longPress(isSelected, index);
-                    // } else {
-                    // GoRouter.of(context).push(Routes.taskChatScreen);
-                    //}
+                if (index == taskController.allPinnedTasks.length &&
+                    taskController.pinnedTasksLoadMoreLoading.value) {
+                  return ShimmerLoaderTaskContainer(
+                    height: 50.h,
+                    itemCount: 1,
+                    width: double.infinity,
+                  );
+                } else {
+                  final pinnedTasks = taskController.allPinnedTasks[index];
+                  return GestureDetector(
+                    onLongPress: () {
+                      // bool isSelected = !controller.selectedIndices.contains(index);
+                      // controller.longPress(isSelected, index);
+                    },
+                    onTap: () {
+                      taskController.fetchSingleTask(
+                          singleTaskModel:
+                              GetSingleTaskModel(taskId: pinnedTasks.id));
+                      // if (controller.selectedFolderContainer.value) {
+                      //   bool isSelected = !controller.selectedIndices.contains(index);
+                      //   controller.longPress(isSelected, index);
+                      // } else {
+                      // GoRouter.of(context).push(Routes.taskChatScreen);
+                      //}
 
-                    GoRouter.of(context).pushNamed(
-                      Routes.taskDeail,
-                      pathParameters: {"taskId": '${pinnedTasks.id}'},
-                    );
-                  },
-                  child: TaskContainer(
-                    tasksFromFilterSection: true,
-                    tabIndex: tabController.index,
-                    index: index,
-                    typeTask: pinnedTasks,
-                  ),
-                );
+                      GoRouter.of(context).pushNamed(
+                        Routes.taskDeail,
+                        pathParameters: {"taskId": '${pinnedTasks.id}'},
+                      );
+                    },
+                    child: TaskContainer(
+                      tasksFromFilterSection: true,
+                      tabIndex: tabController.index,
+                      index: index,
+                      typeTask: pinnedTasks,
+                    ),
+                  );
+                }
               },
             ),
           );

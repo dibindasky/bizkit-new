@@ -3,7 +3,9 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../../utils/refresh_indicator/refresh_custom.dart';
@@ -18,18 +20,27 @@ class KilledTasksListView extends StatelessWidget {
     return Obx(
       () {
         if (taskController.filterByTypeLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+            child: ShimmerLoaderTaskContainer(
+              height: 50.h,
+              itemCount: 10,
+              width: double.infinity,
+            ),
           );
         } else if (taskController.killedTasks.isEmpty) {
           return ErrorRefreshIndicator(
             image: emptyNodata2,
             errorMessage: 'No Tasks',
-            onRefresh: () {},
+            onRefresh: () {
+              taskController.fetchAllKilledTasks();
+            },
           );
         } else {
           return RefreshIndicator(
-            onRefresh: () async {},
+            onRefresh: () async {
+              taskController.fetchAllKilledTasks();
+            },
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               itemCount: taskController.killedTasks.length,

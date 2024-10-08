@@ -1,11 +1,12 @@
+import 'dart:async';
 import 'dart:developer';
-
-import 'package:bizkit/core/model/image/image_model.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/data/service/profile/profile_service.dart';
 import 'package:bizkit/module/module_manager/domain/model/profile_model/profile_model.dart';
 import 'package:bizkit/module/module_manager/domain/repository/service/profile_repo/profile_repo.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -21,6 +22,9 @@ class ProfileController extends GetxController {
   RxBool emailChangingLoading = false.obs;
   RxBool phoneChangingLoading = false.obs;
   RxBool imageChangingLoading = false.obs;
+  RxBool otpChangingLoading = false.obs;
+  
+  RxBool isLoadingImage=false.obs;
 
   ///get datas varibales
   RxString name = ''.obs;
@@ -41,30 +45,47 @@ class ProfileController extends GetxController {
     super.onInit();
     getProfileDetails();
   }
+  @override
+  void onClose() {
+    userPhone.dispose();
+    userMail.dispose();
+    super.onClose();
+  }
 
   /// get profile details for user Profile edit
   void getProfileDetails() async {
-    update(['image']);
-    final result = await profileService.getUserProfileData();
-    result.fold((left) => null, (right) {
-      log(right.toJson().toString());
-      name.value = right.name ?? '';
-      checkName = right.name ?? '';
-      userName.text = right.name ?? '';
+ try {
+      userName.clear();
+      userMail.clear();
+      userPhone.clear();
+      image.value='';
+      isLoadingImage.value=true;
+      final result = await profileService.getUserProfileData();
+      result.fold((left) => null, (right) {
+        name.value = right.name ?? '';
+        checkName = right.name ?? '';
+        userName.text = right.name ?? '';
+        email.value = right.email ?? '';
+        checkEmail = right.email ?? '';
+        userMail.text = right.email ?? '';
 
-      email.value = right.email ?? '';
-      checkEmail = right.email ?? '';
-      userMail.text = right.email ?? '';
+        // Remove +91 from number
+        String editNumber = (right.phoneNumber ?? '').replaceFirst('+91', '');
+        phone.value = editNumber;
+        checkPhone = editNumber;
+        userPhone.text = editNumber;
 
-      //remove +91 from number
-      String editNumber = (right.phoneNumber ?? '').replaceFirst('+91', '');
-      phone.value = editNumber;
-      checkPhone = editNumber;
-      userPhone.text = editNumber;
+        image.value = right.profileImage ?? '';
+      });
+    } catch (e) {
+      log('Error fetching profile details: $e');
+      // Optionally, show a snackbar or error message
+    } finally {
+      Timer(const Duration(seconds: 1), (){
 
-      image.value = right.profileImage ?? '';
-      update(['image']);
-    });
+      isLoadingImage.value = false;
+      });
+    }
   }
 
   void nameOnChanges(String name) {
@@ -81,36 +102,35 @@ class ProfileController extends GetxController {
 
   /// show dialogue for picking camera iamge and gallery iamge
   void profileIamgePicking(BuildContext context, bool camOrGal) async {
-    ImageModel? data = await ImagePickerClass.getImage(camera: camOrGal);
-    if (data != null) {
-      profileImageEdit(data.base64 ?? '');
-    }
+    await ImagePickerClass.getImage(camera: camOrGal).then((data) {
+      if (data != null) {
+        profileImageEdit(context, data.base64 ?? '');
+      }
+    });
   }
 
-  void profileImageEdit(String imagePath) async {
+  void profileImageEdit(BuildContext context, String imagePath) async {
     imageChangingLoading.value = true;
-    update(['image']);
     ProfileModel profileModel = ProfileModel(profileImage: imagePath);
     final result = await profileService.editNameAndProfileImage(
         profileModel: profileModel);
     result.fold((left) {
-      null;
+      showSnackbar(context, message: 'something went wrong');
       imageChangingLoading.value = false;
     }, (right) {
-      print('editImageSuccess${right.profileImage?.isEmpty}');
+      showSnackbar(context, message: 'Successfully updated');
       image.value = right.profileImage ?? '';
       imageChangingLoading.value = false;
     });
-    update(['image']);
   }
 
-  void profileNameEditSave() async {
+  void profileNameEditSave(BuildContext context) async {
     nameChangingLoading.value = true;
     ProfileModel profileModel = ProfileModel(name: name.value);
     final result = await profileService.editNameAndProfileImage(
         profileModel: profileModel);
     result.fold((left) {
-      null;
+      showSnackbar(context, message: 'something went wrong');
       nameChangingLoading.value = false;
     }, (right) {
       name.value = right.name ?? '';
@@ -120,27 +140,68 @@ class ProfileController extends GetxController {
   }
 
   void updateEmail(BuildContext context) async {
-    if (phoneKey.currentState!.validate()) {
-      ProfileModel profileModel=ProfileModel(email: email.value);
-      final result=await profileService.updateEmailOrPhone(profileModel: profileModel);
-      result.fold((ifLeft){
+    if (mailKey.currentState!.validate()) {
+      emailChangingLoading.value = true;
+      ProfileModel profileModel = ProfileModel(email: email.value);
+      final result =
+          await profileService.updateEmailOrPhone(profileModel: profileModel);
+      result.fold((ifLeft) {
+        emailChangingLoading.value = false;
+        showSnackbar(context, message: 'Something Went Wrong');
+      }, (ifRight) {
+        emailChangingLoading.value = false;
+        checkEmail = email.value;
 
-      }, (ifRight){
-        GoRouter.of(context).pushNamed(Routes.otpPage);
+        GoRouter.of(context).pushNamed(Routes.otpPage,
+            extra: {'email': true, 'route': Routes.editProfile});
       });
     }
   }
 
-    void updatePhone(BuildContext context) async {
-    if (phoneKey.currentState!.validate()) {
-      ProfileModel profileModel=ProfileModel(email: phone.value);
-      final result=await profileService.updateEmailOrPhone(profileModel: profileModel);
-      result.fold((left){
+  void emailOtp(BuildContext context, {required String emailOtp}) async {
+    otpChangingLoading.value = true;
+    ProfileModel profileModel = ProfileModel(email: email.value, otp: emailOtp);
+    final result =
+        await profileService.emailAndPhoneOtp(profileModel: profileModel);
+    result.fold((ifLeft) {
+      otpChangingLoading.value = false;
+      showSnackbar(context,
+          message: 'something went wrong', backgroundColor: kred);
+    }, (ifRight) {
+      otpChangingLoading.value = false;
+    });
+  }
 
-      }, (right){
-        GoRouter.of(context).pushNamed(Routes.otpPage);
+  void updatePhone(BuildContext context) async {
+    if (phoneKey.currentState!.validate()) {
+      phoneChangingLoading.value = true;
+      ProfileModel profileModel = ProfileModel(email: phone.value);
+      final result =
+          await profileService.updateEmailOrPhone(profileModel: profileModel);
+      result.fold((left) {
+        showSnackbar(context, message: 'something went wrong');
+        phoneChangingLoading.value = false;
+      }, (right) {
+        phoneChangingLoading.value = false;
+        checkPhone = phone.value;
+        GoRouter.of(context).pushNamed(Routes.otpPage,
+            extra: {'email': true, 'route': Routes.editProfile});
       });
     }
   }
 
+  phoneOtp(BuildContext context, {required String phoneOtp}) async {
+    otpChangingLoading.value = true;
+    ProfileModel profileModel =
+        ProfileModel(phoneNumber: phone.value, otp: phoneOtp);
+    final result =
+        await profileService.emailAndPhoneOtp(profileModel: profileModel);
+    result.fold((ifLeft) {
+      showSnackbar(context, message: 'something went wrong');
+      otpChangingLoading.value = false;
+    }, (ifRight) {
+      otpChangingLoading.value = false;
+      GoRouter.of(context).pop();
+    });
+  }
 }

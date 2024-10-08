@@ -6,6 +6,8 @@ import 'package:dartz/dartz.dart';
 abstract class ProfileRepo{
   Future<Either<Failure,ProfileModel>>editNameAndProfileImage({required ProfileModel profileModel});
   Future<Either<Failure,SuccessResponce>>updateEmailOrPhone({required ProfileModel profileModel});
+  Future<Either<Failure,SuccessResponce>>emailAndPhoneOtp({required ProfileModel profileModel});
   Future<Either<Failure,ProfileModel>>getUserProfileData();
+
 
 }

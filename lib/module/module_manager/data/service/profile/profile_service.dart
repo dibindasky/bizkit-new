@@ -16,12 +16,11 @@ class ProfileService implements ProfileRepo {
   Future<Either<Failure, ProfileModel>> editNameAndProfileImage(
       {required ProfileModel profileModel}) async {
     try {
-      log('editNameAndProfileImage datas ${profileModel.toJson()}');
+      // log('editNameAndProfileImage datas ${profileModel.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.nameAndImage,
         data: profileModel.toJson(),
       );
-      print('success editprofileimage');
       return Right(ProfileModel.fromJson(response.data));
     } on DioException catch (e) {
       log('editNameProfileImage Dio Exception $e');
@@ -57,13 +56,37 @@ class ProfileService implements ProfileRepo {
     try {
       final response = await apiService.patch(ApiEndPoints.updateEmailorPhone,
           data: profileModel.toJson());
+          log('update email datas  ${response.data}');
       log('update email or phone success');
-      return Right(response.data);
+      return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
+      log('update email or phone dio exception${e.toString()}');
       return Left(Failure(
           message: (e.response?.data as Map<String, dynamic>?)?['error'] ??
               errorMessage));
     } catch (e) {
+      log('update email or phone catch error ${e.toString()}');
+      return Left(Failure(message: errorMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> emailAndPhoneOtp(
+      {required ProfileModel profileModel}) async {
+    try {
+      log('email and phone otp to json${profileModel.toJson()}');
+      final response = await apiService.patch(ApiEndPoints.updateEmailorPhone,
+          data: profileModel.toJson());
+      log('emailAndPhoneOtp ${response.data}');
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('emailAndPhoneOtp Dio Exception $e');
+      log('emailAndPhoneOtp Dio Exception ${e.response?.data}');
+      return Left(Failure(
+          message: (e.response?.data as Map<String, dynamic>?)?['error'] ??
+              errorMessage));
+    } catch (e) {
+      log('emailAndPhoneOtp Dio Exception $e');
       return Left(Failure(message: errorMessage));
     }
   }

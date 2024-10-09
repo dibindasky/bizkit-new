@@ -310,6 +310,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                             style: TextStyle(color: kblack, fontSize: 12.sp),
                             decoration: InputDecoration(
                               hintText: 'Let us know why ?',
+                              hintStyle: const TextStyle(color: kblack),
                               contentPadding: EdgeInsets.zero,
                               border: InputBorder.none,
                               suffix: GestureDetector(

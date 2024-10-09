@@ -176,7 +176,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                         .profilePicture!
                                         .isEmpty
                                 ? lightGrey
-                                : neonShade,
+                                : lightGrey,
                             child: Padding(
                               padding: EdgeInsets.all(1.w),
                               child: taskController

@@ -33,12 +33,12 @@ class NotificationRequestCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        log('Task id ------- >>> $taskId');
+        // log('Task id ------- >>> $taskId');
       },
       child: Container(
         padding: EdgeInsets.all(13.0.w),
         decoration: BoxDecoration(
-          color: kNotificationColor,
+          color: klightDarkGrey,
           borderRadius: BorderRadius.circular(10.0.h),
         ),
         child: Row(
@@ -67,10 +67,18 @@ class NotificationRequestCard extends StatelessWidget {
                   Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: const AssetImage(
-                          personDemoImg,
+                        backgroundColor: neonShade,
+                        radius: 13.0.w,
+                        child: Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: CircleAvatar(
+                            backgroundColor: lightGrey,
+                            child: Text(
+                              name!.substring(0, 2).toUpperCase(),
+                              style: textThinerStyle1.copyWith(color: kwhite),
+                            ),
+                          ),
                         ),
-                        radius: 10.0.w,
                       ),
                       adjustWidth(8.w),
                       Text(

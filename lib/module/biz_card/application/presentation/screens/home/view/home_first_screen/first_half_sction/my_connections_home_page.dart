@@ -83,7 +83,7 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             connectionsController.searchBizkitUsers(
-                                searchQuery: SearchQuery(search: ''));
+                                );
                             GoRouter.of(context)
                                 .pushNamed(Routes.addConnection);
                           },
@@ -140,7 +140,7 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             connectionsController.searchBizkitUsers(
-                                searchQuery: SearchQuery(search: ''));
+                              );
                             GoRouter.of(context)
                                 .pushNamed(Routes.addConnection);
                           },

@@ -42,9 +42,6 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
     return true;
   }
 
-  final TextEditingController searchBizkitUsersController =
-      TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final connectionController = Get.find<ConnectionsController>();
@@ -106,15 +103,14 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
               children: [
                 CustomTextFormField(
                   focusNode: _focusNode,
-                  controller: searchBizkitUsersController,
+                  controller: connectionController.searchBizkitUsersController,
                   onChanaged: (value) {
                     if (value.length < 3) {
                       show = false;
                     } else {
                       show = true;
                     }
-                    connectionController.searchBizkitUsers(
-                        searchQuery: SearchQuery(search: value));
+                    connectionController.searchBizkitUsers();
                   },
                   labelText: 'Search',
                   prefixIcon: const Icon(Icons.search),
@@ -123,8 +119,7 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () async {
-                      connectionController.searchBizkitUsers(
-                          searchQuery: SearchQuery(search: ''));
+                      connectionController.searchBizkitUsers();
                       await Future.delayed(const Duration(milliseconds: 1500));
                     },
                     child: Obx(
@@ -137,15 +132,16 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                         } else if (connectionController.bizkitUsers.isEmpty) {
                           return ErrorRefreshIndicator(
                             onRefresh: () {
-                              connectionController.searchBizkitUsers(
-                                  searchQuery: SearchQuery(search: ''));
+                              connectionController.searchBizkitUsers();
                             },
                             errorMessage: 'No bizcard users',
                             image: emptyNodata2,
                           );
                         } else {
                           return GridView.builder(
-                            itemCount: connectionController.bizkitUsers.length,
+                            controller:
+                                connectionController.userSearchScrollController,
+                            itemCount: connectionController.bizkitUsers.length+(connectionController.usersLoadMore.value?1:0),
                             shrinkWrap: true,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
@@ -155,11 +151,15 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                               mainAxisSpacing: 20,
                             ),
                             itemBuilder: (context, index) {
-                              return GridTileAddRequestConnection(
-                                data: connectionController.bizkitUsers[index],
-                                index: index,
-                                fromPendingRequests: false,
-                              );
+                              if (index==connectionController.bizkitUsers.length&&connectionController.usersLoadMore.value) {
+                              return Center(child: CircularProgressIndicator());
+                              } else {
+                                return GridTileAddRequestConnection(
+                                  data: connectionController.bizkitUsers[index],
+                                  index: index,
+                                  fromPendingRequests: false,
+                                );
+                              }
                             },
                           );
                         }

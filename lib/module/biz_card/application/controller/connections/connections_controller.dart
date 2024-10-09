@@ -30,18 +30,27 @@ import 'package:get/get_rx/get_rx.dart';
 import 'package:go_router/go_router.dart';
 
 class ConnectionsController extends GetxController {
+  final ScrollController userSearchScrollController = ScrollController();
+
   final ConnectionsRepo connectionService = ConnectionsService();
   final Debouncer debouncer = Debouncer(milliseconds: 300);
   // Loadings
   RxBool sendConnectionRequestLoading = false.obs;
   RxBool searchConnectionsLoading = false.obs;
   RxBool recievedConnectionRequestLoading = false.obs;
+
   RxBool searchBizkitUsersLoading = false.obs;
+  RxBool usersLoadMore = false.obs;
+
   RxBool allSendConnectionRequestsLoading = false.obs;
   RxBool myConnectionsLoading = false.obs;
   RxBool cancelConnectionRequestLoading = false.obs;
   RxBool followbackRequestLoading = false.obs;
   RxBool cardLoading = false.obs;
+
+  final TextEditingController searchBizkitUsersController =
+      TextEditingController();
+  int userSearchPageNumber = 1, pageSize = 15;
 
   /// loading for shared card
   RxBool sharedCardLoading = false.obs;
@@ -75,6 +84,19 @@ class ConnectionsController extends GetxController {
 
   /// shared card list
   RxList<SharedCardModel> sharedCards = <SharedCardModel>[].obs;
+
+  @override
+  void onInit() {
+    userSearchScrollController.addListener(userSearchScrollListner);
+    super.onInit();
+  }
+
+ void userSearchScrollListner() {
+    if (userSearchScrollController.position.pixels ==
+        userSearchScrollController.position.maxScrollExtent) {
+      searchBizkitUsersLoadMore();
+    }
+  }
 
   // Send connection request
   void sendConnectionRequest(
@@ -152,20 +174,60 @@ class ConnectionsController extends GetxController {
     );
   }
 
-  // Search bizkit users
-  void searchBizkitUsers({required SearchQuery searchQuery}) {
+  // Search bizkit users for pagination
+  void searchBizkitUsersLoadMore() {
+    debouncer.run(
+      () async {
+        if (usersLoadMore.value == true) {
+          return;
+        }
+        usersLoadMore.value = true;
+
+        final result = await connectionService.searchBizkitUsers(
+          searchQuery: SearchQuery(
+            page: ++userSearchPageNumber,
+            pageSize: pageSize,
+            search: searchBizkitUsersController.text,
+          ),
+        );
+
+        result.fold(
+          (failure) {
+            usersLoadMore.value = false;
+          },
+          (success) {
+            final filteredUsers = (success.data ?? [])
+                .where((user) => user.connectionExist != true)
+                .toList();
+
+            bizkitUsers.addAll(filteredUsers);
+
+            usersLoadMore.value = false;
+          },
+        );
+        usersLoadMore.value=false;
+      },
+    );
+  }
+
+  void searchBizkitUsers() {
     debouncer.run(
       () async {
         searchBizkitUsersLoading.value = true;
-        final result =
-            await connectionService.searchBizkitUsers(searchQuery: searchQuery);
+        userSearchPageNumber = 1;
+        bizkitUsers.value = [];
+        final result = await connectionService.searchBizkitUsers(
+            searchQuery: SearchQuery(
+                page: userSearchPageNumber,
+                pageSize: pageSize,
+                search: searchBizkitUsersController.text));
 
         result.fold(
           (failure) {
             searchBizkitUsersLoading.value = false;
           },
           (success) {
-            final filteredUsers = (success.results ?? [])
+            final filteredUsers = (success.data ?? [])
                 .where((user) => user.connectionExist != true)
                 .toList();
 

@@ -51,6 +51,7 @@ class ContactsController extends GetxController {
 
   // Search contacts
   void searchContact(String query) {
+       update(['share_contact']);
     if (contactFilteredList.isEmpty) {
       return;
     }
@@ -58,11 +59,13 @@ class ContactsController extends GetxController {
     if (query.isEmpty) {
       contactList.value = contactFilteredList;
       searchLoading.value = false;
+       update(['share_contact']);
       return;
     }
     final filtered = contactFilteredList.where((element) {
       if (element.name != null &&
           element.name!.toLowerCase().contains(query.toLowerCase())) {
+            
         return true;
       }
       if (element.email != null &&
@@ -76,6 +79,7 @@ class ContactsController extends GetxController {
     }).toList();
     contactList.value = filtered;
     searchLoading.value = false;
+    update(['share_contact']);
   }
 
   /// check contacts fetching happend before or not and fetch if not else get data form local db

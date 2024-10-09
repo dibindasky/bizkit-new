@@ -9,12 +9,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ProfileImagePreview extends StatefulWidget {
   const ProfileImagePreview({
     super.key,
-    required this.image, required this.onCamPressed, required this.onGalleryPressed,
+    required this.image,  this.onCamPressed,  this.onGalleryPressed,
   });
 
   final String image;
-  final VoidCallback onCamPressed;
-  final VoidCallback onGalleryPressed;
+  final VoidCallback? onCamPressed;
+  final VoidCallback? onGalleryPressed;
   
 
   @override
@@ -44,18 +44,18 @@ class _ProfileImagePreviewState extends State<ProfileImagePreview> {
                 backgroundImage: MemoryImage(
                         imagePath,),
               )),
-          Align(
+              widget.onCamPressed!=null||widget.onGalleryPressed!=null?  Align(
               alignment: Alignment.bottomRight,
               child: IconButton(
                   onPressed: () {
                     cameraAndGalleryPickImage(
                         context: context,
                         onPressCam: () {
-                          widget.onCamPressed(
+                          widget.onCamPressed!(
                             );
                         },
                         onPressGallery: () {
-                          widget.onGalleryPressed(
+                          widget.onGalleryPressed!(
                                );
                         },
                         tittle: 'Pick Image');
@@ -63,7 +63,8 @@ class _ProfileImagePreviewState extends State<ProfileImagePreview> {
                   icon: const Icon(
                     Icons.camera_alt_rounded,
                     color: neonShade,
-                  )))
+                  ))):const SizedBox()
+        
         ],
       ),
     );

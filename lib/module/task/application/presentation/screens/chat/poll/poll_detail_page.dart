@@ -150,7 +150,7 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
                 isMultipleAnswer ||
                 (pollAnswer?.supporters?.isEmpty ?? true)
             ? kempty
-            : adjustHieght(20.h),
+            : adjustHieght(5.h),
         !isResonRequired ||
                 isMultipleAnswer ||
                 (pollAnswer?.supporters?.isEmpty ?? true)
@@ -166,7 +166,7 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
                           horizontal: 25.w, vertical: 10.h),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                          color: kGrayLight, borderRadius: kBorderRadius10),
+                          color: klightDarkGrey, borderRadius: kBorderRadius10),
                       child: Column(children: [
                         Expanded(
                           child: SingleChildScrollView(

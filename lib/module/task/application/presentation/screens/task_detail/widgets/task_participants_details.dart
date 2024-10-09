@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/screen/card_screen_main.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/participants_list_bottom_sheet.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -49,15 +53,68 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                 taskController.singleTask.value.isOwned == true
                     ? Row(
                         children: [
+                          // CircleAvatar(
+                          //   backgroundColor: neonShade,
+                          //   child: Padding(
+                          //       padding: EdgeInsets.all(1.w),
+                          //       child: CircleAvatar(
+                          //         radius: 20.w,
+                          //         backgroundImage:
+                          //             const AssetImage(personDemoImg),
+                          //       )),
+                          // ),
                           CircleAvatar(
-                            backgroundColor: neonShade,
+                            backgroundColor: taskController.singleTask.value
+                                    .createdUserDetails!.profilePicture!.isEmpty
+                                ? klightDarkGrey
+                                : neonShade,
                             child: Padding(
-                                padding: EdgeInsets.all(1.w),
-                                child: CircleAvatar(
-                                  radius: 20.w,
-                                  backgroundImage:
-                                      const AssetImage(personDemoImg),
-                                )),
+                              padding: EdgeInsets.all(1.w),
+                              child: taskController
+                                              .singleTask
+                                              .value
+                                              .createdUserDetails
+                                              ?.profilePicture !=
+                                          null &&
+                                      taskController
+                                          .singleTask
+                                          .value
+                                          .createdUserDetails!
+                                          .profilePicture!
+                                          .isNotEmpty
+                                  ? ClipOval(
+                                      child: Image.memory(
+                                        base64Decode(taskController
+                                            .singleTask
+                                            .value
+                                            .createdUserDetails!
+                                            .profilePicture!),
+                                        fit: BoxFit.cover,
+                                        width: 40.w,
+                                        height: 40.w,
+                                      ),
+                                    )
+                                  : Text(
+                                      taskController
+                                                      .singleTask
+                                                      .value
+                                                      .createdUserDetails
+                                                      ?.name !=
+                                                  null &&
+                                              taskController
+                                                  .singleTask
+                                                  .value
+                                                  .createdUserDetails!
+                                                  .name!
+                                                  .isNotEmpty
+                                          ? taskController.singleTask.value
+                                              .createdUserDetails!.name!
+                                              .substring(0, 2)
+                                              .toUpperCase()
+                                          : 'NA',
+                                      style: textHeadStyle1.copyWith(),
+                                    ),
+                            ),
                           ),
                           adjustWidth(7.w),
                           Column(
@@ -80,7 +137,9 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                           ? 'Created By'
                                           : 'Assigned By',
                                       style: textHeadStyle1.copyWith(
-                                          fontSize: 13.sp),
+                                        fontSize: 13.sp,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                               taskController.isLoading.value
                                   ? Padding(
@@ -104,14 +163,68 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                     : Row(
                         children: [
                           CircleAvatar(
-                            backgroundColor: neonShade,
+                            backgroundColor: taskController
+                                            .singleTask
+                                            .value
+                                            .createdUserDetails
+                                            ?.profilePicture !=
+                                        null &&
+                                    taskController
+                                        .singleTask
+                                        .value
+                                        .createdUserDetails!
+                                        .profilePicture!
+                                        .isEmpty
+                                ? lightGrey
+                                : neonShade,
                             child: Padding(
-                                padding: EdgeInsets.all(1.w),
-                                child: CircleAvatar(
-                                  radius: 20.w,
-                                  backgroundImage:
-                                      const AssetImage(personDemoImg),
-                                )),
+                              padding: EdgeInsets.all(1.w),
+                              child: taskController
+                                              .singleTask
+                                              .value
+                                              .createdUserDetails
+                                              ?.profilePicture !=
+                                          null &&
+                                      taskController
+                                          .singleTask
+                                          .value
+                                          .createdUserDetails!
+                                          .profilePicture!
+                                          .isNotEmpty
+                                  ? ClipOval(
+                                      child: Image.memory(
+                                        base64Decode(taskController
+                                            .singleTask
+                                            .value
+                                            .createdUserDetails!
+                                            .profilePicture!),
+                                        fit: BoxFit.cover,
+                                        width: 40.w,
+                                        height: 40.w,
+                                      ),
+                                    )
+                                  : Text(
+                                      taskController
+                                                      .singleTask
+                                                      .value
+                                                      .createdUserDetails
+                                                      ?.name !=
+                                                  null &&
+                                              taskController
+                                                  .singleTask
+                                                  .value
+                                                  .createdUserDetails!
+                                                  .name!
+                                                  .isNotEmpty
+                                          ? taskController.singleTask.value
+                                              .createdUserDetails!.name!
+                                              .substring(0, 2)
+                                              .toUpperCase()
+                                          : 'NA',
+                                      style: textHeadStyle1.copyWith(
+                                          color: kwhite),
+                                    ),
+                            ),
                           ),
                           adjustWidth(7.w),
                           Column(
@@ -187,45 +300,60 @@ class TaskDetailUserInfoSection extends StatelessWidget {
             ),
             adjustHieght(10.h),
             // participants
-            Row(
-              children: [
-                CircleAvatar(
-                  child: Padding(
-                    padding: EdgeInsets.all(1.w),
-                    child: const CircleAvatar(
-                        backgroundColor: klightDarkGrey,
-                        child: Icon(
-                          Icons.person,
-                          color: neonShade,
-                        )),
+            GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  enableDrag: true,
+                  isDismissible: true,
+                  showDragHandle: true,
+                  backgroundColor: kblack,
+                  builder: (context) {
+                    return const ParticipantsListBottomSheet();
+                  },
+                );
+              },
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    child: Padding(
+                      padding: EdgeInsets.all(1.w),
+                      child: const CircleAvatar(
+                          backgroundColor: klightDarkGrey,
+                          child: Icon(
+                            Icons.person,
+                            color: neonShade,
+                          )),
+                    ),
                   ),
-                ),
-                adjustWidth(10.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Participants',
-                      style: textHeadStyle1.copyWith(fontSize: 13.sp),
-                    ),
-                    Obx(
-                      () => taskController.isLoading.value
-                          ? Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: ShimmerLoaderTile(
-                                height: 9.h,
-                                width: 100.w,
+                  adjustWidth(10.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Participants',
+                        style: textHeadStyle1.copyWith(fontSize: 13.sp),
+                      ),
+                      Obx(
+                        () => taskController.isLoading.value
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                child: ShimmerLoaderTile(
+                                  height: 9.h,
+                                  width: 100.w,
+                                ),
+                              )
+                            : Text(
+                                participants ?? 'Participants',
+                                style: textThinStyle1,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                            )
-                          : Text(
-                              participants ?? 'Participants',
-                              style: textThinStyle1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                    ),
-                  ],
-                )
-              ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
             adjustHieght(20.h),
             // time and expense

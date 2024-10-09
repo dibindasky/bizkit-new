@@ -40,7 +40,7 @@ class ScreenPollDetailTask extends StatelessWidget {
                                 index: index,
                               ),
                           separatorBuilder: (context, index) =>
-                              adjustHieght(20.h),
+                              adjustHieght(5.h),
                           itemCount:
                               controller.pollDetail.value.pollAnswers?.length ??
                                   0);
@@ -50,7 +50,6 @@ class ScreenPollDetailTask extends StatelessWidget {
               ),
             ),
           ),
-          // adjustHieght(20.h)
         ],
       ),
     );
@@ -83,9 +82,10 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
           width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
           decoration: BoxDecoration(
-              borderRadius: kBorderRadius15,
-              border: Border.all(color: neonShade),
-              color: kGrayLight),
+            borderRadius: kBorderRadius15,
+            border: Border.all(color: neonShade),
+            color: klightDarkGrey,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -116,21 +116,24 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
                     child: Column(
                       children: [
                         Container(
-                            height: 50.h,
-                            width: 50.h,
+                            height: 35.h,
+                            width: 35.h,
                             decoration: BoxDecoration(
-                                border: index != selectedIndex
-                                    ? null
-                                    : Border.all(color: neonShade, width: 3.sp),
-                                borderRadius: kBorderRadius5,
-                                color: klightGreyClr,
-                                image: isAnonymous
-                                    ? null
-                                    : const DecorationImage(
-                                        image: AssetImage(imageDummyAsset),
-                                        fit: BoxFit.cover)),
-                            child:
-                                isAnonymous ? const Icon(Icons.person) : null),
+                              border: index != selectedIndex
+                                  ? null
+                                  : Border.all(color: neonShade, width: 3.sp),
+                              borderRadius: kBorderRadius5,
+                              color: klightDarkGrey,
+                            ),
+                            child: isAnonymous
+                                ? const Icon(Icons.person)
+                                : FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      '${pollAnswer?.supporters?[index].name?.substring(0, 2).toUpperCase()}',
+                                      style: textHeadStyle1,
+                                    ),
+                                  )),
                         adjustHieght(3.h),
                         Text(
                           isAnonymous
@@ -147,7 +150,7 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
                 isMultipleAnswer ||
                 (pollAnswer?.supporters?.isEmpty ?? true)
             ? kempty
-            : adjustHieght(20.h),
+            : adjustHieght(5.h),
         !isResonRequired ||
                 isMultipleAnswer ||
                 (pollAnswer?.supporters?.isEmpty ?? true)
@@ -163,7 +166,7 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
                           horizontal: 25.w, vertical: 10.h),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                          color: kGrayLight, borderRadius: kBorderRadius10),
+                          color: klightDarkGrey, borderRadius: kBorderRadius10),
                       child: Column(children: [
                         Expanded(
                           child: SingleChildScrollView(

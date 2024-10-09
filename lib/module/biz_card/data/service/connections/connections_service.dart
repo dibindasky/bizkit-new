@@ -90,6 +90,7 @@ class ConnectionsService implements ConnectionsRepo {
   Future<Either<Failure, BizcardUsersSearchResponce>> searchBizkitUsers(
       {required SearchQuery searchQuery}) async {
     try {
+      log('searchbiskit${searchQuery.toJson()}');
       final responce = await apiService.post(
         ApiEndPoints.searchCardUsers,
         data: searchQuery.toJson(),

@@ -23,16 +23,20 @@ class ProfileController extends GetxController {
   RxBool phoneChangingLoading = false.obs;
   RxBool imageChangingLoading = false.obs;
   RxBool otpChangingLoading = false.obs;
-  
-  RxBool isLoadingImage=false.obs;
 
-  ///get datas varibales
+  //initial loading at the time of data fetching
+  RxBool isLoadingImage = false.obs;
+  RxBool isLoadingName = false.obs;
+  RxBool isLoadingEmail = false.obs;
+  RxBool isLoadingPhone = false.obs;
+
+  ///get datas to these varibales
   RxString name = ''.obs;
   RxString email = ''.obs;
   RxString phone = ''.obs;
   RxString image = ''.obs;
 
-  ///check the initial data changed or not in ui
+  ///check the initial data changed or not in ui using these varibales
   String checkName = '';
   String checkEmail = '';
   String checkPhone = '';
@@ -43,8 +47,9 @@ class ProfileController extends GetxController {
   @override
   onInit() {
     super.onInit();
-    getProfileDetails();
+    // getProfileDetails();
   }
+
   @override
   void onClose() {
     userPhone.dispose();
@@ -54,12 +59,16 @@ class ProfileController extends GetxController {
 
   /// get profile details for user Profile edit
   void getProfileDetails() async {
- try {
+    try {
       userName.clear();
       userMail.clear();
       userPhone.clear();
-      image.value='';
-      isLoadingImage.value=true;
+      image.value = '';
+
+      isLoadingImage.value = true;
+      isLoadingName.value = true;
+      isLoadingEmail.value = true;
+      isLoadingPhone.value = true;
       final result = await profileService.getUserProfileData();
       result.fold((left) => null, (right) {
         name.value = right.name ?? '';
@@ -81,9 +90,11 @@ class ProfileController extends GetxController {
       log('Error fetching profile details: $e');
       // Optionally, show a snackbar or error message
     } finally {
-      Timer(const Duration(seconds: 1), (){
-
-      isLoadingImage.value = false;
+      Timer(const Duration(seconds: 1), () {
+        isLoadingImage.value = false;
+        isLoadingName.value = false;
+        isLoadingEmail.value = false;
+        isLoadingPhone.value = false;
       });
     }
   }
@@ -133,6 +144,7 @@ class ProfileController extends GetxController {
       showSnackbar(context, message: 'something went wrong');
       nameChangingLoading.value = false;
     }, (right) {
+      showSnackbar(context, message: 'Successfully updated');
       name.value = right.name ?? '';
       checkName = right.name ?? '';
       nameChangingLoading.value = false;
@@ -158,6 +170,26 @@ class ProfileController extends GetxController {
     }
   }
 
+  void updatePhone(BuildContext context) async {
+    if (phoneKey.currentState!.validate()) {
+      phoneChangingLoading.value = true;
+      String finalPhone = '+91';
+      finalPhone += phone.value;
+      ProfileModel profileModel = ProfileModel(phoneNumber: finalPhone);
+      final result =
+          await profileService.updateEmailOrPhone(profileModel: profileModel);
+      result.fold((left) {
+        showSnackbar(context, message: 'something went wrong');
+        phoneChangingLoading.value = false;
+      }, (right) {
+        phoneChangingLoading.value = false;
+        checkPhone = phone.value;
+        GoRouter.of(context).pushNamed(Routes.otpPage,
+            extra: {'email': false, 'route': Routes.editProfile});
+      });
+    }
+  }
+
   void emailOtp(BuildContext context, {required String emailOtp}) async {
     otpChangingLoading.value = true;
     ProfileModel profileModel = ProfileModel(email: email.value, otp: emailOtp);
@@ -168,32 +200,19 @@ class ProfileController extends GetxController {
       showSnackbar(context,
           message: 'something went wrong', backgroundColor: kred);
     }, (ifRight) {
+      showSnackbar(context, message: 'Successfully updated');
+      GoRouter.of(context).pop();     
       otpChangingLoading.value = false;
     });
   }
 
-  void updatePhone(BuildContext context) async {
-    if (phoneKey.currentState!.validate()) {
-      phoneChangingLoading.value = true;
-      ProfileModel profileModel = ProfileModel(email: phone.value);
-      final result =
-          await profileService.updateEmailOrPhone(profileModel: profileModel);
-      result.fold((left) {
-        showSnackbar(context, message: 'something went wrong');
-        phoneChangingLoading.value = false;
-      }, (right) {
-        phoneChangingLoading.value = false;
-        checkPhone = phone.value;
-        GoRouter.of(context).pushNamed(Routes.otpPage,
-            extra: {'email': true, 'route': Routes.editProfile});
-      });
-    }
-  }
-
   phoneOtp(BuildContext context, {required String phoneOtp}) async {
     otpChangingLoading.value = true;
+    String finalPhone = '+91';
+    finalPhone += phone.value;
     ProfileModel profileModel =
-        ProfileModel(phoneNumber: phone.value, otp: phoneOtp);
+        ProfileModel(phoneNumber: finalPhone, otp: phoneOtp);
+
     final result =
         await profileService.emailAndPhoneOtp(profileModel: profileModel);
     result.fold((ifLeft) {
@@ -201,6 +220,7 @@ class ProfileController extends GetxController {
       otpChangingLoading.value = false;
     }, (ifRight) {
       otpChangingLoading.value = false;
+      showSnackbar(context, message: 'Successfully updated');
       GoRouter.of(context).pop();
     });
   }

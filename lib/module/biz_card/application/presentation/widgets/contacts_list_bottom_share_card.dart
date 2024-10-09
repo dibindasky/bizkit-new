@@ -4,6 +4,7 @@ import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_
 import 'package:bizkit/module/biz_card/domain/model/contact/share_card_contact/share_card_contact.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -25,51 +26,65 @@ class ShareCardThroughContactBottomSheet extends StatelessWidget {
       child: GetBuilder<ContactsController>(
           id: 'share_contact',
           builder: (controller) {
-            if (controller.fetchingLoading.value) {
-              return ShimmerLoader(
-                  itemCount: 40,
-                  height: 50.h,
-                  width: double.infinity,
-                  seprator: kHeight5);
-            }
-            if (controller.contactList.isEmpty) {
-              return const Center(child: Text('No Contacts Found'));
-            }
             return Column(
               children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: controller.contactList.length,
-                    itemBuilder: (context, index) {
-                      final data = controller.contactList[index];
-                      final selected =
-                          (controller.shareCardContactModel.value.contacts ??
-                                  <ShareCardContact>[])
-                              .any((element) =>
-                                  element.email == data.email &&
-                                  element.phoneNumber == data.phoneNumber);
-                      return ListTile(
-                          onTap: () => controller.addOrRemoveContactToList(
-                              model: data, selected: selected),
-                          title: Text(data.name ?? ''),
-                          leading: CircleAvatar(
-                            backgroundColor: kgrey,
-                            backgroundImage: data.profilePicture != null &&
-                                    data.profilePicture != ''
-                                ? MemoryImage(
-                                    base64Decode(data.profilePicture ?? ''))
-                                : null,
-                          ),
-                          trailing: Wrap(
-                            children: [
-                              selected
-                                  ? const Icon(Icons.check_box_outlined,
-                                      color: kneonShade)
-                                  : const Icon(Icons.check_box_outline_blank),
-                            ],
-                          ));
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: CustomTextFormField(
+                    labelText: 'Search contacts',
+                    onChanaged: (value) {
+                      controller.searchContact(value);
                     },
                   ),
+                ),
+                Expanded(
+                  child: controller.fetchingLoading.value
+                      ? ShimmerLoader(
+                          itemCount: 40,
+                          height: 50.h,
+                          width: double.infinity,
+                          seprator: kHeight5)
+                      : controller.contactList.isEmpty
+                          ? const Center(child: Text('No Contacts Found'))
+                          : ListView.builder(
+                              itemCount: controller.contactList.length,
+                              itemBuilder: (context, index) {
+                                final data = controller.contactList[index];
+                                final selected = (controller
+                                            .shareCardContactModel
+                                            .value
+                                            .contacts ??
+                                        <ShareCardContact>[])
+                                    .any((element) =>
+                                        element.email == data.email &&
+                                        element.phoneNumber ==
+                                            data.phoneNumber);
+                                return ListTile(
+                                    onTap: () =>
+                                        controller.addOrRemoveContactToList(
+                                            model: data, selected: selected),
+                                    title: Text(data.name ?? ''),
+                                    leading: CircleAvatar(
+                                      backgroundColor: kgrey,
+                                      backgroundImage:
+                                          data.profilePicture != null &&
+                                                  data.profilePicture != ''
+                                              ? MemoryImage(base64Decode(
+                                                  data.profilePicture ?? ''))
+                                              : null,
+                                    ),
+                                    trailing: Wrap(
+                                      children: [
+                                        selected
+                                            ? const Icon(
+                                                Icons.check_box_outlined,
+                                                color: kneonShade)
+                                            : const Icon(
+                                                Icons.check_box_outline_blank),
+                                      ],
+                                    ));
+                              },
+                            ),
                 ),
                 Obx(() {
                   return controller.cardSharingLoading.value
@@ -90,4 +105,3 @@ class ShareCardThroughContactBottomSheet extends StatelessWidget {
     );
   }
 }
-

@@ -2,62 +2,24 @@ import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/widgets/profile_edit_widgets/profile_image_widget.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController animationController;
-  late Animation<double> animation;
-
-  bool isShowcaseSeen = false;
-  final homeScreenShowCase = 'isShowcaseProfile';
-  // final GlobalKey globalKeyProfilPicUploading = GlobalKey();
-  @override
-  void initState() {
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   SharedPreferences.getInstance().then((prefs) async {
-    //     final showed =
-    //         await SecureStorage.getHomeShowCaseViwed(homeScreenShowCase);
-    //     setState(() {
-    //       isShowcaseSeen = showed;
-    //     });
-    //     if (!isShowcaseSeen) {
-    //       ShowCaseWidget.of(context)
-    //           .startShowCase([globalKeyProfilPicUploading]);
-    //       await SecureStorage.setHomeShowCaseViwed(homeScreenShowCase);
-    //     }
-    //   });
-    // });
-    super.initState();
-    animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 1));
-    animation = Tween<double>(begin: 0, end: 1).animate(animationController);
-    animationController.forward();
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
-
-  String business = '';
-
-  @override
   Widget build(BuildContext context) {
-    final profileController= Get.find<ProfileController>();
+    final profileController = Get.find<ProfileController>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      profileController.getProfileDetails();
+    });
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -66,45 +28,68 @@ class _ProfileScreenState extends State<ProfileScreen>
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child: FadeTransition(
-            opacity: animation,
-            child: Column(
-              children: [
-                
-                  const SizedBox(
-                    width: 95,
-                     height: 95,
-                    child: CircleAvatar(),
-                   ),
-                    adjustHieght(khieght * .05),
-                   ProfileTiles(
-                  heading: 'Edit Personal Details',
-                  onTap: () {
-                    profileController.getProfileDetails();
-                    GoRouter.of(context).pushNamed(Routes.editProfile);                  
-                  },
-                ),
-                ProfileTiles(
-                  heading: 'Log Out',
-                  onTap: () {
-                    showConfirmationDialog(
-                      actionButton: 'Log-out',
-                      heading: 'Are you sure want to logout from Bizkit',
-                      context,
-                      onPressed: () {
-                        Get.find<AuthenticationController>().logOut(context);
-                      },
-                    );
-                  },
-                ),
-                ProfileTiles(
-                  heading: 'Matcho Meter',
-                  onTap: () {
-                    GoRouter.of(context).pushNamed(Routes.matchoMeter);
-                  },
-                ),
-              ],
-            ),
+          child: Column(
+            children: [
+              kHeight50,
+              SizedBox(
+                height: 135.h,
+                width: 135.w,
+                child: Obx(() {
+                  if (profileController.isLoadingImage.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return profileController.image.value.isNotEmpty
+                        ? ProfileImagePreview(
+                            image: profileController.image.value,
+                          )
+                        : CircleAvatar(
+                            backgroundColor: kgrey,
+                            child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: profileController.name.value.isEmpty
+                                    ? Icon(
+                                        Icons.person,
+                                        size: 80.sp,
+                                      )
+                                    : Text(
+                                        style: textHeadStyle1.copyWith(
+                                            color: kblack, fontSize: 80.sp),
+                                        profileController.name.value.length <= 1
+                                            ? profileController.name.value
+                                            : profileController.name
+                                                .substring(0, 2)
+                                                .toUpperCase())));
+                  }
+                }),
+              ),
+              kHeight50,
+              ProfileTiles(
+                heading: 'Edit Personal Details',
+                onTap: () {
+                  // profileController.getProfileDetails();
+                  GoRouter.of(context).pushNamed(Routes.editProfile);
+                },
+              ),
+              ProfileTiles(
+                heading: 'Log Out',
+                onTap: () {
+                  showConfirmationDialog(
+                    actionButton: 'Log-out',
+                    heading: 'Are you sure want to logout from Bizkit',
+                    context,
+                    onPressed: () {
+                      Get.find<AuthenticationController>().logOut(context);
+                    },
+                  );
+                },
+              ),
+              ProfileTiles(
+                heading: 'Matcho Meter',
+                onTap: () {
+                  GoRouter.of(context).pushNamed(Routes.matchoMeter);
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -187,32 +172,4 @@ class ProfileTiles extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<dynamic> cardscanimagesSelectingDailogue(BuildContext context) {
-  return showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      actions: [
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          style: ElevatedButton.styleFrom(
-              foregroundColor: kwhite, side: const BorderSide(color: kwhite)),
-          child: const Text('Gallery'),
-        ),
-        adjustHieght(khieght * .02),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          style: ElevatedButton.styleFrom(
-              foregroundColor: kwhite, side: const BorderSide(color: kwhite)),
-          child: const Text('Camera'),
-        )
-      ],
-      title: const Text('Take a picture or upload an image'),
-    ),
-  );
 }

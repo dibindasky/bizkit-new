@@ -223,7 +223,7 @@ class _MyConnectionsViewAllContactsState
             shape: const CircleBorder(),
             onPressed: () {
               connectionsController.searchBizkitUsers(
-                  searchQuery: SearchQuery(search: ''));
+                 );
               GoRouter.of(context).pushNamed(Routes.addConnection);
             },
             child: const Icon(Icons.add)),

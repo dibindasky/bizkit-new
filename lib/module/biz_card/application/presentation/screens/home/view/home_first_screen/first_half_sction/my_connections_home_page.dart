@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/widgets/cards_based_on_user.dart';
@@ -32,8 +29,7 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
               Text('My connections', style: textHeadStyle1),
               GestureDetector(
                 onTap: () {
-                  connectionsController.searchConnections(
-                      );
+                  connectionsController.searchConnections();
                   connectionsController.fetchRecievedConnectionRequests();
                   GoRouter.of(context)
                       .pushNamed(Routes.myAllConnectionsAndContacts);
@@ -82,8 +78,7 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 15),
                         child: GestureDetector(
                           onTap: () {
-                            connectionsController.searchBizkitUsers(
-                                );
+                            connectionsController.searchBizkitUsers();
                             GoRouter.of(context)
                                 .pushNamed(Routes.addConnection);
                           },
@@ -121,15 +116,19 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                   ),
                 );
               } else {
+                final length= connectionsController.myConnections.length + 1;
                 return ListView.separated(
+                  controller: connectionsController.fetchMyConnectionScrollController,
                   physics: const BouncingScrollPhysics(),
                   separatorBuilder: (context, index) =>
                       adjustWidth(kwidth * .02),
-                  itemCount: connectionsController.myConnections.length == null
-                      ? 1
-                      : connectionsController.myConnections.length + 1,
+                  itemCount:length+(connectionsController.fetchMyconnectionLoadMore.value?1:0),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
+                    if (index == length &&
+                        connectionsController.fetchMyconnectionLoadMore.value) {
+                    return const Center(child: CircularProgressIndicator());
+                    }
                     MyConnection data = MyConnection();
                     if (index != 0) {
                       data = connectionsController.myConnections[index - 1];
@@ -139,8 +138,7 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 15),
                         child: GestureDetector(
                           onTap: () {
-                            connectionsController.searchBizkitUsers(
-                              );
+                            connectionsController.searchBizkitUsers();
                             GoRouter.of(context)
                                 .pushNamed(Routes.addConnection);
                           },

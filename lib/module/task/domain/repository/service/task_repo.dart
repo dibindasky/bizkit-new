@@ -1,7 +1,13 @@
 import 'package:bizkit/core/model/failure/failure.dart';
+import 'package:bizkit/core/model/pagination_query/pagination_query.dart';
 import 'package:bizkit/module/task/domain/model/errors/error_model/error_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task_responce/create_quick_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task/update_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
@@ -104,9 +110,12 @@ abstract class TaskRepo {
 
   Future<Either<Failure, SuccessResponce>> restoreATask(
       {required KillATaskModel restoreTask});
+
   Future<Either<Failure, SuccessResponce>> spotLightTask(
       {required SpotLightTask spotLightTask});
+
   Future<Either<Failure, TaskCountsResponce>> getTasksCountsWithoutDate();
+
   Future<Either<Failure, TaskCountsResponce>> getTasksCountsWithDate(
       {required TasksCountModel tasksCountModel});
 
@@ -118,10 +127,24 @@ abstract class TaskRepo {
 
   Future<Either<Failure, CompletedOrKilledSuccessResponce>>
       getAllCompletedTasks();
+
   Future<Either<Failure, CompletedOrKilledSuccessResponce>> getAllKilledTasks();
+
   Future<Either<Failure, CompletedSubTaskSuccessResponce>> completedSubTask(
       {required CompletedSubTask completedSubTask});
 
   Future<Either<Failure, Map<String, dynamic>>> getTaskTotalTimeAndExpense(
       {required GetSingleTaskModel taskId});
+
+  Future<Either<Failure, CreateQuickTaskResponce>> createQuickTask(
+      {required CreateQuickTask createQuickTask});
+
+  Future<Either<Failure, QuickTasksResponce>> getQuickTasks(
+      {required PaginationQuery paginationQuery});
+
+  Future<Either<Failure, SuccessResponce>> updateQuickTasks(
+      {required UpdateQuickTask updateQuickTask});
+
+  Future<Either<Failure, SuccessResponce>> completeQuickTasks(
+      {required CompleteQuickTask completeQuickTask});
 }

@@ -139,4 +139,5 @@ class ApiEndPoints {
   static const String taskTestGetTaskTotalTimeAndExpense =
       '/get-time-expense-data/';
   static const String taskTestRestoreTask = '/restore-task/';
+  static const String quickTask = '/quick-tasks/';
 }

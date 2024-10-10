@@ -24,7 +24,7 @@ class BizkitConnectionsTab extends StatelessWidget {
       child: RefreshIndicator(
         onRefresh: () async {
           connectionsController.searchConnections(
-              searchQuery: SearchQuery(search: ''));
+              );
           await Future.delayed(const Duration(seconds: 2));
         },
         child: Obx(
@@ -37,7 +37,7 @@ class BizkitConnectionsTab extends StatelessWidget {
               return ErrorRefreshIndicator(
                 onRefresh: () async {
                   connectionsController.searchConnections(
-                      searchQuery: SearchQuery(search: ''));
+                     );
                   await Future.delayed(const Duration(seconds: 2));
                 },
                 errorMessage: 'No bizcard connections',

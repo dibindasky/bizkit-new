@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/routes.dart';
@@ -24,7 +25,7 @@ class BizkitConnectionsTab extends StatelessWidget {
       child: RefreshIndicator(
         onRefresh: () async {
           connectionsController.searchConnections(
-              searchQuery: SearchQuery(search: ''));
+              );
           await Future.delayed(const Duration(seconds: 2));
         },
         child: Obx(
@@ -37,7 +38,7 @@ class BizkitConnectionsTab extends StatelessWidget {
               return ErrorRefreshIndicator(
                 onRefresh: () async {
                   connectionsController.searchConnections(
-                      searchQuery: SearchQuery(search: ''));
+                      );
                   await Future.delayed(const Duration(seconds: 2));
                 },
                 errorMessage: 'No bizcard connections',
@@ -47,8 +48,11 @@ class BizkitConnectionsTab extends StatelessWidget {
               return ListView.separated(
                 separatorBuilder: (context, index) => kHeight5,
                 shrinkWrap: true,
-                itemCount: connectionsController.connectionsSearchList.length,
+                itemCount: connectionsController.connectionsSearchList.length+(connectionsController.myConnectionLoadMore.value?1:0),
                 itemBuilder: (context, index) {
+                  if(index==connectionsController.connectionsSearchList.length&&connectionsController.myConnectionLoadMore.value){
+                    return const Center(child: CircularProgressIndicator());
+                  }
                   //final data = state.bizkitConnections![index];
                   return Card(
                     color: lightColr,

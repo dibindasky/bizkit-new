@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/connections/shared_cards_list_screen.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/result.dart';
@@ -152,7 +150,7 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                             ),
                             itemBuilder: (context, index) {
                               if (index==connectionController.bizkitUsers.length&&connectionController.usersLoadMore.value) {
-                              return Center(child: CircularProgressIndicator());
+                              return const Center(child: CircularProgressIndicator());
                               } else {
                                 return GridTileAddRequestConnection(
                                   data: connectionController.bizkitUsers[index],

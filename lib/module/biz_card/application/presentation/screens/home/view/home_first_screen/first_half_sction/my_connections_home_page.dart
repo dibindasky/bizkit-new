@@ -33,7 +33,7 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   connectionsController.searchConnections(
-                      searchQuery: SearchQuery(search: ''));
+                      );
                   connectionsController.fetchRecievedConnectionRequests();
                   GoRouter.of(context)
                       .pushNamed(Routes.myAllConnectionsAndContacts);

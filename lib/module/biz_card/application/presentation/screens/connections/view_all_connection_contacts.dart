@@ -33,7 +33,6 @@ class _MyConnectionsViewAllContactsState
   final ValueNotifier tabNotifier = ValueNotifier(0);
   bool isShowcaseSeen = false;
   final homeScreenShowCase = 'isShowcaseConnectionScreen';
-  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -123,13 +122,12 @@ class _MyConnectionsViewAllContactsState
           child: Column(
             children: [
               CupertinoTextField(
-                controller: searchController,
+                controller: connectionsController.myConnectionsearchController,
                 onChanged: (value) {
                   if (tabNotifier.value == 1) {
                     contactsController.searchContact(value);
                   } else {
-                    connectionsController.searchConnections(
-                        searchQuery: SearchQuery(search: value));
+                    connectionsController.searchConnections();
                   }
                 },
                 prefix: const Icon(
@@ -158,11 +156,11 @@ class _MyConnectionsViewAllContactsState
                               onTap: () {
                                 if (tabNotifier.value == 0) {
                                   tabNotifier.value = 1;
-                                  searchController.clear();
+                                  connectionsController.myConnectionsearchController.clear();
                                   tabNotifier.notifyListeners();
                                 } else {
                                   tabNotifier.value = 0;
-                                  searchController.clear();
+                                  connectionsController.myConnectionsearchController.clear();
                                   tabNotifier.notifyListeners();
                                 }
                                 FocusScope.of(context).unfocus();
@@ -222,8 +220,7 @@ class _MyConnectionsViewAllContactsState
         floatingActionButton: FloatingActionButton(
             shape: const CircleBorder(),
             onPressed: () {
-              connectionsController.searchBizkitUsers(
-                 );
+              connectionsController.searchBizkitUsers();
               GoRouter.of(context).pushNamed(Routes.addConnection);
             },
             child: const Icon(Icons.add)),

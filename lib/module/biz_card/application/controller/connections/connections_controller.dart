@@ -26,31 +26,42 @@ import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:go_router/go_router.dart';
 
 class ConnectionsController extends GetxController {
   final ScrollController userSearchScrollController = ScrollController();
+  final ScrollController myConnectionScrollController = ScrollController();
 
   final ConnectionsRepo connectionService = ConnectionsService();
   final Debouncer debouncer = Debouncer(milliseconds: 300);
   // Loadings
   RxBool sendConnectionRequestLoading = false.obs;
+
+  //my connection loading and pagination variables
+  RxBool myConnectionLoadMore = false.obs;
   RxBool searchConnectionsLoading = false.obs;
+  
   RxBool recievedConnectionRequestLoading = false.obs;
 
   RxBool searchBizkitUsersLoading = false.obs;
   RxBool usersLoadMore = false.obs;
 
   RxBool allSendConnectionRequestsLoading = false.obs;
+
   RxBool myConnectionsLoading = false.obs;
+
   RxBool cancelConnectionRequestLoading = false.obs;
   RxBool followbackRequestLoading = false.obs;
   RxBool cardLoading = false.obs;
 
   final TextEditingController searchBizkitUsersController =
       TextEditingController();
+
+  final TextEditingController myConnectionsearchController =
+      TextEditingController();
+
   int userSearchPageNumber = 1, pageSize = 15;
+  int myConnectionPageNumber = 1;
 
   /// loading for shared card
   RxBool sharedCardLoading = false.obs;
@@ -88,6 +99,7 @@ class ConnectionsController extends GetxController {
   @override
   void onInit() {
     userSearchScrollController.addListener(userSearchScrollListner);
+    myConnectionScrollController.addListener(myConnectionScrollListner);
     super.onInit();
   }
 
@@ -95,6 +107,13 @@ class ConnectionsController extends GetxController {
     if (userSearchScrollController.position.pixels ==
         userSearchScrollController.position.maxScrollExtent) {
       searchBizkitUsersLoadMore();
+    }
+  }
+
+  void myConnectionScrollListner() {
+    if (userSearchScrollController.position.pixels ==
+        userSearchScrollController.position.maxScrollExtent) {
+      searchConnectionsLoadMore();
     }
   }
 
@@ -137,20 +156,25 @@ class ConnectionsController extends GetxController {
     connecionRequestingLoadingFromContactPopup.value = false;
   }
 
-  // Search connections
-  void searchConnections({required SearchQuery searchQuery}) {
+  // Search My connections
+  void searchConnections() {
     debouncer.run(
       () async {
         searchConnectionsLoading.value = true;
-        final result =
-            await connectionService.searchConnections(searchQuery: searchQuery);
+        myConnectionPageNumber = 1;
+        connectionsSearchList.value = [];
+        final result = await connectionService.searchConnections(
+            searchQuery: SearchQuery(
+                page: myConnectionPageNumber,
+                pageSize: pageSize,
+                search: myConnectionsearchController.text));
 
         result.fold(
           (failure) {
             searchConnectionsLoading.value = false;
           },
           (success) {
-            connectionsSearchList.assignAll(success.results ?? []);
+            connectionsSearchList.assignAll(success.data ?? []);
             searchConnectionsLoading.value = false;
           },
         );
@@ -158,18 +182,62 @@ class ConnectionsController extends GetxController {
     );
   }
 
-  // Recieved connection requests
-  void fetchRecievedConnectionRequests() async {
-    recievedConnectionRequestLoading.value = true;
-    final result = await connectionService.recievedConnectionRequests();
+  // Search My connections for pagination
+  void searchConnectionsLoadMore() {
+    debouncer.run(
+      () async {
+        if (myConnectionLoadMore.value == true) {
+          return;
+        }
+        myConnectionLoadMore.value = true;
 
-    result.fold(
-      (failure) {
-        recievedConnectionRequestLoading.value = false;
+        final result = await connectionService.searchConnections(
+            searchQuery: SearchQuery(
+                page: myConnectionPageNumber,
+                pageSize: pageSize,
+                search: myConnectionsearchController.text));
+
+        result.fold(
+          (failure) {
+            myConnectionLoadMore.value = false;
+          },
+          (success) {
+            connectionsSearchList.addAll(success.data ?? []);
+            myConnectionLoadMore.value = false;
+          },
+        );
+        myConnectionLoadMore.value = false;
       },
-      (success) {
-        recievedConnectionRequestLoading.value = false;
-        recievedConnectionRequests.assignAll(success.requests ?? []);
+    );
+  }
+
+  //search all bizkit users
+  void searchBizkitUsers() {
+    debouncer.run(
+      () async {
+        searchBizkitUsersLoading.value = true;
+        userSearchPageNumber = 1;
+        bizkitUsers.value = [];
+        final result = await connectionService.searchBizkitUsers(
+            searchQuery: SearchQuery(
+                page: userSearchPageNumber,
+                pageSize: pageSize,
+                search: searchBizkitUsersController.text));
+
+        result.fold(
+          (failure) {
+            searchBizkitUsersLoading.value = false;
+          },
+          (success) {
+            final filteredUsers = (success.data ?? [])
+                .where((user) => user.connectionExist != true)
+                .toList();
+
+            bizkitUsers.assignAll(filteredUsers);
+
+            searchBizkitUsersLoading.value = false;
+          },
+        );
       },
     );
   }
@@ -210,32 +278,18 @@ class ConnectionsController extends GetxController {
     );
   }
 
-  void searchBizkitUsers() {
-    debouncer.run(
-      () async {
-        searchBizkitUsersLoading.value = true;
-        userSearchPageNumber = 1;
-        bizkitUsers.value = [];
-        final result = await connectionService.searchBizkitUsers(
-            searchQuery: SearchQuery(
-                page: userSearchPageNumber,
-                pageSize: pageSize,
-                search: searchBizkitUsersController.text));
+  // Recieved connection requests
+  void fetchRecievedConnectionRequests() async {
+    recievedConnectionRequestLoading.value = true;
+    final result = await connectionService.recievedConnectionRequests();
 
-        result.fold(
-          (failure) {
-            searchBizkitUsersLoading.value = false;
-          },
-          (success) {
-            final filteredUsers = (success.data ?? [])
-                .where((user) => user.connectionExist != true)
-                .toList();
-
-            bizkitUsers.assignAll(filteredUsers);
-
-            searchBizkitUsersLoading.value = false;
-          },
-        );
+    result.fold(
+      (failure) {
+        recievedConnectionRequestLoading.value = false;
+      },
+      (success) {
+        recievedConnectionRequestLoading.value = false;
+        recievedConnectionRequests.assignAll(success.requests ?? []);
       },
     );
   }
@@ -389,7 +443,7 @@ class ConnectionsController extends GetxController {
         showSnackbar(context,
             message: 'Unfollow successfully', backgroundColor: neonShade);
         fetchMyConnections(true);
-        searchConnections(searchQuery: SearchQuery(search: ''));
+        searchConnections();
       },
     );
   }
@@ -411,7 +465,7 @@ class ConnectionsController extends GetxController {
         recievedConnectionRequestLoading.value = false;
         fetchMyConnections(true);
         fetchRecievedConnectionRequests();
-        searchConnections(searchQuery: SearchQuery(search: ''));
+        searchConnections();
         followBackPossible = success.followBackPossible ?? false;
       },
     );

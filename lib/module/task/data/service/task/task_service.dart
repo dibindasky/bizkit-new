@@ -2,9 +2,15 @@ import 'dart:developer';
 
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
+import 'package:bizkit/core/model/pagination_query/pagination_query.dart';
 import 'package:bizkit/module/task/domain/model/errors/error_model/error_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task_responce/create_quick_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task/update_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
@@ -654,7 +660,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestGetTaskTotalTimeAndExpense,
         data: taskId.toJson(),
       );
-      log("=> Response TaskTotal Time And Expense : ");
+      log("=> Response getTaskTotalTimeAndExpense : ");
 
       return Right(response.data as Map<String, dynamic>);
     } on DioException catch (e) {
@@ -662,6 +668,88 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch getTaskTotalTimeAndExpense $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> completeQuickTasks(
+      {required CompleteQuickTask completeQuickTask}) async {
+    try {
+      final response = await apiService.patch(
+        ApiEndPoints.quickTask,
+        data: completeQuickTask.toJson(),
+      );
+      log("=> Response completeQuickTasks ");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException completeQuickTasks $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch completeQuickTasks $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  /// Create new quick task
+  @override
+  Future<Either<Failure, CreateQuickTaskResponce>> createQuickTask(
+      {required CreateQuickTask createQuickTask}) async {
+    try {
+      final response = await apiService.post(
+        ApiEndPoints.quickTask,
+        data: createQuickTask.toJson(),
+      );
+      log("=> Response createQuickTask ");
+
+      return Right(CreateQuickTaskResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException createQuickTask $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch createQuickTask $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, QuickTasksResponce>> getQuickTasks(
+      {required PaginationQuery paginationQuery}) async {
+    try {
+      log('get quick tasks TO JSON  ==> ${paginationQuery.toJson()}');
+      final response = await apiService.get(
+        ApiEndPoints.quickTask,
+        queryParameters: paginationQuery.toJson(),
+      );
+      log("=> Response getQuickTasks ");
+
+      return Right(QuickTasksResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException getQuickTasks $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getQuickTasks $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> updateQuickTasks(
+      {required UpdateQuickTask updateQuickTask}) async {
+    try {
+      final response = await apiService.patch(
+        ApiEndPoints.quickTask,
+        data: updateQuickTask.toJson(),
+      );
+      log("=> Response updateQuickTasks ");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException updateQuickTasks $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch updateQuickTasks $e');
       return Left(Failure(message: e.toString()));
     }
   }

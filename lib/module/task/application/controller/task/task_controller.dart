@@ -1,11 +1,16 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:bizkit/core/model/pagination_query/pagination_query.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task/update_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
@@ -61,6 +66,8 @@ class CreateTaskController extends GetxController {
       ScrollController(); // Scroll controller for tasks filtered by type
   final ScrollController pinnedTasksScrollController =
       ScrollController(); // Scroll controller for pinned tasks
+  final ScrollController quickTasksScrollController =
+      ScrollController(); // Scroll controller for quick tasks
 
 // Stores selected task type for task creation
   Rx<TaskType> createTaskTupe = TaskType.official.obs;
@@ -148,6 +155,9 @@ class CreateTaskController extends GetxController {
   // List of completed subtasks
   RxList<CompletedSubTasks> completedSubTasks = <CompletedSubTasks>[].obs;
 
+  // List of quick tasks
+  RxList<QuickTasks> quickTasks = <QuickTasks>[].obs;
+
 // Pagination controls for different task lists
   int pageNumber = 1, pageSize = 5; // Pagination for general tasks
   int taskSearchPageNumber = 1,
@@ -156,6 +166,9 @@ class CreateTaskController extends GetxController {
       deadlineTasksPageSize = 11; // Pagination for deadline-filtered tasks
   int typeTasksPageNumber = 1,
       typeTasksPageSize = 15; // Pagination for type-filtered tasks
+
+  int quickTasksPageNumber = 1,
+      quickTasksPageSize = 10; // Pagination for quick tasks
 
   int pinnedTasksPageNumber = 1; // Pagination for pinned tasks
 
@@ -196,6 +209,7 @@ class CreateTaskController extends GetxController {
     deadlineTasksScrollController.addListener(deadlineTasksScrollListener);
     typeTasksScrollController.addListener(typeTasksScrollListener);
     pinnedTasksScrollController.addListener(pinnedTasksScrollListener);
+    quickTasksScrollController.addListener(quickTasksScrollListener);
     super.onInit();
   }
 
@@ -208,34 +222,59 @@ class CreateTaskController extends GetxController {
 
 // Loading states for various UI components
   RxBool isLoading = false.obs; // General loading state
+
   RxBool deadlineTasksLoadMoreLoading =
       false.obs; // Loading state for loading more deadline tasks
+
   RxBool loadgingForFilterByType =
       false.obs; // Loading state for filtering tasks by type
+
   RxBool filterByTypeLoading =
       false.obs; // Loading state when filtering tasks by type
+
   RxBool pinnedTasksLoadMoreLoading =
       false.obs; // Loading state for loading more pinned tasks
+
   RxBool filterByTypeLoadMoreLoading =
       false.obs; // Loading state for loading more type-filtered tasks
+
   RxBool taskCreationLoading = false.obs; // Loading state during task creation
+
   RxBool taskEditLoading = false.obs; // Loading state during task editing
+
   RxBool searchLoading = false.obs; // Loading state for participant search
+
   RxBool searchLoadMoreLoading =
       false.obs; // Loading state for loading more participants during search
+
   RxBool taskSearchLoading = false.obs; // Loading state for task search results
+
   RxBool taskSearchLoadMoreLoading =
       false.obs; // Loading state for loading more task search results
+
   RxBool pinLoader = false.obs; // Loading state for pinning tasks
+
   RxBool isLoadingForSpotLight =
       false.obs; // Loading state for spotlight feature
+
   RxBool taksListLoading = false.obs; // Loading state for task list
+
   RxBool loadingForSendRequests =
       false.obs; // Loading state for sending task requests
+
   RxBool loadingForRecivedRequests =
       false.obs; // Loading state for receiving task requests
+
   RxBool loadingFortTaskExpenseAndTime =
       false.obs; // Loading state for fetching task time and expense data
+
+  RxBool loadingForQuickTask = false.obs; // Loading state for quick task
+
+  RxBool loadingForAllQuickTasks =
+      false.obs; // Loading state for all quick tasks
+
+  RxBool quickTasksLoadMore =
+      false.obs; // Loading state for all quick tasks loadmore
 
 // Keys to track task time and expense data
   RxList<String> taskTotalTimeKeys =
@@ -288,6 +327,13 @@ class CreateTaskController extends GetxController {
     if (pinnedTasksScrollController.position.pixels ==
         pinnedTasksScrollController.position.maxScrollExtent) {
       filterPinnedTasksByTypeLoadMore();
+    }
+  }
+
+  void quickTasksScrollListener() {
+    if (quickTasksScrollController.position.pixels ==
+        quickTasksScrollController.position.maxScrollExtent) {
+      fetchAllQuickTasksLoadMore();
     }
   }
 
@@ -1414,7 +1460,6 @@ class CreateTaskController extends GetxController {
   }) async {
     isLoading.value = true;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    // log('SubTask completed = > ${completedSubTask.toJson()}');
 
     final result =
         await taskService.completedSubTask(completedSubTask: completedSubTask);
@@ -1488,6 +1533,105 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // Create a quick task
+  void createQuickTask({required CreateQuickTask createQuickTask}) async {
+    loadingForQuickTask.value = true;
+    final result =
+        await taskService.createQuickTask(createQuickTask: createQuickTask);
+
+    result.fold(
+      (failure) {
+        loadingForQuickTask.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        loadingForQuickTask.value = false;
+      },
+    );
+  }
+
+  // Update a quick task
+  void updateQuickTask({required UpdateQuickTask updateQuickTask}) async {
+    loadingForQuickTask.value = true;
+    final result =
+        await taskService.updateQuickTasks(updateQuickTask: updateQuickTask);
+
+    result.fold(
+      (failure) {
+        loadingForQuickTask.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        loadingForQuickTask.value = false;
+      },
+    );
+  }
+
+  // Complete a quick task
+  void completeQuickTask({required CompleteQuickTask completeQuickTask}) async {
+    loadingForQuickTask.value = true;
+    final result = await taskService.completeQuickTasks(
+        completeQuickTask: completeQuickTask);
+
+    result.fold(
+      (failure) {
+        loadingForQuickTask.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        loadingForQuickTask.value = false;
+      },
+    );
+  }
+
+  // fetch all quick tasks
+  void fetchAllQuickTasks() async {
+    loadingForAllQuickTasks.value = true;
+    quickTasksPageNumber = 1;
+    quickTasks.value = [];
+    final result = await taskService.getQuickTasks(
+        paginationQuery: PaginationQuery(
+      page: quickTasksPageNumber,
+      pageSize: quickTasksPageSize,
+    ));
+
+    result.fold(
+      (failure) {
+        loadingForAllQuickTasks.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        quickTasks.assignAll(success.data ?? []);
+        loadingForAllQuickTasks.value = false;
+      },
+    );
+  }
+
+  // fetch all quick tasks [ Pagination ]
+
+  void fetchAllQuickTasksLoadMore() async {
+    if (quickTasksLoadMore.value == true) {
+      return;
+    }
+    quickTasksLoadMore.value = true;
+    final result = await taskService.getQuickTasks(
+        paginationQuery: PaginationQuery(
+      page: ++quickTasksPageNumber,
+      pageSize: quickTasksPageSize,
+    ));
+
+    result.fold(
+      (failure) {
+        quickTasksLoadMore.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        quickTasks.addAll(success.data ?? []);
+        quickTasksLoadMore.value = false;
+      },
+    );
+  }
+
   void clearAllDatas() async {
     tasksSearch.clear();
     allPinnedTasks.clear();
@@ -1500,6 +1644,7 @@ class CreateTaskController extends GetxController {
     deadlineDate.value = '';
     selectedFiles.clear();
     selectedTasks.clear();
+    taskExpenseAndTime.clear();
     taskExpenseAndTime.clear();
   }
 }

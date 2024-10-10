@@ -91,7 +91,7 @@ class ConnectionsController extends GetxController {
     super.onInit();
   }
 
- void userSearchScrollListner() {
+  void userSearchScrollListner() {
     if (userSearchScrollController.position.pixels ==
         userSearchScrollController.position.maxScrollExtent) {
       searchBizkitUsersLoadMore();
@@ -205,7 +205,7 @@ class ConnectionsController extends GetxController {
             usersLoadMore.value = false;
           },
         );
-        usersLoadMore.value=false;
+        usersLoadMore.value = false;
       },
     );
   }

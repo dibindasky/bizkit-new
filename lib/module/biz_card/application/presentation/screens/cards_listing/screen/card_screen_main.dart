@@ -5,10 +5,13 @@ import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/second_card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/widgets/custom_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/screen/archieved_cards.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/screen/deleted_cards.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/received_card_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/contacts_list_bottom_share_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
@@ -79,6 +82,8 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
 
   @override
   Widget build(BuildContext context) {
+    final textExtractionController = Get.find<CardTextExtractionController>();
+    final receivedCardController = Get.find<ReceivedCardController>();
     final cardController = Get.find<CardController>();
     final visitingCardController = Get.find<ReceivedCardController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -332,13 +337,23 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                     ),
                                     // card name share and view button
                                     Expanded(
-                                        child: Column(
+                                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         kHeight5,
-                                        Row(
+                                        Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start, 
                                           children: [
                                             Text(
-                                              ' ${controller.bizcards[index].companyName} \n ${controller.bizcards[index].designation}',
+                                              ' ${controller.bizcards[index].companyName} ',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            
+                                            Text(
+                                              ' ${controller.bizcards[index].designation}',
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 fontSize: 16.sp,
@@ -568,8 +583,10 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                       },
                     ),
                   ),
-                  adjustHieght(khieght * .03),
+                  adjustHieght(khieght * .02),
                   // visiting card
+                  Text('Received Cards', style: textHeadStyle1),
+                  adjustHieght(khieght * .01),
                   SizedBox(
                     height: 200.h,
                     child: Obx(
@@ -591,12 +608,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                           );
                         } else if (visitingCardController
                             .visitingCards.isEmpty) {
-                          // return const Expanded(
-                          //   flex: 2,
-                          //   child: Center(
-                          //     child: Text('No visiting cards'),
-                          //   ),
-                          // );
                           return kempty;
                         } else {
                           return SizedBox(
@@ -604,47 +615,105 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemCount:
-                                  visitingCardController.visitingCards.length,
+                                  visitingCardController.visitingCards.length +
+                                      1,
                               separatorBuilder: (context, index) =>
                                   adjustWidth(kwidth * .05),
                               itemBuilder: (context, index) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: kBorderRadius10,
-                                    border: Border.all(color: neonShade),
-                                  ),
-                                  width: 300,
-                                  child: Column(
-                                    children: [
-                                      Stack(
+                                if (index ==
+                                    visitingCardController
+                                        .visitingCards.length) {
+                                  return Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: kBorderRadius10,
+                                        border: Border.all(color: neonShade),
+                                      ),
+                                      width: 300,
+                                      height: 165,
+                                      child: Column(
                                         children: [
-                                          SizedBox(
-                                            width: 300,
-                                            height: 165,
-                                            child: InkWell(
-                                              onTap: () {
+                                          
+                                          ContainerPickImage(
+                                            iscardList: false, 
+                                            onPressedCam: () {
+                                              textExtractionController
+                                                  .pickedImageUrl
+                                                  .clear();
+                                              Navigator.of(context).push(
+                                                  cardFadePageRoute(
+                                                      const SelectedCard()));
+                                              textExtractionController
+                                                  .pickImageScanning(
+                                                      camera: true);
+                                            },
+                                            onPressedGallery: () {
+                                              textExtractionController
+                                                  .pickedImageUrl
+                                                  .clear();
+                                              Navigator.of(context).push(
+                                                  cardFadePageRoute(
+                                                      const SelectedCard()));
+                                              textExtractionController
+                                                  .pickImageScanning(
+                                                      camera: false);
+                                            },
+                                          ),
+                                          adjustHieght(20),
+                                          TextButton(
+                                            onPressed: () {
+                                              textExtractionController
+                                                  .pickedImageUrl
+                                                  .clear();
+                                              receivedCardController
+                                                  .clearAllTextEditingControllers();
+                                              GoRouter.of(context).pushNamed(
+                                                  Routes.scanedDataFeilds);
+                                            },
+                                            child: const Text(
+                                              'Create card without image',
+                                              style: TextStyle(
+                                                decorationColor: neonShade,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ));
+                                }
+                                return InkWell(
+                                  onTap: () {
+                                    visitingCardController
+                                        .fetchReceivedCardDetails(
+                                            receivedCardId:
                                                 visitingCardController
-                                                    .fetchReceivedCardDetails(
-                                                        receivedCardId:
-                                                            visitingCardController
-                                                                    .visitingCards[
-                                                                        index]
-                                                                    .id ??
-                                                                '');
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ScreenCardSecondDetailView(
-                                                      visitingCardId:
-                                                          visitingCardController
-                                                                  .visitingCards[
-                                                                      index]
-                                                                  .id ??
-                                                              '',
-                                                    ),
-                                                  ),
-                                                );
-                                              },
+                                                        .visitingCards[index]
+                                                        .id ??
+                                                    '');
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ScreenCardSecondDetailView(
+                                          visitingCardId: visitingCardController
+                                                  .visitingCards[index].id ??
+                                              '',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: kBorderRadius10,
+                                      border: Border.all(color: neonShade),
+                                    ),
+                                    width: 300,
+                                    child: Column(
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            SizedBox(
+                                              width: 300,
+                                              height: 165,
                                               child: ClipRRect(
                                                 borderRadius:
                                                     const BorderRadius.only(
@@ -674,60 +743,20 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      adjustHieght(khieght * .02),
-                                      Text(
-                                          ' ${visitingCardController.visitingCards[index].name ?? ''}',
+                                          ],
+                                        ),
+                                        adjustHieght(khieght * .02),
+                                        Text(
+                                            ' ${visitingCardController.visitingCards[index].name ?? ''}',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: textHeadStyle1),
+                                        Text(
+                                          ' ${visitingCardController.visitingCards[index].company ?? ''}',
                                           overflow: TextOverflow.ellipsis,
-                                          style: textHeadStyle1),
-                                      Text(
-                                        ' ${visitingCardController.visitingCards[index].company ?? ''}',
-                                        overflow: TextOverflow.ellipsis,
-                                        style: textStyle1,
-                                      ),
-                                      // Row(
-                                      //   mainAxisAlignment:
-                                      //       MainAxisAlignment.spaceAround,
-                                      //   children: [
-                                      //     Expanded(
-                                      //       child: Text(
-                                      //         ' ${visitingCardController.visitingCards[index].name ?? ''}',
-                                      //         overflow: TextOverflow.ellipsis,
-                                      //         style: TextStyle(
-                                      //           fontSize: 16.sp,
-                                      //           fontWeight: FontWeight.w700,
-                                      //         ),
-                                      //       ),
-                                      //     ),
-                                      //     // InkWell(
-                                      //     //   onTap: () async {
-                                      //     //     SharePlus.shareVisitingCard(
-                                      //     //         visitingCardController
-                                      //     //             .visitingCards[index]);
-                                      //     //   },
-                                      //     //   child: Container(
-                                      //     //     margin: const EdgeInsets.only(
-                                      //     //         right: 10),
-                                      //     //     decoration: BoxDecoration(
-                                      //     //       borderRadius:
-                                      //     //           BorderRadius.circular(10),
-                                      //     //       color: kblue,
-                                      //     //     ),
-                                      //     //     width: 100,
-                                      //     //     height: 30,
-                                      //     //     child: Center(
-                                      //     //       child: Text('Share',
-                                      //     //           style: textStyle1),
-                                      //     //     ),
-                                      //     //   ),
-                                      //     // ),
-                                      //   ],
-                                      // ),
-
-                                      // kHeight10
-                                    ],
+                                          style: textStyle1,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },

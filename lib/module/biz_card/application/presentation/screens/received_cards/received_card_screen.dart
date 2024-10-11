@@ -229,6 +229,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
 
 class ContainerPickImage extends StatelessWidget {
   const ContainerPickImage({
+    this.iscardList=true,
     super.key,
     this.heading,
     this.onPressedCam,
@@ -243,6 +244,7 @@ class ContainerPickImage extends StatelessWidget {
   final bool isBoth;
   final bool fromMain;
   final bool needNavigate;
+  final bool iscardList;
 
   @override
   Widget build(BuildContext context) {
@@ -254,13 +256,15 @@ class ContainerPickImage extends StatelessWidget {
         strokeWidth: 2.5,
         child: SizedBox(
           width: double.infinity,
-          height: 150.dm,
+          height:iscardList? 150.dm:120, 
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              adjustHieght(30),
+              SizedBox(height:iscardList? 30.h:10.h  ) ,
+              // adjustHieght(30),
               Text(heading ?? 'Scan information through image'),
-              adjustHieght(30),
+              SizedBox(height:iscardList? 30.h:10.h  ) ,
+              // adjustHieght(30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

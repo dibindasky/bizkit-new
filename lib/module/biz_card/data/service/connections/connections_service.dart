@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
+import 'package:bizkit/core/model/pagination_query/pagination_query.dart';
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
@@ -127,9 +128,10 @@ class ConnectionsService implements ConnectionsRepo {
   }
 
   @override
-  Future<Either<Failure, MyConnectionsResponce>> getMyconnections() async {
+  Future<Either<Failure, MyConnectionsResponce>> getMyconnections({required PaginationQuery paginationQuery}) async {
     try {
-      final responce = await apiService.get(ApiEndPoints.myConnections);
+      log('getMyconnections TO JSON -> ${paginationQuery.toJson()}');
+      final responce = await apiService.get(ApiEndPoints.myConnections,queryParameters: paginationQuery.toJson());
       log('getMyconnections ==> success ');
       return Right(MyConnectionsResponce.fromJson(responce.data));
     } on DioException catch (e) {

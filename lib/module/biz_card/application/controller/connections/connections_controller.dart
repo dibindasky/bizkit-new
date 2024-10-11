@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:bizkit/core/model/pagination_query/pagination_query.dart';
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
@@ -31,6 +31,7 @@ import 'package:go_router/go_router.dart';
 class ConnectionsController extends GetxController {
   final ScrollController userSearchScrollController = ScrollController();
   final ScrollController myConnectionScrollController = ScrollController();
+  final ScrollController fetchMyConnectionScrollController = ScrollController();
 
   final ConnectionsRepo connectionService = ConnectionsService();
   final Debouncer debouncer = Debouncer(milliseconds: 300);
@@ -40,7 +41,7 @@ class ConnectionsController extends GetxController {
   //my connection loading and pagination variables
   RxBool myConnectionLoadMore = false.obs;
   RxBool searchConnectionsLoading = false.obs;
-  
+
   RxBool recievedConnectionRequestLoading = false.obs;
 
   RxBool searchBizkitUsersLoading = false.obs;
@@ -48,6 +49,8 @@ class ConnectionsController extends GetxController {
 
   RxBool allSendConnectionRequestsLoading = false.obs;
 
+  //fechMyconnection pagination
+  RxBool fetchMyconnectionLoadMore = false.obs;
   RxBool myConnectionsLoading = false.obs;
 
   RxBool cancelConnectionRequestLoading = false.obs;
@@ -62,6 +65,7 @@ class ConnectionsController extends GetxController {
 
   int userSearchPageNumber = 1, pageSize = 15;
   int myConnectionPageNumber = 1;
+  int fetchMyConnectionPageNumber = 1;
 
   /// loading for shared card
   RxBool sharedCardLoading = false.obs;
@@ -100,6 +104,8 @@ class ConnectionsController extends GetxController {
   void onInit() {
     userSearchScrollController.addListener(userSearchScrollListner);
     myConnectionScrollController.addListener(myConnectionScrollListner);
+    fetchMyConnectionScrollController
+        .addListener(fetchMyCollectionScrollListner);
     super.onInit();
   }
 
@@ -111,9 +117,16 @@ class ConnectionsController extends GetxController {
   }
 
   void myConnectionScrollListner() {
-    if (userSearchScrollController.position.pixels ==
-        userSearchScrollController.position.maxScrollExtent) {
+    if (myConnectionScrollController.position.pixels ==
+        myConnectionScrollController.position.maxScrollExtent) {
       searchConnectionsLoadMore();
+    }
+  }
+
+  void fetchMyCollectionScrollListner() {
+    if (fetchMyConnectionScrollController.position.pixels ==
+        fetchMyConnectionScrollController.position.maxScrollExtent) {
+      fetchMyConnectionsLoadMore();
     }
   }
 
@@ -193,7 +206,7 @@ class ConnectionsController extends GetxController {
 
         final result = await connectionService.searchConnections(
             searchQuery: SearchQuery(
-                page: myConnectionPageNumber,
+                page: ++myConnectionPageNumber,
                 pageSize: pageSize,
                 search: myConnectionsearchController.text));
 
@@ -202,11 +215,10 @@ class ConnectionsController extends GetxController {
             myConnectionLoadMore.value = false;
           },
           (success) {
-            connectionsSearchList.addAll(success.data ?? []);
+            connectionsSearchList.addAll(success.data ??[]);
             myConnectionLoadMore.value = false;
           },
         );
-        myConnectionLoadMore.value = false;
       },
     );
   }
@@ -312,17 +324,43 @@ class ConnectionsController extends GetxController {
   // Get my all connections
   void fetchMyConnections(bool isLoad) async {
     if (myConnections.isNotEmpty && !isLoad) return;
+    myConnections.value = [];
+    fetchMyConnectionPageNumber = 1;
+
     myConnectionsLoading.value = true;
-    final result = await connectionService.getMyconnections();
+    final result = await connectionService.getMyconnections(
+        paginationQuery: PaginationQuery(
+            page: fetchMyConnectionPageNumber, pageSize: pageSize));
     result.fold(
       (failure) {
         myConnectionsLoading.value = false;
       },
       (success) {
-        myConnections.assignAll(success.connections ?? []);
+        myConnections.assignAll(success.data ?? []);
         myConnectionsLoading.value = false;
       },
     );
+  }
+
+  void fetchMyConnectionsLoadMore() async {
+    
+    if (fetchMyconnectionLoadMore.value) {
+      return;
+    }
+    fetchMyconnectionLoadMore.value = true;
+    final result = await connectionService.getMyconnections(
+        paginationQuery: PaginationQuery(
+            page: ++fetchMyConnectionPageNumber, pageSize: pageSize));
+    result.fold(
+      (failure) {
+        fetchMyconnectionLoadMore.value = false;
+      },
+      (success) {
+        myConnections.addAll(success.data ?? []);
+        fetchMyconnectionLoadMore.value = false;
+      },
+    );
+    fetchMyconnectionLoadMore.value = false;
   }
 
   // Cancel connection request

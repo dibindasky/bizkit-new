@@ -46,6 +46,7 @@ class BizkitConnectionsTab extends StatelessWidget {
               );
             } else {
               return ListView.separated(
+                controller: connectionsController.myConnectionScrollController,
                 separatorBuilder: (context, index) => kHeight5,
                 shrinkWrap: true,
                 itemCount: connectionsController.connectionsSearchList.length+(connectionsController.myConnectionLoadMore.value?1:0),
@@ -55,8 +56,10 @@ class BizkitConnectionsTab extends StatelessWidget {
                   }
                   //final data = state.bizkitConnections![index];
                   return Card(
+                  
                     color: lightColr,
                     child: ListTile(
+                      
                       onTap: () {
                         if ((connectionsController
                                     .myConnections[index].cards?.length ??

@@ -17,5 +17,9 @@ class MyConnection {
     return _$ConnectionFromJson(json);
   }
 
+  static const String colLocalId='local_id';
+  static const String colToUser='to_user';
+  static const String colUserNmae='username';
+
   Map<String, dynamic> toJson() => _$ConnectionToJson(this);
 }

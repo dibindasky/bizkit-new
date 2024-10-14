@@ -34,6 +34,17 @@ class Card {
     this.connectedViaQr,
   });
 
+  static const String colLocalId='local_id';
+  static const String colCollectionId = 'connection_id';
+  static const String colCard = 'to_card';
+  static const String colUSer = 'to_user';
+  static const String colName = 'name';
+  static const String colBusinessName = 'business_name';
+  static const String colBusinessDesignation= 'business_designation';
+  static const String colConnectedDate = 'connected_date';
+  static const String colImageUrl = 'image_url';
+  static const String colConnectedVirQr = 'connected_via_qr';
+
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
 
   Map<String, dynamic> toJson() => _$CardToJson(this);

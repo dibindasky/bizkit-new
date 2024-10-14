@@ -4,7 +4,7 @@ import 'package:bizkit/core/model/success_response_model/success_response_model.
 import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/contact.dart';
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/contact_local_repo.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
-import 'package:bizkit/service/local_service/sql/oncreate_db.dart';
+import 'package:bizkit/service/local_service/sql/bizcard/bizcard_oncreate_db.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
 
@@ -19,7 +19,7 @@ class ContactLocalService implements ContactLocalRepo {
     try {
       final userId = await SecureStorage.getUserId();
       const query = '''
-          INSERT INTO ${Sql.contactTable} (
+          INSERT INTO ${BizCardSql.contactTable} (
             ${ContactModel.colCurrentUserId},
             ${ContactModel.colName},
             ${ContactModel.colPhone},
@@ -55,7 +55,7 @@ class ContactLocalService implements ContactLocalRepo {
     try {
       final userId = await SecureStorage.getUserId();
       const query = '''
-        UPDATE ${Sql.contactTable}
+        UPDATE ${BizCardSql.contactTable}
         SET 
           ${ContactModel.colName} = ?, 
           ${ContactModel.colPhoto} = ?, 
@@ -91,7 +91,7 @@ class ContactLocalService implements ContactLocalRepo {
     try {
       final userId = await SecureStorage.getUserId();
       const String query = '''SELECT * 
-      FROM ${Sql.contactTable} 
+      FROM ${BizCardSql.contactTable} 
       WHERE ${ContactModel.colCurrentUserId} = ? 
       ORDER BY ${ContactModel.colName} ASC''';
       final data = await localService.rawQuery(query, [userId ?? '']);
@@ -115,7 +115,7 @@ class ContactLocalService implements ContactLocalRepo {
     try {
       final userId = await SecureStorage.getUserId();
       const String query =
-          '''SELECT COUNT(*) FROM ${Sql.contactTable} WHERE ${ContactModel.colPhone} = ? AND ${ContactModel.colCurrentUserId} = ?''';
+          '''SELECT COUNT(*) FROM ${BizCardSql.contactTable} WHERE ${ContactModel.colPhone} = ? AND ${ContactModel.colCurrentUserId} = ?''';
       final bool present = await localService
           .presentOrNot(query, [contact.phoneNumber!, userId ?? '']);
       log('contact present in db => $present');
@@ -136,7 +136,7 @@ class ContactLocalService implements ContactLocalRepo {
     try {
       final userId = await SecureStorage.getUserId();
       String sql =
-          'DELETE FROM ${Sql.contactTable} WHERE ${ContactModel.colPhone} = ? AND ${ContactModel.colCurrentUserId} = ?';
+          'DELETE FROM ${BizCardSql.contactTable} WHERE ${ContactModel.colPhone} = ? AND ${ContactModel.colCurrentUserId} = ?';
       await localService.rawDelete(sql, [contact.phoneNumber!, userId ?? '']);
       return await addContactToLocalStorage(contact: contact);
     } catch (e) {

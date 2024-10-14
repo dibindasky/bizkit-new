@@ -9,6 +9,7 @@ part 'get_task_responce.g.dart';
 
 @JsonSerializable()
 class GetTaskResponce {
+  int? localId;
   @JsonKey(name: '_id')
   String? id;
   @JsonKey(name: 'created_by')
@@ -68,4 +69,29 @@ class GetTaskResponce {
   }
 
   Map<String, dynamic> toJson() => _$GetTaskResponceToJson(this);
+
+  static const colTaskLocalId = 'task_local_id';
+
+  static const colTaskId = 'task_id';
+  static const colTaskCreatedBy = 'task_created_by';
+  static const colTaskTitle = 'task_title';
+  static const colTaskDescription = 'task_description';
+  static const colTaskPriorityLevel = 'task_priority_level';
+  static const colTaskRecurrentTask = 'task_recurrent_task';
+  static const colTaskIsCompleted = 'task_is_completed';
+  static const colTaskIsOwned = 'task_is_owned';
+  static const colTaskDeadLine = 'task_dead_line';
+  static const colTaskIsKilled = 'task_is_killed';
+  static const colTaskTags = 'task_tags';
+  static const colTaskCreatedAt = 'task_created_at';
+  static const colTaskStatus = 'task_status';
+
+  /// [ Task created user details ]
+  static const colTaskCreatedUserId = 'task_created_user_id';
+  static const colTaskCreatedUsername = 'task_created_username';
+  static const colTaskCreatedUserProfilePic =
+      'task_created_user_profile_picture';
+
+  static const colTaskTotalTime = 'task_total_time';
+  static const colTaskTotalExpense = 'task_total_expense';
 }

@@ -43,6 +43,7 @@ import 'package:bizkit/core/model/userSearch/user_search_success_responce/user_s
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/debouncer/debouncer.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:file_picker/file_picker.dart';
@@ -55,6 +56,8 @@ import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.
     as subtask;
 
 class CreateTaskController extends GetxController {
+  final Debouncer debouncer = Debouncer(milliseconds: 300);
+
   /// ScrollControllers for different task-related lists and search functionality
   final ScrollController scrollController =
       ScrollController(); // search participants scroll controller
@@ -823,6 +826,7 @@ class CreateTaskController extends GetxController {
 
         if (tasksFromFilterSection) {
           filterPinnedTasksByType();
+          filterByType();
         }
         if (tasksFromTasksList) {
           taskFilterByDeadline();
@@ -883,13 +887,7 @@ class CreateTaskController extends GetxController {
 
         if (tasksFromFilterSection) {
           filterPinnedTasksByType();
-          // filterByType(
-          //     filterByType: FilterByTypeModel(
-          //         taskType: Get.find<TaskHomeScreenController>()
-          //             .taskCategory
-          //             .value
-          //             .replaceAll(' ', '_')
-          //             .toLowerCase()));
+          filterByType();
         }
 
         if (tasksFromTasksList) {
@@ -1065,59 +1063,63 @@ class CreateTaskController extends GetxController {
   }
 
   // Searches for participants based on user input
-  void searchParticipants() async {
-    searchLoading.value = true;
-    update(['searchUser']);
-    userslist.value = [];
-    pageNumber = 1;
-    final user = UserSearchModel(
-        page: pageNumber,
-        pageSize: pageSize,
-        searchTerm: searchController.text);
+  void searchParticipants() {
+    debouncer.run(() async {
+      searchLoading.value = true;
+      update(['searchUser']);
+      userslist.value = [];
+      pageNumber = 1;
+      final user = UserSearchModel(
+          page: pageNumber,
+          pageSize: pageSize,
+          searchTerm: searchController.text);
 
-    final result = await taskService.participantsSearch(user: user);
+      final result = await taskService.participantsSearch(user: user);
 
-    result.fold(
-      (failure) {
-        searchLoading.value = false;
-        log(failure.message.toString());
-        update(['searchUser']);
-      },
-      (success) {
-        userslist.assignAll(success);
-        searchLoading.value = false;
-        update(['searchUser']);
-      },
-    );
+      result.fold(
+        (failure) {
+          searchLoading.value = false;
+          log(failure.message.toString());
+          update(['searchUser']);
+        },
+        (success) {
+          userslist.assignAll(success);
+          searchLoading.value = false;
+          update(['searchUser']);
+        },
+      );
+    });
   }
 
   void searchParticipantsLoadMore() async {
-    if (searchLoadMoreLoading.value == true) {
-      return;
-    }
-    searchLoadMoreLoading.value = true;
-    update(['searchUser']);
-    final result = await taskService.participantsSearch(
-        user: UserSearchModel(
-            page: ++pageNumber,
-            pageSize: pageSize,
-            searchTerm: searchController.text));
+    debouncer.run(() async {
+      if (searchLoadMoreLoading.value == true) {
+        return;
+      }
+      searchLoadMoreLoading.value = true;
+      update(['searchUser']);
+      final result = await taskService.participantsSearch(
+          user: UserSearchModel(
+              page: ++pageNumber,
+              pageSize: pageSize,
+              searchTerm: searchController.text));
 
-    result.fold(
-      (failure) {
-        searchLoadMoreLoading.value = false;
-        log(failure.message.toString());
-        update(['searchUser']);
-      },
-      (success) {
-        userslist.addAll(success.where(
-          (newUser) => !userslist
-              .any((existingUser) => existingUser.userId == newUser.userId),
-        ));
-        searchLoadMoreLoading.value = false;
-        update(['searchUser']);
-      },
-    );
+      result.fold(
+        (failure) {
+          searchLoadMoreLoading.value = false;
+          log(failure.message.toString());
+          update(['searchUser']);
+        },
+        (success) {
+          userslist.addAll(success.where(
+            (newUser) => !userslist
+                .any((existingUser) => existingUser.userId == newUser.userId),
+          ));
+          searchLoadMoreLoading.value = false;
+          update(['searchUser']);
+        },
+      );
+    });
   }
 
   // Fetches a single task using the provided model
@@ -1141,52 +1143,56 @@ class CreateTaskController extends GetxController {
 
   // Searches for tasks based on the search term
   void searchTasks() async {
-    taskSearchLoading.value = true;
-    taskSearchPageNumber = 1;
-    tasksSearch.value = [];
-    final result = await taskService.taskSearch(
-        taskSearchItem: UserSearchModel(
-            page: taskSearchPageNumber,
-            pageSize: taskSearchPageSize,
-            searchTerm: taskSearchController.text));
-    result.fold(
-      (failure) {
-        taskSearchLoading.value = false;
-        log(failure.message.toString());
-      },
-      (success) {
-        tasksSearch.assignAll(success.data ?? []);
-        taskSearchLoading.value = false;
-      },
-    );
+    debouncer.run(() async {
+      taskSearchLoading.value = true;
+      taskSearchPageNumber = 1;
+      tasksSearch.value = [];
+      final result = await taskService.taskSearch(
+          taskSearchItem: UserSearchModel(
+              page: taskSearchPageNumber,
+              pageSize: taskSearchPageSize,
+              searchTerm: taskSearchController.text));
+      result.fold(
+        (failure) {
+          taskSearchLoading.value = false;
+          log(failure.message.toString());
+        },
+        (success) {
+          tasksSearch.assignAll(success.data ?? []);
+          taskSearchLoading.value = false;
+        },
+      );
+    });
   }
 
   // searchTasks [ Pagination ]
   void searchTasksLoadMore() async {
-    if (taskSearchLoadMoreLoading.value == true) {
-      return;
-    }
-    taskSearchLoadMoreLoading.value = true;
+    debouncer.run(() async {
+      if (taskSearchLoadMoreLoading.value == true) {
+        return;
+      }
+      taskSearchLoadMoreLoading.value = true;
 
-    final result = await taskService.taskSearch(
-        taskSearchItem: UserSearchModel(
-            searchTerm: taskSearchController.text,
-            page: ++taskSearchPageNumber,
-            pageSize: taskSearchPageSize));
-    result.fold(
-      (failure) {
-        taskSearchLoadMoreLoading.value = false;
-        log(failure.message.toString());
-      },
-      (success) {
-        tasksSearch.addAll(success.data!.where(
-          (task) => !tasksSearch.any(
-            (existingTask) => existingTask.id == task.id,
-          ),
-        ));
-        taskSearchLoadMoreLoading.value = false;
-      },
-    );
+      final result = await taskService.taskSearch(
+          taskSearchItem: UserSearchModel(
+              searchTerm: taskSearchController.text,
+              page: ++taskSearchPageNumber,
+              pageSize: taskSearchPageSize));
+      result.fold(
+        (failure) {
+          taskSearchLoadMoreLoading.value = false;
+          log(failure.message.toString());
+        },
+        (success) {
+          tasksSearch.addAll(success.data!.where(
+            (task) => !tasksSearch.any(
+              (existingTask) => existingTask.id == task.id,
+            ),
+          ));
+          taskSearchLoadMoreLoading.value = false;
+        },
+      );
+    });
   }
 
   // Adds a new subtask using the provided model

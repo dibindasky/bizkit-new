@@ -130,7 +130,7 @@ class AddParticipentForTaskEditBottomSheet extends StatelessWidget {
                                           .add(participant);
                                     }
 
-                                    taskController.update();
+                                    taskController.update(['searchUser']);
                                     log('controller.participants for edit  ${taskController.participantsForEditTask.map(
                                           (element) => element.name,
                                         ).join(

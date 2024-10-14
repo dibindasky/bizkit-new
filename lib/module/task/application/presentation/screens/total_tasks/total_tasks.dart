@@ -8,8 +8,6 @@ import 'package:bizkit/module/task/application/presentation/screens/total_tasks/
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/custom_pop_menubutton.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/killed_tasks_list.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';

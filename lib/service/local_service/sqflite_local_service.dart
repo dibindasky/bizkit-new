@@ -27,7 +27,7 @@ class LocalService {
 
   /// Get data from sql
   Future<List<Map<String, Object?>>> rawQuery(String query,
-      [List<String>? listParams]) async {
+      [List<Object?>? listParams]) async {
     try {
       final db = await database;
       return await db.rawQuery(query, listParams);
@@ -50,7 +50,7 @@ class LocalService {
   }
 
   // insert data
-  Future<int> rawInsert(String query, [List<String>? listParams]) async {
+  Future<int> rawInsert(String query, [List<Object?>? listParams]) async {
     try {
       final db = await database;
       final id = await db.rawInsert(query, listParams);
@@ -80,7 +80,7 @@ class LocalService {
 
   /// 'UPDATE Test SET name = ?, value = ? WHERE name = ?',
   ///  ['updated name', '9876', 'some name'];
-  Future<int> rawUpdate(String query, [List<String>? listParam]) async {
+  Future<int> rawUpdate(String query, [List<Object?>? listParam]) async {
     try {
       final db = await database;
       final rawAffected = await db.rawUpdate(query, listParam);
@@ -92,7 +92,7 @@ class LocalService {
     }
   }
 
-  Future<void> rawDelete(String query, [List<String>? listParams]) async {
+  Future<void> rawDelete(String query, [List<Object?>? listParams]) async {
     try {
       final db = await database;
       await db.rawDelete(query, listParams);
@@ -104,7 +104,7 @@ class LocalService {
 
   // check a value is present or not in table
   /// eg query 'SELECT COUNT(*) FROM users WHERE email = ?', listParams ['example']
-  Future<bool> presentOrNot(String query, List<dynamic> listParams) async {
+  Future<bool> presentOrNot(String query, List<Object?>? listParams) async {
     try {
       final db = await database;
       final count =

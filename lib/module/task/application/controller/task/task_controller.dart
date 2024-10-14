@@ -5,6 +5,7 @@ import 'package:bizkit/core/model/pagination_query/pagination_query.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
+import 'package:bizkit/module/task/data/sqfilte/task/task_local_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
@@ -41,6 +42,7 @@ import 'package:bizkit/module/task/domain/model/task/tasks_count_model/tasks_cou
 import 'package:bizkit/core/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/core/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
+import 'package:bizkit/module/task/domain/repository/sqfilte/task_local_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
@@ -291,6 +293,9 @@ class CreateTaskController extends GetxController {
 
   // Task service instance for API interactions
   final TaskRepo taskService = TaskService();
+
+  /// Task Local instance for Sql interactions
+  final TaskLocalRepo taskLocalService = TaskLocalService();
 
   Rx<DateTime> selectedDate = DateTime.now().obs;
 
@@ -1137,6 +1142,8 @@ class CreateTaskController extends GetxController {
       (success) {
         singleTask.value = success;
         isLoading.value = false;
+        taskLocalService.addFullTaskDetailsToLocalStorageIfNotPresentInStorage(
+            taskModel: success);
       },
     );
   }

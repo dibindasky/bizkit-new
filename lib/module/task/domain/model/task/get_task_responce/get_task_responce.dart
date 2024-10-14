@@ -33,7 +33,7 @@ class GetTaskResponce {
   @JsonKey(name: 'sub_task')
   List<SubTask>? subTask;
   @JsonKey(name: 'created_at')
-  DateTime? createdAt;
+  String? createdAt;
   String? status;
   @JsonKey(name: 'created_user_details')
   CreatedUserDetails? createdUserDetails;
@@ -72,6 +72,7 @@ class GetTaskResponce {
 
   static const colTaskLocalId = 'task_local_id';
 
+  static const colUserId = 'user_id';
   static const colTaskId = 'task_id';
   static const colTaskCreatedBy = 'task_created_by';
   static const colTaskTitle = 'task_title';

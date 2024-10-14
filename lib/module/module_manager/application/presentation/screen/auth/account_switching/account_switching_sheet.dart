@@ -31,7 +31,7 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(
-        color: klightDarkGrey,
+        color: lightColr,
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: Column(

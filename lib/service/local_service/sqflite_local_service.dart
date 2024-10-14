@@ -37,7 +37,7 @@ class LocalService {
     }
   }
 
-  // insert data
+  /// insert data
   Future insert(String table, Map<String, dynamic> map) async {
     try {
       final db = await database;

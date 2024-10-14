@@ -1,19 +1,20 @@
 import 'dart:developer';
 import 'package:bizkit/core/model/token/access_token/token_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/contact/get_contact_responce_model/contact.dart';
+import 'package:bizkit/service/local_service/sql/bizcard/bizcard_oncreate_db.dart';
+import 'package:bizkit/service/local_service/sql/task/task_oncreate_db.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 class Sql {
   static const userTable = 'Users';
-  static const contactTable = 'Contact';
   static const localStorageTable = 'LocalStorage';
 
   static Future onCreate(sql.Database db) async {
     try {
-      log('-----------------oncreate database---------------------');
+      log('-----------------oncreate database ---------------------');
       await db.execute(queryUserTableCreation);
-      await db.execute(queryContactTableCreation);
       await db.execute(queryLocalStorageTableCreation);
+      BizCardSql.onCreate(db);
+      TaskSql.onCreate(db);
     } catch (e) {
       log('onCreate ==> ${e.toString()}');
     }
@@ -36,20 +37,6 @@ class Sql {
         id TEXT,
         key TEXT,
         value TEXT
-      )
-    ''';
-
-  static const String queryContactTableCreation = '''
-      CREATE TABLE IF NOT EXISTS $contactTable (
-        ${ContactModel.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
-        ${ContactModel.colCurrentUserId} TEXT,
-        ${ContactModel.colUserId} TEXT,
-        ${ContactModel.colName} TEXT,
-        ${ContactModel.colPhone} TEXT,
-        ${ContactModel.colPhoto} TEXT,
-        ${ContactModel.colEmail} TEXT,
-        ${ContactModel.colCardId} TEXT,
-        ${ContactModel.colConnectionId} TEXT
       )
     ''';
 }

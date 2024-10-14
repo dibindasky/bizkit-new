@@ -1142,7 +1142,8 @@ class CreateTaskController extends GetxController {
       (success) {
         singleTask.value = success;
         isLoading.value = false;
-        taskLocalService.addFullTaskToLocalStorage(taskModel: success);
+        taskLocalService.addFullTaskDetailsToLocalStorageIfNotPresentInStorage(
+            taskModel: success);
       },
     );
   }

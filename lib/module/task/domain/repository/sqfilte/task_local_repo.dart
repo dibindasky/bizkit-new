@@ -9,6 +9,13 @@ abstract class TaskLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addTaskToLocalStorage(
       {required task.Task taskModel});
 
-  Future<Either<Failure, SuccessResponseModel>> addFullTaskToLocalStorage(
-      {required GetTaskResponce taskModel});
+  Future<Either<Failure, SuccessResponseModel>>
+      addFullTaskDetailsToLocalStorage({required GetTaskResponce taskModel});
+
+  Future<Either<Failure, SuccessResponseModel>>
+      addFullTaskDetailsToLocalStorageIfNotPresentInStorage(
+          {required GetTaskResponce taskModel});
+
+  Future<Either<Failure, SuccessResponseModel>>
+      updateFullTaskDetailsToLocalStorage({required GetTaskResponce taskModel});
 }

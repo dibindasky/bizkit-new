@@ -19,6 +19,7 @@ class TaskSql {
   static const String _bizkitTaskTableCreation = '''
   CREATE TABLE IF NOT EXISTS $tasksTable (
     ${GetTaskResponce.colTaskLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+    ${GetTaskResponce.colUserId} TEXT,
     ${GetTaskResponce.colTaskId} TEXT,
     ${GetTaskResponce.colTaskCreatedBy} TEXT,
     ${GetTaskResponce.colTaskTitle} TEXT,

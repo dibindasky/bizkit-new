@@ -8,9 +8,9 @@ class SocketEndpoints {
 
   // [ Local base url for chat  ]
   static const taskChat =
-      'wss://9jdcxxr1-8000.inc1.devtunnels.ms/ws/task/{task_id}/';
+      'wss://9jdcxxr1-8001.inc1.devtunnels.ms/ws/task/{task_id}/';
   static const messageCount =
-      'wss://9jdcxxr1-8000.inc1.devtunnels.ms/ws/messages/';
+      'wss://9jdcxxr1-8001.inc1.devtunnels.ms/ws/messages/';
 
   // ----------------------------------------------------------------------------
   // [ AWS base url for chat  ]

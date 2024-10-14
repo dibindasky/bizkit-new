@@ -383,16 +383,36 @@ class TaskContainer extends StatelessWidget {
                           // adjustWidth(30.w),s
                         ],
                       ),
-                      Text(
-                        maxLines: 1,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        typeTask?.isOwned == true ||
-                                tasksInsideFolder?.isOwned == true ||
-                                tasksInsideInnerFolder?.isOwned == true
-                            ? 'Created by you'
-                            : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
-                        style: textThinStyle1.copyWith(fontSize: 8),
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                        children: [
+                           Padding(
+                             padding: const EdgeInsets.only(left: 45),
+                             child: Text(
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  typeTask?.deadLine ??
+                                      tasksInsideFolder?.deadLine ??
+                                      tasksInsideInnerFolder?.deadLine ??
+                                      'No deadline',
+                                  style: const TextStyle(
+                                    fontSize: 12
+                                    // fontWeight: FontWeight.bold,
+                                    
+                                  ),
+                                ),
+                           ),
+                          Text(
+                            maxLines: 1,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            typeTask?.isOwned == true ||
+                                    tasksInsideFolder?.isOwned == true ||
+                                    tasksInsideInnerFolder?.isOwned == true
+                                ? 'Created by you'
+                                : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
+                            style: textThinStyle1.copyWith(fontSize: 10),
+                          ),
+                        ],
                       ),
                       adjustHieght(10),
                     ],

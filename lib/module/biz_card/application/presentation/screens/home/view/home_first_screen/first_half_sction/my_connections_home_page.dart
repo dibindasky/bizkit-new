@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class CardMyConnectionContainerHomePage extends StatelessWidget {
-  const CardMyConnectionContainerHomePage({super.key});
+  const  CardMyConnectionContainerHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

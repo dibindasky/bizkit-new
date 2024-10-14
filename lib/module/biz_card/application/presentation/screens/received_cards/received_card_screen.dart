@@ -58,6 +58,13 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
     final textExtractionController = Get.find<CardTextExtractionController>();
     final receivedCardController = Get.find<ReceivedCardController>();
     return Scaffold(
+      appBar: AppBar(
+        title: indexofButton == 0
+            ? const Text('QR Scanner')
+            : indexofButton == 1
+                ? const Text('Create Receiver Card')
+                : const Text('NFC'),
+      ),
       body: Container(
         width: kwidth,
         height: double.infinity,
@@ -229,7 +236,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
 
 class ContainerPickImage extends StatelessWidget {
   const ContainerPickImage({
-    this.iscardList=true,
+    this.iscardList = true,
     super.key,
     this.heading,
     this.onPressedCam,
@@ -256,14 +263,14 @@ class ContainerPickImage extends StatelessWidget {
         strokeWidth: 2.5,
         child: SizedBox(
           width: double.infinity,
-          height:iscardList? 150.dm:120, 
+          height: iscardList ? 150.dm : 120,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height:iscardList? 30.h:10.h  ) ,
+              SizedBox(height: iscardList ? 30.h : 10.h),
               // adjustHieght(30),
               Text(heading ?? 'Scan information through image'),
-              SizedBox(height:iscardList? 30.h:10.h  ) ,
+              SizedBox(height: iscardList ? 30.h : 10.h),
               // adjustHieght(30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

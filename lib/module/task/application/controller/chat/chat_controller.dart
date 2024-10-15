@@ -24,20 +24,10 @@ import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:web_socket_channel/io.dart';
-
-enum AppPermissionStatus {
-  storageDenied,
-  storageGranted,
-  storageLimited,
-  storagePermanentlyDenied,
-  storagePermanantlyDenied,
-}
 
 class ChatController extends GetxController {
   late IOWebSocketChannel channel;
@@ -102,34 +92,6 @@ class ChatController extends GetxController {
   Rx<Poll> pollDetail = Poll().obs;
 
   // Define the AppPermissionStatus enum
-
-  Future<AppPermissionStatus> checkStoragePermission() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    if (androidInfo.version.sdkInt >= 33) {
-      await Permission.photos.request();
-      PermissionStatus status = await Permission.photos.status;
-      if (status.isDenied) {
-        return AppPermissionStatus.storageDenied;
-      } else if (status.isGranted) {
-        return AppPermissionStatus.storageGranted;
-      } else if (status.isLimited) {
-        return AppPermissionStatus.storageLimited;
-      } else {
-        return AppPermissionStatus.storagePermanantlyDenied;
-      }
-    } else {
-      await Permission.storage.request();
-      PermissionStatus status = await Permission.storage.status;
-      if (status.isDenied) {
-        return AppPermissionStatus.storageDenied;
-      } else if (status.isGranted) {
-        return AppPermissionStatus.storageGranted;
-      } else {
-        return AppPermissionStatus.storagePermanantlyDenied;
-      }
-    }
-  }
 
   /// connect to the channel with task id and handle the messages form the channel
   void connectChannel(BuildContext context, {required String? taskId}) async {

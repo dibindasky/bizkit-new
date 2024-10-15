@@ -9,6 +9,7 @@ part 'get_task_responce.g.dart';
 
 @JsonSerializable()
 class GetTaskResponce {
+  // Local ID
   int? localId;
 
   String? taskType;

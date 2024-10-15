@@ -4,6 +4,9 @@ part 'sub_task.g.dart';
 
 @JsonSerializable()
 class SubTask {
+  // Local ID
+  int? localId;
+
   String? title;
   String? description;
   @JsonKey(name: 'dead_line')
@@ -33,7 +36,7 @@ class SubTask {
 
   Map<String, dynamic> toJson() => _$SubTaskToJson(this);
 
-   SubTask copyWith({
+  SubTask copyWith({
     String? title,
     String? description,
     String? deadLine,
@@ -52,4 +55,14 @@ class SubTask {
       id: id ?? this.id,
     );
   }
+
+  static const colTaskSubtaskLocalId = 'task_subtask_local_id';
+
+  static const colTaskSubtaskId = 'task_subtask_id';
+  static const colTaskSubtaskTitle = 'task_subtask_title';
+  static const colTaskSubtaskDescription = 'task_subtask_description';
+  static const colTaskSubtaskDeadline = 'task_subtask_deadline';
+  static const colTaskSubtaskIsCompleted = 'task_subtask_is_completed';
+  static const colTaskSubtaskTotalTimeTaken = 'task_subtask_total_time_taken';
+  static const colTaskSubtaskDuration = 'task_subtask_duration';
 }

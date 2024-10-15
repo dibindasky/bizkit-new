@@ -4,6 +4,9 @@ part 'attachment.g.dart';
 
 @JsonSerializable()
 class Attachment {
+  // Local ID
+  int? localId;
+
   String? attachment;
   String? type;
 
@@ -14,4 +17,9 @@ class Attachment {
   }
 
   Map<String, dynamic> toJson() => _$AttachmentToJson(this);
+
+  static const colTaskAttachmentLocalId = 'task_attachment_local_id';
+
+  static const colTaskAttachment = 'task_attachment';
+  static const colTaskAttachmentType = 'task_attachment_type';
 }

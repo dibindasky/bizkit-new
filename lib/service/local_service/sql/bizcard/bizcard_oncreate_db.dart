@@ -13,8 +13,8 @@ class BizCardSql {
   static Future onCreate(sql.Database db) async {
     try {
       log('-----------------oncreate database bizcard module ---------------------');
-      await db.execute(queryMyConnections);
       await db.execute(queryContactTableCreation);
+      await db.execute(queryMyConnections);
       await db.execute(queryMyconnectionCard);
     } catch (e) {
       log('onCreate ==> ${e.toString()}');
@@ -22,7 +22,7 @@ class BizCardSql {
   }
 
   static const String queryContactTableCreation = '''
-      CREATE TABLE IF NOT EXISTS $contactTable (
+      CREATE TABLE IF NOT EXISTS $contactTable (  
         ${ContactModel.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
         ${ContactModel.colCurrentUserId} TEXT,
         ${ContactModel.colUserId} TEXT,
@@ -36,25 +36,27 @@ class BizCardSql {
     ''';
 
   static const String queryMyConnections = '''
-    CREATE TABLE $myConnectionTable(
+    CREATE TABLE IF NOT EXISTS $myConnectionTable(
       ${MyConnection.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
-      ${MyConnection.colToUser}TEXT,
-      ${MyConnection.colUserNmae}TEXT
+      ${MyConnection.colCurrentUserId} TEXT,
+      ${MyConnection.colToUser} TEXT,
+      ${MyConnection.colUserNmae} TEXT
     )''';
 
   static const String queryMyconnectionCard = '''
-    CREATE TABLE $myConnectcionCardTable(
+    CREATE TABLE IF NOT EXISTS $myConnectcionCardTable(
     ${Card.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
-    ${Card.colCollectionId}TEXT,
-    ${Card.colCard}TEXT,
-    ${Card.colUSer}TEXT,
-    ${Card.colName}TEXT,
-    ${Card.colBusinessName}TEXT,
-    ${Card.colBusinessDesignation}TEXT,
-    ${Card.colConnectedDate}TEXT,
-    ${Card.colImageUrl}TEXT,
-    ${Card.colConnectedVirQr}TEXT,
-    FOREIGN KEY (relation_id) REFERENCE $myConnectionTable(${MyConnection.colLocalId}) ON DELETE CASCADE
+    ${Card.colConnectionId} TEXT,
+    ${Card.colCard} TEXT,
+    ${Card.colUSer} TEXT,
+    ${Card.colName} TEXT,
+    ${Card.colBusinessName} TEXT,
+    ${Card.colBusinessDesignation} TEXT,
+    ${Card.colConnectedDate} TEXT,
+    ${Card.colImageUrl} TEXT,
+    ${Card.colConnectedVirQr} TEXT,
+    ${Card.myConnectionIdReference} TEXT,
+    FOREIGN KEY (${Card.myConnectionIdReference}) REFERENCES $myConnectionTable(${MyConnection.colLocalId}) ON DELETE CASCADE
     )
     ''';
 }

@@ -338,6 +338,7 @@ class ConnectionsController extends GetxController {
       (success) {
         myConnections.assignAll(success.data ?? []);
         myConnectionsLoading.value = false;
+        
       },
     );
   }

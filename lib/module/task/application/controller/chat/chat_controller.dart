@@ -91,6 +91,8 @@ class ChatController extends GetxController {
   /// currently active poll details
   Rx<Poll> pollDetail = Poll().obs;
 
+  // Define the AppPermissionStatus enum
+
   /// connect to the channel with task id and handle the messages form the channel
   void connectChannel(BuildContext context, {required String? taskId}) async {
     _error = '';
@@ -400,9 +402,19 @@ class ChatController extends GetxController {
   /// getImage from Storage
   void getImageBase64({required bool camera}) async {
     try {
+      // // Await the result of the permission check
+      // final status = await checkStoragePermission();
+      // log('AppPermissionStatus ===> $status');
+
+      // // Check the status directly
+      // if (status == AppPermissionStatus.storageGranted ||
+      //     status == AppPermissionStatus.storageLimited) {
+
+      // }
+
       final images = await ImagePickerClass.getImage(camera: camera);
       if (images != null && images.base64 != null) {
-        loadedImages.value = [images];
+        loadedImages.value = [images]; // Assign the image to loadedImages
       }
     } catch (e) {
       print('Failed to get image: $e');

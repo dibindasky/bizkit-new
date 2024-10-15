@@ -705,9 +705,14 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         deadlineTasks.assignAll(success.data ?? []);
+
         taksListLoading.value = false;
       },
     );
+    for (var task in deadlineTasks) {
+      await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+          taskModel: task);
+    }
   }
 
 // / Filters tasks by deadline  - [ Pagination ]
@@ -729,6 +734,11 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         deadlineTasks.addAll(success.data ?? []);
+
+        // for (var task in success.data ?? []) {
+        //   taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+        //       taskModel: task);
+        // }
 
         deadlineTasksLoadMoreLoading.value = false;
       },

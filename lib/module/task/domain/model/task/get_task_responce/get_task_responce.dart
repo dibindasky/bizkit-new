@@ -9,7 +9,13 @@ part 'get_task_responce.g.dart';
 
 @JsonSerializable()
 class GetTaskResponce {
+  // Local ID
   int? localId;
+
+  String? taskType;
+  bool? spotlightOn;
+  bool? isPinned;
+
   @JsonKey(name: '_id')
   String? id;
   @JsonKey(name: 'created_by')
@@ -95,4 +101,8 @@ class GetTaskResponce {
 
   static const colTaskTotalTime = 'task_total_time';
   static const colTaskTotalExpense = 'task_total_expense';
+
+  static const colTaskType = 'task_type';
+  static const colTaskSpotlightOn = 'task_spotlight_on';
+  static const colTaskIsPinned = 'task_is_pinned';
 }

@@ -96,6 +96,7 @@ class LocalService {
     try {
       final db = await database;
       await db.rawDelete(query, listParams);
+      log('rawDelete => Success');
     } catch (e) {
       log('rawDelete = > ${e.toString()}');
       rethrow;

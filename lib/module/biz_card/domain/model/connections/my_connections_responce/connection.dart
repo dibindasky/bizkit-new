@@ -7,16 +7,17 @@ part 'connection.g.dart';
 @JsonSerializable()
 class MyConnection {
   @JsonKey(name: 'to_user')
+  String?localId;
   String? toUser;
   String? username;
   List<Card>? cards;
 
-  MyConnection({this.toUser, this.username, this.cards});
+  MyConnection({this.toUser, this.username, this.cards,this.localId});
 
   factory MyConnection.fromJson(Map<String, dynamic> json) {
     return _$ConnectionFromJson(json);
   }
-
+  static const String colCurrentUserId='current_user_id';
   static const String colLocalId='local_id';
   static const String colToUser='to_user';
   static const String colUserNmae='username';

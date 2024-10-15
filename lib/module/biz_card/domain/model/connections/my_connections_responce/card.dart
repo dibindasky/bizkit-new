@@ -35,7 +35,7 @@ class Card {
   });
 
   static const String colLocalId='local_id';
-  static const String colCollectionId = 'connection_id';
+  static const String colConnectionId = 'connection_id';
   static const String colCard = 'to_card';
   static const String colUSer = 'to_user';
   static const String colName = 'name';
@@ -44,6 +44,7 @@ class Card {
   static const String colConnectedDate = 'connected_date';
   static const String colImageUrl = 'image_url';
   static const String colConnectedVirQr = 'connected_via_qr';
+  static const String myConnectionIdReference='my_connection_id';
 
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
 

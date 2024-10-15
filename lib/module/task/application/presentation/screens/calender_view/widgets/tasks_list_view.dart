@@ -74,11 +74,11 @@ class TaskListView extends StatelessWidget {
                       );
                       if (taskController.deadlineTasks[index].isOwned ==
                           false) {
-                        taskController.spotLightTask(
-                            spotLightTask: SpotLightTask(
-                                spotLightStatus: false,
-                                taskId:
-                                    taskController.deadlineTasks[index].id));
+                        // taskController.spotLightTask(
+                        //     spotLightTask: SpotLightTask(
+                        //         spotLightStatus: false,
+                        //         taskId:
+                        //             taskController.deadlineTasks[index].id));
                       }
                       GoRouter.of(context).pushNamed(
                         Routes.taskDeail,

@@ -215,7 +215,7 @@ class ConnectionsController extends GetxController {
             myConnectionLoadMore.value = false;
           },
           (success) {
-            connectionsSearchList.addAll(success.data ??[]);
+            connectionsSearchList.addAll(success.data ?? []);
             myConnectionLoadMore.value = false;
           },
         );
@@ -336,14 +336,13 @@ class ConnectionsController extends GetxController {
         myConnectionsLoading.value = false;
       },
       (success) {
-        myConnections.assignAll(success.data ?? []);
+        myConnections.assignAll(success.data?.reversed ?? []);
         myConnectionsLoading.value = false;
       },
     );
   }
 
   void fetchMyConnectionsLoadMore() async {
-    
     if (fetchMyconnectionLoadMore.value) {
       return;
     }

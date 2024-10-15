@@ -37,7 +37,10 @@ class TaskSql {
     ${GetTaskResponce.colTaskCreatedUsername} TEXT,
     ${GetTaskResponce.colTaskCreatedUserProfilePic} TEXT,
     ${GetTaskResponce.colTaskTotalTime} INTEGER,
-    ${GetTaskResponce.colTaskTotalExpense} INTEGER
+    ${GetTaskResponce.colTaskTotalExpense} INTEGER,
+    ${GetTaskResponce.colTaskType} TEXT,
+    ${GetTaskResponce.colTaskSpotlightOn} INTEGER,  -- Boolean field (1 for true, 0 for false)
+    ${GetTaskResponce.colTaskIsPinned} INTEGER  -- Boolean field (1 for true, 0 for false)
   )
   ''';
 }

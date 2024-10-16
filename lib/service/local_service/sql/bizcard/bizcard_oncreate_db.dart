@@ -8,7 +8,7 @@ import 'package:sqflite/sqflite.dart' as sql;
 class BizCardSql {
   static const contactTable = 'Contact';
   static const myConnectionTable = 'MyConnectionTable';
-  static const myConnectcionCardTable = 'MyConnectionCardTable';
+  static const myConnectionCardTable = 'MyConnectionCardTable';
 
   static Future onCreate(sql.Database db) async {
     try {
@@ -44,7 +44,7 @@ class BizCardSql {
     )''';
 
   static const String queryMyconnectionCard = '''
-    CREATE TABLE IF NOT EXISTS $myConnectcionCardTable(
+    CREATE TABLE IF NOT EXISTS $myConnectionCardTable(
     ${Card.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
     ${Card.colConnectionId} TEXT,
     ${Card.colCard} TEXT,
@@ -55,7 +55,7 @@ class BizCardSql {
     ${Card.colConnectedDate} TEXT,
     ${Card.colImageUrl} TEXT,
     ${Card.colConnectedVirQr} TEXT,
-    ${Card.myConnectionIdReference} TEXT,
+    ${Card.myConnectionIdReference} INTEGER,
     FOREIGN KEY (${Card.myConnectionIdReference}) REFERENCES $myConnectionTable(${MyConnection.colLocalId}) ON DELETE CASCADE
     )
     ''';

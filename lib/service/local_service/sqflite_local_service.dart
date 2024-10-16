@@ -103,6 +103,16 @@ class LocalService {
     }
   }
 
+  Future<int> delete(String query) async {
+    try {
+      final db = await database;
+      return await db.delete(query);
+    } catch (e) {
+      log('delete = > ${e.toString()}');
+      rethrow;
+    }
+  }
+
   // check a value is present or not in table
   /// eg query 'SELECT COUNT(*) FROM users WHERE email = ?', listParams ['example']
   Future<bool> presentOrNot(String query, List<Object?>? listParams) async {

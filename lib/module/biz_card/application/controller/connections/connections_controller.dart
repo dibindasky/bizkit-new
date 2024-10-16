@@ -4,6 +4,7 @@ import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/connections/connections_service.dart';
+import 'package:bizkit/module/biz_card/data/sqflite/my_connection/my_connection_local_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/result.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
@@ -18,6 +19,8 @@ import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_
 import 'package:bizkit/module/biz_card/domain/model/connections/shared_cards/shared_card_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
+import 'package:bizkit/module/biz_card/domain/repository/sqflite/my_connection_repo.dart';
+import 'package:bizkit/service/local_service/sql/bizcard/bizcard_oncreate_db.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
@@ -34,6 +37,8 @@ class ConnectionsController extends GetxController {
   final ScrollController fetchMyConnectionScrollController = ScrollController();
 
   final ConnectionsRepo connectionService = ConnectionsService();
+  final MyConnectionLocalRepo myConnectionLocalService =
+      MyConnectionLocalService();
   final Debouncer debouncer = Debouncer(milliseconds: 300);
   // Loadings
   RxBool sendConnectionRequestLoading = false.obs;
@@ -215,7 +220,7 @@ class ConnectionsController extends GetxController {
             myConnectionLoadMore.value = false;
           },
           (success) {
-            connectionsSearchList.addAll(success.data ??[]);
+            connectionsSearchList.addAll(success.data ?? []);
             myConnectionLoadMore.value = false;
           },
         );
@@ -321,30 +326,78 @@ class ConnectionsController extends GetxController {
     );
   }
 
-  // Get my all connections
+  Future<void> getConnectionDatasFromLocal() async {
+    final resultLocal =
+        await myConnectionLocalService.getMyconnectionsFromLocal();
+
+    resultLocal.fold((failure) {
+      log('local data fetch fail');
+    }, (success) {
+      myConnections.assignAll(success.data ?? []);
+
+      log('success local data get -----------------------------------------------------------------');
+      for (var datas in myConnections) {
+        log(datas.username.toString());
+      }
+    });
+  }
+
+  // TODO: for tomorrow
+  /// Get my all connections
   void fetchMyConnections(bool isLoad) async {
     if (myConnections.isNotEmpty && !isLoad) return;
     myConnections.value = [];
     fetchMyConnectionPageNumber = 1;
 
+    //delete complete datas of table
+    //  await MyConnectionLocalService().deleteAllLocalDatas();
+
+    //get connection datas form local
+    await getConnectionDatasFromLocal();
+
     myConnectionsLoading.value = true;
+
+    //get connection datas from api
     final result = await connectionService.getMyconnections(
         paginationQuery: PaginationQuery(
             page: fetchMyConnectionPageNumber, pageSize: pageSize));
-    result.fold(
+
+    await result.fold(
       (failure) {
         myConnectionsLoading.value = false;
       },
-      (success) {
-        myConnections.assignAll(success.data ?? []);
+      (success) async {
+        if (myConnections.isEmpty) {
+          myConnections.assignAll(success.data ?? []);
+          for (var eachMyConnection in myConnections) {
+            await myConnectionLocalService.addMyConnectionsIntoLocal(
+                myconnection: eachMyConnection);
+          }
+        } else {
+          print('checking side of result');
+          for (var datas in success.data ?? <MyConnection>[]) {
+            final index = myConnections
+                .indexWhere((value) => value.toUser == datas.toUser);
+            if (index == -1) {
+              myConnections.insert(0, datas);
+              myConnectionLocalService.addMyConnectionsIntoLocal(
+                  myconnection: datas);
+            } else {
+              if (!datas.equals(myConnections[index])) {
+                myConnections[index] = datas;
+                myConnectionLocalService.deleteAndUpdateCurrentUserData(
+                    myconnection: datas);
+              }
+            }
+          }
+        }
+
         myConnectionsLoading.value = false;
-        
       },
     );
   }
 
   void fetchMyConnectionsLoadMore() async {
-    
     if (fetchMyconnectionLoadMore.value) {
       return;
     }

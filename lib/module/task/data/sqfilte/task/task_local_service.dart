@@ -38,6 +38,7 @@ class TaskLocalService implements TaskLocalRepo {
       // Convert the tags list to a comma-separated string
       String tagsAsString = (taskModel.tags ?? []).join(',');
 
+      // SQL query to insert task details into the local database
       const query = '''
       INSERT INTO ${TaskSql.tasksTable} (
         ${GetTaskResponce.colUserId},
@@ -89,6 +90,7 @@ class TaskLocalService implements TaskLocalRepo {
         ],
       );
 
+      // SQL query to insert task attachments
       const attachmentQuery = '''
       INSERT INTO ${TaskSql.taskAttachmentsTable} (
         ${Attachment.colTaskAttachment},
@@ -97,6 +99,7 @@ class TaskLocalService implements TaskLocalRepo {
       VALUES(?,?,?)  
       ''';
 
+      /// Loop through each attachment and insert into the database
       for (var attachment in taskModel.attachments ?? <Attachment>[]) {
         await localService.rawInsert(
           attachmentQuery,
@@ -108,6 +111,7 @@ class TaskLocalService implements TaskLocalRepo {
         );
       }
 
+      // SQL query to insert sub-task details
       const subTaskQuery = '''
       INSERT INTO ${TaskSql.taskSubTasksTable}(
         ${SubTask.colTaskSubtaskId},
@@ -121,6 +125,7 @@ class TaskLocalService implements TaskLocalRepo {
       VALUES(?,?,?,?,?,?,?,?)  
       ''';
 
+      // Loop through each sub-task and insert into the database
       for (var subtask in taskModel.subTask ?? <SubTask>[]) {
         await localService.rawInsert(
           subTaskQuery,
@@ -137,6 +142,7 @@ class TaskLocalService implements TaskLocalRepo {
         );
       }
 
+      // SQL query to insert assigned-to details [users assigned to the task]
       const assignedToDetailsQuery = '''
       INSERT INTO ${TaskSql.taskAssignedToDetailTable}(
          ${AssignedToDetail.colTaskAssignedToDetailUserId},
@@ -146,6 +152,7 @@ class TaskLocalService implements TaskLocalRepo {
       VALUES(?,?,?,?)   
       ''';
 
+      // Loop through each assigned-to user and insert into the database
       for (var assignedToDetail
           in taskModel.assignedToDetails ?? <AssignedToDetail>[]) {
         await localService.rawInsert(
@@ -209,7 +216,7 @@ class TaskLocalService implements TaskLocalRepo {
           ${GetTaskResponce.colTaskId} = ? AND ${GetTaskResponce.colUserId} = ?  
       ''';
 
-      await localService.rawUpdate(
+      final referenceId = await localService.rawUpdate(
         query,
         [
           currentUserId,
@@ -237,6 +244,75 @@ class TaskLocalService implements TaskLocalRepo {
           await userId
         ],
       );
+
+      // Upsert attachments for the task
+      const insertOrUpdateAttachmentQuery = '''
+      INSERT OR REPLACE INTO ${TaskSql.taskAttachmentsTable} (
+        ${Attachment.colTaskAttachment},
+        ${Attachment.colTaskAttachmentType},
+        ${Attachment.colTaskAttachmentReferenceId})
+      VALUES(?,?,?)  
+    ''';
+
+      for (var attachment in taskModel.attachments ?? <Attachment>[]) {
+        await localService.rawInsert(
+          insertOrUpdateAttachmentQuery,
+          [attachment.attachment, attachment.type, referenceId],
+        );
+      }
+
+      // Upsert subtasks for the task
+      const insertOrUpdateSubTaskQuery = '''
+      INSERT OR REPLACE INTO ${TaskSql.taskSubTasksTable}(
+        ${SubTask.colTaskSubtaskId},
+        ${SubTask.colTaskSubtaskTitle},
+        ${SubTask.colTaskSubtaskDescription},
+        ${SubTask.colTaskSubtaskDeadline},
+        ${SubTask.colTaskSubtaskIsCompleted},
+        ${SubTask.colTaskSubtaskTotalTimeTaken},
+        ${SubTask.colTaskSubtaskDuration},
+        ${SubTask.colTaskSubTaskReferenceId})
+      VALUES(?,?,?,?,?,?,?,?)  
+    ''';
+
+      for (var subtask in taskModel.subTask ?? <SubTask>[]) {
+        await localService.rawInsert(
+          insertOrUpdateSubTaskQuery,
+          [
+            subtask.id,
+            subtask.title,
+            subtask.description,
+            subtask.deadLine,
+            subtask.isCompleted == true ? 1 : 0,
+            subtask.totalTimeTaken,
+            subtask.duration,
+            referenceId
+          ],
+        );
+      }
+
+      // Upsert assigned-to details
+      const insertOrUpdateAssignedToDetailsQuery = '''
+      INSERT OR REPLACE INTO ${TaskSql.taskAssignedToDetailTable}(
+        ${AssignedToDetail.colTaskAssignedToDetailUserId},
+        ${AssignedToDetail.colTaskAssignedToDetailUserName},
+        ${AssignedToDetail.colTaskAssignedToDetailIsAccepted},
+        ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId})
+      VALUES(?,?,?,?)   
+    ''';
+
+      for (var assignedToDetail
+          in taskModel.assignedToDetails ?? <AssignedToDetail>[]) {
+        await localService.rawInsert(
+          insertOrUpdateAssignedToDetailsQuery,
+          [
+            assignedToDetail.userId,
+            assignedToDetail.name,
+            assignedToDetail.isAccepted,
+            referenceId
+          ],
+        );
+      }
 
       log('updateFullTaskDetailsFromLocalStorage success =====> ');
       return Right(SuccessResponseModel());

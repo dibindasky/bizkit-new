@@ -2,12 +2,50 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:bizkit/core/model/image/image_model.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 
+enum AppPermissionStatus {
+  storageDenied,
+  storageGranted,
+  storageLimited,
+  storagePermanentlyDenied,
+  storagePermanantlyDenied,
+}
+
 class ImagePickerClass {
+  Future<AppPermissionStatus> checkStoragePermission() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    if (androidInfo.version.sdkInt >= 33) {
+      await Permission.photos.request();
+      PermissionStatus status = await Permission.photos.status;
+      if (status.isDenied) {
+        return AppPermissionStatus.storageDenied;
+      } else if (status.isGranted) {
+        return AppPermissionStatus.storageGranted;
+      } else if (status.isLimited) {
+        return AppPermissionStatus.storageLimited;
+      } else {
+        return AppPermissionStatus.storagePermanantlyDenied;
+      }
+    } else {
+      await Permission.storage.request();
+      PermissionStatus status = await Permission.storage.status;
+      if (status.isDenied) {
+        return AppPermissionStatus.storageDenied;
+      } else if (status.isGranted) {
+        return AppPermissionStatus.storageGranted;
+      } else {
+        return AppPermissionStatus.storagePermanantlyDenied;
+      }
+    }
+  }
+
   static Future<ImageModel?> getImage(
       {bool camera = true, bool cameraDeviceFront = false}) async {
     try {

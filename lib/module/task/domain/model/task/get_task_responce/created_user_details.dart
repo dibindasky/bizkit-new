@@ -16,4 +16,11 @@ class CreatedUserDetails {
   }
 
   Map<String, dynamic> toJson() => _$CreatedUserDetailsToJson(this);
+
+  // equals function to compare CreatedUserDetails objects
+  bool equals(CreatedUserDetails other) {
+    return id == other.id &&
+        name == other.name &&
+        profilePicture == other.profilePicture;
+  }
 }

@@ -9,7 +9,13 @@ part 'get_task_responce.g.dart';
 
 @JsonSerializable()
 class GetTaskResponce {
+  // Local ID
   int? localId;
+
+  String? taskType;
+  bool? spotlightOn;
+  bool? isPinned;
+
   @JsonKey(name: '_id')
   String? id;
   @JsonKey(name: 'created_by')
@@ -44,31 +50,143 @@ class GetTaskResponce {
   @JsonKey(name: 'total_expense')
   int? totalExpense;
 
-  GetTaskResponce(
-      {this.id,
-      this.createdBy,
-      this.title,
-      this.description,
-      this.priorityLevel,
-      this.recurrentTask,
-      this.isCompleted,
-      this.deadLine,
-      this.isKilled,
-      this.tags,
-      this.attachments,
-      this.subTask,
-      this.createdAt,
-      this.status,
-      this.isOwned,
-      this.assignedToDetails,
-      this.totalExpense,
-      this.totalTime});
+  GetTaskResponce({
+    this.id,
+    this.createdBy,
+    this.title,
+    this.description,
+    this.priorityLevel,
+    this.recurrentTask,
+    this.isCompleted,
+    this.deadLine,
+    this.isKilled,
+    this.tags,
+    this.attachments,
+    this.subTask,
+    this.createdAt,
+    this.status,
+    this.isOwned,
+    this.assignedToDetails,
+    this.totalExpense,
+    this.totalTime,
+    this.createdUserDetails,
+  });
 
   factory GetTaskResponce.fromJson(Map<String, dynamic> json) {
     return _$GetTaskResponceFromJson(json);
   }
 
   Map<String, dynamic> toJson() => _$GetTaskResponceToJson(this);
+
+  bool equals(GetTaskResponce other) {
+    return localId == other.localId &&
+        taskType == other.taskType &&
+        spotlightOn == other.spotlightOn &&
+        isPinned == other.isPinned &&
+        id == other.id &&
+        createdBy == other.createdBy &&
+        title == other.title &&
+        description == other.description &&
+        priorityLevel == other.priorityLevel &&
+        recurrentTask == other.recurrentTask &&
+        isCompleted == other.isCompleted &&
+        isOwned == other.isOwned &&
+        deadLine == other.deadLine &&
+        isKilled == other.isKilled &&
+        _compareStringLists(tags, other.tags) &&
+        _compareAttachmentLists(attachments, other.attachments) &&
+        _compareSubTaskLists(subTask, other.subTask) &&
+        createdAt == other.createdAt &&
+        status == other.status &&
+        _compareCreatedUserDetails(
+            createdUserDetails, other.createdUserDetails) &&
+        _compareAssignedToDetailLists(
+            assignedToDetails, other.assignedToDetails) &&
+        totalTime == other.totalTime &&
+        totalExpense == other.totalExpense;
+  }
+
+  bool _compareStringLists(List<String>? list1, List<String>? list2) {
+    if (list1 == null && list2 == null) return true;
+    if (list1 == null || list2 == null || list1.length != list2.length) {
+      return false;
+    }
+    return list1.toSet().difference(list2.toSet()).isEmpty;
+  }
+
+  bool _compareAttachmentLists(
+      List<Attachment>? list1, List<Attachment>? list2) {
+    if (list1 == null && list2 == null) return true;
+    if (list1 == null || list2 == null || list1.length != list2.length) {
+      return false;
+    }
+
+    final map1 = {
+      for (var attachmetList1 in list1)
+        attachmetList1.attachment: attachmetList1
+    };
+    final map2 = {
+      for (var attachmetList1 in list2)
+        attachmetList1.attachment: attachmetList1
+    };
+    if (map1.length != map2.length) return false;
+    for (var key in map1.keys) {
+      if (!map2.containsKey(key)) return false;
+      if (!map2[key]!.equals(map1[key]!)) return false;
+    }
+    return true;
+  }
+
+  bool _compareSubTaskLists(List<SubTask>? list1, List<SubTask>? list2) {
+    if (list1 == null && list2 == null) return true;
+    if (list1 == null || list2 == null || list1.length != list2.length) {
+      return false;
+    }
+
+    final map1 = {
+      for (var subTaskListItem in list1) subTaskListItem.id: subTaskListItem
+    };
+    final map2 = {
+      for (var subTaskListItem in list2) subTaskListItem.id: subTaskListItem
+    };
+    if (map1.length != map2.length) return false;
+    for (var key in map1.keys) {
+      if (!map2.containsKey(key)) return false;
+      if (!map2[key]!.equals(map1[key]!)) return false;
+    }
+    return true;
+  }
+
+  bool _compareAssignedToDetailLists(
+      List<AssignedToDetail>? list1, List<AssignedToDetail>? list2) {
+    if (list1 == null && list2 == null) return true;
+    if (list1 == null || list2 == null || list1.length != list2.length) {
+      return false;
+    }
+
+    final map1 = {
+      for (var assignedToDetailsItem in list1)
+        assignedToDetailsItem.userId: assignedToDetailsItem
+    };
+    final map2 = {
+      for (var assignedToDetailsItem in list2)
+        assignedToDetailsItem.userId: assignedToDetailsItem
+    };
+    if (map1.length != map2.length) return false;
+    for (var key in map1.keys) {
+      if (!map2.containsKey(key)) return false;
+      if (!map2[key]!.equals(map1[key]!)) return false;
+    }
+    return true;
+  }
+
+  bool _compareCreatedUserDetails(
+      CreatedUserDetails? user1, CreatedUserDetails? user2) {
+    if (user1 == null && user2 == null) return true;
+    if (user1 == null || user2 == null) return false;
+
+    return user1.equals(user2);
+  }
 
   static const colTaskLocalId = 'task_local_id';
 
@@ -95,4 +213,8 @@ class GetTaskResponce {
 
   static const colTaskTotalTime = 'task_total_time';
   static const colTaskTotalExpense = 'task_total_expense';
+
+  static const colTaskType = 'task_type';
+  static const colTaskSpotlightOn = 'task_spotlight_on';
+  static const colTaskIsPinned = 'task_is_pinned';
 }

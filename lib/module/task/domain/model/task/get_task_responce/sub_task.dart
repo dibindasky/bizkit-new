@@ -4,6 +4,9 @@ part 'sub_task.g.dart';
 
 @JsonSerializable()
 class SubTask {
+  // Local ID
+  int? localId;
+
   String? title;
   String? description;
   @JsonKey(name: 'dead_line')
@@ -33,7 +36,7 @@ class SubTask {
 
   Map<String, dynamic> toJson() => _$SubTaskToJson(this);
 
-   SubTask copyWith({
+  SubTask copyWith({
     String? title,
     String? description,
     String? deadLine,
@@ -52,4 +55,27 @@ class SubTask {
       id: id ?? this.id,
     );
   }
+
+  // equals function to compare SubTask objects
+  bool equals(SubTask other) {
+    return id == other.id &&
+        title == other.title &&
+        description == other.description &&
+        deadLine == other.deadLine &&
+        isCompleted == other.isCompleted &&
+        totalTimeTaken == other.totalTimeTaken &&
+        duration == other.duration;
+  }
+
+  static const colTaskSubtaskLocalId = 'task_subtask_local_id';
+
+  static const colTaskSubtaskId = 'task_subtask_id';
+  static const colTaskSubtaskTitle = 'task_subtask_title';
+  static const colTaskSubtaskDescription = 'task_subtask_description';
+  static const colTaskSubtaskDeadline = 'task_subtask_deadline';
+  static const colTaskSubtaskIsCompleted = 'task_subtask_is_completed';
+  static const colTaskSubtaskTotalTimeTaken = 'task_subtask_total_time_taken';
+  static const colTaskSubtaskDuration = 'task_subtask_duration';
+
+  static const colTaskSubTaskReferenceId = 'task_subtask_reference_id';
 }

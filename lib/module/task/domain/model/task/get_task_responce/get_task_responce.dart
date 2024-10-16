@@ -50,25 +50,27 @@ class GetTaskResponce {
   @JsonKey(name: 'total_expense')
   int? totalExpense;
 
-  GetTaskResponce(
-      {this.id,
-      this.createdBy,
-      this.title,
-      this.description,
-      this.priorityLevel,
-      this.recurrentTask,
-      this.isCompleted,
-      this.deadLine,
-      this.isKilled,
-      this.tags,
-      this.attachments,
-      this.subTask,
-      this.createdAt,
-      this.status,
-      this.isOwned,
-      this.assignedToDetails,
-      this.totalExpense,
-      this.totalTime});
+  GetTaskResponce({
+    this.id,
+    this.createdBy,
+    this.title,
+    this.description,
+    this.priorityLevel,
+    this.recurrentTask,
+    this.isCompleted,
+    this.deadLine,
+    this.isKilled,
+    this.tags,
+    this.attachments,
+    this.subTask,
+    this.createdAt,
+    this.status,
+    this.isOwned,
+    this.assignedToDetails,
+    this.totalExpense,
+    this.totalTime,
+    this.createdUserDetails,
+  });
 
   factory GetTaskResponce.fromJson(Map<String, dynamic> json) {
     return _$GetTaskResponceFromJson(json);

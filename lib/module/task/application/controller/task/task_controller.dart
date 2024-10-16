@@ -735,10 +735,10 @@ class CreateTaskController extends GetxController {
       (success) {
         deadlineTasks.addAll(success.data ?? []);
 
-        // for (var task in success.data ?? []) {
-        //   taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-        //       taskModel: task);
-        // }
+        for (var task in success.data ?? []) {
+          taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+              taskModel: task);
+        }
 
         deadlineTasksLoadMoreLoading.value = false;
       },
@@ -1142,6 +1142,8 @@ class CreateTaskController extends GetxController {
     isLoading.value = true;
     fetchSingleTaskError.value = false;
     singleTask.value = GetTaskResponce();
+    taskLocalService.getTaskFullDetailsFromLocalStorage(
+        taskId: singleTaskModel.taskId ?? '');
     final result = await taskService.getTask(singleTaskModel: singleTaskModel);
     result.fold(
       (failure) {
@@ -1152,7 +1154,7 @@ class CreateTaskController extends GetxController {
       (success) {
         singleTask.value = success;
         isLoading.value = false;
-        taskLocalService.addFullTaskDetailsToLocalStorageIfNotPresentInStorage(
+        taskLocalService.addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
             taskModel: success);
       },
     );

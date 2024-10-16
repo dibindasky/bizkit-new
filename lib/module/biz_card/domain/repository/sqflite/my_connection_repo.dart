@@ -6,5 +6,5 @@ import 'package:dartz/dartz.dart';
 abstract class MyConnectionLocalRepo{
   Future<Either<Failure,SuccessResponce>>addMyConnectionsIntoLocal({required MyConnection myconnection});
   Future<Either<Failure,SuccessResponce>>deleteAndUpdateCurrentUserData({required MyConnection myconnection});
-  Future<Either<Failure,SuccessResponce>>getMyconnections({required MyConnection myconnection});
+  Future<Either<Failure,SuccessResponce>>getMyconnectionsFromLocal();
 }

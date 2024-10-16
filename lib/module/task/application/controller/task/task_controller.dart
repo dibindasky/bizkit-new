@@ -709,10 +709,10 @@ class CreateTaskController extends GetxController {
         taksListLoading.value = false;
       },
     );
-    for (var task in deadlineTasks) {
-      await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-          taskModel: task);
-    }
+    // for (var task in deadlineTasks) {
+    //   await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+    //       taskModel: task);
+    // }
   }
 
 // / Filters tasks by deadline  - [ Pagination ]
@@ -735,10 +735,10 @@ class CreateTaskController extends GetxController {
       (success) {
         deadlineTasks.addAll(success.data ?? []);
 
-        // for (var task in success.data ?? []) {
-        //   taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-        //       taskModel: task);
-        // }
+        for (var task in success.data ?? []) {
+          taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+              taskModel: task);
+        }
 
         deadlineTasksLoadMoreLoading.value = false;
       },
@@ -1142,6 +1142,10 @@ class CreateTaskController extends GetxController {
     isLoading.value = true;
     fetchSingleTaskError.value = false;
     singleTask.value = GetTaskResponce();
+
+    // Fetch the task details from local storage before making a network call
+    await fetchSingleTaskFromLocalStorage(singleTaskModel);
+
     final result = await taskService.getTask(singleTaskModel: singleTaskModel);
     result.fold(
       (failure) {
@@ -1150,10 +1154,32 @@ class CreateTaskController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
+        // If the fetched task matches the current task, update the singleTask observable
+        if (singleTask.value.id == success.id) {
+          singleTask.value = success;
+        }
+        isLoading.value = false;
+
+        // Add the fetched task to local storage if it's not already stored
+        taskLocalService.addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
+            taskModel: success);
+      },
+    );
+  }
+
+  Future<void> fetchSingleTaskFromLocalStorage(
+      GetSingleTaskModel singleTaskModel) async {
+    isLoading.value = true;
+
+    final responseFromLocalStorage =
+        await taskLocalService.getTaskFullDetailsFromLocalStorage(
+            taskId: singleTaskModel.taskId ?? '');
+
+    responseFromLocalStorage.fold(
+      (failure) => null,
+      (success) {
         singleTask.value = success;
         isLoading.value = false;
-        taskLocalService.addFullTaskDetailsToLocalStorageIfNotPresentInStorage(
-            taskModel: success);
       },
     );
   }

@@ -56,6 +56,17 @@ class SubTask {
     );
   }
 
+  // equals function to compare SubTask objects
+  bool equals(SubTask other) {
+    return id == other.id &&
+        title == other.title &&
+        description == other.description &&
+        deadLine == other.deadLine &&
+        isCompleted == other.isCompleted &&
+        totalTimeTaken == other.totalTimeTaken &&
+        duration == other.duration;
+  }
+
   static const colTaskSubtaskLocalId = 'task_subtask_local_id';
 
   static const colTaskSubtaskId = 'task_subtask_id';
@@ -65,4 +76,6 @@ class SubTask {
   static const colTaskSubtaskIsCompleted = 'task_subtask_is_completed';
   static const colTaskSubtaskTotalTimeTaken = 'task_subtask_total_time_taken';
   static const colTaskSubtaskDuration = 'task_subtask_duration';
+
+  static const colTaskSubTaskReferenceId = 'task_subtask_reference_id';
 }

@@ -16,14 +16,17 @@ abstract class TaskLocalRepo {
       addTaskToLocalStorageIfNotPresentInStorage(
           {required task.Task taskModel});
 
-  Future<Either<Failure, SuccessResponseModel>>
-      addFullTaskDetailsToLocalStorage({required GetTaskResponce taskModel});
+  Future<Either<Failure, SuccessResponseModel>> addTaskFulDetailsToLocalStorage(
+      {required GetTaskResponce taskModel});
 
   Future<Either<Failure, SuccessResponseModel>>
-      addFullTaskDetailsToLocalStorageIfNotPresentInStorage(
+      addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
           {required GetTaskResponce taskModel});
 
   Future<Either<Failure, SuccessResponseModel>>
-      updateFullTaskDetailsFromLocalStorage(
+      updateTaskFullDetailsFromLocalStorage(
           {required GetTaskResponce taskModel});
+
+  Future<Either<Failure, GetTaskResponce>> getTaskFullDetailsFromLocalStorage(
+      {required String taskId});
 }

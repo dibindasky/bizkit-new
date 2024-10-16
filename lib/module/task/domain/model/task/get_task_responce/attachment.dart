@@ -18,8 +18,15 @@ class Attachment {
 
   Map<String, dynamic> toJson() => _$AttachmentToJson(this);
 
+  // equals function to compare Attachment objects
+  bool equals(Attachment other) {
+    return attachment == other.attachment && type == other.type;
+  }
+
   static const colTaskAttachmentLocalId = 'task_attachment_local_id';
 
   static const colTaskAttachment = 'task_attachment';
   static const colTaskAttachmentType = 'task_attachment_type';
+
+  static const colTaskAttachmentReferenceId = 'task_attachment_reference_id';
 }

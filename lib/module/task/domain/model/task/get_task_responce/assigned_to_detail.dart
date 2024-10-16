@@ -21,6 +21,13 @@ class AssignedToDetail {
 
   Map<String, dynamic> toJson() => _$AssignedToDetailToJson(this);
 
+  // equals function to compare AssignedToDetail objects
+  bool equals(AssignedToDetail other) {
+    return userId == other.userId &&
+        name == other.name &&
+        isAccepted == other.isAccepted;
+  }
+
   static const colTaskAssignedToDetailLocalId =
       'task_assigned_to_detail_local_id';
 
@@ -30,4 +37,7 @@ class AssignedToDetail {
       'task_assigned_to_detail_username';
   static const colTaskAssignedToDetailIsAccepted =
       'task_assigned_to_detail_is_accepted';
+
+  static const ccolTaskAssignedToDetailReferenceId =
+      'task_assigned_to_detail_reference_id ';
 }

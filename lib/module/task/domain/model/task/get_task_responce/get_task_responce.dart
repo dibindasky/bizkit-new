@@ -78,6 +78,130 @@ class GetTaskResponce {
 
   Map<String, dynamic> toJson() => _$GetTaskResponceToJson(this);
 
+  bool equals(GetTaskResponce other) {
+    return localId == other.localId &&
+        taskType == other.taskType &&
+        spotlightOn == other.spotlightOn &&
+        isPinned == other.isPinned &&
+        id == other.id &&
+        createdBy == other.createdBy &&
+        title == other.title &&
+        description == other.description &&
+        priorityLevel == other.priorityLevel &&
+        recurrentTask == other.recurrentTask &&
+        isCompleted == other.isCompleted &&
+        isOwned == other.isOwned &&
+        deadLine == other.deadLine &&
+        isKilled == other.isKilled &&
+        _compareStringLists(tags, other.tags) &&
+        _compareAttachmentLists(attachments, other.attachments) &&
+        _compareSubTaskLists(subTask, other.subTask) &&
+        createdAt == other.createdAt &&
+        status == other.status &&
+        _compareCreatedUserDetails(
+            createdUserDetails, other.createdUserDetails) &&
+        _compareAssignedToDetailLists(
+            assignedToDetails, other.assignedToDetails) &&
+        totalTime == other.totalTime &&
+        totalExpense == other.totalExpense;
+  }
+
+  bool _compareStringLists(List<String>? list1, List<String>? list2) {
+    if (list1 == null && list2 == null) return true;
+    if (list1 == null || list2 == null || list1.length != list2.length) {
+      return false;
+    }
+    return list1.toSet().difference(list2.toSet()).isEmpty;
+  }
+
+  bool _compareAttachmentLists(
+      List<Attachment>? list1, List<Attachment>? list2) {
+    if (list1 == null && list2 == null) return true;
+    if (list1 == null || list2 == null || list1.length != list2.length) {
+      return false;
+    }
+
+    for (int i = 0; i < list1.length; i++) {
+      if (!_compareAttachment(list1[i], list2[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool _compareAttachment(Attachment? attachment1, Attachment? attachment2) {
+    if (attachment1 == null && attachment2 == null) return true;
+    if (attachment1 == null || attachment2 == null) return false;
+
+    return attachment1.localId == attachment2.localId &&
+        attachment1.attachment == attachment2.attachment &&
+        attachment1.type == attachment2.type;
+  }
+
+  bool _compareSubTaskLists(List<SubTask>? list1, List<SubTask>? list2) {
+    if (list1 == null && list2 == null) return true;
+    if (list1 == null || list2 == null || list1.length != list2.length) {
+      return false;
+    }
+
+    for (int i = 0; i < list1.length; i++) {
+      if (!_compareSubTask(list1[i], list2[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool _compareSubTask(SubTask? subTask1, SubTask? subTask2) {
+    if (subTask1 == null && subTask2 == null) return true;
+    if (subTask1 == null || subTask2 == null) return false;
+
+    return subTask1.localId == subTask2.localId &&
+        subTask1.title == subTask2.title &&
+        subTask1.description == subTask2.description &&
+        subTask1.deadLine == subTask2.deadLine &&
+        subTask1.isCompleted == subTask2.isCompleted &&
+        subTask1.totalTimeTaken == subTask2.totalTimeTaken &&
+        subTask1.duration == subTask2.duration &&
+        subTask1.id == subTask2.id;
+  }
+
+  bool _compareAssignedToDetailLists(
+      List<AssignedToDetail>? list1, List<AssignedToDetail>? list2) {
+    if (list1 == null && list2 == null) return true;
+    if (list1 == null || list2 == null || list1.length != list2.length) {
+      return false;
+    }
+
+    for (int i = 0; i < list1.length; i++) {
+      if (!_compareAssignedToDetail(list1[i], list2[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool _compareAssignedToDetail(
+      AssignedToDetail? detail1, AssignedToDetail? detail2) {
+    if (detail1 == null && detail2 == null) return true;
+    if (detail1 == null || detail2 == null) return false;
+
+    return detail1.localId == detail2.localId &&
+        detail1.userId == detail2.userId &&
+        detail1.name == detail2.name &&
+        detail1.isAccepted == detail2.isAccepted;
+  }
+
+  bool _compareCreatedUserDetails(
+      CreatedUserDetails? user1, CreatedUserDetails? user2) {
+    if (user1 == null && user2 == null) return true;
+    if (user1 == null || user2 == null) return false;
+
+    return user1.id == user2.id &&
+        user1.name == user2.name &&
+        user1.profilePicture == user2.profilePicture;
+  }
+
   static const colTaskLocalId = 'task_local_id';
 
   static const colUserId = 'user_id';

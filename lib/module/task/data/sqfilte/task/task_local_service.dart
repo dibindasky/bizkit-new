@@ -6,7 +6,6 @@ import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart';
-import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_tasks_responce/subtask.dart';
 import 'package:bizkit/module/task/domain/repository/sqfilte/task_local_repo.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/task/task_oncreate_db.dart';
@@ -167,7 +166,6 @@ class TaskLocalService implements TaskLocalRepo {
           ],
         );
       }
-
       log('addFullTaskDetailsToLocalStorage success =====> ');
       return Right(SuccessResponseModel());
     } catch (e) {
@@ -563,6 +561,7 @@ class TaskLocalService implements TaskLocalRepo {
         tags: taskData[GetTaskResponce.colTaskTags]?.split(','),
         createdAt: taskData[GetTaskResponce.colTaskCreatedAt],
         status: taskData[GetTaskResponce.colTaskStatus],
+
         // Parse `totalTime` and `totalExpense` safely
         totalTime: taskData[GetTaskResponce.colTaskTotalTime] != null
             ? int.tryParse(
@@ -573,6 +572,8 @@ class TaskLocalService implements TaskLocalRepo {
             ? int.tryParse(
                 taskData[GetTaskResponce.colTaskTotalExpense].toString())
             : null,
+
+        // Parse attachments from the query results
         attachments: results
             .where((r) => r[Attachment.colTaskAttachment] != null)
             .map((r) => Attachment(
@@ -580,6 +581,8 @@ class TaskLocalService implements TaskLocalRepo {
                   type: r[Attachment.colTaskAttachmentType],
                 ))
             .toList(),
+
+        // Parse subtasks from the query results
         subTask: results
             .where((r) => r[SubTask.colTaskSubtaskId] != null)
             .map((r) => SubTask(
@@ -592,6 +595,8 @@ class TaskLocalService implements TaskLocalRepo {
                   duration: r[SubTask.colTaskSubtaskDuration],
                 ))
             .toList(),
+
+        // Parse assigned users from the query results
         assignedToDetails: results
             .where((r) =>
                 r[AssignedToDetail.colTaskAssignedToDetailUserId] != null)
@@ -610,7 +615,7 @@ class TaskLocalService implements TaskLocalRepo {
         ),
       );
 
-      log(' TASK FULL DETAILS FORM LOCAL STORAGE ===> ${taskResponce.toJson()}');
+      log('getTaskFullDetailsFromLocalStorage success =====>');
       return Right(taskResponce);
     } catch (e) {
       log('getTaskFullDetailsFromLocalStorage exception =====> ${e.toString()}');

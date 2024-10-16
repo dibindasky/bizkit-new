@@ -121,21 +121,20 @@ class GetTaskResponce {
       return false;
     }
 
-    for (int i = 0; i < list1.length; i++) {
-      if (!_compareAttachment(list1[i], list2[i])) {
-        return false;
-      }
+    final map1 = {
+      for (var attachmetList1 in list1)
+        attachmetList1.attachment: attachmetList1
+    };
+    final map2 = {
+      for (var attachmetList1 in list2)
+        attachmetList1.attachment: attachmetList1
+    };
+    if (map1.length != map2.length) return false;
+    for (var key in map1.keys) {
+      if (!map2.containsKey(key)) return false;
+      if (!map2[key]!.equals(map1[key]!)) return false;
     }
     return true;
-  }
-
-  bool _compareAttachment(Attachment? attachment1, Attachment? attachment2) {
-    if (attachment1 == null && attachment2 == null) return true;
-    if (attachment1 == null || attachment2 == null) return false;
-
-    return attachment1.localId == attachment2.localId &&
-        attachment1.attachment == attachment2.attachment &&
-        attachment1.type == attachment2.type;
   }
 
   bool _compareSubTaskLists(List<SubTask>? list1, List<SubTask>? list2) {
@@ -144,26 +143,18 @@ class GetTaskResponce {
       return false;
     }
 
-    for (int i = 0; i < list1.length; i++) {
-      if (!_compareSubTask(list1[i], list2[i])) {
-        return false;
-      }
+    final map1 = {
+      for (var subTaskListItem in list1) subTaskListItem.id: subTaskListItem
+    };
+    final map2 = {
+      for (var subTaskListItem in list2) subTaskListItem.id: subTaskListItem
+    };
+    if (map1.length != map2.length) return false;
+    for (var key in map1.keys) {
+      if (!map2.containsKey(key)) return false;
+      if (!map2[key]!.equals(map1[key]!)) return false;
     }
     return true;
-  }
-
-  bool _compareSubTask(SubTask? subTask1, SubTask? subTask2) {
-    if (subTask1 == null && subTask2 == null) return true;
-    if (subTask1 == null || subTask2 == null) return false;
-
-    return subTask1.localId == subTask2.localId &&
-        subTask1.title == subTask2.title &&
-        subTask1.description == subTask2.description &&
-        subTask1.deadLine == subTask2.deadLine &&
-        subTask1.isCompleted == subTask2.isCompleted &&
-        subTask1.totalTimeTaken == subTask2.totalTimeTaken &&
-        subTask1.duration == subTask2.duration &&
-        subTask1.id == subTask2.id;
   }
 
   bool _compareAssignedToDetailLists(
@@ -173,23 +164,20 @@ class GetTaskResponce {
       return false;
     }
 
-    for (int i = 0; i < list1.length; i++) {
-      if (!_compareAssignedToDetail(list1[i], list2[i])) {
-        return false;
-      }
+    final map1 = {
+      for (var assignedToDetailsItem in list1)
+        assignedToDetailsItem.userId: assignedToDetailsItem
+    };
+    final map2 = {
+      for (var assignedToDetailsItem in list2)
+        assignedToDetailsItem.userId: assignedToDetailsItem
+    };
+    if (map1.length != map2.length) return false;
+    for (var key in map1.keys) {
+      if (!map2.containsKey(key)) return false;
+      if (!map2[key]!.equals(map1[key]!)) return false;
     }
     return true;
-  }
-
-  bool _compareAssignedToDetail(
-      AssignedToDetail? detail1, AssignedToDetail? detail2) {
-    if (detail1 == null && detail2 == null) return true;
-    if (detail1 == null || detail2 == null) return false;
-
-    return detail1.localId == detail2.localId &&
-        detail1.userId == detail2.userId &&
-        detail1.name == detail2.name &&
-        detail1.isAccepted == detail2.isAccepted;
   }
 
   bool _compareCreatedUserDetails(
@@ -197,9 +185,7 @@ class GetTaskResponce {
     if (user1 == null && user2 == null) return true;
     if (user1 == null || user2 == null) return false;
 
-    return user1.id == user2.id &&
-        user1.name == user2.name &&
-        user1.profilePicture == user2.profilePicture;
+    return user1.equals(user2);
   }
 
   static const colTaskLocalId = 'task_local_id';

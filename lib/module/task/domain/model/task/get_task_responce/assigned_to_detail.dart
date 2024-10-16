@@ -28,27 +28,6 @@ class AssignedToDetail {
         isAccepted == other.isAccepted;
   }
 
-  // List comparison function for AssignedToDetail (ignores order)
-  static bool compareAssignedToDetailLists(
-      List<AssignedToDetail>? list1, List<AssignedToDetail>? list2) {
-    if (list1 == null && list2 == null) return true;
-    if (list1 == null || list2 == null || list1.length != list2.length) {
-      return false;
-    }
-
-    final map1 = {for (var detail in list1) detail.userId: detail};
-    final map2 = {for (var detail in list2) detail.userId: detail};
-
-    if (map1.length != map2.length) return false;
-
-    for (var id in map1.keys) {
-      if (!map2.containsKey(id)) return false;
-      if (!map1[id]!.equals(map2[id]!)) return false;
-    }
-
-    return true;
-  }
-
   static const colTaskAssignedToDetailLocalId =
       'task_assigned_to_detail_local_id';
 

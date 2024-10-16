@@ -22,4 +22,6 @@ class Attachment {
 
   static const colTaskAttachment = 'task_attachment';
   static const colTaskAttachmentType = 'task_attachment_type';
+
+  static const colTaskAttachmentReferenceId = 'task_attachment_reference_id';
 }

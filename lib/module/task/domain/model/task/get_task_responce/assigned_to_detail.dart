@@ -30,4 +30,7 @@ class AssignedToDetail {
       'task_assigned_to_detail_username';
   static const colTaskAssignedToDetailIsAccepted =
       'task_assigned_to_detail_is_accepted';
+
+  static const ccolTaskAssignedToDetailReferenceId =
+      'task_assigned_to_detail_reference_id ';
 }

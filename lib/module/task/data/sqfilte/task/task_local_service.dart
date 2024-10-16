@@ -2,7 +2,10 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart';
 import 'package:bizkit/module/task/domain/repository/sqfilte/task_local_repo.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/task/task_oncreate_db.dart';
@@ -27,6 +30,11 @@ class TaskLocalService implements TaskLocalRepo {
       addFullTaskDetailsToLocalStorage(
           {required GetTaskResponce taskModel}) async {
     try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('updateTaskFromLocalStorage error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
       // Convert the tags list to a comma-separated string
       String tagsAsString = (taskModel.tags ?? []).join(',');
 
@@ -41,7 +49,7 @@ class TaskLocalService implements TaskLocalRepo {
         ${GetTaskResponce.colTaskRecurrentTask},
         ${GetTaskResponce.colTaskIsCompleted},
         ${GetTaskResponce.colTaskIsOwned},
-        ${GetTaskResponce.colTaskDeadLine},
+        ${GetTaskResponce.colTaskDeadLine}, 
         ${GetTaskResponce.colTaskIsKilled},
         ${GetTaskResponce.colTaskTags},
         ${GetTaskResponce.colTaskCreatedAt},
@@ -54,28 +62,22 @@ class TaskLocalService implements TaskLocalRepo {
       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
       ''';
 
-      await localService.rawInsert(
+      final referenceId = await localService.rawInsert(
         query,
         [
-          await userId,
+          currentUserId,
           taskModel.id ?? '',
           taskModel.createdBy ?? '',
           taskModel.title ?? '',
           taskModel.description ?? '',
           taskModel.priorityLevel ?? '',
-          (
-            (taskModel.recurrentTask ?? false) ? 1 : 0,
-          ), // Convert boolean to int (1/0)
-          (
-            (taskModel.isCompleted ?? false) ? 1 : 0,
-          ), // Convert boolean to int (1/0)
-          (
-            (taskModel.isOwned ?? false) ? 1 : 0,
-          ), // Convert boolean to int (1/0)
+          taskModel.recurrentTask == true
+              ? 1
+              : 0, // Convert boolean to int (1/0)
+          taskModel.isCompleted == true ? 1 : 0, // Convert boolean to int (1/0)
+          taskModel.isOwned == true ? 1 : 0, // Convert boolean to int (1/0)
           taskModel.deadLine ?? '',
-          (
-            (taskModel.isKilled ?? false) ? 1 : 0,
-          ), // Convert boolean to int (1/0)
+          taskModel.isKilled == true ? 1 : 0, // Convert boolean to int (1/0)
           tagsAsString,
           taskModel.createdAt ?? '',
           taskModel.status ?? '',
@@ -87,41 +89,80 @@ class TaskLocalService implements TaskLocalRepo {
         ],
       );
 
+      const attachmentQuery = '''
+      INSERT INTO ${TaskSql.taskAttachmentsTable} (
+        ${Attachment.colTaskAttachment},
+        ${Attachment.colTaskAttachmentType},
+        ${Attachment.colTaskAttachmentReferenceId})
+      VALUES(?,?,?)  
+      ''';
+
+      for (var attachment in taskModel.attachments ?? <Attachment>[]) {
+        await localService.rawInsert(
+          attachmentQuery,
+          [
+            attachment.attachment,
+            attachment.type,
+            referenceId,
+          ],
+        );
+      }
+
+      const subTaskQuery = '''
+      INSERT INTO ${TaskSql.taskSubTasksTable}(
+        ${SubTask.colTaskSubtaskId},
+        ${SubTask.colTaskSubtaskTitle},
+        ${SubTask.colTaskSubtaskDescription},
+        ${SubTask.colTaskSubtaskDeadline},
+        ${SubTask.colTaskSubtaskIsCompleted},
+        ${SubTask.colTaskSubtaskTotalTimeTaken},
+        ${SubTask.colTaskSubtaskDuration},
+        ${SubTask.colTaskSubTaskReferenceId})
+      VALUES(?,?,?,?,?,?,?,?)  
+      ''';
+
+      for (var subtask in taskModel.subTask ?? <SubTask>[]) {
+        await localService.rawInsert(
+          subTaskQuery,
+          [
+            subtask.id,
+            subtask.title,
+            subtask.description,
+            subtask.deadLine,
+            subtask.isCompleted == true ? 1 : 0, // Convert boolean to int (1/0)
+            subtask.totalTimeTaken,
+            subtask.duration,
+            referenceId
+          ],
+        );
+      }
+
+      const assignedToDetailsQuery = '''
+      INSERT INTO ${TaskSql.taskAssignedToDetailTable}(
+         ${AssignedToDetail.colTaskAssignedToDetailUserId},
+         ${AssignedToDetail.colTaskAssignedToDetailUserName},
+         ${AssignedToDetail.colTaskAssignedToDetailIsAccepted},
+         ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId})
+      VALUES(?,?,?,?)   
+      ''';
+
+      for (var assignedToDetail
+          in taskModel.assignedToDetails ?? <AssignedToDetail>[]) {
+        await localService.rawInsert(
+          assignedToDetailsQuery,
+          [
+            assignedToDetail.userId,
+            assignedToDetail.name,
+            assignedToDetail.isAccepted,
+            referenceId
+          ],
+        );
+      }
+
       log('addFullTaskDetailsToLocalStorage success =====> ');
       return Right(SuccessResponseModel());
     } catch (e) {
       log('addFullTaskDetailsToLocalStorage exception =====> ${e.toString()}');
-      return Left(Failure());
-    }
-  }
-
-  /// Add full task details to local storage if not present
-  @override
-  Future<Either<Failure, SuccessResponseModel>>
-      addFullTaskDetailsToLocalStorageIfNotPresentInStorage(
-          {required GetTaskResponce taskModel}) async {
-    try {
-      /// SQL query to check if the task is already present in the [ TaskSql.tasksTable ]
-      const String query = '''
-      SELECT COUNT(*) 
-      FROM ${TaskSql.tasksTable} 
-      WHERE ${GetTaskResponce.colTaskId} = ? 
-      AND ${GetTaskResponce.colUserId} = ?
-    ''';
-
-      /// Check if the task is present in the database
-      final bool present =
-          await localService.presentOrNot(query, [taskModel.id, await userId]);
-
-      // If not present, add the task; otherwise, update it
-      if (!present) {
-        return await addFullTaskDetailsToLocalStorage(taskModel: taskModel);
-      } else {
-        return await updateFullTaskDetailsFromLocalStorage(
-            taskModel: taskModel);
-      }
-    } catch (e) {
-      log('addFullTaskDetailsToLocalStorageIfNotPresentInStorage exception =====> ${e.toString()}');
       return Left(Failure());
     }
   }
@@ -132,6 +173,12 @@ class TaskLocalService implements TaskLocalRepo {
       updateFullTaskDetailsFromLocalStorage(
           {required GetTaskResponce taskModel}) async {
     try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('updateTaskFromLocalStorage error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
       // Convert the tags list to a comma-separated string
       String tagsAsString = (taskModel.tags ?? []).join(',');
 
@@ -165,25 +212,19 @@ class TaskLocalService implements TaskLocalRepo {
       await localService.rawUpdate(
         query,
         [
-          await userId,
+          currentUserId,
           taskModel.id ?? '',
           taskModel.createdBy ?? '',
           taskModel.title ?? '',
           taskModel.description ?? '',
           taskModel.priorityLevel ?? '',
-          ((taskModel.recurrentTask ?? false)
+          taskModel.recurrentTask == true
               ? 1
-              : 0), // // Convert boolean to int (1/0)
-          ((taskModel.isCompleted ?? false)
-              ? 1
-              : 0), // // Convert boolean to int (1/0)
-          ((taskModel.isOwned ?? false)
-              ? 1
-              : 0), // // Convert boolean to int (1/0)
+              : 0, // Convert boolean to int (1/0)
+          taskModel.isCompleted == true ? 1 : 0, // Convert boolean to int (1/0)
+          taskModel.isOwned == true ? 1 : 0, // Convert boolean to int (1/0)
           taskModel.deadLine ?? '',
-          ((taskModel.isKilled ?? false)
-              ? 1
-              : 0), // // Convert boolean to int (1/0)
+          taskModel.isKilled == true ? 1 : 0, // Convert boolean to int (1/0)
           tagsAsString,
           taskModel.createdAt ?? '',
           taskModel.status ?? '',
@@ -201,6 +242,37 @@ class TaskLocalService implements TaskLocalRepo {
       return Right(SuccessResponseModel());
     } catch (e) {
       log('updateFullTaskDetailsFromLocalStorage exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  /// Add full task details to local storage if not present
+  @override
+  Future<Either<Failure, SuccessResponseModel>>
+      addFullTaskDetailsToLocalStorageIfNotPresentInStorage(
+          {required GetTaskResponce taskModel}) async {
+    try {
+      /// SQL query to check if the task is already present in the [ TaskSql.tasksTable ]
+      const String query = '''
+      SELECT COUNT(*) 
+      FROM ${TaskSql.tasksTable} 
+      WHERE ${GetTaskResponce.colTaskId} = ? 
+      AND ${GetTaskResponce.colUserId} = ?
+    ''';
+
+      /// Check if the task is present in the database
+      final bool present =
+          await localService.presentOrNot(query, [taskModel.id, await userId]);
+
+      // If not present, add the task; otherwise, update it
+      if (!present) {
+        return await addFullTaskDetailsToLocalStorage(taskModel: taskModel);
+      } else {
+        return await updateFullTaskDetailsFromLocalStorage(
+            taskModel: taskModel);
+      }
+    } catch (e) {
+      log('addFullTaskDetailsToLocalStorageIfNotPresentInStorage exception =====> ${e.toString()}');
       return Left(Failure());
     }
   }

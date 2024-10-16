@@ -1,15 +1,25 @@
 import 'dart:developer';
 
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart';
 import 'package:sqflite/sqflite.dart' as sql;
+
+import '../../../../module/task/domain/model/task/get_task_responce/attachment.dart';
 
 class TaskSql {
   static const tasksTable = 'bizkit_tasks';
+  static const taskAttachmentsTable = 'task_attachments';
+  static const taskSubTasksTable = 'task_subtasks';
+  static const taskAssignedToDetailTable = 'task_assigned_to_detail';
 
   static Future onCreate(sql.Database db) async {
     try {
       log('----------------- oncreate database task module ---------------------');
       await db.execute(_bizkitTaskTableCreation);
+      await db.execute(_taskAttachmentsTableCreation);
+      await db.execute(_taskSubTasksTableCreation);
+      await db.execute(_taskAssignedToDetailTableCreation);
     } catch (e) {
       log('onCreate ==> ${e.toString()}');
     }
@@ -42,5 +52,47 @@ class TaskSql {
     ${GetTaskResponce.colTaskSpotlightOn} INTEGER,  -- Boolean field (1 for true, 0 for false)
     ${GetTaskResponce.colTaskIsPinned} INTEGER  -- Boolean field (1 for true, 0 for false)
   )
+  ''';
+
+  /// Table for [Attachment] relation with [GetTaskResponce]
+  static const String _taskAttachmentsTableCreation = '''
+    CREATE TABLE IF NOT EXISTS $taskAttachmentsTable(
+      ${Attachment.colTaskAttachmentLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Attachment.colTaskAttachment} TEXT,
+      ${Attachment.colTaskAttachmentType} TEXT,
+      ${Attachment.colTaskAttachmentReferenceId} TEXT,
+      FOREIGN KEY (${Attachment.colTaskAttachmentReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
+      ON DELETE CASCADE  
+    )
+  ''';
+
+  /// Table for [SubTask] relation with [GetTaskResponce]
+  static const String _taskSubTasksTableCreation = '''
+    CREATE TABLE IF NOT EXISTS $taskSubTasksTable(
+      ${SubTask.colTaskSubtaskLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${SubTask.colTaskSubtaskId} TEXT,
+      ${SubTask.colTaskSubtaskTitle} TEXT,
+      ${SubTask.colTaskSubtaskDescription} TEXT,
+      ${SubTask.colTaskSubtaskDeadline} TEXT,
+      ${SubTask.colTaskSubtaskIsCompleted} INTEGER,  -- Boolean field (1 for true, 0 for false)
+      ${SubTask.colTaskSubtaskTotalTimeTaken} TEXT,
+      ${SubTask.colTaskSubtaskDuration} TEXT,
+      ${SubTask.colTaskSubTaskReferenceId} TEXT,
+      FOREIGN KEY (${SubTask.colTaskSubTaskReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
+      ON DELETE CASCADE 
+    )
+  ''';
+
+  /// Table for [AssignedToDetail] relation with [GetTaskResponce]
+  static const String _taskAssignedToDetailTableCreation = '''
+    CREATE TABLE IF NOT EXISTS $taskAssignedToDetailTable(
+      ${AssignedToDetail.colTaskAssignedToDetailLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${AssignedToDetail.colTaskAssignedToDetailUserId} TEXT,
+      ${AssignedToDetail.colTaskAssignedToDetailUserName} TEXT,
+       ${AssignedToDetail.colTaskAssignedToDetailIsAccepted} TEXT,
+      ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId} TEXT,
+      FOREIGN KEY (${AssignedToDetail.ccolTaskAssignedToDetailReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
+      ON DELETE CASCADE 
+    )
   ''';
 }

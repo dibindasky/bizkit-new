@@ -65,4 +65,6 @@ class SubTask {
   static const colTaskSubtaskIsCompleted = 'task_subtask_is_completed';
   static const colTaskSubtaskTotalTimeTaken = 'task_subtask_total_time_taken';
   static const colTaskSubtaskDuration = 'task_subtask_duration';
+
+  static const colTaskSubTaskReferenceId = 'task_subtask_reference_id';
 }

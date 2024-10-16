@@ -709,10 +709,10 @@ class CreateTaskController extends GetxController {
         taksListLoading.value = false;
       },
     );
-    for (var task in deadlineTasks) {
-      await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-          taskModel: task);
-    }
+    // for (var task in deadlineTasks) {
+    //   await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+    //       taskModel: task);
+    // }
   }
 
 // / Filters tasks by deadline  - [ Pagination ]

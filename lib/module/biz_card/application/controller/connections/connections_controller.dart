@@ -20,13 +20,13 @@ import 'package:bizkit/module/biz_card/domain/model/connections/shared_cards/sha
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/my_connection_repo.dart';
-import 'package:bizkit/service/local_service/sql/bizcard/bizcard_oncreate_db.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -327,6 +327,7 @@ class ConnectionsController extends GetxController {
   }
 
   Future<void> getConnectionDatasFromLocal() async {
+    myConnectionsLoading.value = true;
     final resultLocal =
         await myConnectionLocalService.getMyconnectionsFromLocal();
 
@@ -337,12 +338,12 @@ class ConnectionsController extends GetxController {
 
       log('success local data get -----------------------------------------------------------------');
       for (var datas in myConnections) {
-        log(datas.username.toString());
+        log('from dta ${datas.username.toString()}');
       }
+      if (myConnections.isNotEmpty) myConnectionsLoading.value = false;
     });
   }
 
-  // TODO: for tomorrow
   /// Get my all connections
   void fetchMyConnections(bool isLoad) async {
     if (myConnections.isNotEmpty && !isLoad) return;
@@ -350,12 +351,12 @@ class ConnectionsController extends GetxController {
     fetchMyConnectionPageNumber = 1;
 
     //delete complete datas of table
-    //  await MyConnectionLocalService().deleteAllLocalDatas();
+    // await MyConnectionLocalService().deleteAllLocalDatas();
 
     //get connection datas form local
     await getConnectionDatasFromLocal();
-
-    myConnectionsLoading.value = true;
+    print('my connections lenth after local get ${myConnections.length}');
+    // myConnectionsLoading.value = true;
 
     //get connection datas from api
     final result = await connectionService.getMyconnections(
@@ -368,9 +369,10 @@ class ConnectionsController extends GetxController {
       },
       (success) async {
         if (myConnections.isEmpty) {
+          print('my connection empty 1');
           myConnections.assignAll(success.data ?? []);
           for (var eachMyConnection in myConnections) {
-            await myConnectionLocalService.addMyConnectionsIntoLocal(
+            await myConnectionLocalService.addMyConnecitonToLocalStorageIfNotPresentInStorage(
                 myconnection: eachMyConnection);
           }
         } else {
@@ -378,15 +380,21 @@ class ConnectionsController extends GetxController {
           for (var datas in success.data ?? <MyConnection>[]) {
             final index = myConnections
                 .indexWhere((value) => value.toUser == datas.toUser);
+            print('my connection empty 2');
             if (index == -1) {
+              print('my connection empty 3');
               myConnections.insert(0, datas);
-              myConnectionLocalService.addMyConnectionsIntoLocal(
+              myConnectionLocalService.addMyConnecitonToLocalStorageIfNotPresentInStorage(
                   myconnection: datas);
             } else {
-              if (!datas.equals(myConnections[index])) {
+              if (!myConnections[index].equals(datas)) {
                 myConnections[index] = datas;
-                myConnectionLocalService.deleteAndUpdateCurrentUserData(
-                    myconnection: datas);
+                myConnectionLocalService
+                    .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                        myconnection: datas);
+                if (kDebugMode) {
+                  print('my connection empty 5');
+                }
               }
             }
           }
@@ -398,23 +406,40 @@ class ConnectionsController extends GetxController {
   }
 
   void fetchMyConnectionsLoadMore() async {
-    if (fetchMyconnectionLoadMore.value) {
-      return;
-    }
-    fetchMyconnectionLoadMore.value = true;
-    final result = await connectionService.getMyconnections(
-        paginationQuery: PaginationQuery(
-            page: ++fetchMyConnectionPageNumber, pageSize: pageSize));
-    result.fold(
-      (failure) {
-        fetchMyconnectionLoadMore.value = false;
-      },
-      (success) {
-        myConnections.addAll(success.data ?? []);
-        fetchMyconnectionLoadMore.value = false;
-      },
-    );
-    fetchMyconnectionLoadMore.value = false;
+    // if (fetchMyconnectionLoadMore.value) {
+    //   return;
+    // }
+    // fetchMyconnectionLoadMore.value = true;
+
+    // await getConnectionDatasFromLocal();
+
+    // final result = await connectionService.getMyconnections(
+    //     paginationQuery: PaginationQuery(
+    //         page: ++fetchMyConnectionPageNumber, pageSize: pageSize));
+    // result.fold(
+    //   (failure) {
+    //     fetchMyconnectionLoadMore.value = false;
+    //   },
+    //   (success) {
+    //     for (var datas in success.data ?? <MyConnection>[]) {
+    //       final index =
+    //           myConnections.indexWhere((value) => value.toUser == datas.toUser);
+    //       if (index == -1) {
+    //         myConnections.insert(0, datas);
+    //         myConnectionLocalService.addMyConnectionsIntoLocal(
+    //             myconnection: datas);
+    //       } else {
+    //         if (!datas.equals(myConnections[index])) {
+    //           myConnections[index] = datas;
+    //           myConnectionLocalService.deleteAndUpdateCurrentUserData(
+    //               myconnection: datas);
+    //         }
+    //       }
+    //     }
+    //     fetchMyconnectionLoadMore.value = false;
+    //   },
+    // );
+    // fetchMyconnectionLoadMore.value = false;
   }
 
   // Cancel connection request

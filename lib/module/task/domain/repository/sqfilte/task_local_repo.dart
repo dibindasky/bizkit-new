@@ -1,5 +1,6 @@
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:dartz/dartz.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart'
@@ -20,8 +21,13 @@ abstract class TaskLocalRepo {
       {required GetTaskResponce taskModel});
 
   Future<Either<Failure, SuccessResponseModel>>
-      addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
-          {required GetTaskResponce taskModel});
+      addTaskFullDetailsToLocalStorageIfNotPresentInStorage({
+    required GetTaskResponce taskModel,
+  });
+
+  Future<Either<Failure, SuccessResponseModel>>
+      addTaskAttachmentsToLocalStorageIfNotPresentInStorage(
+          {required List<Attachment> attachments, required int referenceId});
 
   Future<Either<Failure, SuccessResponseModel>>
       updateTaskFullDetailsFromLocalStorage(

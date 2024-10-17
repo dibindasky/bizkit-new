@@ -1007,6 +1007,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // Filters pinned tasks by type - [ Pagination ]
   void filterPinnedTasksByTypeLoadMore() async {
     if (pinnedTasksLoadMoreLoading.value == true) {
       return;
@@ -1106,6 +1107,7 @@ class CreateTaskController extends GetxController {
     });
   }
 
+// Searches for participants - [ Pagination ]
   void searchParticipantsLoadMore() async {
     debouncer.run(() async {
       if (searchLoadMoreLoading.value == true) {
@@ -1147,26 +1149,28 @@ class CreateTaskController extends GetxController {
     await fetchSingleTaskFromLocalStorage(singleTaskModel);
 
     final result = await taskService.getTask(singleTaskModel: singleTaskModel);
-    result.fold(
+    await result.fold(
       (failure) {
         isLoading.value = false;
         fetchSingleTaskError.value = true;
         log(failure.message.toString());
       },
-      (success) {
+      (success) async {
         // If the fetched task matches the current task, update the singleTask observable
-        if (singleTask.value.id == success.id) {
+        if (singleTaskModel.taskId == success.id) {
           singleTask.value = success;
         }
         isLoading.value = false;
 
         // Add the fetched task to local storage if it's not already stored
-        taskLocalService.addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
-            taskModel: success);
+        await taskLocalService
+            .addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
+                taskModel: success);
       },
     );
   }
 
+// Task details from local storage
   Future<void> fetchSingleTaskFromLocalStorage(
       GetSingleTaskModel singleTaskModel) async {
     isLoading.value = true;
@@ -1176,10 +1180,14 @@ class CreateTaskController extends GetxController {
             taskId: singleTaskModel.taskId ?? '');
 
     responseFromLocalStorage.fold(
-      (failure) => null,
+      (failure) {
+        log('Failed to fetch task from local storage: ${failure.message}');
+      },
       (success) {
         singleTask.value = success;
-        isLoading.value = false;
+        if (success.id != null) {
+          isLoading.value = false;
+        }
       },
     );
   }
@@ -1413,6 +1421,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// get tasks counts
   void getTasksCountWithoutDate() async {
     isLoading.value = true;
     // log('DateTime ===> ${DateTimeFormater.dateTimeFormat(DateTime.now().add(const Duration(days: 31)))}');
@@ -1436,6 +1445,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Add new users to assgined users list
   void addNewUserToAssginedUsers(
       {required AddNewAssinedUsersModel addNewAssginedUsersModel}) async {
     isLoading.value = true;
@@ -1454,6 +1464,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Remove a assgined user from assgined users list
   void removeUserFromAssginedUsers(
       {required RemoveUserFromAssignedModel
           removeUserFromAssignedModel}) async {
@@ -1473,6 +1484,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Fetch all completed tasks
   void fetchAllCompletedTasks() async {
     filterByTypeLoading.value = true;
     final result = await taskService.getAllCompletedTasks();
@@ -1488,6 +1500,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Fetch all killed tasks
   void fetchAllKilledTasks() async {
     filterByTypeLoading.value = true;
     final result = await taskService.getAllKilledTasks();
@@ -1503,6 +1516,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Complete the subtask
   void completedSubTask({
     required CompletedSubTask completedSubTask,
     required BuildContext context,
@@ -1548,6 +1562,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Fetch task total time and expense
   void fetchTaskTotalTimeAndExpense(
       {required GetSingleTaskModel taskId,
       required BuildContext context}) async {
@@ -1657,7 +1672,6 @@ class CreateTaskController extends GetxController {
   }
 
   // fetch all quick tasks [ Pagination ]
-
   void fetchAllQuickTasksLoadMore() async {
     if (quickTasksLoadMore.value == true) {
       return;

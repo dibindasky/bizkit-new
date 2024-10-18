@@ -11,6 +11,78 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+// class ScreenTaskDetailPage extends StatelessWidget {
+//   const ScreenTaskDetailPage({
+//     super.key,
+//     this.taskId,
+//   });
+
+//   final String? taskId;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final taskController = Get.find<CreateTaskController>();
+//     return Scaffold(
+//       body: SafeArea(
+//         child: Padding(
+//           padding: const EdgeInsets.all(16.0),
+//           child: RefreshIndicator(
+//             onRefresh: () async {
+//               taskController.fetchSingleTask(
+//                   singleTaskModel: GetSingleTaskModel(taskId: taskId ?? ''));
+//             },
+//             child: Obx(
+//               () {
+//                 if (taskController.fetchSingleTaskError.value) {
+//                   return GestureDetector(
+//                     onTap: () {
+//                       taskController.fetchSingleTask(
+//                           singleTaskModel:
+//                               GetSingleTaskModel(taskId: taskId ?? ''));
+//                     },
+//                     child: const Center(
+//                       child: Column(
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         children: [
+//                           Icon(
+//                             Icons.refresh,
+//                             color: neonShade,
+//                           ),
+//                           Text('Tap to retry'),
+//                         ],
+//                       ),
+//                     ),
+//                   );
+//                 }
+//                 return SingleChildScrollView(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       const TaskDetailHeaderSection(),
+//                       adjustHieght(15.h),
+//                       const TaskDetailUserInfoSection(),
+//                       adjustHieght(15.h),
+//                       const TaskDetailDescriptionSection(),
+//                       adjustHieght(15.h),
+//                       const TaskDetailAttachmentsSection(),
+//                       adjustHieght(15.h),
+//                       const TaskDetailTagsSection(),
+//                       adjustHieght(15.h),
+//                       const TaskDetailSubtasksSection(),
+//                       adjustHieght(150.h),
+//                     ],
+
+//                   ),
+//                 );
+//               },
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 class ScreenTaskDetailPage extends StatelessWidget {
   const ScreenTaskDetailPage({
     super.key,
@@ -54,24 +126,58 @@ class ScreenTaskDetailPage extends StatelessWidget {
                     ),
                   );
                 }
-                return SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const TaskDetailHeaderSection(),
-                      adjustHieght(15.h),
-                      const TaskDetailUserInfoSection(),
-                      adjustHieght(15.h),
-                      const TaskDetailDescriptionSection(),
-                      adjustHieght(15.h),
-                      const TaskDetailAttachmentsSection(),
-                      adjustHieght(15.h),
-                      const TaskDetailTagsSection(),
-                      adjustHieght(15.h),
-                      const TaskDetailSubtasksSection(),
-                      adjustHieght(150.h),
-                    ],
-                  ),
+                return Stack(
+                  children: [
+                    SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TaskDetailHeaderSection(),
+                          adjustHieght(15.h),
+                          const TaskDetailUserInfoSection(),
+                          adjustHieght(15.h),
+                          const TaskDetailDescriptionSection(),
+                          adjustHieght(15.h),
+                          const TaskDetailAttachmentsSection(),
+                          adjustHieght(15.h),
+                          const TaskDetailTagsSection(),
+                          adjustHieght(15.h),
+                          const TaskDetailSubtasksSection(),
+                          adjustHieght(150.h),
+                        ],
+                      ),
+                    ),
+                    if (taskController.isSyncing.value)
+                      const Positioned(
+                        bottom: 10,
+                        left: 120,
+                        child: Center(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                width: 15,
+                                height: 15,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    neonShade,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'Syncing...',
+                                style: TextStyle(
+                                    color: neonShade,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ],
                 );
               },
             ),

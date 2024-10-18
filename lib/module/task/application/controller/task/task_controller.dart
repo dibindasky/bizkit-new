@@ -225,6 +225,7 @@ class CreateTaskController extends GetxController {
   RxBool fetchSingleTaskError =
       false.obs; // Boolean for tracking errors when fetching a single task
 
+  final RxBool isSyncing = false.obs;
 // Loading states for various UI components
   RxBool isLoading = false.obs; // General loading state
 
@@ -1160,7 +1161,13 @@ class CreateTaskController extends GetxController {
       (success) async {
         // If the fetched task matches the current task, update the singleTask observable
         if (singleTaskModel.taskId == success.id) {
+          isSyncing.value = true; // Start syncing indication
+
           singleTask.value = success;
+
+          await Future.delayed(
+              const Duration(seconds: 1)); // Simulating sync time
+          isSyncing.value = false; // End syncing indication
         }
         isLoading.value = false;
 
@@ -1180,8 +1187,6 @@ class CreateTaskController extends GetxController {
     final responseFromLocalStorage =
         await taskLocalService.getTaskFullDetailsFromLocalStorage(
             taskId: singleTaskModel.taskId ?? '');
-
-    log('Task Id local storage ==> ${singleTaskModel.taskId}');
 
     responseFromLocalStorage.fold(
       (failure) {

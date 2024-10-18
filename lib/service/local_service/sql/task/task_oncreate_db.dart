@@ -60,7 +60,7 @@ class TaskSql {
       ${Attachment.colTaskAttachmentLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
       ${Attachment.colTaskAttachment} TEXT,
       ${Attachment.colTaskAttachmentType} TEXT,
-      ${Attachment.colTaskAttachmentReferenceId} TEXT,
+      ${Attachment.colTaskAttachmentReferenceId} INTEGER,
       FOREIGN KEY (${Attachment.colTaskAttachmentReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE  
     )
@@ -77,7 +77,7 @@ class TaskSql {
       ${SubTask.colTaskSubtaskIsCompleted} INTEGER,  -- Boolean field (1 for true, 0 for false)
       ${SubTask.colTaskSubtaskTotalTimeTaken} TEXT,
       ${SubTask.colTaskSubtaskDuration} TEXT,
-      ${SubTask.colTaskSubTaskReferenceId} TEXT,
+      ${SubTask.colTaskSubTaskReferenceId} INTEGER,
       FOREIGN KEY (${SubTask.colTaskSubTaskReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE 
     )
@@ -90,7 +90,7 @@ class TaskSql {
       ${AssignedToDetail.colTaskAssignedToDetailUserId} TEXT,
       ${AssignedToDetail.colTaskAssignedToDetailUserName} TEXT,
        ${AssignedToDetail.colTaskAssignedToDetailIsAccepted} TEXT,
-      ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId} TEXT,
+      ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId} INTEGER,
       FOREIGN KEY (${AssignedToDetail.ccolTaskAssignedToDetailReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE 
     )

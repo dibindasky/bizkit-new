@@ -338,7 +338,7 @@ class ConnectionsController extends GetxController {
 
       log('success local data get -----------------------------------------------------------------');
       for (var datas in myConnections) {
-        log('from dta ${datas.username.toString()}');
+        log('from dta ${datas.cards?.length.toString()}');
       }
       if (myConnections.isNotEmpty) myConnectionsLoading.value = false;
     });
@@ -355,7 +355,6 @@ class ConnectionsController extends GetxController {
 
     //get connection datas form local
     await getConnectionDatasFromLocal();
-    print('my connections lenth after local get ${myConnections.length}');
     // myConnectionsLoading.value = true;
 
     //get connection datas from api
@@ -369,32 +368,29 @@ class ConnectionsController extends GetxController {
       },
       (success) async {
         if (myConnections.isEmpty) {
-          print('my connection empty 1');
+          log('my connection empty 1');
           myConnections.assignAll(success.data ?? []);
           for (var eachMyConnection in myConnections) {
-            await myConnectionLocalService.addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                myconnection: eachMyConnection);
+            await myConnectionLocalService
+                .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                    myconnection: eachMyConnection);
           }
         } else {
-          print('checking side of result');
           for (var datas in success.data ?? <MyConnection>[]) {
             final index = myConnections
                 .indexWhere((value) => value.toUser == datas.toUser);
-            print('my connection empty 2');
             if (index == -1) {
-              print('my connection empty 3');
               myConnections.insert(0, datas);
-              myConnectionLocalService.addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                  myconnection: datas);
+              myConnectionLocalService
+                  .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                      myconnection: datas);
             } else {
               if (!myConnections[index].equals(datas)) {
+                int localid = myConnections[index].localId!;
                 myConnections[index] = datas;
                 myConnectionLocalService
                     .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                        myconnection: datas);
-                if (kDebugMode) {
-                  print('my connection empty 5');
-                }
+                        myconnection: datas.copyWith(localId: localid));
               }
             }
           }

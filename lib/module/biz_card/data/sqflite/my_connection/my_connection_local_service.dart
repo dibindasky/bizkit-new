@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/card.dart';
@@ -26,13 +28,22 @@ class MyConnectionLocalService implements MyConnectionLocalRepo {
           ${MyConnection.colUserNmae} )
           VALUES (?,?,?)
            ''';
-      int myConnectionId = await localService.rawInsert(query, [
+      int referenceLocalId = await localService.rawInsert(query, [
         currentUserId ?? '',
         myconnection.toUser ?? '',
         myconnection.username ?? ''
       ]);
 
-      const cardQeury = '''INSERT INTO ${BizCardSql.myConnectionCardTable}(
+      await cardInsertOrUpdate(myconnection.cards ?? [], referenceLocalId);
+
+      return Right(SuccessResponce());
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  cardInsert(Card card, referenceLocalId) async {
+    const cardQeury = '''INSERT INTO ${BizCardSql.myConnectionCardTable}(
           ${Card.colConnectionId},
           ${Card.colCard},
           ${Card.colUSer},
@@ -46,25 +57,18 @@ class MyConnectionLocalService implements MyConnectionLocalRepo {
           VALUES(?,?,?,?,?,?,?,?,?,?)
          ''';
 
-      for (var cards in myconnection.cards ?? <Card>[]) {
-        await localService.rawInsert(cardQeury, [
-          cards.connectionId ?? '',
-          cards.toCard ?? '',
-          cards.toUser ?? '',
-          cards.name ?? '',
-          cards.businessName ?? '',
-          cards.businessDesignation ?? '',
-          cards.connectedDate?.toString() ?? '',
-          cards.imageUrl?.toString() ?? '',
-          cards.connectedViaQr?.toString() ?? '',
-          myConnectionId
-        ]);
-      }
-
-      return Right(SuccessResponce());
-    } catch (e) {
-      return Left(Failure(message: e.toString()));
-    }
+    await localService.rawInsert(cardQeury, [
+      card.connectionId ?? '',
+      card.toCard ?? '',
+      card.toUser ?? '',
+      card.name ?? '',
+      card.businessName ?? '',
+      card.businessDesignation ?? '',
+      card.connectedDate?.toString() ?? '',
+      card.imageUrl?.toString() ?? '',
+      card.connectedViaQr?.toString() ?? '',
+      referenceLocalId
+    ]);
   }
 
   @override
@@ -77,7 +81,7 @@ class MyConnectionLocalService implements MyConnectionLocalRepo {
           '''SELECT COUNT(*) FROM ${BizCardSql.myConnectionTable} WHERE ${MyConnection.colCurrentUserId} = ? AND ${MyConnection.colToUser} = ?''';
       final bool present = await localService.presentOrNot(
           query, [currentUserId ?? '', myconnection.toUser ?? '']);
-      print('presnt or not - ${myconnection.username} - $present');
+
       if (!present) {
         await addMyConnectionsIntoLocal(myconnection: myconnection);
       } else {
@@ -90,30 +94,55 @@ class MyConnectionLocalService implements MyConnectionLocalRepo {
     }
   }
 
- @override
-Future<Either<Failure, SuccessResponce>> updateCurrentUserData(
-    {required MyConnection myconnection}) async {
+  @override
+  Future<Either<Failure, SuccessResponce>> updateCurrentUserData(
+      {required MyConnection myconnection}) async {
+    try {
+      final currentUserId = await SecureStorage.getUserId();
+      final localId = myconnection.localId ?? '';
 
-  try {
-    final currentUserId = await SecureStorage.getUserId();
-    final localId = myconnection.localId ?? '';
-
-    // Update the MyConnection table with new values
-    const updateMyconnectionQuery = '''
+      // Update the MyConnection table with new values
+      const updateMyconnectionQuery = '''
       UPDATE ${BizCardSql.myConnectionTable}
       SET ${MyConnection.colCurrentUserId} = ?, 
           ${MyConnection.colToUser} = ?, 
           ${MyConnection.colUserNmae} = ?
       WHERE ${MyConnection.colLocalId} = ?''';
 
-    await localService.rawUpdate(updateMyconnectionQuery, [
-      currentUserId ?? '',
-      myconnection.toUser ?? '',
-      myconnection.username ?? '',
-      localId
-    ]);
+      await localService.rawUpdate(updateMyconnectionQuery, [
+        currentUserId ?? '',
+        myconnection.toUser ?? '',
+        myconnection.username ?? '',
+        localId
+      ]);
+      // Update the MyConnectionCard table for each card
+      await cardInsertOrUpdate(myconnection.cards ?? [], localId);
 
-    // Update the MyConnectionCard table for each card
+      return Right(SuccessResponce());
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  cardInsertOrUpdate(List<Card> listOfCards, localId) async {
+    try {
+      const String query =
+          '''SELECT COUNT(*) FROM ${BizCardSql.myConnectionCardTable} WHERE ${Card.myConnectionIdReference} = ? AND ${Card.colCard} = ?''';
+      for (var card in listOfCards) {
+        bool present =
+            await localService.presentOrNot(query, [localId, card.toCard]);
+        if (!present) {
+          await cardInsert(card, localId);
+        } else {
+          await cardUpdate(card: card, referenceLocalId: localId);
+        }
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  cardUpdate({required Card card, required int referenceLocalId}) async {
     const updateCardQuery = '''
       UPDATE ${BizCardSql.myConnectionCardTable}
       SET ${Card.colConnectionId} = ?, 
@@ -125,29 +154,22 @@ Future<Either<Failure, SuccessResponce>> updateCurrentUserData(
           ${Card.colConnectedDate} = ?, 
           ${Card.colImageUrl} = ?, 
           ${Card.colConnectedVirQr} = ?
-      WHERE ${Card.myConnectionIdReference} = ? AND ${Card.colConnectionId} = ?''';
+      WHERE ${Card.myConnectionIdReference} = ? AND ${Card.colCard} = ?''';
 
-    for (var card in myconnection.cards ?? <Card>[]) {
-      await localService.rawUpdate(updateCardQuery, [
-        card.connectionId ?? '',
-        card.toCard ?? '',
-        card.toUser ?? '',
-        card.name ?? '',
-        card.businessName ?? '',
-        card.businessDesignation ?? '',
-        card.connectedDate?.toString() ?? '',
-        card.imageUrl?.toString() ?? '',
-        card.connectedViaQr?.toString() ?? '',
-        localId,
-        card.connectionId ?? '' // The card's existing connectionId as a reference
-      ]);
-    }
-
-    return Right(SuccessResponce());
-  } catch (e) {
-    return Left(Failure(message: e.toString()));
+    await localService.rawUpdate(updateCardQuery, [
+      card.connectionId ?? '',
+      card.toCard ?? '',
+      card.toUser ?? '',
+      card.name ?? '',
+      card.businessName ?? '',
+      card.businessDesignation ?? '',
+      card.connectedDate?.toString() ?? '',
+      card.imageUrl?.toString() ?? '',
+      card.connectedViaQr?.toString() ?? '',
+      referenceLocalId,
+      card.toCard ?? '' // The card's existing connectionId as a reference
+    ]);
   }
-}
 
   @override
   Future<Either<Failure, SuccessResponce>> getMyconnectionsFromLocal() async {
@@ -167,7 +189,7 @@ Future<Either<Failure, SuccessResponce>> updateCurrentUserData(
 
       // Iterate through each connection result to fetch associated cards
       for (var connection in myConnectionResult) {
-        final localId = connection[MyConnection.colLocalId];
+        final localId = connection[MyConnection.colLocalId] as int;
 
         // Get the associated cards for the current connection
         const cardQuery =
@@ -195,7 +217,7 @@ Future<Either<Failure, SuccessResponce>> updateCurrentUserData(
 
         // Create a MyConnection object and add it to the list
         connections.add(MyConnection(
-            localId: localId as int,
+            localId: localId ,
             toUser: connection[MyConnection.colToUser] as String,
             username: connection[MyConnection.colUserNmae] as String,
             cards: cards));

@@ -295,7 +295,9 @@ class CreateTaskController extends GetxController {
   final TaskRepo taskService = TaskService();
 
   /// Task Local instance for Sql interactions
-  final TaskLocalRepo taskLocalService = TaskLocalService();
+  // final TaskLocalRepo taskLocalService = TaskLocalService();
+
+  final TaskLocalService taskLocalService = TaskLocalService();
 
   Rx<DateTime> selectedDate = DateTime.now().obs;
 
@@ -1178,6 +1180,8 @@ class CreateTaskController extends GetxController {
     final responseFromLocalStorage =
         await taskLocalService.getTaskFullDetailsFromLocalStorage(
             taskId: singleTaskModel.taskId ?? '');
+
+    log('Task Id local storage ==> ${singleTaskModel.taskId}');
 
     responseFromLocalStorage.fold(
       (failure) {

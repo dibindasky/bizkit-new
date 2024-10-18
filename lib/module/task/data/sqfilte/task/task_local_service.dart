@@ -685,7 +685,7 @@ class TaskLocalService implements TaskLocalRepo {
         ),
       );
 
-      log('getTaskFullDetailsFromLocalStorage success =====> ${taskResponse.toJson()}');
+      log('getTaskFullDetailsFromLocalStorage success =====> ');
       return Right(taskResponse);
     } catch (e) {
       log('getTaskFullDetailsFromLocalStorage exception =====> ${e.toString()}');

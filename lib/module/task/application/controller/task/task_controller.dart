@@ -1145,11 +1145,14 @@ class CreateTaskController extends GetxController {
   // Fetches a single task using the provided model
   void fetchSingleTask({required GetSingleTaskModel singleTaskModel}) async {
     isLoading.value = true;
+    isSyncing.value = false;
     fetchSingleTaskError.value = false;
     singleTask.value = GetTaskResponce();
 
     // Fetch the task details from local storage before making a network call
     await fetchSingleTaskFromLocalStorage(singleTaskModel);
+
+    isSyncing.value = true; // Start syncing indication
 
     final result = await taskService.getTask(singleTaskModel: singleTaskModel);
     await result.fold(
@@ -1161,12 +1164,8 @@ class CreateTaskController extends GetxController {
       (success) async {
         // If the fetched task matches the current task, update the singleTask observable
         if (singleTaskModel.taskId == success.id) {
-          isSyncing.value = true; // Start syncing indication
-
           singleTask.value = success;
 
-          await Future.delayed(
-              const Duration(seconds: 1)); // Simulating sync time
           isSyncing.value = false; // End syncing indication
         }
         isLoading.value = false;

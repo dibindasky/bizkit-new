@@ -97,11 +97,14 @@ class ModuleController extends GetxController {
   /// delete all controllers
   /// except module managers and except the [Module] passed as a optional param
   void deleteAllControlers([Module? module]) {
-    if (module == null || module != Module.task) deleteTaskControllers();
-    if (module == null || module != Module.card) deleteCardControllers();
-    if (module == null || module != Module.attendance) {
-      deleteAttendanceControllers();
-    }
+    // if (module == null || module != Module.task) deleteTaskControllers();
+    // if (module == null || module != Module.card) deleteCardControllers();
+    // if (module == null || module != Module.attendance) {
+    //   deleteAttendanceControllers();
+    // }
+    deleteCardControllers();
+    deleteAttendanceControllers();
+    deleteTaskControllers();
   }
 
   /// delete card controllers

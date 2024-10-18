@@ -1,4 +1,5 @@
 import 'package:bizkit/core/model/failure/failure.dart';
+import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/card.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/my_connection_repo.dart';
@@ -67,38 +68,96 @@ class MyConnectionLocalService implements MyConnectionLocalRepo {
   }
 
   @override
-  Future<Either<Failure, SuccessResponce>> deleteAndUpdateCurrentUserData(
-      {required MyConnection myconnection}) async {
+  Future<Either<Failure, SuccessResponseModel>>
+      addMyConnecitonToLocalStorageIfNotPresentInStorage(
+          {required MyConnection myconnection}) async {
     try {
-      final localId = myconnection.localId ?? '';
-
-      const deleteMyconnectionQuery =
-          '''DELETE FROM ${BizCardSql.myConnectionTable} WHERE ${MyConnection.colLocalId} =?''';
-      const deleteMyconnectionCardQuery =
-          '''DELETE FROM ${BizCardSql.myConnectionCardTable} WHERE ${Card.myConnectionIdReference} =?''';
-
-      await localService.rawDelete(deleteMyconnectionQuery, [localId]);
-      await localService.rawDelete(deleteMyconnectionCardQuery, [localId]);
-
-      await addMyConnectionsIntoLocal(myconnection: myconnection);
-
-      return Right(SuccessResponce());
+      final currentUserId = await SecureStorage.getUserId();
+      const String query =
+          '''SELECT COUNT(*) FROM ${BizCardSql.myConnectionTable} WHERE ${MyConnection.colCurrentUserId} = ? AND ${MyConnection.colToUser} = ?''';
+      final bool present = await localService.presentOrNot(
+          query, [currentUserId ?? '', myconnection.toUser ?? '']);
+      print('presnt or not - ${myconnection.username} - $present');
+      if (!present) {
+        await addMyConnectionsIntoLocal(myconnection: myconnection);
+      } else {
+        await updateCurrentUserData(myconnection: myconnection);
+        // await addMyConnectionsIntoLocal(myconnection: myconnection);
+      }
+      return Right(SuccessResponseModel());
     } catch (e) {
-      return Left(Failure(message: e.toString()));
+      return Left(Failure());
     }
   }
+
+ @override
+Future<Either<Failure, SuccessResponce>> updateCurrentUserData(
+    {required MyConnection myconnection}) async {
+
+  try {
+    final currentUserId = await SecureStorage.getUserId();
+    final localId = myconnection.localId ?? '';
+
+    // Update the MyConnection table with new values
+    const updateMyconnectionQuery = '''
+      UPDATE ${BizCardSql.myConnectionTable}
+      SET ${MyConnection.colCurrentUserId} = ?, 
+          ${MyConnection.colToUser} = ?, 
+          ${MyConnection.colUserNmae} = ?
+      WHERE ${MyConnection.colLocalId} = ?''';
+
+    await localService.rawUpdate(updateMyconnectionQuery, [
+      currentUserId ?? '',
+      myconnection.toUser ?? '',
+      myconnection.username ?? '',
+      localId
+    ]);
+
+    // Update the MyConnectionCard table for each card
+    const updateCardQuery = '''
+      UPDATE ${BizCardSql.myConnectionCardTable}
+      SET ${Card.colConnectionId} = ?, 
+          ${Card.colCard} = ?, 
+          ${Card.colUSer} = ?, 
+          ${Card.colName} = ?, 
+          ${Card.colBusinessName} = ?, 
+          ${Card.colBusinessDesignation} = ?, 
+          ${Card.colConnectedDate} = ?, 
+          ${Card.colImageUrl} = ?, 
+          ${Card.colConnectedVirQr} = ?
+      WHERE ${Card.myConnectionIdReference} = ? AND ${Card.colConnectionId} = ?''';
+
+    for (var card in myconnection.cards ?? <Card>[]) {
+      await localService.rawUpdate(updateCardQuery, [
+        card.connectionId ?? '',
+        card.toCard ?? '',
+        card.toUser ?? '',
+        card.name ?? '',
+        card.businessName ?? '',
+        card.businessDesignation ?? '',
+        card.connectedDate?.toString() ?? '',
+        card.imageUrl?.toString() ?? '',
+        card.connectedViaQr?.toString() ?? '',
+        localId,
+        card.connectionId ?? '' // The card's existing connectionId as a reference
+      ]);
+    }
+
+    return Right(SuccessResponce());
+  } catch (e) {
+    return Left(Failure(message: e.toString()));
+  }
+}
 
   @override
   Future<Either<Failure, SuccessResponce>> getMyconnectionsFromLocal() async {
     try {
       final currentUserId = await SecureStorage.getUserId();
-
       // First, get the connections for the current user
       const myConnectionQuery =
           '''SELECT * FROM ${BizCardSql.myConnectionTable} WHERE ${MyConnection.colCurrentUserId} = ?''';
       final myConnectionResult =
           await localService.rawQuery(myConnectionQuery, [currentUserId]);
-
       if (myConnectionResult.isEmpty) {
         return Left(Failure());
       }

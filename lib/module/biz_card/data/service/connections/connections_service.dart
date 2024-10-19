@@ -50,7 +50,7 @@ class ConnectionsService implements ConnectionsRepo {
   }
 
   @override
-  Future<Either<Failure, SearchConnectionResponce>> searchConnections(
+  Future<Either<Failure, MyConnectionsResponce>> searchConnections(
       {required SearchQuery searchQuery}) async {
     try {
       log('search tojson = ${searchQuery.toJson()}');
@@ -59,7 +59,7 @@ class ConnectionsService implements ConnectionsRepo {
         data: searchQuery.toJson(),
       );
       log('searchConnections ==--> success ');
-      return Right(SearchConnectionResponce.fromJson(responce.data));
+      return Right(MyConnectionsResponce.fromJson(responce.data));
     } on DioException catch (e) {
       log('searchConnections DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));

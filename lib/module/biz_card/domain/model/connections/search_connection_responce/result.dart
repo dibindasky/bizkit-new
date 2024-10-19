@@ -10,7 +10,7 @@ class SearchConnection {
   String? toUser;
   String? username;
   List<Card>? cards;
-
+  
   SearchConnection({this.toUser, this.username, this.cards});
 
   factory SearchConnection.fromJson(Map<String, dynamic> json) {

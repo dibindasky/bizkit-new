@@ -26,7 +26,6 @@ import 'package:bizkit/utils/debouncer/debouncer.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -68,7 +67,7 @@ class ConnectionsController extends GetxController {
   final TextEditingController myConnectionsearchController =
       TextEditingController();
 
-  int userSearchPageNumber = 1, pageSize = 15;
+  int userSearchPageNumber = 1, pageSize = 5;
   int myConnectionPageNumber = 1;
   int fetchMyConnectionPageNumber = 1;
 
@@ -88,7 +87,7 @@ class ConnectionsController extends GetxController {
   /// selfi images from connection details
   RxList<String> connectionSelfieIamges = <String>[].obs;
 
-  RxList<SearchConnection> connectionsSearchList = <SearchConnection>[].obs;
+  RxList<MyConnection> connectionsSearchList = <MyConnection>[].obs;
 
   RxList<RecievedConnectionRequest> recievedConnectionRequests =
       <RecievedConnectionRequest>[].obs;
@@ -181,6 +180,11 @@ class ConnectionsController extends GetxController {
         searchConnectionsLoading.value = true;
         myConnectionPageNumber = 1;
         connectionsSearchList.value = [];
+
+        if (myConnectionsearchController.text.isEmpty) {
+          await getConnectionDatasFromLocal(search: true);
+        }
+
         final result = await connectionService.searchConnections(
             searchQuery: SearchQuery(
                 page: myConnectionPageNumber,
@@ -191,8 +195,34 @@ class ConnectionsController extends GetxController {
           (failure) {
             searchConnectionsLoading.value = false;
           },
-          (success) {
-            connectionsSearchList.assignAll(success.data ?? []);
+          (success) async {
+            if (connectionsSearchList.isEmpty) {
+              connectionsSearchList.assignAll(success.data ?? []);
+              for (var eachMyConnection in connectionsSearchList) {
+                await myConnectionLocalService
+                    .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                        myconnection: eachMyConnection);
+              }
+            } else {
+              for (var datas in success.data ?? <MyConnection>[]) {
+                final index = connectionsSearchList
+                    .indexWhere((value) => value.toUser == datas.toUser);
+                if (index == -1) {
+                  connectionsSearchList.insert(0, datas);
+                  myConnectionLocalService
+                      .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                          myconnection: datas);
+                } else {
+                  if (!connectionsSearchList[index].equals(datas)) {
+                    int localId = connectionsSearchList[index].localId!;
+                    connectionsSearchList[index] = datas;
+                    myConnectionLocalService
+                        .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                            myconnection: datas.copyWith(localId: localId));
+                  }
+                }
+              }
+            }
             searchConnectionsLoading.value = false;
           },
         );
@@ -235,6 +265,7 @@ class ConnectionsController extends GetxController {
         searchBizkitUsersLoading.value = true;
         userSearchPageNumber = 1;
         bizkitUsers.value = [];
+        await getConnectionDatasFromLocal();
         final result = await connectionService.searchBizkitUsers(
             searchQuery: SearchQuery(
                 page: userSearchPageNumber,
@@ -326,7 +357,7 @@ class ConnectionsController extends GetxController {
     );
   }
 
-  Future<void> getConnectionDatasFromLocal() async {
+  Future<void> getConnectionDatasFromLocal({bool search = false}) async {
     myConnectionsLoading.value = true;
     final resultLocal =
         await myConnectionLocalService.getMyconnectionsFromLocal();
@@ -334,6 +365,9 @@ class ConnectionsController extends GetxController {
     resultLocal.fold((failure) {
       log('local data fetch fail');
     }, (success) {
+      if (search) {
+        return connectionsSearchList.assignAll(success.data ?? []);
+      }
       myConnections.assignAll(success.data ?? []);
 
       log('success local data get -----------------------------------------------------------------');
@@ -350,7 +384,7 @@ class ConnectionsController extends GetxController {
     myConnections.value = [];
     fetchMyConnectionPageNumber = 1;
 
-    //delete complete datas of table
+    ////delete complete datas of table
     // await MyConnectionLocalService().deleteAllLocalDatas();
 
     //get connection datas form local
@@ -402,40 +436,41 @@ class ConnectionsController extends GetxController {
   }
 
   void fetchMyConnectionsLoadMore() async {
-    // if (fetchMyconnectionLoadMore.value) {
-    //   return;
-    // }
-    // fetchMyconnectionLoadMore.value = true;
+    if (fetchMyconnectionLoadMore.value) {
+      return;
+    }
+    fetchMyconnectionLoadMore.value = true;
 
-    // await getConnectionDatasFromLocal();
-
-    // final result = await connectionService.getMyconnections(
-    //     paginationQuery: PaginationQuery(
-    //         page: ++fetchMyConnectionPageNumber, pageSize: pageSize));
-    // result.fold(
-    //   (failure) {
-    //     fetchMyconnectionLoadMore.value = false;
-    //   },
-    //   (success) {
-    //     for (var datas in success.data ?? <MyConnection>[]) {
-    //       final index =
-    //           myConnections.indexWhere((value) => value.toUser == datas.toUser);
-    //       if (index == -1) {
-    //         myConnections.insert(0, datas);
-    //         myConnectionLocalService.addMyConnectionsIntoLocal(
-    //             myconnection: datas);
-    //       } else {
-    //         if (!datas.equals(myConnections[index])) {
-    //           myConnections[index] = datas;
-    //           myConnectionLocalService.deleteAndUpdateCurrentUserData(
-    //               myconnection: datas);
-    //         }
-    //       }
-    //     }
-    //     fetchMyconnectionLoadMore.value = false;
-    //   },
-    // );
-    // fetchMyconnectionLoadMore.value = false;
+    final result = await connectionService.getMyconnections(
+        paginationQuery: PaginationQuery(
+            page: (myConnections.length % pageSize) + 2, pageSize: pageSize));
+    result.fold(
+      (failure) {
+        fetchMyconnectionLoadMore.value = false;
+      },
+      (success) {
+        for (var datas in success.data ?? <MyConnection>[]) {
+          final index =
+              myConnections.indexWhere((value) => value.toUser == datas.toUser);
+          if (index == -1) {
+            myConnections.add(datas);
+            myConnectionLocalService
+                .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                    myconnection: datas);
+          } else {
+            if (!myConnections[index].equals(datas)) {
+              int localid = myConnections[index].localId!;
+              myConnections[index] = datas;
+              myConnectionLocalService
+                  .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                      myconnection: datas.copyWith(localId: localid));
+            }
+          }
+        }
+        fetchMyconnectionLoadMore.value = false;
+      },
+    );
+    fetchMyconnectionLoadMore.value = false;
   }
 
   // Cancel connection request

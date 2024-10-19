@@ -2,6 +2,10 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/created_by.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/created_by.dart';
+import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/created_by.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
@@ -476,7 +480,19 @@ class TaskLocalService implements TaskLocalRepo {
         taskModel.createdBy?.name ?? '',
       ];
 
-      await localService.rawInsert(query, values);
+      final int referenceId = await localService.rawInsert(query, values);
+
+      const filterByDeadlineQuey = '''
+        INSERT INTO ${TaskSql.filterByDeadlineTable} (
+        ${FilterByDeadlineModel.colTaskFilterByDeadline},
+        ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId})
+      VALUES(?,?)  
+      ''';
+
+      await localService.rawInsert(
+        filterByDeadlineQuey,
+        [taskModel.deadLine ?? '', referenceId],
+      );
 
       log('addTaskToLocalStorage success');
       return Right(SuccessResponseModel());
@@ -500,25 +516,26 @@ class TaskLocalService implements TaskLocalRepo {
       }
 
       const query = '''
-        UPDATE ${TaskSql.tasksTable}
-        SET 
-          ${GetTaskResponce.colUserId} = ?,
-          ${GetTaskResponce.colTaskId} = ?,
-          ${GetTaskResponce.colTaskTitle} = ?,
-          ${GetTaskResponce.colTaskDescription} = ?,
-          ${GetTaskResponce.colTaskCreatedAt} = ?,
-          ${GetTaskResponce.colTaskDeadLine} = ?,
-          ${GetTaskResponce.colTaskPriorityLevel} = ?,
-          ${GetTaskResponce.colTaskType} = ?,
-          ${GetTaskResponce.colTaskIsOwned} = ?,
-          ${GetTaskResponce.colTaskSpotlightOn} = ?,
-          ${GetTaskResponce.colTaskIsPinned} = ?,
-          ${GetTaskResponce.colTaskStatus} = ?,
-          ${GetTaskResponce.colTaskCreatedUserId} = ?,
-          ${GetTaskResponce.colTaskCreatedUsername} = ?
-        WHERE 
-          ${GetTaskResponce.colTaskId} = ? AND ${GetTaskResponce.colUserId} = ?
-      ''';
+      UPDATE ${TaskSql.tasksTable}
+      SET 
+        ${GetTaskResponce.colUserId} = ?,
+        ${GetTaskResponce.colTaskId} = ?,
+        ${GetTaskResponce.colTaskTitle} = ?,
+        ${GetTaskResponce.colTaskDescription} = ?,
+        ${GetTaskResponce.colTaskCreatedAt} = ?,
+        ${GetTaskResponce.colTaskDeadLine} = ?,
+        ${GetTaskResponce.colTaskPriorityLevel} = ?,
+        ${GetTaskResponce.colTaskType} = ?,
+        ${GetTaskResponce.colTaskIsOwned} = ?,
+        ${GetTaskResponce.colTaskSpotlightOn} = ?,
+        ${GetTaskResponce.colTaskIsPinned} = ?,
+        ${GetTaskResponce.colTaskStatus} = ?,
+        ${GetTaskResponce.colTaskCreatedUserId} = ?,
+        ${GetTaskResponce.colTaskCreatedUsername} = ?,
+        ${GetTaskResponce.colTaskIsCompleted} = ?
+      WHERE 
+        ${GetTaskResponce.colTaskId} = ? AND ${GetTaskResponce.colUserId} = ?
+    ''';
 
       final List<dynamic> values = [
         currentUserId,
@@ -529,9 +546,9 @@ class TaskLocalService implements TaskLocalRepo {
         taskModel.deadLine ?? '',
         taskModel.priorityLevel ?? '',
         taskModel.taskType ?? '',
-        taskModel.isOwned == true ? 1 : 0, // Convert boolean to int (1/0)
-        taskModel.spotlightOn == true ? 1 : 0, // Convert boolean to int (1/0)
-        taskModel.isPinned == true ? 1 : 0, // Convert boolean to int (1/0)
+        taskModel.isOwned == true ? 1 : 0,
+        taskModel.spotlightOn == true ? 1 : 0,
+        taskModel.isPinned == true ? 1 : 0,
         taskModel.status ?? '',
         taskModel.createdBy?.userId ?? '',
         taskModel.createdBy?.name ?? '',
@@ -541,7 +558,28 @@ class TaskLocalService implements TaskLocalRepo {
 
       await localService.rawUpdate(query, values);
 
-      log('updateTaskFromLocalStorage success= >');
+      log('updateTaskFromLocalStorage success');
+
+      // Update the filter by deadline table if the deadline has changed
+      if (taskModel.deadLine != null) {
+        const filterByDeadlineQuery = '''
+        UPDATE ${TaskSql.filterByDeadlineTable}
+        SET ${FilterByDeadlineModel.colTaskFilterByDeadline} = ?
+        WHERE ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId} = 
+          (SELECT ${GetTaskResponce.colTaskLocalId} FROM ${TaskSql.tasksTable}
+           WHERE ${GetTaskResponce.colTaskId} = ? AND ${GetTaskResponce.colUserId} = ?)
+      ''';
+
+        final filterByDeadlineValues = [
+          taskModel.deadLine,
+          taskModel.id ?? '',
+          currentUserId,
+        ];
+
+        await localService.rawUpdate(
+            filterByDeadlineQuery, filterByDeadlineValues);
+      }
+
       return Right(SuccessResponseModel());
     } catch (e) {
       log('updateTaskFromLocalStorage exception: ${e.toString()}');
@@ -690,6 +728,20 @@ class TaskLocalService implements TaskLocalRepo {
     } catch (e) {
       log('getTaskFullDetailsFromLocalStorage exception =====> ${e.toString()}');
       return Left(Failure());
+    }
+  }
+
+// Todo:  ===> task get form  local storage based on user provided deadline [21-10-2024]
+  @override
+  Future<Either<Failure, List<task.Task>>> getTasksFromLocalStorage({
+    required String filterByDeadline,
+  }) async {
+    try {
+      log('getTasksFromLocalStorage success =====>');
+      return Right([]);
+    } catch (e) {
+      log('getTasksFromLocalStorage error =====> $e');
+      return Left(Failure(message: e.toString()));
     }
   }
 }

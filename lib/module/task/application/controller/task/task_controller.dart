@@ -695,6 +695,8 @@ class CreateTaskController extends GetxController {
     taksListLoading.value = true;
     deadlineTasksPageNumber = 1;
     deadlineTasks.value = [];
+    await taskLocalService.getTasksFromLocalStorage(
+        filterByDeadline: deadlineDate.value);
     final result = await taskService.filterByDeadline(
         filterByDeadline: FilterByDeadlineModel(
       date: deadlineDate.value,
@@ -712,10 +714,10 @@ class CreateTaskController extends GetxController {
         taksListLoading.value = false;
       },
     );
-    // for (var task in deadlineTasks) {
-    //   await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-    //       taskModel: task);
-    // }
+    for (var task in deadlineTasks) {
+      await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+          taskModel: task);
+    }
   }
 
 // / Filters tasks by deadline  - [ Pagination ]

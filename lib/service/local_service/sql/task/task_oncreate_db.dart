@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart';
@@ -14,6 +15,7 @@ class TaskSql {
   static const taskAssignedToDetailTable = 'task_assigned_to_detail';
 
   static const recentTasksTable = 'recent_tasks';
+  static const filterByDeadlineTable = 'tasks_filter_by_deadline';
 
   static Future onCreate(sql.Database db) async {
     try {
@@ -22,6 +24,7 @@ class TaskSql {
       await db.execute(_taskAttachmentsTableCreation);
       await db.execute(_taskSubTasksTableCreation);
       await db.execute(_taskAssignedToDetailTableCreation);
+      await db.execute(_filterByDeadlineTableCreation);
     } catch (e) {
       log('onCreate ==> ${e.toString()}');
     }
@@ -95,6 +98,17 @@ class TaskSql {
       ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId} INTEGER,
       FOREIGN KEY (${AssignedToDetail.ccolTaskAssignedToDetailReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE 
+    )
+  ''';
+
+  /// Table for Filter task by deadline [FilterByDeadlineModel] relation with [GetTaskResponce]
+  static const _filterByDeadlineTableCreation = '''
+    CREATE TABLE IF NOT EXISTS $filterByDeadlineTable(
+      ${FilterByDeadlineModel.colTaskFilterByDeadlineLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${FilterByDeadlineModel.colTaskFilterByDeadline} TEXT,
+      ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId} INTEGER,
+    FOREIGN KEY (${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId})  REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
+    ON DELETE CASCADE
     )
   ''';
 }

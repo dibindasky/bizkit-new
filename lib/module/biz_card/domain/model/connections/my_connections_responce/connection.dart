@@ -10,7 +10,7 @@ class MyConnection {
   String? toUser;
   String? username;
   List<Card>? cards;
-
+ 
   MyConnection({this.toUser, this.username, this.cards, this.localId});
 
   factory MyConnection.fromJson(Map<String, dynamic> json) {

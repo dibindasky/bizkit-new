@@ -1,7 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
-
-import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/widgets/cards_based_on_user.dart';

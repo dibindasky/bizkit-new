@@ -13,6 +13,8 @@ class TaskSql {
   static const taskSubTasksTable = 'task_subtasks';
   static const taskAssignedToDetailTable = 'task_assigned_to_detail';
 
+  static const recentTasksTable = 'recent_tasks';
+
   static Future onCreate(sql.Database db) async {
     try {
       log('----------------- oncreate database task module ---------------------');

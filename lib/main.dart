@@ -1,5 +1,6 @@
 import 'package:bizkit/core/dipendency/binding/all_controller_binding.dart';
 import 'package:bizkit/core/routes/route_generator.dart';
+// import 'package:bizkit/core/themes/app_themes.dart';
 import 'package:bizkit/firebase_options.dart';
 import 'package:bizkit/module/module_manager/application/controller/text_style_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -52,6 +53,8 @@ class MyApp extends StatelessWidget {
                 fontFamily: textStyleController.textStyle.value,
               ),
         ),
+        // theme: AppThemes.lightTheme(),
+        // darkTheme: AppThemes.darkTheme(),
         initialBinding: AllControllerBinding(),
         debugShowCheckedModeBanner: false,
         routeInformationParser: GoRouterConfig.router.routeInformationParser,

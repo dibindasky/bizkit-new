@@ -38,7 +38,8 @@ class NotificationRequestCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(13.0.w),
         decoration: BoxDecoration(
-          color: klightDarkGrey,
+          // color: klightDarkGrey,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(10.0.h),
         ),
         child: Row(

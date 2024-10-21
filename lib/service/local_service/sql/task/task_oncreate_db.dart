@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bizkit/module/task/domain/model/chat/message.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart';
@@ -12,6 +13,7 @@ class TaskSql {
   static const taskAttachmentsTable = 'task_attachments';
   static const taskSubTasksTable = 'task_subtasks';
   static const taskAssignedToDetailTable = 'task_assigned_to_detail';
+  static const taskMessages = 'task_message_table';
 
   static Future onCreate(sql.Database db) async {
     try {
@@ -20,6 +22,7 @@ class TaskSql {
       await db.execute(_taskAttachmentsTableCreation);
       await db.execute(_taskSubTasksTableCreation);
       await db.execute(_taskAssignedToDetailTableCreation);
+      // await db.execute(_taskMessagesTableCreation);
     } catch (e) {
       log('onCreate ==> ${e.toString()}');
     }
@@ -95,4 +98,17 @@ class TaskSql {
       ON DELETE CASCADE 
     )
   ''';
+
+  // /// Table for [Message]
+  // static const String _taskMessagesTableCreation = '''
+  //   CREATE TABLE IF NOT EXISTS $taskMessages(
+  //     ${Message.colTaskAssignedToDetailLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+  //     ${AssignedToDetail.colTaskAssignedToDetailUserId} TEXT,
+  //     ${AssignedToDetail.colTaskAssignedToDetailUserName} TEXT,
+  //      ${AssignedToDetail.colTaskAssignedToDetailIsAccepted} TEXT,
+  //     ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId} TEXT,
+  //     FOREIGN KEY (${AssignedToDetail.ccolTaskAssignedToDetailReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
+  //     ON DELETE CASCADE 
+  //   )
+  // ''';
 }

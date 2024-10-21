@@ -103,12 +103,14 @@ class TaskSql {
 
   /// Table for Filter task by deadline [FilterByDeadlineModel] relation with [GetTaskResponce]
   static const _filterByDeadlineTableCreation = '''
-    CREATE TABLE IF NOT EXISTS $filterByDeadlineTable(
-      ${FilterByDeadlineModel.colTaskFilterByDeadlineLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
-      ${FilterByDeadlineModel.colTaskFilterByDeadline} TEXT,
-      ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId} INTEGER,
-    FOREIGN KEY (${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId})  REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
-    ON DELETE CASCADE
-    )
-  ''';
+  CREATE TABLE IF NOT EXISTS $filterByDeadlineTable(
+    ${FilterByDeadlineModel.colTaskFilterByDeadlineLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+    ${FilterByDeadlineModel.colTaskFilterByDeadline} TEXT,
+    ${FilterByDeadlineModel.colUserId} TEXT,
+    ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId} INTEGER,
+    FOREIGN KEY (${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId}) 
+      REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
+      ON DELETE CASCADE
+  )
+''';
 }

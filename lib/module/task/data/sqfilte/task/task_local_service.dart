@@ -482,17 +482,20 @@ class TaskLocalService implements TaskLocalRepo {
 
       final int referenceId = await localService.rawInsert(query, values);
 
-      const filterByDeadlineQuey = '''
-        INSERT INTO ${TaskSql.filterByDeadlineTable} (
-        ${FilterByDeadlineModel.colTaskFilterByDeadline},
-        ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId})
-      VALUES(?,?)  
-      ''';
+      if (taskModel.deadLine != null && taskModel.deadLine!.isNotEmpty) {
+        const filterByDeadlineQuery = '''
+          INSERT INTO ${TaskSql.filterByDeadlineTable} (
+          ${FilterByDeadlineModel.colTaskFilterByDeadline},
+          ${FilterByDeadlineModel.colUserId},
+          ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId})
+        VALUES(?,?,?)  
+        ''';
 
-      await localService.rawInsert(
-        filterByDeadlineQuey,
-        [taskModel.deadLine ?? '', referenceId],
-      );
+        await localService.rawInsert(
+          filterByDeadlineQuery,
+          [taskModel.deadLine, currentUserId, referenceId],
+        );
+      }
 
       log('addTaskToLocalStorage success');
       return Right(SuccessResponseModel());
@@ -731,16 +734,48 @@ class TaskLocalService implements TaskLocalRepo {
     }
   }
 
-// Todo:  ===> task get form  local storage based on user provided deadline [21-10-2024]
+// Todo:  ===> task get form  local storage based on user provided deadline
   @override
   Future<Either<Failure, List<task.Task>>> getTasksFromLocalStorage({
     required String filterByDeadline,
   }) async {
     try {
-      log('getTasksFromLocalStorage success =====>');
-      return Right([]);
+      final deadline = DateTime.parse(filterByDeadline);
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('getTaskFullDetailsFromLocalStorage error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
+      final List<Map<String, dynamic>> alltasks = await localService.rawQuery(
+          'SELECT * FROM ${TaskSql.filterByDeadlineTable} WHERE ${FilterByDeadlineModel.colUserId} = ?',
+          [currentUserId]);
+
+      List<task.Task> filterdTasks = [];
+
+      for (var item in alltasks) {
+        final taskDeadlineStr =
+            item[FilterByDeadlineModel.colTaskFilterByDeadline] as String?;
+
+        // Ensure task deadline is not null before parsing
+        if (taskDeadlineStr != null) {
+          final taskDeadline = DateTime.parse(taskDeadlineStr);
+          if (taskDeadline != null &&
+              taskDeadline.isBefore(deadline.add(const Duration(days: 1)))) {
+            await localService.rawQuery(
+              'SELECT * FROM ${TaskSql.tasksTable} WHERE ${GetTaskResponce.colTaskLocalId} = ?',
+              [item[FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId]],
+            );
+
+            filterdTasks.add(task.Task.fromMap(item));
+          }
+        }
+      }
+      log('getTasksFromLocalStorage success ===> ${filterdTasks.length}');
+
+      return Right(filterdTasks);
     } catch (e) {
-      log('getTasksFromLocalStorage error =====> $e');
+      log('getTasksFromLocalStorage error: ${e.toString()}');
       return Left(Failure(message: e.toString()));
     }
   }

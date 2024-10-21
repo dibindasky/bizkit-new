@@ -42,7 +42,6 @@ import 'package:bizkit/module/task/domain/model/task/tasks_count_model/tasks_cou
 import 'package:bizkit/core/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/core/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
-import 'package:bizkit/module/task/domain/repository/sqfilte/task_local_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
@@ -695,8 +694,14 @@ class CreateTaskController extends GetxController {
     taksListLoading.value = true;
     deadlineTasksPageNumber = 1;
     deadlineTasks.value = [];
-    await taskLocalService.getTasksFromLocalStorage(
-        filterByDeadline: deadlineDate.value);
+    final localDbTasksResult = await taskLocalService.getTasksFromLocalStorage(
+      filterByDeadline: deadlineDate.value,
+    );
+
+    localDbTasksResult.fold(
+      (failure) => log("Error: ${failure.message}"),
+      (tasks) {},
+    );
     final result = await taskService.filterByDeadline(
         filterByDeadline: FilterByDeadlineModel(
       date: deadlineDate.value,
@@ -708,16 +713,16 @@ class CreateTaskController extends GetxController {
         log(failure.message.toString());
         taksListLoading.value = false;
       },
-      (success) {
+      (success) async {
         deadlineTasks.assignAll(success.data ?? []);
 
         taksListLoading.value = false;
+        for (var task in deadlineTasks) {
+          await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+              taskModel: task);
+        }
       },
     );
-    for (var task in deadlineTasks) {
-      await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-          taskModel: task);
-    }
   }
 
 // / Filters tasks by deadline  - [ Pagination ]

@@ -75,48 +75,6 @@ class ScreenTaskDetailPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    // if (taskController.isSyncing.value)
-                    //   Positioned(
-                    //     bottom: 10,
-                    //     left: 120,
-                    //     child: Center(
-                    //       child: Row(
-                    //         mainAxisSize: MainAxisSize.min,
-                    //         children: [
-                    //           // Rotating Sync icon using TweenAnimationBuilder
-                    //           TweenAnimationBuilder(
-                    //             tween:
-                    //                 Tween<double>(begin: 0, end: 2 * math.pi),
-                    //             duration: const Duration(seconds: 1),
-                    //             builder: (context, double angle, child) {
-                    //               return Transform.rotate(
-                    //                 angle: angle,
-                    //                 child: const Icon(
-                    //                   Icons.sync,
-                    //                   color: neonShade,
-                    //                   size: 20,
-                    //                 ),
-                    //               );
-                    //             },
-                    //             onEnd: () {
-                    //               // Repeat the animation
-                    //               taskController.isSyncing.value
-                    //                   ? Future.delayed(Duration.zero, () {
-                    //                       (context as Element).markNeedsBuild();
-                    //                     })
-                    //                   : null;
-                    //             },
-                    //           ),
-                    //           const SizedBox(width: 8),
-                    //           Text(
-                    //             'Syncing ...',
-                    //             style:
-                    //                 textThinStyle1.copyWith(color: neonShade),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ),
                   ],
                 );
               },

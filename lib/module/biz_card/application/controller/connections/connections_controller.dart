@@ -182,10 +182,12 @@ class ConnectionsController extends GetxController {
         connectionsSearchList.value = [];
 
         if (myConnectionsearchController.text.isEmpty) {
+          
           await getConnectionDatasFromLocal(search: true);
+          log("sear connection datas ---- ${connectionsSearchList.toJson()}");
+          searchConnectionsLoading.value = false;
         }
-
-        final result = await connectionService.searchConnections(
+           final result = await connectionService.searchConnections(
             searchQuery: SearchQuery(
                 page: myConnectionPageNumber,
                 pageSize: pageSize,
@@ -241,19 +243,36 @@ class ConnectionsController extends GetxController {
 
         final result = await connectionService.searchConnections(
             searchQuery: SearchQuery(
-                page: ++myConnectionPageNumber,
+                page: (connectionsSearchList.length~/pageSize)+1,
                 pageSize: pageSize,
                 search: myConnectionsearchController.text));
-
         result.fold(
           (failure) {
             myConnectionLoadMore.value = false;
           },
           (success) {
-            connectionsSearchList.addAll(success.data ?? []);
+            for (var datas in success.data ?? <MyConnection>[]) {
+                final index = connectionsSearchList
+                    .indexWhere((value) => value.toUser == datas.toUser);
+                if (index == -1) {
+                  connectionsSearchList.insert(0, datas);
+                  myConnectionLocalService
+                      .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                          myconnection: datas);
+                } else {
+                  if (!connectionsSearchList[index].equals(datas)) {
+                    int localId = connectionsSearchList[index].localId!;
+                    connectionsSearchList[index] = datas;
+                    myConnectionLocalService
+                        .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                            myconnection: datas.copyWith(localId: localId));
+                  }
+                }
+              }
             myConnectionLoadMore.value = false;
           },
         );
+        myConnectionLoadMore.value = false;
       },
     );
   }
@@ -366,7 +385,9 @@ class ConnectionsController extends GetxController {
       log('local data fetch fail');
     }, (success) {
       if (search) {
+        
         return connectionsSearchList.assignAll(success.data ?? []);
+        
       }
       myConnections.assignAll(success.data ?? []);
 
@@ -440,10 +461,9 @@ class ConnectionsController extends GetxController {
       return;
     }
     fetchMyconnectionLoadMore.value = true;
-
     final result = await connectionService.getMyconnections(
         paginationQuery: PaginationQuery(
-            page: (myConnections.length % pageSize) + 2, pageSize: pageSize));
+            page: (myConnections.length ~/ pageSize) + 2, pageSize: pageSize));
     result.fold(
       (failure) {
         fetchMyconnectionLoadMore.value = false;

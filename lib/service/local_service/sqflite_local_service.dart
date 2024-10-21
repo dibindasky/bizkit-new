@@ -92,11 +92,11 @@ class LocalService {
     }
   }
 
-  Future<void> rawDelete(String query, [List<Object?>? listParams]) async {
+  Future<int> rawDelete(String query, [List<Object?>? listParams]) async {
     try {
       final db = await database;
-      await db.rawDelete(query, listParams);
-      log('rawDelete => Success');
+      final rowaffected = await db.rawDelete(query, listParams);
+      return rowaffected;
     } catch (e) {
       log('rawDelete = > ${e.toString()}');
       rethrow;

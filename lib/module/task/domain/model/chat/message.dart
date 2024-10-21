@@ -15,6 +15,7 @@ class Message {
   bool isLoadMore;
   bool? sender;
   String? messageId;
+  String? messageType;
 
   Message({
     this.poll,
@@ -26,6 +27,7 @@ class Message {
     this.sender,
     this.messageId,
     this.isLoadMore = false,
+    this.messageType,
   });
 
   // Convert a Message instance to a Map
@@ -40,6 +42,7 @@ class Message {
       'sender': sender,
       'message_id': messageId,
       'is_load_more': isLoadMore,
+      'message_type': messageType,
     };
   }
 
@@ -67,6 +70,7 @@ class Message {
           : null,
       sender: json['sender'] as bool?,
       messageId: json['message_id'] as String?,
+      messageType: json['message_type'] as String?,
       isLoadMore: json['is_load_more'] as bool? ?? false,
     );
   }
@@ -111,4 +115,16 @@ class Message {
   bool get isLoadMoreMessage {
     return isLoadMore;
   }
+
+  static const String colTaskAssignedToDetailLocalId = 'local_id';
+  static const String colTextMessage = 'text_message';
+  static const String colPoll = 'poll';
+  static const String colTimeExpense = 'time_expence';
+  static const String colFile = 'file';
+  static const String colVoiceMessage = 'voice';
+  static const String colCurrentLocation = 'current_location';
+  static const String colSender = 'sender';
+  static const String colMessageId = 'message_id';
+  static const String colIsLoadMore = 'is_load_more';
+  static const String colMessageType = 'message_type';
 }

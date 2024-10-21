@@ -131,6 +131,11 @@ class _PollContainerChatState extends State<PollContainerChat> {
     }
     super.didUpdateWidget(oldWidget);
   }
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {

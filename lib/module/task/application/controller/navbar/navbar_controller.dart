@@ -5,5 +5,6 @@ class TaskNavbarController extends GetxController {
 
   changeBottomIndex(int index) {
     taskBottomIndex.value = index;
+    update();
   }
 }

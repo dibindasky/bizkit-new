@@ -33,7 +33,8 @@ class ScreenTaskDetailPage extends StatelessWidget {
             },
             child: Obx(
               () {
-                if (taskController.fetchSingleTaskError.value) {
+                if (taskController.fetchSingleTaskError.value &&
+                    taskController.singleTask.value.title == null) {
                   return GestureDetector(
                     onTap: () {
                       taskController.fetchSingleTask(

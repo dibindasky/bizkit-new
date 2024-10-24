@@ -2,9 +2,6 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
-import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/created_by.dart';
-import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/created_by.dart';
-import 'package:bizkit/module/task/domain/model/folders/inner_folder/get_all_tasks_inner_folder_responce/created_by.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
@@ -254,20 +251,11 @@ class TaskLocalService implements TaskLocalRepo {
         ],
       );
 
-      // Update attachments
-      // await _updateAttachments(taskModel.attachments ?? [], referenceId);
       addTaskAttachmentsToLocalStorageIfNotPresentInStorage(
           attachments: taskModel.attachments ?? <Attachment>[],
           referenceId: referenceId);
-
-      // Update subtasks
-      // await _updateSubtasks(taskModel.subTask ?? [], referenceId);
       addTaskSubtasksToLocalStorageIfNotPresentInStorage(
           subtasks: taskModel.subTask ?? <SubTask>[], referenceId: referenceId);
-
-      // Update assigned-to details
-      // await _updateAssignedToDetails(
-      //     taskModel.assignedToDetails ?? [], referenceId);
 
       addTaskAssignedToDetailsToLocalStorageIfNotPresentInStorage(
           assignedToDetails:

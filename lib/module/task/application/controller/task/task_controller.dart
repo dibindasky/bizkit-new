@@ -1155,6 +1155,7 @@ class CreateTaskController extends GetxController {
     isSyncing.value = false;
     fetchSingleTaskError.value = false;
     singleTask.value = GetTaskResponce();
+    fetchSingleTaskError.value = false;
 
     // Fetch the task details from local storage before making a network call
     await fetchSingleTaskFromLocalStorage(singleTaskModel);
@@ -1166,13 +1167,14 @@ class CreateTaskController extends GetxController {
       (failure) {
         isLoading.value = false;
         fetchSingleTaskError.value = true;
+        isSyncing.value = false;
         log(failure.message.toString());
       },
       (success) async {
         // If the fetched task matches the current task, update the singleTask observable
         if (singleTaskModel.taskId == success.id) {
           singleTask.value = success;
-
+          fetchSingleTaskError.value = false;
           isSyncing.value = false; // End syncing indication
         }
         isLoading.value = false;

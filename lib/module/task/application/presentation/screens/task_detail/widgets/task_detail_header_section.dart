@@ -59,8 +59,12 @@ class TaskDetailHeaderSection extends StatelessWidget {
                             Obx(
                               () {
                                 return AnimatedContainer(
-                                  height:
-                                      taskController.isSyncing.value ? null : 0,
+                                  height: taskController.isSyncing.value ||
+                                          (taskController
+                                                  .fetchSingleTaskError.value &&
+                                              !taskController.isLoading.value)
+                                      ? null
+                                      : 0,
                                   duration: const Duration(milliseconds: 300),
                                   child: taskController.isSyncing.value
                                       ? Row(
@@ -105,7 +109,30 @@ class TaskDetailHeaderSection extends StatelessWidget {
                                             ),
                                           ],
                                         )
-                                      : null,
+                                      : taskController
+                                                  .fetchSingleTaskError.value &&
+                                              !taskController.isLoading.value
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Icon(
+                                                  Icons.error_outline,
+                                                  color: kred,
+                                                  size: 12,
+                                                ),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  'Syncing failed',
+                                                  style:
+                                                      textThinStyle1.copyWith(
+                                                          color: kred,
+                                                          fontSize: 11.sp),
+                                                ),
+                                              ],
+                                            )
+                                          : const SizedBox.shrink(),
                                 );
                               },
                             ),
@@ -114,14 +141,6 @@ class TaskDetailHeaderSection extends StatelessWidget {
                 ),
               ],
             ),
-            // Obx(
-            //   () => Text(
-            //     maxLines: 1,
-            //     overflow: TextOverflow.ellipsis,
-            //     'Total Time Taken: ${taskController.getTotalCompletedSubtasksDuration()}',
-            //     style: textStyle1,
-            //   ),
-            // ),
           ],
         ),
         Row(

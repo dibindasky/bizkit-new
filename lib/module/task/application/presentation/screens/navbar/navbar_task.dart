@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bizkit/core/routes/indexed_stack_route/on_generate_route.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
@@ -27,15 +29,13 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
     int selectedIndex = controller.taskBottomIndex.value;
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) {
-        if (selectedIndex == 0) {
-          exitConfirmationDialog(context);
-        } else if (selectedIndex == 1) {
-          controller.changeBottomIndex(0);
-        } else if (selectedIndex == 2) {
-          controller.changeBottomIndex(1);
-        } else if (selectedIndex == 3) {
-          controller.changeBottomIndex(1);
+      onPopInvoked: (didPop) async {
+        if (!didPop) {
+          final shouldPop =
+              await controller.handleBackNavigation(selectedIndex, context);
+          if (shouldPop) {
+            Navigator.of(context).pop();
+          }
         }
       },
       child: GetBuilder<TaskNavbarController>(

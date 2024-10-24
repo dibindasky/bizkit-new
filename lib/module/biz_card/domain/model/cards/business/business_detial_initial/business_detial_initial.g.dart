@@ -22,10 +22,10 @@ BusinessDetialInitial _$BusinessDetialInitialFromJson(
 Map<String, dynamic> _$BusinessDetialInitialToJson(
         BusinessDetialInitial instance) =>
     <String, dynamic>{
-      'business_website': instance.websiteLink,
       'business_name': instance.businessName,
+      'company_name': instance.companyName,
       'business_email': instance.businessEmail,
       'business_phone': instance.bussinessPhone,
+      'business_website': instance.websiteLink,
       'business_details_id': instance.businessDetailsId,
-      'company_name': instance.companyName,
     };

@@ -23,6 +23,7 @@ VisitingCardEditModel _$VisitingCardEditModelFromJson(
       selfie:
           (json['selfie'] as List<dynamic>?)?.map((e) => e as String).toList(),
       cardImage: json['card_image'] as String?,
+      scanedImage: json['scanedImage'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$VisitingCardEditModelToJson(
@@ -41,4 +42,5 @@ Map<String, dynamic> _$VisitingCardEditModelToJson(
       'notes': instance.notes,
       'selfie': instance.selfie,
       'card_image': instance.cardImage,
+      'scanedImage': instance.scanedImage,
     };

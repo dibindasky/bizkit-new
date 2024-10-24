@@ -11,8 +11,8 @@ QuickTasksResponce _$QuickTasksResponceFromJson(Map<String, dynamic> json) =>
       data: (json['data'] as List<dynamic>?)
           ?.map((e) => QuickTasks.fromJson(e as Map<String, dynamic>))
           .toList(),
-      pageSize: (json['page_size'] as num?)?.toInt(),
-      currentPage: (json['current_page'] as num?)?.toInt(),
+      pageSize: json['page_size'] as int?,
+      currentPage: json['current_page'] as int?,
       hasMore: json['has_more'] as bool?,
     );
 

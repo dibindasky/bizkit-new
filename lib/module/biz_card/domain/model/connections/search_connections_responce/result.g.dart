@@ -6,7 +6,8 @@ part of 'result.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ConnectionsList _$ResultFromJson(Map<String, dynamic> json) => ConnectionsList(
+ConnectionsList _$ConnectionsListFromJson(Map<String, dynamic> json) =>
+    ConnectionsList(
       connectionId: json['connection_id'] as String?,
       toUser: json['to_user'] as String?,
       username: json['username'] as String?,
@@ -18,7 +19,7 @@ ConnectionsList _$ResultFromJson(Map<String, dynamic> json) => ConnectionsList(
       connectedViaQr: json['connected_via_qr'] as bool?,
     );
 
-Map<String, dynamic> _$ResultToJson(ConnectionsList instance) =>
+Map<String, dynamic> _$ConnectionsListToJson(ConnectionsList instance) =>
     <String, dynamic>{
       'connection_id': instance.connectionId,
       'to_user': instance.toUser,

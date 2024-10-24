@@ -6,7 +6,7 @@ part of 'quick_tasks.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-QuickTasks _$DatumFromJson(Map<String, dynamic> json) => QuickTasks(
+QuickTasks _$QuickTasksFromJson(Map<String, dynamic> json) => QuickTasks(
       id: json['_id'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -25,7 +25,8 @@ QuickTasks _$DatumFromJson(Map<String, dynamic> json) => QuickTasks(
       isOwned: json['is_owned'] as bool?,
     );
 
-Map<String, dynamic> _$DatumToJson(QuickTasks instance) => <String, dynamic>{
+Map<String, dynamic> _$QuickTasksToJson(QuickTasks instance) =>
+    <String, dynamic>{
       '_id': instance.id,
       'title': instance.title,
       'description': instance.description,

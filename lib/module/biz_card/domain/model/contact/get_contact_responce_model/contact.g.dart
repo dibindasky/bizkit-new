@@ -15,12 +15,11 @@ ContactModel _$ContactModelFromJson(Map<String, dynamic> json) => ContactModel(
       profilePicture: json['profile_picture'] as String?,
       connectionExist: json['connection_exist'] as bool?,
       connectionId: json['connection_id'] as String?,
-      cardId: json['card_id'] as String?,
+      cardId: json['cardId'] as String?,
     );
 
 Map<String, dynamic> _$ContactModelToJson(ContactModel instance) =>
     <String, dynamic>{
-      'current_user_id': instance.currentUserId,
       'user_id': instance.userId,
       'name': instance.name,
       'email': instance.email,
@@ -28,5 +27,6 @@ Map<String, dynamic> _$ContactModelToJson(ContactModel instance) =>
       'profile_picture': instance.profilePicture,
       'connection_exist': instance.connectionExist,
       'connection_id': instance.connectionId,
-      'card_id': instance.cardId,
+      'cardId': instance.cardId,
+      'current_user_id': instance.currentUserId,
     };

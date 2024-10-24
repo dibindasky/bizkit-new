@@ -27,8 +27,8 @@ class CompletedSubTasks {
   });
 
   factory CompletedSubTasks.fromJson(Map<String, dynamic> json) {
-    return _$SubTaskFromJson(json);
+    return _$CompletedSubTasksFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$SubTaskToJson(this);
+  Map<String, dynamic> toJson() => _$CompletedSubTasksToJson(this);
 }

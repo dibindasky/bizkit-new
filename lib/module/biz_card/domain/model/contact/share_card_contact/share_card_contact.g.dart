@@ -6,12 +6,14 @@ part of 'share_card_contact.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ShareCardContact _$ShareCardContactFromJson(Map<String, dynamic> json) => ShareCardContact(
-      phoneNumber: json['phone_number'] as String?,
+ShareCardContact _$ShareCardContactFromJson(Map<String, dynamic> json) =>
+    ShareCardContact(
+      phoneNumber: json['phoneNumber'] as String?,
       email: json['email'] as String?,
     );
 
-Map<String, dynamic> _$ShareCardContactToJson(ShareCardContact instance) => <String, dynamic>{
-      'phone_number': instance.phoneNumber,
+Map<String, dynamic> _$ShareCardContactToJson(ShareCardContact instance) =>
+    <String, dynamic>{
+      'phoneNumber': instance.phoneNumber,
       'email': instance.email,
     };

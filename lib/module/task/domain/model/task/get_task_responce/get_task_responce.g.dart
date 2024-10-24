@@ -27,18 +27,27 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
       createdAt: json['created_at'] as String?,
       status: json['status'] as String?,
       isOwned: json['is_owned'] as bool?,
-      totalTime: (json['total_time'] as num?)?.toInt(),
-      totalExpense: (json['total_expense'] as num?)?.toInt(),
       assignedToDetails: (json['assigned_to_details'] as List<dynamic>?)
           ?.map((e) => AssignedToDetail.fromJson(e as Map<String, dynamic>))
           .toList(),
-    )..createdUserDetails = json['created_user_details'] == null
-        ? null
-        : CreatedUserDetails.fromJson(
-            json['created_user_details'] as Map<String, dynamic>);
+      totalExpense: json['total_expense'] as int?,
+      totalTime: json['total_time'] as int?,
+      createdUserDetails: json['created_user_details'] == null
+          ? null
+          : CreatedUserDetails.fromJson(
+              json['created_user_details'] as Map<String, dynamic>),
+    )
+      ..localId = json['localId'] as int?
+      ..taskType = json['taskType'] as String?
+      ..spotlightOn = json['spotlightOn'] as bool?
+      ..isPinned = json['isPinned'] as bool?;
 
 Map<String, dynamic> _$GetTaskResponceToJson(GetTaskResponce instance) =>
     <String, dynamic>{
+      'localId': instance.localId,
+      'taskType': instance.taskType,
+      'spotlightOn': instance.spotlightOn,
+      'isPinned': instance.isPinned,
       '_id': instance.id,
       'created_by': instance.createdBy,
       'title': instance.title,

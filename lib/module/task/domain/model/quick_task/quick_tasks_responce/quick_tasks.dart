@@ -41,7 +41,7 @@ class QuickTasks {
   });
 
   factory QuickTasks.fromJson(Map<String, dynamic> json) =>
-      _$DatumFromJson(json);
+      _$QuickTasksFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DatumToJson(this);
+  Map<String, dynamic> toJson() => _$QuickTasksToJson(this);
 }

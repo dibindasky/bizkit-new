@@ -15,7 +15,6 @@ import 'package:bizkit/module/biz_card/domain/model/connections/connection_reque
 import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/my_connections_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/recieved_connection_requests_responce/recieved_connection_requests_responce.dart';
-import 'package:bizkit/module/biz_card/domain/model/connections/search_connection_responce/search_connection_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/send_connection_requets_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_responce/send_connection_responce.dart';
@@ -26,7 +25,11 @@ import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
+
+@LazySingleton(as: ConnectionsRepo)
+@injectable
 class ConnectionsService implements ConnectionsRepo {
   final ApiService apiService = ApiService();
 

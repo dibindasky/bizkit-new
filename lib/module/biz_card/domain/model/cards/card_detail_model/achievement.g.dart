@@ -6,27 +6,18 @@ part of 'achievement.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Achievement _$PersonalAchievementFromJson(Map<String, dynamic> json) {
-  var imageList = json['images'];
-  List<ImageCard>? imageCards;
+Achievement _$AchievementFromJson(Map<String, dynamic> json) => Achievement(
+      title: json['title'] as String?,
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      description: json['description'] as String?,
+      event: json['event'] as String?,
+      date: json['date'] as String?,
+      id: json['_id'] as String?,
+    );
 
-  if (imageList is List) {
-    imageCards = imageList.map((image) {
-      // Create ImageCard from String
-      return ImageCard(image: image as String);
-    }).toList();
-  }
-  return Achievement(
-    title: json['title'] as String?,
-    images: imageCards,
-    description: json['description'] as String?,
-    event: json['event'] as String?,
-    date: json['date'] as String?,
-    id: json['_id'] as String?,
-  );
-}
-
-Map<String, dynamic> _$PersonalAchievementToJson(Achievement instance) =>
+Map<String, dynamic> _$AchievementToJson(Achievement instance) =>
     <String, dynamic>{
       'title': instance.title,
       'images': instance.images,

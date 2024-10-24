@@ -35,8 +35,8 @@ class ConnectionsList {
   });
 
   factory ConnectionsList.fromJson(Map<String, dynamic> json) {
-    return _$ResultFromJson(json);
+    return _$ConnectionsListFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$ResultToJson(this);
+  Map<String, dynamic> toJson() => _$ConnectionsListToJson(this);
 }

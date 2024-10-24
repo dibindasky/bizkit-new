@@ -6,7 +6,7 @@ part of 'result.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SearchConnection _$ResultFromJson(Map<String, dynamic> json) =>
+SearchConnection _$SearchConnectionFromJson(Map<String, dynamic> json) =>
     SearchConnection(
       toUser: json['to_user'] as String?,
       username: json['username'] as String?,
@@ -15,7 +15,7 @@ SearchConnection _$ResultFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$ResultToJson(SearchConnection instance) =>
+Map<String, dynamic> _$SearchConnectionToJson(SearchConnection instance) =>
     <String, dynamic>{
       'to_user': instance.toUser,
       'username': instance.username,

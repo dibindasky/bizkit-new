@@ -6,7 +6,6 @@ part of 'shared_cards_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-
 SharedCardsResponseModel _$SharedCardsResponseModelFromJson(
         Map<String, dynamic> json) =>
     SharedCardsResponseModel(

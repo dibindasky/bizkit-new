@@ -10,10 +10,12 @@ CancelConnectionRequestModel _$CancelConnectionRequestModelFromJson(
         Map<String, dynamic> json) =>
     CancelConnectionRequestModel(
       connectionId: json['connection_id'] as String?,
+      userId: json['userId'] as String?,
     );
 
 Map<String, dynamic> _$CancelConnectionRequestModelToJson(
         CancelConnectionRequestModel instance) =>
     <String, dynamic>{
       'connection_id': instance.connectionId,
+      'userId': instance.userId,
     };

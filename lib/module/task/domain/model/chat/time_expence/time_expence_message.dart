@@ -21,7 +21,7 @@ class TimeExpense {
     this.timestamp,
     this.timeExpenseData,
     this.readByAll,
-    this.sender =false,
+    this.sender = false,
     this.isLoadMore = false,
   });
 
@@ -59,6 +59,29 @@ class TimeExpense {
       'is_load_more': isLoadMore,
     };
   }
+
+  static const String colLocalId = 'local_id';
+  static const String colMessageType = 'message_type';
+  static const String colMessage = 'message';
+  static const String colUserId = 'user_id';
+  static const String colUsername = 'username';
+  static const String colProfilePicture = 'profile_picture';
+  static const String colMessageId = 'message_id';
+  static const String colTimestamp = 'timestamp';
+  static const String colTimeExpenseData = 'time_expense_data';
+  static const String colReadByAll = 'read_by_all';
+  static const String colSender = 'sender';
+  static const String colIsLoadMore = 'is_load_more';
+  
+  /// [TimeExpenseData] items
+  static const String colId = '_id';
+  static const String colUserName = 'user_name';
+  static const String colTaskId = 'task_id';
+  static const String colTime = 'time';
+  static const String colExpense = 'expense';
+  static const String colDescription = 'description';
+  static const String colStartDate = 'start_date';
+  static const String colEndDate = 'end_date';
 }
 
 class TimeExpenseData {
@@ -111,4 +134,15 @@ class TimeExpenseData {
       'user_id': userId,
     };
   }
+
+  static const String colLocalId = 'local_id';
+  static const String colId = '_id';
+  static const String colUserName = 'user_name';
+  static const String colTaskId = 'task_id';
+  static const String colTime = 'time';
+  static const String colExpense = 'expense';
+  static const String colDescription = 'description';
+  static const String colStartDate = 'start_date';
+  static const String colEndDate = 'end_date';
+  static const String colUserId = 'user_id';
 }

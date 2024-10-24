@@ -70,4 +70,19 @@ class VoiceMessage {
   String toString() {
     return 'VoiceMessage{messageType: $messageType, message: $message, userId: $userId, username: $username, duration: $duration profilePicture: $profilePicture, messageId: $messageId, timestamp: $timestamp, voice_data_base64: $voice, readByAll: $readByAll}';
   }
+
+  static const String colLocalId = 'local_id';
+  static const String colMessageType = 'message_type';
+  static const String colMessage = 'message';
+  static const String colUserId = 'user_id';
+  static const String colUsername = 'username';
+  static const String colProfilePicture = 'profile_picture';
+  static const String colMessageId = 'message_id';
+  static const String colTimestamp = 'timestamp';
+  static const String colVoice = 'voice_data_base64';
+  static const String colDuration = 'duration';
+  static const String colReadByAll = 'read_by_all';
+  static const String colCurrentUid = 'current_uid';
+  static const String colIsLoadMore = 'is_load_more';
+  static const String colSender = 'sender';
 }

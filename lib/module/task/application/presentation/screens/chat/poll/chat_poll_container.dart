@@ -1,8 +1,9 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/message_read_marker.dart';
-import 'package:bizkit/module/task/domain/model/chat/poll.dart';
-import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll/poll.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll/poll_answer.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll/vote_poll.dart';
 import 'package:bizkit/utils/animations/custom_linear_progress_bar.dart';
 import 'package:bizkit/utils/clipper/chat_pol_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';

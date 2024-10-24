@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
-import 'package:bizkit/module/task/domain/model/chat/time_expence_creation.dart';
+import 'package:bizkit/module/task/domain/model/chat/time_expence/time_expence_creation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';

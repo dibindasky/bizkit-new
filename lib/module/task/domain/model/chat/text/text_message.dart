@@ -64,4 +64,18 @@ class TextMessage {
       readByAll: (json['read_by_all'] as bool?) ?? false,
     );
   }
+
+  static const String colLocalId = 'local_id';
+  static const String colMessageType = 'message_type';
+  static const String colUserId = 'user_id';
+  static const String colCurrentUid = 'current_uid';
+  static const String colUsername = 'username';
+  static const String colProfilePicture = 'profile_picture';
+  static const String colMessageId = 'message_id';
+  static const String colMessage = 'message';
+  static const String colTimestamp = 'timestamp';
+  static const String colSender = 'sender';
+  static const String colReadBy = 'read_by';
+  static const String colIsLoadMore = 'is_load_more';
+  static const String colReadByAll = 'read_by_all';
 }

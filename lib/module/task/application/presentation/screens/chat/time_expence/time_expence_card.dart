@@ -1,5 +1,5 @@
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/message_read_marker.dart';
-import 'package:bizkit/module/task/domain/model/chat/time_expence_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/time_expence/time_expence_message.dart';
 import 'package:bizkit/utils/clipper/chat_pol_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';

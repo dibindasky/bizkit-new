@@ -1,9 +1,9 @@
-import 'package:bizkit/module/task/domain/model/chat/current_location_message.dart';
-import 'package:bizkit/module/task/domain/model/chat/file_model.dart';
-import 'package:bizkit/module/task/domain/model/chat/poll.dart';
-import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
-import 'package:bizkit/module/task/domain/model/chat/time_expence_message.dart';
-import 'package:bizkit/module/task/domain/model/chat/voice_model.dart';
+import 'package:bizkit/module/task/domain/model/chat/current_location/current_location_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/file/file_model.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll/poll.dart';
+import 'package:bizkit/module/task/domain/model/chat/text/text_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/time_expence/time_expence_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/voice/voice_model.dart';
 
 class Message {
   TextMessage? textMessage;
@@ -116,7 +116,7 @@ class Message {
     return isLoadMore;
   }
 
-  static const String colTaskAssignedToDetailLocalId = 'local_id';
+  static const String colLocalId = 'local_id';
   static const String colTextMessage = 'text_message';
   static const String colPoll = 'poll';
   static const String colTimeExpense = 'time_expence';

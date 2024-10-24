@@ -1,5 +1,5 @@
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/message_read_marker.dart';
-import 'package:bizkit/module/task/domain/model/chat/voice_model.dart';
+import 'package:bizkit/module/task/domain/model/chat/voice/voice_model.dart';
 import 'package:bizkit/packages/sound/just_audio.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';

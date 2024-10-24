@@ -1,6 +1,6 @@
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/message_read_marker.dart';
-import 'package:bizkit/module/task/domain/model/chat/current_location_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/current_location/current_location_message.dart';
 import 'package:bizkit/utils/clipper/chat_pol_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';

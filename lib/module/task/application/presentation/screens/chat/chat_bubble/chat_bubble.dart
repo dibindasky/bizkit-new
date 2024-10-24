@@ -1,5 +1,5 @@
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/message_read_marker.dart';
-import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/text/text_message.dart';
 import 'package:bizkit/utils/clipper/chat_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';

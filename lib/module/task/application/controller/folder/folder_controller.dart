@@ -239,7 +239,6 @@ class TaskFolderController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
-        log('task add OR remove - folder ===  ${success.message}');
         addOrDelete == true
             ? scaffoldMessenger.showSnackBar(
                 const SnackBar(
@@ -485,7 +484,6 @@ class TaskFolderController extends GetxController {
       (success) {
         tasksInsideInnerFolder
             .assignAll(success.data?.first.innerFolderTasks ?? []);
-        log('tasksInsideInnerFolder :=> $tasksInsideInnerFolder');
         isLoading.value = false;
       },
     );
@@ -547,7 +545,6 @@ class TaskFolderController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
-        log('MergeInner Folder : ${success.message}');
         selectedInnerFolderIds.clear();
         selectedIndices.clear();
         selectedFolderContainer.value = false;

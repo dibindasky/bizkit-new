@@ -1,5 +1,6 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class TaskNavbarController extends GetxController {
@@ -18,12 +19,12 @@ class TaskNavbarController extends GetxController {
       return await exitConfirmationDialog(context) ?? false;
     } else if (selectedIndex == 1) {
       changeBottomIndex(0);
-      return false; // Prevent default back behavior
+      return false;
     } else if (selectedIndex == 2 || selectedIndex == 3) {
       changeBottomIndex(1);
-      return false; // Prevent default back behavior
+      return false;
     }
-    return true; // Allow default back behavior for other cases
+    return true;
   }
 
   // Exit confirmation dialog
@@ -40,14 +41,17 @@ class TaskNavbarController extends GetxController {
         content: const Text('Are you sure you want to exit the app?'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
+            onPressed: () => Navigator.of(context).pop(),
             child: Text(
               'Cancel',
               style: textThinStyle1,
             ),
           ),
           TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
+            onPressed: () {
+              Navigator.of(context).pop();
+              SystemNavigator.pop(); // Exit app
+            },
             child: Text(
               'Exit',
               style: textThinStyle1,

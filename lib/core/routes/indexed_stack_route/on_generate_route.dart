@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/managementside_attendence_selection.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/attendence_selection/management/my_team_activities_tab/calendar/calendar_screen.dart';
@@ -42,6 +44,8 @@ class RouteGenerator {
   Route onGenerateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
 
+    // Log the current route before navigating
+    logCurrentRoute(settings.name);
     //Task section
     switch (settings.name) {
       case Routes.taskHome:
@@ -143,7 +147,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (ctx) => AttendencePPRequestToChangeScreen());
       case Routes.attendenceEmployeeLeaveView:
-        return MaterialPageRoute(builder: (ctx) => EmployeeLeaveView());
+        return MaterialPageRoute(builder: (ctx) => const EmployeeLeaveView());
 
 // Attendence Module Management Side
       case Routes.attendenceSelectionManagementSide:
@@ -210,5 +214,9 @@ class RouteGenerator {
         ),
       );
     });
+  }
+
+  void logCurrentRoute(String? routeName) {
+    log('Navigating to route ===> [ $routeName ]');
   }
 }

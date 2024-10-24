@@ -65,7 +65,7 @@ class Routes {
   static const String taskChatPollDetail = '/task_chat_poll_detail';
   static const String taskCreateNewFolder = '/task_create_new_folder';
   static const String taskInsideTheInnerFolderScreen =
-      'task_inside_the_inner_folder';
+      '/task_inside_the_inner_folder';
   static const String taskSearch = '/task_search';
   static const String generateTasksSearch = '/generate_tasks_search';
   static const String reportsview = '/reports_view';

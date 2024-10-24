@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:bizkit/core/routes/indexed_stack_route/on_generate_route.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
@@ -11,9 +9,10 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+// Todo : Fix [PopScope] issue [ handle the navigation error ]
 
 class ScreenNavbarTaskModule extends StatefulWidget {
   const ScreenNavbarTaskModule({super.key});
@@ -25,23 +24,40 @@ class ScreenNavbarTaskModule extends StatefulWidget {
 class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<TaskNavbarController>();
-    int selectedIndex = controller.taskBottomIndex.value;
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (didPop) async {
-        if (!didPop) {
-          final shouldPop =
+    return GetBuilder<TaskNavbarController>(
+      builder: (controller) {
+        int selectedIndex = controller.taskBottomIndex.value;
+        return PopScope(
+          canPop: false,
+          onPopInvoked: (didPop) async {
+            if (!didPop) {
+              if (selectedIndex == 1) {
+                final canPop =
+                    Get.nestedKey(1)?.currentState?.canPop() ?? false;
+
+                if (canPop) {
+                  Get.nestedKey(1)?.currentState?.pop();
+                } else {
+                  controller.changeBottomIndex(0);
+                }
+                return; // Prevent the default back navigation
+              } else if (selectedIndex == 2) {
+                final canPop =
+                    Get.nestedKey(2)!.currentState?.canPop() ?? false;
+
+                if (canPop) {
+                  Get.nestedKey(2)?.currentState?.pop();
+                } else {
+                  controller.changeBottomIndex(1);
+                }
+                return; // Prevent the default back navigation
+              }
+
+              // Handle normal back navigation if no nested navigator can pop
               await controller.handleBackNavigation(selectedIndex, context);
-          if (shouldPop) {
-            Navigator.of(context).pop();
-          }
-        }
-      },
-      child: GetBuilder<TaskNavbarController>(
-        builder: (controller) {
-          selectedIndex = controller.taskBottomIndex.value;
-          return Scaffold(
+            }
+          },
+          child: Scaffold(
             body: IndexedStack(index: selectedIndex, children: [
               ScreenModuleSelector(),
               Navigator(
@@ -113,57 +129,12 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
                     ),
                   ],
                   onSelect: (index) {
-                    // setState(() {
-                    //   selectedIndex = index;
-                    // });
                     controller.changeBottomIndex(index);
                   },
                 ),
               ),
             ),
-          );
-        },
-      ),
-    );
-  }
-
-  Future<dynamic> exitConfirmationDialog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(
-            'Exit confirmation ',
-            style: textHeadStyle1.copyWith(color: neonShade),
           ),
-          content: Text(
-            'Are you sure you want to exit?',
-            style: textThinStyle1.copyWith(color: neonShade),
-          ),
-          shadowColor: neonShade,
-          elevation: 5,
-          backgroundColor: Colors.black,
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'Cancel',
-                style: textThinStyle1.copyWith(color: neonShade),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                SystemNavigator.pop(); // Exit app
-              },
-              child: Text(
-                'Exit',
-                style: textThinStyle1.copyWith(color: neonShade),
-              ),
-            ),
-          ],
         );
       },
     );

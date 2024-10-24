@@ -9,13 +9,18 @@ import 'package:bizkit/module/task/domain/model/chat/poll/poll_supporter.dart';
 import 'package:bizkit/module/task/domain/model/chat/text/text_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/time_expence/time_expence_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/voice/voice_model.dart';
+import 'package:bizkit/module/task/domain/repository/sqfilte/chat/task_chat_local_service_repo.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/task/task_oncreate_db.dart';
+import 'package:injectable/injectable.dart';
 
-class TaskChatLocalService {
+@LazySingleton(as: TaskChatLocalServiceRepo)
+@injectable
+class TaskChatLocalService implements TaskChatLocalServiceRepo {
   LocalService localService = LocalService();
 
   /// [Message] insert if not present or else update
+  @override
   Future<int?> insertOrUpdateMessage({required Message message}) async {
     try {
       const String query = '''

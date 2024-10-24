@@ -12,6 +12,10 @@ import 'package:bizkit/module/biz_card/data/service/connections/connections_serv
     as _i1029;
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart'
     as _i253;
+import 'package:bizkit/module/task/data/sqfilte/chat/task_chat_local_service.dart'
+    as _i578;
+import 'package:bizkit/module/task/domain/repository/sqfilte/chat/task_chat_local_service_repo.dart'
+    as _i209;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -26,6 +30,8 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.lazySingleton<_i209.TaskChatLocalServiceRepo>(
+        () => _i578.TaskChatLocalService());
     gh.lazySingleton<_i253.ConnectionsRepo>(() => _i1029.ConnectionsService());
     return this;
   }

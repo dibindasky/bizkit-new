@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:bizkit/service/local_service/sql/oncreate_db.dart';
 import 'package:sqflite/sqflite.dart' as sql;
-import 'package:path/path.dart';
 
 class LocalService {
   static const _databaseName = "bizkit.db";
@@ -17,13 +16,14 @@ class LocalService {
 
   Future<sql.Database?> _initDatabase() async {
     var databasesPath = await sql.getDatabasesPath();
-    String path = join(databasesPath, _databaseName);
+    String path = '$databasesPath/$_databaseName';
 
     return await sql.openDatabase(path,
         version: _databaseVersion,
         onCreate: (sql.Database db, int version) async =>
             await Sql.onCreate(db));
   }
+
   /// Get data from sql
   Future<List<Map<String, Object?>>> rawQuery(String query,
       [List<Object?>? listParams]) async {

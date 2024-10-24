@@ -1144,7 +1144,7 @@ class CreateTaskController extends GetxController {
     singleTask.value = GetTaskResponce();
 
     // Fetch the task details from local storage before making a network call
-    await fetchSingleTaskFromLocalStorage(singleTaskModel);
+    // await fetchSingleTaskFromLocalStorage(singleTaskModel);
 
     final result = await taskService.getTask(singleTaskModel: singleTaskModel);
     result.fold(
@@ -1155,14 +1155,14 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         // If the fetched task matches the current task, update the singleTask observable
-        if (singleTask.value.id == success.id) {
+        // if (singleTask.value.id == success.id) {
           singleTask.value = success;
-        }
+        // }
         isLoading.value = false;
 
         // Add the fetched task to local storage if it's not already stored
-        taskLocalService.addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
-            taskModel: success);
+        // taskLocalService.addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
+        //     taskModel: success);
       },
     );
   }

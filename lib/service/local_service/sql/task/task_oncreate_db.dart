@@ -38,13 +38,13 @@ class TaskSql {
       await db.execute(_taskAttachmentsTableCreation);
       await db.execute(_taskSubTasksTableCreation);
       await db.execute(_taskAssignedToDetailTableCreation);
+      await db.execute(_taskMessagesTableCreation);
       await db.execute(_pollMessageTableCreation);
       await db.execute(_taskMesageTextTableCreation);
       await db.execute(_voiceMessageTableCreation);
       await db.execute(_fileMessageTableCreation);
       await db.execute(_timeExpenseTableCreation);
       await db.execute(_currentLocationMessageTableCreation);
-      await db.execute(_taskMessagesTableCreation);
       await db.execute(_taskMessagePollAnswersTableCreation);
       await db.execute(_taskMessagePollSupportersTableCreation);
     } catch (e) {
@@ -252,7 +252,7 @@ class TaskSql {
      ${PollAnswer.colAnswerId} TEXT,
      ${PollAnswer.colAnswerText} TEXT,
      ${PollAnswer.colAnswerVotes} INTEGER,
-     ${PollAnswer.colMessageId} TEXT,
+     ${PollAnswer.colMessageId} TEXT
    )
   ''';
 
@@ -274,7 +274,7 @@ class TaskSql {
       ${Message.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
       ${Message.colSender} INTEGER,
       ${Message.colMessageId} TEXT,
-      ${Message.colMessageType} TEXT,
+      ${Message.colMessageType} TEXT
     )
   ''';
   // /// Table for [Message]

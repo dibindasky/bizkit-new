@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
+import 'package:bizkit/core/dipendency/di/dipendency_injection.dart';
 import 'package:bizkit/core/model/image/image_model.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/chat/current_location/current_location_message.dart';
@@ -16,6 +17,7 @@ import 'package:bizkit/module/task/domain/model/chat/text/text_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/time_expence/time_expence_creation.dart';
 import 'package:bizkit/module/task/domain/model/chat/time_expence/time_expence_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll/vote_poll.dart';
+import 'package:bizkit/module/task/domain/repository/sqfilte/chat/task_chat_local_service_repo.dart';
 import 'package:bizkit/packages/location/location_service.dart';
 import 'package:bizkit/packages/pdf/pdf_picker.dart';
 import 'package:bizkit/packages/sound/just_audio.dart';
@@ -35,6 +37,10 @@ class ChatController extends GetxController {
   final ScrollController chatScrollController = ScrollController();
   SoundManager soundManager = SoundManager();
   AudioPlayerHandler audioPlayerHandler = AudioPlayerHandler();
+
+  /// task chat local db service model
+  final TaskChatLocalServiceRepo taskChatLocalService =
+      getIt<TaskChatLocalServiceRepo>();
 
   /// chat messages list
   RxList<Message> messages = <Message>[].obs;
@@ -136,128 +142,132 @@ class ChatController extends GetxController {
             connectionLoading.value = false;
             connected.value = true;
           }
-
           // if there is nothing to load more then stop loading
-          if (loadMoreLoading.value &&
+          else if (loadMoreLoading.value &&
               decodedMessage['is_last_batch'] != null) {
             loadMoreLoading.value = false;
           }
 
-          // handle for text messages
-          if (decodedMessage['message_type'] == 'text') {
-            final m = TextMessage.fromJson(decodedMessage, uid);
-            final mess = Message(
-                textMessage: m, sender: m.sender, messageId: m.messageId);
-            final index = messages.indexWhere(
-                (element) => element.textMessage?.messageId == m.messageId);
-            if (index != -1) {
-              messages[index] = mess;
-              doAnimate = false;
-            } else if (m.isLoadMore) {
-              loadMoreLoading.value = false;
-              doAnimate = false;
-              messages.add(mess);
-            } else {
-              messages.insert(0, mess);
-            }
-          }
+          switch (decodedMessage['message_type']) {
+            case 'text':
+              final m = TextMessage.fromJson(decodedMessage, uid);
+              final mess = Message(
+                  textMessage: m, sender: m.sender, messageId: m.messageId);
+              final index = messages.indexWhere(
+                  (element) => element.textMessage?.messageId == m.messageId);
+              if (index != -1) {
+                messages[index] = mess;
+                doAnimate = false;
+              } else if (m.isLoadMore) {
+                loadMoreLoading.value = false;
+                doAnimate = false;
+                messages.add(mess);
+              } else {
+                messages.insert(0, mess);
+              }
+              taskChatLocalService.insertOrUpdateMessage(message: mess);
+              break;
 
-          // handle for file type
-          else if (decodedMessage['message_type'] == 'file') {
-            final m = FileMessage.fromJson(decodedMessage, uid);
-            final mess =
-                Message(file: m, sender: m.sender, messageId: m.messageId);
-            final index = messages.indexWhere(
-                (element) => element.file?.messageId == m.messageId);
-            if (index != -1) {
-              messages[index] = mess;
-              doAnimate = false;
-            } else if (m.isLoadMore) {
-              loadMoreLoading.value = false;
-              doAnimate = false;
-              messages.add(mess);
-            } else {
-              messages.insert(0, mess);
-            }
-          }
+            case 'file':
+              final m = FileMessage.fromJson(decodedMessage, uid);
+              final mess =
+                  Message(file: m, sender: m.sender, messageId: m.messageId);
+              final index = messages.indexWhere(
+                  (element) => element.file?.messageId == m.messageId);
+              if (index != -1) {
+                messages[index] = mess;
+                doAnimate = false;
+              } else if (m.isLoadMore) {
+                loadMoreLoading.value = false;
+                doAnimate = false;
+                messages.add(mess);
+              } else {
+                messages.insert(0, mess);
+              }
+              // taskChatLocalServiceRepo.insertOrUpdateMessage(message: mess);
+              break;
 
-          // handle for polls
-          else if (decodedMessage['message_type'] == 'poll') {
-            final m = Poll.fromJson(decodedMessage, uid);
-            final mess =
-                Message(poll: m, sender: m.sender, messageId: m.messageId);
-            final index = messages.indexWhere(
-                (element) => element.poll?.messageId == m.messageId);
-            if (index != -1) {
-              messages[index] = mess;
-              doAnimate = false;
-            } else if (m.isLoadMore) {
-              loadMoreLoading.value = false;
-              doAnimate = false;
-              messages.add(mess);
-            } else {
-              messages.insert(0, mess);
-            }
-          }
+            case 'poll':
+              final m = Poll.fromJson(decodedMessage, uid);
+              final mess =
+                  Message(poll: m, sender: m.sender, messageId: m.messageId);
+              final index = messages.indexWhere(
+                  (element) => element.poll?.messageId == m.messageId);
+              if (index != -1) {
+                messages[index] = mess;
+                doAnimate = false;
+              } else if (m.isLoadMore) {
+                loadMoreLoading.value = false;
+                doAnimate = false;
+                messages.add(mess);
+              } else {
+                messages.insert(0, mess);
+              }
+              // taskChatLocalServiceRepo.insertOrUpdateMessage(message: mess);
+              break;
 
-          // handle for expence and time
-          else if (decodedMessage['message_type'] == 'time_expense') {
-            Get.find<CreateTaskController>().fetchSingleTask(
-                singleTaskModel: GetSingleTaskModel(taskId: chatTaskId));
-            final m = TimeExpense.fromJson(decodedMessage, uid);
-            final mess = Message(
-                timeExpence: m, sender: m.sender, messageId: m.messageId);
-            final index = messages.indexWhere(
-                (element) => element.timeExpence?.messageId == m.messageId);
-            if (index != -1) {
-              messages[index] = mess;
-              doAnimate = false;
-            } else if (m.isLoadMore) {
-              loadMoreLoading.value = false;
-              doAnimate = false;
-              messages.add(mess);
-            } else {
-              messages.insert(0, mess);
-            }
-          }
+            case 'time_expense':
+              Get.find<CreateTaskController>().fetchSingleTask(
+                  singleTaskModel: GetSingleTaskModel(taskId: chatTaskId));
+              final m = TimeExpense.fromJson(decodedMessage, uid);
+              final mess = Message(
+                  timeExpence: m, sender: m.sender, messageId: m.messageId);
+              final index = messages.indexWhere(
+                  (element) => element.timeExpence?.messageId == m.messageId);
+              if (index != -1) {
+                messages[index] = mess;
+                doAnimate = false;
+              } else if (m.isLoadMore) {
+                loadMoreLoading.value = false;
+                doAnimate = false;
+                messages.add(mess);
+              } else {
+                messages.insert(0, mess);
+              }
+              // taskChatLocalServiceRepo.insertOrUpdateMessage(message: mess);
+              break;
 
-          // handle for current location
-          else if (decodedMessage['message_type'] == 'location') {
-            final m = CurrentLocationMessage.fromJson(decodedMessage, uid);
-            final mess = Message(
-                currentLocation: m, sender: m.sender, messageId: m.messageId);
-            final index = messages.indexWhere(
-                (element) => element.currentLocation?.messageId == m.messageId);
-            if (index != -1) {
-              messages[index] = mess;
-              doAnimate = false;
-            } else if (m.isLoadMore) {
-              loadMoreLoading.value = false;
-              doAnimate = false;
-              messages.add(mess);
-            } else {
-              messages.insert(0, mess);
-            }
-          }
+            case 'location':
+              final m = CurrentLocationMessage.fromJson(decodedMessage, uid);
+              final mess = Message(
+                  currentLocation: m, sender: m.sender, messageId: m.messageId);
+              final index = messages.indexWhere((element) =>
+                  element.currentLocation?.messageId == m.messageId);
+              if (index != -1) {
+                messages[index] = mess;
+                doAnimate = false;
+              } else if (m.isLoadMore) {
+                loadMoreLoading.value = false;
+                doAnimate = false;
+                messages.add(mess);
+              } else {
+                messages.insert(0, mess);
+              }
+              // taskChatLocalServiceRepo.insertOrUpdateMessage(message: mess);
+              break;
 
-          // handle for voice messages
-          else if (decodedMessage['message_type'] == 'voice') {
-            final m = VoiceMessage.fromJson(decodedMessage, uid);
-            // recordedAudio.value = decodedMessage['new_voice'] ?? "";
-            final mess = Message(
-                voiceMessage: m, sender: m.sender, messageId: m.messageId);
-            final index = messages.indexWhere(
-                (element) => element.voiceMessage?.messageId == m.messageId);
-            if (index != -1) {
-              messages[index] = mess;
-              doAnimate = false;
-            } else if (m.isLoadMore) {
-              loadMoreLoading.value = false;
-              doAnimate = false;
-              messages.add(mess);
-            } else {
-              messages.insert(0, mess);
-            }
+            case 'voice':
+              final m = VoiceMessage.fromJson(decodedMessage, uid);
+              final mess = Message(
+                  voiceMessage: m, sender: m.sender, messageId: m.messageId);
+              final index = messages.indexWhere(
+                  (element) => element.voiceMessage?.messageId == m.messageId);
+              if (index != -1) {
+                messages[index] = mess;
+                doAnimate = false;
+              } else if (m.isLoadMore) {
+                loadMoreLoading.value = false;
+                doAnimate = false;
+                messages.add(mess);
+              } else {
+                messages.insert(0, mess);
+              }
+              // taskChatLocalServiceRepo.insertOrUpdateMessage(message: mess);
+              break;
+
+            default:
+              // Handle unsupported message types if needed
+              break;
           }
 
           update(['chat']);

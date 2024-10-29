@@ -31,57 +31,8 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
 
         return PopScope(
           canPop: false,
-          onPopInvoked: (didPop) async {
-            if (!didPop) {
-              final logString1 = "${Get.nestedKey(1)?.currentState.toString()}";
-              final logString2 = "${Get.nestedKey(2)?.currentState.toString()}";
-
-              final regex = RegExp(r'tracking (\d+) ticker');
-
-              final match1 = regex.firstMatch(logString1);
-              final match2 = regex.firstMatch(logString2);
-
-              if (match1 != null && match2 != null) {
-                final nestedIndex1 = int.tryParse(match1.group(1)!) ?? 0;
-                final nestedIndex2 = int.tryParse(match2.group(1)!) ?? 0;
-
-                if (nestedIndex1 == 2 && selectedIndex == 1) {
-                  controller.changeBottomIndex(0);
-                  return;
-                } else if (nestedIndex2 == 2 && selectedIndex == 2) {
-                  controller.changeBottomIndex(1);
-                  return;
-                } else if (selectedIndex == 0) {
-                  await exitConfirmationDialog(context) ?? false;
-                  return;
-                } else if (selectedIndex == 3) {
-                  controller.changeBottomIndex(1);
-                  return;
-                } else {
-                  bool canPop1 =
-                      Get.nestedKey(1)?.currentState?.canPop() ?? false;
-                  bool canPop2 =
-                      Get.nestedKey(2)?.currentState?.canPop() ?? false;
-
-                  if (nestedIndex1 == 2 && canPop1 == true) {
-                    canPop1 = false;
-                  }
-                  if (nestedIndex2 == 2 && canPop2 == true) {
-                    canPop2 = false;
-                  }
-                  if (canPop1 == true) {
-                    Get.nestedKey(1)?.currentState?.pop();
-                    return;
-                  } else if (canPop2 == true) {
-                    Get.nestedKey(2)?.currentState?.pop();
-                    return;
-                  } else {
-                    log('Not working');
-                  }
-                }
-              }
-            }
-          },
+          onPopInvoked: (didPop) =>
+              controller.handlePopInvocation(didPop, context),
           child: Scaffold(
             body: IndexedStack(index: selectedIndex, children: [
               ScreenModuleSelector(),

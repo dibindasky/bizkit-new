@@ -692,16 +692,14 @@ class CreateTaskController extends GetxController {
   // Filters tasks by deadline using the provided model
   void taskFilterByDeadline() async {
     taksListLoading.value = true;
+
     deadlineTasksPageNumber = 1;
     deadlineTasks.value = [];
-    final localDbTasksResult = await taskLocalService.getTasksFromLocalStorage(
-      filterByDeadline: deadlineDate.value,
-    );
 
-    localDbTasksResult.fold(
-      (failure) => log("Error: ${failure.message}"),
-      (tasks) {},
-    );
+    // Fetch the tasks from local storage before making a network call
+    await fetchTasksFromLocalDb();
+
+    // Network call to fetch tasks by deadline
     final result = await taskService.filterByDeadline(
         filterByDeadline: FilterByDeadlineModel(
       date: deadlineDate.value,
@@ -714,13 +712,34 @@ class CreateTaskController extends GetxController {
         taksListLoading.value = false;
       },
       (success) async {
+        // Add the new tasks from the network call
         deadlineTasks.assignAll(success.data ?? []);
 
-        taksListLoading.value = false;
         for (var task in deadlineTasks) {
           await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
               taskModel: task);
         }
+
+        taksListLoading.value = false;
+      },
+    );
+  }
+
+  Future<void> fetchTasksFromLocalDb() async {
+    final localDbTasksResult = await taskLocalService.getTasksFromLocalStorage(
+      filterByDeadline: deadlineDate.value,
+    );
+
+    localDbTasksResult.fold(
+      (failure) {
+        log("FetchTasksFromLocalDb error: ${failure.message}");
+      },
+      (tasks) {
+        deadlineTasks.addAll(tasks);
+        for (var task in deadlineTasks) {
+          log('Task title from local db ====> ${task.title}');
+        }
+        taksListLoading.value = false;
       },
     );
   }

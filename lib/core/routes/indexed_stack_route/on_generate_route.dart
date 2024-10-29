@@ -44,8 +44,6 @@ class RouteGenerator {
   Route onGenerateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
 
-    // Log the current route before navigating
-    logCurrentRoute(settings.name);
     //Task section
     switch (settings.name) {
       case Routes.taskHome:
@@ -214,9 +212,5 @@ class RouteGenerator {
         ),
       );
     });
-  }
-
-  void logCurrentRoute(String? routeName) {
-    log('Navigating to route ===> [ $routeName ]');
   }
 }

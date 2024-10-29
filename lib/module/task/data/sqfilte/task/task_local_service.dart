@@ -658,61 +658,8 @@ class TaskLocalService implements TaskLocalRepo {
           [localTaskId]);
 
       // Parse the results into GetTaskResponce
-      final GetTaskResponce taskResponse = GetTaskResponce(
-        id: taskData[GetTaskResponce.colTaskId] as String?,
-        title: taskData[GetTaskResponce.colTaskTitle] as String?,
-        description: taskData[GetTaskResponce.colTaskDescription] as String?,
-        createdBy: taskData[GetTaskResponce.colTaskCreatedBy] as String?,
-        priorityLevel:
-            taskData[GetTaskResponce.colTaskPriorityLevel] as String?,
-        recurrentTask: taskData[GetTaskResponce.colTaskRecurrentTask] == 1,
-        isCompleted: taskData[GetTaskResponce.colTaskIsCompleted] == 1,
-        isOwned: taskData[GetTaskResponce.colTaskIsOwned] == 1,
-        deadLine: taskData[GetTaskResponce.colTaskDeadLine] as String?,
-        isKilled: taskData[GetTaskResponce.colTaskIsKilled] == 1,
-        tags: (taskData[GetTaskResponce.colTaskTags] as String?)?.split(','),
-        createdAt: taskData[GetTaskResponce.colTaskCreatedAt] as String?,
-        status: taskData[GetTaskResponce.colTaskStatus] as String?,
-        totalTime: int.tryParse(
-            taskData[GetTaskResponce.colTaskTotalTime]?.toString() ?? ''),
-        totalExpense: int.tryParse(
-            taskData[GetTaskResponce.colTaskTotalExpense]?.toString() ?? ''),
-        attachments: attachmentResults
-            .map((r) => Attachment(
-                  attachment: r[Attachment.colTaskAttachment] as String?,
-                  type: r[Attachment.colTaskAttachmentType] as String?,
-                ))
-            .toList(),
-        subTask: subtaskResults
-            .map((r) => SubTask(
-                  id: r[SubTask.colTaskSubtaskId] as String?,
-                  title: r[SubTask.colTaskSubtaskTitle] as String?,
-                  description: r[SubTask.colTaskSubtaskDescription] as String?,
-                  deadLine: r[SubTask.colTaskSubtaskDeadline] as String?,
-                  isCompleted: r[SubTask.colTaskSubtaskIsCompleted] == 1,
-                  totalTimeTaken:
-                      r[SubTask.colTaskSubtaskTotalTimeTaken] as String?,
-                  duration: r[SubTask.colTaskSubtaskDuration] as String?,
-                ))
-            .toList(),
-        assignedToDetails: assignedUserResults
-            .map((r) => AssignedToDetail(
-                  userId: r[AssignedToDetail.colTaskAssignedToDetailUserId]
-                      as String?,
-                  name: r[AssignedToDetail.colTaskAssignedToDetailUserName]
-                      as String?,
-                  isAccepted:
-                      r[AssignedToDetail.colTaskAssignedToDetailIsAccepted]
-                          as String?,
-                ))
-            .toList(),
-        createdUserDetails: CreatedUserDetails(
-          id: taskData[GetTaskResponce.colTaskCreatedUserId] as String?,
-          name: taskData[GetTaskResponce.colTaskCreatedUsername] as String?,
-          profilePicture:
-              taskData[GetTaskResponce.colTaskCreatedUserProfilePic] as String?,
-        ),
-      );
+      GetTaskResponce taskResponse = _parseResultsToGetTaskResponce(
+          taskData, attachmentResults, subtaskResults, assignedUserResults);
 
       log('getTaskFullDetailsFromLocalStorage success =====> ');
       return Right(taskResponse);
@@ -722,7 +669,68 @@ class TaskLocalService implements TaskLocalRepo {
     }
   }
 
-// Todo:  ===> task get form  local storage based on user provided deadline
+  GetTaskResponce _parseResultsToGetTaskResponce(
+      Map<String, dynamic> taskData,
+      List<Map<String, dynamic>> attachmentResults,
+      List<Map<String, dynamic>> subtaskResults,
+      List<Map<String, dynamic>> assignedUserResults) {
+    final GetTaskResponce taskResponse = GetTaskResponce(
+      id: taskData[GetTaskResponce.colTaskId] as String?,
+      title: taskData[GetTaskResponce.colTaskTitle] as String?,
+      description: taskData[GetTaskResponce.colTaskDescription] as String?,
+      createdBy: taskData[GetTaskResponce.colTaskCreatedBy] as String?,
+      priorityLevel: taskData[GetTaskResponce.colTaskPriorityLevel] as String?,
+      recurrentTask: taskData[GetTaskResponce.colTaskRecurrentTask] == 1,
+      isCompleted: taskData[GetTaskResponce.colTaskIsCompleted] == 1,
+      isOwned: taskData[GetTaskResponce.colTaskIsOwned] == 1,
+      deadLine: taskData[GetTaskResponce.colTaskDeadLine] as String?,
+      isKilled: taskData[GetTaskResponce.colTaskIsKilled] == 1,
+      tags: (taskData[GetTaskResponce.colTaskTags] as String?)?.split(','),
+      createdAt: taskData[GetTaskResponce.colTaskCreatedAt] as String?,
+      status: taskData[GetTaskResponce.colTaskStatus] as String?,
+      totalTime: int.tryParse(
+          taskData[GetTaskResponce.colTaskTotalTime]?.toString() ?? ''),
+      totalExpense: int.tryParse(
+          taskData[GetTaskResponce.colTaskTotalExpense]?.toString() ?? ''),
+      attachments: attachmentResults
+          .map((r) => Attachment(
+                attachment: r[Attachment.colTaskAttachment] as String?,
+                type: r[Attachment.colTaskAttachmentType] as String?,
+              ))
+          .toList(),
+      subTask: subtaskResults
+          .map((r) => SubTask(
+                id: r[SubTask.colTaskSubtaskId] as String?,
+                title: r[SubTask.colTaskSubtaskTitle] as String?,
+                description: r[SubTask.colTaskSubtaskDescription] as String?,
+                deadLine: r[SubTask.colTaskSubtaskDeadline] as String?,
+                isCompleted: r[SubTask.colTaskSubtaskIsCompleted] == 1,
+                totalTimeTaken:
+                    r[SubTask.colTaskSubtaskTotalTimeTaken] as String?,
+                duration: r[SubTask.colTaskSubtaskDuration] as String?,
+              ))
+          .toList(),
+      assignedToDetails: assignedUserResults
+          .map((r) => AssignedToDetail(
+                userId: r[AssignedToDetail.colTaskAssignedToDetailUserId]
+                    as String?,
+                name: r[AssignedToDetail.colTaskAssignedToDetailUserName]
+                    as String?,
+                isAccepted:
+                    r[AssignedToDetail.colTaskAssignedToDetailIsAccepted]
+                        as String?,
+              ))
+          .toList(),
+      createdUserDetails: CreatedUserDetails(
+        id: taskData[GetTaskResponce.colTaskCreatedUserId] as String?,
+        name: taskData[GetTaskResponce.colTaskCreatedUsername] as String?,
+        profilePicture:
+            taskData[GetTaskResponce.colTaskCreatedUserProfilePic] as String?,
+      ),
+    );
+    return taskResponse;
+  }
+
   @override
   Future<Either<Failure, List<task.Task>>> getTasksFromLocalStorage({
     required String filterByDeadline,
@@ -759,7 +767,8 @@ class TaskLocalService implements TaskLocalRepo {
           }
         }
       }
-      log('getTasksFromLocalStorage success ===> ${filterdTasks.length}');
+
+      log('getTasksFromLocalStorage success ===> ');
 
       return Right(filterdTasks);
     } catch (e) {

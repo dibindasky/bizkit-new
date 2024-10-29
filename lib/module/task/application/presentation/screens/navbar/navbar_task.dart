@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/indexed_stack_route/on_generate_route.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
@@ -9,10 +11,9 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-// Todo : Fix [PopScope] issue [ handle the navigation error ]
 
 class ScreenNavbarTaskModule extends StatefulWidget {
   const ScreenNavbarTaskModule({super.key});
@@ -27,34 +28,58 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
     return GetBuilder<TaskNavbarController>(
       builder: (controller) {
         int selectedIndex = controller.taskBottomIndex.value;
+
         return PopScope(
           canPop: false,
           onPopInvoked: (didPop) async {
             if (!didPop) {
-              if (selectedIndex == 1) {
-                final canPop =
-                    Get.nestedKey(1)?.currentState?.canPop() ?? false;
+              final logString1 = "${Get.nestedKey(1)?.currentState.toString()}";
+              final logString2 = "${Get.nestedKey(2)?.currentState.toString()}";
 
-                if (canPop) {
-                  Get.nestedKey(1)?.currentState?.pop();
-                } else {
+              final regex = RegExp(r'tracking (\d+) ticker');
+
+              final match1 = regex.firstMatch(logString1);
+              final match2 = regex.firstMatch(logString2);
+
+              if (match1 != null && match2 != null) {
+                final nestedIndex1 = int.tryParse(match1.group(1)!) ?? 0;
+                final nestedIndex2 = int.tryParse(match2.group(1)!) ?? 0;
+
+                if (nestedIndex1 == 2 && selectedIndex == 1) {
                   controller.changeBottomIndex(0);
-                }
-                return; // Prevent the default back navigation
-              } else if (selectedIndex == 2) {
-                final canPop =
-                    Get.nestedKey(2)!.currentState?.canPop() ?? false;
-
-                if (canPop) {
-                  Get.nestedKey(2)?.currentState?.pop();
-                } else {
+                  return;
+                } else if (nestedIndex2 == 2 && selectedIndex == 2) {
                   controller.changeBottomIndex(1);
-                }
-                return; // Prevent the default back navigation
-              }
+                  return;
+                } else if (selectedIndex == 0) {
+                  await exitConfirmationDialog(context) ?? false;
+                  return;
+                } else if (selectedIndex == 3) {
+                  controller.changeBottomIndex(1);
+                  return;
+                } else {
+                  bool canPop1 =
+                      Get.nestedKey(1)?.currentState?.canPop() ?? false;
+                  bool canPop2 =
+                      Get.nestedKey(2)?.currentState?.canPop() ?? false;
 
-              // Handle normal back navigation if no nested navigator can pop
-              await controller.handleBackNavigation(selectedIndex, context);
+                  if (nestedIndex1 == 2 && canPop1 == true) {
+                    canPop1 = false;
+                  }
+                  if (nestedIndex2 == 2 && canPop2 == true) {
+                    canPop2 = false;
+                  }
+                  if (canPop1 == true) {
+                    Get.nestedKey(1)?.currentState?.pop();
+                    return;
+                  } else if (canPop2 == true) {
+                    Get.nestedKey(2)?.currentState?.pop();
+                    return;
+                  } else {
+                    log('Not working');
+                  }
+                }
+              }
             }
           },
           child: Scaffold(
@@ -137,6 +162,41 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
           ),
         );
       },
+    );
+  }
+
+  // Exit confirmation dialog
+  Future<bool?> exitConfirmationDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        elevation: 8,
+        surfaceTintColor: kblack,
+        titleTextStyle: textHeadStyle1.copyWith(fontWeight: FontWeight.w300),
+        contentTextStyle: textThinStyle1,
+        shadowColor: neonShade,
+        title: const Text('Exit App'),
+        content: const Text('Are you sure you want to exit the app?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(
+              'Cancel',
+              style: textThinStyle1,
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              SystemNavigator.pop(); // Exit app
+            },
+            child: Text(
+              'Exit',
+              style: textThinStyle1,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

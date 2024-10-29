@@ -120,6 +120,7 @@ class ChatController extends GetxController {
 
     try {
       print('message count taskId => $taskId');
+      await getMessageFromLocaldb(firstCall: true);
       channel = IOWebSocketChannel.connect(
         Uri.parse(
             SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
@@ -147,128 +148,9 @@ class ChatController extends GetxController {
               decodedMessage['is_last_batch'] != null) {
             loadMoreLoading.value = false;
           }
-
-          switch (decodedMessage['message_type']) {
-            case 'text':
-              final m = TextMessage.fromJson(decodedMessage, uid);
-              final mess = Message(
-                  textMessage: m, sender: m.sender, messageId: m.messageId);
-              final index = messages.indexWhere(
-                  (element) => element.textMessage?.messageId == m.messageId);
-              if (index != -1) {
-                messages[index] = mess;
-                doAnimate = false;
-              } else if (m.isLoadMore) {
-                loadMoreLoading.value = false;
-                doAnimate = false;
-                messages.add(mess);
-              } else {
-                messages.insert(0, mess);
-              }
-              taskChatLocalService.insertOrUpdateMessage(message: mess);
-              break;
-
-            case 'file':
-              final m = FileMessage.fromJson(decodedMessage, uid);
-              final mess =
-                  Message(file: m, sender: m.sender, messageId: m.messageId);
-              final index = messages.indexWhere(
-                  (element) => element.file?.messageId == m.messageId);
-              if (index != -1) {
-                messages[index] = mess;
-                doAnimate = false;
-              } else if (m.isLoadMore) {
-                loadMoreLoading.value = false;
-                doAnimate = false;
-                messages.add(mess);
-              } else {
-                messages.insert(0, mess);
-              }
-              // taskChatLocalServiceRepo.insertOrUpdateMessage(message: mess);
-              break;
-
-            case 'poll':
-              final m = Poll.fromJson(decodedMessage, uid);
-              final mess =
-                  Message(poll: m, sender: m.sender, messageId: m.messageId);
-              final index = messages.indexWhere(
-                  (element) => element.poll?.messageId == m.messageId);
-              if (index != -1) {
-                messages[index] = mess;
-                doAnimate = false;
-              } else if (m.isLoadMore) {
-                loadMoreLoading.value = false;
-                doAnimate = false;
-                messages.add(mess);
-              } else {
-                messages.insert(0, mess);
-              }
-              // taskChatLocalServiceRepo.insertOrUpdateMessage(message: mess);
-              break;
-
-            case 'time_expense':
-              Get.find<CreateTaskController>().fetchSingleTask(
-                  singleTaskModel: GetSingleTaskModel(taskId: chatTaskId));
-              final m = TimeExpense.fromJson(decodedMessage, uid);
-              final mess = Message(
-                  timeExpence: m, sender: m.sender, messageId: m.messageId);
-              final index = messages.indexWhere(
-                  (element) => element.timeExpence?.messageId == m.messageId);
-              if (index != -1) {
-                messages[index] = mess;
-                doAnimate = false;
-              } else if (m.isLoadMore) {
-                loadMoreLoading.value = false;
-                doAnimate = false;
-                messages.add(mess);
-              } else {
-                messages.insert(0, mess);
-              }
-              // taskChatLocalServiceRepo.insertOrUpdateMessage(message: mess);
-              break;
-
-            case 'location':
-              final m = CurrentLocationMessage.fromJson(decodedMessage, uid);
-              final mess = Message(
-                  currentLocation: m, sender: m.sender, messageId: m.messageId);
-              final index = messages.indexWhere((element) =>
-                  element.currentLocation?.messageId == m.messageId);
-              if (index != -1) {
-                messages[index] = mess;
-                doAnimate = false;
-              } else if (m.isLoadMore) {
-                loadMoreLoading.value = false;
-                doAnimate = false;
-                messages.add(mess);
-              } else {
-                messages.insert(0, mess);
-              }
-              // taskChatLocalServiceRepo.insertOrUpdateMessage(message: mess);
-              break;
-
-            case 'voice':
-              final m = VoiceMessage.fromJson(decodedMessage, uid);
-              final mess = Message(
-                  voiceMessage: m, sender: m.sender, messageId: m.messageId);
-              final index = messages.indexWhere(
-                  (element) => element.voiceMessage?.messageId == m.messageId);
-              if (index != -1) {
-                messages[index] = mess;
-                doAnimate = false;
-              } else if (m.isLoadMore) {
-                loadMoreLoading.value = false;
-                doAnimate = false;
-                messages.add(mess);
-              } else {
-                messages.insert(0, mess);
-              }
-              // taskChatLocalServiceRepo.insertOrUpdateMessage(message: mess);
-              break;
-
-            default:
-              // Handle unsupported message types if needed
-              break;
-          }
+          // create model and add to list according to the position
+          doAnimate =
+              addMessageToListByCheckingType(decodedMessage, uid, doAnimate);
 
           update(['chat']);
           // animate the scroll controller if necessary
@@ -313,7 +195,203 @@ class ChatController extends GetxController {
       _error = 'Failed to connect: $e';
       connectionLoading.value = false;
       connected.value = false;
+      // ignore: use_build_context_synchronously
       GoRouter.of(context).pop();
+    }
+  }
+
+  /// create the [Message] model for add to [messages] to show it in the ui
+  bool addMessageToListByCheckingType(
+      Map<String, dynamic> decodedMessage, String uid, bool doAnimate) {
+    switch (decodedMessage['message_type']) {
+      case 'text':
+        final m = TextMessage.fromJson(decodedMessage, uid: uid);
+        final mess = Message(
+            textMessage: m,
+            sender: m.sender,
+            messageId: m.messageId,
+            messageType: m.messageType,
+            taskId: chatTaskId,
+            timestamp: m.timestamp);
+        final index = messages.indexWhere(
+            (element) => element.textMessage?.messageId == m.messageId);
+        if (index != -1) {
+          messages[index] = mess;
+          doAnimate = false;
+        } else {
+          if (m.isLoadMore) {
+            loadMoreLoading.value = false;
+            doAnimate = false;
+          }
+          insertMessageToList(mess);
+        }
+        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        break;
+
+      case 'file':
+        final m = FileMessage.fromJson(decodedMessage, uid: uid);
+        final mess = Message(
+            file: m,
+            sender: m.sender,
+            messageId: m.messageId,
+            messageType: m.messageType,
+            taskId: chatTaskId,
+            timestamp: m.timestamp);
+        final index = messages
+            .indexWhere((element) => element.file?.messageId == m.messageId);
+        if (index != -1) {
+          messages[index] = mess;
+          doAnimate = false;
+        } else {
+          if (m.isLoadMore) {
+            loadMoreLoading.value = false;
+            doAnimate = false;
+          }
+          insertMessageToList(mess);
+        }
+        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        break;
+
+      case 'poll':
+        final m = Poll.fromJson(decodedMessage, uid: uid);
+        final mess = Message(
+            poll: m,
+            sender: m.sender,
+            messageId: m.messageId,
+            messageType: m.messageType,
+            taskId: chatTaskId,
+            timestamp: m.timestamp);
+        final index = messages
+            .indexWhere((element) => element.poll?.messageId == m.messageId);
+        if (index != -1) {
+          messages[index] = mess;
+          doAnimate = false;
+        } else {
+          if (m.isLoadMore) {
+            loadMoreLoading.value = false;
+            doAnimate = false;
+          }
+          insertMessageToList(mess);
+        }
+        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        break;
+
+      case 'time_expense':
+        Get.find<CreateTaskController>().fetchSingleTask(
+            singleTaskModel: GetSingleTaskModel(taskId: chatTaskId));
+        final m = TimeExpense.fromJson(decodedMessage, uid: uid);
+        final mess = Message(
+            timeExpence: m,
+            sender: m.sender,
+            messageId: m.messageId,
+            messageType: m.messageType,
+            taskId: chatTaskId,
+            timestamp: m.timestamp);
+        final index = messages.indexWhere(
+            (element) => element.timeExpence?.messageId == m.messageId);
+        if (index != -1) {
+          messages[index] = mess;
+          doAnimate = false;
+        } else {
+          if (m.isLoadMore) {
+            loadMoreLoading.value = false;
+            doAnimate = false;
+          }
+          insertMessageToList(mess);
+        }
+        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        break;
+
+      case 'location':
+        final m = CurrentLocationMessage.fromJson(decodedMessage, uid: uid);
+        final mess = Message(
+            currentLocation: m,
+            sender: m.sender,
+            messageId: m.messageId,
+            messageType: m.messageType,
+            taskId: chatTaskId,
+            timestamp: m.timestamp);
+        final index = messages.indexWhere(
+            (element) => element.currentLocation?.messageId == m.messageId);
+        if (index != -1) {
+          messages[index] = mess;
+          doAnimate = false;
+        } else {
+          if (m.isLoadMore) {
+            loadMoreLoading.value = false;
+            doAnimate = false;
+          }
+          insertMessageToList(mess);
+        }
+        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        break;
+
+      case 'voice':
+        final m = VoiceMessage.fromJson(decodedMessage, uid: uid);
+        final mess = Message(
+            voiceMessage: m,
+            sender: m.sender,
+            messageId: m.messageId,
+            messageType: m.messageType,
+            taskId: chatTaskId,
+            timestamp: m.timestamp);
+        final index = messages.indexWhere(
+            (element) => element.voiceMessage?.messageId == m.messageId);
+        if (index != -1) {
+          messages[index] = mess;
+          doAnimate = false;
+        } else {
+          if (m.isLoadMore) {
+            loadMoreLoading.value = false;
+            doAnimate = false;
+          }
+          insertMessageToList(mess);
+        }
+        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        break;
+
+      default:
+        // Handle unsupported message types if needed
+        break;
+    }
+    return doAnimate;
+  }
+
+  /// add message to the list [messages] by binary search with datetime
+  void insertMessageToList(Message m) {
+    int left = 0;
+    int right = messages.length - 1;
+    while (left <= right) {
+      int mid = left + (right - left) ~/ 2;
+      if (DateTime.tryParse(messages[mid].timestamp ?? '')!
+          .isAfter(DateTime.tryParse(m.timestamp ?? '')!)) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+    messages.insert(left, m);
+  }
+
+  /// get messages form local db according to the current massage list limit
+  Future<void> getMessageFromLocaldb({required bool firstCall}) async {
+    try {
+      log('getMessageFromLocaldb called');
+      final messageList = await taskChatLocalService.getMessagesWithLimit(
+          limit: firstCall ? 40 : 20,
+          offset: ((messages.length ~/ 20) + 1),
+          taskId: chatTaskId);
+      log('getMessageFromLocaldb message list => ${messageList?.length}');
+      for (var e in messageList ?? <Message>[]) {
+        print('message -> ${e.textMessage?.message}');
+        final index =
+            messages.indexWhere((element) => element.messageId == e.messageId);
+        if (index == -1 || e.isLoadMore) {
+          insertMessageToList(e);
+        }
+      }
+    } catch (e) {
+      log('getMessageFromLocaldb exception => ${e.toString()}');
     }
   }
 
@@ -385,10 +463,11 @@ class ChatController extends GetxController {
   }
 
   /// check for load more
-  void checkLoading() {
+  void checkLoading() async {
     if (!loadMoreLoading.value &&
         chatScrollController.offset ==
             chatScrollController.position.maxScrollExtent) {
+      await getMessageFromLocaldb(firstCall: false);
       print('call load more message');
       loadMoreLoading.value = true;
       update(['chat']);
@@ -412,16 +491,6 @@ class ChatController extends GetxController {
   /// getImage from Storage
   void getImageBase64({required bool camera}) async {
     try {
-      // // Await the result of the permission check
-      // final status = await checkStoragePermission();
-      // log('AppPermissionStatus ===> $status');
-
-      // // Check the status directly
-      // if (status == AppPermissionStatus.storageGranted ||
-      //     status == AppPermissionStatus.storageLimited) {
-
-      // }
-
       final images = await ImagePickerClass.getImage(camera: camera);
       if (images != null && images.base64 != null) {
         loadedImages.value = [images]; // Assign the image to loadedImages

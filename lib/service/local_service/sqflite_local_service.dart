@@ -36,6 +36,37 @@ class LocalService {
     }
   }
 
+  /// Get data from sql
+  Future<List<Map<String, Object?>>> query(
+    String query, {
+    int? limit,
+    int? offset,
+    String? groupBy,
+    bool? distinct,
+    List<String>? columns,
+    String? where,
+    List<Object?>? whereArgs,
+    String? having,
+    String? orderBy,
+  }) async {
+    try {
+      final db = await database;
+      return await db.query(query,
+          limit: limit,
+          offset: offset,
+          groupBy: groupBy,
+          columns: columns,
+          distinct: distinct,
+          having: having,
+          orderBy: orderBy,
+          where: where,
+          whereArgs: whereArgs);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
   /// insert data
   Future insert(String table, Map<String, dynamic> map) async {
     try {
@@ -112,7 +143,7 @@ class LocalService {
     }
   }
 
-  // check a value is present or not in table
+  /// check a value is present or not in table
   /// eg query 'SELECT COUNT(*) FROM users WHERE email = ?', listParams ['example']
   Future<bool> presentOrNot(String query, List<Object?>? listParams) async {
     try {

@@ -12,12 +12,69 @@ import 'package:bizkit/module/task/domain/model/chat/voice/voice_model.dart';
 import 'package:bizkit/module/task/domain/repository/sqfilte/chat/task_chat_local_service_repo.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/task/task_oncreate_db.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: TaskChatLocalServiceRepo)
 @injectable
 class TaskChatLocalService implements TaskChatLocalServiceRepo {
   LocalService localService = LocalService();
+
+  /// get [Message]s from local db
+  @override
+  Future<List<Message>?> getMessagesWithLimit(
+      {required int limit, required int offset, required String taskId}) async {
+    try {
+      const String query = '''
+            SELECT * FROM ${TaskSql.taskMessages} 
+            WHERE ${Message.colTaskId} = ? 
+            ORDER BY ${Message.colTimestamp} DESC 
+            LIMIT ? OFFSET ?
+          ''';
+      final data = await localService.rawQuery(query, [taskId, limit, offset]);
+      List<Message> messages = [];
+      log('getMessagesWithLimit data => $data');
+      for (var e in data) {
+        final type = e[Message.colMessageType] as String?;
+        final messageId = (e[Message.colMessageId] as String?) ?? '';
+        // final textmessage = (type == 'text')
+        //     ? await _getTextMessage(messageId: messageId)
+        //     : null;
+        // print('text message ---> ${textmessage?.toJson()}');
+        Message message = Message(
+          messageId: messageId,
+          messageType: type,
+          sender: (e[Message.colSender] as int?) == 1 ? true : false,
+          timestamp: e[Message.colTimestamp] as String?,
+          textMessage: (type == 'text')
+              ? await _getTextMessage(messageId: messageId)
+              : null,
+          currentLocation: (type == 'location')
+              ? await _getCurrentLocationMessage(messageId: messageId)
+              : null,
+          file: (type == 'file')
+              ? await _getFileMessage(messageId: messageId)
+              : null,
+          poll: (type == 'poll')
+              ? await _getPollMessage(messageId: messageId)
+              : null,
+          timeExpence: (type == 'time_expense')
+              ? await _getTimeExpense(messageId: messageId)
+              : null,
+          voiceMessage: (type == 'voice')
+              ? await _getVoiceMessage(messageId: messageId)
+              : null,
+          isLoadMore: true,
+        );
+        messages.add(message);
+      }
+      print('getMessagesWithLimit messages length => ${messages.length}');
+      return messages;
+    } catch (e) {
+      log('getMessages error => ${e.toString()}');
+      return null;
+    }
+  }
 
   /// [Message] insert if not present or else update
   @override
@@ -30,6 +87,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
     ''';
       final present =
           await localService.presentOrNot(query, [message.messageId ?? '']);
+      print('insertOrUpdateMessage => present $present');
       if (present) {
         return _updateMessage(message: message);
       } else {
@@ -48,13 +106,17 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
       INSERT INTO ${TaskSql.taskMessages} (
         ${Message.colSender},
         ${Message.colMessageId},
+        ${Message.colTimestamp},
+        ${Message.colTaskId},
         ${Message.colMessageType}
       ) 
-      VALUES (?,?,?)
+      VALUES (?,?,?,?,?)
     ''';
       final localId = await localService.rawInsert(query, [
         (message.sender ?? false) ? 1 : 0,
         message.messageId ?? '',
+        message.timestamp ?? '',
+        message.taskId ?? '',
         message.messageType ?? '',
       ]);
       switch (message.messageType) {
@@ -88,15 +150,35 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
       UPDATE ${TaskSql.taskMessages} 
       SET
         ${Message.colSender} = ?,
+        ${Message.colTimestamp} = ?,
         ${Message.colMessageType} = ?
       WHERE
         ${Message.colMessageId} = ?
     ''';
-      return await localService.rawUpdate(query, [
+      final affected = await localService.rawUpdate(query, [
         (message.sender ?? false) ? 1 : 0,
+        message.timestamp ?? '',
         message.messageType ?? '',
         message.messageId ?? '',
       ]);
+      switch (message.messageType) {
+        case 'text':
+          insertOrUpdateTextMessage(textMessage: message.textMessage!);
+        case 'file':
+          insertOrUpdateFileMessage(fileMessage: message.file!);
+        case 'poll':
+          insertOrUpdatePoll(poll: message.poll!);
+        case 'time_expense':
+          insertOrUpdateTimeExpense(timeExpense: message.timeExpence!);
+        case 'location':
+          insertOrUpdateCurrentLocationMessage(
+              currentLocationMessage: message.currentLocation!);
+        case 'voice':
+          insertOrUpdateVoiceMessage(voiceMessage: message.voiceMessage!);
+        default:
+          log('nothing to be inserted');
+      }
+      return affected;
     } catch (e) {
       log('updateMessage exception => ${e.toString()}');
       return null;
@@ -138,8 +220,9 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
           ${TextMessage.colMessage} ,
           ${TextMessage.colReadByAll} ,
           ${TextMessage.colReadBy} ,
+          ${TextMessage.colMessageType} ,
           ${TextMessage.colMessageId} )
-        VALUES (?,?,?,?,?,?,?,?,?)
+        VALUES (?,?,?,?,?,?,?,?,?,?)
       ''';
       return await localService.rawInsert(query, [
         textMessage.userId ?? '',
@@ -150,6 +233,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         textMessage.message ?? '',
         textMessage.readByAll ? 1 : 0,
         textMessage.readBy?.toString() ?? '',
+        textMessage.messageType ?? '',
         textMessage.messageId ?? '',
       ]);
     } catch (e) {
@@ -188,6 +272,21 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
       ]);
     } catch (e) {
       log('updateTextMessage exception => ${e.toString()}');
+      return null;
+    }
+  }
+
+  /// retrive [TextMessage] using message id
+  Future<TextMessage?> _getTextMessage({required String messageId}) async {
+    try {
+      final uid = await SecureStorage.getUserId() ?? '';
+      final textMessagList = await localService.query(TaskSql.taskMessageText,
+          where: '${TextMessage.colMessageId} = ?', whereArgs: [messageId]);
+      return textMessagList.isEmpty
+          ? null
+          : TextMessage.fromJson(textMessagList.first,
+              uid: uid, fromLocalDb: true);
+    } catch (e) {
       return null;
     }
   }
@@ -293,6 +392,21 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
     }
   }
 
+  /// retrive [VoiceMessage] using message id
+  Future<VoiceMessage?> _getVoiceMessage({required String messageId}) async {
+    try {
+      final uid = await SecureStorage.getUserId() ?? '';
+      final voiceMessagList = await localService.query(TaskSql.taskMessageVoice,
+          where: '${VoiceMessage.colMessageId} = ?', whereArgs: [messageId]);
+      return voiceMessagList.isEmpty
+          ? null
+          : VoiceMessage.fromJson(voiceMessagList.first,
+              uid: uid, fromLocalDb: true);
+    } catch (e) {
+      return null;
+    }
+  }
+
   /// [FileMessage] insert if not present or else update
   Future<int?> insertOrUpdateFileMessage(
       {required FileMessage fileMessage}) async {
@@ -394,6 +508,21 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
     }
   }
 
+  /// retrive [FileMessage] using message id
+  Future<FileMessage?> _getFileMessage({required String messageId}) async {
+    try {
+      final uid = await SecureStorage.getUserId() ?? '';
+      final fileMessagList = await localService.query(TaskSql.taskMessagefile,
+          where: '${FileMessage.colMessageId} = ?', whereArgs: [messageId]);
+      return fileMessagList.isEmpty
+          ? null
+          : FileMessage.fromJson(fileMessagList.first,
+              uid: uid, fromLocalDb: true);
+    } catch (e) {
+      return null;
+    }
+  }
+
   /// [TimeExpense] insert if not present or else update
   Future<int?> insertOrUpdateTimeExpense(
       {required TimeExpense timeExpense}) async {
@@ -428,7 +557,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${TimeExpense.colProfilePicture},
         ${TimeExpense.colMessageId},
         ${TimeExpense.colTimestamp},
-        ${TimeExpense.colTimeExpenseData},
         ${TimeExpense.colReadByAll},
         ${TimeExpense.colSender},
         ${TimeExpense.colId},
@@ -440,7 +568,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${TimeExpense.colStartDate},
         ${TimeExpense.colEndDate}
       ) 
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     ''';
       return await localService.rawInsert(query, [
         timeExpense.messageType ?? '',
@@ -450,7 +578,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         timeExpense.profilePicture ?? '',
         timeExpense.messageId ?? '',
         timeExpense.timestamp ?? '',
-        timeExpense.timeExpenseData ?? '',
         (timeExpense.readByAll ?? false) ? 1 : 0,
         timeExpense.sender ? 1 : 0,
         timeExpense.timeExpenseData?.id ?? '',
@@ -480,11 +607,9 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${TimeExpense.colUsername} = ?,
         ${TimeExpense.colProfilePicture} = ?,
         ${TimeExpense.colTimestamp} = ?,
-        ${TimeExpense.colTimeExpenseData} = ?,
         ${TimeExpense.colReadByAll} = ?,
         ${TimeExpense.colSender} = ?,
         ${TimeExpense.colId} = ?,
-        ${TimeExpense.colUserName} = ?,
         ${TimeExpense.colTaskId} = ?,
         ${TimeExpense.colTime} = ?,
         ${TimeExpense.colExpense} = ?,
@@ -501,11 +626,9 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         timeExpense.username ?? '',
         timeExpense.profilePicture ?? '',
         timeExpense.timestamp ?? '',
-        timeExpense.timeExpenseData ?? '',
         (timeExpense.readByAll ?? false) ? 1 : 0,
         timeExpense.sender ? 1 : 0,
         timeExpense.timeExpenseData?.id ?? '',
-        timeExpense.timeExpenseData?.userName ?? '',
         timeExpense.timeExpenseData?.taskId ?? '',
         timeExpense.timeExpenseData?.time ?? '',
         timeExpense.timeExpenseData?.expense ?? '',
@@ -516,6 +639,23 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
       ]);
     } catch (e) {
       log('updateTimeExpense exception => ${e.toString()}');
+      return null;
+    }
+  }
+
+  /// retrive [TimeExpense] using message id
+  Future<TimeExpense?> _getTimeExpense({required String messageId}) async {
+    try {
+      final uid = await SecureStorage.getUserId() ?? '';
+      final timeExpenceMessagList = await localService.query(
+          TaskSql.taskMessageTimeExpence,
+          where: '${TimeExpense.colMessageId} = ?',
+          whereArgs: [messageId]);
+      return timeExpenceMessagList.isEmpty
+          ? null
+          : TimeExpense.fromJson(timeExpenceMessagList.first,
+              uid: uid, fromLocalDb: true);
+    } catch (e) {
       return null;
     }
   }
@@ -574,7 +714,9 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         currentLocationMessage.profilePicture ?? '',
         currentLocationMessage.messageId ?? '',
         currentLocationMessage.timestamp ?? '',
-        currentLocationMessage.location ?? '',
+        (currentLocationMessage.location?.isEmpty ?? true)
+            ? ''
+            : '${currentLocationMessage.location![0]},${currentLocationMessage.location![1]}',
         (currentLocationMessage.readByAll ?? false) ? 1 : 0,
         currentLocationMessage.sender ? 1 : 0,
         currentLocationMessage.isLoadMore ? 1 : 0,
@@ -616,7 +758,9 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         currentLocationMessage.username ?? '',
         currentLocationMessage.profilePicture ?? '',
         currentLocationMessage.timestamp ?? '',
-        currentLocationMessage.location ?? '',
+        (currentLocationMessage.location?.isEmpty ?? true)
+            ? ''
+            : '${currentLocationMessage.location![0]},${currentLocationMessage.location![1]}',
         (currentLocationMessage.readByAll ?? false) ? 1 : 0,
         currentLocationMessage.sender ? 1 : 0,
         currentLocationMessage.isLoadMore ? 1 : 0,
@@ -626,6 +770,24 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
       ]);
     } catch (e) {
       log('updateCurrentLocationMessage exception => ${e.toString()}');
+      return null;
+    }
+  }
+
+  /// retrive [CurrentLocationMessage] using message id
+  Future<CurrentLocationMessage?> _getCurrentLocationMessage(
+      {required String messageId}) async {
+    try {
+      final uid = await SecureStorage.getUserId() ?? '';
+      final currentLocationMessagList = await localService.query(
+          TaskSql.taskMessageCurrentLocation,
+          where: '${CurrentLocationMessage.colMessageId} = ?',
+          whereArgs: [messageId]);
+      return currentLocationMessagList.isEmpty
+          ? null
+          : CurrentLocationMessage.fromJson(currentLocationMessagList.first,
+              uid: uid, fromLocalDb: true);
+    } catch (e) {
       return null;
     }
   }
@@ -661,7 +823,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${Poll.colMessageId},
         ${Poll.colCurrentUid},
         ${Poll.colPollQuestion},
-        ${Poll.colPollAnswers},
         ${Poll.colTimestamp},
         ${Poll.colUserName},
         ${Poll.colProfilePicture},
@@ -671,6 +832,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${Poll.colMultipleAnswer},
         ${Poll.colAnonymousVote},
         ${Poll.colResonRequired},
+        ${Poll.colMessageType},
         ${Poll.colReadByAll}
       ) 
       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
@@ -681,7 +843,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         poll.messageId ?? '',
         poll.currentUid ?? '',
         poll.pollQuestion ?? '',
-        poll.pollAnswers ?? '',
         poll.timestamp ?? '',
         poll.userName ?? '',
         poll.profilePicture ?? '',
@@ -691,6 +852,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         (poll.multipleAnswer ?? false) ? 1 : 0,
         (poll.anonymousVote ?? false) ? 1 : 0,
         (poll.resonRequired ?? false) ? 1 : 0,
+        poll.messageType ?? '',
         poll.readByAll ? 1 : 0,
       ]);
       await insertOrUpdatePollAnswers(pollAnswers: poll.pollAnswers ?? []);
@@ -711,7 +873,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${Poll.colPollId} = ?,
         ${Poll.colCurrentUid} = ?,
         ${Poll.colPollQuestion} = ?,
-        ${Poll.colPollAnswers} = ?,
         ${Poll.colTimestamp} = ?,
         ${Poll.colUserName} = ?,
         ${Poll.colProfilePicture} = ?,
@@ -730,7 +891,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         poll.pollId ?? '',
         poll.currentUid ?? '',
         poll.pollQuestion ?? '',
-        poll.pollAnswers ?? '',
         poll.timestamp ?? '',
         poll.userName ?? '',
         poll.profilePicture ?? '',
@@ -747,6 +907,26 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
       return localId;
     } catch (e) {
       log('updatePollMessage exception => ${e.toString()}');
+      return null;
+    }
+  }
+
+  /// retrive [Poll] using message id
+  Future<Poll?> _getPollMessage({required String messageId}) async {
+    try {
+      final uid = await SecureStorage.getUserId() ?? '';
+      final pollMessagList = await localService.query(TaskSql.taskMessagePoll,
+          where: '${Poll.colMessageId} = ?', whereArgs: [messageId]);
+      if (pollMessagList.isEmpty) {
+        return null;
+      }
+      Poll poll =
+          Poll.fromJson(pollMessagList.first, uid: uid, fromLocalDb: true);
+      poll.pollAnswers= await _getPollAnswers(messageId: messageId);
+      log('poll -> ${poll.toJson()}');
+      return poll;
+    } catch (e) {
+      log('_getPollMessage exception => ${e.toString()}');
       return null;
     }
   }
@@ -791,7 +971,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
       ]);
       await deleteAndInsertSupporters(
           supporters: pollAnswer.supporters ?? [],
-          answerLocalId: pollAnswer.answerId ?? '');
+          answerId: pollAnswer.answerId ?? '');
       return localId;
     } catch (e) {
       log('insertPollAnswer exception => ${e.toString()}');
@@ -806,7 +986,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
       UPDATE ${TaskSql.taskMessagePollAnswer} 
       SET
         ${PollAnswer.colAnswerText} = ?,
-        ${PollAnswer.colAnswerVotes} = ?,
+        ${PollAnswer.colAnswerVotes} = ?
       WHERE
         ${PollAnswer.colAnswerId} = ?
     ''';
@@ -817,21 +997,43 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
       ]);
       await deleteAndInsertSupporters(
           supporters: pollAnswer.supporters ?? [],
-          answerLocalId: pollAnswer.answerId ?? '');
+          answerId: pollAnswer.answerId ?? '');
     } catch (e) {
       log('updatePollAnswer exception => ${e.toString()}');
     }
   }
 
+  /// get poll answers with messageId
+  Future<List<PollAnswer>?> _getPollAnswers({required String messageId}) async {
+    try {
+      final pollAnswerList = await localService.query(
+          TaskSql.taskMessagePollAnswer,
+          where: '${PollAnswer.colMessageId} = ?',
+          whereArgs: [messageId]);
+      if (pollAnswerList.isEmpty) {
+        return null;
+      }
+      List<PollAnswer> pollAnswers = [];
+      for (var e in pollAnswerList) {
+        PollAnswer answer = PollAnswer.fromJson(e, messageId);
+        answer.supporters = await _getPollAnswerSupporters(
+            answerId: answer.answerId ?? '', messageId: messageId);
+        pollAnswers.add(answer);
+      }
+      return pollAnswers;
+    } catch (e) {
+      log('_getPollAnswers exception => ${e.toString()}');
+      return null;
+    }
+  }
+
   /// [Supporter] insert if not present, or else update
   Future<void> deleteAndInsertSupporters(
-      {required List<Supporter> supporters,
-      required String answerLocalId}) async {
+      {required List<Supporter> supporters, required String answerId}) async {
     try {
       for (var supporter in supporters) {
-        await _deleteSupporter(answerLocalId: supporter.messageId ?? '');
-        await _insertSupporter(
-            supporter: supporter, answerLocalId: answerLocalId);
+        await _deleteSupporter(answerId: answerId);
+        await _insertSupporter(supporter: supporter, answerId: answerId);
       }
     } catch (e) {
       log('insertOrUpdateSupporter exception => ${e.toString()}');
@@ -840,22 +1042,24 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
 
   /// Insert [Supporter] to local db
   Future<int?> _insertSupporter(
-      {required Supporter supporter, required String answerLocalId}) async {
+      {required Supporter supporter, required String answerId}) async {
     try {
       const String query = '''
       INSERT INTO ${TaskSql.taskMessagePollSupporters} (
         ${Supporter.colName},
         ${Supporter.colProfilePicture},
         ${Supporter.colReason},
-        ${Supporter.colAnswerId}
+        ${Supporter.colAnswerId},
+        ${Supporter.colUserId},
         ${Supporter.colMessageId}
-      ) VALUES (?,?,?,?)
+      ) VALUES (?,?,?,?,?,?)
     ''';
       return await localService.rawInsert(query, [
         supporter.name ?? '',
         supporter.profilePicture ?? '',
         supporter.reason ?? '',
-        answerLocalId,
+        answerId,
+        supporter.userId??'',
         supporter.messageId ?? '',
       ]);
     } catch (e) {
@@ -865,17 +1069,41 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
   }
 
   /// Update [Supporter]
-  Future<int?> _deleteSupporter({required String answerLocalId}) async {
+  Future<int?> _deleteSupporter({required String answerId}) async {
     try {
       const String query = '''
-      DELETE  FROM${TaskSql.taskMessagePollSupporters} 
+      DELETE FROM ${TaskSql.taskMessagePollSupporters} 
       WHERE
         ${Supporter.colAnswerId} = ?
     ''';
-      return await localService.rawDelete(query, [answerLocalId]);
+      return await localService.rawDelete(query, [answerId]);
     } catch (e) {
       log('deleteSupporter exception => ${e.toString()}');
       return null;
+    }
+  }
+
+  /// get poll Answer Supporters
+  Future<List<Supporter>?> _getPollAnswerSupporters(
+      {required String answerId, required String messageId}) async {
+    try {
+      final pollAnswerSupportersList = await localService.query(
+          TaskSql.taskMessagePollSupporters,
+          where:
+              '${Supporter.colAnswerId} = ? AND ${Supporter.colMessageId} = ?',
+          whereArgs: [answerId, messageId]);
+      if (pollAnswerSupportersList.isEmpty) {
+        return [];
+      }
+      List<Supporter> pollAnswerSupporters = [];
+      for (var e in pollAnswerSupportersList) {
+        pollAnswerSupporters.add(
+            Supporter.fromJson(e, messageId: messageId, answerId: answerId));
+      }
+      return pollAnswerSupporters;
+    } catch (e) {
+      log('_getPollAnswerSupporters exception => ${e.toString()}');
+      return [];
     }
   }
 }

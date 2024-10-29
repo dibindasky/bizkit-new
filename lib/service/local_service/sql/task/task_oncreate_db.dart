@@ -135,6 +135,7 @@ class TaskSql {
       ${TextMessage.colMessageId} TEXT ,
       ${TextMessage.colMessage} TEXT ,
       ${TextMessage.colReadByAll} INTEGER,
+      ${TextMessage.colMessageType} TEXT,
       ${TextMessage.colReadBy} INTEGER
     )
   ''';
@@ -231,7 +232,6 @@ class TaskSql {
       ${Poll.colMessageId} TEXT,
       ${Poll.colCurrentUid} TEXT,
       ${Poll.colPollQuestion} TEXT,
-      ${Poll.colPollAnswers} TEXT,
       ${Poll.colTimestamp} TEXT,
       ${Poll.colUserName} TEXT,
       ${Poll.colProfilePicture} TEXT,
@@ -241,6 +241,7 @@ class TaskSql {
       ${Poll.colMultipleAnswer} INTEGER,
       ${Poll.colAnonymousVote} INTEGER,
       ${Poll.colResonRequired} INTEGER,
+      ${Poll.colMessageType} TEXT,
       ${Poll.colReadByAll} INTEGER
     )
   ''';
@@ -264,6 +265,7 @@ class TaskSql {
      ${Supporter.colProfilePicture} TEXT,
      ${Supporter.colReason} TEXT,
      ${Supporter.colMessageId} TEXT,
+     ${Supporter.colUserId} TEXT,
      ${Supporter.colAnswerId} TEXT
    )
   ''';
@@ -274,6 +276,8 @@ class TaskSql {
       ${Message.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
       ${Message.colSender} INTEGER,
       ${Message.colMessageId} TEXT,
+      ${Message.colTimestamp} TEXT,
+      ${Message.colTaskId} TEXT,
       ${Message.colMessageType} TEXT
     )
   ''';

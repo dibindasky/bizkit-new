@@ -25,7 +25,11 @@ class TimeExpense {
     this.isLoadMore = false,
   });
 
-  factory TimeExpense.fromJson(Map<String, dynamic> json, [String? uid]) {
+  /// send [fromLocalDb] true to make [TimeExpenseData] from the same json
+  /// if [TimeExpenseData] is inside key 'time_expence_data' dont need to pass any bool
+  /// pass [fromLocalDb] for make model form json from local db
+  factory TimeExpense.fromJson(Map<String, dynamic> json,
+      {String? uid, bool fromLocalDb = false}) {
     return TimeExpense(
       messageType: json['message_type'] as String?,
       message: json['message'] as String?,
@@ -34,13 +38,21 @@ class TimeExpense {
       profilePicture: json['profile_picture'] as String?,
       messageId: json['message_id'] as String?,
       timestamp: json['timestamp'] as String?,
-      timeExpenseData: json['time_expense_data'] != null
-          ? TimeExpenseData.fromJson(
-              json['time_expense_data'] as Map<String, dynamic>)
-          : null,
-      readByAll: json['read_by_all'] as bool?,
+      timeExpenseData: fromLocalDb
+          // make timeexpence data form local data
+          ? TimeExpenseData.fromJson(json)
+          // make timeexpende data form socket data
+          : json['time_expense_data'] != null
+              ? TimeExpenseData.fromJson(
+                  json['time_expense_data'] as Map<String, dynamic>)
+              : null,
+      readByAll: fromLocalDb
+          ? (json['read_by_all'] as int?) == 1
+          : json['read_by_all'] as bool?,
       sender: (json['user_id'] as String?) == uid,
-      isLoadMore: (json['is_load_more'] as bool?) ?? false,
+      isLoadMore: fromLocalDb
+          ? (json['is_load_more'] as int?) == 1
+          : (json['is_load_more'] as bool?) ?? false,
     );
   }
 
@@ -72,7 +84,7 @@ class TimeExpense {
   static const String colReadByAll = 'read_by_all';
   static const String colSender = 'sender';
   static const String colIsLoadMore = 'is_load_more';
-  
+
   /// [TimeExpenseData] items
   static const String colId = '_id';
   static const String colUserName = 'user_name';
@@ -134,15 +146,4 @@ class TimeExpenseData {
       'user_id': userId,
     };
   }
-
-  static const String colLocalId = 'local_id';
-  static const String colId = '_id';
-  static const String colUserName = 'user_name';
-  static const String colTaskId = 'task_id';
-  static const String colTime = 'time';
-  static const String colExpense = 'expense';
-  static const String colDescription = 'description';
-  static const String colStartDate = 'start_date';
-  static const String colEndDate = 'end_date';
-  static const String colUserId = 'user_id';
 }

@@ -1,11 +1,11 @@
 import 'package:bizkit/module/task/domain/model/chat/poll/poll_supporter.dart';
 
 class PollAnswer {
-  final String? answerId;
-  final String? answerText;
-  final int? answerVotes;
-  final List<Supporter>? supporters;
-  final String? messageId;
+  String? answerId;
+  String? answerText;
+  int? answerVotes;
+  List<Supporter>? supporters;
+  String? messageId;
 
   PollAnswer({
     this.answerId,
@@ -47,8 +47,9 @@ class PollAnswer {
       answerText: json['answer_text'] as String?,
       answerVotes: json['answer_votes'] as int?,
       supporters: (json['supporters'] as List<dynamic>?)
-          ?.map((item) =>
-              Supporter.fromJson(item as Map<String, dynamic>, messageId ,(json['answer_id'] as String?)??''))
+          ?.map((item) => Supporter.fromJson(item as Map<String, dynamic>,
+              messageId: messageId,
+              answerId: (json['answer_id'] as String?) ?? ''))
           .toList(),
       messageId: messageId,
     );

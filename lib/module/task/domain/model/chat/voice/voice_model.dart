@@ -29,18 +29,21 @@ class VoiceMessage {
       this.sender = false});
 
   // Factory constructor to create an instance from a JSON map
-  factory VoiceMessage.fromJson(Map<String, dynamic> json, [String? uid]) {
+  factory VoiceMessage.fromJson(Map<String, dynamic> json,
+      {String? uid, bool fromLocalDb = false}) {
     return VoiceMessage(
-      messageType: json['message_type'],
-      message: json['message'],
-      userId: json['user_id'],
-      username: json['username'],
-      profilePicture: json['profile_picture'],
-      messageId: json['message_id'],
-      timestamp: json['timestamp'],
-      voice: json['voice_data_base64'],
-      readByAll: json['read_by_all'],
-      duration: json['duration'],
+      messageType: json['message_type'] as String?,
+      message: json['message'] as String?,
+      userId: json['user_id'] as String?,
+      username: json['username'] as String?,
+      profilePicture: json['profile_picture'] as String?,
+      messageId: json['message_id'] as String?,
+      timestamp: json['timestamp'] as String?,
+      voice: json['voice_data_base64'] as String?,
+      readByAll: fromLocalDb
+          ? (json['read_by_all'] as int?) == 1
+          : json['read_by_all'],
+      duration: json['duration'] as String,
       isLoadMore: (json['is_load_more'] as bool?) ?? false,
       currentUid: uid,
       sender: (json['user_id'] as String?) == uid,

@@ -29,20 +29,32 @@ class CurrentLocationMessage {
       this.place});
 
   factory CurrentLocationMessage.fromJson(Map<String, dynamic> json,
-      [String? uid]) {
+      {String? uid, bool fromLocalDb = false}) {
     return CurrentLocationMessage(
-      messageType: json['message_type'],
-      message: json['message'],
-      userId: json['user_id'],
-      username: json['username'],
-      profilePicture: json['profile_picture'],
-      messageId: json['message_id'],
-      timestamp: json['timestamp'],
-      location:
-          json['location'] != null ? List<double>.from(json['location']) : null,
-      readByAll: json['read_by_all'],
+      messageType: json['message_type'] as String?,
+      message: json['message'] as String?,
+      userId: json['user_id'] as String?,
+      username: json['username'] as String?,
+      profilePicture: json['profile_picture'] as String?,
+      messageId: json['message_id'] as String?,
+      timestamp: json['timestamp'] as String?,
+      location: fromLocalDb
+          ? ((json['location'] as String?) ?? '').isEmpty
+              ? []
+              : (json['location'] as String)
+                  .split(',')
+                  .map((e) => double.parse(e))
+                  .toList()
+          : json['location'] != null
+              ? List<double>.from(json['location'])
+              : null,
+      readByAll: fromLocalDb
+          ? (json['read_by_all'] as int?) == 1
+          : json['read_by_all'] as bool?,
       sender: (json['user_id'] as String?) == uid,
-      isLoadMore: (json['is_load_more'] as bool?) ?? false,
+      isLoadMore: fromLocalDb
+          ? (json['is_load_more'] as int?) == 1
+          : (json['is_load_more'] as bool?) ?? false,
       place: json['place'],
       currentUid: uid,
     );

@@ -45,7 +45,7 @@ class Supporter {
   }
 
   factory Supporter.fromJson(
-      Map<String, dynamic> json, String messageId, String answerId) {
+      Map<String, dynamic> json, {String? messageId, String? answerId}) {
     return Supporter(
       userId: json['user_id'] as String?,
       name: json['name'] as String?,

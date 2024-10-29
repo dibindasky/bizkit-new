@@ -16,6 +16,7 @@ class Poll {
   bool? anonymousVote;
   bool? resonRequired;
   String? activeUntil;
+  String? messageType;
   bool isLoadMore;
   bool readByAll;
 
@@ -35,6 +36,7 @@ class Poll {
     this.anonymousVote,
     this.multipleAnswer,
     this.resonRequired,
+    this.messageType,
     this.isLoadMore = false,
     this.readByAll = false,
   });
@@ -55,6 +57,7 @@ class Poll {
     bool? anonymousVote,
     bool? resonRequired,
     String? activeUntil,
+    String? messageType,
     bool? isLoadMore,
     bool? readByAll,
   }) {
@@ -76,6 +79,7 @@ class Poll {
       activeUntil: activeUntil ?? this.activeUntil,
       isLoadMore: isLoadMore ?? this.isLoadMore,
       readByAll: readByAll ?? this.readByAll,
+      messageType: messageType ?? this.messageType,
     );
   }
 
@@ -98,10 +102,12 @@ class Poll {
       'is_reason_required': resonRequired,
       'is_load_more': isLoadMore,
       'read_by_all': readByAll,
+      'message_type': messageType,
     };
   }
 
-  factory Poll.fromJson(Map<String, dynamic> json, [String? uid]) {
+  factory Poll.fromJson(Map<String, dynamic> json,
+      {String? uid, bool fromLocalDb = false}) {
     return Poll(
       sender: (json['user_id'] as String?) == uid,
       pollId: json['poll_id'] as String?,
@@ -116,15 +122,30 @@ class Poll {
       userName: json['username'] as String?,
       profilePicture: json['profile_picture'] as String?,
       userId: json['user_id'] as String?,
-      readBy: (json['read_by'] as List<dynamic>?)
-          ?.map((item) => item as String)
-          .toList(),
+      readBy: fromLocalDb
+          ? ((json['read_by'] as String?) ?? '').isEmpty
+              ? null
+              : (json['read_by'] as String).split(',')
+          : (json['read_by'] as List<dynamic>?)
+              ?.map((item) => item as String)
+              .toList(),
       activeUntil: json['active_until'] as String?,
-      multipleAnswer: json['is_multiple_selection_allowed'] as bool?,
-      anonymousVote: json['is_anonymous_voting_allowed'] as bool?,
-      resonRequired: json['is_reason_required'] as bool?,
-      isLoadMore: (json['is_load_more'] as bool?) ?? false,
-      readByAll: (json['read_by_all'] as bool?) ?? false,
+      messageType: json['message_type'] as String?,
+      multipleAnswer: fromLocalDb
+          ? (json['is_multiple_selection_allowed'] as int?) == 1
+          : json['is_multiple_selection_allowed'] as bool?,
+      anonymousVote: fromLocalDb
+          ? (json['is_anonymous_voting_allowed'] as int?) == 1
+          : json['is_anonymous_voting_allowed'] as bool?,
+      resonRequired: fromLocalDb
+          ? (json['is_reason_required'] as int?) == 1
+          : json['is_reason_required'] as bool?,
+      isLoadMore: fromLocalDb
+          ? (json['is_load_more'] as int?) == 1
+          : (json['is_load_more'] as bool?) ?? false,
+      readByAll: fromLocalDb
+          ? (json['read_by_all'] as int?) == 1
+          : (json['read_by_all'] as bool?) ?? false,
     );
   }
 
@@ -151,4 +172,5 @@ class Poll {
   static const String colResonRequired = 'is_reason_required';
   static const String colIsLoadMore = 'is_load_more';
   static const String colReadByAll = 'read_by_all';
+  static const String colMessageType = 'message_type';
 }

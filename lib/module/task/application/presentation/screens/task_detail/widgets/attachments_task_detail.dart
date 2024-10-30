@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/image_viewer.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -35,11 +34,21 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
                 'Attachments ',
                 style: textHeadStyle1.copyWith(fontSize: 13.sp),
               ),
+              const Spacer(),
+              Obx(() => controller.selectedAttachment.value
+                  ? GestureDetector(
+                      onTap: () {
+                        controller.deleteAttachments();
+                      },
+                      child: controller.attachmentDeleteLoading.value
+                          ?const SizedBox(height: 20,width: 50, child: LoadingAnimation())
+                          : const Text('Delete'))
+                  : const Text('')),
+
               // Text(
               //   ' (Images,Pdf)',
               //   style: textThinStyle1.copyWith(fontSize: 8.sp),
               // ),
-              const Spacer(),
             ],
           ),
           const SizedBox(height: 8),
@@ -68,32 +77,47 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
                   ),
                 );
               } else {
+                final listAttachment = (controller.singleTask.value.attachments)
+                    ?.reversed
+                    .toList();
                 return SizedBox(
                   height: 90,
                   child: ListView.builder(
-                    itemCount: controller.singleTask.value.attachments?.length,
+                    itemCount: listAttachment?.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      final attachment =
-                          (controller.singleTask.value.attachments)
-                              ?.reversed
-                              .toList()[index];
+                      final attachment = listAttachment?[index];
                       return GestureDetector(
                         onTap: () {
+                          if (controller.selectedAttachmentsDatas.isNotEmpty) {
+                            controller
+                                .longPressOrOnTap(attachment?.attachment ?? '');
+                          } else {
+                            _handleAttachmentTap(
+                              context,
+                              attachment?.attachment ?? '',
+                              attachment?.type ?? '',
+                              controller,
+                              index,
+                            );
+                          }
                           // log('Attachment Type ==== > ${attachment?.type}');
-                          _handleAttachmentTap(
-                            context,
-                            attachment?.attachment ?? '',
-                            attachment?.type ?? '',
-                            controller,
-                            index,
-                          );
                         },
-                        child: AttachmentTile(
-                          // file: attachment.
-                          attachmet: attachment?.attachment ?? 'No Attachment',
-                          type: attachment?.type ?? 'Unknown Type',
-                        ),
+                        onLongPress: () {
+                          controller
+                              .longPressOrOnTap(attachment?.attachment ?? '');
+                        },
+                        child: GetBuilder<CreateTaskController>(
+                            id: attachment?.attachment,
+                          builder: (_) => 
+                           AttachmentTile(
+                              isSelected: controller.selectedAttachmentsDatas
+                                  .contains(attachment?.attachment ?? ''),
+                              // file: attachment.
+                              attachmet:
+                                  attachment?.attachment ?? 'No Attachment',
+                              type: attachment?.type ?? 'Unknown Type',
+                            )),
                       );
                     },
                   ),
@@ -148,61 +172,75 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
 
 class AttachmentTile extends StatelessWidget {
   const AttachmentTile({
+    required this.isSelected,
     super.key,
     required this.attachmet,
     required this.type,
   });
   final String attachmet;
   final String type;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 80.w,
-      height: 80.w,
-      decoration:
-          BoxDecoration(borderRadius: kBorderRadius15, color: lightColr),
-      // padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.w),
-      margin: EdgeInsets.symmetric(horizontal: 4.0.w),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          type == 'pdf'
-              ? Expanded(
-                  child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: kBorderRadius15,
-                  ),
-                  child: PdfViewer.openData(
-                    base64Decode(attachmet.startsWith('data')
-                        ? attachmet
-                            .substring('data:application/pdf;base64,'.length)
-                        : attachmet),
-                    onError: (_) => const Center(
-                      child: Text('Could not load document please try again'),
-                    ),
-                  ),
-                ))
-              : Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    height: 35.w,
-                    decoration: BoxDecoration(
+    return Stack(
+      children: [
+        Container(
+          width: 80.w,
+          height: 80.w,
+          decoration:
+              BoxDecoration(borderRadius: kBorderRadius15, color: lightColr),
+          // padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.w),
+          margin: EdgeInsets.symmetric(horizontal: 4.0.w),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              type == 'pdf'
+                  ? Expanded(
+                      child: Container(
+                      decoration: BoxDecoration(
                         borderRadius: kBorderRadius15,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: MemoryImage(base64Decode(attachmet)))),
-                  ),
-                ),
-          // Text(
-          //   '.$type',
-          //   maxLines: 1,
-          //   overflow: TextOverflow.ellipsis,
-          //   style: textThinStyle1.copyWith(fontSize: 10.sp),
-          // ),
-        ],
-      ),
+                      ),
+                      child: PdfViewer.openData(
+                        base64Decode(attachmet.startsWith('data')
+                            ? attachmet.substring(
+                                'data:application/pdf;base64,'.length)
+                            : attachmet),
+                        onError: (_) => const Center(
+                          child:
+                              Text('Could not load document please try again'),
+                        ),
+                      ),
+                    ))
+                  : Expanded(
+                      child: Container(
+                        width: double.infinity,
+                        height: 35.w,
+                        decoration: BoxDecoration(
+                            borderRadius: kBorderRadius15,
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: MemoryImage(base64Decode(attachmet)))),
+                      ),
+                    ),
+              // Text(
+              //   '.$type',
+              //   maxLines: 1,
+              //   overflow: TextOverflow.ellipsis,
+              //   style: textThinStyle1.copyWith(fontSize: 10.sp),
+              // ),
+            ],
+          ),
+        ),
+        isSelected
+            ? const Center(
+                child: Icon(
+                Icons.check,
+                size: 50,
+              ))
+            : kempty
+      ],
     );
   }
 }

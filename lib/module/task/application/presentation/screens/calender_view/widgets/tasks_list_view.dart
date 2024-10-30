@@ -78,7 +78,7 @@ class TaskListView extends StatelessWidget {
                         //     spotLightTask: SpotLightTask(
                         //         spotLightStatus: false,
                         //         taskId:
-                        //             taskController.deadlineTasks[index].id));
+                        //         taskController.deadlineTasks[index].id));
                       }
                       GoRouter.of(context).pushNamed(
                         Routes.taskDeail,

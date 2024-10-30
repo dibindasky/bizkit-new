@@ -70,6 +70,10 @@ class GetTaskResponce {
     this.totalExpense,
     this.totalTime,
     this.createdUserDetails,
+    this.isPinned,
+    this.localId,
+    this.spotlightOn,
+    this.taskType,
   });
 
   factory GetTaskResponce.fromJson(Map<String, dynamic> json) {
@@ -77,6 +81,57 @@ class GetTaskResponce {
   }
 
   Map<String, dynamic> toJson() => _$GetTaskResponceToJson(this);
+  GetTaskResponce copyWith({
+    int? localId,
+    String? taskType,
+    bool? spotlightOn,
+    bool? isPinned,
+    String? id,
+    String? createdBy,
+    String? title,
+    String? description,
+    String? priorityLevel,
+    bool? recurrentTask,
+    bool? isCompleted,
+    bool? isOwned,
+    String? deadLine,
+    bool? isKilled,
+    List<String>? tags,
+    List<Attachment>? attachments,
+    List<SubTask>? subTask,
+    String? createdAt,
+    String? status,
+    CreatedUserDetails? createdUserDetails,
+    List<AssignedToDetail>? assignedToDetails,
+    int? totalTime,
+    int? totalExpense,
+  }) {
+    return GetTaskResponce(
+      localId: localId ?? this.localId,
+      taskType: taskType ?? this.taskType,
+      spotlightOn: spotlightOn ?? this.spotlightOn,
+      isPinned: isPinned ?? this.isPinned,
+      id: id ?? this.id,
+      createdBy: createdBy ?? this.createdBy,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      priorityLevel: priorityLevel ?? this.priorityLevel,
+      recurrentTask: recurrentTask ?? this.recurrentTask,
+      isCompleted: isCompleted ?? this.isCompleted,
+      isOwned: isOwned ?? this.isOwned,
+      deadLine: deadLine ?? this.deadLine,
+      isKilled: isKilled ?? this.isKilled,
+      tags: tags ?? this.tags,
+      attachments: attachments ?? this.attachments,
+      subTask: subTask ?? this.subTask,
+      createdAt: createdAt ?? this.createdAt,
+      status: status ?? this.status,
+      createdUserDetails: createdUserDetails ?? this.createdUserDetails,
+      assignedToDetails: assignedToDetails ?? this.assignedToDetails,
+      totalTime: totalTime ?? this.totalTime,
+      totalExpense: totalExpense ?? this.totalExpense,
+    );
+  }
 
   bool equals(GetTaskResponce other) {
     return localId == other.localId &&

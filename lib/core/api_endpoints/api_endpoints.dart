@@ -3,10 +3,10 @@ class ApiEndPoints {
   //static const String baseUrl = 'https://bizkit.onrender.com';
 
   // [ Local base url  ]
-  // static const String baseUrl = 'https://9jdcxxr1-8001.inc1.devtunnels.ms';
+  static const String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';
 
   // [ AWS base url ]
-  static const String baseUrl = 'http://16.171.232.253';
+  // static const String baseUrl = 'http://16.171.232.253';
 
   // Refesh token
   static const String refreshUrl = '/token/';
@@ -110,6 +110,7 @@ class ApiEndPoints {
   // ---------------------------------------------------------------------------------------------
   /// [ TASK MODULE ]
 
+  static const String deleteAttachments='/delete-attachment/';
   static const String taskTestgetAllTasks = '/user-tasks/';
   static const String taskTestCreateTask = '/tasks/create/';
   static const String taskTestEditTask = '/tasks/';

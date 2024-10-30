@@ -25,6 +25,7 @@ class FilterByDeadlineModel {
   static const colTaskFilterByDeadlineLocalId =
       'task_filter_by_deadline_local_id';
   static const colUserId = 'user_id';
+  static const colTaskId = 'task_id';
   static const colTaskFilterByDeadline = 'task_filter_by_deadline';
   static const colTaskFilterByDeadlineReferenceId =
       'task_filter_by_deadline_reference_id ';

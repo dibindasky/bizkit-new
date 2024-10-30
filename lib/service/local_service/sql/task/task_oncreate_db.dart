@@ -107,6 +107,7 @@ class TaskSql {
     ${FilterByDeadlineModel.colTaskFilterByDeadlineLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
     ${FilterByDeadlineModel.colTaskFilterByDeadline} TEXT,
     ${FilterByDeadlineModel.colUserId} TEXT,
+    ${FilterByDeadlineModel.colTaskId} TEXT,
     ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId} INTEGER,
     FOREIGN KEY (${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId}) 
       REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})

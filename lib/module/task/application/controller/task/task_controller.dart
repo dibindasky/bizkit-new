@@ -712,12 +712,14 @@ class CreateTaskController extends GetxController {
         taksListLoading.value = false;
       },
       (success) async {
-        // Add the new tasks from the network call
-        deadlineTasks.assignAll(success.data ?? []);
+        if (success.data != null) {
+          // Add the new tasks from the network call
+          deadlineTasks.assignAll(success.data ?? []);
 
-        for (var task in deadlineTasks) {
-          await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-              taskModel: task);
+          for (var task in deadlineTasks) {
+            await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+                taskModel: task);
+          }
         }
 
         taksListLoading.value = false;
@@ -726,20 +728,30 @@ class CreateTaskController extends GetxController {
   }
 
   Future<void> fetchTasksFromLocalDb() async {
+    if (deadlineDate.value.isEmpty) {
+      log('fetchTasksFromLocalDb error: deadline date is empty');
+      return;
+    }
+
     final localDbTasksResult = await taskLocalService.getTasksFromLocalStorage(
       filterByDeadline: deadlineDate.value,
     );
 
     localDbTasksResult.fold(
       (failure) {
-        log("FetchTasksFromLocalDb error: ${failure.message}");
+        log('FetchTasksFromLocalDb error: ${failure.message}');
       },
       (tasks) {
-        deadlineTasks.addAll(tasks);
-        for (var task in deadlineTasks) {
-          log('Task title from local db ====> ${task.title}');
+        if (tasks.isNotEmpty) {
+          for (var task in tasks) {
+            if (task.spotlightOn == true) {
+              deadlineTasks.insert(0, task);
+            } else {
+              deadlineTasks.add(task);
+            }
+          }
+          taksListLoading.value = false;
         }
-        taksListLoading.value = false;
       },
     );
   }

@@ -1,5 +1,4 @@
 import 'package:bizkit/core/dipendency/binding/all_controller_binding.dart';
-import 'package:bizkit/core/routes/indexed_stack_route/on_generate_route.dart';
 import 'package:bizkit/core/routes/route_generator.dart';
 // import 'package:bizkit/core/themes/app_themes.dart';
 import 'package:bizkit/firebase_options.dart';
@@ -42,12 +41,10 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: GetMaterialApp.router(
-        // getPages: GetXRouterConfig.routes,
         debugShowMaterialGrid: false,
         theme: ThemeData(
           primaryColor: kblack,
           colorScheme: const ColorScheme.dark(primary: neonShade),
-          // scaffoldBackgroundColor: backgroundColour,
           scaffoldBackgroundColor: kblack,
           textTheme: Theme.of(context).textTheme.apply(
                 bodyColor: kwhite,

@@ -475,13 +475,14 @@ class TaskLocalService implements TaskLocalRepo {
           INSERT INTO ${TaskSql.filterByDeadlineTable} (
           ${FilterByDeadlineModel.colTaskFilterByDeadline},
           ${FilterByDeadlineModel.colUserId},
+          ${FilterByDeadlineModel.colTaskId},
           ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId})
-        VALUES(?,?,?)  
+        VALUES(?,?,?,?)  
         ''';
 
         await localService.rawInsert(
           filterByDeadlineQuery,
-          [taskModel.deadLine, currentUserId, referenceId],
+          [taskModel.deadLine, currentUserId, taskModel.id, referenceId],
         );
       }
 
@@ -556,9 +557,7 @@ class TaskLocalService implements TaskLocalRepo {
         const filterByDeadlineQuery = '''
         UPDATE ${TaskSql.filterByDeadlineTable}
         SET ${FilterByDeadlineModel.colTaskFilterByDeadline} = ?
-        WHERE ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId} = 
-          (SELECT ${GetTaskResponce.colTaskLocalId} FROM ${TaskSql.tasksTable}
-           WHERE ${GetTaskResponce.colTaskId} = ? AND ${GetTaskResponce.colUserId} = ?)
+        WHERE ${FilterByDeadlineModel.colTaskId} = ? AND ${FilterByDeadlineModel.colUserId} = ? 
       ''';
 
         final filterByDeadlineValues = [
@@ -738,13 +737,14 @@ class TaskLocalService implements TaskLocalRepo {
     try {
       final deadline = DateTime.parse(filterByDeadline);
       final String? currentUserId = await userId;
+
       if (currentUserId == null) {
         log('getTaskFullDetailsFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
 
       final List<Map<String, dynamic>> alltasks = await localService.rawQuery(
-          'SELECT * FROM ${TaskSql.filterByDeadlineTable} WHERE ${FilterByDeadlineModel.colUserId} = ?',
+          'SELECT * FROM ${TaskSql.filterByDeadlineTable} WHERE ${FilterByDeadlineModel.colUserId} = ? ORDER BY ${FilterByDeadlineModel.colTaskFilterByDeadline} DESC',
           [currentUserId]);
 
       List<task.Task> filterdTasks = [];
@@ -758,12 +758,14 @@ class TaskLocalService implements TaskLocalRepo {
           final taskDeadline = DateTime.parse(taskDeadlineStr);
           if (taskDeadline != null &&
               taskDeadline.isBefore(deadline.add(const Duration(days: 1)))) {
-            await localService.rawQuery(
-              'SELECT * FROM ${TaskSql.tasksTable} WHERE ${GetTaskResponce.colTaskLocalId} = ?',
-              [item[FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId]],
+            final data = await localService.rawQuery(
+              'SELECT * FROM ${TaskSql.tasksTable} WHERE ${GetTaskResponce.colTaskId} = ?',
+              [item[FilterByDeadlineModel.colTaskId]],
             );
 
-            filterdTasks.add(task.Task.fromMap(item));
+            if (data.isNotEmpty) {
+              filterdTasks.add(task.Task.fromMap(data.first));
+            }
           }
         }
       }

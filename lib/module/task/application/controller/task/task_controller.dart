@@ -689,42 +689,19 @@ class CreateTaskController extends GetxController {
     );
   }
 
-  // Filters tasks by deadline using the provided model
-  void taskFilterByDeadline() async {
+  // Filters tasks by deadline
+  Future<void> taskFilterByDeadline() async {
     taksListLoading.value = true;
-
     deadlineTasksPageNumber = 1;
-    deadlineTasks.value = [];
+    deadlineTasks.clear();
 
-    // Fetch the tasks from local storage before making a network call
+    // Step 1: Fetch and display local data first
     await fetchTasksFromLocalDb();
 
-    // Network call to fetch tasks by deadline
-    final result = await taskService.filterByDeadline(
-        filterByDeadline: FilterByDeadlineModel(
-      date: deadlineDate.value,
-      page: deadlineTasksPageNumber,
-      pageSize: deadlineTasksPageSize,
-    ));
-    result.fold(
-      (failure) {
-        log(failure.message.toString());
-        taksListLoading.value = false;
-      },
-      (success) async {
-        if (success.data != null) {
-          // Add the new tasks from the network call
-          deadlineTasks.assignAll(success.data ?? []);
+    // Step 2: Then update with any network data if available
+    await fetchTasksFromNetwork();
 
-          for (var task in deadlineTasks) {
-            await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-                taskModel: task);
-          }
-        }
-
-        taksListLoading.value = false;
-      },
-    );
+    taksListLoading.value = false;
   }
 
   Future<void> fetchTasksFromLocalDb() async {
@@ -732,9 +709,11 @@ class CreateTaskController extends GetxController {
       log('fetchTasksFromLocalDb error: deadline date is empty');
       return;
     }
-
+    taksListLoading.value = true;
     final localDbTasksResult = await taskLocalService.getTasksFromLocalStorage(
       filterByDeadline: deadlineDate.value,
+      page: deadlineTasksPageNumber,
+      pageSize: deadlineTasksPageSize,
     );
 
     localDbTasksResult.fold(
@@ -743,48 +722,196 @@ class CreateTaskController extends GetxController {
       },
       (tasks) {
         if (tasks.isNotEmpty) {
-          for (var task in tasks) {
-            if (task.spotlightOn == true) {
-              deadlineTasks.insert(0, task);
-            } else {
-              deadlineTasks.add(task);
-            }
-          }
+          deadlineTasks.assignAll(tasks);
           taksListLoading.value = false;
         }
       },
     );
   }
 
-// / Filters tasks by deadline  - [ Pagination ]
-  void taskFilterByDeadlineLoadMore() async {
-    if (deadlineTasksLoadMoreLoading.value == true) {
-      return;
-    }
-    deadlineTasksLoadMoreLoading.value = true;
+  Future<void> fetchTasksFromNetwork() async {
     final result = await taskService.filterByDeadline(
-        filterByDeadline: FilterByDeadlineModel(
-      date: deadlineDate.value,
-      page: ++deadlineTasksPageNumber,
-      pageSize: deadlineTasksPageSize,
-    ));
+      filterByDeadline: FilterByDeadlineModel(
+        date: deadlineDate.value,
+        page: deadlineTasksPageNumber,
+        pageSize: deadlineTasksPageSize,
+      ),
+    );
+
     result.fold(
       (failure) {
         log(failure.message.toString());
-        deadlineTasksLoadMoreLoading.value = false;
       },
-      (success) {
-        deadlineTasks.addAll(success.data ?? []);
+      (success) async {
+        if (success.data != null) {
+          deadlineTasks.assignAll(success.data ?? []);
 
-        for (var task in success.data ?? []) {
-          taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-              taskModel: task);
+          // Store new tasks in local database
+          for (var task in deadlineTasks) {
+            await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+              taskModel: task,
+            );
+          }
         }
-
-        deadlineTasksLoadMoreLoading.value = false;
       },
     );
   }
+
+  Future<void> taskFilterByDeadlineLoadMore() async {
+    if (deadlineTasksLoadMoreLoading.value == true) return;
+
+    deadlineTasksLoadMoreLoading.value = true;
+
+    // First try to get more items from local storage
+    final localResult = await taskLocalService.getTasksFromLocalStorage(
+      filterByDeadline: deadlineDate.value,
+      page: deadlineTasksPageNumber + 1,
+      pageSize: deadlineTasksPageSize,
+    );
+
+    await localResult.fold(
+      (failure) async {
+        log('Local load more failed: ${failure.message}');
+        // If local fetch fails, try network
+        await loadMoreFromNetwork();
+      },
+      (localTasks) async {
+        if (localTasks.isEmpty) {
+          // If no more local tasks, try network
+          await loadMoreFromNetwork();
+        } else {
+          deadlineTasksPageNumber++;
+          deadlineTasks.addAll(localTasks);
+        }
+      },
+    );
+
+    deadlineTasksLoadMoreLoading.value = false;
+  }
+
+  Future<void> loadMoreFromNetwork() async {
+    final result = await taskService.filterByDeadline(
+      filterByDeadline: FilterByDeadlineModel(
+        date: deadlineDate.value,
+        page: deadlineTasksPageNumber + 1,
+        pageSize: deadlineTasksPageSize,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        log(failure.message.toString());
+      },
+      (success) async {
+        if (success.data?.isNotEmpty ?? false) {
+          deadlineTasksPageNumber++;
+          deadlineTasks.addAll(success.data ?? []);
+
+          // Store new tasks in local database
+          for (var task in success.data ?? []) {
+            await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+              taskModel: task,
+            );
+          }
+        }
+      },
+    );
+  }
+//   void taskFilterByDeadline() async {
+//     taksListLoading.value = true;
+
+//     deadlineTasksPageNumber = 1;
+//     deadlineTasks.value = [];
+
+//     // Fetch the tasks from local storage before making a network call
+//     await fetchTasksFromLocalDb();
+
+//     // Network call to fetch tasks by deadline
+//     final result = await taskService.filterByDeadline(
+//         filterByDeadline: FilterByDeadlineModel(
+//       date: deadlineDate.value,
+//       page: deadlineTasksPageNumber,
+//       pageSize: deadlineTasksPageSize,
+//     ));
+//     result.fold(
+//       (failure) {
+//         log(failure.message.toString());
+//         taksListLoading.value = false;
+//       },
+//       (success) async {
+//         if (success.data != null) {
+//           // Add the new tasks from the network call
+//           deadlineTasks.assignAll(success.data ?? []);
+
+//           for (var task in deadlineTasks) {
+//             await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+//                 taskModel: task);
+//           }
+//         }
+
+//         taksListLoading.value = false;
+//       },
+//     );
+//   }
+
+//   Future<void> fetchTasksFromLocalDb() async {
+//     if (deadlineDate.value.isEmpty) {
+//       log('fetchTasksFromLocalDb error: deadline date is empty');
+//       return;
+//     }
+
+//     final localDbTasksResult = await taskLocalService.getTasksFromLocalStorage(
+//       filterByDeadline: deadlineDate.value,
+//     );
+
+//     localDbTasksResult.fold(
+//       (failure) {
+//         log('FetchTasksFromLocalDb error: ${failure.message}');
+//       },
+//       (tasks) {
+//         if (tasks.isNotEmpty) {
+//           for (var task in tasks) {
+//             if (task.spotlightOn == true) {
+//               deadlineTasks.insert(0, task);
+//             } else {
+//               deadlineTasks.add(task);
+//             }
+//           }
+//           taksListLoading.value = false;
+//         }
+//       },
+//     );
+//   }
+
+// // / Filters tasks by deadline  - [ Pagination ]
+//   void taskFilterByDeadlineLoadMore() async {
+//     if (deadlineTasksLoadMoreLoading.value == true) {
+//       return;
+//     }
+//     deadlineTasksLoadMoreLoading.value = true;
+//     final result = await taskService.filterByDeadline(
+//         filterByDeadline: FilterByDeadlineModel(
+//       date: deadlineDate.value,
+//       page: ++deadlineTasksPageNumber,
+//       pageSize: deadlineTasksPageSize,
+//     ));
+//     result.fold(
+//       (failure) {
+//         log(failure.message.toString());
+//         deadlineTasksLoadMoreLoading.value = false;
+//       },
+//       (success) {
+//         deadlineTasks.addAll(success.data ?? []);
+
+//         for (var task in success.data ?? []) {
+//           taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+//               taskModel: task);
+//         }
+
+//         deadlineTasksLoadMoreLoading.value = false;
+//       },
+//     );
+//   }
 
   // add spotlight to a task
   void spotLightTask({required SpotLightTask spotLightTask}) async {

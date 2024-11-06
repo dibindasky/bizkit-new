@@ -49,7 +49,6 @@ import 'package:bizkit/service/api_service/api_service.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class TaskService implements TaskRepo {
   final ApiService apiService = ApiService();
@@ -196,6 +195,9 @@ class TaskService implements TaskRepo {
         data: filterByDeadline.toJson(),
       );
 
+      for (var task in response.data['data']) {
+        log('Task from api call ==== > ${task['task_title']}');
+      }
       log("=> Response Filter by Deadline : ");
       return Right(FilterByDeadlineResponce.fromJson(response.data));
     } on DioException catch (e) {

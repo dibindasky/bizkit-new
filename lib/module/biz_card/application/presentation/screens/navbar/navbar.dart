@@ -7,6 +7,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/received
 import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/show_dialogue/show_exit_dialog.dart';
 import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
@@ -29,87 +30,105 @@ class CardBottomNavigationBar extends StatelessWidget {
     final controller = Get.find<NavbarController>();
     return Obx(
       () => PopScope(
-        canPop: controller.slectedtabIndex.value == 0,
-        onPopInvoked: (bool didPop) async {
+        // canPop: controller.slectedtabIndex.value == 0,
+        // onPopInvoked: (bool didPop) async {
+        //   if (didPop) {
+        //     if (didPop) true;
+        //     return;
+        //   } else if (controller.slectedtabIndex.value == 0 &&
+        //       homeFirstAnimationController.isCompleted) {
+        //     showFirstScreen();
+        //   } else if (controller.slectedtabIndex.value == 0) {
+        //     final bool? exit = await showDialog(
+        //       context: context,
+        //       builder: (context) => Dialog(
+        //         child: Container(
+        //           padding:
+        //               const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        //           decoration: BoxDecoration(
+        //             borderRadius: const BorderRadius.all(Radius.circular(20)),
+        //             border: Border.all(color: neonShade),
+        //           ),
+        //           child: Column(
+        //             mainAxisSize: MainAxisSize.min,
+        //             children: [
+        //               const Text('Exit From Bizkit?'),
+        //               kHeight10,
+        //               Row(
+        //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //                 children: [
+        //                   kWidth20,
+        //                   Expanded(
+        //                     child: InkWell(
+        //                       //onTap: () => Navigator.pop(context, false),
+        //                       child: Container(
+        //                         padding: const EdgeInsets.all(10),
+        //                         decoration: BoxDecoration(
+        //                           borderRadius: const BorderRadius.all(
+        //                               Radius.circular(5)),
+        //                           border: Border.all(color: neonShade),
+        //                         ),
+        //                         child: const Center(child: Text('Cancel')),
+        //                       ),
+        //                     ),
+        //                   ),
+        //                   kWidth20,
+        //                   Expanded(
+        //                     child: InkWell(
+        //                       onTap: () {
+        //                         //Navigator.pop(context, true);
+        //                       },
+        //                       child: Container(
+        //                         padding: const EdgeInsets.all(10),
+        //                         decoration: BoxDecoration(
+        //                           color: neonShade,
+        //                           borderRadius: const BorderRadius.all(
+        //                               Radius.circular(5)),
+        //                           border: Border.all(color: neonShade),
+        //                         ),
+        //                         child: const Center(child: Text('Exit')),
+        //                       ),
+        //                     ),
+        //                   ),
+        //                   kWidth20,
+        //                 ],
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     );
+        //     print('exit ===> $exit');
+        //     if (exit == false) {
+        //       return;
+        //     } else {
+        //       Navigator.pop(context);
+        //       return;
+        //     }
+        //   } else if (controller.slectedtabIndex.value == 0 &&
+        //       !homeFirstAnimationController.isCompleted) {
+        //     Navigator.pop(context);
+        //   } else {
+        //     controller.changeBottomBar(0);
+        //     return;
+        //   }
+        // },
+
+        canPop: false,
+        onPopInvoked: (didPop) {
           if (didPop) {
-            if (didPop) true;
             return;
-          } else if (controller.slectedtabIndex.value == 0 &&
-              homeFirstAnimationController.isCompleted) {
-            showFirstScreen();
-          } else if (controller.slectedtabIndex.value == 0) {
-            final bool? exit = await showDialog(
-              context: context,
-              builder: (context) => Dialog(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    border: Border.all(color: neonShade),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text('Exit From Bizkit?'),
-                      kHeight10,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          kWidth20,
-                          Expanded(
-                            child: InkWell(
-                              //onTap: () => Navigator.pop(context, false),
-                              child: Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(5)),
-                                  border: Border.all(color: neonShade),
-                                ),
-                                child: const Center(child: Text('Cancel')),
-                              ),
-                            ),
-                          ),
-                          kWidth20,
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                //Navigator.pop(context, true);
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: neonShade,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(5)),
-                                  border: Border.all(color: neonShade),
-                                ),
-                                child: const Center(child: Text('Exit')),
-                              ),
-                            ),
-                          ),
-                          kWidth20,
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-            print('exit ===> $exit');
-            if (exit == false) {
-              return;
-            } else {
-              Navigator.pop(context);
-              return;
-            }
-          } else if (controller.slectedtabIndex.value == 0 &&
-              !homeFirstAnimationController.isCompleted) {
-            Navigator.pop(context);
           } else {
-            controller.changeBottomBar(0);
-            return;
+            if (controller.slectedtabIndex.value == 2 ||
+                controller.slectedtabIndex.value == 3 ||
+                controller.slectedtabIndex.value == 4) {
+              controller.changeBottomBar(1);
+            } else if (controller.slectedtabIndex.value == 1) {
+              controller.changeBottomBar(0);
+            } else {
+              // Shows an exit confirmation dialog
+              showExitDialog(context);
+            }
           }
         },
         child: Scaffold(

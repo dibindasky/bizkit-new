@@ -787,6 +787,7 @@ class TaskLocalService implements TaskLocalRepo {
     required int pageSize,
   }) async {
     try {
+      log('getTasksFromLocalStorage To Json ==== > page : $page , pageSize : $pageSize');
       final deadline = DateTime.parse(filterByDeadline);
       final String? currentUserId = await userId;
 
@@ -822,7 +823,11 @@ class TaskLocalService implements TaskLocalRepo {
         return a.spotlightOn! ? -1 : 1;
       });
 
-      log('getTasksFromLocalStorage success with page $page, size $pageSize ');
+      for (var task in filteredTasks) {
+        print('Task from sql database ==== > ${task.title}');
+      }
+
+      log('getTasksFromLocalStorage success ');
       return Right(filteredTasks);
     } catch (e) {
       log('getTasksFromLocalStorage error: ${e.toString()}');

@@ -37,10 +37,10 @@ class BizCardUsers {
       this.connectionExist});
 
   factory BizCardUsers.fromJson(Map<String, dynamic> json) {
-    return _$ResultFromJson(json);
+    return _$BizCardUsersFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$ResultToJson(this);
+  Map<String, dynamic> toJson() => _$BizCardUsersToJson(this);
 
   BizCardUsers copyWith({
     String? userId,

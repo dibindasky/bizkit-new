@@ -14,8 +14,8 @@ class SearchConnection {
   SearchConnection({this.toUser, this.username, this.cards});
 
   factory SearchConnection.fromJson(Map<String, dynamic> json) {
-    return _$ResultFromJson(json);
+    return _$SearchConnectionFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$ResultToJson(this);
+  Map<String, dynamic> toJson() => _$SearchConnectionToJson(this);
 }

@@ -12,7 +12,7 @@ class Views {
 
   Views({this.name, this.email, this.phoneNumber, this.photo});
 
-  factory Views.fromJson(Map<String, dynamic> json) => _$ViewFromJson(json);
+  factory Views.fromJson(Map<String, dynamic> json) => _$ViewsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ViewToJson(this);
+  Map<String, dynamic> toJson() => _$ViewsToJson(this);
 }

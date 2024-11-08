@@ -36,7 +36,7 @@ class TasksCompletedOrKilled {
   });
 
   factory TasksCompletedOrKilled.fromJson(Map<String, dynamic> json) =>
-      _$TaskFromJson(json);
+      _$TasksCompletedOrKilledFromJson(json);
 
-  Map<String, dynamic> toJson() => _$TaskToJson(this);
+  Map<String, dynamic> toJson() => _$TasksCompletedOrKilledToJson(this);
 }

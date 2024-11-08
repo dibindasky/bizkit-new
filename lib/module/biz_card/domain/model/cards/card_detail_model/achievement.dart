@@ -23,8 +23,8 @@ class Achievement {
   });
 
   factory Achievement.fromJson(Map<String, dynamic> json) {
-    return _$PersonalAchievementFromJson(json);
+    return _$AchievementFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$PersonalAchievementToJson(this);
+  Map<String, dynamic> toJson() => _$AchievementToJson(this);
 }

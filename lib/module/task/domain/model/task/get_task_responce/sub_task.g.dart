@@ -14,9 +14,10 @@ SubTask _$SubTaskFromJson(Map<String, dynamic> json) => SubTask(
       totalTimeTaken: json['total_time_taken'] as String?,
       duration: json['duration'] as String?,
       id: json['_id'] as String?,
-    );
+    )..localId = json['localId'] as int?;
 
 Map<String, dynamic> _$SubTaskToJson(SubTask instance) => <String, dynamic>{
+      'localId': instance.localId,
       'title': instance.title,
       'description': instance.description,
       'dead_line': instance.deadLine,

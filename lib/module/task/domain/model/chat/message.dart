@@ -1,9 +1,9 @@
-import 'package:bizkit/module/task/domain/model/chat/current_location_message.dart';
-import 'package:bizkit/module/task/domain/model/chat/file_model.dart';
-import 'package:bizkit/module/task/domain/model/chat/poll.dart';
-import 'package:bizkit/module/task/domain/model/chat/text_message.dart';
-import 'package:bizkit/module/task/domain/model/chat/time_expence_message.dart';
-import 'package:bizkit/module/task/domain/model/chat/voice_model.dart';
+import 'package:bizkit/module/task/domain/model/chat/current_location/current_location_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/file/file_model.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll/poll.dart';
+import 'package:bizkit/module/task/domain/model/chat/text/text_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/time_expence/time_expence_message.dart';
+import 'package:bizkit/module/task/domain/model/chat/voice/voice_model.dart';
 
 class Message {
   TextMessage? textMessage;
@@ -13,9 +13,12 @@ class Message {
   VoiceMessage? voiceMessage;
   CurrentLocationMessage? currentLocation;
   bool isLoadMore;
+  bool deleted;
   bool? sender;
   String? messageId;
   String? messageType;
+  String? timestamp;
+  String? taskId;
 
   Message({
     this.poll,
@@ -27,7 +30,10 @@ class Message {
     this.sender,
     this.messageId,
     this.isLoadMore = false,
+    this.deleted = false,
     this.messageType,
+    this.timestamp,
+    this.taskId,
   });
 
   // Convert a Message instance to a Map
@@ -42,7 +48,10 @@ class Message {
       'sender': sender,
       'message_id': messageId,
       'is_load_more': isLoadMore,
+      'deleted': deleted,
       'message_type': messageType,
+      'timestamp': timestamp,
+      'task_id': taskId,
     };
   }
 
@@ -71,7 +80,10 @@ class Message {
       sender: json['sender'] as bool?,
       messageId: json['message_id'] as String?,
       messageType: json['message_type'] as String?,
+      timestamp: json['timestamp'] as String?,
+      taskId: json['task_id'] as String?,
       isLoadMore: json['is_load_more'] as bool? ?? false,
+      deleted: json['deleted'] as bool? ?? false,
     );
   }
 
@@ -116,15 +128,18 @@ class Message {
     return isLoadMore;
   }
 
-  static const String colTaskAssignedToDetailLocalId = 'local_id';
-  static const String colTextMessage = 'text_message';
-  static const String colPoll = 'poll';
-  static const String colTimeExpense = 'time_expence';
-  static const String colFile = 'file';
-  static const String colVoiceMessage = 'voice';
-  static const String colCurrentLocation = 'current_location';
+  static const String colLocalId = 'local_id';
   static const String colSender = 'sender';
   static const String colMessageId = 'message_id';
   static const String colIsLoadMore = 'is_load_more';
+  static const String colDeleted = 'deleted';
   static const String colMessageType = 'message_type';
+  static const String colTimestamp = 'timestamp';
+  static const String colTaskId = 'task_id';
+  // static const String colTextMessage = 'text_message';
+  // static const String colPoll = 'poll';
+  // static const String colTimeExpense = 'time_expence';
+  // static const String colFile = 'file';
+  // static const String colVoiceMessage = 'voice';
+  // static const String colCurrentLocation = 'current_location';
 }

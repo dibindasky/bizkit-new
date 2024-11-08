@@ -1,6 +1,6 @@
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/set_duration_dialog.dart';
-import 'package:bizkit/module/task/domain/model/chat/create_poll.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll/create_poll.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';

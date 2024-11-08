@@ -1,9 +1,9 @@
 import 'dart:developer';
+import 'package:bizkit/core/dipendency/di/dipendency_injection.dart';
 import 'package:bizkit/core/model/pagination_query/pagination_query.dart';
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
-import 'package:bizkit/module/biz_card/data/service/connections/connections_service.dart';
 import 'package:bizkit/module/biz_card/data/sqflite/my_connection/my_connection_local_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/result.dart';
@@ -13,7 +13,6 @@ import 'package:bizkit/module/biz_card/domain/model/connections/connection_detai
 import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/recieved_connection_requests_responce/request.dart';
-import 'package:bizkit/module/biz_card/domain/model/connections/search_connection_responce/result.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_request/send_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/shared_cards/shared_card_model.dart';
@@ -35,7 +34,7 @@ class ConnectionsController extends GetxController {
   final ScrollController myConnectionScrollController = ScrollController();
   final ScrollController fetchMyConnectionScrollController = ScrollController();
 
-  final ConnectionsRepo connectionService = ConnectionsService();
+  final ConnectionsRepo connectionService = getIt<ConnectionsRepo>();
   final MyConnectionLocalRepo myConnectionLocalService =
       MyConnectionLocalService();
   final Debouncer debouncer = Debouncer(milliseconds: 300);

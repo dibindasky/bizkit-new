@@ -12,8 +12,8 @@ class SocialMediaHandles {
   SocialMediaHandles({this.label, this.link, this.id});
 
   factory SocialMediaHandles.fromJson(Map<String, dynamic> json) {
-    return _$PersonalSocialMediaFromJson(json);
+    return _$SocialMediaHandlesFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$PersonalSocialMediaToJson(this);
+  Map<String, dynamic> toJson() => _$SocialMediaHandlesToJson(this);
 }

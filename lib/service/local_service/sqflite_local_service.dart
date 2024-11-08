@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:bizkit/service/local_service/sql/oncreate_db.dart';
 import 'package:sqflite/sqflite.dart' as sql;
-import 'package:path/path.dart';
 
 class LocalService {
   static const _databaseName = "bizkit.db";
@@ -17,19 +16,51 @@ class LocalService {
 
   Future<sql.Database?> _initDatabase() async {
     var databasesPath = await sql.getDatabasesPath();
-    String path = join(databasesPath, _databaseName);
+    String path = '$databasesPath/$_databaseName';
 
     return await sql.openDatabase(path,
         version: _databaseVersion,
         onCreate: (sql.Database db, int version) async =>
             await Sql.onCreate(db));
   }
+
   /// Get data from sql
   Future<List<Map<String, Object?>>> rawQuery(String query,
       [List<Object?>? listParams]) async {
     try {
       final db = await database;
       return await db.rawQuery(query, listParams);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  /// Get data from sql
+  Future<List<Map<String, Object?>>> query(
+    String query, {
+    int? limit,
+    int? offset,
+    String? groupBy,
+    bool? distinct,
+    List<String>? columns,
+    String? where,
+    List<Object?>? whereArgs,
+    String? having,
+    String? orderBy,
+  }) async {
+    try {
+      final db = await database;
+      return await db.query(query,
+          limit: limit,
+          offset: offset,
+          groupBy: groupBy,
+          columns: columns,
+          distinct: distinct,
+          having: having,
+          orderBy: orderBy,
+          where: where,
+          whereArgs: whereArgs);
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -112,7 +143,7 @@ class LocalService {
     }
   }
 
-  // check a value is present or not in table
+  /// check a value is present or not in table
   /// eg query 'SELECT COUNT(*) FROM users WHERE email = ?', listParams ['example']
   Future<bool> presentOrNot(String query, List<Object?>? listParams) async {
     try {

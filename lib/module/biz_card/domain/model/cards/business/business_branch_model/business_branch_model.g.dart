@@ -20,11 +20,11 @@ BusinessBranchModel _$BusinessBranchModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$BusinessBranchModelToJson(
         BusinessBranchModel instance) =>
     <String, dynamic>{
-      'branch_office_id': instance.branchId,
       'branch_location': instance.branchLocation,
       'branch_address': instance.branchAddress,
       'branch_contact_person': instance.branchContactPerson,
       'branch_contact_number': instance.branchContactNumber,
       'business_details_id': instance.businessDetailsId,
       'bizcard_id': instance.bizcardId,
+      'branch_office_id': instance.branchId,
     };

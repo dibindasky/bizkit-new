@@ -20,12 +20,12 @@ ExtractedDetails _$ExtractedDetailsFromJson(Map<String, dynamic> json) =>
       websites: (json['websites'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      unIdentifiedText: (json['unidentified_text'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
       designation: json['designation'] as String?,
       personName: json['person_name'] as String?,
       companyName: json['company_name'] as String?,
+      unIdentifiedText: (json['unidentified_text'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$ExtractedDetailsToJson(ExtractedDetails instance) =>

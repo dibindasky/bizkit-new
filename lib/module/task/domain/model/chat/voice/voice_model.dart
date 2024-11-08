@@ -29,18 +29,21 @@ class VoiceMessage {
       this.sender = false});
 
   // Factory constructor to create an instance from a JSON map
-  factory VoiceMessage.fromJson(Map<String, dynamic> json, [String? uid]) {
+  factory VoiceMessage.fromJson(Map<String, dynamic> json,
+      {String? uid, bool fromLocalDb = false}) {
     return VoiceMessage(
-      messageType: json['message_type'],
-      message: json['message'],
-      userId: json['user_id'],
-      username: json['username'],
-      profilePicture: json['profile_picture'],
-      messageId: json['message_id'],
-      timestamp: json['timestamp'],
-      voice: json['voice_data_base64'],
-      readByAll: json['read_by_all'],
-      duration: json['duration'],
+      messageType: json['message_type'] as String?,
+      message: json['message'] as String?,
+      userId: json['user_id'] as String?,
+      username: json['username'] as String?,
+      profilePicture: json['profile_picture'] as String?,
+      messageId: json['message_id'] as String?,
+      timestamp: json['timestamp'] as String?,
+      voice: json['voice_data_base64'] as String?,
+      readByAll: fromLocalDb
+          ? (json['read_by_all'] as int?) == 1
+          : json['read_by_all'],
+      duration: json['duration'] as String,
       isLoadMore: (json['is_load_more'] as bool?) ?? false,
       currentUid: uid,
       sender: (json['user_id'] as String?) == uid,
@@ -70,4 +73,19 @@ class VoiceMessage {
   String toString() {
     return 'VoiceMessage{messageType: $messageType, message: $message, userId: $userId, username: $username, duration: $duration profilePicture: $profilePicture, messageId: $messageId, timestamp: $timestamp, voice_data_base64: $voice, readByAll: $readByAll}';
   }
+
+  static const String colLocalId = 'local_id';
+  static const String colMessageType = 'message_type';
+  static const String colMessage = 'message';
+  static const String colUserId = 'user_id';
+  static const String colUsername = 'username';
+  static const String colProfilePicture = 'profile_picture';
+  static const String colMessageId = 'message_id';
+  static const String colTimestamp = 'timestamp';
+  static const String colVoice = 'voice_data_base64';
+  static const String colDuration = 'duration';
+  static const String colReadByAll = 'read_by_all';
+  static const String colCurrentUid = 'current_uid';
+  static const String colIsLoadMore = 'is_load_more';
+  static const String colSender = 'sender';
 }

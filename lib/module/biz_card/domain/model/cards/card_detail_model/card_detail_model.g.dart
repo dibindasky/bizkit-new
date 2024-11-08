@@ -8,20 +8,16 @@ part of 'card_detail_model.dart';
 
 CardDetailModel _$CardDetailModelFromJson(Map<String, dynamic> json) =>
     CardDetailModel(
-      matchoMeter: json['matcho_meter_comparison'] == null
-          ? null
-          : (json['matcho_meter_comparison'] as List<dynamic>)
-              .map(
-                (e) =>
-                    MatchoMeterComparison.fromJson(e as Map<String, dynamic>),
-              )
-              .toList(),
-      category: json['category'] as String?,
-      location: json['location'] as String?,
-      notes: json['notes'] as String?,
-      occasion: json['occasion'] as String?,
+      matchoMeter: (json['matcho_meter_comparison'] as List<dynamic>?)
+          ?.map(
+              (e) => MatchoMeterComparison.fromJson(e as Map<String, dynamic>))
+          .toList(),
       selfie:
           (json['selfie'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      notes: json['notes'] as String?,
+      occasion: json['occasion'] as String?,
+      location: json['location'] as String?,
+      category: json['category'] as String?,
       bizcardId: json['bizcard_id'] as String?,
       personalDetails: json['personal_details'] == null
           ? null
@@ -42,11 +38,6 @@ CardDetailModel _$CardDetailModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CardDetailModelToJson(CardDetailModel instance) =>
     <String, dynamic>{
-      'category': instance.category,
-      'location': instance.location,
-      'notes': instance.notes,
-      'occasion': instance.occasion,
-      'selfie': instance.selfie,
       'bizcard_id': instance.bizcardId,
       'personal_details': instance.personalDetails,
       'business_details': instance.businessDetails,
@@ -56,6 +47,11 @@ Map<String, dynamic> _$CardDetailModelToJson(CardDetailModel instance) =>
       'is_archived': instance.isArchived,
       'is_disabled': instance.isDisabled,
       'qr_code': instance.qrCode,
+      'notes': instance.notes,
+      'occasion': instance.occasion,
+      'location': instance.location,
+      'category': instance.category,
+      'selfie': instance.selfie,
       'matcho_meter_comparison': instance.matchoMeter,
       'connection_id': instance.connectionId,
     };

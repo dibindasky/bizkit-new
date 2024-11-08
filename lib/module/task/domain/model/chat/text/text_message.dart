@@ -46,7 +46,8 @@ class TextMessage {
   }
 
   // Create a Message instance from a Map
-  factory TextMessage.fromJson(Map<String, dynamic> json, [String? uid]) {
+  factory TextMessage.fromJson(Map<String, dynamic> json,
+      {String? uid, bool fromLocalDb = false}) {
     return TextMessage(
       messageType: json['message_type'] as String?,
       userId: json['user_id'] as String?,
@@ -56,12 +57,34 @@ class TextMessage {
       messageId: json['message_id'] as String?,
       message: json['message'] as String?,
       timestamp: json['timestamp'] as String?,
-      isLoadMore: (json['is_load_more'] as bool?) ?? false,
+      isLoadMore: fromLocalDb
+          ? (json['is_load_more'] as int?) == 1
+          : (json['is_load_more'] as bool?) ?? false,
       sender: (json['user_id'] as String?) == uid,
-      readBy: (json['read_by'] as List<dynamic>?)
-          ?.map((item) => item as String)
-          .toList(),
-      readByAll: (json['read_by_all'] as bool?) ?? false,
+      readBy: fromLocalDb
+          ? ((json['read_by'] as String?) ?? '').isEmpty
+              ? null
+              : (json['read_by'] as String).split(',')
+          : (json['read_by'] as List<dynamic>?)
+              ?.map((item) => item as String)
+              .toList(),
+      readByAll: fromLocalDb
+          ? (json['read_by_all'] as int?) == 1
+          : (json['read_by_all'] as bool?) ?? false,
     );
   }
+
+  static const String colLocalId = 'local_id';
+  static const String colMessageType = 'message_type';
+  static const String colUserId = 'user_id';
+  static const String colCurrentUid = 'current_uid';
+  static const String colUsername = 'username';
+  static const String colProfilePicture = 'profile_picture';
+  static const String colMessageId = 'message_id';
+  static const String colMessage = 'message';
+  static const String colTimestamp = 'timestamp';
+  static const String colSender = 'sender';
+  static const String colReadBy = 'read_by';
+  static const String colIsLoadMore = 'is_load_more';
+  static const String colReadByAll = 'read_by_all';
 }

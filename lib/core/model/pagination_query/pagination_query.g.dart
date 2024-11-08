@@ -8,8 +8,8 @@ part of 'pagination_query.dart';
 
 PaginationQuery _$PaginationQueryFromJson(Map<String, dynamic> json) =>
     PaginationQuery(
-      page: (json['page'] as num?)?.toInt(),
-      pageSize: (json['page_size'] as num?)?.toInt(),
+      page: json['page'] as int?,
+      pageSize: json['page_size'] as int?,
     );
 
 Map<String, dynamic> _$PaginationQueryToJson(PaginationQuery instance) =>

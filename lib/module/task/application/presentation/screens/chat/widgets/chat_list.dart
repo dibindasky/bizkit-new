@@ -5,6 +5,7 @@ import 'package:bizkit/module/task/application/presentation/screens/chat/file_me
 import 'package:bizkit/module/task/application/presentation/screens/chat/poll/chat_poll_container.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/time_expence/time_expence_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/voice/voice_card.dart';
+import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/deleted_message_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -53,6 +54,10 @@ class ChatListView extends StatelessWidget {
                     chatController.messages[index + 1].sender) {
                   showArrow = false;
                 }
+              }
+              // deleted message
+              if (message.deleted) {
+                return DeletedChatMessageContainer(message: message);
               }
               // text message
               if (message.textMessage != null) {

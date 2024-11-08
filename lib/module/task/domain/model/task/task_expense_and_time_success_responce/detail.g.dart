@@ -7,8 +7,8 @@ part of 'detail.dart';
 // **************************************************************************
 
 Detail _$DetailFromJson(Map<String, dynamic> json) => Detail(
-      time: (json['time'] as num?)?.toInt(),
-      expense: (json['expense'] as num?)?.toInt(),
+      time: json['time'] as int?,
+      expense: json['expense'] as int?,
       description: json['description'] as String?,
     );
 

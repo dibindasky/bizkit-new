@@ -1380,7 +1380,7 @@ class CreateTaskController extends GetxController {
     fetchSingleTaskError.value = false;
 
     // Fetch the task details from local storage before making a network call
-    await fetchSingleTaskFromLocalStorage(singleTaskModel);
+    // await fetchSingleTaskFromLocalStorage(singleTaskModel);
 
     isSyncing.value = true; // Start syncing indication
 

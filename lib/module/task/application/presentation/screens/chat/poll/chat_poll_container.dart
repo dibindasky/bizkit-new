@@ -1,8 +1,9 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/message_read_marker.dart';
-import 'package:bizkit/module/task/domain/model/chat/poll.dart';
-import 'package:bizkit/module/task/domain/model/chat/vote_poll.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll/poll.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll/poll_answer.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll/vote_poll.dart';
 import 'package:bizkit/utils/animations/custom_linear_progress_bar.dart';
 import 'package:bizkit/utils/clipper/chat_pol_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -71,11 +72,15 @@ class _PollContainerChatState extends State<PollContainerChat> {
     sender = message.sender;
     selectedOption.clear();
     totalVotes = 0;
+    print('poll current user id -- >  ${message.currentUid}');
     if (message.pollAnswers != null) {
       for (var x in message.pollAnswers!) {
         if (x.supporters != null) {
           for (var y in x.supporters!) {
+            print(
+                'poll supporter user id -- >  ${y.userId} == ${message.currentUid}');
             if (y.userId == message.currentUid) {
+              print('poll supporter user id == >  ${y.userId}');
               completed = true;
               selectedOption.add(x.answerId ?? '');
             }
@@ -131,6 +136,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
     }
     super.didUpdateWidget(oldWidget);
   }
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies

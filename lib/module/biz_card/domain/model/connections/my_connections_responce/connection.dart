@@ -2,35 +2,38 @@ import 'dart:developer';
 
 import 'package:json_annotation/json_annotation.dart';
 import 'card.dart';
+
 part 'connection.g.dart';
 
+@JsonSerializable()
 class MyConnection {
   @JsonKey(name: 'to_user')
   int? localId;
   String? toUser;
   String? username;
   List<Card>? cards;
- 
+
   MyConnection({this.toUser, this.username, this.cards, this.localId});
 
   factory MyConnection.fromJson(Map<String, dynamic> json) {
-    return _$ConnectionFromJson(json);
+    return _$MyConnectionFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$ConnectionToJson(this);
+  Map<String, dynamic> toJson() => _$MyConnectionToJson(this);
 
   bool equals(MyConnection other) {
     return localId == other.localId &&
-           toUser == other.toUser &&
-           username == other.username &&
-           _compareCardLists(cards, other.cards);
+        toUser == other.toUser &&
+        username == other.username &&
+        _compareCardLists(cards, other.cards);
   }
 
   bool _compareCardLists(List<Card>? list1, List<Card>? list2) {
     log('compare card List 1');
     if (list1 == null && list2 == null) return true;
     log('compare card List 2');
-    if (list1 == null || list2 == null || list1.length != list2.length) return false;
+    if (list1 == null || list2 == null || list1.length != list2.length)
+      return false;
     log('compare card List 3');
 
     final map1 = {for (var card in list1) card.toCard: card};

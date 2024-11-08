@@ -1,4 +1,5 @@
 import 'package:bizkit/core/dipendency/binding/all_controller_binding.dart';
+import 'package:bizkit/core/dipendency/di/dipendency_injection.dart';
 import 'package:bizkit/core/routes/route_generator.dart';
 // import 'package:bizkit/core/themes/app_themes.dart';
 import 'package:bizkit/firebase_options.dart';
@@ -24,6 +25,7 @@ Future<void> main() async {
   );
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await configuteInjection();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(MyApp(connectivity: Connectivity()));
 }

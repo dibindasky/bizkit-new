@@ -11,9 +11,9 @@ TaskSearchResponce _$TaskSearchResponceFromJson(Map<String, dynamic> json) =>
       data: (json['data'] as List<dynamic>?)
           ?.map((e) => Task.fromJson(e as Map<String, dynamic>))
           .toList(),
+      currentPage: json['current_page'] as int?,
       hasMore: json['has_more'] as bool?,
-      currentPage: (json['current_page'] as num?)?.toInt(),
-      pageSize: (json['page_size'] as num?)?.toInt(),
+      pageSize: json['page_size'] as int?,
     );
 
 Map<String, dynamic> _$TaskSearchResponceToJson(TaskSearchResponce instance) =>

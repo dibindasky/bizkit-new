@@ -12,15 +12,15 @@ BusinessDetails _$BusinessDetailsFromJson(Map<String, dynamic> json) =>
       businessPhone: (json['business_phone'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      bankingDetails: json['bank_details'] == null
-          ? null
-          : BankingDetailsModel.fromJson(
-              json['bank_details'] as Map<String, dynamic>),
       websiteLink: json['business_website'] as String?,
       id: json['_id'] as String?,
       businessCategory: json['business_category'] as String?,
       designation: json['designation'] as String?,
       companyName: json['company_name'] as String?,
+      bankingDetails: json['bank_details'] == null
+          ? null
+          : BankingDetailsModel.fromJson(
+              json['bank_details'] as Map<String, dynamic>),
       businessName: json['business_name'] as String?,
       businessAchievements: (json['business_achievements'] as List<dynamic>?)
           ?.map((e) => Achievement.fromJson(e as Map<String, dynamic>))
@@ -43,17 +43,17 @@ BusinessDetails _$BusinessDetailsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$BusinessDetailsToJson(BusinessDetails instance) =>
     <String, dynamic>{
-      'business_phone': instance.businessPhone,
-      'business_email': instance.businessEmail,
-      'bank_details': instance.bankingDetails,
-      'business_website': instance.websiteLink,
       '_id': instance.id,
       'business_category': instance.businessCategory,
       'designation': instance.designation,
+      'business_website': instance.websiteLink,
       'company_name': instance.companyName,
       'business_name': instance.businessName,
+      'business_email': instance.businessEmail,
+      'business_phone': instance.businessPhone,
       'business_achievements': instance.businessAchievements,
       'business_social_media': instance.businessSocialMedia,
+      'bank_details': instance.bankingDetails,
       'product': instance.product,
       'branch_offices': instance.branchOffices,
       'brochure': instance.brochure,

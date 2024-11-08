@@ -12,8 +12,8 @@ CreateReminderModel _$CreateReminderModelFromJson(Map<String, dynamic> json) =>
       venue: json['venue'] as String?,
       occasion: json['occasion'] as String?,
       description: json['description'] as String?,
-      meetingLabel: json['meeting_label'] as String?,
       reminderDate: json['reminder_date'] as String?,
+      meetingLabel: json['meeting_label'] as String?,
     );
 
 Map<String, dynamic> _$CreateReminderModelToJson(
@@ -23,6 +23,6 @@ Map<String, dynamic> _$CreateReminderModelToJson(
       'venue': instance.venue,
       'occasion': instance.occasion,
       'description': instance.description,
+      'meeting_label': instance.meetingLabel,
       'reminder_date': instance.reminderDate,
-      'meeting_label': instance.meetingLabel
     };

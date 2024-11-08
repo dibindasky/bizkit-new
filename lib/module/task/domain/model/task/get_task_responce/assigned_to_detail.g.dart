@@ -11,10 +11,11 @@ AssignedToDetail _$AssignedToDetailFromJson(Map<String, dynamic> json) =>
       userId: json['user'] as String?,
       name: json['name'] as String?,
       isAccepted: json['is_accepted'] as String?,
-    );
+    )..localId = json['localId'] as int?;
 
 Map<String, dynamic> _$AssignedToDetailToJson(AssignedToDetail instance) =>
     <String, dynamic>{
+      'localId': instance.localId,
       'user': instance.userId,
       'name': instance.name,
       'is_accepted': instance.isAccepted,

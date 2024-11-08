@@ -127,8 +127,8 @@ class TaskSql {
       ON DELETE CASCADE 
     )
   ''';
-  
-    /// Table for Filter task by deadline [FilterByDeadlineModel] relation with [GetTaskResponce]
+
+  /// Table for Filter task by deadline [FilterByDeadlineModel] relation with [GetTaskResponce]
   static const _filterByDeadlineTableCreation = '''
   CREATE TABLE IF NOT EXISTS $filterByDeadlineTable(
     ${FilterByDeadlineModel.colTaskFilterByDeadlineLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -320,7 +320,7 @@ class CreateTaskController extends GetxController {
       selectedAttachmentsDatas.add(attachment);
     }
 
-  update([attachment]);
+    update([attachment]);
 
     log(selectedAttachmentsDatas.length.toString());
     selectedAttachment.value = selectedAttachmentsDatas.isNotEmpty;
@@ -328,7 +328,6 @@ class CreateTaskController extends GetxController {
 
   Future<void> deleteAttachments() async {
     try {
-     
       attachmentDeleteLoading.value = true;
 
       final result = await taskService.deleteAttachments(
@@ -337,7 +336,7 @@ class CreateTaskController extends GetxController {
               taskId: singleTask.value.id));
       result.fold((failure) {
         attachmentDeleteLoading.value = false;
-         selectedAttachment.value=false;
+        selectedAttachment.value = false;
         log('falure of controller');
       }, (success) {
         List<attachment.Attachment> list = [];
@@ -355,12 +354,12 @@ class CreateTaskController extends GetxController {
 
         selectedAttachmentsDatas.clear();
         attachmentDeleteLoading.value = false;
-         selectedAttachment.value=false;
+        selectedAttachment.value = false;
         log('success of controller');
       });
     } catch (e) {
       attachmentDeleteLoading.value = false;
-       selectedAttachment.value=false;
+      selectedAttachment.value = false;
       log(e.toString());
     }
   }
@@ -1380,7 +1379,7 @@ class CreateTaskController extends GetxController {
     fetchSingleTaskError.value = false;
 
     // Fetch the task details from local storage before making a network call
-    // await fetchSingleTaskFromLocalStorage(singleTaskModel);
+    await fetchSingleTaskFromLocalStorage(singleTaskModel);
 
     isSyncing.value = true; // Start syncing indication
 

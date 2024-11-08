@@ -26,7 +26,7 @@ abstract class ConnectionsRepo {
       {required SendConnectionRequest connectionRequest});
 
   // Search connections
-  Future<Either<Failure, SearchConnectionResponce>> searchConnections(
+  Future<Either<Failure, MyConnectionsResponce>> searchConnections(
       {required SearchQuery searchQuery});
 
   // Recieved connection requests

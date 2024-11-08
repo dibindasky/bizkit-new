@@ -18,12 +18,15 @@ import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/
 import 'package:bizkit/module/task/domain/model/task/add_new_assined_users_model/add_new_assined_users_model.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_or_killed_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/delete_attachments_model/delete_attachments_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart'
+    as attachment;
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
@@ -300,6 +303,67 @@ class CreateTaskController extends GetxController {
   final TaskLocalService taskLocalService = TaskLocalService();
 
   Rx<DateTime> selectedDate = DateTime.now().obs;
+
+  ///bool value for checking attach whether checked or not
+  RxBool selectedAttachment = false.obs;
+
+  ///controller attachment datas
+  var selectedAttachmentsDatas = <String>[].obs;
+
+  RxBool attachmentDeleteLoading = false.obs;
+
+  ///task attachment delete function
+  longPressOrOnTap(String attachment) {
+    if (selectedAttachmentsDatas.contains(attachment)) {
+      selectedAttachmentsDatas.remove(attachment);
+    } else {
+      selectedAttachmentsDatas.add(attachment);
+    }
+
+  update([attachment]);
+
+    log(selectedAttachmentsDatas.length.toString());
+    selectedAttachment.value = selectedAttachmentsDatas.isNotEmpty;
+  }
+
+  Future<void> deleteAttachments() async {
+    try {
+     
+      attachmentDeleteLoading.value = true;
+
+      final result = await taskService.deleteAttachments(
+          deleteAttachmentsModel: DeleteAttachmentsModel(
+              attachments: selectedAttachmentsDatas,
+              taskId: singleTask.value.id));
+      result.fold((failure) {
+        attachmentDeleteLoading.value = false;
+         selectedAttachment.value=false;
+        log('falure of controller');
+      }, (success) {
+        List<attachment.Attachment> list = [];
+        for (int i = 0;
+            i < ((singleTask.value.attachments?.length) ?? 0);
+            i++) {
+          if (!selectedAttachmentsDatas
+              .contains(singleTask.value.attachments![i].attachment)) {
+            list.add(singleTask.value.attachments![i]);
+          }
+        }
+        singleTask.value = singleTask.value.copyWith(attachments: list);
+
+        log(singleTask.value.attachments!.length.toString());
+
+        selectedAttachmentsDatas.clear();
+        attachmentDeleteLoading.value = false;
+         selectedAttachment.value=false;
+        log('success of controller');
+      });
+    } catch (e) {
+      attachmentDeleteLoading.value = false;
+       selectedAttachment.value=false;
+      log(e.toString());
+    }
+  }
 
   void changeFilterTaskType(String taskType) {
     this.taskType.value = taskType;

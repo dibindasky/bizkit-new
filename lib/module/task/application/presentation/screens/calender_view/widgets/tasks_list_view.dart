@@ -168,6 +168,7 @@ class _TaskListViewState extends State<TaskListView> {
   @override
   Widget build(BuildContext context) {
     return Obx(
+bizcard
       () => RefreshIndicator(
         onRefresh: _handleRefresh,
         child: _buildContent(),
@@ -214,6 +215,85 @@ class _TaskListViewState extends State<TaskListView> {
       itemBuilder: (context, index) {
         if (_isLoadingMoreItem(index)) {
           return _buildLoadMoreLoader();
+
+      () {
+        if (taskController.taksListLoading.value) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: ShimmerLoaderTaskContainer(
+              height: 50.h,
+              itemCount: 10,
+              width: double.infinity,
+            ),
+          );
+        } else if (taskController.deadlineTasks.isEmpty) {
+          return ErrorRefreshIndicator(
+            shrinkWrap: true,
+            image: emptyNodata2,
+            errorMessage: 'No tasks available',
+            onRefresh: () {},
+          );
+        } else {
+          return ListView.builder(
+            controller: taskController.deadlineTasksScrollController,
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            itemCount: taskController.deadlineTasks.length +
+                (taskController.deadlineTasksLoadMoreLoading.value ? 1 : 0),
+            // itemCount: tasks.length,
+            itemBuilder: (context, index) {
+              // final task = tasks[index];
+              // final deadlineTask = taskController.deadlineTasks[index];
+              // final typeTask = taskController.typeTasks[index];
+
+              if (index == taskController.deadlineTasks.length &&
+                  taskController.deadlineTasksLoadMoreLoading.value) {
+                return ShimmerLoaderTaskContainer(
+                  height: 50.h,
+                  itemCount: 1,
+                  width: double.infinity,
+                );
+              } else {
+                return GestureDetector(
+                  onLongPress: () {
+                    controller.longPress(index);
+                  },
+                  onTap: () {
+                    if (controller.selectedFolderContainer.value) {
+                      controller.longPress(index);
+                    } else {
+                      // log('id : ${deadlineTask.id}');
+                      taskController.fetchSingleTask(
+                        singleTaskModel: GetSingleTaskModel(
+                            taskId: taskController.deadlineTasks[index].id),
+                      );
+                      if (taskController.deadlineTasks[index].isOwned ==
+                          false) {
+                        // taskController.spotLightTask(
+                        //     spotLightTask: SpotLightTask(
+                        //         spotLightStatus: false,
+                        //         taskId:
+                        //         taskController.deadlineTasks[index].id));
+                      }
+                      GoRouter.of(context).pushNamed(
+                        Routes.taskDeail,
+                        pathParameters: {
+                          "taskId": '${taskController.deadlineTasks[index].id}'
+                        },
+                      );
+                    }
+                  },
+                  child: TaskContainer(
+                    tasksFromTasksList: true,
+                    fromFolders: false,
+                    tasksFromFoldrs: false,
+                    tasksFromInnerFolder: false,
+                    typeTask: taskController.deadlineTasks[index],
+                    index: index,
+                  ),
+                );
+              }
+            },
+          );
         }
         return _buildTaskItem(index);
       },

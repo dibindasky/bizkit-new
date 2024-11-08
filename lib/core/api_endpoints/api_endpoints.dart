@@ -110,6 +110,7 @@ class ApiEndPoints {
   // ---------------------------------------------------------------------------------------------
   /// [ TASK MODULE ]
 
+  static const String deleteAttachments='/delete-attachment/';
   static const String taskTestgetAllTasks = '/user-tasks/';
   static const String taskTestCreateTask = '/tasks/create/';
   static const String taskTestEditTask = '/tasks/';

@@ -24,7 +24,6 @@ class LocalService {
         onCreate: (sql.Database db, int version) async =>
             await Sql.onCreate(db));
   }
-
   /// Get data from sql
   Future<List<Map<String, Object?>>> rawQuery(String query,
       [List<Object?>? listParams]) async {

@@ -18,12 +18,15 @@ import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/
 import 'package:bizkit/module/task/domain/model/task/add_new_assined_users_model/add_new_assined_users_model.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_or_killed_success_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/delete_attachments_model/delete_attachments_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_pinned_task_by_type_model/filter_pinned_task_by_type_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart'
+    as attachment;
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
@@ -42,7 +45,6 @@ import 'package:bizkit/module/task/domain/model/task/tasks_count_model/tasks_cou
 import 'package:bizkit/core/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/core/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
-import 'package:bizkit/module/task/domain/repository/sqfilte/task_local_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
@@ -225,6 +227,7 @@ class CreateTaskController extends GetxController {
   RxBool fetchSingleTaskError =
       false.obs; // Boolean for tracking errors when fetching a single task
 
+  final RxBool isSyncing = false.obs;
 // Loading states for various UI components
   RxBool isLoading = false.obs; // General loading state
 
@@ -295,9 +298,72 @@ class CreateTaskController extends GetxController {
   final TaskRepo taskService = TaskService();
 
   /// Task Local instance for Sql interactions
-  final TaskLocalRepo taskLocalService = TaskLocalService();
+  // final TaskLocalRepo taskLocalService = TaskLocalService();
+
+  final TaskLocalService taskLocalService = TaskLocalService();
 
   Rx<DateTime> selectedDate = DateTime.now().obs;
+
+  ///bool value for checking attach whether checked or not
+  RxBool selectedAttachment = false.obs;
+
+  ///controller attachment datas
+  var selectedAttachmentsDatas = <String>[].obs;
+
+  RxBool attachmentDeleteLoading = false.obs;
+
+  ///task attachment delete function
+  longPressOrOnTap(String attachment) {
+    if (selectedAttachmentsDatas.contains(attachment)) {
+      selectedAttachmentsDatas.remove(attachment);
+    } else {
+      selectedAttachmentsDatas.add(attachment);
+    }
+
+  update([attachment]);
+
+    log(selectedAttachmentsDatas.length.toString());
+    selectedAttachment.value = selectedAttachmentsDatas.isNotEmpty;
+  }
+
+  Future<void> deleteAttachments() async {
+    try {
+     
+      attachmentDeleteLoading.value = true;
+
+      final result = await taskService.deleteAttachments(
+          deleteAttachmentsModel: DeleteAttachmentsModel(
+              attachments: selectedAttachmentsDatas,
+              taskId: singleTask.value.id));
+      result.fold((failure) {
+        attachmentDeleteLoading.value = false;
+         selectedAttachment.value=false;
+        log('falure of controller');
+      }, (success) {
+        List<attachment.Attachment> list = [];
+        for (int i = 0;
+            i < ((singleTask.value.attachments?.length) ?? 0);
+            i++) {
+          if (!selectedAttachmentsDatas
+              .contains(singleTask.value.attachments![i].attachment)) {
+            list.add(singleTask.value.attachments![i]);
+          }
+        }
+        singleTask.value = singleTask.value.copyWith(attachments: list);
+
+        log(singleTask.value.attachments!.length.toString());
+
+        selectedAttachmentsDatas.clear();
+        attachmentDeleteLoading.value = false;
+         selectedAttachment.value=false;
+        log('success of controller');
+      });
+    } catch (e) {
+      attachmentDeleteLoading.value = false;
+       selectedAttachment.value=false;
+      log(e.toString());
+    }
+  }
 
   void changeFilterTaskType(String taskType) {
     this.taskType.value = taskType;
@@ -687,63 +753,229 @@ class CreateTaskController extends GetxController {
     );
   }
 
-  // Filters tasks by deadline using the provided model
-  void taskFilterByDeadline() async {
+  // Filters tasks by deadline
+  Future<void> taskFilterByDeadline() async {
     taksListLoading.value = true;
     deadlineTasksPageNumber = 1;
-    deadlineTasks.value = [];
-    final result = await taskService.filterByDeadline(
-        filterByDeadline: FilterByDeadlineModel(
-      date: deadlineDate.value,
-      page: deadlineTasksPageNumber,
-      pageSize: deadlineTasksPageSize,
-    ));
-    result.fold(
-      (failure) {
-        log(failure.message.toString());
-        taksListLoading.value = false;
-      },
-      (success) {
-        deadlineTasks.assignAll(success.data ?? []);
+    deadlineTasks.clear();
 
-        taksListLoading.value = false;
-      },
-    );
-    // for (var task in deadlineTasks) {
-    //   await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-    //       taskModel: task);
-    // }
+    // Step 1: Fetch and display local data first
+    await fetchTasksFromLocalDb();
+
+    // Step 2: Then update with any network data if available
+    await fetchTasksFromNetwork();
+
+    taksListLoading.value = false;
   }
 
-// / Filters tasks by deadline  - [ Pagination ]
-  void taskFilterByDeadlineLoadMore() async {
-    if (deadlineTasksLoadMoreLoading.value == true) {
+  Future<void> fetchTasksFromLocalDb() async {
+    if (deadlineDate.value.isEmpty) {
+      log('fetchTasksFromLocalDb error: deadline date is empty');
       return;
     }
-    deadlineTasksLoadMoreLoading.value = true;
-    final result = await taskService.filterByDeadline(
-        filterByDeadline: FilterByDeadlineModel(
-      date: deadlineDate.value,
-      page: ++deadlineTasksPageNumber,
+    taksListLoading.value = true;
+    final localDbTasksResult = await taskLocalService.getTasksFromLocalStorage(
+      filterByDeadline: deadlineDate.value,
+      page: deadlineTasksPageNumber,
       pageSize: deadlineTasksPageSize,
-    ));
-    result.fold(
+    );
+
+    localDbTasksResult.fold(
       (failure) {
-        log(failure.message.toString());
-        deadlineTasksLoadMoreLoading.value = false;
+        log('FetchTasksFromLocalDb error: ${failure.message}');
       },
-      (success) {
-        deadlineTasks.addAll(success.data ?? []);
-
-        for (var task in success.data ?? []) {
-          taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-              taskModel: task);
+      (tasks) {
+        if (tasks.isNotEmpty) {
+          deadlineTasks.assignAll(tasks);
+          taksListLoading.value = false;
         }
-
-        deadlineTasksLoadMoreLoading.value = false;
       },
     );
   }
+
+  Future<void> fetchTasksFromNetwork() async {
+    final result = await taskService.filterByDeadline(
+      filterByDeadline: FilterByDeadlineModel(
+        date: deadlineDate.value,
+        page: deadlineTasksPageNumber,
+        pageSize: deadlineTasksPageSize,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        log(failure.message.toString());
+      },
+      (success) async {
+        if (success.data != null) {
+          deadlineTasks.assignAll(success.data ?? []);
+
+          // Store new tasks in local database
+          for (var task in deadlineTasks) {
+            await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+              taskModel: task,
+            );
+          }
+        }
+      },
+    );
+  }
+
+  Future<void> taskFilterByDeadlineLoadMore() async {
+    if (deadlineTasksLoadMoreLoading.value == true) return;
+
+    deadlineTasksLoadMoreLoading.value = true;
+
+    // First try to get more items from local storage
+    final localResult = await taskLocalService.getTasksFromLocalStorage(
+      filterByDeadline: deadlineDate.value,
+      page: deadlineTasksPageNumber + 1,
+      pageSize: deadlineTasksPageSize,
+    );
+
+    await localResult.fold(
+      (failure) async {
+        log('Local load more failed: ${failure.message}');
+        // If local fetch fails, try network
+        await loadMoreFromNetwork();
+      },
+      (localTasks) async {
+        if (localTasks.isEmpty) {
+          // If no more local tasks, try network
+          await loadMoreFromNetwork();
+        } else {
+          deadlineTasksPageNumber++;
+          deadlineTasks.addAll(localTasks);
+        }
+      },
+    );
+
+    deadlineTasksLoadMoreLoading.value = false;
+  }
+
+  Future<void> loadMoreFromNetwork() async {
+    final result = await taskService.filterByDeadline(
+      filterByDeadline: FilterByDeadlineModel(
+        date: deadlineDate.value,
+        page: deadlineTasksPageNumber + 1,
+        pageSize: deadlineTasksPageSize,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        log(failure.message.toString());
+      },
+      (success) async {
+        if (success.data?.isNotEmpty ?? false) {
+          deadlineTasksPageNumber++;
+          deadlineTasks.addAll(success.data ?? []);
+
+          // Store new tasks in local database
+          for (var task in success.data ?? []) {
+            await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+              taskModel: task,
+            );
+          }
+        }
+      },
+    );
+  }
+//   void taskFilterByDeadline() async {
+//     taksListLoading.value = true;
+
+//     deadlineTasksPageNumber = 1;
+//     deadlineTasks.value = [];
+
+//     // Fetch the tasks from local storage before making a network call
+//     await fetchTasksFromLocalDb();
+
+//     // Network call to fetch tasks by deadline
+//     final result = await taskService.filterByDeadline(
+//         filterByDeadline: FilterByDeadlineModel(
+//       date: deadlineDate.value,
+//       page: deadlineTasksPageNumber,
+//       pageSize: deadlineTasksPageSize,
+//     ));
+//     result.fold(
+//       (failure) {
+//         log(failure.message.toString());
+//         taksListLoading.value = false;
+//       },
+//       (success) async {
+//         if (success.data != null) {
+//           // Add the new tasks from the network call
+//           deadlineTasks.assignAll(success.data ?? []);
+
+//           for (var task in deadlineTasks) {
+//             await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+//                 taskModel: task);
+//           }
+//         }
+
+//         taksListLoading.value = false;
+//       },
+//     );
+//   }
+
+//   Future<void> fetchTasksFromLocalDb() async {
+//     if (deadlineDate.value.isEmpty) {
+//       log('fetchTasksFromLocalDb error: deadline date is empty');
+//       return;
+//     }
+
+//     final localDbTasksResult = await taskLocalService.getTasksFromLocalStorage(
+//       filterByDeadline: deadlineDate.value,
+//     );
+
+//     localDbTasksResult.fold(
+//       (failure) {
+//         log('FetchTasksFromLocalDb error: ${failure.message}');
+//       },
+//       (tasks) {
+//         if (tasks.isNotEmpty) {
+//           for (var task in tasks) {
+//             if (task.spotlightOn == true) {
+//               deadlineTasks.insert(0, task);
+//             } else {
+//               deadlineTasks.add(task);
+//             }
+//           }
+//           taksListLoading.value = false;
+//         }
+//       },
+//     );
+//   }
+
+// // / Filters tasks by deadline  - [ Pagination ]
+//   void taskFilterByDeadlineLoadMore() async {
+//     if (deadlineTasksLoadMoreLoading.value == true) {
+//       return;
+//     }
+//     deadlineTasksLoadMoreLoading.value = true;
+//     final result = await taskService.filterByDeadline(
+//         filterByDeadline: FilterByDeadlineModel(
+//       date: deadlineDate.value,
+//       page: ++deadlineTasksPageNumber,
+//       pageSize: deadlineTasksPageSize,
+//     ));
+//     result.fold(
+//       (failure) {
+//         log(failure.message.toString());
+//         deadlineTasksLoadMoreLoading.value = false;
+//       },
+//       (success) {
+//         deadlineTasks.addAll(success.data ?? []);
+
+//         for (var task in success.data ?? []) {
+//           taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+//               taskModel: task);
+//         }
+
+//         deadlineTasksLoadMoreLoading.value = false;
+//       },
+//     );
+//   }
 
   // add spotlight to a task
   void spotLightTask({required SpotLightTask spotLightTask}) async {
@@ -1007,6 +1239,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  // Filters pinned tasks by type - [ Pagination ]
   void filterPinnedTasksByTypeLoadMore() async {
     if (pinnedTasksLoadMoreLoading.value == true) {
       return;
@@ -1106,6 +1339,7 @@ class CreateTaskController extends GetxController {
     });
   }
 
+// Searches for participants - [ Pagination ]
   void searchParticipantsLoadMore() async {
     debouncer.run(() async {
       if (searchLoadMoreLoading.value == true) {
@@ -1140,33 +1374,42 @@ class CreateTaskController extends GetxController {
   // Fetches a single task using the provided model
   void fetchSingleTask({required GetSingleTaskModel singleTaskModel}) async {
     isLoading.value = true;
+    isSyncing.value = false;
     fetchSingleTaskError.value = false;
     singleTask.value = GetTaskResponce();
+    fetchSingleTaskError.value = false;
 
     // Fetch the task details from local storage before making a network call
     // await fetchSingleTaskFromLocalStorage(singleTaskModel);
 
+    isSyncing.value = true; // Start syncing indication
+
     final result = await taskService.getTask(singleTaskModel: singleTaskModel);
-    result.fold(
+    await result.fold(
       (failure) {
         isLoading.value = false;
         fetchSingleTaskError.value = true;
+        isSyncing.value = false;
         log(failure.message.toString());
       },
-      (success) {
+      (success) async {
         // If the fetched task matches the current task, update the singleTask observable
-        // if (singleTask.value.id == success.id) {
+        if (singleTaskModel.taskId == success.id) {
           singleTask.value = success;
-        // }
+          fetchSingleTaskError.value = false;
+          isSyncing.value = false; // End syncing indication
+        }
         isLoading.value = false;
 
         // Add the fetched task to local storage if it's not already stored
-        // taskLocalService.addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
-        //     taskModel: success);
+        await taskLocalService
+            .addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
+                taskModel: success);
       },
     );
   }
 
+// Task details from local storage
   Future<void> fetchSingleTaskFromLocalStorage(
       GetSingleTaskModel singleTaskModel) async {
     isLoading.value = true;
@@ -1176,10 +1419,14 @@ class CreateTaskController extends GetxController {
             taskId: singleTaskModel.taskId ?? '');
 
     responseFromLocalStorage.fold(
-      (failure) => null,
+      (failure) {
+        log('Failed to fetch task from local storage: ${failure.message}');
+      },
       (success) {
         singleTask.value = success;
-        isLoading.value = false;
+        if (success.id != null) {
+          isLoading.value = false;
+        }
       },
     );
   }
@@ -1413,6 +1660,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// get tasks counts
   void getTasksCountWithoutDate() async {
     isLoading.value = true;
     // log('DateTime ===> ${DateTimeFormater.dateTimeFormat(DateTime.now().add(const Duration(days: 31)))}');
@@ -1436,6 +1684,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Add new users to assgined users list
   void addNewUserToAssginedUsers(
       {required AddNewAssinedUsersModel addNewAssginedUsersModel}) async {
     isLoading.value = true;
@@ -1454,6 +1703,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Remove a assgined user from assgined users list
   void removeUserFromAssginedUsers(
       {required RemoveUserFromAssignedModel
           removeUserFromAssignedModel}) async {
@@ -1473,6 +1723,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Fetch all completed tasks
   void fetchAllCompletedTasks() async {
     filterByTypeLoading.value = true;
     final result = await taskService.getAllCompletedTasks();
@@ -1488,6 +1739,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Fetch all killed tasks
   void fetchAllKilledTasks() async {
     filterByTypeLoading.value = true;
     final result = await taskService.getAllKilledTasks();
@@ -1503,6 +1755,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Complete the subtask
   void completedSubTask({
     required CompletedSubTask completedSubTask,
     required BuildContext context,
@@ -1548,6 +1801,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
+// Fetch task total time and expense
   void fetchTaskTotalTimeAndExpense(
       {required GetSingleTaskModel taskId,
       required BuildContext context}) async {
@@ -1657,7 +1911,6 @@ class CreateTaskController extends GetxController {
   }
 
   // fetch all quick tasks [ Pagination ]
-
   void fetchAllQuickTasksLoadMore() async {
     if (quickTasksLoadMore.value == true) {
       return;

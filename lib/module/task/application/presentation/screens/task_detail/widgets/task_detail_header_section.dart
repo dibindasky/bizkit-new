@@ -1,5 +1,5 @@
 // import 'dart:developer';
-
+import 'dart:math' as math;
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
@@ -47,24 +47,100 @@ class TaskDetailHeaderSection extends StatelessWidget {
                             width: 150.w,
                           ),
                         )
-                      : Text(
-                          taskController.singleTask.value.title ?? 'Title',
-                          style: textHeadStyle1.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.sp,
-                              color: neonShade),
+                      : Column(
+                          children: [
+                            Text(
+                              taskController.singleTask.value.title ?? 'Title',
+                              style: textHeadStyle1.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.sp,
+                                  color: neonShade),
+                            ),
+                            Obx(
+                              () {
+                                return AnimatedContainer(
+                                  height: taskController.isSyncing.value ||
+                                          (taskController
+                                                  .fetchSingleTaskError.value &&
+                                              !taskController.isLoading.value)
+                                      ? null
+                                      : 0,
+                                  duration: const Duration(milliseconds: 300),
+                                  child: taskController.isSyncing.value
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            // Rotating Sync icon using TweenAnimationBuilder
+                                            TweenAnimationBuilder(
+                                              tween: Tween<double>(
+                                                  begin: 0, end: 2 * math.pi),
+                                              duration:
+                                                  const Duration(seconds: 1),
+                                              builder: (context, double angle,
+                                                  child) {
+                                                return Transform.rotate(
+                                                  angle: angle,
+                                                  child: const Icon(
+                                                    Icons.sync,
+                                                    color: neonShade,
+                                                    size: 15,
+                                                  ),
+                                                );
+                                              },
+                                              onEnd: () {
+                                                // Repeat the animation
+                                                taskController.isSyncing.value
+                                                    ? Future.delayed(
+                                                        Duration.zero, () {
+                                                        (context as Element)
+                                                            .markNeedsBuild();
+                                                      })
+                                                    : null;
+                                              },
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              'Syncing ...',
+                                              style: textThinStyle1.copyWith(
+                                                  color: neonShade,
+                                                  fontSize: 12.sp),
+                                            ),
+                                          ],
+                                        )
+                                      : taskController
+                                                  .fetchSingleTaskError.value &&
+                                              !taskController.isLoading.value
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Icon(
+                                                  Icons.error_outline,
+                                                  color: kred,
+                                                  size: 12,
+                                                ),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  'Syncing failed',
+                                                  style:
+                                                      textThinStyle1.copyWith(
+                                                          color: kred,
+                                                          fontSize: 11.sp),
+                                                ),
+                                              ],
+                                            )
+                                          : const SizedBox.shrink(),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                 ),
               ],
             ),
-            // Obx(
-            //   () => Text(
-            //     maxLines: 1,
-            //     overflow: TextOverflow.ellipsis,
-            //     'Total Time Taken: ${taskController.getTotalCompletedSubtasksDuration()}',
-            //     style: textStyle1,
-            //   ),
-            // ),
           ],
         ),
         Row(

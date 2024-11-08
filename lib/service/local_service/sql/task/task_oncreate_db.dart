@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/module/task/domain/model/chat/current_location/current_location_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/file/file_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll/poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll/poll_answer.dart';
@@ -31,6 +32,9 @@ class TaskSql {
   static const taskMessagePollAnswer = 'task_message_poll_answer';
   static const taskMessagePollSupporters = 'task_message_poll_supporters';
 
+  static const recentTasksTable = 'recent_tasks';
+  static const filterByDeadlineTable = 'tasks_filter_by_deadline';
+
   static Future onCreate(sql.Database db) async {
     try {
       log('----------------- oncreate database task module ---------------------');
@@ -47,6 +51,7 @@ class TaskSql {
       await db.execute(_currentLocationMessageTableCreation);
       await db.execute(_taskMessagePollAnswersTableCreation);
       await db.execute(_taskMessagePollSupportersTableCreation);
+      await db.execute(_filterByDeadlineTableCreation);
     } catch (e) {
       log('onCreate ==> ${e.toString()}');
     }
@@ -87,7 +92,7 @@ class TaskSql {
       ${Attachment.colTaskAttachmentLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
       ${Attachment.colTaskAttachment} TEXT,
       ${Attachment.colTaskAttachmentType} TEXT,
-      ${Attachment.colTaskAttachmentReferenceId} TEXT,
+      ${Attachment.colTaskAttachmentReferenceId} INTEGER,
       FOREIGN KEY (${Attachment.colTaskAttachmentReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE  
     )
@@ -104,7 +109,7 @@ class TaskSql {
       ${SubTask.colTaskSubtaskIsCompleted} INTEGER,  -- Boolean field (1 for true, 0 for false)
       ${SubTask.colTaskSubtaskTotalTimeTaken} TEXT,
       ${SubTask.colTaskSubtaskDuration} TEXT,
-      ${SubTask.colTaskSubTaskReferenceId} TEXT,
+      ${SubTask.colTaskSubTaskReferenceId} INTEGER,
       FOREIGN KEY (${SubTask.colTaskSubTaskReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE 
     )
@@ -117,7 +122,7 @@ class TaskSql {
       ${AssignedToDetail.colTaskAssignedToDetailUserId} TEXT,
       ${AssignedToDetail.colTaskAssignedToDetailUserName} TEXT,
       ${AssignedToDetail.colTaskAssignedToDetailIsAccepted} TEXT,
-      ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId} TEXT,
+      ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId} INTEGER,
       FOREIGN KEY (${AssignedToDetail.ccolTaskAssignedToDetailReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE 
     )

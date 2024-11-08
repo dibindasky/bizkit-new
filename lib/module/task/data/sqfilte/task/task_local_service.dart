@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
@@ -13,6 +14,7 @@ import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart'
     as task;
+import 'package:sqflite/sqflite.dart';
 
 import '../../../domain/model/task/get_task_responce/created_user_details.dart';
 
@@ -86,35 +88,59 @@ class TaskLocalService implements TaskLocalRepo {
           taskModel.createdUserDetails?.id ?? '',
           taskModel.createdUserDetails?.name ?? '',
           taskModel.createdUserDetails?.profilePicture ?? '',
-          taskModel.totalTime ?? '',
-          taskModel.totalExpense ?? ''
+          taskModel.totalTime ?? 0,
+          taskModel.totalExpense ?? 0
         ],
       );
 
       // SQL query to insert task attachments
-      const attachmentQuery = '''
-      INSERT INTO ${TaskSql.taskAttachmentsTable} (
-        ${Attachment.colTaskAttachment},
-        ${Attachment.colTaskAttachmentType},
-        ${Attachment.colTaskAttachmentReferenceId})
-      VALUES(?,?,?)  
-      ''';
-
-      /// Loop through each attachment and insert into the database
-      for (var attachment in taskModel.attachments ?? <Attachment>[]) {
-        await localService.rawInsert(
-          attachmentQuery,
-          [
-            attachment.attachment,
-            attachment.type,
-            referenceId,
-          ],
-        );
-      }
+      addTaskAttachmentsToLocalStorageIfNotPresentInStorage(
+          attachments: taskModel.attachments ?? <Attachment>[],
+          referenceId: referenceId);
 
       // SQL query to insert sub-task details
-      const subTaskQuery = '''
-      INSERT INTO ${TaskSql.taskSubTasksTable}(
+      addTaskSubtasksToLocalStorageIfNotPresentInStorage(
+          subtasks: taskModel.subTask ?? <SubTask>[], referenceId: referenceId);
+
+      // SQL query to insert assigned-to details [users assigned to the task]
+      addTaskAssignedToDetailsToLocalStorageIfNotPresentInStorage(
+          assignedToDetails:
+              taskModel.assignedToDetails ?? <AssignedToDetail>[],
+          referenceId: referenceId);
+
+      log('addFullTaskDetailsToLocalStorage success =====> ');
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('addFullTaskDetailsToLocalStorage exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  Future<void> addAssignedToDetails(
+      AssignedToDetail assignedToDetail, int referenceId) async {
+    const assignedToDetailsQuery = '''
+        INSERT INTO ${TaskSql.taskAssignedToDetailTable}(
+         ${AssignedToDetail.colTaskAssignedToDetailUserId},
+         ${AssignedToDetail.colTaskAssignedToDetailUserName},
+         ${AssignedToDetail.colTaskAssignedToDetailIsAccepted},
+         ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId})
+      VALUES(?,?,?,?)   
+      ''';
+
+    await localService.rawInsert(
+      assignedToDetailsQuery,
+      [
+        assignedToDetail.userId,
+        assignedToDetail.name,
+        assignedToDetail.isAccepted,
+        referenceId
+      ],
+    );
+  }
+
+  Future<void> addSubTask(SubTask subtask, int referenceId) async {
+    const subTaskQuery = '''
+        INSERT INTO ${TaskSql.taskSubTasksTable}(
         ${SubTask.colTaskSubtaskId},
         ${SubTask.colTaskSubtaskTitle},
         ${SubTask.colTaskSubtaskDescription},
@@ -125,53 +151,34 @@ class TaskLocalService implements TaskLocalRepo {
         ${SubTask.colTaskSubTaskReferenceId})
       VALUES(?,?,?,?,?,?,?,?)  
       ''';
+    await localService.rawInsert(
+      subTaskQuery,
+      [
+        subtask.id,
+        subtask.title,
+        subtask.description,
+        subtask.deadLine,
+        subtask.isCompleted == true ? 1 : 0,
+        subtask.totalTimeTaken,
+        subtask.duration,
+        referenceId
+      ],
+    );
+  }
 
-      // Loop through each sub-task and insert into the database
-      for (var subtask in taskModel.subTask ?? <SubTask>[]) {
-        await localService.rawInsert(
-          subTaskQuery,
-          [
-            subtask.id,
-            subtask.title,
-            subtask.description,
-            subtask.deadLine,
-            subtask.isCompleted == true ? 1 : 0, // Convert boolean to int (1/0)
-            subtask.totalTimeTaken,
-            subtask.duration,
-            referenceId
-          ],
-        );
-      }
-
-      // SQL query to insert assigned-to details [users assigned to the task]
-      const assignedToDetailsQuery = '''
-      INSERT INTO ${TaskSql.taskAssignedToDetailTable}(
-         ${AssignedToDetail.colTaskAssignedToDetailUserId},
-         ${AssignedToDetail.colTaskAssignedToDetailUserName},
-         ${AssignedToDetail.colTaskAssignedToDetailIsAccepted},
-         ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId})
-      VALUES(?,?,?,?)   
+  Future<void> addAttachments(Attachment attachment, int referenceId) async {
+    const attachmentQuery = '''
+        INSERT INTO ${TaskSql.taskAttachmentsTable} (
+        ${Attachment.colTaskAttachment},
+        ${Attachment.colTaskAttachmentType},
+        ${Attachment.colTaskAttachmentReferenceId})
+      VALUES(?,?,?)  
       ''';
 
-      // Loop through each assigned-to user and insert into the database
-      for (var assignedToDetail
-          in taskModel.assignedToDetails ?? <AssignedToDetail>[]) {
-        await localService.rawInsert(
-          assignedToDetailsQuery,
-          [
-            assignedToDetail.userId,
-            assignedToDetail.name,
-            assignedToDetail.isAccepted,
-            referenceId
-          ],
-        );
-      }
-      log('addFullTaskDetailsToLocalStorage success =====> ');
-      return Right(SuccessResponseModel());
-    } catch (e) {
-      log('addFullTaskDetailsToLocalStorage exception =====> ${e.toString()}');
-      return Left(Failure());
-    }
+    await localService.rawInsert(
+      attachmentQuery,
+      [attachment.attachment, attachment.type, referenceId],
+    );
   }
 
   /// Update existing task details in local storage
@@ -238,86 +245,143 @@ class TaskLocalService implements TaskLocalRepo {
           taskModel.createdUserDetails?.id ?? '',
           taskModel.createdUserDetails?.name ?? '',
           taskModel.createdUserDetails?.profilePicture ?? '',
-          taskModel.totalTime ?? '',
-          taskModel.totalExpense ?? '',
+          taskModel.totalTime ?? 0,
+          taskModel.totalExpense ?? 0,
           taskModel.id ?? '',
-          await userId
+          currentUserId
         ],
       );
 
-      // Upsert attachments for the task
-      const insertOrUpdateAttachmentQuery = '''
-      INSERT OR REPLACE INTO ${TaskSql.taskAttachmentsTable} (
-        ${Attachment.colTaskAttachment},
-        ${Attachment.colTaskAttachmentType},
-        ${Attachment.colTaskAttachmentReferenceId})
-      VALUES(?,?,?)  
-    ''';
+      addTaskAttachmentsToLocalStorageIfNotPresentInStorage(
+          attachments: taskModel.attachments ?? <Attachment>[],
+          referenceId: referenceId);
+      addTaskSubtasksToLocalStorageIfNotPresentInStorage(
+          subtasks: taskModel.subTask ?? <SubTask>[], referenceId: referenceId);
 
-      for (var attachment in taskModel.attachments ?? <Attachment>[]) {
-        await localService.rawInsert(
-          insertOrUpdateAttachmentQuery,
-          [attachment.attachment, attachment.type, referenceId],
-        );
-      }
-
-      // Upsert subtasks for the task
-      const insertOrUpdateSubTaskQuery = '''
-      INSERT OR REPLACE INTO ${TaskSql.taskSubTasksTable}(
-        ${SubTask.colTaskSubtaskId},
-        ${SubTask.colTaskSubtaskTitle},
-        ${SubTask.colTaskSubtaskDescription},
-        ${SubTask.colTaskSubtaskDeadline},
-        ${SubTask.colTaskSubtaskIsCompleted},
-        ${SubTask.colTaskSubtaskTotalTimeTaken},
-        ${SubTask.colTaskSubtaskDuration},
-        ${SubTask.colTaskSubTaskReferenceId})
-      VALUES(?,?,?,?,?,?,?,?)  
-    ''';
-
-      for (var subtask in taskModel.subTask ?? <SubTask>[]) {
-        await localService.rawInsert(
-          insertOrUpdateSubTaskQuery,
-          [
-            subtask.id,
-            subtask.title,
-            subtask.description,
-            subtask.deadLine,
-            subtask.isCompleted == true ? 1 : 0,
-            subtask.totalTimeTaken,
-            subtask.duration,
-            referenceId
-          ],
-        );
-      }
-
-      // Upsert assigned-to details
-      const insertOrUpdateAssignedToDetailsQuery = '''
-      INSERT OR REPLACE INTO ${TaskSql.taskAssignedToDetailTable}(
-        ${AssignedToDetail.colTaskAssignedToDetailUserId},
-        ${AssignedToDetail.colTaskAssignedToDetailUserName},
-        ${AssignedToDetail.colTaskAssignedToDetailIsAccepted},
-        ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId})
-      VALUES(?,?,?,?)   
-    ''';
-
-      for (var assignedToDetail
-          in taskModel.assignedToDetails ?? <AssignedToDetail>[]) {
-        await localService.rawInsert(
-          insertOrUpdateAssignedToDetailsQuery,
-          [
-            assignedToDetail.userId,
-            assignedToDetail.name,
-            assignedToDetail.isAccepted,
-            referenceId
-          ],
-        );
-      }
+      addTaskAssignedToDetailsToLocalStorageIfNotPresentInStorage(
+          assignedToDetails:
+              taskModel.assignedToDetails ?? <AssignedToDetail>[],
+          referenceId: referenceId);
 
       log('updateFullTaskDetailsFromLocalStorage success =====> ');
       return Right(SuccessResponseModel());
     } catch (e) {
       log('updateFullTaskDetailsFromLocalStorage exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  Future<void> _updateSubtasks(SubTask subtask, int referenceId) async {
+    // Then, insert all current subtasks
+    const insertSubTaskQuery = '''
+    UPDATE ${TaskSql.taskSubTasksTable}
+    SET
+      ${SubTask.colTaskSubtaskId} = ?,
+      ${SubTask.colTaskSubtaskTitle} = ?,
+      ${SubTask.colTaskSubtaskDescription} = ?,
+      ${SubTask.colTaskSubtaskDeadline} = ?,
+      ${SubTask.colTaskSubtaskIsCompleted} = ?,
+      ${SubTask.colTaskSubtaskTotalTimeTaken} = ?,
+      ${SubTask.colTaskSubtaskDuration} = ?,
+      ${SubTask.colTaskSubTaskReferenceId}  = ?
+    WHERE ${SubTask.colTaskSubtaskId} = ? AND ${SubTask.colTaskSubTaskReferenceId}
+  ''';
+
+    await localService.rawUpdate(
+      insertSubTaskQuery,
+      [
+        subtask.id,
+        subtask.title,
+        subtask.description,
+        subtask.deadLine,
+        subtask.isCompleted == true ? 1 : 0,
+        subtask.totalTimeTaken,
+        subtask.duration,
+        subtask.id,
+        referenceId,
+      ],
+    );
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>>
+      addTaskAttachmentsToLocalStorageIfNotPresentInStorage(
+          {required List<Attachment> attachments,
+          required int referenceId}) async {
+    try {
+      const String query = '''
+      DELETE FROM ${TaskSql.taskAttachmentsTable}
+      WHERE ${Attachment.colTaskAttachmentReferenceId} =?
+    ''';
+
+      await localService.rawDelete(query, [referenceId]);
+
+      for (var attachment in attachments) {
+        await addAttachments(attachment, referenceId);
+      }
+
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('addTaskAttachmentsToLocalStorageIfNotPresentInStorage exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>>
+      addTaskSubtasksToLocalStorageIfNotPresentInStorage(
+          {required List<SubTask> subtasks, required int referenceId}) async {
+    try {
+      const String query = '''
+      SELECT COUNT(*) 
+      FROM ${TaskSql.taskSubTasksTable} 
+      WHERE ${SubTask.colTaskSubTaskReferenceId} = ? 
+      AND ${SubTask.colTaskSubtaskId} = ?
+    ''';
+
+      for (var subtask in subtasks) {
+        final bool present = await localService.presentOrNot(
+          query,
+          [
+            referenceId,
+            subtask.id,
+          ],
+        );
+
+        if (!present) {
+          await addSubTask(subtask, referenceId);
+        } else {
+          await _updateSubtasks(subtask, referenceId);
+        }
+      }
+
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('addTaskSubtasksToLocalStorageIfNotPresentInStorage exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>>
+      addTaskAssignedToDetailsToLocalStorageIfNotPresentInStorage(
+          {required List<AssignedToDetail> assignedToDetails,
+          required int referenceId}) async {
+    try {
+      const String query = '''
+      DELETE FROM ${TaskSql.taskAssignedToDetailTable}
+      WHERE ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId} =?
+    ''';
+
+      await localService.rawDelete(query, [referenceId]);
+
+      for (var assignedToDetail in assignedToDetails) {
+        await addAssignedToDetails(assignedToDetail, referenceId);
+      }
+
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('addTaskAssignedToDetailsToLocalStorageIfNotPresentInStorage exception =====> ${e.toString()}');
       return Left(Failure());
     }
   }
@@ -328,6 +392,12 @@ class TaskLocalService implements TaskLocalRepo {
       addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
           {required GetTaskResponce taskModel}) async {
     try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('updateTaskFromLocalStorage error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
       /// SQL query to check if the task is already present in the [ TaskSql.tasksTable ]
       const String query = '''
       SELECT COUNT(*) 
@@ -338,7 +408,7 @@ class TaskLocalService implements TaskLocalRepo {
 
       /// Check if the task is present in the database
       final bool present =
-          await localService.presentOrNot(query, [taskModel.id, await userId]);
+          await localService.presentOrNot(query, [taskModel.id, currentUserId]);
 
       // If not present, add the task; otherwise, update it
       if (!present) {
@@ -399,7 +469,23 @@ class TaskLocalService implements TaskLocalRepo {
         taskModel.createdBy?.name ?? '',
       ];
 
-      await localService.rawInsert(query, values);
+      final int referenceId = await localService.rawInsert(query, values);
+
+      if (taskModel.deadLine != null && taskModel.deadLine!.isNotEmpty) {
+        const filterByDeadlineQuery = '''
+          INSERT INTO ${TaskSql.filterByDeadlineTable} (
+          ${FilterByDeadlineModel.colTaskFilterByDeadline},
+          ${FilterByDeadlineModel.colUserId},
+          ${FilterByDeadlineModel.colTaskId},
+          ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId})
+        VALUES(?,?,?,?)  
+        ''';
+
+        await localService.rawInsert(
+          filterByDeadlineQuery,
+          [taskModel.deadLine, currentUserId, taskModel.id, referenceId],
+        );
+      }
 
       log('addTaskToLocalStorage success');
       return Right(SuccessResponseModel());
@@ -423,25 +509,26 @@ class TaskLocalService implements TaskLocalRepo {
       }
 
       const query = '''
-        UPDATE ${TaskSql.tasksTable}
-        SET 
-          ${GetTaskResponce.colUserId} = ?,
-          ${GetTaskResponce.colTaskId} = ?,
-          ${GetTaskResponce.colTaskTitle} = ?,
-          ${GetTaskResponce.colTaskDescription} = ?,
-          ${GetTaskResponce.colTaskCreatedAt} = ?,
-          ${GetTaskResponce.colTaskDeadLine} = ?,
-          ${GetTaskResponce.colTaskPriorityLevel} = ?,
-          ${GetTaskResponce.colTaskType} = ?,
-          ${GetTaskResponce.colTaskIsOwned} = ?,
-          ${GetTaskResponce.colTaskSpotlightOn} = ?,
-          ${GetTaskResponce.colTaskIsPinned} = ?,
-          ${GetTaskResponce.colTaskStatus} = ?,
-          ${GetTaskResponce.colTaskCreatedUserId} = ?,
-          ${GetTaskResponce.colTaskCreatedUsername} = ?
-        WHERE 
-          ${GetTaskResponce.colTaskId} = ? AND ${GetTaskResponce.colUserId} = ?
-      ''';
+      UPDATE ${TaskSql.tasksTable}
+      SET 
+        ${GetTaskResponce.colUserId} = ?,
+        ${GetTaskResponce.colTaskId} = ?,
+        ${GetTaskResponce.colTaskTitle} = ?,
+        ${GetTaskResponce.colTaskDescription} = ?,
+        ${GetTaskResponce.colTaskCreatedAt} = ?,
+        ${GetTaskResponce.colTaskDeadLine} = ?,
+        ${GetTaskResponce.colTaskPriorityLevel} = ?,
+        ${GetTaskResponce.colTaskType} = ?,
+        ${GetTaskResponce.colTaskIsOwned} = ?,
+        ${GetTaskResponce.colTaskSpotlightOn} = ?,
+        ${GetTaskResponce.colTaskIsPinned} = ?,
+        ${GetTaskResponce.colTaskStatus} = ?,
+        ${GetTaskResponce.colTaskCreatedUserId} = ?,
+        ${GetTaskResponce.colTaskCreatedUsername} = ?,
+        ${GetTaskResponce.colTaskIsCompleted} = ?
+      WHERE 
+        ${GetTaskResponce.colTaskId} = ? AND ${GetTaskResponce.colUserId} = ?
+    ''';
 
       final List<dynamic> values = [
         currentUserId,
@@ -452,9 +539,9 @@ class TaskLocalService implements TaskLocalRepo {
         taskModel.deadLine ?? '',
         taskModel.priorityLevel ?? '',
         taskModel.taskType ?? '',
-        taskModel.isOwned == true ? 1 : 0, // Convert boolean to int (1/0)
-        taskModel.spotlightOn == true ? 1 : 0, // Convert boolean to int (1/0)
-        taskModel.isPinned == true ? 1 : 0, // Convert boolean to int (1/0)
+        taskModel.isOwned == true ? 1 : 0,
+        taskModel.spotlightOn == true ? 1 : 0,
+        taskModel.isPinned == true ? 1 : 0,
         taskModel.status ?? '',
         taskModel.createdBy?.userId ?? '',
         taskModel.createdBy?.name ?? '',
@@ -462,9 +549,28 @@ class TaskLocalService implements TaskLocalRepo {
         currentUserId, // for WHERE clause
       ];
 
-      final int updatedRows = await localService.rawUpdate(query, values);
+      await localService.rawUpdate(query, values);
 
-      log('updateTaskFromLocalStorage success: Updated rows = $updatedRows, Task ID = ${taskModel.id}');
+      log('updateTaskFromLocalStorage success');
+
+      // Update the filter by deadline table if the deadline has changed
+      if (taskModel.deadLine != null) {
+        const filterByDeadlineQuery = '''
+        UPDATE ${TaskSql.filterByDeadlineTable}
+        SET ${FilterByDeadlineModel.colTaskFilterByDeadline} = ?
+        WHERE ${FilterByDeadlineModel.colTaskId} = ? AND ${FilterByDeadlineModel.colUserId} = ? 
+      ''';
+
+        final filterByDeadlineValues = [
+          taskModel.deadLine,
+          taskModel.id ?? '',
+          currentUserId,
+        ];
+
+        await localService.rawUpdate(
+            filterByDeadlineQuery, filterByDeadlineValues);
+      }
+
       return Right(SuccessResponseModel());
     } catch (e) {
       log('updateTaskFromLocalStorage exception: ${e.toString()}');
@@ -515,111 +621,266 @@ class TaskLocalService implements TaskLocalRepo {
         return Left(Failure(message: "User ID is null"));
       }
 
-      const mainTaskQuery = '''
-    SELECT 
-      t.*, 
-      a.${Attachment.colTaskAttachment} as attachment,
-      a.${Attachment.colTaskAttachmentType} as attachment_type,
-      s.${SubTask.colTaskSubtaskId} as subtask_id,
-      s.${SubTask.colTaskSubtaskTitle} as subtask_title,
-      s.${SubTask.colTaskSubtaskIsCompleted} as subtask_is_completed,
-      s.${SubTask.colTaskSubtaskTotalTimeTaken} as subtask_total_time,
-      ad.${AssignedToDetail.colTaskAssignedToDetailUserId} as assigned_user_id,
-      ad.${AssignedToDetail.colTaskAssignedToDetailUserName} as assigned_user_name,
-      ad.${AssignedToDetail.colTaskAssignedToDetailIsAccepted} as is_accepted
-    FROM ${TaskSql.tasksTable} t
-    LEFT JOIN ${TaskSql.taskAttachmentsTable} a 
-      ON t.${GetTaskResponce.colTaskId} = a.${Attachment.colTaskAttachmentReferenceId}
-    LEFT JOIN ${TaskSql.taskSubTasksTable} s
-      ON t.${GetTaskResponce.colTaskId} = s.${SubTask.colTaskSubTaskReferenceId}
-    LEFT JOIN ${TaskSql.taskAssignedToDetailTable} ad
-      ON t.${GetTaskResponce.colTaskId} = ad.${AssignedToDetail.ccolTaskAssignedToDetailReferenceId}
-    WHERE t.${GetTaskResponce.colTaskId} = ? AND t.${GetTaskResponce.colUserId} = ?
-    ''';
+      // Fetch main task details
+      final List<
+          Map<String,
+              dynamic>> taskResults = await localService.rawQuery(
+          'SELECT * FROM ${TaskSql.tasksTable} WHERE ${GetTaskResponce.colTaskId} = ? AND ${GetTaskResponce.colUserId} = ?',
+          [taskId, currentUserId]);
 
-      final List<Map<String, dynamic>> results =
-          await localService.rawQuery(mainTaskQuery, [taskId, currentUserId]);
-
-      if (results.isEmpty) {
+      if (taskResults.isEmpty) {
         return Left(Failure(message: "Task not found"));
       }
 
-      final taskData = results.first;
+      final taskData = taskResults.first;
+      final String localTaskId =
+          taskData[GetTaskResponce.colTaskLocalId].toString();
+
+      // Fetch attachments
+      final List<
+          Map<String,
+              dynamic>> attachmentResults = await localService.rawQuery(
+          'SELECT * FROM ${TaskSql.taskAttachmentsTable} WHERE ${Attachment.colTaskAttachmentReferenceId} = ?',
+          [localTaskId]);
+
+      // Fetch subtasks
+      final List<
+          Map<String,
+              dynamic>> subtaskResults = await localService.rawQuery(
+          'SELECT * FROM ${TaskSql.taskSubTasksTable} WHERE ${SubTask.colTaskSubTaskReferenceId} = ?',
+          [localTaskId]);
+
+      // Fetch assigned users
+      final List<
+          Map<String,
+              dynamic>> assignedUserResults = await localService.rawQuery(
+          'SELECT * FROM ${TaskSql.taskAssignedToDetailTable} WHERE ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId} = ?',
+          [localTaskId]);
 
       // Parse the results into GetTaskResponce
-      final GetTaskResponce taskResponce = GetTaskResponce(
-        id: taskData[GetTaskResponce.colTaskId],
-        title: taskData[GetTaskResponce.colTaskTitle],
-        description: taskData[GetTaskResponce.colTaskDescription],
-        createdBy: taskData[GetTaskResponce.colTaskCreatedBy],
-        priorityLevel: taskData[GetTaskResponce.colTaskPriorityLevel],
-        recurrentTask: taskData[GetTaskResponce.colTaskRecurrentTask] == 1,
-        isCompleted: taskData[GetTaskResponce.colTaskIsCompleted] == 1,
-        isOwned: taskData[GetTaskResponce.colTaskIsOwned] == 1,
-        deadLine: taskData[GetTaskResponce.colTaskDeadLine],
-        isKilled: taskData[GetTaskResponce.colTaskIsKilled] == 1,
-        tags: taskData[GetTaskResponce.colTaskTags]?.split(','),
-        createdAt: taskData[GetTaskResponce.colTaskCreatedAt],
-        status: taskData[GetTaskResponce.colTaskStatus],
+      GetTaskResponce taskResponse = _parseResultsToGetTaskResponce(
+          taskData, attachmentResults, subtaskResults, assignedUserResults);
 
-        // Parse `totalTime` and `totalExpense` safely
-        totalTime: taskData[GetTaskResponce.colTaskTotalTime] != null
-            ? int.tryParse(
-                taskData[GetTaskResponce.colTaskTotalTime].toString())
-            : null,
-
-        totalExpense: taskData[GetTaskResponce.colTaskTotalExpense] != null
-            ? int.tryParse(
-                taskData[GetTaskResponce.colTaskTotalExpense].toString())
-            : null,
-
-        // Parse attachments from the query results
-        attachments: results
-            .where((r) => r[Attachment.colTaskAttachment] != null)
-            .map((r) => Attachment(
-                  attachment: r[Attachment.colTaskAttachment],
-                  type: r[Attachment.colTaskAttachmentType],
-                ))
-            .toList(),
-
-        // Parse subtasks from the query results
-        subTask: results
-            .where((r) => r[SubTask.colTaskSubtaskId] != null)
-            .map((r) => SubTask(
-                  id: r[SubTask.colTaskSubtaskId],
-                  title: r[SubTask.colTaskSubtaskTitle],
-                  description: r[SubTask.colTaskSubtaskDescription],
-                  deadLine: r[SubTask.colTaskSubtaskDeadline],
-                  isCompleted: r[SubTask.colTaskSubtaskIsCompleted] == 1,
-                  totalTimeTaken: r[SubTask.colTaskSubtaskTotalTimeTaken],
-                  duration: r[SubTask.colTaskSubtaskDuration],
-                ))
-            .toList(),
-
-        // Parse assigned users from the query results
-        assignedToDetails: results
-            .where((r) =>
-                r[AssignedToDetail.colTaskAssignedToDetailUserId] != null)
-            .map((r) => AssignedToDetail(
-                  userId: r[AssignedToDetail.colTaskAssignedToDetailUserId],
-                  name: r[AssignedToDetail.colTaskAssignedToDetailUserName],
-                  isAccepted:
-                      r[AssignedToDetail.colTaskAssignedToDetailIsAccepted],
-                ))
-            .toList(),
-        createdUserDetails: CreatedUserDetails(
-          id: taskData[GetTaskResponce.colTaskCreatedUserId],
-          name: taskData[GetTaskResponce.colTaskCreatedUsername],
-          profilePicture:
-              taskData[GetTaskResponce.colTaskCreatedUserProfilePic],
-        ),
-      );
-
-      log('getTaskFullDetailsFromLocalStorage success =====>');
-      return Right(taskResponce);
+      log('getTaskFullDetailsFromLocalStorage success =====> ');
+      return Right(taskResponse);
     } catch (e) {
       log('getTaskFullDetailsFromLocalStorage exception =====> ${e.toString()}');
       return Left(Failure());
     }
+  }
+
+  GetTaskResponce _parseResultsToGetTaskResponce(
+      Map<String, dynamic> taskData,
+      List<Map<String, dynamic>> attachmentResults,
+      List<Map<String, dynamic>> subtaskResults,
+      List<Map<String, dynamic>> assignedUserResults) {
+    final GetTaskResponce taskResponse = GetTaskResponce(
+      id: taskData[GetTaskResponce.colTaskId] as String?,
+      title: taskData[GetTaskResponce.colTaskTitle] as String?,
+      description: taskData[GetTaskResponce.colTaskDescription] as String?,
+      createdBy: taskData[GetTaskResponce.colTaskCreatedBy] as String?,
+      priorityLevel: taskData[GetTaskResponce.colTaskPriorityLevel] as String?,
+      recurrentTask: taskData[GetTaskResponce.colTaskRecurrentTask] == 1,
+      isCompleted: taskData[GetTaskResponce.colTaskIsCompleted] == 1,
+      isOwned: taskData[GetTaskResponce.colTaskIsOwned] == 1,
+      deadLine: taskData[GetTaskResponce.colTaskDeadLine] as String?,
+      isKilled: taskData[GetTaskResponce.colTaskIsKilled] == 1,
+      tags: (taskData[GetTaskResponce.colTaskTags] as String?)?.split(','),
+      createdAt: taskData[GetTaskResponce.colTaskCreatedAt] as String?,
+      status: taskData[GetTaskResponce.colTaskStatus] as String?,
+      totalTime: int.tryParse(
+          taskData[GetTaskResponce.colTaskTotalTime]?.toString() ?? ''),
+      totalExpense: int.tryParse(
+          taskData[GetTaskResponce.colTaskTotalExpense]?.toString() ?? ''),
+      attachments: attachmentResults
+          .map((r) => Attachment(
+                attachment: r[Attachment.colTaskAttachment] as String?,
+                type: r[Attachment.colTaskAttachmentType] as String?,
+              ))
+          .toList(),
+      subTask: subtaskResults
+          .map((r) => SubTask(
+                id: r[SubTask.colTaskSubtaskId] as String?,
+                title: r[SubTask.colTaskSubtaskTitle] as String?,
+                description: r[SubTask.colTaskSubtaskDescription] as String?,
+                deadLine: r[SubTask.colTaskSubtaskDeadline] as String?,
+                isCompleted: r[SubTask.colTaskSubtaskIsCompleted] == 1,
+                totalTimeTaken:
+                    r[SubTask.colTaskSubtaskTotalTimeTaken] as String?,
+                duration: r[SubTask.colTaskSubtaskDuration] as String?,
+              ))
+          .toList(),
+      assignedToDetails: assignedUserResults
+          .map((r) => AssignedToDetail(
+                userId: r[AssignedToDetail.colTaskAssignedToDetailUserId]
+                    as String?,
+                name: r[AssignedToDetail.colTaskAssignedToDetailUserName]
+                    as String?,
+                isAccepted:
+                    r[AssignedToDetail.colTaskAssignedToDetailIsAccepted]
+                        as String?,
+              ))
+          .toList(),
+      createdUserDetails: CreatedUserDetails(
+        id: taskData[GetTaskResponce.colTaskCreatedUserId] as String?,
+        name: taskData[GetTaskResponce.colTaskCreatedUsername] as String?,
+        profilePicture:
+            taskData[GetTaskResponce.colTaskCreatedUserProfilePic] as String?,
+      ),
+    );
+    return taskResponse;
+  }
+
+  // @override
+  // Future<Either<Failure, List<task.Task>>> getTasksFromLocalStorage({
+  //   required String filterByDeadline,
+  // }) async {
+  //   try {
+  //     final deadline = DateTime.parse(filterByDeadline);
+  //     final String? currentUserId = await userId;
+
+  //     if (currentUserId == null) {
+  //       log('getTaskFullDetailsFromLocalStorage error: User ID is null');
+  //       return Left(Failure(message: "User ID is null"));
+  //     }
+
+  //     final List<Map<String, dynamic>> alltasks = await localService.rawQuery(
+  //         'SELECT * FROM ${TaskSql.filterByDeadlineTable} WHERE ${FilterByDeadlineModel.colUserId} = ? ORDER BY ${FilterByDeadlineModel.colTaskFilterByDeadline} DESC',
+  //         [currentUserId]);
+
+  //     List<task.Task> filterdTasks = [];
+
+  //     for (var item in alltasks) {
+  //       final taskDeadlineStr =
+  //           item[FilterByDeadlineModel.colTaskFilterByDeadline] as String?;
+
+  //       // Ensure task deadline is not null before parsing
+  //       if (taskDeadlineStr != null) {
+  //         final taskDeadline = DateTime.parse(taskDeadlineStr);
+  //         if (taskDeadline != null &&
+  //             taskDeadline.isBefore(deadline.add(const Duration(days: 1)))) {
+  //           final data = await localService.rawQuery(
+  //             'SELECT * FROM ${TaskSql.tasksTable} WHERE ${GetTaskResponce.colTaskId} = ?',
+  //             [item[FilterByDeadlineModel.colTaskId]],
+  //           );
+
+  //           if (data.isNotEmpty) {
+  //             filterdTasks.add(task.Task.fromMap(data.first));
+  //           }
+  //         }
+  //       }
+  //     }
+
+  //     log('getTasksFromLocalStorage success ===> ');
+
+  //     return Right(filterdTasks);
+  //   } catch (e) {
+  //     log('getTasksFromLocalStorage error: ${e.toString()}');
+  //     return Left(Failure(message: e.toString()));
+  //   }
+  // }
+
+  @override
+  Future<Either<Failure, List<task.Task>>> getTasksFromLocalStorage({
+    required String filterByDeadline,
+    required int page,
+    required int pageSize,
+  }) async {
+    try {
+      log('getTasksFromLocalStorage To Json ==== > page : $page , pageSize : $pageSize');
+      final deadline = DateTime.parse(filterByDeadline);
+      final String? currentUserId = await userId;
+
+      if (currentUserId == null) {
+        log('getTaskFullDetailsFromLocalStorage error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
+      // Calculate offset for pagination
+      final offset = (page - 1) * pageSize;
+
+      // First get total count of matching tasks
+      List<Map<String, Object?>> countResult =
+          await _getTotalTaskCount(currentUserId);
+
+      final totalTasks = Sqflite.firstIntValue(countResult) ?? 0;
+
+      // If offset is beyond total tasks, return empty list
+      if (offset >= totalTasks) {
+        return const Right([]);
+      }
+
+      // Get paginated tasks
+      List<Map<String, dynamic>> alltasks =
+          await _getPaginatedTasks(currentUserId, pageSize, offset);
+
+      List<task.Task> filteredTasks =
+          await _filterTasksByDeadline(alltasks, deadline);
+
+      // Sort tasks by spotlight status
+      filteredTasks.sort((a, b) {
+        if (a.spotlightOn == b.spotlightOn) return 0;
+        return a.spotlightOn! ? -1 : 1;
+      });
+
+      for (var task in filteredTasks) {
+        print('Task from sql database ==== > ${task.title}');
+      }
+
+      log('getTasksFromLocalStorage success ');
+      return Right(filteredTasks);
+    } catch (e) {
+      log('getTasksFromLocalStorage error: ${e.toString()}');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  Future<List<task.Task>> _filterTasksByDeadline(
+      List<Map<String, dynamic>> alltasks, DateTime deadline) async {
+    List<task.Task> filteredTasks = [];
+
+    for (var item in alltasks) {
+      final taskDeadlineStr =
+          item[FilterByDeadlineModel.colTaskFilterByDeadline] as String?;
+
+      if (taskDeadlineStr != null) {
+        final taskDeadline = DateTime.parse(taskDeadlineStr);
+        if (taskDeadline.isBefore(deadline.add(const Duration(days: 1)))) {
+          final data = await localService.rawQuery(
+            '''
+            SELECT * FROM ${TaskSql.tasksTable} 
+          WHERE ${GetTaskResponce.colTaskId} = ?
+          ''',
+            [item[FilterByDeadlineModel.colTaskId]],
+          );
+
+          if (data.isNotEmpty) {
+            filteredTasks.add(task.Task.fromMap(data.first));
+          }
+        }
+      }
+    }
+    return filteredTasks;
+  }
+
+  Future<List<Map<String, dynamic>>> _getPaginatedTasks(
+      String currentUserId, int pageSize, int offset) async {
+    final List<Map<String, dynamic>> alltasks = await localService.rawQuery('''
+      SELECT * FROM ${TaskSql.filterByDeadlineTable} 
+    WHERE ${FilterByDeadlineModel.colUserId} = ? 
+    ORDER BY ${FilterByDeadlineModel.colTaskFilterByDeadline} DESC
+    LIMIT ? OFFSET ?
+    ''', [currentUserId, pageSize, offset]);
+    return alltasks;
+  }
+
+  Future<List<Map<String, Object?>>> _getTotalTaskCount(
+      String currentUserId) async {
+    final countResult = await localService.rawQuery('''
+      SELECT COUNT(*) as count 
+      FROM ${TaskSql.filterByDeadlineTable} 
+    WHERE ${FilterByDeadlineModel.colUserId} = ?
+    ''', [currentUserId]);
+    return countResult;
   }
 }

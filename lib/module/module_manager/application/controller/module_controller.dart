@@ -58,7 +58,7 @@ class ModuleController extends GetxController {
   /// initilize all controllers in CARD module [Module.card] and delte other module controllers
   void initCardControllers() {
     deleteAllControlers(Module.card);
-    Get.lazyPut(() => ContactsController(),fenix : true);
+    Get.lazyPut(() => ContactsController(), fenix: true);
     Get.lazyPut(() => MatchoMeterController());
     Get.lazyPut(() => CardController(), fenix: true);
     Get.lazyPut(() => NavbarController());

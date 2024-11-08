@@ -58,6 +58,7 @@ class HomeService implements HomeRepo {
   Future<Either<Failure, GetReportSuccessResponce>> getReport(
       {required GetReportModel getReportModel}) async {
     try {
+      log('Get report TO JSON === > ${getReportModel.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestProvideTaskReport,
         data: getReportModel.toJson(),

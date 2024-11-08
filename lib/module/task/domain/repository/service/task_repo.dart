@@ -16,6 +16,7 @@ import 'package:bizkit/module/task/domain/model/task/add_new_assined_users_model
 import 'package:bizkit/module/task/domain/model/task/all_tasks_responce/all_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_or_killed_success_responce/completed_or_killed_success_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/delete_attachments_model/delete_attachments_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_responce/filter_by_deadline_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_type_model/filter_by_type_model.dart';
@@ -147,4 +148,8 @@ abstract class TaskRepo {
 
   Future<Either<Failure, SuccessResponce>> completeQuickTasks(
       {required CompleteQuickTask completeQuickTask});
+
+       Future<Either<Failure,SuccessResponce>>deleteAttachments({required DeleteAttachmentsModel deleteAttachmentsModel});
 }
+
+ 

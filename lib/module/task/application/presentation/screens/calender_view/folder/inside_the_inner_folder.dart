@@ -19,8 +19,6 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
   final Map<String, dynamic>? arguments;
   @override
   Widget build(BuildContext context) {
-    // log('Arguments => : $arguments');
-
     final folderController = Get.find<TaskFolderController>();
     final taskController = Get.find<CreateTaskController>();
 
@@ -33,6 +31,12 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
+                      // Optionally check the current route
+                      if (Get.currentRoute ==
+                          Routes.taskInsideTheInnerFolderScreen) {
+                        log('Blocking manual back press');
+                        return; // Disable back navigation
+                      }
                       Navigator.pop(context);
                     },
                     icon: const Icon(

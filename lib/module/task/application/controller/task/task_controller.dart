@@ -326,41 +326,52 @@ class CreateTaskController extends GetxController {
     selectedAttachment.value = selectedAttachmentsDatas.isNotEmpty;
   }
 
-  Future<void> deleteAttachments() async {
-    try {
-      attachmentDeleteLoading.value = true;
+  Future<void> deleteAttachments(BuildContext context) async {
+    bool? ownerOrNot = singleTask.value.isOwned;
+    if (ownerOrNot!) {
+      try {
+        attachmentDeleteLoading.value = true;
 
-      final result = await taskService.deleteAttachments(
-          deleteAttachmentsModel: DeleteAttachmentsModel(
-              attachments: selectedAttachmentsDatas,
-              taskId: singleTask.value.id));
-      result.fold((failure) {
-        attachmentDeleteLoading.value = false;
-        selectedAttachment.value = false;
-        log('falure of controller');
-      }, (success) {
-        List<attachment.Attachment> list = [];
-        for (int i = 0;
-            i < ((singleTask.value.attachments?.length) ?? 0);
-            i++) {
-          if (!selectedAttachmentsDatas
-              .contains(singleTask.value.attachments![i].attachment)) {
-            list.add(singleTask.value.attachments![i]);
+        final result = await taskService.deleteAttachments(
+            deleteAttachmentsModel: DeleteAttachmentsModel(
+                attachments: selectedAttachmentsDatas,
+                taskId: singleTask.value.id));
+        result.fold((failure) {
+          attachmentDeleteLoading.value = false;
+          selectedAttachment.value = false;
+          log('falure of controller');
+        }, (success) {
+          List<attachment.Attachment> list = [];
+          for (int i = 0;
+              i < ((singleTask.value.attachments?.length) ?? 0);
+              i++) {
+            if (!selectedAttachmentsDatas
+                .contains(singleTask.value.attachments![i].attachment)) {
+              list.add(singleTask.value.attachments![i]);
+            }
           }
-        }
-        singleTask.value = singleTask.value.copyWith(attachments: list);
+          singleTask.value = singleTask.value.copyWith(attachments: list);
 
-        log(singleTask.value.attachments!.length.toString());
+          log(singleTask.value.attachments!.length.toString());
 
-        selectedAttachmentsDatas.clear();
+          selectedAttachmentsDatas.clear();
+          attachmentDeleteLoading.value = false;
+          selectedAttachment.value = false;
+          log('success of controller');
+        });
+      } catch (e) {
         attachmentDeleteLoading.value = false;
         selectedAttachment.value = false;
-        log('success of controller');
-      });
-    } catch (e) {
-      attachmentDeleteLoading.value = false;
+        log(e.toString());
+      }
+    } else {
+      selectedAttachmentsDatas.clear();
       selectedAttachment.value = false;
-      log(e.toString());
+      fetchSingleTask(
+          singleTaskModel:
+              GetSingleTaskModel(taskId: singleTask.value.id ?? ''));
+      showSnackbar(context,
+          message: 'This task not owned by you', backgroundColor: Colors.red);
     }
   }
 

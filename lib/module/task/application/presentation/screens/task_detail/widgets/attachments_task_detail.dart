@@ -38,10 +38,11 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
               Obx(() => controller.selectedAttachment.value
                   ? GestureDetector(
                       onTap: () {
-                        controller.deleteAttachments();
+                        controller.deleteAttachments(context);
                       },
                       child: controller.attachmentDeleteLoading.value
-                          ?const SizedBox(height: 20,width: 50, child: LoadingAnimation())
+                          ? const SizedBox(
+                              height: 20, width: 50, child: LoadingAnimation())
                           : const Text('Delete'))
                   : const Text('')),
 
@@ -87,6 +88,7 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       final attachment = listAttachment?[index];
+
                       return GestureDetector(
                         onTap: () {
                           if (controller.selectedAttachmentsDatas.isNotEmpty) {
@@ -109,15 +111,15 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
                         },
                         child: GetBuilder<CreateTaskController>(
                             id: attachment?.attachment,
-                          builder: (_) => 
-                           AttachmentTile(
-                              isSelected: controller.selectedAttachmentsDatas
-                                  .contains(attachment?.attachment ?? ''),
-                              // file: attachment.
-                              attachmet:
-                                  attachment?.attachment ?? 'No Attachment',
-                              type: attachment?.type ?? 'Unknown Type',
-                            )),
+                            builder: (_) => AttachmentTile(
+                                  isSelected: controller
+                                      .selectedAttachmentsDatas
+                                      .contains(attachment?.attachment ?? ''),
+                                  // file: attachment.
+                                  attachmet:
+                                      attachment?.attachment ?? 'No Attachment',
+                                  type: attachment?.type ?? 'Unknown Type',
+                                )),
                       );
                     },
                   ),

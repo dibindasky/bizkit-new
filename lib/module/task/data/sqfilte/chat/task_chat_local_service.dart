@@ -33,19 +33,17 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
           ''';
       final data = await localService.rawQuery(query, [taskId, limit, offset]);
       List<Message> messages = [];
-      log('getMessagesWithLimit data => $data');
-      for (var e in data) {
-        final type = e[Message.colMessageType] as String?;
-        final messageId = (e[Message.colMessageId] as String?) ?? '';
-        // final textmessage = (type == 'text')
-        //     ? await _getTextMessage(messageId: messageId)
-        //     : null;
-        // print('text message ---> ${textmessage?.toJson()}');
+      for (int i = 0; i < data.length; i++) {
+        // for (int i = 0; i <= offset + limit; i++) {
+        if (i >= data.length) break;
+        final type = data[i][Message.colMessageType] as String?;
+        final messageId = (data[i][Message.colMessageId] as String?) ?? '';
         Message message = Message(
           messageId: messageId,
           messageType: type,
-          sender: (e[Message.colSender] as int?) == 1 ? true : false,
-          timestamp: e[Message.colTimestamp] as String?,
+          sender: (data[i][Message.colSender] as int?) == 1 ? true : false,
+          deleted: (data[i][Message.colDeleted] as int?) == 1 ? true : false,
+          timestamp: data[i][Message.colTimestamp] as String?,
           textMessage: (type == 'text')
               ? await _getTextMessage(messageId: messageId)
               : null,
@@ -108,9 +106,10 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${Message.colMessageId},
         ${Message.colTimestamp},
         ${Message.colTaskId},
-        ${Message.colMessageType}
+        ${Message.colMessageType},
+        ${Message.colDeleted}
       ) 
-      VALUES (?,?,?,?,?)
+      VALUES (?,?,?,?,?,?)
     ''';
       final localId = await localService.rawInsert(query, [
         (message.sender ?? false) ? 1 : 0,
@@ -118,6 +117,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         message.timestamp ?? '',
         message.taskId ?? '',
         message.messageType ?? '',
+        message.deleted ? 1 : 0,
       ]);
       switch (message.messageType) {
         case 'text':
@@ -151,7 +151,8 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
       SET
         ${Message.colSender} = ?,
         ${Message.colTimestamp} = ?,
-        ${Message.colMessageType} = ?
+        ${Message.colMessageType} = ?,
+        ${Message.colDeleted} = ?
       WHERE
         ${Message.colMessageId} = ?
     ''';
@@ -160,6 +161,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         message.timestamp ?? '',
         message.messageType ?? '',
         message.messageId ?? '',
+        message.deleted ? 1 : 0,
       ]);
       switch (message.messageType) {
         case 'text':
@@ -568,7 +570,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${TimeExpense.colStartDate},
         ${TimeExpense.colEndDate}
       ) 
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     ''';
       return await localService.rawInsert(query, [
         timeExpense.messageType ?? '',
@@ -922,7 +924,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
       }
       Poll poll =
           Poll.fromJson(pollMessagList.first, uid: uid, fromLocalDb: true);
-      poll.pollAnswers= await _getPollAnswers(messageId: messageId);
+      poll.pollAnswers = await _getPollAnswers(messageId: messageId);
       log('poll -> ${poll.toJson()}');
       return poll;
     } catch (e) {
@@ -1059,7 +1061,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         supporter.profilePicture ?? '',
         supporter.reason ?? '',
         answerId,
-        supporter.userId??'',
+        supporter.userId ?? '',
         supporter.messageId ?? '',
       ]);
     } catch (e) {

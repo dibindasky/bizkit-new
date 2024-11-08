@@ -207,6 +207,7 @@ class ChatController extends GetxController {
       case 'text':
         final m = TextMessage.fromJson(decodedMessage, uid: uid);
         final mess = Message(
+            deleted: decodedMessage['deleted'] ?? false,
             textMessage: m,
             sender: m.sender,
             messageId: m.messageId,
@@ -231,6 +232,7 @@ class ChatController extends GetxController {
       case 'file':
         final m = FileMessage.fromJson(decodedMessage, uid: uid);
         final mess = Message(
+            deleted: decodedMessage['deleted'] ?? false,
             file: m,
             sender: m.sender,
             messageId: m.messageId,
@@ -255,6 +257,7 @@ class ChatController extends GetxController {
       case 'poll':
         final m = Poll.fromJson(decodedMessage, uid: uid);
         final mess = Message(
+            deleted: decodedMessage['deleted'] ?? false,
             poll: m,
             sender: m.sender,
             messageId: m.messageId,
@@ -281,6 +284,7 @@ class ChatController extends GetxController {
             singleTaskModel: GetSingleTaskModel(taskId: chatTaskId));
         final m = TimeExpense.fromJson(decodedMessage, uid: uid);
         final mess = Message(
+            deleted: decodedMessage['deleted'] ?? false,
             timeExpence: m,
             sender: m.sender,
             messageId: m.messageId,
@@ -305,6 +309,7 @@ class ChatController extends GetxController {
       case 'location':
         final m = CurrentLocationMessage.fromJson(decodedMessage, uid: uid);
         final mess = Message(
+            deleted: decodedMessage['deleted'] ?? false,
             currentLocation: m,
             sender: m.sender,
             messageId: m.messageId,
@@ -329,6 +334,7 @@ class ChatController extends GetxController {
       case 'voice':
         final m = VoiceMessage.fromJson(decodedMessage, uid: uid);
         final mess = Message(
+            deleted: decodedMessage['deleted'] ?? false,
             voiceMessage: m,
             sender: m.sender,
             messageId: m.messageId,
@@ -361,6 +367,7 @@ class ChatController extends GetxController {
   void insertMessageToList(Message m) {
     int left = 0;
     int right = messages.length - 1;
+    // using binary search to find the position of message in chat
     while (left <= right) {
       int mid = left + (right - left) ~/ 2;
       if (DateTime.tryParse(messages[mid].timestamp ?? '')!
@@ -379,17 +386,17 @@ class ChatController extends GetxController {
       log('getMessageFromLocaldb called');
       final messageList = await taskChatLocalService.getMessagesWithLimit(
           limit: firstCall ? 40 : 20,
-          offset: ((messages.length ~/ 20) + 1),
+          offset: firstCall ? 0 : messages.length,
           taskId: chatTaskId);
       log('getMessageFromLocaldb message list => ${messageList?.length}');
       for (var e in messageList ?? <Message>[]) {
-        print('message -> ${e.textMessage?.message}');
         final index =
             messages.indexWhere((element) => element.messageId == e.messageId);
-        if (index == -1 || e.isLoadMore) {
+        if (index == -1) {
           insertMessageToList(e);
         }
       }
+      loadMoreLoading.value = false;
     } catch (e) {
       log('getMessageFromLocaldb exception => ${e.toString()}');
     }
@@ -424,10 +431,14 @@ class ChatController extends GetxController {
   }
 
   /// send text message
-  void sendTextMessage() {
+  void sendTextMessage() async {
     if (controller.text.isNotEmpty) {
       final message = controller.text.trim();
       try {
+        // for (int i = 0; i < 400; i++) {
+        //   await Future.delayed(Duration(milliseconds: 1));
+        //   addMessage({"message_type": "text", "message": 'message - $i'});
+        // }
         addMessage({"message_type": "text", "message": message});
         controller.clear();
         firstLoad = false;
@@ -464,12 +475,11 @@ class ChatController extends GetxController {
 
   /// check for load more
   void checkLoading() async {
-    if (!loadMoreLoading.value &&
-        chatScrollController.offset ==
-            chatScrollController.position.maxScrollExtent) {
-      await getMessageFromLocaldb(firstCall: false);
+    if (chatScrollController.offset ==
+        chatScrollController.position.maxScrollExtent) {
       print('call load more message');
       loadMoreLoading.value = true;
+      await getMessageFromLocaldb(firstCall: false);
       update(['chat']);
       addMessage({
         "message_type": "load_more",

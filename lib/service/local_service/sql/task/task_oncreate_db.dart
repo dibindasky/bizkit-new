@@ -278,7 +278,8 @@ class TaskSql {
       ${Message.colMessageId} TEXT,
       ${Message.colTimestamp} TEXT,
       ${Message.colTaskId} TEXT,
-      ${Message.colMessageType} TEXT
+      ${Message.colMessageType} TEXT,
+      ${Message.colDeleted} INTEGER
     )
   ''';
   // /// Table for [Message]

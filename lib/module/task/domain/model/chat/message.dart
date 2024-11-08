@@ -13,6 +13,7 @@ class Message {
   VoiceMessage? voiceMessage;
   CurrentLocationMessage? currentLocation;
   bool isLoadMore;
+  bool deleted;
   bool? sender;
   String? messageId;
   String? messageType;
@@ -29,6 +30,7 @@ class Message {
     this.sender,
     this.messageId,
     this.isLoadMore = false,
+    this.deleted = false,
     this.messageType,
     this.timestamp,
     this.taskId,
@@ -46,6 +48,7 @@ class Message {
       'sender': sender,
       'message_id': messageId,
       'is_load_more': isLoadMore,
+      'deleted': deleted,
       'message_type': messageType,
       'timestamp': timestamp,
       'task_id': taskId,
@@ -80,6 +83,7 @@ class Message {
       timestamp: json['timestamp'] as String?,
       taskId: json['task_id'] as String?,
       isLoadMore: json['is_load_more'] as bool? ?? false,
+      deleted: json['deleted'] as bool? ?? false,
     );
   }
 
@@ -128,6 +132,7 @@ class Message {
   static const String colSender = 'sender';
   static const String colMessageId = 'message_id';
   static const String colIsLoadMore = 'is_load_more';
+  static const String colDeleted = 'deleted';
   static const String colMessageType = 'message_type';
   static const String colTimestamp = 'timestamp';
   static const String colTaskId = 'task_id';

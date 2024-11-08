@@ -26,7 +26,7 @@ class TaskTabNotification extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios_new, size: 17),
           ),
           bottom: TabBar(
-            dividerColor: kblack,
+            dividerHeight: 0,
             indicator: BoxDecoration(
               color: neonShade,
               borderRadius: BorderRadius.circular(10),

@@ -37,7 +37,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
           );
         }
         if (controller.taskTabChangeIndex.value == 1) {
-          return Expanded(child: TaskListView());
+          return const Expanded(child: TaskListView());
         } else {
           if (taskFolderController.isLoading.value) {
             return const Expanded(

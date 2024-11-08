@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
@@ -15,6 +16,9 @@ class TaskSql {
   static const taskAssignedToDetailTable = 'task_assigned_to_detail';
   static const taskMessages = 'task_message_table';
 
+  static const recentTasksTable = 'recent_tasks';
+  static const filterByDeadlineTable = 'tasks_filter_by_deadline';
+
   static Future onCreate(sql.Database db) async {
     try {
       log('----------------- oncreate database task module ---------------------');
@@ -22,6 +26,8 @@ class TaskSql {
       await db.execute(_taskAttachmentsTableCreation);
       await db.execute(_taskSubTasksTableCreation);
       await db.execute(_taskAssignedToDetailTableCreation);
+      await db.execute(_filterByDeadlineTableCreation);
+
       // await db.execute(_taskMessagesTableCreation);
     } catch (e) {
       log('onCreate ==> ${e.toString()}');
@@ -63,7 +69,7 @@ class TaskSql {
       ${Attachment.colTaskAttachmentLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
       ${Attachment.colTaskAttachment} TEXT,
       ${Attachment.colTaskAttachmentType} TEXT,
-      ${Attachment.colTaskAttachmentReferenceId} TEXT,
+      ${Attachment.colTaskAttachmentReferenceId} INTEGER,
       FOREIGN KEY (${Attachment.colTaskAttachmentReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE  
     )
@@ -80,7 +86,7 @@ class TaskSql {
       ${SubTask.colTaskSubtaskIsCompleted} INTEGER,  -- Boolean field (1 for true, 0 for false)
       ${SubTask.colTaskSubtaskTotalTimeTaken} TEXT,
       ${SubTask.colTaskSubtaskDuration} TEXT,
-      ${SubTask.colTaskSubTaskReferenceId} TEXT,
+      ${SubTask.colTaskSubTaskReferenceId} INTEGER,
       FOREIGN KEY (${SubTask.colTaskSubTaskReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE 
     )
@@ -93,12 +99,25 @@ class TaskSql {
       ${AssignedToDetail.colTaskAssignedToDetailUserId} TEXT,
       ${AssignedToDetail.colTaskAssignedToDetailUserName} TEXT,
        ${AssignedToDetail.colTaskAssignedToDetailIsAccepted} TEXT,
-      ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId} TEXT,
+      ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId} INTEGER,
       FOREIGN KEY (${AssignedToDetail.ccolTaskAssignedToDetailReferenceId}) REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE 
     )
   ''';
 
+  /// Table for Filter task by deadline [FilterByDeadlineModel] relation with [GetTaskResponce]
+  static const _filterByDeadlineTableCreation = '''
+  CREATE TABLE IF NOT EXISTS $filterByDeadlineTable(
+    ${FilterByDeadlineModel.colTaskFilterByDeadlineLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+    ${FilterByDeadlineModel.colTaskFilterByDeadline} TEXT,
+    ${FilterByDeadlineModel.colUserId} TEXT,
+    ${FilterByDeadlineModel.colTaskId} TEXT,
+    ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId} INTEGER,
+    FOREIGN KEY (${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId}) 
+      REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
+      ON DELETE CASCADE
+  )
+''';
   // /// Table for [Message]
   // static const String _taskMessagesTableCreation = '''
   //   CREATE TABLE IF NOT EXISTS $taskMessages(

@@ -383,24 +383,24 @@ class TaskContainer extends StatelessWidget {
                           // adjustWidth(30.w),s
                         ],
                       ),
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                           Padding(
-                             padding: const EdgeInsets.only(left: 45),
-                             child: Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: true,
-                                  typeTask?.deadLine ??
-                                      tasksInsideFolder?.deadLine ??
-                                      tasksInsideInnerFolder?.deadLine ??
-                                      'No deadline',
-                                  style: const TextStyle(
-                                    fontSize: 12
-                                    // fontWeight: FontWeight.bold,
-                                    
+                          Padding(
+                            padding: const EdgeInsets.only(left: 45),
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              typeTask?.deadLine ??
+                                  tasksInsideFolder?.deadLine ??
+                                  tasksInsideInnerFolder?.deadLine ??
+                                  'No deadline',
+                              style: const TextStyle(fontSize: 12
+                                  // fontWeight: FontWeight.bold,
+
                                   ),
-                                ),
-                           ),
+                            ),
+                          ),
                           Text(
                             maxLines: 1,
                             softWrap: true,
@@ -441,7 +441,7 @@ class TaskContainer extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: kBorderRadius10, color: kneonShade),
                     child: Text(
-                      '$count',
+                      '${count.value}',
                       style: textThinStyle1.copyWith(color: kblack),
                     ),
                   ),

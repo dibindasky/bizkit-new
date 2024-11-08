@@ -145,7 +145,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (ctx) => AttendencePPRequestToChangeScreen());
       case Routes.attendenceEmployeeLeaveView:
-        return MaterialPageRoute(builder: (ctx) => EmployeeLeaveView());
+        return MaterialPageRoute(builder: (ctx) => const EmployeeLeaveView());
 
 // Attendence Module Management Side
       case Routes.attendenceSelectionManagementSide:

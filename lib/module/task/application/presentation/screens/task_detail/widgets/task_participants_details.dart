@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/screen/card_screen_main.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/participants_list_bottom_sheet.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
@@ -23,7 +22,11 @@ class TaskDetailUserInfoSection extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
 
     return Obx(() {
+      // Add null check for task
       final task = taskController.singleTask.value;
+      if (task == null) {
+        return const Center(child: CircularProgressIndicator());
+      }
 
       String formatDeadline(String? deadline) {
         if (deadline == null) return 'N/A';
@@ -32,11 +35,10 @@ class TaskDetailUserInfoSection extends StatelessWidget {
         return DateFormat('MMM d').format(date);
       }
 
-      //  Join participants names
-      String? participants =
-          task.assignedToDetails != null && task.assignedToDetails!.isNotEmpty
-              ? task.assignedToDetails?.map((e) => e.name).join(', ')
-              : 'None';
+      // Safe concatenation of participant names with null checking
+      String participants = task.assignedToDetails?.isNotEmpty == true
+          ? task.assignedToDetails!.map((e) => e.name ?? 'Unknown').join(', ')
+          : 'None';
 
       return Container(
         padding: EdgeInsets.all(10.w),
@@ -49,229 +51,156 @@ class TaskDetailUserInfoSection extends StatelessWidget {
           children: [
             Row(
               children: [
-                // created by or assigined by
-                taskController.singleTask.value.isOwned == true
-                    ? Row(
-                        children: [
-                          // CircleAvatar(
-                          //   backgroundColor: neonShade,
-                          //   child: Padding(
-                          //       padding: EdgeInsets.all(1.w),
-                          //       child: CircleAvatar(
-                          //         radius: 20.w,
-                          //         backgroundImage:
-                          //             const AssetImage(personDemoImg),
-                          //       )),
-                          // ),
-                          CircleAvatar(
-                            backgroundColor: taskController.singleTask.value
-                                    .createdUserDetails!.profilePicture!.isEmpty
+                // Created by or assigned by section
+                if (task.isOwned == true) ...[
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor:
+                            task.createdUserDetails?.profilePicture?.isEmpty ??
+                                    true
                                 ? klightDarkGrey
                                 : neonShade,
-                            child: Padding(
-                              padding: EdgeInsets.all(1.w),
-                              child: taskController
-                                              .singleTask
-                                              .value
-                                              .createdUserDetails
-                                              ?.profilePicture !=
-                                          null &&
-                                      taskController
-                                          .singleTask
-                                          .value
-                                          .createdUserDetails!
-                                          .profilePicture!
-                                          .isNotEmpty
-                                  ? ClipOval(
-                                      child: Image.memory(
-                                        base64Decode(taskController
-                                            .singleTask
-                                            .value
-                                            .createdUserDetails!
-                                            .profilePicture!),
-                                        fit: BoxFit.cover,
-                                        width: 40.w,
-                                        height: 40.w,
-                                      ),
-                                    )
-                                  : Text(
-                                      taskController
-                                                      .singleTask
-                                                      .value
-                                                      .createdUserDetails
-                                                      ?.name !=
-                                                  null &&
-                                              taskController
-                                                  .singleTask
-                                                  .value
-                                                  .createdUserDetails!
-                                                  .name!
-                                                  .isNotEmpty
-                                          ? taskController.singleTask.value
-                                              .createdUserDetails!.name!
-                                              .substring(0, 2)
-                                              .toUpperCase()
-                                          : 'NA',
-                                      style: textHeadStyle1.copyWith(),
-                                    ),
-                            ),
-                          ),
-                          adjustWidth(7.w),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              taskController.isLoading.value
-                                  ? Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      child: ShimmerLoaderTile(
-                                        height: 9.h,
-                                        width: 100.w,
-                                      ),
-                                    )
-                                  : Text(
-                                      taskController
-                                                  .singleTask.value.createdBy ==
-                                              taskController.singleTask.value
-                                                  .createdUserDetails?.id
-                                          ? 'Created By'
-                                          : 'Assigned By',
-                                      style: textHeadStyle1.copyWith(
-                                        fontSize: 13.sp,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                              taskController.isLoading.value
-                                  ? Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      child: ShimmerLoaderTile(
-                                        height: 9.h,
-                                        width: 100.w,
-                                      ),
-                                    )
-                                  : Text(
-                                      taskController.singleTask.value
-                                              .createdUserDetails?.name ??
-                                          'creater name',
-                                      style: textThinStyle1,
-                                    ),
-                            ],
-                          ),
-                        ],
-                      )
-                    : Row(
+                        child: Padding(
+                          padding: EdgeInsets.all(1.w),
+                          child: task.createdUserDetails?.profilePicture
+                                      ?.isNotEmpty ==
+                                  true
+                              ? ClipOval(
+                                  child: Image.memory(
+                                    base64Decode(task
+                                        .createdUserDetails!.profilePicture!),
+                                    fit: BoxFit.cover,
+                                    width: 40.w,
+                                    height: 40.w,
+                                  ),
+                                )
+                              : Text(
+                                  task.createdUserDetails?.name?.isNotEmpty ==
+                                          true
+                                      ? task.createdUserDetails!.name!
+                                          .substring(0, 2)
+                                          .toUpperCase()
+                                      : 'NA',
+                                  style: textHeadStyle1,
+                                ),
+                        ),
+                      ),
+                      adjustWidth(7.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            backgroundColor: taskController
-                                            .singleTask
-                                            .value
-                                            .createdUserDetails
-                                            ?.profilePicture !=
-                                        null &&
-                                    taskController
-                                        .singleTask
-                                        .value
-                                        .createdUserDetails!
-                                        .profilePicture!
-                                        .isEmpty
-                                ? lightGrey
-                                : lightGrey,
-                            child: Padding(
-                              padding: EdgeInsets.all(1.w),
-                              child: taskController
-                                              .singleTask
-                                              .value
-                                              .createdUserDetails
-                                              ?.profilePicture !=
-                                          null &&
-                                      taskController
-                                          .singleTask
-                                          .value
-                                          .createdUserDetails!
-                                          .profilePicture!
-                                          .isNotEmpty
-                                  ? ClipOval(
-                                      child: Image.memory(
-                                        base64Decode(taskController
-                                            .singleTask
-                                            .value
-                                            .createdUserDetails!
-                                            .profilePicture!),
-                                        fit: BoxFit.cover,
-                                        width: 40.w,
-                                        height: 40.w,
-                                      ),
-                                    )
-                                  : Text(
-                                      taskController
-                                                      .singleTask
-                                                      .value
-                                                      .createdUserDetails
-                                                      ?.name !=
-                                                  null &&
-                                              taskController
-                                                  .singleTask
-                                                  .value
-                                                  .createdUserDetails!
-                                                  .name!
-                                                  .isNotEmpty
-                                          ? taskController.singleTask.value
-                                              .createdUserDetails!.name!
-                                              .substring(0, 2)
-                                              .toUpperCase()
-                                          : 'NA',
-                                      style: textHeadStyle1.copyWith(
-                                          color: kwhite),
-                                    ),
+                          if (taskController.isLoading.value)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: ShimmerLoaderTile(
+                                height: 9.h,
+                                width: 100.w,
+                              ),
+                            )
+                          else
+                            Text(
+                              task.createdBy == task.createdUserDetails?.id
+                                  ? 'Created By'
+                                  : 'Assigned By',
+                              style: textHeadStyle1.copyWith(
+                                fontSize: 13.sp,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                          ),
-                          adjustWidth(7.w),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              taskController.isLoading.value
-                                  ? Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      child: ShimmerLoaderTile(
-                                        height: 9.h,
-                                        width: 100.w,
-                                      ),
-                                    )
-                                  : Text(
-                                      'Assigned By',
-                                      style: textHeadStyle1.copyWith(
-                                          fontSize: 13.sp),
-                                    ),
-                              taskController.isLoading.value
-                                  ? Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      child: ShimmerLoaderTile(
-                                        height: 9.h,
-                                        width: 100.w,
-                                      ),
-                                    )
-                                  : Text(
-                                      taskController.singleTask.value
-                                              .createdUserDetails?.name ??
-                                          'Unknown',
-                                      style: textThinStyle1,
-                                    ),
-                            ],
-                          ),
+                          if (taskController.isLoading.value)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: ShimmerLoaderTile(
+                                height: 9.h,
+                                width: 100.w,
+                              ),
+                            )
+                          else
+                            Text(
+                              task.createdUserDetails?.name ?? 'Unknown',
+                              style: textThinStyle1,
+                            ),
                         ],
                       ),
+                    ],
+                  ),
+                ] else ...[
+                  // Assigned by section for non-owned tasks
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: lightGrey,
+                        child: Padding(
+                          padding: EdgeInsets.all(1.w),
+                          child: task.createdUserDetails?.profilePicture
+                                      ?.isNotEmpty ==
+                                  true
+                              ? ClipOval(
+                                  child: Image.memory(
+                                    base64Decode(task
+                                        .createdUserDetails!.profilePicture!),
+                                    fit: BoxFit.cover,
+                                    width: 40.w,
+                                    height: 40.w,
+                                  ),
+                                )
+                              : Text(
+                                  task.createdUserDetails?.name?.isNotEmpty ==
+                                          true
+                                      ? task.createdUserDetails!.name!
+                                          .substring(0, 2)
+                                          .toUpperCase()
+                                      : 'NA',
+                                  style: textHeadStyle1.copyWith(color: kwhite),
+                                ),
+                        ),
+                      ),
+                      adjustWidth(7.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (taskController.isLoading.value)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: ShimmerLoaderTile(
+                                height: 9.h,
+                                width: 100.w,
+                              ),
+                            )
+                          else
+                            Text(
+                              'Assigned By',
+                              style: textHeadStyle1.copyWith(fontSize: 13.sp),
+                            ),
+                          if (taskController.isLoading.value)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: ShimmerLoaderTile(
+                                height: 9.h,
+                                width: 100.w,
+                              ),
+                            )
+                          else
+                            Text(
+                              task.createdUserDetails?.name ?? 'Unknown',
+                              style: textThinStyle1,
+                            ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
                 const Spacer(),
-                // Dead line
+                // Deadline section
                 CircleAvatar(
                   backgroundColor: neonShade,
                   child: Padding(
                     padding: EdgeInsets.all(1.w),
                     child: const CircleAvatar(
-                        backgroundColor: klightDarkGrey,
-                        child: Icon(Icons.calendar_month, color: kwhite)),
+                      backgroundColor: klightDarkGrey,
+                      child: Icon(Icons.calendar_month, color: kwhite),
+                    ),
                   ),
                 ),
                 adjustWidth(10.w),
@@ -282,24 +211,25 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                       'Deadline',
                       style: textHeadStyle1.copyWith(fontSize: 13.sp),
                     ),
-                    taskController.isLoading.value
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: ShimmerLoaderTile(
-                              height: 9.h,
-                              width: 50.w,
-                            ),
-                          )
-                        : Text(
-                            formatDeadline(task.deadLine),
-                            style: textThinStyle1,
-                          ),
+                    if (taskController.isLoading.value)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: ShimmerLoaderTile(
+                          height: 9.h,
+                          width: 50.w,
+                        ),
+                      )
+                    else
+                      Text(
+                        formatDeadline(task.deadLine),
+                        style: textThinStyle1,
+                      ),
                   ],
                 ),
               ],
             ),
             adjustHieght(10.h),
-            // participants
+            // Participants section
             GestureDetector(
               onTap: () {
                 showModalBottomSheet(
@@ -308,9 +238,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                   isDismissible: true,
                   showDragHandle: true,
                   backgroundColor: kblack,
-                  builder: (context) {
-                    return const ParticipantsListBottomSheet();
-                  },
+                  builder: (context) => const ParticipantsListBottomSheet(),
                 );
               },
               child: Row(
@@ -319,11 +247,9 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.all(1.w),
                       child: const CircleAvatar(
-                          backgroundColor: klightDarkGrey,
-                          child: Icon(
-                            Icons.person,
-                            color: neonShade,
-                          )),
+                        backgroundColor: klightDarkGrey,
+                        child: Icon(Icons.person, color: neonShade),
+                      ),
                     ),
                   ),
                   adjustWidth(10.w),
@@ -334,29 +260,27 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                         'Participants',
                         style: textHeadStyle1.copyWith(fontSize: 13.sp),
                       ),
-                      Obx(
-                        () => taskController.isLoading.value
-                            ? Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: ShimmerLoaderTile(
-                                  height: 9.h,
-                                  width: 100.w,
-                                ),
-                              )
-                            : Text(
-                                participants ?? 'Participants',
-                                style: textThinStyle1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                      ),
+                      if (taskController.isLoading.value)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: ShimmerLoaderTile(
+                            height: 9.h,
+                            width: 100.w,
+                          ),
+                        )
+                      else
+                        Text(
+                          participants,
+                          style: textThinStyle1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                     ],
                   )
                 ],
               ),
             ),
             adjustHieght(20.h),
-            // time and expense
+            // Time and expense section
             Row(
               children: [
                 Expanded(
@@ -366,11 +290,13 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                               task.totalExpense != null) &&
                           (task.totalTime != 0 && task.totalTime != null)) {
                         GoRouter.of(context).pushNamed(
-                            Routes.taskTotalTimeAndExpense,
-                            extra: task.id ?? '');
+                          Routes.taskTotalTimeAndExpense,
+                          extra: task.id ?? '',
+                        );
                         taskController.fetchTaskTotalTimeAndExpense(
-                            context: context,
-                            taskId: GetSingleTaskModel(taskId: task.id ?? ''));
+                          context: context,
+                          taskId: GetSingleTaskModel(taskId: task.id ?? ''),
+                        );
                       }
                     },
                     child: Container(
@@ -407,24 +333,25 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                           fontSize: 10.sp),
                                     ),
                                   ),
-                                  taskController.isLoading.value
-                                      ? Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 5),
-                                          child: ShimmerLoaderTile(
-                                            height: 9.h,
-                                            width: 100.w,
-                                          ),
-                                        )
-                                      : FittedBox(
-                                          child: Text(
-                                            // '${ task.totalTime ?? 'total time'}',
-                                            DateTimeFormater
-                                                .convertMinutesToHourMinuteFormat(
-                                                    task.totalTime ?? 0),
-                                            style: textThinStyle1,
-                                          ),
+                                  if (taskController.isLoading.value)
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: ShimmerLoaderTile(
+                                        height: 9.h,
+                                        width: 100.w,
+                                      ),
+                                    )
+                                  else
+                                    FittedBox(
+                                      child: Text(
+                                        DateTimeFormater
+                                            .convertMinutesToHourMinuteFormat(
+                                          task.totalTime ?? 0,
                                         ),
+                                        style: textThinStyle1,
+                                      ),
+                                    ),
                                 ],
                               ),
                             ),
@@ -442,11 +369,13 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                               task.totalExpense != null) &&
                           (task.totalTime != 0 && task.totalTime != null)) {
                         GoRouter.of(context).pushNamed(
-                            Routes.taskTotalTimeAndExpense,
-                            extra: task.id ?? '');
+                          Routes.taskTotalTimeAndExpense,
+                          extra: task.id ?? '',
+                        );
                         taskController.fetchTaskTotalTimeAndExpense(
-                            context: context,
-                            taskId: GetSingleTaskModel(taskId: task.id ?? ''));
+                          context: context,
+                          taskId: GetSingleTaskModel(taskId: task.id ?? ''),
+                        );
                       }
                     },
                     child: Container(
@@ -464,14 +393,14 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                               child: Padding(
                                 padding: EdgeInsets.all(1.w),
                                 child: CircleAvatar(
-                                    backgroundColor: lightGrey,
-                                    child: Image.asset(
-                                      width: 20.w,
-                                      taskExpenseIconImage,
-                                    )),
+                                  backgroundColor: lightGrey,
+                                  child: Image.asset(
+                                    taskExpenseIconImage,
+                                    width: 20.w,
+                                  ),
+                                ),
                               ),
                             ),
-                            // adjustWidth(8.w),
                             Expanded(
                               child: Column(
                                 children: [
@@ -483,21 +412,22 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                           fontSize: 10.sp),
                                     ),
                                   ),
-                                  taskController.isLoading.value
-                                      ? Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 5),
-                                          child: ShimmerLoaderTile(
-                                            height: 9.h,
-                                            width: 60.w,
-                                          ),
-                                        )
-                                      : FittedBox(
-                                          child: Text(
-                                            '₹ ${task.totalExpense ?? '0'}',
-                                            style: textThinStyle1,
-                                          ),
-                                        ),
+                                  if (taskController.isLoading.value)
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: ShimmerLoaderTile(
+                                        height: 9.h,
+                                        width: 60.w,
+                                      ),
+                                    )
+                                  else
+                                    FittedBox(
+                                      child: Text(
+                                        '₹ ${task.totalExpense ?? '0'}',
+                                        style: textThinStyle1,
+                                      ),
+                                    ),
                                 ],
                               ),
                             )

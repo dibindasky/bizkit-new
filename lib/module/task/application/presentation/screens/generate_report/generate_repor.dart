@@ -158,7 +158,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                           selectedOptionCategory, _handleCategoryChange),
                       _buildCheckbox('Self to others', 'Self to others',
                           selectedOptionCategory, _handleCategoryChange),
-                      _buildCheckbox('Self to Self', 'Self to Self',
+                      _buildCheckbox('Self to self', 'Self to self',
                           selectedOptionCategory, _handleCategoryChange),
                     ]),
                     _buildCheckboxRow('Select the Task type', [

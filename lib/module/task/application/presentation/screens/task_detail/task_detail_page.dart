@@ -33,7 +33,8 @@ class ScreenTaskDetailPage extends StatelessWidget {
             },
             child: Obx(
               () {
-                if (taskController.fetchSingleTaskError.value) {
+                if (taskController.fetchSingleTaskError.value &&
+                    taskController.singleTask.value.title == null) {
                   return GestureDetector(
                     onTap: () {
                       taskController.fetchSingleTask(
@@ -54,24 +55,28 @@ class ScreenTaskDetailPage extends StatelessWidget {
                     ),
                   );
                 }
-                return SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const TaskDetailHeaderSection(),
-                      adjustHieght(15.h),
-                      const TaskDetailUserInfoSection(),
-                      adjustHieght(15.h),
-                      const TaskDetailDescriptionSection(),
-                      adjustHieght(15.h),
-                      const TaskDetailAttachmentsSection(),
-                      adjustHieght(15.h),
-                      const TaskDetailTagsSection(),
-                      adjustHieght(15.h),
-                      const TaskDetailSubtasksSection(),
-                      adjustHieght(150.h),
-                    ],
-                  ),
+                return Stack(
+                  children: [
+                    SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const TaskDetailHeaderSection(),
+                          adjustHieght(15.h),
+                          const TaskDetailUserInfoSection(),
+                          adjustHieght(15.h),
+                          const TaskDetailDescriptionSection(),
+                          adjustHieght(15.h),
+                          const TaskDetailAttachmentsSection(),
+                          adjustHieght(15.h),
+                          const TaskDetailTagsSection(),
+                          adjustHieght(15.h),
+                          const TaskDetailSubtasksSection(),
+                          adjustHieght(150.h),
+                        ],
+                      ),
+                    ),
+                  ],
                 );
               },
             ),

@@ -12,6 +12,7 @@ const Color klightgrey = Color.fromARGB(255, 169, 169, 169);
 const Color kgrey = Color.fromARGB(255, 105, 105, 105);
 const Color kNotificationColor = Color(0xFF333333);
 const Color kwhite = Colors.white;
+const Color koffWhite = Color.fromARGB(255, 238, 240, 245);
 const Color kgreen = Colors.green;
 const Color kyellow = Color(0xFFFFCE30);
 const Color klightGrey = Color(0xFFF5F5F5);

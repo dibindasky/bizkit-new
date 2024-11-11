@@ -1,8 +1,6 @@
 import 'dart:developer';
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/show_dialogue/show_exit_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class TaskNavbarController extends GetxController {

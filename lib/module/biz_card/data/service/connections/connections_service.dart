@@ -136,7 +136,7 @@ class ConnectionsService implements ConnectionsRepo {
       log('getMyconnections TO JSON -> ${paginationQuery.toJson()}');
       final responce = await apiService.get(ApiEndPoints.myConnections,queryParameters: paginationQuery.toJson());
       log('getMyconnections ==> success ');
-      return Right(MyConnectionsResponce.fromJson(responce.data));
+      return Right(MyConnectionsResponce.fromJson(responce.data)); 
     } on DioException catch (e) {
       log('getMyconnections DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));

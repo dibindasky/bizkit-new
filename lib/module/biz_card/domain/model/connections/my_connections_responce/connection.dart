@@ -8,10 +8,10 @@ part 'connection.g.dart';
 @JsonSerializable()
 class MyConnection {
   @JsonKey(name: 'to_user')
-  int? localId;
   String? toUser;
   String? username;
   List<Card>? cards;
+  int? localId;
 
   MyConnection({this.toUser, this.username, this.cards, this.localId});
 
@@ -33,7 +33,7 @@ class MyConnection {
     if (list1 == null && list2 == null) return true;
     log('compare card List 2');
     if (list1 == null || list2 == null || list1.length != list2.length)
-      return false;
+       return false;
     log('compare card List 3');
 
     final map1 = {for (var card in list1) card.toCard: card};

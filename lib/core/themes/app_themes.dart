@@ -8,9 +8,9 @@ class AppThemes {
       scaffoldBackgroundColor: koffWhite,
       brightness: Brightness.light,
       colorScheme: const ColorScheme.light(
-        primaryContainer: neonShade,
+        primaryContainer: kneon,
         surface: kblack,
-        primary: neonShade,
+        primary: kneon,
         secondary: kwhite,
         secondaryContainer: koffWhite,
         onPrimary: kblack,

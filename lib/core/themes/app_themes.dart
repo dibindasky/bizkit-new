@@ -5,7 +5,7 @@ class AppThemes {
   // Light Theme Configuration
   static ThemeData lightTheme() {
     return ThemeData(
-      scaffoldBackgroundColor: kwhite,
+      scaffoldBackgroundColor: koffWhite,
       brightness: Brightness.light,
       colorScheme: const ColorScheme.light(
         primaryContainer: neonShade,

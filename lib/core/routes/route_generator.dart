@@ -3,31 +3,32 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/card_detail_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/connection_details/connection_detail_filling.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/second_card_detail_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail_view/update_second_card.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_view_deeplink/card_detail_view_deeplink.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/cards_listing/screen/card_screen_main.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/card_profile_creation/card_profile_creation.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/create_card.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/picked_scanning_cards/picked_scanning_cards.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/screens/progeress_indicator_start/progress_indicator_start.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/add_connection_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/connection_request_sscreen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/shared_cards_list_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/connections/view_all_connection_contacts.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/home/view/home_first_screen/first_half_sction/widgets/cards_based_on_user.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/navbar.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/notifications/notification_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/onbaording_screen/onbaording_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/biz_card_nav_bar.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/card_detail_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/connection_details/connection_detail_filling.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/second_card_detail_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/update_second_card.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_view_deeplink/card_detail_view_deeplink.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/cards_listing/screen/card_screen_main.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/card_profile_creation/card_profile_creation.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/create_card.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/picked_scanning_cards/picked_scanning_cards.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/progeress_indicator_start/progress_indicator_start.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/connections/add_connection_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/connections/connection_request_sscreen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/connections/shared_cards_list_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/connections/view_all_connection_contacts.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/home/view/home_first_screen/first_half_sction/widgets/cards_based_on_user.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/navbar/navbar.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/notifications/notification_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/onbaording_screen/onbaording_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/matcho_meter.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/level_sharing_settings.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/qr_screen/qr_lists.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/second_card_feilds.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/received_cards/widgets/selected_card_builder.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_create_update.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/qr_screen/level_sharing_settings.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/qr_screen/qr_lists.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/received_cards/widgets/second_card_feilds.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/received_cards/widgets/selected_card_builder.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/reminder/reminder_create_update.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/account_switching/account_switching_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/profile_edit_screen.dart';
@@ -327,7 +328,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.bizCardNavbar,
       path: Routes.bizCardNavbar,
-      builder: (context, state) => CardBottomNavigationBar(),
+      builder: (context, state) => BizCardNavBarScreen(),
     ),
 
     GoRoute(

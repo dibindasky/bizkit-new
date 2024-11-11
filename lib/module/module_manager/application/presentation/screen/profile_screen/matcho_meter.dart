@@ -1,5 +1,5 @@
 import 'package:bizkit/module/module_manager/application/controller/matcho_meter/matcho_meter_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_create/widgets/image_preview_under_textfield.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/custom_expanstion_tile.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';

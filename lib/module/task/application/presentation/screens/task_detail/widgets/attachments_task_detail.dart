@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:bizkit/module/biz_card/application/presentation/screens/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/image_viewer.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';

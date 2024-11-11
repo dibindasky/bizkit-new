@@ -8,10 +8,8 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/mod
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/show_dialogue/show_exit_dialog.dart';
-import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
-import 'package:bottom_bar_matu/bottom_bar_item.dart';
+import 'package:bizkit/utils/widgets/custom_botoom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class BizCardNavBarScreen extends StatelessWidget {
@@ -136,79 +134,99 @@ class BizCardNavBarScreen extends StatelessWidget {
             children: [
               _widgetOptions.elementAt(controller.slectedtabIndex.value),
               CardPromptHomePage(
-                  showPrompt: controller.slectedtabIndex.value == 1)
+                  showPrompt: controller.slectedtabIndex.value == 1),
+              Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: CustomBottomBar(
+                    selectedColor: kneonDark,
+                    unselectedColor: kGreyDark,
+                    onTap: (index) {
+                      controller.slectedtabIndex.value = index;
+                    },
+                    selectedIndex: controller.slectedtabIndex.value,
+                    imageAssets: [
+                      iconModuleSelectorBottomBar,
+                      cardIconHomeBottomBar,
+                      cardIconcardIcon,
+                      iconScannerBottombar,
+                      iconAccountBottomBar
+                    ],
+                    imageSizes: const [40, 25, 25, 25, 30],
+                  ))
             ],
           ),
-          bottomNavigationBar: Material(
-            elevation: 5,
-            shadowColor: kblack,
-            child: BottomBarBubble(
-              color: neonShade,
-              height: 55,
-              backgroundColor: backgroundColour,
-              selectedIndex: controller.slectedtabIndex.value,
-              items: [
-                BottomBarItem(
-                  iconBuilder: (color) => Image.asset(
-                    iconModuleSelectorBottomBar,
-                    fit: BoxFit.cover,
-                    color: controller.slectedtabIndex.value == 0
-                        ? neonShade
-                        : color,
-                    height: controller.slectedtabIndex.value == 0 ? 36 : 30,
-                    width: controller.slectedtabIndex.value == 0 ? 36 : 30,
-                  ),
-                ),
-                BottomBarItem(
-                  iconBuilder: (color) => Image.asset(
-                    cardIconHomeBottomBar,
-                    fit: BoxFit.cover,
-                    color: controller.slectedtabIndex.value == 1
-                        ? neonShade
-                        : color,
-                    height: controller.slectedtabIndex.value == 1 ? 32 : 26,
-                    width: controller.slectedtabIndex.value == 1 ? 32 : 26,
-                  ),
-                ),
-                BottomBarItem(
-                  iconBuilder: (color) => Image.asset(
-                    cardIconcardIcon,
-                    fit: BoxFit.cover,
-                    color: controller.slectedtabIndex.value == 2
-                        ? neonShade
-                        : color,
-                    height: controller.slectedtabIndex.value == 2 ? 27 : 22,
-                    width: controller.slectedtabIndex.value == 2 ? 27 : 22,
-                  ),
-                ),
-                BottomBarItem(
-                  iconBuilder: (color) => Image.asset(
-                    iconScannerBottombar,
-                    fit: BoxFit.cover,
-                    color: controller.slectedtabIndex.value == 3
-                        ? neonShade
-                        : color,
-                    height: controller.slectedtabIndex.value == 3 ? 26 : 20,
-                    width: controller.slectedtabIndex.value == 3 ? 26 : 20,
-                  ),
-                ),
-                BottomBarItem(
-                  iconBuilder: (color) => Image.asset(
-                    iconAccountBottomBar,
-                    fit: BoxFit.cover,
-                    color: controller.slectedtabIndex.value == 4
-                        ? neonShade
-                        : color,
-                    height: controller.slectedtabIndex.value == 4 ? 32.w : 26.w,
-                    width: controller.slectedtabIndex.value == 4 ? 32.w : 26.w,
-                  ),
-                ),
-              ],
-              onSelect: (index) {
-                controller.slectedtabIndex.value = index;
-              },
-            ),
-          ),
+          // bottomNavigationBar: Material(
+          //   elevation: 5,
+          //   shadowColor: kblack,
+          //   child: BottomBarBubble(
+          //     color: neonShade,
+          //     height: 55,
+          //     backgroundColor: backgroundColour,
+          //     selectedIndex: controller.slectedtabIndex.value,
+          //     items: [
+          //       BottomBarItem(
+          //         iconBuilder: (color) => Image.asset(
+          //           iconModuleSelectorBottomBar,
+          //           fit: BoxFit.cover,
+          //           color: controller.slectedtabIndex.value == 0
+          //               ? neonShade
+          //               : color,
+          //           height: controller.slectedtabIndex.value == 0 ? 36 : 30,
+          //           width: controller.slectedtabIndex.value == 0 ? 36 : 30,
+          //         ),
+          //       ),
+          //       BottomBarItem(
+          //         iconBuilder: (color) => Image.asset(
+          //           cardIconHomeBottomBar,
+          //           fit: BoxFit.cover,
+          //           color: controller.slectedtabIndex.value == 1
+          //               ? neonShade
+          //               : color,
+          //           height: controller.slectedtabIndex.value == 1 ? 32 : 26,
+          //           width: controller.slectedtabIndex.value == 1 ? 32 : 26,
+          //         ),
+          //       ),
+          //       BottomBarItem(
+          //         iconBuilder: (color) => Image.asset(
+          //           cardIconcardIcon,
+          //           fit: BoxFit.cover,
+          //           color: controller.slectedtabIndex.value == 2
+          //               ? neonShade
+          //               : color,
+          //           height: controller.slectedtabIndex.value == 2 ? 27 : 22,
+          //           width: controller.slectedtabIndex.value == 2 ? 27 : 22,
+          //         ),
+          //       ),
+          //       BottomBarItem(
+          //         iconBuilder: (color) => Image.asset(
+          //           iconScannerBottombar,
+          //           fit: BoxFit.cover,
+          //           color: controller.slectedtabIndex.value == 3
+          //               ? neonShade
+          //               : color,
+          //           height: controller.slectedtabIndex.value == 3 ? 26 : 20,
+          //           width: controller.slectedtabIndex.value == 3 ? 26 : 20,
+          //         ),
+          //       ),
+          //       BottomBarItem(
+          //         iconBuilder: (color) => Image.asset(
+          //           iconAccountBottomBar,
+          //           fit: BoxFit.cover,
+          //           color: controller.slectedtabIndex.value == 4
+          //               ? neonShade
+          //               : color,
+          //           height: controller.slectedtabIndex.value == 4 ? 32.w : 26.w,
+          //           width: controller.slectedtabIndex.value == 4 ? 32.w : 26.w,
+          //         ),
+          //       ),
+          //     ],
+          //     onSelect: (index) {
+          //       controller.slectedtabIndex.value = index;
+          //     },
+          //   ),
+          // ),
         ),
       ),
     );

@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp.router(
         debugShowMaterialGrid: false,
         theme: AppThemes.lightTheme(),
-        // darkTheme: AppThemes.darkTheme(),
+        darkTheme: AppThemes.lightTheme(),
         initialBinding: AllControllerBinding(),
         debugShowCheckedModeBanner: false,
         routeInformationParser: GoRouterConfig.router.routeInformationParser,

@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const Color koffWhite = Color.fromARGB(255, 245, 247, 250);
+const Color kblack = Colors.black;
+const Color kGreyDark = Color.fromARGB(255, 19, 19, 20);
+const Color kneon = Color.fromARGB(255, 25, 255, 221);
+const Color kneonDark = Color.fromARGB(255, 6, 199, 172);
+const Color kblue = Colors.blue;
 
 // ---------------------------------------------------------
 
@@ -20,11 +25,9 @@ const Color kgreen = Colors.green;
 const Color kyellow = Color(0xFFFFCE30);
 const Color klightGrey = Color(0xFFF5F5F5);
 const Color kred = Color.fromARGB(255, 255, 0, 0);
-const Color kblue = Colors.blue;
 const Color neonShade = Color.fromRGBO(6, 199, 172, 1);
 const Color kneonShade = Color.fromRGBO(1, 253, 220, 1);
 const Color klightred = Color(0xFFFFECEF);
-const Color kblack = Colors.black;
 const Color kneonShade2 = Color.fromRGBO(25, 255, 221, 1);
 const Color knill = Colors.transparent;
 const Color backgroundColour = Color.fromRGBO(41, 41, 41, 1);

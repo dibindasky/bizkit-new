@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         //       ),
         // ),
         theme: AppThemes.lightTheme(),
-        darkTheme: AppThemes.darkTheme(),
+        darkTheme: AppThemes.lightTheme(),
         initialBinding: AllControllerBinding(),
         debugShowCheckedModeBanner: false,
         routeInformationParser: GoRouterConfig.router.routeInformationParser,

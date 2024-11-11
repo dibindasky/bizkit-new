@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -58,7 +59,11 @@ class _ScreenLoginState extends State<ScreenLogin>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+             
               adjustHieght(khieght * 0.10),
+               TextButton(onPressed: (){ 
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const ScreenOnboardingGeneral()));
+              }, child: Text('to on boarding')),
               SizedBox(
                 width: double.infinity,
                 height: khieght * 0.25,

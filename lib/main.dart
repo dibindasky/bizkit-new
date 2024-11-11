@@ -3,8 +3,6 @@ import 'package:bizkit/core/dipendency/di/dipendency_injection.dart';
 import 'package:bizkit/core/routes/route_generator.dart';
 import 'package:bizkit/core/themes/app_themes.dart';
 import 'package:bizkit/firebase_options.dart';
-// import 'package:bizkit/module/module_manager/application/controller/text_style_controller.dart';
-// import 'package:bizkit/utils/constants/colors.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -36,24 +34,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final TextStyleController textStyleController =
-    //     Get.put(TextStyleController());
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
       child: GetMaterialApp.router(
         debugShowMaterialGrid: false,
-        // theme: ThemeData(
-        //   primaryColor: kblack,
-        //   colorScheme: const ColorScheme.dark(primary: neonShade),
-        //   scaffoldBackgroundColor: kblack,
-        //   textTheme: Theme.of(context).textTheme.apply(
-        //         bodyColor: kwhite,
-        //         displayColor: kwhite,
-        //         fontFamily: textStyleController.textStyle.value,
-        //       ),
-        // ),
         theme: AppThemes.lightTheme(),
         darkTheme: AppThemes.lightTheme(),
         initialBinding: AllControllerBinding(),

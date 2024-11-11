@@ -1,4 +1,3 @@
-
 const bizcardCategories = [
   'Friend',
   'Colleague',
@@ -30,3 +29,6 @@ const imageHistoryLog1 = 'asset/images/meeting profile png1.png';
 const imageHistoryLog2 = 'asset/images/meeting profile png2.png';
 const imageHistoryLog3 = 'asset/images/meeting profile png3.png';
 const imageHistoryLog4 = 'asset/images/meeting profile png4.png';
+
+const bizcardBgImage = "asset/module/bizcard/bizcard_bg_img.png";
+const bizcardMoreIcon = "asset/module/bizcard/bizcard_more.png";

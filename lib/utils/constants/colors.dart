@@ -102,8 +102,8 @@ LinearGradient neonShadeLinearGradient = const LinearGradient(
 
 LinearGradient neonShadeGradientTopToBottom = const LinearGradient(
   colors: [
-    Color.fromRGBO(6, 199, 172, .34),
-    Color.fromRGBO(6, 199, 172, .34),
+    Color.fromRGBO(1, 214, 186, 1),
+    Color.fromRGBO(2, 167, 145, 1),
     Color.fromRGBO(8, 136, 119, 1),
     Color.fromRGBO(6, 199, 172, 1),
   ],
@@ -114,7 +114,7 @@ LinearGradient blackShadeGradient = const LinearGradient(
   colors: [
     Color.fromRGBO(0, 0, 0, 1),
     Color.fromRGBO(33, 39, 38, 1),
-    Color.fromRGBO(1, 31, 27, 1),
+    Color.fromRGBO(1, 44, 38, 1),
   ],
   begin: Alignment.topCenter,
   end: Alignment.bottomRight,
@@ -122,7 +122,7 @@ LinearGradient blackShadeGradient = const LinearGradient(
 
 LinearGradient whiteShadeGradient = const LinearGradient(
   colors: [
-    Color.fromRGBO(255, 255, 255, 1),
+    Color.fromRGBO(243, 243, 243, 1),
     Color.fromRGBO(220, 221, 221, 1),
     Color.fromRGBO(228, 227, 227, 1),
     Color.fromRGBO(214, 213, 213, 1),

@@ -115,6 +115,7 @@ flutter:
   assets:
   # - all new items
     - asset/module/module_manager/
+    - asset/module/bizcard/
 
   # -old images remove after new ui build
     - asset/images/
@@ -132,6 +133,7 @@ flutter:
     - asset/images/attendence module/home screen dialogs/
     - asset/images/attendence module/home screen clocks/
     - asset/images/attendence module/attendence secetion/
+    - asset/module/bizcard/
     
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

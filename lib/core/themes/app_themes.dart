@@ -5,17 +5,21 @@ class AppThemes {
   // Light Theme Configuration
   static ThemeData lightTheme() {
     return ThemeData(
+      fontFamily: fontPoppins,
       scaffoldBackgroundColor: koffWhite,
       brightness: Brightness.light,
       colorScheme: const ColorScheme.light(
-        primaryContainer: kneon,
-        surface: kblack,
         primary: kneon,
-        secondary: kwhite,
-        secondaryContainer: koffWhite,
         onPrimary: kblack,
-        onSecondary: kwhite,
-        onSurface: kblack,
+      ),
+      textTheme: const TextTheme(
+        bodyMedium:
+            TextStyle(color: kwhite, fontSize: 14, fontWeight: FontWeight.bold),
+        bodySmall: TextStyle(color: kwhite, fontSize: 12),
+        displaySmall: TextStyle(color: kblack, fontSize: 12),
+        displayMedium:
+            TextStyle(fontWeight: FontWeight.bold, color: kblack, fontSize: 14),
+        titleMedium: TextStyle(fontSize: 15, color: kblack),
       ),
       cardTheme: const CardTheme(
         color: kwhite,
@@ -45,6 +49,7 @@ class AppThemes {
   // Dark Theme Configuration
   static ThemeData darkTheme() {
     return ThemeData(
+      fontFamily: fontPoppins,
       scaffoldBackgroundColor: kblack,
       brightness: Brightness.dark,
       colorScheme: const ColorScheme.dark(

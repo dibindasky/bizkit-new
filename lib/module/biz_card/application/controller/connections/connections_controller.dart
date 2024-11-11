@@ -418,6 +418,7 @@ class ConnectionsController extends GetxController {
 
     await result.fold(
       (failure) {
+        print('falure getMyconnection from api');
         myConnectionsLoading.value = false;
       },
       (success) async {

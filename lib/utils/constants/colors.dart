@@ -4,6 +4,10 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+const Color koffWhite = Color.fromARGB(255, 245, 247, 250);
+
+// ---------------------------------------------------------
+
 const Color textFieldFillColr = Color.fromRGBO(49, 49, 49, 0.5);
 const Color smallBigGrey = Color.fromRGBO(255, 255, 255, 0.1);
 const Color kGrayLight = Color.fromRGBO(73, 73, 73, 1);
@@ -12,7 +16,6 @@ const Color klightgrey = Color.fromARGB(255, 169, 169, 169);
 const Color kgrey = Color.fromARGB(255, 105, 105, 105);
 const Color kNotificationColor = Color(0xFF333333);
 const Color kwhite = Colors.white;
-const Color koffWhite = Color.fromARGB(255, 238, 240, 245);
 const Color kgreen = Colors.green;
 const Color kyellow = Color(0xFFFFCE30);
 const Color klightGrey = Color(0xFFF5F5F5);

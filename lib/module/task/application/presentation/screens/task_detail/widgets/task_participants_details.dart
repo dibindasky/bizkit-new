@@ -43,7 +43,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
       return Container(
         padding: EdgeInsets.all(10.w),
         decoration: BoxDecoration(
-          color: klightDarkGrey,
+          color: Theme.of(context).colorScheme.secondaryContainer,
           borderRadius: kBorderRadius10,
         ),
         child: Column(

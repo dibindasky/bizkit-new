@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/core/routes/indexed_stack_route/on_generate_route.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
@@ -61,7 +59,9 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
                 child: BottomBarBubble(
                   color: neonShade,
                   height: 60.h,
-                  backgroundColor: klightDarkGrey,
+                  backgroundColor:
+                      Theme.of(context).navigationBarTheme.backgroundColor ??
+                          klightDarkGrey,
                   selectedIndex: selectedIndex,
                   items: [
                     BottomBarItem(

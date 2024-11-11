@@ -104,7 +104,8 @@ class BusinesDetailsController extends GetxController {
     companyWebsiteLink.text = cardDetail.businessDetails?.websiteLink ?? '';
     businessName.text = cardDetail.businessDetails?.businessName ?? '';
     companyEmail.text = cardDetail.businessDetails?.businessEmail ?? '';
-    businessPhoneNumbers.value = cardDetail.businessDetails?.businessPhone?? <String>[];
+    businessPhoneNumbers.value =
+        cardDetail.businessDetails?.businessPhone ?? <String>[];
     takeLogoDetails();
     takeBankingDetails();
   }
@@ -440,7 +441,7 @@ class BusinesDetailsController extends GetxController {
             cardController.bizcardDetail.value.businessDetails?.id ?? '',
         businessLogo: logoImage.value.image,
         logoStory: businessLogoLebel.text);
-    log('businessController.logoImage.value.image ${logoImage.value.image}');
+
     final data = await businessRepo.businessLogoAdding(logoModel: logoModel);
     data.fold(
       (l) => isLoading.value = false,

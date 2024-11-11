@@ -487,7 +487,7 @@ class _TaskListViewState extends State<TaskListView> {
     final task = taskController.deadlineTasks[index];
 
     return GestureDetector(
-      onLongPress: () => controller.longPress(index),
+      // onLongPress: () => controller.longPress(index),
       onTap: () => _handleTaskTap(task, index),
       child: TaskContainer(
         tasksFromTasksList: true,
@@ -502,7 +502,7 @@ class _TaskListViewState extends State<TaskListView> {
 
   void _handleTaskTap(dynamic task, int index) {
     if (controller.selectedFolderContainer.value) {
-      controller.longPress(index);
+      // controller.longPress(index);
     } else {
       taskController.fetchSingleTask(
         singleTaskModel: GetSingleTaskModel(taskId: task.id),
@@ -521,11 +521,5 @@ class _TaskListViewState extends State<TaskListView> {
         pathParameters: {"taskId": '${task.id}'},
       );
     }
-  }
-
-  @override
-  void dispose() {
-    taskController.deadlineTasksScrollController.dispose();
-    super.dispose();
   }
 }

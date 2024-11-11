@@ -89,9 +89,10 @@ class TaskContainer extends StatelessWidget {
       animate: spotlightOn ?? false,
       begin: 0.95,
       end: 0.99,
-      backgroundColor: klightGreyClr,
+      // backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       child: Container(
         decoration: BoxDecoration(
+          // color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: kBorderRadius15,
           boxShadow: spotlightOn ?? false
               ? [
@@ -108,7 +109,7 @@ class TaskContainer extends StatelessWidget {
             children: [
               Card(
                 color: !controller.selectedIndices.contains(index)
-                    ? kblack
+                    ? Theme.of(context).colorScheme.primaryContainer
                     : kwhite.withOpacity(.2),
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
@@ -155,10 +156,10 @@ class TaskContainer extends StatelessWidget {
                                     tasksInsideFolder?.title ??
                                     tasksInsideInnerFolder?.title ??
                                     'Title',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 16,
-                                  // fontWeight: FontWeight.bold,
-                                  color: neonShade,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                 ),
                               ),
                               adjustWidth(15),

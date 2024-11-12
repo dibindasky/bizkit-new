@@ -9,6 +9,7 @@ class EventButton extends StatelessWidget {
     this.wdth,
     this.hieght,
     this.textColr,
+    this.textStyle,
     this.color,
     this.borderRadius,
   });
@@ -20,6 +21,7 @@ class EventButton extends StatelessWidget {
   final Color? textColr;
   final Gradient? color;
   final double? borderRadius;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +39,7 @@ class EventButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: custumText(
-              colr: textColr,
-              fontSize: kwidth * 0.033,
-              // fontWeight: FontWeight.w800,
-            ),
+            style: textStyle,
           ),
         ),
       ),

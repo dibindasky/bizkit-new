@@ -1,6 +1,7 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerLoader extends StatelessWidget {
@@ -229,6 +230,110 @@ class ShimmerLoaderTaskContainer extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class ShimmerLoaderCircle extends StatelessWidget {
+  const ShimmerLoaderCircle({
+    Key? key,
+    required this.itemCount,
+    this.highlightColor,
+    this.baseColor,
+    required this.radius,
+    this.seprator = const SizedBox(),
+    this.scrollDirection = Axis.vertical,
+  }) : super(key: key);
+
+  final int itemCount;
+  final Axis scrollDirection;
+  final Widget seprator;
+  final Color? baseColor;
+  final double radius;
+  final Color? highlightColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      separatorBuilder: (context, index) => seprator,
+      physics: const BouncingScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: itemCount,
+      scrollDirection: scrollDirection,
+      itemBuilder: (context, index) {
+        return Shimmer.fromColors(
+          baseColor: baseColor ?? Colors.grey[300]!,
+          highlightColor: highlightColor ?? Colors.grey[100]!,
+          child: CircleAvatar(
+            radius: radius,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class BizcardShimmer extends StatelessWidget {
+  const BizcardShimmer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6),
+        child: Column(
+          children: [
+            Container(
+              width: 362.w,
+              height: 260.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: kBorderRadius20,
+              ),
+            ),
+            SizedBox(height: 10.h),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(
+                3,
+                (index) => Container(
+                  width: 80,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+            ),
+
+            SizedBox(height: 15.h),
+
+            // Stats Containers Shimmer
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(
+                2,
+                (index) => Expanded(
+                  child: Container(
+                    height: 30.h,
+                    margin: EdgeInsets.symmetric(horizontal: 5.w),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

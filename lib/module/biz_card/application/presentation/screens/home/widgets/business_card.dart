@@ -1,11 +1,22 @@
+
+import 'dart:convert';
+import 'dart:ui';
+
+
+import 'package:bizkit/core/routes/routes.dart';
+
 import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class BusinessCard extends StatelessWidget {
-  const BusinessCard({super.key});
+  const BusinessCard({super.key, this.bizcard});
+
+  final Bizcard? bizcard;
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +24,17 @@ class BusinessCard extends StatelessWidget {
       children: [
         Center(
           child: BizcardWidget(
+            onTap: () {
+              GoRouter.of(context).pushNamed(Routes.cardDetailView,
+                  pathParameters: {
+                    'cardId': '66d1acb6128a4e4cb982580f',
+                    'myCard': 'true'
+                  });
+            },
             width: 362.w,
             height: 260.h,
-            designation: 'UXUI Designer',
-            name: 'Jaisai Gopisetty',
+            designation: bizcard?.designation ?? 'Designation',
+            name: bizcard?.name ?? 'Name',
             personImage: personDemoImg,
             qrScanner: 'asset/images/qr_image.jpeg',
           ),
@@ -36,7 +54,7 @@ class BusinessCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "asset/module/bizcard/edit_bizcard.png",
+                        bizcardEditIcon,
                         width: 30,
                       ),
                       adjustHieght(3.h),
@@ -57,7 +75,7 @@ class BusinessCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "asset/module/bizcard/preview.png",
+                        bizcardPreviewIcon,
                         width: 30,
                       ),
                       adjustHieght(3.h),
@@ -78,7 +96,7 @@ class BusinessCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "asset/module/bizcard/share.png",
+                        bizcardShareIcon,
                         width: 30,
                       ),
                       adjustHieght(3.h),
@@ -110,7 +128,7 @@ class BusinessCard extends StatelessWidget {
                   children: [
                     const Icon(Icons.remove_red_eye_outlined),
                     Text(
-                      '2,210',
+                      '${bizcard?.views ?? 0}',
                       style: Theme.of(context).textTheme.displaySmall,
                     ),
                     Text(
@@ -123,32 +141,82 @@ class BusinessCard extends StatelessWidget {
             ),
             adjustWidth(5.w),
             Expanded(
-              child: Container(
-                height: 30.h,
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: kBorderRadius10,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Icon(Icons.share_outlined),
-                    Text(
-                      '2,110',
-                      style: Theme.of(context).textTheme.displaySmall,
-                    ),
-                    Text(
-                      'shared',
-                      style: Theme.of(context).textTheme.displaySmall,
-                    )
-                  ],
+              child: GestureDetector(
+                onTap: () => _showQRDialog(
+                    context, bizcard?.qRLink ?? '', bizcard?.name ?? 'name'),
+                child: Container(
+                  height: 30.h,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: kBorderRadius10,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Icon(Icons.qr_code_2_outlined),
+                      Text(
+                        'show QR',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
           ],
         ),
       ],
+    );
+  }
+
+  void _showQRDialog(BuildContext context, String qrImagePath, String name) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+          child: Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: kBorderRadius15,
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(20.w),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            name,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20.h),
+                  Image.memory(
+                    base64Decode(qrImagePath),
+                    width: 230.dm,
+                    height: 230.dm,
+                    fit: BoxFit.cover,
+                  ),
+                  adjustHieght(15.h)
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

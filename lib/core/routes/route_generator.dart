@@ -3,6 +3,11 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
+
+import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/level_sharing_settings.dart';
+
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/card_detail_page.dart';
+
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/biz_card_nav_bar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/connection_details/connection_detail_filling.dart';
@@ -19,7 +24,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens2/connect
 import 'package:bizkit/module/biz_card/application/presentation/screens2/connections/shared_cards_list_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/connections/view_all_connection_contacts.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/home/view/home_first_screen/first_half_sction/widgets/cards_based_on_user.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens2/navbar/navbar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
@@ -115,8 +119,7 @@ class GoRouterConfig {
         builder: (context, state) {
           final data = state.extra as Map<String, dynamic>;
           return ScreenOtpValidation(
-              isEmail: data['email'] as bool,
-              route: data['route'] as String?);
+              isEmail: data['email'] as bool, route: data['route'] as String?);
         }),
 
     // Module selector
@@ -205,19 +208,19 @@ class GoRouterConfig {
     ),
 
     // Card view
-    GoRoute(
-      name: Routes.cardView,
-      path: '${Routes.cardView}/:cardId',
-      builder: (context, state) {
-        String? cardId = state.pathParameters['cardId'];
-        cardId ?? (state.extra) as String?;
-        if (cardId != null) {
-          return CardDetailViewDeeplinkScreen(cardId: cardId);
-        } else {
-          return _errorScreen();
-        }
-      },
-    ),
+    // GoRoute(
+    //   name: Routes.cardView,
+    //   path: '${Routes.cardView}/:cardId',
+    //   builder: (context, state) {
+    //     String? cardId = state.pathParameters['cardId'];
+    //     cardId ?? (state.extra) as String?;
+    //     if (cardId != null) {
+    //       return CardDetailViewDeeplinkScreen(cardId: cardId);
+    //     } else {
+    //       return _errorScreen();
+    //     }
+    //   },
+    // ),
 
     // Card view
     GoRoute(
@@ -234,6 +237,20 @@ class GoRouterConfig {
     ),
 
     // First card detail secreen
+    // GoRoute(
+    //   name: Routes.cardDetailView,
+    //   path: '${Routes.cardDetailView}/:cardId/:myCard',
+    //   builder: (context, state) {
+    //     final cardId = state.pathParameters['cardId'] ?? '';
+    //     final myCard = state.pathParameters['myCard'] == 'true';
+    //     if (cardId != null) {
+    //       return ScreenCardDetailView(cardId: cardId, myCard: myCard);
+    //     } else {
+    //       return _errorScreen();
+    //     }
+    //   },
+    // ),
+
     GoRoute(
       name: Routes.cardDetailView,
       path: '${Routes.cardDetailView}/:cardId/:myCard',
@@ -241,12 +258,13 @@ class GoRouterConfig {
         final cardId = state.pathParameters['cardId'] ?? '';
         final myCard = state.pathParameters['myCard'] == 'true';
         if (cardId != null) {
-          return ScreenCardDetailView(cardId: cardId, myCard: myCard);
+          return BizCardDetailScreen(cardId: cardId, myCard: myCard);
         } else {
           return _errorScreen();
         }
       },
     ),
+
     // connection detail filling
     GoRoute(
       name: Routes.connectionDetailFilling,
@@ -382,12 +400,15 @@ class GoRouterConfig {
 
     //  Card QR code screen
     GoRoute(
-      name: Routes.cardQrCode,
-      path: Routes.cardQrCode,
+      name: Routes.levelSharingSettings,
+      path: Routes.levelSharingSettings,
       pageBuilder: (context, state) {
+        final extra = state.extra as bool;
         return FadeTransitionPage(
           key: state.pageKey,
-          child: const ScreenCardSharing(),
+          child: BizCardLevelSharingScreen(
+            isCommonLevelSharing: extra,
+          ),
         );
       },
     ),

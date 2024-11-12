@@ -3,7 +3,11 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
+
 import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/level_sharing_settings.dart';
+
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/card_detail_page.dart';
+
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/biz_card_nav_bar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/connection_details/connection_detail_filling.dart';
@@ -194,19 +198,19 @@ class GoRouterConfig {
     ),
 
     // Card view
-    GoRoute(
-      name: Routes.cardView,
-      path: '${Routes.cardView}/:cardId',
-      builder: (context, state) {
-        String? cardId = state.pathParameters['cardId'];
-        cardId ?? (state.extra) as String?;
-        if (cardId != null) {
-          return CardDetailViewDeeplinkScreen(cardId: cardId);
-        } else {
-          return _errorScreen();
-        }
-      },
-    ),
+    // GoRoute(
+    //   name: Routes.cardView,
+    //   path: '${Routes.cardView}/:cardId',
+    //   builder: (context, state) {
+    //     String? cardId = state.pathParameters['cardId'];
+    //     cardId ?? (state.extra) as String?;
+    //     if (cardId != null) {
+    //       return CardDetailViewDeeplinkScreen(cardId: cardId);
+    //     } else {
+    //       return _errorScreen();
+    //     }
+    //   },
+    // ),
 
     // Card view
     GoRoute(
@@ -223,6 +227,20 @@ class GoRouterConfig {
     ),
 
     // First card detail secreen
+    // GoRoute(
+    //   name: Routes.cardDetailView,
+    //   path: '${Routes.cardDetailView}/:cardId/:myCard',
+    //   builder: (context, state) {
+    //     final cardId = state.pathParameters['cardId'] ?? '';
+    //     final myCard = state.pathParameters['myCard'] == 'true';
+    //     if (cardId != null) {
+    //       return ScreenCardDetailView(cardId: cardId, myCard: myCard);
+    //     } else {
+    //       return _errorScreen();
+    //     }
+    //   },
+    // ),
+
     GoRoute(
       name: Routes.cardDetailView,
       path: '${Routes.cardDetailView}/:cardId/:myCard',
@@ -230,12 +248,13 @@ class GoRouterConfig {
         final cardId = state.pathParameters['cardId'] ?? '';
         final myCard = state.pathParameters['myCard'] == 'true';
         if (cardId != null) {
-          return ScreenCardDetailView(cardId: cardId, myCard: myCard);
+          return BizCardDetailScreen(cardId: cardId, myCard: myCard);
         } else {
           return _errorScreen();
         }
       },
     ),
+
     // connection detail filling
     GoRoute(
       name: Routes.connectionDetailFilling,

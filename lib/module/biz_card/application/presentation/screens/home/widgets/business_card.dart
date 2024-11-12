@@ -1,5 +1,9 @@
+
 import 'dart:convert';
 import 'dart:ui';
+
+
+import 'package:bizkit/core/routes/routes.dart';
 
 import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
@@ -7,6 +11,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class BusinessCard extends StatelessWidget {
   const BusinessCard({super.key, this.bizcard});
@@ -19,7 +24,13 @@ class BusinessCard extends StatelessWidget {
       children: [
         Center(
           child: BizcardWidget(
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context).pushNamed(Routes.cardDetailView,
+                  pathParameters: {
+                    'cardId': '66d1acb6128a4e4cb982580f',
+                    'myCard': 'true'
+                  });
+            },
             width: 362.w,
             height: 260.h,
             designation: bizcard?.designation ?? 'Designation',

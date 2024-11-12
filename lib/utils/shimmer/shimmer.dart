@@ -232,3 +232,43 @@ class ShimmerLoaderTaskContainer extends StatelessWidget {
     );
   }
 }
+
+class ShimmerLoaderCircle extends StatelessWidget {
+  const ShimmerLoaderCircle({
+    Key? key,
+    required this.itemCount,
+    this.highlightColor,
+    this.baseColor,
+    required this.radius,
+    this.seprator = const SizedBox(),
+    this.scrollDirection = Axis.vertical,
+  }) : super(key: key);
+
+  final int itemCount;
+  final Axis scrollDirection;
+  final Widget seprator;
+  final Color? baseColor;
+  final double radius;
+  final Color? highlightColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      separatorBuilder: (context, index) => seprator,
+      physics: const BouncingScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: itemCount,
+      scrollDirection: scrollDirection,
+      itemBuilder: (context, index) {
+        return Shimmer.fromColors(
+          baseColor: baseColor ?? const Color.fromARGB(255, 133, 133, 133),
+          highlightColor:
+              highlightColor ?? const Color.fromARGB(255, 85, 85, 85),
+          child: CircleAvatar(
+            radius: radius,
+          ),
+        );
+      },
+    );
+  }
+}

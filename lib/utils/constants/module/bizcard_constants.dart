@@ -32,3 +32,6 @@ const imageHistoryLog4 = 'asset/images/meeting profile png4.png';
 
 const bizcardBgImage = "asset/module/bizcard/bizcard_bg_img.png";
 const bizcardMoreIcon = "asset/module/bizcard/bizcard_more.png";
+const bizcardEditIcon = "asset/module/bizcard/edit_bizcard.png";
+const bizcardPreviewIcon = "asset/module/bizcard/preview.png";
+const bizcardShareIcon = "asset/module/bizcard/share.png";

@@ -181,12 +181,11 @@ class ConnectionsController extends GetxController {
         connectionsSearchList.value = [];
 
         if (myConnectionsearchController.text.isEmpty) {
-          
           await getConnectionDatasFromLocal(search: true);
           log("sear connection datas ---- ${connectionsSearchList.toJson()}");
           searchConnectionsLoading.value = false;
         }
-           final result = await connectionService.searchConnections(
+        final result = await connectionService.searchConnections(
             searchQuery: SearchQuery(
                 page: myConnectionPageNumber,
                 pageSize: pageSize,
@@ -242,7 +241,7 @@ class ConnectionsController extends GetxController {
 
         final result = await connectionService.searchConnections(
             searchQuery: SearchQuery(
-                page: (connectionsSearchList.length~/pageSize)+1,
+                page: (connectionsSearchList.length ~/ pageSize) + 1,
                 pageSize: pageSize,
                 search: myConnectionsearchController.text));
         result.fold(
@@ -251,23 +250,23 @@ class ConnectionsController extends GetxController {
           },
           (success) {
             for (var datas in success.data ?? <MyConnection>[]) {
-                final index = connectionsSearchList
-                    .indexWhere((value) => value.toUser == datas.toUser);
-                if (index == -1) {
-                  connectionsSearchList.insert(0, datas);
+              final index = connectionsSearchList
+                  .indexWhere((value) => value.toUser == datas.toUser);
+              if (index == -1) {
+                connectionsSearchList.insert(0, datas);
+                myConnectionLocalService
+                    .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                        myconnection: datas);
+              } else {
+                if (!connectionsSearchList[index].equals(datas)) {
+                  int localId = connectionsSearchList[index].localId!;
+                  connectionsSearchList[index] = datas;
                   myConnectionLocalService
                       .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                          myconnection: datas);
-                } else {
-                  if (!connectionsSearchList[index].equals(datas)) {
-                    int localId = connectionsSearchList[index].localId!;
-                    connectionsSearchList[index] = datas;
-                    myConnectionLocalService
-                        .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                            myconnection: datas.copyWith(localId: localId));
-                  }
+                          myconnection: datas.copyWith(localId: localId));
                 }
               }
+            }
             myConnectionLoadMore.value = false;
           },
         );
@@ -384,9 +383,7 @@ class ConnectionsController extends GetxController {
       log('local data fetch fail');
     }, (success) {
       if (search) {
-        
         return connectionsSearchList.assignAll(success.data ?? []);
-        
       }
       myConnections.assignAll(success.data ?? []);
 
@@ -418,12 +415,10 @@ class ConnectionsController extends GetxController {
 
     await result.fold(
       (failure) {
-        print('falure getMyconnection from api');
         myConnectionsLoading.value = false;
       },
       (success) async {
         if (myConnections.isEmpty) {
-          log('my connection empty 1');
           myConnections.assignAll(success.data ?? []);
           for (var eachMyConnection in myConnections) {
             await myConnectionLocalService

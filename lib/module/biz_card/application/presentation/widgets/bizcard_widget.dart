@@ -50,6 +50,7 @@ class BizcardWidget extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
             Row(
@@ -86,6 +87,7 @@ class BizcardWidget extends StatelessWidget {
             ),
             adjustHieght(4.h),
             Text(
+              textAlign: TextAlign.center,
               designation ?? 'designation',
               style: Theme.of(context).textTheme.bodySmall,
             ),

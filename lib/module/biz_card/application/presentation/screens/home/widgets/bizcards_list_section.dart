@@ -1,10 +1,10 @@
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/business_card.dart';
 import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 
 class BizcardsListSection extends StatefulWidget {
   const BizcardsListSection({super.key});
@@ -30,86 +30,9 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
       });
   }
 
-  Widget _buildShimmerCard() {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 6),
-        child: Column(
-          children: [
-            Container(
-              width: 362.w,
-              height: 260.h,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            SizedBox(height: 10.h),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(
-                3,
-                (index) => Container(
-                  width: 80,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-            ),
-
-            SizedBox(height: 15.h),
-
-            // Stats Containers Shimmer
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(
-                2,
-                (index) => Expanded(
-                  child: Container(
-                    height: 30.h,
-                    margin: EdgeInsets.symmetric(horizontal: 5.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildShimmerLoading() {
-    return SizedBox(
-      width: 382.w,
-      height: 450.h,
-      child: PagviewAnimateBuilder(
-        pageController: pageController,
-        pageValue: pageValue,
-        pageCount: 3, // Show 3 shimmer cards while loading
-        onpageCallBack: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        child: (index, context) => _buildShimmerCard(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final bizcardController = Get.find<CardController>();
-
     return Obx(() {
       if (bizcardController.isLoading.value) {
         return _buildShimmerLoading();
@@ -160,6 +83,24 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
         ),
       );
     });
+  }
+
+  Widget _buildShimmerLoading() {
+    return SizedBox(
+      width: 382.w,
+      height: 450.h,
+      child: PagviewAnimateBuilder(
+        pageController: pageController,
+        pageValue: pageValue,
+        pageCount: 6, // Show 6 shimmer cards while loading
+        onpageCallBack: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        child: (index, context) => const BizcardShimmer(),
+      ),
+    );
   }
 
   @override

@@ -21,6 +21,10 @@ class AppThemes {
             TextStyle(fontWeight: FontWeight.bold, color: kblack, fontSize: 14),
         titleMedium: TextStyle(fontSize: 15, color: kblack),
       ),
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
+        color: kblack,
+        refreshBackgroundColor: kblack,
+      ),
       cardTheme: const CardTheme(
         color: kwhite,
         shadowColor: kgrey,

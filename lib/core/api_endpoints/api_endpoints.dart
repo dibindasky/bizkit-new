@@ -1,6 +1,6 @@
 class ApiEndPoints {
   // [ Render base url ]
-  //static const String baseUrl = 'https://bizkit.onrender.com';
+  // static const String baseUrl = 'https://bizkit.onrender.com';
 
   // [ Local base url  ]
   // static const String baseUrl = 'https://9jdcxxr1-8000.inc1.devtunnels.ms';

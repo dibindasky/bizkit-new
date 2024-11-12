@@ -25,7 +25,8 @@ class AppThemes {
         displaySmall: TextStyle(color: kblack, fontSize: 12),
         displayMedium:
             TextStyle(fontWeight: FontWeight.bold, color: kblack, fontSize: 14),
-
+        titleLarge:
+            TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: kblack),
         titleMedium: TextStyle(fontSize: 15, color: kblack,fontWeight: FontWeight.bold),
         titleSmall: TextStyle(fontSize: 13, color: kblack)
       ),

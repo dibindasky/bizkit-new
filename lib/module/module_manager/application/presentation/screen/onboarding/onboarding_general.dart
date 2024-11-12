@@ -1,10 +1,11 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/on_boarding_controller.dart/on_boarding_controller.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 class ScreenOnboardingGeneral extends StatefulWidget {
   const ScreenOnboardingGeneral({super.key});
@@ -28,9 +29,10 @@ class _ScreenOnboardingGeneralState extends State<ScreenOnboardingGeneral> {
   void pageNext() async {
     if (onBoardingController.currentIndex < onBoardingData.length - 1) {
       pageController.nextPage(
-          duration: const Duration(microseconds: 300), curve: Curves.easeIn);
+          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
     } else {
-      await GoRouter.of(context).pushNamed(Routes.loginPage);
+       SecureStorage.setOnBoardBool();
+       Get.find<AuthenticationController>().checkLoginStatus(context);
     }
   }
 
@@ -52,47 +54,70 @@ class _ScreenOnboardingGeneralState extends State<ScreenOnboardingGeneral> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-                height: 500,
-                child: PageView.builder(
-                    controller: pageController,
-                    itemCount: onBoardingData.length,
-                    onPageChanged: (index) {
-                      onBoardingController.currentIndex.value = index;
-                    },
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: Obx(() => Image.asset(
-                            onBoardingData[onBoardingController
-                                .currentIndex.value]["image"]!,
-                            height: 500)),
-                      );
-                    })),
-            Obx(() => Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Text(
-                    onBoardingData[onBoardingController.currentIndex.value]
-                        ["title"]!,
-                    style: const TextStyle(
-                      height: 1.3,
-                      fontSize: 34,
-                      fontWeight: FontWeight.bold,
+              height: 500,
+              child: PageView.builder(
+                controller: pageController,
+                itemCount: onBoardingData.length,
+                onPageChanged: (index) {
+                  onBoardingController.currentIndex.value = index;
+                },
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Image.asset(
+                      onBoardingData[index]["image"]!,
+                      height: 500,
                     ),
-                    textAlign: TextAlign.start,
-                  ),
+                  );
+                },
+              ),
+            ),
+            // Title with fade animation
+            Obx(() => Stack(
+                  alignment: Alignment.centerLeft,
+                  children: List.generate(onBoardingData.length, (index) {
+                    double opacity =
+                        (onBoardingController.currentIndex.value == index)
+                            ? 1.0
+                            : 0.0;
+                    return AnimatedOpacity(
+                      opacity: opacity,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          onBoardingData[index]["title"]!,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    );
+                  }),
                 )),
             const SizedBox(height: 16),
-            Obx(() => Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 15),
-                  child: Text(
-                    onBoardingData[onBoardingController.currentIndex.value]
-                        ["subtitle"]!,
-                    style: const TextStyle(fontSize: 16,color: Colors.grey),
-                    textAlign: TextAlign.start,
-                    
-                  ),
+            // Subtitle with fade animation
+            Obx(() => Stack(
+                  alignment: Alignment.centerLeft,
+                  children: List.generate(onBoardingData.length, (index) {
+                    final isActive =
+                        onBoardingController.currentIndex.value == index;
+                    return AnimatedOpacity(
+                      opacity: isActive ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 500), 
+                      curve: Curves.easeInOut,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          onBoardingData[index]["subtitle"]!,
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.grey),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    );
+                  }),
                 )),
-            
             Padding(
               padding: const EdgeInsets.all(20),
               child: Row(
@@ -100,25 +125,24 @@ class _ScreenOnboardingGeneralState extends State<ScreenOnboardingGeneral> {
                 children: [
                   Obx(() => Row(
                         children: List.generate(
-                            onBoardingData.length,
-                            (index) => AnimatedContainer(
-                                  duration: const Duration(milliseconds: 300),
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 4.0),
-                                  width:
-                                      onBoardingController.currentIndex.value ==
-                                              index
-                                          ? 30
-                                          : 10,
-                                  height: 10,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: onBoardingController
-                                                  .currentIndex.value ==
-                                              index
-                                          ? kneonShade
-                                          : kblack),
-                                )),
+                          onBoardingData.length,
+                          (index) => AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                            width:
+                                onBoardingController.currentIndex.value == index
+                                    ? 30
+                                    : 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: onBoardingController.currentIndex.value ==
+                                      index
+                                  ? kneonShade
+                                  : kblack,
+                            ),
+                          ),
+                        ),
                       )),
                   InkWell(
                     onTap: () => pageNext(),

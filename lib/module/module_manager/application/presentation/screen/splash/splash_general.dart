@@ -25,7 +25,7 @@ class ScreenGeneralSplash extends StatelessWidget {
   void _navigateToSignInPage(BuildContext context) async {
     Future.delayed(const Duration(milliseconds: 2000), () {
       // GoRouter.of(context).pushReplacementNamed(Routes.taskNavbar);
-      Get.find<AuthenticationController>().checkLoginStatus(context);
+      Get.find<AuthenticationController>().checkOnBoarding(context);
     });
   }
 }

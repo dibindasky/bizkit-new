@@ -327,18 +327,18 @@ List<void Function()> myTeamActivitiesOnTaps = [
     {
       "image": "asset/module/module_manager/on_boarding_1.png" ,
       "title": "Boost your business risk-free ",
-      "subtitle":"At least 8 characters, containing a letter and a number "
+      "subtitle":"At least 8 characters, containing a\nletter and a number "
     },
     {
       "image": "asset/module/module_manager/on_boarding_2.png" ,
       "title": "Enjoy best in the market business kit",
-      "subtitle":"At least 8 characters, containing a letter and a number"
+      "subtitle":"At least 8 characters, containing a\nletter and a number"
 
     },
     {
       "image": "asset/module/module_manager/on_boarding_3.png" ,
       "title": "Enjoy best in the market business kit",
-      "subtitle":"At least 8 characters, containing a letter and a number"
+      "subtitle":"At least 8 characters, containing a\nletter and a number"
 
     }
   ];

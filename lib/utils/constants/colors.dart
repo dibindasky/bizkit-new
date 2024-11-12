@@ -13,7 +13,7 @@ const Color kblue = Colors.blue;
 
 // ---------------------------------------------------------
 
-const Color textFieldFillColr = Color.fromRGBO(49, 49, 49, 0.5);
+const Color textFieldFillColr = Colors.white;
 const Color smallBigGrey = Color.fromRGBO(255, 255, 255, 0.1);
 const Color kGrayLight = Color.fromRGBO(73, 73, 73, 1);
 const Color bottomsheetContainerclr = Color.fromRGBO(49, 49, 49, 1);

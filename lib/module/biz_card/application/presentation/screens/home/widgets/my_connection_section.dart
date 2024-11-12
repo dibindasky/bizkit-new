@@ -16,7 +16,7 @@ class MyConnectionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final connectionsController = Get.find<ConnectionsController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      connectionsController.fetchMyConnections(true);
+      // connectionsController.fetchMyConnections(true);
     });
     return SizedBox(
       child: Padding(
@@ -62,45 +62,38 @@ class MyConnectionSection extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 15),
+                            padding: const EdgeInsets.only(left: 1),
                             child: GestureDetector(
                               onTap: () {
                                 // Todo -> Navigate to add connection screen
                               },
                               child: Column(
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: ColoredBox(
-                                      color: textFieldFillColr,
-                                      child: SizedBox(
-                                        height: 47.h,
-                                        width: 50.w,
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.add,
-                                            size: 18.h,
-                                            color: kwhite,
-                                          ),
-                                        ),
-                                      ),
+                                  const CircleAvatar(
+                                    radius: 33,
+                                    // backgroundColor: kGreyDark,
+                                    backgroundImage: AssetImage(bizcardBgImage),
+                                    child: Icon(
+                                      Icons.add,
+                                      color: kwhite,
+                                      size: 20,
                                     ),
                                   ),
+                                  adjustHieght(3.h),
                                   Expanded(
-                                      child: Text(
-                                    'Add',
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall,
-                                  )),
+                                      child: Text('Add',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall)),
                                 ],
                               ),
                             ),
                           ),
                           Text(
                             'No connections',
-                            style: Theme.of(context).textTheme.bodySmall,
+                            style: Theme.of(context).textTheme.displaySmall,
                           ),
-                          kWidth10
+                          kWidth20,
                         ],
                       ),
                     );

@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class BizcardWidget extends StatelessWidget {
   const BizcardWidget(
@@ -61,9 +65,15 @@ class BizcardWidget extends StatelessWidget {
                   'Business Card',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                const CircleAvatar(
-                  radius: 15,
-                  backgroundImage: AssetImage(bizcardMoreIcon),
+                GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context)
+                        .pushNamed(Routes.levelSharingSettings, extra: false);
+                  },
+                  child: const CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage(bizcardMoreIcon),
+                  ),
                 )
               ],
             ),

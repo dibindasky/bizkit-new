@@ -27,7 +27,6 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-
 @LazySingleton(as: ConnectionsRepo)
 @injectable
 class ConnectionsService implements ConnectionsRepo {
@@ -131,12 +130,14 @@ class ConnectionsService implements ConnectionsRepo {
   }
 
   @override
-  Future<Either<Failure, MyConnectionsResponce>> getMyconnections({required PaginationQuery paginationQuery}) async {
+  Future<Either<Failure, MyConnectionsResponce>> getMyconnections(
+      {required PaginationQuery paginationQuery}) async {
     try {
-      log('getMyconnections TO JSON -> ${paginationQuery.toJson()}');
-      final responce = await apiService.get(ApiEndPoints.myConnections,queryParameters: paginationQuery.toJson());
+      // log('getMyconnections TO JSON -> ${paginationQuery.toJson()}');
+      final responce = await apiService.get(ApiEndPoints.myConnections,
+          queryParameters: paginationQuery.toJson());
       log('getMyconnections ==> success ');
-      return Right(MyConnectionsResponce.fromJson(responce.data)); 
+      return Right(MyConnectionsResponce.fromJson(responce.data));
     } on DioException catch (e) {
       log('getMyconnections DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));

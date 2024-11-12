@@ -71,7 +71,7 @@ class _HomeFirstAppBarState extends State<HomeFirstAppBar> {
           GestureDetector(
             onTap: () {
               cardController.getAllcards(true);
-              GoRouter.of(context).pushNamed(Routes.cardQrCode);
+              // GoRouter.of(context).pushNamed(Routes.cardQrCode);
             },
             child: CircleAvatar(
               radius: kwidth * 0.060,

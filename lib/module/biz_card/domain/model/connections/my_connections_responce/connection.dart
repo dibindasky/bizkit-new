@@ -29,12 +29,10 @@ class MyConnection {
   }
 
   bool _compareCardLists(List<Card>? list1, List<Card>? list2) {
-    log('compare card List 1');
     if (list1 == null && list2 == null) return true;
-    log('compare card List 2');
+
     if (list1 == null || list2 == null || list1.length != list2.length)
-       return false;
-    log('compare card List 3');
+      return false;
 
     final map1 = {for (var card in list1) card.toCard: card};
     final map2 = {for (var card in list2) card.toCard: card};

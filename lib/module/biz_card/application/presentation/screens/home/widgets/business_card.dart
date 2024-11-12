@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class BusinessCard extends StatelessWidget {
-  const BusinessCard({super.key});
+  const BusinessCard({super.key, this.bizcard});
+
+  final Bizcard? bizcard;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +27,8 @@ class BusinessCard extends StatelessWidget {
             },
             width: 362.w,
             height: 260.h,
-            designation: 'UXUI Designer',
-            name: 'Jaisai Gopisetty',
+            designation: bizcard?.designation ?? 'designation',
+            name: bizcard?.name ?? 'Jaisai Gopisetty',
             personImage: personDemoImg,
             qrScanner: 'asset/images/qr_image.jpeg',
           ),
@@ -45,7 +48,7 @@ class BusinessCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "asset/module/bizcard/edit_bizcard.png",
+                        bizcardEditIcon,
                         width: 30,
                       ),
                       adjustHieght(3.h),
@@ -66,7 +69,7 @@ class BusinessCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "asset/module/bizcard/preview.png",
+                        bizcardPreviewIcon,
                         width: 30,
                       ),
                       adjustHieght(3.h),
@@ -87,7 +90,7 @@ class BusinessCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "asset/module/bizcard/share.png",
+                        bizcardShareIcon,
                         width: 30,
                       ),
                       adjustHieght(3.h),
@@ -119,7 +122,7 @@ class BusinessCard extends StatelessWidget {
                   children: [
                     const Icon(Icons.remove_red_eye_outlined),
                     Text(
-                      '2,210',
+                      '${bizcard?.views ?? 0}',
                       style: Theme.of(context).textTheme.displaySmall,
                     ),
                     Text(

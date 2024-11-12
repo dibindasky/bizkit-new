@@ -102,6 +102,7 @@ BorderRadius kBorderRadius10 = BorderRadius.circular(10);
 BorderRadius kBorderRadius20 = const BorderRadius.all(Radius.circular(20));
 BorderRadius kBorderRadius25 = const BorderRadius.all(Radius.circular(25));
 BorderRadius kBorderRadius15 = const BorderRadius.all(Radius.circular(15));
+
 final kHeight5 = SizedBox(height: 5.h);
 final kHeight10 = SizedBox(height: 10.h);
 final kHeight20 = SizedBox(height: 20.h);
@@ -311,24 +312,24 @@ List<void Function()> myTeamActivitiesOnTaps = [
   () {
     Get.toNamed(Routes.attendenceMsPeltAndPell, id: 22);
   },
-];
-
+]
+  
   final List<Map<String,dynamic>>onBoardingData=[
     {
       "image": "asset/module/module_manager/on_boarding_1.png" ,
       "title": "Boost your business risk-free ",
-      "subtitle":"At least 8 characters, containing a letter and a number "
+      "subtitle":"At least 8 characters, containing a\nletter and a number "
     },
     {
       "image": "asset/module/module_manager/on_boarding_2.png" ,
       "title": "Enjoy best in the market business kit",
-      "subtitle":"At least 8 characters, containing a letter and a number"
+      "subtitle":"At least 8 characters, containing a\nletter and a number"
 
     },
     {
       "image": "asset/module/module_manager/on_boarding_3.png" ,
       "title": "Enjoy best in the market business kit",
-      "subtitle":"At least 8 characters, containing a letter and a number"
+      "subtitle":"At least 8 characters, containing a\nletter and a number"
 
     }
   ];

@@ -44,17 +44,17 @@ class _ScreenSignUpState extends State<ScreenSignUp>
             delay: const Duration(milliseconds: 200),
             child: Form(
               key: personalSignup,
-              child: Column(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, 
                 children: [
-                  adjustHieght(khieght * 0.1),
-                  Text(
-                    'Create your key to your business kit',
-                    style: custumText(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                  adjustHieght(khieght * 0.05),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Text(
+                      'Sign up',
+                      style: Theme.of(context).textTheme.headlineLarge, 
                     ),
                   ),
-                  adjustHieght(khieght * .04),
+                  adjustHieght(khieght * .02),
                   CustomTextFormField(
                     onTap: () {
                       setState(() {
@@ -173,18 +173,17 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                   adjustHieght(khieght * .01),
                   InkWell(
                     onTap: () => Navigator.pop(context),
-                    child: const Text.rich(
-                      TextSpan(
-                        text: 'Already have an account?   ',
-                        children: [
-                          TextSpan(
-                            text: 'Login',
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              decorationColor: kwhite,
+                    child:  Center(
+                      child: Text.rich(
+                        TextSpan(
+                          text: 'Already have an account? ' ,style: Theme.of(context).textTheme.titleMedium ,
+                          children: [
+                            TextSpan(
+                              text: 'Login',
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -192,30 +191,35 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                   Obx(() {
                     return controller.loadingregister.value
                         ? const LoadingAnimation()
-                        : EventButton(
-                            text: 'SignUp',
-                            onTap: () {
-                              tapOnPassword = false;
-
-                              if (personalSignup.currentState!.validate()) {
-                                controller.registerUser(context,
-                                    authPostModel: AuthPostmodel(
-                                        password: passwordController.text,
-                                        email: emailIdController.text,
-                                        name: nameController.text,
-                                        phoneNumber:
-                                            '+91${mobileController.text}'));
-                                //log('${AuthPostmodel(password: passwordController.text, email: emailIdController.text, name: nameController.text, phoneNumber: '+91${mobileController.text}')}');
-                                // context.read<SignUpBloc>().add(
-                                //       SignUpEvent.sendOtp(
-                                //         emailModel: EmailModel(
-                                //             email: emailIdController.text.trim()),
-                                //         isBusiness: false,
-                                //       ),
-                                //     );
-                              }
-                            },
-                          );
+                        : Container(
+                          width: double.infinity,
+                          height: 55,
+                          decoration: BoxDecoration(color: kneonShade,borderRadius: BorderRadius.circular(30)),
+                          child: GestureDetector(
+                              child:Center(child: Text('SignUp',style: Theme.of(context).textTheme.titleMedium,)) ,
+                              onTap: () {
+                                tapOnPassword = false;
+                          
+                                if (personalSignup.currentState!.validate()) {
+                                  controller.registerUser(context,
+                                      authPostModel: AuthPostmodel(
+                                          password: passwordController.text,
+                                          email: emailIdController.text,
+                                          name: nameController.text,
+                                          phoneNumber:
+                                              '+91${mobileController.text}'));
+                                  //log('${AuthPostmodel(password: passwordController.text, email: emailIdController.text, name: nameController.text, phoneNumber: '+91${mobileController.text}')}');
+                                  // context.read<SignUpBloc>().add(
+                                  //       SignUpEvent.sendOtp(
+                                  //         emailModel: EmailModel(
+                                  //             email: emailIdController.text.trim()),
+                                  //         isBusiness: false,
+                                  //       ),
+                                  //     );
+                                }
+                              },
+                            ),
+                        );
                   }),
                   adjustHieght(70),
                 ],

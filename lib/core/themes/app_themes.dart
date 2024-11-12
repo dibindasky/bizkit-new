@@ -5,6 +5,7 @@ class AppThemes {
   // Light Theme Configuration
   static ThemeData lightTheme() {
     return ThemeData(
+    
       fontFamily: fontPoppins,
       scaffoldBackgroundColor: koffWhite,
       brightness: Brightness.light,
@@ -13,13 +14,20 @@ class AppThemes {
         onPrimary: kblack,
       ),
       textTheme: const TextTheme(
+
+        headlineLarge:
+            TextStyle(color: kblack, fontSize: 32, fontWeight: FontWeight.bold),
+
         bodyMedium:
             TextStyle(color: kwhite, fontSize: 14, fontWeight: FontWeight.bold),
         bodySmall: TextStyle(color: kwhite, fontSize: 12),
+
         displaySmall: TextStyle(color: kblack, fontSize: 12),
         displayMedium:
             TextStyle(fontWeight: FontWeight.bold, color: kblack, fontSize: 14),
-        titleMedium: TextStyle(fontSize: 15, color: kblack),
+
+        titleMedium: TextStyle(fontSize: 15, color: kblack,fontWeight: FontWeight.bold),
+        titleSmall: TextStyle(fontSize: 13, color: kblack)
       ),
       progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: kblack,

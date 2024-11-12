@@ -31,20 +31,19 @@ class ScreenOtpValidation extends StatelessWidget {
                 },
                 icon: const Icon(Icons.arrow_back_ios_new, color: kwhite),
               ),
-              adjustHieght(40),
-              Text('Enter OTP to verify',
-                  style: textHeadStyle1.copyWith(
-                      color: neonShade, fontSize: kwidth * 0.07)),
+              adjustHieght(80),
+              Text('We just sent an OTP',
+                  style: Theme.of(context).textTheme.headlineLarge),
               adjustHieght(20),
+
               Text(
-                  'A 4 digit OTP has been sent to your ${isEmail ? 'email address' : 'phone number'}'),
+                  ' Enter the security code we sent to\n ${isEmail ? 'email address' : 'phone number'}', style: Theme.of(context).textTheme.titleSmall),
               // const Text(
               //   "email",
               //   style: TextStyle(color: neonShade),
               // ),
               adjustHieght(20),
-              Text('Enter OTP Text', style: textHeadStyle1),
-              adjustHieght(20),
+      
               Pinput(
                 mainAxisAlignment: MainAxisAlignment.start,
                 onCompleted: (value) {
@@ -86,6 +85,14 @@ class ScreenOtpValidation extends StatelessWidget {
                   ),
                 ),
               ),
+              adjustHieght(25),
+              Row(
+                children: [
+                  Text('Dont\'t get the code? ',style: Theme.of(context).textTheme.displayMedium,),
+                  Text('Resent it',style: TextStyle(color: kneonDark),)
+                ],
+              ),
+            
               const Spacer(),
               Obx(() {
                 if (controller.loadingOtpEmail.value ||
@@ -95,6 +102,7 @@ class ScreenOtpValidation extends StatelessWidget {
                 }
                 return kempty;
               }),
+          
               const Spacer()
             ],
           ),

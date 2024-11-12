@@ -1,10 +1,8 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
-import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/validators/validators.dart';
@@ -57,52 +55,52 @@ class _ScreenLoginState extends State<ScreenLogin>
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-             
-              adjustHieght(khieght * 0.10),
-               TextButton(onPressed: (){ 
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const ScreenOnboardingGeneral()));
-              }, child: Text('to on boarding')),
-              SizedBox(
-                width: double.infinity,
-                height: khieght * 0.25,
-                child: Image.asset('asset/images/Bizkit.png'),
-              ),
-              Text(
-                'Your key to your business',
-                style: custumText(
-                  fontSize: kwidth * 0.043,
-                  fontWeight: FontWeight.bold,
+
+              adjustHieght(khieght * 0.20),
+                           
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  'Sign in',
+                  style: Theme.of(context).textTheme.headlineLarge,
                 ),
               ),
               adjustHieght(khieght * .02),
               Container(
                 decoration: BoxDecoration(
-                  // color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(25),
+                  color: kblack,
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: TabBar(
                   controller: _tabController,
                   dividerColor: knill,
+                  indicatorSize: TabBarIndicatorSize.tab,
                   indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: neonShade),
-                  labelColor: kwhite,
+                      borderRadius: BorderRadius.circular(5),
+                      color: kneonShade),
+                  labelColor: kblack,
                   unselectedLabelColor: kwhite,
                   tabs: [
                     Tab(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        // padding: const EdgeInsets.symmetric(horizontal: 16),
                         alignment: Alignment.center,
-                        child: const Text('OTP Login'),
+                        child: const Text(
+                          'OTP Login',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                     Tab(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        // padding: const EdgeInsets.symmetric(horizontal: 16),
                         alignment: Alignment.center,
-                        child: const Text('Password Login'),
+                        child: const Text('Password Login',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, letterSpacing: 1)),
                       ),
                     ),
                   ],
@@ -133,28 +131,42 @@ class _ScreenLoginState extends State<ScreenLogin>
                               child: Obx(() {
                                 return controller.loadingLogin.value
                                     ? const LoadingAnimation()
-                                    : EventButton(
-                                        text: 'Send OTP',
-                                        onTap: () {
-                                          if (loginOtpKey.currentState!
-                                              .validate()) {
-                                            final isEmail = isValidEmail(
-                                                emailPhoneController.text);
-                                            FocusScope.of(context).unfocus();
-                                            controller.loginUser(
-                                              context,
-                                              authPostModel: isEmail
-                                                  ? AuthPostmodel(
-                                                      email:
-                                                          emailPhoneController
-                                                              .text)
-                                                  : AuthPostmodel(
-                                                      phoneNumber:
-                                                          '+91${emailPhoneController.text}'),
-                                              emailLogin: isEmail,
-                                            );
-                                          }
-                                        },
+                                    : Container(
+                                        width: double.infinity,
+                                        height: 55,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            color: kneonShade),
+                                        child: GestureDetector(
+                                          child: Center(
+                                              child: Text(
+                                            'Send otp',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium,
+                                          )),
+                                          onTap: () {
+                                            if (loginOtpKey.currentState!
+                                                .validate()) {
+                                              final isEmail = isValidEmail(
+                                                  emailPhoneController.text);
+                                              FocusScope.of(context).unfocus();
+                                              controller.loginUser(
+                                                context,
+                                                authPostModel: isEmail
+                                                    ? AuthPostmodel(
+                                                        email:
+                                                            emailPhoneController
+                                                                .text)
+                                                    : AuthPostmodel(
+                                                        phoneNumber:
+                                                            '+91${emailPhoneController.text}'),
+                                                emailLogin: isEmail,
+                                              );
+                                            }
+                                          },
+                                        ),
                                       );
                               }),
                             ),
@@ -212,34 +224,48 @@ class _ScreenLoginState extends State<ScreenLogin>
                               child: Obx(() {
                                 return controller.loadingLoginPassword.value
                                     ? const LoadingAnimation()
-                                    : EventButton(
-                                        text: 'Login',
-                                        onTap: () {
-                                          if (loginPasswordKey.currentState!
-                                              .validate()) {
-                                            final isPhone = isValidPhoneNumber(
-                                                emailPhonePasswordController
-                                                    .text);
-                                            String emailOrPhone =
-                                                emailPhonePasswordController
-                                                    .text;
-                                            print(
-                                                'email or phone  ==> $emailOrPhone');
-                                            if (isPhone) {
-                                              emailOrPhone = '+91$emailOrPhone';
-                                            }
-                                            FocusScope.of(context).unfocus();
-                                            controller.loginUsingPassword(
-                                              context,
-                                              authPostModel: AuthPostmodel(
-                                                emailOrPhone: emailOrPhone,
-                                                password:
-                                                    passwordController.text,
-                                              ),
-                                            );
+                                    : GestureDetector(
+                                      child: Container(
+                                          height: 55,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              color: kneonShade),
+                                          child: Center(
+                                              child: Text(
+                                            'Login',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium,
+                                          ))),
+                                      onTap: () {
+                                        if (loginPasswordKey.currentState!
+                                            .validate()) {
+                                          final isPhone = isValidPhoneNumber(
+                                              emailPhonePasswordController
+                                                  .text);
+                                          String emailOrPhone =
+                                              emailPhonePasswordController
+                                                  .text;
+                                          print(
+                                              'email or phone  ==> $emailOrPhone');
+                                          if (isPhone) {
+                                            emailOrPhone =
+                                                '+91$emailOrPhone';
                                           }
-                                        },
-                                      );
+                                          FocusScope.of(context).unfocus();
+                                          controller.loginUsingPassword(
+                                            context,
+                                            authPostModel: AuthPostmodel(
+                                              emailOrPhone: emailOrPhone,
+                                              password:
+                                                  passwordController.text,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    );
                               }),
                             ),
                             kHeight30,
@@ -264,9 +290,7 @@ class _ScreenLoginState extends State<ScreenLogin>
       children: [
         Text(
           'Don\'t have an account?',
-          style: TextStyle(
-            fontSize: kwidth * 0.03,
-          ),
+          style: Theme.of(context).textTheme.displayMedium,
         ),
         adjustWidth(10),
         InkWell(
@@ -277,13 +301,9 @@ class _ScreenLoginState extends State<ScreenLogin>
               FocusScope.of(context).unfocus();
             });
           },
-          child: Text(
+          child:const Text(
             'Sign Up',
-            style: TextStyle(
-              fontSize: kwidth * 0.037,
-              decoration: TextDecoration.underline,
-              decorationColor: kwhite,
-            ),
+            style: TextStyle(color: kneonDark)
           ),
         ),
       ],

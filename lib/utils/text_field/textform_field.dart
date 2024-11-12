@@ -104,9 +104,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         textCapitalization: widget.textCapitalization,
         maxLines: widget.maxLines ?? 1,
         style: TextStyle(
-          color: kwhite,
+          color: kblack,
           fontSize: kwidth * widget.textSize,
         ),
+        
         maxLength: widget.maxlegth,
         onChanged: widget.onChanaged,
         onSaved: widget.onSubmitted,
@@ -137,16 +138,18 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           labelStyle: custumText(
             colr: widget.clr ?? klightgrey,
           ),
+          enabledBorder: OutlineInputBorder(
+              borderSide:const BorderSide(color:Colors.black12 , width: 1,), // Border color and width
+              borderRadius: BorderRadius.circular(8), // Rounded corners
+            ),
           border: UnderlineInputBorder(
             borderSide:
                 widget.showUnderline ? const BorderSide() : BorderSide.none,
             borderRadius: BorderRadius.circular(7),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(7),
-            borderSide: const BorderSide(
-              color: kwhite,
-            ),
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color:Colors.black12 , width: 1,),
           ),
         ),
         validator: (value) {

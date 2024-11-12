@@ -328,14 +328,14 @@ class CardViewRowWiceIcons extends StatelessWidget {
                 backgroundColor: kblack,
                 builder: (context) => PreviewScreenRowIconsModelSheet(
                   fromPreview: true,
-                  image: imagePhone,
+                  image: gifPhone,
                   items: phone,
                   itemsHeading: const ['Phone number'],
                 ),
               );
             }
           },
-          image: imagePhone,
+          image: gifPhone,
         ),
         // email bottom sheet
 

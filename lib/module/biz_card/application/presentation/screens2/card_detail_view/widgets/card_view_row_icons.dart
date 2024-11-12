@@ -62,14 +62,14 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     backgroundColor: kblack,
                     builder: (context) => PreviewScreenRowIconsModelSheet(
                       fromPreview: false,
-                      image: imagePhone,
+                      image: gifPhone,
                       items: phone,
                       itemsHeading: itemsHead,
                     ),
                   );
                 }
               },
-              image: imagePhone,
+              image: gifPhone,
             );
           }),
           // email bottom sheet
@@ -103,7 +103,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     backgroundColor: kblack,
                     builder: (context) => PreviewScreenRowIconsModelSheet(
                       fromPreview: false,
-                      image: imagePhone,
+                      image: gifPhone,
                       items: email,
                       itemsHeading: itemsHead,
                     ),
@@ -274,7 +274,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                           );
                         },
                       ),
-            image: imageSpinner,
+            image: gifSpinner,
           ),
           // location navigator
           DetailSharingIconWidget(

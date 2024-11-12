@@ -57,12 +57,12 @@ class PreviewRowWiceIcons extends StatelessWidget {
               backgroundColor: kblack,
               builder: (context) => PreviewScreenRowIconsModelSheet(
                 fromPreview: fromPreview,
-                image: imagePhone,
+                image: gifPhone,
                 items: items,
               ),
             );
           },
-          image: imagePhone,
+          image: gifPhone,
         ),
         // email bottom sheet
         DetailSharingIconWidget(
@@ -101,7 +101,7 @@ class PreviewRowWiceIcons extends StatelessWidget {
               backgroundColor: kblack,
               builder: (context) => PreviewScreenRowIconsModelSheet(
                 fromPreview: fromPreview,
-                image: imagePhone,
+                image: gifPhone,
                 items: items,
               ),
             );
@@ -163,7 +163,7 @@ class PreviewRowWiceIcons extends StatelessWidget {
               );
             },
           ),
-          image: imageSpinner,
+          image: gifSpinner,
         ),
         // location navigator
         DetailSharingIconWidget(

@@ -247,6 +247,7 @@ class AuthenticationController extends GetxController {
       if (!loginStatus) {
         // if user not loged in navigate to loginpage
         context.go(Routes.loginPage);
+
       } else {
         final module = await getLastUsedModule();
         Get.find<ModuleController>().chooseModule(context, module: module);

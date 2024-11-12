@@ -176,13 +176,6 @@ const imageInstagram = 'asset/images/instagram.jpeg';
 const imageYoutube = 'asset/images/youtube.jpeg';
 const imageTelegram = 'asset/images/telegram_png..png';
 
-//gif card view
-const imagePhone = 'asset/images/phone.png';
-const imageSpinner = 'asset/images/social_media.png';
-const gifMail = 'asset/images/letter.png';
-const gifGlobe = 'asset/images/globe.png';
-const gifLocation = 'asset/images/location.png';
-
 const imageBanking = 'asset/images/banking.png';
 const imagePerson = 'asset/images/persona.png';
 const imageAchivement = 'asset/images/add_icon.png';
@@ -196,9 +189,6 @@ const iconConnectionPeople = 'asset/images/connection_icon.png';
 const iconAddCircle = 'asset/images/add_icon.png';
 const iconNotification = 'asset/images/notification_icon.png';
 const iconBizkitPng = 'asset/images/bizkitIcon.png';
-const iconAchivementsMedal = 'asset/images/achivements_medal.png';
-const iconPersonOutline = 'asset/images/person_outline.png';
-const iconBankingHouse = 'asset/images/bank_house.png';
 
 // empty images
 const emptyDataGif = 'asset/images/Reminders.gif';

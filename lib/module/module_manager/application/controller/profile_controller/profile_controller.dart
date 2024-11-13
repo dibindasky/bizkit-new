@@ -70,14 +70,17 @@ class ProfileController extends GetxController {
       isLoadingEmail.value = true;
       isLoadingPhone.value = true;
       final result = await profileService.getUserProfileData();
-      result.fold((left) => null, (right) {
+      result.fold((left) => null 
+      
+      , (right) {
         name.value = right.name ?? '';
         checkName = right.name ?? '';
         userName.text = right.name ?? '';
         email.value = right.email ?? '';
         checkEmail = right.email ?? '';
         userMail.text = right.email ?? '';
-
+          log(right.profileImage.toString()); 
+          print('get profile success');
         // Remove +91 from number
         String editNumber = (right.phoneNumber ?? '').replaceFirst('+91', '');
         phone.value = editNumber;

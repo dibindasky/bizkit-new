@@ -3,6 +3,7 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/pro
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,6 +42,7 @@ class ScreenProfileEdit extends StatelessWidget {
                           )
                         : controller.image.value.isNotEmpty
                             ? ProfileImagePreview(
+                              isProfileScreen: false,
                                 image: controller.image.value,
                                 onCamPressed: () {
                                   controller.profileIamgePicking(context, true);
@@ -51,18 +53,55 @@ class ScreenProfileEdit extends StatelessWidget {
                             : SizedBox(
                                 width: 135.w,
                                 height: 135.h,
-                                child: CircleAvatar(
-                                    backgroundColor:kgrey,
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                        child: Text(
-                                            style: textHeadStyle1.copyWith(
-                                                color: kblack, fontSize: 80.sp),
-                                            controller.name.value.length <= 1
-                                                ? controller.name.value
-                                                : controller.name
-                                                    .substring(0, 2)
-                                                    .toUpperCase()))));
+                                child: Stack(children: [
+                                  Stack(
+                                    children: [
+                                      SizedBox(
+                                          width: 135.w,
+                                          height: 135.h,
+                                          child: CircleAvatar(
+                                              backgroundColor: kgrey,
+                                              child: FittedBox(
+                                                  fit: BoxFit.scaleDown,
+                                                  child: Text(
+                                                      style: textHeadStyle1
+                                                          .copyWith(
+                                                              color: kblack,
+                                                              fontSize: 80.sp),
+                                                      controller.name.value
+                                                                  .length <=
+                                                              1
+                                                          ? controller
+                                                              .name.value
+                                                          : controller.name
+                                                              .substring(0, 2)
+                                                              .toUpperCase())))),
+                                      Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                cameraAndGalleryPickImage(
+                                                    context: context,
+                                                    onPressCam: () {
+                                                      controller
+                                                          .profileIamgePicking(
+                                                              context, true);
+                                                    },
+                                                    onPressGallery: () {
+                                                      controller
+                                                          .profileIamgePicking(
+                                                              context, false);
+                                                    },
+                                                    tittle: 'Pick Image');
+                                              },
+                                              icon: const Icon(
+                                                Icons.camera_alt_rounded,
+                                                color: neonShade,
+                                              ))),
+                                    ],
+                                  ),
+                                ]),
+                              );
                   }
                 }),
                 kHeight50,
@@ -116,7 +155,10 @@ class ScreenProfileEdit extends StatelessWidget {
                                     onPressed: () {
                                       controller.updateEmail(context);
                                     },
-                                    icon: const Icon(Icons.check_circle_outline,color:neonShade,))
+                                    icon: const Icon(
+                                      Icons.check_circle_outline,
+                                      color: neonShade,
+                                    ))
                                 : null),
                   );
                 }),

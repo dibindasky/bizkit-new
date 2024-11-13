@@ -1,9 +1,5 @@
-
 import 'dart:convert';
 import 'dart:ui';
-
-
-import 'package:bizkit/core/routes/routes.dart';
 
 import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
@@ -11,7 +7,6 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 class BusinessCard extends StatelessWidget {
   const BusinessCard({super.key, this.bizcard});
@@ -24,19 +19,13 @@ class BusinessCard extends StatelessWidget {
       children: [
         Center(
           child: BizcardWidget(
-            onTap: () {
-              GoRouter.of(context).pushNamed(Routes.cardDetailView,
-                  pathParameters: {
-                    'cardId': '66d1acb6128a4e4cb982580f',
-                    'myCard': 'true'
-                  });
-            },
+            onTap: () {},
             width: 362.w,
             height: 260.h,
             designation: bizcard?.designation ?? 'Designation',
             name: bizcard?.name ?? 'Name',
             personImage: personDemoImg,
-            qrScanner: 'asset/images/qr_image.jpeg',
+            qrScanner: bizcard?.qRLink ?? "",
           ),
         ),
         adjustHieght(10.h),
@@ -116,34 +105,8 @@ class BusinessCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: Container(
-                height: 30.h,
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: kBorderRadius10,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Icon(Icons.remove_red_eye_outlined),
-                    Text(
-                      '${bizcard?.views ?? 0}',
-                      style: Theme.of(context).textTheme.displaySmall,
-                    ),
-                    Text(
-                      'views',
-                      style: Theme.of(context).textTheme.displaySmall,
-                    )
-                  ],
-                ),
-              ),
-            ),
-            adjustWidth(5.w),
-            Expanded(
               child: GestureDetector(
-                onTap: () => _showQRDialog(
-                    context, bizcard?.qRLink ?? '', bizcard?.name ?? 'name'),
+                onTap: () {},
                 child: Container(
                   height: 30.h,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -154,9 +117,41 @@ class BusinessCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Icon(Icons.qr_code_2_outlined),
+                      const Icon(Icons.remove_red_eye_outlined),
                       Text(
-                        'show QR',
+                        '${bizcard?.views ?? 0}',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
+                      Text(
+                        'views',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            adjustWidth(5.w),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  height: 30.h,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: kBorderRadius10,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Icon(Icons.share_outlined),
+                      Text(
+                        '2,110',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
+                      Text(
+                        'shared',
                         style: Theme.of(context).textTheme.displaySmall,
                       )
                     ],

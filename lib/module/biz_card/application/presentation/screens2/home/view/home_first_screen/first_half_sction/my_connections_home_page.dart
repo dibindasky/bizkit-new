@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class CardMyConnectionContainerHomePage extends StatelessWidget {
-  const  CardMyConnectionContainerHomePage({super.key});
+  const CardMyConnectionContainerHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -116,18 +116,22 @@ class CardMyConnectionContainerHomePage extends StatelessWidget {
                   ),
                 );
               } else {
-                final length= connectionsController.myConnections.length + 1;
+                final length = connectionsController.myConnections.length + 1;
                 return ListView.separated(
-                  controller: connectionsController.fetchMyConnectionScrollController,
+                  controller:
+                      connectionsController.fetchMyConnectionScrollController,
                   physics: const BouncingScrollPhysics(),
                   separatorBuilder: (context, index) =>
                       adjustWidth(kwidth * .02),
-                  itemCount:length+(connectionsController.fetchMyconnectionLoadMore.value?1:0),
+                  itemCount: length +
+                      (connectionsController.fetchMyconnectionLoadMore.value
+                          ? 1
+                          : 0),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     if (index == length &&
                         connectionsController.fetchMyconnectionLoadMore.value) {
-                    return const Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
                     MyConnection data = MyConnection();
                     if (index != 0) {

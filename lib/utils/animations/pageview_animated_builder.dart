@@ -5,19 +5,21 @@ typedef ChildBuilder = Widget Function(int index, BuildContext context);
 typedef OnPageCallBack = void Function(int index);
 
 class PagviewAnimateBuilder extends StatefulWidget {
-  const PagviewAnimateBuilder({
-    Key? key,
-    required this.pageController,
-    required this.pageValue,
-    required this.child,
-    required this.pageCount,
-    required this.onpageCallBack,
-  }) : super(key: key);
+  const PagviewAnimateBuilder(
+      {Key? key,
+      required this.pageController,
+      required this.pageValue,
+      required this.child,
+      required this.pageCount,
+      required this.onpageCallBack,
+      this.offAnimation = true})
+      : super(key: key);
   final PageController pageController;
   final double pageValue;
   final ChildBuilder child;
   final int pageCount;
   final OnPageCallBack onpageCallBack;
+  final bool? offAnimation;
 
   @override
   PagviewAnimateBuilderState createState() => PagviewAnimateBuilderState();
@@ -31,24 +33,26 @@ class PagviewAnimateBuilderState extends State<PagviewAnimateBuilder> {
   void initState() {
     super.initState();
     // Auto-scroll every 3 seconds
-    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
-      if (widget.pageCount == 1) return;
-      if (widget.pageController.page == widget.pageCount - 1 ||
-          widget.pageController.page == 0) {
-        next = !next;
-      }
-      if (next) {
-        widget.pageController.nextPage(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      } else {
-        widget.pageController.previousPage(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
+    if (widget.offAnimation == true) {
+      _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+        if (widget.pageCount == 1) return;
+        if (widget.pageController.page == widget.pageCount - 1 ||
+            widget.pageController.page == 0) {
+          next = !next;
+        }
+        if (next) {
+          widget.pageController.nextPage(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        } else {
+          widget.pageController.previousPage(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        }
+      });
+    }
   }
 
   @override

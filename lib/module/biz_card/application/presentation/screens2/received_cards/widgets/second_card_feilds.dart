@@ -7,7 +7,7 @@ import 'package:bizkit/module/biz_card/application/controller/received_card/rece
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/received_cards/received_card_screen.dart';
 import 'package:bizkit/packages/location/location_service.dart';
-import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
+import 'package:bizkit/utils/images/image_slidable_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/preview_commen_widgets/preview_pageview_image_builder/widget/bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/home/view/first_and_second_commen/pageview_animated_builder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
+import 'package:bizkit/utils/images/image_slidable_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

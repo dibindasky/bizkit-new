@@ -8,7 +8,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
-import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
+import 'package:bizkit/utils/images/image_slidable_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

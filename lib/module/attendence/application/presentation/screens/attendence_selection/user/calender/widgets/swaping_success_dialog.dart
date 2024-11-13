@@ -72,7 +72,7 @@ showSwapLeaveDialog({required BuildContext context}) {
                             Get.back(id: 22);
                             showSwapLeaveSuccessDialog(context: context);
                           },
-                          wdth: 300.w,
+                          width: 300.w,
                         ),
                         adjustHieght(12.h),
                       ],
@@ -141,7 +141,7 @@ showSwapLeaveSuccessDialog({required BuildContext context}) {
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          wdth: 300.w,
+                          width: 300.w,
                         ),
                         adjustHieght(12.h),
                       ],

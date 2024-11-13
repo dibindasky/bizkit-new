@@ -172,7 +172,7 @@ class ScreenAddTask extends StatelessWidget {
                             child: EventButton(
                               color: const LinearGradient(
                                   colors: [neonShade, neonShade]),
-                              wdth: 300.w,
+                              width: 300.w,
                               text: edit ? 'Edit Task' : 'Create Task',
                               onTap: () {
                                 createNewTask(controller, context);

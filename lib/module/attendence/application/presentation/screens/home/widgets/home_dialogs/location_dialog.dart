@@ -55,7 +55,7 @@ showTrunOnLocationDialog({required BuildContext context}) {
                             neonShade,
                           ],
                         ),
-                        wdth: 300.w,
+                        width: 300.w,
                       ),
                       const SizedBox(height: 20),
                     ],

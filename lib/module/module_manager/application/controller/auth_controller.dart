@@ -239,7 +239,7 @@ class AuthenticationController extends GetxController {
     Get.find<ModuleController>().deleteAllControlers();
   }
 
-  checkOnBoarding(BuildContext context) async {
+  Future<void> checkOnBoarding(BuildContext context) async {
     bool logedOrNot = await SecureStorage.getOnBoardBool();
     logedOrNot
         ? checkLoginStatus(context)

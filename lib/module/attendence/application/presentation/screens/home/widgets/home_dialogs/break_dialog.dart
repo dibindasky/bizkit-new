@@ -97,7 +97,7 @@ class ShowBreakDialogSate extends State<ShowBreakDialog> {
                       onTap: () {
                         Navigator.of(context).pop();
                       },
-                      wdth: 300.w,
+                      width: 300.w,
                     ),
                   ],
                 ),

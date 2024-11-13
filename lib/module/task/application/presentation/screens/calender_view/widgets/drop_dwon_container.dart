@@ -115,7 +115,7 @@ class TaskSortingBottomSheet extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: EventButton(
-                    wdth: 200.w,
+                    width: 200.w,
                     text: 'Start Sorting task',
                     onTap: () {
                       Navigator.pop(context);

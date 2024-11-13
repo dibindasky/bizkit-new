@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -19,7 +20,14 @@ class BusinessCard extends StatelessWidget {
       children: [
         Center(
           child: BizcardWidget(
-            onTap: () {},
+            onTap: () {
+              print('on tap working for navigation');
+              GoRouter.of(context).pushNamed(Routes.cardDetailView,
+              pathParameters: {
+                'cardId': '66d1acb6128a4e4cb982580f',
+                'myCard': 'true'
+              });
+            },
             width: 362.w,
             height: 260.h,
             designation: bizcard?.designation ?? 'Designation',

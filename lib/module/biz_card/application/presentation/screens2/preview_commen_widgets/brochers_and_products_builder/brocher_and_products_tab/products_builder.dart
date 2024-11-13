@@ -81,7 +81,7 @@ class ProductsBuilder extends StatelessWidget {
                                           ),
                                           EventButton(
                                             hieght: 35,
-                                            wdth: 90,
+                                            width: 90,
                                             text: 'View',
                                             onTap: () {
                                               Navigator.of(context).push(

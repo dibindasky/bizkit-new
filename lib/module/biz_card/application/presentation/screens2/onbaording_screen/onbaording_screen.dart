@@ -110,7 +110,7 @@ class BizkitOnBoardingScreenFirst extends StatelessWidget {
               ),
               const Spacer(),
               EventButton(
-                wdth: 330,
+                width: 330,
                 borderRadius: 25,
                 text: 'Next',
                 onTap: () {
@@ -209,7 +209,7 @@ class BizkitOnBoardingScreenSecond extends StatelessWidget {
               ),
               const Spacer(),
               EventButton(
-                wdth: 330,
+                width: 330,
                 borderRadius: 25,
                 text: 'Next',
                 onTap: () {
@@ -294,7 +294,7 @@ class BizkitOnBoardingScreenThird extends StatelessWidget {
               ),
               const Spacer(),
               EventButton(
-                wdth: 330,
+                width: 330,
                 borderRadius: 25,
                 text: 'Continue',
                 onTap: () {

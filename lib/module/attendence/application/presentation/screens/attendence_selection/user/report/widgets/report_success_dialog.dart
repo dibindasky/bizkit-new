@@ -64,7 +64,7 @@ showReportSuccessDialog({required BuildContext context}) {
                           Get.offNamed(Routes.attendenceReport, id: 2);
                           Navigator.of(context).pop();
                         },
-                        wdth: 300.w,
+                        width: 300.w,
                       ),
                       adjustHieght(12.h),
                     ],

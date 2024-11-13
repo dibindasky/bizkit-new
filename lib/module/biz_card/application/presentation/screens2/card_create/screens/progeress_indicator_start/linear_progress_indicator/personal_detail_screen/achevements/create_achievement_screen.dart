@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
-import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
+import 'package:bizkit/utils/images/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';

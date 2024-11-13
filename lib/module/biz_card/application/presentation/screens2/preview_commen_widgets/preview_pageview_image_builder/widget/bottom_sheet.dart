@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/image_preview/image_preview.dart';
+import 'package:bizkit/utils/images/image_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

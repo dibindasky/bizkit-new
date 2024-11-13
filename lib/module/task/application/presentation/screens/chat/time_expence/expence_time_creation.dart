@@ -122,7 +122,7 @@ class _TimeExpenceCreationState extends State<TimeExpenceCreation> {
                           );
                         }
                       },
-                      wdth: double.infinity,
+                      width: double.infinity,
                     ),
               kHeight10,
             ],

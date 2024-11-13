@@ -90,7 +90,7 @@ class ScreenTaskHome extends StatelessWidget {
                 Center(
                   child: EventButton(
                     hieght: 40.h,
-                    wdth: 270.w,
+                    width: 270.w,
                     text: 'Generate Report',
                     textColr: kblack,
                     onTap: () {

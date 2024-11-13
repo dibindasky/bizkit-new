@@ -9,7 +9,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens2/card_cr
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/widgets/image_preview_under_textfield.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_achievent_deletion_model/personal_achievent_deletion_model.dart';
-import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
+import 'package:bizkit/utils/images/image_slidable_list.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';

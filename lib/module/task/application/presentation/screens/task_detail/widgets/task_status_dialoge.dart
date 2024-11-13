@@ -146,7 +146,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                             .assignAll(controller.singleTask.value.tags ?? []);
                       }
                     },
-                    wdth: double.infinity,
+                    width: double.infinity,
                   ),
                   kHeight10,
                   EventButton(
@@ -156,7 +156,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                       GoRouter.of(context).pop();
                       showKillTaskConfirmationDialog();
                     },
-                    wdth: double.infinity,
+                    width: double.infinity,
                   ),
                   kHeight10,
                   EventButton(
@@ -165,7 +165,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                       GoRouter.of(context).pop();
                       showCompleteATaskConfirmationDialog();
                     },
-                    wdth: double.infinity,
+                    width: double.infinity,
                   ),
                   kHeight10,
                 ],

@@ -25,7 +25,7 @@ class BizcardWidget extends StatelessWidget {
   final String? qrScanner;
   final String? name;
   final String? designation;
-  final void Function()? onTap;
+  final VoidCallback? onTap;
   final double width, height;
   final FlipCardController _flipCardController;
 

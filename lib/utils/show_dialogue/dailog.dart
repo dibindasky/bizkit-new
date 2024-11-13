@@ -14,16 +14,12 @@ showConfirmationDialog(
     context: context,
     builder: (context) => Dialog(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-          border: Border.all(color: neonShade),
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 35),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(heading ?? ''),
-            const SizedBox(height: 10),
+            Text(heading ?? '',style: Theme.of(context).textTheme.titleMedium,),
+            const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -32,13 +28,15 @@ showConfirmationDialog(
                   child: InkWell(
                     onTap: () => GoRouter.of(context).pop(false),
                     child: Container(
+
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
+                        
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(5)),
+                            const BorderRadius.all(Radius.circular(35)),
                         border: Border.all(color: neonShade),
                       ),
-                      child: const Center(child: Text('Cancel')),
+                      child:  Center(child: Text('Cancel',style: Theme.of(context).textTheme.titleMedium,)),
                     ),
                   ),
                 ),
@@ -54,10 +52,10 @@ showConfirmationDialog(
                       decoration: BoxDecoration(
                         color: neonShade,
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(5)),
+                            const BorderRadius.all(Radius.circular(35)),
                         border: Border.all(color: neonShade),
                       ),
-                      child: Center(child: Text(actionButton ?? 'Delete')),
+                      child: Center(child: Text(actionButton ?? 'Delete',style: Theme.of(context).textTheme.bodyMedium)),
                     ),
                   ),
                 ),

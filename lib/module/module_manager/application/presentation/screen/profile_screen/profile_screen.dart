@@ -22,52 +22,113 @@ class ProfileScreen extends StatelessWidget {
     });
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: knill,
-        ),
+        // appBar: AppBar(
+        //   automaticallyImplyLeading: false,
+        //   backgroundColor: knill,
+        // ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              kHeight50,
-              SizedBox(
-                height: 135.h,
-                width: 135.w,
-                child: Obx(() {
-                  if (profileController.isLoadingImage.value) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else {
-                    return profileController.image.value.isNotEmpty
-                        ? ProfileImagePreview(
-                            image: profileController.image.value,
-                          )
-                        : CircleAvatar(
-                            backgroundColor: kgrey,
-                            child: FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: profileController.name.value.isEmpty
-                                    ? Icon(
-                                        Icons.person,
-                                        size: 80.sp,
-                                      )
-                                    : Text(
-                                        style: textHeadStyle1.copyWith(
-                                            color: kblack, fontSize: 80.sp),
-                                        profileController.name.value.length <= 1
-                                            ? profileController.name.value
-                                            : profileController.name
-                                                .substring(0, 2)
-                                                .toUpperCase())));
-                  }
-                }),
+              kHeight30,
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: SizedBox(
+                      height: 70.h,
+                      width: 70.w,
+                      child: Obx(() {
+                        if (profileController.isLoadingImage.value) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else {
+                          return profileController.image.value.isNotEmpty
+                              ? ProfileImagePreview(
+                                  isProfileScreen: true,
+                                  image: profileController.image.value,
+                                )
+                              : CircleAvatar(
+                                  backgroundColor: kgrey,
+                                  child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: profileController
+                                              .name.value.isEmpty
+                                          ? Icon(
+                                              Icons.person,
+                                              size: 40.sp,
+                                            )
+                                          : Text(
+                                              style: textHeadStyle1.copyWith(
+                                                  color: kblack,
+                                                  fontSize: 40.sp),
+                                              profileController
+                                                          .name.value.length <=
+                                                      1
+                                                  ? profileController.name.value
+                                                  : profileController.name
+                                                      .substring(0, 2)
+                                                      .toUpperCase())));
+                        }
+                      }),
+                    ),
+                  ),
+                  kWidth10,
+                  SizedBox(
+                    child: Obx(() => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              profileController.name.value,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            Text(profileController.email.value,
+                                style: Theme.of(context).textTheme.titleSmall)
+                          ],
+                        )),
+                  )
+                ],
               ),
-              kHeight50,
+              const Padding(
+                padding: EdgeInsets.only(left: 15, right: 15),
+                child: Divider(
+                  color: Colors.grey,
+                ),
+              ),
+              kHeight20,
               ProfileTiles(
-                heading: 'Edit Personal Details',
+                heading: 'Account Settings',
+                subtitle: 'Profile,Name,Email,Phone',
                 onTap: () {
                   // profileController.getProfileDetails();
                   GoRouter.of(context).pushNamed(Routes.editProfile);
+                },
+              ),
+              ProfileTiles(
+                heading: 'Privacy and Security',
+                subtitle: 'Level,Security Prefrences',
+                onTap: () {},
+              ),
+              ProfileTiles(
+                heading: 'Data Management',
+                subtitle: 'Archieved,Data Eport,Delete',
+                onTap: () {},
+              ),
+              ProfileTiles(
+                heading: 'Connections & Networking',
+                subtitle: 'Blocked,Restricted,Report Connections',
+                onTap: () {},
+              ),
+              ProfileTiles(
+                heading: 'Help & Support',
+                subtitle: 'Contact,Faq etc',
+                onTap: () {},
+              ),
+              ProfileTiles(
+                heading: 'Matcho Meter',
+                onTap: () {
+                  GoRouter.of(context).pushNamed(Routes.matchoMeter);
                 },
               ),
               ProfileTiles(
@@ -75,18 +136,12 @@ class ProfileScreen extends StatelessWidget {
                 onTap: () {
                   showConfirmationDialog(
                     actionButton: 'Log-out',
-                    heading: 'Are you sure want to logout from Bizkit',
+                    heading: 'Are you sure want to logout',
                     context,
                     onPressed: () {
                       Get.find<AuthenticationController>().logOut(context);
                     },
                   );
-                },
-              ),
-              ProfileTiles(
-                heading: 'Matcho Meter',
-                onTap: () {
-                  GoRouter.of(context).pushNamed(Routes.matchoMeter);
                 },
               ),
             ],
@@ -102,12 +157,12 @@ class ProfileTiles extends StatelessWidget {
     Key? key,
     this.widget,
     required this.heading,
-    this.subtittle,
+    this.subtitle,
     this.onTap,
   }) : super(key: key);
   final Widget? widget;
   final String heading;
-  final String? subtittle;
+  final String? subtitle;
   final VoidCallback? onTap;
 
   @override
@@ -121,7 +176,7 @@ class ProfileTiles extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
         child: ColoredBox(
           color: textFieldFillColr,
           child: Padding(
@@ -133,21 +188,12 @@ class ProfileTiles extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(heading,
-                        style: TextStyle(
-                          fontSize: kwidth * 0.045,
-                          fontWeight: FontWeight.w200,
-                          color: kwhite,
-                        )),
-                    subtittle == null
+                        style: Theme.of(context).textTheme.titleLarge),
+                    subtitle == null
                         ? const SizedBox()
-                        : Text(
-                            subtittle!,
-                            style: TextStyle(
-                              fontSize: kwidth * 0.03,
-                              fontWeight: FontWeight.w200,
-                              color: klightgrey,
-                            ),
-                          ),
+                        : Text(subtitle!,
+                            style: const TextStyle(
+                                fontSize: 11, color: Colors.grey)),
                   ],
                 ),
                 const Spacer(),
@@ -161,7 +207,7 @@ class ProfileTiles extends StatelessWidget {
                   },
                   icon: const Icon(
                     Icons.arrow_forward_ios_sharp,
-                    color: kwhite,
+                    color: kblack,
                     size: 17,
                   ),
                 )

@@ -1,20 +1,25 @@
+import 'dart:convert';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flip_card/flip_card.dart';
+import 'package:flip_card/flip_card_controller.dart';
 
 class BizcardWidget extends StatelessWidget {
-  const BizcardWidget(
-      {super.key,
-      this.designation,
-      this.name,
-      this.personImage,
-      this.qrScanner,
-      this.onTap,
-      required this.width,
-      required this.height});
+  BizcardWidget({
+    super.key,
+    this.designation,
+    this.name,
+    this.personImage,
+    this.qrScanner,
+    this.onTap,
+    required this.width,
+    required this.height,
+  }) : _flipCardController = FlipCardController();
 
   final String? personImage;
   final String? qrScanner;
@@ -22,9 +27,20 @@ class BizcardWidget extends StatelessWidget {
   final String? designation;
   final VoidCallback? onTap;
   final double width, height;
+  final FlipCardController _flipCardController;
 
   @override
   Widget build(BuildContext context) {
+    return FlipCard(
+      controller: _flipCardController,
+      direction: FlipDirection.HORIZONTAL,
+      flipOnTouch: false,
+      front: _buildFrontCard(context),
+      back: _buildBackCard(context),
+    );
+  }
+
+  Widget _buildFrontCard(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -44,10 +60,11 @@ class BizcardWidget extends StatelessWidget {
               offset: const Offset(1, 1),
             ),
             const BoxShadow(
-                color: Colors.white,
-                offset: Offset(-1, -1),
-                blurRadius: 2,
-                spreadRadius: 0),
+              color: Colors.white,
+              offset: Offset(-1, -1),
+              blurRadius: 2,
+              spreadRadius: 0,
+            ),
           ],
         ),
         child: Column(
@@ -100,16 +117,62 @@ class BizcardWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.bodySmall,
             ),
             adjustHieght(10.h),
-            Container(
-              width: 80,
-              height: 50,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(qrScanner ?? 'qrScanner'),
-                    fit: BoxFit.cover),
+            GestureDetector(
+              onTap: () => _flipCardController.toggleCard(),
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: kBorderRadius5,
+                  image: DecorationImage(
+                    image: MemoryImage(base64Decode(qrScanner ?? 'qrScanner')),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBackCard(BuildContext context) {
+    return GestureDetector(
+      onTap: () => _flipCardController.toggleCard(),
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          borderRadius: kBorderRadius25,
+          color: kwhite,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade600,
+              spreadRadius: 0,
+              blurRadius: 2,
+              offset: const Offset(1, 1),
+            ),
+            const BoxShadow(
+              color: Colors.white,
+              offset: Offset(-1, -1),
+              blurRadius: 2,
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Center(
+          child: Container(
+            width: width * 0.8,
+            height: width * 0.8,
+            decoration: BoxDecoration(
+              borderRadius: kBorderRadius20,
+              image: DecorationImage(
+                image: MemoryImage(base64Decode(qrScanner!)),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
         ),
       ),
     );

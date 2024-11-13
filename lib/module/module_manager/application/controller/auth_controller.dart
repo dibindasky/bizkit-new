@@ -1,12 +1,8 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:bizkit/core/model/token/access_token/token_model.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
-import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
 import 'package:bizkit/module/module_manager/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/module/module_manager/data/sqflite/users_local_service.dart';
 import 'package:bizkit/module/module_manager/domain/repository/sqflite/users_local_service_repo.dart';
@@ -105,7 +101,7 @@ class AuthenticationController extends GetxController {
     }, (r) {
       completeLogin(context, r);
       showSnackbar(context,
-          message: 'User Registered Successfully',
+          message: 'User Registered Successfully', 
           backgroundColor: kneonShade,
           textColor: kblack);
     });

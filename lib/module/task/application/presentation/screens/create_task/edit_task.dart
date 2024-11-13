@@ -152,7 +152,7 @@ class ScreenEditTask extends StatelessWidget {
                             child: EventButton(
                                 color: const LinearGradient(
                                     colors: [neonShade, neonShade]),
-                                wdth: 300.w,
+                                width: 300.w,
                                 text: 'Edit Task',
                                 onTap: () {
                                   if (_formKey.currentState!.validate()) {

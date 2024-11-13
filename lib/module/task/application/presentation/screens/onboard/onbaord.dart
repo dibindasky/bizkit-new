@@ -124,7 +124,7 @@ class _ScreenTaskOnBoardingScreenState
               right: 0,
               child: Center(
                 child: EventButton(
-                  wdth: 100,
+                  width: 100,
                   borderRadius: 10,
                   text: 'Next',
                   onTap: () {

@@ -38,7 +38,7 @@ class ScreenCardLevelSharing extends StatelessWidget {
                 const SwitchButtons(),
                 adjustHieght(khieght * .02),
                 EventButton(
-                  wdth: 100,
+                  width: 100,
                   text: 'Save',
                   onTap: () {
                     Navigator.pop(context);

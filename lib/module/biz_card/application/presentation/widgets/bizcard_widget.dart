@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -22,7 +20,7 @@ class BizcardWidget extends StatelessWidget {
   final String? qrScanner;
   final String? name;
   final String? designation;
-  final void Function()? onTap;
+  final VoidCallback? onTap;
   final double width, height;
 
   @override

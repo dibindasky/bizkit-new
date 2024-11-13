@@ -263,7 +263,7 @@ class ReportsView extends StatelessWidget {
                                   Center(
                                     child: Obx(
                                       () => EventButton(
-                                        wdth: kwidth * 0.9,
+                                        width: kwidth * 0.9,
                                         text: controller.fileDownloading.value
                                             ? 'Downloading...'
                                             : 'Generate Report',
@@ -304,7 +304,7 @@ class ReportsView extends StatelessWidget {
                     );
                   }
                 },
-                wdth: double.infinity,
+                width: double.infinity,
               ),
               adjustHieght(15.h),
             ],

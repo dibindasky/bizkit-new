@@ -174,7 +174,7 @@ class _AttendenceMsPeltAndPellScreenState
                               neonShade,
                               neonShade,
                             ]),
-                            wdth: 300.w,
+                            width: 300.w,
                             text: 'Change PELT / PELL',
                             textColr: kblack,
                             onTap: () {

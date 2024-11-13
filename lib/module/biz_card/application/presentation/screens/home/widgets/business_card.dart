@@ -1,7 +1,5 @@
-
 import 'dart:convert';
 import 'dart:ui';
-
 
 import 'package:bizkit/core/routes/routes.dart';
 
@@ -25,11 +23,12 @@ class BusinessCard extends StatelessWidget {
         Center(
           child: BizcardWidget(
             onTap: () {
+              print('on tap working for navigation');
               GoRouter.of(context).pushNamed(Routes.cardDetailView,
-                  pathParameters: {
-                    'cardId': '66d1acb6128a4e4cb982580f',
-                    'myCard': 'true'
-                  });
+              pathParameters: {
+                'cardId': '66d1acb6128a4e4cb982580f',
+                'myCard': 'true'
+              });
             },
             width: 362.w,
             height: 260.h,

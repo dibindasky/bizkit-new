@@ -74,7 +74,7 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
                 Center(
                   child: EventButton(
                     color: const LinearGradient(colors: [neonShade, neonShade]),
-                    wdth: 160.w,
+                    width: 160.w,
                     text: folderName != null ? 'Save Changes' : 'Create Folder',
                     onTap: () {
                       if (folderName != null && folderId != null) {

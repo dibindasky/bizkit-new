@@ -202,7 +202,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                     adjustHieght(20.h),
                     Center(
                       child: EventButton(
-                        wdth: kwidth * 98,
+                        width: kwidth * 98,
                         text: 'Get Report',
                         onTap: _getReport,
                       ),

@@ -158,7 +158,7 @@ class CalendarBottomSheet extends StatelessWidget {
                         Navigator.of(context).pop();
                         showLeaveSuccessDialog(context: context);
                       },
-                      wdth: 320.w,
+                      width: 320.w,
                       color: const LinearGradient(
                         colors: [
                           Color.fromRGBO(6, 199, 172, 1),

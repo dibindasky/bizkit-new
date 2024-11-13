@@ -12,6 +12,8 @@ class AppThemes {
       colorScheme: const ColorScheme.light(
         primary: kneon,
         onPrimary: kblack,
+        secondary: kgrey, 
+        surface: kneonDark,
       ),
       textTheme: const TextTheme(
 

@@ -3,6 +3,7 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_create_update.dart';
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/level_sharing_settings.dart';
 
@@ -37,7 +38,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens2/reminde
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/account_switching/account_switching_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/profile_edit_screen.dart';
-import 'package:bizkit/utils/image_preview/image_slidable_list.dart';
+import 'package:bizkit/utils/images/image_slidable_list.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/signup_screen.dart';
@@ -73,7 +74,6 @@ class GoRouterConfig {
 
   /// general routes
   static final generalRoutes = [
-
     // Splash
     GoRoute(
       name: Routes.onBoarding,
@@ -81,7 +81,7 @@ class GoRouterConfig {
       // builder: (context, state) => const ScreenConnectionDetailFilling(),
       builder: (context, state) => const ScreenOnboardingGeneral(),
     ),
-    
+
     // Splash
     GoRoute(
       name: Routes.initial,
@@ -305,9 +305,16 @@ class GoRouterConfig {
       name: Routes.cardUpdating,
       path: Routes.cardUpdating,
       builder: (context, state) {
-        return const CardSecondUpdation();
+        return const BizcardCreateOrUpdateScreen();
       },
     ),
+    // GoRoute(
+    //   name: Routes.cardUpdating,
+    //   path: Routes.cardUpdating,
+    //   builder: (context, state) {
+    //     return const CardSecondUpdation();
+    //   },
+    // ),
 
     GoRoute(
       name: Routes.cardCreationProfilePage,

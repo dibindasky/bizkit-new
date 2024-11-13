@@ -808,7 +808,7 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: EventButton(
-                wdth: kwidth,
+                width: kwidth,
                 color: const LinearGradient(colors: [kneon, kneon]),
                 text: 'Save',
                 textStyle: Theme.of(context)

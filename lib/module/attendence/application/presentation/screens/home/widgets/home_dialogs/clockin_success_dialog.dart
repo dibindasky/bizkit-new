@@ -63,7 +63,7 @@ showClockInSuccessDialog({required BuildContext context}) {
                             controller.clockinOrClockout();
                             Navigator.of(context).pop();
                           },
-                          wdth: 300.w,
+                          width: 300.w,
                         ),
                         adjustHieght(12.h),
                         EventButton(
@@ -71,7 +71,7 @@ showClockInSuccessDialog({required BuildContext context}) {
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          wdth: 300.w,
+                          width: 300.w,
                         ),
                       ],
                     ),

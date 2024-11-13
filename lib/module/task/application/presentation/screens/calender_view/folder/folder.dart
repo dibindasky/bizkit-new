@@ -268,7 +268,7 @@ void showTaskSelectionBottomSheet(
               ),
             ),
             EventButton(
-              wdth: 320.w,
+              width: 320.w,
               onTap: () async {
                 if (isFromInner == true) {
                   if (taskController.selectedTasks.isNotEmpty) {

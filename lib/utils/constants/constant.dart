@@ -312,7 +312,7 @@ List<void Function()> myTeamActivitiesOnTaps = [
   () {
     Get.toNamed(Routes.attendenceMsPeltAndPell, id: 22);
   },
-]
+];
   
   final List<Map<String,dynamic>>onBoardingData=[
     {

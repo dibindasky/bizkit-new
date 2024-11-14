@@ -11,6 +11,7 @@ const Color kneon = Color.fromARGB(255, 25, 255, 221);
 const Color kneonDark = Color.fromARGB(255, 6, 199, 172);
 const Color kblue = Colors.blue;
 const Color kgrey = Color.fromARGB(255, 117, 115, 115);
+const Color klightgrey = Color.fromARGB(223, 231, 231, 233);
 
 // ---------------------------------------------------------
 
@@ -18,7 +19,7 @@ const Color textFieldFillColr = Colors.white;
 const Color smallBigGrey = Color.fromRGBO(255, 255, 255, 0.1);
 const Color kGrayLight = Color.fromRGBO(73, 73, 73, 1);
 const Color bottomsheetContainerclr = Color.fromRGBO(49, 49, 49, 1);
-const Color klightgrey = Color.fromARGB(255, 169, 169, 169);
+
 const Color kNotificationColor = Color(0xFF333333);
 const Color kwhite = Colors.white;
 const Color kgreen = Colors.green;

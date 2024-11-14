@@ -45,6 +45,8 @@ class _PersonalInfoSwichsState extends State<PersonalInfoSwitchs> {
                         false;
                   }
                 },
+                textFieldFillColr,
+                Border.all(color: Theme.of(context).colorScheme.onPrimary),
               ),
         adjustHieght(20.h),
         if (widget.isCommonLevelSharing)

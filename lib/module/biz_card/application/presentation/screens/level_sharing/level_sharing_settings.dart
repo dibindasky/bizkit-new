@@ -1,7 +1,7 @@
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/level_sharing_app_bar.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/business_info_switchs.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/personal_info_swichs.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/tabs/business_info_switchs.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/tabs/personal_info_swichs.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/personl_business_tabs.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_responce/individual_shared_fields_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_responce/shared_fields.dart';
@@ -42,7 +42,8 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
       body: SafeArea(
         child: Column(
           children: [
-            LevelSharingAppBar(widget: widget),
+            LevelSharingAppBar(
+                isCommonLevelSharing: widget.isCommonLevelSharing),
             PersonalAndBusinessInfoTab(tabController: tabController),
             Expanded(
               child: TabBarView(
@@ -67,9 +68,10 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
                             applicableToIndividual: levelSharingController
                                 .commonLevelSharedFields.value
                                 .copyWith(applicableToIndividual: value));
-                  })
+                  }, textFieldFillColr,
+                    Border.all(color: Theme.of(context).colorScheme.onPrimary))
                 : kempty,
-            adjustHieght(5),
+            adjustHieght(15.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: EventButton(
@@ -115,7 +117,7 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
                 },
               ),
             ),
-            adjustHieght(khieght * .05),
+            adjustHieght(khieght * .04),
           ],
         ),
       ),

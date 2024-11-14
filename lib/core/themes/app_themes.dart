@@ -11,9 +11,10 @@ class AppThemes {
       colorScheme: const ColorScheme.light(
         primary: kneon,
         onPrimary: kblack,
-        secondary: kgrey, 
+        secondary: kgrey,
         surface: kneonDark,
       ),
+      cardColor: kwhite,
       textTheme: const TextTheme(
           headlineLarge: TextStyle(
               color: kblack, fontSize: 32, fontWeight: FontWeight.bold),

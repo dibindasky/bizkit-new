@@ -133,8 +133,8 @@ class BizCardNavBarScreen extends StatelessWidget {
           body: Stack(
             children: [
               _widgetOptions.elementAt(controller.slectedtabIndex.value),
-              CardPromptHomePage(
-                  showPrompt: controller.slectedtabIndex.value == 1),
+              // CardPromptHomePage(
+              //     showPrompt: controller.slectedtabIndex.value == 1),
               Positioned(
                   left: 0,
                   right: 0,

@@ -21,8 +21,7 @@ class BizkitConnectionsTab extends StatelessWidget {
     return Expanded(
       child: RefreshIndicator(
         onRefresh: () async {
-          connectionsController.searchConnections(
-              );
+          connectionsController.searchConnections();
           await Future.delayed(const Duration(seconds: 2));
         },
         child: Obx(
@@ -34,8 +33,7 @@ class BizkitConnectionsTab extends StatelessWidget {
             } else if (connectionsController.connectionsSearchList.isEmpty) {
               return ErrorRefreshIndicator(
                 onRefresh: () async {
-                  connectionsController.searchConnections(
-                      );
+                  connectionsController.searchConnections();
                   await Future.delayed(const Duration(seconds: 2));
                 },
                 errorMessage: 'No bizcard connections',
@@ -46,17 +44,18 @@ class BizkitConnectionsTab extends StatelessWidget {
                 controller: connectionsController.myConnectionScrollController,
                 separatorBuilder: (context, index) => kHeight5,
                 shrinkWrap: true,
-                itemCount: connectionsController.connectionsSearchList.length+(connectionsController.myConnectionLoadMore.value?1:0),
+                itemCount: connectionsController.connectionsSearchList.length +
+                    (connectionsController.myConnectionLoadMore.value ? 1 : 0),
                 itemBuilder: (context, index) {
-                  if(index==connectionsController.connectionsSearchList.length&&connectionsController.myConnectionLoadMore.value){
+                  if (index ==
+                          connectionsController.connectionsSearchList.length &&
+                      connectionsController.myConnectionLoadMore.value) {
                     return const Center(child: CircularProgressIndicator());
                   }
                   //final data = state.bizkitConnections![index];
                   return Card(
-                  
                     color: lightColr,
                     child: ListTile(
-                      
                       onTap: () {
                         if ((connectionsController
                                     .myConnections[index].cards?.length ??

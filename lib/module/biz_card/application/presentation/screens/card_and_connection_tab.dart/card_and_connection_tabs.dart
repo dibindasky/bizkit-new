@@ -3,6 +3,8 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_and
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/tabs/received_cards_tab.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/tabs/shared_cards_tab.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -80,7 +82,7 @@ class _BizCardAndConnectionScreenState extends State<BizCardAndConnectionScreen>
                       SharedCardsTab(),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

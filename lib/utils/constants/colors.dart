@@ -12,6 +12,7 @@ const Color kneonDark = Color.fromARGB(255, 6, 199, 172);
 const Color kblue = Colors.blue;
 const Color kgrey = Color.fromARGB(255, 117, 115, 115);
 const Color klightgrey = Color.fromARGB(223, 231, 231, 233);
+const Color kred = Color.fromARGB(255, 255, 0, 0);
 
 // ---------------------------------------------------------
 
@@ -25,7 +26,7 @@ const Color kwhite = Colors.white;
 const Color kgreen = Colors.green;
 const Color kyellow = Color(0xFFFFCE30);
 const Color klightGrey = Color(0xFFF5F5F5);
-const Color kred = Color.fromARGB(255, 255, 0, 0);
+
 const Color neonShade = Color.fromRGBO(6, 199, 172, 1);
 const Color kneonShade = Color.fromRGBO(1, 253, 220, 1);
 const Color klightred = Color(0xFFFFECEF);

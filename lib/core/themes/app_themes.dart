@@ -50,6 +50,7 @@ class AppThemes {
           foregroundColor: kblack,
         ),
       ),
+      popupMenuTheme: const PopupMenuThemeData(color: kwhite),
       extensions: const <ThemeExtension<dynamic>>[
         ContainerThemeData(
           backgroundColor: kred,

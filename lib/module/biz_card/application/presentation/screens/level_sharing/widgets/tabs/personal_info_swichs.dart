@@ -17,208 +17,221 @@ class _PersonalInfoSwichsState extends State<PersonalInfoSwitchs> {
   @override
   build(BuildContext context) {
     final levelSharingController = Get.find<LevelSharingController>();
-    return Column(
-      children: [
-        widget.isCommonLevelSharing
-            ? kempty
-            : buildSwitch(
-                "Personal Details",
-                levelSharingController.individualPersonalDetails.value,
-                (value) {
-                  levelSharingController.changeindividualPersonalDetails(value);
+    return Obx(
+      () => Column(
+        children: [
+          widget.isCommonLevelSharing
+              ? kempty
+              : buildSwitch(
+                  "Personal Details",
+                  levelSharingController.individualPersonalDetails.value,
+                  (value) {
+                    levelSharingController
+                        .changeindividualPersonalDetails(value);
 
-                  if (!levelSharingController.individualPersonalDetails.value) {
-                    levelSharingController.changePersonalSharedFields(
-                      isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                      individualPersonalSharedFields: levelSharingController
-                          .individualPersonalSharedFields.value
-                          .copyWith(
-                              name: false,
-                              bloodGroup: false,
-                              dob: false,
-                              email: false,
-                              personalAchievements: false,
-                              personalSocialMedia: false,
-                              phone: false),
-                    );
-                    levelSharingController.individualPersonalDetails.value =
-                        false;
-                  }
-                },
-                textFieldFillColr,
-                Border.all(color: Theme.of(context).colorScheme.onPrimary),
-              ),
-        adjustHieght(20.h),
-        if (widget.isCommonLevelSharing)
-          buildSwitch("Name",
-              levelSharingController.personalSharedFields.value.name ?? false,
-              (value) {
-            levelSharingController.changePersonalSharedFields(
-                isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                commonPersonalSharedFields: levelSharingController
-                    .personalSharedFields.value
-                    .copyWith(name: value));
-          })
-        else
-          buildSwitch(
-              "Name",
-              levelSharingController
-                      .individualPersonalSharedFields.value.name ??
-                  false, (value) {
-            if (levelSharingController.individualPersonalDetails.value) {
+                    if (!levelSharingController
+                        .individualPersonalDetails.value) {
+                      levelSharingController.changePersonalSharedFields(
+                        isCommonBusinessSharedField:
+                            widget.isCommonLevelSharing,
+                        individualPersonalSharedFields: levelSharingController
+                            .individualPersonalSharedFields.value
+                            .copyWith(
+                                name: false,
+                                bloodGroup: false,
+                                dob: false,
+                                email: false,
+                                personalAchievements: false,
+                                personalSocialMedia: false,
+                                phone: false),
+                      );
+                      levelSharingController.individualPersonalDetails.value =
+                          false;
+                    }
+                  },
+                  textFieldFillColr,
+                  Border.all(color: Theme.of(context).colorScheme.onPrimary),
+                ),
+          adjustHieght(20.h),
+          if (widget.isCommonLevelSharing)
+            buildSwitch("Name",
+                levelSharingController.personalSharedFields.value.name ?? false,
+                (value) {
               levelSharingController.changePersonalSharedFields(
                   isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                  individualPersonalSharedFields: levelSharingController
-                      .individualPersonalSharedFields.value
+                  commonPersonalSharedFields: levelSharingController
+                      .personalSharedFields.value
                       .copyWith(name: value));
-            }
-          }),
-        widget.isCommonLevelSharing
-            ? buildSwitch(
-                "Email",
-                levelSharingController.personalSharedFields.value.email ??
+            })
+          else
+            buildSwitch(
+                "Name",
+                levelSharingController
+                        .individualPersonalSharedFields.value.name ??
                     false, (value) {
+              if (levelSharingController.individualPersonalDetails.value) {
                 levelSharingController.changePersonalSharedFields(
                     isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                    commonPersonalSharedFields: levelSharingController
-                        .personalSharedFields.value
-                        .copyWith(email: value));
-              })
-            : buildSwitch(
-                "Email",
-                levelSharingController
-                        .individualPersonalSharedFields.value.email ??
-                    false, (value) {
-                if (levelSharingController.individualPersonalDetails.value) {
+                    individualPersonalSharedFields: levelSharingController
+                        .individualPersonalSharedFields.value
+                        .copyWith(name: value));
+              }
+            }),
+          widget.isCommonLevelSharing
+              ? buildSwitch(
+                  "Email",
+                  levelSharingController.personalSharedFields.value.email ??
+                      false, (value) {
                   levelSharingController.changePersonalSharedFields(
                       isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                      individualPersonalSharedFields: levelSharingController
-                          .individualPersonalSharedFields.value
+                      commonPersonalSharedFields: levelSharingController
+                          .personalSharedFields.value
                           .copyWith(email: value));
-                }
-              }),
-        widget.isCommonLevelSharing
-            ? buildSwitch(
-                "Phone number",
-                levelSharingController.personalSharedFields.value.phone ??
-                    false, (value) {
-                levelSharingController.changePersonalSharedFields(
-                    isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                    commonPersonalSharedFields: levelSharingController
-                        .personalSharedFields.value
-                        .copyWith(phone: value));
-              })
-            : buildSwitch(
-                "Phone Number",
-                levelSharingController
-                        .individualPersonalSharedFields.value.phone ??
-                    false, (value) {
-                if (levelSharingController.individualPersonalDetails.value) {
+                })
+              : buildSwitch(
+                  "Email",
+                  levelSharingController
+                          .individualPersonalSharedFields.value.email ??
+                      false, (value) {
+                  if (levelSharingController.individualPersonalDetails.value) {
+                    levelSharingController.changePersonalSharedFields(
+                        isCommonBusinessSharedField:
+                            widget.isCommonLevelSharing,
+                        individualPersonalSharedFields: levelSharingController
+                            .individualPersonalSharedFields.value
+                            .copyWith(email: value));
+                  }
+                }),
+          widget.isCommonLevelSharing
+              ? buildSwitch(
+                  "Phone number",
+                  levelSharingController.personalSharedFields.value.phone ??
+                      false, (value) {
                   levelSharingController.changePersonalSharedFields(
                       isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                      individualPersonalSharedFields: levelSharingController
-                          .individualPersonalSharedFields.value
+                      commonPersonalSharedFields: levelSharingController
+                          .personalSharedFields.value
                           .copyWith(phone: value));
-                }
-              }),
-        widget.isCommonLevelSharing
-            ? buildSwitch(
-                "Personal social medias",
-                levelSharingController
-                        .personalSharedFields.value.personalSocialMedia ??
-                    false, (value) {
-                levelSharingController.changePersonalSharedFields(
-                    isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                    commonPersonalSharedFields: levelSharingController
-                        .personalSharedFields.value
-                        .copyWith(personalSocialMedia: value));
-              })
-            : buildSwitch(
-                "Personal social medias",
-                levelSharingController.individualPersonalSharedFields.value
-                        .personalSocialMedia ??
-                    false, (value) {
-                if (levelSharingController.individualPersonalDetails.value) {
+                })
+              : buildSwitch(
+                  "Phone Number",
+                  levelSharingController
+                          .individualPersonalSharedFields.value.phone ??
+                      false, (value) {
+                  if (levelSharingController.individualPersonalDetails.value) {
+                    levelSharingController.changePersonalSharedFields(
+                        isCommonBusinessSharedField:
+                            widget.isCommonLevelSharing,
+                        individualPersonalSharedFields: levelSharingController
+                            .individualPersonalSharedFields.value
+                            .copyWith(phone: value));
+                  }
+                }),
+          widget.isCommonLevelSharing
+              ? buildSwitch(
+                  "Personal social medias",
+                  levelSharingController
+                          .personalSharedFields.value.personalSocialMedia ??
+                      false, (value) {
                   levelSharingController.changePersonalSharedFields(
                       isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                      individualPersonalSharedFields: levelSharingController
-                          .individualPersonalSharedFields.value
+                      commonPersonalSharedFields: levelSharingController
+                          .personalSharedFields.value
                           .copyWith(personalSocialMedia: value));
-                }
-              }),
-        widget.isCommonLevelSharing
-            ? buildSwitch(
-                "Personal achievements",
-                levelSharingController
-                        .personalSharedFields.value.personalAchievements ??
-                    false, (value) {
-                levelSharingController.changePersonalSharedFields(
-                    isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                    commonPersonalSharedFields: levelSharingController
-                        .personalSharedFields.value
-                        .copyWith(personalAchievements: value));
-              })
-            : buildSwitch(
-                "Personal achievements",
-                levelSharingController.individualPersonalSharedFields.value
-                        .personalAchievements ??
-                    false, (value) {
-                if (levelSharingController.individualPersonalDetails.value) {
+                })
+              : buildSwitch(
+                  "Personal social medias",
+                  levelSharingController.individualPersonalSharedFields.value
+                          .personalSocialMedia ??
+                      false, (value) {
+                  if (levelSharingController.individualPersonalDetails.value) {
+                    levelSharingController.changePersonalSharedFields(
+                        isCommonBusinessSharedField:
+                            widget.isCommonLevelSharing,
+                        individualPersonalSharedFields: levelSharingController
+                            .individualPersonalSharedFields.value
+                            .copyWith(personalSocialMedia: value));
+                  }
+                }),
+          widget.isCommonLevelSharing
+              ? buildSwitch(
+                  "Personal achievements",
+                  levelSharingController
+                          .personalSharedFields.value.personalAchievements ??
+                      false, (value) {
                   levelSharingController.changePersonalSharedFields(
                       isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                      individualPersonalSharedFields: levelSharingController
-                          .individualPersonalSharedFields.value
+                      commonPersonalSharedFields: levelSharingController
+                          .personalSharedFields.value
                           .copyWith(personalAchievements: value));
-                }
-              }),
-        widget.isCommonLevelSharing
-            ? buildSwitch("Date of birth ",
-                levelSharingController.personalSharedFields.value.dob ?? false,
-                (value) {
-                levelSharingController.changePersonalSharedFields(
-                    isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                    commonPersonalSharedFields: levelSharingController
-                        .personalSharedFields.value
-                        .copyWith(dob: value));
-              })
-            : buildSwitch(
-                "Date of birth ",
-                levelSharingController
-                        .individualPersonalSharedFields.value.dob ??
-                    false, (value) {
-                if (levelSharingController.individualPersonalDetails.value) {
+                })
+              : buildSwitch(
+                  "Personal achievements",
+                  levelSharingController.individualPersonalSharedFields.value
+                          .personalAchievements ??
+                      false, (value) {
+                  if (levelSharingController.individualPersonalDetails.value) {
+                    levelSharingController.changePersonalSharedFields(
+                        isCommonBusinessSharedField:
+                            widget.isCommonLevelSharing,
+                        individualPersonalSharedFields: levelSharingController
+                            .individualPersonalSharedFields.value
+                            .copyWith(personalAchievements: value));
+                  }
+                }),
+          widget.isCommonLevelSharing
+              ? buildSwitch(
+                  "Date of birth ",
+                  levelSharingController.personalSharedFields.value.dob ??
+                      false, (value) {
                   levelSharingController.changePersonalSharedFields(
                       isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                      individualPersonalSharedFields: levelSharingController
-                          .individualPersonalSharedFields.value
+                      commonPersonalSharedFields: levelSharingController
+                          .personalSharedFields.value
                           .copyWith(dob: value));
-                }
-              }),
-        widget.isCommonLevelSharing
-            ? buildSwitch(
-                "Blood group",
-                levelSharingController.personalSharedFields.value.bloodGroup ??
-                    false, (value) {
-                levelSharingController.changePersonalSharedFields(
-                    isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                    commonPersonalSharedFields: levelSharingController
-                        .personalSharedFields.value
-                        .copyWith(bloodGroup: value));
-              })
-            : buildSwitch(
-                "Blood group",
-                levelSharingController
-                        .individualPersonalSharedFields.value.bloodGroup ??
-                    false, (value) {
-                if (levelSharingController.individualPersonalDetails.value) {
+                })
+              : buildSwitch(
+                  "Date of birth ",
+                  levelSharingController
+                          .individualPersonalSharedFields.value.dob ??
+                      false, (value) {
+                  if (levelSharingController.individualPersonalDetails.value) {
+                    levelSharingController.changePersonalSharedFields(
+                        isCommonBusinessSharedField:
+                            widget.isCommonLevelSharing,
+                        individualPersonalSharedFields: levelSharingController
+                            .individualPersonalSharedFields.value
+                            .copyWith(dob: value));
+                  }
+                }),
+          widget.isCommonLevelSharing
+              ? buildSwitch(
+                  "Blood group",
+                  levelSharingController
+                          .personalSharedFields.value.bloodGroup ??
+                      false, (value) {
                   levelSharingController.changePersonalSharedFields(
                       isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                      individualPersonalSharedFields: levelSharingController
-                          .individualPersonalSharedFields.value
+                      commonPersonalSharedFields: levelSharingController
+                          .personalSharedFields.value
                           .copyWith(bloodGroup: value));
-                }
-              }),
-      ],
+                })
+              : buildSwitch(
+                  "Blood group",
+                  levelSharingController
+                          .individualPersonalSharedFields.value.bloodGroup ??
+                      false, (value) {
+                  if (levelSharingController.individualPersonalDetails.value) {
+                    levelSharingController.changePersonalSharedFields(
+                        isCommonBusinessSharedField:
+                            widget.isCommonLevelSharing,
+                        individualPersonalSharedFields: levelSharingController
+                            .individualPersonalSharedFields.value
+                            .copyWith(bloodGroup: value));
+                  }
+                }),
+        ],
+      ),
     );
   }
 

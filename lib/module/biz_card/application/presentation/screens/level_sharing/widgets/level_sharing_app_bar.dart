@@ -1,7 +1,9 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class LevelSharingAppBar extends StatelessWidget {
@@ -14,6 +16,7 @@ class LevelSharingAppBar extends StatelessWidget {
 
   @override
   build(BuildContext context) {
+    final levelSharingController = Get.find<LevelSharingController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
@@ -47,8 +50,11 @@ class LevelSharingAppBar extends StatelessWidget {
           if (!isCommonLevelSharing)
             IconButton(
                 onPressed: () {
+                  levelSharingController.fetchAllCommonSharedFields();
                   GoRouter.of(context)
-                      .pushNamed(Routes.levelSharingSettings, extra: true);
+                      .pushNamed(Routes.levelSharingSettings, extra: {
+                    "isCommonLevelSharing": true,
+                  });
                 },
                 icon: Icon(
                   Icons.read_more,

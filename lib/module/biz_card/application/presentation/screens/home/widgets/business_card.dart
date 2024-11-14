@@ -23,8 +23,8 @@ class BusinessCard extends StatelessWidget {
       children: [
         Center(
           child: BizcardWidget(
+            bizcardId: bizcard.bizcardId ?? "",
             onTap: () {
-              // print('on tap working for navigation');
               GoRouter.of(context).pushNamed(Routes.cardDetailView,
                   pathParameters: {
                     'cardId': '66d1acb6128a4e4cb982580f',

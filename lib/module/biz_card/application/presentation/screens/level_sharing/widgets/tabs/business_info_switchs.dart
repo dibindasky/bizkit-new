@@ -19,7 +19,8 @@ class _BusinessInfoSwitchsState extends State<BusinessInfoSwitchs> {
     final levelSharingController = Get.find<LevelSharingController>();
 
     return SingleChildScrollView(
-      child: Column(
+        child: Obx(
+      () => Column(
         children: [
           widget.isCommonLevelSharing
               ? kempty
@@ -311,7 +312,7 @@ class _BusinessInfoSwitchsState extends State<BusinessInfoSwitchs> {
                 ),
         ],
       ),
-    );
+    ));
   }
 
   Widget buildSwitch(

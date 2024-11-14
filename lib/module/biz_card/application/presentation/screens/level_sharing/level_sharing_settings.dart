@@ -15,9 +15,10 @@ import 'package:get/get.dart';
 
 class BizCardLevelSharingScreen extends StatefulWidget {
   const BizCardLevelSharingScreen(
-      {super.key, this.isCommonLevelSharing = false});
+      {super.key, this.isCommonLevelSharing = false, this.bizcardId});
 
   final bool isCommonLevelSharing;
+  final String? bizcardId;
 
   @override
   State<BizCardLevelSharingScreen> createState() =>
@@ -45,32 +46,42 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
             LevelSharingAppBar(
                 isCommonLevelSharing: widget.isCommonLevelSharing),
             PersonalAndBusinessInfoTab(tabController: tabController),
-            Expanded(
-              child: TabBarView(
-                controller: tabController,
-                children: [
-                  PersonalInfoSwitchs(
-                      isCommonLevelSharing: widget.isCommonLevelSharing),
-                  BusinessInfoSwitchs(
-                      isCommonLevelSharing: widget.isCommonLevelSharing)
-                ],
-              ),
+            Obx(
+              () {
+                if (!widget.isCommonLevelSharing
+                    ? levelSharingController.individualLevelSharingLoading.value
+                    : levelSharingController.commonLevelSharingLoading.value) {
+                  return const Expanded(
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                } else {
+                  return Expanded(
+                    child: TabBarView(
+                      controller: tabController,
+                      children: [
+                        PersonalInfoSwitchs(
+                            isCommonLevelSharing: widget.isCommonLevelSharing),
+                        BusinessInfoSwitchs(
+                            isCommonLevelSharing: widget.isCommonLevelSharing)
+                      ],
+                    ),
+                  );
+                }
+              },
             ),
             adjustHieght(20.h),
-            widget.isCommonLevelSharing
-                ? buildSwitch(
-                    "Apply to all",
-                    levelSharingController.commonLevelSharedFields.value
-                            .applicableToIndividual ??
-                        false, (value) {
-                    levelSharingController
-                        .changeComSharingApplicableToIndividual(
-                            applicableToIndividual: levelSharingController
-                                .commonLevelSharedFields.value
-                                .copyWith(applicableToIndividual: value));
-                  }, textFieldFillColr,
-                    Border.all(color: Theme.of(context).colorScheme.onPrimary))
-                : kempty,
+            if (widget.isCommonLevelSharing)
+              buildSwitch(
+                  "Apply to all",
+                  levelSharingController.commonLevelSharedFields.value
+                          .applicableToIndividual ??
+                      false, (value) {
+                levelSharingController.changeComSharingApplicableToIndividual(
+                    applicableToIndividual: levelSharingController
+                        .commonLevelSharedFields.value
+                        .copyWith(applicableToIndividual: value));
+              }, textFieldFillColr,
+                  Border.all(color: Theme.of(context).colorScheme.onPrimary)),
             adjustHieght(15.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -110,14 +121,14 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
                                 .individualBusinessSharedFields.value,
                             personal: levelSharingController
                                 .individualPersonalSharedFields.value),
-                        bizcardId: levelSharingController.selectedCardId.value,
+                        bizcardId: widget.bizcardId ?? '',
                       ),
                     );
                   }
                 },
               ),
             ),
-            adjustHieght(khieght * .04),
+            adjustHieght(khieght * .04)
           ],
         ),
       ),

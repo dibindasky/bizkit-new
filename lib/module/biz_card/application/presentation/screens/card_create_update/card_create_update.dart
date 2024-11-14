@@ -1,23 +1,38 @@
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/business_info/card_detail_update_business_info.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import 'card_details_create_or_update/banking_info/card_detail_update_banking_info.dart';
+import 'card_details_create_or_update/logo_story/card_detail_update_logo_story.dart';
+import 'card_details_create_or_update/personal_info/card_detail_update_personal_info.dart';
+import 'card_details_create_or_update/products/card_detail_update_products.dart';
+
 class BizcardCreateOrUpdateScreen extends StatefulWidget {
   const BizcardCreateOrUpdateScreen({super.key});
 
   @override
-  State<BizcardCreateOrUpdateScreen> createState() => _BizcardCreateOrUpdateScreenState();
+  State<BizcardCreateOrUpdateScreen> createState() =>
+      _BizcardCreateOrUpdateScreenState();
 }
 
-class _BizcardCreateOrUpdateScreenState extends State<BizcardCreateOrUpdateScreen> with TickerProviderStateMixin{
+class _BizcardCreateOrUpdateScreenState
+    extends State<BizcardCreateOrUpdateScreen> with TickerProviderStateMixin {
   late TabController tabController;
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 5, vsync: this);
     super.initState();
   }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,31 +62,61 @@ class _BizcardCreateOrUpdateScreenState extends State<BizcardCreateOrUpdateScree
           ),
           kHeight10,
           TabBar(
-                  indicatorPadding: const EdgeInsets.all(3),
-                  dividerColor: Colors.transparent,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  controller: tabController,
-                  indicator: BoxDecoration(
-                    color: kneon,
-                    borderRadius: kBorderRadius20,
-                  ),
-                  labelStyle: textThinStyle1.copyWith(color: kwhite),
-                  labelColor: kwhite,
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        'Personal Info',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        'Business Info',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ),
-                    ),
-                  ],
-                )
+            indicatorPadding: const EdgeInsets.all(5),
+            dividerColor: knill,
+            indicatorSize: TabBarIndicatorSize.tab,
+            controller: tabController,
+            indicator: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: kBorderRadius20,
+            ),
+            isScrollable: true,
+            tabs: [
+              Tab(
+                child: Text(
+                  'Personal Info',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'Business info',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'Logo Story',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'Products',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'Banking info',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ),
+            ],
+          ),
+          kHeight10,
+          Expanded(
+            child: TabBarView(
+              controller: tabController,
+              children: [
+                CardUpdatePersonalDetails(),
+                CardUpdateBusinesstDetails(),
+                const CardUpdateLogoStoryDetails(),
+                const CardUpdateProductDetails(),
+                CardUpdateBankingDetails(),
+              ],
+            ),
+          ),
         ]),
       ),
     );

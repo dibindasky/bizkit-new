@@ -636,31 +636,31 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                       height: 165,
                                       child: Column(
                                         children: [
-                                          ContainerPickImage(
-                                            iscardList: false,
-                                            onPressedCam: () {
-                                              textExtractionController
-                                                  .pickedImageUrl
-                                                  .clear();
-                                              Navigator.of(context).push(
-                                                  cardFadePageRoute(
-                                                      const SelectedCard()));
-                                              textExtractionController
-                                                  .pickImageScanning(
-                                                      camera: true);
-                                            },
-                                            onPressedGallery: () {
-                                              textExtractionController
-                                                  .pickedImageUrl
-                                                  .clear();
-                                              Navigator.of(context).push(
-                                                  cardFadePageRoute(
-                                                      const SelectedCard()));
-                                              textExtractionController
-                                                  .pickImageScanning(
-                                                      camera: false);
-                                            },
-                                          ),
+                                          // ContainerPickImage(
+                                          //   iscardList: false,
+                                          //   onPressedCam: () {
+                                          //     textExtractionController
+                                          //         .pickedImageUrl
+                                          //         .clear();
+                                          //     Navigator.of(context).push(
+                                          //         cardFadePageRoute(
+                                          //             const SelectedCard()));
+                                          //     textExtractionController
+                                          //         .pickImageScanning(
+                                          //             camera: true);
+                                          //   },
+                                          //   onPressedGallery: () {
+                                          //     textExtractionController
+                                          //         .pickedImageUrl
+                                          //         .clear();
+                                          //     Navigator.of(context).push(
+                                          //         cardFadePageRoute(
+                                          //             const SelectedCard()));
+                                          //     textExtractionController
+                                          //         .pickImageScanning(
+                                          //             camera: false);
+                                          //   },
+                                          // ),
                                           adjustHieght(20),
                                           TextButton(
                                             onPressed: () {

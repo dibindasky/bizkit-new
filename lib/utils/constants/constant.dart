@@ -103,6 +103,8 @@ BorderRadius kBorderRadius20 = const BorderRadius.all(Radius.circular(20));
 BorderRadius kBorderRadius25 = const BorderRadius.all(Radius.circular(25));
 BorderRadius kBorderRadius15 = const BorderRadius.all(Radius.circular(15));
 
+const kempty = SizedBox(height: 0);
+
 final kHeight5 = SizedBox(height: 5.h);
 final kHeight10 = SizedBox(height: 10.h);
 final kHeight15 = SizedBox(height: 15.h);

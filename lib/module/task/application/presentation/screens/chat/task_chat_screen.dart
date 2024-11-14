@@ -3,6 +3,7 @@ import 'package:bizkit/module/task/application/presentation/screens/chat/preview
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_list.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/chat_text_field.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/preview_widgets/preview_container_chat.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

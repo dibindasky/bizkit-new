@@ -12,6 +12,7 @@ const Color kneonDark = Color.fromARGB(255, 6, 199, 172);
 const Color kblue = Colors.blue;
 const Color kgrey = Color.fromARGB(255, 117, 115, 115);
 const Color kred = Color.fromARGB(255, 255, 0, 0);
+const Color kDarkRed = Color.fromARGB(255, 207, 1, 1);
 const Color kGrayLight = Color.fromARGB(255, 216, 216, 214);
 const Color kGreyNormal=Colors.grey; 
 const Color klightgrey = Color.fromARGB(223, 231, 231, 233);
@@ -44,7 +45,7 @@ const klightDarkGrey = Color.fromARGB(255, 40, 40, 40);
 double khieght = 850;
 double kwidth = 400;
 
-SizedBox kempty = const SizedBox(height: 0);
+// SizedBox kempty = const SizedBox(height: 0);
 // void sizeFinder(BuildContext context) {
 //   final size = MediaQuery.of(context).size;
 //   print(size.height);

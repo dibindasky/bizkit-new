@@ -2,6 +2,7 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -4,6 +4,7 @@ import 'package:bizkit/module/biz_card/application/controller/text_extraction/te
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/widgets/card_uploading_showdailogue.dart';
 import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_model/text_extraction_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:dotted_border/dotted_border.dart';

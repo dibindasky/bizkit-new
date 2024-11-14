@@ -1,3 +1,4 @@
+import 'package:bizkit/core/themes/text_field_theme.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -51,6 +52,7 @@ class AppThemes {
           foregroundColor: kblack,
         ),
       ),
+      inputDecorationTheme: InputDecorationThemes.inputDecorationLightTheme,
       popupMenuTheme: const PopupMenuThemeData(color: kwhite),
       extensions: const <ThemeExtension<dynamic>>[
         ContainerThemeData(

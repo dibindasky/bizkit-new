@@ -13,6 +13,7 @@ class AppThemes {
         onPrimary: kblack,
         secondary: kgrey, 
         surface: kneonDark,
+        onTertiary: kwhite
       ),
       textTheme: const TextTheme(
           headlineLarge: TextStyle(

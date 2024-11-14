@@ -122,6 +122,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
               }
             },
             child: TextFormField(
+
                 // buildCounter: (context, {int currentLength,bool isFocused,int? maxLength}) =>SizedBox.shrink() ,
                 textCapitalization: widget.textCapitalization,
                 focusNode: widget.focusNode ?? myFocusNode,
@@ -169,7 +170,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                 },
                 maxLines: widget.maxLines ?? 1,
                 style: TextStyle(
-                  color: kwhite,
+                  color: kblack,
                   fontSize: kwidth * 0.033,
                 ),
                 maxLength: widget.maxLength,
@@ -196,13 +197,22 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                               ),
                             )
                           : null),
+                          
                   suffixIconColor: klightgrey,
                   prefixIcon: widget.prefixIcon,
                   prefixIconColor: kwhite,
-                  fillColor: smallBigGrey,
+                  fillColor: textFieldFillColr,
                   filled: true,
                   labelText: widget.label,
                   labelStyle: custumText(colr: widget.hintColor ?? klightgrey),
+                   enabledBorder: OutlineInputBorder(
+              borderSide:const BorderSide(color:Colors.black12 , width: 1,), // Border color and width
+              borderRadius: BorderRadius.circular(8), // Rounded corners
+            ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color:Colors.black12 , width: 1,),
+          ),
                   border: widget.border ??
                       UnderlineInputBorder(
                         borderSide: BorderSide.none,

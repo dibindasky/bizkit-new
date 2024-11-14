@@ -29,6 +29,8 @@ import 'package:bizkit/module/biz_card/application/presentation/screens2/notific
 import 'package:bizkit/module/biz_card/application/presentation/screens2/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/connections_and_networking.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/macho_meter_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/matcho_meter.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/qr_screen/qr_lists.dart';
@@ -89,6 +91,18 @@ class GoRouterConfig {
       // builder: (context, state) => const ScreenConnectionDetailFilling(),
       builder: (context, state) => const ScreenGeneralSplash(),
     ),
+
+  GoRoute(path: Routes.machoMeterScreen,
+  name: Routes.machoMeterScreen,
+  builder: (context, state) => const MachoMeterScreen(),
+  ),
+
+    //blocked and restricked connection screen
+    GoRoute(
+    name: Routes.connectionsAndNetworking,
+    path: Routes.connectionsAndNetworking,
+    builder: (context, state) =>const ConnectionsAndNetworking(),
+    ), 
 
     // Account switching loader
     GoRoute(

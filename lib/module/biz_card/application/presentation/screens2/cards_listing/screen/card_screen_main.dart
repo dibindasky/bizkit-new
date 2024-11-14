@@ -633,7 +633,7 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                       child: Column(
                                         children: [
                                           
-                                          ContainerPickImage(
+                                          ContainerPickImages(
                                             iscardList: false, 
                                             onPressedCam: () {
                                               textExtractionController

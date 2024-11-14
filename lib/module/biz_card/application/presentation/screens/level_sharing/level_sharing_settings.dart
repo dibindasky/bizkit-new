@@ -1,7 +1,7 @@
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/level_sharing_app_bar.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/business_info_switchs.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/personal_info_swichs.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/tabs/business_info_switchs.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/tabs/personal_info_swichs.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/widgets/personl_business_tabs.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_responce/individual_shared_fields_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_responce/shared_fields.dart';
@@ -16,9 +16,10 @@ import 'package:get/get.dart';
 
 class BizCardLevelSharingScreen extends StatefulWidget {
   const BizCardLevelSharingScreen(
-      {super.key, this.isCommonLevelSharing = false});
+      {super.key, this.isCommonLevelSharing = false, this.bizcardId});
 
   final bool isCommonLevelSharing;
+  final String? bizcardId;
 
   @override
   State<BizCardLevelSharingScreen> createState() =>
@@ -43,34 +44,46 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
       body: SafeArea(
         child: Column(
           children: [
-            LevelSharingAppBar(widget: widget),
+            LevelSharingAppBar(
+                isCommonLevelSharing: widget.isCommonLevelSharing),
             PersonalAndBusinessInfoTab(tabController: tabController),
-            Expanded(
-              child: TabBarView(
-                controller: tabController,
-                children: [
-                  PersonalInfoSwitchs(
-                      isCommonLevelSharing: widget.isCommonLevelSharing),
-                  BusinessInfoSwitchs(
-                      isCommonLevelSharing: widget.isCommonLevelSharing)
-                ],
-              ),
+            Obx(
+              () {
+                if (!widget.isCommonLevelSharing
+                    ? levelSharingController.individualLevelSharingLoading.value
+                    : levelSharingController.commonLevelSharingLoading.value) {
+                  return const Expanded(
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                } else {
+                  return Expanded(
+                    child: TabBarView(
+                      controller: tabController,
+                      children: [
+                        PersonalInfoSwitchs(
+                            isCommonLevelSharing: widget.isCommonLevelSharing),
+                        BusinessInfoSwitchs(
+                            isCommonLevelSharing: widget.isCommonLevelSharing)
+                      ],
+                    ),
+                  );
+                }
+              },
             ),
             adjustHieght(20.h),
-            widget.isCommonLevelSharing
-                ? buildSwitch(
-                    "Apply to all",
-                    levelSharingController.commonLevelSharedFields.value
-                            .applicableToIndividual ??
-                        false, (value) {
-                    levelSharingController
-                        .changeComSharingApplicableToIndividual(
-                            applicableToIndividual: levelSharingController
-                                .commonLevelSharedFields.value
-                                .copyWith(applicableToIndividual: value));
-                  })
-                : kempty,
-            adjustHieght(5),
+            if (widget.isCommonLevelSharing)
+              buildSwitch(
+                  "Apply to all",
+                  levelSharingController.commonLevelSharedFields.value
+                          .applicableToIndividual ??
+                      false, (value) {
+                levelSharingController.changeComSharingApplicableToIndividual(
+                    applicableToIndividual: levelSharingController
+                        .commonLevelSharedFields.value
+                        .copyWith(applicableToIndividual: value));
+              }, textFieldFillColr,
+                  Border.all(color: Theme.of(context).colorScheme.onPrimary)),
+            adjustHieght(15.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: EventButton(
@@ -109,14 +122,14 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
                                 .individualBusinessSharedFields.value,
                             personal: levelSharingController
                                 .individualPersonalSharedFields.value),
-                        bizcardId: levelSharingController.selectedCardId.value,
+                        bizcardId: widget.bizcardId ?? '',
                       ),
                     );
                   }
                 },
               ),
             ),
-            adjustHieght(khieght * .05),
+            adjustHieght(khieght * .04)
           ],
         ),
       ),

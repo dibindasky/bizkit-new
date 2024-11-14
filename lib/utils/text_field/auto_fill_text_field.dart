@@ -124,6 +124,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
               }
             },
             child: TextFormField(
+
                 // buildCounter: (context, {int currentLength,bool isFocused,int? maxLength}) =>SizedBox.shrink() ,
                 textCapitalization: widget.textCapitalization,
                 focusNode: widget.focusNode ?? myFocusNode,

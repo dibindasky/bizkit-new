@@ -10,10 +10,8 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/level_sh
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/card_detail_page.dart';
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/biz_card_nav_bar.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/connection_details/connection_detail_filling.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/second_card_detail_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/update_second_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_view_deeplink/card_detail_view_deeplink.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/cards_listing/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/card_profile_creation/card_profile_creation.dart';
@@ -29,9 +27,10 @@ import 'package:bizkit/module/biz_card/application/presentation/screens2/notific
 import 'package:bizkit/module/biz_card/application/presentation/screens2/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/connections_and_networking.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/macho_meter_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/matcho_meter.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/qr_screen/level_sharing_settings.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens2/qr_screen/qr_lists.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/received_cards/widgets/second_card_feilds.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/received_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/reminder/reminder_create_update.dart';
@@ -89,6 +88,18 @@ class GoRouterConfig {
       // builder: (context, state) => const ScreenConnectionDetailFilling(),
       builder: (context, state) => const ScreenGeneralSplash(),
     ),
+
+  GoRoute(path: Routes.machoMeterScreen,
+  name: Routes.machoMeterScreen,
+  builder: (context, state) => const MachoMeterScreen(),
+  ),
+
+    //blocked and restricked connection screen
+    GoRoute(
+    name: Routes.connectionsAndNetworking,
+    path: Routes.connectionsAndNetworking,
+    builder: (context, state) =>const ConnectionsAndNetworking(),
+    ), 
 
     // Account switching loader
     GoRoute(
@@ -410,11 +421,12 @@ class GoRouterConfig {
       name: Routes.levelSharingSettings,
       path: Routes.levelSharingSettings,
       pageBuilder: (context, state) {
-        final extra = state.extra as bool;
+        final extra = state.extra as Map<String, dynamic>;
         return FadeTransitionPage(
           key: state.pageKey,
           child: BizCardLevelSharingScreen(
-            isCommonLevelSharing: extra,
+            isCommonLevelSharing: extra['isCommonLevelSharing'],
+            bizcardId: extra['bizcardId'],
           ),
         );
       },

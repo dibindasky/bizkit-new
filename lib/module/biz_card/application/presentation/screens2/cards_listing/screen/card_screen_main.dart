@@ -27,7 +27,9 @@ import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ScreenCardsLists extends StatefulWidget {
-  const ScreenCardsLists({super.key});
+  const ScreenCardsLists({
+    super.key,
+  });
 
   @override
   State<ScreenCardsLists> createState() => _ScreenCardsListsState();
@@ -337,11 +339,14 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                     ),
                                     // card name share and view button
                                     Expanded(
-                                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                        child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         kHeight5,
                                         Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start, 
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               ' ${controller.bizcards[index].companyName} ',
@@ -351,7 +356,6 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                 fontWeight: FontWeight.w700,
                                               ),
                                             ),
-                                            
                                             Text(
                                               ' ${controller.bizcards[index].designation}',
                                               overflow: TextOverflow.ellipsis,
@@ -632,32 +636,31 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                       height: 165,
                                       child: Column(
                                         children: [
-                                          
-                                          ContainerPickImage(
-                                            iscardList: false, 
-                                            onPressedCam: () {
-                                              textExtractionController
-                                                  .pickedImageUrl
-                                                  .clear();
-                                              Navigator.of(context).push(
-                                                  cardFadePageRoute(
-                                                      const SelectedCard()));
-                                              textExtractionController
-                                                  .pickImageScanning(
-                                                      camera: true);
-                                            },
-                                            onPressedGallery: () {
-                                              textExtractionController
-                                                  .pickedImageUrl
-                                                  .clear();
-                                              Navigator.of(context).push(
-                                                  cardFadePageRoute(
-                                                      const SelectedCard()));
-                                              textExtractionController
-                                                  .pickImageScanning(
-                                                      camera: false);
-                                            },
-                                          ),
+                                          // ContainerPickImage(
+                                          //   iscardList: false,
+                                          //   onPressedCam: () {
+                                          //     textExtractionController
+                                          //         .pickedImageUrl
+                                          //         .clear();
+                                          //     Navigator.of(context).push(
+                                          //         cardFadePageRoute(
+                                          //             const SelectedCard()));
+                                          //     textExtractionController
+                                          //         .pickImageScanning(
+                                          //             camera: true);
+                                          //   },
+                                          //   onPressedGallery: () {
+                                          //     textExtractionController
+                                          //         .pickedImageUrl
+                                          //         .clear();
+                                          //     Navigator.of(context).push(
+                                          //         cardFadePageRoute(
+                                          //             const SelectedCard()));
+                                          //     textExtractionController
+                                          //         .pickImageScanning(
+                                          //             camera: false);
+                                          //   },
+                                          // ),
                                           adjustHieght(20),
                                           TextButton(
                                             onPressed: () {

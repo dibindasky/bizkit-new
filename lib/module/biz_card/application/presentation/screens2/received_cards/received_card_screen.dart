@@ -119,7 +119,7 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
                       ? Column(
                           children: [
                             const Text('Create received card'),
-                            ContainerPickImage(
+                            ContainerPickImages(
                               onPressedCam: () {
                                 textExtractionController.pickedImageUrl.clear();
                                 Navigator.of(context).push(
@@ -234,8 +234,8 @@ class _ScreenCardSelfieState extends State<ScreenCardSelfie>
   }
 }
 
-class ContainerPickImage extends StatelessWidget {
-  const ContainerPickImage({
+class ContainerPickImages extends StatelessWidget {
+  const ContainerPickImages({
     this.iscardList = true,
     super.key,
     this.heading,
@@ -269,7 +269,8 @@ class ContainerPickImage extends StatelessWidget {
             children: [
               SizedBox(height: iscardList ? 30.h : 10.h),
               // adjustHieght(30),
-              Text(heading ?? 'Scan information through image'),
+              Text(heading ?? 'Scan information through image',
+          style:Theme.of(context).textTheme.titleMedium,),
               SizedBox(height: iscardList ? 30.h : 10.h),
               // adjustHieght(30),
               Row(
@@ -301,7 +302,8 @@ class ContainerPickImage extends StatelessWidget {
                                     const BorderRadius.all(Radius.circular(5)),
                                 border: Border.all(color: neonShade),
                               ),
-                              child: const Center(child: Text('Gallery')),
+                              child:  Center(child: Text('Gallery',
+          style:Theme.of(context).textTheme.titleMedium,)),
                             ),
                           ),
                         )
@@ -332,7 +334,8 @@ class ContainerPickImage extends StatelessWidget {
                               const BorderRadius.all(Radius.circular(5)),
                           border: Border.all(color: neonShade),
                         ),
-                        child: const Center(child: Text('Camera')),
+                        child: Center(child: Text('Camera',
+          style:Theme.of(context).textTheme.titleMedium,)),
                       ),
                     ),
                   ),

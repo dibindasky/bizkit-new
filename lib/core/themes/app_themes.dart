@@ -14,7 +14,9 @@ class AppThemes {
         onPrimary: kblack,
         secondary: kgrey,
         surface: kneonDark,
+        onTertiary: kwhite
       ),
+      cardColor: kwhite,
       textTheme: const TextTheme(
           headlineLarge: TextStyle(
               color: kblack, fontSize: 32, fontWeight: FontWeight.bold),
@@ -51,6 +53,7 @@ class AppThemes {
         ),
       ),
       inputDecorationTheme: InputDecorationThemes.inputDecorationLightTheme,
+      popupMenuTheme: const PopupMenuThemeData(color: kwhite),
       extensions: const <ThemeExtension<dynamic>>[
         ContainerThemeData(
           backgroundColor: kred,

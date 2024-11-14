@@ -17,6 +17,7 @@ class BizcardWidget extends StatelessWidget {
     this.personImage,
     this.qrScanner,
     this.onTap,
+    this.bizcardId,
     required this.width,
     required this.height,
   }) : _flipCardController = FlipCardController();
@@ -24,6 +25,7 @@ class BizcardWidget extends StatelessWidget {
   final String? personImage;
   final String? qrScanner;
   final String? name;
+  final String? bizcardId;
   final String? designation;
   final VoidCallback? onTap;
   final double width, height;
@@ -83,7 +85,10 @@ class BizcardWidget extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     GoRouter.of(context)
-                        .pushNamed(Routes.levelSharingSettings, extra: false);
+                        .pushNamed(Routes.levelSharingSettings, extra: {
+                      "isCommonLevelSharing": false,
+                      "bizcardId": bizcardId,
+                    });
                   },
                   child: const CircleAvatar(
                     radius: 15,
@@ -168,7 +173,7 @@ class BizcardWidget extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: kBorderRadius20,
               image: DecorationImage(
-                image: MemoryImage(base64Decode(qrScanner!)),
+                image: MemoryImage(base64Decode(qrScanner ?? '')),
                 fit: BoxFit.contain,
               ),
             ),

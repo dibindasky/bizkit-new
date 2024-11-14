@@ -14,13 +14,16 @@ const Color kgrey = Color.fromARGB(255, 117, 115, 115);
 const Color kred = Color.fromARGB(255, 255, 0, 0);
 const Color kDarkRed = Color.fromARGB(255, 207, 1, 1);
 const Color kGrayLight = Color.fromARGB(255, 216, 216, 214);
+const Color kGreyNormal=Colors.grey; 
+const Color klightgrey = Color.fromARGB(223, 231, 231, 233);
+
 
 // ---------------------------------------------------------
 
 const Color textFieldFillColr = Colors.white;
 const Color smallBigGrey = Color.fromRGBO(255, 255, 255, 0.1);
 const Color bottomsheetContainerclr = Color.fromRGBO(49, 49, 49, 1);
-const Color klightgrey = Color.fromARGB(255, 169, 169, 169);
+
 const Color kNotificationColor = Color(0xFF333333);
 const Color kwhite = Colors.white;
 const Color kgreen = Colors.green;

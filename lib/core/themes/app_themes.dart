@@ -1,3 +1,4 @@
+import 'package:bizkit/core/themes/text_field_theme.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class AppThemes {
       colorScheme: const ColorScheme.light(
         primary: kneon,
         onPrimary: kblack,
-        secondary: kgrey, 
+        secondary: kgrey,
         surface: kneonDark,
       ),
       textTheme: const TextTheme(
@@ -49,6 +50,7 @@ class AppThemes {
           foregroundColor: kblack,
         ),
       ),
+      inputDecorationTheme: InputDecorationThemes.inputDecorationLightTheme,
       extensions: const <ThemeExtension<dynamic>>[
         ContainerThemeData(
           backgroundColor: kred,

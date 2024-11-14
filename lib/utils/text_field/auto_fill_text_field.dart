@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 class AutocompleteTextField extends StatefulWidget {
   final String label;
+  final String? hintText;
   final TextEditingController? controller;
   final TextInputType? inputType;
   final bool obscureText;
@@ -51,6 +52,7 @@ class AutocompleteTextField extends StatefulWidget {
     this.onTap,
     this.focusNode,
     this.autocompleteItems,
+    this.hintText,
   }) : super(key: key);
 
   @override
@@ -167,48 +169,38 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                     widget.onChanged!(value);
                   }
                 },
+                style:Theme.of(context).textTheme.displaySmall,
                 maxLines: widget.maxLines ?? 1,
-                style: TextStyle(
-                  color: kwhite,
-                  fontSize: kwidth * 0.033,
-                ),
                 maxLength: widget.maxLength,
                 enabled: widget.enabled,
                 obscureText: widget.obscureText,
                 controller: widget.controller,
                 keyboardType: widget.inputType ?? TextInputType.name,
                 decoration: InputDecoration(
-                  counter: const SizedBox.shrink(),
-                  suffixIcon: widget.suffixIcon ??
-                      (isDropdownVisible && filteredAutocompleteItems.isNotEmpty
-                          ? IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  isDropdownVisible = !isDropdownVisible;
-                                });
-                              },
-                              icon: const CircleAvatar(
-                                radius: 10,
-                                child: Icon(
-                                  Icons.clear_rounded,
-                                  size: 15,
+                    counter: const SizedBox.shrink(),
+                    suffixIcon: widget.suffixIcon ??
+                        (isDropdownVisible &&
+                                filteredAutocompleteItems.isNotEmpty
+                            ? IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isDropdownVisible = !isDropdownVisible;
+                                  });
+                                },
+                                icon: const CircleAvatar(
+                                  radius: 10,
+                                  child: Icon(
+                                    Icons.clear_rounded,
+                                    size: 15,
+                                  ),
                                 ),
-                              ),
-                            )
-                          : null),
-                  suffixIconColor: klightgrey,
-                  prefixIcon: widget.prefixIcon,
-                  prefixIconColor: kwhite,
-                  fillColor: smallBigGrey,
-                  filled: true,
-                  labelText: widget.label,
-                  labelStyle: custumText(colr: widget.hintColor ?? klightgrey),
-                  border: widget.border ??
-                      UnderlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(7),
-                      ),
-                ),
+                              )
+                            : null),
+                    prefixIcon: widget.prefixIcon,
+                    filled: true,
+                    hintText: widget.hintText,
+                    labelText: widget.label,
+                    border: widget.border),
                 validator: (value) {
                   return ValidationTextField.validateTextField(
                       validate: widget.validate,

@@ -1,4 +1,3 @@
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/validators/validation_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -103,11 +102,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         onTap: widget.onTap,
         textCapitalization: widget.textCapitalization,
         maxLines: widget.maxLines ?? 1,
-        style: TextStyle(
-          color: kblack,
-          fontSize: kwidth * widget.textSize,
-        ),
-        
+        style: Theme.of(context).textTheme.displaySmall,
         maxLength: widget.maxlegth,
         onChanged: widget.onChanaged,
         onSaved: widget.onSubmitted,
@@ -128,29 +123,30 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       : Icons.remove_red_eye))
               : widget.suffixIcon,
           prefix: widget.prefix,
-          suffixIconColor: klightgrey,
+          // suffixIconColor: klightgrey,
           prefixIcon: widget.prefixIcon,
-          prefixIconColor: kwhite,
-          fillColor: textFieldFillColr,
+          // prefixIconColor: kwhite,
+          // fillColor: textFieldFillColr,
           filled: true,
           hintText: widget.hintText,
           labelText: widget.hintText != null ? null : widget.labelText,
-          labelStyle: custumText(
-            colr: widget.clr ?? klightgrey,
-          ),
-          enabledBorder: OutlineInputBorder(
-              borderSide:const BorderSide(color:Colors.black12 , width: 1,), // Border color and width
-              borderRadius: BorderRadius.circular(8), // Rounded corners
-            ),
-          border: UnderlineInputBorder(
-            borderSide:
-                widget.showUnderline ? const BorderSide() : BorderSide.none,
-            borderRadius: BorderRadius.circular(7),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color:Colors.black12 , width: 1,),
-          ),
+          // labelStyle: custumText(
+          //   colr: widget.clr ?? klightgrey,
+          // ),
+          // enabledBorder: OutlineInputBorder(
+          //     borderSide:const BorderSide(color:Colors.black12 , width: 1,), // Border color and width
+          //     borderRadius: BorderRadius.circular(8), // Rounded corners
+          //   ),
+          border: widget.showUnderline
+              ? UnderlineInputBorder(
+                  borderSide: const BorderSide(),
+                  borderRadius: BorderRadius.circular(7),
+                )
+              : null,
+          // focusedBorder: OutlineInputBorder(
+          //   borderRadius: BorderRadius.circular(8),
+          //   borderSide: const BorderSide(color:Colors.black12 , width: 1,),
+          // ),
         ),
         validator: (value) {
           return ValidationTextField.validateTextField(

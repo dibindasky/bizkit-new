@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/received_cards/received_card_screen.dart';
@@ -25,7 +24,7 @@ class SelectedCard extends StatelessWidget {
         backgroundColor: knill,
         title: Text(
           'Selected Cards',
-          style: textHeadStyle1,
+          style:Theme.of(context).textTheme.titleMedium,
         ),
       ),
       body: SingleChildScrollView(
@@ -96,7 +95,7 @@ class SelectedCard extends StatelessWidget {
                 Obx(
                   () => textExtractionController.pickedImageUrl.length >= 2
                       ? kempty
-                      : ContainerPickImage(
+                      : ContainerPickImages(
                           onPressedCam: () {
                             textExtractionController.pickImageScanning(
                                 camera: true);

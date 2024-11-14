@@ -18,7 +18,8 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final profileController = Get.find<ProfileController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      profileController.getProfileDetails();
+      profileController.image.isEmpty?
+      profileController.getProfileDetails():null;
     });
     return SafeArea(
       child: Scaffold(
@@ -101,7 +102,7 @@ class ProfileScreen extends StatelessWidget {
                 heading: 'Account Settings',
                 subtitle: 'Profile,Name,Email,Phone',
                 onTap: () {
-                  // profileController.getProfileDetails();
+                  profileController.getProfileDetails();
                   GoRouter.of(context).pushNamed(Routes.editProfile);
                 },
               ),
@@ -118,7 +119,9 @@ class ProfileScreen extends StatelessWidget {
               ProfileTiles(
                 heading: 'Connections & Networking',
                 subtitle: 'Blocked,Restricted,Report Connections',
-                onTap: () {},
+                onTap: () {
+                  GoRouter.of(context).pushNamed(Routes.connectionsAndNetworking);
+                },
               ),
               ProfileTiles(
                 heading: 'Help & Support',
@@ -128,7 +131,7 @@ class ProfileScreen extends StatelessWidget {
               ProfileTiles(
                 heading: 'Matcho Meter',
                 onTap: () {
-                  GoRouter.of(context).pushNamed(Routes.matchoMeter);
+                  GoRouter.of(context).pushNamed(Routes.machoMeterScreen);
                 },
               ),
               ProfileTiles(
@@ -188,12 +191,12 @@ class ProfileTiles extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(heading,
-                        style: Theme.of(context).textTheme.titleLarge),
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 15)), 
                     subtitle == null
                         ? const SizedBox()
                         : Text(subtitle!,
                             style: const TextStyle(
-                                fontSize: 11, color: Colors.grey)),
+                                fontSize: 11, fontWeight: FontWeight.w400,color: kGreyNormal)),
                   ],
                 ),
                 const Spacer(),

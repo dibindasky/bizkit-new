@@ -13,6 +13,7 @@ class AppThemes {
         onPrimary: kblack,
         secondary: kgrey,
         surface: kneonDark,
+        onTertiary: kwhite
       ),
       cardColor: kwhite,
       textTheme: const TextTheme(

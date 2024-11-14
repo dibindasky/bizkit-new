@@ -7,6 +7,8 @@ class Routes {
   static const String slidablePhotoGallery = '/slidable_photo_gallery';
   static const String pdfPreview = '/pdf_preview';
   static const String editProfile = '/edit_profile';
+  static const String connectionsAndNetworking = '/connections_networking';
+  static const String machoMeterScreen='/macho_meter_screen';
 
   // biz card module
   static const String onBoardingBizCard = '/on_boarding_bizcard';

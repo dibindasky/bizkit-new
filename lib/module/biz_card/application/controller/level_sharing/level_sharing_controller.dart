@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/biz_card/data/service/level_sharing/level_sharing_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/all_common_shared_fields_responce/all_common_shared_fields_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/business_shared_fields/business_shared_fields.dart';
@@ -180,6 +182,7 @@ class LevelSharingController extends GetxController {
       required BuildContext context}) async {
     individualLevelSharingLoading.value = true;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
+
     final data = await levelSharingService.updateIndividualSharedFields(
         updateIndividualSharedFields: updateIndividualSharedFields);
 
@@ -201,7 +204,8 @@ class LevelSharingController extends GetxController {
             backgroundColor: neonShade,
           ),
         );
-        GoRouter.of(context).pop();
+
+        // GoRouter.of(context).pop();
       },
     );
   }

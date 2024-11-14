@@ -61,7 +61,7 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
         height: 450.h,
         child: PagviewAnimateBuilder(
           pageController: pageController,
-          offAnimation: false,
+          // offAnimation: false,
           pageValue: pageValue,
           // Add 1 for the "add" button at the end
           pageCount: cardCount + 1,
@@ -95,7 +95,7 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
       width: 382.w,
       height: 450.h,
       child: PagviewAnimateBuilder(
-        offAnimation: false,
+        // offAnimation: false,
         pageController: pageController,
         pageValue: pageValue,
         pageCount: 6, // Show 6 shimmer cards while loading

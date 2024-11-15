@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/business_card.dart';
 import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
@@ -5,6 +6,7 @@ import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class BizcardsListSection extends StatefulWidget {
   const BizcardsListSection({super.key});
@@ -73,8 +75,13 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
           child: (index, context) {
             // Show add button as last item
             if (index >= cardCount) {
-              return const Center(
-                child: Icon(Icons.add, size: 40),
+              return GestureDetector(
+                onTap: () {
+                  GoRouter.of(context).pushNamed(Routes.cardCreation);
+                },
+                child: const Center(
+                  child: Icon(Icons.add, size: 40),
+                ),
               );
             }
             // Show business card if index is valid

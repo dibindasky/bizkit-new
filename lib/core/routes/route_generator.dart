@@ -3,6 +3,7 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/add_connection/add_connection.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_create_update.dart';
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/level_sharing_settings.dart';
@@ -89,17 +90,18 @@ class GoRouterConfig {
       builder: (context, state) => const ScreenGeneralSplash(),
     ),
 
-  GoRoute(path: Routes.machoMeterScreen,
-  name: Routes.machoMeterScreen,
-  builder: (context, state) => const MachoMeterScreen(),
-  ),
+    GoRoute(
+      path: Routes.machoMeterScreen,
+      name: Routes.machoMeterScreen,
+      builder: (context, state) => const MachoMeterScreen(),
+    ),
 
     //blocked and restricked connection screen
     GoRoute(
-    name: Routes.connectionsAndNetworking,
-    path: Routes.connectionsAndNetworking,
-    builder: (context, state) =>const ConnectionsAndNetworking(),
-    ), 
+      name: Routes.connectionsAndNetworking,
+      path: Routes.connectionsAndNetworking,
+      builder: (context, state) => const ConnectionsAndNetworking(),
+    ),
 
     // Account switching loader
     GoRoute(
@@ -438,7 +440,7 @@ class GoRouterConfig {
       pageBuilder: (context, state) {
         return FadeTransitionPage(
           key: state.pageKey,
-          child: const ScreenCardAddConnections(),
+          child: const AddConnectionScreen(),
         );
       },
     ),

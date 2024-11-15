@@ -1,4 +1,5 @@
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -15,8 +16,9 @@ class MyConnectionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final connectionsController = Get.find<ConnectionsController>();
+    final navbarController = Get.find<NavbarController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      connectionsController.fetchMyConnections(true);
+      // connectionsController.fetchMyConnections(true);
     });
     return SizedBox(
       child: Padding(
@@ -34,12 +36,17 @@ class MyConnectionSection extends StatelessWidget {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Text(
-                    'View all',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium
-                        ?.copyWith(fontWeight: FontWeight.w300, fontSize: 13),
+                  child: GestureDetector(
+                    onTap: () {
+                      navbarController.changeBottomBar(2);
+                    },
+                    child: Text(
+                      'View all',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(fontWeight: FontWeight.w300, fontSize: 13),
+                    ),
                   ),
                 )
               ],

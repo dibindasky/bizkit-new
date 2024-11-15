@@ -16,10 +16,12 @@ class BizCardScanAndCreateScreen extends StatefulWidget {
   const BizCardScanAndCreateScreen({super.key});
 
   @override
-  State<BizCardScanAndCreateScreen> createState() => _BizCardScanAndCreateScreenState();
+  State<BizCardScanAndCreateScreen> createState() =>
+      _BizCardScanAndCreateScreenState();
 }
 
-class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>with SingleTickerProviderStateMixin {
+class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
+    with SingleTickerProviderStateMixin {
   final GlobalKey globalKeyQRLists = GlobalKey();
 
   final GlobalKey globalKeyQRScan = GlobalKey();
@@ -51,7 +53,7 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
   @override
   void initState() {
     _controller = AnimationController(
-        vsync:this , duration: const Duration(milliseconds: 500));
+        vsync: this, duration: const Duration(milliseconds: 500));
     _controller.forward();
     super.initState();
   }
@@ -70,7 +72,7 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
       ),
       body: Container(
         width: kwidth,
-        height: 700, 
+        height: 700,
         decoration: indexofButton == 2
             ? const BoxDecoration(
                 image: DecorationImage(
@@ -82,14 +84,14 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
         child: ColoredBox(
           color: indexofButton == 2 ? kblack.withOpacity(0.8) : knill,
           child: Column(
-            children: [       
+            children: [
               adjustHieght(khieght * 0.20),
               indexofButton == 0
                   ? Column(
                       children: [
                         Container(
                           width: kwidth * 0.80,
-                          height: kwidth * 0.60, 
+                          height: kwidth * 0.60,
                           color: kwhite,
                           child: const QrScannerView(),
                         ),
@@ -99,7 +101,8 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
                   : indexofButton == 1
                       ? Column(
                           children: [
-                            Text('Create received card',style: Theme.of(context).textTheme.titleMedium),
+                            Text('Create received card',
+                                style: Theme.of(context).textTheme.titleMedium),
                             ContainerPickImage(
                               onPressedCam: () {
                                 textExtractionController.pickedImageUrl.clear();
@@ -125,7 +128,7 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
                                 GoRouter.of(context)
                                     .pushNamed(Routes.scanedDataFeilds);
                               },
-                              child:  Text(
+                              child: Text(
                                 'Create card without image',
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
@@ -247,7 +250,10 @@ class ContainerPickImage extends StatelessWidget {
             children: [
               SizedBox(height: iscardList ? 30.h : 10.h),
               // adjustHieght(30),
-              Text(heading ?? 'Scan information through image',style: Theme.of(context).textTheme.titleMedium,),
+              Text(
+                heading ?? 'Scan information through image',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               SizedBox(height: iscardList ? 30.h : 10.h),
               // adjustHieght(30),
               Row(
@@ -278,8 +284,12 @@ class ContainerPickImage extends StatelessWidget {
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(5)),
                                 border: Border.all(color: neonShade),
-                              ), 
-                              child:  Center(child: Text('Gallery',style: Theme.of(context).textTheme.titleMedium)),
+                              ),
+                              child: Center(
+                                  child: Text('Gallery',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium)),
                             ),
                           ),
                         )
@@ -310,7 +320,11 @@ class ContainerPickImage extends StatelessWidget {
                               const BorderRadius.all(Radius.circular(5)),
                           border: Border.all(color: neonShade),
                         ),
-                        child:  Center(child: Text('Camera',style: Theme.of(context).textTheme.titleMedium,)),
+                        child: Center(
+                            child: Text(
+                          'Camera',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        )),
                       ),
                     ),
                   ),

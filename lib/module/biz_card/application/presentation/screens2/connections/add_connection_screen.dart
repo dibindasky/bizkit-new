@@ -139,7 +139,10 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                           return GridView.builder(
                             controller:
                                 connectionController.userSearchScrollController,
-                            itemCount: connectionController.bizkitUsers.length+(connectionController.usersLoadMore.value?1:0),
+                            itemCount: connectionController.bizkitUsers.length +
+                                (connectionController.usersLoadMore.value
+                                    ? 1
+                                    : 0),
                             shrinkWrap: true,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
@@ -149,8 +152,11 @@ class _ScreenCardAddConnectionsState extends State<ScreenCardAddConnections> {
                               mainAxisSpacing: 20,
                             ),
                             itemBuilder: (context, index) {
-                              if (index==connectionController.bizkitUsers.length&&connectionController.usersLoadMore.value) {
-                              return const Center(child: CircularProgressIndicator());
+                              if (index ==
+                                      connectionController.bizkitUsers.length &&
+                                  connectionController.usersLoadMore.value) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
                               } else {
                                 return GridTileAddRequestConnection(
                                   data: connectionController.bizkitUsers[index],
@@ -255,11 +261,10 @@ class _GridTileAddRequestConnectionState
             showCustomConfirmationDialogue(
               context: context,
               title: widget.data?.connectionRequestId != null
-                              ? 'Remove Connection'
-                              : 'Add Connection',  
-              buttonText:  widget.data?.connectionRequestId != null
-                              ? 'Remove'
-                              : 'Add', 
+                  ? 'Remove Connection'
+                  : 'Add Connection',
+              buttonText:
+                  widget.data?.connectionRequestId != null ? 'Remove' : 'Add',
               onTap: () {
                 if (widget.fromPendingRequests) {
                   connectionController.cancelConnectionRequest(

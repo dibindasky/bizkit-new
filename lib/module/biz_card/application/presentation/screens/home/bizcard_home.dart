@@ -41,7 +41,7 @@ class BizCardHomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            kHeight50
+            kHeight50,
           ],
         ),
       ),

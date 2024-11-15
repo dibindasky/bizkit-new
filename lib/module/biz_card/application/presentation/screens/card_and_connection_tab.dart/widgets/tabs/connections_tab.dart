@@ -178,8 +178,8 @@ class ConnectionsTab extends StatelessWidget {
         child: FloatingActionButton(
           shape: const CircleBorder(),
           onPressed: () {
-            connectionsController.searchBizkitUsers();
-            // Todo Navigate to add connection screen [ it's not created ]
+            // connectionsController.searchBizkitUsers();
+            GoRouter.of(context).pushNamed(Routes.addConnection);
           },
           child: const Icon(Icons.add),
         ),

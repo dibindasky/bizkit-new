@@ -19,6 +19,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/shared_cards/sha
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/my_connection_repo.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
@@ -589,9 +590,11 @@ class ConnectionsController extends GetxController {
   }
 
   // Unfollow a connection
-  void unfollowRequest(
-      {required UnfollowConnectionModel unfollowRequest,
-      required BuildContext context}) async {
+  void unfollowRequest({
+    required UnfollowConnectionModel unfollowRequest,
+    required BuildContext context,
+    required String? toUserId,
+  }) async {
     myConnectionsLoading.value = true;
     final result = await connectionService.unfollowRequest(
         unfollowRequest: unfollowRequest);
@@ -600,8 +603,17 @@ class ConnectionsController extends GetxController {
         myConnectionsLoading.value = false;
         showSnackbar(context, message: errorMessage, backgroundColor: kred);
       },
-      (success) {
+      (success) async {
+        connectionsSearchList.removeWhere((value) => value.toUser == toUserId);
         myConnectionsLoading.value = false;
+        await myConnectionLocalService.deleteMyconnectionFromlocal(
+            currentUserId: await SecureStorage.getUserId() ?? '',
+            colToUser: toUserId??'');
+        // for(var data in connectionsSearchList){
+        //   if(data.toUser==toUserId){
+        //     data.
+        //   }
+        // }
 
         showSnackbar(context,
             message: 'Unfollow successfully', backgroundColor: neonShade);

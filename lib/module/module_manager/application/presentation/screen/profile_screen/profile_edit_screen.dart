@@ -8,6 +8,7 @@ import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ScreenProfileEdit extends StatelessWidget {
   const ScreenProfileEdit({super.key});
@@ -16,14 +17,25 @@ class ScreenProfileEdit extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProfileController controller = Get.find<ProfileController>();
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Edit Profile Screen'),
-        ),
         body: Padding(
           padding: const EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: Column(
               children: [
+                kHeight10,
+                Row(
+                children: [
+                  IconButton(
+                      onPressed: () => GoRouter.of(context).pop(),
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                      )),
+                  Text(
+                    'Edit Profile',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
                 kHeight50,
                 Obx(() {
                   if (controller.isLoadingImage.value) {

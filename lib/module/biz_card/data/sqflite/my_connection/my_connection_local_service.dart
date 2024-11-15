@@ -217,7 +217,7 @@ class MyConnectionLocalService implements MyConnectionLocalRepo {
 
         // Create a MyConnection object and add it to the list
         connections.add(MyConnection(
-            localId: localId ,
+            localId: localId,
             toUser: connection[MyConnection.colToUser] as String,
             username: connection[MyConnection.colUserNmae] as String,
             cards: cards));
@@ -226,6 +226,19 @@ class MyConnectionLocalService implements MyConnectionLocalRepo {
       return Right(SuccessResponce(data: connections));
     } catch (e) {
       return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> deleteMyconnectionFromlocal(
+      {required String currentUserId,required String colToUser}) async {
+    try {
+      const deleteUserQuery =
+          '''DELETE FROM ${BizCardSql.myConnectionTable} WHERE ${MyConnection.colCurrentUserId} = ? AND ${MyConnection.colToUser} = ?''';
+      await localService.rawDelete(deleteUserQuery, [currentUserId,colToUser]);
+      return Right(SuccessResponce(data: 'success'));
+    } catch (e) {
+      return Left(Failure(data: e.toString()));
     }
   }
 }

@@ -22,6 +22,7 @@ class Routes {
   static const String bizCardNavbar = '/bizcard_navbar';
   static const String cardCreationProfilePage = '/card_creation_profile';
   static const String cardCreation = '/card_creation';
+  static const String cardCreationDetailAdding = '/card_creation_add_detail';
   static const String cardCreationPreview = '/card_creation_preview';
   static const String notificationPage = '/notification_page';
   static const String selectedCards = '/selected_cards';

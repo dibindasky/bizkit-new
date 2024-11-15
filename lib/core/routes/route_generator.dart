@@ -5,6 +5,8 @@ import 'package:bizkit/module/attendence/application/presentation/screens/navbar
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/add_connection/add_connection.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_create_update.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_bizcard.dart/create_business_card.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_card_screen.dart';
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/level_sharing_settings.dart';
 
@@ -352,7 +354,14 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.cardCreation,
       path: Routes.cardCreation,
-      builder: (context, state) => const ScreenCardCreationStarting(),
+      builder: (context, state) => const BizcardCreateScreen(),
+    ),
+
+    // card creation starting page
+    GoRoute(
+      name: Routes.cardCreationDetailAdding,
+      path: Routes.cardCreationDetailAdding,
+      builder: (context, state) => const BizCardCreateDetailScreen(),
     ),
 
     // Second card Creation scanned data fileds

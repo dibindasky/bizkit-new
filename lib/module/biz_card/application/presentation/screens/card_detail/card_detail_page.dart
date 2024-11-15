@@ -37,9 +37,9 @@ class _BizCardDetailScreenState extends State<BizCardDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: SafeArea(
           child: Column(
             children: [
               // card user data and images

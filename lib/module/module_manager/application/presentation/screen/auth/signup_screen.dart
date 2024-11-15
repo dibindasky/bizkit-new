@@ -44,14 +44,15 @@ class _ScreenSignUpState extends State<ScreenSignUp>
             delay: const Duration(milliseconds: 200),
             child: Form(
               key: personalSignup,
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, 
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   adjustHieght(khieght * 0.05),
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: Text(
                       'Sign up',
-                      style: Theme.of(context).textTheme.headlineLarge, 
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ),
                   adjustHieght(khieght * .02),
@@ -111,7 +112,10 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                             child: Text(
                               maxLines: 3,
                               'Password must contain at least 8 characters, including lowercase & uppercase letters, numbers, and special characters',
-                              style: textThinStyle1,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(fontSize: 11),
                             ),
                           )
                         : kempty,
@@ -173,15 +177,22 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                   adjustHieght(khieght * .01),
                   InkWell(
                     onTap: () => Navigator.pop(context),
-                    child:  Center(
+                    child: Center(
                       child: Text.rich(
                         TextSpan(
-                          text: 'Already have an account? ' ,style: Theme.of(context).textTheme.titleMedium ,
+                          text: 'Already have an account? ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  fontSize: 14, fontWeight: FontWeight.w600),
                           children: [
                             TextSpan(
-                              text: 'Login',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
+                                text: 'Login',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(color: kneonDark)),
                           ],
                         ),
                       ),
@@ -192,14 +203,20 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                     return controller.loadingregister.value
                         ? const LoadingAnimation()
                         : Container(
-                          width: double.infinity,
-                          height: 55,
-                          decoration: BoxDecoration(color: kneonShade,borderRadius: BorderRadius.circular(30)),
-                          child: GestureDetector(
-                              child:Center(child: Text('SignUp',style: Theme.of(context).textTheme.titleMedium,)) ,
+                            width: double.infinity,
+                            height: 55,
+                            decoration: BoxDecoration(
+                                color: kneonShade,
+                                borderRadius: BorderRadius.circular(30)),
+                            child: GestureDetector(
+                              child: Center(
+                                  child: Text(
+                                'SignUp',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              )),
                               onTap: () {
                                 tapOnPassword = false;
-                          
+
                                 if (personalSignup.currentState!.validate()) {
                                   controller.registerUser(context,
                                       authPostModel: AuthPostmodel(
@@ -219,7 +236,7 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                                 }
                               },
                             ),
-                        );
+                          );
                   }),
                   adjustHieght(70),
                 ],

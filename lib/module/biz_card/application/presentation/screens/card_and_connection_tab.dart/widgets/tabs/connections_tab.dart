@@ -140,6 +140,9 @@ class ConnectionsTab extends StatelessWidget {
                                   PopupMenuItem(
                                     onTap: () {
                                       connectionsController.unfollowRequest(
+                                          toUserId: connectionsController
+                                              .connectionsSearchList[index]
+                                              .toUser,
                                           context: context,
                                           unfollowRequest:
                                               UnfollowConnectionModel(

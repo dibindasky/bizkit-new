@@ -58,9 +58,7 @@ class _ScreenLoginState extends State<ScreenLogin>
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               adjustHieght(khieght * 0.20),
-                           
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
@@ -225,47 +223,44 @@ class _ScreenLoginState extends State<ScreenLogin>
                                 return controller.loadingLoginPassword.value
                                     ? const LoadingAnimation()
                                     : GestureDetector(
-                                      child: Container(
-                                          height: 55,
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              color: kneonShade),
-                                          child: Center(
-                                              child: Text(
-                                            'Login',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleMedium,
-                                          ))),
-                                      onTap: () {
-                                        if (loginPasswordKey.currentState!
-                                            .validate()) {
-                                          final isPhone = isValidPhoneNumber(
-                                              emailPhonePasswordController
-                                                  .text);
-                                          String emailOrPhone =
-                                              emailPhonePasswordController
-                                                  .text;
-                                          print(
-                                              'email or phone  ==> $emailOrPhone');
-                                          if (isPhone) {
-                                            emailOrPhone =
-                                                '+91$emailOrPhone';
+                                        child: Container(
+                                            height: 55,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                color: kneonShade),
+                                            child: Center(
+                                                child: Text(
+                                              'Login',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium,
+                                            ))),
+                                        onTap: () {
+                                          if (loginPasswordKey.currentState!
+                                              .validate()) {
+                                            final isPhone = isValidPhoneNumber(
+                                                emailPhonePasswordController
+                                                    .text);
+                                            String emailOrPhone =
+                                                emailPhonePasswordController
+                                                    .text;
+                                            if (isPhone) {
+                                              emailOrPhone = '+91$emailOrPhone';
+                                            }
+                                            FocusScope.of(context).unfocus();
+                                            controller.loginUsingPassword(
+                                              context,
+                                              authPostModel: AuthPostmodel(
+                                                emailOrPhone: emailOrPhone,
+                                                password:
+                                                    passwordController.text,
+                                              ),
+                                            );
                                           }
-                                          FocusScope.of(context).unfocus();
-                                          controller.loginUsingPassword(
-                                            context,
-                                            authPostModel: AuthPostmodel(
-                                              emailOrPhone: emailOrPhone,
-                                              password:
-                                                  passwordController.text,
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    );
+                                        },
+                                      );
                               }),
                             ),
                             kHeight30,
@@ -289,10 +284,13 @@ class _ScreenLoginState extends State<ScreenLogin>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Don\'t have an account?',
-          style: Theme.of(context).textTheme.displayMedium,
+          'Don\'t have an account? ', 
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.copyWith(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        adjustWidth(10),
+        
         InkWell(
           onTap: () async {
             await GoRouter.of(context)
@@ -301,10 +299,7 @@ class _ScreenLoginState extends State<ScreenLogin>
               FocusScope.of(context).unfocus();
             });
           },
-          child:const Text(
-            'Sign Up',
-            style: TextStyle(color: kneonDark)
-          ),
+          child: const Text('Sign Up', style: TextStyle(color: kneonDark)),
         ),
       ],
     );

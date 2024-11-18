@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 showCustomConfirmationDialogue(
     {required BuildContext context,
     required String title,
-    Color buttonColor = kneonShade,
+    Color buttonColor = kneon,
     String? description,
     required String buttonText,
     required VoidCallback onTap}) {

@@ -107,7 +107,7 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
         ],
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            GoRouter.of(context).pop(context);
           },
           icon: const Icon(
             Icons.arrow_back_ios,

@@ -1,11 +1,11 @@
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/add_connection/widgets/add_connection_tail.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens2/connections/add_connection_screen.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class PendingConnectionRequestsScreen extends StatelessWidget {
   const PendingConnectionRequestsScreen({super.key});
@@ -23,7 +23,7 @@ class PendingConnectionRequestsScreen extends StatelessWidget {
             size: 18,
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            GoRouter.of(context).pop(context);
           },
         ),
         backgroundColor: knill,

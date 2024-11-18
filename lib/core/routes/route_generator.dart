@@ -3,7 +3,8 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/add_connection/add_connection.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/add_connection/add_connection_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/pending_connection/pending_connections_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_bizcard.dart/create_business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_card_screen.dart';
@@ -13,6 +14,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/level_sh
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/card_detail_page.dart';
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/biz_card_nav_bar.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/received_card_detail/received_card_detail_page.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/connection_details/connection_detail_filling.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/second_card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_view_deeplink/card_detail_view_deeplink.dart';
@@ -421,6 +423,33 @@ class GoRouterConfig {
           child: CardDefaultLevelSharing(
             isCommonLevelSharing: extra,
           ),
+        );
+      },
+    ),
+
+    // receivedCardDetail
+    GoRoute(
+      name: Routes.receivedCardDetail,
+      path: Routes.receivedCardDetail,
+      pageBuilder: (context, state) {
+        final extra = state.extra as String;
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: ReceivedCardDetailScreen(
+            visitingCardId: extra,
+          ),
+        );
+      },
+    ),
+
+    // pendingConnectionRequests
+    GoRoute(
+      name: Routes.pendingConnectionRequests,
+      path: Routes.pendingConnectionRequests,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const PendingConnectionRequestsScreen(),
         );
       },
     ),

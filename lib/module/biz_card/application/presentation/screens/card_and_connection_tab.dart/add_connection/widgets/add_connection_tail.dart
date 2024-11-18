@@ -36,7 +36,7 @@ class _ConnectionTileState extends State<ConnectionTile> {
   Widget build(BuildContext context) {
     final connectionController = Get.find<ConnectionsController>();
     return Card(
-      elevation: 1,
+      elevation: 0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -53,31 +53,35 @@ class _ConnectionTileState extends State<ConnectionTile> {
                 ? widget.allSendRequests?.toUserName ?? 'name'
                 : widget.data?.username ?? 'name',
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.displayMedium,
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(fontSize: 14),
           ),
           Text(
-            widget.fromPendingRequests
-                ? widget.allSendRequests?.toUserDesignation ?? 'designation'
-                : widget.data?.designation ?? 'designation',
-            style: Theme.of(context).textTheme.displaySmall,
-          ),
+              widget.fromPendingRequests
+                  ? widget.allSendRequests?.toUserDesignation ?? 'designation'
+                  : widget.data?.designation ?? 'designation',
+              style: Theme.of(context).textTheme.displaySmall),
           adjustHieght(7),
           GestureDetector(
             onTap: () {
               showCustomConfirmationDialogue(
                 context: context,
-                // title: widget.data?.connectionRequestId != null
-                //     ? 'Remove Connection'
-                //     : 'Send Connection Request',
-                // buttonText: widget.data?.connectionRequestId != null
-                //     ? 'Remove'
-                //     : 'Send',
-                title: widget.allSendRequests?.requestId != null
-                    ? 'Remove Connection'
-                    : 'Send Connection Request',
-                buttonText: widget.allSendRequests?.requestId != null
-                    ? 'Remove'
-                    : 'Send',
+                title: widget.fromPendingRequests
+                    ? widget.allSendRequests?.requestId != null
+                        ? 'Remove Connection Request'
+                        : 'Send Connection Request'
+                    : widget.data?.connectionRequestId != null
+                        ? 'Remove Connection'
+                        : 'Send Connection Request',
+                buttonText: widget.fromPendingRequests
+                    ? widget.allSendRequests?.requestId != null
+                        ? 'Remove'
+                        : 'Send'
+                    : widget.data?.connectionRequestId != null
+                        ? 'Remove'
+                        : 'Send',
                 onTap: () {
                   if (widget.fromPendingRequests) {
                     connectionController.cancelConnectionRequest(
@@ -121,7 +125,7 @@ class _ConnectionTileState extends State<ConnectionTile> {
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            'Remove Connection',
+                            'Remove',
                             style: Theme.of(context).textTheme.displaySmall,
                           ),
                         ),
@@ -136,16 +140,16 @@ class _ConnectionTileState extends State<ConnectionTile> {
                     : Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 8),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: kneon,
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10))),
                         child: FittedBox(
                           child: Text(
                             widget.data?.connectionRequestId != null
-                                ? 'Remove Connection'
+                                ? 'Remove'
                                 : 'Add Connection',
-                            style: textThinStyle1,
+                            style: Theme.of(context).textTheme.displaySmall,
                           ),
                         ),
                       ),

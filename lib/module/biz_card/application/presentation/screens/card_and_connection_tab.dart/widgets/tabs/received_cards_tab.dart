@@ -1,12 +1,13 @@
 // import 'dart:developer';
 
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/received_card_detail/received_card_detail_page.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ReceivedCardsTab extends StatelessWidget {
   const ReceivedCardsTab({super.key});
@@ -44,19 +45,17 @@ class ReceivedCardsTab extends StatelessWidget {
                     return GestureDetector(
                       onTap: () {
                         // log("ID == > ${receivedCardController.visitingCards[index].id ?? ''}");
+
                         // receivedCardController.fetchReceivedCardDetails(
                         //     receivedCardId: receivedCardController
                         //             .visitingCards[index].id ??
                         //         '');
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => ReceivedCardDetailScreen(
-                              visitingCardId: receivedCardController
-                                      .visitingCards[index].id ??
-                                  '',
-                            ),
-                          ),
-                        );
+
+                        GoRouter.of(context).pushNamed(
+                            Routes.receivedCardDetail,
+                            extra: receivedCardController
+                                    .visitingCards[index].id ??
+                                '');
                       },
                       child: Card(
                         elevation: 1,

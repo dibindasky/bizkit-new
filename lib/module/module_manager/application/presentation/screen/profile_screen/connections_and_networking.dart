@@ -7,10 +7,10 @@ class ConnectionsAndNetworking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(15),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: SafeArea(
           child: Column(
             children: [
               Row(

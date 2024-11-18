@@ -22,7 +22,7 @@ class ScreenProfileEdit extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                kHeight10,
+                kHeight20,
                 Row(
                 children: [
                   IconButton(

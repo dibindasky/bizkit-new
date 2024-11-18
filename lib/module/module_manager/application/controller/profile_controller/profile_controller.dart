@@ -204,7 +204,7 @@ class ProfileController extends GetxController {
           message: 'something went wrong', backgroundColor: kred);
     }, (ifRight) {
       showSnackbar(context, message: 'Successfully updated');
-      GoRouter.of(context).pop();     
+      GoRouter.of(context).pop();
       otpChangingLoading.value = false;
     });
   }

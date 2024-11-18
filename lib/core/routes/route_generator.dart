@@ -29,6 +29,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens2/home/vi
 import 'package:bizkit/module/biz_card/application/presentation/screens2/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/auth/varification_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/connections_and_networking.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/macho_meter_screen.dart';
@@ -90,6 +91,16 @@ class GoRouterConfig {
       path: Routes.initial,
       // builder: (context, state) => const ScreenConnectionDetailFilling(),
       builder: (context, state) => const ScreenGeneralSplash(),
+    ),
+
+    GoRoute(
+      name:Routes.varificationScreen,
+      path: Routes.varificationScreen,
+      builder:(context,state){
+
+        final data=state.extra as bool;
+      return  VarificationScreen(islogin: data,);
+      }
     ),
 
     GoRoute(

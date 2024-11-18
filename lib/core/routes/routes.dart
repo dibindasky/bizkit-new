@@ -9,6 +9,9 @@ class Routes {
   static const String editProfile = '/edit_profile';
   static const String connectionsAndNetworking = '/connections_networking';
   static const String machoMeterScreen = '/macho_meter_screen';
+  static const String machoMeterScreen='/macho_meter_screen';
+  static const String varificationScreen='/varification_screen';
+
 
   // biz card module
   static const String onBoardingBizCard = '/on_boarding_bizcard';

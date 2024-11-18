@@ -59,6 +59,10 @@ class _ScreenLoginState extends State<ScreenLogin>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               adjustHieght(khieght * 0.20),
+                TextButton(
+                  onPressed: () =>
+                      GoRouter.of(context).pushNamed(Routes.varificationScreen),
+                  child: Text('to varification screen')),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
@@ -284,13 +288,12 @@ class _ScreenLoginState extends State<ScreenLogin>
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Don\'t have an account? ', 
+          'Don\'t have an account? ',
           style: Theme.of(context)
               .textTheme
               .titleMedium
               ?.copyWith(fontSize: 14, fontWeight: FontWeight.w600),
         ),
-        
         InkWell(
           onTap: () async {
             await GoRouter.of(context)

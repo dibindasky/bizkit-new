@@ -113,7 +113,7 @@ class BizkitConnectionsTab extends StatelessWidget {
                               onTap: () {
                                 connectionsController.unfollowRequest(
                                   toUserId:connectionsController
-                                            .connectionsSearchList[index].toUser ,
+                                            .connectionsSearchList[index].toUser,
                                     context: context,
                                     unfollowRequest: UnfollowConnectionModel(
                                         connectionId: connectionsController

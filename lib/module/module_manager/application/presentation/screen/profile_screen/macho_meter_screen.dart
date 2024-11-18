@@ -14,31 +14,14 @@ class MachoMeterScreen extends StatefulWidget {
 
 class _MachoMeterScreenState extends State<MachoMeterScreen> {
   PageController pageController = PageController();
-  // int currentIndex = 0;
-
-  // List<String> items = [
-  //   'Select your dream Job',
-  //   'Select your dream Destination',
-  //   'Your favourite song'
-  // ];
-  // String? selectedOne;
-  // String? selectedTwo;
-  // String? selectedThree;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   selectedOne = items[0];
-  //   selectedTwo = items[1];
-  //   selectedThree = items[2];
-  // }
 
   final machoMeterScreenController = Get.put(MatchoMeterScreenController());
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(children: [
+    return Scaffold(
+      body: SafeArea( 
+        child: Column(children: [
           Padding(
             padding: const EdgeInsets.all(15),
             child: Row(

@@ -106,6 +106,7 @@ class ConnectionsController extends GetxController {
 
   @override
   void onInit() {
+    fetchMyConnections(true);
     userSearchScrollController.addListener(userSearchScrollListner);
     myConnectionScrollController.addListener(myConnectionScrollListner);
     fetchMyConnectionScrollController

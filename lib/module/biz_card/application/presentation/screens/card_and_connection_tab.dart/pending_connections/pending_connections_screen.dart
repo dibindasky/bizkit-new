@@ -1,5 +1,5 @@
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/add_connection/widgets/add_connection_tail.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/add_connection_tail.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';

@@ -4,7 +4,7 @@ import 'package:bizkit/module/attendence/application/presentation/screens/home/h
 import 'package:bizkit/module/attendence/application/presentation/screens/navbar/navbar.dart';
 import 'package:bizkit/module/attendence/application/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/add_connection/add_connection_screen.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/pending_connection/pending_connections_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/pending_connections/pending_connections_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_bizcard.dart/create_business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_card_screen.dart';

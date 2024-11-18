@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 // import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/bizcards_list_section.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/home_appbar.dart';
@@ -18,7 +19,7 @@ class BizCardHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bizcardController = Get.find<CardController>();
-    // final connectionsController = Get.find<ConnectionsController>();
+    final connectionsController = Get.find<ConnectionsController>();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -28,7 +29,7 @@ class BizCardHomeScreen extends StatelessWidget {
               child: RefreshIndicator(
                 onRefresh: () async {
                   bizcardController.getAllcards(true);
-                  // connectionsController.fetchMyConnections(true);
+                  connectionsController.fetchMyConnections(true);
                 },
                 child: SingleChildScrollView(
                   child: Column(

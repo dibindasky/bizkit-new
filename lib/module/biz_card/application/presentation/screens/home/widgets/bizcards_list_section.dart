@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/business_card.dart';
 import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
@@ -77,6 +78,7 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
             if (index >= cardCount) {
               return GestureDetector(
                 onTap: () {
+                  Get.find<CardTextExtractionController>().clearCardImages();
                   GoRouter.of(context).pushNamed(Routes.cardCreation);
                 },
                 child: const Center(

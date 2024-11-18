@@ -89,6 +89,7 @@ class AuthenticationController extends GetxController {
   /// verify email otp otp for regestration
   void verifyOtpEmailRegestration(BuildContext context,
       {required String otp}) async {
+        print('register user ==> 1');
     loadingOtpEmail.value = true;
     final result = await authRepo.otpVerification(
         authPostmodel: registerPostModel.value.copyWith(otp: otp));
@@ -100,10 +101,11 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     }, (r) {
       completeLogin(context, r);
-      showSnackbar(context,
-          message: 'User Registered Successfully', 
-          backgroundColor: kneonShade,
-          textColor: kblack);
+      GoRouter.of(context).pushReplacementNamed(Routes.varificationScreen,extra: false);
+      // showSnackbar(context,
+      //     message: 'User Registered Successfully',
+      //     backgroundColor: kneonShade,
+      //     textColor: kblack);
     });
 
     loadingOtpEmail.value = false;
@@ -166,10 +168,7 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     }, (r) {
       completeLogin(context, r);
-      showSnackbar(context,
-          message: 'User Logged In Successfully',
-          backgroundColor: kneonShade,
-          textColor: kblack);
+      GoRouter.of(context).pushReplacementNamed(Routes.varificationScreen,extra: true);
     });
     loadingOtpPhone.value = false;
     Timer(
@@ -203,12 +202,19 @@ class AuthenticationController extends GetxController {
     await SecureStorage.saveToken(tokenModel: model);
     log('user name => ${model.name ?? ''}');
     SecureStorage.setLogin();
-    final module = await getLastUsedModule();
-    Get.find<ModuleController>().chooseModule(context, module: module);
+    if(loadingAccountSwitching.value){
+      chooseModule(context);
+    }
     usersLocalRepo.addUserToLocalStorageIfNotPresentInStorage(
         model: model.copyWith(logoutFromDevice: 'login'));
     loadingAccountSwitching.value = false;
     getUserName();
+  }
+
+  ///choose module and navigate to home screen.
+ Future<void> chooseModule(BuildContext context)async{
+      final module = await getLastUsedModule();
+    Get.find<ModuleController>().chooseModule(context, module: module);
   }
 
   /// will return the last used [Module] by the user if not will return [null]
@@ -251,7 +257,6 @@ class AuthenticationController extends GetxController {
       if (!loginStatus) {
         // if user not loged in navigate to loginpage
         context.go(Routes.loginPage);
-
       } else {
         final module = await getLastUsedModule();
         Get.find<ModuleController>().chooseModule(context, module: module);

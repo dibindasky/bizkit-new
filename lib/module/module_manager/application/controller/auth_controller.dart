@@ -101,7 +101,7 @@ class AuthenticationController extends GetxController {
     }, (r) {
       completeLogin(context, r);
       showSnackbar(context,
-          message: 'User Registered Successfully', 
+          message: 'User Registered Successfully',
           backgroundColor: kneonShade,
           textColor: kblack);
     });
@@ -251,7 +251,6 @@ class AuthenticationController extends GetxController {
       if (!loginStatus) {
         // if user not loged in navigate to loginpage
         context.go(Routes.loginPage);
-
       } else {
         final module = await getLastUsedModule();
         Get.find<ModuleController>().chooseModule(context, module: module);

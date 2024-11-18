@@ -38,13 +38,14 @@ class ScreenOtpValidation extends StatelessWidget {
               adjustHieght(20),
 
               Text(
-                  ' Enter the security code we sent to\n ${isEmail ? 'email address' : 'phone number'}', style: Theme.of(context).textTheme.titleSmall),
+                  ' Enter the security code we sent to\n ${isEmail ? 'email address' : 'phone number'}',
+                  style: Theme.of(context).textTheme.titleSmall),
               // const Text(
               //   "email",
               //   style: TextStyle(color: neonShade),
               // ),
               adjustHieght(20),
-      
+
               Pinput(
                 mainAxisAlignment: MainAxisAlignment.start,
                 onCompleted: (value) {
@@ -89,11 +90,17 @@ class ScreenOtpValidation extends StatelessWidget {
               adjustHieght(25),
               Row(
                 children: [
-                  Text('Dont\'t get the code? ',style: Theme.of(context).textTheme.displayMedium,),
-                  Text('Resent it',style: TextStyle(color: kneonDark),)
+                  Text(
+                    'Dont\'t get the code? ',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                  Text(
+                    'Resent it',
+                    style: TextStyle(color: kneonDark),
+                  )
                 ],
               ),
-            
+
               const Spacer(),
               Obx(() {
                 if (controller.loadingOtpEmail.value ||
@@ -103,7 +110,7 @@ class ScreenOtpValidation extends StatelessWidget {
                 }
                 return kempty;
               }),
-          
+
               const Spacer()
             ],
           ),

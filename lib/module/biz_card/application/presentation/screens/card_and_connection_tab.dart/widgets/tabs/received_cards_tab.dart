@@ -1,7 +1,9 @@
+// import 'dart:developer';
+
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/received_card_detail/received_card_detail_page.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -41,19 +43,20 @@ class ReceivedCardsTab extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
+                        // log("ID == > ${receivedCardController.visitingCards[index].id ?? ''}");
                         // receivedCardController.fetchReceivedCardDetails(
-                        //     receivedCardId:
-                        //         receivedCardController.visitingCards[index].id ??
-                        //             '');
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute(
-                        //     builder: (context) => ScreenCardSecondDetailView(
-                        //       visitingCardId:
-                        //           receivedCardController.visitingCards[index].id ??
-                        //               '',
-                        //     ),
-                        //   ),
-                        // );
+                        //     receivedCardId: receivedCardController
+                        //             .visitingCards[index].id ??
+                        //         '');
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ReceivedCardDetailScreen(
+                              visitingCardId: receivedCardController
+                                      .visitingCards[index].id ??
+                                  '',
+                            ),
+                          ),
+                        );
                       },
                       child: Card(
                         elevation: 1,

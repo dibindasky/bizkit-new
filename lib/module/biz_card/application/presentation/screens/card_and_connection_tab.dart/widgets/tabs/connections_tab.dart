@@ -181,7 +181,7 @@ class ConnectionsTab extends StatelessWidget {
         child: FloatingActionButton(
           shape: const CircleBorder(),
           onPressed: () {
-            // connectionsController.searchBizkitUsers();
+            connectionsController.searchBizkitUsers();
             GoRouter.of(context).pushNamed(Routes.addConnection);
           },
           child: const Icon(Icons.add),

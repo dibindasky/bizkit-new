@@ -260,7 +260,8 @@ class _GridTileAddRequestConnectionState
           onTap: () {
             showCustomConfirmationDialogue(
               context: context,
-              title: widget.data?.connectionRequestId != null
+              title: widget.data?.connectionRequestId != null ||
+                      widget.fromPendingRequests == true
                   ? 'Remove Connection'
                   : 'Add Connection',
               buttonText:

@@ -15,7 +15,7 @@ class DetailSharingIconWidget extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 10),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
         decoration: BoxDecoration(
-          border: Border.all(color: neonShade),
+          color: Theme.of(context).colorScheme.onSecondary,
           borderRadius: const BorderRadius.all(
             Radius.circular(6),
           ),

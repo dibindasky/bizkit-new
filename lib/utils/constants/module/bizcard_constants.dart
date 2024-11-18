@@ -58,3 +58,4 @@ const bizcardMoreIcon = "asset/module/bizcard/bizcard_more.png";
 const bizcardEditIcon = "asset/module/bizcard/edit_bizcard.png";
 const bizcardPreviewIcon = "asset/module/bizcard/preview.png";
 const bizcardShareIcon = "asset/module/bizcard/share.png";
+const bizcardCreateDummy = "asset/module/bizcard/create_card_dummy.png";

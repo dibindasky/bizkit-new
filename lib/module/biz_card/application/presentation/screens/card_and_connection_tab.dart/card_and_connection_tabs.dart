@@ -24,7 +24,6 @@ class _BizCardAndConnectionScreenState extends State<BizCardAndConnectionScreen>
     with TickerProviderStateMixin {
   late TabController tabController;
   final TextEditingController _searchController = TextEditingController();
-  bool _isSearching = false;
 
   @override
   void initState() {
@@ -32,59 +31,34 @@ class _BizCardAndConnectionScreenState extends State<BizCardAndConnectionScreen>
     tabController = TabController(length: 5, vsync: this, initialIndex: 0);
   }
 
-  void _startSearch() {
-    setState(() {
-      _isSearching = true;
-    });
-  }
-
-  void _stopSearch() {
-    setState(() {
-      _isSearching = false;
-      _searchController.clear();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (_isSearching) {
-          FocusScope.of(context).unfocus();
-          _stopSearch();
-        }
-      },
-      child: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              children: [
-                adjustHieght(10.h),
-                GestureDetector(
-                  onTap: _startSearch,
-                  child: SearchBarWidget(
-                    isSearching: _isSearching,
-                    searchController: _searchController,
-                  ),
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            children: [
+              adjustHieght(10.h),
+              SearchBarWidget(
+                searchController: _searchController,
+              ),
+              adjustHieght(5.h),
+              CardAndConnectionsTabBar(tabController: tabController),
+              adjustHieght(20.h),
+              Expanded(
+                child: TabBarView(
+                  controller: tabController,
+                  children: const [
+                    ConnectionsTab(),
+                    ContactConnectionsTab(),
+                    ConnectionRequestsTab(),
+                    ReceivedCardsTab(),
+                    SharedCardsTab(),
+                  ],
                 ),
-                adjustHieght(5.h),
-                CardAndConnectionsTabBar(tabController: tabController),
-                adjustHieght(20.h),
-                Expanded(
-                  child: TabBarView(
-                    controller: tabController,
-                    children: const [
-                      ConnectionsTab(),
-                      ContactConnectionsTab(),
-                      ConnectionRequestsTab(),
-                      ReceivedCardsTab(),
-                      SharedCardsTab(),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

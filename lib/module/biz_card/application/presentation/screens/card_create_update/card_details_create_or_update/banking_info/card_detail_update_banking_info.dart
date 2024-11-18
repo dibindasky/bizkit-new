@@ -10,34 +10,6 @@ class CardUpdateBankingDetails extends StatelessWidget {
   CardUpdateBankingDetails({super.key});
   final GlobalKey<FormState> bankingCardCreationKey = GlobalKey<FormState>();
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Column(
-  //     children: [
-  //       Expanded(
-  //         child: SingleChildScrollView(
-  //           child: Column(
-  //             children: [
-  //               Expanded(
-  //                 child: GridView.builder(
-  //                   physics: NeverScrollableScrollPhysics(),
-  //                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //                       crossAxisCount: 2),
-  //                   itemCount: 16,
-  //                   itemBuilder: (context, index) => Card(),
-  //                 ),
-  //               ),
-  //               kHeight30,
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //       SizedBox(height: 10)
-  //     ],
-  //   );
-  // }
-
-
   @override
   Widget build(BuildContext context) {
     final businessController = Get.find<BusinesDetailsController>();
@@ -49,63 +21,64 @@ class CardUpdateBankingDetails extends StatelessWidget {
           focusScope.unfocus();
         }
       },
-      child: Form(
-        key: bankingCardCreationKey,
-        child: ListView(
-          children: [
-            const Text('Banking Details', style: TextStyle(fontSize: 20)),
-            kHeight10,
-            // company banking name
-            CustomTextFormField(
-                labelText: 'Company Banking Name',
-                validate: Validate.notNull,
-                textCapitalization: TextCapitalization.sentences,
-                controller: businessController.companyBankingName),
-            // banking details accound number
-            CustomTextFormField(
-                labelText: 'Account Number',
-                validate: Validate.notNull,
-                inputType: TextInputType.number,
-                maxlegth: 16,
-                controller: businessController.accountNumberController),
-            // banking details accound number
-            CustomTextFormField(
-              labelText: 'IFSC',
-              maxlegth: 11,
-              textCapitalization: TextCapitalization.characters,
-              validate: Validate.ifsc,
-              inputType: TextInputType.name,
-              controller: businessController.iFSCController,
-            ),
-            // upi details
-            CustomTextFormField(
-                labelText: 'UPI ID',
-                validate: Validate.upi,
-                controller: businessController.uPIIDController),
-            // gst number
-            CustomTextFormField(
-                labelText: 'GST Number',
-                validate: Validate.gst,
-                maxlegth: 15,
-                controller: businessController.gSTNumberController),
-            kHeight5,
-            Obx(
-              () => businessController.isLoading.value
-                  ? const LoadingAnimation()
-                  : SkipOrContinueButtons(
-                      onTap: () {
-                        if (bankingCardCreationKey.currentState!.validate()) {
-                          businessController.bankingDetailsAdding(context);
-                        }
-                      },
-                    ),
-            ),
-            kHeight10,
-          ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Form(
+          key: bankingCardCreationKey,
+          child: ListView(
+            children: [
+              kHeight20,
+              // company banking name
+              CustomTextFormField(
+                  labelText: 'Company Banking Name',
+                  validate: Validate.notNull,
+                  textCapitalization: TextCapitalization.sentences,
+                  controller: businessController.companyBankingName),
+              // banking details accound number
+              CustomTextFormField(
+                  labelText: 'Account Number',
+                  validate: Validate.notNull,
+                  inputType: TextInputType.number,
+                  maxlegth: 16,
+                  controller: businessController.accountNumberController),
+              // banking details accound number
+              CustomTextFormField(
+                labelText: 'IFSC',
+                maxlegth: 11,
+                textCapitalization: TextCapitalization.characters,
+                validate: Validate.ifsc,
+                inputType: TextInputType.name,
+                controller: businessController.iFSCController,
+              ),
+              // upi details
+              CustomTextFormField(
+                  labelText: 'UPI ID',
+                  validate: Validate.upi,
+                  controller: businessController.uPIIDController),
+              // gst number
+              CustomTextFormField(
+                  labelText: 'GST Number',
+                  validate: Validate.gst,
+                  maxlegth: 15,
+                  controller: businessController.gSTNumberController),
+              kHeight10,
+              Obx(
+                () => businessController.isLoading.value
+                    ? const LoadingAnimation()
+                    : SkipOrContinueButtons(
+                      continueText: 'Update',
+                        onTap: () {
+                          if (bankingCardCreationKey.currentState!.validate()) {
+                            businessController.bankingDetailsAdding(context);
+                          }
+                        },
+                      ),
+              ),
+              kHeight10,
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-

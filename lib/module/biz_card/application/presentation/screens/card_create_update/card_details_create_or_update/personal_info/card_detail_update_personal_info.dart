@@ -6,9 +6,11 @@ import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_a
 import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/widgets/image_or_text_preview_under_widget.dart';
@@ -91,6 +93,55 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                       //   );
                       // }),
 
+                      Stack(
+                        children: [
+                          Container(
+                            height: 100.h,
+                            width: 100.h,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100.h),
+                                border: Border.all(
+                                    color:
+                                        Theme.of(context).colorScheme.primary)),
+                            child: personalController.personalImages.isNotEmpty
+                                ? NetworkImageWithLoader(
+                                    personalController.personalImages.first,
+                                    radius: 100,
+                                  )
+                                : Image.asset(iconPersonOutline,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary),
+                          ),
+                          Positioned(
+                            bottom: 10.h,
+                            right: 5.h,
+                            child: GestureDetector(
+                              onTap: () {
+                                cameraAndGalleryPickImage(
+                                    tittle: 'Add Personal Image',
+                                    context: context,
+                                    onPressCam: () {
+                                      personalController
+                                          .personalImagesAdding(true);
+                                    },
+                                    onPressGallery: () {
+                                      personalController
+                                          .personalImagesAdding(false);
+                                    });
+                              },
+                              child: ClipRRect(
+                                borderRadius: kBorderRadius25,
+                                child: ColoredBox(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    child: Icon(Icons.add, size: 20.sp)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      kHeight20,
                       // personal name field
                       AutocompleteTextField(
                         validate: Validate.notNull,

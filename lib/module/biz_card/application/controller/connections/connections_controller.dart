@@ -611,9 +611,6 @@ class ConnectionsController extends GetxController {
             currentUserId: await SecureStorage.getUserId() ?? '',
             colToUser: toUserId ?? '');
 
-            colToUser: toUserId??'');
-            print('unfollow success');
-
         // for(var data in connectionsSearchList){
         //   if(data.toUser==toUserId){
         //     data.

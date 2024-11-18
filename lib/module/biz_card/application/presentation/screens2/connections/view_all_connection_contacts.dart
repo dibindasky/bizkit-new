@@ -156,11 +156,15 @@ class _MyConnectionsViewAllContactsState
                               onTap: () {
                                 if (tabNotifier.value == 0) {
                                   tabNotifier.value = 1;
-                                  connectionsController.myConnectionsearchController.clear();
+                                  connectionsController
+                                      .myConnectionsearchController
+                                      .clear();
                                   tabNotifier.notifyListeners();
                                 } else {
                                   tabNotifier.value = 0;
-                                  connectionsController.myConnectionsearchController.clear();
+                                  connectionsController
+                                      .myConnectionsearchController
+                                      .clear();
                                   tabNotifier.notifyListeners();
                                 }
                                 FocusScope.of(context).unfocus();

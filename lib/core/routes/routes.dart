@@ -8,8 +8,10 @@ class Routes {
   static const String pdfPreview = '/pdf_preview';
   static const String editProfile = '/edit_profile';
   static const String connectionsAndNetworking = '/connections_networking';
+  static const String machoMeterScreen = '/macho_meter_screen';
   static const String machoMeterScreen='/macho_meter_screen';
   static const String varificationScreen='/varification_screen';
+
 
   // biz card module
   static const String onBoardingBizCard = '/on_boarding_bizcard';
@@ -38,10 +40,12 @@ class Routes {
   static const String newPasswordScreen = '/new_password_screen';
   static const String otpScreen = '/otp_screen';
   static const String levelSharing = '/bizcard_level_sharing';
+  static const String pendingConnectionRequests = '/pending_connection_req';
   static const String individualLevelSharing =
       '/bizcard_individual_level_sharing';
   static const String levelSharingSettings = '/bizcard_level_sharing_settings';
   static const String addConnection = '/add_new_connection';
+  static const String receivedCardDetail = '/received_card_detail';
   static const String recievedConnectionRequests =
       '/recieved_connection_requests';
   static const String myAllConnectionsAndContacts =

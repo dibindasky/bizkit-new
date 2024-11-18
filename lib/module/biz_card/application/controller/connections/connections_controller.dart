@@ -106,6 +106,7 @@ class ConnectionsController extends GetxController {
 
   @override
   void onInit() {
+    fetchMyConnections(true);
     userSearchScrollController.addListener(userSearchScrollListner);
     myConnectionScrollController.addListener(myConnectionScrollListner);
     fetchMyConnectionScrollController
@@ -283,7 +284,6 @@ class ConnectionsController extends GetxController {
         searchBizkitUsersLoading.value = true;
         userSearchPageNumber = 1;
         bizkitUsers.value = [];
-        await getConnectionDatasFromLocal();
         final result = await connectionService.searchBizkitUsers(
             searchQuery: SearchQuery(
                 page: userSearchPageNumber,
@@ -355,6 +355,7 @@ class ConnectionsController extends GetxController {
       },
       (success) {
         recievedConnectionRequestLoading.value = false;
+        log('Recieved connection requests = > ${success.requests}');
         recievedConnectionRequests.assignAll(success.requests ?? []);
       },
     );
@@ -608,8 +609,11 @@ class ConnectionsController extends GetxController {
         myConnectionsLoading.value = false;
         await myConnectionLocalService.deleteMyconnectionFromlocal(
             currentUserId: await SecureStorage.getUserId() ?? '',
+            colToUser: toUserId ?? '');
+
             colToUser: toUserId??'');
             print('unfollow success');
+
         // for(var data in connectionsSearchList){
         //   if(data.toUser==toUserId){
         //     data.

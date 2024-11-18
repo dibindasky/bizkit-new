@@ -1,16 +1,13 @@
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/search_bar_widget.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/tabs/connections_tab.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/tabs/received_cards_tab.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/tabs/shared_cards_tab.dart';
-import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/constant.dart';
-
 import 'package:flutter/material.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/search_bar_widget.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/cards_and_connections_tabs/connections_tab.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/cards_and_connections_tabs/received_cards_tab.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/cards_and_connections_tabs/shared_cards_tab.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'widgets/card_and_connections_tab_bars.dart';
-import 'widgets/tabs/connection_requests_tab.dart';
-import 'widgets/tabs/contact_connections_tab.dart';
+import 'cards_and_connections_tabs/connection_requests_tab.dart';
+import 'cards_and_connections_tabs/contact_connections_tab.dart';
 
 class BizCardAndConnectionScreen extends StatefulWidget {
   const BizCardAndConnectionScreen({super.key});

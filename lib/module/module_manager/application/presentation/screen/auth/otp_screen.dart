@@ -95,6 +95,7 @@ class ScreenOtpValidation extends StatelessWidget {
                     'Dont\'t get the code? ',
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
+
                   const  Text(
                     'Resent it',
                     style: TextStyle(color: kneonDark),

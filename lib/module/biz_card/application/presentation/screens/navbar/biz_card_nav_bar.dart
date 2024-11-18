@@ -1,5 +1,5 @@
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/card_and_connection_tabs.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/card_and_connection_tabs_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/bizcard_home.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/scan_and_creation/scan_and_create.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/profile_screen.dart';

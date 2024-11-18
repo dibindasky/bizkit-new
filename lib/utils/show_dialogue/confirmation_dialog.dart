@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 showCustomConfirmationDialogue(
     {required BuildContext context,
     required String title,
-    Color buttonColor = kneonShade,
+    Color buttonColor = kneon,
     String? description,
     required String buttonText,
     required VoidCallback onTap}) {
@@ -16,7 +16,7 @@ showCustomConfirmationDialogue(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
-            border: Border.all(color: neonShade),
+            border: Border.all(color: kneon),
             borderRadius: kBorderRadius10,
             color: backgroundColour),
         child: Column(
@@ -33,13 +33,16 @@ showCustomConfirmationDialogue(
                 children: [
                   OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: neonShade)),
+                          side: const BorderSide(color: kneon)),
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text(
+                      child: Text(
                         'Cancel',
-                        style: TextStyle(color: neonShade),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(color: kwhite),
                       )),
                   adjustWidth(10),
                   OutlinedButton(
@@ -51,7 +54,10 @@ showCustomConfirmationDialogue(
                       },
                       child: Text(
                         buttonText,
-                        style: TextStyle(color: buttonColor),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(color: kwhite),
                       ))
                 ],
               ),

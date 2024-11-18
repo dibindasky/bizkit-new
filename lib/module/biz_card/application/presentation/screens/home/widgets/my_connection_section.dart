@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
@@ -7,6 +8,7 @@ import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class MyConnectionSection extends StatelessWidget {
   const MyConnectionSection({
@@ -72,7 +74,9 @@ class MyConnectionSection extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 1),
                             child: GestureDetector(
                               onTap: () {
-                                // Todo -> Navigate to add connection screen
+                                connectionsController.searchBizkitUsers();
+                                GoRouter.of(context)
+                                    .pushNamed(Routes.addConnection);
                               },
                               child: Column(
                                 children: [
@@ -138,7 +142,11 @@ class MyConnectionSection extends StatelessWidget {
                           return Padding(
                             padding: const EdgeInsets.only(left: 15),
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                connectionsController.searchBizkitUsers();
+                                GoRouter.of(context)
+                                    .pushNamed(Routes.addConnection);
+                              },
                               child: Column(
                                 children: [
                                   const CircleAvatar(

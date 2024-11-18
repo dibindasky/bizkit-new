@@ -115,13 +115,13 @@ class ReceivedCardService implements ReceivedCardRepo {
     try {
       final responce = await apiService.get(ApiEndPoints.visitingCardDetails
           .replaceAll('{visitingCardId}', receivedCardId));
-      log('get received card details Responce  ==> success ');
+      log('getReceivedCardDetails ==> success ');
       return Right(VisitingCardDetailsResponce.fromJson(responce.data));
     } on DioException catch (e) {
-      log('get received card details DioException ${e.response?.statusCode} $e');
+      log('getReceivedCardDetails DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));
     } catch (e) {
-      log('get received card details catch $e');
+      log('getReceivedCardDetails catch $e');
       return Left(Failure(message: 'Failed to request'));
     }
   }

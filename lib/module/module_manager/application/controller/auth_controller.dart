@@ -101,6 +101,11 @@ class AuthenticationController extends GetxController {
           textColor: kblack);
     }, (r) {
       completeLogin(context, r);
+
+      showSnackbar(context,
+          message: 'User Registered Successfully',
+          backgroundColor: kneonShade,
+          textColor: kblack);
       GoRouter.of(context).pushReplacementNamed(Routes.varificationScreen,extra: false);
       // showSnackbar(context,
       //     message: 'User Registered Successfully',

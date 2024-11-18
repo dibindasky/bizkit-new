@@ -137,4 +137,18 @@ class CardTextExtractionController extends GetxController {
   void clearCardImages() {
     pickedImageUrl.value = [];
   }
+
+  void deleteImage() {
+    if (pickedImageUrl.isNotEmpty) {
+      pickedImageUrl.removeLast();
+    }
+  }
+
+  void swapImages() {
+    if (pickedImageUrl.length == 2) {
+      var image = pickedImageUrl.first;
+      pickedImageUrl[0] = pickedImageUrl[1];
+      pickedImageUrl[1] = image;
+    }
+  }
 }

@@ -15,6 +15,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responc
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/debouncer/debouncer.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -64,6 +65,24 @@ class CardController extends GetxController {
       mat.TextEditingController();
   final mat.TextEditingController businessCategeryController =
       mat.TextEditingController();
+
+  /// loading for bizcard preview while card creation
+  RxBool updateCArdPreviewCardCreationNameLoading = false.obs;
+  RxBool updateCArdPreviewCardCreationEmailLoading = false.obs;
+  RxBool updateCArdPreviewCardCreationPhoneLoading = false.obs;
+  RxBool updateCArdPreviewCardCreationDesignationLoading = false.obs;
+
+  final Debouncer debouncer = Debouncer(milliseconds: 300);
+
+  /// update the ui of card dummy for creation page
+  void updateCardPreviewCardCreation(RxBool loader) {
+    loader.value = true;
+    debouncer.run(
+      () {
+        loader.value = false;
+      },
+    );
+  }
 
   void createCard(BuildContext context) async {
     isLoading.value = true;

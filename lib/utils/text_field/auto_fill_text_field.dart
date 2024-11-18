@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/validators/validation_textfield.dart';
 import 'package:flutter/material.dart';
@@ -170,7 +169,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                     widget.onChanged!(value);
                   }
                 },
-                style:Theme.of(context).textTheme.displaySmall,
+                style: Theme.of(context).textTheme.displaySmall,
                 maxLines: widget.maxLines ?? 1,
                 maxLength: widget.maxLength,
                 enabled: widget.enabled,
@@ -212,7 +211,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
           if (isDropdownVisible && filteredAutocompleteItems.isNotEmpty)
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -220,9 +219,10 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
                 itemCount: filteredAutocompleteItems.length,
                 itemBuilder: (context, index) {
                   return SizedBox(
-                    height: 40,
+                    height: 30,
                     child: ListTile(
-                      title: Text(filteredAutocompleteItems[index]),
+                      title: Text(filteredAutocompleteItems[index],
+                          style: Theme.of(context).textTheme.displaySmall),
                       onTap: () {
                         setState(() {
                           widget.controller?.text =

@@ -5,6 +5,7 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class DateContainer extends StatelessWidget {
@@ -27,6 +28,7 @@ class DateContainer extends StatelessWidget {
               InkWell(
                 onTap: () {
                   showModalBottomSheet(
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     context: context,
                     enableDrag: true,
                     isDismissible: true,
@@ -37,7 +39,8 @@ class DateContainer extends StatelessWidget {
                         width: double.infinity,
                         height: khieght * 0.6,
                         child: SfDateRangePicker(
-                            backgroundColor: kblack,
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
                             onCancel: () {
                               controllerr.selectedRange = null;
                               controller.fromDate.text = '';
@@ -53,8 +56,10 @@ class DateContainer extends StatelessWidget {
                             showActionButtons: true,
                             toggleDaySelection: true,
                             headerHeight: 30.h,
-                            headerStyle: const DateRangePickerHeaderStyle(
-                                backgroundColor: kblack),
+                            headerStyle: DateRangePickerHeaderStyle(
+                              backgroundColor:
+                                  Theme.of(context).scaffoldBackgroundColor,
+                            ),
                             onSelectionChanged:
                                 (DateRangePickerSelectionChangedArgs args) {
                               if (args.value is PickerDateRange) {
@@ -80,29 +85,30 @@ class DateContainer extends StatelessWidget {
                     },
                   );
                 },
-                child: Container(
-                  width: kwidth * .80,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                  decoration: BoxDecoration(
-                    color: lightGrey,
-                    borderRadius: kBorderRadius10,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          controllerr.fromDate.text.isNotEmpty &&
-                                  controllerr.toDate.text.isNotEmpty
-                              ? '${controllerr.fromDate.text}  to  ${controllerr.toDate.text}'
-                              : title ?? 'Select Date Range',
-                          style: const TextStyle(color: kwhite),
+                child: Card(
+                  elevation: 0,
+                  child: Container(
+                    width: kwidth * .80,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 16),
+                    decoration: BoxDecoration(
+                        borderRadius: kBorderRadius10,
+                        border: Border.all(color: kGreyNormal)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            controllerr.fromDate.text.isNotEmpty &&
+                                    controllerr.toDate.text.isNotEmpty
+                                ? '${controllerr.fromDate.text}  to  ${controllerr.toDate.text}'
+                                : title ?? 'Select Date Range',
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
                         ),
-                      ),
-                      const Icon(Icons.calendar_month_rounded,
-                          color: neonShade),
-                    ],
+                        const Icon(Iconsax.calendar_1, color: kneon),
+                      ],
+                    ),
                   ),
                 ),
               ),

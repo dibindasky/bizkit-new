@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 // import 'package:bizkit/module/biz_card/application/presentation/screens2/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
 // import 'package:bizkit/module/biz_card/application/presentation/screens2/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
@@ -48,6 +49,7 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        title: Text('Received Card',style:  Theme.of(context).textTheme.displayMedium?.copyWith(fontSize: 16 )),
         surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         actions: [
           PopupMenuButton<String>(
@@ -155,17 +157,19 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
                     children: [
                       adjustHieght(20),
                       // image carosal view
-                      // SizedBox(
-                      //   height: 200,
-                      //   child: PreviewPageviewImageBuilder(
-                      //     isStory: false,
-                      //     imagesList: visitingCardController.selfie,
-                      //   ),
-                      // ),
                       SizedBox(
                         height: 200,
-                        child: Image.asset(bizcardCreateDummy),
+                        child:
+                        //  PagviewAnimateBuilder();
+                         PreviewPageviewImageBuilder(
+                          isStory: false,
+                          imagesList: visitingCardController.selfie,
+                        ), 
                       ),
+                      // SizedBox(
+                      //   height: 200,
+                      //   child: Image.asset(bizcardCreateDummy),
+                      // ),
                       // name and designation
                       Column(
                         children: [

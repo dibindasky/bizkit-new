@@ -34,6 +34,7 @@ import 'package:bizkit/module/task/application/presentation/screens/home/notific
 import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_search.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';
+import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../module/attendence/application/presentation/screens/attendence_selection/user/rules/rules_screen.dart';
@@ -45,14 +46,13 @@ class RouteGenerator {
     //Task section
     switch (settings.name) {
       case Routes.taskHome:
-        return MaterialPageRoute(builder: (ctx) => const ScreenTaskHome());
+        return MaterialPageRoute(builder: (ctx) => const TaskHomeScreen());
       case Routes.taskSearch:
         return MaterialPageRoute(
           builder: (ctx) => const TaskSearchScreen(),
         );
       case Routes.taskLists:
-        return MaterialPageRoute(
-            builder: (ctx) => const ScreenTotalTasksScreen());
+        return MaterialPageRoute(builder: (ctx) => const TotalTasksScreen());
       case Routes.addTask:
         if (arguments is int) {
           return MaterialPageRoute(

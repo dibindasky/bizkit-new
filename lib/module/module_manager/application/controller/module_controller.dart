@@ -70,6 +70,7 @@ class ModuleController extends GetxController {
     Get.lazyPut(() => LevelSharingController());
     Get.lazyPut(() => ConnectionsController());
     Get.lazyPut(() => ReminderController());
+    
   }
 
   /// initilize all controllers in TASK module [Module.task] and delte other module controllers

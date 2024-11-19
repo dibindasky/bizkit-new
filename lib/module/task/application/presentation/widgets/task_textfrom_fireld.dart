@@ -58,7 +58,7 @@ class TaskTextField extends StatelessWidget {
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
         hintText: hintText,
-        hintStyle: textThinStyle1.copyWith(color: textColor),
+        hintStyle: Theme.of(context).textTheme.displaySmall,
         labelText: labelText,
         labelStyle: TextStyle(color: textColor),
         filled: true,

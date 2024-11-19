@@ -98,7 +98,9 @@ class CardTextExtractionController extends GetxController {
             (extractedDetails.value.websites?.isNotEmpty ?? false)
                 ? extractedDetails.value.websites!.first
                 : '';
+                 isLoading.value = false;
         if (fromVisitingCard) {
+           isLoading.value = false;
           GoRouter.of(context).pushNamed(Routes.scanedDataFeilds);
         } else {
           GoRouter.of(context).pushReplacementNamed(Routes.cardCreationDetailAdding);
@@ -106,7 +108,9 @@ class CardTextExtractionController extends GetxController {
 
         isLoading.value = false;
       },
+      
     );
+     isLoading.value = false;
   }
 
   void pickImageScanning({required bool camera}) async {

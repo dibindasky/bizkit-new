@@ -43,6 +43,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens2/reminde
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/account_switching/account_switching_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/profile_edit_screen.dart';
+import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks_screen.dart';
 import 'package:bizkit/utils/images/image_slidable_list.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/otp_screen.dart';
@@ -561,7 +562,7 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskLists,
       path: Routes.taskLists,
-      builder: (context, state) => const ScreenTotalTasksScreen(),
+      builder: (context, state) => const TotalTasksScreen(),
     ),
 
     // Tasks Screen

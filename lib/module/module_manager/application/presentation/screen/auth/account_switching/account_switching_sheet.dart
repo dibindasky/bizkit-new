@@ -13,8 +13,8 @@ accountSwitchingBottomSheet(BuildContext context) async {
     context: context,
     builder: (context) => const AccountSwitcherBottomSheet(),
     showDragHandle: true,
-    backgroundColor: klightDarkGrey,
-    elevation: 5,
+    elevation: 10,
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     enableDrag: true,
   );
 }
@@ -30,9 +30,9 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
     });
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        color: lightColr,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -52,59 +52,78 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
                 final data = controller.accounts[index];
                 return Container(
                   padding: const EdgeInsets.all(8),
-                  margin: EdgeInsets.only(bottom: 10.h),
+                  margin: EdgeInsets.only(bottom: 5.h),
                   decoration: BoxDecoration(
-                    color: kblack,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     borderRadius: kBorderRadius20,
                   ),
-                  child: ListTile(
-                    onTap: () {
-                      // GoRouter.of(context).pop();
-                      GoRouter.of(context)
-                          .pushReplacementNamed(Routes.accountSwitching);
-                      controller.switchAccountLogin(context,
-                          userId: data.uid ?? '');
-                    },
-                    leading: const CircleAvatar(
-                      backgroundColor: kgrey,
+                  child: Card(
+                    elevation: 0,
+                    child: ListTile(
+                      onTap: () {
+                        // GoRouter.of(context).pop();
+                        GoRouter.of(context)
+                            .pushReplacementNamed(Routes.accountSwitching);
+                        controller.switchAccountLogin(context,
+                            userId: data.uid ?? '');
+                      },
+                      leading: const CircleAvatar(
+                        backgroundImage: AssetImage(chatSectionPersonDummyImg2),
+                      ),
+                      title: Text(
+                        data.name ?? '',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(fontSize: 14),
+                      ),
+                      // subtitle: const Text(
+                      //   '',
+                      //   style: TextStyle(color: kgrey),
+                      // ),
+                      trailing: Obx(() {
+                        return controller.currentUserId.value == data.uid
+                            ? const Icon(
+                                Icons.check_circle,
+                                color: kneon,
+                                size: 27,
+                              )
+                            : const Icon(
+                                Icons.circle_outlined,
+                                color: kwhite,
+                                size: 27,
+                              );
+                      }),
                     ),
-                    title: Text(
-                      data.name ?? '',
-                      style: const TextStyle(color: kwhite),
-                    ),
-                    // subtitle: const Text(
-                    //   '',
-                    //   style: TextStyle(color: kgrey),
-                    // ),
-                    trailing: Obx(() {
-                      return controller.currentUserId.value == data.uid
-                          ? const Icon(Icons.check_circle, color: neonShade)
-                          : const Icon(Icons.circle_outlined, color: kwhite);
-                    }),
                   ),
                 );
               },
             );
           }),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: kblack,
-              borderRadius: kBorderRadius20,
-            ),
-            child: ListTile(
-              onTap: () {
-                // logout from application with out clalling logout to server
-                // user account will be avilable for account switching
-                controller.logOut(context, false);
-              },
-              leading: const CircleAvatar(
-                backgroundColor: kgrey,
-                child: Icon(Icons.add, color: kwhite),
+          Card(
+            elevation: 0,
+            child: Container(
+              margin: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                borderRadius: kBorderRadius20,
               ),
-              title: const Text(
-                'Add Account',
-                style: TextStyle(color: kwhite),
+              child: ListTile(
+                onTap: () {
+                  // logout from application with out clalling logout to server
+                  // user account will be avilable for account switching
+                  controller.logOut(context, false);
+                },
+                leading: const CircleAvatar(
+                  backgroundImage: AssetImage(bizcardBgImage),
+                  child: Icon(Icons.add, color: kwhite),
+                ),
+                title: Text(
+                  'Add Account',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 14),
+                ),
               ),
             ),
           ),

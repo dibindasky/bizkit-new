@@ -31,7 +31,11 @@ class ReportsView extends StatelessWidget {
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
-        title: const Text('Tasks'),
+        title: Text(
+          'Tasks',
+          style:
+              Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 17),
+        ),
         backgroundColor: knill,
       ),
       body: SafeArea(
@@ -82,13 +86,15 @@ class ReportsView extends StatelessWidget {
                                   controller.reportTasks[index].taskTitle ??
                                       'title',
                                   style:
-                                      textHeadStyle1.copyWith(fontSize: 13.sp),
+                                      Theme.of(context).textTheme.displaySmall,
                                 ),
                                 subtitle: Text(
                                   controller.reportTasks[index].deadLine ??
                                       'deadLine',
-                                  style:
-                                      textThinStyle1.copyWith(fontSize: 10.sp),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(fontSize: 12),
                                 ),
                                 // trailing: Column(
                                 //   mainAxisAlignment: MainAxisAlignment.center,
@@ -114,6 +120,7 @@ class ReportsView extends StatelessWidget {
                 ),
               ),
               EventButton(
+                color: const LinearGradient(colors: [kneon, kneon]),
                 text: 'Confirm to generate report',
                 onTap: () {
                   if (controller.selectedTaskIds.isEmpty) {

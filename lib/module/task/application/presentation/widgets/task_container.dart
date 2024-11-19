@@ -109,7 +109,7 @@ class TaskContainer extends StatelessWidget {
             children: [
               Card(
                 color: !controller.selectedIndices.contains(index)
-                    ? Theme.of(context).colorScheme.primaryContainer
+                    ? Theme.of(context).colorScheme.onTertiary
                     : kwhite.withOpacity(.2),
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
@@ -156,33 +156,29 @@ class TaskContainer extends StatelessWidget {
                                     tasksInsideFolder?.title ??
                                     tasksInsideInnerFolder?.title ??
                                     'Title',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(fontSize: 14),
                               ),
                               adjustWidth(15),
                               Card(
                                 color: lightGrey,
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 5),
-                                  child: Text(
-                                    'status',
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: neonShade,
-                                    ),
-                                  ),
+                                  child: Text('status',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall),
                                 ),
                               ),
                             ],
                           ),
                           PopupMenuButton<String>(
-                            color: kwhite,
-                            icon: const Icon(Icons.more_vert_outlined,
-                                color: kwhite),
+                            icon: const Icon(
+                              Icons.more_vert_outlined,
+                            ),
                             onSelected: (value) {
                               if (value == 'Move task') {
                                 log('Move task');
@@ -390,17 +386,14 @@ class TaskContainer extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 45),
                             child: Text(
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                              typeTask?.deadLine ??
-                                  tasksInsideFolder?.deadLine ??
-                                  tasksInsideInnerFolder?.deadLine ??
-                                  'No deadline',
-                              style: const TextStyle(fontSize: 12
-                                  // fontWeight: FontWeight.bold,
-
-                                  ),
-                            ),
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                typeTask?.deadLine ??
+                                    tasksInsideFolder?.deadLine ??
+                                    tasksInsideInnerFolder?.deadLine ??
+                                    'No deadline',
+                                style:
+                                    Theme.of(context).textTheme.displaySmall),
                           ),
                           Text(
                             maxLines: 1,
@@ -411,7 +404,10 @@ class TaskContainer extends StatelessWidget {
                                     tasksInsideInnerFolder?.isOwned == true
                                 ? 'Created by you'
                                 : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
-                            style: textThinStyle1.copyWith(fontSize: 10),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(fontSize: 9),
                           ),
                         ],
                       ),

@@ -19,7 +19,9 @@ class PersonalAndBusinessInfoTab extends StatelessWidget {
           border: Border.all(
             color: kneon,
           ),
-          borderRadius: const BorderRadius.all(Radius.circular(23)),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(23),
+          ),
         ),
         child: TabBar(
           indicatorPadding: const EdgeInsets.all(3),

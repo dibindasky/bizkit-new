@@ -93,6 +93,7 @@ dependencies:
   get_it: ^8.0.1
   cached_network_image: ^3.4.0
   flip_card: ^0.7.0
+  iconsax: ^0.0.8
 
 dev_dependencies:
   build_runner: ^2.4.8

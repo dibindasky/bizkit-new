@@ -10,7 +10,7 @@ void copyToClipboard({required String text, required BuildContext context}) {
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 3,
-    backgroundColor: neonShade,
-    textColor: kwhite,
+    backgroundColor: Theme.of(context).colorScheme.surface,
+    textColor: Theme.of(context).colorScheme.onTertiary,
   );
 }

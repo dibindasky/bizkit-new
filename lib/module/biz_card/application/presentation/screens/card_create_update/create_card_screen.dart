@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
+import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_model/text_extraction_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
@@ -18,7 +19,6 @@ class BizcardCreateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textExtractionController = Get.find<CardTextExtractionController>();
-    final cardController = Get.find<CardController>();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -268,7 +268,7 @@ class BizcardCreateScreen extends StatelessWidget {
                         ),
                       )),
                 Obx(() {
-                  if (cardController.isLoading.value) {
+                  if (textExtractionController.isLoading.value) {
                     return const LoadingAnimation();
                   }
                   return Padding(
@@ -278,8 +278,19 @@ class BizcardCreateScreen extends StatelessWidget {
                         showGradiant: false,
                         width: double.infinity,
                         onTap: () {
-                          GoRouter.of(context)
-                              .pushNamed(Routes.cardCreationDetailAdding);
+                          if (textExtractionController.pickedImageUrl.isEmpty) {
+                            GoRouter.of(context)
+                                .pushNamed(Routes.cardCreationDetailAdding);
+                          } else {
+                            textExtractionController.textExtraction(
+                                context: context,
+                                fromVisitingCard: false,
+                                textExtractionModel: TextExtractionModel(
+                                    images: textExtractionController
+                                        .pickedImageUrl
+                                        .map((e) => e.base64!)
+                                        .toList()));
+                          }
                         }),
                   );
                 }),

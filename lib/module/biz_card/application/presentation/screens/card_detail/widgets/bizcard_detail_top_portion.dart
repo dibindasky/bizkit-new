@@ -1,6 +1,12 @@
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class BizcardDetailTopPotion extends StatelessWidget {
@@ -13,6 +19,7 @@ class BizcardDetailTopPotion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardController = Get.find<CardController>();
     return SizedBox(
       height: 200.h,
       child: Stack(
@@ -44,7 +51,90 @@ class BizcardDetailTopPotion extends StatelessWidget {
                           ),
                           kWidth10,
                           Text('Card',
-                              style: Theme.of(context).textTheme.displayMedium)
+                              style: Theme.of(context).textTheme.bodyMedium),
+                          const Spacer(),
+                          PopupMenuButton<String>(
+                            icon: CircleAvatar(
+                              backgroundColor:
+                                  Theme.of(context).scaffoldBackgroundColor,
+                              child: Icon(
+                                Icons.more_vert,
+                                size: 18.sp,
+                              ),
+                            ),
+                            onSelected: (value) {},
+                            itemBuilder: (context) {
+                              List<PopupMenuEntry<String>> items = [];
+                              items.add(
+                                PopupMenuItem(
+                                  onTap: () {
+                                    showConfirmationDialog(
+                                      actionButton: 'Default',
+                                      heading:
+                                          'Are you sure you want to set as defult card',
+                                      context,
+                                      onPressed: () {
+                                        cardController.setDefaultCard(
+                                            context: context,
+                                            cardId: cardController.bizcardDetail
+                                                    .value.bizcardId ??
+                                                '');
+                                      },
+                                    );
+                                  },
+                                  value: 'Default',
+                                  child: const Text('Set as default'),
+                                ),
+                              );
+                              items.addAll([
+                                PopupMenuItem(
+                                    onTap: () {
+                                      showConfirmationDialog(
+                                        actionButton: 'Archive',
+                                        heading:
+                                            'Are you sure you want to archive your card',
+                                        context,
+                                        onPressed: () {
+                                          cardController.archiveACard(
+                                              context: context,
+                                              cardArchive: CardArchiveModel(
+                                                bizcardId: cardController
+                                                        .bizcardDetail
+                                                        .value
+                                                        .bizcardId ??
+                                                    '',
+                                                isArchived: true,
+                                              ));
+                                        },
+                                      );
+                                    },
+                                    value: 'Archive',
+                                    child: const Text('Archive')),
+                                PopupMenuItem(
+                                    onTap: () => showConfirmationDialog(
+                                          heading:
+                                              'Are you sure you want to delete your card',
+                                          context,
+                                          onPressed: () {
+                                            cardController.deleteACard(
+                                                context: context,
+                                                cardDelete: CardDeleteModel(
+                                                  bizcardId: cardController
+                                                          .bizcardDetail
+                                                          .value
+                                                          .bizcardId ??
+                                                      '',
+                                                  isDisabled: true,
+                                                ));
+                                          },
+                                        ),
+                                    value: 'Delete Card',
+                                    child: const Text('Delete Card')),
+                              ]);
+                              return items;
+                            },
+                          ),
+                          kWidth10,
                         ],
                       )
                     : Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -59,26 +149,60 @@ class BizcardDetailTopPotion extends StatelessWidget {
               ],
             ),
           ),
-          const Align(
-            child: CircleAvatar(
-                radius: 50, backgroundImage: AssetImage(dummyPersonImage)),
+          Align(
+            child: Obx(() => Container(
+                  height: 100.h,
+                  width: 100.h,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      border: Border.all(
+                          color: Theme.of(context).colorScheme.primary),
+                      borderRadius: kBorderRadius360),
+                  child: (cardController.bizcardDetail.value.personalDetails
+                              ?.images?.isEmpty ??
+                          true)
+                      ? Image.asset(
+                          iconPersonOutline,
+                          color: Theme.of(context).colorScheme.primary,
+                        )
+                      : NetworkImageWithLoader(
+                          (cardController.bizcardDetail.value.personalDetails
+                                      ?.images?.isNotEmpty ??
+                                  false)
+                              ? (cardController.bizcardDetail.value
+                                  .personalDetails!.images!.first)
+                              : imageDummyNetwork,
+                          radius: 100.h,
+                        ),
+                )),
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Jasai Gopisetty',
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-                Text(
-                  'UXUI Designer',
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-                kHeight20,
-              ],
-            ),
+            child: Obx(() => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      cardController.personalDetails.value?.name != null
+                          ? cardController.personalDetails.value?.name ?? ''
+                          : cardController
+                                      .businessDetails.value?.businessName !=
+                                  null
+                              ? cardController
+                                      .businessDetails.value?.businessName ??
+                                  ""
+                              : '',
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    Text(
+                      cardController.businessDetails.value?.designation != null
+                          ? cardController.businessDetails.value?.designation ??
+                              ""
+                          : '',
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
+                    kHeight20,
+                  ],
+                )),
           )
         ],
       ),

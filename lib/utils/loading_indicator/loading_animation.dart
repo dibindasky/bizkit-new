@@ -14,7 +14,8 @@ class LoadingAnimation extends StatelessWidget {
       child: SizedBox(
         width: kwidth * width!,
         child: LoadingIndicator(
-            indicatorType: Indicator.ballPulse, colors: colors ?? [kneon]),
+            indicatorType: Indicator.ballPulse,
+            colors: colors ?? [Theme.of(context).colorScheme.primary]),
       ),
     );
   }

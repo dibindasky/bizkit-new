@@ -1,3 +1,4 @@
+import 'package:bizkit/core/themes/bottom_sheet_themes.dart';
 import 'package:bizkit/core/themes/text_field_theme.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,11 @@ class AppThemes {
       scaffoldBackgroundColor: koffWhite,
       brightness: Brightness.light,
       colorScheme: const ColorScheme.light(
-        primary: kneon,
-        onPrimary: kblack,
-        secondary: kgrey,
-        surface: kneonDark,
-        onTertiary: kwhite
-      ),
+          primary: kneon,
+          onPrimary: kblack,
+          secondary: kgrey,
+          surface: kneonDark,
+          onTertiary: kwhite),
       cardColor: kwhite,
       textTheme: const TextTheme(
           headlineLarge: TextStyle(
@@ -53,6 +53,7 @@ class AppThemes {
         ),
       ),
       inputDecorationTheme: InputDecorationThemes.inputDecorationLightTheme,
+      bottomSheetTheme: BottomSheetThemes.bottomSheetLightTheme,
       popupMenuTheme: const PopupMenuThemeData(color: kwhite),
       extensions: const <ThemeExtension<dynamic>>[
         ContainerThemeData(

@@ -8,6 +8,8 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_and
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_bizcard.dart/create_business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_card_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/achivement/bizcard_detail_achivements.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/personal_and_banking/bizcard_detail_banking_and_personal_detail.dart';
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/level_sharing_settings.dart';
 
@@ -94,14 +96,14 @@ class GoRouterConfig {
     ),
 
     GoRoute(
-      name:Routes.varificationScreen,
-      path: Routes.varificationScreen,
-      builder:(context,state){
-
-        final data=state.extra as bool;
-      return  VarificationScreen(islogin: data,);
-      }
-    ),
+        name: Routes.varificationScreen,
+        path: Routes.varificationScreen,
+        builder: (context, state) {
+          final data = state.extra as bool;
+          return VarificationScreen(
+            islogin: data,
+          );
+        }),
 
     GoRoute(
       path: Routes.machoMeterScreen,
@@ -346,6 +348,20 @@ class GoRouterConfig {
       name: Routes.cardCreationProfilePage,
       path: Routes.cardCreationProfilePage,
       builder: (context, state) => const ScreenCardProfileCreation(),
+    ),
+
+    GoRoute(
+      name: Routes.cardBankingOrPersonalDetail,
+      path: Routes.cardBankingOrPersonalDetail,
+      builder: (context, state) => BizcardDetailBankingAndPersonalDetail(
+        isFromBankScreen: state.extra as bool,
+      ),
+    ),
+
+    GoRoute(
+      name: Routes.cardAchivements,
+      path: Routes.cardAchivements,
+      builder: (context, state) => const BizCardDeatailAchivements(),
     ),
 
     GoRoute(

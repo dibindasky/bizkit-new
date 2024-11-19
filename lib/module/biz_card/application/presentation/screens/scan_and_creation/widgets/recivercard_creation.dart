@@ -73,7 +73,8 @@ class RecivercardCreation extends StatelessWidget {
             ),
             Align(
               child: GestureDetector(
-                onTap: onPressedGallery,
+                onTap: 
+                  onPressedCam,
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: kBorderRadius10,
@@ -102,9 +103,10 @@ class RecivercardCreation extends StatelessWidget {
           children: [
             kempty,
             GestureDetector(
-              onTap: onPressedGallery,
+              onTap:
+                onPressedGallery
+                ,
               child: Container(
-                
                 margin: const EdgeInsets.all(40),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -146,6 +148,7 @@ class RecivercardCreation extends StatelessWidget {
                          textExtractionController.pickedImageUrl.clear();
                                 receivedCardController
                                     .clearAllTextEditingControllers();
+                                    
                                 GoRouter.of(context)
                                     .pushNamed(Routes.scanedDataFeilds);
                   }),

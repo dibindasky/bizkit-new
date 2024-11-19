@@ -1,10 +1,9 @@
-import 'dart:convert';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/preview_commen_widgets/preview_pageview_image_builder/widget/bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/home/view/first_and_second_commen/pageview_animated_builder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/images/image_slidable_list.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class PreviewPageviewImageBuilder extends StatefulWidget {
   const PreviewPageviewImageBuilder({
@@ -97,12 +96,12 @@ class ImagePreviewScrollView extends StatefulWidget {
 }
 
 class _ImagePreviewScrollViewState extends State<ImagePreviewScrollView> {
-  Uint8List image = Uint8List(0);
-  @override
-  void initState() {
-    image = base64Decode(widget.image);
-    super.initState();
-  }
+  // Uint8List image = Uint8List(0);
+  // @override
+  // void initState() {
+  //   image = base64Decode(widget.image);
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -136,12 +135,14 @@ class _ImagePreviewScrollViewState extends State<ImagePreviewScrollView> {
           child: SizedBox(
             width: double.infinity,
             height: 200,
-            child: Image.memory(
-              image,
-              errorBuilder: (context, error, stackTrace) =>
-                  const Icon(Icons.image_not_supported_outlined),
-              fit: BoxFit.cover,
-            ),
+            child: 
+            NetworkImageWithLoader(widget.image), 
+            // Image.memory(
+            //   image,
+            //   errorBuilder: (context, error, stackTrace) =>
+            //       const Icon(Icons.image_not_supported_outlined),
+            //   fit: BoxFit.cover,
+            // ),
           ),
         ),
       ),

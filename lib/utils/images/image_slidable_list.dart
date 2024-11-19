@@ -28,18 +28,27 @@ class SlidablePhotoGallery extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Hero(
                   tag: 'photo',
-                  child: PhotoView(
-                    imageProvider: MemoryImage(
-                      base64.decode(images[index].startsWith('data')
-                          ? images[index].substring(22)
-                          : images[index]),
-                    ),
-                    minScale: PhotoViewComputedScale.contained,
-                    maxScale: PhotoViewComputedScale.covered * 2,
-                    initialScale: PhotoViewComputedScale.contained,
-                    backgroundDecoration:
-                        const BoxDecoration(color: Colors.black),
-                  ),
+                  child: isMemory
+                      ? PhotoView(
+                          imageProvider: MemoryImage(
+                            base64.decode(images[index].startsWith('data')
+                                ? images[index].substring(22)
+                                : images[index]),
+                          ),
+                          minScale: PhotoViewComputedScale.contained,
+                          maxScale: PhotoViewComputedScale.covered * 2,
+                          initialScale: PhotoViewComputedScale.contained,
+                          backgroundDecoration:
+                              const BoxDecoration(color: Colors.black),
+                        )
+                      : PhotoView(
+                          imageProvider: NetworkImage(images[index]),
+                          minScale: PhotoViewComputedScale.contained,
+                          maxScale: PhotoViewComputedScale.covered * 2,
+                          initialScale: PhotoViewComputedScale.contained,
+                          backgroundDecoration:
+                              const BoxDecoration(color: Colors.black),
+                        ),
                 );
               },
             ),

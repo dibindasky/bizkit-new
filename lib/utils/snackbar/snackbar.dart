@@ -13,7 +13,7 @@ void showSnackbar(
     elevation: 5,
     content: Text(
       getFirstCapital(message),
-      style: textStyle1.copyWith(color: textColor),
+      style: Theme.of(context).textTheme.bodySmall?.copyWith(color: textColor),
     ),
     backgroundColor: backgroundColor,
     duration: Duration(seconds: duration),

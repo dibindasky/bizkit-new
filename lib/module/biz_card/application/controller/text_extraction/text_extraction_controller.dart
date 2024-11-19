@@ -103,9 +103,7 @@ class CardTextExtractionController extends GetxController {
            isLoading.value = false;
           GoRouter.of(context).pushNamed(Routes.scanedDataFeilds);
         } else {
-           isLoading.value = false;
-          GoRouter.of(context)
-              .pushReplacementNamed(Routes.cardCreationProfilePage);
+          GoRouter.of(context).pushReplacementNamed(Routes.cardCreationDetailAdding);
         }
 
         isLoading.value = false;

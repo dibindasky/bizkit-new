@@ -99,9 +99,10 @@ String iconTaskCalenderBottomBar = 'asset/images/task/task third tab.png';
 
 BorderRadius kBorderRadius5 = BorderRadius.circular(5);
 BorderRadius kBorderRadius10 = BorderRadius.circular(10);
+BorderRadius kBorderRadius15 = const BorderRadius.all(Radius.circular(15));
 BorderRadius kBorderRadius20 = const BorderRadius.all(Radius.circular(20));
 BorderRadius kBorderRadius25 = const BorderRadius.all(Radius.circular(25));
-BorderRadius kBorderRadius15 = const BorderRadius.all(Radius.circular(15));
+BorderRadius kBorderRadius360 = const BorderRadius.all(Radius.circular(360));
 
 const kempty = SizedBox(height: 0);
 

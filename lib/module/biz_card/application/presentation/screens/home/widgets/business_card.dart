@@ -27,7 +27,7 @@ class BusinessCard extends StatelessWidget {
             onTap: () {
               GoRouter.of(context).pushNamed(Routes.cardDetailView,
                   pathParameters: {
-                    'cardId': '66d1acb6128a4e4cb982580f',
+                    'cardId': bizcard.bizcardId ?? "",
                     'myCard': 'true'
                   });
             },

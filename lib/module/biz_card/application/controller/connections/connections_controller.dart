@@ -5,6 +5,7 @@ import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/data/sqflite/my_connection/my_connection_local_service.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/bizcard_users_search_responce/result.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/cancel_connection_request_model/cancel_connection_request_model.dart';
@@ -653,16 +654,19 @@ class ConnectionsController extends GetxController {
   void getConnectionCardDetail({required String cardId}) async {
     log('Bizcard ID -->> $cardId');
     cardLoading.value = true;
+    final cardController = Get.find<CardController>();
+    cardController.isLoading.value = true;
+    cardController.bizcardDetail.value = CardDetailModel();
     final data = await connectionService.getConnectionCard(cardId: cardId);
     data.fold(
       (l) => null,
       (r) {
-        final cardController = Get.find<CardController>();
         cardController.bizcardDetail.value = r;
         cardController.personalDetails.value = r.personalDetails;
         cardController.businessDetails.value = r.businessDetails;
       },
     );
+    cardController.isLoading.value = false;
     cardLoading.value = false;
   }
 

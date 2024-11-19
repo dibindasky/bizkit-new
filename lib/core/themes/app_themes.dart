@@ -1,3 +1,4 @@
+import 'package:bizkit/core/themes/bottom_sheet_themes.dart';
 import 'package:bizkit/core/themes/text_field_theme.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,7 @@ class AppThemes {
         ),
       ),
       inputDecorationTheme: InputDecorationThemes.inputDecorationLightTheme,
+      bottomSheetTheme: BottomSheetThemes.bottomSheetLightTheme,
       popupMenuTheme: const PopupMenuThemeData(color: kwhite),
       extensions: const <ThemeExtension<dynamic>>[
         ContainerThemeData(

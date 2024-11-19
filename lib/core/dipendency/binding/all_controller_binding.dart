@@ -9,6 +9,6 @@ class AllControllerBinding implements Bindings {
     // Module manager
     Get.lazyPut(() => AuthenticationController());
     Get.lazyPut(() => ModuleController());
-    Get.lazyPut(()=>ProfileController());
+    Get.lazyPut(() => ProfileController());
   }
 }

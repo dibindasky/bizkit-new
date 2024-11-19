@@ -3,7 +3,7 @@ import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 
 class NetworkImageWithLoader extends StatelessWidget {
-  final BoxFit fit;
+  final BoxFit fit; 
 
   const NetworkImageWithLoader(
     this.src, {

@@ -18,8 +18,9 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final profileController = Get.find<ProfileController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      profileController.image.isEmpty?
-      profileController.getProfileDetails():null;
+      profileController.checkEmail.isEmpty
+          ? profileController.getProfileDetails()
+          : null;
     });
     return SafeArea(
       child: Scaffold(
@@ -120,7 +121,8 @@ class ProfileScreen extends StatelessWidget {
                 heading: 'Connections & Networking',
                 subtitle: 'Blocked,Restricted,Report Connections',
                 onTap: () {
-                  GoRouter.of(context).pushNamed(Routes.connectionsAndNetworking);
+                  GoRouter.of(context)
+                      .pushNamed(Routes.connectionsAndNetworking);
                 },
               ),
               ProfileTiles(
@@ -143,6 +145,7 @@ class ProfileScreen extends StatelessWidget {
                     context,
                     onPressed: () {
                       Get.find<AuthenticationController>().logOut(context);
+                      profileController.clearData();
                     },
                   );
                 },
@@ -191,12 +194,17 @@ class ProfileTiles extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(heading,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 15)), 
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontSize: 15)),
                     subtitle == null
                         ? const SizedBox()
                         : Text(subtitle!,
                             style: const TextStyle(
-                                fontSize: 11, fontWeight: FontWeight.w400,color: kGreyNormal)),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w400,
+                                color: kGreyNormal)),
                   ],
                 ),
                 const Spacer(),

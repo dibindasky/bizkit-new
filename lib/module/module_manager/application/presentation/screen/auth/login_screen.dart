@@ -59,10 +59,6 @@ class _ScreenLoginState extends State<ScreenLogin>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               adjustHieght(khieght * 0.20),
-                TextButton(
-                  onPressed: () =>
-                      GoRouter.of(context).pushNamed(Routes.varificationScreen),
-                  child: Text('to varification screen')),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(

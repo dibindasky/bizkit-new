@@ -226,5 +226,27 @@ class ProfileController extends GetxController {
       showSnackbar(context, message: 'Successfully updated');
       GoRouter.of(context).pop();
     });
+
+
+
+  }
+
+  clearData(){
+
+
+  ///get datas to these varibales
+   name = ''.obs;
+   email = ''.obs;
+   phone = ''.obs;
+   image = ''.obs;
+
+  ///check the initial data changed or not in ui using these varibales
+   checkName = '';
+   checkEmail = '';
+   checkPhone = '';
+
+      userPhone.clear();
+   userMail.clear();
+   userName.clear();
   }
 }

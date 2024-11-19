@@ -14,6 +14,7 @@ import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class ScreenTaskReportGenerator extends StatefulWidget {
   const ScreenTaskReportGenerator({super.key});
@@ -142,14 +143,19 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
               : ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   children: [
-                    const Text(
+                    Text(
                       'Get report for your tasks',
-                      style: TextStyle(fontSize: 18, color: neonShade),
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                            fontSize: 18,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                     ),
                     adjustHieght(8.h),
-                    const Text(
+                    Text(
                       'Identify the problem which is affecting the task progress by getting a detailed report',
-                      style: TextStyle(color: klightgrey),
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                            color: kGreyNormal,
+                          ),
                     ),
                     adjustHieght(16.h),
                     _buildCheckboxRow(
@@ -190,7 +196,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                       fillColor: textFieldFillColr,
                       suffixIcon: IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.search, color: neonShade),
+                        icon: const Icon(Iconsax.search_status, color: kneon),
                       ),
                     ),
                     adjustHieght(10.h),
@@ -202,6 +208,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                     adjustHieght(20.h),
                     Center(
                       child: EventButton(
+                        color: const LinearGradient(colors: [kneon, kneon]),
                         width: kwidth * 98,
                         text: 'Get Report',
                         onTap: _getReport,
@@ -219,7 +226,11 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(color: kwhite)),
+        Text(title,
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(fontSize: 12)),
         FittedBox(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -236,17 +247,17 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Checkbox(
-          side: const BorderSide(color: neonShade),
+          side: const BorderSide(color: kneon),
           value: selectedOptions.contains(value),
           onChanged: (newValue) {
             if (newValue != null) {
               onChanged(value);
             }
           },
-          checkColor: neonShade,
+          checkColor: kneon,
           activeColor: kwhite,
         ),
-        Text(label, style: const TextStyle(color: kwhite)),
+        Text(label, style: Theme.of(context).textTheme.displaySmall),
       ],
     );
   }

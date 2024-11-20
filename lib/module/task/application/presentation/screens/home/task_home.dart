@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/generate_report_button.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class TaskHomeScreen extends StatefulWidget {
   const TaskHomeScreen({super.key});
@@ -60,6 +62,16 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
               ),
             ),
           ),
+        ),
+      ),
+      floatingActionButton: FadeInRight(
+        animate: true,
+        child: FloatingActionButton(
+          onPressed: () {
+            Get.toNamed(Routes.addTask, id: 1, arguments: 1);
+          },
+          isExtended: true,
+          child: const Icon(Iconsax.add),
         ),
       ),
     );

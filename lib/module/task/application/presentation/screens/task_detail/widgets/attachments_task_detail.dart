@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/image_viewer.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
@@ -10,7 +9,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pdf_render/pdf_render_widgets.dart';
+import 'package:iconsax/iconsax.dart';
 
 class TaskDetailAttachmentsSection extends StatelessWidget {
   const TaskDetailAttachmentsSection({super.key});
@@ -218,7 +217,10 @@ class AttachmentTile extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: kBorderRadius15,
                       ),
-                      child: Icon(Icons.picture_as_pdf_outlined),
+                      child: const Icon(
+                        Iconsax.document_cloud,
+                        color: kblack,
+                      ),
                     ))
                   : Expanded(
                       child: Container(

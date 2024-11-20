@@ -33,10 +33,6 @@ class ScreenAddTask extends StatelessWidget {
   Widget build(BuildContext context) {
     // final taskCalenarcontroller = Get.find<TaskCalenderViewController>();
     final controller = Get.find<CreateTaskController>();
-    final style = TextStyle(
-      fontSize: 15.sp,
-      color: neonShade,
-    );
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.searchParticipants();
@@ -44,6 +40,7 @@ class ScreenAddTask extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: knill,
         leading: IconButton(
           onPressed: () {
             Get.back(id: navigationId);
@@ -57,7 +54,13 @@ class ScreenAddTask extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
         ),
         backgroundColor: knill,
-        title: Text(edit ? 'Edit Task' : 'New Task'),
+        title: Text(
+          edit ? 'Edit Task' : 'New Task',
+          style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+        ),
       ),
       body: SafeArea(
         child: Obx(
@@ -74,7 +77,14 @@ class ScreenAddTask extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Title', style: style),
+                          Text('Title',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  )),
                           adjustHieght(3.h),
                           TaskTextField(
                             onTapOutside: () =>
@@ -92,7 +102,14 @@ class ScreenAddTask extends StatelessWidget {
                             },
                           ),
                           adjustHieght(10.h),
-                          Text('Description', style: style),
+                          Text('Description',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  )),
                           adjustHieght(3.h),
                           TaskTextField(
                             maxLines: 5,
@@ -103,7 +120,14 @@ class ScreenAddTask extends StatelessWidget {
                                 FocusScope.of(context).unfocus(),
                           ),
                           adjustHieght(3.h),
-                          Text('Task Type', style: style),
+                          Text('Task Type',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  )),
                           adjustHieght(5.h),
                           const TaskTypeRadioButtons(),
                           adjustHieght(10.h),
@@ -112,7 +136,14 @@ class ScreenAddTask extends StatelessWidget {
                           adjustHieght(10.h),
                           controller.createTaskTupe.value == TaskType.personal
                               ? kempty
-                              : Text('Assign to', style: style),
+                              : Text('Assign to',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                      )),
                           controller.createTaskTupe.value == TaskType.personal
                               ? kempty
                               : adjustHieght(3.h),
@@ -140,10 +171,12 @@ class ScreenAddTask extends StatelessWidget {
                               children: participants
                                   .map((participant) => Chip(
                                         deleteIconColor: kred,
-                                        side:
-                                            const BorderSide(color: neonShade),
+                                        side: const BorderSide(color: kneon),
                                         label: Text(
                                           participant.name ?? 'name',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall,
                                         ),
                                         onDeleted: () {
                                           controller
@@ -170,8 +203,8 @@ class ScreenAddTask extends StatelessWidget {
                           adjustHieght(10.h),
                           Center(
                             child: EventButton(
-                              color: const LinearGradient(
-                                  colors: [neonShade, neonShade]),
+                              color:
+                                  const LinearGradient(colors: [kneon, kneon]),
                               width: 300.w,
                               text: edit ? 'Edit Task' : 'Create Task',
                               onTap: () {

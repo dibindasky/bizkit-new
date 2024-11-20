@@ -29,7 +29,11 @@ class AddParticipentBottomSheet extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Add Participants', style: fontPopinsMedium),
+              Text('Add Participants',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 14)),
               IconButton(
                   onPressed: () {
                     Navigator.of(context).pop();
@@ -62,11 +66,17 @@ class AddParticipentBottomSheet extends StatelessWidget {
                 if (controller.searchLoading.value) {
                   return ShimmerLoaderSearchParticipants(
                       seprator: kHeight5,
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
                       itemCount: 5,
                       height: 50.h,
                       width: double.infinity);
                 } else if (controller.userslist.isEmpty) {
-                  return const Center(child: Text('No participants found.'));
+                  return Center(
+                      child: Text(
+                    'No participants found.',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ));
                 } else {
                   return ListView.separated(
                     controller: controller.searchScrollController,
@@ -87,6 +97,8 @@ class AddParticipentBottomSheet extends StatelessWidget {
                           itemCount: 1,
                           height: 50.h,
                           width: 200.w,
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
                         );
                       } else {
                         final user = controller.userslist[index];
@@ -99,13 +111,17 @@ class AddParticipentBottomSheet extends StatelessWidget {
                           ),
                           title: Text(
                             user.name ?? 'No Name',
-                            style: textThinStyle1.copyWith(fontSize: 14),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(fontSize: 13),
                           ),
                           subtitle: Text(
                             maskEmail(user.email ?? ''),
-                            style: fontPopinsThin.copyWith(
-                              fontSize: 10.sp,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(fontSize: 10),
                           ),
                           trailing: GestureDetector(
                             onTap: () {
@@ -134,13 +150,14 @@ class AddParticipentBottomSheet extends StatelessWidget {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 15.w, vertical: 5.w),
                               decoration: BoxDecoration(
-                                gradient: neonShadeGradient,
+                                gradient: const LinearGradient(
+                                    colors: [kneon, kneon]),
                                 borderRadius: kBorderRadius5,
-                                border: Border.all(color: neonShade),
+                                border: Border.all(color: kneon),
                               ),
                               child: Text(
                                 isAlreadyAdded ? 'Remove' : 'Add',
-                                style: fontPopinsThin.copyWith(fontSize: 10.sp),
+                                style: Theme.of(context).textTheme.displaySmall,
                               ),
                             ),
                           ),

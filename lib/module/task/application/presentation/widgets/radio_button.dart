@@ -23,7 +23,7 @@ class CustomRadioButton extends StatelessWidget {
         children: [
           !selected
               ? const CircleAvatar(
-                  backgroundColor: neonShade,
+                  backgroundColor: kneon,
                   radius: 8,
                   child: CircleAvatar(
                     backgroundColor: kblack,
@@ -31,13 +31,13 @@ class CustomRadioButton extends StatelessWidget {
                   ),
                 )
               : const CircleAvatar(
-                  backgroundColor: neonShade,
+                  backgroundColor: kneon,
                   radius: 10,
                   child: CircleAvatar(
                     backgroundColor: kblack,
                     radius: 9,
                     child: CircleAvatar(
-                      backgroundColor: neonShade,
+                      backgroundColor: kneon,
                       radius: 8,
                     ),
                   ),
@@ -45,6 +45,7 @@ class CustomRadioButton extends StatelessWidget {
           kWidth5,
           Text(
             text,
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(),
           ),
         ],
       ),

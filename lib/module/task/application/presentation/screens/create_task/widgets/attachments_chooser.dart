@@ -4,6 +4,7 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class AttachmentChooserTaskCreation extends StatelessWidget {
   const AttachmentChooserTaskCreation({super.key});
@@ -17,49 +18,47 @@ class AttachmentChooserTaskCreation extends StatelessWidget {
       children: [
         Text(
           'Attachments',
-          style: TextStyle(
-            color: neonShade,
-            fontSize: 15.sp,
-          ),
+          style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
         ),
         adjustHieght(10.h),
         GestureDetector(
           onTap: controller.pickFiles,
-          child: Container(
-            width: double.infinity,
-            height: 120.h,
-            decoration: BoxDecoration(
-              color: klightDarkGrey,
-              borderRadius: kBorderRadius15,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.file_upload_outlined, color: neonShade),
-                adjustWidth(20.w),
-                const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Browse File or Upload',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: kwhite,
+          child: Card(
+            elevation: 0,
+            child: Container(
+              width: double.infinity,
+              height: 120.h,
+              decoration: BoxDecoration(
+                borderRadius: kBorderRadius15,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.file_upload_outlined, color: kneon),
+                  adjustWidth(20.w),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Browse File or Upload',
+                        style: Theme.of(context).textTheme.displaySmall,
                       ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      'Allowed File Types: JPG, PDF',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
+                      const SizedBox(height: 5),
+                      Text(
+                        'Allowed file types: JPG, PDF',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(color: kGreyNormal, fontSize: 10),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -69,13 +68,8 @@ class AttachmentChooserTaskCreation extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 adjustHieght(10.h),
-                Text(
-                  'Selected Files:',
-                  style: TextStyle(
-                    color: neonShade,
-                    fontSize: 15.sp,
-                  ),
-                ),
+                Text('Selected Files:',
+                    style: Theme.of(context).textTheme.displaySmall),
                 adjustHieght(10.h),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -88,23 +82,25 @@ class AttachmentChooserTaskCreation extends StatelessWidget {
                                 width: 109.w,
                                 height: 60.h,
                                 child: Card(
-                                  color: lightGrey,
+                                  elevation: 0,
                                   margin: EdgeInsets.only(right: 10.w),
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: Column(
                                       children: [
                                         Icon(
-                                          Icons.file_copy,
-                                          color: neonShade,
+                                          Iconsax.document_copy5,
+                                          color: kneon,
                                           size: 30.w,
                                         ),
                                         Text(
                                           file.name,
                                           maxLines: 1,
                                           softWrap: true,
-                                          style: textThinStyle1.copyWith(
-                                              fontSize: 10),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall
+                                              ?.copyWith(fontSize: 9),
                                         ),
                                       ],
                                     ),

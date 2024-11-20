@@ -36,6 +36,8 @@ class ConnectionsController extends GetxController {
   final ScrollController myConnectionScrollController = ScrollController();
   final ScrollController fetchMyConnectionScrollController = ScrollController();
 
+  final TextEditingController searchController = TextEditingController();
+
   final ConnectionsRepo connectionService = getIt<ConnectionsRepo>();
   final MyConnectionLocalRepo myConnectionLocalService =
       MyConnectionLocalService();
@@ -136,6 +138,27 @@ class ConnectionsController extends GetxController {
     }
   }
 
+  ///this search for every search actions in the bizcard and connection screen.
+  void searchBizcardAndConnection(int index, String query) {
+    debouncer.run(() {
+      switch (index) {
+        case 0:
+        searchConnections();
+          break;
+        case 1:
+        
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+        case 4:
+          break;
+        default:
+      }
+    });
+  }
+
   // Send connection request
   void sendConnectionRequest(
       {required SendConnectionRequest connectionRequest,
@@ -183,7 +206,7 @@ class ConnectionsController extends GetxController {
         myConnectionPageNumber = 1;
         connectionsSearchList.value = [];
 
-        if (myConnectionsearchController.text.isEmpty) {
+        if (searchController.text.isEmpty) {
           await getConnectionDatasFromLocal(search: true);
           log("sear connection datas ---- ${connectionsSearchList.toJson()}");
           searchConnectionsLoading.value = false;
@@ -192,7 +215,7 @@ class ConnectionsController extends GetxController {
             searchQuery: SearchQuery(
                 page: myConnectionPageNumber,
                 pageSize: pageSize,
-                search: myConnectionsearchController.text));
+                search: searchController.text));
 
         result.fold(
           (failure) {
@@ -246,7 +269,7 @@ class ConnectionsController extends GetxController {
             searchQuery: SearchQuery(
                 page: (connectionsSearchList.length ~/ pageSize) + 1,
                 pageSize: pageSize,
-                search: myConnectionsearchController.text));
+                search: searchController.text));
         result.fold(
           (failure) {
             myConnectionLoadMore.value = false;

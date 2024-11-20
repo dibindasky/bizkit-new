@@ -1,114 +1,129 @@
 // import 'dart:convert';
 
-// import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:get/get.dart';
+import 'package:get/get.dart';
 
 class SharedCardsTab extends StatelessWidget {
   const SharedCardsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.find<ConnectionsController>();
+    final controller = Get.find<ConnectionsController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // controller.getSharedCardList();
+      controller.getSharedCardList();
     });
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6),
-      child: GridView.builder(
-        // itemCount: controller.sharedCards.length,
-        itemCount: 20,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 1 / 1.2,
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10),
-        itemBuilder: (context, index) {
-          // final data = controller.sharedCards[index];
-          return Card(
-            elevation: 0,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CircleAvatar(
-                    radius: 30,
-                    backgroundColor: kgrey,
-                    // backgroundImage: data.sharedByProfilePicture != null
-                    //     ? MemoryImage(
-                    //         base64Decode(data.sharedByProfilePicture ?? ''))
-                    //     : null,
-                    backgroundImage: AssetImage(chatSectionPersonDummyImg2),
-                  ),
-                  kHeight5,
-                  Text(
-                    // data.sharedByName ?? '',
-                    'Shared by name',
-                    style: Theme.of(context).textTheme.displaySmall,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    // data.sharedByEmail ?? '',
-                    'Shared by email',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(fontSize: 10),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  kHeight10,
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          // controller.acceptOrRejectSharedCard(context,
-                          //     id: data.id ?? '', accept: false);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              color: kblack,
-                              borderRadius: BorderRadius.circular(100)),
-                          child: const Icon(
-                            Icons.clear,
-                            color: kwhite,
+        padding: const EdgeInsets.symmetric(horizontal: 6),
+        child: Obx(
+          () => controller.sharedCardLoading.value
+              ?const Center(child: CircularProgressIndicator())
+              : controller.sharedCards.isEmpty
+                  ? Center(
+                      child: Text('No shared cards',style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500) ),
+                    )
+                  : GridView.builder(
+                      itemCount: controller.sharedCards.length,
+                      // itemCount: 20,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: 1 / 1.2,
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10),
+                      itemBuilder: (context, index) {
+                       
+                        final data = controller.sharedCards[index];
+                        return Card(
+                          elevation: 0,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                data.sharedByProfilePicture != null
+                                    ? CircleAvatar(
+                                        radius: 30,
+                                        backgroundColor: kgrey,
+                                        backgroundImage: NetworkImage(
+                                            data.sharedByProfilePicture ?? ''))
+                                    : CircleAvatar(
+                                        radius: 30,
+                                        backgroundColor: kgrey,
+                                        backgroundImage: NetworkImage(
+                                            data.sharedByProfilePicture ?? '')),
+                                kHeight5,
+                                Text(
+                                  data.sharedByName ?? 'found',
+                                  // 'Shared by name',
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  data.sharedByEmail ?? 'not found',
+                                  // 'Shared by email',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(fontSize: 10),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                kHeight10,
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        controller.acceptOrRejectSharedCard(context,
+                                            id: data.id ?? '', accept: false);
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            color: kblack,
+                                            borderRadius:
+                                                BorderRadius.circular(100)),
+                                        child: const Icon(
+                                          Icons.clear,
+                                          color: kwhite,
+                                        ),
+                                      ),
+                                    ),
+                                    kWidth20,
+                                    GestureDetector(
+                                      onTap: () {
+                                        controller.acceptOrRejectSharedCard(context,
+                                            id: data.id ?? '', accept: true);
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            color: kneon,
+                                            borderRadius:
+                                                BorderRadius.circular(100)),
+                                        child: const Icon(
+                                          Icons.check,
+                                          size: 24,
+                                          color: kwhite,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                      kWidth20,
-                      GestureDetector(
-                        onTap: () {
-                          // controller.acceptOrRejectSharedCard(context,
-                          //     id: data.id ?? '', accept: true);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              color: kneon,
-                              borderRadius: BorderRadius.circular(100)),
-                          child: const Icon(
-                            Icons.check,
-                            size: 24,
-                            color: kwhite,
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
+                        );
+                      },
+                    ),
+        ));
     // return Obx(
     //   () {
     //     if (controller.sharedCardLoading.value) {

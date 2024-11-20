@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/generate_report_button.dart';
@@ -29,7 +30,9 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<TaskHomeScreenController>();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      homeController.progresBar();
+    });
     final authController = Get.find<AuthenticationController>();
     return Scaffold(
       body: SafeArea(
@@ -37,19 +40,23 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
           onRefresh: () async {
             homeController.fetchRecentTasks();
           },
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              child: Column(
-                children: [
-                  TaskHomeAppBar(authController: authController),
-                  adjustHieght(25.h),
-                  TaskStatusSection(tabController: tabController),
-                  adjustHieght(1.h),
-                  const RecentTasksSection(),
-                  adjustHieght(30.h),
-                  const GenerateReportButton(),
-                ],
+          child: FadeIn(
+            animate: true,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                child: Column(
+                  children: [
+                    TaskHomeAppBar(authController: authController),
+                    adjustHieght(25.h),
+                    TaskStatusSection(tabController: tabController),
+                    adjustHieght(1.h),
+                    const RecentTasksSection(),
+                    adjustHieght(30.h),
+                    const GenerateReportButton(),
+                  ],
+                ),
               ),
             ),
           ),

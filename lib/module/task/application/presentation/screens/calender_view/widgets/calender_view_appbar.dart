@@ -27,20 +27,24 @@ class TaskCalenderViewAppBar extends StatelessWidget {
       height: 80.h,
       child: Row(
         children: [
-          const Icon(Icons.calendar_month, color: neonShade),
+          const Icon(Icons.calendar_month, color: kneon),
           adjustWidth(10.w),
-          Text('Calender view', style: TextStyle(fontSize: 17.sp)),
+          Text('Calender view',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 16)),
           const Spacer(),
           CustomCircleAvatar(
-            backgroundColor: lightGrey,
+            backgroundColor: Theme.of(context).colorScheme.onSecondary,
             onTap: () {
               Get.toNamed(Routes.taskNotification, id: 2);
             },
-            backgroundColorInner: neonShade,
+            backgroundColorInner: kneon,
           ),
           adjustWidth(8.5.w),
           CustomCircleAvatar(
-            backgroundColor: lightGrey,
+            backgroundColor: Theme.of(context).colorScheme.onSecondary,
             onTap: () {
               if (controller.taskTabChangeIndex.value == 2) {
                 showCreateFolderDialog(context);
@@ -52,11 +56,11 @@ class TaskCalenderViewAppBar extends StatelessWidget {
                 );
               }
             },
-            backgroundColorInner: neonShade,
+            backgroundColorInner: kneon,
             child: const Icon(
               Icons.add,
               size: 20,
-              color: neonShade,
+              color: kneon,
             ),
           ),
           adjustWidth(7.w),

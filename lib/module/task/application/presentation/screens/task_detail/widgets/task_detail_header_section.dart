@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
 class TaskDetailHeaderSection extends StatelessWidget {
   const TaskDetailHeaderSection({super.key});
@@ -51,10 +52,14 @@ class TaskDetailHeaderSection extends StatelessWidget {
                           children: [
                             Text(
                               taskController.singleTask.value.title ?? 'Title',
-                              style: textHeadStyle1.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.sp,
-                                  color: neonShade),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 16,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
                             ),
                             Obx(
                               () {
@@ -84,7 +89,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
                                                   angle: angle,
                                                   child: const Icon(
                                                     Icons.sync,
-                                                    color: neonShade,
+                                                    color: kneon,
                                                     size: 15,
                                                   ),
                                                 );
@@ -103,9 +108,14 @@ class TaskDetailHeaderSection extends StatelessWidget {
                                             const SizedBox(width: 8),
                                             Text(
                                               'Syncing ...',
-                                              style: textThinStyle1.copyWith(
-                                                  color: neonShade,
-                                                  fontSize: 12.sp),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall
+                                                  ?.copyWith(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
                                             ),
                                           ],
                                         )
@@ -151,10 +161,12 @@ class TaskDetailHeaderSection extends StatelessWidget {
                         taskController.singleTask.value.isKilled != true) &&
                     taskController.singleTask.value.isOwned == true) {
                   return CircleAvatar(
-                    backgroundColor: kGrayLight,
+                    backgroundColor: kneon,
                     child: IconButton(
-                      icon: const Icon(Icons.mode_edit_outline_outlined,
-                          color: kwhite),
+                      icon: const Icon(
+                        Iconsax.edit,
+                        size: 19,
+                      ),
                       onPressed: () {
                         showDialog(
                           context: context,
@@ -179,10 +191,12 @@ class TaskDetailHeaderSection extends StatelessWidget {
                   : Stack(
                       children: [
                         CircleAvatar(
-                          backgroundColor: kGrayLight,
+                          backgroundColor: kneon,
                           child: IconButton(
-                            icon: const Icon(Icons.message_outlined,
-                                color: kwhite),
+                            icon: const Icon(
+                              Iconsax.message,
+                              size: 20,
+                            ),
                             onPressed: () {
                               Get.find<ChatController>().connectChannel(context,
                                   taskId: taskController.singleTask.value.id);

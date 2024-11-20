@@ -11,38 +11,45 @@ class TaskDetailDescriptionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-    return Container(
-      padding: EdgeInsets.all(10.w),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondaryContainer,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Description',
-            style: textHeadStyle1.copyWith(fontSize: 13.sp),
-          ),
-          adjustHieght(5.h),
-          Obx(
-            () => taskController.isLoading.value
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: ShimmerLoader(
-                      itemCount: 1,
-                      height: 20.h,
-                      width: 200.w,
+    return Card(
+      elevation: 0,
+      child: Container(
+        padding: EdgeInsets.all(10.w),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Description',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 14),
+            ),
+            adjustHieght(5.h),
+            Obx(
+              () => taskController.isLoading.value
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: ShimmerLoader(
+                        itemCount: 1,
+                        height: 20.h,
+                        width: 200.w,
+                      ),
+                    )
+                  : Text(
+                      taskController.singleTask.value.description ??
+                          'Description',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall
+                          ?.copyWith(color: kGreyNormal, fontSize: 11),
                     ),
-                  )
-                : Text(
-                    taskController.singleTask.value.description ??
-                        'Description',
-                    style: textThinStyle1.copyWith(
-                        color: klightgrey, fontSize: 12.sp),
-                  ),
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

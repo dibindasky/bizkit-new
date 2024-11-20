@@ -532,7 +532,7 @@ class CreateTaskController extends GetxController {
     return files.map((file) {
       return Attachment(
         attachment: base64Encode(File(file.path!).readAsBytesSync()),
-        type: file.extension,
+        type: file.extension == 'jpg' ? 'image' : file.extension,
       );
     }).toList();
   }

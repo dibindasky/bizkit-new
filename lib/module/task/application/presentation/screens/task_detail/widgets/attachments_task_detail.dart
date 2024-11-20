@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/image_viewer.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -18,116 +19,129 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<CreateTaskController>();
 
-    return Container(
-      padding: EdgeInsets.all(10.w),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondaryContainer,
-        borderRadius: kBorderRadius10,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                'Attachments ',
-                style: textHeadStyle1.copyWith(fontSize: 13.sp),
-              ),
-              const Spacer(),
-              Obx(() => controller.selectedAttachment.value
-                  ? GestureDetector(
-                      onTap: () {
-                        controller.deleteAttachments(context);
-                      },
-                      child: controller.attachmentDeleteLoading.value
-                          ? const SizedBox(
-                              height: 20, width: 50, child: LoadingAnimation())
-                          : const Text('Delete'))
-                  : const Text('')),
-
-              // Text(
-              //   ' (Images,Pdf)',
-              //   style: textThinStyle1.copyWith(fontSize: 8.sp),
-              // ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Obx(
-            () {
-              if (controller.isLoading.value) {
-                return SizedBox(
-                  height: 30.h,
-                  child: ShimmerLoader(
-                    height: 30.h,
-                    itemCount: 5,
-                    width: 80.w,
-                    scrollDirection: Axis.horizontal,
-                    seprator: const SizedBox(
-                      width: 8,
-                    ),
-                  ),
-                );
-              } else if (controller.singleTask.value.attachments == null ||
-                  controller.singleTask.value.attachments!.isEmpty) {
-                return Center(
-                  child: Text(
-                    'No Attachments Available',
-                    style: textThinStyle1.copyWith(
-                        color: klightgrey, fontSize: 12.sp),
-                  ),
-                );
-              } else {
-                final listAttachment = (controller.singleTask.value.attachments)
-                    ?.reversed
-                    .toList();
-                return SizedBox(
-                  height: 90,
-                  child: ListView.builder(
-                    itemCount: listAttachment?.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      final attachment = listAttachment?[index];
-
-                      return GestureDetector(
+    return Card(
+      elevation: 0,
+      child: Container(
+        padding: EdgeInsets.all(10.w),
+        decoration: BoxDecoration(
+          borderRadius: kBorderRadius10,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  'Attachments ',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 14),
+                ),
+                const Spacer(),
+                Obx(() => controller.selectedAttachment.value
+                    ? GestureDetector(
                         onTap: () {
-                          if (controller.selectedAttachmentsDatas.isNotEmpty) {
+                          controller.deleteAttachments(context);
+                        },
+                        child: controller.attachmentDeleteLoading.value
+                            ? const SizedBox(
+                                height: 20,
+                                width: 50,
+                                child: LoadingAnimation())
+                            : Text(
+                                'Delete',
+                                style: Theme.of(context).textTheme.displaySmall,
+                              ))
+                    : const Text('')),
+
+                // Text(
+                //   ' (Images,Pdf)',
+                //   style: textThinStyle1.copyWith(fontSize: 8.sp),
+                // ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Obx(
+              () {
+                if (controller.isLoading.value) {
+                  return SizedBox(
+                    height: 30.h,
+                    child: ShimmerLoader(
+                      height: 30.h,
+                      itemCount: 5,
+                      width: 80.w,
+                      scrollDirection: Axis.horizontal,
+                      seprator: const SizedBox(
+                        width: 8,
+                      ),
+                    ),
+                  );
+                } else if (controller.singleTask.value.attachments == null ||
+                    controller.singleTask.value.attachments!.isEmpty) {
+                  return Center(
+                    child: Text('No Attachments Available',
+                        style:
+                            Theme.of(context).textTheme.displaySmall?.copyWith(
+                                  fontSize: 11,
+                                  color: kGreyNormal,
+                                )),
+                  );
+                } else {
+                  final listAttachment =
+                      (controller.singleTask.value.attachments)
+                          ?.reversed
+                          .toList();
+                  return SizedBox(
+                    height: 90,
+                    child: ListView.builder(
+                      itemCount: listAttachment?.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        final attachment = listAttachment?[index];
+
+                        return GestureDetector(
+                          onTap: () {
+                            if (controller
+                                .selectedAttachmentsDatas.isNotEmpty) {
+                              controller.longPressOrOnTap(
+                                  attachment?.attachment ?? '');
+                            } else {
+                              _handleAttachmentTap(
+                                context,
+                                attachment?.attachment ?? '',
+                                attachment?.type ?? '',
+                                controller,
+                                index,
+                              );
+                            }
+                            // log('Attachment Type ==== > ${attachment?.type}');
+                          },
+                          onLongPress: () {
                             controller
                                 .longPressOrOnTap(attachment?.attachment ?? '');
-                          } else {
-                            _handleAttachmentTap(
-                              context,
-                              attachment?.attachment ?? '',
-                              attachment?.type ?? '',
-                              controller,
-                              index,
-                            );
-                          }
-                          // log('Attachment Type ==== > ${attachment?.type}');
-                        },
-                        onLongPress: () {
-                          controller
-                              .longPressOrOnTap(attachment?.attachment ?? '');
-                        },
-                        child: GetBuilder<CreateTaskController>(
-                            id: attachment?.attachment,
-                            builder: (_) => AttachmentTile(
-                                  isSelected: controller
-                                      .selectedAttachmentsDatas
-                                      .contains(attachment?.attachment ?? ''),
-                                  // file: attachment.
-                                  attachmet:
-                                      attachment?.attachment ?? 'No Attachment',
-                                  type: attachment?.type ?? 'Unknown Type',
-                                )),
-                      );
-                    },
-                  ),
-                );
-              }
-            },
-          ),
-        ],
+                          },
+                          child: GetBuilder<CreateTaskController>(
+                              id: attachment?.attachment,
+                              builder: (_) => AttachmentTile(
+                                    isSelected: controller
+                                        .selectedAttachmentsDatas
+                                        .contains(attachment?.attachment ?? ''),
+                                    // file: attachment.
+                                    attachmet: attachment?.attachment ??
+                                        'No Attachment',
+                                    type: attachment?.type ?? 'Unknown Type',
+                                  )),
+                        );
+                      },
+                    ),
+                  );
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -145,7 +159,7 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
     final imageIndex = (imageAttachments.reversed.toList()).indexWhere(
       (element) => controller.singleTask.value.attachments?[index] == element,
     );
-    if (type == 'jpg' || type == 'png') {
+    if (type == 'image' || type == 'png') {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -204,34 +218,21 @@ class AttachmentTile extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: kBorderRadius15,
                       ),
-                      child: PdfViewer.openData(
-                        base64Decode(attachmet.startsWith('data')
-                            ? attachmet.substring(
-                                'data:application/pdf;base64,'.length)
-                            : attachmet),
-                        onError: (_) => const Center(
-                          child:
-                              Text('Could not load document please try again'),
-                        ),
-                      ),
+                      child: Icon(Icons.picture_as_pdf_outlined),
                     ))
                   : Expanded(
                       child: Container(
                         width: double.infinity,
                         height: 35.w,
                         decoration: BoxDecoration(
-                            borderRadius: kBorderRadius15,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: MemoryImage(base64Decode(attachmet)))),
+                          borderRadius: kBorderRadius15,
+                        ),
+                        child: NetworkImageWithLoader(
+                          attachmet,
+                          radius: 10,
+                        ),
                       ),
                     ),
-              // Text(
-              //   '.$type',
-              //   maxLines: 1,
-              //   overflow: TextOverflow.ellipsis,
-              //   style: textThinStyle1.copyWith(fontSize: 10.sp),
-              // ),
             ],
           ),
         ),

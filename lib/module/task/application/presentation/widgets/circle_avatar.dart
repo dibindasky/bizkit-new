@@ -32,8 +32,9 @@ class CustomCircleAvatar extends StatelessWidget {
             radius: radius != null ? radius! - 8 : 14,
             child: child ??
                 const Icon(
+                  size: 19,
                   Icons.notifications,
-                  color: neonShade,
+                  color: kneon,
                 ),
           ),
         ),

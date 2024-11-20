@@ -31,12 +31,6 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      // Optionally check the current route
-                      if (Get.currentRoute ==
-                          Routes.taskInsideTheInnerFolderScreen) {
-                        log('Blocking manual back press');
-                        return; // Disable back navigation
-                      }
                       Navigator.pop(context);
                     },
                     icon: const Icon(
@@ -47,7 +41,10 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                   adjustWidth(20),
                   Text(
                     arguments?['innerFolderName'],
-                    style: textHeadStyle1.copyWith(fontSize: 18),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 15),
                   ),
                 ],
               ),

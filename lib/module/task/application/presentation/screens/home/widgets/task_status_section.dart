@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/clipper/task_status_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -18,6 +21,7 @@ class TaskStatusSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<TaskHomeScreenController>();
+    final taskController = Get.find<CreateTaskController>();
 
     return Column(
       children: [
@@ -25,6 +29,7 @@ class TaskStatusSection extends StatelessWidget {
           height: 40.h,
           child: GestureDetector(
             onTap: () {
+              taskController.searchTasks();
               FocusScope.of(context).unfocus();
               Get.toNamed(Routes.taskSearch, id: 1);
             },
@@ -62,37 +67,66 @@ class TaskStatusSection extends StatelessWidget {
           dividerColor: Colors.transparent,
           overlayColor: WidgetStateColor.transparent,
           indicatorSize: TabBarIndicatorSize.tab,
+          labelPadding: EdgeInsets.zero,
+
           labelColor: Theme.of(context).colorScheme.onTertiary,
-          indicatorPadding: const EdgeInsets.symmetric(horizontal: -6),
+          // indicatorPadding: const EdgeInsets.symmetric(horizontal: -6),
           labelStyle: Theme.of(context).textTheme.displaySmall,
           onTap: (value) {
             homeController.taskStatusTabController(value);
           },
+          padding: EdgeInsets.zero,
           indicator:
               BoxDecoration(color: kblack, borderRadius: kBorderRadius25),
           tabs: [
-            Tab(
-              child: Row(
-                children: [
-                  const Text('Self'),
-                  adjustWidth(5.w),
-                  CircleAvatar(
-                    radius: 10,
-                    backgroundColor: kgrey,
-                    child: Text(
-                      '3',
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onTertiary),
-                    ),
-                  )
-                ],
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                border: Border.all(color: kGreyNormal),
+                borderRadius: kBorderRadius25,
+              ),
+              child: Tab(
+                child: Row(
+                  children: [
+                    const Text('Self'),
+                    adjustWidth(5.w),
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundColor: kgrey,
+                      child: Text(
+                        '${homeController.progresBarCounts.value.selfToSelf?.all ?? 0}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.onTertiary),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-            const Tab(
-              child: Text('Self to others'),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                border: Border.all(),
+                borderRadius: kBorderRadius25,
+              ),
+              child: const Tab(
+                child: Text('Self to others'),
+              ),
             ),
-            const Tab(
-              child: Text('Others to self'),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                border: Border.all(),
+                borderRadius: kBorderRadius25,
+              ),
+              child: const Tab(
+                child: Text('Others to self'),
+              ),
             ),
           ],
         ),
@@ -178,7 +212,16 @@ class TaskStatusSection extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(12),
                                     child: LinearProgressIndicator(
                                       minHeight: 13,
-                                      value: ((45.toDouble()) / 100),
+                                      value: ((homeController
+                                                      .progresBarCounts
+                                                      .value
+                                                      .selfToSelf
+                                                      ?.completed ??
+                                                  0) *
+                                              (homeController.progresBarCounts
+                                                      .value.selfToSelf?.all ??
+                                                  0)) /
+                                          100,
                                       backgroundColor: smallBigGrey,
                                       valueColor:
                                           const AlwaysStoppedAnimation<Color>(

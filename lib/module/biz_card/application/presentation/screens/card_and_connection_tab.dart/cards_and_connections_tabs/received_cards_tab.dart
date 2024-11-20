@@ -68,12 +68,13 @@ class ReceivedCardsTab extends StatelessWidget {
                           child: Column(
                             children: [
                               Expanded(
-                                  child: NetworkImageWithLoader(
-                                receivedCardController
-                                        .visitingCards[index].cardImage ??
-                                    '',
-                                radius: 8,
-                              )),
+                                child: NetworkImageWithLoader(
+                                  receivedCardController
+                                          .visitingCards[index].cardImage ??
+                                      '',
+                                  radius: 8,
+                                ),
+                              ),
                               adjustHieght(10.h),
                               Text(
                                 receivedCardController

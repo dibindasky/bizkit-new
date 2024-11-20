@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
 class TaskSearchScreen extends StatelessWidget {
   const TaskSearchScreen({super.key});
@@ -30,24 +31,32 @@ class TaskSearchScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
         ),
         backgroundColor: knill,
+        surfaceTintColor: knill,
+        title: Text(
+          'Find your tasks',
+          style:
+              Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 15),
+        ),
       ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: Column(
             children: [
+              adjustHieght(10.h),
               Hero(
                 tag: 'taskSearch',
                 child: TaskTextField(
-                  // showBorder: true,
+                  showBorder: true,
                   controller: taskController.taskSearchController,
-                  // fillColor: textFieldFillColr,
+                  fillColor: textFieldFillColr,
                   onChanged: (value) {
                     taskController.searchTasks();
                   },
                   onTapOutside: () => FocusScope.of(context).unfocus(),
                   hintText: 'Find your task',
-                  suffixIcon: const Icon(Icons.search, color: neonShade),
+                  suffixIcon:
+                      const Icon(Iconsax.search_status, color: neonShade),
                 ),
               ),
               adjustHieght(15.h),
@@ -61,6 +70,8 @@ class TaskSearchScreen extends StatelessWidget {
                           height: 50.h,
                           itemCount: 10,
                           width: double.infinity,
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
                         ),
                       );
                     } else if (taskController.tasksSearch.isEmpty) {
@@ -84,6 +95,8 @@ class TaskSearchScreen extends StatelessWidget {
                               child: ShimmerLoaderTaskContainer(
                                 height: 50.h,
                                 itemCount: 1,
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
                                 width: double.infinity,
                               ),
                             );

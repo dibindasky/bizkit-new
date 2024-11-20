@@ -20,7 +20,7 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: lightGrey,
+                color: Theme.of(context).colorScheme.onSecondary,
                 borderRadius: kBorderRadius25,
               ),
               height: 30.h,
@@ -36,7 +36,7 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           color: controller.taskTabChangeIndex.value == 0
-                              ? neonShade
+                              ? kneon
                               : knill,
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(25),
@@ -47,10 +47,21 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Icon(Icons.person_outlined, size: 17),
+                            const Icon(
+                              Icons.person_outlined,
+                              size: 17,
+                              color: kwhite,
+                            ),
                             Text(
                               'Hierarchy',
-                              style: TextStyle(fontSize: 12.sp),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary,
+                                  ),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ],
@@ -65,7 +76,7 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
                         width: 70.w,
                         height: 40.h,
                         color: controller.taskTabChangeIndex.value == 1
-                            ? neonShade
+                            ? kneon
                             : knill,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -78,7 +89,14 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
                             ),
                             Text(
                               'Task',
-                              style: TextStyle(fontSize: 12.sp),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary,
+                                  ),
                             ),
                           ],
                         ),
@@ -91,7 +109,7 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                             color: controller.taskTabChangeIndex.value == 2
-                                ? neonShade
+                                ? kneon
                                 : knill,
                             borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(25),
@@ -107,7 +125,17 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
                               child: Image.asset(
                                   'asset/images/task/task in calender view icon.png'),
                             ),
-                            const Text('Folder'),
+                            Text(
+                              'Folder',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary,
+                                  ),
+                            ),
                           ],
                         ),
                       ),

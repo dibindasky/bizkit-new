@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -62,114 +63,121 @@ class RecentTasksSection extends StatelessWidget {
                           ? homeController.toOthersTasks.length
                           : homeController.toMeTasks.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      elevation: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              homeController.taskStatusTabIndex.value == 0
-                                  ? homeController
-                                          .selfieTasks[index].taskTitle ??
-                                      'TaskTitle'
-                                  : homeController.taskStatusTabIndex.value == 1
-                                      ? homeController
-                                              .toOthersTasks[index].taskTitle ??
-                                          'TaskTitle'
-                                      : homeController
-                                              .toMeTasks[index].taskTitle ??
-                                          'TaskTitle',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displaySmall
-                                  ?.copyWith(fontSize: 13),
-                            ),
-                            Text(
-                              homeController.taskStatusTabIndex.value == 0
-                                  ? homeController
-                                          .selfieTasks[index].deadLine ??
-                                      'deadline'
-                                  : homeController.taskStatusTabIndex.value == 1
-                                      ? homeController
-                                              .toOthersTasks[index].deadLine ??
-                                          'deadline'
-                                      : homeController
-                                              .toMeTasks[index].deadLine ??
-                                          'deadline',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displaySmall
-                                  ?.copyWith(fontSize: 10),
-                            ),
-                            adjustHieght(15.h),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Progress",
+                    return FadeInRight(
+                      animate: true,
+                      child: Card(
+                        elevation: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15, right: 8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                homeController.taskStatusTabIndex.value == 0
+                                    ? homeController
+                                            .selfieTasks[index].taskTitle ??
+                                        'TaskTitle'
+                                    : homeController.taskStatusTabIndex.value ==
+                                            1
+                                        ? homeController.toOthersTasks[index]
+                                                .taskTitle ??
+                                            'TaskTitle'
+                                        : homeController
+                                                .toMeTasks[index].taskTitle ??
+                                            'TaskTitle',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(fontSize: 13),
+                              ),
+                              Text(
+                                homeController.taskStatusTabIndex.value == 0
+                                    ? homeController
+                                            .selfieTasks[index].deadLine ??
+                                        'deadline'
+                                    : homeController.taskStatusTabIndex.value ==
+                                            1
+                                        ? homeController.toOthersTasks[index]
+                                                .deadLine ??
+                                            'deadline'
+                                        : homeController
+                                                .toMeTasks[index].deadLine ??
+                                            'deadline',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(fontSize: 10),
+                              ),
+                              adjustHieght(15.h),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Progress",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(
+                                                fontSize: 9,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary),
+                                      ),
+                                      adjustWidth(8.w),
+                                      SizedBox(
+                                        width: 100,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: LinearProgressIndicator(
+                                            minHeight: 8,
+                                            value: 45.toDouble() / 100,
+                                            backgroundColor: klightGrey,
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    index == 0 || index == 2
+                                                        ? kred
+                                                        : kneon),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  adjustHieght(10.h),
+                                  Text(
+                                      homeController.taskStatusTabIndex.value ==
+                                                      0 &&
+                                                  homeController
+                                                          .selfieTasks[index]
+                                                          .isOwned ==
+                                                      true ||
+                                              homeController.taskStatusTabIndex
+                                                          .value ==
+                                                      1 &&
+                                                  homeController
+                                                          .toOthersTasks[index]
+                                                          .isOwned ==
+                                                      true ||
+                                              homeController.taskStatusTabIndex
+                                                          .value ==
+                                                      2 &&
+                                                  homeController
+                                                          .toMeTasks[index]
+                                                          .isOwned ==
+                                                      true
+                                          ? 'Created by ${homeController.taskStatusTabIndex.value == 0 ? homeController.selfieTasks[index].createdBy?.name ?? 'name' : homeController.taskStatusTabIndex.value == 1 ? homeController.toOthersTasks[index].createdBy?.name ?? 'name' : 'name'}'
+                                          : 'Assgined by ${homeController.taskStatusTabIndex.value == 2 ? homeController.toMeTasks[index].createdBy?.name : 'name'}',
                                       style: Theme.of(context)
                                           .textTheme
                                           .displaySmall
-                                          ?.copyWith(
-                                              fontSize: 9,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondary),
-                                    ),
-                                    adjustWidth(8.w),
-                                    SizedBox(
-                                      width: 100,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: LinearProgressIndicator(
-                                          minHeight: 8,
-                                          value: 45.toDouble() / 100,
-                                          backgroundColor: klightGrey,
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                                  index == 0 || index == 2
-                                                      ? kred
-                                                      : kneon),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                adjustHieght(10.h),
-                                Text(
-                                    homeController.taskStatusTabIndex.value ==
-                                                    0 &&
-                                                homeController
-                                                        .selfieTasks[index]
-                                                        .isOwned ==
-                                                    true ||
-                                            homeController.taskStatusTabIndex
-                                                        .value ==
-                                                    1 &&
-                                                homeController
-                                                        .toOthersTasks[index]
-                                                        .isOwned ==
-                                                    true ||
-                                            homeController.taskStatusTabIndex
-                                                        .value ==
-                                                    2 &&
-                                                homeController.toMeTasks[index]
-                                                        .isOwned ==
-                                                    true
-                                        ? 'Created by ${homeController.taskStatusTabIndex.value == 0 ? homeController.selfieTasks[index].createdBy?.name ?? 'name' : homeController.taskStatusTabIndex.value == 1 ? homeController.toOthersTasks[index].createdBy?.name ?? 'name' : 'name'}'
-                                        : 'Assgined by ${homeController.taskStatusTabIndex.value == 2 ? homeController.toMeTasks[index].createdBy?.name : 'name'}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall
-                                        ?.copyWith(fontSize: 8)),
-                              ],
-                            ),
-                          ],
+                                          ?.copyWith(fontSize: 8)),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );

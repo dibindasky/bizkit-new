@@ -23,7 +23,7 @@ class HomeService implements HomeRepo {
       final response = await apiService.get(
         ApiEndPoints.taskTestProgresBar,
       );
-      log("=> Response home screen progres bar : ");
+      log("=> Response progresBar : ");
       return Right(ProgresBarSuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException progresBar $e');

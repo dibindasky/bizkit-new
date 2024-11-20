@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/widgets/card_detail_update_button_container.dart';
@@ -17,6 +18,7 @@ import 'package:bizkit/utils/widgets/image_or_text_preview_under_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class CardUpdatePersonalDetails extends StatelessWidget {
   CardUpdatePersonalDetails({super.key});
@@ -257,16 +259,18 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                   () => ImageOrTextPreviewUnderWidget(
                     ontap: () {
                       FocusScope.of(context).unfocus();
-                      // Navigator.of(context).push(cardFadePageRoute(
-                      //     const ScreenCardAchivements(fromBusiness: false)));
+                      GoRouter.of(context)
+                          .pushNamed(Routes.cardAchivementCreateUpdate, extra: {
+                        'fromBusiness': false,
+                      });
                     },
                     onItemTap: (value, index) {
-                      // return Navigator.push(
-                      //     context,
-                      //     cardFadePageRoute(CardScreenAchievementsCreate(
-                      //         achievement: cardController.bizcardDetail.value
-                      //             .personalDetails?.personalAchievements?[index],
-                      //         fromBusiness: false)));
+                      GoRouter.of(context)
+                          .pushNamed(Routes.cardAchivementCreateUpdate, extra: {
+                        'fromBusiness': false,
+                        'achivement': cardController.bizcardDetail.value
+                            .personalDetails?.personalAchievements?[index]
+                      });
                     },
                     removeItem: (index) {
                       showCustomConfirmationDialogue(
@@ -299,7 +303,7 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                             ?.personalAchievements
                             ?.map((e) => (e.images?.isEmpty) ?? true
                                 ? ''
-                                : e.images?[0].image ?? '')
+                                : e.images?[0] ?? '')
                             .toList() ??
                         [],
                     child: const CardDetailEditingButtonContainer(

@@ -9,52 +9,82 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_det
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/social_media_handle.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class BizCardDetailsIconsWidgets extends StatelessWidget {
- const BizCardDetailsIconsWidgets({
+  const BizCardDetailsIconsWidgets({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        FittedBox(
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(
-              gifListCardDetail.length,
-              (index) => DetailSharingIconBizcardDetail(
-                  image: gifListCardDetail[index],
-                  onTap: () {
-                    gifListCardDetailOnTap(context, index);
-                  }),
-            ),
-          ),
-        ),
-        kHeight20,
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(
-              iconBizcardDetailsText.length,
-              (index) => DeatailRowIconTextBizcardDetail(
-                  text: iconBizcardDetailsText[index],
-                  image: iconBizcardDetails[index],
-                  onTap: () {
-                    iconsBizcardDeailsOnTap(context, index);
-                  }),
-            ),
-          ),
-        ),
-      ],
-    );
+    final cardController = Get.find<CardController>();
+    return Obx(() => cardController.isLoading.value
+          // loader
+        ? Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(
+                  5,
+                  (index) => ShimmerLoaderTile(
+                    height: 45.h,
+                    width: 45.h,
+                  ),
+                ),
+              ),
+              kHeight20,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(
+                  3,
+                  (index) => ShimmerLoaderTile(
+                    height: 35.h,
+                    width: 80.h,
+                  ),
+                ),
+              )
+            ],
+          )
+        : Column(
+            children: [
+              FittedBox(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: List.generate(
+                    gifListCardDetail.length,
+                    (index) => DetailSharingIconBizcardDetail(
+                        image: gifListCardDetail[index],
+                        onTap: () {
+                          gifListCardDetailOnTap(context, index);
+                        }),
+                  ),
+                ),
+              ),
+              kHeight20,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: List.generate(
+                    iconBizcardDetailsText.length,
+                    (index) => DeatailRowIconTextBizcardDetail(
+                        text: iconBizcardDetailsText[index],
+                        image: iconBizcardDetails[index],
+                        onTap: () {
+                          iconsBizcardDeailsOnTap(context, index);
+                        }),
+                  ),
+                ),
+              ),
+            ],
+          ));
   }
 
   void iconsBizcardDeailsOnTap(BuildContext context, int index) {

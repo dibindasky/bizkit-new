@@ -3,7 +3,9 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class BizcardDeatilWebsiteDialoge extends StatelessWidget {
   const BizcardDeatilWebsiteDialoge({
@@ -28,28 +30,13 @@ class BizcardDeatilWebsiteDialoge extends StatelessWidget {
                 Text('Website Link',
                     style: Theme.of(context).textTheme.displaySmall),
                 kHeight10,
-                // TextButton(
-                //   onPressed: () async {
-                //     await LaunchUrl.googleSearch(
-                //       url: cardController.bizcardDetail.value
-                //           .businessDetails!.websiteLink!,
-                //     ).then(
-                //       (value) => Navigator.pop(context),
-                //     );
-                //   },
-                //   child: Text(
-                //     cardController.bizcardDetail.value
-                //         .businessDetails!.websiteLink!,
-                //     style: const TextStyle(
-                //       color: kblue,
-                //       decorationColor: kblue,
-                //       decoration: TextDecoration.underline,
-                //     ),
-                //   ),
-                // ),
                 Text(
                   cardController
                       .bizcardDetail.value.businessDetails!.websiteLink!,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 13.sp),
                 ),
                 kHeight10,
                 FittedBox(
@@ -58,31 +45,36 @@ class BizcardDeatilWebsiteDialoge extends StatelessWidget {
                     children: [
                       OutlinedButton.icon(
                         style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: neonShade)),
+                            side: BorderSide(
+                                color:
+                                    Theme.of(context).colorScheme.secondary)),
                         onPressed: () async {
                           await LaunchUrl.googleSearch(
                             url: cardController.bizcardDetail.value
                                 .businessDetails!.websiteLink!,
                           ).then(
-                            (value) => Navigator.pop(context),
+                            (value) => GoRouter.of(context).pop(),
                           );
                         },
-                        icon: const Icon(Icons.open_in_browser_outlined),
-                        label: const Text(
+                        icon: Icon(Icons.open_in_browser_outlined,
+                            color: Theme.of(context).colorScheme.surface),
+                        label: Text(
                           'View Website',
-                          style: TextStyle(color: neonShade),
+                          style: Theme.of(context).textTheme.displaySmall,
                         ),
                       ),
                       adjustWidth(10),
                       OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: neonShade)),
+                            side: BorderSide(
+                                color:
+                                    Theme.of(context).colorScheme.secondary)),
                         onPressed: () {
-                          Navigator.pop(context);
+                          GoRouter.of(context).pop();
                         },
-                        child: const Text(
+                        child: Text(
                           'Cancel',
-                          style: TextStyle(color: neonShade),
+                          style: Theme.of(context).textTheme.displaySmall,
                         ),
                       ),
                     ],

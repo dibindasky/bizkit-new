@@ -36,11 +36,11 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
           ? null
           : CreatedUserDetails.fromJson(
               json['created_user_details'] as Map<String, dynamic>),
-    )
-      ..localId = json['localId'] as int?
-      ..taskType = json['taskType'] as String?
-      ..spotlightOn = json['spotlightOn'] as bool?
-      ..isPinned = json['isPinned'] as bool?;
+      isPinned: json['isPinned'] as bool?,
+      localId: json['localId'] as int?,
+      spotlightOn: json['spotlightOn'] as bool?,
+      taskType: json['taskType'] as String?,
+    );
 
 Map<String, dynamic> _$GetTaskResponceToJson(GetTaskResponce instance) =>
     <String, dynamic>{

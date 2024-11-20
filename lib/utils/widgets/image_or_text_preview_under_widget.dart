@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:flutter/material.dart';
 
 /// this widget will return the images under the text fieldor any widget it was wraped with
@@ -51,10 +52,15 @@ class ImageOrTextPreviewUnderWidget extends StatelessWidget {
                           itemCount: list!.length,
                           itemBuilder: (context, index) {
                             String? image = list![index];
+                            bool networkImage = false;
                             if (image != null) {
-                              image = list![index]!.startsWith('data')
-                                  ? list![index]!.substring(22)
-                                  : list![index];
+                              if (image.startsWith('https:/')) {
+                                networkImage = true;
+                              } else {
+                                image = list![index]!.startsWith('data')
+                                    ? list![index]!.substring(22)
+                                    : list![index];
+                              }
                             }
                             return SizedBox(
                               height: 80,
@@ -68,30 +74,33 @@ class ImageOrTextPreviewUnderWidget extends StatelessWidget {
                                       }
                                     },
                                     child: Container(
-                                      margin: const EdgeInsets.only(
-                                          left: 10, top: 10, right: 10),
-                                      height: 80,
-                                      width: 80,
-                                      decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10)),
-                                          color: smallBigGrey,
-                                          image: image == null
-                                              ? null
-                                              : DecorationImage(
-                                                  onError: (a, b) {
-                                                    const Icon(Icons
-                                                        .image_not_supported_outlined);
-                                                  },
-                                                  image: MemoryImage(
-                                                    base64.decode(image),
-                                                  ),
-                                                  fit: BoxFit.cover)),
-                                      child: image == null
-                                          ? const Icon(Icons
-                                              .image_not_supported_outlined)
-                                          : null,
-                                    ),
+                                        margin: const EdgeInsets.only(
+                                            left: 10, top: 10, right: 10),
+                                        height: 80,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            color: smallBigGrey,
+                                            image: image == null || networkImage
+                                                ? null
+                                                : DecorationImage(
+                                                    onError: (a, b) {
+                                                      const Icon(Icons
+                                                          .image_not_supported_outlined);
+                                                    },
+                                                    image: MemoryImage(
+                                                      base64.decode(image),
+                                                    ),
+                                                    fit: BoxFit.cover)),
+                                        child: image == null || !networkImage
+                                            ? const Icon(Icons
+                                                .image_not_supported_outlined)
+                                            : NetworkImageWithLoader(
+                                                image,
+                                                radius: 10,
+                                              )),
                                   ),
                                   removeItem == null
                                       ? const SizedBox()

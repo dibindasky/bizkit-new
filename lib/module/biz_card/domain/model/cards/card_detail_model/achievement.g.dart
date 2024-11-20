@@ -8,9 +8,8 @@ part of 'achievement.dart';
 
 Achievement _$AchievementFromJson(Map<String, dynamic> json) => Achievement(
       title: json['title'] as String?,
-      images: (json['images'] as List<dynamic>?)
-          ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      images:
+          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       description: json['description'] as String?,
       event: json['event'] as String?,
       date: json['date'] as String?,

@@ -1,6 +1,5 @@
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/personal_and_banking/bizcard_detail_banking_or_personal_deatil_tile.dart';
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,9 +26,10 @@ class BizcardDetailBankingAndPersonalDetail extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: SingleChildScrollView(
             child: Column(children: [
+              kHeight10,
               Row(
                 children: [
-                  kWidth20,
+                  kWidth10,
                   GestureDetector(
                     onTap: () {
                       GoRouter.of(context).pop();
@@ -48,6 +48,7 @@ class BizcardDetailBankingAndPersonalDetail extends StatelessWidget {
                       style: Theme.of(context).textTheme.displayMedium)
                 ],
               ),
+              kHeight20,
               ...!isFromBankScreen
                   ? [
                       GetBuilder<CardController>(builder: (context) {
@@ -83,7 +84,11 @@ class BizcardDetailBankingAndPersonalDetail extends StatelessWidget {
                         }
                         return CardBankingPersonalTiles(
                           first: 'Phone Number',
-                          second: personalDetails?.phone?.first ?? '',
+                          second: personalDetails?.phone
+                                  ?.toString()
+                                  .replaceFirst('[', '')
+                                  .replaceFirst(']', '') ??
+                              '',
                         );
                       }),
                       GetBuilder<CardController>(builder: (contxt) {

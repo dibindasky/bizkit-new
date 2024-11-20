@@ -1,4 +1,5 @@
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/generate_report_button.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/recent_tasks_section.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_home_appbar.dart';
@@ -27,22 +28,29 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    final homeController = Get.find<TaskHomeScreenController>();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
     final authController = Get.find<AuthenticationController>();
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            child: Column(
-              children: [
-                TaskHomeAppBar(authController: authController),
-                adjustHieght(25.h),
-                TaskStatusSection(tabController: tabController),
-                adjustHieght(15.h),
-                const RecentTasksSection(),
-                adjustHieght(30.h),
-                const GenerateReportButton(),
-              ],
+        child: RefreshIndicator(
+          onRefresh: () async {
+            homeController.fetchRecentTasks();
+          },
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              child: Column(
+                children: [
+                  TaskHomeAppBar(authController: authController),
+                  adjustHieght(25.h),
+                  TaskStatusSection(tabController: tabController),
+                  adjustHieght(15.h),
+                  const RecentTasksSection(),
+                  adjustHieght(30.h),
+                  const GenerateReportButton(),
+                ],
+              ),
             ),
           ),
         ),

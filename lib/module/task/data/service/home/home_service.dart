@@ -80,7 +80,7 @@ class HomeService implements HomeRepo {
       final response = await apiService.get(
         ApiEndPoints.taskTestGetRecentTasks,
       );
-      log("=> Response get recent tasks :");
+      log("=> Response getRecentTasks : ");
       return Right(GetRecentTasksResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException getRecentTasks $e');

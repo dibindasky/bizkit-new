@@ -56,7 +56,7 @@ import 'package:bizkit/module/task/application/presentation/screens/chat/poll/po
 import 'package:bizkit/module/task/application/presentation/screens/chat/task_chat_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/edit_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
-import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/tab_notification.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/notification/send_and_received_req/tab_notification.dart';
 import 'package:bizkit/module/task/application/presentation/screens/navbar/navbar_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/task_detail_page.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/attachments_detil_view.dart';
@@ -614,7 +614,12 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskTabNotification,
       path: Routes.taskTabNotification,
-      builder: (context, state) => TaskTabNotification(),
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: TaskTabNotification(),
+        );
+      },
     ),
 
     // HeirarchyUserDetail

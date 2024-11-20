@@ -14,7 +14,7 @@ accountSwitchingBottomSheet(BuildContext context) async {
     builder: (context) => const AccountSwitcherBottomSheet(),
     showDragHandle: true,
     elevation: 10,
-    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    backgroundColor: Theme.of(context).colorScheme.onTertiary,
     enableDrag: true,
   );
 }

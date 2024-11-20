@@ -68,10 +68,8 @@ class TaskStatusSection extends StatelessWidget {
           onTap: (value) {
             homeController.taskStatusTabController(value);
           },
-          indicator: BoxDecoration(
-              color: kblack,
-              border: Border.all(),
-              borderRadius: kBorderRadius25),
+          indicator:
+              BoxDecoration(color: kblack, borderRadius: kBorderRadius25),
           tabs: [
             Tab(
               child: Row(

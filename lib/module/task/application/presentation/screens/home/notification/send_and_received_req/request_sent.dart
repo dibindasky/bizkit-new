@@ -40,7 +40,7 @@ class RequestSentBuilder extends StatelessWidget {
                   taskController.fetchSendRequests();
                 },
                 child: ListView.separated(
-                  separatorBuilder: (context, index) => adjustHieght(10),
+                  separatorBuilder: (context, index) => adjustHieght(5),
                   itemCount: taskController.sentRequests.length,
                   itemBuilder: (context, index) {
                     return NotificationCard(

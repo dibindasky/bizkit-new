@@ -58,7 +58,7 @@ class TaskHomeAppBar extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onTertiary,
                 ),
                 child: const Icon(
-                  Iconsax.receive_square,
+                  Iconsax.personalcard,
                   size: 21,
                 ),
               ),

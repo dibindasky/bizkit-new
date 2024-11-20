@@ -1,5 +1,5 @@
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
-import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/widget/request_notification_card.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/notification/send_and_received_req/widget/request_notification_card.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';

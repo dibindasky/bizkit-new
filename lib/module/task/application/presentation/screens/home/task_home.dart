@@ -45,7 +45,7 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
                   TaskHomeAppBar(authController: authController),
                   adjustHieght(25.h),
                   TaskStatusSection(tabController: tabController),
-                  adjustHieght(15.h),
+                  adjustHieght(1.h),
                   const RecentTasksSection(),
                   adjustHieght(30.h),
                   const GenerateReportButton(),

@@ -6,6 +6,7 @@ import 'package:bizkit/module/attendence/application/presentation/screens/onboar
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/add_connection/add_connection_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/pending_connections/pending_connections_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_create_update.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/achivements/bizcard_create_achivement_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_bizcard.dart/create_business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_card_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/achivement/bizcard_detail_achivements.dart';
@@ -31,6 +32,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens2/home/vi
 import 'package:bizkit/module/biz_card/application/presentation/screens2/notifications/notification_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/varification_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/connections_and_networking.dart';
@@ -363,6 +365,18 @@ class GoRouterConfig {
       name: Routes.cardAchivements,
       path: Routes.cardAchivements,
       builder: (context, state) => const BizCardDeatailAchivements(),
+    ),
+
+    GoRoute(
+      name: Routes.cardAchivementCreateUpdate,
+      path: Routes.cardAchivementCreateUpdate,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        if (!extra.containsKey('fromBusiness')) return _errorScreen();
+        return BizCardAchivementCreationAndUpdation(
+            fromBusiness: extra['fromBusiness'] as bool,
+            achievement: extra['achivement'] as Achievement?);
+      },
     ),
 
     GoRoute(

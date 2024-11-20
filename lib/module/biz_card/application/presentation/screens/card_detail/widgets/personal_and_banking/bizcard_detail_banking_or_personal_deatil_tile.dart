@@ -1,4 +1,5 @@
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,30 +20,27 @@ class CardBankingPersonalTiles extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.only(left: 15),
         width: double.infinity,
-        height: 91.dm,
         decoration: BoxDecoration(
-          border: Border.all(
-            color: neonShade,
-          ),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(20),
-          ),
-        ),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            borderRadius: kBorderRadius20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                kHeight10,
                 Text(
                   first,
-                  style: TextStyle(fontSize: 16.sp),
-                ),
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),kHeight5,
                 Text(
                   second,
-                  style: TextStyle(fontSize: 16.sp),
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
+                kHeight10
               ],
             ),
             // IconButton(

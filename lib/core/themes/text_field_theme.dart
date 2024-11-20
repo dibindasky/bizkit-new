@@ -33,6 +33,7 @@ class InputDecorationThemes {
     ),
     hintStyle: const TextStyle(color: kGrayLight, fontSize: 12),
     labelStyle: const TextStyle(color: kblack, fontSize: 12),
+    helperStyle: const TextStyle(color: kgrey, fontSize: 12),
     prefixIconColor: kblack,
     suffixIconColor: kblack,
     contentPadding:

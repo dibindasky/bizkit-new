@@ -169,7 +169,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                           ?.businessAchievements
                           ?.map((e) => (e.images?.isEmpty) ?? true
                               ? ''
-                              : e.images?[0].image ?? '')
+                              : e.images?[0] ?? '')
                           .toList() ??
                       [],
                   child: Container(

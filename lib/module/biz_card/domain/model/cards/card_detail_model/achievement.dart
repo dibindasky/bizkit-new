@@ -1,4 +1,3 @@
-import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'achievement.g.dart';
@@ -6,7 +5,7 @@ part 'achievement.g.dart';
 @JsonSerializable()
 class Achievement {
   String? title;
-  List<ImageCard>? images;
+  List<String>? images;
   String? description;
   String? event;
   String? date;

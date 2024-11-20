@@ -40,8 +40,8 @@ class _CardScreenAchievementsCreateState
   void initState() {
     if (widget.achievement != null) {
       final personalController = Get.find<PersonalDetailsController>();
-      personalController.existingAchievementImages =
-          widget.achievement!.images ?? [];
+      // personalController.existingAchievementImages =
+      //     widget.achievement!.images ?? [];
       personalController.achievementTitleChange =
           widget.achievement!.title ?? '';
       personalController.achievementTitle.text =

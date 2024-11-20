@@ -14,11 +14,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class BizCardDeatailAchivements extends StatefulWidget {
-  const BizCardDeatailAchivements(
-      {super.key, this.isPreview = true, this.fromBusiness});
-
-  final bool isPreview;
-  final bool? fromBusiness;
+  const BizCardDeatailAchivements({super.key});
 
   @override
   State<BizCardDeatailAchivements> createState() =>
@@ -66,174 +62,127 @@ class _BizCardDeatailAchivementsState extends State<BizCardDeatailAchivements> {
                         .value.personalDetails?.personalAchievements;
                     final bussinessAchievemets = cardController.bizcardDetail
                         .value.businessDetails?.businessAchievements;
-                    List<Achievement> achivement = widget.isPreview
-                        ? [
-                            ...personalAchivements ?? [],
-                            ...bussinessAchievemets ?? []
-                          ]
-                        : [
-                            ...personalAchivements ?? [],
-                            ...bussinessAchievemets ?? []
-                          ];
+                    List<Achievement> achivement = [
+                      ...personalAchivements ?? [],
+                      ...bussinessAchievemets ?? []
+                    ];
 
-                    if (dateController.text != '') {
-                      achivement = achivement
-                          .where((element) =>
-                              DateTimeFormater.getDateByDayMonthYear(
-                                  element.date ?? '') ==
-                              dateController.text)
-                          .toList();
-                    }
-                    if (eventController.text != 'All' &&
-                        eventController.text != 'Others' &&
-                        eventController.text != '') {
-                      achivement = achivement
-                          .where((element) =>
-                              element.event == eventController.text)
-                          .toList();
-                    } else if (eventController.text == 'Others') {
-                      achivement = achivement
-                          .where((element) =>
-                              !achivementEvents.contains(element.event))
-                          .toList();
-                    }
+                    // if (dateController.text != '') {
+                    //   achivement = achivement
+                    //       .where((element) =>
+                    //           DateTimeFormater.getDateByDayMonthYear(
+                    //               element.date ?? '') ==
+                    //           dateController.text)
+                    //       .toList();
+                    // }
+                    // if (eventController.text != 'All' &&
+                    //     eventController.text != 'Others' &&
+                    //     eventController.text != '') {
+                    //   achivement = achivement
+                    //       .where((element) =>
+                    //           element.event == eventController.text)
+                    //       .toList();
+                    // } else if (eventController.text == 'Others') {
+                    //   achivement = achivement
+                    //       .where((element) =>
+                    //           !achivementEvents.contains(element.event))
+                    //       .toList();
+                    // }
                     return SingleChildScrollView(
                       child: Column(
                         children: [
-                          widget.fromBusiness != null
-                              ? Center(
-                                  child: InkWell(
-                                    onTap: () async {
-                                      Get.find<PersonalDetailsController>()
-                                          .achivementDataClear();
-                                      // Navigator.of(context).push(MaterialPageRoute(
-                                      //   builder: (context) =>
-                                      //       CardScreenAchievementsCreate(
-                                      //     fromBusiness: widget.fromBusiness!,
-                                      //   ),
-                                      // ));
-                                    },
-                                    child: DottedBorder(
-                                      dashPattern: const [8, 8],
-                                      color: neonShade,
-                                      strokeWidth: 2.5,
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        height: kwidth * 0.25,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 32.dm,
-                                              height: 32.dm,
-                                              child: const CircleAvatar(
-                                                child: Icon(Icons.add),
-                                              ),
-                                            ),
-                                            Text(
-                                              'Add Achievements',
-                                              style: TextStyle(fontSize: 10.sp),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : kempty,
                           kHeight10,
-                          Row(
-                            children: [
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () => showModalBottomSheet(
-                                    context: context,
-                                    isScrollControlled: true,
-                                    builder: (BuildContext context) {
-                                      return DatePickingBottomSheet(
-                                        year: 500,
-                                        last: 500,
-                                        onPressed: (date) {
-                                          dateController.text = date;
-                                          setState(() {});
-                                        },
-                                        datePicker: dateController,
-                                      );
-                                    },
-                                  ),
-                                  child: Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 12),
-                                    height: 50,
-                                    // width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: kgrey),
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            dateController.text.isEmpty
-                                                ? 'Date '
-                                                : dateController.text,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displaySmall,
-                                          ),
-                                        ),
-                                        dateController.text != ''
-                                            ? InkWell(
-                                                onTap: () => setState(() {
-                                                  dateController.text = '';
-                                                }),
-                                                child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                    child: const ColoredBox(
-                                                        color: neonShade,
-                                                        child: Icon(
-                                                          Icons.close,
-                                                          color: kblack,
-                                                        ))),
-                                              )
-                                            : const Icon(
-                                                Icons.calendar_month,
-                                                color: neonShade,
-                                              ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              adjustWidth(20),
-                              Expanded(
-                                  child: Container(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 12),
-                                height: 50,
-                                // width: double.infinity,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: kgrey),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: CustomDropDown(
-                                    title: 'Event',
-                                    icon: Icons.sort,
-                                    items: const [
-                                      'All',
-                                      ...achivementEvents,
-                                    ],
-                                    onTap: (value) {
-                                      eventController.text = value ?? '';
-                                      setState(() {});
-                                    }),
-                              ))
-                            ],
-                          ),
-                          kHeight20,
+                          // Row(
+                          //   children: [
+                          //     Expanded(
+                          //       child: InkWell(
+                          //         onTap: () => showModalBottomSheet(
+                          //           context: context,
+                          //           isScrollControlled: true,
+                          //           builder: (BuildContext context) {
+                          //             return DatePickingBottomSheet(
+                          //               year: 500,
+                          //               last: 500,
+                          //               onPressed: (date) {
+                          //                 dateController.text = date;
+                          //                 setState(() {});
+                          //               },
+                          //               datePicker: dateController,
+                          //             );
+                          //           },
+                          //         ),
+                          //         child: Container(
+                          //           padding: const EdgeInsets.only(
+                          //               left: 10, right: 12),
+                          //           height: 50,
+                          //           // width: double.infinity,
+                          //           decoration: BoxDecoration(
+                          //             border: Border.all(color: kgrey),
+                          //             borderRadius: BorderRadius.circular(12),
+                          //           ),
+                          //           child: Row(
+                          //             children: [
+                          //               Expanded(
+                          //                 child: Text(
+                          //                   dateController.text.isEmpty
+                          //                       ? 'Date '
+                          //                       : dateController.text,
+                          //                   style: Theme.of(context)
+                          //                       .textTheme
+                          //                       .displaySmall,
+                          //                 ),
+                          //               ),
+                          //               dateController.text != ''
+                          //                   ? InkWell(
+                          //                       onTap: () => setState(() {
+                          //                         dateController.text = '';
+                          //                       }),
+                          //                       child: ClipRRect(
+                          //                           borderRadius:
+                          //                               BorderRadius.circular(
+                          //                                   50),
+                          //                           child: const ColoredBox(
+                          //                               color: neonShade,
+                          //                               child: Icon(
+                          //                                 Icons.close,
+                          //                                 color: kblack,
+                          //                               ))),
+                          //                     )
+                          //                   : const Icon(
+                          //                       Icons.calendar_month,
+                          //                       color: neonShade,
+                          //                     ),
+                          //             ],
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     adjustWidth(20),
+                          //     Expanded(
+                          //         child: Container(
+                          //       padding:
+                          //           const EdgeInsets.only(left: 10, right: 12),
+                          //       height: 50,
+                          //       // width: double.infinity,
+                          //       decoration: BoxDecoration(
+                          //         border: Border.all(color: kgrey),
+                          //         borderRadius: BorderRadius.circular(12),
+                          //       ),
+                          //       child: CustomDropDown(
+                          //           title: 'Event',
+                          //           icon: Icons.sort,
+                          //           items: const [
+                          //             'All',
+                          //             ...achivementEvents,
+                          //           ],
+                          //           onTap: (value) {
+                          //             eventController.text = value ?? '';
+                          //             setState(() {});
+                          //           }),
+                          //     ))
+                          //   ],
+                          // ),
+                          // kHeight20,
                           achivement.isEmpty
                               ? Center(child: Image.asset(emptyNodata2))
                               : ListView.separated(
@@ -268,16 +217,16 @@ class _BizCardDeatailAchivementsState extends State<BizCardDeatailAchivements> {
                                                           null
                                                       ? achivement[index]
                                                               .images![0]
-                                                              .image!
+                                                              // .image!
                                                               .startsWith(
                                                                   'data')
                                                           ? achivement[index]
                                                               .images![0]
-                                                              .image!
+                                                              // .image!
                                                               .substring(22)
                                                           : achivement[index]
                                                               .images![0]
-                                                              .image!
+                                                      // .image!
                                                       : personDemoImg),
                                                   fit: BoxFit.cover,
                                                 ),

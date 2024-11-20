@@ -15,14 +15,17 @@ class BizcardDetailEditButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardController = Get.find<CardController>();
     return Column(
       children: [
         kHeight30,
         EventButton(
             text: 'Edit Card',
             onTap: () {
+              if (cardController.isLoading.value) {
+                return;
+              }
               GoRouter.of(context).pushNamed(Routes.cardUpdating);
-              final cardController = Get.find<CardController>();
               Get.find<PersonalDetailsController>()
                   .getPersonalDetails(cardController.bizcardDetail.value);
               Get.find<BusinesDetailsController>()

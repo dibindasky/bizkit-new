@@ -171,6 +171,9 @@ class PersonalDetailsController extends GetxController {
       personalDetailsId: cardController.bizcardDetail.value.personalDetails?.id,
       title: achievementTitle.text,
     );
+    print(personalAchiment.bizcardId);
+    print(personalAchiment.personalAchievementId);
+    print(personalAchiment.images?.first);
     final data = await personalRepo.personalAchivmentAdding(
         personalAchiment: personalAchiment);
     data.fold(

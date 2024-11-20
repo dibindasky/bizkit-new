@@ -30,7 +30,7 @@ class _ScreenAchivementDetailState extends State<ScreenAchivementDetail> {
   @override
   void initState() {
     super.initState();
-    updateImageCard = widget.achievement?.images ?? [];
+    // updateImageCard = widget.achievement?.images ?? [];
     tittleController.text = widget.achievement?.title ?? '';
     descriptionController.text = widget.achievement?.description ?? '';
     dateController.text = widget.achievement?.date ?? '';

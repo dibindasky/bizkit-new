@@ -12,8 +12,8 @@ MyConnectionsResponce _$MyConnectionsResponceFromJson(
       data: (json['data'] as List<dynamic>?)
           ?.map((e) => MyConnection.fromJson(e as Map<String, dynamic>))
           .toList(),
-      hasMore: json['has_more'] as bool?,
       currentPage: json['current_page'] as int?,
+      hasMore: json['has_more'] as bool?,
       pageSize: json['page_size'] as int?,
     );
 

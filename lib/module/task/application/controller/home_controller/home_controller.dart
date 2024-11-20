@@ -40,6 +40,8 @@ class TaskHomeScreenController extends GetxController
 
   RxBool progresBarOrRecentTask = true.obs;
 
+  RxInt taskStatusTabIndex = 0.obs;
+
   // late AnimationController animationController;
 
   @override
@@ -55,6 +57,10 @@ class TaskHomeScreenController extends GetxController
     } else {
       selectedFields.add(value);
     }
+  }
+
+  void taskStatusTabController(int index) async {
+    taskStatusTabIndex.value = index;
   }
 
   // Function to set the selected report type

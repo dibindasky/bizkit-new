@@ -8,6 +8,7 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class DeadlineChooserCreateTask extends StatelessWidget {
   const DeadlineChooserCreateTask(
@@ -30,10 +31,10 @@ class DeadlineChooserCreateTask extends StatelessWidget {
         showTitle ? adjustHieght(10.h) : kempty,
         showTitle
             ? Text('Deadline',
-                style: TextStyle(
-                  fontSize: 15.sp,
-                  color: neonShade,
-                ))
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ))
             : kempty,
         showTitle ? adjustHieght(3.h) : kempty,
         InkWell(
@@ -69,7 +70,7 @@ class DeadlineChooserCreateTask extends StatelessWidget {
                   : controller.singleTask.value.deadLine == ''
                       ? 'Choose Deadline'
                       : controller.singleTask.value.deadLine ?? '',
-              suffixIcon: Icons.calendar_month,
+              suffixIcon: Iconsax.calendar_add,
             ),
           ),
         ),

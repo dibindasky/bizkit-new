@@ -523,7 +523,8 @@ class ChatController extends GetxController {
           loadedImages.length,
           (index) => {
             "file": loadedImages[index].base64 ?? '',
-            "file_type": loadedImages[index].type ?? ''
+            // "file_type": loadedImages[index].type ?? ''
+            "file_type": 'image'
           },
         ),
         "messages": [controller.text.trim()]

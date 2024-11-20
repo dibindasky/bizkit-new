@@ -86,10 +86,10 @@ class ImagePickerClass {
         // base64 = 'data:image/$extension;base64,$base64';
         print('imagepicker =>base64 ======================== $base64');
         return ImageModel(
-          fileImage: compressedFile,
-          base64: base64,
-          type: extension,
-        );
+            fileImage: compressedFile,
+            base64: base64,
+            // type: extension,
+            type: 'image');
       }
       return null;
     } catch (e) {

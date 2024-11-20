@@ -24,10 +24,10 @@ class SubTaskBuilder extends StatelessWidget {
       children: [
         Text(
           'Subtasks',
-          style: TextStyle(
-            fontSize: 15.sp,
-            color: neonShade,
-          ),
+          style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
         ),
         Obx(
           () {
@@ -42,16 +42,24 @@ class SubTaskBuilder extends StatelessWidget {
                               afterTaskCreation: false,
                             ));
                   },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: klightDarkGrey, borderRadius: kBorderRadius10),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.h, horizontal: 15.h),
-                      child: const Text(
-                        'Create new subtask',
-                        style: TextStyle(color: kwhite),
+                  child: Card(
+                    elevation: 0,
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(borderRadius: kBorderRadius10),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 10.h, horizontal: 15.h),
+                        child: Text(
+                          'Create new subtask',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                              ),
+                        ),
                       ),
                     ),
                   ),
@@ -109,7 +117,7 @@ class SubTaskBuilder extends StatelessWidget {
             child: ClipRRect(
               borderRadius: kBorderRadius5,
               child: ColoredBox(
-                color: neonShade,
+                color: kneon,
                 child: Padding(
                   padding: EdgeInsets.all(5.0.w),
                   child: const Icon(

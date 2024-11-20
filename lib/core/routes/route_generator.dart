@@ -614,7 +614,12 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskTabNotification,
       path: Routes.taskTabNotification,
-      builder: (context, state) => TaskTabNotification(),
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: TaskTabNotification(),
+        );
+      },
     ),
 
     // HeirarchyUserDetail

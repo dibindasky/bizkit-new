@@ -49,9 +49,7 @@ class HierarchyListtile extends StatelessWidget {
             adjustWidth(50),
             Text(
               '12 Tasks',
-              style: TextStyle(
-                color: Color(int.parse('0xFFFF6006')),
-              ),
+              style: Theme.of(context).textTheme.displaySmall,
             )
           ],
         ),
@@ -179,19 +177,21 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                   )
                                 : Text(
                                     controller.foldername.value,
-                                    style:
-                                        textHeadStyle1.copyWith(fontSize: 18),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(fontSize: 16),
                                   ),
                           ),
                           const Spacer(),
                           CustomCircleAvatar(
-                            backgroundColor: lightGrey,
+                            backgroundColor: kblack,
                             onTap: () => showInnerFolderDialog(),
-                            backgroundColorInner: neonShade,
+                            backgroundColorInner: kneon,
                             child: const Icon(
                               Icons.add,
                               size: 20,
-                              color: neonShade,
+                              color: kneon,
                             ),
                           ),
                           adjustWidth(10),
@@ -229,80 +229,88 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                         filterDate:
                                             controller.deadlineDate.value));
                               },
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 300),
-                                decoration: BoxDecoration(
-                                  borderRadius: kBorderRadius5,
-                                  color: isSelected ? neonShade : kgrey,
-                                ),
-                                padding: const EdgeInsets.all(5),
-                                margin: EdgeInsets.symmetric(
-                                    vertical: isSelected ? 0 : 5.h,
-                                    horizontal: isSelected ? 0 : 3.w),
-                                height: 70.h,
-                                width: isSelected ? 90.w : 70.w,
-                                child: Center(
-                                  child: FittedBox(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              DateTimeFormater.getMonth(
-                                                  date.month),
-                                              style: textThinStyle1.copyWith(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500,
-                                                color: isSelected
-                                                    ? kwhite
-                                                    : kblack,
+                              child: Card(
+                                elevation: 0,
+                                margin: const EdgeInsets.all(1),
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 300),
+                                  decoration: BoxDecoration(
+                                    borderRadius: kBorderRadius5,
+                                    color: isSelected
+                                        ? Theme.of(context).colorScheme.primary
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .onTertiary,
+                                  ),
+                                  padding: const EdgeInsets.all(5),
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: isSelected ? 0 : 5.h,
+                                      horizontal: isSelected ? 0 : 3.w),
+                                  height: 70.h,
+                                  width: isSelected ? 90.w : 70.w,
+                                  child: Center(
+                                    child: FittedBox(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                DateTimeFormater.getMonth(
+                                                    date.month),
+                                                style: textThinStyle1.copyWith(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: isSelected
+                                                      ? kwhite
+                                                      : kblack,
+                                                ),
                                               ),
-                                            ),
-                                            adjustWidth(5.w),
-                                            Text(
-                                              date.day.toString(),
-                                              style: textHeadStyle1.copyWith(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w600,
-                                                color: isSelected
-                                                    ? kwhite
-                                                    : kblack,
+                                              adjustWidth(5.w),
+                                              Text(
+                                                date.day.toString(),
+                                                style: textHeadStyle1.copyWith(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: isSelected
+                                                      ? kwhite
+                                                      : kblack,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        adjustHieght(3.h),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              DateTimeFormater.getWeekDay(
-                                                  date.weekday),
-                                              style: textHeadStyle1.copyWith(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                color: isSelected
-                                                    ? kwhite
-                                                    : kblack,
+                                            ],
+                                          ),
+                                          adjustHieght(3.h),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                DateTimeFormater.getWeekDay(
+                                                    date.weekday),
+                                                style: textHeadStyle1.copyWith(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: isSelected
+                                                      ? kwhite
+                                                      : kblack,
+                                                ),
                                               ),
-                                            ),
-                                            adjustWidth(2.w),
-                                            Text(
-                                              ' ($taskCount)',
-                                              style: textThinStyle1.copyWith(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w200,
-                                                color: isSelected
-                                                    ? kwhite
-                                                    : kblack,
+                                              adjustWidth(2.w),
+                                              Text(
+                                                ' ($taskCount)',
+                                                style: textThinStyle1.copyWith(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w200,
+                                                  color: isSelected
+                                                      ? kwhite
+                                                      : kblack,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -412,8 +420,8 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                 ? Stack(
                                                     children: [
                                                       SizedBox(
-                                                        width: 60.w,
-                                                        height: 60.h,
+                                                        width: 50.w,
+                                                        height: 50.h,
                                                         child: Image.asset(
                                                             taskFolderImage),
                                                       ),
@@ -434,8 +442,8 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                     ],
                                                   )
                                                 : SizedBox(
-                                                    width: 60.w,
-                                                    height: 60.h,
+                                                    width: 50.w,
+                                                    height: 50.h,
                                                     child: Image.asset(
                                                         taskFolderImage),
                                                   ),
@@ -444,8 +452,10 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                               child: Text(
                                                 innerFolder.innerFolderName ??
                                                     '',
-                                                style: textThinStyle1.copyWith(
-                                                    fontSize: 14.sp),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displaySmall
+                                                    ?.copyWith(fontSize: 13),
                                               ),
                                             ),
                                             trailing: PopupMenuButton<String>(
@@ -471,8 +481,9 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                 }
                                               },
                                               color: kwhite,
-                                              icon: const Icon(Icons.more_vert,
-                                                  color: kwhite),
+                                              icon: const Icon(
+                                                Icons.more_vert,
+                                              ),
                                               itemBuilder: (context) {
                                                 return [
                                                   const PopupMenuItem<String>(
@@ -576,8 +587,10 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                 horizontal: 21),
                                             child: Text(
                                               'Tasks',
-                                              style: textHeadStyle1.copyWith(
-                                                  fontSize: 15.sp),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall
+                                                  ?.copyWith(fontSize: 15),
                                             ),
                                           ),
                                         ),

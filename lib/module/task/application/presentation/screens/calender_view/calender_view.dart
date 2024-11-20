@@ -95,89 +95,100 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                                                                 .value));
                                       }
                                     },
-                                    child: AnimatedContainer(
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      decoration: BoxDecoration(
-                                        borderRadius: kBorderRadius5,
-                                        color: isSelected ? neonShade : kgrey,
-                                      ),
-                                      padding: const EdgeInsets.all(5),
-                                      margin: EdgeInsets.symmetric(
-                                          vertical: isSelected ? 0 : 5.h,
-                                          horizontal: isSelected ? 0 : 3.w),
-                                      height: 70.h,
-                                      width: isSelected ? 90.w : 70.w,
-                                      child: Center(
-                                        child: FittedBox(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    DateTimeFormater.getMonth(
-                                                        date.month),
-                                                    style:
-                                                        textThinStyle1.copyWith(
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: isSelected
-                                                          ? kwhite
-                                                          : kblack,
+                                    child: Card(
+                                      elevation: 0,
+                                      margin: const EdgeInsets.all(1),
+                                      child: AnimatedContainer(
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        decoration: BoxDecoration(
+                                          borderRadius: kBorderRadius5,
+                                          color: isSelected
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .onTertiary,
+                                        ),
+                                        padding: const EdgeInsets.all(5),
+                                        margin: EdgeInsets.symmetric(
+                                            vertical: isSelected ? 0 : 5.h,
+                                            horizontal: isSelected ? 0 : 3.w),
+                                        height: 70.h,
+                                        width: isSelected ? 90.w : 70.w,
+                                        child: Center(
+                                          child: FittedBox(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      DateTimeFormater.getMonth(
+                                                          date.month),
+                                                      style: textThinStyle1
+                                                          .copyWith(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: isSelected
+                                                            ? kwhite
+                                                            : kblack,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  adjustWidth(5.w),
-                                                  Text(
-                                                    date.day.toString(),
-                                                    style:
-                                                        textHeadStyle1.copyWith(
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: isSelected
-                                                          ? kwhite
-                                                          : kblack,
+                                                    adjustWidth(5.w),
+                                                    Text(
+                                                      date.day.toString(),
+                                                      style: textHeadStyle1
+                                                          .copyWith(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: isSelected
+                                                            ? kwhite
+                                                            : kblack,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                              adjustHieght(3.h),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    DateTimeFormater.getWeekDay(
-                                                        date.weekday),
-                                                    style:
-                                                        textHeadStyle1.copyWith(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: isSelected
-                                                          ? kwhite
-                                                          : kblack,
+                                                  ],
+                                                ),
+                                                adjustHieght(3.h),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      DateTimeFormater
+                                                          .getWeekDay(
+                                                              date.weekday),
+                                                      style: textHeadStyle1
+                                                          .copyWith(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: isSelected
+                                                            ? kwhite
+                                                            : kblack,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  adjustWidth(2.w),
-                                                  Text(
-                                                    ' ($taskCount)',
-                                                    style:
-                                                        textThinStyle1.copyWith(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                      color: isSelected
-                                                          ? kwhite
-                                                          : kblack,
+                                                    adjustWidth(2.w),
+                                                    Text(
+                                                      ' ($taskCount)',
+                                                      style: textThinStyle1
+                                                          .copyWith(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w200,
+                                                        color: isSelected
+                                                            ? kwhite
+                                                            : kblack,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -186,7 +197,7 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                                 },
                               );
                             },
-                            activeColor: neonShade,
+                            activeColor: kneon,
                             onDateChange: (selectedDate) {},
                           );
                         },

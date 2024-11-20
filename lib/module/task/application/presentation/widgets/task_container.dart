@@ -163,7 +163,7 @@ class TaskContainer extends StatelessWidget {
                               ),
                               adjustWidth(15),
                               Card(
-                                color: lightGrey,
+                                elevation: 0,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 5),

@@ -42,8 +42,8 @@ class TaskFolderSection extends StatelessWidget {
             ? Stack(
                 children: [
                   SizedBox(
-                    width: 60.w,
-                    height: 60.h,
+                    width: 50.w,
+                    height: 50.h,
                     child: Image.asset(taskFolderImage),
                   ),
                   const Positioned(
@@ -62,8 +62,8 @@ class TaskFolderSection extends StatelessWidget {
                 ],
               )
             : SizedBox(
-                width: 60.w,
-                height: 60.h,
+                width: 50.w,
+                height: 50.h,
                 child: Image.asset(taskFolderImage),
               ),
         title: Row(
@@ -72,7 +72,10 @@ class TaskFolderSection extends StatelessWidget {
               width: 100,
               child: Text(
                 name,
-                style: textThinStyle1.copyWith(fontSize: 15.sp),
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontSize: 13),
               ),
             ),
             adjustWidth(50),
@@ -96,7 +99,9 @@ class TaskFolderSection extends StatelessWidget {
             }
           },
           color: kwhite,
-          icon: const Icon(Icons.more_vert, color: kwhite),
+          icon: const Icon(
+            Icons.more_vert,
+          ),
           itemBuilder: (context) {
             return [
               // const PopupMenuItem<String>(

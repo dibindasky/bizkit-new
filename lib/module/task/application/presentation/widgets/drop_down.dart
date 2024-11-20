@@ -21,10 +21,10 @@ class CustomDropDown extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(
-            fontSize: 16.sp,
-            color: neonShade,
-          ),
+          style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
         ),
         adjustHieght(3.h),
         DropdownButtonFormField<String>(
@@ -32,13 +32,14 @@ class CustomDropDown extends StatelessWidget {
           items: items.map((String element) {
             return DropdownMenuItem<String>(
               value: element,
-              child: Text(element),
+              child: Text(element,
+                  style: Theme.of(context).textTheme.displaySmall),
             );
           }).toList(),
           onChanged: onChanged,
           decoration: InputDecoration(
             filled: true,
-            fillColor: klightDarkGrey,
+            // fillColor: klightDarkGrey,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
@@ -46,7 +47,7 @@ class CustomDropDown extends StatelessWidget {
             contentPadding:
                 EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
           ),
-          dropdownColor: klightDarkGrey,
+          // dropdownColor: klightDarkGrey,
         ),
       ],
     );

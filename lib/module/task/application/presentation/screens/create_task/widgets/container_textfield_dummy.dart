@@ -15,31 +15,34 @@ class ContainerTextFieldDummy extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.only(left: 10.w, right: 12.w),
-        height: 40.h,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: klightDarkGrey,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                text,
-                style: TextStyle(
-                    fontSize: 14.sp,
-                    color: text == 'Choose Deadline' ? klightgrey : kwhite),
+      child: Card(
+        elevation: 0,
+        child: Container(
+          padding: EdgeInsets.only(left: 10.w, right: 12.w),
+          height: 40.h,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(text,
+                    // style: TextStyle(
+                    //     fontSize: 14.sp,
+                    //     color: text == 'Choose Deadline' ? klightgrey : kwhite),
+
+                    style:
+                        Theme.of(context).textTheme.displaySmall?.copyWith()),
               ),
-            ),
-            suffixIcon != null
-                ? Icon(
-                    suffixIcon!,
-                    color: neonShade,
-                  )
-                : kempty,
-          ],
+              suffixIcon != null
+                  ? Icon(
+                      suffixIcon!,
+                      color: kneon,
+                    )
+                  : kempty,
+            ],
+          ),
         ),
       ),
     );

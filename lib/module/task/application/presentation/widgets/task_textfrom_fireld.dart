@@ -44,7 +44,7 @@ class TaskTextField extends StatelessWidget {
       showCursor: true,
       enabled: enabled,
       textCapitalization: textCapitalization ?? TextCapitalization.words,
-      style: textStyle1.copyWith(color: kwhite),
+      style: Theme.of(context).textTheme.displaySmall,
       maxLines: maxLines,
       onChanged: onChanged,
       onTap: onTap,
@@ -62,7 +62,7 @@ class TaskTextField extends StatelessWidget {
         labelText: labelText,
         labelStyle: TextStyle(color: textColor),
         filled: true,
-        fillColor: fillColor ?? klightDarkGrey,
+        // fillColor: fillColor ?? klightDarkGrey,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide:

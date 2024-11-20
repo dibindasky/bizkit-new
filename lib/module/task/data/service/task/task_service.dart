@@ -105,7 +105,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByType,
         data: filterByType.toJson(),
       );
-      log("=> Response Filter by Type :  ");
+      log("=> Response Filter by Type : ${response.data}  ");
       return Right(SelfToOthersTypeResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException filterByType $e');
@@ -763,16 +763,15 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SuccessResponce>> deleteAttachments(
       {required DeleteAttachmentsModel deleteAttachmentsModel}) async {
     try {
-       await apiService.delete(
+      await apiService.delete(
         ApiEndPoints.deleteAttachments,
         data: deleteAttachmentsModel.toJson(),
       );
-    
-    return Right(SuccessResponce(data: 'successully deleted'));
-      
+
+      return Right(SuccessResponce(data: 'successully deleted'));
     } on DioException catch (e) {
       log("dio exception of delete attachment ${e.toString()}");
-    return Left(Failure(data: e.toString()));
+      return Left(Failure(data: e.toString()));
     } catch (e) {
       log(" catch error of delete attachment ${e.toString()}");
       return Left(Failure(data: e.toString()));

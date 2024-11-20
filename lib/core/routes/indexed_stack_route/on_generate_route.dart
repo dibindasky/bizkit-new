@@ -30,7 +30,7 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/reports_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/search_tasks.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/notofication.dart';
-import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/tab_notification.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/notification/send_and_received_req/tab_notification.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_search.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';

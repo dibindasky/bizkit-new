@@ -117,7 +117,7 @@ class _CustomExpansionTileWidgetState extends State<CustomExpansionTileWidget> {
               color: widget.expansionColor != null && isExpanded
                   ? widget.expansionColor
                   : null,
-              border: isExpanded ? Border.all(color: neonShade) : null,
+              border: isExpanded ? Border.all(color: kneon) : null,
               borderRadius: kBorderRadius10),
       child: Column(
         children: [

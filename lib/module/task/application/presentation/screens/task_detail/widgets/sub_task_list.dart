@@ -21,119 +21,132 @@ class TaskDetailSubtasksSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<CreateTaskController>();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(
-              'Subtasks',
-              style: textHeadStyle1.copyWith(fontSize: 13.sp),
-            ),
-            const Spacer(),
-            Obx(
-              () {
-                if ((controller.singleTask.value.isCompleted != true &&
-                        controller.singleTask.value.isKilled != true) &&
-                    controller.singleTask.value.isOwned == true) {
-                  return GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => SubTaskCreationCustomDialog(
-                          taskId: controller.singleTask.value.id,
-                          afterTaskCreation: true,
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                'Subtasks',
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontSize: 14),
+              ),
+              const Spacer(),
+              Obx(
+                () {
+                  if ((controller.singleTask.value.isCompleted != true &&
+                          controller.singleTask.value.isKilled != true) &&
+                      controller.singleTask.value.isOwned == true) {
+                    return GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => SubTaskCreationCustomDialog(
+                            taskId: controller.singleTask.value.id,
+                            afterTaskCreation: true,
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 7.h, horizontal: 10.w),
+                        decoration: BoxDecoration(
+                            color: kneon, borderRadius: kBorderRadius5),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.add,
+                              size: 15,
+                              color: kwhite,
+                            ),
+                            adjustWidth(5.w),
+                            Text(
+                              'Add Sub Task',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(color: kwhite),
+                            )
+                          ],
                         ),
+                      ),
+                    );
+                  } else {
+                    return kempty;
+                  }
+                },
+              ),
+            ],
+          ),
+          adjustHieght(5.h),
+          Obx(
+            () {
+              if (controller.isLoading.value) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  child: ShimmerLoader(
+                    height: 30.h,
+                    itemCount: 3,
+                    width: 80.w,
+                    seprator: const SizedBox(
+                      height: 10,
+                    ),
+                  ),
+                );
+              } else if (controller.singleTask.value.subTask?.isEmpty ?? true) {
+                return Center(
+                  child: Column(
+                    children: [
+                      adjustHieght(20.h),
+                      Text(
+                        'No Subtasks available',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(fontSize: 11, color: kGreyNormal),
+                      ),
+                      adjustHieght(150.h)
+                    ],
+                  ),
+                );
+              } else {
+                return Obx(
+                  () => ListView.builder(
+                    itemCount: controller.singleTask.value.subTask?.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final subTask =
+                          controller.singleTask.value.subTask?[index];
+                      return GestureDetector(
+                        onTap: () {},
+                        child: SubTaskTileDetailPage(
+                            isKilled:
+                                controller.singleTask.value.isKilled ?? false,
+                            taskId: controller.singleTask.value.id,
+                            subTaskTitle: subTask?.title ?? '',
+                            subTaskDes: subTask?.description ?? '',
+                            subTaskId: subTask?.id ?? '',
+                            isCompleted:
+                                controller.singleTask.value.isCompleted ??
+                                    false,
+                            isSubTaskCompleted: subTask?.isCompleted,
+                            duration: subTask?.duration ?? '',
+                            isOwned:
+                                controller.singleTask.value.isOwned ?? false),
                       );
                     },
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
-                      decoration: BoxDecoration(
-                          color: neonShade, borderRadius: kBorderRadius5),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.add,
-                            color: kwhite,
-                            size: 15,
-                          ),
-                          adjustWidth(5.w),
-                          Text(
-                            'Add Sub Task',
-                            style: textThinStyle1.copyWith(fontSize: 13.sp),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                } else {
-                  return kempty;
-                }
-              },
-            ),
-          ],
-        ),
-        adjustHieght(5.h),
-        Obx(
-          () {
-            if (controller.isLoading.value) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6),
-                child: ShimmerLoader(
-                  height: 30.h,
-                  itemCount: 3,
-                  width: 80.w,
-                  seprator: const SizedBox(
-                    height: 10,
                   ),
-                ),
-              );
-            } else if (controller.singleTask.value.subTask?.isEmpty ?? true) {
-              return Center(
-                child: Column(
-                  children: [
-                    adjustHieght(20.h),
-                    Text(
-                      'No Subtasks available',
-                      style: textThinStyle1.copyWith(
-                          color: klightgrey, fontSize: 12.sp),
-                    ),
-                    adjustHieght(150.h)
-                  ],
-                ),
-              );
-            } else {
-              return Obx(
-                () => ListView.builder(
-                  itemCount: controller.singleTask.value.subTask?.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final subTask = controller.singleTask.value.subTask?[index];
-                    return GestureDetector(
-                      onTap: () {},
-                      child: SubTaskTileDetailPage(
-                          isKilled:
-                              controller.singleTask.value.isKilled ?? false,
-                          taskId: controller.singleTask.value.id,
-                          subTaskTitle: subTask?.title ?? '',
-                          subTaskDes: subTask?.description ?? '',
-                          subTaskId: subTask?.id ?? '',
-                          isCompleted:
-                              controller.singleTask.value.isCompleted ?? false,
-                          isSubTaskCompleted: subTask?.isCompleted,
-                          duration: subTask?.duration ?? '',
-                          isOwned:
-                              controller.singleTask.value.isOwned ?? false),
-                    );
-                  },
-                ),
-              );
-            }
-          },
-        ),
-      ],
+                );
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -185,137 +198,150 @@ class SubTaskTileDetailPage extends StatelessWidget {
           ),
         );
       },
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10.w),
-        padding: EdgeInsets.all(10.w),
-        decoration: BoxDecoration(
-          color: klightDarkGrey,
-          borderRadius: kBorderRadius10,
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      // Image.asset('asset/images/icon/Vector.png', scale: 2),
-                      adjustWidth(4.w),
-                      Text(
-                        subTaskTitle ?? 'Subtask Title',
-                        style: textHeadStyle1.copyWith(
-                            fontSize: 13.sp, color: neonShade),
-                      ),
-                    ],
-                  ),
-                  adjustHieght(8.h),
-                  Text(
-                    subTaskDes ?? 'Subtask Description',
-                    style: textThinStyle1,
-                  ),
-                  adjustHieght(5.h),
-                ],
-              ),
-            ),
-            adjustWidth(20.w),
-            if (isCompleted == true)
-              const Icon(
-                Icons.check_box_outlined,
-                color: kwhite,
-              )
-            else if (isCompleted == true ||
-                isKilled == true ||
-                isSubTaskCompleted == true)
-              kempty
-            else if (isOwned == false)
-              kempty
-            else
-              PopupMenuButton(
-                color: kwhite,
-                icon: const Icon(Icons.more_vert_outlined, color: kwhite),
-                itemBuilder: (context) {
-                  List<PopupMenuItem<String>> items = [
-                    PopupMenuItem<String>(
-                      value: 'Edit subtask',
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => SubTaskCreationCustomDialog(
-                            taskId: taskId,
-                            subtaskId: subTaskId,
-                            subtaskTitile: subTaskTitle,
-                            subtaskDescription: subTaskDes,
-                            afterTaskCreation: true,
-                            isEdit: true,
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Edit subtask',
-                        style: TextStyle(color: kblack),
-                      ),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'Delete subtask',
-                      onTap: () {
-                        showCustomConfirmationDialogue(
-                          description:
-                              'Are you sure you want to delete this subtask ?',
-                          buttonText: 'Delete',
-                          context: context,
-                          onTap: () {
-                            taskController.deleteSubTask(
-                                context: context,
-                                deletesubtask: DeleteSubTaskModel(
-                                    subTaskId: subTaskId ?? '',
-                                    taskId: taskId ?? ''),
-                                taskId: taskId ?? '');
-                          },
-                          title: 'Delete Subtask',
-                          buttonColor: neonShade,
-                        );
-                      },
-                      child: const Text(
-                        'Delete subtask',
-                        style: TextStyle(color: kblack),
-                      ),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'Complete subtask',
-                      onTap: () {
-                        showCustomConfirmationDialogue(
-                          description:
-                              'Are you sure you want to complete this subtask ?',
-                          buttonText: 'Complete',
-                          context: context,
-                          onTap: () {
-                            taskController.completedSubTask(
-                              completedSubTask: CompletedSubTask(
-                                isCompleted: true,
-                                subTaskId: subTaskId ?? '',
-                                taskId: taskId ?? '',
-                                totalTimeTaken:
-                                    formatDateTimeWithTimeZone(DateTime.now()),
+      child: Card(
+        elevation: 0,
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 10.w),
+          padding: EdgeInsets.all(10.w),
+          decoration: BoxDecoration(
+            borderRadius: kBorderRadius10,
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        // Image.asset('asset/images/icon/Vector.png', scale: 2),
+                        adjustWidth(4.w),
+                        Text(
+                          subTaskTitle ?? 'Subtask Title',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                color: kneon,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
                               ),
-                              context: context,
-                            );
-                          },
-                          title: 'Complete Subtask',
-                          buttonColor: neonShade,
-                        );
-                      },
-                      child: const Text(
-                        'Complete subtask',
-                        style: TextStyle(color: kblack),
-                      ),
+                        ),
+                      ],
                     ),
-                  ];
+                    adjustHieght(8.h),
+                    Text(
+                      subTaskDes ?? 'Subtask Description',
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                            color: kGreyNormal,
+                            fontSize: 11,
+                          ),
+                    ),
+                    adjustHieght(5.h),
+                  ],
+                ),
+              ),
+              adjustWidth(20.w),
+              if (isCompleted == true)
+                const Icon(
+                  Icons.check_box_outlined,
+                  color: kwhite,
+                )
+              else if (isCompleted == true ||
+                  isKilled == true ||
+                  isSubTaskCompleted == true)
+                kempty
+              else if (isOwned == false)
+                kempty
+              else
+                PopupMenuButton(
+                  color: kwhite,
+                  icon: const Icon(
+                    Icons.more_vert_outlined,
+                  ),
+                  itemBuilder: (context) {
+                    List<PopupMenuItem<String>> items = [
+                      PopupMenuItem<String>(
+                        value: 'Edit subtask',
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => SubTaskCreationCustomDialog(
+                              taskId: taskId,
+                              subtaskId: subTaskId,
+                              subtaskTitile: subTaskTitle,
+                              subtaskDescription: subTaskDes,
+                              afterTaskCreation: true,
+                              isEdit: true,
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Edit subtask',
+                          style: TextStyle(color: kblack),
+                        ),
+                      ),
+                      PopupMenuItem<String>(
+                        value: 'Delete subtask',
+                        onTap: () {
+                          showCustomConfirmationDialogue(
+                            description:
+                                'Are you sure you want to delete this subtask ?',
+                            buttonText: 'Delete',
+                            context: context,
+                            onTap: () {
+                              taskController.deleteSubTask(
+                                  context: context,
+                                  deletesubtask: DeleteSubTaskModel(
+                                      subTaskId: subTaskId ?? '',
+                                      taskId: taskId ?? ''),
+                                  taskId: taskId ?? '');
+                            },
+                            title: 'Delete Subtask',
+                            buttonColor: neonShade,
+                          );
+                        },
+                        child: const Text(
+                          'Delete subtask',
+                          style: TextStyle(color: kblack),
+                        ),
+                      ),
+                      PopupMenuItem<String>(
+                        value: 'Complete subtask',
+                        onTap: () {
+                          showCustomConfirmationDialogue(
+                            description:
+                                'Are you sure you want to complete this subtask ?',
+                            buttonText: 'Complete',
+                            context: context,
+                            onTap: () {
+                              taskController.completedSubTask(
+                                completedSubTask: CompletedSubTask(
+                                  isCompleted: true,
+                                  subTaskId: subTaskId ?? '',
+                                  taskId: taskId ?? '',
+                                  totalTimeTaken: formatDateTimeWithTimeZone(
+                                      DateTime.now()),
+                                ),
+                                context: context,
+                              );
+                            },
+                            title: 'Complete Subtask',
+                            buttonColor: neonShade,
+                          );
+                        },
+                        child: const Text(
+                          'Complete subtask',
+                          style: TextStyle(color: kblack),
+                        ),
+                      ),
+                    ];
 
-                  return items;
-                },
-              )
-          ],
+                    return items;
+                  },
+                )
+            ],
+          ),
         ),
       ),
     );

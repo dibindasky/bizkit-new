@@ -13,57 +13,62 @@ class TaskDetailTagsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<CreateTaskController>();
 
-    return Container(
-      padding: EdgeInsets.all(10.w),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondaryContainer,
-        borderRadius: kBorderRadius10,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Tags',
-            style: textHeadStyle1.copyWith(fontSize: 13.sp),
-          ),
-          adjustHieght(5.h),
-          Obx(() {
-            if (controller.isLoading.value) {
-              return SizedBox(
-                height: 30.h,
-                child: ShimmerLoader(
+    return Card(
+      elevation: 0,
+      child: Container(
+        padding: EdgeInsets.all(10.w),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: kBorderRadius10,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Tags',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 14),
+            ),
+            adjustHieght(5.h),
+            Obx(() {
+              if (controller.isLoading.value) {
+                return SizedBox(
                   height: 30.h,
-                  itemCount: 5,
-                  width: 80.w,
-                  scrollDirection: Axis.horizontal,
-                  seprator: const SizedBox(
-                    width: 8,
+                  child: ShimmerLoader(
+                    height: 30.h,
+                    itemCount: 5,
+                    width: 80.w,
+                    scrollDirection: Axis.horizontal,
+                    seprator: const SizedBox(
+                      width: 8,
+                    ),
                   ),
-                ),
-              );
-            } else if (controller.singleTask.value.tags == null ||
-                controller.singleTask.value.tags!.isEmpty) {
-              return Center(
-                child: Text(
-                  'No Tags Available',
-                  style: textThinStyle1.copyWith(
-                      color: klightgrey, fontSize: 12.sp),
-                ),
-              );
-            } else {
-              return Wrap(
-                spacing: 8.w,
-                runSpacing: 8.w,
-                children: controller.singleTask.value.tags != null
-                    ? controller.singleTask.value.tags!.map((tag) {
-                        return TagChip(label: tag);
-                      }).toList()
-                    : [],
-              );
-            }
-          }),
-        ],
+                );
+              } else if (controller.singleTask.value.tags == null ||
+                  controller.singleTask.value.tags!.isEmpty) {
+                return Center(
+                  child: Text('No Tags Available',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall
+                          ?.copyWith(color: kGreyNormal, fontSize: 11)),
+                );
+              } else {
+                return Wrap(
+                  spacing: 8.w,
+                  runSpacing: 8.w,
+                  children: controller.singleTask.value.tags != null
+                      ? controller.singleTask.value.tags!.map((tag) {
+                          return TagChip(label: tag);
+                        }).toList()
+                      : [],
+                );
+              }
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -79,12 +84,16 @@ class TagChip extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(8.w),
       decoration: BoxDecoration(
-        border: Border.all(color: neonShade),
+        border: Border.all(color: kneon),
         borderRadius: kBorderRadius5,
-        color: backgroundColour,
+        color: kblack,
       ),
       child: Row(mainAxisSize: MainAxisSize.min, children: [
-        Text(label, style: textThinStyle1),
+        Text(label,
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(color: kwhite)),
         adjustWidth(10.w),
         // GestureDetector(
         //     onTap: () {

@@ -202,7 +202,7 @@ class ReceivedCardController extends GetxController {
         loadingForVisitingCard.value = false;
       },
       (r) {
-        visitingCards.assignAll(r.visitingCards ?? []);
+        visitingCards.assignAll(r.visitingCards?.reversed ?? []);
         loadingForVisitingCard.value = false;
       },
     );

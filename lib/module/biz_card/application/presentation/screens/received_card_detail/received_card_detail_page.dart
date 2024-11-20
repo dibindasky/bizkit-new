@@ -1,16 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens2/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
-// import 'package:bizkit/module/biz_card/application/presentation/screens2/preview_commen_widgets/preview_pageview_image_builder/preview_pageview_image_builder.dart';
-// import 'package:bizkit/module/biz_card/application/presentation/screens2/preview_commen_widgets/preview_row_vice_icons/show_model_items.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/bottom_sheets_and_pop_up/email_or_phone_list_bottomlist.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/packages/share/share_plus.dart';
+import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:bizkit/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
@@ -29,6 +28,22 @@ class ReceivedCardDetailScreen extends StatefulWidget {
 }
 
 class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
+  late PageController pageController;
+  int currentIndex = 0;
+  double pageValue = 0.0;
+
+  @override
+  initState() {
+    super.initState();
+    pageController = PageController(
+      viewportFraction: 0.8,
+    )..addListener(() {
+        setState(() {
+          pageValue = pageController.page!;
+        });
+      });
+  }
+
   Future<void> sharePdfFromBase64(
       String pdfBase64String, String additionalData) async {
     // Decode base64 string to Uint8List
@@ -46,10 +61,13 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final visitingCardController = Get.find<ReceivedCardController>();
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Received Card',style:  Theme.of(context).textTheme.displayMedium?.copyWith(fontSize: 16 )),
+        title: Text('Received Card',
+            style: Theme.of(context)
+                .textTheme
+                .displayMedium
+                ?.copyWith(fontSize: 16)),
         surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         actions: [
           PopupMenuButton<String>(
@@ -158,19 +176,33 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
                       adjustHieght(20),
                       // image carosal view
                       SizedBox(
-                        height: 200,
-                        child:
-                        //  PagviewAnimateBuilder();
-                         PreviewPageviewImageBuilder(
-                          isStory: false,
-                          imagesList: visitingCardController.selfie,
-                        ), 
-                      ),
-                      // SizedBox(
-                      //   height: 200,
-                      //   child: Image.asset(bizcardCreateDummy),
-                      // ),
-                      // name and designation
+                          height: 200,
+                          child: PagviewAnimateBuilder(
+                              pageController: pageController,
+                              pageValue: pageValue,
+                              pageCount: visitingCardController.selfie.length,
+                              onpageCallBack: (index) {
+                                setState(() {
+                                  currentIndex = index;
+                                });
+                              },
+                              child: (index, context) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      GoRouter.of(context).pushNamed(
+                                          Routes.slidablePhotoGallery,
+                                          extra: {
+                                            'images':
+                                                visitingCardController.selfie,
+                                            'initial': index,
+                                            'memory': false,
+                                          });
+                                    },
+                                    child: NetworkImageWithLoader(
+                                        radius: 25,
+                                        visitingCardController.selfie[index]),
+                                  )))),
                       Column(
                         children: [
                           const SizedBox(height: 20),
@@ -333,19 +365,23 @@ class CardViewRowWiceIcons extends StatelessWidget {
             if (visitingCardController.visitingCardDetails.value != null &&
                 visitingCardController.visitingCardDetails.value.phoneNumber !=
                     null) {
-              // showModalBottomSheet(
-              //   context: context,
-              //   enableDrag: true,
-              //   isDismissible: true,
-              //   showDragHandle: true,
-              //   backgroundColor: kblack,
-              //   builder: (context) => PreviewScreenRowIconsModelSheet(
-              //     fromPreview: true,
-              //     image: gifPhone,
-              //     items: phone,
-              //     itemsHeading: const ['Phone number'],
-              //   ),
-              // );
+              showModalBottomSheet(
+                  showDragHandle: true,
+                  isDismissible: true,
+                  enableDrag: true,
+                  context: context,
+                  builder: (context) {
+                    return PreviewScreenRowIconsModelSheet(
+                      fromPreview: false,
+                      image: gifPhone,
+                      items: [
+                        visitingCardController
+                                .visitingCardDetails.value.phoneNumber ??
+                            ''
+                      ],
+                      itemsHeading: ['personal'],
+                    );
+                  });
             }
           },
           image: gifPhone,
@@ -365,19 +401,23 @@ class CardViewRowWiceIcons extends StatelessWidget {
             if (visitingCardController.visitingCardDetails.value != null &&
                 visitingCardController.visitingCardDetails.value.email !=
                     null) {
-              // showModalBottomSheet(
-              //   context: context,
-              //   enableDrag: true,
-              //   isDismissible: true,
-              //   showDragHandle: true,
-              //   backgroundColor: kblack,
-              //   builder: (context) => PreviewScreenRowIconsModelSheet(
-              //     fromPreview: false,
-              //     image: gifMail,
-              //     items: emails,
-              //     itemsHeading: const ['Email'],
-              //   ),
-              // );
+                        showModalBottomSheet(
+                  showDragHandle: true,
+                  isDismissible: true,
+                  enableDrag: true,
+                  context: context,
+                  builder: (context) {
+                    return PreviewScreenRowIconsModelSheet(
+                      fromPreview: false,
+                      image: gifPhone,
+                      items: [
+                        visitingCardController
+                                .visitingCardDetails.value.email??
+                            ''
+                      ],
+                      itemsHeading: ['personal'],
+                    );
+                  });
             }
           },
           image: gifMail,
@@ -406,11 +446,11 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(color: neonShade),
                         borderRadius: BorderRadius.circular(10),
-                        color: backgroundColour),
+                        color: Theme.of(context).scaffoldBackgroundColor),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('Website', style: textHeadStyle1),
+                        Text('Website', style: Theme.of(context).textTheme.titleMedium ),
                         adjustHieght(10),
                         TextButton(
                           onPressed: () async {
@@ -494,20 +534,20 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(color: neonShade),
                         borderRadius: BorderRadius.circular(10),
-                        color: backgroundColour),
+                        color: Theme.of(context).scaffoldBackgroundColor),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           'Address',
-                          style: textHeadStyle1,
+                          style: Theme.of(context).textTheme.titleMedium, 
                         ),
                         adjustHieght(10),
                         Text(
                           location,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: textThinStyle1,
+                          style: Theme.of(context).textTheme.titleSmall,  
                         ),
                         adjustHieght(10),
                         Row(

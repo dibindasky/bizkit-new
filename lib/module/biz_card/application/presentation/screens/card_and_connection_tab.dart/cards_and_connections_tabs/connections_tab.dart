@@ -49,6 +49,7 @@ class ConnectionsTab extends StatelessWidget {
                     );
                   } else {
                     return ListView.builder(
+                      controller: connectionsController.myConnectionScrollController,
                       itemCount:
                           connectionsController.connectionsSearchList.length +
                               (connectionsController.myConnectionLoadMore.value

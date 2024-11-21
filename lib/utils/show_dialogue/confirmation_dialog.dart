@@ -1,11 +1,12 @@
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 showCustomConfirmationDialogue(
     {required BuildContext context,
     required String title,
-    Color buttonColor = kneon,
+    Color? buttonColor,
     String? description,
     required String buttonText,
     required VoidCallback onTap}) {

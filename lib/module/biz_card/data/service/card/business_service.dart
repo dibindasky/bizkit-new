@@ -122,7 +122,10 @@ class BusinessService implements BusinessRepo {
       final responce = await apiService.post(ApiEndPoints.businessBranch,
           data: branchModel.toJson());
       log('businessBranchAdding ==>success');
-      return Right(SuccessResponseModel.fromJson(responce.data));
+      final map = responce.data as Map<String, dynamic>;
+      return Right(SuccessResponseModel(
+          data: map['branch_office_id'] as String?,
+          message: map['message'] as String?));
     } on DioException catch (e) {
       log('businessBranchAdding DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));
@@ -156,7 +159,9 @@ class BusinessService implements BusinessRepo {
       final responce = await apiService.patch(ApiEndPoints.businessBranch,
           data: branchModel.toJson());
       log('businessBranchUpdating ==>success');
-      return Right(SuccessResponseModel.fromJson(responce.data));
+      return Right(SuccessResponseModel(
+          message:
+              (responce.data as Map<String, dynamic>)['message'] as String?));
     } on DioException catch (e) {
       log('businessBranchUpdating DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));

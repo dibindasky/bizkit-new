@@ -19,7 +19,7 @@ class BizcardDetailLocationListBranchSheet extends StatelessWidget {
           // border: Border.all(color: Theme.of(context).),
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).scaffoldBackgroundColor),
-      child: (cardController.businessDetails.value?.branchOffices?.isEmpty ??
+      child: (cardController.bizcardDetail.value.businessDetails?.branchOffices?.isEmpty ??
               true)
           ? Column(
               mainAxisSize: MainAxisSize.min,
@@ -40,24 +40,24 @@ class BizcardDetailLocationListBranchSheet extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   (cardController
-                              .businessDetails.value?.branchOffices?.isEmpty ??
+                              .bizcardDetail.value.businessDetails?.branchOffices?.isEmpty ??
                           true)
                       ? const SizedBox()
                       : Text('Branch Office Address',
                           style: Theme.of(context).textTheme.displayMedium),
-                  cardController.businessDetails.value?.branchOffices == null ||
-                          cardController.businessDetails.value?.branchOffices ==
+                  cardController.bizcardDetail.value.businessDetails?.branchOffices == null ||
+                          cardController.bizcardDetail.value.businessDetails?.branchOffices ==
                               <BranchOffice>[]
                       ? const SizedBox()
                       : ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: cardController.businessDetails.value
+                          itemCount: cardController.bizcardDetail.value.businessDetails
                                   ?.branchOffices?.length ??
                               0,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             final data = cardController
-                                .businessDetails.value?.branchOffices![index];
+                                .bizcardDetail.value.businessDetails?.branchOffices![index];
                             return AddressTilePopUp(
                                 location: data?.branchLocation ?? '',
                                 address: data?.branchAddress ?? '',

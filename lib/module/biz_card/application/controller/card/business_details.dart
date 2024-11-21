@@ -16,6 +16,8 @@ import 'package:bizkit/module/biz_card/domain/model/cards/business/business_prod
 import 'package:bizkit/module/biz_card/domain/model/cards/business/business_social_media_model/business_social_media_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/logo_model/logo_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/product_deletion/product_deletion.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/branch_office.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/business_repo.dart';
@@ -170,8 +172,21 @@ class BusinesDetailsController extends GetxController {
       (l) => branchLoading.value = false,
       (r) {
         branchLoading.value = false;
-        cardController.cardDetail(
-            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        List<BranchOffice> branchs =
+            cardController.bizcardDetail.value.businessDetails?.branchOffices ??
+                [];
+        var business = cardController.bizcardDetail.value.businessDetails
+            ?.copyWith(branchOffices: [
+          BranchOffice(
+              id: r.data,
+              branchAddress: branchModel.branchAddress,
+              branchContactNumber: branchModel.branchContactNumber,
+              branchContactPerson: branchModel.branchContactPerson,
+              branchLocation: branchModel.branchLocation),
+          ...branchs
+        ]);
+        cardController.bizcardDetail.value = cardController.bizcardDetail.value
+            .copyWith(businessDetails: business);
         branchDataClear();
         GoRouter.of(context).pop();
         showSnackbar(context, message: 'Branch Added Successfully');
@@ -196,6 +211,24 @@ class BusinesDetailsController extends GetxController {
     data.fold(
       (l) => branchLoading.value = false,
       (r) {
+        final branchIndex = cardController
+            .bizcardDetail.value.businessDetails?.branchOffices
+            ?.indexWhere((element) => element.id == branchModel.branchId);
+        List<BranchOffice> branchs =
+            cardController.bizcardDetail.value.businessDetails?.branchOffices ??
+                [];
+        if (branchIndex != -1 && branchIndex != null) {
+          branchs[branchIndex] = BranchOffice(
+              id: r.data,
+              branchAddress: branchModel.branchAddress,
+              branchContactNumber: branchModel.branchContactNumber,
+              branchContactPerson: branchModel.branchContactPerson,
+              branchLocation: branchModel.branchLocation);
+        }
+        var business = cardController.bizcardDetail.value.businessDetails
+            ?.copyWith(branchOffices: branchs);
+        cardController.bizcardDetail.value = cardController.bizcardDetail.value
+            .copyWith(businessDetails: business);
         branchLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
@@ -224,6 +257,15 @@ class BusinesDetailsController extends GetxController {
             cardController.bizcardDetail.value.businessDetails?.id,
         branchOfficeId: cardController
             .bizcardDetail.value.businessDetails?.branchOffices?[index].id);
+
+    /// remove and send to ui
+    List<BranchOffice> branchs =
+        cardController.bizcardDetail.value.businessDetails?.branchOffices ?? [];
+    branchs.removeAt(index);
+    var business = cardController.bizcardDetail.value.businessDetails
+        ?.copyWith(branchOffices: branchs);
+    cardController.bizcardDetail.value =
+        cardController.bizcardDetail.value.copyWith(businessDetails: business);
     final data = await businessRepo.businessBranchDeleting(
         branchDeletion: branchDeletion);
     data.fold(
@@ -235,7 +277,7 @@ class BusinesDetailsController extends GetxController {
         if (frominner) {
           GoRouter.of(context).pop();
         }
-        showSnackbar(context, message: 'Branch Deleted Successfully');
+        // showSnackbar(context, message: 'Branch Deleted Successfully');
         branchDataClear();
       },
     );
@@ -404,9 +446,18 @@ class BusinesDetailsController extends GetxController {
     data.fold(
       (l) => achivementLoading.value = false,
       (r) {
+        List<Achievement> achievement = cardController
+                .bizcardDetail.value.businessDetails?.businessAchievements ??
+            [];
+        achievement.removeWhere(
+            (element) => element.id == achievementDeletionModel.achievementId);
+        // set achivemets without the deleted one
+        cardController.bizcardDetail.value = cardController.bizcardDetail.value
+            .copyWith(
+                businessDetails: cardController
+                    .bizcardDetail.value.businessDetails
+                    ?.copyWith(businessAchievements: achievement));
         achivementLoading.value = false;
-        cardController.cardDetail(
-            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         if (fromInner) {
           GoRouter.of(context).pop();
         }

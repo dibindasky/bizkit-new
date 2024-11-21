@@ -15,7 +15,8 @@ class AppThemes {
           onPrimary: kblack,
           secondary: kgrey,
           surface: kneonDark,
-          onTertiary: kwhite),
+          onTertiary: kwhite,
+          error: kred),
       cardColor: kwhite,
       textTheme: const TextTheme(
           headlineLarge: TextStyle(

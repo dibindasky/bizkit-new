@@ -6,9 +6,7 @@ import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/archived_and_deleted_cards_responce/archived_or_deleted_card/archived_or_deleted_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/business_details.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
-import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/personal_details.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/create_card/create_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responce/view.dart';
@@ -49,8 +47,6 @@ class CardController extends GetxController {
   RxString bizcardId = ''.obs;
 
   Rx<CardDetailModel> bizcardDetail = CardDetailModel().obs;
-  Rx<PersonalDetails?> personalDetails = PersonalDetails().obs;
-  Rx<BusinessDetails?> businessDetails = BusinessDetails().obs;
 
   RxList<ArchivedOrDeletedCard> archivedCards = <ArchivedOrDeletedCard>[].obs;
   RxList<ArchivedOrDeletedCard> deletedCards = <ArchivedOrDeletedCard>[].obs;
@@ -131,15 +127,15 @@ class CardController extends GetxController {
 
   void cardDetail({required String cardId}) async {
     log('Bizcard ID -> $cardId');
-    bizcardDetail.value = CardDetailModel();
+    if (cardId != bizcardDetail.value.bizcardId) {
+      bizcardDetail.value = CardDetailModel();
+    }
     isLoading.value = true;
     final data = await cardRepo.getCardDetail(cardId: cardId);
     data.fold(
       (l) => isLoading.value = false,
       (r) {
         bizcardDetail.value = r;
-        personalDetails.value = r.personalDetails;
-        businessDetails.value = r.businessDetails;
         isLoading.value = false;
         update();
       },
@@ -246,8 +242,6 @@ class CardController extends GetxController {
       (l) => isLoading.value = false,
       (r) {
         bizcardDetail.value = r.sharedDetails!;
-        personalDetails.value = r.sharedDetails!.personalDetails;
-        businessDetails.value = r.sharedDetails!.businessDetails;
         myCardDeeplinkPage.value = r.newConnection == null;
         connectionExist.value = r.newConnection ?? false;
         print('bizcardDetail.value -> ${bizcardDetail.value.connectionId}');

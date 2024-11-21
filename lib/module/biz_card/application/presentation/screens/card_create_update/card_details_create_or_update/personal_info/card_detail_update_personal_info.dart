@@ -160,6 +160,7 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                           id: 'personalPhoneNumber',
                           builder: (controller) =>
                               ImageOrTextPreviewUnderWidget(
+                            // deleteItemLoadingIndex: 1,
                             listString: personalController.personalPhoneNumbers,
                             removeItem: (index) {
                               personalController
@@ -223,14 +224,14 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                   controller: personalController.bloodGroupController,
                   inputType: TextInputType.name,
                   onTap: () {
-                    FocusScope.of(context).unfocus();
+                    FocusManager.instance.primaryFocus?.unfocus();
                   },
                 ),
                 kHeight10,
                 // date of birth
                 InkWell(
                   onTap: () {
-                    FocusScope.of(context).unfocus();
+                    FocusManager.instance.primaryFocus?.unfocus();
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
@@ -257,11 +258,18 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                 // personal achivements (accolades)
                 Obx(
                   () => ImageOrTextPreviewUnderWidget(
-                    ontap: () {
-                      FocusScope.of(context).unfocus();
-                      GoRouter.of(context)
+                    deleteItemLoadingIndex: cardController.bizcardDetail.value
+                        .personalDetails?.personalAchievements
+                        ?.indexWhere(
+                      (element) =>
+                          element.id == personalController.deletingId.value,
+                    ),
+                    ontap: () async {
+                      await GoRouter.of(context)
                           .pushNamed(Routes.cardAchivementCreateUpdate, extra: {
                         'fromBusiness': false,
+                      }).then((_) {
+                        FocusManager.instance.primaryFocus?.unfocus();
                       });
                     },
                     onItemTap: (value, index) {
@@ -339,9 +347,10 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                             });
                       },
                       ontap: () {
-                        FocusScope.of(context).unfocus();
-                        // Navigator.of(context).push(cardFadePageRoute(
-                        //     const SocialMediahandlesScreen(fromBusiness: false)));
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        GoRouter.of(context).pushNamed(
+                            Routes.cardSocialMediaCreateUpdate,
+                            extra: {'fromBusiness': false});
                       },
                       child: const CardDetailEditingButtonContainer(
                           text: 'Personal Social Media Handles')),
@@ -376,9 +385,9 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                           desc: 'Description : ${data?.description ?? ''}');
                     },
                     ontap: () {
-                      FocusScope.of(context).unfocus();
-                      // Navigator.of(context)
-                      //     .push(cardFadePageRoute(const DatesToRememberScreen()));
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      GoRouter.of(context)
+                          .pushNamed(Routes.cardDatesToRememberCreateUpdate);
                     },
                     child: const CardDetailEditingButtonContainer(
                         text: 'Dates To Remember'),

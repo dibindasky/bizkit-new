@@ -93,15 +93,16 @@ class PersonalDetailsService implements PersonalDetailsRepo {
   }
 
   @override
-  Future<Either<Failure, SuccessResponseModel>> personalDatesToReminderAdding(
-      {required PersonalDayesToReminderModel
-          personalDatesToReminderModel}) async {
+  Future<Either<Failure, PersonalDayesToReminderModel>>
+      personalDatesToReminderAdding(
+          {required PersonalDayesToReminderModel
+              personalDatesToReminderModel}) async {
     try {
       final responce = await apiService.post(
           ApiEndPoints.personalDatesToReminder,
           data: personalDatesToReminderModel.toJson());
       log('personalDatesToReminderAdding ==>success');
-      return Right(SuccessResponseModel.fromJson(responce.data));
+      return Right(PersonalDayesToReminderModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('personalDatesToReminderAdding DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));

@@ -39,6 +39,34 @@ class PersonalDetails {
     this.datesToRemember,
   });
 
+  PersonalDetails copyWith({
+    String? id,
+    String? name,
+    String? email,
+    List<String>? phone,
+    String? address,
+    String? bloodGroup,
+    String? dob,
+    List<String>? images,
+    List<Achievement>? personalAchievements,
+    List<SocialMediaHandles>? personalSocialMedia,
+    List<DatesToRemember>? datesToRemember,
+  }) {
+    return PersonalDetails(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+      address: address ?? this.address,
+      bloodGroup: bloodGroup ?? this.bloodGroup,
+      dob: dob ?? this.dob,
+      images: images ?? this.images,
+      personalAchievements: personalAchievements ?? this.personalAchievements,
+      personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
+      datesToRemember: datesToRemember ?? this.datesToRemember,
+    );
+  }
+
   factory PersonalDetails.fromJson(Map<String, dynamic> json) {
     return _$PersonalDetailsFromJson(json);
   }

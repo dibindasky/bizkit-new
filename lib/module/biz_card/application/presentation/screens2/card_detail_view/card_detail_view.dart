@@ -178,28 +178,30 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                     children: [
                       kHeight20,
                       Text(
-                        cardController.personalDetails.value?.name != null
-                            ? cardController.personalDetails.value?.name ?? ''
-                            : cardController
-                                        .businessDetails.value?.businessName !=
-                                    null
-                                ? cardController
-                                        .businessDetails.value?.businessName ??
-                                    ""
-                                : 'Name',
+                        // cardController.personalDetails.value?.name != null
+                        //     ? cardController.personalDetails.value?.name ?? ''
+                        //     : cardController
+                        //                 .businessDetails.value?.businessName !=
+                        //             null
+                        //         ? cardController
+                        //                 .businessDetails.value?.businessName ??
+                        //             ""
+                        //         :
+                                 'Name',
                         overflow: TextOverflow.ellipsis,
                         style: custumText(fontSize: kwidth * 0.06),
                       ),
                       Text(
-                        cardController.personalDetails.value?.email != null
-                            ? cardController.personalDetails.value?.email ?? ''
-                            : cardController
-                                        .businessDetails.value?.designation !=
-                                    null
-                                ? cardController
-                                        .businessDetails.value?.designation ??
-                                    ""
-                                : 'Designation',
+                        // cardController.personalDetails.value?.email != null
+                        //     ? cardController.personalDetails.value?.email ?? ''
+                        //     : cardController
+                        //                 .businessDetails.value?.designation !=
+                        //             null
+                        //         ? cardController
+                        //                 .businessDetails.value?.designation ??
+                        //             ""
+                        //         : 
+                                'Designation',
                         overflow: TextOverflow.ellipsis,
                       ),
                       adjustHieght(khieght * .02),

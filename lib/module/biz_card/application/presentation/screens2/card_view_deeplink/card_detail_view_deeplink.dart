@@ -181,52 +181,54 @@ class _CardDetailViewDeeplinkScreenState
                     children: [
                       kHeight20,
                       Text(
-                        Get.find<CardController>()
-                                    .personalDetails
-                                    .value
-                                    ?.name !=
-                                null
-                            ? Get.find<CardController>()
-                                    .personalDetails
-                                    .value
-                                    ?.name ??
-                                ''
-                            : Get.find<CardController>()
-                                        .businessDetails
-                                        .value
-                                        ?.businessName !=
-                                    null
-                                ? Get.find<CardController>()
-                                        .businessDetails
-                                        .value
-                                        ?.businessName ??
-                                    ""
-                                : '',
+                        // Get.find<CardController>()
+                        //             .personalDetails
+                        //             .value
+                        //             ?.name !=
+                        //         null
+                        //     ? Get.find<CardController>()
+                        //             .personalDetails
+                        //             .value
+                        //             ?.name ??
+                        //         ''
+                        //     : Get.find<CardController>()
+                        //                 .businessDetails
+                        //                 .value
+                        //                 ?.businessName !=
+                        //             null
+                        //         ? Get.find<CardController>()
+                        //                 .businessDetails
+                        //                 .value
+                        //                 ?.businessName ??
+                        //             ""
+                        //         : '',
+                        '',
                         overflow: TextOverflow.ellipsis,
                         style: custumText(fontSize: kwidth * 0.06),
                       ),
                       Text(
-                        Get.find<CardController>()
-                                    .personalDetails
-                                    .value
-                                    ?.email !=
-                                null
-                            ? Get.find<CardController>()
-                                    .personalDetails
-                                    .value
-                                    ?.email ??
-                                ''
-                            : Get.find<CardController>()
-                                        .businessDetails
-                                        .value
-                                        ?.designation !=
-                                    null
-                                ? Get.find<CardController>()
-                                        .businessDetails
-                                        .value
-                                        ?.designation ??
-                                    ""
-                                : '',
+                        // Get.find<CardController>()
+                        //             .personalDetails
+                        //             .value
+                        //             ?.email !=
+                        //         null
+                        //     ? Get.find<CardController>()
+                        //             .personalDetails
+                        //             .value
+                        //             ?.email ??
+                        //         ''
+                        //     : Get.find<CardController>()
+                        //                 .businessDetails
+                        //                 .value
+                        //                 ?.designation !=
+                        //             null
+                        //         ? Get.find<CardController>()
+                        //                 .businessDetails
+                        //                 .value
+                        //                 ?.designation ??
+                        //             ""
+                        //         : '',
+                        '',
                         overflow: TextOverflow.ellipsis,
                       ),
                       adjustHieght(khieght * .02),

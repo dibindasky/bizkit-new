@@ -190,20 +190,27 @@ class BizcardDetailTopPotion extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      cardController.personalDetails.value?.name != null
-                          ? cardController.personalDetails.value?.name ?? ''
-                          : cardController
-                                      .businessDetails.value?.businessName !=
+                      cardController
+                                  .bizcardDetail.value.personalDetails?.name !=
+                              null
+                          ? cardController
+                                  .bizcardDetail.value.personalDetails?.name ??
+                              ''
+                          : cardController.bizcardDetail.value.businessDetails
+                                      ?.businessName !=
                                   null
-                              ? cardController
-                                      .businessDetails.value?.businessName ??
+                              ? cardController.bizcardDetail.value
+                                      .businessDetails?.businessName ??
                                   ""
                               : '',
                       style: Theme.of(context).textTheme.displayMedium,
                     ),
                     Text(
-                      cardController.businessDetails.value?.designation != null
-                          ? cardController.businessDetails.value?.designation ??
+                      cardController.bizcardDetail.value.businessDetails
+                                  ?.designation !=
+                              null
+                          ? cardController.bizcardDetail.value.businessDetails
+                                  ?.designation ??
                               ""
                           : '',
                       style: Theme.of(context).textTheme.displaySmall,

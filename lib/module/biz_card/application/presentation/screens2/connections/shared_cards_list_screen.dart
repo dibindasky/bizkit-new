@@ -26,7 +26,7 @@ class ScreenSharedCardListing extends StatelessWidget {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (controller.sharedCards.isEmpty) {
+          } else if (controller.filteredSharedCards.isEmpty) {
             return Column(
               children: [
                 Padding(
@@ -40,14 +40,14 @@ class ScreenSharedCardListing extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: GridView.builder(
-                itemCount: controller.sharedCards.length,
+                itemCount: controller.filteredSharedCards.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 1 / 1.2,
                     crossAxisCount: 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10),
                 itemBuilder: (context, index) {
-                  final data = controller.sharedCards[index];
+                  final data = controller.filteredSharedCards[index];
                   return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),

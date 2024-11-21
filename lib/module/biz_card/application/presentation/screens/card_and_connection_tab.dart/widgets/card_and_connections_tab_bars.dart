@@ -40,7 +40,7 @@ class CardAndConnectionsTabBar extends StatelessWidget {
             offset: const Offset(10, -3),
             label: Obx(
               () => Text(
-                '${connectionsController.recievedConnectionRequests.length}',
+                '${connectionsController.filterdConnectionRequest.length}',
                 style: const TextStyle(color: kblack),
               ),
             ),

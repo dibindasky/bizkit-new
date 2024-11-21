@@ -141,7 +141,7 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
         () {
           if (visitingCardController.isLoading.value) {
             return const Center(child: CircularProgressIndicator());
-          } else if (visitingCardController.visitingCards == null) {
+          } else if (visitingCardController.filterdVisitingCards == null) {
             return GestureDetector(
               onTap: () {
                 if (widget.visitingCardId != null) {

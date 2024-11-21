@@ -35,7 +35,7 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
                 child: CircularProgressIndicator(),
               );
             } else if (connectionController
-                .recievedConnectionRequests.isEmpty) {
+                .filterdConnectionRequest.isEmpty) {
               return ErrorRefreshIndicator(
                 onRefresh: () {
                   connectionController.fetchRecievedConnectionRequests();
@@ -51,7 +51,7 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10),
                 itemCount:
-                    connectionController.recievedConnectionRequests.length,
+                    connectionController.filterdConnectionRequest.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {},
@@ -74,14 +74,14 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
                         ),
                         adjustHieght(10),
                         Text(
-                          connectionController.recievedConnectionRequests[index]
+                          connectionController.filterdConnectionRequest[index]
                                   .fromUserName ??
                               'Name',
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.displaySmall,
                         ),
                         Text(
-                          connectionController.recievedConnectionRequests[index]
+                          connectionController.filterdConnectionRequest[index]
                                   .fromUserDesignation ??
                               'Designation',
                           overflow: TextOverflow.ellipsis,
@@ -125,7 +125,7 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
                                                       AcceptOrRejectConnectionRequest(
                                                           connectionId:
                                                               connectionController
-                                                                      .recievedConnectionRequests[
+                                                                      .filterdConnectionRequest[
                                                                           index]
                                                                       .id ??
                                                                   '',

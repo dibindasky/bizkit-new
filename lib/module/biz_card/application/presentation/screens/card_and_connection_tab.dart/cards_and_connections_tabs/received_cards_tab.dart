@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/application/controller/received_card/rece
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,14 +22,24 @@ class ReceivedCardsTab extends StatelessWidget {
       receivedCardController.fetchAllreceivedCards();
     });
     return RefreshIndicator(
-      onRefresh: () async {},
+      onRefresh: () async {
+        receivedCardController.fetchAllreceivedCards(refresh: true);
+      },
       child: Obx(
         () {
           if (receivedCardController.loadingForVisitingCard.value) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else {}
+          } else if (receivedCardController.filterdVisitingCards.isEmpty) {
+            return ErrorRefreshIndicator(
+              onRefresh: () {
+                receivedCardController.fetchAllreceivedCards(refresh: true);
+              },
+              errorMessage: 'No recieved cards',
+              image: emptyNodata2,
+            );
+          }
           return SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -41,7 +52,7 @@ class ReceivedCardsTab extends StatelessWidget {
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10),
-                  itemCount: receivedCardController.visitingCards.length,
+                  itemCount: receivedCardController.filterdVisitingCards.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
@@ -53,12 +64,12 @@ class ReceivedCardsTab extends StatelessWidget {
                         //         '');
                         receivedCardController.fetchReceivedCardDetails(
                             receivedCardId: receivedCardController
-                                    .visitingCards[index].id ??
+                                    .filterdVisitingCards[index].id ??
                                 '');
                         GoRouter.of(context).pushNamed(
                             Routes.receivedCardDetail,
                             extra: receivedCardController
-                                    .visitingCards[index].id ??
+                                    .filterdVisitingCards[index].id ??
                                 '');
                       },
                       child: Card(
@@ -70,7 +81,8 @@ class ReceivedCardsTab extends StatelessWidget {
                               Expanded(
                                 child: NetworkImageWithLoader(
                                   receivedCardController
-                                          .visitingCards[index].cardImage ??
+                                          .filterdVisitingCards[index]
+                                          .cardImage ??
                                       '',
                                   radius: 8,
                                 ),
@@ -78,14 +90,14 @@ class ReceivedCardsTab extends StatelessWidget {
                               adjustHieght(10.h),
                               Text(
                                 receivedCardController
-                                        .visitingCards[index].name ??
+                                        .filterdVisitingCards[index].name ??
                                     'name',
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
                               Text(
                                 receivedCardController
-                                        .visitingCards[index].company ??
+                                        .filterdVisitingCards[index].company ??
                                     'company',
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)

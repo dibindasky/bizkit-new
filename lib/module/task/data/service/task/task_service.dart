@@ -105,7 +105,7 @@ class TaskService implements TaskRepo {
         ApiEndPoints.taskTestFilterByType,
         data: filterByType.toJson(),
       );
-      log("=> Response Filter by Type : ${response.data}  ");
+      log("=> Response filterByType   ");
       return Right(SelfToOthersTypeResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException filterByType $e');

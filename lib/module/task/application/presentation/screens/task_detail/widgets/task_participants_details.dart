@@ -135,20 +135,20 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundColor: lightGrey,
+                          backgroundColor: task.createdUserDetails
+                                      ?.profilePicture?.isEmpty ??
+                                  true
+                              ? klightDarkGrey
+                              : neonShade,
                           child: Padding(
                             padding: EdgeInsets.all(1.w),
                             child: task.createdUserDetails?.profilePicture
                                         ?.isNotEmpty ==
                                     true
-                                ? ClipOval(
-                                    child: Image.memory(
-                                      base64Decode(task
-                                          .createdUserDetails!.profilePicture!),
-                                      fit: BoxFit.cover,
-                                      width: 40.w,
-                                      height: 40.w,
-                                    ),
+                                ? NetworkImageWithLoader(
+                                    task.createdUserDetails?.profilePicture ??
+                                        '',
+                                    radius: 50,
                                   )
                                 : Text(
                                     task.createdUserDetails?.name?.isNotEmpty ==
@@ -202,7 +202,6 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                   const Spacer(),
                   // Deadline section
                   CircleAvatar(
-                    backgroundColor: neonShade,
                     child: Padding(
                       padding: EdgeInsets.all(1.w),
                       child: const CircleAvatar(
@@ -250,7 +249,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                     enableDrag: true,
                     isDismissible: true,
                     showDragHandle: true,
-                    backgroundColor: kblack,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     builder: (context) => const ParticipantsListBottomSheet(),
                   );
                 },

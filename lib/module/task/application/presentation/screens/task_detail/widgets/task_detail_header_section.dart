@@ -233,7 +233,8 @@ class TaskDetailHeaderSection extends StatelessWidget {
                               animate: true,
                               child: CircleAvatar(
                                 radius: 5.w,
-                                backgroundColor: kneonShade,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.onSecondary,
                               ),
                             ),
                           );

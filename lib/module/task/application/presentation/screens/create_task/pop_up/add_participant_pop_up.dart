@@ -66,8 +66,6 @@ class AddParticipentBottomSheet extends StatelessWidget {
                 if (controller.searchLoading.value) {
                   return ShimmerLoaderSearchParticipants(
                       seprator: kHeight5,
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
                       itemCount: 5,
                       height: 50.h,
                       width: double.infinity);

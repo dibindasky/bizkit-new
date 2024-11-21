@@ -50,8 +50,6 @@ class RecentTasksSection extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   height: 60.h,
                   width: 190.w,
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
                   seprator: kWidth20,
                 );
               } else {

@@ -14,13 +14,13 @@ class TaskStatusClipper extends CustomClipper<Path> {
 
     path.cubicTo(
       width * 0.90,
-      3,
+      height * 0.1,
       width * 0.85,
       height * 0.3,
-      width * 0.95,
+      width * 0.93,
       height * 0.2,
     );
-
+    // path.quadraticBezierTo(0, 5, width * 0.5, 3);
     path.lineTo(width, height * 0.2);
     path.lineTo(width, height);
     path.lineTo(0, height);

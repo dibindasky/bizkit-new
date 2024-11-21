@@ -174,9 +174,10 @@ class ShimmerLoaderTaskContainer extends StatelessWidget {
       scrollDirection: scrollDirection,
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: baseColor ?? const Color.fromARGB(255, 54, 54, 54),
+          baseColor: baseColor ??
+              Theme.of(context).colorScheme.secondary.withOpacity(0.3),
           highlightColor:
-              highlightColor ?? const Color.fromARGB(255, 85, 85, 85),
+              baseColor ?? Theme.of(context).scaffoldBackgroundColor,
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: Container(
@@ -280,13 +281,16 @@ class ShimmerLoaderCircle extends StatelessWidget {
 class BizcardShimmer extends StatelessWidget {
   const BizcardShimmer({
     super.key,
+    this.baseColor,
   });
+  final Color? baseColor;
 
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
+      baseColor:
+          baseColor ?? Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+      highlightColor: baseColor ?? Theme.of(context).scaffoldBackgroundColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6),
         child: Column(

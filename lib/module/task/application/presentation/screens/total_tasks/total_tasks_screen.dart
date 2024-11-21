@@ -8,6 +8,7 @@ import 'package:bizkit/module/task/application/presentation/screens/total_tasks/
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -197,127 +198,164 @@ class TotalTasksScreen extends StatelessWidget {
                       SizedBox(
                         width: 330.w,
                         height: 130.h,
-                        child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Card(
-                                child: Container(
-                                  width: 320.w,
-                                  height: 100.h,
-                                  decoration: BoxDecoration(
-                                    color: neonShade,
-                                    borderRadius: kBorderRadius15,
-                                    border: Border.all(color: kwhite, width: 5),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 4),
-                                  child: Stack(children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Metting Project Landing',
-                                              overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displayMedium
-                                                  ?.copyWith(
-                                                    fontSize: 13,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onTertiary,
+                        child: Obx(
+                          () {
+                            if (taskController.filterByTypeLoading.value ||
+                                taskController.pinLoader.value) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0, vertical: 5),
+                                child: ShimmerLoaderTaskContainer(
+                                  height: 50.h,
+                                  itemCount: 10,
+                                  width: double.infinity,
+                                  seprator: kWidth10,
+                                  scrollDirection: Axis.horizontal,
+                                ),
+                              );
+                            } else {
+                              return ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Card(
+                                      child: Container(
+                                        width: 320.w,
+                                        height: 100.h,
+                                        decoration: BoxDecoration(
+                                          gradient: const LinearGradient(
+                                            colors: [
+                                              Color(0xFF59FBFB),
+                                              Color(0xFF379D98),
+                                              Color(0xFF59F6FB),
+                                            ],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                          ),
+                                          borderRadius: kBorderRadius15,
+                                          border: Border.all(
+                                              color: kwhite, width: 3),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 4),
+                                        child: Stack(children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    'Metting Project Landing',
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .displayMedium
+                                                        ?.copyWith(
+                                                          fontSize: 13,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .onTertiary,
+                                                        ),
                                                   ),
-                                            ),
-                                          ],
-                                        ),
-                                        adjustHieght(10.h),
-                                        Text(
-                                          'Complete the documentation for the current project including all \nmodules Complete the documentation for the current project including all modules',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall
-                                              ?.copyWith(
-                                                fontSize: 8,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onTertiary,
+                                                ],
                                               ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                        ),
-                                        adjustHieght(30.h),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Iconsax.calendar_1,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onTertiary,
-                                                  size: 18,
-                                                ),
-                                                adjustWidth(8.w),
-                                                Text(
-                                                  'July 12 Wednesday 2023',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .displaySmall
-                                                      ?.copyWith(
-                                                        fontSize: 11,
+                                              adjustHieght(10.h),
+                                              Text(
+                                                'Complete the documentation for the current project including all \nmodules Complete the documentation for the current project including all modules',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displaySmall
+                                                    ?.copyWith(
+                                                      fontSize: 8,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onTertiary,
+                                                    ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                                softWrap: true,
+                                              ),
+                                              adjustHieght(30.h),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Icon(
+                                                        Iconsax.calendar_1,
                                                         color: Theme.of(context)
                                                             .colorScheme
                                                             .onTertiary,
+                                                        size: 18,
                                                       ),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              'Created by Mac',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall
-                                                  ?.copyWith(
-                                                    fontSize: 11,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onTertiary,
+                                                      adjustWidth(8.w),
+                                                      Text(
+                                                        'July 12 Wednesday 2023',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .displaySmall
+                                                            ?.copyWith(
+                                                              fontSize: 11,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .onTertiary,
+                                                            ),
+                                                      ),
+                                                    ],
                                                   ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    Positioned(
-                                      right: -2,
-                                      top: 1,
-                                      child: CircleAvatar(
-                                        backgroundColor:
-                                            kwhite.withOpacity(0.2),
-                                        child: Transform.rotate(
-                                          angle: 0.7,
-                                          child: const Icon(
-                                            Icons.push_pin,
-                                            color: kwhite,
+                                                  Text(
+                                                    'Created by Mac',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .displaySmall
+                                                        ?.copyWith(
+                                                          fontSize: 11,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .onTertiary,
+                                                        ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
                                           ),
-                                        ),
+                                          Positioned(
+                                            right: -2,
+                                            top: 1,
+                                            child: CircleAvatar(
+                                              backgroundColor:
+                                                  kwhite.withOpacity(0.2),
+                                              child: Transform.rotate(
+                                                angle: 0.7,
+                                                child: const Icon(
+                                                  Icons.push_pin,
+                                                  color: kwhite,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ]),
                                       ),
-                                    )
-                                  ]),
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) => kWidth20,
-                            itemCount: 10),
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) =>
+                                      kWidth20,
+                                  itemCount:
+                                      taskController.allPinnedTasks.length);
+                            }
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -326,17 +364,17 @@ class TotalTasksScreen extends StatelessWidget {
             ),
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              sliver: SliverList.separated(
-                itemCount: taskController.typeTasks.length,
-                itemBuilder: (context, index) {
-                  return TaskContainer(
-                    tasksFromFilterSection: true,
-                    typeTask: taskController.typeTasks[index],
-                    index: index,
-                  );
-                },
-                separatorBuilder: (context, index) => kHeight5,
-              ),
+              sliver: Obx(() => SliverList.separated(
+                    itemCount: taskController.typeTasks.length,
+                    itemBuilder: (context, index) {
+                      return TaskContainer(
+                        tasksFromFilterSection: true,
+                        typeTask: taskController.typeTasks[index],
+                        index: index,
+                      );
+                    },
+                    separatorBuilder: (context, index) => kHeight5,
+                  )),
             ),
           ],
         ),

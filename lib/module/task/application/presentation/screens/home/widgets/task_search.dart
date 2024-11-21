@@ -70,8 +70,6 @@ class TaskSearchScreen extends StatelessWidget {
                           height: 50.h,
                           itemCount: 10,
                           width: double.infinity,
-                          baseColor: Colors.grey[300]!,
-                          highlightColor: Colors.grey[100]!,
                         ),
                       );
                     } else if (taskController.tasksSearch.isEmpty) {

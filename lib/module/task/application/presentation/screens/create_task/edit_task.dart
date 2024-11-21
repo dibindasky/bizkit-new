@@ -7,7 +7,6 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/tag_contaner.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
-import 'package:bizkit/core/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,7 @@ class ScreenEditTask extends StatelessWidget {
   Widget build(BuildContext context) {
     // final taskCalenarcontroller = Get.find<TaskCalenderViewController>();
     final createTaskController = Get.find<CreateTaskController>();
-    final style = TextStyle(fontSize: 15.sp, color: neonShade);
+
     // createTaskController.tagsForEdit =
     //     createTaskController.singleTask.value.tags ?? [];
 
@@ -48,6 +47,7 @@ class ScreenEditTask extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: knill,
         leading: IconButton(
           onPressed: () {
             GoRouter.of(context).pop();
@@ -55,7 +55,13 @@ class ScreenEditTask extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
         ),
         backgroundColor: knill,
-        title: const Text('Edit Task'),
+        title: Text(
+          'Edit Task',
+          style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+        ),
       ),
       body: SafeArea(
         child: Obx(
@@ -72,7 +78,14 @@ class ScreenEditTask extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Title', style: style),
+                          Text('Title',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  )),
                           adjustHieght(3.h),
                           TaskTextField(
                             hintText: 'Title',
@@ -88,14 +101,30 @@ class ScreenEditTask extends StatelessWidget {
                             },
                           ),
                           adjustHieght(10.h),
-                          Text('Description', style: style),
-                          adjustHieght(3.h),
+                          Text('Description',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  )),
+                          adjustHieght(8.h),
                           TaskTextField(
                             maxLines: 5,
                             hintText: 'Description',
                             controller: descriptionController,
                           ),
                           adjustHieght(15.h),
+                          Text('Assign to',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  )),
+                          adjustHieght(5.h),
                           ContainerTextFieldDummy(
                               text: 'Assign to',
                               suffixIcon: Icons.arrow_right,
@@ -151,7 +180,7 @@ class ScreenEditTask extends StatelessWidget {
                           Center(
                             child: EventButton(
                                 color: const LinearGradient(
-                                    colors: [neonShade, neonShade]),
+                                    colors: [kneon, kneon]),
                                 width: 300.w,
                                 text: 'Edit Task',
                                 onTap: () {
@@ -172,7 +201,7 @@ class ScreenEditTask extends StatelessWidget {
                                   }
                                 }),
                           ),
-                          adjustHieght(10.h),
+                          adjustHieght(17.h),
                         ],
                       ),
                     ),

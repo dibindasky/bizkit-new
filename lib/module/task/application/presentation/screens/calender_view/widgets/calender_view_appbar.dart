@@ -35,13 +35,6 @@ class TaskCalenderViewAppBar extends StatelessWidget {
                   .displaySmall
                   ?.copyWith(fontSize: 16)),
           const Spacer(),
-          CustomCircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.onSecondary,
-            onTap: () {
-              Get.toNamed(Routes.taskNotification, id: 2);
-            },
-            backgroundColorInner: kneon,
-          ),
           adjustWidth(8.5.w),
           CustomCircleAvatar(
             backgroundColor: Theme.of(context).colorScheme.onSecondary,

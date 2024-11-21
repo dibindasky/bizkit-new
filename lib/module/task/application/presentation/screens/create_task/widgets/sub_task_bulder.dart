@@ -72,7 +72,7 @@ class SubTaskBuilder extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 7),
+                    padding: const EdgeInsets.symmetric(vertical: 3),
                     child: InkWell(
                       onTap: () {
                         showDialog(
@@ -83,16 +83,19 @@ class SubTaskBuilder extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: klightDarkGrey,
-                            borderRadius: kBorderRadius10),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.h, horizontal: 15.h),
-                          child: Text(
-                            controller.subTasks[index].title ?? 'SubTask Title',
-                            style: const TextStyle(color: kwhite),
+                      child: Card(
+                        elevation: 0,
+                        child: Container(
+                          decoration:
+                              BoxDecoration(borderRadius: kBorderRadius10),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15.h, horizontal: 15.h),
+                            child: Text(
+                              controller.subTasks[index].title ??
+                                  'SubTask Title',
+                              style: Theme.of(context).textTheme.displaySmall,
+                            ),
                           ),
                         ),
                       ),

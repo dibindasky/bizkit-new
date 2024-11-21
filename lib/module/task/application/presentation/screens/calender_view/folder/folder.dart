@@ -37,7 +37,7 @@ class TaskFolderSection extends StatelessWidget {
     return Obx(
       () => ListTile(
         tileColor:
-            controller.selectedIndices.contains(index) ? lightColr : knill,
+            controller.selectedIndices.contains(index) ? klightgrey : knill,
         leading: controller.selectedIndices.contains(index)
             ? Stack(
                 children: [
@@ -136,6 +136,7 @@ class TaskFolderSection extends StatelessWidget {
                     description:
                         'Are you sure you want to delete this folder ?',
                     buttonText: 'Delete',
+                    buttonColor: kneon,
                     context: context,
                     onTap: () {
                       folderController.deleteFolder(
@@ -146,7 +147,6 @@ class TaskFolderSection extends StatelessWidget {
                       );
                     },
                     title: 'Delete Folder',
-                    buttonColor: neonShade,
                   );
                 },
               ),
@@ -181,10 +181,10 @@ void showTaskSelectionBottomSheet(
   showBottomSheet(
     enableDrag: true,
     context: context,
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     builder: (context) {
       return Container(
         height: 550.h,
-        color: kblack,
         padding: EdgeInsets.all(10.w),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -192,7 +192,10 @@ void showTaskSelectionBottomSheet(
             adjustHieght(10.h),
             Text(
               'Select Tasks to Add',
-              style: textThinStyle1.copyWith(fontSize: 15.sp),
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 14),
             ),
             adjustHieght(10.h),
             Padding(
@@ -215,7 +218,7 @@ void showTaskSelectionBottomSheet(
             Expanded(
               child: Obx(
                 () {
-                  if (taskController.isLoading.value) {
+                  if (taskController.taskSearchLoading.value) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ShimmerLoader(
@@ -224,7 +227,7 @@ void showTaskSelectionBottomSheet(
                           height: 13,
                         ),
                         height: 60.h,
-                        itemCount: taskController.tasksSearch.length,
+                        itemCount: 8,
                       ),
                     );
                   } else if (taskController.tasksSearch.isEmpty) {
@@ -239,19 +242,18 @@ void showTaskSelectionBottomSheet(
                       itemBuilder: (context, index) {
                         final task = taskController.tasksSearch[index];
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
                           child: Card(
-                            surfaceTintColor: neonShade,
-                            color: lightColr,
                             child: ListTile(
                               title: Text(
                                 task.title ?? 'Title',
-                                style: textThinStyle1.copyWith(),
+                                style: Theme.of(context).textTheme.displaySmall,
                               ),
                               trailing: Obx(
                                 () => Checkbox(
                                   checkColor: kblack,
-                                  activeColor: neonShade,
+                                  activeColor: kneon,
                                   value: taskController.selectedTasks
                                       .contains(task),
                                   onChanged: (bool? value) {
@@ -328,7 +330,7 @@ void showTaskSelectionBottomSheet(
                   }
                 }
               },
-              color: neonShadeLinearGradient,
+              color: const LinearGradient(colors: [kneon, kneon]),
               text: 'Add Tasks',
             ),
             adjustHieght(10.h),

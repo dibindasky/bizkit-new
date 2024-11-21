@@ -22,14 +22,12 @@ class SubTaskDetailView extends StatelessWidget {
     String? formattedDuration = _formatDuration(duration);
 
     return Dialog(
-      backgroundColor: kblack,
       shape: RoundedRectangleBorder(
         borderRadius: kBorderRadius10,
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
-          border: Border.all(color: neonShade),
           borderRadius: kBorderRadius10,
         ),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -39,12 +37,15 @@ class SubTaskDetailView extends StatelessWidget {
               adjustWidth(25.w),
               Text(
                 subTaskTitle ?? 'SubTask Title',
-                style: TextStyle(fontSize: 17.sp, color: neonShade),
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontSize: 15),
               ),
               IconButton(
                 icon: const Icon(
                   Icons.close,
-                  color: neonShade,
+                  color: kneon,
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -52,17 +53,17 @@ class SubTaskDetailView extends StatelessWidget {
               ),
             ],
           ),
-          Divider(color: lightGrey, indent: 0),
+          const Divider(color: kGreyNormal, indent: 0),
           adjustHieght(10.h),
           Text(
             subTaskDes ?? 'Subtask des',
-            style: TextStyle(fontSize: 14.sp, color: kwhite),
+            style: Theme.of(context).textTheme.displaySmall,
           ),
           adjustHieght(10.h),
           if (formattedDuration != null)
             Text(
               'Total Time Taken: $formattedDuration',
-              style: TextStyle(fontSize: 14.sp, color: kwhite),
+              style: Theme.of(context).textTheme.displaySmall,
             ),
           adjustHieght(10.h),
         ]),

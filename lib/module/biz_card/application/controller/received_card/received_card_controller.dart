@@ -24,7 +24,14 @@ class ReceivedCardController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool loadingForVisitingCard = false.obs;
 
-  RxList<VisitingCard> visitingCards = <VisitingCard>[].obs;
+  RxList<VisitingCard> filterdVisitingCards = <VisitingCard>[].obs;
+
+
+// visitingCards
+// filterdVisitingCards
+  ///this filterd card for visiting searched datas
+  List<VisitingCard> visitingCards = [];
+
   RxList<VisitingCard> deletedVisitingCards = <VisitingCard>[].obs;
 
   RxList<String> selfie = <String>[].obs;
@@ -194,7 +201,11 @@ class ReceivedCardController extends GetxController {
   }
 
   // Fetch all received cards
-  void fetchAllreceivedCards() async {
+  void fetchAllreceivedCards({bool refresh=false}) async {
+    if(visitingCards.isNotEmpty && !refresh){
+      filterdVisitingCards.assignAll(visitingCards);
+      return ;
+    }
     loadingForVisitingCard.value = true;
     final data = await receivedCardService.getAllReceivedCards();
     data.fold(
@@ -203,9 +214,27 @@ class ReceivedCardController extends GetxController {
       },
       (r) {
         visitingCards.assignAll(r.visitingCards?.reversed ?? []);
+        filterdVisitingCards.assignAll(r.visitingCards?.reversed ?? []);
         loadingForVisitingCard.value = false;
       },
     );
+  }
+
+  searchQueryforVisitingCards(String query) {
+    loadingForVisitingCard.value=true;
+    if(query.isEmpty){
+      loadingForVisitingCard.value=false;
+      filterdVisitingCards.assignAll(visitingCards);
+      return;
+    }
+    query=query.toLowerCase();
+    filterdVisitingCards.assignAll(visitingCards
+        .where((data) => 
+            data.name!.toLowerCase().contains(query) ||
+            data.company!.toLowerCase().contains(query) ||
+            data.designation!.toLowerCase().contains(query))
+        .toList());
+        loadingForVisitingCard.value=false;
   }
 
   // Delete visiting card

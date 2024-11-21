@@ -59,7 +59,7 @@ class ScreenConnectionRequests extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               } else if (connectionController
-                  .recievedConnectionRequests.isEmpty) {
+                  .filterdConnectionRequest.isEmpty) {
                 return ErrorRefreshIndicator(
                   onRefresh: () {
                     connectionController.fetchRecievedConnectionRequests();
@@ -75,7 +75,7 @@ class ScreenConnectionRequests extends StatelessWidget {
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 20),
                   itemCount:
-                      connectionController.recievedConnectionRequests.length,
+                      connectionController.filterdConnectionRequest.length,
                   itemBuilder: (context, index) {
                     // final data = state.requestList![index];
                     return InkWell(
@@ -101,7 +101,7 @@ class ScreenConnectionRequests extends StatelessWidget {
                           adjustHieght(10),
                           Text(
                             connectionController
-                                    .recievedConnectionRequests[index]
+                                    .filterdConnectionRequest[index]
                                     .fromUserName ??
                                 'Name',
                             overflow: TextOverflow.ellipsis,
@@ -109,7 +109,7 @@ class ScreenConnectionRequests extends StatelessWidget {
                           ),
                           Text(
                             connectionController
-                                    .recievedConnectionRequests[index]
+                                    .filterdConnectionRequest[index]
                                     .fromUserDesignation ??
                                 'Designation',
                             overflow: TextOverflow.ellipsis,
@@ -141,7 +141,7 @@ class ScreenConnectionRequests extends StatelessWidget {
                                                         AcceptOrRejectConnectionRequest(
                                                             connectionId:
                                                                 connectionController
-                                                                        .recievedConnectionRequests[
+                                                                        .filterdConnectionRequest[
                                                                             index]
                                                                         .id ??
                                                                     '',
@@ -531,7 +531,7 @@ class ScreenConnectionRequests extends StatelessWidget {
                             child: InkWell(
                               onTap: () async {
                                 final userId = connectionController
-                                        .recievedConnectionRequests[index]
+                                        .filterdConnectionRequest[index]
                                         .fromUser ??
                                     '';
                                 final followBackPossible = await connectionController
@@ -546,7 +546,7 @@ class ScreenConnectionRequests extends StatelessWidget {
                                                     .individualPersonalSharedFields
                                                     .value),
                                             connectionId: connectionController
-                                                    .recievedConnectionRequests[
+                                                    .filterdConnectionRequest[
                                                         index]
                                                     .id ??
                                                 '',

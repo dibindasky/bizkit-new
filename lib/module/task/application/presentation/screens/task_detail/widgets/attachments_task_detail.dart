@@ -1,4 +1,3 @@
-import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/image_viewer.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
@@ -9,7 +8,9 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
+final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
 
 class TaskDetailAttachmentsSection extends StatelessWidget {
   const TaskDetailAttachmentsSection({super.key});
@@ -170,12 +171,28 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
         ),
       );
     } else if (type == 'pdf') {
+      // log('PDF URL: $attachment');
+
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ScreenPdfPreview(
-            base64: attachment,
-            label: 'Attachment',
+          builder: (context) => Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            primary: true,
+            appBar: AppBar(
+              surfaceTintColor: knill,
+              title: Text(
+                'PDF Viewer',
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontSize: 19),
+              ),
+            ),
+            body: SfPdfViewer.network(
+              attachment,
+              key: _pdfViewerKey,
+            ),
           ),
         ),
       );
@@ -214,12 +231,14 @@ class AttachmentTile extends StatelessWidget {
               type == 'pdf'
                   ? Expanded(
                       child: Container(
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: kBorderRadius15,
+                        color: kblack,
                       ),
                       child: const Icon(
-                        Iconsax.document_cloud,
-                        color: kblack,
+                        Icons.picture_as_pdf,
+                        color: kwhite,
                       ),
                     ))
                   : Expanded(

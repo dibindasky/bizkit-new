@@ -4,6 +4,8 @@ import 'package:bizkit/core/model/pagination_query/pagination_query.dart';
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/data/sqflite/my_connection/my_connection_local_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
@@ -74,6 +76,8 @@ class ConnectionsController extends GetxController {
   int myConnectionPageNumber = 1;
   int fetchMyConnectionPageNumber = 1;
 
+  List<RecievedConnectionRequest> recievedConnectionRequests = [];
+
   /// loading for shared card
   RxBool sharedCardLoading = false.obs;
   RxString sharedCardLoadingId = ''.obs;
@@ -92,7 +96,7 @@ class ConnectionsController extends GetxController {
 
   RxList<MyConnection> connectionsSearchList = <MyConnection>[].obs;
 
-  RxList<RecievedConnectionRequest> recievedConnectionRequests =
+  RxList<RecievedConnectionRequest> filterdConnectionRequest =
       <RecievedConnectionRequest>[].obs;
 
   RxList<BizCardUsers> bizkitUsers = <BizCardUsers>[].obs;
@@ -104,8 +108,10 @@ class ConnectionsController extends GetxController {
 
   RxString connectionRequestId = ''.obs;
 
+  List<SharedCardModel> sharedCards = [];
+
   /// shared card list
-  RxList<SharedCardModel> sharedCards = <SharedCardModel>[].obs;
+  RxList<SharedCardModel> filteredSharedCards = <SharedCardModel>[].obs;
 
   @override
   void onInit() {
@@ -140,19 +146,28 @@ class ConnectionsController extends GetxController {
 
   ///this search for every search actions in the bizcard and connection screen.
   void searchBizcardAndConnection(int index, String query) {
+    final contactsController = Get.find<ContactsController>();
+    final receivedCardController = Get.find<ReceivedCardController>();
     debouncer.run(() {
       switch (index) {
         case 0:
-        searchConnections();
+          searchConnections();
           break;
         case 1:
-        
+          // if (query.isEmpty) {
+          // contactsController.getConnections();
+          // } else {
+          contactsController.searchContact(query);
+          // }
           break;
         case 2:
+          searchReceivedConnectionRequest();
           break;
         case 3:
+          receivedCardController.searchQueryforVisitingCards(query);
           break;
         case 4:
+          searchSharedCardList();
           break;
         default:
       }
@@ -199,59 +214,55 @@ class ConnectionsController extends GetxController {
   }
 
   // Search My connections
-  void searchConnections() {
-    debouncer.run(
-      () async {
-        searchConnectionsLoading.value = true;
-        myConnectionPageNumber = 1;
-        connectionsSearchList.value = [];
+  void searchConnections() async {
+    searchConnectionsLoading.value = true;
+    myConnectionPageNumber = 1;
+    connectionsSearchList.value = [];
 
-        if (searchController.text.isEmpty) {
-          await getConnectionDatasFromLocal(search: true);
-          log("sear connection datas ---- ${connectionsSearchList.toJson()}");
-          searchConnectionsLoading.value = false;
-        }
-        final result = await connectionService.searchConnections(
-            searchQuery: SearchQuery(
-                page: myConnectionPageNumber,
-                pageSize: pageSize,
-                search: searchController.text));
+    if (searchController.text.isEmpty) {
+      await getConnectionDatasFromLocal(search: true);
+      log("sear connection datas ---- ${connectionsSearchList.toJson()}");
+      searchConnectionsLoading.value = false;
+    }
+    final result = await connectionService.searchConnections(
+        searchQuery: SearchQuery(
+            page: myConnectionPageNumber,
+            pageSize: pageSize,
+            search: searchController.text));
 
-        result.fold(
-          (failure) {
-            searchConnectionsLoading.value = false;
-          },
-          (success) async {
-            if (connectionsSearchList.isEmpty) {
-              connectionsSearchList.assignAll(success.data ?? []);
-              for (var eachMyConnection in connectionsSearchList) {
-                await myConnectionLocalService
-                    .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                        myconnection: eachMyConnection);
-              }
+    result.fold(
+      (failure) {
+        searchConnectionsLoading.value = false;
+      },
+      (success) async {
+        if (connectionsSearchList.isEmpty) {
+          connectionsSearchList.assignAll(success.data ?? []);
+          for (var eachMyConnection in connectionsSearchList) {
+            await myConnectionLocalService
+                .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                    myconnection: eachMyConnection);
+          }
+        } else {
+          for (var datas in success.data ?? <MyConnection>[]) {
+            final index = connectionsSearchList
+                .indexWhere((value) => value.toUser == datas.toUser);
+            if (index == -1) {
+              connectionsSearchList.insert(0, datas);
+              myConnectionLocalService
+                  .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                      myconnection: datas);
             } else {
-              for (var datas in success.data ?? <MyConnection>[]) {
-                final index = connectionsSearchList
-                    .indexWhere((value) => value.toUser == datas.toUser);
-                if (index == -1) {
-                  connectionsSearchList.insert(0, datas);
-                  myConnectionLocalService
-                      .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                          myconnection: datas);
-                } else {
-                  if (!connectionsSearchList[index].equals(datas)) {
-                    int localId = connectionsSearchList[index].localId!;
-                    connectionsSearchList[index] = datas;
-                    myConnectionLocalService
-                        .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                            myconnection: datas.copyWith(localId: localId));
-                  }
-                }
+              if (!connectionsSearchList[index].equals(datas)) {
+                int localId = connectionsSearchList[index].localId!;
+                connectionsSearchList[index] = datas;
+                myConnectionLocalService
+                    .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                        myconnection: datas.copyWith(localId: localId));
               }
             }
-            searchConnectionsLoading.value = false;
-          },
-        );
+          }
+        }
+        searchConnectionsLoading.value = false;
       },
     );
   }
@@ -368,8 +379,28 @@ class ConnectionsController extends GetxController {
     );
   }
 
+  searchReceivedConnectionRequest() {
+    if (searchController.text.isEmpty) {
+      filterdConnectionRequest.assignAll(recievedConnectionRequests);
+      return;
+    }
+    filterdConnectionRequest.assignAll(recievedConnectionRequests
+        .where((data) =>
+            searchController.text.toLowerCase() ==
+                data.fromUserName?.toLowerCase() ||
+            searchController.text.toLowerCase() ==
+                data.fromUserCompanyName?.toLowerCase() ||
+            searchController.text.toLowerCase() ==
+                data.fromUserDesignation?.toLowerCase())
+        .toList());
+  }
+
   // Recieved connection requests
-  void fetchRecievedConnectionRequests() async {
+  void fetchRecievedConnectionRequests({bool isRfresh = false}) async {
+    if (recievedConnectionRequests.isNotEmpty && !isRfresh) {
+      filterdConnectionRequest.assignAll(recievedConnectionRequests);
+      return;
+    }
     recievedConnectionRequestLoading.value = true;
     final result = await connectionService.recievedConnectionRequests();
 
@@ -380,6 +411,7 @@ class ConnectionsController extends GetxController {
       (success) {
         recievedConnectionRequestLoading.value = false;
         log('Recieved connection requests = > ${success.requests}');
+        filterdConnectionRequest.assignAll(success.requests ?? []);
         recievedConnectionRequests.assignAll(success.requests ?? []);
       },
     );
@@ -791,15 +823,34 @@ class ConnectionsController extends GetxController {
     });
   }
 
+  void searchSharedCardList() {
+    if (searchController.text.isEmpty) {
+      filteredSharedCards.assignAll(sharedCards);
+      return;
+    }
+    filteredSharedCards.assignAll(sharedCards
+        .where((data) =>
+            searchController.text.toLowerCase() ==
+                data.sharedByName?.toLowerCase() ||
+            searchController.text.toLowerCase() ==
+                data.sharedByEmail?.toLowerCase())
+        .toList());
+  }
+
   /// get shared card list
-  void getSharedCardList() async {
+  void getSharedCardList({bool isRefresh = false}) async {
+    if (!isRefresh && sharedCards.isNotEmpty) {
+      filteredSharedCards.assignAll(sharedCards);
+      return;
+    }
     sharedCardLoading.value = true;
     final result = await connectionService.getMySharedCards();
     result.fold((l) {
-      sharedCards.value = [];
+      filteredSharedCards.value = [];
       sharedCardLoading.value = false;
     }, (r) {
-      sharedCards.value = r.results ?? [];
+      filteredSharedCards.value = r.results ?? [];
+      sharedCards = r.results ?? [];
       sharedCardLoading.value = false;
     });
   }
@@ -816,7 +867,7 @@ class ConnectionsController extends GetxController {
           message: 'Failed to ${accept ? 'accept' : 'reject'} request',
           backgroundColor: kred);
     }, (r) {
-      sharedCards.removeWhere((e) => e.id == id);
+      filteredSharedCards.removeWhere((e) => e.id == id);
       sharedCardLoadingId.value = '';
       showSnackbar(context,
           message: 'Succesfully ${accept ? 'accepted' : 'rejected'} request');

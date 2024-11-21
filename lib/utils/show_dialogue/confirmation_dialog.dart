@@ -13,52 +13,50 @@ showCustomConfirmationDialogue(
   showDialog(
     context: context,
     builder: (context) => Dialog(
-      backgroundColor: kblack,
+      // backgroundColor: kblack,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
-            border: Border.all(color: kneon),
-            borderRadius: kBorderRadius10,
-            color: Theme.of(context).scaffoldBackgroundColor),
+          borderRadius: kBorderRadius10,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(title, style: Theme.of(context).textTheme.displayMedium),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
             adjustHieght(10),
-            Text(description ?? '',
-                style: Theme.of(context).textTheme.displaySmall),
+            Text(
+              description ?? 'description',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             FittedBox(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                        side: BorderSide(
-                            color: buttonColor ??
-                                Theme.of(context).colorScheme.surface)),
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                    },
-                    child: Text(
-                      'Cancel',
-                      style: Theme.of(context).textTheme.displaySmall,
-                    ),
-                  ),
+                      style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: kneon)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Cancel',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      )),
                   adjustWidth(10),
                   OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                        side: BorderSide(
-                            color: buttonColor ??
-                                Theme.of(context).colorScheme.surface)),
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                      onTap();
-                    },
-                    child: Text(
-                      buttonText,
-                      style: Theme.of(context).textTheme.displaySmall,
-                    ),
-                  )
+                      style: OutlinedButton.styleFrom(
+                          side: BorderSide(color: buttonColor)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        onTap();
+                      },
+                      child: Text(
+                        buttonText,
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ))
                 ],
               ),
             )

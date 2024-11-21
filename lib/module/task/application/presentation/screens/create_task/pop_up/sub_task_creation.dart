@@ -40,7 +40,6 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
     final _formKey = GlobalKey<FormState>(); // GlobalKey for Form
 
     return Dialog(
-      backgroundColor: Colors.black,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Container(
         padding: const EdgeInsets.all(20.0),
@@ -55,18 +54,16 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Center(
-                    child: Text(
-                      isEdit ? 'Edit Sub Task' : 'Sub Task',
-                      style: TextStyle(
-                          color: neonShade,
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    child: Text(isEdit ? 'Edit Sub Task' : 'Sub Task',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(fontSize: 15, color: kneon)),
                   ),
                   IconButton(
                     icon: const Icon(
                       Icons.close,
-                      color: neonShade,
+                      color: kneon,
                     ),
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -104,10 +101,11 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                 controller: descriptionController,
               ),
               SizedBox(height: 10.h),
-              SizedBox(height: 30.h),
+              SizedBox(height: 20.h),
               SizedBox(
                 width: double.infinity,
                 child: EventButton(
+                  color: const LinearGradient(colors: [kneon, kneon]),
                   text: isEdit ? 'Edit Sub Task' : 'Create Sub Task',
                   onTap: () {
                     if (_formKey.currentState?.validate() ?? false) {

@@ -3,13 +3,16 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/bizcard_views_list_popup.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';
+import 'package:bizkit/module/biz_card/application/presentation/widgets/contacts_list_bottom_share_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 
 class BusinessCard extends StatelessWidget {
   const BusinessCard({super.key, required this.bizcard});
@@ -87,24 +90,97 @@ class BusinessCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Card(
-                elevation: 0,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        bizcardShareIcon,
-                        width: 30,
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => Dialog(
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: kBorderRadius20,
+                          border: Border.all(color: kneonShade),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListTile(
+                              onTap: () {
+                                GoRouter.of(context).pop();
+                                showBottomSheet(
+                                  context: Scaffold.of(context).context,
+                                  showDragHandle: true,
+                                  backgroundColor: kblack,
+                                  builder: (context) =>
+                                      ShareCardThroughContactBottomSheet(
+                                          cardId: bizcard.bizcardId ?? ''),
+                                );
+                              },
+                              title: const Text('share to Bizkit contacts'),
+                              leading:
+                                  const Icon(Icons.phone_forwarded_rounded),
+                            ),
+                            const Divider(),
+                            ListTile(
+                              onTap: () {
+                                GoRouter.of(context).pop();
+                                if (bizcard.qRLink
+                                   != null) {
+                                  GoRouter.of(context).pushNamed(
+                                      Routes.slidablePhotoGallery,
+                                      extra: {
+                                        'memory': true,
+                                        'images': [bizcard.qRLink!],
+                                        'initial': 0
+                                      });
+                                }
+                              },
+                              title: const Text('show QR'),
+                              leading: const Icon(Icons.qr_code_2_rounded),
+                            ),
+                            const Divider(),
+                            ListTile(
+                              onTap: () {
+                                GoRouter.of(context).pop();
+                                final link = 
+                                    bizcard.universalLink;
+                                if (link != null && link.isNotEmpty) {
+                                  Share.share('Checkout my Bizkit card $link');
+                                } else {
+                                  showSnackbar(context,
+                                      message:
+                                          "Something went wrong please try again",
+                                      backgroundColor: kred);
+                                }
+                              },
+                              title: const Text('share'),
+                              leading: const Icon(Icons.share),
+                            ),
+                          ],
+                        ),
                       ),
-                      adjustHieght(3.h),
-                      Text(
-                        'Share',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      )
-                    ],
+                    ),
+                  );
+                },
+                child: Card(
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          bizcardShareIcon,
+                          width: 30,
+                        ),
+                        adjustHieght(3.h),
+                        Text(
+                          'Share',
+                          style: Theme.of(context).textTheme.displaySmall,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

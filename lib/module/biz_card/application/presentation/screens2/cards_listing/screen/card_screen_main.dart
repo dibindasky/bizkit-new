@@ -604,29 +604,30 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                               seprator: kWidth10,
                               scrollDirection: Axis.horizontal,
                               itemCount: visitingCardController
-                                      .visitingCards.isEmpty
+                                      .filterdVisitingCards.isEmpty
                                   ? 5
-                                  : visitingCardController.visitingCards.length,
+                                  : visitingCardController
+                                      .filterdVisitingCards.length,
                               width: 300.w,
                             ),
                           );
                         } else if (visitingCardController
-                            .visitingCards.isEmpty) {
+                            .filterdVisitingCards.isEmpty) {
                           return kempty;
                         } else {
                           return SizedBox(
                             height: 200.h,
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
-                              itemCount:
-                                  visitingCardController.visitingCards.length +
-                                      1,
+                              itemCount: visitingCardController
+                                      .filterdVisitingCards.length +
+                                  1,
                               separatorBuilder: (context, index) =>
                                   adjustWidth(kwidth * .05),
                               itemBuilder: (context, index) {
                                 if (index ==
                                     visitingCardController
-                                        .visitingCards.length) {
+                                        .filterdVisitingCards.length) {
                                   return Container(
                                       decoration: BoxDecoration(
                                         borderRadius: kBorderRadius10,
@@ -690,7 +691,8 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                         .fetchReceivedCardDetails(
                                             receivedCardId:
                                                 visitingCardController
-                                                        .visitingCards[index]
+                                                        .filterdVisitingCards[
+                                                            index]
                                                         .id ??
                                                     '');
                                     Navigator.of(context).push(
@@ -698,7 +700,8 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                         builder: (context) =>
                                             ScreenCardSecondDetailView(
                                           visitingCardId: visitingCardController
-                                                  .visitingCards[index].id ??
+                                                  .filterdVisitingCards[index]
+                                                  .id ??
                                               '',
                                         ),
                                       ),
@@ -726,11 +729,11 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                                 child: Image.memory(
                                                   base64Decode(
                                                     visitingCardController
-                                                            .visitingCards[
+                                                            .filterdVisitingCards[
                                                                 index]
                                                             .cardImage ??
                                                         visitingCardController
-                                                            .visitingCards[
+                                                            .filterdVisitingCards[
                                                                 index]
                                                             .selfie ??
                                                         '',
@@ -750,11 +753,11 @@ class _ScreenCardsListsState extends State<ScreenCardsLists>
                                         ),
                                         adjustHieght(khieght * .02),
                                         Text(
-                                            ' ${visitingCardController.visitingCards[index].name ?? ''}',
+                                            ' ${visitingCardController.filterdVisitingCards[index].name ?? ''}',
                                             overflow: TextOverflow.ellipsis,
                                             style: textHeadStyle1),
                                         Text(
-                                          ' ${visitingCardController.visitingCards[index].company ?? ''}',
+                                          ' ${visitingCardController.filterdVisitingCards[index].company ?? ''}',
                                           overflow: TextOverflow.ellipsis,
                                           style: textStyle1,
                                         ),

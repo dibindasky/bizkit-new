@@ -94,6 +94,7 @@ dependencies:
   cached_network_image: ^3.4.0
   flip_card: ^0.7.0
   iconsax: ^0.0.8 
+  syncfusion_flutter_pdfviewer: ^26.1.41
 
 
 dev_dependencies:

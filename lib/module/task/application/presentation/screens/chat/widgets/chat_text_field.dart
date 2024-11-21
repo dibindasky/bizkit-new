@@ -30,10 +30,10 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
       height: 50.h + maxLines * 10.h,
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: klightDarkGrey,
-        // border: Border(
-        //   top: BorderSide(color: klightgrey, width: 0),
-        // ),
+        // color: klightDarkGrey,
+        border: Border(
+          top: BorderSide(color: kGrayLight, width: 1),
+        ),
       ),
       child: Row(
         children: [
@@ -180,4 +180,3 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
     }
   }
 }
-

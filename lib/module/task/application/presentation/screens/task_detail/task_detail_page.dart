@@ -41,15 +41,21 @@ class ScreenTaskDetailPage extends StatelessWidget {
                           singleTaskModel:
                               GetSingleTaskModel(taskId: taskId ?? ''));
                     },
-                    child: const Center(
+                    child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.refresh,
                             color: neonShade,
                           ),
-                          Text('Tap to retry'),
+                          Text(
+                            'Tap to retry',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(fontSize: 15),
+                          ),
                         ],
                       ),
                     ),

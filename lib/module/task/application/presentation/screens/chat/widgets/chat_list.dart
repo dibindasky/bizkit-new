@@ -91,7 +91,10 @@ class ChatListView extends StatelessWidget {
               if (message.voiceMessage != null) {
                 return VoiceMessageCard(message: message.voiceMessage!);
               }
-              return const Text('Unknown type');
+              return Text(
+                'Unknown type',
+                style: Theme.of(context).textTheme.displaySmall,
+              );
             },
           );
         });

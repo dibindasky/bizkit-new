@@ -71,7 +71,8 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
             ),
             adjustHieght(20.h),
             if (widget.isCommonLevelSharing)
-              buildSwitch(
+             Obx(()=>
+                        buildSwitch(
                   "Apply to all",
                   levelSharingController.commonLevelSharedFields.value
                           .applicableToIndividual ??
@@ -82,6 +83,7 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
                         .copyWith(applicableToIndividual: value));
               }, textFieldFillColr,
                   Border.all(color: Theme.of(context).colorScheme.onPrimary)),
+             ), 
             adjustHieght(15.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),

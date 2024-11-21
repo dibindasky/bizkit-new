@@ -1,4 +1,3 @@
-import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
@@ -103,7 +102,7 @@ class _MyConnectionsViewAllContactsState
                                   right: 10,
                                   child: Obx(
                                     () => Text(
-                                      '${connectionsController.recievedConnectionRequests.length}',
+                                      '${connectionsController.filterdConnectionRequest.length}',
                                       style: const TextStyle(color: kblack),
                                     ),
                                   ),

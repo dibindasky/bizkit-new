@@ -48,12 +48,12 @@ class BizCardHomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          GoRouter.of(context).pushNamed(Routes.cardCreation);
-        },
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     GoRouter.of(context).pushNamed(Routes.cardCreation);
+      //   },
+      // ),
     );
   }
 }

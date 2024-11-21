@@ -357,7 +357,9 @@ class PersonalDetails extends StatelessWidget {
               adjustHieght(20),
               // dates to remember
               Obx(
-                () => ImagePreviewUnderTextField(
+                () {
+                  cardController.bizcardDetail.value;
+                  return ImagePreviewUnderTextField(
                   listString: cardController
                           .bizcardDetail.value.personalDetails?.datesToRemember
                           ?.map((e) => DateTimeFormater.getDateByDayMonthYear(
@@ -417,7 +419,8 @@ class PersonalDetails extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
+                );
+                },
               ),
               adjustHieght(khieght * .05),
               // continue button

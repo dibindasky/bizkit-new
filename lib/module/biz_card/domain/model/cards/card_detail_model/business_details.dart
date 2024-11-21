@@ -60,6 +60,44 @@ class BusinessDetails {
     this.logoStory,
   });
 
+    BusinessDetails copyWith({
+    String? id,
+    String? businessCategory,
+    String? designation,
+    String? websiteLink,
+    String? companyName,
+    String? businessName,
+    String? businessEmail,
+    List<String>? businessPhone,
+    List<Achievement>? businessAchievements,
+    List<SocialMediaHandles>? businessSocialMedia,
+    BankingDetailsModel? bankingDetails,
+    List<Product>? product,
+    List<BranchOffice>? branchOffices,
+    List<Brochure>? brochure,
+    String? businessLogo,
+    String? logoStory,
+  }) {
+    return BusinessDetails(
+      id: id ?? this.id,
+      businessCategory: businessCategory ?? this.businessCategory,
+      designation: designation ?? this.designation,
+      websiteLink: websiteLink ?? this.websiteLink,
+      companyName: companyName ?? this.companyName,
+      businessName: businessName ?? this.businessName,
+      businessEmail: businessEmail ?? this.businessEmail,
+      businessPhone: businessPhone ?? this.businessPhone,
+      businessAchievements: businessAchievements ?? this.businessAchievements,
+      businessSocialMedia: businessSocialMedia ?? this.businessSocialMedia,
+      bankingDetails: bankingDetails ?? this.bankingDetails,
+      product: product ?? this.product,
+      branchOffices: branchOffices ?? this.branchOffices,
+      brochure: brochure ?? this.brochure,
+      businessLogo: businessLogo ?? this.businessLogo,
+      logoStory: logoStory ?? this.logoStory,
+    );
+  }
+
   factory BusinessDetails.fromJson(Map<String, dynamic> json) {
     return _$BusinessDetailsFromJson(json);
   }

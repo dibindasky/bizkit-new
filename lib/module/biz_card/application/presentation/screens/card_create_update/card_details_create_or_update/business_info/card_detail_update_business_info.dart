@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/personal_info/card_detail_update_personal_info.dart';
@@ -15,6 +16,7 @@ import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/widgets/image_or_text_preview_under_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class CardUpdateBusinesstDetails extends StatelessWidget {
   CardUpdateBusinesstDetails({super.key});
@@ -125,22 +127,24 @@ class CardUpdateBusinesstDetails extends StatelessWidget {
                 controller: businessController.companyWebsiteLink,
                 autocompleteItems: const [],
               ),
-              // Accredition data
+              // Business Achivements
               Obx(
                 () => ImageOrTextPreviewUnderWidget(
-                  ontap: () {
-                    FocusScope.of(context).unfocus();
-                    // Navigator.of(context).push(cardFadePageRoute(
-                    //     const ScreenCardAchivements(fromBusiness: true)));
+                  ontap: () async {
+                    await GoRouter.of(context)
+                        .pushNamed(Routes.cardAchivementCreateUpdate, extra: {
+                      'fromBusiness': true,
+                    }).then((_) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    });
                   },
                   onItemTap: (value, index) {
-                    // return Navigator.push(
-                    //     context,
-                    //     cardFadePageRoute(CardScreenAchievementsCreate(
-                    //       fromBusiness: true,
-                    //       achievement: cardController.bizcardDetail.value
-                    //           .businessDetails?.businessAchievements?[index],
-                    //     )));
+                    GoRouter.of(context)
+                        .pushNamed(Routes.cardAchivementCreateUpdate, extra: {
+                      'fromBusiness': true,
+                      'achivement': cardController.bizcardDetail.value
+                          .personalDetails?.personalAchievements?[index]
+                    });
                   },
                   removeItem: (index) {
                     showCustomConfirmationDialogue(
@@ -284,7 +288,7 @@ showBranchDialoge(context, String? id, int? index) {
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           child: ColoredBox(
-            color: kblack,
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: SingleChildScrollView(
@@ -292,7 +296,7 @@ showBranchDialoge(context, String? id, int? index) {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                        '${id != null ? 'Update' : 'Enter'} Branch Office Details'),
+                        '${id != null ? 'Update' : 'Enter'} Branch Office Details',style: Theme.of(context).textTheme.displayMedium),
                     kHeight10,
                     CustomTextFormField(
                         labelText: 'Branch name',

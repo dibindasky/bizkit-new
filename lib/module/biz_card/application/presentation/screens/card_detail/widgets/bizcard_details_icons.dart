@@ -108,26 +108,26 @@ class BizCardDetailsIconsWidgets extends StatelessWidget {
       case 0:
         List<String> phone = [];
         List<String> itemsHead = [];
-        if (cardController.personalDetails.value != null &&
-            cardController.personalDetails.value!.phone != null &&
-            cardController.personalDetails.value!.phone!.isNotEmpty) {
-          phone.addAll(cardController.personalDetails.value!.phone!);
+        if (cardController.bizcardDetail.value.personalDetails != null &&
+            cardController.bizcardDetail.value.personalDetails!.phone != null &&
+            cardController.bizcardDetail.value.personalDetails!.phone!.isNotEmpty) {
+          phone.addAll(cardController.bizcardDetail.value.personalDetails!.phone!);
           itemsHead.addAll(List.generate(
-              cardController.personalDetails.value!.phone!.length,
+              cardController.bizcardDetail.value.personalDetails!.phone!.length,
               (index) => 'Personal'));
         }
-        if (cardController.businessDetails.value != null &&
-            cardController.businessDetails.value!.businessPhone != null &&
-            cardController.businessDetails.value!.businessPhone!.isNotEmpty) {
-          phone.addAll(cardController.businessDetails.value!.businessPhone!);
+        if (cardController.bizcardDetail.value.businessDetails != null &&
+            cardController.bizcardDetail.value.businessDetails!.businessPhone != null &&
+            cardController.bizcardDetail.value.businessDetails!.businessPhone!.isNotEmpty) {
+          phone.addAll(cardController.bizcardDetail.value.businessDetails!.businessPhone!);
           itemsHead.addAll(List.generate(
-              cardController.businessDetails.value!.businessPhone!.length,
+              cardController.bizcardDetail.value.businessDetails!.businessPhone!.length,
               (index) => 'Business'));
         }
-        if ((cardController.personalDetails.value != null &&
-                cardController.personalDetails.value!.phone != null) ||
-            (cardController.businessDetails.value != null &&
-                cardController.businessDetails.value!.businessPhone != null)) {
+        if ((cardController.bizcardDetail.value.personalDetails != null &&
+                cardController.bizcardDetail.value.personalDetails!.phone != null) ||
+            (cardController.bizcardDetail.value.businessDetails != null &&
+                cardController.bizcardDetail.value.businessDetails!.businessPhone != null)) {
           showModalBottomSheet(
             context: context,
             enableDrag: true,
@@ -146,14 +146,14 @@ class BizCardDetailsIconsWidgets extends StatelessWidget {
       case 1:
         List<String> email = [];
         List<String> itemsHead = [];
-        if (cardController.personalDetails.value != null &&
-            cardController.personalDetails.value!.email != null) {
-          email.add(cardController.personalDetails.value!.email!);
+        if (cardController.bizcardDetail.value.personalDetails != null &&
+            cardController.bizcardDetail.value.personalDetails!.email != null) {
+          email.add(cardController.bizcardDetail.value.personalDetails!.email!);
           itemsHead.add('Personal Email');
         }
-        if (cardController.businessDetails.value != null &&
-            cardController.businessDetails.value!.businessEmail != null) {
-          email.add(cardController.businessDetails.value!.businessEmail!);
+        if (cardController.bizcardDetail.value.businessDetails != null &&
+            cardController.bizcardDetail.value.businessDetails!.businessEmail != null) {
+          email.add(cardController.bizcardDetail.value.businessDetails!.businessEmail!);
           itemsHead.add('Business Email');
         }
 
@@ -177,9 +177,9 @@ class BizCardDetailsIconsWidgets extends StatelessWidget {
           ),
         );
       case 3:
-        (cardController.personalDetails.value?.personalSocialMedia ?? [])
+        (cardController.bizcardDetail.value.personalDetails?.personalSocialMedia ?? [])
                     .isEmpty &&
-                (cardController.businessDetails.value?.businessSocialMedia ??
+                (cardController.bizcardDetail.value.businessDetails?.businessSocialMedia ??
                         [])
                     .isEmpty
             ? showDialog(
@@ -215,11 +215,11 @@ class BizCardDetailsIconsWidgets extends StatelessWidget {
                 showDragHandle: true,
                 backgroundColor: kblack,
                 builder: (context) {
-                  List<SocialMediaHandles> personal = cardController
-                              .personalDetails.value?.personalSocialMedia ??
+                  List<SocialMediaHandles> personal = cardController.bizcardDetail.value
+                              .personalDetails?.personalSocialMedia ??
                           [],
                       business = cardController
-                              .businessDetails.value?.businessSocialMedia ??
+                              .bizcardDetail.value.businessDetails?.businessSocialMedia ??
                           [];
                   return SocialMediaAccountsListsBottomSheet(
                     personal: personal,

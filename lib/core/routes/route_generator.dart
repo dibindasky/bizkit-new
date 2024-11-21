@@ -7,6 +7,8 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_and
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/pending_connections/pending_connections_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/achivements/bizcard_create_achivement_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/dates_to_remember/bizcard_dates_to_remember_create_update.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/social_media_handles/card_detail_social_media_handle_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_bizcard.dart/create_business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_card_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/achivement/bizcard_detail_achivements.dart';
@@ -377,6 +379,23 @@ class GoRouterConfig {
             fromBusiness: extra['fromBusiness'] as bool,
             achievement: extra['achivement'] as Achievement?);
       },
+    ),
+
+    GoRoute(
+      name: Routes.cardSocialMediaCreateUpdate,
+      path: Routes.cardSocialMediaCreateUpdate,
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        if (!extra.containsKey('fromBusiness')) return _errorScreen();
+        return BizCardSocialMediaCreateUpdateScreen(
+            fromBusiness: extra['fromBusiness'] as bool);
+      },
+    ),
+
+    GoRoute(
+      name: Routes.cardDatesToRememberCreateUpdate,
+      path: Routes.cardDatesToRememberCreateUpdate,
+      builder: (context, state) => const BizcardDatesToRememberCreateUpdateScreen(),
     ),
 
     GoRoute(

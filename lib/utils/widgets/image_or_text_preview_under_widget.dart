@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// this widget will return the images under the text fieldor any widget it was wraped with
 /// if the imagelist is not null then will return images
@@ -17,6 +20,7 @@ class ImageOrTextPreviewUnderWidget extends StatelessWidget {
     this.list,
     this.listString,
     this.onItemTap,
+    this.deleteItemLoadingIndex,
   });
 
   final Widget child;
@@ -35,6 +39,9 @@ class ImageOrTextPreviewUnderWidget extends StatelessWidget {
 
   /// List of String to be displayed under the [child]
   final List<String>? listString;
+
+  /// bool used to show delteloade instead of remove button
+  final int? deleteItemLoadingIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +83,8 @@ class ImageOrTextPreviewUnderWidget extends StatelessWidget {
                                     child: Container(
                                         margin: const EdgeInsets.only(
                                             left: 10, top: 10, right: 10),
-                                        height: 80,
-                                        width: 80,
+                                        height: 80.w,
+                                        width: 80.w,
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 const BorderRadius.all(
@@ -102,7 +109,8 @@ class ImageOrTextPreviewUnderWidget extends StatelessWidget {
                                                 radius: 10,
                                               )),
                                   ),
-                                  removeItem == null
+                                  removeItem == null ||
+                                          deleteItemLoadingIndex == index
                                       ? const SizedBox()
                                       : InkWell(
                                           onTap: () {
@@ -111,14 +119,14 @@ class ImageOrTextPreviewUnderWidget extends StatelessWidget {
                                             }
                                           },
                                           child: removeIconButton(context),
-                                        )
+                                        ),
                                 ],
                               ),
                             );
                           },
                         ),
                       )
-                    : const SizedBox()
+                    : const SizedBox(),
               ]
             : [
                 InkWell(onTap: ontap, child: child),
@@ -131,7 +139,7 @@ class ImageOrTextPreviewUnderWidget extends StatelessWidget {
                           itemCount: listString!.length,
                           itemBuilder: (context, index) {
                             return SizedBox(
-                              height: 50,
+                              height: 50.w,
                               child: Stack(
                                 alignment: AlignmentDirectional.topEnd,
                                 children: [
@@ -160,7 +168,8 @@ class ImageOrTextPreviewUnderWidget extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  removeItem == null
+                                  removeItem == null ||
+                                          deleteItemLoadingIndex == index
                                       ? const SizedBox()
                                       : InkWell(
                                           onTap: () {
@@ -180,7 +189,9 @@ class ImageOrTextPreviewUnderWidget extends StatelessWidget {
               ]);
   }
 
-  ClipRRect removeIconButton(BuildContext context) {
+  Widget removeIconButton(
+    BuildContext context,
+  ) {
     return ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(50)),
       child: ColoredBox(

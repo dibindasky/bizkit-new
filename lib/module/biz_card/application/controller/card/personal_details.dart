@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
 import 'package:bizkit/module/biz_card/data/service/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_achievement_request_model/personal_achievement_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_achievent_deletion_model/personal_achievent_deletion_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/dates_to_remember.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/personal_details_request_model/personal_details_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/reminder/personal_dayes_to_reminder_model/personal_dayes_to_reminder_model.dart';
@@ -27,6 +31,7 @@ class PersonalDetailsController extends GetxController {
   final PersonalDetailsRepo personalRepo = PersonalDetailsService();
   RxBool isLoading = false.obs;
   RxBool deleteLoading = false.obs;
+  RxString deletingId = ''.obs;
   RxBool achievementLoading = false.obs;
   final CardRepo cardRepo = CardService();
   final PersonalDetailsRepo personalDetailsRepo = PersonalDetailsService();
@@ -238,14 +243,24 @@ class PersonalDetailsController extends GetxController {
       bool fromInner = true,
       required BuildContext context}) async {
     deleteLoading.value = true;
+    deletingId.value = personalAchievementDeletion.personalAchievementId ?? '';
     final data = await personalRepo.personalAchivmentDeleting(
         personalAchimentDeletion: personalAchievementDeletion);
     data.fold(
       (l) => null,
       (r) {
         final cardController = Get.find<CardController>();
-        cardController.cardDetail(
-            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        List<Achievement> achievement = cardController
+                .bizcardDetail.value.personalDetails?.personalAchievements ??
+            [];
+        achievement.removeWhere((element) =>
+            element.id == personalAchievementDeletion.personalAchievementId);
+        // set achivemets without the deleted one
+        cardController.bizcardDetail.value = cardController.bizcardDetail.value
+            .copyWith(
+                personalDetails: cardController
+                    .bizcardDetail.value.personalDetails
+                    ?.copyWith(personalAchievements: achievement));
         if (fromInner) {
           GoRouter.of(context).pop();
         }
@@ -253,6 +268,7 @@ class PersonalDetailsController extends GetxController {
       },
     );
     deleteLoading.value = false;
+    deletingId.value = '';
   }
 
   void personalSocialMediaAdding(
@@ -329,6 +345,7 @@ class PersonalDetailsController extends GetxController {
             description: personalDatesToReminderMessage.text,
             personalDetailsId:
                 cardController.bizcardDetail.value.personalDetails?.id);
+    log('dates to remember -> ${personalDatesToReminderModel.toJson()}');
     final data = await personalRepo.personalDatesToReminderAdding(
         personalDatesToReminderModel: personalDatesToReminderModel);
     data.fold(
@@ -336,9 +353,18 @@ class PersonalDetailsController extends GetxController {
       (r) {
         personalDatesToReminderDate.clear();
         personalDatesToReminderMessage.clear();
-
-        cardController.cardDetail(
-            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        var personalDetails = cardController.bizcardDetail.value.personalDetails
+            ?.copyWith(datesToRemember: [
+          DatesToRemember(
+              id: r.dateId,
+              date: personalDatesToReminderModel.date,
+              description: personalDatesToReminderModel.description),
+          ...cardController
+                  .bizcardDetail.value.personalDetails?.datesToRemember ??
+              [],
+        ]);
+        cardController.bizcardDetail.value = cardController.bizcardDetail.value
+            .copyWith(personalDetails: personalDetails);
         GoRouter.of(context).pop();
         showSnackbar(context, message: 'Dates To Remider Added Successfully');
       },
@@ -374,16 +400,22 @@ class PersonalDetailsController extends GetxController {
             ?.datesToRemember?[datesToReminderIndex].id,
         personalDetailsId:
             cardController.bizcardDetail.value.personalDetails?.id);
+    List<DatesToRemember> list =
+        cardController.bizcardDetail.value.personalDetails?.datesToRemember ??
+            [];
+    list.removeAt(datesToReminderIndex);
+    var personalDetails = cardController.bizcardDetail.value.personalDetails
+        ?.copyWith(datesToRemember: list);
+    cardController.bizcardDetail.value = cardController.bizcardDetail.value
+        .copyWith(personalDetails: personalDetails);
     final data = await personalRepo.personalDatesToReminderDeleting(
         remiderDeletion: remiderDeletion);
     data.fold(
       (l) => deleteLoading.value = false,
       (r) {
-        cardController.cardDetail(
-            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         if (fromInner) GoRouter.of(context).pop();
         deleteLoading.value = false;
-        showSnackbar(context, message: 'Dates To Remider Deleted Successfully');
+        // showSnackbar(context, message: 'Dates To Remider Deleted Successfully');
       },
     );
   }

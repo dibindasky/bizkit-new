@@ -685,8 +685,8 @@ class ConnectionsController extends GetxController {
       (l) => null,
       (r) {
         cardController.bizcardDetail.value = r;
-        cardController.personalDetails.value = r.personalDetails;
-        cardController.businessDetails.value = r.businessDetails;
+        cardController.bizcardDetail.value.personalDetails = r.personalDetails;
+        cardController.bizcardDetail.value.businessDetails = r.businessDetails;
       },
     );
     cardController.isLoading.value = false;

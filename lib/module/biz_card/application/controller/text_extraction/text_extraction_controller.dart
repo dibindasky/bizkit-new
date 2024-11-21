@@ -50,67 +50,72 @@ class CardTextExtractionController extends GetxController {
             message: 'failed to decode text from given image');
       },
       (success) {
-        extractedDetails.value = success.extractedDetails!;
-        extractedEmails.assignAll((extractedDetails.value.emails ?? []));
-        extractedPhoneNumbers.assignAll((extractedDetails.value.phoneNumbers
-                ?.map((e) => e.removeAllWhitespace
-                    .replaceAll('+91', '')
-                    .substring(0, 10))
-                .toList() ??
-            []));
-        extractedLocations.assignAll((extractedDetails.value.location ?? []));
-        extractedNames
-            .assignAll((success.extractedDetails?.unIdentifiedText ?? []));
-        extractedCompany
-            .assignAll((success.extractedDetails?.unIdentifiedText ?? []));
-        extractedDesignation
-            .assignAll((success.extractedDetails?.unIdentifiedText ?? []));
-        final cardController = Get.find<CardController>();
-        cardController.nameController.text =
-            extractedDetails.value.personName ?? '';
-        cardController.phoneController.text = (extractedPhoneNumbers.isNotEmpty)
-            ? extractedPhoneNumbers.first
-            : '';
-        cardController.emailController.text =
-            (extractedDetails.value.emails?.isNotEmpty ?? false)
-                ? extractedDetails.value.emails!.first
-                : '';
-        cardController.designationController.text =
-            extractedDetails.value.designation ?? '';
-        cardController.companyNameController.text =
-            extractedDetails.value.companyName ?? '';
-        final receivedCardController = Get.find<ReceivedCardController>();
-        receivedCardController.nameController.text =
-            extractedDetails.value.personName ?? '';
-        receivedCardController.phoneController.text =
-            (extractedPhoneNumbers.isNotEmpty)
-                ? extractedPhoneNumbers.first
-                : '';
-        receivedCardController.emailController.text =
-            (extractedDetails.value.emails?.isNotEmpty ?? false)
-                ? extractedDetails.value.emails!.first
-                : '';
-        receivedCardController.designationController.text =
-            extractedDetails.value.designation ?? '';
-        receivedCardController.companyNameController.text =
-            extractedDetails.value.companyName ?? '';
-        receivedCardController.websiteController.text =
-            (extractedDetails.value.websites?.isNotEmpty ?? false)
-                ? extractedDetails.value.websites!.first
-                : '';
-                 isLoading.value = false;
-        if (fromVisitingCard) {
-           isLoading.value = false;
-          GoRouter.of(context).pushNamed(Routes.scanedDataFeilds);
-        } else {
-          GoRouter.of(context).pushReplacementNamed(Routes.cardCreationDetailAdding);
+        try {
+          extractedDetails.value = success.extractedDetails!;
+          extractedEmails.assignAll((extractedDetails.value.emails ?? []));
+          extractedPhoneNumbers.assignAll((extractedDetails.value.phoneNumbers
+                  ?.map((e) => e.removeAllWhitespace
+                      .replaceAll('+91', '')
+                      .substring(0, 10))
+                  .toList() ??
+              []));
+          extractedLocations.assignAll((extractedDetails.value.location ?? []));
+          extractedNames
+              .assignAll((success.extractedDetails?.unIdentifiedText ?? []));
+          extractedCompany
+              .assignAll((success.extractedDetails?.unIdentifiedText ?? []));
+          extractedDesignation
+              .assignAll((success.extractedDetails?.unIdentifiedText ?? []));
+          final cardController = Get.find<CardController>();
+          cardController.nameController.text =
+              extractedDetails.value.personName ?? '';
+          cardController.phoneController.text =
+              (extractedPhoneNumbers.isNotEmpty)
+                  ? extractedPhoneNumbers.first
+                  : '';
+          cardController.emailController.text =
+              (extractedDetails.value.emails?.isNotEmpty ?? false)
+                  ? extractedDetails.value.emails!.first
+                  : '';
+          cardController.designationController.text =
+              extractedDetails.value.designation ?? '';
+          cardController.companyNameController.text =
+              extractedDetails.value.companyName ?? '';
+          final receivedCardController = Get.find<ReceivedCardController>();
+          receivedCardController.nameController.text =
+              extractedDetails.value.personName ?? '';
+          receivedCardController.phoneController.text =
+              (extractedPhoneNumbers.isNotEmpty)
+                  ? extractedPhoneNumbers.first
+                  : '';
+          receivedCardController.emailController.text =
+              (extractedDetails.value.emails?.isNotEmpty ?? false)
+                  ? extractedDetails.value.emails!.first
+                  : '';
+          receivedCardController.designationController.text =
+              extractedDetails.value.designation ?? '';
+          receivedCardController.companyNameController.text =
+              extractedDetails.value.companyName ?? '';
+          receivedCardController.websiteController.text =
+              (extractedDetails.value.websites?.isNotEmpty ?? false)
+                  ? extractedDetails.value.websites!.first
+                  : '';
+          isLoading.value = false;
+          if (fromVisitingCard) {
+            isLoading.value = false;
+            GoRouter.of(context).pushNamed(Routes.scanedDataFeilds);
+          } else {
+            GoRouter.of(context)
+                .pushReplacementNamed(Routes.cardCreationDetailAdding);
+          }
+        } catch (e) {
+          print('errror text extrattion = $e');
         }
 
         isLoading.value = false;
       },
-      
     );
-     isLoading.value = false;
+    isLoading.value = false;
   }
 
   void pickImageScanning({required bool camera}) async {
@@ -139,6 +144,7 @@ class CardTextExtractionController extends GetxController {
 
   void clearCardImages() {
     pickedImageUrl.value = [];
+    isLoading.value = false;
   }
 
   void deleteImage() {

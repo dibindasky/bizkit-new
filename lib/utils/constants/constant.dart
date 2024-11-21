@@ -173,13 +173,13 @@ const socialMediaImage = {
 };
 
 //socoal media
-const imageWhatsap = 'asset/images/watsapp account icon.png';
-const imageX = 'asset/images/x account icon.png';
-const imageLinkedIn = 'asset/images/linked in account  icon.png';
-const imageFaceBook = 'asset/images/facebok account icon.png';
-const imageInstagram = 'asset/images/instagram.jpeg';
-const imageYoutube = 'asset/images/youtube.jpeg';
-const imageTelegram = 'asset/images/telegram_png..png';
+const imageWhatsap = 'asset/module/bizcard/watsapp account icon.png';
+const imageX = 'asset/module/bizcard/x account icon.png';
+const imageLinkedIn = 'asset/module/bizcard/linked in account  icon.png';
+const imageFaceBook = 'asset/module/bizcard/facebok account icon.png';
+const imageInstagram = 'asset/module/bizcard/instagram.jpeg';
+const imageYoutube = 'asset/module/bizcard/youtube.jpeg';
+const imageTelegram = 'asset/module/bizcard/telegram_png..png';
 
 const imageBanking = 'asset/images/banking.png';
 const imagePerson = 'asset/images/persona.png';

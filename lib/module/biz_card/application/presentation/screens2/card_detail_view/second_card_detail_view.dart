@@ -124,7 +124,7 @@ class _ScreenCardSecondDetailViewState
           if (visitingCardController.isLoading.value) {
             return const Center(
                 child: CircularProgressIndicator(color: neonShade));
-          } else if (visitingCardController.visitingCards == null) {
+          } else if (visitingCardController.filterdVisitingCards == null) {
             return GestureDetector(
               onTap: () {
                 if (widget.visitingCardId != null) {

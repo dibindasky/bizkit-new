@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:alphabet_scroll_view/alphabet_scroll_view.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_controller.dart';
@@ -55,7 +53,7 @@ class ContactConnectionsTab extends StatelessWidget {
               unselectedTextStyle:
                   TextStyle(fontSize: kwidth * .040, color: smallBigGrey),
               selectedTextStyle: TextStyle(
-                  fontSize: kwidth * .049,
+                  fontSize: kwidth * .050,
                   color: Theme.of(context).colorScheme.onPrimary),
               overlayWidget: (value) => Stack(
                 alignment: Alignment.center,

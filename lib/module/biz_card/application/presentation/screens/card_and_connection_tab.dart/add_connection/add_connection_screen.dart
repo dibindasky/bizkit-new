@@ -1,7 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/add_connection_tail.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/pending_connections/pending_connections_screen.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
@@ -60,11 +59,14 @@ class AddConnectionScreen extends StatelessWidget {
                   pinned: true,
                   delegate: _SliverSearchBarDelegate(
                     child: Container(
-                      color: Theme.of(context).scaffoldBackgroundColor,
+                      color: Theme.of(context).scaffoldBackgroundColor, 
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 8),
                       child: CustomTextFormField(
-                        onChanaged: (value) {},
+                        controller:connectionController.searchBizkitUsersController,
+                        onChanaged: (value) {
+                          connectionController.searchBizkitUsers();
+                        },
                         labelText: 'Search',
                         prefixIcon: const Icon(Icons.search),
                       ),

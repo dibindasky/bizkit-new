@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
+import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_query_params_model/individual_shared_fields_query_params_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
@@ -30,6 +33,8 @@ class BizcardWidget extends StatelessWidget {
   final VoidCallback? onTap;
   final double width, height;
   final FlipCardController _flipCardController;
+
+  final levelSharingController = Get.find<LevelSharingController>();
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +89,9 @@ class BizcardWidget extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
+                    levelSharingController.fetchIndividualSharedFields(
+                        queryParameter: IndividualSharedFieldsQueryParamsModel(
+                            bizcardId: bizcardId ?? ""));
                     GoRouter.of(context)
                         .pushNamed(Routes.levelSharingSettings, extra: {
                       "isCommonLevelSharing": false,

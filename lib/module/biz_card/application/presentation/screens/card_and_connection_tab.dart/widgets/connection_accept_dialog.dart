@@ -366,7 +366,7 @@ void showConnectionAcceptDialog(
                           child: InkWell(
                             onTap: () async {
                               final userId = connectionController
-                                      .recievedConnectionRequests[index]
+                                      .filterdConnectionRequest[index]
                                       .fromUser ??
                                   '';
                               final followBackPossible = await connectionController
@@ -381,7 +381,7 @@ void showConnectionAcceptDialog(
                                                   .individualPersonalSharedFields
                                                   .value),
                                           connectionId: connectionController
-                                                  .recievedConnectionRequests[
+                                                  .filterdConnectionRequest[
                                                       index]
                                                   .id ??
                                               '',

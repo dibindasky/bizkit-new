@@ -3,6 +3,7 @@
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,12 +23,18 @@ class SharedCardsTab extends StatelessWidget {
         child: Obx(
           () => controller.sharedCardLoading.value
               ?const Center(child: CircularProgressIndicator())
-              : controller.sharedCards.isEmpty
+              : controller.filteredSharedCards.isEmpty
                   ? Center(
-                      child: Text('No shared cards',style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500) ),
+                      child: ErrorRefreshIndicator(
+              onRefresh: () {
+                controller.getSharedCardList(isRefresh: true);
+              },
+              errorMessage: 'No shared cards',
+              image: emptyNodata2,
+            )
                     )
                   : GridView.builder(
-                      itemCount: controller.sharedCards.length,
+                      itemCount: controller.filteredSharedCards.length,
                       // itemCount: 20,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -37,7 +44,7 @@ class SharedCardsTab extends StatelessWidget {
                               mainAxisSpacing: 10),
                       itemBuilder: (context, index) {
                        
-                        final data = controller.sharedCards[index];
+                        final data = controller.filteredSharedCards[index];
                         return Card(
                           elevation: 0,
                           child: FittedBox(
@@ -130,7 +137,7 @@ class SharedCardsTab extends StatelessWidget {
     //       return const Center(
     //         child: CircularProgressIndicator(),
     //       );
-    //     } else if (controller.sharedCards.isEmpty) {
+    //     } else if (controller.filteredSharedCards.isEmpty) {
     //       return RefreshIndicator(
     //         onRefresh: () async {
     //           controller.getSharedCardList();

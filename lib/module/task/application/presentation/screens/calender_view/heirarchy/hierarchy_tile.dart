@@ -37,21 +37,37 @@ class HierarchyListtile extends StatelessWidget {
       onTap: () {
         Get.toNamed(Routes.heirarchyUserDetail, id: 2);
       },
-      child: ListTile(
-        leading: const CustomStackOnlineDotCircleAvatar(
-          image: dummyPersonImage,
-          dotColor: neonShade,
-          backgroundColor: knill,
-        ),
-        title: Row(
-          children: [
-            const Text('Addam Smith'),
-            adjustWidth(50),
-            Text(
-              '12 Tasks',
-              style: Theme.of(context).textTheme.displaySmall,
-            )
-          ],
+      child: Card(
+        elevation: 0,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: ListTile(
+            leading: const CustomStackOnlineDotCircleAvatar(
+              image: chatSectionPersonDummyImg2,
+              dotColor: neonShade,
+              backgroundColor: knill,
+            ),
+            title: Row(
+              children: [
+                Text(
+                  'Addam Smith',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 13),
+                ),
+                adjustWidth(55),
+                Text(
+                  '12 Tasks',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(color: kOrange),
+                  overflow: TextOverflow.ellipsis,
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

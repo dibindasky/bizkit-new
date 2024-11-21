@@ -1,8 +1,8 @@
 import 'package:bizkit/core/routes/indexed_stack_route/on_generate_route.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/profile_screen.dart';
 import 'package:bizkit/module/task/application/controller/navbar/navbar_controller.dart';
-import 'package:bizkit/module/task/application/presentation/screens/profile/task_profile.dart';
 import 'package:bizkit/utils/clipper/bottom_bar_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -45,7 +45,7 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
                 onGenerateRoute: RouteGenerator().onGenerateRoute,
               ),
               //ScreenTaskCalenderView(),
-              const ScreenTaskProfile(),
+              const ProfileScreen(),
             ]),
             bottomNavigationBar: ClipPath(
               clipper: CurvedTopClipper(),
@@ -57,7 +57,7 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
                     topLeft: Radius.circular(40.w),
                     topRight: Radius.circular(40.w)),
                 child: BottomBarBubble(
-                  color: neonShade,
+                  color: kneon,
                   height: 60.h,
                   backgroundColor:
                       Theme.of(context).navigationBarTheme.backgroundColor ??
@@ -70,7 +70,7 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
                         child: Image.asset(
                           iconModuleSelectorBottomBar,
                           fit: BoxFit.cover,
-                          color: selectedIndex == 0 ? neonShade : color,
+                          color: selectedIndex == 0 ? kneon : color,
                           height: selectedIndex == 0 ? 40.w : 40.w,
                           width: selectedIndex == 0 ? 40.w : 40.w,
                         ),
@@ -80,7 +80,7 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
                       iconBuilder: (color) => Image.asset(
                         cardIconHomeBottomBar,
                         fit: BoxFit.cover,
-                        color: selectedIndex == 1 ? neonShade : color,
+                        color: selectedIndex == 1 ? kneon : color,
                         height: selectedIndex == 1 ? 32.w : 28.w,
                         width: selectedIndex == 1 ? 32.w : 28.w,
                       ),
@@ -89,7 +89,7 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
                       iconBuilder: (color) => Image.asset(
                         iconTaskCalenderBottomBar,
                         fit: BoxFit.cover,
-                        color: selectedIndex == 2 ? neonShade : color,
+                        color: selectedIndex == 2 ? kneon : color,
                         height: selectedIndex == 2 ? 27.w : 22.w,
                         width: selectedIndex == 2 ? 27.w : 22.w,
                       ),
@@ -98,7 +98,7 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
                       iconBuilder: (color) => Image.asset(
                         iconAccountBottomBar,
                         fit: BoxFit.cover,
-                        color: selectedIndex == 3 ? neonShade : color,
+                        color: selectedIndex == 3 ? kneon : color,
                         height: selectedIndex == 3 ? 32.w : 26.w,
                         width: selectedIndex == 3 ? 32.w : 26.w,
                       ),

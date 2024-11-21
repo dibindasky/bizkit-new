@@ -35,13 +35,6 @@ class TaskCalenderViewAppBar extends StatelessWidget {
                   .displaySmall
                   ?.copyWith(fontSize: 16)),
           const Spacer(),
-          CustomCircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.onSecondary,
-            onTap: () {
-              Get.toNamed(Routes.taskNotification, id: 2);
-            },
-            backgroundColorInner: kneon,
-          ),
           adjustWidth(8.5.w),
           CustomCircleAvatar(
             backgroundColor: Theme.of(context).colorScheme.onSecondary,
@@ -97,21 +90,36 @@ class TaskLongPressAppBarItems extends StatelessWidget {
           );
         } else {
           return AlertDialog(
-            title: const Text('Merge Folders'),
+            title: Text(
+              'Merge Folders',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 14),
+            ),
             content: TextField(
+              style: Theme.of(context).textTheme.displaySmall,
               controller: folderNameController,
-              decoration:
-                  const InputDecoration(hintText: "Enter new folder name"),
+              decoration: InputDecoration(
+                hintText: "Enter new folder name",
+                hintStyle: Theme.of(context).textTheme.displaySmall,
+              ),
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text('Cancel'),
+                child: Text(
+                  'Cancel',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               TextButton(
-                child: const Text('Create'),
+                child: Text(
+                  'Create',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
                 onPressed: () {
                   String newFolderName = folderNameController.text;
                   if (newFolderName.isNotEmpty) {
@@ -150,21 +158,35 @@ class TaskLongPressAppBarItems extends StatelessWidget {
           );
         } else {
           return AlertDialog(
-            title: const Text('Merge Inner Folders'),
+            title: Text(
+              'Merge Inner Folders',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 14),
+            ),
             content: TextField(
+              style: Theme.of(context).textTheme.displaySmall,
               controller: folderNameController,
-              decoration:
-                  const InputDecoration(hintText: "Enter new folder name"),
+              decoration: InputDecoration(
+                  hintText: "Enter new folder name",
+                  hintStyle: Theme.of(context).textTheme.displaySmall),
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text('Cancel'),
+                child: Text(
+                  'Cancel',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               TextButton(
-                child: const Text('Create'),
+                child: Text(
+                  'Create',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
                 onPressed: () {
                   String newFolderName = folderNameController.text;
                   if (newFolderName.isNotEmpty) {

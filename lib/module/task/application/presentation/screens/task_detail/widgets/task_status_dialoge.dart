@@ -6,7 +6,6 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/task/completed_task_model/completed_task_model.dart';
-import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -107,68 +106,89 @@ class TaskStatusChangeDialog extends StatelessWidget {
           Positioned(
             top: 50.h,
             right: 70.w,
-            child: Container(
-              // height: 200.h,
-              width: 200.h,
-              decoration: BoxDecoration(
-                borderRadius: kBorderRadius20,
-                color: kblack,
-              ),
-              padding: EdgeInsets.all(10.w),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  kHeight10,
-                  EventButton(
-                    text: 'Edit Task',
-                    onTap: () {
-                      log('Edit');
-                      GoRouter.of(context).pop();
-                      GoRouter.of(context).pushNamed(Routes.editTask,
-                          pathParameters: {"taskId": '$taskId'});
-                      final isAlreadyAdded = controller.participantsForEditTask
-                          .any((participant) =>
-                              participant.userId ==
-                              controller.singleTask.value.assignedToDetails
-                                  ?.first.userId);
-                      if (!isAlreadyAdded) {
-                        controller.participantsForEditTask.assignAll(
-                            controller.singleTask.value.assignedToDetails ??
-                                []);
-                      }
+            child: Card(
+              child: Container(
+                // height: 200.h,
+                width: 200.h,
+                decoration: BoxDecoration(
+                  borderRadius: kBorderRadius20,
+                  // color: kblack,
+                ),
+                padding: EdgeInsets.all(10.w),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    kHeight10,
+                    EventButton(
+                      text: 'Edit Task',
+                      onTap: () {
+                        log('Edit');
+                        GoRouter.of(context).pop();
+                        GoRouter.of(context).pushNamed(Routes.editTask,
+                            pathParameters: {"taskId": '$taskId'});
+                        final isAlreadyAdded = controller
+                            .participantsForEditTask
+                            .any((participant) =>
+                                participant.userId ==
+                                controller.singleTask.value.assignedToDetails
+                                    ?.first.userId);
+                        if (!isAlreadyAdded) {
+                          controller.participantsForEditTask.assignAll(
+                              controller.singleTask.value.assignedToDetails ??
+                                  []);
+                        }
 
-                      final isTagAlreadyAdded = controller.tagsForEdit.any(
-                        (tag) => tag == controller.singleTask.value.tags,
-                      );
+                        final isTagAlreadyAdded = controller.tagsForEdit.any(
+                          (tag) => tag == controller.singleTask.value.tags,
+                        );
 
-                      if (!isTagAlreadyAdded) {
-                        controller.tagsForEdit
-                            .assignAll(controller.singleTask.value.tags ?? []);
-                      }
-                    },
-                    width: double.infinity,
-                  ),
-                  kHeight10,
-                  EventButton(
-                    text: 'Kill Task',
-                    onTap: () {
-                      log('Kill');
-                      GoRouter.of(context).pop();
-                      showKillTaskConfirmationDialog();
-                    },
-                    width: double.infinity,
-                  ),
-                  kHeight10,
-                  EventButton(
-                    text: 'Complete Task',
-                    onTap: () {
-                      GoRouter.of(context).pop();
-                      showCompleteATaskConfirmationDialog();
-                    },
-                    width: double.infinity,
-                  ),
-                  kHeight10,
-                ],
+                        if (!isTagAlreadyAdded) {
+                          controller.tagsForEdit.assignAll(
+                              controller.singleTask.value.tags ?? []);
+                        }
+                      },
+                      color: const LinearGradient(
+                        colors: [
+                          kneon,
+                          kneon,
+                        ],
+                      ),
+                      width: double.infinity,
+                    ),
+                    kHeight10,
+                    EventButton(
+                      text: 'Kill Task',
+                      onTap: () {
+                        log('Kill');
+                        GoRouter.of(context).pop();
+                        showKillTaskConfirmationDialog();
+                      },
+                      width: double.infinity,
+                      color: const LinearGradient(
+                        colors: [
+                          kneon,
+                          kneon,
+                        ],
+                      ),
+                    ),
+                    kHeight10,
+                    EventButton(
+                      text: 'Complete Task',
+                      onTap: () {
+                        GoRouter.of(context).pop();
+                        showCompleteATaskConfirmationDialog();
+                      },
+                      width: double.infinity,
+                      color: const LinearGradient(
+                        colors: [
+                          kneon,
+                          kneon,
+                        ],
+                      ),
+                    ),
+                    kHeight10,
+                  ],
+                ),
               ),
             ),
           ),

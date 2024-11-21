@@ -36,7 +36,10 @@ class ScreenTaskChat extends StatelessWidget {
               taskTitle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: textHeadStyle1,
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 15),
             ),
           ),
           body: SafeArea(

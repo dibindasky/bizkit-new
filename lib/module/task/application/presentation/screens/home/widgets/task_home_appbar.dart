@@ -64,17 +64,22 @@ class TaskHomeAppBar extends StatelessWidget {
               ),
             ),
             adjustWidth(9.w),
-            Container(
-              width: 45.w,
-              height: 45.h,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: klightgrey),
-                color: Theme.of(context).colorScheme.onTertiary,
-              ),
-              child: const Icon(
-                Iconsax.notification,
-                size: 21,
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(Routes.taskNotification, id: 1);
+              },
+              child: Container(
+                width: 45.w,
+                height: 45.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: klightgrey),
+                  color: Theme.of(context).colorScheme.onTertiary,
+                ),
+                child: const Icon(
+                  Iconsax.notification,
+                  size: 21,
+                ),
               ),
             ),
             adjustWidth(3.w),

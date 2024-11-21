@@ -101,9 +101,12 @@ class TagsContainer extends StatelessWidget {
                               return Chip(
                                 label: Text(
                                   tag,
-                                  style: const TextStyle(
-                                    color: kwhite,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(
+                                          color: controller.tagColor[index %
+                                              controller.tagColor.length]),
                                 ),
                                 onDeleted: () {
                                   controller.removeTagForEdit(tag);
@@ -112,7 +115,7 @@ class TagsContainer extends StatelessWidget {
                                 side: BorderSide.none,
                                 backgroundColor: controller.tagColor[
                                         index % controller.tagColor.length]
-                                    .withOpacity(0.4),
+                                    .withOpacity(0.05),
                               );
                             }).toList()
                           : controller.tags.asMap().entries.map((entry) {

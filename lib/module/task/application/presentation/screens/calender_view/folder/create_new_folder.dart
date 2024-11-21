@@ -23,10 +23,6 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
       folderNameController.text = folderName!;
     }
     final folderController = Get.find<TaskFolderController>();
-    final style = TextStyle(
-      fontSize: 15.sp,
-      color: neonShade,
-    );
 
     return Obx(
       () {
@@ -35,13 +31,15 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
         return Stack(
           children: [
             AlertDialog(
-              backgroundColor: kblack,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     folderName != null ? 'Edit Folder' : 'New Folder',
-                    style: textThinStyle1.copyWith(fontSize: 15.sp),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 14),
                   ),
                   IconButton(
                     onPressed: () {
@@ -58,7 +56,10 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
                   children: [
                     Text(
                       'Folder Name',
-                      style: textThinStyle1.copyWith(color: neonShade),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall
+                          ?.copyWith(color: kneon),
                     ),
                     adjustHieght(3.h),
                     TaskTextField(
@@ -73,7 +74,7 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
               actions: [
                 Center(
                   child: EventButton(
-                    color: const LinearGradient(colors: [neonShade, neonShade]),
+                    color: const LinearGradient(colors: [kneon, kneon]),
                     width: 160.w,
                     text: folderName != null ? 'Save Changes' : 'Create Folder',
                     onTap: () {

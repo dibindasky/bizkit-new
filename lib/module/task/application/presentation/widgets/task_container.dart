@@ -97,10 +97,14 @@ class TaskContainer extends StatelessWidget {
           boxShadow: spotlightOn ?? false
               ? [
                   BoxShadow(
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: const Offset(0, 1),
-                      color: color.withOpacity(0.4))
+                      spreadRadius: Get.isDarkMode == true ? 2 : 0,
+                      blurRadius: Get.isDarkMode == true ? 5 : 0,
+                      offset: Get.isDarkMode == true
+                          ? const Offset(0, 1)
+                          : const Offset(0, 0),
+                      color: Get.isDarkMode == true
+                          ? color.withOpacity(0.4)
+                          : color.withOpacity(0.0))
                 ]
               : null,
         ),
@@ -163,7 +167,7 @@ class TaskContainer extends StatelessWidget {
                               ),
                               adjustWidth(15),
                               Card(
-                                elevation: 0,
+                                elevation: 1,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 5),
@@ -421,7 +425,7 @@ class TaskContainer extends StatelessWidget {
                 bottom: 40,
                 left: 0,
                 child: Container(
-                  color: klightgrey,
+                  color: kGreyNormal.withOpacity(0.4),
                   width: 4,
                   height: 5,
                 ),

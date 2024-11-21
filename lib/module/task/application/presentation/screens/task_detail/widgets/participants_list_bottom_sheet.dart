@@ -27,8 +27,11 @@ class ParticipantsListBottomSheet extends StatelessWidget {
             ),
           );
         } else if (taskController.singleTask.value.assignedToDetails!.isEmpty) {
-          return const Center(
-            child: Text('No Paricipants'),
+          return Center(
+            child: Text(
+              'No Paricipants',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
           );
         } else {
           return Padding(
@@ -38,24 +41,29 @@ class ParticipantsListBottomSheet extends StatelessWidget {
                   taskController.singleTask.value.assignedToDetails?.length ??
                       0,
               itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  decoration: const BoxDecoration(
-                    color: smallBigGrey,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: ListTile(
-                    leading: const CircleAvatar(
-                      backgroundColor: klightDarkGrey,
-                      child: Icon(
-                        Icons.person,
-                        color: neonShade,
-                      ),
+                return Card(
+                  elevation: 0,
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
-                    title: Text(
-                      taskController.singleTask.value.assignedToDetails?[index]
-                              .name ??
-                          'name',
+                    child: ListTile(
+                      leading: const CircleAvatar(
+                        child: Icon(
+                          Icons.person,
+                          color: kblack,
+                        ),
+                      ),
+                      title: Text(
+                        taskController.singleTask.value
+                                .assignedToDetails?[index].name ??
+                            'name',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(fontSize: 14),
+                      ),
                     ),
                   ),
                 );

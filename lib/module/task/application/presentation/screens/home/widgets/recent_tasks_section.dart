@@ -1,11 +1,14 @@
-import 'package:animate_do/animate_do.dart';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 // ! The progress bar part is pending
 
@@ -17,7 +20,7 @@ class RecentTasksSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<TaskHomeScreenController>();
-
+    final taskController = Get.find<CreateTaskController>();
     return Column(
       children: [
         Row(
@@ -52,6 +55,15 @@ class RecentTasksSection extends StatelessWidget {
                   width: 190.w,
                   seprator: kWidth20,
                 );
+              } else if (homeController.toMeTasks.isEmpty &&
+                  homeController.toOthersTasks.isEmpty &&
+                  homeController.selfieTasks.isEmpty) {
+                return Center(
+                  child: Text(
+                    'No recent tasks',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                );
               } else {
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -61,8 +73,35 @@ class RecentTasksSection extends StatelessWidget {
                           ? homeController.toOthersTasks.length
                           : homeController.toMeTasks.length,
                   itemBuilder: (context, index) {
-                    return FadeInRight(
-                      animate: true,
+                    return GestureDetector(
+                      onTap: () {
+                        taskController.fetchSingleTask(
+                          singleTaskModel: GetSingleTaskModel(
+                            taskId: homeController.taskStatusTabIndex.value == 0
+                                ? homeController.selfieTasks[index].taskId ?? ''
+                                : homeController.taskStatusTabIndex.value == 1
+                                    ? homeController
+                                            .toOthersTasks[index].taskId ??
+                                        ''
+                                    : homeController.toMeTasks[index].taskId ??
+                                        '',
+                          ),
+                        );
+                        GoRouter.of(context).pushNamed(
+                          Routes.taskDeail,
+                          pathParameters: {
+                            "taskId": homeController.taskStatusTabIndex.value ==
+                                    0
+                                ? homeController.selfieTasks[index].taskId ?? ''
+                                : homeController.taskStatusTabIndex.value == 1
+                                    ? homeController
+                                            .toOthersTasks[index].taskId ??
+                                        ''
+                                    : homeController.toMeTasks[index].taskId ??
+                                        ''
+                          },
+                        );
+                      },
                       child: Card(
                         elevation: 1,
                         child: Padding(

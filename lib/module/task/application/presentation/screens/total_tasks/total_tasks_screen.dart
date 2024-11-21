@@ -37,7 +37,6 @@ class TotalTasksScreen extends StatelessWidget {
       );
 
       showMenu(
-        color: klightDarkGrey,
         context: context,
         position: position,
         items: [

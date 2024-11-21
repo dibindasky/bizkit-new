@@ -32,14 +32,13 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<TaskHomeScreenController>();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeController.progresBar();
-    });
+
     final authController = Get.find<AuthenticationController>();
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
+            homeController.progresBar();
             homeController.fetchRecentTasks();
           },
           child: FadeIn(
@@ -64,16 +63,17 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
           ),
         ),
       ),
-      floatingActionButton: FadeInRight(
-        animate: true,
-        child: FloatingActionButton(
-          onPressed: () {
-            Get.toNamed(Routes.addTask, id: 1, arguments: 1);
-          },
-          isExtended: true,
-          child: const Icon(Iconsax.add),
-        ),
-      ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //     tooltip: 'Create new task',
+      //     onPressed: () {
+      //       Get.toNamed(Routes.addTask, id: 1, arguments: 1);
+      //     },
+      //     isExtended: true,
+      //     icon: const Icon(Iconsax.add),
+      //     label: Text(
+      //       'create task',
+      //       style: Theme.of(context).textTheme.displaySmall,
+      //     )),
     );
   }
 }

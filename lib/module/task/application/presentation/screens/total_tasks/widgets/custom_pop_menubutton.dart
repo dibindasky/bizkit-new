@@ -20,7 +20,7 @@ class CustomPopupMenuItem extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
         decoration: BoxDecoration(
-          gradient: neonShadeLinearGradient,
+          gradient: const LinearGradient(colors: [kneon, neonShade]),
           borderRadius: kBorderRadius10,
         ),
         child: Center(

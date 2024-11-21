@@ -48,6 +48,7 @@ class TaskHomeScreenController extends GetxController
   void onInit() {
     super.onInit();
     fetchRecentTasks();
+    progresBar();
   }
 
   // Function to add or remove fields from the selectedFields list

@@ -12,21 +12,24 @@ showCustomConfirmationDialogue(
   showDialog(
     context: context,
     builder: (context) => Dialog(
-      backgroundColor: kblack,
+      // backgroundColor: kblack,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
-            border: Border.all(color: kneon),
-            borderRadius: kBorderRadius10,
-            color: backgroundColour),
+          borderRadius: kBorderRadius10,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               title,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
             adjustHieght(10),
-            Text(description ?? ''),
+            Text(
+              description ?? 'description',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             FittedBox(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -39,10 +42,7 @@ showCustomConfirmationDialogue(
                       },
                       child: Text(
                         'Cancel',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall
-                            ?.copyWith(color: kwhite),
+                        style: Theme.of(context).textTheme.displaySmall,
                       )),
                   adjustWidth(10),
                   OutlinedButton(
@@ -54,10 +54,7 @@ showCustomConfirmationDialogue(
                       },
                       child: Text(
                         buttonText,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall
-                            ?.copyWith(color: kwhite),
+                        style: Theme.of(context).textTheme.displaySmall,
                       ))
                 ],
               ),

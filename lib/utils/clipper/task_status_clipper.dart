@@ -10,20 +10,16 @@ class TaskStatusClipper extends CustomClipper<Path> {
 
     path.moveTo(0, 0);
 
-    path.lineTo(width * 0.76, 0);
+    path.lineTo(width - 70, 0);
 
-    path.cubicTo(
-      width * 0.90,
-      height * 0.1,
-      width * 0.85,
-      height * 0.3,
-      width * 0.93,
-      height * 0.2,
-    );
-    // path.quadraticBezierTo(0, 5, width * 0.5, 3);
-    path.lineTo(width, height * 0.2);
+    path.quadraticBezierTo(width - 50, 0, width - 50, 15);
+    path.quadraticBezierTo(width - 50, 40, width - 15, 48);
+    path.quadraticBezierTo(width, 50, width, 70);
+
     path.lineTo(width, height);
     path.lineTo(0, height);
+
+    // Close the path
     path.close();
 
     return path;

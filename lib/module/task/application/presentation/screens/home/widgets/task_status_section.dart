@@ -60,8 +60,17 @@ class TaskStatusSection extends StatelessWidget {
                 Get.toNamed(Routes.addTask, id: 1, arguments: 1);
               },
               child: Container(
-                decoration:
-                    BoxDecoration(color: kneon, borderRadius: kBorderRadius20),
+                decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xFF59FBFB),
+                        Color(0xFF379D98),
+                        Color(0xFF59F6FB),
+                      ],
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                    ),
+                    borderRadius: kBorderRadius20),
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 9),
@@ -70,7 +79,7 @@ class TaskStatusSection extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .displaySmall
-                        ?.copyWith(fontSize: 12),
+                        ?.copyWith(fontSize: 12, color: kwhite),
                   ),
                 ),
               ),
@@ -85,78 +94,100 @@ class TaskStatusSection extends StatelessWidget {
           dividerColor: Colors.transparent,
           overlayColor: WidgetStateColor.transparent,
           indicatorSize: TabBarIndicatorSize.tab,
-          labelPadding: const EdgeInsets.symmetric(horizontal: 10),
+          labelPadding: const EdgeInsets.symmetric(horizontal: 3),
+          splashBorderRadius: kBorderRadius25,
           labelColor: Theme.of(context).colorScheme.onTertiary,
-          indicatorPadding: const EdgeInsets.symmetric(horizontal: -6),
           labelStyle: Theme.of(context).textTheme.displaySmall,
           onTap: (value) {
             homeController.taskStatusTabController(value);
           },
-          padding: EdgeInsets.symmetric(horizontal: 10.dg),
-          indicator:
-              BoxDecoration(color: kblack, borderRadius: kBorderRadius25),
+          padding: EdgeInsets.zero,
+          indicator: const BoxDecoration(
+              color: kblack,
+              borderRadius: BorderRadius.all(Radius.circular(27))),
           tabs: [
-            Tab(
-              child: Row(
-                children: [
-                  const Text('Self'),
-                  adjustWidth(5.w),
-                  CircleAvatar(
-                    radius: 10,
-                    backgroundColor: kgrey,
-                    child: Obx(() => Text(
-                          '${homeController.progresBarCounts.value.selfToSelf?.all ?? 0}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall
-                              ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onTertiary),
-                        )),
-                  )
-                ],
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                  border: Border.all(color: kblack.withOpacity(0.3)),
+                  borderRadius: kBorderRadius25),
+              child: Tab(
+                child: Row(
+                  children: [
+                    const Text('Self'),
+                    adjustWidth(5.w),
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundColor: kgrey,
+                      child: Obx(() => Text(
+                            '${homeController.progresBarCounts.value.selfToSelf?.all ?? 0}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary),
+                          )),
+                    )
+                  ],
+                ),
               ),
             ),
-            Tab(
-              child: Row(
-                children: [
-                  const Text('Self to others'),
-                  adjustWidth(5.w),
-                  CircleAvatar(
-                    radius: 10,
-                    backgroundColor: kgrey,
-                    child: Obx(() => Text(
-                          '${homeController.progresBarCounts.value.selfToOthers?.all ?? 0}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall
-                              ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onTertiary),
-                        )),
-                  )
-                ],
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                  border: Border.all(color: kblack.withOpacity(0.3)),
+                  borderRadius: kBorderRadius25),
+              child: Tab(
+                child: Row(
+                  children: [
+                    const Text('Self to others'),
+                    adjustWidth(5.w),
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundColor: kgrey,
+                      child: Obx(() => Text(
+                            '${homeController.progresBarCounts.value.selfToOthers?.all ?? 0}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary),
+                          )),
+                    )
+                  ],
+                ),
               ),
             ),
-            Tab(
-              child: Row(
-                children: [
-                  const Text('Others to self'),
-                  adjustWidth(5.w),
-                  CircleAvatar(
-                    radius: 10,
-                    backgroundColor: kgrey,
-                    child: Obx(() => Text(
-                          '${homeController.progresBarCounts.value.othersToSelf?.all ?? 0}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall
-                              ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onTertiary),
-                        )),
-                  )
-                ],
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                  border: Border.all(color: kblack.withOpacity(0.3)),
+                  borderRadius: kBorderRadius25),
+              child: Tab(
+                child: Row(
+                  children: [
+                    const Text('Others to self'),
+                    adjustWidth(5.w),
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundColor: kgrey,
+                      child: Obx(() => Text(
+                            '${homeController.progresBarCounts.value.othersToSelf?.all ?? 0}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary),
+                          )),
+                    )
+                  ],
+                ),
               ),
             ),
           ],

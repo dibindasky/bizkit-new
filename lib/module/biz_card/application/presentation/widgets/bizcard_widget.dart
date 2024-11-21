@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -33,6 +34,7 @@ class BizcardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // log('id : ${bizcardId}');
     return FlipCard(
       controller: _flipCardController,
       direction: FlipDirection.HORIZONTAL,

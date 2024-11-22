@@ -24,7 +24,9 @@ class PdfMessageCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.h),
         decoration: BoxDecoration(
             borderRadius: kBorderRadius5,
-            color: sender ? kwhite.withOpacity(0.3) : lightGrey),
+            color: sender
+                ? kwhite.withOpacity(0.3)
+                : kGreyNormal.withOpacity(0.1)),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -34,7 +36,14 @@ class PdfMessageCard extends StatelessWidget {
               height: 30.h,
             ),
             kWidth10,
-            Expanded(child: Text(message.message ?? 'Document')),
+            Expanded(
+                child: Text(
+              message.message ?? 'Document',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(color: sender ? kwhite : kblack),
+            )),
           ],
         ),
       ),

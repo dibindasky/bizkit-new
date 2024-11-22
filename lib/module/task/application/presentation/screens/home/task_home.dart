@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/generate_report_button.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/recent_tasks_section.dart';
@@ -30,14 +31,18 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
   @override
   Widget build(BuildContext context) {
     final homeController = Get.find<TaskHomeScreenController>();
-
+    final messageCoutController = Get.find<MessageCountController>();
     final authController = Get.find<AuthenticationController>();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      messageCoutController.sendReqForUnread();
+    });
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
             homeController.progresBar();
             homeController.fetchRecentTasks();
+            messageCoutController.sendReqForUnread();
           },
           child: FadeIn(
             animate: true,

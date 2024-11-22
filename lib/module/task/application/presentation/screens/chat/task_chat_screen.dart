@@ -26,6 +26,7 @@ class ScreenTaskChat extends StatelessWidget {
       () {
         return Scaffold(
           appBar: AppBar(
+            surfaceTintColor: knill,
             leading: IconButton(
               onPressed: () {
                 chatController.closeConnetion(context);

@@ -23,7 +23,7 @@ class ChatBubble extends StatelessWidget {
     List<Widget> data = [
       Text(
         message.message ?? '',
-        style: textStyle1.copyWith(color: kwhite),
+        style: textStyle1.copyWith(color: message.sender ? kwhite : kblack),
       ),
       showCol ? kempty : adjustWidth(8.w),
       Row(
@@ -33,7 +33,7 @@ class ChatBubble extends StatelessWidget {
           Text(
             DateTimeFormater.formatTimeAMPM(message.timestamp),
             style: textStyle1.copyWith(
-              color: message.sender ? kgrey : kwhite.withOpacity(0.5),
+              color: message.sender ? kgrey : kblack,
               fontSize: 8.sp,
             ),
           ),
@@ -54,7 +54,7 @@ class ChatBubble extends StatelessWidget {
           clipper:
               ChatBubbleClipper(isSender: message.sender, showArrow: showArrow),
           child: Container(
-              color: message.sender ? neonShade.withGreen(190) : klightDarkGrey,
+              color: message.sender ? neonShade.withGreen(190) : kwhite,
               padding: EdgeInsets.only(
                   left: message.sender ? 10.w : 20.w,
                   right: !message.sender ? 10.w : 20.w,
@@ -68,7 +68,7 @@ class ChatBubble extends StatelessWidget {
                       : Text(
                           message.username ?? '',
                           style: textThinStyle1.copyWith(
-                              fontSize: 8.sp, color: kwhite.withOpacity(0.7)),
+                              fontSize: 8.sp, color: kblack),
                         ),
                   showCol
                       ? Column(

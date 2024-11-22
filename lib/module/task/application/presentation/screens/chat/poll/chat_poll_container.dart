@@ -161,7 +161,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
               top: sender ? 5.w : 0.w,
               bottom: 2.h),
           decoration: BoxDecoration(
-            color: sender ? neonShade.withGreen(190) : klightDarkGrey,
+            color: sender ? neonShade.withGreen(190) : kwhite,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -172,16 +172,19 @@ class _PollContainerChatState extends State<PollContainerChat> {
                   : Text(
                       message.userName ?? '',
                       style: textThinStyle1.copyWith(
-                          fontSize: 8.sp, color: kwhite.withOpacity(0.7)),
+                          fontSize: 8.sp, color: kblack),
                     ),
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
                 decoration: BoxDecoration(
-                    color: kblack.withOpacity(0.1),
+                    color: !sender
+                        ? kGreyNormal.withOpacity(0.1)
+                        : kwhite.withOpacity(0.3),
                     borderRadius: kBorderRadius5),
                 child: Text(message.pollQuestion ?? '',
-                    style: textStyle1.copyWith(color: kwhite)),
+                    style:
+                        textStyle1.copyWith(color: sender ? kwhite : kblack)),
               ),
               adjustHieght(2.h),
               ListView(
@@ -211,8 +214,9 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                   // Checkbox
                                   Container(
                                     decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: kwhite, width: 2.0),
+                                      border: Border.all(
+                                          color: sender ? kwhite : kblack,
+                                          width: 2.0),
                                       borderRadius:
                                           BorderRadius.circular(500.0),
                                     ),
@@ -220,16 +224,18 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                       decoration: BoxDecoration(
                                         color: selectedOption.contains(
                                                 answer?.answerId ?? '')
-                                            ? kwhite
+                                            ? sender
+                                                ? kwhite
+                                                : kblack
                                             : Colors.transparent,
                                         borderRadius: BorderRadius.circular(50),
                                       ),
                                       padding:
                                           EdgeInsets.all(selected ? 0 : 8.0),
                                       child: selected
-                                          ? const Icon(
+                                          ? Icon(
                                               Icons.check,
-                                              color: kblack,
+                                              color: sender ? kblack : kwhite,
                                               size: 15,
                                             )
                                           : null,
@@ -245,7 +251,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                         Text(
                                           answer?.answerText ?? '',
                                           style: textThinStyle1.copyWith(
-                                              color: kwhite),
+                                              color: sender ? kwhite : kblack),
                                         ),
                                         CustomLinearProgressBar(
                                           height: 5.h,
@@ -258,9 +264,8 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                                       .toDouble(),
                                           progressColor:
                                               sender ? kwhite : kneonShade,
-                                          backgroundColor: sender
-                                              ? kblack.withOpacity(0.1)
-                                              : kwhite.withOpacity(0.1),
+                                          backgroundColor:
+                                              kwhite.withOpacity(0.1),
                                         )
                                       ],
                                     ),
@@ -277,7 +282,11 @@ class _PollContainerChatState extends State<PollContainerChat> {
                                   fit: BoxFit.scaleDown,
                                   child: Text(
                                     "${answer?.answerVotes ?? 0}",
-                                    style: textStyle1,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(
+                                            color: sender ? kwhite : kblack),
                                   ),
                                 ),
                               )
@@ -301,7 +310,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
                         child: Text(
                           'SEE VOTES',
                           style: textThinStyle1.copyWith(
-                            color: kwhite.withOpacity(0.8),
+                            color: sender ? kwhite : kblack,
                             fontSize: 12.sp,
                           ),
                         ),
@@ -321,8 +330,9 @@ class _PollContainerChatState extends State<PollContainerChat> {
                             style: TextStyle(color: kblack, fontSize: 12.sp),
                             decoration: InputDecoration(
                               hintText: 'Let us know why ?',
-                              hintStyle: const TextStyle(color: kblack),
-                              contentPadding: EdgeInsets.zero,
+                              hintStyle:
+                                  Theme.of(context).textTheme.displaySmall,
+                              contentPadding: const EdgeInsets.only(left: 10),
                               border: InputBorder.none,
                               suffix: GestureDetector(
                                 onTap: () {
@@ -357,13 +367,14 @@ class _PollContainerChatState extends State<PollContainerChat> {
                 children: [
                   Text(
                     '$totalVotes votes • ${expired ? 'Expired' : 'Active'}',
-                    style: textThinStyle1.copyWith(fontSize: 10.sp),
+                    style: textThinStyle1.copyWith(
+                        fontSize: 10.sp, color: sender ? kwhite : kblack),
                   ),
                   const Spacer(),
                   Text(
                     DateTimeFormater.formatTimeAMPM(message.timestamp ?? ''),
                     style: textThinStyle1.copyWith(
-                        color: sender ? kgrey : klightgrey, fontSize: 8.sp),
+                        color: sender ? kgrey : kgrey, fontSize: 8.sp),
                   ),
                   sender ? kWidth10 : kempty,
                   sender ? MessageReadMarker(read: message.readByAll) : kempty

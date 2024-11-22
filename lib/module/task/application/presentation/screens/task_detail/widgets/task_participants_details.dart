@@ -99,9 +99,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                               )
                             else
                               Text(
-                                task.createdBy == task.createdUserDetails?.id
-                                    ? 'Created By'
-                                    : 'Assigned By',
+                                'Created By',
                                 style: Theme.of(context)
                                     .textTheme
                                     .displaySmall
@@ -177,9 +175,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                               )
                             else
                               Text(
-                                task.createdBy == task.createdUserDetails?.id
-                                    ? 'Created By'
-                                    : 'Assigned By',
+                                'Assigned By',
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
                             if (taskController.isLoading.value)

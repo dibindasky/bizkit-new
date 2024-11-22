@@ -706,11 +706,15 @@ class ConnectionsController extends GetxController {
   }
 
   /// get card detail connection
-  void getConnectionCardDetail({required String cardId}) async {
+  void getConnectionCardDetail(
+      {required String cardId, bool refresh = false}) async {
     log('Bizcard ID -->> $cardId');
-    cardLoading.value = true;
     final cardController = Get.find<CardController>();
-    cardController.isLoading.value = true;
+    if (refresh ||
+        cardId != (cardController.bizcardDetail.value.bizcardId ?? "")) {
+      cardController.isLoading.value = true;
+      cardLoading.value = true;
+    }
     cardController.bizcardDetail.value = CardDetailModel();
     final data = await connectionService.getConnectionCard(cardId: cardId);
     data.fold(

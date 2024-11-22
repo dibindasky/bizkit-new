@@ -1042,13 +1042,13 @@ class CreateTaskController extends GetxController {
       required BuildContext context,
       required bool tasksFromTasksList,
       required bool tasksFromFilterSection}) async {
-    if (tasksFromFilterSection) {
-      filterByTypeLoading.value = true;
-    }
-    pinLoader.value = true;
-    if (tasksFromTasksList) {
-      taksListLoading.value = true;
-    }
+    // if (tasksFromFilterSection) {
+    //   filterByTypeLoading.value = true;
+    // }
+    // pinLoader.value = true;
+    // if (tasksFromTasksList) {
+    //   taksListLoading.value = true;
+    // }
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.pinnedATask(pinnedATask: pinnedATask);
     result.fold(
@@ -1067,41 +1067,61 @@ class CreateTaskController extends GetxController {
         }
         pinLoader.value = false;
       },
-      (success) {
+      (success) async {
         update();
-        if (pinnedATask.isPinned == false) {
-          allPinnedTasks.removeWhere((e) => e.id == pinnedATask.taskId);
-          pinLoader.value = false;
-          if (tasksFromTasksList) {
-            taksListLoading.value = false;
-          }
-          if (tasksFromFilterSection) {
-            filterByTypeLoading.value = false;
-          }
-          update();
+        // if (pinnedATask.isPinned == false) {
+        //   log('inside');
+        //   allPinnedTasks.removeWhere((e) => e.id == pinnedATask.taskId);
+        //   pinLoader.value = false;
+        //   if (tasksFromTasksList) {
+        //     taksListLoading.value = false;
+        //   }
+        //   if (tasksFromFilterSection) {
+        //     filterByTypeLoading.value = false;
+        //   }
+        //   update();
+        // }
+        bool localUpdated = false;
+
+        final typeTaskindex = typeTasks.indexWhere(
+          (element) => element.id == pinnedATask.taskId,
+        );
+
+        if (typeTaskindex != null && typeTaskindex != -1) {
+          var task = typeTasks[typeTaskindex].copyWith(isPinned: true);
+          typeTasks[typeTaskindex] = task;
+          allPinnedTasks.insert(0, task);
+          await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+            taskModel: task,
+          );
+          localUpdated = true;
         }
 
-        if (tasksFromFilterSection) {
-          filterPinnedTasksByType();
-          filterByType();
-        }
-        if (tasksFromTasksList) {
-          taskFilterByDeadline();
+        final deadlineTaskindex = deadlineTasks.indexWhere(
+          (element) => element.id == pinnedATask.taskId,
+        );
+
+        if (deadlineTaskindex != null && deadlineTaskindex != -1) {
+          var task = deadlineTasks[deadlineTaskindex].copyWith(isPinned: true);
+          deadlineTasks[deadlineTaskindex] = task;
+          allPinnedTasks.insert(0, task);
+          if (!localUpdated) {
+            await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+              taskModel: task,
+            );
+          }
         }
 
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Successfully pinned this task'),
-            backgroundColor: neonShade,
+          SnackBar(
+            content: Text(
+              'Successfully pinned this task',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+            backgroundColor: kneon,
           ),
         );
-        pinLoader.value = false;
-        if (tasksFromTasksList) {
-          taksListLoading.value = false;
-        }
-        if (tasksFromFilterSection) {
-          filterByTypeLoading.value = false;
-        }
+
         update();
       },
     );
@@ -1113,13 +1133,13 @@ class CreateTaskController extends GetxController {
       required BuildContext context,
       required bool tasksFromTasksList,
       required bool tasksFromFilterSection}) async {
-    isLoading.value = true;
-    if (tasksFromFilterSection) {
-      filterByTypeLoading.value = true;
-    }
-    if (tasksFromTasksList) {
-      taksListLoading.value = true;
-    }
+    // isLoading.value = true;
+    // if (tasksFromFilterSection) {
+    //   filterByTypeLoading.value = true;
+    // }
+    // if (tasksFromTasksList) {
+    //   taksListLoading.value = true;
+    // }
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.unpinATask(unpinATask: unpinATask);
     result.fold(
@@ -1139,27 +1159,60 @@ class CreateTaskController extends GetxController {
         );
         log(failure.message.toString());
       },
-      (success) {
+      (success) async {
         isLoading.value = false;
+        bool localUpdated = false;
+        // Filtered task
+        final typeTaskindex = typeTasks.indexWhere(
+          (element) => element.id == unpinATask.taskId,
+        );
 
-        if (tasksFromFilterSection) {
-          filterPinnedTasksByType();
-          filterByType();
+        if (typeTaskindex != null && typeTaskindex != -1) {
+          var task = typeTasks[typeTaskindex].copyWith(isPinned: false);
+          typeTasks[typeTaskindex] = task;
+          await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+            taskModel: task,
+          );
+          localUpdated = true;
         }
 
-        if (tasksFromTasksList) {
-          taskFilterByDeadline();
+        // PinnedTask
+        final pinnedIndex = allPinnedTasks.indexWhere(
+          (element) => element.id == unpinATask.taskId,
+        );
+
+        if (pinnedIndex != null && pinnedIndex != -1) {
+          var task = allPinnedTasks[pinnedIndex].copyWith(isPinned: false);
+          allPinnedTasks.removeAt(pinnedIndex);
+          if (!localUpdated) {
+            await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+              taskModel: task,
+            );
+            localUpdated = true;
+          }
         }
-        if (tasksFromTasksList) {
-          taksListLoading.value = false;
+
+        final deadlineTaskindex = deadlineTasks.indexWhere(
+          (element) => element.id == unpinATask.taskId,
+        );
+
+        if (deadlineTaskindex != null && deadlineTaskindex != -1) {
+          var task = deadlineTasks[deadlineTaskindex].copyWith(isPinned: false);
+          deadlineTasks[deadlineTaskindex] = task;
+          if (!localUpdated) {
+            await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+              taskModel: task,
+            );
+          }
         }
-        if (tasksFromFilterSection) {
-          filterByTypeLoading.value = false;
-        }
+
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Successfully Unpinned this task'),
-            backgroundColor: neonShade,
+          SnackBar(
+            content: Text(
+              'Successfully Unpinned this task',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+            backgroundColor: kneon,
           ),
         );
 

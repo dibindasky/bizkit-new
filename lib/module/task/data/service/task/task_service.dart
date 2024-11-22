@@ -135,12 +135,12 @@ class TaskService implements TaskRepo {
   Future<Either<ErrorModel, SuccessResponce>> pinnedATask(
       {required PinnedATaskModel pinnedATask}) async {
     try {
-      log('pin task body=> ${pinnedATask.toJson()}');
+      log('pin a task TO JOSN == > ${pinnedATask.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestPinnedATask,
         data: pinnedATask.toJson(),
       );
-      log("=> Response Pinned A Task  :");
+      log("=> Response pinnedATask  ");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException pinnedATask $e');
@@ -170,11 +170,12 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SuccessResponce>> unpinATask(
       {required UnpinATaskModel unpinATask}) async {
     try {
+      log('unpin a task TO JOSN == > ${unpinATask.toJson()}');
       final response = await apiService.patch(
         ApiEndPoints.taskTestPinnedATask,
         data: unpinATask.toJson(),
       );
-      log("=> Response Pinned A Task  :");
+      log("=> Response unpinATask  :");
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException unpinATask $e');

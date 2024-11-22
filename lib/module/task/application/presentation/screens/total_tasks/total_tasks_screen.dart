@@ -1,8 +1,10 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/custom_pop_menubutton.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
+import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
@@ -11,8 +13,8 @@ import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
 
 class TotalTasksScreen extends StatelessWidget {
   const TotalTasksScreen({super.key});
@@ -48,6 +50,7 @@ class TotalTasksScreen extends StatelessWidget {
                 homeController.changeSelectedTaskCategory('All');
                 taskController.changeFilterTaskType('all');
                 taskController.filterByType();
+                taskController.filterPinnedTasksByType();
                 Navigator.of(context).pop();
               },
             ),
@@ -59,6 +62,7 @@ class TotalTasksScreen extends StatelessWidget {
                 homeController.changeSelectedTaskCategory('Self to self');
                 taskController.changeFilterTaskType('self_to_self');
                 taskController.filterByType();
+                taskController.filterPinnedTasksByType();
                 Navigator.of(context).pop();
               },
             ),
@@ -70,6 +74,7 @@ class TotalTasksScreen extends StatelessWidget {
                 homeController.changeSelectedTaskCategory('Self to others');
                 taskController.changeFilterTaskType('self_to_others');
                 taskController.filterByType();
+                taskController.filterPinnedTasksByType();
                 Navigator.of(context).pop();
               },
             ),
@@ -81,6 +86,7 @@ class TotalTasksScreen extends StatelessWidget {
                 homeController.changeSelectedTaskCategory('Others to self');
                 taskController.changeFilterTaskType('others_to_self');
                 taskController.filterByType();
+                taskController.filterPinnedTasksByType();
                 Navigator.of(context).pop();
               },
             ),
@@ -196,15 +202,7 @@ class TotalTasksScreen extends StatelessWidget {
                               width: 320.w,
                               height: 100.h,
                               decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xFF59FBFB),
-                                    Color(0xFF379D98),
-                                    Color(0xFF59F6FB),
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
+                                gradient: neonNewLinearGradient,
                                 borderRadius: kBorderRadius15,
                                 border: Border.all(color: kwhite, width: 3),
                               ),
@@ -268,7 +266,7 @@ class TotalTasksScreen extends StatelessWidget {
                                                   .onTertiary,
                                               size: 18,
                                             ),
-                                            adjustWidth(8.w),
+                                            adjustWidth(3.w),
                                             Text(
                                               taskController
                                                           .allPinnedTasks[index]
@@ -286,11 +284,12 @@ class TotalTasksScreen extends StatelessWidget {
                                                   .textTheme
                                                   .displaySmall
                                                   ?.copyWith(
-                                                    fontSize: 10,
+                                                    fontSize: 9,
                                                     color: Theme.of(context)
                                                         .colorScheme
                                                         .onTertiary,
                                                   ),
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ],
                                         ),
@@ -304,11 +303,12 @@ class TotalTasksScreen extends StatelessWidget {
                                               .textTheme
                                               .displaySmall
                                               ?.copyWith(
-                                                fontSize: 10,
+                                                fontSize: 8,
                                                 color: Theme.of(context)
                                                     .colorScheme
                                                     .onTertiary,
                                               ),
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ],
                                     )
@@ -367,16 +367,48 @@ class TotalTasksScreen extends StatelessWidget {
                         taskController.filterByType();
                       },
                       child: ListView.builder(
+                        controller: taskController.typeTasksScrollController,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 0),
+                        itemCount: taskController.typeTasks.length +
+                            (taskController.filterByTypeLoadMoreLoading.value
+                                ? 1
+                                : 0),
                         itemBuilder: (context, index) {
-                          return TaskContainer(
-                            tasksFromFilterSection: true,
-                            typeTask: taskController.typeTasks[index],
-                            index: index,
-                          );
+                          if (index == taskController.typeTasks.length &&
+                              taskController
+                                  .filterByTypeLoadMoreLoading.value) {
+                            return ShimmerLoaderTaskContainer(
+                              height: 50.h,
+                              itemCount: 1,
+                              width: double.infinity,
+                            );
+                          } else {
+                            final typeTask = taskController.typeTasks[index];
+
+                            return GestureDetector(
+                              onLongPress: () {
+                                // controller.longPress(index);
+                              },
+                              onTap: () {
+                                taskController.fetchSingleTask(
+                                    singleTaskModel: GetSingleTaskModel(
+                                        taskId: typeTask.id));
+
+                                GoRouter.of(context).pushNamed(
+                                  Routes.taskDeail,
+                                  pathParameters: {"taskId": '${typeTask.id}'},
+                                );
+                                // log('Task id form filter by type==> ${typeTask.id}');
+                              },
+                              child: TaskContainer(
+                                tasksFromFilterSection: true,
+                                index: index,
+                                typeTask: typeTask,
+                              ),
+                            );
+                          }
                         },
-                        itemCount: taskController.typeTasks.length,
                       ),
                     );
                   }

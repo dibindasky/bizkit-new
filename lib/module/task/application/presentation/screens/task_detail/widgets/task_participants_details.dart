@@ -177,7 +177,9 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                               )
                             else
                               Text(
-                                'Assigned By',
+                                task.createdBy == task.createdUserDetails?.id
+                                    ? 'Created By'
+                                    : 'Assigned By',
                                 style: Theme.of(context).textTheme.displaySmall,
                               ),
                             if (taskController.isLoading.value)

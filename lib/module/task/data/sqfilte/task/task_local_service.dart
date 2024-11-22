@@ -547,7 +547,7 @@ class TaskLocalService implements TaskLocalRepo {
         taskModel.id ?? '', // for WHERE clause
         currentUserId, // for WHERE clause
       ];
-      log('Values == > $values');
+
       await localService.rawUpdate(query, values);
 
       log('updateTaskFromLocalStorage success');
@@ -596,7 +596,7 @@ class TaskLocalService implements TaskLocalRepo {
       /// Check if the task is present in the database
       final bool present =
           await localService.presentOrNot(query, [taskModel.id, await userId]);
-      log('present ===> $present');
+
       // If not present, add the task; otherwise, update it
       if (!present) {
         return await addTaskToLocalStorage(taskModel: taskModel);

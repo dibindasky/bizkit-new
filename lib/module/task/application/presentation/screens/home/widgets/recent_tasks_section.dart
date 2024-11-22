@@ -33,12 +33,21 @@ class RecentTasksSection extends StatelessWidget {
                   .displaySmall
                   ?.copyWith(fontSize: 14),
             ),
-            Text(
-              'See all',
-              style: Theme.of(context)
-                  .textTheme
-                  .displaySmall
-                  ?.copyWith(fontSize: 14),
+            GestureDetector(
+              onTap: () {
+                homeController.changeSelectedTaskCategory('All');
+                taskController.changeFilterTaskType('all');
+                taskController.filterByType();
+                taskController.filterPinnedTasksByType();
+                Get.toNamed(Routes.taskLists, id: 1);
+              },
+              child: Text(
+                'See all',
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontSize: 14),
+              ),
             ),
           ],
         ),
@@ -73,6 +82,13 @@ class RecentTasksSection extends StatelessWidget {
                           ? homeController.toOthersTasks.length
                           : homeController.toMeTasks.length,
                   itemBuilder: (context, index) {
+                    var recnetTask =
+                        homeController.taskStatusTabIndex.value == 0
+                            ? homeController.selfieTasks[index]
+                            : homeController.taskStatusTabIndex.value == 1
+                                ? homeController.toOthersTasks[index]
+                                : homeController.toMeTasks[index];
+
                     return GestureDetector(
                       onTap: () {
                         taskController.fetchSingleTask(
@@ -171,13 +187,16 @@ class RecentTasksSection extends StatelessWidget {
                                               BorderRadius.circular(12),
                                           child: LinearProgressIndicator(
                                             minHeight: 8,
-                                            value: 45.toDouble() / 100,
+                                            value: homeController
+                                                .recentTaskProgress(
+                                                    recnetTask.createdAt,
+                                                    recnetTask.deadLine),
                                             backgroundColor: klightGrey,
                                             valueColor:
                                                 AlwaysStoppedAnimation<Color>(
-                                                    index == 0 || index == 2
-                                                        ? kred
-                                                        : kneon),
+                                                    taskSpotLightColorChanger(
+                                                        recnetTask.createdAt,
+                                                        recnetTask.deadLine)),
                                           ),
                                         ),
                                       ),

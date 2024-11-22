@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -239,7 +241,7 @@ class CreateTaskController extends GetxController {
 
   RxBool filterByTypeLoading =
       false.obs; // Loading state when filtering tasks by type
-
+  RxBool pinnedTasksFilterByTypeLoading = false.obs;
   RxBool pinnedTasksLoadMoreLoading =
       false.obs; // Loading state for loading more pinned tasks
 
@@ -1042,61 +1044,54 @@ class CreateTaskController extends GetxController {
       required BuildContext context,
       required bool tasksFromTasksList,
       required bool tasksFromFilterSection}) async {
-    // if (tasksFromFilterSection) {
-    //   filterByTypeLoading.value = true;
-    // }
-    // pinLoader.value = true;
-    // if (tasksFromTasksList) {
-    //   taksListLoading.value = true;
-    // }
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.pinnedATask(pinnedATask: pinnedATask);
     result.fold(
       (error) {
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
-        if (tasksFromFilterSection) {
-          filterByTypeLoading.value = false;
-        }
-        if (tasksFromTasksList) {
-          taksListLoading.value = false;
-        }
-        pinLoader.value = false;
       },
       (success) async {
         update();
         // if (pinnedATask.isPinned == false) {
-        //   log('inside');
         //   allPinnedTasks.removeWhere((e) => e.id == pinnedATask.taskId);
         //   pinLoader.value = false;
-        //   if (tasksFromTasksList) {
-        //     taksListLoading.value = false;
-        //   }
-        //   if (tasksFromFilterSection) {
-        //     filterByTypeLoading.value = false;
-        //   }
         //   update();
         // }
+        // Flag to track if local storage was updated
         bool localUpdated = false;
 
+        // Update the task in the `typeTasks` list
         final typeTaskindex = typeTasks.indexWhere(
           (element) => element.id == pinnedATask.taskId,
         );
 
         if (typeTaskindex != null && typeTaskindex != -1) {
+          // Copy the task with the updated `isPinned` value
           var task = typeTasks[typeTaskindex].copyWith(isPinned: true);
+
+          // Update the task in the list
           typeTasks[typeTaskindex] = task;
+
+          // Add the task to the pinned tasks list
           allPinnedTasks.insert(0, task);
+
           await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-            taskModel: task,
+            taskModel: task, // Save the updated task locally
           );
+
+          // Mark local storage as updated
           localUpdated = true;
         }
 
+        // Update the task in the `deadlineTasks` list
         final deadlineTaskindex = deadlineTasks.indexWhere(
           (element) => element.id == pinnedATask.taskId,
         );
@@ -1104,8 +1099,10 @@ class CreateTaskController extends GetxController {
         if (deadlineTaskindex != null && deadlineTaskindex != -1) {
           var task = deadlineTasks[deadlineTaskindex].copyWith(isPinned: true);
           deadlineTasks[deadlineTaskindex] = task;
-          allPinnedTasks.insert(0, task);
+
+          // Save the updated task locally if not already updated
           if (!localUpdated) {
+            allPinnedTasks.insert(0, task);
             await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
               taskModel: task,
             );
@@ -1133,65 +1130,64 @@ class CreateTaskController extends GetxController {
       required BuildContext context,
       required bool tasksFromTasksList,
       required bool tasksFromFilterSection}) async {
-    // isLoading.value = true;
-    // if (tasksFromFilterSection) {
-    //   filterByTypeLoading.value = true;
-    // }
-    // if (tasksFromTasksList) {
-    //   taksListLoading.value = true;
-    // }
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.unpinATask(unpinATask: unpinATask);
     result.fold(
       (failure) {
-        isLoading.value = false;
-        if (tasksFromTasksList) {
-          taksListLoading.value = false;
-        }
-        if (tasksFromFilterSection) {
-          filterByTypeLoading.value = false;
-        }
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
         log(failure.message.toString());
       },
       (success) async {
-        isLoading.value = false;
+        // Flag to track if local storage was updated
         bool localUpdated = false;
-        // Filtered task
+
+        /// Update the task in the `typeTasks` list
         final typeTaskindex = typeTasks.indexWhere(
           (element) => element.id == unpinATask.taskId,
         );
 
         if (typeTaskindex != null && typeTaskindex != -1) {
+          // Copy the task with the updated `isPinned` value
           var task = typeTasks[typeTaskindex].copyWith(isPinned: false);
-          typeTasks[typeTaskindex] = task;
+
+          typeTasks[typeTaskindex] = task; // Update the task in the list
+
           await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-            taskModel: task,
+            taskModel: task, // Save the updated task locally
           );
+
+          // Mark local storage as updated
           localUpdated = true;
         }
 
-        // PinnedTask
+        /// Remove the task from the `allPinnedTasks` list
         final pinnedIndex = allPinnedTasks.indexWhere(
           (element) => element.id == unpinATask.taskId,
         );
 
         if (pinnedIndex != null && pinnedIndex != -1) {
           var task = allPinnedTasks[pinnedIndex].copyWith(isPinned: false);
-          allPinnedTasks.removeAt(pinnedIndex);
+          allPinnedTasks
+              .removeAt(pinnedIndex); // Remove the task from pinned tasks
+
           if (!localUpdated) {
             await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-              taskModel: task,
+              taskModel:
+                  task, // Save the updated task locally if not already updated
             );
             localUpdated = true;
           }
         }
 
+        /// Update the task in the `deadlineTasks` list
         final deadlineTaskindex = deadlineTasks.indexWhere(
           (element) => element.id == unpinATask.taskId,
         );
@@ -1277,7 +1273,7 @@ class CreateTaskController extends GetxController {
 
   // Filters pinned tasks by type using the provided model
   void filterPinnedTasksByType({bool pinn = false}) async {
-    filterByTypeLoading.value = true;
+    pinnedTasksFilterByTypeLoading.value = true;
     pinnedTasksPageNumber = 1;
     allPinnedTasks.value = [];
 
@@ -1291,12 +1287,11 @@ class CreateTaskController extends GetxController {
     update();
     result.fold(
       (failure) {
-        filterByTypeLoading.value = false;
+        pinnedTasksFilterByTypeLoading.value = false;
       },
       (success) {
         allPinnedTasks.assignAll(success.data ?? []);
-        filterByTypeLoading.value = false;
-
+        pinnedTasksFilterByTypeLoading.value = false;
         update();
       },
     );

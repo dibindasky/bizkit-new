@@ -129,14 +129,34 @@ class _ScreenLoginState extends State<ScreenLogin>
                               child: Obx(() {
                                 return controller.loadingLogin.value
                                     ? const LoadingAnimation()
-                                    : Container(
-                                        width: double.infinity,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            color: kneonShade),
-                                        child: GestureDetector(
+                                    : GestureDetector(
+                                        onTap: () {
+                                          if (loginOtpKey.currentState!
+                                              .validate()) {
+                                            final isEmail = isValidEmail(
+                                                emailPhoneController.text);
+                                            FocusScope.of(context).unfocus();
+                                            controller.loginUser(
+                                              context,
+                                              authPostModel: isEmail
+                                                  ? AuthPostmodel(
+                                                      email:
+                                                          emailPhoneController
+                                                              .text)
+                                                  : AuthPostmodel(
+                                                      phoneNumber:
+                                                          '+91${emailPhoneController.text}'),
+                                              emailLogin: isEmail,
+                                            );
+                                          }
+                                        },
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 55,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              color: kneonShade),
                                           child: Center(
                                               child: Text(
                                             'Send otp',
@@ -144,26 +164,6 @@ class _ScreenLoginState extends State<ScreenLogin>
                                                 .textTheme
                                                 .titleMedium,
                                           )),
-                                          onTap: () {
-                                            if (loginOtpKey.currentState!
-                                                .validate()) {
-                                              final isEmail = isValidEmail(
-                                                  emailPhoneController.text);
-                                              FocusScope.of(context).unfocus();
-                                              controller.loginUser(
-                                                context,
-                                                authPostModel: isEmail
-                                                    ? AuthPostmodel(
-                                                        email:
-                                                            emailPhoneController
-                                                                .text)
-                                                    : AuthPostmodel(
-                                                        phoneNumber:
-                                                            '+91${emailPhoneController.text}'),
-                                                emailLogin: isEmail,
-                                              );
-                                            }
-                                          },
                                         ),
                                       );
                               }),

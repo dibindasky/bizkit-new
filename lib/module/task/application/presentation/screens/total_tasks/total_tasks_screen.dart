@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
@@ -118,6 +119,7 @@ class TotalTasksScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: knill,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: GetBuilder<TaskHomeScreenController>(
           builder: (controller) {
             return GestureDetector(
@@ -149,201 +151,172 @@ class TotalTasksScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: SizedBox(
-                width: double.infinity,
-                height: 130.h,
-                child: Obx(
-                  () {
-                    if (taskController.filterByTypeLoading.value ||
-                        taskController.pinLoader.value) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 4),
-                        child: ShimmerLoader(
-                          width: 320.w,
-                          height: 100.h,
-                          itemCount: 10,
-                          seprator: kWidth10,
-                          scrollDirection: Axis.horizontal,
-                        ),
-                      );
-                    } else if (taskController.allPinnedTasks.isEmpty) {
-                      return RefreshIndicator(
-                        onRefresh: () async {
-                          taskController.filterPinnedTasksByType();
-                        },
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(60.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.push_pin),
-                                adjustWidth(10.w),
-                                Text(
-                                  'No pinned tasks',
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    } else {
-                      return ListView.separated(
+            Obx(
+              () => Visibility(
+                visible: taskController.pinnedTasksFilterByTypeLoading.value ||
+                        taskController.allPinnedTasks.isEmpty
+                    ? false
+                    : true,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SizedBox(
+                      width: double.infinity,
+                      height: 130.h,
+                      child: ListView.separated(
+                        controller: taskController.pinnedTasksScrollController,
+                        shrinkWrap: true,
                         separatorBuilder: (context, index) => kWidth10,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return Card(
-                            child: Container(
-                              width: 320.w,
-                              height: 100.h,
-                              decoration: BoxDecoration(
-                                gradient: neonNewLinearGradient,
-                                borderRadius: kBorderRadius15,
-                                border: Border.all(color: kwhite, width: 3),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 4),
-                              child: Stack(children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          taskController.allPinnedTasks[index]
-                                                  .title ??
-                                              'title',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displayMedium
-                                              ?.copyWith(
-                                                fontSize: 13,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onTertiary,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                    adjustHieght(10.h),
-                                    Text(
-                                      taskController.allPinnedTasks[index]
-                                              .description ??
-                                          'description',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall
-                                          ?.copyWith(
-                                            fontSize: 10,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onTertiary,
+                          return FadeIn(
+                            animate: true,
+                            child: Card(
+                              child: Container(
+                                width: 320.w,
+                                height: 100.h,
+                                decoration: BoxDecoration(
+                                  gradient: neonNewLinearGradient,
+                                  borderRadius: kBorderRadius15,
+                                  border: Border.all(color: kwhite, width: 3),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 4),
+                                child: Stack(children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            taskController.allPinnedTasks[index]
+                                                    .title ??
+                                                'title',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayMedium
+                                                ?.copyWith(
+                                                  fontSize: 13,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onTertiary,
+                                                ),
                                           ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                      softWrap: true,
-                                    ),
-                                    adjustHieght(30.h),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Iconsax.calendar_1,
+                                        ],
+                                      ),
+                                      adjustHieght(10.h),
+                                      Text(
+                                        taskController.allPinnedTasks[index]
+                                                .description ??
+                                            'description',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(
+                                              fontSize: 10,
                                               color: Theme.of(context)
                                                   .colorScheme
                                                   .onTertiary,
-                                              size: 18,
                                             ),
-                                            adjustWidth(3.w),
-                                            Text(
-                                              taskController
-                                                          .allPinnedTasks[index]
-                                                          .deadLine !=
-                                                      null
-                                                  ? DateTimeFormater
-                                                      .formatDateForPinnedTaskCard(
-                                                          taskController
-                                                                  .allPinnedTasks[
-                                                                      index]
-                                                                  .deadLine ??
-                                                              '')
-                                                  : '',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall
-                                                  ?.copyWith(
-                                                    fontSize: 9,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onTertiary,
-                                                  ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ],
-                                        ),
-                                        Text(
-                                          taskController.allPinnedTasks[index]
-                                                      .isOwned ==
-                                                  true
-                                              ? 'Created by ${taskController.allPinnedTasks[index].createdBy?.name ?? 'name'}'
-                                              : 'Assgined by ${taskController.allPinnedTasks[index].createdBy?.name ?? 'name'}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall
-                                              ?.copyWith(
-                                                fontSize: 8,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        softWrap: true,
+                                      ),
+                                      adjustHieght(30.h),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Iconsax.calendar_1,
                                                 color: Theme.of(context)
                                                     .colorScheme
                                                     .onTertiary,
+                                                size: 18,
                                               ),
-                                          overflow: TextOverflow.ellipsis,
+                                              adjustWidth(3.w),
+                                              Text(
+                                                taskController
+                                                            .allPinnedTasks[
+                                                                index]
+                                                            .deadLine !=
+                                                        null
+                                                    ? DateTimeFormater
+                                                        .formatDateForPinnedTaskCard(
+                                                            taskController
+                                                                    .allPinnedTasks[
+                                                                        index]
+                                                                    .deadLine ??
+                                                                '')
+                                                    : '',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displaySmall
+                                                    ?.copyWith(
+                                                      fontSize: 9,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onTertiary,
+                                                    ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            taskController.allPinnedTasks[index]
+                                                        .isOwned ==
+                                                    true
+                                                ? 'Created by ${taskController.allPinnedTasks[index].createdBy?.name ?? 'name'}'
+                                                : 'Assgined by ${taskController.allPinnedTasks[index].createdBy?.name ?? 'name'}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displaySmall
+                                                ?.copyWith(
+                                                  fontSize: 8,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onTertiary,
+                                                ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Positioned(
+                                    right: -1,
+                                    top: 1,
+                                    child: CircleAvatar(
+                                      backgroundColor: kwhite.withOpacity(0.2),
+                                      child: Transform.rotate(
+                                        angle: 0.7,
+                                        child: const Icon(
+                                          Icons.push_pin,
+                                          color: kwhite,
                                         ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Positioned(
-                                  right: -1,
-                                  top: 1,
-                                  child: CircleAvatar(
-                                    backgroundColor: kwhite.withOpacity(0.2),
-                                    child: Transform.rotate(
-                                      angle: 0.7,
-                                      child: const Icon(
-                                        Icons.push_pin,
-                                        color: kwhite,
                                       ),
                                     ),
-                                  ),
-                                )
-                              ]),
+                                  )
+                                ]),
+                              ),
                             ),
                           );
                         },
                         itemCount: taskController.allPinnedTasks.length,
-                      );
-                    }
-                  },
+                      )),
                 ),
               ),
             ),
             Expanded(
               child: Obx(
                 () {
-                  if (taskController.filterByTypeLoading.value ||
-                      taskController.pinLoader.value) {
+                  if (taskController.filterByTypeLoading.value) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15.0, vertical: 5),

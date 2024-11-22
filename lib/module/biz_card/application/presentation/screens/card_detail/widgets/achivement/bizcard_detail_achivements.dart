@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -210,24 +211,8 @@ class _BizCardDeatailAchivementsState extends State<BizCardDeatailAchivements> {
                                               SizedBox(
                                                 height: 230,
                                                 width: double.infinity,
-                                                child: Image.memory(
-                                                  base64.decode(achivement[
-                                                                  index]
-                                                              .images !=
-                                                          null
-                                                      ? achivement[index]
-                                                              .images![0]
-                                                              // .image!
-                                                              .startsWith(
-                                                                  'data')
-                                                          ? achivement[index]
-                                                              .images![0]
-                                                              // .image!
-                                                              .substring(22)
-                                                          : achivement[index]
-                                                              .images![0]
-                                                      // .image!
-                                                      : personDemoImg),
+                                                child: NetworkImageWithLoader(
+                                                  achivement[index].images![0],
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),

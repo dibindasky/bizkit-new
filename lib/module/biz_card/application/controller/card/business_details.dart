@@ -40,6 +40,7 @@ class BusinesDetailsController extends GetxController {
   RxBool achivementLoading = false.obs;
   RxBool brochureLoading = false.obs;
   RxBool productsLoading = false.obs;
+  RxList<String> deleteProductIds = <String>[].obs;
 
   // Busiiness Initail Details
   //TextEditingController companyNumber = TextEditingController();
@@ -85,9 +86,9 @@ class BusinesDetailsController extends GetxController {
   PdfModel? pdf;
 
   // Business Products Controllers
-  RxList<ImageCard> productImages = <ImageCard>[].obs;
-  List<ImageCard> productExistingImages = [];
-  List<ImageCard> productNewImageList = [];
+  RxList<String> productImages = <String>[].obs;
+  List<String> productExistingImages = [];
+  List<String> productNewImageList = [];
   TextEditingController businessProductName = TextEditingController();
   TextEditingController businessProductDescription = TextEditingController();
   RxBool productEnquiry = false.obs;
@@ -469,21 +470,28 @@ class BusinesDetailsController extends GetxController {
   void logImageAdding(bool isCam) async {
     final image = await ImagePickerClass.getImage(camera: isCam);
     if (image != null) {
-      logoImage.value = ImageCard(image: image.base64);
+      logoImage.value = ImageCard(image: image.base64, networkImage: false);
     }
   }
 
   addCropedLogoImage({required String base64}) {
     logoLoading.value = true;
-    logoImage.value.image = base64;
+    logoImage.value
+      ..image = base64
+      ..networkImage = false;
     logoLoading.value = false;
   }
 
   void logImagesRemove() {
-    logoImage.value = ImageCard();
+    final cardController = Get.find<CardController>();
+    logoImage.value = ImageCard(
+        networkImage: true,
+        image:
+            cardController.bizcardDetail.value.businessDetails?.businessLogo);
   }
 
   void logoAdd({required BuildContext context}) async {
+    if (logoImage.value.networkImage) return;
     isLoading.value = true;
     final cardController = Get.find<CardController>();
     LogoModel logoModel = LogoModel(
@@ -509,6 +517,7 @@ class BusinesDetailsController extends GetxController {
   void takeLogoDetails() async {
     final cardController = Get.find<CardController>();
     logoImage.value = ImageCard(
+        networkImage: true,
         image:
             cardController.bizcardDetail.value.businessDetails?.businessLogo);
     businessLogoLebel.text =
@@ -614,7 +623,7 @@ class BusinesDetailsController extends GetxController {
       description: businessProductDescription.text,
       enquiry: productEnquiry.value,
       title: businessProductName.text,
-      images: productExistingImages.map((e) => e.image!).toList(),
+      images: productExistingImages,
     );
     final data =
         await businessRepo.businessProductAdding(productModel: productModel);
@@ -653,7 +662,7 @@ class BusinesDetailsController extends GetxController {
         description: businessProductDescription.text,
         enquiry: productEnquiry.value,
         title: businessProductName.text,
-        images: productExistingImages.map((e) => e.image!).toList(),
+        images: productExistingImages,
         productId: cardController
             .bizcardDetail.value.businessDetails?.product?[productIndex].id);
     final data =
@@ -680,6 +689,7 @@ class BusinesDetailsController extends GetxController {
             cardController.bizcardDetail.value.businessDetails?.id ?? '',
         productId: cardController
             .bizcardDetail.value.businessDetails?.product?[productIndex].id);
+    deleteProductIds.add(productDeletion.productId ?? '');
     final data = await businessRepo.businessProductDeleting(
         productDeletion: productDeletion);
     data.fold(
@@ -692,6 +702,8 @@ class BusinesDetailsController extends GetxController {
         showSnackbar(context, message: 'Product Deleted Successfully');
       },
     );
+    deleteProductIds
+        .removeWhere((element) => element == (productDeletion.productId ?? ''));
   }
 
   void bankingDetailsAdding(BuildContext context) async {

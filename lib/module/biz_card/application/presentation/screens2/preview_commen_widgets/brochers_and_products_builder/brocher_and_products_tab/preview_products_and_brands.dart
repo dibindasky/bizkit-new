@@ -103,15 +103,15 @@ class CardProductsBrandsLists extends StatelessWidget {
                                         ? Image.memory(
                                             base64.decode(networkImages[index]
                                                     .images![0]
-                                                    .image!
+                                                    
                                                     .startsWith('data')
                                                 ? networkImages[index]
                                                     .images![0]
-                                                    .image!
+                                                    
                                                     .substring(22)
                                                 : networkImages[index]
                                                     .images![0]
-                                                    .image!),
+                                                    ),
                                             fit: BoxFit.cover,
                                             errorBuilder: (context, error,
                                                     stackTrace) =>

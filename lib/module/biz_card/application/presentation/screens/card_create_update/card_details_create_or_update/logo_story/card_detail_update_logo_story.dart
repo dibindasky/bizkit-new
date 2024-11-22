@@ -9,6 +9,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_cre
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/image_croper.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
@@ -103,60 +104,65 @@ class _CardUpdateLogoStoryDetailsState
                           )
                         : Stack(
                             children: [
-                              SizedBox(
-                                width: kwidth * 0.8,
-                                height:
-                                    businessController.logoImage.value.image !=
-                                                null &&
-                                            businessController
-                                                    .logoImage.value.image !=
-                                                ''
-                                        ? 300.h
-                                        : kwidth * 0.25,
-                                child: businessController.logoImage.value !=
-                                            null &&
-                                        businessController
-                                                .logoImage.value.image !=
-                                            null
-                                    ? InkWell(
-                                        onTap: () {
-                                          // Navigator.push(
-                                          //     context,
-                                          //     cardFadePageRoute(
-                                          //         SlidablePhotoGallery(images: [
-                                          //       businessController
-                                          //               .logoImage.value.image ??
-                                          //           ''
-                                          //     ])));
-                                        },
-                                        child: Image.memory(
-                                          base64.decode(businessController
-                                                  .logoImage.value.image ??
-                                              ''),
-                                          fit: BoxFit.cover,
-                                          height: 200,
-                                          width: double.infinity,
-                                        ),
-                                      )
-                                    : Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            width: 32.dm,
-                                            height: 32.dm,
-                                            child: const CircleAvatar(
-                                              child: Icon(Icons.add),
+                              AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: businessController.logoImage.value !=
+                                              null &&
+                                          businessController
+                                                  .logoImage.value.image !=
+                                              null
+                                      ? InkWell(
+                                          onTap: () {
+                                            // Navigator.push(
+                                            //     context,
+                                            //     cardFadePageRoute(
+                                            //         SlidablePhotoGallery(images: [
+                                            //       businessController
+                                            //               .logoImage.value.image ??
+                                            //           ''
+                                            //     ])));
+                                          },
+                                          child: businessController
+                                                  .logoImage.value.networkImage
+                                              ? NetworkImageWithLoader(
+                                                  businessController.logoImage
+                                                          .value.image ??
+                                                      '',
+                                                  fit: BoxFit.cover)
+                                              : Image.memory(
+                                                  base64.decode(
+                                                      businessController
+                                                              .logoImage
+                                                              .value
+                                                              .image ??
+                                                          ''),
+                                                  fit: BoxFit.cover,
+                                                  height: 200,
+                                                  width: double.infinity,
+                                                ),
+                                        )
+                                      : Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 32.dm,
+                                              height: 32.dm,
+                                              child: const CircleAvatar(
+                                                child: Icon(Icons.add),
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            'Add logo from file',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displaySmall,
-                                          ),
-                                        ],
-                                      ),
+                                            Text(
+                                              'Add logo from file',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall,
+                                            ),
+                                          ],
+                                        ),
+                                ),
                               ),
                               businessController.logoImage.value.image != null
                                   ? Positioned(

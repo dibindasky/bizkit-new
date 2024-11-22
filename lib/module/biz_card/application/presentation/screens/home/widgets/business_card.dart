@@ -1,6 +1,8 @@
 import 'package:bizkit/core/model/bizcard_id_parameter_model/bizcard_id_parameter_model.dart';
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/bizcard_views_list_popup.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/contacts_list_bottom_share_card.dart';
@@ -48,45 +50,66 @@ class BusinessCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Card(
-                elevation: 0,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        bizcardEditIcon,
-                        width: 30,
-                      ),
-                      adjustHieght(3.h),
-                      Text(
-                        'Edit',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      )
-                    ],
+              InkWell(
+                onTap: () {
+                  if (bizcardController.isLoading.value) {
+                    return;
+                  }
+                  GoRouter.of(context).pushNamed(Routes.cardUpdating);
+                  Get.find<PersonalDetailsController>().getPersonalDetails(
+                      bizcardController.bizcardDetail.value);
+                  Get.find<BusinesDetailsController>().getBusinessDetails(
+                      bizcardController.bizcardDetail.value);
+                },
+                child: Card(
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          bizcardEditIcon,
+                          width: 30,
+                        ),
+                        adjustHieght(3.h),
+                        Text(
+                          'Edit',
+                          style: Theme.of(context).textTheme.displaySmall,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-              Card(
-                elevation: 0,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        bizcardPreviewIcon,
-                        width: 30,
-                      ),
-                      adjustHieght(3.h),
-                      Text(
-                        'Preview',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      )
-                    ],
+              InkWell(
+                onTap: () {
+                  GoRouter.of(context).pushNamed(Routes.cardDetailView,
+                      pathParameters: {
+                        'cardId': bizcard.bizcardId ?? "",
+                        'myCard': 'false'
+                      });
+                },
+                child: Card(
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          bizcardPreviewIcon,
+                          width: 30,
+                        ),
+                        adjustHieght(3.h),
+                        Text(
+                          'Preview',
+                          style: Theme.of(context).textTheme.displaySmall,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -124,8 +147,7 @@ class BusinessCard extends StatelessWidget {
                             ListTile(
                               onTap: () {
                                 GoRouter.of(context).pop();
-                                if (bizcard.qRLink
-                                   != null) {
+                                if (bizcard.qRLink != null) {
                                   GoRouter.of(context).pushNamed(
                                       Routes.slidablePhotoGallery,
                                       extra: {
@@ -142,8 +164,7 @@ class BusinessCard extends StatelessWidget {
                             ListTile(
                               onTap: () {
                                 GoRouter.of(context).pop();
-                                final link = 
-                                    bizcard.universalLink;
+                                final link = bizcard.universalLink;
                                 if (link != null && link.isNotEmpty) {
                                   Share.share('Checkout my Bizkit card $link');
                                 } else {

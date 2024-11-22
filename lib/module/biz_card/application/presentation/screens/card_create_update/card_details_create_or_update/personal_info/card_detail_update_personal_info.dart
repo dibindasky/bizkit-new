@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
@@ -95,53 +97,91 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                       //   );
                       // }),
 
-                      Stack(
-                        children: [
-                          Container(
-                            height: 100.h,
-                            width: 100.h,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100.h),
-                                border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.primary)),
-                            child: personalController.personalImages.isNotEmpty
-                                ? NetworkImageWithLoader(
-                                    personalController.personalImages.first,
-                                    radius: 100,
-                                  )
-                                : Image.asset(iconPersonOutline,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary),
-                          ),
-                          Positioned(
-                            bottom: 10.h,
-                            right: 5.h,
-                            child: GestureDetector(
-                              onTap: () {
-                                cameraAndGalleryPickImage(
-                                    tittle: 'Add Personal Image',
-                                    context: context,
-                                    onPressCam: () {
-                                      personalController
-                                          .personalImagesAdding(true);
-                                    },
-                                    onPressGallery: () {
-                                      personalController
-                                          .personalImagesAdding(false);
-                                    });
-                              },
-                              child: ClipRRect(
-                                borderRadius: kBorderRadius25,
-                                child: ColoredBox(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    child: Icon(Icons.add, size: 20.sp)),
+                      // GetX<PersonalDetailsController>(
+                      //   builder: (_) {
+                      // return
+                      Obx(
+                        () => Stack(
+                          children: [
+                            Container(
+                              height: 100.h,
+                              width: 100.h,
+                              decoration: BoxDecoration(
+                                  image:
+                                      personalController.personalImages.isEmpty
+                                          ? null
+                                          : DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: MemoryImage(base64Decode(
+                                                  personalController
+                                                      .personalImages.first))),
+                                  borderRadius: BorderRadius.circular(100.h),
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary)),
+                              child:
+                                  personalController.personalImages.isNotEmpty
+                                      ? null
+                                      : (cardController
+                                                  .bizcardDetail
+                                                  .value
+                                                  .personalDetails
+                                                  ?.images
+                                                  ?.isNotEmpty ??
+                                              false)
+                                          ? NetworkImageWithLoader(
+                                              cardController
+                                                  .bizcardDetail
+                                                  .value
+                                                  .personalDetails!
+                                                  .images!
+                                                  .first,
+                                              radius: 100,
+                                            )
+                                          : Image.asset(iconPersonOutline,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary),
+                            ),
+                            Positioned(
+                              bottom: 10.h,
+                              right: 5.h,
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (personalController
+                                      .personalImages.isNotEmpty) {
+                                    personalController.removePersonalImages(0);
+                                  } else {
+                                    cameraAndGalleryPickImage(
+                                        tittle: 'Add Personal Image',
+                                        context: context,
+                                        onPressCam: () {
+                                          personalController
+                                              .personalImagesAdding(true);
+                                        },
+                                        onPressGallery: () {
+                                          personalController
+                                              .personalImagesAdding(false);
+                                        });
+                                  }
+                                },
+                                child: ClipRRect(
+                                  borderRadius: kBorderRadius25,
+                                  child: ColoredBox(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      child: personalController
+                                              .personalImages.isNotEmpty
+                                          ? const Icon(Icons.close)
+                                          : Icon(Icons.add, size: 20.sp)),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        //       );
+                        // },
                       ),
                       kHeight20,
                       // personal name field
@@ -265,6 +305,7 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                           element.id == personalController.deletingId.value,
                     ),
                     ontap: () async {
+                      personalController.achivementDataClear();
                       await GoRouter.of(context)
                           .pushNamed(Routes.cardAchivementCreateUpdate, extra: {
                         'fromBusiness': false,

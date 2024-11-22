@@ -138,6 +138,7 @@ class CardController extends GetxController {
         bizcardDetail.value = r;
         isLoading.value = false;
         update();
+        update(['logo_story']);
       },
     );
   }

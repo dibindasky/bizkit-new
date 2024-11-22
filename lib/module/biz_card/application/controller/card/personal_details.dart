@@ -199,6 +199,7 @@ class PersonalDetailsController extends GetxController {
   }
 
   void achivementDataClear() {
+    achievementLoading.value = false;
     achievementDescription.clear();
     achievementEvent.clear();
     achievementDate.clear();

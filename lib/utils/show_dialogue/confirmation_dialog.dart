@@ -36,27 +36,32 @@ showCustomConfirmationDialogue(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: kneon)),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        'Cancel',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      )),
+                    style: OutlinedButton.styleFrom(
+                        side: BorderSide(
+                            color: Theme.of(context).colorScheme.primary)),
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                    child: Text(
+                      'Cancel',
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
+                  ),
                   adjustWidth(10),
                   OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          side: BorderSide(color: buttonColor)),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        onTap();
-                      },
-                      child: Text(
-                        buttonText,
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ))
+                    style: OutlinedButton.styleFrom(
+                        side: BorderSide(
+                            color: buttonColor ??
+                                Theme.of(context).colorScheme.primary)),
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                      onTap();
+                    },
+                    child: Text(
+                      buttonText,
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
+                  )
                 ],
               ),
             )

@@ -94,6 +94,16 @@ LinearGradient neonShadeGradient = const LinearGradient(
   end: Alignment.centerRight,
 );
 
+LinearGradient neonNewLinearGradient = const LinearGradient(
+  colors: [
+    Color(0xFF59FBFB),
+    Color(0xFF379D98),
+    Color(0xFF59F6FB),
+  ],
+  begin: Alignment.bottomLeft,
+  end: Alignment.topRight,
+);
+
 LinearGradient neonShadeLinearGradient = const LinearGradient(
   colors: [
     Color.fromRGBO(5, 202, 173, 1),

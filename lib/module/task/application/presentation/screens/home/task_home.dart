@@ -61,17 +61,6 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //     tooltip: 'Create new task',
-      //     onPressed: () {
-      //       Get.toNamed(Routes.addTask, id: 1, arguments: 1);
-      //     },
-      //     isExtended: true,
-      //     icon: const Icon(Iconsax.add),
-      //     label: Text(
-      //       'create task',
-      //       style: Theme.of(context).textTheme.displaySmall,
-      //     )),
     );
   }
 }

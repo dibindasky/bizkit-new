@@ -30,7 +30,7 @@ class FileMessageCard extends StatelessWidget {
         child: ClipPath(
           clipper: PollChatClipper(isSender: sender),
           child: AnimatedContainer(
-              color: sender ? neonShade.withGreen(190) : klightDarkGrey,
+              color: sender ? neonShade.withGreen(190) : kwhite,
               duration: const Duration(milliseconds: 300),
               padding: EdgeInsets.only(
                   left: !sender ? 15.w : 5.w,
@@ -46,16 +46,27 @@ class FileMessageCard extends StatelessWidget {
                       : Text(
                           message.username ?? '',
                           style: textThinStyle1.copyWith(
-                              fontSize: 8.sp, color: kwhite.withOpacity(0.7)),
+                              fontSize: 8.sp, color: kblack),
                         ),
                   message.fileType == 'pdf'
                       ? PdfMessageCard(message: message)
                       : message.fileType == 'jpg' || message.fileType == 'png'
                           ? ImageMessageCard(message: message)
-                          : const Text('Unknown file type'),
+                          : Text('Unknown file type',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(
+                                      color: sender ? kwhite : kblack,
+                                      fontSize: 13)),
+                  adjustHieght(5.h),
                   message.message!.isEmpty
                       ? kempty
-                      : Text(message.message ?? "", style: textStyle1),
+                      : Text(message.message ?? "",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(color: sender ? kwhite : kblack)),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Row(
@@ -64,8 +75,7 @@ class FileMessageCard extends StatelessWidget {
                         Text(
                           DateTimeFormater.formatTimeAMPM(message.timestamp),
                           style: textThinStyle1.copyWith(
-                              color: sender ? kgrey : klightgrey,
-                              fontSize: 8.sp),
+                              color: sender ? kgrey : kgrey, fontSize: 8.sp),
                         ),
                         sender ? kWidth10 : kempty,
                         sender

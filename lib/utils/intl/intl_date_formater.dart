@@ -95,6 +95,18 @@ class DateTimeFormater {
     return DateFormat('yyyy-MM-dd').format(date);
   }
 
+  static String formatDateForPinnedTaskCard(String deadline) {
+    try {
+      // Parse the date string to a DateTime object
+      DateTime parsedDate = DateTime.parse(deadline);
+      // Format the date
+      return DateFormat('MMMM d EEEE yyyy').format(parsedDate);
+    } catch (e) {
+      // Fallback in case of an error
+      return 'Invalid Date';
+    }
+  }
+
   static int calculateDifferenceInHours(String date1, String date2) {
     DateTime? parseDate(String date) {
       try {

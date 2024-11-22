@@ -21,22 +21,22 @@ class BizCardDetailScreen extends StatelessWidget {
     final cardController = Get.find<CardController>();
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        // if (cardId != null && myCard) {
-        //   cardController.cardDetail(cardId: cardId ?? '');
-        // } else if (!myCard) {
-        //   Get.find<ConnectionsController>()
-        //       .getConnectionCardDetail(cardId: cardId ?? '');
-        // }
+        if (cardId != null && myCard) {
+          cardController.cardDetail(cardId: cardId ?? '');
+        } else if (!myCard) {
+          Get.find<ConnectionsController>()
+              .getConnectionCardDetail(cardId: cardId ?? '');
+        }
       },
     );
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
           if (cardId != null && myCard) {
-            cardController.cardDetail(cardId: cardId ?? '');
+            cardController.cardDetail(cardId: cardId ?? '', refresh: true);
           } else if (!myCard) {
             Get.find<ConnectionsController>()
-                .getConnectionCardDetail(cardId: cardId ?? '');
+                .getConnectionCardDetail(cardId: cardId ?? '', refresh: true);
           }
         },
         child: SingleChildScrollView(

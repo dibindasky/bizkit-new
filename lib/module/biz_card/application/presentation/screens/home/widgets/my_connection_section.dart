@@ -178,43 +178,13 @@ class MyConnectionSection extends StatelessWidget {
                               onTap: () {
                                 //  todo  After the details page is done - todo this
 
-                                // if ((connectionsController
-                                //             .myConnections[cIndex]
-                                //             .cards
-                                //             ?.length ??
-                                //         0) >
-                                //     1) {
-                                //   showDialog(
-                                //     context: context,
-                                //     builder: (context) => Dialog(
-                                //       shape:
-                                //           BeveledRectangleBorder(
-                                //               borderRadius:
-                                //                   kBorderRadius10),
-                                //       child: CardsbasedOnUserConnection(
-                                //           card:
-                                //               connectionsController
-                                //                   .myConnections[
-                                //                       cIndex]
-                                //                   .cards),
-                                //     ),
-                                //   );
-                                // } else {
-                                //   final id = connectionsController
-                                //       .myConnections[cIndex].cards
-                                //       ?.map((e) => e.toCard)
-                                //       .toList();
-                                //   Map<String, String> map = id !=
-                                //           null
-                                //       ? {
-                                //           'myCard': 'false',
-                                //           'cardId': id.first ?? ''
-                                //         }
-                                //       : <String, String>{};
-                                //   GoRouter.of(context).pushNamed(
-                                //       Routes.cardDetailView,
-                                //       pathParameters: map);
-                                // }
+                                GoRouter.of(context).pushNamed(
+                                    Routes.cardDetailView,
+                                    pathParameters: {
+                                      'cardId':
+                                          connection.cards?.first.toCard ?? '',
+                                      'myCard': 'false'
+                                    });
                               },
                               child: const CircleAvatar(
                                 radius: 33,

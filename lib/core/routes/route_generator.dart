@@ -8,6 +8,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_and
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/achivements/bizcard_create_achivement_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/dates_to_remember/bizcard_dates_to_remember_create_update.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/products/bizcard_create_update_products.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/social_media_handles/card_detail_social_media_handle_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_bizcard.dart/create_business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_card_screen.dart';
@@ -35,6 +36,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens2/notific
 import 'package:bizkit/module/biz_card/application/presentation/screens2/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/varification_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/connections_and_networking.dart';
@@ -395,7 +397,19 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.cardDatesToRememberCreateUpdate,
       path: Routes.cardDatesToRememberCreateUpdate,
-      builder: (context, state) => const BizcardDatesToRememberCreateUpdateScreen(),
+      builder: (context, state) =>
+          const BizcardDatesToRememberCreateUpdateScreen(),
+    ),
+
+    GoRoute(
+      name: Routes.cardProductsCreateOrUpdate,
+      path: Routes.cardProductsCreateOrUpdate,
+      builder: (context, state) {
+        final map = state.extra as Map<String, dynamic>?;
+        return BizcardProductCreateUpdateScreen(
+            selctedIndex: map?['index'] as int?,
+            product: map?['product'] as Product?);
+      },
     ),
 
     GoRoute(

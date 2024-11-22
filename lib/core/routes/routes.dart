@@ -28,6 +28,7 @@ class Routes {
   static const String cardAchivementCreateUpdate = '/card_achivement_create_update';
   static const String cardSocialMediaCreateUpdate = '/card_social_media_create_update';
   static const String cardBankingOrPersonalDetail = '/card_banking_or_personal_detail';
+  static const String cardProductsCreateOrUpdate = '/card_product_create_or_update';
   static const String cardDatesToRememberCreateUpdate = '/card_dates_to_remember_create_update';
   static const String cardCreationPreview = '/card_creation_preview';
   static const String notificationPage = '/notification_page';

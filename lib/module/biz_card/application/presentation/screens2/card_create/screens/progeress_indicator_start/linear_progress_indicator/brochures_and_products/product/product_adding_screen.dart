@@ -99,16 +99,16 @@ class _CardAddPrductsScreenState extends State<CardAddPrductsScreen> {
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: () {
-                                          Navigator.of(context).push(
-                                              cardFadePageRoute(
-                                                  SlidablePhotoGallery(
-                                                      initialIndex: index,
-                                                      images: businessController
-                                                          .productExistingImages
-                                                          .map((e) => e.image!)
-                                                          .toList()
-                                                          .reversed
-                                                          .toList())));
+                                          // Navigator.of(context).push(
+                                          //     cardFadePageRoute(
+                                          //         SlidablePhotoGallery(
+                                          //             initialIndex: index,
+                                          //             images: businessController
+                                          //                 .productExistingImages
+                                          //                 .map((e) => e.image!)
+                                          //                 .toList()
+                                          //                 .reversed
+                                          //                 .toList())));
                                         },
                                         child: Stack(
                                           children: [
@@ -120,13 +120,14 @@ class _CardAddPrductsScreenState extends State<CardAddPrductsScreen> {
                                                     BorderRadius.circular(10),
                                                 child: Image.memory(
                                                   base64.decode(
-                                                    businessController
-                                                        .productExistingImages
-                                                        .map((e) =>
-                                                            e.image ?? '')
-                                                        .toList()
-                                                        .reversed
-                                                        .toList()[index],
+                                                    // businessController
+                                                    //     .productExistingImages
+                                                    //     .map((e) =>
+                                                    //         e.image ?? '')
+                                                    //     .toList()
+                                                    //     .reversed
+                                                    //     .toList()[index],
+                                                    ''
                                                   ),
                                                   fit: BoxFit.cover,
                                                 ),
@@ -308,22 +309,22 @@ class _CardAddPrductsScreenState extends State<CardAddPrductsScreen> {
         onPressCam: () async {
           final img = await ImagePickerClass.getImage(camera: true);
           if (img != null) {
-            businessController.productExistingImages
-                .add(ImageCard(image: img.base64));
-            businessController.productNewImageList
-                .add(ImageCard(image: img.base64));
-            setState(() {});
+            // businessController.productExistingImages
+            //     .add(ImageCard(image: img.base64));
+            // businessController.productNewImageList
+            //     .add(ImageCard(image: img.base64));
+            // setState(() {});
           }
         },
         onPressGallery: () async {
-          final img = await ImagePickerClass.getImage(camera: false);
-          if (img != null) {
-            businessController.productExistingImages
-                .add(ImageCard(image: img.base64));
-            businessController.productNewImageList
-                .add(ImageCard(image: img.base64));
-            setState(() {});
-          }
+          // final img = await ImagePickerClass.getImage(camera: false);
+          // if (img != null) {
+          //   businessController.productExistingImages
+          //       .add(ImageCard(image: img.base64));
+          //   businessController.productNewImageList
+          //       .add(ImageCard(image: img.base64));
+          //   setState(() {});
+          // }
         });
   }
 }

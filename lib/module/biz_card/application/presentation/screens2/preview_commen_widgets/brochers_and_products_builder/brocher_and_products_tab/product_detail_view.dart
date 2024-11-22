@@ -34,7 +34,7 @@ class _CardProductDetailViewState extends State<CardProductDetailView> {
   @override
   void initState() {
     super.initState();
-    updateImageCard = widget.product.images ?? [];
+    // updateImageCard = widget.product.images ?? [];
     switchValue = widget.product.enquiry ?? false;
     tittleController.text = widget.product.title ?? '';
     descriptionController.text = widget.product.description ?? '';
@@ -114,7 +114,7 @@ class _CardProductDetailViewState extends State<CardProductDetailView> {
                                   SlidablePhotoGallery(
                                       initialIndex: index,
                                       images: (widget.product.images ?? [])
-                                          .map((e) => e.image ?? '')
+                                          .map((e) => e ?? '')
                                           .toList())));
                             },
                             child: SizedBox(
@@ -122,7 +122,7 @@ class _CardProductDetailViewState extends State<CardProductDetailView> {
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.memory(
                                     base64.decode(
-                                      widget.product.images?[index].image ?? '',
+                                      widget.product.images?[index] ?? '',
                                     ),
                                     filterQuality: FilterQuality.high,
                                     fit: BoxFit.cover,

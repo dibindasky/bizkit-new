@@ -78,11 +78,14 @@ class ProductBuilder extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
                             image: MemoryImage(
-                              base64Decode(product != null &&
-                                      product.images != null &&
-                                      product.images!.isNotEmpty
-                                  ? product.images![0].image ?? ''
-                                  : imageTestingBase64.substring(22)),
+                              base64Decode(
+                                // product != null &&
+                                //       product.images != null &&
+                                //       product.images!.isNotEmpty
+                                //   ? product.images![0].image ?? ''
+                                //   : 
+                                  imageTestingBase64.substring(22)
+                                  ),
                             ),
                             onError: (exception, stackTrace) {
                               const Icon(Icons.image_not_supported_outlined);

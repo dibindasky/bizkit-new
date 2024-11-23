@@ -2,8 +2,8 @@ import 'package:bizkit/core/model/bizcard_id_parameter_model/bizcard_id_paramete
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/bizcard_views_list_popup.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/share_contact_bottomsheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';
-import 'package:bizkit/module/biz_card/application/presentation/widgets/contacts_list_bottom_share_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -110,7 +110,7 @@ class BusinessCard extends StatelessWidget {
                                 showBottomSheet(
                                   context: Scaffold.of(context).context,
                                   showDragHandle: true,
-                                  backgroundColor: kblack,
+                                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                                   builder: (context) =>
                                       ShareCardThroughContactBottomSheet(
                                           cardId: bizcard.bizcardId ?? ''),

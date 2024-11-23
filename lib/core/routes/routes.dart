@@ -28,6 +28,7 @@ class Routes {
   static const String cardAchivementCreateUpdate = '/card_achivement_create_update';
   static const String cardSocialMediaCreateUpdate = '/card_social_media_create_update';
   static const String cardBankingOrPersonalDetail = '/card_banking_or_personal_detail';
+  static const String cardProductsCreateOrUpdate = '/card_product_create_or_update';
   static const String cardDatesToRememberCreateUpdate = '/card_dates_to_remember_create_update';
   static const String cardCreationPreview = '/card_creation_preview';
   static const String notificationPage = '/notification_page';
@@ -36,6 +37,7 @@ class Routes {
   static const String selfieDataFeilds = '/selfie_data_feilds';
   static const String cardListingboth = '/card_listing_both';
   static const String cardUpdating = '/card_updating';
+  static const String receivedCardEdit = '/received_card_edit';
   static const String viewAllConnection = '/view_all_connection';
   static const String secondcardDetail = '/second_card_detail';
   static const String cardListing = '/card_listing';

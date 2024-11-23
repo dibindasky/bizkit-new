@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/bottom_sheets_and_pop_up/email_or_phone_list_bottomlist.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/received_card_detail/widgets/received_card_edit_page.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/scan_and_creation/widgets/second_card_field.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/packages/share/share_plus.dart';
 import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
@@ -86,8 +88,8 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
                 [
                   PopupMenuItem(
                     onTap: () {
-                      GoRouter.of(context).pushNamed(Routes.cardUpdating,
-                          extra: visitingCardController.visitingCardDetails);
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const CardSecondUpdation()));
+                      // GoRouter.of(context).pushNamed(Routes.receivedCardEdit);
                     },
                     value: 'Edit card',
                     child: const Text('Edit card'),

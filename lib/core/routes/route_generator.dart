@@ -8,6 +8,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_and
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/achivements/bizcard_create_achivement_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/dates_to_remember/bizcard_dates_to_remember_create_update.dart';
+// import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/products/bizcard_create_update_products.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/social_media_handles/card_detail_social_media_handle_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_bizcard.dart/create_business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_card_screen.dart';
@@ -22,6 +23,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/b
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_card_detail/received_card_detail_page.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/connection_details/connection_detail_filling.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/second_card_detail_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/update_second_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_view_deeplink/card_detail_view_deeplink.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/cards_listing/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/card_profile_creation/card_profile_creation.dart';
@@ -35,6 +37,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens2/notific
 import 'package:bizkit/module/biz_card/application/presentation/screens2/onbaording_screen/onbaording_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/varification_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/connections_and_networking.dart';
@@ -342,8 +345,8 @@ class GoRouterConfig {
       },
     ),
     // GoRoute(
-    //   name: Routes.cardUpdating,
-    //   path: Routes.cardUpdating,
+    //   name: Routes.receivedCardEdit,
+    //   path: Routes.receivedCardEdit,
     //   builder: (context, state) {
     //     return const CardSecondUpdation();
     //   },
@@ -395,8 +398,20 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.cardDatesToRememberCreateUpdate,
       path: Routes.cardDatesToRememberCreateUpdate,
-      builder: (context, state) => const BizcardDatesToRememberCreateUpdateScreen(),
+      builder: (context, state) =>
+          const BizcardDatesToRememberCreateUpdateScreen(),
     ),
+
+    // GoRoute(
+    //   name: Routes.cardProductsCreateOrUpdate,
+    //   path: Routes.cardProductsCreateOrUpdate,
+    //   builder: (context, state) {
+    //     final map = state.extra as Map<String, dynamic>?;
+    //     return BizcardProductCreateUpdateScreen(
+    //         selctedIndex: map?['index'] as int?,
+    //         product: map?['product'] as Product?);
+    //   },
+    // ),
 
     GoRoute(
       name: Routes.matchoMeter,

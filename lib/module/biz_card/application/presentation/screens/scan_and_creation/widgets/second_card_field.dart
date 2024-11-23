@@ -45,12 +45,12 @@ class CardSecondScannedDatas extends StatelessWidget {
               size: 17,
             ),
           ),
-          title: const Text(
+          title:  Text(
             'Make Received Card',
             style: TextStyle(
               fontFamily: 'Euclid',
               fontWeight: FontWeight.bold,
-              color: kwhite,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
           backgroundColor: knill,

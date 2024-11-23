@@ -23,6 +23,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/b
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_card_detail/received_card_detail_page.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/connection_details/connection_detail_filling.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/second_card_detail_view.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/update_second_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_view_deeplink/card_detail_view_deeplink.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/cards_listing/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/card_profile_creation/card_profile_creation.dart';
@@ -344,8 +345,8 @@ class GoRouterConfig {
       },
     ),
     // GoRoute(
-    //   name: Routes.cardUpdating,
-    //   path: Routes.cardUpdating,
+    //   name: Routes.receivedCardEdit,
+    //   path: Routes.receivedCardEdit,
     //   builder: (context, state) {
     //     return const CardSecondUpdation();
     //   },
@@ -411,6 +412,17 @@ class GoRouterConfig {
             product: map?['product'] as Product?);
       },
     ),
+
+    // GoRoute(
+    //   name: Routes.cardProductsCreateOrUpdate,
+    //   path: Routes.cardProductsCreateOrUpdate,
+    //   builder: (context, state) {
+    //     final map = state.extra as Map<String, dynamic>?;
+    //     return BizcardProductCreateUpdateScreen(
+    //         selctedIndex: map?['index'] as int?,
+    //         product: map?['product'] as Product?);
+    //   },
+    // ),
 
     GoRoute(
       name: Routes.matchoMeter,

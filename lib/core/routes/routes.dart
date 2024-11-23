@@ -37,6 +37,7 @@ class Routes {
   static const String selfieDataFeilds = '/selfie_data_feilds';
   static const String cardListingboth = '/card_listing_both';
   static const String cardUpdating = '/card_updating';
+  static const String receivedCardEdit = '/received_card_edit';
   static const String viewAllConnection = '/view_all_connection';
   static const String secondcardDetail = '/second_card_detail';
   static const String cardListing = '/card_listing';

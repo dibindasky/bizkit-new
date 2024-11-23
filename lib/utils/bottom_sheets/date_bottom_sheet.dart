@@ -26,16 +26,19 @@ class DatePickingBottomSheet extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+            Padding(
+              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Choose the date',
-                    //style: textHeadMedium1.copyWith(fontSize: sWidth * 0.04),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 13),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.calendar_month_outlined,
                     color: neonShade,
                   ),

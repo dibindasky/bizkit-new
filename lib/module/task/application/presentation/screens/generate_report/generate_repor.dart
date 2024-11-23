@@ -147,7 +147,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                       'Get report for your tasks',
                       style: Theme.of(context).textTheme.displaySmall?.copyWith(
                             fontSize: 18,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: kneonDark,
                           ),
                     ),
                     adjustHieght(8.h),
@@ -196,7 +196,8 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                       fillColor: textFieldFillColr,
                       suffixIcon: IconButton(
                         onPressed: () {},
-                        icon: const Icon(Iconsax.search_status, color: kneon),
+                        icon:
+                            const Icon(Iconsax.search_status, color: kneonDark),
                       ),
                     ),
                     adjustHieght(10.h),
@@ -247,14 +248,14 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Checkbox(
-          side: const BorderSide(color: kneon),
+          side: const BorderSide(color: kneonDark),
           value: selectedOptions.contains(value),
           onChanged: (newValue) {
             if (newValue != null) {
               onChanged(value);
             }
           },
-          checkColor: kneon,
+          checkColor: kneonDark,
           activeColor: kwhite,
         ),
         Text(label, style: Theme.of(context).textTheme.displaySmall),

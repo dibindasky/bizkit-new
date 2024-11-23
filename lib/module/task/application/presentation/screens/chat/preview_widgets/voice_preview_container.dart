@@ -20,14 +20,14 @@ class VoicePreviewChat extends StatelessWidget {
           controller.isRecording.value || controller.recordedAudio.value != '';
       return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          height: show ? 40.h : 0,
+          height: show ? 45.h : 0,
           margin: show
               ? EdgeInsets.symmetric(horizontal: 10.h, vertical: 5.h)
               : null,
           padding: show ? const EdgeInsets.all(5) : null,
           decoration: BoxDecoration(
-            color: kGrayLight,
-            borderRadius:show? kBorderRadius10:kBorderRadius25,
+            color: kgrey.withOpacity(0.1),
+            borderRadius: show ? kBorderRadius10 : kBorderRadius25,
           ),
           child: show
               ? Row(
@@ -46,7 +46,9 @@ class VoicePreviewChat extends StatelessWidget {
                     Obx(() => Text(
                           DateTimeFormater.getDurtionFromSeconds(
                               controller.recordDuration.value),
-                          style: textThinStyle1.copyWith(fontSize: 9.sp),
+                          style: textThinStyle1.copyWith(
+                              fontSize: 9.sp,
+                              color: Get.isDarkMode ? kwhite : kblack),
                         )),
                     kWidth5,
                     controller.isRecording.value

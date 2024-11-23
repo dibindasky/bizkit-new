@@ -30,7 +30,7 @@ class TimeAndExpenseCard extends StatelessWidget {
               left: sender ? 5.w : 15.w,
               right: sender ? 15.w : 5.w),
           decoration: BoxDecoration(
-            color: sender ? neonShade.withGreen(190) : klightDarkGrey,
+            color: sender ? neonShade.withGreen(190) : kwhite,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +40,8 @@ class TimeAndExpenseCard extends StatelessWidget {
                   : Text(
                       message.username ?? '',
                       style: textThinStyle1.copyWith(
-                          fontSize: 8.sp, color: kwhite.withOpacity(0.7)),
+                          fontSize: 8.sp,
+                          color: sender ? kwhite.withOpacity(0.7) : kblack),
                     ),
               Container(
                 width: double.infinity,
@@ -48,14 +49,16 @@ class TimeAndExpenseCard extends StatelessWidget {
                     left: 5.w, top: 5.w, bottom: 2.w, right: 5.w),
                 decoration: BoxDecoration(
                     borderRadius: kBorderRadius5,
-                    color: sender ? kwhite.withOpacity(0.3) : lightGrey),
+                    color: sender
+                        ? kwhite.withOpacity(0.3)
+                        : kgrey.withOpacity(0.1)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Update on Expense / Time",
                       style: textThinStyle1.copyWith(
-                        color: Colors.white,
+                        color: sender ? Colors.white : kblack,
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w300,
                       ),
@@ -70,13 +73,16 @@ class TimeAndExpenseCard extends StatelessWidget {
                               FittedBox(
                                 child: Text(
                                   "Money Spent on Task:",
-                                  style:
-                                      textThinStyle1.copyWith(fontSize: 10.sp),
+                                  style: textThinStyle1.copyWith(
+                                      fontSize: 10.sp,
+                                      color: sender ? Colors.white : kblack),
                                 ),
                               ),
                               Text(
                                 "₹ ${(message.timeExpenseData?.expense) ?? 0}",
-                                style: textThinStyle1.copyWith(fontSize: 12.sp),
+                                style: textThinStyle1.copyWith(
+                                    fontSize: 12.sp,
+                                    color: sender ? Colors.white : kblack),
                               ),
                             ],
                           ),
@@ -84,7 +90,7 @@ class TimeAndExpenseCard extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5.w),
                           child: ColoredBox(
-                              color: kwhite,
+                              color: sender ? Colors.white : kblack,
                               child: SizedBox(
                                 height: 20.w,
                                 width: 1.w,
@@ -98,8 +104,9 @@ class TimeAndExpenseCard extends StatelessWidget {
                               FittedBox(
                                 child: Text(
                                   "Time Spent on Task:",
-                                  style:
-                                      textThinStyle1.copyWith(fontSize: 10.sp),
+                                  style: textThinStyle1.copyWith(
+                                      fontSize: 10.sp,
+                                      color: sender ? Colors.white : kblack),
                                 ),
                               ),
                               Text(
@@ -107,7 +114,9 @@ class TimeAndExpenseCard extends StatelessWidget {
                                     .convertMinutesToHourMinuteFormat(int.parse(
                                         (message.timeExpenseData?.time) ??
                                             '0')),
-                                style: textThinStyle1.copyWith(fontSize: 12.sp),
+                                style: textThinStyle1.copyWith(
+                                    fontSize: 12.sp,
+                                    color: sender ? Colors.white : kblack),
                               ),
                             ],
                           ),
@@ -124,11 +133,14 @@ class TimeAndExpenseCard extends StatelessWidget {
                   children: [
                     Text(
                       "Description :",
-                      style: textThinStyle1,
+                      style: textThinStyle1.copyWith(
+                          color: sender ? Colors.white : kblack),
                     ),
                     Text(
                       message.timeExpenseData?.description ?? '',
-                      style: textThinStyle1.copyWith(fontSize: 10.sp),
+                      style: textThinStyle1.copyWith(
+                          fontSize: 10.sp,
+                          color: sender ? Colors.white : kblack),
                     ),
                   ],
                 ),
@@ -141,12 +153,14 @@ class TimeAndExpenseCard extends StatelessWidget {
                   children: [
                     Text(
                       DateTimeFormater.formatTimeAMPM(message.timestamp),
-                      style: textThinStyle1.copyWith(
-                          color: sender ? kgrey : klightgrey, fontSize: 8.sp),
+                      style:
+                          textThinStyle1.copyWith(color: kgrey, fontSize: 8.sp),
                     ),
                     sender ? kWidth10 : kempty,
                     sender
-                        ? MessageReadMarker(read: message.readByAll ?? false)
+                        ? MessageReadMarker(
+                            read: message.readByAll ?? false,
+                          )
                         : kempty
                   ],
                 ),

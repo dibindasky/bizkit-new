@@ -33,7 +33,7 @@ class CurrentLocationCard extends StatelessWidget {
               top: 5.h,
               bottom: 4.h),
           decoration: BoxDecoration(
-            color: sender ? neonShade.withGreen(190) : klightDarkGrey,
+            color: sender ? neonShade.withGreen(190) : kwhite,
           ),
           duration: const Duration(milliseconds: 300),
           child: Column(
@@ -45,13 +45,23 @@ class CurrentLocationCard extends StatelessWidget {
                   : Text(
                       message.username ?? '',
                       style: textThinStyle1.copyWith(
-                          fontSize: 8.sp, color: kwhite.withOpacity(0.7)),
+                          fontSize: 8.sp,
+                          color: sender ? Colors.white : kblack),
                     ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.h),
                 decoration: BoxDecoration(
-                    borderRadius: kBorderRadius5, color: lightGrey),
-                child: Text(message.place ?? ''),
+                    borderRadius: kBorderRadius5,
+                    color: sender
+                        ? kwhite.withOpacity(0.2)
+                        : kgrey.withOpacity(0.1)),
+                child: Text(
+                  message.place ?? '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(color: sender ? kwhite : kblack),
+                ),
               ),
               GestureDetector(
                   onTap: () {
@@ -78,8 +88,15 @@ class CurrentLocationCard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 3.h),
                   decoration: BoxDecoration(
                       borderRadius: kBorderRadius5,
-                      color: kblack.withOpacity(0.3)),
-                  child: const Center(child: Text('View Location')),
+                      color: sender
+                          ? kwhite.withOpacity(0.2)
+                          : kgrey.withOpacity(0.1)),
+                  child: Center(
+                      child: Text(
+                    'View Location',
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                        color: sender ? kwhite : kblack, fontSize: 13),
+                  )),
                 ),
               ),
               Row(
@@ -87,8 +104,8 @@ class CurrentLocationCard extends StatelessWidget {
                 children: [
                   Text(
                     DateTimeFormater.formatTimeAMPM(message.timestamp ?? ''),
-                    style: textThinStyle1.copyWith(
-                        color: sender ? kgrey : klightgrey, fontSize: 8.sp),
+                    style:
+                        textThinStyle1.copyWith(color: kgrey, fontSize: 8.sp),
                   ),
                   sender ? kWidth10 : kempty,
                   sender

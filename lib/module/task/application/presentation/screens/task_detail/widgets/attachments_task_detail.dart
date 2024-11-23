@@ -171,8 +171,6 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
         ),
       );
     } else if (type == 'pdf') {
-      // log('PDF URL: $attachment');
-
       Navigator.push(
         context,
         MaterialPageRoute(

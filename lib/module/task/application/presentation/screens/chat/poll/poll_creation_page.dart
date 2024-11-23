@@ -35,7 +35,12 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
     final controller = Get.find<ChatController>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Poll'),
+        surfaceTintColor: knill,
+        title: Text(
+          'Create Poll',
+          style:
+              Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 15),
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -61,7 +66,11 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
             GoRouter.of(context).pop();
           }
         },
-        icon: Text('Create', style: textHeadStyle1.copyWith(color: kblack)),
+        icon: Text('Create',
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(fontSize: 14)),
         label: const Icon(Icons.add, size: 25),
       ),
       body: Padding(
@@ -70,15 +79,23 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
           key: formkey,
           child: ListView(
             children: [
-              const Text(
+              Text(
                 'Your Question',
-                style: TextStyle(color: klightgrey),
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontSize: 13),
               ),
               TextFormField(
+                style: Theme.of(context).textTheme.displaySmall,
                 textCapitalization: TextCapitalization.sentences,
                 controller: _questionController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Which quest should we take?',
+                  hintStyle: Theme.of(context).textTheme.displaySmall?.copyWith(
+                        color: kgrey,
+                      ),
+
                   // counterText: '124',
                 ),
                 maxLength: 124,
@@ -94,7 +111,10 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                 children: [
                   Text(
                     'Poll Options',
-                    style: textStyle1.copyWith(color: klightgrey),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 13),
                   ),
                   const Spacer(),
                   Text(
@@ -112,9 +132,17 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                           textCapitalization: TextCapitalization.sentences,
                           maxLength: 50,
                           controller: controller,
-                          decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.menu, color: klightgrey),
+                          style: Theme.of(context).textTheme.displaySmall,
+                          decoration: InputDecoration(
+                            prefixIcon:
+                                const Icon(Icons.menu, color: kGreyNormal),
                             hintText: 'Option',
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
+                                  color: kGreyNormal,
+                                ),
                           ),
                           validator: (value) {
                             if (value == null || value == '') {
@@ -163,10 +191,16 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                     )
                   : kempty,
               _optionsControllers.length < 7
-                  ? const Divider(color: klightgrey)
+                  ? const Divider(color: kGreyNormal)
                   : kempty,
               adjustHieght(10.h),
-              Text('Settings', style: textStyle1),
+              Text(
+                'Settings',
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontSize: 16),
+              ),
               adjustHieght(10.h),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,7 +208,13 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('    Active Till', style: textHeadStyle1),
+                      Text(
+                        '    Active Till',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(fontSize: 15),
+                      ),
                       TextButton(
                           onPressed: () {
                             showDialog(
@@ -199,17 +239,27 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                   ),
                   adjustHieght(3.h),
                   Text(
-                      'Set the duration of the quiz and this will also be visible to other.',
-                      style: textStyle1.copyWith(color: klightgrey))
+                    'Set the duration of the quiz and this will also be visible to other.',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(color: kgrey),
+                  )
                 ],
               ),
-              const Divider(color: klightgrey),
+              const Divider(color: kGreyNormal),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SwitchListTile(
                     splashRadius: double.minPositive,
-                    title: Text('Anonymous Voting', style: textHeadStyle1),
+                    title: Text(
+                      'Anonymous Voting',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall
+                          ?.copyWith(fontSize: 15),
+                    ),
                     value: anonymousVoting,
                     onChanged: (bool value) {
                       setState(() {
@@ -218,17 +268,27 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                     },
                   ),
                   Text(
-                      'If turned off then you will be able to see others responses. Others will also be able to see that the pole answers are anonymous or visible.',
-                      style: textStyle1.copyWith(color: klightgrey))
+                    'If turned off then you will be able to see others responses. Others will also be able to see that the pole answers are anonymous or visible.',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(color: kgrey),
+                  )
                 ],
               ),
-              const Divider(color: klightgrey),
+              const Divider(color: kGreyNormal),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SwitchListTile(
                     splashRadius: double.minPositive,
-                    title: Text('Multiple Answers', style: textHeadStyle1),
+                    title: Text(
+                      'Multiple Answers',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall
+                          ?.copyWith(fontSize: 15),
+                    ),
                     value: multipleAnswers,
                     onChanged: (bool value) {
                       setState(() {
@@ -239,18 +299,28 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                       });
                     },
                   ),
-                  Text('If turned on, users can vote multiple choice.',
-                      style: textStyle1.copyWith(color: klightgrey))
+                  Text(
+                    'If turned on, users can vote multiple choice.',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(color: kgrey),
+                  )
                 ],
               ),
-              const Divider(color: klightgrey),
+              const Divider(color: kGreyNormal),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SwitchListTile(
                       splashRadius: double.minPositive,
-                      title: Text('Mention Reason for the answer',
-                          style: textHeadStyle1),
+                      title: Text(
+                        'Mention Reason for the answer',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(fontSize: 15),
+                      ),
                       value: mentionReason,
                       onChanged: (bool value) {
                         setState(() {
@@ -261,11 +331,15 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                         });
                       }),
                   Text(
-                      'If turned on, people can give reason why they are choosing option.',
-                      style: textStyle1.copyWith(color: klightgrey))
+                    'If turned on, people can give reason why they are choosing option.',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(color: kgrey),
+                  )
                 ],
               ),
-              const Divider(color: klightgrey),
+              const Divider(color: kGreyNormal),
               // Column(
               //   crossAxisAlignment: CrossAxisAlignment.start,
               //   children: [

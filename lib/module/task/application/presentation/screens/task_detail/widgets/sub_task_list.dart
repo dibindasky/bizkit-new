@@ -222,7 +222,7 @@ class SubTaskTileDetailPage extends StatelessWidget {
                               .textTheme
                               .displayMedium
                               ?.copyWith(
-                                color: kneon,
+                                color: kneonDark,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),

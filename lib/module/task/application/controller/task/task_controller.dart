@@ -587,6 +587,7 @@ class CreateTaskController extends GetxController {
         attachments.clear;
         userslistNew.clear();
         Get.find<TaskHomeScreenController>().fetchRecentTasks();
+        Get.find<TaskHomeScreenController>().progresBar();
         showSnackbar(
           context,
           message: 'Task created successfully',

@@ -17,6 +17,7 @@ const Color kGrayLight = Color.fromARGB(255, 216, 216, 214);
 const Color kGreyNormal = Colors.grey;
 const Color klightgrey = Color.fromARGB(223, 231, 231, 233);
 const Color smallBigGrey = Color.fromRGBO(255, 255, 255, 0.162);
+const Color kdarkOffWhite = Color.fromARGB(255, 240, 241, 242);
 // ---------------------------------------------------------
 
 const Color textFieldFillColr = Colors.white;

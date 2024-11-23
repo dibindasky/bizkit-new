@@ -45,19 +45,19 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
       final cardCount = bizcardController.bizcards.length;
 
       // Show loading or empty state if no cards
-      if (cardCount == 0) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: SizedBox(
-            width: 382.w,
-            height: 450.h,
-            child: Center(
-              child: Image.asset(
-                  "asset/module/bizcard/404 Error Page not Found with people connecting a plug.gif"),
-            ),
-          ),
-        );
-      }
+      // if (cardCount == 0) {
+      //   return Padding(
+      //     padding: const EdgeInsets.symmetric(horizontal: 10),
+      //     child: SizedBox(
+      //       width: 382.w,
+      //       height: 450.h,
+      //       child: Center(
+      //         child: Image.asset(
+      //             "asset/module/bizcard/404 Error Page not Found with people connecting a plug.gif"),
+      //       ),
+      //     ),
+      //   );
+      // }
 
       return SizedBox(
         width: 382.w,

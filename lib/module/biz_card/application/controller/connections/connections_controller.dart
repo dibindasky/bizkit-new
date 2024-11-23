@@ -72,7 +72,7 @@ class ConnectionsController extends GetxController {
   final TextEditingController myConnectionsearchController =
       TextEditingController();
 
-  int userSearchPageNumber = 1, pageSize = 5;
+  int userSearchPageNumber = 1, pageSize = 20;
   int myConnectionPageNumber = 1;
   int fetchMyConnectionPageNumber = 1;
 
@@ -271,10 +271,14 @@ class ConnectionsController extends GetxController {
   void searchConnectionsLoadMore() {
     debouncer.run(
       () async {
+        print('called my connection load more ==>1'); 
         if (myConnectionLoadMore.value == true) {
+
+        print('called my connection load more ==>2'); 
           return;
         }
         myConnectionLoadMore.value = true;
+        print('called my connection load more ==>3'); 
 
         final result = await connectionService.searchConnections(
             searchQuery: SearchQuery(
@@ -283,9 +287,11 @@ class ConnectionsController extends GetxController {
                 search: searchController.text));
         result.fold(
           (failure) {
+        print('called my connection load more ==>4'); 
             myConnectionLoadMore.value = false;
           },
           (success) {
+        print('called my connection load more ==>5'); 
             for (var datas in success.data ?? <MyConnection>[]) {
               final index = connectionsSearchList
                   .indexWhere((value) => value.toUser == datas.toUser);

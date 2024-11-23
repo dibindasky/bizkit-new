@@ -45,6 +45,7 @@ class BizCardViewsListPopUp extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: ListTile(
+                  tileColor: kwhite,
                     leading: CircleAvatar(
                       backgroundColor: kgrey,
                       child: Image.asset(personDemoImg),
@@ -54,7 +55,7 @@ class BizCardViewsListPopUp extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .displaySmall
-                          ?.copyWith(color: kwhite, fontSize: 13),
+                          ?.copyWith( fontSize: 13),
                     ),
                   ),
                 );

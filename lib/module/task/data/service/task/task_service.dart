@@ -764,6 +764,8 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SuccessResponce>> deleteAttachments(
       {required DeleteAttachmentsModel deleteAttachmentsModel}) async {
     try {
+      print(deleteAttachmentsModel.toJson());
+      print('delete attachment function called');
       await apiService.delete(
         ApiEndPoints.deleteAttachments,
         data: deleteAttachmentsModel.toJson(),

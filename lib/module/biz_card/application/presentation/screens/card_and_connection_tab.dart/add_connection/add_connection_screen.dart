@@ -59,11 +59,12 @@ class AddConnectionScreen extends StatelessWidget {
                   pinned: true,
                   delegate: _SliverSearchBarDelegate(
                     child: Container(
-                      color: Theme.of(context).scaffoldBackgroundColor, 
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 8),
                       child: CustomTextFormField(
-                        controller:connectionController.searchBizkitUsersController,
+                        controller:
+                            connectionController.searchBizkitUsersController,
                         onChanaged: (value) {
                           connectionController.searchBizkitUsers();
                         },
@@ -90,36 +91,39 @@ class AddConnectionScreen extends StatelessWidget {
                     image: emptyNodata2,
                   );
                 } else {
-                  return CustomScrollView(
-                    slivers: [
-                      SliverPadding(
-                        padding: const EdgeInsets.all(8.0),
-                        sliver: SliverGrid(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1 / 1.3,
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 1,
-                            mainAxisSpacing: 1,
-                          ),
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              return ConnectionTile(
-                                index: index,
-                                fromPendingRequests: false,
-                                data: connectionController.bizkitUsers[index],
-                              );
-                            },
-                            childCount:
-                                connectionController.bizkitUsers.length +
+                  return Obx(() => CustomScrollView(
+                        controller:
+                            connectionController.myConnectionScrollController,
+                        slivers: [
+                          SliverPadding(
+                            padding: const EdgeInsets.all(8.0),
+                            sliver: SliverGrid(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 1 / 1.3,
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 1,
+                                mainAxisSpacing: 1,
+                              ),
+                              delegate: SliverChildBuilderDelegate(
+                                (context, index) {
+                                  return ConnectionTile(
+                                    index: index,
+                                    fromPendingRequests: false,
+                                    data:
+                                        connectionController.bizkitUsers[index],
+                                  );
+                                },
+                                childCount: connectionController
+                                        .bizkitUsers.length +
                                     (connectionController.usersLoadMore.value
                                         ? 1
                                         : 0),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
-                  );
+                        ],
+                      ));
                 }
               },
             ),

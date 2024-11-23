@@ -225,7 +225,7 @@ class BusinessCard extends StatelessWidget {
                       enableDrag: true,
                       isDismissible: true,
                       showDragHandle: true,
-                      backgroundColor: kblack,
+                      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                       builder: (context) => const BizCardViewsListPopUp(),
                     );
                   }

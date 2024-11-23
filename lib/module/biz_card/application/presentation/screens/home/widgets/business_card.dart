@@ -40,7 +40,7 @@ class BusinessCard extends StatelessWidget {
             height: 260.h,
             designation: bizcard.designation ?? 'Designation',
             name: bizcard.name ?? 'Name',
-            personImage: personDemoImg,
+            personImage: bizcard.personalImage ?? bizcard.logo,
             qrScanner: bizcard.qRLink ?? "",
           ),
         ),
@@ -133,7 +133,8 @@ class BusinessCard extends StatelessWidget {
                                 showBottomSheet(
                                   context: Scaffold.of(context).context,
                                   showDragHandle: true,
-                                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                                  backgroundColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
                                   builder: (context) =>
                                       ShareCardThroughContactBottomSheet(
                                           cardId: bizcard.bizcardId ?? ''),
@@ -270,7 +271,7 @@ class BusinessCard extends StatelessWidget {
                     children: [
                       const Icon(Icons.share_outlined),
                       Text(
-                        '2,110',
+                        (bizcard.shareCount ?? 0).toString(),
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                       Text(

@@ -23,10 +23,14 @@ class Bizcard {
   @JsonKey(name: 'name')
   String? name;
   int? views;
+  @JsonKey(name: 'share_count')
+  int? shareCount;
   @JsonKey(name: 'company_name')
   String? companyName;
   @JsonKey(name: 'logo')
   String? logo;
+  @JsonKey(name: 'personal_image')
+  String? personalImage;
 
   Bizcard(
       {this.bizcardId,
@@ -38,8 +42,10 @@ class Bizcard {
       this.name,
       this.companyName,
       this.logo,
+      this.personalImage,
       this.qRLink,
       this.views,
+      this.shareCount,
       this.universalLink});
 
   factory Bizcard.fromJson(Map<String, dynamic> json) {

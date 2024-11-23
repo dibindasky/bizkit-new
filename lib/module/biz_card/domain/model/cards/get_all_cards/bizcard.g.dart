@@ -19,6 +19,8 @@ Bizcard _$BizcardFromJson(Map<String, dynamic> json) => Bizcard(
       qRLink: json['qr_code'] as String?,
       views: json['views'] as int?,
       universalLink: json['universal_link'] as String?,
+      personalImage: json['personal_image'] as String?,
+      shareCount: json['share_count'] as int?,
     );
 
 Map<String, dynamic> _$BizcardToJson(Bizcard instance) => <String, dynamic>{
@@ -29,6 +31,8 @@ Map<String, dynamic> _$BizcardToJson(Bizcard instance) => <String, dynamic>{
       'is_archived': instance.isArchived,
       'designation': instance.designation,
       'universal_link': instance.universalLink,
+      'share_count': instance.shareCount,
+      'personal_image': instance.personalImage,
       'qr_code': instance.qRLink,
       'name': instance.name,
       'views': instance.views,

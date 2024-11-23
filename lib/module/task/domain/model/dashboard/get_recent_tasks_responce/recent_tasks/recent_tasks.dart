@@ -11,7 +11,7 @@ class RecentTasks {
   @JsonKey(name: 'task_title')
   String? taskTitle;
   @JsonKey(name: 'created_at')
-  DateTime? createdAt;
+  String? createdAt;
   @JsonKey(name: 'dead_line')
   String? deadLine;
   @JsonKey(name: 'is_owned')

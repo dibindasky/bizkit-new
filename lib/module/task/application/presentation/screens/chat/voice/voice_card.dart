@@ -119,7 +119,7 @@ class _VoiceMessageCardState extends State<VoiceMessageCard> {
         padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 5.h, bottom: 0.h),
         decoration: BoxDecoration(
           borderRadius: kBorderRadius5,
-          color: sender ? neonShade.withGreen(190) : klightDarkGrey,
+          color: sender ? neonShade.withGreen(190) : kwhite,
         ),
         duration: const Duration(milliseconds: 300),
         child: Column(
@@ -136,7 +136,10 @@ class _VoiceMessageCardState extends State<VoiceMessageCard> {
               children: [
                 GestureDetector(
                   onTap: togglePlayPause,
-                  child: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+                  child: Icon(
+                    isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: sender ? kwhite : kblack,
+                  ),
                 ),
                 Expanded(
                   child: SliderTheme(
@@ -144,7 +147,7 @@ class _VoiceMessageCardState extends State<VoiceMessageCard> {
                       trackHeight: 2.h,
                       thumbShape:
                           RoundSliderThumbShape(enabledThumbRadius: 6.h),
-                      activeTrackColor: kwhite,
+                      activeTrackColor: sender ? kwhite : kblack,
                       inactiveTrackColor: Colors.grey,
                       thumbColor: kwhite,
                       overlayColor: kwhite,
@@ -177,13 +180,13 @@ class _VoiceMessageCardState extends State<VoiceMessageCard> {
                   Text(
                     widget.message.duration ?? "",
                     style: textThinStyle1.copyWith(
-                        color: sender ? kgrey : klightgrey, fontSize: 8.sp),
+                        color: sender ? kgrey : kgrey, fontSize: 8.sp),
                   ),
                   kWidth10,
                   Text(
                     DateTimeFormater.formatTimeAMPM(widget.message.timestamp),
                     style: textThinStyle1.copyWith(
-                        color: sender ? kgrey : klightgrey, fontSize: 8.sp),
+                        color: sender ? kgrey : kgrey, fontSize: 8.sp),
                   ),
                   sender ? kWidth10 : kempty,
                   sender

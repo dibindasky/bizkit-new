@@ -12,6 +12,7 @@ import 'package:bizkit/module/task/domain/repository/service/home_repo.dart';
 import 'package:bizkit/packages/pdf/pdf_generator.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -116,6 +117,26 @@ class TaskHomeScreenController extends GetxController
         loadingForRecentTasks.value = false;
       },
     );
+  }
+
+  double recentTaskProgress(String? date1, String? date2) {
+    if (date1 == null || date2 == null) {
+      log('Invalid date(s): date1=$date1, date2=$date2', name: 'TaskContainer');
+      return 0;
+    }
+
+    try {
+      final int first =
+          DateTimeFormater.calculateDifferenceInHours(date1, date2);
+      final int second = DateTimeFormater.calculateDifferenceInHours(
+          date1, DateTime.now().toString());
+
+      if (first < second) return 1;
+      return second / first;
+    } catch (e) {
+      log('Error calculating difference in hours: $e', name: 'TaskContainer');
+      return 0;
+    }
   }
 
   void getReport({required GetReportModel getReportModel}) async {

@@ -23,24 +23,22 @@ class SearchBarWidget extends StatelessWidget {
         color: klightgrey,
         borderRadius: kBorderRadius15,
       ),
-      child: Expanded(
-        child: TextField(
-          // enabled: false,
-          controller: connectionController.searchController,
-          onTapOutside: (event) => FocusScope.of(context).unfocus(),
-          autofocus: true,
-          decoration: InputDecoration(
-            labelText: 'Search',
-            prefixIcon: const Icon(Icons.search),
-            border: InputBorder.none,
-            labelStyle: Theme.of(context).textTheme.displaySmall,
-          ),
-          onChanged: (value) {
-            connectionController.searchBizcardAndConnection(
-                tabController.index, value);
-            // Todo Implement search logic based on `value`
-          },
+      child: TextField(
+        // enabled: false,
+        controller: connectionController.searchController,
+        onTapOutside: (event) => FocusScope.of(context).unfocus(),
+        // autofocus: true,
+        decoration: InputDecoration(
+          labelText: 'Search',
+          prefixIcon: const Icon(Icons.search),
+          border: InputBorder.none,
+          labelStyle: Theme.of(context).textTheme.displaySmall,
         ),
+        onChanged: (value) {
+          connectionController.searchBizcardAndConnection(
+              tabController.index, value);
+          // Todo Implement search logic based on `value`
+        },
       ),
     );
   }

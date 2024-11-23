@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
@@ -10,8 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
-// ! The progress bar part is pending
-
 class RecentTasksSection extends StatelessWidget {
   const RecentTasksSection({
     super.key,
@@ -21,6 +20,7 @@ class RecentTasksSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeController = Get.find<TaskHomeScreenController>();
     final taskController = Get.find<CreateTaskController>();
+    final messageCountController = Get.find<MessageCountController>();
     return Column(
       children: [
         Row(
@@ -33,18 +33,27 @@ class RecentTasksSection extends StatelessWidget {
                   .displaySmall
                   ?.copyWith(fontSize: 14),
             ),
-            Text(
-              'See all',
-              style: Theme.of(context)
-                  .textTheme
-                  .displaySmall
-                  ?.copyWith(fontSize: 14),
+            GestureDetector(
+              onTap: () {
+                homeController.changeSelectedTaskCategory('All');
+                taskController.changeFilterTaskType('all');
+                taskController.filterByType();
+                taskController.filterPinnedTasksByType();
+                Get.toNamed(Routes.taskLists, id: 1);
+              },
+              child: Text(
+                'See all',
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontSize: 14),
+              ),
             ),
           ],
         ),
         adjustHieght(10.h),
         SizedBox(
-          height: 90.h,
+          height: 95.h,
           child: Obx(
             () {
               if (homeController.loadingForRecentTasks.value) {
@@ -73,33 +82,24 @@ class RecentTasksSection extends StatelessWidget {
                           ? homeController.toOthersTasks.length
                           : homeController.toMeTasks.length,
                   itemBuilder: (context, index) {
+                    var recnetTask =
+                        homeController.taskStatusTabIndex.value == 0
+                            ? homeController.selfieTasks[index]
+                            : homeController.taskStatusTabIndex.value == 1
+                                ? homeController.toOthersTasks[index]
+                                : homeController.toMeTasks[index];
+                    final count =
+                        messageCountController.unreadCounts[recnetTask.taskId];
                     return GestureDetector(
                       onTap: () {
                         taskController.fetchSingleTask(
                           singleTaskModel: GetSingleTaskModel(
-                            taskId: homeController.taskStatusTabIndex.value == 0
-                                ? homeController.selfieTasks[index].taskId ?? ''
-                                : homeController.taskStatusTabIndex.value == 1
-                                    ? homeController
-                                            .toOthersTasks[index].taskId ??
-                                        ''
-                                    : homeController.toMeTasks[index].taskId ??
-                                        '',
+                            taskId: recnetTask.taskId ?? '',
                           ),
                         );
                         GoRouter.of(context).pushNamed(
                           Routes.taskDeail,
-                          pathParameters: {
-                            "taskId": homeController.taskStatusTabIndex.value ==
-                                    0
-                                ? homeController.selfieTasks[index].taskId ?? ''
-                                : homeController.taskStatusTabIndex.value == 1
-                                    ? homeController
-                                            .toOthersTasks[index].taskId ??
-                                        ''
-                                    : homeController.toMeTasks[index].taskId ??
-                                        ''
-                          },
+                          pathParameters: {"taskId": recnetTask.taskId ?? ''},
                         );
                       },
                       child: Card(
@@ -111,49 +111,40 @@ class RecentTasksSection extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                homeController.taskStatusTabIndex.value == 0
-                                    ? homeController
-                                            .selfieTasks[index].taskTitle ??
-                                        'TaskTitle'
-                                    : homeController.taskStatusTabIndex.value ==
-                                            1
-                                        ? homeController.toOthersTasks[index]
-                                                .taskTitle ??
-                                            'TaskTitle'
-                                        : homeController
-                                                .toMeTasks[index].taskTitle ??
-                                            'TaskTitle',
+                                recnetTask.taskTitle ?? 'TaskTitle',
                                 style: Theme.of(context)
                                     .textTheme
                                     .displaySmall
                                     ?.copyWith(fontSize: 13),
                               ),
                               Text(
-                                homeController.taskStatusTabIndex.value == 0
-                                    ? homeController
-                                            .selfieTasks[index].deadLine ??
-                                        'deadline'
-                                    : homeController.taskStatusTabIndex.value ==
-                                            1
-                                        ? homeController.toOthersTasks[index]
-                                                .deadLine ??
-                                            'deadline'
-                                        : homeController
-                                                .toMeTasks[index].deadLine ??
-                                            'deadline',
+                                recnetTask.deadLine ?? 'deadline',
                                 style: Theme.of(context)
                                     .textTheme
                                     .displaySmall
                                     ?.copyWith(fontSize: 10),
                               ),
-                              adjustHieght(15.h),
+                              adjustHieght(1.h),
+                              if (count == null || count.value == 0)
+                                kempty
+                              else
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 50),
+                                  child: Text('unread messages $count',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall
+                                          ?.copyWith(
+                                              color: kGreyNormal, fontSize: 8)),
+                                ),
+                              adjustHieght(5.h),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Row(
                                     children: [
                                       Text(
-                                        "Progress",
+                                        "Endline",
                                         style: Theme.of(context)
                                             .textTheme
                                             .displaySmall
@@ -171,13 +162,16 @@ class RecentTasksSection extends StatelessWidget {
                                               BorderRadius.circular(12),
                                           child: LinearProgressIndicator(
                                             minHeight: 8,
-                                            value: 45.toDouble() / 100,
+                                            value: homeController
+                                                .recentTaskProgress(
+                                                    recnetTask.createdAt,
+                                                    recnetTask.deadLine),
                                             backgroundColor: klightGrey,
                                             valueColor:
                                                 AlwaysStoppedAnimation<Color>(
-                                                    index == 0 || index == 2
-                                                        ? kred
-                                                        : kneon),
+                                                    taskSpotLightColorChanger(
+                                                        recnetTask.createdAt,
+                                                        recnetTask.deadLine)),
                                           ),
                                         ),
                                       ),
@@ -185,27 +179,8 @@ class RecentTasksSection extends StatelessWidget {
                                   ),
                                   adjustHieght(10.h),
                                   Text(
-                                      homeController.taskStatusTabIndex.value ==
-                                                      0 &&
-                                                  homeController
-                                                          .selfieTasks[index]
-                                                          .isOwned ==
-                                                      true ||
-                                              homeController.taskStatusTabIndex
-                                                          .value ==
-                                                      1 &&
-                                                  homeController
-                                                          .toOthersTasks[index]
-                                                          .isOwned ==
-                                                      true ||
-                                              homeController.taskStatusTabIndex
-                                                          .value ==
-                                                      2 &&
-                                                  homeController
-                                                          .toMeTasks[index]
-                                                          .isOwned ==
-                                                      true
-                                          ? 'Created by ${homeController.taskStatusTabIndex.value == 0 ? homeController.selfieTasks[index].createdBy?.name ?? 'name' : homeController.taskStatusTabIndex.value == 1 ? homeController.toOthersTasks[index].createdBy?.name ?? 'name' : 'name'}'
+                                      recnetTask.isOwned == true
+                                          ? 'Created by you'
                                           : 'Assgined by ${homeController.taskStatusTabIndex.value == 2 ? homeController.toMeTasks[index].createdBy?.name : 'name'}',
                                       style: Theme.of(context)
                                           .textTheme

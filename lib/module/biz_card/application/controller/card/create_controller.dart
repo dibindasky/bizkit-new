@@ -125,12 +125,14 @@ class CardController extends GetxController {
     update();
   }
 
-  void cardDetail({required String cardId}) async {
+  void cardDetail({required String cardId,bool refresh = false}) async {
     log('Bizcard ID -> $cardId');
     if (cardId != bizcardDetail.value.bizcardId) {
       bizcardDetail.value = CardDetailModel();
     }
-    isLoading.value = true;
+    if(refresh || cardId != (bizcardDetail.value.bizcardId??"")){
+      isLoading.value = true;
+    }
     final data = await cardRepo.getCardDetail(cardId: cardId);
     data.fold(
       (l) => isLoading.value = false,
@@ -138,6 +140,7 @@ class CardController extends GetxController {
         bizcardDetail.value = r;
         isLoading.value = false;
         update();
+        update(['logo_story']);
       },
     );
   }

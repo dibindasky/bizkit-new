@@ -6,8 +6,9 @@ part 'image_card.g.dart';
 class ImageCard {
   int? id;
   String? image;
+  bool networkImage;
 
-  ImageCard({this.id, this.image});
+  ImageCard({this.id, this.image, this.networkImage = false});
 
   factory ImageCard.fromJson(Map<String, dynamic> json) {
     return _$ImageCardFromJson(json);

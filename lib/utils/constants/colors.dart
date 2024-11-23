@@ -94,6 +94,16 @@ LinearGradient neonShadeGradient = const LinearGradient(
   end: Alignment.centerRight,
 );
 
+LinearGradient neonNewLinearGradient = const LinearGradient(
+  colors: [
+    Color(0xFF59FBFB),
+    Color(0xFF379D98),
+    Color(0xFF59F6FB),
+  ],
+  begin: Alignment.bottomLeft,
+  end: Alignment.topRight,
+);
+
 LinearGradient neonShadeLinearGradient = const LinearGradient(
   colors: [
     Color.fromRGBO(5, 202, 173, 1),
@@ -155,32 +165,6 @@ TextStyle appBarHeading1 = TextStyle(
 
 // Task module - [ Method for spotlight color changing ]
 Color taskSpotLightColorChanger(String? date1, String? date2) {
-  if (date1 == null || date2 == null) {
-    log('Invalid date(s): date1=$date1, date2=$date2', name: 'TaskContainer');
-    return kwhite;
-  }
-
-  try {
-    final int first = DateTimeFormater.calculateDifferenceInHours(date1, date2);
-    final int second = DateTimeFormater.calculateDifferenceInHours(
-        date1, DateTime.now().toString());
-
-    if (first < second) return kred;
-    final int part = (first / 3).round();
-    if ((part * 2) <= second) {
-      return leaveBorderClr;
-    } else if (part <= second) {
-      return neonShade;
-    } else {
-      return kblue;
-    }
-  } catch (e) {
-    log('Error calculating difference in hours: $e', name: 'TaskContainer');
-    return kwhite;
-  }
-}
-
-Color recentTaskColorChanger(String? date1, String? date2) {
   if (date1 == null || date2 == null) {
     log('Invalid date(s): date1=$date1, date2=$date2', name: 'TaskContainer');
     return kwhite;

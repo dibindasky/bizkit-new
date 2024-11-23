@@ -8,7 +8,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_and
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/achivements/bizcard_create_achivement_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/dates_to_remember/bizcard_dates_to_remember_create_update.dart';
-// import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/products/bizcard_create_update_products.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/products/bizcard_create_update_products.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/social_media_handles/card_detail_social_media_handle_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_bizcard.dart/create_business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_card_screen.dart';
@@ -400,6 +400,17 @@ class GoRouterConfig {
       path: Routes.cardDatesToRememberCreateUpdate,
       builder: (context, state) =>
           const BizcardDatesToRememberCreateUpdateScreen(),
+    ),
+
+    GoRoute(
+      name: Routes.cardProductsCreateOrUpdate,
+      path: Routes.cardProductsCreateOrUpdate,
+      builder: (context, state) {
+        final map = state.extra as Map<String, dynamic>?;
+        return BizcardProductCreateUpdateScreen(
+            selctedIndex: map?['index'] as int?,
+            product: map?['product'] as Product?);
+      },
     ),
 
     // GoRoute(

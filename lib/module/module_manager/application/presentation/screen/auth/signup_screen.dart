@@ -202,39 +202,39 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                   Obx(() {
                     return controller.loadingregister.value
                         ? const LoadingAnimation()
-                        : Container(
-                            width: double.infinity,
-                            height: 55,
-                            decoration: BoxDecoration(
-                                color: kneonShade,
-                                borderRadius: BorderRadius.circular(30)),
-                            child: GestureDetector(
+                        : GestureDetector(
+                            onTap: () {
+                              tapOnPassword = false;
+
+                              if (personalSignup.currentState!.validate()) {
+                                controller.registerUser(context,
+                                    authPostModel: AuthPostmodel(
+                                        password: passwordController.text,
+                                        email: emailIdController.text,
+                                        name: nameController.text,
+                                        phoneNumber:
+                                            '+91${mobileController.text}'));
+                                //log('${AuthPostmodel(password: passwordController.text, email: emailIdController.text, name: nameController.text, phoneNumber: '+91${mobileController.text}')}');
+                                // context.read<SignUpBloc>().add(
+                                //       SignUpEvent.sendOtp(
+                                //         emailModel: EmailModel(
+                                //             email: emailIdController.text.trim()),
+                                //         isBusiness: false,
+                                //       ),
+                                //     );
+                              }
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 55,
+                              decoration: BoxDecoration(
+                                  color: kneonShade,
+                                  borderRadius: BorderRadius.circular(30)),
                               child: Center(
                                   child: Text(
                                 'SignUp',
                                 style: Theme.of(context).textTheme.titleMedium,
                               )),
-                              onTap: () {
-                                tapOnPassword = false;
-
-                                if (personalSignup.currentState!.validate()) {
-                                  controller.registerUser(context,
-                                      authPostModel: AuthPostmodel(
-                                          password: passwordController.text,
-                                          email: emailIdController.text,
-                                          name: nameController.text,
-                                          phoneNumber:
-                                              '+91${mobileController.text}'));
-                                  //log('${AuthPostmodel(password: passwordController.text, email: emailIdController.text, name: nameController.text, phoneNumber: '+91${mobileController.text}')}');
-                                  // context.read<SignUpBloc>().add(
-                                  //       SignUpEvent.sendOtp(
-                                  //         emailModel: EmailModel(
-                                  //             email: emailIdController.text.trim()),
-                                  //         isBusiness: false,
-                                  //       ),
-                                  //     );
-                                }
-                              },
                             ),
                           );
                   }),

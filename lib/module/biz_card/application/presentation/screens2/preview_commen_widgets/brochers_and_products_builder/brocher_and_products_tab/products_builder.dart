@@ -47,7 +47,7 @@ class ProductsBuilder extends StatelessWidget {
                                   width: double.infinity,
                                   child: Image.memory(
                                       base64
-                                          .decode(data.images?[0].image ?? ""),
+                                          .decode(data.images?[0] ?? ""),
                                       fit: BoxFit.cover,
                                       errorBuilder: (context, error,
                                               stackTrace) =>

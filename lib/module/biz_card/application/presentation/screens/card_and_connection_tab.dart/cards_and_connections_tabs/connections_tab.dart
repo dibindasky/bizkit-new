@@ -29,151 +29,139 @@ class ConnectionsTab extends StatelessWidget {
             connectionsController.searchConnections();
             await Future.delayed(const Duration(seconds: 2));
           },
-          child: Column(
-            children: [
-              Obx(
-                () {
-                  if (connectionsController.searchConnectionsLoading.value) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (connectionsController
-                      .connectionsSearchList.isEmpty) {
-                    return ErrorRefreshIndicator(
-                      onRefresh: () async {
-                        connectionsController.searchConnections();
-                        await Future.delayed(const Duration(seconds: 2));
-                      },
-                      errorMessage: 'No bizcard connections',
-                      image: emptyNodata2,
-                    );
-                  } else {
-                    return ListView.builder(
-                      controller: connectionsController.myConnectionScrollController,
-                      itemCount:
-                          connectionsController.connectionsSearchList.length +
-                              (connectionsController.myConnectionLoadMore.value
-                                  ? 1
-                                  : 0),
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        if (index ==
-                                connectionsController
-                                    .connectionsSearchList.length &&
-                            connectionsController.myConnectionLoadMore.value) {
-                          return const Expanded(
-                            child: Center(child: CircularProgressIndicator()),
-                          );
-                        }
-                        return Card(
-                          elevation: 0,
-                          child: ListTile(
-                            onTap: () {
-                              if ((connectionsController
-                                          .myConnections[index].cards?.length ??
-                                      0) >
-                                  1) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => Dialog(
-                                    shape: BeveledRectangleBorder(
-                                        borderRadius: kBorderRadius10),
-                                    child: CardsbasedOnUserConnection(
-                                        card: connectionsController
-                                            .myConnections[index].cards),
-                                  ),
-                                );
-                              } else {
-                                final id = connectionsController
-                                    .myConnections[index].cards
-                                    ?.map((e) => e.toCard)
-                                    .toList();
-                                Map<String, String> map = id != null
-                                    ? {
-                                        'myCard': 'false',
-                                        'cardId': id.first ?? ''
-                                      }
-                                    : <String, String>{};
-                                GoRouter.of(context).pushNamed(
-                                    Routes.cardDetailView,
-                                    pathParameters: map);
-                              }
-                            },
-                            leading: const CircleAvatar(
-                              backgroundColor: textFieldFillColr,
-                              backgroundImage:
-                                  AssetImage(chatSectionPersonDummyImg2),
-                            ),
-                            title: Text(
-                              connectionsController
-                                      .connectionsSearchList[index].username ??
-                                  'Name',
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displaySmall
-                                  ?.copyWith(fontSize: 14),
-                            ),
-                            subtitle: Text(
-                              // Check if the cards list exists and is not empty
-                              (connectionsController
+          child: Obx(
+            () {
+              if (connectionsController.searchConnectionsLoading.value) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (connectionsController.connectionsSearchList.isEmpty) {
+                return ErrorRefreshIndicator(
+                  onRefresh: () async {
+                    connectionsController.searchConnections();
+                    await Future.delayed(const Duration(seconds: 2));
+                  },
+                  errorMessage: 'No bizcard connections',
+                  image: emptyNodata2,
+                );
+              } else {
+                return ListView.builder(
+                  controller:
+                      connectionsController.myConnectionScrollController,
+                  itemCount:
+                      connectionsController.connectionsSearchList.length +
+                          (connectionsController.myConnectionLoadMore.value
+                              ? 1
+                              : 0),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    if (index ==
+                            connectionsController
+                                .connectionsSearchList.length &&
+                        connectionsController.myConnectionLoadMore.value) {
+                      return const Expanded(
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
+                    return Card(
+                      elevation: 0,
+                      child: ListTile(
+                        onTap: () {
+                          if ((connectionsController
+                                      .myConnections[index].cards?.length ??
+                                  0) >
+                              1) {
+                            showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                shape: BeveledRectangleBorder(
+                                    borderRadius: kBorderRadius10),
+                                child: CardsbasedOnUserConnection(
+                                    card: connectionsController
+                                        .myConnections[index].cards),
+                              ),
+                            );
+                          } else {
+                            final id = connectionsController
+                                .myConnections[index].cards
+                                ?.map((e) => e.toCard)
+                                .toList();
+                            Map<String, String> map = id != null
+                                ? {'myCard': 'false', 'cardId': id.first ?? ''}
+                                : <String, String>{};
+                            GoRouter.of(context).pushNamed(
+                                Routes.cardDetailView,
+                                pathParameters: map);
+                          }
+                        },
+                        leading: const CircleAvatar(
+                          backgroundColor: textFieldFillColr,
+                          backgroundImage:
+                              AssetImage(chatSectionPersonDummyImg2),
+                        ),
+                        title: Text(
+                          connectionsController
+                                  .connectionsSearchList[index].username ??
+                              'Name',
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(fontSize: 14),
+                        ),
+                        subtitle: Text(
+                          // Check if the cards list exists and is not empty
+                          (connectionsController
+                                          .connectionsSearchList[index].cards !=
+                                      null &&
+                                  connectionsController
+                                      .connectionsSearchList[index]
+                                      .cards!
+                                      .isNotEmpty)
+                              ? connectionsController
+                                      .connectionsSearchList[index]
+                                      .cards!
+                                      .first
+                                      .businessDesignation ??
+                                  'Designation'
+                              : 'No Designation',
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
+                        trailing: PopupMenuButton(
+                          itemBuilder: (context) {
+                            return [
+                              PopupMenuItem(
+                                onTap: () {
+                                  connectionsController.unfollowRequest(
+                                      toUserId: connectionsController
+                                          .connectionsSearchList[index].toUser,
+                                      context: context,
+                                      unfollowRequest: UnfollowConnectionModel(
+                                          connectionId: connectionsController
                                               .connectionsSearchList[index]
-                                              .cards !=
-                                          null &&
-                                      connectionsController
-                                          .connectionsSearchList[index]
-                                          .cards!
-                                          .isNotEmpty)
-                                  ? connectionsController
-                                          .connectionsSearchList[index]
-                                          .cards!
-                                          .first
-                                          .businessDesignation ??
-                                      'Designation'
-                                  : 'No Designation',
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                            trailing: PopupMenuButton(
-                              itemBuilder: (context) {
-                                return [
-                                  PopupMenuItem(
-                                    onTap: () {
-                                      connectionsController.unfollowRequest(
-                                          toUserId: connectionsController
-                                              .connectionsSearchList[index]
-                                              .toUser,
-                                          context: context,
-                                          unfollowRequest:
-                                              UnfollowConnectionModel(
-                                                  connectionId:
-                                                      connectionsController
-                                                          .connectionsSearchList[
-                                                              index]
-                                                          .cards!
-                                                          .first
-                                                          .connectionId));
-                                    },
-                                    child: Text(
-                                      'Unfollow',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall
-                                          ?.copyWith(color: kred),
-                                    ),
-                                  )
-                                ];
-                              },
-                            ),
-                          ),
-                        );
-                      },
+                                              .cards!
+                                              .first
+                                              .connectionId));
+                                },
+                                child: Text(
+                                  'Unfollow',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(color: kred),
+                                ),
+                              )
+                            ];
+                          },
+                        ),
+                      ),
                     );
-                  }
-                },
-              )
-            ],
+                  },
+                );
+              }
+            },
           ),
         ),
       ),

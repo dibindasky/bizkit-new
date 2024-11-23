@@ -8,9 +8,8 @@ part of 'product.dart';
 
 Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       title: json['title'] as String?,
-      images: (json['images'] as List<dynamic>?)
-          ?.map((e) => ImageCard.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      images:
+          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       description: json['description'] as String?,
       enquiry: json['enquiry'] as bool?,
       id: json['_id'] as String?,

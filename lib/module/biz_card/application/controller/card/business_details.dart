@@ -134,7 +134,10 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Business Data Added Successfully');
+        showSnackbar(
+          context,
+          message: 'Business Data Added Successfully',
+        );
       },
     );
   }

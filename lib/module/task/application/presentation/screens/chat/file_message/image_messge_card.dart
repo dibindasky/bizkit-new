@@ -55,7 +55,6 @@ class _ImageMessageCardState extends State<ImageMessageCard> {
       },
       child: Container(
         height: 200.h,
-        child: NetworkImageWithLoader(widget.message.file!,radius: 5),
         decoration: BoxDecoration(
           borderRadius: kBorderRadius5,
           // image: DecorationImage(

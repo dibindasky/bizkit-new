@@ -30,8 +30,15 @@ class TaskStatusChangeDialog extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Confirm Kill Task'),
-            content: const Text('Are you sure you want to kill this task?'),
+            title: Text(
+              'Confirm Kill Task',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 14),
+            ),
+            content: Text('Are you sure you want to kill this task?',
+                style: Theme.of(context).textTheme.displaySmall),
             actions: <Widget>[
               TextButton(
                 child: const Text('Cancel'),
@@ -67,8 +74,17 @@ class TaskStatusChangeDialog extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Confirm Complete Task'),
-            content: const Text('Are you sure you want to complete this task?'),
+            title: Text(
+              'Confirm Complete Task',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 14),
+            ),
+            content: Text(
+              'Are you sure you want to complete this task?',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             actions: <Widget>[
               TextButton(
                 child: const Text('Cancel'),
@@ -77,7 +93,9 @@ class TaskStatusChangeDialog extends StatelessWidget {
                 },
               ),
               TextButton(
-                child: const Text('Yes'),
+                child: const Text(
+                  'Yes',
+                ),
                 onPressed: () {
                   GoRouter.of(context).pop();
                   controller.completeTask(

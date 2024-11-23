@@ -712,8 +712,11 @@ class CreateTaskController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -723,8 +726,11 @@ class CreateTaskController extends GetxController {
       (success) {
         log('${success.message}');
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Complete task successfully'),
+          SnackBar(
+            content: Text(
+              'Complete task successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );

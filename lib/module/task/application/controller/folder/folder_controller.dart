@@ -121,8 +121,11 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -138,8 +141,11 @@ class TaskFolderController extends GetxController {
                 FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
 
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Folder created successfully'),
+          SnackBar(
+            content: Text(
+              'Folder created successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );
@@ -159,8 +165,11 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -174,8 +183,11 @@ class TaskFolderController extends GetxController {
                 FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
 
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Folder name edited successfully'),
+          SnackBar(
+            content: Text(
+              'Folder name edited successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );
@@ -194,8 +206,11 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -208,8 +223,11 @@ class TaskFolderController extends GetxController {
                 FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
 
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Folder deleted successfully'),
+          SnackBar(
+            content: Text(
+              'Folder deleted successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );
@@ -231,8 +249,11 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -241,14 +262,20 @@ class TaskFolderController extends GetxController {
       (success) {
         addOrDelete == true
             ? scaffoldMessenger.showSnackBar(
-                const SnackBar(
-                  content: Text('Tasks added successfully'),
+                SnackBar(
+                  content: Text(
+                    'Tasks added successfully',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
                   backgroundColor: neonShade,
                 ),
               )
             : scaffoldMessenger.showSnackBar(
-                const SnackBar(
-                  content: Text('Task removed successfully'),
+                SnackBar(
+                  content: Text(
+                    'Task removed successfully',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
                   backgroundColor: neonShade,
                 ),
               );
@@ -269,8 +296,11 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -286,8 +316,11 @@ class TaskFolderController extends GetxController {
                 FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
 
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Folder Merged successfully'),
+          SnackBar(
+            content: Text(
+              'Folder Merged successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );
@@ -309,8 +342,11 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -322,8 +358,11 @@ class TaskFolderController extends GetxController {
                 folderId: folderId, filterDate: deadlineDate.value));
 
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Create Inner folder successfully'),
+          SnackBar(
+            content: Text(
+              'Create Inner folder successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );
@@ -368,8 +407,11 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -386,8 +428,11 @@ class TaskFolderController extends GetxController {
           ),
         );
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Inner folder deleted successfully'),
+          SnackBar(
+            content: Text(
+              'Inner folder deleted successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );
@@ -409,8 +454,11 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -422,8 +470,11 @@ class TaskFolderController extends GetxController {
             filterInnerFolder: FilterInnerFolderModel(
                 folderId: folderId, filterDate: deadlineDate.value));
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Inner folder name edited successfully'),
+          SnackBar(
+            content: Text(
+              'Inner folder name edited successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );
@@ -444,8 +495,11 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -454,14 +508,20 @@ class TaskFolderController extends GetxController {
       (success) {
         addOrDelete == true
             ? scaffoldMessenger.showSnackBar(
-                const SnackBar(
-                  content: Text('Tasks added successfully'),
+                SnackBar(
+                  content: Text(
+                    'Tasks added successfully',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
                   backgroundColor: neonShade,
                 ),
               )
             : scaffoldMessenger.showSnackBar(
-                const SnackBar(
-                  content: Text('Task removed successfully'),
+                SnackBar(
+                  content: Text(
+                    'Task removed successfully',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
                   backgroundColor: neonShade,
                 ),
               );
@@ -537,8 +597,11 @@ class TaskFolderController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -555,8 +618,11 @@ class TaskFolderController extends GetxController {
           ),
         );
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Inner Folders Merged successfully'),
+          SnackBar(
+            content: Text(
+              'Inner Folders Merged successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );

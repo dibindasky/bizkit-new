@@ -70,6 +70,9 @@ class CardController extends GetxController {
 
   final Debouncer debouncer = Debouncer(milliseconds: 300);
 
+  /// variable to stop auto sliding cards while showing qr
+  RxBool autoScrollCard = true.obs;
+
   /// update the ui of card dummy for creation page
   void updateCardPreviewCardCreation(RxBool loader) {
     loader.value = true;
@@ -125,12 +128,12 @@ class CardController extends GetxController {
     update();
   }
 
-  void cardDetail({required String cardId,bool refresh = false}) async {
+  void cardDetail({required String cardId, bool refresh = false}) async {
     log('Bizcard ID -> $cardId');
     if (cardId != bizcardDetail.value.bizcardId) {
       bizcardDetail.value = CardDetailModel();
     }
-    if(refresh || cardId != (bizcardDetail.value.bizcardId??"")){
+    if (refresh || cardId != (bizcardDetail.value.bizcardId ?? "")) {
       isLoading.value = true;
     }
     final data = await cardRepo.getCardDetail(cardId: cardId);
@@ -265,5 +268,9 @@ class CardController extends GetxController {
             onPressed: () => GoRouter.of(context).pushNamed(
                 Routes.connectionDetailFilling,
                 extra: bizcardDetail.value)));
+  }
+
+  changeAutoScroll() {
+    autoScrollCard.value = !autoScrollCard.value;
   }
 }

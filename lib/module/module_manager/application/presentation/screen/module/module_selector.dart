@@ -28,7 +28,7 @@ class ScreenModuleSelector extends StatelessWidget {
         module: Module.task),
     ListItemData(
         color: blackShadeGradient,
-        height: 180.h,
+        height: 210.h,
         imageUrl: 'https://via.placeholder.com/50',
         title: 'Attendance',
         subtitle:

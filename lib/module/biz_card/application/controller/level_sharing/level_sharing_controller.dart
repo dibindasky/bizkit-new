@@ -144,7 +144,9 @@ class LevelSharingController extends GetxController {
             backgroundColor: neonShade,
           ),
         );
-
+        fetchIndividualSharedFields(
+            queryParameter: IndividualSharedFieldsQueryParamsModel(
+                bizcardId: selectedCardId.value));
         GoRouter.of(context).pop();
       },
     );

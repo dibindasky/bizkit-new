@@ -61,7 +61,7 @@ class BizCardRminderNotes extends StatelessWidget {
                                     ),
                                     kWidth10,
                                     Text(
-                                      'Date',
+                                      '0${index + 1}-0${index + 1}-2024',
                                       style: Theme.of(context)
                                           .textTheme
                                           .displaySmall,
@@ -70,7 +70,7 @@ class BizCardRminderNotes extends StatelessWidget {
                                 ),
                                 adjustHieght(khieght * .006),
                                 Text(
-                                  'Scheduled on Time to discuss about Mesage.',
+                                  'Scheduled on ${index + 1}:${12 - index} PM to discuss about Mesage.',
                                   style:
                                       Theme.of(context).textTheme.displaySmall,
                                 ),

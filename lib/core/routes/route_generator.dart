@@ -12,6 +12,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_cre
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/social_media_handles/card_detail_social_media_handle_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_bizcard.dart/create_business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_card_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/scan_and_connect_card_detail_page.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/achivement/bizcard_detail_achivements.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/personal_and_banking/bizcard_detail_banking_and_personal_detail.dart';
 
@@ -244,19 +245,19 @@ class GoRouterConfig {
     ),
 
     // Card view
-    // GoRoute(
-    //   name: Routes.cardView,
-    //   path: '${Routes.cardView}/:cardId',
-    //   builder: (context, state) {
-    //     String? cardId = state.pathParameters['cardId'];
-    //     cardId ?? (state.extra) as String?;
-    //     if (cardId != null) {
-    //       return CardDetailViewDeeplinkScreen(cardId: cardId);
-    //     } else {
-    //       return _errorScreen();
-    //     }
-    //   },
-    // ),
+    GoRoute(
+      name: Routes.cardView,
+      path: '${Routes.cardView}/:cardId',
+      builder: (context, state) {
+        String? cardId = state.pathParameters['cardId'];
+        cardId ?? (state.extra) as String?;
+        if (cardId != null) {
+          return BizCardScanAndConnectCardDetailScreen(cardId: cardId);
+        } else {
+          return _errorScreen();
+        }
+      },
+    ),
 
     // Card view
     GoRoute(
@@ -265,7 +266,7 @@ class GoRouterConfig {
       builder: (context, state) {
         String? cardId = (state.extra) as String?;
         if (cardId != null) {
-          return CardDetailViewDeeplinkScreen(cardId: cardId);
+          return BizCardScanAndConnectCardDetailScreen(cardId: cardId);
         } else {
           return _errorScreen();
         }

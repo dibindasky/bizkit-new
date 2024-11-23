@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/image_viewer.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
@@ -8,6 +9,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
@@ -150,7 +152,7 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
       String type, CreateTaskController controller, int index) {
     //  Filter out non-image attachments
     final imageAttachments = controller.singleTask.value.attachments
-            ?.where((att) => att.type == 'jpg' || att.type == 'png')
+            ?.where((att) => att.type == 'jpg' || att.type == 'png' || att.type == 'image')
             .toList()
             .reversed
             .toList() ??
@@ -160,16 +162,15 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
       (element) => controller.singleTask.value.attachments?[index] == element,
     );
     if (type == 'image' || type == 'png') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ImagePreviewScreen(
-            initialIndex: imageIndex,
-            attachments: imageAttachments,
-            imageBase64: attachment,
-          ),
-        ),
-      );
+      GoRouter.of(context).pushNamed(Routes.slidablePhotoGallery, extra: {
+        'images': imageAttachments
+            .map(
+              (e) => e.attachment!,
+            )
+            .toList(),
+        'memory': false,
+        'initial': imageIndex
+      });
     } else if (type == 'pdf') {
       // log('PDF URL: $attachment');
 

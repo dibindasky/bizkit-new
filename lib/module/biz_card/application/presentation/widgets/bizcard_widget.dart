@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_query_params_model/individual_shared_fields_query_params_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,6 +25,7 @@ class BizcardWidget extends StatelessWidget {
     this.bizcardId,
     required this.width,
     required this.height,
+    this.createCard = false,
   }) : _flipCardController = FlipCardController();
 
   final String? personImage;
@@ -32,6 +35,7 @@ class BizcardWidget extends StatelessWidget {
   final String? designation;
   final VoidCallback? onTap;
   final double width, height;
+  final bool createCard;
   final FlipCardController _flipCardController;
 
   final levelSharingController = Get.find<LevelSharingController>();
@@ -88,22 +92,25 @@ class BizcardWidget extends StatelessWidget {
                   'Business Card',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    levelSharingController.fetchIndividualSharedFields(
-                        queryParameter: IndividualSharedFieldsQueryParamsModel(
-                            bizcardId: bizcardId ?? ""));
-                    GoRouter.of(context)
-                        .pushNamed(Routes.levelSharingSettings, extra: {
-                      "isCommonLevelSharing": false,
-                      "bizcardId": bizcardId,
-                    });
-                  },
-                  child: const CircleAvatar(
-                    radius: 15,
-                    backgroundImage: AssetImage(bizcardMoreIcon),
-                  ),
-                )
+                createCard
+                    ? kempty
+                    : GestureDetector(
+                        onTap: () {
+                          levelSharingController.fetchIndividualSharedFields(
+                              queryParameter:
+                                  IndividualSharedFieldsQueryParamsModel(
+                                      bizcardId: bizcardId ?? ""));
+                          GoRouter.of(context)
+                              .pushNamed(Routes.levelSharingSettings, extra: {
+                            "isCommonLevelSharing": false,
+                            "bizcardId": bizcardId,
+                          });
+                        },
+                        child: const CircleAvatar(
+                          radius: 15,
+                          backgroundImage: AssetImage(bizcardMoreIcon),
+                        ),
+                      )
               ],
             ),
             adjustHieght(18.h),
@@ -113,38 +120,70 @@ class BizcardWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: kneon, width: 2),
-                image: DecorationImage(
-                  image: AssetImage(personImage ?? 'personImage'),
-                  fit: BoxFit.cover,
-                ),
+                image: createCard || (personImage?.isNotEmpty ?? false)
+                    ? null
+                    : const DecorationImage(
+                        image: AssetImage(dummyPersonImage),
+                        fit: BoxFit.cover,
+                      ),
               ),
+              child: createCard
+                  ? const Icon(Icons.add, color: kwhite)
+                  : (personImage?.isNotEmpty ?? false)
+                      ? NetworkImageWithLoader(personImage!, radius: 100)
+                      : null,
             ),
-            adjustHieght(10.h),
-            Text(
-              name ?? 'name',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            adjustHieght(4.h),
-            Text(
-              textAlign: TextAlign.center,
-              designation ?? 'designation',
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            adjustHieght(10.h),
-            GestureDetector(
-              onTap: () => _flipCardController.toggleCard(),
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  borderRadius: kBorderRadius5,
-                  image: DecorationImage(
-                    image: MemoryImage(base64Decode(qrScanner ?? 'qrScanner')),
-                    fit: BoxFit.cover,
+            createCard
+                ? Column(
+                    children: [
+                      kHeight10,
+                      Text('Create a Business card',
+                          style: Theme.of(context).textTheme.bodyMedium),
+                      kHeight10,
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                              textAlign: TextAlign.center,
+                              'Create a sharable Business Card to showcase your achievements, connect with others, and grow your network seamlessly.',
+                              style: Theme.of(context).textTheme.bodySmall)),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      adjustHieght(10.h),
+                      Text(
+                        name ?? 'name',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      adjustHieght(4.h),
+                      Text(
+                        textAlign: TextAlign.center,
+                        designation ?? 'designation',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      adjustHieght(10.h),
+                      GestureDetector(
+                        onTap: () {
+                          _flipCardController.toggleCard();
+                          Get.find<CardController>().changeAutoScroll();
+                        },
+                        child: Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: kBorderRadius5,
+                            image: qrScanner == null
+                                ? null
+                                : DecorationImage(
+                                    image: MemoryImage(
+                                        base64Decode(qrScanner ?? 'qrScanner')),
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -153,7 +192,10 @@ class BizcardWidget extends StatelessWidget {
 
   Widget _buildBackCard(BuildContext context) {
     return GestureDetector(
-      onTap: () => _flipCardController.toggleCard(),
+      onTap: () {
+        _flipCardController.toggleCard();
+        Get.find<CardController>().changeAutoScroll();
+      },
       child: Container(
         width: width,
         height: height,

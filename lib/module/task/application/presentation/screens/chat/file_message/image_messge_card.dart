@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/domain/model/chat/file/file_model.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -26,22 +27,22 @@ class _ImageMessageCardState extends State<ImageMessageCard> {
   @override
   void initState() {
     super.initState();
-    _decodeImage();
+    // _decodeImage();
   }
 
-  @override
-  void didUpdateWidget(covariant ImageMessageCard oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.message.file != widget.message.file) {
-      _decodeImage();
-    }
-  }
+  // @override
+  // void didUpdateWidget(covariant ImageMessageCard oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   if (oldWidget.message.file != widget.message.file) {
+  //     _decodeImage();
+  //   }
+  // }
 
-  void _decodeImage() {
-    setState(() {
-      image = base64Decode(widget.message.file ?? '');
-    });
-  }
+  // void _decodeImage() {
+  //   setState(() {
+  //     image = base64Decode(widget.message.file ?? '');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -49,18 +50,19 @@ class _ImageMessageCardState extends State<ImageMessageCard> {
       onTap: () {
         GoRouter.of(context).pushNamed(Routes.slidablePhotoGallery, extra: {
           'initial': 0,
-          'memory': true,
+          'memory': false,
           'images': [widget.message.file!]
         });
       },
       child: Container(
         height: 200.h,
+        child: NetworkImageWithLoader(widget.message.file!,radius: 5),
         decoration: BoxDecoration(
           borderRadius: kBorderRadius5,
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: MemoryImage(image),
-          ),
+          // image: DecorationImage(
+          //   fit: BoxFit.cover,
+          //   image: MemoryImage(image),
+          // ),
         ),
       ),
     );

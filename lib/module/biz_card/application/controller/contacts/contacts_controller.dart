@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bizkit/module/biz_card/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/module/biz_card/data/service/contact/contact_service.dart';
 import 'package:bizkit/module/biz_card/data/sqflite/contacts/contact_local_service.dart';
@@ -217,6 +218,7 @@ class ContactsController extends GetxController {
     final result = await contactService.shareBizcardToContacts(
         shareCardContactModel:
             shareCardContactModel.value.copyWith(cardId: cardId));
+            log('share card contact ->> ${shareCardContactModel.value.toJson()}');
     result.fold((l) {
       showSnackbar(context,
           message: 'Failed to share Card', backgroundColor: kred);

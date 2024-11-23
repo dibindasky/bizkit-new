@@ -65,8 +65,9 @@ class AttachmentsChatDialog extends StatelessWidget {
                       GoRouter.of(context).pop();
                       showDialog(
                         context: context,
-                        builder: (context) =>
-                            const Dialog(child: TimeExpenceCreation()),
+                        builder: (context) => const Dialog(
+                          child: TimeExpenceCreation(),
+                        ),
                       );
                     },
                     text: 'Update Time/Expence'),
@@ -118,7 +119,13 @@ class CurrentLocationFetchingDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: controller.currentLocationFetching.value
               ? [
-                  const Text('Fetching Location'),
+                  Text(
+                    'Fetching Location',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 14),
+                  ),
                   kHeight10,
                   const Center(child: CircularProgressIndicator())
                 ]
@@ -129,7 +136,15 @@ class CurrentLocationFetchingDialog extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: kBorderRadius5,
                         color: kwhite.withOpacity(0.3)),
-                    child: Text(controller.currentLocation.value),
+                    child: Text(
+                      controller.currentLocation.value,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall
+                          ?.copyWith(fontSize: 14),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 4,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -152,13 +167,22 @@ class CurrentLocationFetchingDialog extends StatelessWidget {
                             vertical: 10.h, horizontal: 3.h),
                         decoration: BoxDecoration(
                             borderRadius: kBorderRadius5,
-                            color: kneonShade.withOpacity(0.3)),
+                            color: kneonShade.withOpacity(0.4)),
                         child: Row(
                           children: [
                             const Spacer(),
-                            const Text('Send Location'),
+                            Text(
+                              'Send Location',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(fontSize: 13),
+                            ),
                             const Spacer(),
-                            const Icon(Icons.send),
+                            const Icon(
+                              Icons.send,
+                              color: kblack,
+                            ),
                             kWidth10
                           ],
                         )),

@@ -29,8 +29,7 @@ class _TimeExpenceCreationState extends State<TimeExpenceCreation> {
   Widget build(BuildContext context) {
     final controller = Get.find<ChatController>();
     return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: kneonShade), borderRadius: kBorderRadius25),
+      decoration: BoxDecoration(borderRadius: kBorderRadius25),
       padding: const EdgeInsets.all(16.0),
       child: Form(
         key: formKey,
@@ -42,12 +41,12 @@ class _TimeExpenceCreationState extends State<TimeExpenceCreation> {
               Text(
                 'Update Time/Money',
                 style:
-                    textThinStyle1.copyWith(color: kneonShade, fontSize: 15.sp),
+                    textThinStyle1.copyWith(color: neonShade, fontSize: 15.sp),
               ),
               kHeight20,
               Text(
                 'Time Taken',
-                style: textThinStyle1.copyWith(color: kwhite, fontSize: 12.sp),
+                style: Theme.of(context).textTheme.displaySmall,
               ),
               kHeight5,
               Row(
@@ -56,18 +55,30 @@ class _TimeExpenceCreationState extends State<TimeExpenceCreation> {
                   Expanded(
                       child: _buildTextField(
                           label: 'HH', controller: hourController)),
-                  const Text('Hr'),
+                  Text(
+                    'Hr',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 10),
+                  ),
                   kWidth5,
                   Expanded(
                       child: _buildTextField(
                           label: 'MM', controller: minuteController)),
-                  const Text('Min'),
+                  Text(
+                    'Min',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 10),
+                  ),
                 ],
               ),
               kHeight20,
               Text(
                 'Enter the Money Spent on The Task',
-                style: textThinStyle1.copyWith(color: kwhite, fontSize: 12.sp),
+                style: Theme.of(context).textTheme.displaySmall,
               ),
               kHeight5,
               _buildTextField(
@@ -75,7 +86,7 @@ class _TimeExpenceCreationState extends State<TimeExpenceCreation> {
               kHeight20,
               Text(
                 'Description about the spent',
-                style: textThinStyle1.copyWith(color: kwhite, fontSize: 12.sp),
+                style: Theme.of(context).textTheme.displaySmall,
               ),
               kHeight5,
               _buildTextField(
@@ -137,32 +148,26 @@ class _TimeExpenceCreationState extends State<TimeExpenceCreation> {
       int? maxLines,
       bool description = false,
       required TextEditingController controller}) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: kBorderRadius10,
-          color: backgroundColour,
-          border: Border.all(color: kGrayLight)),
-      padding: EdgeInsets.only(left: 5.w),
-      child: TextFormField(
-        controller: controller,
-        keyboardType: description ? null : TextInputType.number,
-        style: TextStyle(color: kwhite, fontSize: 12.sp),
-        maxLines: maxLines,
-        decoration: InputDecoration(
-          hintText: label,
-          contentPadding: EdgeInsets.zero,
-          border: InputBorder.none,
-        ),
-        onChanged: (value) {
-          if (description) return;
-          controller.text = value.replaceAll(' ', '');
-        },
-        validator: (value) {
-          if (!description) return null;
-          if (value == null || value == '') return 'enter description';
-          return null;
-        },
+    return TextFormField(
+      controller: controller,
+      keyboardType: description ? null : TextInputType.number,
+      style: Theme.of(context).textTheme.displaySmall,
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        hintText: label,
+        hintStyle: Theme.of(context).textTheme.displaySmall,
+        contentPadding: const EdgeInsets.only(left: 10, top: 7),
+        border: InputBorder.none,
       ),
+      onChanged: (value) {
+        if (description) return;
+        controller.text = value.replaceAll(' ', '');
+      },
+      validator: (value) {
+        if (!description) return null;
+        if (value == null || value == '') return 'enter description';
+        return null;
+      },
     );
   }
 }

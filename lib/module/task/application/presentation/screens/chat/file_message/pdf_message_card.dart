@@ -1,10 +1,11 @@
-import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/domain/model/chat/file/file_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
+final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
 
 class PdfMessageCard extends StatelessWidget {
   const PdfMessageCard({super.key, required this.message});
@@ -17,8 +18,29 @@ class PdfMessageCard extends StatelessWidget {
     const image = 'asset/images/fa-solid_file-pdf.png';
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).pushNamed(Routes.pdfPreview,
-            extra: {'base64': message.file, 'label': message.message});
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Scaffold(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              primary: true,
+              appBar: AppBar(
+                surfaceTintColor: knill,
+                title: Text(
+                  '${message.message}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 19),
+                ),
+              ),
+              body: SfPdfViewer.network(
+                message.file ?? '',
+                key: _pdfViewerKey,
+              ),
+            ),
+          ),
+        );
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.h),

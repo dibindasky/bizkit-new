@@ -26,10 +26,19 @@ class ScreenPollDetailTask extends StatelessWidget {
                 children: [
                   Text(
                     'Poll Question',
-                    style: textHeadStyle1.copyWith(color: kneonShade),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 15, color: neonShade),
                   ),
                   Obx(() {
-                    return Text(controller.pollDetail.value.pollQuestion ?? '');
+                    return Text(
+                      controller.pollDetail.value.pollQuestion ?? '',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall
+                          ?.copyWith(fontSize: 13),
+                    );
                   }),
                   adjustHieght(10.h),
                   Expanded(
@@ -78,24 +87,38 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
 
     return Column(
       children: [
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-          decoration: BoxDecoration(
-            borderRadius: kBorderRadius15,
-            border: Border.all(color: neonShade),
-            color: klightDarkGrey,
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Expanded(
-                  child: Text(pollAnswer?.answerText ?? '', style: textStyle1)),
-              kWidth10,
-              Text(
-                  '${pollAnswer?.answerVotes ?? 0} Vote${(pollAnswer?.answerVotes ?? 0) == 1 ? '' : 's'}',
-                  style: textThinStyle1.copyWith(fontSize: 10.sp))
-            ],
+        Card(
+          elevation: 0,
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+            decoration: BoxDecoration(
+              borderRadius: kBorderRadius15,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                      child: Text(
+                    pollAnswer?.answerText ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 13),
+                  )),
+                  kWidth10,
+                  Text(
+                    '${pollAnswer?.answerVotes ?? 0} Vote${(pollAnswer?.answerVotes ?? 0) == 1 ? '' : 's'}',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 11),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
         (pollAnswer?.supporters?.isEmpty ?? true) ? kempty : adjustHieght(10.h),
@@ -115,31 +138,39 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
                     },
                     child: Column(
                       children: [
-                        Container(
-                            height: 35.h,
-                            width: 35.h,
-                            decoration: BoxDecoration(
-                              border: index != selectedIndex
-                                  ? null
-                                  : Border.all(color: neonShade, width: 3.sp),
-                              borderRadius: kBorderRadius5,
-                              color: klightDarkGrey,
-                            ),
-                            child: isAnonymous
-                                ? const Icon(Icons.person)
-                                : FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Text(
-                                      '${pollAnswer?.supporters?[index].name?.substring(0, 2).toUpperCase()}',
-                                      style: textHeadStyle1,
-                                    ),
-                                  )),
+                        Card(
+                          elevation: 1,
+                          child: Container(
+                              height: 35.h,
+                              width: 35.h,
+                              decoration: BoxDecoration(
+                                border: index != selectedIndex
+                                    ? null
+                                    : Border.all(color: neonShade),
+                                borderRadius: kBorderRadius10,
+                              ),
+                              child: isAnonymous
+                                  ? const Icon(Icons.person)
+                                  : FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        '${pollAnswer?.supporters?[index].name?.substring(0, 2).toUpperCase()}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(fontSize: 13),
+                                      ),
+                                    )),
+                        ),
                         adjustHieght(3.h),
                         Text(
                           isAnonymous
                               ? "User"
                               : pollAnswer?.supporters?[index].name ?? '',
-                          style: textThinStyle1,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(fontSize: 13),
                         )
                       ],
                     ),
@@ -159,23 +190,31 @@ class _PollDetailAnswerTileState extends State<PollDetailAnswerTile> {
                 height: 100.h,
                 child: Stack(
                   children: [
-                    Container(
-                      height: 100.h,
-                      margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 25.w, vertical: 10.h),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: klightDarkGrey, borderRadius: kBorderRadius10),
-                      child: Column(children: [
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Text(
+                    Card(
+                      elevation: 0,
+                      child: Container(
+                        height: 100.h,
+                        margin: EdgeInsets.symmetric(horizontal: 20.w),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 25.w, vertical: 10.h),
+                        width: double.infinity,
+                        decoration:
+                            BoxDecoration(borderRadius: kBorderRadius10),
+                        child: Column(children: [
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Text(
                                 pollAnswer?.supporters?[selectedIndex].reason ??
-                                    ''),
-                          ),
-                        )
-                      ]),
+                                    '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(fontSize: 13),
+                              ),
+                            ),
+                          )
+                        ]),
+                      ),
                     ),
                     ArrowMarkIndexChange(
                         alignment: Alignment.centerLeft,
@@ -229,12 +268,14 @@ class ArrowMarkIndexChange extends StatelessWidget {
       alignment: alignment,
       child: GestureDetector(
         onTap: onTap,
-        child: Container(
-            decoration: BoxDecoration(
-                color: backgroundColor, borderRadius: kBorderRadius25),
-            padding: EdgeInsets.all(8.w),
-            child: Icon(left ? Icons.arrow_back : Icons.arrow_forward,
-                color: kblack)),
+        child: Card(
+          child: Container(
+              decoration: BoxDecoration(
+                  color: backgroundColor, borderRadius: kBorderRadius25),
+              padding: EdgeInsets.all(8.w),
+              child: Icon(left ? Icons.arrow_back : Icons.arrow_forward,
+                  color: kblack)),
+        ),
       ),
     );
   }

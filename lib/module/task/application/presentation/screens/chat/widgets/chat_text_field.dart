@@ -69,11 +69,14 @@ class _ChatTextfieldContainerState extends State<ChatTextfieldContainer> {
                   maxLines: maxLines == 1 ? null : maxLines,
                   style: textStyle1.copyWith(color: kblack),
                   decoration: InputDecoration(
+                    focusColor: knill,
+                    focusedBorder: InputBorder.none,
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 0),
                     hintText: 'Send message ...',
-                    hintStyle: textStyle1.copyWith(color: kgrey),
+                    hintStyle: Theme.of(context).textTheme.displaySmall,
                     filled: true,
+                    enabledBorder: InputBorder.none,
                     fillColor: kwhite,
                     border: InputBorder.none,
                   ),

@@ -152,7 +152,8 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
       String type, CreateTaskController controller, int index) {
     //  Filter out non-image attachments
     final imageAttachments = controller.singleTask.value.attachments
-            ?.where((att) => att.type == 'jpg' || att.type == 'png' || att.type == 'image')
+            ?.where((att) =>
+                att.type == 'jpg' || att.type == 'png' || att.type == 'image')
             .toList()
             .reversed
             .toList() ??
@@ -172,8 +173,6 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
         'initial': imageIndex
       });
     } else if (type == 'pdf') {
-      // log('PDF URL: $attachment');
-
       Navigator.push(
         context,
         MaterialPageRoute(

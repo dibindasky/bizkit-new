@@ -57,8 +57,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
                                   .displayMedium
                                   ?.copyWith(
                                     fontSize: 16,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
+                                    color: kneonDark,
                                   ),
                             ),
                             Obx(
@@ -89,7 +88,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
                                                   angle: angle,
                                                   child: const Icon(
                                                     Icons.sync,
-                                                    color: kneon,
+                                                    color: kneonDark,
                                                     size: 15,
                                                   ),
                                                 );
@@ -112,9 +111,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
                                                   .textTheme
                                                   .displaySmall
                                                   ?.copyWith(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
+                                                    color: kneonDark,
                                                   ),
                                             ),
                                           ],

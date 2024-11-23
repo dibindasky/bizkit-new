@@ -50,7 +50,9 @@ class FileMessageCard extends StatelessWidget {
                         ),
                   message.fileType == 'pdf'
                       ? PdfMessageCard(message: message)
-                      : message.fileType == 'jpg' || message.fileType == 'png' || message.fileType == 'image'
+                      : message.fileType == 'jpg' ||
+                              message.fileType == 'png' ||
+                              message.fileType == 'image'
                           ? ImageMessageCard(message: message)
                           : Text('Unknown file type',
                               style: Theme.of(context)

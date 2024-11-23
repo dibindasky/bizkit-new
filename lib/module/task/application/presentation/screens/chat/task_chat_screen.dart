@@ -25,6 +25,7 @@ class ScreenTaskChat extends StatelessWidget {
     return Obx(
       () {
         return Scaffold(
+          backgroundColor: Get.isDarkMode ? kblack : kdarkOffWhite,
           appBar: AppBar(
             surfaceTintColor: knill,
             leading: IconButton(

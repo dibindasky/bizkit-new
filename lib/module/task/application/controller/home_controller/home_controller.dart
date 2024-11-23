@@ -168,8 +168,11 @@ class TaskHomeScreenController extends GetxController
       (failure) {
         fileDownloading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -187,8 +190,11 @@ class TaskHomeScreenController extends GetxController
             filetype: generateReportModel.reportType ?? '',
             context: context);
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Task Report Downloaded Successfully'),
+          SnackBar(
+            content: Text(
+              'Task Report Downloaded Successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );

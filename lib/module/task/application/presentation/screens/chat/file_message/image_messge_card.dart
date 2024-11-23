@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:bizkit/core/routes/routes.dart';
@@ -64,6 +63,7 @@ class _ImageMessageCardState extends State<ImageMessageCard> {
           //   image: MemoryImage(image),
           // ),
         ),
+        child: NetworkImageWithLoader(widget.message.file!, radius: 5),
       ),
     );
   }

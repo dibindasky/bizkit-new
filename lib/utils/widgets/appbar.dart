@@ -15,7 +15,8 @@ class CardAppbarCommen extends StatelessWidget {
       leading: IconButton(
         icon: const Icon(
           Icons.arrow_back_ios,
-          size: 18,
+          size: 19,
+          color: kblack,
         ),
         onPressed: () {
           if (onTap == null) {
@@ -24,12 +25,11 @@ class CardAppbarCommen extends StatelessWidget {
             onTap!();
           }
         },
-        color: kwhite,
       ),
       backgroundColor: backgroundColor,
       title: Text(
         tittle ?? 'Give tittle',
-        style: textHeadStyle1,
+        style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 16),
       ),
     );
   }

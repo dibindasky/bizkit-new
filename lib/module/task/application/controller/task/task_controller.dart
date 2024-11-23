@@ -587,6 +587,7 @@ class CreateTaskController extends GetxController {
         attachments.clear;
         userslistNew.clear();
         Get.find<TaskHomeScreenController>().fetchRecentTasks();
+        Get.find<TaskHomeScreenController>().progresBar();
         showSnackbar(
           context,
           message: 'Task created successfully',
@@ -1339,8 +1340,11 @@ class CreateTaskController extends GetxController {
       (error) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -1350,14 +1354,20 @@ class CreateTaskController extends GetxController {
         log("${success.message}");
         isAccept == true
             ? scaffoldMessenger.showSnackBar(
-                const SnackBar(
-                  content: Text('Task Accepted successfully'),
+                SnackBar(
+                  content: Text(
+                    'Task Accepted successfully',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
                   backgroundColor: neonShade,
                 ),
               )
             : scaffoldMessenger.showSnackBar(
-                const SnackBar(
-                  content: Text('Task Rejected successfully'),
+                SnackBar(
+                  content: Text(
+                    'Task Rejected successfully',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
                   backgroundColor: neonShade,
                 ),
               );
@@ -1590,8 +1600,11 @@ class CreateTaskController extends GetxController {
     result.fold(
       (failure) {
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -1603,8 +1616,11 @@ class CreateTaskController extends GetxController {
         log("${success.message}");
         fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Subtask deleted successfully'),
+          SnackBar(
+            content: Text(
+              'Subtask deleted successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );
@@ -1661,8 +1677,11 @@ class CreateTaskController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -1673,8 +1692,11 @@ class CreateTaskController extends GetxController {
         log("${success.message}");
 
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Killed task successfully'),
+          SnackBar(
+            content: Text(
+              'Killed task successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );
@@ -1695,8 +1717,11 @@ class CreateTaskController extends GetxController {
       (failure) {
         isLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -1707,8 +1732,11 @@ class CreateTaskController extends GetxController {
         log("${success.message}");
         fetchAllKilledTasks();
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Restore successfully'),
+          SnackBar(
+            content: Text(
+              'Restore successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );
@@ -1828,8 +1856,11 @@ class CreateTaskController extends GetxController {
         isLoading.value = false;
 
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -1848,8 +1879,11 @@ class CreateTaskController extends GetxController {
         //     singleTaskModel:
         //         GetSingleTaskModel(taskId: completedSubTask.taskId));
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Subtask completed successfully'),
+          SnackBar(
+            content: Text(
+              'Subtask completed successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );

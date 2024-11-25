@@ -32,65 +32,64 @@ class TaskStatusCardWidget extends StatelessWidget {
     // final completed = completedTasksCount ?? 0;
     // final all = allTasksCount ?? 0;
     // final progress = all > 0 ? (completed / all) : 0.0;
-    return Obx(
-      () => Column(
-        children: [
-          adjustHieght(20.h),
-          Stack(
-            children: [
-              // White Border
-              ClipPath(
-                clipper: TaskStatusClipper(),
-                child: Container(
-                  height: 165.h,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    color: kwhite,
-                  ),
+    return Column(
+      children: [
+        adjustHieght(20.h),
+        Stack(
+          children: [
+            // White Border
+            ClipPath(
+              clipper: TaskStatusClipper(),
+              child: Container(
+                height: 165.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: kwhite,
                 ),
               ),
-              // Main Card
-              Padding(
-                padding: const EdgeInsets.all(4),
-                child: ClipPath(
-                  clipper: TaskStatusClipper(),
-                  child: Container(
-                    width: double.infinity,
-                    height: 158.h,
-                    decoration: BoxDecoration(
-                      gradient: neonNewLinearGradient,
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 10.h),
-                          FadeInRight(
-                            animate: true,
-                            child: Text(
-                              '${completedTasksCount ?? 0} / ${allTasksCount ?? 0} Task Completed ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displaySmall
-                                  ?.copyWith(
-                                    fontSize: 15,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onTertiary,
-                                  ),
-                            ),
+            ),
+            // Main Card
+            Padding(
+              padding: const EdgeInsets.all(4),
+              child: ClipPath(
+                clipper: TaskStatusClipper(),
+                child: Container(
+                  width: double.infinity,
+                  height: 158.h,
+                  decoration: BoxDecoration(
+                    gradient: neonNewLinearGradient,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 10.h),
+                        FadeInRight(
+                          animate: true,
+                          child: Text(
+                            '${completedTasksCount ?? 0} / ${allTasksCount ?? 0} Task Completed ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
+                                  fontSize: 15,
+                                  color:
+                                      Theme.of(context).colorScheme.onTertiary,
+                                ),
                           ),
-                          adjustHieght(30.h),
-                          SizedBox(
-                            height: 50.h,
-                            width: 290.w,
-                            child: FadeInRight(
-                              animate: true,
-                              child: ListView.separated(
+                        ),
+                        adjustHieght(30.h),
+                        SizedBox(
+                          height: 50.h,
+                          width: 290.w,
+                          child: FadeInRight(
+                            animate: true,
+                            child: Obx(
+                              () => ListView.separated(
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder: (context, index) {
                                     var tasks = homeController
@@ -191,86 +190,86 @@ class TaskStatusCardWidget extends StatelessWidget {
                                               : 0),
                             ),
                           ),
-                          // FadeInRight(
-                          //   animate: true,
-                          //   child: Text(
-                          //     'Progress',
-                          //     style: Theme.of(context)
-                          //         .textTheme
-                          //         .displaySmall
-                          //         ?.copyWith(
-                          //           fontSize: 13,
-                          //           color:
-                          //               Theme.of(context).colorScheme.onTertiary,
-                          //         ),
-                          //   ),
-                          // ),
-                          // SizedBox(height: 5.h),
-                          // Column(
-                          //   crossAxisAlignment: CrossAxisAlignment.start,
-                          //   children: [
-                          //     FadeInRight(
-                          //       animate: true,
-                          //       child: ClipRRect(
-                          //         borderRadius: BorderRadius.circular(12),
-                          //         child: LinearProgressIndicator(
-                          //           minHeight: 12,
-                          //           value: progress,
-                          //           backgroundColor: kwhite.withOpacity(0.3),
-                          //           valueColor:
-                          //               const AlwaysStoppedAnimation<Color>(
-                          //             kwhite,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     SizedBox(height: 5.h),
-                          //     FadeInRight(
-                          //       animate: true,
-                          //       child: Align(
-                          //         alignment: Alignment.centerRight,
-                          //         child: Text(
-                          //           '${(progress * 100).toInt()}%',
-                          //           style: Theme.of(context)
-                          //               .textTheme
-                          //               .displaySmall
-                          //               ?.copyWith(
-                          //                 fontSize: 13,
-                          //                 color: Theme.of(context)
-                          //                     .colorScheme
-                          //                     .onTertiary,
-                          //               ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // )
-                        ],
-                      ),
+                        ),
+                        // FadeInRight(
+                        //   animate: true,
+                        //   child: Text(
+                        //     'Progress',
+                        //     style: Theme.of(context)
+                        //         .textTheme
+                        //         .displaySmall
+                        //         ?.copyWith(
+                        //           fontSize: 13,
+                        //           color:
+                        //               Theme.of(context).colorScheme.onTertiary,
+                        //         ),
+                        //   ),
+                        // ),
+                        // SizedBox(height: 5.h),
+                        // Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: [
+                        //     FadeInRight(
+                        //       animate: true,
+                        //       child: ClipRRect(
+                        //         borderRadius: BorderRadius.circular(12),
+                        //         child: LinearProgressIndicator(
+                        //           minHeight: 12,
+                        //           value: progress,
+                        //           backgroundColor: kwhite.withOpacity(0.3),
+                        //           valueColor:
+                        //               const AlwaysStoppedAnimation<Color>(
+                        //             kwhite,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(height: 5.h),
+                        //     FadeInRight(
+                        //       animate: true,
+                        //       child: Align(
+                        //         alignment: Alignment.centerRight,
+                        //         child: Text(
+                        //           '${(progress * 100).toInt()}%',
+                        //           style: Theme.of(context)
+                        //               .textTheme
+                        //               .displaySmall
+                        //               ?.copyWith(
+                        //                 fontSize: 13,
+                        //                 color: Theme.of(context)
+                        //                     .colorScheme
+                        //                     .onTertiary,
+                        //               ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // )
+                      ],
                     ),
                   ),
                 ),
               ),
+            ),
 
-              Positioned(
-                right: 0,
-                top: 0,
-                child: GestureDetector(
-                  onTap: onTap,
-                  child: const CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.black,
-                    child: Icon(
-                      Icons.arrow_outward_outlined,
-                      color: Colors.white,
-                    ),
+            Positioned(
+              right: 0,
+              top: 0,
+              child: GestureDetector(
+                onTap: onTap,
+                child: const CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.black,
+                  child: Icon(
+                    Icons.arrow_outward_outlined,
+                    color: Colors.white,
                   ),
                 ),
               ),
-            ],
-          )
-        ],
-      ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }

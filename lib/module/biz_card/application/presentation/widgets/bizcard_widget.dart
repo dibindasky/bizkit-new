@@ -152,7 +152,7 @@ class BizcardWidget extends StatelessWidget {
                     children: [
                       adjustHieght(10.h),
                       Text(
-                        name ?? 'name',
+                        name ?? 'Unknown Name',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       adjustHieght(4.h),

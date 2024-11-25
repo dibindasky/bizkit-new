@@ -121,8 +121,7 @@ class BusinessCard extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          borderRadius: kBorderRadius20,
-                          border: Border.all(color: kneonShade),
+                          borderRadius: kBorderRadius15,
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -139,6 +138,7 @@ class BusinessCard extends StatelessWidget {
                                       ShareCardThroughContactBottomSheet(
                                           cardId: bizcard.bizcardId ?? ''),
                                 );
+                                print('Bizcard id === > ${bizcard.bizcardId}');
                               },
                               title: const Text('share to Bizkit contacts'),
                               leading:

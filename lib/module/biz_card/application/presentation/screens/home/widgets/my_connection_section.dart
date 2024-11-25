@@ -4,6 +4,7 @@ import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_cont
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,7 @@ class MyConnectionSection extends StatelessWidget {
     final connectionsController = Get.find<ConnectionsController>();
     final navbarController = Get.find<NavbarController>();
     // WidgetsBinding.instance.addPostFrameCallback((_) {
-      // connectionsController.fetchMyConnections(true);
+    // connectionsController.fetchMyConnections(true);
     // });
     return SizedBox(
       child: Padding(
@@ -170,14 +171,14 @@ class MyConnectionSection extends StatelessWidget {
                             ),
                           );
                         }
-
+                        final card = connection.cards?.isNotEmpty == true
+                            ? connection.cards!.first
+                            : null;
                         // final cIndex = index - 1;
                         return Column(
                           children: [
                             InkWell(
                               onTap: () {
-                                //  todo  After the details page is done - todo this
-
                                 GoRouter.of(context).pushNamed(
                                     Routes.cardDetailView,
                                     pathParameters: {
@@ -186,11 +187,18 @@ class MyConnectionSection extends StatelessWidget {
                                       'myCard': 'false'
                                     });
                               },
-                              child: const CircleAvatar(
-                                radius: 33,
-                                backgroundImage:
-                                    AssetImage(chatSectionPersonDummyImg2),
-                              ),
+                              child: card?.imageUrl != null
+                                  ? CircleAvatar(
+                                      radius: 33,
+                                      backgroundColor: kblack,
+                                      child: NetworkImageWithLoader(
+                                        card?.imageUrl ?? '',
+                                        radius: 50,
+                                      ),
+                                    )
+                                  : const CircleAvatar(
+                                      child: Icon(Icons.person),
+                                    ),
                             ),
                             adjustHieght(5.h),
                             Text(

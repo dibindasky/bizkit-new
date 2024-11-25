@@ -132,9 +132,6 @@ class TaskStatusSection extends StatelessWidget {
                       }
                     },
                     homeController: homeController,
-                    cardTitle: homeController.taskStatusTabIndex.value == 0
-                        ? 'Self tasks'
-                        : '',
                     allTasksCount: homeController.taskStatusTabIndex.value == 0
                         ? homeController
                                 .progresBarCounts.value.selfToSelf?.all ??
@@ -161,9 +158,6 @@ class TaskStatusSection extends StatelessWidget {
                       }
                     },
                     homeController: homeController,
-                    cardTitle: homeController.taskStatusTabIndex.value == 1
-                        ? 'Self to others tasks'
-                        : '',
                     allTasksCount: homeController.taskStatusTabIndex.value == 1
                         ? homeController
                                 .progresBarCounts.value.selfToOthers?.all ??
@@ -190,9 +184,6 @@ class TaskStatusSection extends StatelessWidget {
                       }
                     },
                     homeController: homeController,
-                    cardTitle: homeController.taskStatusTabIndex.value == 2
-                        ? 'Others to self tasks'
-                        : '',
                     allTasksCount: homeController.taskStatusTabIndex.value == 2
                         ? homeController
                                 .progresBarCounts.value.othersToSelf?.all ??

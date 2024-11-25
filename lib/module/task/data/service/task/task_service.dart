@@ -197,9 +197,6 @@ class TaskService implements TaskRepo {
         data: filterByDeadline.toJson(),
       );
 
-      for (var task in response.data['data']) {
-        log('Task from api call ==== > ${task['task_title']}');
-      }
       log("=> Response Filter by Deadline : ");
       return Right(FilterByDeadlineResponce.fromJson(response.data));
     } on DioException catch (e) {

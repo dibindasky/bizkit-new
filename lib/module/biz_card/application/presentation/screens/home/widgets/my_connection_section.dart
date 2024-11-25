@@ -20,7 +20,7 @@ class MyConnectionSection extends StatelessWidget {
     final connectionsController = Get.find<ConnectionsController>();
     final navbarController = Get.find<NavbarController>();
     // WidgetsBinding.instance.addPostFrameCallback((_) {
-      // connectionsController.fetchMyConnections(true);
+    // connectionsController.fetchMyConnections(true);
     // });
     return SizedBox(
       child: Padding(
@@ -185,6 +185,9 @@ class MyConnectionSection extends StatelessWidget {
                                           connection.cards?.first.toCard ?? '',
                                       'myCard': 'false'
                                     });
+                                connectionsController.getConnectionCardDetail(
+                                    cardId:
+                                        connection.cards?.first.toCard ?? '');
                               },
                               child: const CircleAvatar(
                                 radius: 33,

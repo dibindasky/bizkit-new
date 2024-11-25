@@ -143,7 +143,7 @@ class CardUpdateBusinesstDetails extends StatelessWidget {
                         .pushNamed(Routes.cardAchivementCreateUpdate, extra: {
                       'fromBusiness': true,
                       'achivement': cardController.bizcardDetail.value
-                          .personalDetails?.personalAchievements?[index]
+                          .businessDetails?.businessAchievements?[index]
                     });
                   },
                   removeItem: (index) {
@@ -296,7 +296,8 @@ showBranchDialoge(context, String? id, int? index) {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                        '${id != null ? 'Update' : 'Enter'} Branch Office Details',style: Theme.of(context).textTheme.displayMedium),
+                        '${id != null ? 'Update' : 'Enter'} Branch Office Details',
+                        style: Theme.of(context).textTheme.displayMedium),
                     kHeight10,
                     CustomTextFormField(
                         labelText: 'Branch name',

@@ -1,8 +1,10 @@
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/business_info/card_detail_update_business_info.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import 'card_details_create_or_update/banking_info/card_detail_update_banking_info.dart';
@@ -105,16 +107,20 @@ class _BizcardCreateOrUpdateScreenState
             ],
           ),
           kHeight10,
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: [
-                CardUpdatePersonalDetails(),
-                CardUpdateBusinesstDetails(),
-                const CardUpdateLogoStoryDetails(),
-                const CardUpdateProductDetails(),
-                CardUpdateBankingDetails(),
-              ],
+          Obx(
+            () => Expanded(
+              child: Get.find<CardController>().isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : TabBarView(
+                      controller: tabController,
+                      children: [
+                        CardUpdatePersonalDetails(),
+                        CardUpdateBusinesstDetails(),
+                        const CardUpdateLogoStoryDetails(),
+                        const CardUpdateProductDetails(),
+                        CardUpdateBankingDetails(),
+                      ],
+                    ),
             ),
           ),
         ]),

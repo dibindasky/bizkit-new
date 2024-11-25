@@ -91,31 +91,31 @@ class _CardScreenAchievementsCreateState
                     // images adding or deleting section
                     InkWell(
                       onTap: () async {
-                        cameraAndGalleryPickImage(
-                            tittle: "Choose image from",
-                            context: context,
-                            onPressCam: () async {
-                              final img =
-                                  await ImagePickerClass.getImage(camera: true);
-                              if (img != null) {
-                                personalController.existingAchievementImages
-                                    .add(ImageCard(image: img.base64));
-                                personalController.newAchievementimage
-                                    .add(ImageCard(image: img.base64));
-                                setState(() {});
-                              }
-                            },
-                            onPressGallery: () async {
-                              final img = await ImagePickerClass.getImage(
-                                  camera: false);
-                              if (img != null) {
-                                personalController.existingAchievementImages
-                                    .add(ImageCard(image: img.base64));
-                                personalController.newAchievementimage
-                                    .add(ImageCard(image: img.base64));
-                                setState(() {});
-                              }
-                            });
+                        // cameraAndGalleryPickImage(
+                        //     tittle: "Choose image from",
+                        //     context: context,
+                        //     onPressCam: () async {
+                        //       final img =
+                        //           await ImagePickerClass.getImage(camera: true);
+                        //       if (img != null) {
+                        //         personalController.existingAchievementImages
+                        //             .add(ImageCard(image: img.base64));
+                        //         personalController.newAchievementimage
+                        //             .add(ImageCard(image: img.base64));
+                        //         setState(() {});
+                        //       }
+                        //     },
+                        //     onPressGallery: () async {
+                        //       final img = await ImagePickerClass.getImage(
+                        //           camera: false);
+                        //       if (img != null) {
+                        //         personalController.existingAchievementImages
+                        //             .add(ImageCard(image: img.base64));
+                        //         personalController.newAchievementimage
+                        //             .add(ImageCard(image: img.base64));
+                        //         setState(() {});
+                        //       }
+                        //     });
                       },
                       child: SizedBox(
                         height: 170.dm,
@@ -124,8 +124,9 @@ class _CardScreenAchievementsCreateState
                             ListView.separated(
                               separatorBuilder: (context, index) => kWidth10,
                               scrollDirection: Axis.horizontal,
-                              itemCount: personalController
-                                  .existingAchievementImages.length,
+                              itemCount: 1,
+                              // itemCount: personalController
+                              //     .existingAchievementImages.length,
                               itemBuilder: (context, index) {
                                 return MemoryImageMaker(
                                     deleteTap: () {
@@ -135,33 +136,36 @@ class _CardScreenAchievementsCreateState
                                               'Are you sure want to remove ?',
                                           buttonText: 'Delete',
                                           onTap: () {
-                                            personalController
-                                                .newAchievementimage
-                                                .removeWhere((element) =>
-                                                    element ==
-                                                    personalController
-                                                            .existingAchievementImages[
-                                                        personalController
-                                                                .existingAchievementImages
-                                                                .length -
-                                                            index -
-                                                            1]);
-                                            personalController
-                                                .existingAchievementImages
-                                                .removeAt(personalController
-                                                        .existingAchievementImages
-                                                        .length -
-                                                    index -
-                                                    1);
-                                            setState(() {});
+                                            // personalController
+                                            //     .newAchievementimage
+                                            //     .removeWhere((element) =>
+                                            //         element ==
+                                            //         personalController
+                                            //                 .existingAchievementImages[
+                                            //             personalController
+                                            //                     .existingAchievementImages
+                                            //                     .length -
+                                            //                 index -
+                                            //                 1]);
+                                            // personalController
+                                            //     .existingAchievementImages
+                                            //     .removeAt(personalController
+                                            //             .existingAchievementImages
+                                            //             .length -
+                                            //         index -
+                                            //         1);
+                                            // setState(() {});
                                           });
                                     },
-                                    image: personalController
-                                        .existingAchievementImages,
-                                    index: personalController
-                                            .existingAchievementImages.length -
-                                        index -
-                                        1);
+                                    image: [ImageCard()],
+                                    // personalController
+                                    //     .existingAchievementImages,
+                                    index: 0
+                                    // index: personalController
+                                    //         .existingAchievementImages.length -
+                                    //     index -
+                                    //     1
+                                    );
                               },
                             ),
                             Positioned(
@@ -173,36 +177,36 @@ class _CardScreenAchievementsCreateState
                                         tittle: "Choose image from",
                                         context: context,
                                         onPressCam: () async {
-                                          final img =
-                                              await ImagePickerClass.getImage(
-                                                  camera: true);
-                                          if (img != null) {
-                                            personalController
-                                                .existingAchievementImages
-                                                .add(ImageCard(
-                                                    image: img.base64));
-                                            personalController
-                                                .newAchievementimage
-                                                .add(ImageCard(
-                                                    image: img.base64));
-                                            setState(() {});
-                                          }
+                                          // final img =
+                                          //     await ImagePickerClass.getImage(
+                                          //         camera: true);
+                                          // if (img != null) {
+                                          //   personalController
+                                          //       .existingAchievementImages
+                                          //       .add(ImageCard(
+                                          //           image: img.base64));
+                                          //   personalController
+                                          //       .newAchievementimage
+                                          //       .add(ImageCard(
+                                          //           image: img.base64));
+                                          //   setState(() {});
+                                          // }
                                         },
                                         onPressGallery: () async {
-                                          final img =
-                                              await ImagePickerClass.getImage(
-                                                  camera: false);
-                                          if (img != null) {
-                                            personalController
-                                                .existingAchievementImages
-                                                .add(ImageCard(
-                                                    image: img.base64));
-                                            personalController
-                                                .newAchievementimage
-                                                .add(ImageCard(
-                                                    image: img.base64));
-                                            setState(() {});
-                                          }
+                                          // final img =
+                                          //     await ImagePickerClass.getImage(
+                                          //         camera: false);
+                                          // if (img != null) {
+                                          //   personalController
+                                          //       .existingAchievementImages
+                                          //       .add(ImageCard(
+                                          //           image: img.base64));
+                                          //   personalController
+                                          //       .newAchievementimage
+                                          //       .add(ImageCard(
+                                          //           image: img.base64));
+                                          //   setState(() {});
+                                          // }
                                         });
                                   },
                                   child: const CircleAvatar(
@@ -312,35 +316,35 @@ class _CardScreenAchievementsCreateState
                               ? 'Save'
                               : 'Update',
                           onTap: () {
-                            if (personalController
-                                .existingAchievementImages.isEmpty) {
-                              showSnackbar(context,
-                                  message: 'Add image', backgroundColor: kred);
-                              return;
-                            } else if (achivementFormKey.currentState!
-                                .validate()) {
-                              List<String> sendImage = personalController
-                                  .existingAchievementImages
-                                  .map((e) => e.image!)
-                                  .toList();
-                              if (widget.achievement?.id == null) {
-                                !widget.fromBusiness
-                                    ? personalController.acheievementAdding(
-                                        sendImage, context)
-                                    : bussinessController.achievementAdding(
-                                        sendImage, context);
-                              } else {
-                                !widget.fromBusiness
-                                    ? personalController.acheievementUpdate(
-                                        sendImage,
-                                        context,
-                                        widget.achievement!.id!)
-                                    : bussinessController.acheievementUpdate(
-                                        sendImage,
-                                        context,
-                                        widget.achievement!.id!);
-                              }
-                            }
+                            // if (personalController
+                            //     .existingAchievementImages.isEmpty) {
+                            //   showSnackbar(context,
+                            //       message: 'Add image', backgroundColor: kred);
+                            //   return;
+                            // } else if (achivementFormKey.currentState!
+                            //     .validate()) {
+                            //   List<String> sendImage = personalController
+                            //       .existingAchievementImages
+                            //       .map((e) => e.image!)
+                            //       .toList();
+                            //   if (widget.achievement?.id == null) {
+                            //     !widget.fromBusiness
+                            //         ? personalController.acheievementAdding(
+                            //             sendImage, context)
+                            //         : bussinessController.achievementAdding(
+                            //             sendImage, context);
+                            //   } else {
+                            //     !widget.fromBusiness
+                            //         ? personalController.acheievementUpdate(
+                            //             sendImage,
+                            //             context,
+                            //             widget.achievement!.id!)
+                            //         : bussinessController.acheievementUpdate(
+                            //             sendImage,
+                            //             context,
+                            //             widget.achievement!.id!);
+                            //   }
+                            // }
                           },
                         );
                       },

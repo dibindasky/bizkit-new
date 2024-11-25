@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/bizcard_id_parameter_model/bizcard_id_parameter_model.dart';
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/archived_and_deleted_cards_responce/archived_or_deleted_card/archived_or_deleted_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
@@ -128,7 +130,10 @@ class CardController extends GetxController {
     update();
   }
 
-  void cardDetail({required String cardId, bool refresh = false}) async {
+  void cardDetail(
+      {required String cardId,
+      bool refresh = false,
+      bool toEdit = false}) async {
     log('Bizcard ID -> $cardId');
     if (cardId != bizcardDetail.value.bizcardId) {
       bizcardDetail.value = CardDetailModel();
@@ -141,6 +146,10 @@ class CardController extends GetxController {
       (l) => isLoading.value = false,
       (r) {
         bizcardDetail.value = r;
+        if (toEdit) {
+          Get.find<PersonalDetailsController>().getPersonalDetails(r);
+          Get.find<BusinesDetailsController>().getBusinessDetails(r);
+        }
         isLoading.value = false;
         update();
         update(['logo_story']);

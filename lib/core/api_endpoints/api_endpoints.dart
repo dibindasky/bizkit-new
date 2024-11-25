@@ -15,7 +15,7 @@ class ApiEndPoints {
   // [ General Routes ]
 
   // [ Auth ]
-  static const String login = '/login/';
+  static const String login = '/login/'; 
   static const String logOut = '/logout/';
   static const String register = '/register/';
   static const String sendOtpMail = '/verification/send_verification_email/';

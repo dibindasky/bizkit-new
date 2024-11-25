@@ -79,10 +79,16 @@ class PersonalDetailsService implements PersonalDetailsRepo {
   Future<Either<Failure, SuccessResponseModel>> personalAchivmentEditing(
       {required PersonalAchievementRequestModel personalAchiment}) async {
     try {
-      final responce = await apiService.put(ApiEndPoints.personalAchievement,
+      final responce = await apiService.patch(ApiEndPoints.personalAchievement,
           data: personalAchiment.toJson());
       log('personalAchivmentEditing ==>success');
-      return Right(SuccessResponseModel.fromJson(responce.data));
+      final map = responce.data as Map<String, dynamic>?;
+      print(map.toString());
+      return Right(SuccessResponseModel(
+          message: map?['message'],
+          data: (map?['image_urls'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList()));
     } on DioException catch (e) {
       log('personalAchivmentEditing DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));

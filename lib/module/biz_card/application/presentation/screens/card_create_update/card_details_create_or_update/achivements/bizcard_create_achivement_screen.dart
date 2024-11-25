@@ -5,8 +5,8 @@ import 'package:bizkit/module/biz_card/application/controller/card/personal_deta
 import 'package:bizkit/utils/images/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
-import 'package:bizkit/utils/widgets/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
@@ -40,22 +40,8 @@ class _BizCardAchivementCreationAndUpdationState
   @override
   void initState() {
     if (widget.achievement != null) {
-      final personalController = Get.find<PersonalDetailsController>();
-      // personalController.existingAchievementImages =
-      //     widget.achievement!.images ?? [];
-      personalController.achievementTitleChange =
-          widget.achievement!.title ?? '';
-      personalController.achievementTitle.text =
-          widget.achievement!.title ?? '';
-      personalController.achievementDescriptionChange =
-          widget.achievement!.description ?? '';
-      personalController.achievementDescription.text =
-          widget.achievement!.description ?? '';
-      personalController.achievementDate.text =
-          DateTimeFormater.getDateByDayMonthYear(
-              widget.achievement!.date ?? '');
-      personalController.achievementEvent.text =
-          widget.achievement!.event ?? '';
+        Get.find<PersonalDetailsController>()
+          .addAchivementDetailsToController(achievement: widget.achievement);
     }
     super.initState();
   }
@@ -80,7 +66,6 @@ class _BizCardAchivementCreationAndUpdationState
                 kHeight10,
                 Row(
                   children: [
-                    kWidth10,
                     GestureDetector(
                       onTap: () {
                         GoRouter.of(context).pop();
@@ -121,10 +106,7 @@ class _BizCardAchivementCreationAndUpdationState
                                     final img = await ImagePickerClass.getImage(
                                         camera: true);
                                     if (img != null) {
-                                      personalController
-                                          .existingAchievementImages
-                                          .add(ImageCard(image: img.base64));
-                                      personalController.newAchievementimage
+                                      personalController.personalAchivementImage
                                           .add(ImageCard(image: img.base64));
                                       setState(() {});
                                     }
@@ -133,10 +115,7 @@ class _BizCardAchivementCreationAndUpdationState
                                     final img = await ImagePickerClass.getImage(
                                         camera: false);
                                     if (img != null) {
-                                      personalController
-                                          .existingAchievementImages
-                                          .add(ImageCard(image: img.base64));
-                                      personalController.newAchievementimage
+                                      personalController.personalAchivementImage
                                           .add(ImageCard(image: img.base64));
                                       setState(() {});
                                     }
@@ -151,7 +130,7 @@ class _BizCardAchivementCreationAndUpdationState
                                         kWidth10,
                                     scrollDirection: Axis.horizontal,
                                     itemCount: personalController
-                                        .existingAchievementImages.length,
+                                        .personalAchivementImage.length,
                                     itemBuilder: (context, index) {
                                       return CardAchivementImageMaker(
                                           deleteTap: () {
@@ -162,33 +141,14 @@ class _BizCardAchivementCreationAndUpdationState
                                                 buttonText: 'Delete',
                                                 onTap: () {
                                                   personalController
-                                                      .newAchievementimage
-                                                      .removeWhere((element) =>
-                                                          element ==
-                                                          personalController
-                                                                  .existingAchievementImages[
-                                                              personalController
-                                                                      .existingAchievementImages
-                                                                      .length -
-                                                                  index -
-                                                                  1]);
-                                                  personalController
-                                                      .existingAchievementImages
-                                                      .removeAt(personalController
-                                                              .existingAchievementImages
-                                                              .length -
-                                                          index -
-                                                          1);
+                                                      .personalAchivementImage
+                                                      .removeAt(index);
                                                   setState(() {});
                                                 });
                                           },
                                           image: personalController
-                                              .existingAchievementImages,
-                                          index: personalController
-                                                  .existingAchievementImages
-                                                  .length -
-                                              index -
-                                              1);
+                                              .personalAchivementImage,
+                                          index: index);
                                     },
                                   ),
                                   Positioned(
@@ -205,13 +165,12 @@ class _BizCardAchivementCreationAndUpdationState
                                                         .getImage(camera: true);
                                                 if (img != null) {
                                                   personalController
-                                                      .existingAchievementImages
-                                                      .add(ImageCard(
-                                                          image: img.base64));
-                                                  personalController
-                                                      .newAchievementimage
-                                                      .add(ImageCard(
-                                                          image: img.base64));
+                                                      .personalAchivementImage
+                                                      .insert(
+                                                          0,
+                                                          ImageCard(
+                                                              image:
+                                                                  img.base64));
                                                   setState(() {});
                                                 }
                                               },
@@ -222,13 +181,12 @@ class _BizCardAchivementCreationAndUpdationState
                                                             camera: false);
                                                 if (img != null) {
                                                   personalController
-                                                      .existingAchievementImages
-                                                      .add(ImageCard(
-                                                          image: img.base64));
-                                                  personalController
-                                                      .newAchievementimage
-                                                      .add(ImageCard(
-                                                          image: img.base64));
+                                                      .personalAchivementImage
+                                                      .insert(
+                                                          0,
+                                                          ImageCard(
+                                                              image:
+                                                                  img.base64));
                                                   setState(() {});
                                                 }
                                               });
@@ -354,7 +312,7 @@ class _BizCardAchivementCreationAndUpdationState
                                     : 'Update',
                                 onTap: () {
                                   if (personalController
-                                      .existingAchievementImages.isEmpty) {
+                                      .personalAchivementImage.isEmpty) {
                                     showSnackbar(context,
                                         message: 'Add image',
                                         backgroundColor: kred);
@@ -362,7 +320,7 @@ class _BizCardAchivementCreationAndUpdationState
                                   } else if (achivementFormKey.currentState!
                                       .validate()) {
                                     List<String> sendImage = personalController
-                                        .existingAchievementImages
+                                        .personalAchivementImage
                                         .map((e) => e.image!)
                                         .toList();
                                     if (widget.achievement?.id == null) {
@@ -415,7 +373,8 @@ class CardAchivementImageMaker extends StatefulWidget {
   final VoidCallback? deleteTap;
 
   @override
-  State<CardAchivementImageMaker> createState() => _CardAchivementImageMakerState();
+  State<CardAchivementImageMaker> createState() =>
+      _CardAchivementImageMakerState();
 }
 
 class _CardAchivementImageMakerState extends State<CardAchivementImageMaker> {
@@ -425,32 +384,35 @@ class _CardAchivementImageMakerState extends State<CardAchivementImageMaker> {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            border: Border.all(color: kgrey),
-            borderRadius: BorderRadius.circular(10)),
+            border: Border.all(color: kgrey), borderRadius: kBorderRadius10),
         width: 270.dm,
         height: 170.dm,
         child: Stack(
           children: [
             InkWell(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SlidablePhotoGallery(
-                          initialIndex: widget.image!.length - widget.index - 1,
-                          images: widget.image!
-                              .map((e) => e.image!)
-                              .toList()
-                              .reversed
-                              .toList())));
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => SlidablePhotoGallery(
+                  //         initialIndex: widget.image!.length - widget.index - 1,
+                  //         images: widget.image!
+                  //             .map((e) => e.image!)
+                  //             .toList()
+                  //             .reversed
+                  //             .toList())));
                 },
                 child: SizedBox(
                   width: 270.dm,
                   height: 170.dm,
-                  child: Image.memory(
-                      base64.decode(
-                          widget.image![widget.index].image!.startsWith('data')
+                  child: widget.image![widget.index].networkImage
+                      ? NetworkImageWithLoader(
+                          widget.image![widget.index].image ?? "",
+                          radius: 10)
+                      : Image.memory(
+                          base64.decode(widget.image![widget.index].image!
+                                  .startsWith('data')
                               ? widget.image![widget.index].image!.substring(22)
                               : widget.image![widget.index].image!),
-                      fit: BoxFit.cover),
+                          fit: BoxFit.cover),
                 )),
             Positioned(
               top: 5,

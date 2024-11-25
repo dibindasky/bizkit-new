@@ -8,12 +8,12 @@ part of 'share_card_contact.dart';
 
 ShareCardContact _$ShareCardContactFromJson(Map<String, dynamic> json) =>
     ShareCardContact(
-      phoneNumber: json['phoneNumber'] as String?,
+      phoneNumber: json['phone_number'] as String?,
       email: json['email'] as String?,
     );
 
 Map<String, dynamic> _$ShareCardContactToJson(ShareCardContact instance) =>
     <String, dynamic>{
-      'phoneNumber': instance.phoneNumber,
+      'phone_number': instance.phoneNumber,
       'email': instance.email,
     };

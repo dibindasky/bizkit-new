@@ -59,6 +59,9 @@ class TaskDetailHeaderSection extends StatelessWidget {
                                     fontSize: 16,
                                     color: kneonDark,
                                   ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              softWrap: true,
                             ),
                             Obx(
                               () {

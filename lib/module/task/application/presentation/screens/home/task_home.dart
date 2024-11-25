@@ -33,6 +33,7 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
     final homeController = Get.find<TaskHomeScreenController>();
     final messageCoutController = Get.find<MessageCountController>();
     final authController = Get.find<AuthenticationController>();
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       messageCoutController.sendReqForUnread();
     });

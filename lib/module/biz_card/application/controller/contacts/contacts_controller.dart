@@ -52,7 +52,7 @@ class ContactsController extends GetxController {
 
   // Search contacts
   void searchContact(String query) {
-       update(['share_contact']);
+    update(['share_contact']);
     if (contactFilteredList.isEmpty) {
       return;
     }
@@ -60,13 +60,12 @@ class ContactsController extends GetxController {
     if (query.isEmpty) {
       contactList.value = contactFilteredList;
       searchLoading.value = false;
-       update(['share_contact']);
+      update(['share_contact']);
       return;
     }
     final filtered = contactFilteredList.where((element) {
       if (element.name != null &&
           element.name!.toLowerCase().contains(query.toLowerCase())) {
-            
         return true;
       }
       if (element.email != null &&
@@ -218,13 +217,11 @@ class ContactsController extends GetxController {
     final result = await contactService.shareBizcardToContacts(
         shareCardContactModel:
             shareCardContactModel.value.copyWith(cardId: cardId));
-            log('share card contact ->> ${shareCardContactModel.value.toJson()}');
+
     result.fold((l) {
       showSnackbar(context,
           message: 'Failed to share Card', backgroundColor: kred);
-    },
-        (r) => showSnackbar(context,
-            message: 'Card Shared Successfully'));
+    }, (r) => showSnackbar(context, message: 'Card Shared Successfully'));
     cardSharingLoading.value = false;
     shareCardContactModel.value = ShareCardContactModel();
     update(['share_contact']);

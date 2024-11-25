@@ -197,8 +197,6 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                       seprator: kHeight10,
                       itemCount: 5,
                       height: 40.h,
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
                       width: double.infinity,
                     );
                   } else if (taskController.taskExpenseAndTime.isEmpty) {
@@ -416,7 +414,6 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                          // kHeight5,
                                         ],
                                       ),
                                     ),

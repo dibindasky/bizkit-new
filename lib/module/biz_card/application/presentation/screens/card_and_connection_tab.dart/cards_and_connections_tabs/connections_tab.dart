@@ -88,11 +88,80 @@ class ConnectionsTab extends StatelessWidget {
                           );
                         }
                       },
-                      leading: const CircleAvatar(
-                        backgroundColor: textFieldFillColr,
-                        backgroundImage:
-                            AssetImage(chatSectionPersonDummyImg2),
-                      ),
+                      // leading: const CircleAvatar(
+                      //   backgroundColor: textFieldFillColr,
+                      //   backgroundImage:
+                      //       AssetImage(chatSectionPersonDummyImg2),
+                      // ),
+                      // title: Text(
+                      //   connectionsController
+                      //           .connectionsSearchList[index].username ??
+                      //       'Name',
+                      //   overflow: TextOverflow.ellipsis,
+                      //   style: Theme.of(context)
+                      //       .textTheme
+                      //       .displaySmall
+                      //       ?.copyWith(fontSize: 14),
+                      // ),
+                      // subtitle: Text(
+                      //   (connectionsController.connectionsSearchList[index]
+                      //                   .cards !=
+                      //               null &&
+                      //           connectionsController.connectionsSearchList[index]
+                      //               .cards!
+                      //               .isNotEmpty)
+                      //       ? connectionsController.connectionsSearchList[index]
+                      //               .cards!.first.businessDesignation ??
+                      //           'Designation'
+                      //       : 'No Designation',
+                      //   overflow: TextOverflow.ellipsis,
+                      //   style: Theme.of(context).textTheme.displaySmall,
+                      // ),
+                      // trailing: PopupMenuButton(
+                      //   itemBuilder: (context) {
+                      //     return [
+                      //       PopupMenuItem(
+                      //         onTap: () {
+                      //           connectionsController.unfollowRequest(
+                      //             toUserId: connectionsController
+                      //                 .connectionsSearchList[index].toUser,
+                      //             context: context,
+                      //             unfollowRequest: UnfollowConnectionModel(
+                      //               connectionId: connectionsController
+                      //                   .connectionsSearchList[index]
+                      //                   .cards!
+                      //                   .first
+                      //                   .connectionId,
+                      //             ),
+                      //           );
+                      //         },
+                      //         child: Text(
+                      //           'Unfollow',
+                      //           style: Theme.of(context)
+                      //               .textTheme
+                      //               .displaySmall
+                      //               ?.copyWith(color: kred),
+                      //         ),
+                      //       )
+                      //     ];
+                      //   },
+                      leading: connectionsController
+                                  .connectionsSearchList[index]
+                                  .cards?[index]
+                                  .imageUrl !=
+                              null
+                          ? CircleAvatar(
+                              backgroundColor: kneon,
+                              child: NetworkImageWithLoader(
+                                  connectionsController
+                                          .connectionsSearchList[index]
+                                          .cards?[index]
+                                          .imageUrl ??
+                                      ''),
+                            )
+                          : const CircleAvatar(
+                              child: Icon(Icons.person),
+                            ),
                       title: Text(
                         connectionsController
                                 .connectionsSearchList[index].username ??
@@ -104,10 +173,12 @@ class ConnectionsTab extends StatelessWidget {
                             ?.copyWith(fontSize: 14),
                       ),
                       subtitle: Text(
-                        (connectionsController.connectionsSearchList[index]
-                                        .cards !=
+                        // Check if the cards list exists and is not empty
+                        (connectionsController
+                                        .connectionsSearchList[index].cards !=
                                     null &&
-                                connectionsController.connectionsSearchList[index]
+                                connectionsController
+                                    .connectionsSearchList[index]
                                     .cards!
                                     .isNotEmpty)
                             ? connectionsController.connectionsSearchList[index]
@@ -123,17 +194,15 @@ class ConnectionsTab extends StatelessWidget {
                             PopupMenuItem(
                               onTap: () {
                                 connectionsController.unfollowRequest(
-                                  toUserId: connectionsController
-                                      .connectionsSearchList[index].toUser,
-                                  context: context,
-                                  unfollowRequest: UnfollowConnectionModel(
-                                    connectionId: connectionsController
-                                        .connectionsSearchList[index]
-                                        .cards!
-                                        .first
-                                        .connectionId,
-                                  ),
-                                );
+                                    toUserId: connectionsController
+                                        .connectionsSearchList[index].toUser,
+                                    context: context,
+                                    unfollowRequest: UnfollowConnectionModel(
+                                        connectionId: connectionsController
+                                            .connectionsSearchList[index]
+                                            .cards!
+                                            .first
+                                            .connectionId));
                               },
                               child: Text(
                                 'Unfollow',
@@ -145,79 +214,6 @@ class ConnectionsTab extends StatelessWidget {
                             )
                           ];
                         },
-                        leading: connectionsController
-                                    .connectionsSearchList[index]
-                                    .cards?[index]
-                                    .imageUrl !=
-                                null
-                            ? CircleAvatar(
-                                backgroundColor: kneon,
-                                child: NetworkImageWithLoader(
-                                    connectionsController
-                                            .connectionsSearchList[index]
-                                            .cards?[index]
-                                            .imageUrl ??
-                                        ''),
-                              )
-                            : const CircleAvatar(
-                                child: Icon(Icons.person),
-                              ),
-                        title: Text(
-                          connectionsController
-                                  .connectionsSearchList[index].username ??
-                              'Name',
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall
-                              ?.copyWith(fontSize: 14),
-                        ),
-                        subtitle: Text(
-                          // Check if the cards list exists and is not empty
-                          (connectionsController
-                                          .connectionsSearchList[index].cards !=
-                                      null &&
-                                  connectionsController
-                                      .connectionsSearchList[index]
-                                      .cards!
-                                      .isNotEmpty)
-                              ? connectionsController
-                                      .connectionsSearchList[index]
-                                      .cards!
-                                      .first
-                                      .businessDesignation ??
-                                  'Designation'
-                              : 'No Designation',
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.displaySmall,
-                        ),
-                        trailing: PopupMenuButton(
-                          itemBuilder: (context) {
-                            return [
-                              PopupMenuItem(
-                                onTap: () {
-                                  connectionsController.unfollowRequest(
-                                      toUserId: connectionsController
-                                          .connectionsSearchList[index].toUser,
-                                      context: context,
-                                      unfollowRequest: UnfollowConnectionModel(
-                                          connectionId: connectionsController
-                                              .connectionsSearchList[index]
-                                              .cards!
-                                              .first
-                                              .connectionId));
-                                },
-                                child: Text(
-                                  'Unfollow',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(color: kred),
-                                ),
-                              )
-                            ];
-                          },
-                        ),
                       ),
                     ),
                   );
@@ -265,9 +261,7 @@ class CardsbasedOnUserConnection extends StatelessWidget {
               ),
               child: ListTile(
                 onTap: () {
-                  final id = card
-                      ?.map((e) => e.toCard ?? '')
-                      .toList();
+                  final id = card?.map((e) => e.toCard ?? '').toList();
                   Map<String, String> map = id != null
                       ? {'myCard': 'false', 'cardId': id[index]}
                       : <String, String>{};

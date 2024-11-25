@@ -37,7 +37,7 @@ class ContactService implements ContactsRepo {
   Future<Either<Failure, SuccessResponce>> shareBizcardToContacts(
       {required ShareCardContactModel shareCardContactModel}) async {
     try {
-      print(shareCardContactModel.toJson());
+      log('shareBizcardToContacts  == > ${shareCardContactModel.toJson()}');
       final response = await apiService.post(ApiEndPoints.shareCardToContacts,
           data: shareCardContactModel.toJson());
       log('shareBizcardToContacts success==> ${response.statusCode.toString()}');

@@ -1,4 +1,3 @@
-import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 // import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
@@ -11,7 +10,6 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 class BizCardHomeScreen extends StatelessWidget {
   const BizCardHomeScreen({super.key});
@@ -48,12 +46,6 @@ class BizCardHomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     GoRouter.of(context).pushNamed(Routes.cardCreation);
-      //   },
-      // ),
     );
   }
 }

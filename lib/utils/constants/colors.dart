@@ -187,6 +187,6 @@ Color taskSpotLightColorChanger(String? date1, String? date2) {
     }
   } catch (e) {
     log('Error calculating difference in hours: $e', name: 'TaskContainer');
-    return kwhite;
+    return kneon;
   }
 }

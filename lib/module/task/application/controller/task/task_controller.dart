@@ -1884,6 +1884,8 @@ class CreateTaskController extends GetxController {
         // fetchSingleTask(
         //     singleTaskModel:
         //         GetSingleTaskModel(taskId: completedSubTask.taskId));
+
+        isLoading.value = false;
         scaffoldMessenger.showSnackBar(
           SnackBar(
             content: Text(
@@ -1893,8 +1895,6 @@ class CreateTaskController extends GetxController {
             backgroundColor: neonShade,
           ),
         );
-
-        isLoading.value = false;
       },
     );
   }

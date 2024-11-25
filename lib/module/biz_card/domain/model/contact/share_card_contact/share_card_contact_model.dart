@@ -5,7 +5,9 @@ part 'share_card_contact_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class ShareCardContactModel {
+  @JsonKey(name: 'card_id')
   String? cardId;
+  @JsonKey(name: 'contacts')
   List<ShareCardContact>? contacts;
 
   ShareCardContactModel({this.cardId, this.contacts});

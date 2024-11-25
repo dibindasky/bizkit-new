@@ -121,8 +121,7 @@ class BusinessCard extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          borderRadius: kBorderRadius20,
-                          border: Border.all(color: kneonShade),
+                          borderRadius: kBorderRadius15,
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -227,6 +226,8 @@ class BusinessCard extends StatelessWidget {
                       isDismissible: true,
                       showDragHandle: true,
                       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                      backgroundColor:
+                          Theme.of(context).scaffoldBackgroundColor,
                       builder: (context) => const BizCardViewsListPopUp(),
                     );
                   }

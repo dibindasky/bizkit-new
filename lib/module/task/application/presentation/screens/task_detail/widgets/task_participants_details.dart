@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
 class TaskDetailUserInfoSection extends StatelessWidget {
@@ -238,7 +239,8 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                   ),
                 ],
               ),
-              adjustHieght(10.h),
+              adjustHieght(15.h),
+
               // Participants section
               GestureDetector(
                 onTap: () {
@@ -265,29 +267,69 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                       ),
                     ),
                     adjustWidth(10.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Participants',
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
+                          if (taskController.isLoading.value)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: ShimmerLoaderTile(
+                                height: 9.h,
+                                width: 100.w,
+                              ),
+                            )
+                          else
+                            Text(
+                              participants,
+                              style: Theme.of(context).textTheme.displaySmall,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                        ],
+                      ),
+                    ),
+                    CircleAvatar(
+                      child: Padding(
+                        padding: EdgeInsets.all(1.w),
+                        child: const CircleAvatar(
+                          backgroundColor: kneon,
+                          child: Icon(
+                            Icons.access_time,
+                          ),
+                        ),
+                      ),
+                    ),
+                    adjustWidth(10.w),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Participants',
-                          style: Theme.of(context).textTheme.displaySmall,
-                        ),
+                        Text('Created at',
+                            style: Theme.of(context).textTheme.displaySmall),
                         if (taskController.isLoading.value)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
                             child: ShimmerLoaderTile(
                               height: 9.h,
-                              width: 100.w,
+                              width: 70.w,
                             ),
                           )
                         else
                           Text(
-                            participants,
-                            style: Theme.of(context).textTheme.displaySmall,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              DateTimeFormater.getDDMMHHMMformat(
+                                task.createdAt ?? 'No createdAt',
+                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(fontSize: 10)),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

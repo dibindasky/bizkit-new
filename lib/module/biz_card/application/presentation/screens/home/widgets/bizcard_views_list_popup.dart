@@ -1,6 +1,7 @@
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,8 +29,11 @@ class BizCardViewsListPopUp extends StatelessWidget {
             ),
           );
         } else if (cardController.cardViews.isEmpty) {
-          return const Center(
-            child: Text('No views'),
+          return Center(
+            child: Text(
+              'No views',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
           );
         } else {
           return Padding(
@@ -56,6 +60,28 @@ class BizCardViewsListPopUp extends StatelessWidget {
                           .textTheme
                           .displaySmall
                           ?.copyWith( fontSize: 13),
+=======
+                return Card(
+                  elevation: 0,
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: kgrey,
+                        child: data.photo != null
+                            ? NetworkImageWithLoader(data.photo ?? '')
+                            : const Icon(Icons.person),
+                      ),
+                      title: Text(
+                        data.name ?? 'name',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(fontSize: 13),
+                      ),
                     ),
                   ),
                 );

@@ -7,6 +7,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_r
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -144,6 +145,79 @@ class ConnectionsTab extends StatelessWidget {
                             )
                           ];
                         },
+                        leading: connectionsController
+                                    .connectionsSearchList[index]
+                                    .cards?[index]
+                                    .imageUrl !=
+                                null
+                            ? CircleAvatar(
+                                backgroundColor: kneon,
+                                child: NetworkImageWithLoader(
+                                    connectionsController
+                                            .connectionsSearchList[index]
+                                            .cards?[index]
+                                            .imageUrl ??
+                                        ''),
+                              )
+                            : const CircleAvatar(
+                                child: Icon(Icons.person),
+                              ),
+                        title: Text(
+                          connectionsController
+                                  .connectionsSearchList[index].username ??
+                              'Name',
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(fontSize: 14),
+                        ),
+                        subtitle: Text(
+                          // Check if the cards list exists and is not empty
+                          (connectionsController
+                                          .connectionsSearchList[index].cards !=
+                                      null &&
+                                  connectionsController
+                                      .connectionsSearchList[index]
+                                      .cards!
+                                      .isNotEmpty)
+                              ? connectionsController
+                                      .connectionsSearchList[index]
+                                      .cards!
+                                      .first
+                                      .businessDesignation ??
+                                  'Designation'
+                              : 'No Designation',
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
+                        trailing: PopupMenuButton(
+                          itemBuilder: (context) {
+                            return [
+                              PopupMenuItem(
+                                onTap: () {
+                                  connectionsController.unfollowRequest(
+                                      toUserId: connectionsController
+                                          .connectionsSearchList[index].toUser,
+                                      context: context,
+                                      unfollowRequest: UnfollowConnectionModel(
+                                          connectionId: connectionsController
+                                              .connectionsSearchList[index]
+                                              .cards!
+                                              .first
+                                              .connectionId));
+                                },
+                                child: Text(
+                                  'Unfollow',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(color: kred),
+                                ),
+                              )
+                            ];
+                          },
+                        ),
                       ),
                     ),
                   );

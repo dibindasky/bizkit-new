@@ -1,6 +1,5 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/custom_pop_menubutton.dart';
@@ -22,7 +21,6 @@ class TotalTasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authController = Get.find<AuthenticationController>();
     final homeController = Get.find<TaskHomeScreenController>();
     final taskController = Get.find<CreateTaskController>();
 
@@ -165,7 +163,7 @@ class TotalTasksScreen extends StatelessWidget {
                       child: ListView.separated(
                         controller: taskController.pinnedTasksScrollController,
                         shrinkWrap: true,
-                        separatorBuilder: (context, index) => kWidth10,
+                        separatorBuilder: (context, index) => kWidth5,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return FadeIn(
@@ -187,7 +185,10 @@ class TotalTasksScreen extends StatelessWidget {
                               },
                               child: Card(
                                 child: Container(
-                                  width: 320.w,
+                                  width:
+                                      taskController.allPinnedTasks.length == 1
+                                          ? 330.w
+                                          : 300.w,
                                   height: 100.h,
                                   decoration: BoxDecoration(
                                     gradient: neonNewLinearGradient,

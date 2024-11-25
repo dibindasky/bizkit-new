@@ -138,7 +138,6 @@ class BusinessCard extends StatelessWidget {
                                       ShareCardThroughContactBottomSheet(
                                           cardId: bizcard.bizcardId ?? ''),
                                 );
-                                print('Bizcard id === > ${bizcard.bizcardId}');
                               },
                               title: const Text('share to Bizkit contacts'),
                               leading:
@@ -226,7 +225,8 @@ class BusinessCard extends StatelessWidget {
                       enableDrag: true,
                       isDismissible: true,
                       showDragHandle: true,
-                      backgroundColor: kblack,
+                      backgroundColor:
+                          Theme.of(context).scaffoldBackgroundColor,
                       builder: (context) => const BizCardViewsListPopUp(),
                     );
                   }

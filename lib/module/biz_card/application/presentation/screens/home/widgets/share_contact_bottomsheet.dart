@@ -1,11 +1,14 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/contact/share_card_contact/share_card_contact.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
+import 'package:bizkit/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -66,6 +69,10 @@ class ShareCardThroughContactBottomSheet extends StatelessWidget {
                                           element.email == data.email &&
                                           element.phoneNumber ==
                                               data.phoneNumber);
+
+                                  final bool netWorkProtileUrl =
+                                      isURLValid(data.profilePicture ?? '');
+
                                   return ListTile(
                                       onTap: () =>
                                           controller.addOrRemoveContactToList(
@@ -76,11 +83,27 @@ class ShareCardThroughContactBottomSheet extends StatelessWidget {
                                             .textTheme
                                             .displaySmall,
                                       ),
-                                      leading: const CircleAvatar(
-                                        backgroundColor: kblack,
-                                        child: Icon(Iconsax.profile_2user,
-                                            color: kGreyNormal),
-                                      ),
+                                      leading: (data.profilePicture == null ||
+                                              data.profilePicture!.isEmpty)
+                                          ? const CircleAvatar(
+                                              backgroundColor: kblack,
+                                              child: Icon(Iconsax.profile_2user,
+                                                  color: kGreyNormal),
+                                            )
+                                          : netWorkProtileUrl
+                                              ? CircleAvatar(
+                                                  child: NetworkImageWithLoader(
+                                                    data.profilePicture ?? '',
+                                                    radius: 50,
+                                                  ),
+                                                )
+                                              : CircleAvatar(
+                                                  backgroundColor: kblack,
+                                                  backgroundImage: MemoryImage(
+                                                      base64Decode(
+                                                          data.profilePicture ??
+                                                              '')),
+                                                ),
                                       trailing: Wrap(
                                         children: [
                                           selected
@@ -95,34 +118,31 @@ class ShareCardThroughContactBottomSheet extends StatelessWidget {
                   ),
                 ),
                 Obx(() {
-                  return controller.cardSharingLoading.value
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.shareCardToContacts(context,
-                                  cardId: cardId);
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              height: 45,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: kneonShade),
-                              child: Center(
-                                  child: Text(
-                                'Share card',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(fontSize: 14),
-                              )),
-                            ),
-                          ),
-                        );
+                  return Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: GestureDetector(
+                      onTap: () {
+                        controller.shareCardToContacts(context, cardId: cardId);
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 45,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: kneonShade),
+                        child: Center(
+                            child: Text(
+                          controller.cardSharingLoading.value
+                              ? 'Loading.....'
+                              : 'Share card',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(fontSize: 14),
+                        )),
+                      ),
+                    ),
+                  );
                 }),
                 kHeight5,
               ],

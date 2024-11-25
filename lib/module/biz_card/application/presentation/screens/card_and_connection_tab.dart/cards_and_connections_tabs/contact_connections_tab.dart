@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:alphabet_scroll_view/alphabet_scroll_view.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
+import 'package:bizkit/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -43,6 +47,7 @@ class ContactConnectionsTab extends StatelessWidget {
           } else if (contactController.contactList != null &&
               contactController.contactList.isNotEmpty) {
             return AlphabetScrollView(
+              // isAlphabetsFiltered: true,
               list: contactController.contactList
                   .map(
                     (e) => AlphaModel(e.name ?? ""),
@@ -50,11 +55,11 @@ class ContactConnectionsTab extends StatelessWidget {
                   .toList(),
               alignment: LetterAlignment.right,
               itemExtent: 50,
+
               unselectedTextStyle:
-                  TextStyle(fontSize: kwidth * .040, color: smallBigGrey),
-              selectedTextStyle: TextStyle(
-                  fontSize: kwidth * .050,
-                  color: Theme.of(context).colorScheme.onPrimary),
+                  TextStyle(fontSize: kwidth * .040, color: koffWhite),
+              selectedTextStyle:
+                  TextStyle(fontSize: kwidth * .050, color: koffWhite),
               overlayWidget: (value) => Stack(
                 alignment: Alignment.center,
                 children: [
@@ -79,6 +84,8 @@ class ContactConnectionsTab extends StatelessWidget {
               ),
               itemBuilder: (context, index, _) {
                 final data = contactController.contactList[index];
+                final bool netWorkProtileUrl =
+                    isURLValid(data.profilePicture ?? '');
                 return GestureDetector(
                   onTap: () {
                     if (data.userId == null || data.userId == '') {
@@ -92,34 +99,24 @@ class ContactConnectionsTab extends StatelessWidget {
                     }
                   },
                   child: ListTile(
-                    leading: data.profilePicture != null &&
-                            data.profilePicture!.isNotEmpty
-                        ? CircleAvatar(
+                    leading: (data.profilePicture == null ||
+                            data.profilePicture!.isEmpty)
+                        ? const CircleAvatar(
                             backgroundColor: kblack,
-                            radius: 18,
-                            // backgroundImage: data.profilePicture != null &&
-                            //         data.profilePicture!.isNotEmpty
-                            //     ? MemoryImage(
-                            //         base64.decode(
-                            //           getBase64(data.profilePicture ?? ''),
-                            //         ),
-                            //       )
-                            //     : null,
-                            child: data.profilePicture != null &&
-                                    data.profilePicture!.isNotEmpty
-                                ? null
-                                : const Icon(Icons.person),
+                            child: Icon(Icons.person, color: kneon),
                           )
-                        : const CircleAvatar(
-                            radius: 18,
-                            backgroundColor: kblack,
-                            child: Center(
-                              child: Icon(
-                                Icons.person,
-                                color: neonShade,
+                        : netWorkProtileUrl
+                            ? CircleAvatar(
+                                child: NetworkImageWithLoader(
+                                  data.profilePicture ?? '',
+                                  radius: 50,
+                                ),
+                              )
+                            : CircleAvatar(
+                                backgroundColor: kblack,
+                                backgroundImage: MemoryImage(
+                                    base64Decode(data.profilePicture ?? '')),
                               ),
-                            ),
-                          ),
                     title: Text(
                       data.name ?? data.phoneNumber ?? '',
                       style:
@@ -140,7 +137,8 @@ class ContactConnectionsTab extends StatelessWidget {
                                   child: Text('Invite',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .displaySmall)),
+                                          .displaySmall
+                                          ?.copyWith(fontSize: 13))),
                               adjustWidth(20)
                             ],
                           )

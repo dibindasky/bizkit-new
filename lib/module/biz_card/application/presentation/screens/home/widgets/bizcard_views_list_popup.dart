@@ -42,25 +42,7 @@ class BizCardViewsListPopUp extends StatelessWidget {
               itemCount: cardController.cardViews.length,
               itemBuilder: (context, index) {
                 final data = cardController.cardViews[index];
-                return Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  decoration: const BoxDecoration(
-                    color: smallBigGrey,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: ListTile(
-                  tileColor: kwhite,
-                    leading: CircleAvatar(
-                      backgroundColor: kgrey,
-                      child: Image.asset(personDemoImg),
-                    ),
-                    title: Text(
-                      data.name ?? 'name',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displaySmall
-                          ?.copyWith( fontSize: 13),
-=======
+
                 return Card(
                   elevation: 0,
                   child: Container(

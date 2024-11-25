@@ -2,6 +2,7 @@ import 'package:bizkit/module/biz_card/application/controller/card/create_contro
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/bottom_sheets_and_pop_up/bizcard_logo_story_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
+import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/utils/animations/word_by_word_text_animation.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
@@ -15,9 +16,11 @@ class BizcardDetailTopPotion extends StatelessWidget {
   const BizcardDetailTopPotion({
     super.key,
     required this.myCard,
+    this.scanPage = false,
   });
 
   final bool myCard;
+  final bool scanPage;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,13 @@ class BizcardDetailTopPotion extends StatelessWidget {
                           kWidth20,
                           GestureDetector(
                             onTap: () {
+                              if (scanPage) {
+                                if (scanPage) {
+                                  Get.find<ModuleController>().chooseModule(
+                                      context,
+                                      module: Module.card);
+                                }
+                              }
                               GoRouter.of(context).pop();
                             },
                             child: CircleAvatar(

@@ -2,7 +2,9 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/business_card.dart';
+import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';
 import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,9 +29,11 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
     pageController = PageController(
       viewportFraction: 0.8,
     )..addListener(() {
-        setState(() {
-          pageValue = pageController.page!;
-        });
+        if (Get.find<CardController>().autoScrollCard.value) {
+          setState(() {
+            pageValue = pageController.page!;
+          });
+        }
       });
   }
 
@@ -48,13 +52,17 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
       // if (cardCount == 0) {
       //   return Padding(
       //     padding: const EdgeInsets.symmetric(horizontal: 10),
-      //     child: SizedBox(
-      //       width: 382.w,
-      //       height: 450.h,
-      //       child: Center(
-      //         child: Image.asset(
-      //             "asset/module/bizcard/404 Error Page not Found with people connecting a plug.gif"),
-      //       ),
+      //     child: Column(
+      //       children: [
+      //         Text('BizCards',style: Theme.of(context).textTheme.displayMedium),
+      //         SizedBox(
+      //           width: 382.w,
+      //           height: 400.h,
+      //           child: Center(
+      //             child: Image.asset(emptyNodata2),
+      //           ),
+      //         ),
+      //       ],
       //     ),
       //   );
       // }
@@ -64,7 +72,7 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
         height: 450.h,
         child: PagviewAnimateBuilder(
           pageController: pageController,
-          // offAnimation: false,
+          // offAnimation: bizcardController.autoScrollCard.value,
           pageValue: pageValue,
           // Add 1 for the "add" button at the end
           pageCount: cardCount + 1,
@@ -75,15 +83,21 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
           },
           child: (index, context) {
             // Show add button as last item
-            if (index >= cardCount) {
-              return GestureDetector(
-                onTap: () {
-                  Get.find<CardTextExtractionController>().clearCardImages();
-                  GoRouter.of(context).pushNamed(Routes.cardCreation);
-                },
-                child: const Center(
-                  child: Icon(Icons.add, size: 40),
-                ),
+            if (index == cardCount) {
+              return Column(
+                children: [
+                  BizcardWidget(
+                    width: 362.w,
+                    height: 260.h,
+                    createCard: true,
+                    onTap: () {
+                      Get.find<CardTextExtractionController>()
+                          .clearCardImages();
+                      GoRouter.of(context).pushNamed(Routes.cardCreation);
+                    },
+                  ),
+                  kHeight30,
+                ],
               );
             }
             // Show business card if index is valid

@@ -6,6 +6,7 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
+import 'package:bizkit/module/biz_card/data/service/connections/connections_service.dart';
 import 'package:bizkit/module/biz_card/data/sqflite/my_connection/my_connection_local_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
@@ -40,7 +41,8 @@ class ConnectionsController extends GetxController {
 
   final TextEditingController searchController = TextEditingController();
 
-  final ConnectionsRepo connectionService = getIt<ConnectionsRepo>();
+  // final ConnectionsRepo connectionService = getIt<ConnectionsRepo>();
+  final ConnectionsRepo connectionService = ConnectionsService();
   final MyConnectionLocalRepo myConnectionLocalService =
       MyConnectionLocalService();
   final Debouncer debouncer = Debouncer(milliseconds: 300);
@@ -72,7 +74,7 @@ class ConnectionsController extends GetxController {
   final TextEditingController myConnectionsearchController =
       TextEditingController();
 
-  int userSearchPageNumber = 1, pageSize = 20;
+  int userSearchPageNumber = 1, pageSize = 10;
   int myConnectionPageNumber = 1;
   int fetchMyConnectionPageNumber = 1;
 
@@ -421,6 +423,7 @@ class ConnectionsController extends GetxController {
         recievedConnectionRequests.assignAll(success.requests ?? []);
       },
     );
+        recievedConnectionRequestLoading.value = false;
   }
 
   // Get all send connection requests
@@ -646,7 +649,7 @@ class ConnectionsController extends GetxController {
       (failure) {
         followbackRequestLoading.value = false;
       },
-      (success) {
+      (success) {  
         followbackRequestLoading.value = false;
       },
     );
@@ -691,6 +694,25 @@ class ConnectionsController extends GetxController {
   Future<bool> connectionRequestAcceptOrReject(
       {required AcceptOrRejectConnectionRequest acceptOrReject,
       required BuildContext context}) async {
+        acceptOrReject.sharedFields?.business?.branchOffices ??= false;
+        acceptOrReject.sharedFields?.business?.brochure ??= false;
+        acceptOrReject.sharedFields?.business?.businessAchievements ??= false;
+        acceptOrReject.sharedFields?.business?.businessCategory ??= false;
+        acceptOrReject.sharedFields?.business?.businessLogo ??= false;
+        acceptOrReject.sharedFields?.business?.businessSocialMedia ??= false;
+        acceptOrReject.sharedFields?.business?.designation ??= false;
+        acceptOrReject.sharedFields?.business?.logoStory ??= false;
+        acceptOrReject.sharedFields?.business?.product ??= false;
+
+        acceptOrReject.sharedFields?.personal?.bloodGroup ??= false;
+        acceptOrReject.sharedFields?.personal?.dob ??= false;
+        acceptOrReject.sharedFields?.personal?.email ??= false;
+        acceptOrReject.sharedFields?.personal?.name ??= false;
+        acceptOrReject.sharedFields?.personal?.personalAchievements ??= false;
+        acceptOrReject.sharedFields?.personal?.personalSocialMedia ??= false;
+        acceptOrReject.sharedFields?.personal?.phone ??= false;
+
+
     recievedConnectionRequestLoading.value = true;
     bool followBackPossible = false;
     final result = await connectionService.acceptOrRejectConnectionRequest(
@@ -701,6 +723,7 @@ class ConnectionsController extends GetxController {
         recievedConnectionRequestLoading.value = false;
       },
       (success) {
+        
         recievedConnectionRequestLoading.value = false;
         fetchMyConnections(true);
         fetchRecievedConnectionRequests();

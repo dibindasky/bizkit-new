@@ -12,7 +12,7 @@ class PagviewAnimateBuilder extends StatefulWidget {
       required this.child,
       required this.pageCount,
       required this.onpageCallBack,
-      this.offAnimation = true})
+      this.offAnimation = false})
       : super(key: key);
   final PageController pageController;
   final double pageValue;
@@ -33,7 +33,7 @@ class PagviewAnimateBuilderState extends State<PagviewAnimateBuilder> {
   void initState() {
     super.initState();
     // Auto-scroll every 3 seconds
-    if (widget.offAnimation == true) {
+    if (widget.offAnimation != true) {
       _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
         if (widget.pageCount == 1) return;
         if (widget.pageController.page == widget.pageCount - 1 ||

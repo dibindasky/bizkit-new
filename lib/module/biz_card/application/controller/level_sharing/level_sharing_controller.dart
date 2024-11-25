@@ -130,8 +130,11 @@ class LevelSharingController extends GetxController {
       (failure) {
         commonLevelSharingLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -139,12 +142,17 @@ class LevelSharingController extends GetxController {
       (success) {
         commonLevelSharingLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Common shared fields updated successfully'),
+          SnackBar(
+            content: Text(
+              'Common shared fields updated successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );
-
+        fetchIndividualSharedFields(
+            queryParameter: IndividualSharedFieldsQueryParamsModel(
+                bizcardId: selectedCardId.value));
         GoRouter.of(context).pop();
       },
     );
@@ -190,8 +198,11 @@ class LevelSharingController extends GetxController {
       (failure) {
         individualLevelSharingLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -199,8 +210,11 @@ class LevelSharingController extends GetxController {
       (success) {
         individualLevelSharingLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Individual shared fields updated successfully'),
+          SnackBar(
+            content: Text(
+              'Individual shared fields updated successfully',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );

@@ -139,10 +139,9 @@ class ReportsView extends StatelessWidget {
                             width: double.infinity.w,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 20),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
-                              border: Border.all(color: neonShade),
+                                  BorderRadius.all(Radius.circular(20)),
                             ),
                             child: SingleChildScrollView(
                               child: Column(
@@ -152,14 +151,18 @@ class ReportsView extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(left: 8.0),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
                                         child: Center(
                                           child: Text(
-                                            'Select fields for\ngenerating a report',
-                                            style: TextStyle(
-                                                fontSize: 18, color: neonShade),
-                                          ),
+                                              'Select fields for\ngenerating a report',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall
+                                                  ?.copyWith(
+                                                      fontSize: 14,
+                                                      color: neonShade)),
                                         ),
                                       ),
                                       IconButton(
@@ -180,41 +183,48 @@ class ReportsView extends StatelessWidget {
                                             'Created by',
                                             'created_by',
                                             controller.selectedFields,
-                                            controller.addField),
+                                            controller.addField,
+                                            context),
                                         _buildCheckbox(
                                             'Title',
                                             'title',
                                             controller.selectedFields,
-                                            controller.addField),
+                                            controller.addField,
+                                            context),
                                       ],
                                     ),
                                     _buildCheckbox(
                                         'Description',
                                         'description',
                                         controller.selectedFields,
-                                        controller.addField),
+                                        controller.addField,
+                                        context),
                                     _buildCheckbox(
                                         'Priority Level',
                                         'priority_level',
                                         controller.selectedFields,
-                                        controller.addField),
+                                        controller.addField,
+                                        context),
                                     _buildCheckbox(
                                         'Recurrent Task',
                                         'recurrent_task',
                                         controller.selectedFields,
-                                        controller.addField),
+                                        controller.addField,
+                                        context),
                                     Row(
                                       children: [
                                         _buildCheckbox(
                                             'Completed',
                                             'is_completed',
                                             controller.selectedFields,
-                                            controller.addField),
+                                            controller.addField,
+                                            context),
                                         _buildCheckbox(
                                             'Deadline',
                                             'dead_line',
                                             controller.selectedFields,
-                                            controller.addField),
+                                            controller.addField,
+                                            context),
                                       ],
                                     ),
                                     Row(
@@ -223,29 +233,36 @@ class ReportsView extends StatelessWidget {
                                             'Killed',
                                             'is_killed',
                                             controller.selectedFields,
-                                            controller.addField),
+                                            controller.addField,
+                                            context),
                                         _buildCheckbox(
                                             'Tags',
                                             'tags',
                                             controller.selectedFields,
-                                            controller.addField),
+                                            controller.addField,
+                                            context),
                                       ],
                                     ),
                                     _buildCheckbox(
                                         'Assigned To',
                                         'assigned_to',
                                         controller.selectedFields,
-                                        controller.addField),
+                                        controller.addField,
+                                        context),
                                     _buildCheckbox(
                                         'Created At',
                                         'created_at',
                                         controller.selectedFields,
-                                        controller.addField),
+                                        controller.addField,
+                                        context),
                                   ]),
                                   adjustHieght(10.h),
-                                  const Text('Select report type',
-                                      style: TextStyle(
-                                          fontSize: 18, color: neonShade)),
+                                  Text('Select report type',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall
+                                          ?.copyWith(
+                                              fontSize: 14, color: neonShade)),
                                   adjustHieght(10.h),
                                   Obx(
                                     () => Row(
@@ -271,6 +288,8 @@ class ReportsView extends StatelessWidget {
                                     child: Obx(
                                       () => EventButton(
                                         width: kwidth * 0.9,
+                                        color: const LinearGradient(
+                                            colors: [kneon, kneon]),
                                         text: controller.fileDownloading.value
                                             ? 'Downloading...'
                                             : 'Generate Report',
@@ -328,8 +347,12 @@ class ReportsView extends StatelessWidget {
     );
   }
 
-  Widget _buildCheckbox(String label, String value,
-      RxList<String> selectedOptions, Function(String) onChanged) {
+  Widget _buildCheckbox(
+      String label,
+      String value,
+      RxList<String> selectedOptions,
+      Function(String) onChanged,
+      BuildContext context) {
     return Obx(
       () => Row(
         children: [
@@ -342,9 +365,9 @@ class ReportsView extends StatelessWidget {
               }
             },
             checkColor: neonShade,
-            activeColor: kwhite,
+            activeColor: kblack,
           ),
-          Text(label, style: const TextStyle(color: kwhite)),
+          Text(label, style: Theme.of(context).textTheme.displaySmall),
         ],
       ),
     );
@@ -355,7 +378,7 @@ class ReportsView extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => onChanged(value),
       style: ElevatedButton.styleFrom(
-        backgroundColor: selectedType == value ? neonShade : lightGrey,
+        backgroundColor: selectedType == value ? neonShade : kblack,
       ),
       child: Text(
         label,

@@ -74,7 +74,7 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
       ),
       body: Container(
         width: kwidth,
-        height: 700,
+        height: MediaQuery.of(context).size.height - 130.h,
         decoration: indexofButton == 2
             ? const BoxDecoration(
                 image: DecorationImage(
@@ -90,11 +90,12 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    adjustHieght(indexofButton == 1?khieght *0.0: khieght * 0.20),
+                    adjustHieght(
+                        indexofButton == 1 ? khieght * 0.0 : khieght * 0.20),
                     indexofButton == 0
-                        ? Center( 
-                          child: SizedBox(
-                            child: Column(
+                        ? Center(
+                            child: SizedBox(
+                              child: Column(
                                 children: [
                                   Container(
                                     width: kwidth * 0.80,
@@ -105,25 +106,29 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
                                   adjustHieght(10),
                                 ],
                               ),
-                          ),
-                        )
+                            ),
+                          )
                         : indexofButton == 1
                             ? Column(
-                                children: [                           
+                                children: [
                                   RecivercardCreation(
                                     onPressedCam: () {
-                                      textExtractionController.pickedImageUrl.clear();
+                                      textExtractionController.pickedImageUrl
+                                          .clear();
                                       Navigator.of(context).push(
-                                          cardFadePageRoute(const SelectedCards()));
-                                      textExtractionController.pickImageScanning(
-                                          camera: true);
+                                          cardFadePageRoute(
+                                              const SelectedCards()));
+                                      textExtractionController
+                                          .pickImageScanning(camera: true);
                                     },
                                     onPressedGallery: () {
-                                      textExtractionController.pickedImageUrl.clear();
+                                      textExtractionController.pickedImageUrl
+                                          .clear();
                                       Navigator.of(context).push(
-                                          cardFadePageRoute(const SelectedCards()));
-                                      textExtractionController.pickImageScanning(
-                                          camera: false);
+                                          cardFadePageRoute(
+                                              const SelectedCards()));
+                                      textExtractionController
+                                          .pickImageScanning(camera: false);
                                     },
                                   ),
                                   // adjustHieght(25),
@@ -131,18 +136,15 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
                               )
                             : const SizedBox(),
                     // const Spacer(),
-                   
-                
                   ],
                 ),
               ),
-               Positioned(
+              Positioned(
                 left: 0,
-                right: 0, 
-                bottom: 10, 
-                 child: Row(
+                right: 0,
+                bottom: 10,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  
                   children: [
                     scannerButton(image: buttons[leftButton], left: true),
                     FadeTransition(
@@ -166,8 +168,8 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
                     ),
                     scannerButton(image: buttons[rightButton], left: false)
                   ],
-                               ),
-               ),
+                ),
+              ),
             ],
           ),
         ),

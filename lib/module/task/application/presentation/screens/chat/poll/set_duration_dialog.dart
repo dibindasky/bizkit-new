@@ -21,7 +21,6 @@ class SetDurationDialogPolCreation extends StatefulWidget {
 
 class _SetDurationDialogPolCreationState
     extends State<SetDurationDialogPolCreation> {
- 
   int selection = 1;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,13 @@ class _SetDurationDialogPolCreationState
           mainAxisSize: MainAxisSize.min,
           children: [
             kHeight20,
-            Text('Set Duration', style: textHeadStyle1),
+            Text(
+              'Set Duration',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 15),
+            ),
             adjustHieght(10.h),
             ...List.generate(
               widget.durations.length,

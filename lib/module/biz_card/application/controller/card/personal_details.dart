@@ -60,8 +60,6 @@ class PersonalDetailsController extends GetxController {
   RxList<String> personalPhoneNumbers = <String>[].obs;
 
   // personal Achivement Controllers
-  List<ImageCard> existingAchievementImages = [];
-  List<ImageCard> newAchievementimage = [];
   String achievementTitleChange = '';
   String achievementDescriptionChange = '';
   TextEditingController achievementDate = TextEditingController();
@@ -79,6 +77,7 @@ class PersonalDetailsController extends GetxController {
   TextEditingController personalDatesToReminderMessage =
       TextEditingController();
 
+  /// get the personal details informations to the controller for editing purpose
   void getPersonalDetails(CardDetailModel cardDetail) {
     personalEmailController.text = cardDetail.personalDetails?.email ?? '';
     personalNameController.text = cardDetail.personalDetails?.name ?? '';
@@ -118,6 +117,23 @@ class PersonalDetailsController extends GetxController {
   void removePersonalImages(int index) {
     personalImages.removeAt(index);
     update();
+  }
+
+  void addAchivementDetailsToController({required Achievement? achievement}) {
+    personalAchivementImage.value = achievement?.images == null
+        ? []
+        : (achievement?.images ?? [])
+            .map(
+              (e) => ImageCard(image: e, networkImage: true),
+            )
+            .toList();
+    achievementTitleChange = achievement?.title ?? '';
+    achievementTitle.text = achievement?.title ?? '';
+    achievementDescriptionChange = achievement?.description ?? '';
+    achievementDescription.text = achievement?.description ?? '';
+    achievementDate.text =
+        DateTimeFormater.getDateByDayMonthYear(achievement?.date ?? '');
+    achievementEvent.text = achievement?.event ?? '';
   }
 
   void createPersonalDetails(
@@ -179,19 +195,38 @@ class PersonalDetailsController extends GetxController {
     print(personalAchiment.bizcardId);
     print(personalAchiment.personalAchievementId);
     print(personalAchiment.images?.first);
+    log('personal achivements adding => ${personalAchiment.toJson()}');
     final data = await personalRepo.personalAchivmentAdding(
         personalAchiment: personalAchiment);
     data.fold(
         (l) => showSnackbar(context,
             message: 'Failed to add achivement, please try again',
             backgroundColor: kred), (r) {
-      achievementDescription.clear();
-      achievementEvent.clear();
-      achievementDate.clear();
-      achievementTitle.clear();
-
-      cardController.cardDetail(
-          cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+      if (cardController.bizcardDetail.value.bizcardId ==
+          personalAchiment.bizcardId) {
+        achievementDescription.clear();
+        achievementEvent.clear();
+        achievementDate.clear();
+        achievementTitle.clear();
+        personalAchivementImage.clear();
+        final map = r.data as Map<String, dynamic>?;
+        print('image_urls  -->  ${map?['image_urls']}');
+        Achievement achievement = Achievement(
+            id: map?['personal_achievement_id'] as String?,
+            date: personalAchiment.date,
+            description: personalAchiment.description,
+            event: personalAchiment.event,
+            title: personalAchiment.title,
+            images: map?['image_urls'] as List<String>?);
+        var achivementList = cardController
+                .bizcardDetail.value.personalDetails?.personalAchievements ??
+            [];
+        achivementList.add(achievement);
+        var personalData = cardController.bizcardDetail.value.personalDetails
+            ?.copyWith(personalAchievements: achivementList);
+        cardController.bizcardDetail.value = cardController.bizcardDetail.value
+            .copyWith(personalDetails: personalData);
+      }
       showSnackbar(context, message: 'Achievement Added Successfully');
       GoRouter.of(context).pop();
     });
@@ -204,8 +239,7 @@ class PersonalDetailsController extends GetxController {
     achievementEvent.clear();
     achievementDate.clear();
     achievementTitle.clear();
-    newAchievementimage.clear();
-    existingAchievementImages.clear();
+    personalAchivementImage.clear();
   }
 
   void acheievementUpdate(
@@ -223,6 +257,10 @@ class PersonalDetailsController extends GetxController {
             personalDetailsId:
                 cardController.bizcardDetail.value.personalDetails?.id);
     achievementLoading.value = true;
+    log('achivement updation = > ${personalAchiment.toJson()}');
+    log('achivement updation bizcard id= > ${personalAchiment.bizcardId}');
+    log('achivement updation personal data id= > ${personalAchiment.personalDetailsId}');
+    log('achivement updation achivements id= > ${personalAchiment.personalAchievementId}');
     final data = await personalRepo.personalAchivmentEditing(
         personalAchiment: personalAchiment);
     data.fold(
@@ -231,9 +269,27 @@ class PersonalDetailsController extends GetxController {
           backgroundColor: kred),
       (r) {
         final cardController = Get.find<CardController>();
-
-        cardController.cardDetail(
-            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        Achievement achievement = Achievement(
+            id: achievementId,
+            date: achievementDate.text,
+            description: achievementDescription.text,
+            event: achievementEvent.text,
+            title: achievementTitle.text,
+            images: r.data);
+        var achivementList = cardController
+                .bizcardDetail.value.personalDetails?.personalAchievements ??
+            [];
+        int? index = achivementList.indexWhere((e) => e.id == achievementId);
+        if (index != null && index != -1) {
+          achivementList[index] = achievement;
+          var personalData = cardController.bizcardDetail.value.personalDetails
+              ?.copyWith(personalAchievements: achivementList);
+          cardController.bizcardDetail.value = cardController
+              .bizcardDetail.value
+              .copyWith(personalDetails: personalData);
+          GoRouter.of(context).pop();
+        }
+        showSnackbar(context, message: 'Achievement Updated Successfully');
       },
     );
     achievementLoading.value = false;

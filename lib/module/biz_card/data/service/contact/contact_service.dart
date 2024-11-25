@@ -11,7 +11,7 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-class ContactService implements ContactsRepo {
+class ContactService extends ContactsRepo {
   ApiService apiService = ApiService();
 
   @override
@@ -53,3 +53,4 @@ class ContactService implements ContactsRepo {
     }
   }
 }
+

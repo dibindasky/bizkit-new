@@ -19,16 +19,6 @@ class BizCardDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cardController = Get.find<CardController>();
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        if (cardId != null && myCard) {
-          cardController.cardDetail(cardId: cardId ?? '');
-        } else if (!myCard) {
-          Get.find<ConnectionsController>()
-              .getConnectionCardDetail(cardId: cardId ?? '');
-        }
-      },
-    );
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {

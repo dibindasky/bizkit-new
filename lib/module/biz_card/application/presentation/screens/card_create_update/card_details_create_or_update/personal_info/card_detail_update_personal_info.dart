@@ -100,6 +100,7 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                       // GetX<PersonalDetailsController>(
                       //   builder: (_) {
                       // return
+                      // personal imags
                       Obx(
                         () => Stack(
                           children: [
@@ -469,20 +470,27 @@ Future<dynamic> showDailoges(BuildContext context,
       context: context,
       builder: (context) => Dialog(
             child: Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  border: Border.all(color: neonShade)),
-              child: Column(mainAxisSize: MainAxisSize.min, children: [
-                Text(
-                  heading,
-                  style: TextStyle(fontSize: 14.sp),
-                ),
-                kHeight10,
-                Text(tittle),
-                kHeight5,
-                Text(desc)
-              ]),
+                color: Theme.of(context).scaffoldBackgroundColor,
+                borderRadius: kBorderRadius10,
+                // border: Border.all(color: neonShade)
+              ),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(heading,
+                        style: Theme.of(context).textTheme.displayMedium),
+                    kHeight10,
+                    Text(tittle,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(fontSize: 12.sp)),
+                    kHeight5,
+                    Text(desc, style: Theme.of(context).textTheme.displaySmall)
+                  ]),
             ),
           ));
 }

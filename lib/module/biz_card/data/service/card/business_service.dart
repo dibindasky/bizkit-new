@@ -70,7 +70,12 @@ class BusinessService implements BusinessRepo {
       final responce = await apiService.patch(ApiEndPoints.businessAchievement,
           data: achievementModel.toJson());
       log('businessAchievementUpdating ==>success');
-      return Right(SuccessResponseModel.fromJson(responce.data));
+      final map = responce.data as Map<String, dynamic>?;
+      return Right(SuccessResponseModel(
+          message: map?['message'] as String?,
+          data: (map?['image_urls'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList()));
     } on DioException catch (e) {
       log('businessAchievementUpdating DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));

@@ -186,6 +186,9 @@ class MyConnectionSection extends StatelessWidget {
                                           connection.cards?.first.toCard ?? '',
                                       'myCard': 'false'
                                     });
+                                connectionsController.getConnectionCardDetail(
+                                    cardId:
+                                        connection.cards?.first.toCard ?? '');
                               },
                               child: card?.imageUrl != null
                                   ? CircleAvatar(

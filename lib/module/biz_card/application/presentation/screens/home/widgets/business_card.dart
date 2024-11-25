@@ -35,6 +35,7 @@ class BusinessCard extends StatelessWidget {
                     'cardId': bizcard.bizcardId ?? "",
                     'myCard': 'true'
                   });
+              bizcardController.cardDetail(cardId: bizcard.bizcardId ?? '');
             },
             width: 362.w,
             height: 260.h,
@@ -52,14 +53,9 @@ class BusinessCard extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  if (bizcardController.isLoading.value) {
-                    return;
-                  }
                   GoRouter.of(context).pushNamed(Routes.cardUpdating);
-                  Get.find<PersonalDetailsController>().getPersonalDetails(
-                      bizcardController.bizcardDetail.value);
-                  Get.find<BusinesDetailsController>().getBusinessDetails(
-                      bizcardController.bizcardDetail.value);
+                  bizcardController.cardDetail(
+                      cardId: bizcard.bizcardId ?? "", toEdit: true);
                 },
                 child: Card(
                   elevation: 0,

@@ -23,6 +23,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.
 import 'package:bizkit/module/biz_card/domain/repository/service/card/business_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -424,13 +425,30 @@ class BusinesDetailsController extends GetxController {
           backgroundColor: kred),
       (r) {
         final cardController = Get.find<CardController>();
-        achivementLoading.value = false;
-        cardController.cardDetail(
-            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
-        GoRouter.of(context).pop();
+        Achievement achievement = Achievement(
+            id: achievementId,
+            date: achievementModel.date,
+            description: achievementModel.description,
+            event: achievementModel.event,
+            title: achievementModel.title,
+            images: r.data);
+        var achivementList = cardController
+                .bizcardDetail.value.businessDetails?.businessAchievements ??
+            [];
+        int? index = achivementList.indexWhere((e) => e.id == achievementId);
+        if (index != null && index != -1) {
+          achivementList[index] = achievement;
+          var businessData = cardController.bizcardDetail.value.businessDetails
+              ?.copyWith(businessAchievements: achivementList);
+          cardController.bizcardDetail.value = cardController
+              .bizcardDetail.value
+              .copyWith(businessDetails: businessData);
+          GoRouter.of(context).pop();
+        }
         showSnackbar(context, message: 'Achievement Updated Successfully');
       },
     );
+    achivementLoading.value = false;
   }
 
   void achievementDeleting(

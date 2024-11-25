@@ -1,8 +1,21 @@
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/add_connection_tail.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
+
+class ShimmerGridView extends StatelessWidget {
+  const ShimmerGridView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+        child: ConnectionTile(index: 0),
+        baseColor: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+        highlightColor: Theme.of(context).scaffoldBackgroundColor);
+  }
+}
 
 class ShimmerLoader extends StatelessWidget {
   const ShimmerLoader({

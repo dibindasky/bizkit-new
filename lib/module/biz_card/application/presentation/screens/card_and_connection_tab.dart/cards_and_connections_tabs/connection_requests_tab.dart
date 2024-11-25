@@ -21,6 +21,11 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
   Widget build(BuildContext context) {
     final connectionController = Get.find<ConnectionsController>();
     final levelSharingController = Get.find<LevelSharingController>();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      connectionController.fetchRecievedConnectionRequests();
+    });
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: RefreshIndicator(
@@ -34,8 +39,7 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (connectionController
-                .filterdConnectionRequest.isEmpty) {
+            } else if (connectionController.filterdConnectionRequest.isEmpty) {
               return ErrorRefreshIndicator(
                 onRefresh: () {
                   connectionController.fetchRecievedConnectionRequests();
@@ -50,8 +54,7 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10),
-                itemCount:
-                    connectionController.filterdConnectionRequest.length,
+                itemCount: connectionController.filterdConnectionRequest.length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {},

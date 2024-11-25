@@ -189,6 +189,9 @@ class ConnectionsService implements ConnectionsRepo {
   Future<Either<Failure, ConnectionRequestAcceptOrRejectResponce>>
       acceptOrRejectConnectionRequest(
           {required AcceptOrRejectConnectionRequest acceptOrReject}) async {
+            log(acceptOrReject.toJson().toString()); 
+            log(acceptOrReject.sharedFields!.business!.toJson().toString());
+            
     try {
       final responce = await apiService.patch(
         ApiEndPoints.recievedConnectionRequests,

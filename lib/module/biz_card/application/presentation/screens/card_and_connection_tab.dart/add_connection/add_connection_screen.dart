@@ -3,6 +3,7 @@ import 'package:bizkit/module/biz_card/application/controller/connections/connec
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/add_connection_tail.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,11 +60,12 @@ class AddConnectionScreen extends StatelessWidget {
                   pinned: true,
                   delegate: _SliverSearchBarDelegate(
                     child: Container(
-                      color: Theme.of(context).scaffoldBackgroundColor, 
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 8),
                       child: CustomTextFormField(
-                        controller:connectionController.searchBizkitUsersController,
+                        controller:
+                            connectionController.searchBizkitUsersController,
                         onChanaged: (value) {
                           connectionController.searchBizkitUsers();
                         },
@@ -90,36 +92,45 @@ class AddConnectionScreen extends StatelessWidget {
                     image: emptyNodata2,
                   );
                 } else {
-                  return CustomScrollView(
-                    slivers: [
-                      SliverPadding(
-                        padding: const EdgeInsets.all(8.0),
-                        sliver: SliverGrid(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1 / 1.3,
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 1,
-                            mainAxisSpacing: 1,
-                          ),
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              return ConnectionTile(
-                                index: index,
-                                fromPendingRequests: false,
-                                data: connectionController.bizkitUsers[index],
-                              );
-                            },
-                            childCount:
-                                connectionController.bizkitUsers.length +
+                  return Obx(() => CustomScrollView(
+                        controller:
+                            connectionController.userSearchScrollController,
+                        slivers: [
+                          SliverPadding(
+                            padding: const EdgeInsets.all(8.0),
+                            sliver: SliverGrid(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 1 / 1.3,
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 1,
+                                mainAxisSpacing: 1,
+                              ),
+                              delegate: SliverChildBuilderDelegate(
+                                (context, index) {
+                                  print(index.toString());
+                                  if (index >=
+                                          connectionController
+                                              .bizkitUsers.length) {
+                                    return ShimmerGridView();
+                                  }
+                                  return ConnectionTile(
+                                    index: index,
+                                    fromPendingRequests: false,
+                                    data:
+                                        connectionController.bizkitUsers[index],
+                                  );
+                                },
+                                childCount: connectionController
+                                        .bizkitUsers.length +
                                     (connectionController.usersLoadMore.value
-                                        ? 1
+                                        ? (connectionController.bizkitUsers.length % 2 == 0) ? 1 : 2
                                         : 0),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
-                  );
+                        ],
+                      ));
                 }
               },
             ),

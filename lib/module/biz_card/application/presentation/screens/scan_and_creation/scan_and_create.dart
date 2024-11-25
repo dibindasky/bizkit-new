@@ -84,7 +84,7 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
               )
             : null,
         child: ColoredBox(
-          color: indexofButton == 2 ? kblack.withOpacity(0.8) : knill,
+          color: indexofButton == 2 ? kblack.withOpacity(0.6) : knill,
           child: Stack(
             children: [
               SingleChildScrollView(

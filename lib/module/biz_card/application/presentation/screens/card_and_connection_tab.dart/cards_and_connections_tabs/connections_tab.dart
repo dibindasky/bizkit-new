@@ -73,43 +73,38 @@ class ConnectionsTab extends StatelessWidget {
                             onTap: () {
                               final currentConnection =
                                   connectionsController.myConnections[index];
-                        if ((currentConnection.cards?.length ?? 0) > 1) {
-                          // Show dialog for multiple cards
-                          showDialog(
-                            context: context,
-                            builder: (context) => Dialog(
-                              shape: BeveledRectangleBorder(
-                                  borderRadius: kBorderRadius10),
-                              child: CardsbasedOnUserConnection(
-                                card: currentConnection.cards,
-                              ),
-                            ),
-                          );
-                        } else {
-                          // Navigate directly to card details
-                          final id = currentConnection.cards
-                              ?.map((e) => e.toCard)
-                              .toList();
-                          Map<String, String> map = id != null
-                              ? {'myCard': 'false', 'cardId': id.first ?? ''}
-                              : <String, String>{};
-                          Get.find<CardController>()
-                              .cardDetail(cardId: id?.first ?? '');
-                          GoRouter.of(context).pushNamed(
-                            Routes.cardDetailView,
-                            pathParameters: map,
-                          );
-                        }
-                      },
-                      leading: connectionsController
-                                  .connectionsSearchList[index]
-                                  .cards
-                                  ?.isNotEmpty ==
-                              true
-                          ? CircleAvatar(
-                              backgroundColor: kneon,
-                              backgroundImage: NetworkImage(
-                                connectionsController
+                              if ((currentConnection.cards?.length ?? 0) > 1) {
+                                // Show dialog for multiple cards
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => Dialog(
+                                    shape: BeveledRectangleBorder(
+                                        borderRadius: kBorderRadius10),
+                                    child: CardsbasedOnUserConnection(
+                                      card: currentConnection.cards,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                // Navigate directly to card details
+                                final id = currentConnection.cards
+                                    ?.map((e) => e.toCard)
+                                    .toList();
+                                Map<String, String> map = id != null
+                                    ? {
+                                        'myCard': 'false',
+                                        'cardId': id.first ?? ''
+                                      }
+                                    : <String, String>{};
+                                Get.find<CardController>()
+                                    .cardDetail(cardId: id?.first ?? '');
+                                GoRouter.of(context).pushNamed(
+                                  Routes.cardDetailView,
+                                  pathParameters: map,
+                                );
+                              }
+                            },
+                            leading: connectionsController
                                         .connectionsSearchList[index]
                                         .cards
                                         ?.isNotEmpty ==
@@ -206,7 +201,7 @@ class ConnectionsTab extends StatelessWidget {
           }
         },
       ),
-      floatingActionButton: Padding( 
+      floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 50),
         child: FloatingActionButton(
           shape: const CircleBorder(),

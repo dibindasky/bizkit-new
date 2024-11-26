@@ -84,16 +84,16 @@ class ContactsController extends GetxController {
 
   /// check contacts fetching happend before or not and fetch if not else get data form local db
   Future<void> getConnections() async {
+    // LocalStoragePreferenceCard.setContactsFetchedOrNot(false);
     try {
       final fetched =
           await LocalStoragePreferenceCard.getContactsFetchedOrNot();
       print(
           '---------------------------------fetched ------------------------$fetched');
       if (fetched) {
+        // TODO: add daily fetch using time check store last contact updated time and check here for weekly fetch or daily fetch
         await getConnectionsFromSqlTable();
       } else {
-        print(
-            '---------------------------------first fetched ------------------------${await LocalStoragePreferenceCard.getContactsFirstFetchedOrNot()}');
         if (await LocalStoragePreferenceCard.getContactsFirstFetchedOrNot()) {
           firstLoading.value = true;
         }
@@ -148,7 +148,7 @@ class ContactsController extends GetxController {
         }
       }
     }
-    LocalStoragePreferenceCard.setContactsFetchedOrNot(true);
+    // LocalStoragePreferenceCard.setContactsFetchedOrNot(true);
     LocalStoragePreferenceCard.setContactsFirstFetchedOrNot(false);
     getConnectionsFromSqlTable();
   }

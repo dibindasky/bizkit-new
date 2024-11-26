@@ -37,8 +37,8 @@ class _CardAddPrductsScreenState extends State<CardAddPrductsScreen> {
       businessController.businessProductName.text = widget.product!.title ?? '';
       businessController.businessProductDescription.text =
           widget.product!.description ?? '';
-      businessController.productExistingImages
-          .addAll(widget.product!.images ?? []);
+      // businessController.productImages
+      //     .addAll(widget.product!.images ?? []);
       businessController.productEnquiry.value =
           widget.product!.enquiry ?? false;
     }
@@ -70,153 +70,153 @@ class _CardAddPrductsScreenState extends State<CardAddPrductsScreen> {
             child: Column(
               children: [
                 adjustHieght(khieght * .05),
-                Stack(
-                  children: [
-                    SizedBox(
-                        height: 200.dm,
-                        width: double.infinity,
-                        child: businessController.productExistingImages.isEmpty
-                            ? IconButton(
-                                splashRadius: 1,
-                                splashColor: knill,
-                                onPressed: () {
-                                  chooseImageProduct(
-                                      context, businessController);
-                                },
-                                icon: const Icon(
-                                  Icons.add_a_photo_outlined,
-                                  color: neonShade,
-                                ))
-                            : Stack(children: [
-                                SizedBox(
-                                  height: 200.dm,
-                                  width: double.infinity,
-                                  child: ListView.separated(
-                                    shrinkWrap: true,
-                                    itemCount: businessController
-                                        .productExistingImages.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return InkWell(
-                                        onTap: () {
-                                          // Navigator.of(context).push(
-                                          //     cardFadePageRoute(
-                                          //         SlidablePhotoGallery(
-                                          //             initialIndex: index,
-                                          //             images: businessController
-                                          //                 .productExistingImages
-                                          //                 .map((e) => e.image!)
-                                          //                 .toList()
-                                          //                 .reversed
-                                          //                 .toList())));
-                                        },
-                                        child: Stack(
-                                          children: [
-                                            SizedBox(
-                                              width: 250.dm,
-                                              height: 200.dm,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: Image.memory(
-                                                  base64.decode(
-                                                    // businessController
-                                                    //     .productExistingImages
-                                                    //     .map((e) =>
-                                                    //         e.image ?? '')
-                                                    //     .toList()
-                                                    //     .reversed
-                                                    //     .toList()[index],
-                                                    ''
-                                                  ),
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                            Positioned(
-                                              top: 10,
-                                              right: 20,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: ColoredBox(
-                                                  color: neonShade,
-                                                  child: IconButton(
-                                                    onPressed: () {
-                                                      showCustomConfirmationDialogue(
-                                                        context: context,
-                                                        buttonText: 'Delete',
-                                                        title:
-                                                            'You want to delete product image',
-                                                        onTap: () {
-                                                          if (widget.product !=
-                                                                  null &&
-                                                              businessController
-                                                                      .productExistingImages
-                                                                      .length ==
-                                                                  1) {
-                                                            showSnackbar(
-                                                                context,
-                                                                message:
-                                                                    'Atleast one product image should be there',
-                                                                backgroundColor:
-                                                                    kred);
-                                                            return;
-                                                          }
-                                                          businessController
-                                                              .productNewImageList
-                                                              .removeWhere((element) =>
-                                                                  element ==
-                                                                  businessController
-                                                                      .productExistingImages[businessController
-                                                                          .productExistingImages
-                                                                          .length -
-                                                                      1 -
-                                                                      index]);
-                                                          businessController
-                                                              .productExistingImages
-                                                              .removeAt(businessController
-                                                                      .productExistingImages
-                                                                      .length -
-                                                                  1 -
-                                                                  index);
-                                                          setState(() {});
-                                                        },
-                                                      );
-                                                    },
-                                                    icon: const Icon(
-                                                        size: 30,
-                                                        color: kwhite,
-                                                        Icons.delete),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                    separatorBuilder: (context, index) {
-                                      return kWidth10;
-                                    },
-                                  ),
-                                ),
-                              ])),
-                    Positioned(
-                      bottom: 10,
-                      right: 10,
-                      child: GestureDetector(
-                        onTap: () =>
-                            chooseImageProduct(context, businessController),
-                        child: const CircleAvatar(
-                          backgroundColor: neonShade,
-                          child: Icon(Icons.add),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                adjustHieght(khieght * .02),
+                // Stack(
+                //   children: [
+                //     SizedBox(
+                //         height: 200.dm,
+                //         width: double.infinity,
+                //         child: businessController.productExistingImages.isEmpty
+                //             ? IconButton(
+                //                 splashRadius: 1,
+                //                 splashColor: knill,
+                //                 onPressed: () {
+                //                   chooseImageProduct(
+                //                       context, businessController);
+                //                 },
+                //                 icon: const Icon(
+                //                   Icons.add_a_photo_outlined,
+                //                   color: neonShade,
+                //                 ))
+                //             : Stack(children: [
+                //                 SizedBox(
+                //                   height: 200.dm,
+                //                   width: double.infinity,
+                //                   child: ListView.separated(
+                //                     shrinkWrap: true,
+                //                     itemCount: businessController
+                //                         .productExistingImages.length,
+                //                     scrollDirection: Axis.horizontal,
+                //                     itemBuilder: (context, index) {
+                //                       return InkWell(
+                //                         onTap: () {
+                //                           // Navigator.of(context).push(
+                //                           //     cardFadePageRoute(
+                //                           //         SlidablePhotoGallery(
+                //                           //             initialIndex: index,
+                //                           //             images: businessController
+                //                           //                 .productExistingImages
+                //                           //                 .map((e) => e.image!)
+                //                           //                 .toList()
+                //                           //                 .reversed
+                //                           //                 .toList())));
+                //                         },
+                //                         child: Stack(
+                //                           children: [
+                //                             SizedBox(
+                //                               width: 250.dm,
+                //                               height: 200.dm,
+                //                               child: ClipRRect(
+                //                                 borderRadius:
+                //                                     BorderRadius.circular(10),
+                //                                 child: Image.memory(
+                //                                   base64.decode(
+                //                                     // businessController
+                //                                     //     .productExistingImages
+                //                                     //     .map((e) =>
+                //                                     //         e.image ?? '')
+                //                                     //     .toList()
+                //                                     //     .reversed
+                //                                     //     .toList()[index],
+                //                                     ''
+                //                                   ),
+                //                                   fit: BoxFit.cover,
+                //                                 ),
+                //                               ),
+                //                             ),
+                //                             Positioned(
+                //                               top: 10,
+                //                               right: 20,
+                //                               child: ClipRRect(
+                //                                 borderRadius:
+                //                                     BorderRadius.circular(10),
+                //                                 child: ColoredBox(
+                //                                   color: neonShade,
+                //                                   child: IconButton(
+                //                                     onPressed: () {
+                //                                       showCustomConfirmationDialogue(
+                //                                         context: context,
+                //                                         buttonText: 'Delete',
+                //                                         title:
+                //                                             'You want to delete product image',
+                //                                         onTap: () {
+                //                                           if (widget.product !=
+                //                                                   null &&
+                //                                               businessController
+                //                                                       .productExistingImages
+                //                                                       .length ==
+                //                                                   1) {
+                //                                             showSnackbar(
+                //                                                 context,
+                //                                                 message:
+                //                                                     'Atleast one product image should be there',
+                //                                                 backgroundColor:
+                //                                                     kred);
+                //                                             return;
+                //                                           }
+                //                                           businessController
+                //                                               .productNewImageList
+                //                                               .removeWhere((element) =>
+                //                                                   element ==
+                //                                                   businessController
+                //                                                       .productExistingImages[businessController
+                //                                                           .productExistingImages
+                //                                                           .length -
+                //                                                       1 -
+                //                                                       index]);
+                //                                           businessController
+                //                                               .productExistingImages
+                //                                               .removeAt(businessController
+                //                                                       .productExistingImages
+                //                                                       .length -
+                //                                                   1 -
+                //                                                   index);
+                //                                           setState(() {});
+                //                                         },
+                //                                       );
+                //                                     },
+                //                                     icon: const Icon(
+                //                                         size: 30,
+                //                                         color: kwhite,
+                //                                         Icons.delete),
+                //                                   ),
+                //                                 ),
+                //                               ),
+                //                             ),
+                //                           ],
+                //                         ),
+                //                       );
+                //                     },
+                //                     separatorBuilder: (context, index) {
+                //                       return kWidth10;
+                //                     },
+                //                   ),
+                //                 ),
+                //               ])),
+                //     Positioned(
+                //       bottom: 10,
+                //       right: 10,
+                //       child: GestureDetector(
+                //         onTap: () =>
+                //             chooseImageProduct(context, businessController),
+                //         child: const CircleAvatar(
+                //           backgroundColor: neonShade,
+                //           child: Icon(Icons.add),
+                //         ),
+                //       ),
+                //     )
+                //   ],
+                // ),
+                // adjustHieght(khieght * .02),
                 CustomTextFormField(
                   labelText: 'Name',
                   controller: businessController.businessProductName,
@@ -264,24 +264,24 @@ class _CardAddPrductsScreenState extends State<CardAddPrductsScreen> {
                               ? 'Add product'
                               : 'Update',
                           onTap: () {
-                            if (businessController
-                                    .productExistingImages.isEmpty ||
-                                businessController
-                                    .businessProductName.text.isEmpty ||
-                                businessController
-                                    .businessProductDescription.text.isEmpty) {
-                              showSnackbar(context,
-                                  message: businessController
-                                          .productExistingImages.isEmpty
-                                      ? 'Add atleast one Product Image'
-                                      : businessController
-                                              .businessProductName.text.isEmpty
-                                          ? 'Add Product Title'
-                                          : 'Add Product Description',
-                                  textColor: kwhite,
-                                  backgroundColor: kred);
-                              return;
-                            }
+                            // if (businessController
+                            //         .productExistingImages.isEmpty ||
+                            //     businessController
+                            //         .businessProductName.text.isEmpty ||
+                            //     businessController
+                            //         .businessProductDescription.text.isEmpty) {
+                            //   showSnackbar(context,
+                            //       message: businessController
+                            //               .productExistingImages.isEmpty
+                            //           ? 'Add atleast one Product Image'
+                            //           : businessController
+                            //                   .businessProductName.text.isEmpty
+                            //               ? 'Add Product Title'
+                            //               : 'Add Product Description',
+                            //       textColor: kwhite,
+                            //       backgroundColor: kred);
+                            //   return;
+                            // }
                             if (widget.product?.id == null) {
                               businessController.productAdding(context);
                             } else {

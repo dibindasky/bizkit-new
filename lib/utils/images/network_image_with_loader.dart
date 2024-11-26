@@ -10,10 +10,12 @@ class NetworkImageWithLoader extends StatelessWidget {
     super.key,
     this.fit = BoxFit.cover,
     this.radius = 16,
+    this.errorWidget = const Icon(Icons.error),
   });
 
   final String src;
   final double radius;
+  final Widget errorWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class NetworkImageWithLoader extends StatelessWidget {
           ),
         ),
         placeholder: (context, url) => const ShimmerLoaderTile(),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
+        errorWidget: (context, url, error) => errorWidget,
       ),
     );
   }

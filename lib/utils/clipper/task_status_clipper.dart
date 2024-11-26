@@ -54,7 +54,7 @@ class ShadowPainter extends CustomPainter {
 
     // Right bottom curve
     shadowPath.lineTo(width, height - 30);
-    shadowPath.quadraticBezierTo(width, height - 10, width - 20, height);
+    shadowPath.quadraticBezierTo(width, height - 10, width - 30, height);
 
     shadowPath.close();
 

@@ -406,6 +406,7 @@ class ChatController extends GetxController {
   void addMessage(Map<String, dynamic> data) {
     try {
       print('addMessage => $data');
+      data['local_id'] = 'mylocalID123456789';
       channel.sink.add(jsonEncode(data));
     } catch (e) {
       log('message sending error $e');

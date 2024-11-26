@@ -526,13 +526,15 @@ class BusinesDetailsController extends GetxController {
     data.fold(
       (l) => isLoading.value = false,
       (r) {
-        isLoading.value = false;
-        cardController.cardDetail(
-            cardId: cardController.bizcardDetail.value.bizcardId ?? '');
+        cardController.bizcardDetail.value.copyWith(
+            businessDetails: cardController.bizcardDetail.value.businessDetails
+                ?.copyWith(logoStory: businessLogoLebel.text));
         GoRouter.of(context).pop();
         showSnackbar(context, message: 'Logo Added Successfully');
+        isLoading.value = false;
       },
     );
+    isLoading.value = false;
   }
 
   void takeLogoDetails() async {
@@ -554,7 +556,7 @@ class BusinesDetailsController extends GetxController {
     brochureLoading.value = true;
     final cardController = Get.find<CardController>();
     BusinessBrochureModel brochureModel = BusinessBrochureModel(
-        bizcardId: cardController.bizcardDetail.value.bizcardId,
+        bizcardId: cardController.bizcardDetail.value.bizcardId, 
         businessDetailsId:
             cardController.bizcardDetail.value.businessDetails?.id ?? '',
         file: pdf!.base64!.startsWith('data')

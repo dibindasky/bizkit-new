@@ -193,10 +193,12 @@ class MyConnectionSection extends StatelessWidget {
                               child: card?.imageUrl != null
                                   ? CircleAvatar(
                                       radius: 33,
-                                      backgroundColor: kblack,
+                                      backgroundColor:
+                                          kGreyNormal.withOpacity(0.3),
                                       child: NetworkImageWithLoader(
                                         card?.imageUrl ?? '',
                                         radius: 50,
+                                        errorWidget: const Icon(Icons.person),
                                       ),
                                     )
                                   : const CircleAvatar(

@@ -25,13 +25,15 @@ class SocialMediaAccountsListsBottomSheet extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: kblack,
+          color: Theme.of(context).scaffoldBackgroundColor,
         ),
         child: Column(
           children: [
-            const TabBar(
+            TabBar(
+              indicatorColor: Theme.of(context).colorScheme.surface,
+              labelColor: Theme.of(context).colorScheme.surface,
               dividerColor: knill,
-              tabs: [
+              tabs: const [
                 Text('Personal'),
                 Text('Company'),
               ],
@@ -99,9 +101,12 @@ class AccountsListviewBuilder extends StatelessWidget {
                   }
                   return Container(
                     height: 70,
-                    decoration: const BoxDecoration(
-                      color: backgroundColour,
-                      borderRadius: BorderRadius.all(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(0.2),
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(10),
                       ),
                     ),
@@ -121,7 +126,8 @@ class AccountsListviewBuilder extends StatelessWidget {
                                 AssetImage(map[socialMedia[index].label!]!),
                           ),
                           adjustWidth(kwidth * .04),
-                          Text(socialMedia[index].label!),
+                          Text(socialMedia[index].label!,
+                              style: Theme.of(context).textTheme.displaySmall),
                           const Spacer(),
                           TextButton(
                             onPressed: () {
@@ -131,7 +137,7 @@ class AccountsListviewBuilder extends StatelessWidget {
                               'Copy Link',
                               style: textHeadStyle1.copyWith(
                                 color: kblue,
-                                fontSize: 12.sp,
+                                fontSize: 10.sp,
                                 decoration: TextDecoration.underline,
                                 decorationColor: kblue,
                               ),

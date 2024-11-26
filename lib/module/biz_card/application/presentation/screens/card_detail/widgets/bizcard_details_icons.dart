@@ -213,7 +213,7 @@ class BizCardDetailsIconsWidgets extends StatelessWidget {
                 enableDrag: true,
                 isDismissible: true,
                 showDragHandle: true,
-                backgroundColor: kblack,
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 builder: (context) {
                   List<SocialMediaHandles> personal = cardController.bizcardDetail.value
                               .personalDetails?.personalSocialMedia ??

@@ -156,6 +156,7 @@ class TaskContainer extends StatelessWidget {
                               Text(
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: true,
+                                maxLines: 1,
                                 typeTask?.title ??
                                     tasksInsideFolder?.title ??
                                     tasksInsideInnerFolder?.title ??

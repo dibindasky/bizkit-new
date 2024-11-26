@@ -200,7 +200,11 @@ class MyConnectionSection extends StatelessWidget {
                                       ),
                                     )
                                   : const CircleAvatar(
-                                      child: Icon(Icons.person),
+                                      backgroundColor: kblack,
+                                      child: Icon(
+                                        Icons.person,
+                                        color: kwhite,
+                                      ),
                                     ),
                             ),
                             adjustHieght(5.h),

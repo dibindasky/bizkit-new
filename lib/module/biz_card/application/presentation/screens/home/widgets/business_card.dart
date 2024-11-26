@@ -1,8 +1,6 @@
 import 'package:bizkit/core/model/bizcard_id_parameter_model/bizcard_id_parameter_model.dart';
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
-import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/bizcard_views_list_popup.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/share_contact_bottomsheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';

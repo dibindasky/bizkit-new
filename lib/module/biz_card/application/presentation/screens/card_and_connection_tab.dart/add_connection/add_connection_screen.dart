@@ -108,11 +108,9 @@ class AddConnectionScreen extends StatelessWidget {
                               ),
                               delegate: SliverChildBuilderDelegate(
                                 (context, index) {
-                                  print(index.toString());
                                   if (index >=
-                                          connectionController
-                                              .bizkitUsers.length) {
-                                    return ShimmerGridView();
+                                      connectionController.bizkitUsers.length) {
+                                    return const ShimmerGridView();
                                   }
                                   return ConnectionTile(
                                     index: index,
@@ -124,7 +122,12 @@ class AddConnectionScreen extends StatelessWidget {
                                 childCount: connectionController
                                         .bizkitUsers.length +
                                     (connectionController.usersLoadMore.value
-                                        ? (connectionController.bizkitUsers.length % 2 == 0) ? 1 : 2
+                                        ? (connectionController
+                                                        .bizkitUsers.length %
+                                                    2 ==
+                                                0)
+                                            ? 1
+                                            : 2
                                         : 0),
                               ),
                             ),

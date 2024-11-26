@@ -28,7 +28,7 @@ showCustomConfirmationDialogue(
             ),
             adjustHieght(10),
             Text(
-              description ?? 'description',
+              description ?? '',
               style: Theme.of(context).textTheme.displaySmall,
             ),
             FittedBox(

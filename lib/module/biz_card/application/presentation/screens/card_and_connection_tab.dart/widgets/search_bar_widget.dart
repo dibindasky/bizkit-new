@@ -28,6 +28,7 @@ class SearchBarWidget extends StatelessWidget {
         controller: connectionController.searchController,
         onTapOutside: (event) => FocusScope.of(context).unfocus(),
         // autofocus: true,
+        style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 13),
         decoration: InputDecoration(
           labelText: 'Search',
           prefixIcon: const Icon(Icons.search),

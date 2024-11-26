@@ -52,17 +52,21 @@ class _ConnectionTileState extends State<ConnectionTile> {
             widget.fromPendingRequests
                 ? widget.allSendRequests?.toUserName ?? 'name'
                 : widget.data?.username ?? 'name',
-            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.fade,
             style: Theme.of(context)
                 .textTheme
                 .displaySmall
                 ?.copyWith(fontSize: 14),
           ),
           Text(
-              widget.fromPendingRequests
-                  ? widget.allSendRequests?.toUserDesignation ?? 'designation'
-                  : widget.data?.designation ?? 'designation',
-              style: Theme.of(context).textTheme.displaySmall),
+            widget.fromPendingRequests
+                ? widget.allSendRequests?.toUserDesignation ?? 'designation'
+                : widget.data?.designation ?? 'designation',
+            style: Theme.of(context).textTheme.displaySmall,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.fade,
+          ),
           adjustHieght(7),
           GestureDetector(
             onTap: () {

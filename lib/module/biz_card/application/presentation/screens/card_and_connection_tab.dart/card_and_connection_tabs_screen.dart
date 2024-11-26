@@ -27,8 +27,8 @@ class _BizCardAndConnectionScreenState extends State<BizCardAndConnectionScreen>
   void initState() {
     super.initState();
     tabController = TabController(length: 5, vsync: this, initialIndex: 0);
-    tabController.addListener((){
-      Get.find<ConnectionsController>().searchController.text='';
+    tabController.addListener(() {
+      Get.find<ConnectionsController>().searchController.text = '';
     });
   }
 

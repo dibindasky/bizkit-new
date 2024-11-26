@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
@@ -39,10 +41,20 @@ class BizcardWidget extends StatelessWidget {
   final FlipCardController _flipCardController;
 
   final levelSharingController = Get.find<LevelSharingController>();
+  Uint8List? get decodedQrImage {
+    if (qrScanner == null || qrScanner!.isEmpty) {
+      return null; // Return null if the base64 string is invalid
+    }
+    try {
+      return base64Decode(qrScanner!); // Decode the valid base64 string
+    } catch (e) {
+      debugPrint('Invalid base64 string: $e');
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // log('id : ${bizcardId}');
     return FlipCard(
       controller: _flipCardController,
       direction: FlipDirection.HORIZONTAL,
@@ -167,20 +179,16 @@ class BizcardWidget extends StatelessWidget {
                           _flipCardController.toggleCard();
                           Get.find<CardController>().changeAutoScroll();
                         },
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: kBorderRadius5,
-                            image: qrScanner == null
-                                ? null
-                                : DecorationImage(
-                                    image: MemoryImage(
-                                        base64Decode(qrScanner ?? 'qrScanner')),
-                                    fit: BoxFit.cover,
-                                  ),
-                          ),
-                        ),
+                        child: decodedQrImage == null
+                            ? null
+                            : FadeInImage(
+                                placeholder: const AssetImage(bizcardBgImage),
+                                height: 40.h,
+                                fit: BoxFit.cover,
+                                placeholderFit: BoxFit.cover,
+                                fadeInDuration: const Duration(seconds: 1),
+                                image: MemoryImage(decodedQrImage!),
+                              ),
                       )
                     ],
                   ),
@@ -218,17 +226,22 @@ class BizcardWidget extends StatelessWidget {
           ],
         ),
         child: Center(
-          child: Container(
-            width: width * 0.8,
-            height: width * 0.8,
-            decoration: BoxDecoration(
-              borderRadius: kBorderRadius20,
-              image: DecorationImage(
-                image: MemoryImage(base64Decode(qrScanner ?? '')),
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
+          child: decodedQrImage == null
+              ? Text(
+                  'QR Code Not Available',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                )
+              : Container(
+                  width: width * 0.8,
+                  height: width * 0.8,
+                  decoration: BoxDecoration(
+                    borderRadius: kBorderRadius25,
+                    image: DecorationImage(
+                      image: MemoryImage(decodedQrImage!),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
         ),
       ),
     );

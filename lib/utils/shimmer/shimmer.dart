@@ -280,8 +280,10 @@ class ShimmerLoaderCircle extends StatelessWidget {
       scrollDirection: scrollDirection,
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: baseColor ?? Colors.grey[300]!,
-          highlightColor: highlightColor ?? Colors.grey[100]!,
+          baseColor: baseColor ??
+              Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+          highlightColor:
+              baseColor ?? Theme.of(context).scaffoldBackgroundColor,
           child: CircleAvatar(
             radius: radius,
           ),

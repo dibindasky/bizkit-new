@@ -170,39 +170,40 @@ class CardUpdateBusinesstDetails extends StatelessWidget {
               ),
               kHeight10,
               // social media handles
-              ImageOrTextPreviewUnderWidget(
-                onItemTap: (value, index) {
-                  final data = cardController.bizcardDetail.value
-                      .businessDetails?.businessSocialMedia?[index];
-                  showDailoges(context,
-                      heading: 'Social Media',
-                      tittle: "Name : ${data?.label ?? ''}",
-                      desc: 'Link : ${data?.link ?? ''}');
-                },
-                listString: cardController.bizcardDetail.value.businessDetails
-                        ?.businessSocialMedia
-                        ?.map((e) => e.label ?? '')
-                        .toList() ??
-                    [],
-                removeItem: (index) {
-                  showCustomConfirmationDialogue(
-                    context: context,
-                    title: 'are you sure want to delete ?',
-                    buttonText: 'Delete',
-                    onTap: () {
-                      businessController.socialMediaDelete(
-                          fromInner: false, index: index, context: context);
+              Obx(() => ImageOrTextPreviewUnderWidget(
+                    onItemTap: (value, index) {
+                      final data = cardController.bizcardDetail.value
+                          .businessDetails?.businessSocialMedia?[index];
+                      showDailoges(context,
+                          heading: 'Social Media',
+                          tittle: "Name : ${data?.label ?? ''}",
+                          desc: 'Link : ${data?.link ?? ''}');
                     },
-                  );
-                },
-                ontap: () {
-                  FocusScope.of(context).unfocus();
-                  // Navigator.of(context).push(cardFadePageRoute(
-                  //     const SocialMediahandlesScreen(fromBusiness: true)));
-                },
-                child: const CardDetailEditingButtonContainer(
-                    text: 'Company Social Media Handles'),
-              ),
+                    listString: cardController.bizcardDetail.value
+                            .businessDetails?.businessSocialMedia
+                            ?.map((e) => e.label ?? '')
+                            .toList() ??
+                        [],
+                    removeItem: (index) {
+                      showCustomConfirmationDialogue(
+                        context: context,
+                        title: 'are you sure want to delete ?',
+                        buttonText: 'Delete',
+                        onTap: () {
+                          businessController.socialMediaDelete(
+                              fromInner: false, index: index, context: context);
+                        },
+                      );
+                    },
+                    ontap: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      GoRouter.of(context).pushNamed(
+                          Routes.cardSocialMediaCreateUpdate,
+                          extra: {'fromBusiness': true});
+                    },
+                    child: const CardDetailEditingButtonContainer(
+                        text: 'Company Social Media Handles'),
+                  )),
               kHeight10,
               // Company branch adding section
               Obx(

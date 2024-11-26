@@ -44,6 +44,27 @@ class ContactConnectionsTab extends StatelessWidget {
             return const Center(
               child: CircularProgressIndicator(),
             );
+          } else if (contactController.contactList == null &&
+              contactController.contactList.isEmpty) {
+            return GestureDetector(
+              onTap: () {
+                contactController.getConnections();
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Center(
+                    child: Icon(Icons.refresh_sharp),
+                  ),
+                  adjustHieght(20),
+                  Text(
+                    'Tap to fech your contacts.',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.displaySmall,
+                  )
+                ],
+              ),
+            );
           } else if (contactController.contactList != null &&
               contactController.contactList.isNotEmpty) {
             return AlphabetScrollView(

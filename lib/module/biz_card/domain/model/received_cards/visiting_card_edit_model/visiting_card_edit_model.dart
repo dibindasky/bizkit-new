@@ -45,36 +45,26 @@ class VisitingCardEditModel {
 
   // Map<String, dynamic> toJson() => _$VisitingCardEditModelToJson(this);
 
-  Map<String, dynamic> toJson() {
-    return scanedImage
-        ? {
-            'card_id': cardId,
-            'name': name,
-            'company': company,
-            'phone_number': phoneNumber,
-            'website': website,
-            'designation': designation,
-            'email': email,
-            'occation': occation,
-            'location': location,
-            'occupation': occupation,
-            'notes': notes,
-            'selfie': selfie,
-            'card_image': cardImage,
-          }
-        : {
-            'card_id': cardId,
-            'name': name,
-            'company': company,
-            'phone_number': phoneNumber,
-            'website': website,
-            'designation': designation,
-            'email': email,
-            'occation': occation,
-            'location': location,
-            'occupation': occupation,
-            'notes': notes,
-            'selfie': selfie,
-          };
+ Map<String, dynamic> toJson() {
+  final Map<String, dynamic> data = {};
+
+  // Add fields conditionally if they are not null
+  if (cardId != null) data['card_id'] = cardId;
+  if (name != null) data['name'] = name;
+  if (company != null) data['company'] = company;
+  if (phoneNumber != null) data['phone_number'] = phoneNumber;
+  if (website != null) data['website'] = website;
+  if (designation != null) data['designation'] = designation;
+  if (email != null) data['email'] = email;
+  if (occation != null) data['occation'] = occation;
+  if (location != null) data['location'] = location;
+  if (occupation != null) data['occupation'] = occupation;
+  if (notes != null) data['notes'] = notes;
+  if (selfie != null) data['selfie'] = selfie;
+  if (cardImage != null && scanedImage) {
+    data['card_image'] = cardImage;
   }
+
+  return data;
+}
 }

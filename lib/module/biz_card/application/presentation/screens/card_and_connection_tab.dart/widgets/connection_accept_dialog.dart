@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_requ
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/shared_fields/shared_fields.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -387,34 +388,53 @@ void showConnectionAcceptDialog(
                               // GoRouter.of(dialogContext).pop(false);
 
                               if (followBackPossible == true) {
-                                showDialog(
-                                  context: dialogContext,
-                                  builder: (BuildContext alertContext) =>
-                                      AlertDialog(
-                                    title: const Text('Follow Back to Connect'),
-                                    actions: [
-                                      OutlinedButton(
-                                        onPressed: () {
-                                          Navigator.pop(alertContext);
-                                        },
-                                        child: const Text('Cancel'),
+                                
+                                showConfirmationDialog(
+                                  actionButton: 'Follow',
+                                  dialogContext,
+                                  heading: 'Follow Back to Connect',
+                                  onPressed: () {
+                                    connectionController.followbackRequest(
+                                      folowbackRequest: FollowBackRequestModel(
+                                        toUser: userId,
                                       ),
-                                      OutlinedButton(
-                                        onPressed: () {
-                                          connectionController
-                                              .followbackRequest(
-                                            folowbackRequest:
-                                                FollowBackRequestModel(
-                                              toUser: userId,
-                                            ),
-                                          );
-                                          Navigator.pop(alertContext);
-                                        },
-                                        child: const Text('Follow back'),
-                                      ),
-                                    ],
-                                  ),
+                                    );
+                                    Navigator.pop(dialogContext);
+                                  },
                                 );
+                                // showDialog(
+                                //   context: dialogContext,
+                                //   builder: (BuildContext alertContext) =>
+                                //       AlertDialog(
+                                //     title: Text(
+                                //       'Follow Back to Connect',
+                                //       style: Theme.of(context)
+                                //           .textTheme
+                                //           .titleLarge,
+                                //     ),
+                                //     actions: [
+                                //       OutlinedButton(
+                                //         onPressed: () {
+                                //           Navigator.pop(alertContext);
+                                //         },
+                                //         child: const Text('Cancel'),
+                                //       ),
+                                //       OutlinedButton(
+                                //         onPressed: () {
+                                //           connectionController
+                                //               .followbackRequest(
+                                //             folowbackRequest:
+                                //                 FollowBackRequestModel(
+                                //               toUser: userId,
+                                //             ),
+                                //           );
+                                //           Navigator.pop(alertContext);
+                                //         },
+                                //         child: const Text('Follow back'),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // );
                               }
                             },
                             child: Container(
@@ -440,7 +460,7 @@ void showConnectionAcceptDialog(
                       ],
                     ),
                   ),
-                ), 
+                ),
               ],
             ),
           ),

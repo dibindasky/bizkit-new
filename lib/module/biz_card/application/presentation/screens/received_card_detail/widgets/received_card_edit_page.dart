@@ -97,26 +97,21 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
             },
             icon: const Icon(Icons.keyboard_arrow_left_outlined),
           ),
-          title: const Text(
-            'Update visiting card',
-            style: TextStyle(
-              fontFamily: 'Euclid',
-              fontWeight: FontWeight.bold,
-              color: kwhite,
-            ),
+          title: Text(
+            'Update received card',style: Theme.of(context).textTheme.titleMedium,
           ),
           backgroundColor: knill,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
-            child: Column(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                adjustHieght(20),
+                adjustHieght(10),
                 visitingCardController.visitingCardDetails.value.cardImage ==
                         null
                     ? kempty
-                    : const Text('visitig card image'),
+                    :  Text('Received card image',style: Theme.of(context).textTheme.titleMedium,),
                 adjustHieght(20),
                 visitingCardController.visitingCardDetails.value.cardImage ==
                         null
@@ -137,10 +132,10 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: MemoryImage(base64Decode(
+                                  image: NetworkImage(
                                       visitingCardController.visitingCardDetails
                                               .value.cardImage ??
-                                          '')),
+                                          ''),
                                   onError: (exception, stackTrace) =>
                                       const Icon(
                                           Icons.image_not_supported_outlined),
@@ -201,8 +196,8 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                         ],
                       ),
                 adjustHieght(20),
-                // const Text('Selfie image is empty'),
-                // adjustHieght(20),
+                 Text('Selfie image',style: Theme.of(context).textTheme.titleMedium),
+                adjustHieght(20),
                 Obx(
                   () => visitingCardController
                           .visitingCardDetails.value.selfie!.isEmpty
@@ -243,9 +238,9 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                                         child: SizedBox(
                                           width: 300.dm,
                                           height: 200.dm,
-                                          child: Image.memory(
-                                            base64.decode(visitingCardController
-                                                .selfiesListForEdit[index]),
+                                          child: Image.network(
+                                            visitingCardController 
+                                                .selfiesListForEdit[index],
                                             fit: BoxFit.cover,
                                             errorBuilder:
                                                 (context, error, stackTrace) {

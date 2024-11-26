@@ -35,7 +35,7 @@ showConfirmationDialog(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(5)),
+                            const BorderRadius.all(Radius.circular(20)),
                         border: Border.all(color: neonShade),
                       ),
                       child: const Center(child: Text('Cancel')),

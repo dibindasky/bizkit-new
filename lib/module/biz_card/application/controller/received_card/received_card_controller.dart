@@ -26,7 +26,6 @@ class ReceivedCardController extends GetxController {
 
   RxList<VisitingCard> filterdVisitingCards = <VisitingCard>[].obs;
 
-
 // visitingCards
 // filterdVisitingCards
   ///this filterd card for visiting searched datas
@@ -90,6 +89,7 @@ class ReceivedCardController extends GetxController {
     );
   }
 
+  CreateVisitingCard receivedCard = CreateVisitingCard();
   // Create new received cards
   void createReceivedCard({required BuildContext context}) async {
     isLoading.value = true;
@@ -127,31 +127,30 @@ class ReceivedCardController extends GetxController {
         phoneController.text.isNotEmpty ? phoneController.text : null;
     final webSite =
         websiteController.text.isNotEmpty ? websiteController.text : null;
-    final CreateVisitingCard receivedCard = CreateVisitingCard(
-      name: nameController.text,
-      company: companyNameController.text,
-      checkCompany: company != null,
-      designation: designationController.text,
-      checkDesignation: designation != null,
-      email: emailController.text,
-      checkEmail: email != null,
-      location: locationController.text,
-      checkLocation: location != null,
-      notes: notesController.text,
-      checkNotes: notes != null,
-      occation: occasionController.text,
-      checkOccation: occasion != null,
-      occupation: occupationController.text,
-      checkOccupation: occupation != null,
-      phoneNumber: phoneController.text,
-      checkPhoneNumber: phoneNumber != null,
-      website: websiteController.text,
-      checkWebsite: webSite != null,
-      cardImage: cardImage,
-      checkCardImage: cardImage != null,
-      selfie: selfies,
-      checkSelfie: selfies != null,
-    );
+
+    receivedCard.name = nameController.text;
+    receivedCard.company = companyNameController.text;
+    receivedCard.checkCompany = company != null;
+    receivedCard.designation = designationController.text;
+    receivedCard.checkDesignation = designation != null;
+    receivedCard.email = emailController.text;
+    receivedCard.checkEmail = email != null;
+    receivedCard.location = locationController.text;
+    receivedCard.checkLocation = location != null;
+    receivedCard.notes = notesController.text;
+    receivedCard.checkNotes = notes != null;
+    receivedCard.occation = occasionController.text;
+    receivedCard.checkOccation = occasion != null;
+    receivedCard.occupation = occupationController.text;
+    receivedCard.checkOccupation = occupation != null;
+    receivedCard.phoneNumber = phoneController.text;
+    receivedCard.checkPhoneNumber = phoneNumber != null;
+    receivedCard.website = websiteController.text;
+    receivedCard.checkWebsite = webSite != null;
+    receivedCard.cardImage = cardImage;
+    receivedCard.checkCardImage = cardImage != null;
+    receivedCard.selfie = selfies;
+    receivedCard.checkSelfie = selfies != null;
 
     final data = await receivedCardService.createReceivedCard(
         receivedCard: receivedCard);
@@ -179,17 +178,60 @@ class ReceivedCardController extends GetxController {
   void editVisitingCard(
       {required VisitingCardEditModel visitingCardEditModel,
       required BuildContext context}) async {
+    final VisitingCardEditModel updatedReceivedCard = VisitingCardEditModel(
+      cardId: visitingCardEditModel.cardId,
+      cardImage: visitingCardEditModel.cardImage != receivedCard.cardImage
+          ? visitingCardEditModel.cardImage
+          : null,
+      company: visitingCardEditModel.company != receivedCard.company
+          ? visitingCardEditModel.company
+          : null,
+      designation: visitingCardEditModel.designation != receivedCard.designation
+          ? visitingCardEditModel.designation
+          : null,
+      email: visitingCardEditModel.email != receivedCard.email
+          ? visitingCardEditModel.email
+          : null,
+      location: visitingCardEditModel.location != receivedCard.location
+          ? visitingCardEditModel.location
+          : null,
+      name: visitingCardEditModel.name != receivedCard.name
+          ? visitingCardEditModel.name
+          : null,
+      notes: visitingCardEditModel.notes != receivedCard.notes
+          ? visitingCardEditModel.notes
+          : null,
+      occation: visitingCardEditModel.occation != receivedCard.occation
+          ? visitingCardEditModel.occation
+          : null,
+      occupation: visitingCardEditModel.occupation != receivedCard.occupation
+          ? visitingCardEditModel.occupation
+          : null,
+      phoneNumber: visitingCardEditModel.phoneNumber != receivedCard.phoneNumber
+          ? visitingCardEditModel.phoneNumber
+          : null,
+      selfie: visitingCardEditModel.selfie != receivedCard.selfie
+          ? visitingCardEditModel.selfie
+          : null,
+      website: visitingCardEditModel.website != receivedCard.website
+          ? visitingCardEditModel.website
+          : null,
+    );
+
     isLoading.value = true;
 
     final data = await receivedCardService.editVisitingCard(
-        visitingCardEditModel: visitingCardEditModel);
-
+        visitingCardEditModel: updatedReceivedCard);
+    print(visitingCardEditModel.toJson());
     data.fold(
       (l) {
         isLoading.value = false;
         showSnackbar(context, message: errorMessage);
       },
       (r) {
+        
+        // visitingCardDetails.value=visitingCardDetails.value.copyWith(name: );
+
         fetchReceivedCardDetails(
             receivedCardId: visitingCardEditModel.cardId ?? '');
         clearAllTextEditingControllers();
@@ -201,10 +243,10 @@ class ReceivedCardController extends GetxController {
   }
 
   // Fetch all received cards
-  void fetchAllreceivedCards({bool refresh=false}) async {
-    if(visitingCards.isNotEmpty && !refresh){
+  void fetchAllreceivedCards({bool refresh = false}) async {
+    if (visitingCards.isNotEmpty && !refresh) {
       filterdVisitingCards.assignAll(visitingCards);
-      return ;
+      return;
     }
     loadingForVisitingCard.value = true;
     final data = await receivedCardService.getAllReceivedCards();
@@ -221,20 +263,20 @@ class ReceivedCardController extends GetxController {
   }
 
   searchQueryforVisitingCards(String query) {
-    loadingForVisitingCard.value=true;
-    if(query.isEmpty){
-      loadingForVisitingCard.value=false;
+    loadingForVisitingCard.value = true;
+    if (query.isEmpty) {
+      loadingForVisitingCard.value = false;
       filterdVisitingCards.assignAll(visitingCards);
       return;
     }
-    query=query.toLowerCase();
+    query = query.toLowerCase();
     filterdVisitingCards.assignAll(visitingCards
-        .where((data) => 
+        .where((data) =>
             data.name!.toLowerCase().contains(query) ||
             data.company!.toLowerCase().contains(query) ||
             data.designation!.toLowerCase().contains(query))
         .toList());
-        loadingForVisitingCard.value=false;
+    loadingForVisitingCard.value = false;
   }
 
   // Delete visiting card

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/card.dart'
     as cards;
@@ -72,37 +73,43 @@ class ConnectionsTab extends StatelessWidget {
                             onTap: () {
                               final currentConnection =
                                   connectionsController.myConnections[index];
-
-                              if ((currentConnection.cards?.length ?? 0) > 1) {
-                                // Show dialog for multiple cards
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => Dialog(
-                                    shape: BeveledRectangleBorder(
-                                        borderRadius: kBorderRadius10),
-                                    child: CardsbasedOnUserConnection(
-                                      card: currentConnection.cards,
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                // Navigate directly to card details
-                                final id = currentConnection.cards
-                                    ?.map((e) => e.toCard)
-                                    .toList();
-                                Map<String, String> map = id != null
-                                    ? {
-                                        'myCard': 'false',
-                                        'cardId': id.first ?? ''
-                                      }
-                                    : <String, String>{};
-                                GoRouter.of(context).pushNamed(
-                                  Routes.cardDetailView,
-                                  pathParameters: map,
-                                );
-                              }
-                            },
-                            leading: connectionsController
+                        if ((currentConnection.cards?.length ?? 0) > 1) {
+                          // Show dialog for multiple cards
+                          showDialog(
+                            context: context,
+                            builder: (context) => Dialog(
+                              shape: BeveledRectangleBorder(
+                                  borderRadius: kBorderRadius10),
+                              child: CardsbasedOnUserConnection(
+                                card: currentConnection.cards,
+                              ),
+                            ),
+                          );
+                        } else {
+                          // Navigate directly to card details
+                          final id = currentConnection.cards
+                              ?.map((e) => e.toCard)
+                              .toList();
+                          Map<String, String> map = id != null
+                              ? {'myCard': 'false', 'cardId': id.first ?? ''}
+                              : <String, String>{};
+                          Get.find<CardController>()
+                              .cardDetail(cardId: id?.first ?? '');
+                          GoRouter.of(context).pushNamed(
+                            Routes.cardDetailView,
+                            pathParameters: map,
+                          );
+                        }
+                      },
+                      leading: connectionsController
+                                  .connectionsSearchList[index]
+                                  .cards
+                                  ?.isNotEmpty ==
+                              true
+                          ? CircleAvatar(
+                              backgroundColor: kneon,
+                              backgroundImage: NetworkImage(
+                                connectionsController
                                         .connectionsSearchList[index]
                                         .cards
                                         ?.isNotEmpty ==
@@ -230,10 +237,10 @@ class CardsbasedOnUserConnection extends StatelessWidget {
           ...List.generate(
             (card?.length ?? 0),
             (index) => Container(
-              margin: EdgeInsets.all(5.w),
+              margin: EdgeInsets.all(7.w),
               decoration: BoxDecoration(
                 border: Border.all(color: neonShade),
-                borderRadius: kBorderRadius10,
+                borderRadius: kBorderRadius20,
               ),
               child: ListTile(
                 onTap: () {
@@ -241,31 +248,34 @@ class CardsbasedOnUserConnection extends StatelessWidget {
                   Map<String, String> map = id != null
                       ? {'myCard': 'false', 'cardId': id[index]}
                       : <String, String>{};
+                  Get.find<CardController>()
+                      .cardDetail(cardId: id?[index] ?? '');
                   GoRouter.of(context)
                       .pushNamed(Routes.cardDetailView, pathParameters: map);
-                  Navigator.pop(context);
+                  GoRouter.of(context).pop(context);
                 },
                 leading: CircleAvatar(
                   radius: 18,
                   backgroundColor: lightGrey,
                   child: ClipOval(
                     child: card?[index].imageUrl != null
-                        ? Image.memory(
-                            base64Decode(card?[index].imageUrl),
-                            fit: BoxFit.cover,
-                            width: 36,
-                            height: 36,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.image),
+                        ? NetworkImageWithLoader(
+                            card?[index].imageUrl,
                           )
                         : const Icon(Icons.person, color: neonShade),
                   ),
                 ),
                 title: Text(
                   card?[index].name ?? '',
-                  style: TextStyle(fontSize: 14),
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
-                subtitle: Text(card?[index].businessDesignation ?? ''),
+                subtitle: Text(
+                  card?[index].businessDesignation ?? '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayMedium
+                      ?.copyWith(fontSize: 10),
+                ),
               ),
             ),
           ),

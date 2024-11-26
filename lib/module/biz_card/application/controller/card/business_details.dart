@@ -87,9 +87,7 @@ class BusinesDetailsController extends GetxController {
   PdfModel? pdf;
 
   // Business Products Controllers
-  RxList<String> productImages = <String>[].obs;
-  List<String> productExistingImages = [];
-  List<String> productNewImageList = [];
+  RxList<ImageCard> productImages = <ImageCard>[].obs;
   TextEditingController businessProductName = TextEditingController();
   TextEditingController businessProductDescription = TextEditingController();
   RxBool productEnquiry = false.obs;
@@ -556,7 +554,7 @@ class BusinesDetailsController extends GetxController {
     brochureLoading.value = true;
     final cardController = Get.find<CardController>();
     BusinessBrochureModel brochureModel = BusinessBrochureModel(
-        bizcardId: cardController.bizcardDetail.value.bizcardId, 
+        bizcardId: cardController.bizcardDetail.value.bizcardId,
         businessDetailsId:
             cardController.bizcardDetail.value.businessDetails?.id ?? '',
         file: pdf!.base64!.startsWith('data')
@@ -646,7 +644,7 @@ class BusinesDetailsController extends GetxController {
       description: businessProductDescription.text,
       enquiry: productEnquiry.value,
       title: businessProductName.text,
-      images: productExistingImages,
+      images: productImages.map((e) => e.image ?? '').toList(),
     );
     final data =
         await businessRepo.businessProductAdding(productModel: productModel);
@@ -666,7 +664,6 @@ class BusinesDetailsController extends GetxController {
   productDataClear() {
     businessProductDescription.clear();
     businessProductName.clear();
-    productExistingImages = [];
     productEnquiry.value = false;
   }
 
@@ -685,7 +682,7 @@ class BusinesDetailsController extends GetxController {
         description: businessProductDescription.text,
         enquiry: productEnquiry.value,
         title: businessProductName.text,
-        images: productExistingImages,
+        images: productImages.map((e)=>e.image??'').toList(),
         productId: cardController
             .bizcardDetail.value.businessDetails?.product?[productIndex].id);
     final data =

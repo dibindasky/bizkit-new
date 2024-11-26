@@ -3,8 +3,10 @@ import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
@@ -39,8 +41,9 @@ class _BizcardProductCreateUpdateScreenState
       businessController.businessProductName.text = widget.product!.title ?? '';
       businessController.businessProductDescription.text =
           widget.product!.description ?? '';
-      businessController.productExistingImages
-          .addAll(widget.product!.images ?? []);
+      businessController.productImages.assignAll(widget.product?.images
+              ?.map((e) => ImageCard(image: e, networkImage: true)) ??
+          []);
       businessController.productEnquiry.value =
           widget.product!.enquiry ?? false;
     }
@@ -96,8 +99,7 @@ class _BizcardProductCreateUpdateScreenState
                       SizedBox(
                           height: 200.dm,
                           width: double.infinity,
-                          child: businessController
-                                  .productExistingImages.isEmpty
+                          child: businessController.productImages.isEmpty
                               ? IconButton(
                                   splashRadius: 1,
                                   splashColor: knill,
@@ -116,21 +118,24 @@ class _BizcardProductCreateUpdateScreenState
                                     child: ListView.separated(
                                       shrinkWrap: true,
                                       itemCount: businessController
-                                          .productExistingImages.length,
+                                          .productImages.length,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
+                                        final data = businessController
+                                            .productImages.reversed
+                                            .toList()[index];
                                         return InkWell(
                                           onTap: () {
-                                            Navigator.of(context).push(
-                                                cardFadePageRoute(
-                                                    SlidablePhotoGallery(
-                                                        initialIndex: index,
-                                                        images: businessController
-                                                            .productExistingImages
-                                                            .map((e) => e)
-                                                            .toList()
-                                                            .reversed
-                                                            .toList())));
+                                            // Navigator.of(context).push(
+                                            //     cardFadePageRoute(
+                                            //         SlidablePhotoGallery(
+                                            //             initialIndex: index,
+                                            //             images: businessController
+                                            //                 .productImages
+                                            //                 .map((e) => e)
+                                            //                 .toList()
+                                            //                 .reversed
+                                            //                 .toList())));
                                           },
                                           child: Stack(
                                             children: [
@@ -140,17 +145,15 @@ class _BizcardProductCreateUpdateScreenState
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
-                                                  child: Image.memory(
-                                                    base64.decode(
-                                                      businessController
-                                                          .productExistingImages
-                                                          .map((e) => e)
-                                                          .toList()
-                                                          .reversed
-                                                          .toList()[index],
-                                                    ),
-                                                    fit: BoxFit.cover,
-                                                  ),
+                                                  child: data.networkImage
+                                                      ? NetworkImageWithLoader(
+                                                          data.image ?? '')
+                                                      : Image.memory(
+                                                          base64.decode(
+                                                            data.image ?? '',
+                                                          ),
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                 ),
                                               ),
                                               Positioned(
@@ -172,7 +175,7 @@ class _BizcardProductCreateUpdateScreenState
                                                             if (widget.product !=
                                                                     null &&
                                                                 businessController
-                                                                        .productExistingImages
+                                                                        .productImages
                                                                         .length ==
                                                                     1) {
                                                               showSnackbar(
@@ -184,22 +187,13 @@ class _BizcardProductCreateUpdateScreenState
                                                               return;
                                                             }
                                                             businessController
-                                                                .productNewImageList
-                                                                .removeWhere((element) =>
-                                                                    element ==
-                                                                    businessController
-                                                                        .productExistingImages[businessController
-                                                                            .productExistingImages
-                                                                            .length -
-                                                                        1 -
-                                                                        index]);
-                                                            businessController
-                                                                .productExistingImages
-                                                                .removeAt(businessController
-                                                                        .productExistingImages
-                                                                        .length -
-                                                                    1 -
-                                                                    index);
+                                                                .productImages
+                                                                .removeWhere((e) =>
+                                                                    e.image ==
+                                                                        data
+                                                                            .image &&
+                                                                    e.networkImage ==
+                                                                        data.networkImage);
                                                             setState(() {});
                                                           },
                                                         );
@@ -286,20 +280,21 @@ class _BizcardProductCreateUpdateScreenState
                                 ? 'Add product'
                                 : 'Update',
                             onTap: () {
-                              if (businessController
-                                      .productExistingImages.isEmpty ||
+                              if (businessController.productImages.isEmpty ||
                                   businessController
                                       .businessProductName.text.isEmpty ||
                                   businessController.businessProductDescription
                                       .text.isEmpty) {
                                 showSnackbar(context,
-                                    message: businessController
-                                            .productExistingImages.isEmpty
-                                        ? 'Add atleast one Product Image'
-                                        : businessController.businessProductName
-                                                .text.isEmpty
-                                            ? 'Add Product Title'
-                                            : 'Add Product Description',
+                                    message:
+                                        businessController.productImages.isEmpty
+                                            ? 'Add atleast one Product Image'
+                                            : businessController
+                                                    .businessProductName
+                                                    .text
+                                                    .isEmpty
+                                                ? 'Add Product Title'
+                                                : 'Add Product Description',
                                     textColor: kwhite,
                                     backgroundColor: kred);
                                 return;
@@ -332,16 +327,16 @@ class _BizcardProductCreateUpdateScreenState
         onPressCam: () async {
           final img = await ImagePickerClass.getImage(camera: true);
           if (img != null) {
-            businessController.productExistingImages.add(img.base64 ?? '');
-            businessController.productNewImageList.add(img.base64 ?? '');
+            businessController.productImages
+                .add(ImageCard(image: img.base64 ?? ''));
             setState(() {});
           }
         },
         onPressGallery: () async {
           final img = await ImagePickerClass.getImage(camera: false);
           if (img != null) {
-            businessController.productExistingImages.add(img.base64 ?? '');
-            businessController.productNewImageList.add(img.base64 ?? '');
+            businessController.productImages
+                .add(ImageCard(image: img.base64 ?? ''));
             setState(() {});
           }
         });

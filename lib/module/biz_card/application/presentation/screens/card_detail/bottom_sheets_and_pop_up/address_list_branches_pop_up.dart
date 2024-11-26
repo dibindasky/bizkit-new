@@ -2,6 +2,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddressTilePopUp extends StatelessWidget {
   const AddressTilePopUp({
@@ -24,11 +25,20 @@ class AddressTilePopUp extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(color: neonShade),
           borderRadius: BorderRadius.circular(10),
-          color: backgroundColour),
+          color: Theme.of(context).scaffoldBackgroundColor),
       child: Column(
         children: [
-          Text(location ?? ''),
-          Text(address ?? ''),
+          Text(location ?? '',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 13.sp)),
+          Text(address ?? '',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 13.sp),
+              maxLines: 10),
           adjustHieght(10),
           contactPerson == null || contactPerson == ''
               ? const SizedBox()

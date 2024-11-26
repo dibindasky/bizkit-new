@@ -127,6 +127,7 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
               ),
             ),
           ),
+          kHeight50,
           kHeight10,
         ],
       ),

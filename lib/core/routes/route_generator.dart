@@ -15,6 +15,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_cre
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/scan_and_connect_card_detail_page.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/achivement/bizcard_detail_achivements.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/personal_and_banking/bizcard_detail_banking_and_personal_detail.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/product/bizcard_product_detail_page.dart';
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/level_sharing_settings.dart';
 
@@ -24,8 +25,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/b
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_card_detail/received_card_detail_page.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/connection_details/connection_detail_filling.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/second_card_detail_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/update_second_card.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens2/card_view_deeplink/card_detail_view_deeplink.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/cards_listing/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/card_profile_creation/card_profile_creation.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/picked_scanning_cards/picked_scanning_cards.dart';
@@ -69,7 +68,6 @@ import 'package:bizkit/module/task/application/presentation/screens/navbar/navba
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/task_detail_page.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/attachments_detil_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/task_total_time_and_expense.dart';
-import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -270,6 +268,18 @@ class GoRouterConfig {
         } else {
           return _errorScreen();
         }
+      },
+    ),
+
+    // Bizcard product detail view
+    GoRoute(
+      name: Routes.cardProductDetail,
+      path: Routes.cardProductDetail,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const BizcardProductDetailScreen(),
+        );
       },
     ),
 

@@ -1,17 +1,12 @@
-import 'dart:convert';
-
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
-import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/card.dart'
-    as cards;
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/multiple_cards_list_dialog.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
@@ -44,6 +39,7 @@ class ConnectionsTab extends StatelessWidget {
                 await Future.delayed(const Duration(seconds: 2));
               },
               child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   children: [
                     ListView.builder(
@@ -78,8 +74,6 @@ class ConnectionsTab extends StatelessWidget {
                                 showDialog(
                                   context: context,
                                   builder: (context) => Dialog(
-                                    shape: BeveledRectangleBorder(
-                                        borderRadius: kBorderRadius10),
                                     child: CardsbasedOnUserConnection(
                                       card: currentConnection.cards,
                                     ),
@@ -96,8 +90,10 @@ class ConnectionsTab extends StatelessWidget {
                                         'cardId': id.first ?? ''
                                       }
                                     : <String, String>{};
-                                Get.find<CardController>()
-                                    .cardDetail(cardId: id?.first ?? '');
+
+                                Get.find<ConnectionsController>()
+                                    .getConnectionCardDetail(
+                                        cardId: id?.first ?? '', refresh: true);
                                 GoRouter.of(context).pushNamed(
                                   Routes.cardDetailView,
                                   pathParameters: map,
@@ -211,70 +207,6 @@ class ConnectionsTab extends StatelessWidget {
           },
           child: const Icon(Icons.add),
         ),
-      ),
-    );
-  }
-}
-
-class CardsbasedOnUserConnection extends StatelessWidget {
-  const CardsbasedOnUserConnection({super.key, this.card});
-
-  final List<cards.Card>? card;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.8,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text('Cards', style: textStyle1),
-          ...List.generate(
-            (card?.length ?? 0),
-            (index) => Container(
-              margin: EdgeInsets.all(7.w),
-              decoration: BoxDecoration(
-                border: Border.all(color: neonShade),
-                borderRadius: kBorderRadius20,
-              ),
-              child: ListTile(
-                onTap: () {
-                  final id = card?.map((e) => e.toCard ?? '').toList();
-                  Map<String, String> map = id != null
-                      ? {'myCard': 'false', 'cardId': id[index]}
-                      : <String, String>{};
-                  Get.find<CardController>()
-                      .cardDetail(cardId: id?[index] ?? '');
-                  GoRouter.of(context)
-                      .pushNamed(Routes.cardDetailView, pathParameters: map);
-                  GoRouter.of(context).pop(context);
-                },
-                leading: CircleAvatar(
-                  radius: 18,
-                  backgroundColor: lightGrey,
-                  child: ClipOval(
-                    child: card?[index].imageUrl != null
-                        ? NetworkImageWithLoader(
-                            card?[index].imageUrl,
-                          )
-                        : const Icon(Icons.person, color: neonShade),
-                  ),
-                ),
-                title: Text(
-                  card?[index].name ?? '',
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-                subtitle: Text(
-                  card?[index].businessDesignation ?? '',
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(fontSize: 10),
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

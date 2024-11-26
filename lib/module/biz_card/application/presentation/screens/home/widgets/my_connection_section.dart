@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/multiple_cards_list_dialog.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -179,16 +180,29 @@ class MyConnectionSection extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                GoRouter.of(context).pushNamed(
-                                    Routes.cardDetailView,
-                                    pathParameters: {
-                                      'cardId':
-                                          connection.cards?.first.toCard ?? '',
-                                      'myCard': 'false'
-                                    });
-                                connectionsController.getConnectionCardDetail(
-                                    cardId:
-                                        connection.cards?.first.toCard ?? '');
+                                if ((connection.cards?.length ?? 0) > 1) {
+                                  // Show dialog for multiple cards
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => Dialog(
+                                      child: CardsbasedOnUserConnection(
+                                        card: connection.cards,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  GoRouter.of(context).pushNamed(
+                                      Routes.cardDetailView,
+                                      pathParameters: {
+                                        'cardId':
+                                            connection.cards?.first.toCard ??
+                                                '',
+                                        'myCard': 'false'
+                                      });
+                                  connectionsController.getConnectionCardDetail(
+                                      cardId:
+                                          connection.cards?.first.toCard ?? '');
+                                }
                               },
                               child: card?.imageUrl != null
                                   ? CircleAvatar(

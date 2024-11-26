@@ -6,9 +6,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_det
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/product/bizcard_products_brand.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/reminder_notes/bizcard_reminders_notes.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class BizCardDetailScreen extends StatelessWidget {

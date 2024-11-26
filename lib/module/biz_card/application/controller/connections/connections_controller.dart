@@ -435,6 +435,7 @@ class ConnectionsController extends GetxController {
         allSendConnectionRequestsLoading.value = false;
       },
       (success) {
+     
         allSendConnectionRequests.assignAll(success.requests ?? []);
         allSendConnectionRequestsLoading.value = false;
       },
@@ -723,11 +724,12 @@ class ConnectionsController extends GetxController {
         recievedConnectionRequestLoading.value = false;
       },
       (success) {
-        
+        filterdConnectionRequest.removeWhere((e)=>e.id==acceptOrReject.connectionId);
+        recievedConnectionRequests.removeWhere((e)=> e.id==acceptOrReject.connectionId); 
         recievedConnectionRequestLoading.value = false;
-        fetchMyConnections(true);
-        fetchRecievedConnectionRequests();
-        searchConnections();
+        // fetchMyConnections(true);
+        // fetchRecievedConnectionRequests();
+        // searchConnections();
         followBackPossible = success.followBackPossible ?? false;
       },
     );

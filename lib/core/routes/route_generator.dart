@@ -276,9 +276,12 @@ class GoRouterConfig {
       name: Routes.cardProductDetail,
       path: Routes.cardProductDetail,
       pageBuilder: (context, state) {
+        Product? product = (state.extra) as Product;
         return FadeTransitionPage(
           key: state.pageKey,
-          child: const BizcardProductDetailScreen(),
+          child: BizcardProductDetailScreen(
+            product: product,
+          ),
         );
       },
     ),
@@ -301,11 +304,14 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.cardDetailView,
       path: '${Routes.cardDetailView}/:cardId/:myCard',
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final cardId = state.pathParameters['cardId'] ?? '';
         final myCard = state.pathParameters['myCard'] == 'true';
         if (cardId != null) {
-          return BizCardDetailScreen(cardId: cardId, myCard: myCard);
+          return FadeTransitionPage(
+            key: state.pageKey,
+            child: BizCardDetailScreen(cardId: cardId, myCard: myCard),
+          );
         } else {
           return _errorScreen();
         }

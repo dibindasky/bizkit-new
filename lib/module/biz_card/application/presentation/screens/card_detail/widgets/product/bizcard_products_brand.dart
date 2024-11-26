@@ -78,6 +78,7 @@ class BizCardProductsOrBrands extends StatelessWidget {
                                 onTap: () {
                                   GoRouter.of(context).pushNamed(
                                     Routes.cardProductDetail,
+                                    extra: product,
                                   );
                                 },
                                 child: Container(

@@ -37,8 +37,21 @@ class TaskStatusCardWidget extends StatelessWidget {
         adjustHieght(20.h),
         Stack(
           children: [
+            // Shadow Layer with Custom Path
+            CustomPaint(
+              painter: ShadowPainter(),
+              child: ClipPath(
+                clipper: TaskStatusClipper(),
+                child: Container(
+                  height: 165.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(borderRadius: kBorderRadius25),
+                ),
+              ),
+            ),
             // White Border
             ClipPath(
+              clipBehavior: Clip.hardEdge,
               clipper: TaskStatusClipper(),
               child: Container(
                 height: 165.h,
@@ -88,42 +101,52 @@ class TaskStatusCardWidget extends StatelessWidget {
                           width: 290.w,
                           child: FadeInRight(
                             animate: true,
-                            child: Obx(
-                              () => ListView.separated(
+                            child: Obx(() {
+                              if (homeController.loadingForRecentTasks.value) {
+                                return ShimmerLoader(
+                                  itemCount: 3,
                                   scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    var tasks = homeController
-                                                .taskStatusTabIndex.value ==
-                                            0
-                                        ? homeController.selfieTasks[index]
+                                  height: 60.h,
+                                  width: 140.w,
+                                  seprator: kWidth10,
+                                );
+                              } else if (homeController.toMeTasks.isEmpty &&
+                                  homeController.toOthersTasks.isEmpty &&
+                                  homeController.selfieTasks.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    homeController.taskStatusTabIndex.value == 0
+                                        ? 'Self tasks not available'
                                         : homeController
                                                     .taskStatusTabIndex.value ==
                                                 1
-                                            ? homeController
-                                                .toOthersTasks[index]
-                                            : homeController.toMeTasks[index];
-                                    if (homeController
-                                        .loadingForRecentTasks.value) {
-                                      return ShimmerLoader(
-                                        itemCount: 10,
-                                        scrollDirection: Axis.horizontal,
-                                        height: 60.h,
-                                        width: 140.w,
-                                        seprator: kWidth20,
-                                      );
-                                    } else if (homeController
-                                            .toMeTasks.isEmpty &&
-                                        homeController.toOthersTasks.isEmpty &&
-                                        homeController.selfieTasks.isEmpty) {
-                                      return Center(
-                                        child: Text(
-                                          'No recent tasks',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall,
+                                            ? 'Self to others tasks not available'
+                                            : 'Other to self tasks not available',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onTertiary,
                                         ),
-                                      );
-                                    } else {
+                                  ),
+                                );
+                              } else {
+                                return ListView.separated(
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      var tasks = homeController
+                                                  .taskStatusTabIndex.value ==
+                                              0
+                                          ? homeController.selfieTasks[index]
+                                          : homeController.taskStatusTabIndex
+                                                      .value ==
+                                                  1
+                                              ? homeController
+                                                  .toOthersTasks[index]
+                                              : homeController.toMeTasks[index];
+
                                       return GestureDetector(
                                         onTap: () {
                                           taskController.fetchSingleTask(
@@ -159,92 +182,38 @@ class TaskStatusCardWidget extends StatelessWidget {
                                           ),
                                         ),
                                       );
-                                    }
-                                  },
-                                  separatorBuilder: (context, index) =>
-                                      kWidth10,
-                                  itemCount: homeController
-                                              .taskStatusTabIndex.value ==
-                                          0
-                                      ? homeController.selfieTasks.length > 3
-                                          ? 3
-                                          : homeController.selfieTasks.length
-                                      : homeController
-                                                  .taskStatusTabIndex.value ==
-                                              1
-                                          ? homeController
-                                                      .toOthersTasks.length >
-                                                  3
-                                              ? 3
-                                              : homeController
-                                                  .toOthersTasks.length
-                                          : homeController.taskStatusTabIndex
-                                                      .value ==
-                                                  2
-                                              ? homeController
-                                                          .toMeTasks.length >
-                                                      3
-                                                  ? 3
-                                                  : homeController
-                                                      .toMeTasks.length
-                                              : 0),
-                            ),
+                                    },
+                                    separatorBuilder: (context, index) =>
+                                        kWidth10,
+                                    itemCount: homeController
+                                                .taskStatusTabIndex.value ==
+                                            0
+                                        ? homeController.selfieTasks.length > 3
+                                            ? 3
+                                            : homeController.selfieTasks.length
+                                        : homeController
+                                                    .taskStatusTabIndex.value ==
+                                                1
+                                            ? homeController
+                                                        .toOthersTasks.length >
+                                                    3
+                                                ? 3
+                                                : homeController
+                                                    .toOthersTasks.length
+                                            : homeController.taskStatusTabIndex
+                                                        .value ==
+                                                    2
+                                                ? homeController
+                                                            .toMeTasks.length >
+                                                        3
+                                                    ? 3
+                                                    : homeController
+                                                        .toMeTasks.length
+                                                : 0);
+                              }
+                            }),
                           ),
                         ),
-                        // FadeInRight(
-                        //   animate: true,
-                        //   child: Text(
-                        //     'Progress',
-                        //     style: Theme.of(context)
-                        //         .textTheme
-                        //         .displaySmall
-                        //         ?.copyWith(
-                        //           fontSize: 13,
-                        //           color:
-                        //               Theme.of(context).colorScheme.onTertiary,
-                        //         ),
-                        //   ),
-                        // ),
-                        // SizedBox(height: 5.h),
-                        // Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   children: [
-                        //     FadeInRight(
-                        //       animate: true,
-                        //       child: ClipRRect(
-                        //         borderRadius: BorderRadius.circular(12),
-                        //         child: LinearProgressIndicator(
-                        //           minHeight: 12,
-                        //           value: progress,
-                        //           backgroundColor: kwhite.withOpacity(0.3),
-                        //           valueColor:
-                        //               const AlwaysStoppedAnimation<Color>(
-                        //             kwhite,
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     SizedBox(height: 5.h),
-                        //     FadeInRight(
-                        //       animate: true,
-                        //       child: Align(
-                        //         alignment: Alignment.centerRight,
-                        //         child: Text(
-                        //           '${(progress * 100).toInt()}%',
-                        //           style: Theme.of(context)
-                        //               .textTheme
-                        //               .displaySmall
-                        //               ?.copyWith(
-                        //                 fontSize: 13,
-                        //                 color: Theme.of(context)
-                        //                     .colorScheme
-                        //                     .onTertiary,
-                        //               ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // )
                       ],
                     ),
                   ),
@@ -253,17 +222,14 @@ class TaskStatusCardWidget extends StatelessWidget {
             ),
 
             Positioned(
-              right: 0,
-              top: 0,
+              right: 5,
+              top: 2,
               child: GestureDetector(
                 onTap: onTap,
                 child: const CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Colors.black,
-                  child: Icon(
-                    Icons.arrow_outward_outlined,
-                    color: Colors.white,
-                  ),
+                  radius: 18,
+                  backgroundColor: kblack,
+                  child: Icon(Icons.arrow_outward_outlined, color: kwhite),
                 ),
               ),
             ),

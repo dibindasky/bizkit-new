@@ -51,20 +51,18 @@ class _BizcardProductDetailScreenState
                       GoRouter.of(context).pop(context);
                     },
                     child: CircleAvatar(
-                      backgroundColor: Theme.of(context).colorScheme.onTertiary,
+                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
                       child: Icon(
                         Icons.arrow_back_ios_new,
                         size: 18.sp,
+                        color: Theme.of(context).colorScheme.onTertiary,
                       ),
                     ),
                   ),
-                  adjustWidth(30.w),
+                  adjustWidth(20.w),
                   Text(
                     widget.product?.title ?? '',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(fontSize: 15),
+                    style: Theme.of(context).textTheme.displayMedium,
                   )
                 ],
               ),

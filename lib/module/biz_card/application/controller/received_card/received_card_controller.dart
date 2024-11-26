@@ -229,8 +229,57 @@ class ReceivedCardController extends GetxController {
         showSnackbar(context, message: errorMessage);
       },
       (r) {
-        
-        // visitingCardDetails.value=visitingCardDetails.value.copyWith(name: );
+        if (visitingCardEditModel.company != receivedCard.company) {
+          visitingCardDetails.value = visitingCardDetails.value
+              .copyWith(company: visitingCardEditModel.company);
+              final index =filterdVisitingCards.indexWhere((e)=>e.id==visitingCardEditModel.cardId);
+              filterdVisitingCards[index]=filterdVisitingCards[index].copyWith(company: visitingCardEditModel.company);
+        }
+
+        if (visitingCardEditModel.name != receivedCard.name) {
+          visitingCardDetails.value = visitingCardDetails.value
+              .copyWith(name: visitingCardEditModel.name);
+
+                 final index =filterdVisitingCards.indexWhere((e)=>e.id==visitingCardEditModel.cardId);
+              filterdVisitingCards[index]=filterdVisitingCards[index].copyWith(name: visitingCardEditModel.name); 
+        }
+
+        if (visitingCardEditModel.designation != receivedCard.designation) {
+          visitingCardDetails.value = visitingCardDetails.value
+              .copyWith(designation: visitingCardEditModel.designation);
+        }
+
+        if (visitingCardEditModel.location != receivedCard.location) {
+          visitingCardDetails.value = visitingCardDetails.value
+              .copyWith(location: visitingCardEditModel.location);
+        }
+
+        if (visitingCardEditModel.occation != receivedCard.occation) {
+          visitingCardDetails.value = visitingCardDetails.value
+              .copyWith(occation: visitingCardEditModel.occation);
+        }
+
+        if (visitingCardEditModel.occupation != receivedCard.occupation) {
+          visitingCardDetails.value = visitingCardDetails.value
+              .copyWith(occupation: visitingCardEditModel.occupation);
+        }
+
+        if (visitingCardEditModel.notes != receivedCard.notes) {
+          visitingCardDetails.value = visitingCardDetails.value
+              .copyWith(notes: visitingCardEditModel.notes);
+        }
+
+        if(visitingCardEditModel.cardImage!=receivedCard.cardImage){
+          visitingCardDetails.value=visitingCardDetails.value.copyWith(cardImage: visitingCardEditModel.cardImage);
+          selfie[0]=visitingCardEditModel.cardImage??''; 
+        }
+
+        if(selfiesListForEdit != receivedCard.selfie){
+          selfiesListForEdit.value=receivedCard.selfie??[];
+          selfie.assignAll(selfiesListForEdit);
+          selfie.insert(0, visitingCardEditModel.cardImage??'');
+        }
+
 
         fetchReceivedCardDetails(
             receivedCardId: visitingCardEditModel.cardId ?? '');

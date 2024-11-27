@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/received_card/received_card_service.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/create_visiting_card/create_visiting_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/get_all_visiting_cards/visiting_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
@@ -34,10 +36,11 @@ class ReceivedCardController extends GetxController {
   RxList<VisitingCard> deletedVisitingCards = <VisitingCard>[].obs;
 
   RxList<String> selfie = <String>[].obs;
-  RxList<String> selfiesListForEdit = <String>[].obs;
+  RxList<ImageCard> selfiesListForEdit = <ImageCard>[].obs;
 
   // Holds a visiting card details response
   var visitingCardDetails = VisitingCardDetailsResponce().obs;
+  RxString editCardImage = ''.obs;
 
   final mat.TextEditingController nameController = mat.TextEditingController();
   final mat.TextEditingController companyNameController =
@@ -175,115 +178,73 @@ class ReceivedCardController extends GetxController {
   }
 
   // Edit visting card
-  void editVisitingCard(
-      {required VisitingCardEditModel visitingCardEditModel,
-      required BuildContext context}) async {
+  void editVisitingCard({required BuildContext context}) async {
+    final editedSelfieImages =
+        selfiesListForEdit.map((f) => f.image as String).toList();
+    print(" this edite visig card function  $editCardImage");
     final VisitingCardEditModel updatedReceivedCard = VisitingCardEditModel(
-      cardId: visitingCardEditModel.cardId,
-      cardImage: visitingCardEditModel.cardImage != receivedCard.cardImage
-          ? visitingCardEditModel.cardImage
+      cardId: visitingCardDetails.value.id,
+      // cardImage: visitingCardDetails.value.cardImage ,
+      cardImage: editCardImage.value,
+         
+      company: companyNameController.text != visitingCardDetails.value.company
+          ? companyNameController.text
           : null,
-      company: visitingCardEditModel.company != receivedCard.company
-          ? visitingCardEditModel.company
+      designation:
+          designationController.text != visitingCardDetails.value.designation
+              ? designationController.text
+              : null,
+      email: emailController.text != visitingCardDetails.value.email
+          ? emailController.text
           : null,
-      designation: visitingCardEditModel.designation != receivedCard.designation
-          ? visitingCardEditModel.designation
+      location: locationController.text != visitingCardDetails.value.location
+          ? locationController.text
           : null,
-      email: visitingCardEditModel.email != receivedCard.email
-          ? visitingCardEditModel.email
+      name: nameController.text != visitingCardDetails.value.name
+          ? nameController.text
           : null,
-      location: visitingCardEditModel.location != receivedCard.location
-          ? visitingCardEditModel.location
+      notes: notesController.text != visitingCardDetails.value.notes
+          ? notesController.text
           : null,
-      name: visitingCardEditModel.name != receivedCard.name
-          ? visitingCardEditModel.name
+      occation: occasionController.text != visitingCardDetails.value.occation
+          ? occasionController.text
           : null,
-      notes: visitingCardEditModel.notes != receivedCard.notes
-          ? visitingCardEditModel.notes
+      // occupation: visitingCardEditModel.occupation != visitingCardDetails.value.occupation
+      //     ? visitingCardEditModel.occupation
+      //     : null,
+      phoneNumber: phoneController.text != visitingCardDetails.value.phoneNumber
+          ? phoneController.text
           : null,
-      occation: visitingCardEditModel.occation != receivedCard.occation
-          ? visitingCardEditModel.occation
-          : null,
-      occupation: visitingCardEditModel.occupation != receivedCard.occupation
-          ? visitingCardEditModel.occupation
-          : null,
-      phoneNumber: visitingCardEditModel.phoneNumber != receivedCard.phoneNumber
-          ? visitingCardEditModel.phoneNumber
-          : null,
-      selfie: visitingCardEditModel.selfie != receivedCard.selfie
-          ? visitingCardEditModel.selfie
-          : null,
-      website: visitingCardEditModel.website != receivedCard.website
-          ? visitingCardEditModel.website
+
+      selfie: editedSelfieImages != visitingCardDetails.value.selfie
+          ? editedSelfieImages
+          : null, 
+      website: websiteController.text != visitingCardDetails.value.website
+          ? websiteController.text
           : null,
     );
 
     isLoading.value = true;
-
+    log(updatedReceivedCard.toJson().toString());
     final data = await receivedCardService.editVisitingCard(
         visitingCardEditModel: updatedReceivedCard);
-    print(visitingCardEditModel.toJson());
+    log(updatedReceivedCard.toJson().toString());
     data.fold(
       (l) {
         isLoading.value = false;
         showSnackbar(context, message: errorMessage);
       },
       (r) {
-        if (visitingCardEditModel.company != receivedCard.company) {
-          visitingCardDetails.value = visitingCardDetails.value
-              .copyWith(company: visitingCardEditModel.company);
-              final index =filterdVisitingCards.indexWhere((e)=>e.id==visitingCardEditModel.cardId);
-              filterdVisitingCards[index]=filterdVisitingCards[index].copyWith(company: visitingCardEditModel.company);
-        }
-
-        if (visitingCardEditModel.name != receivedCard.name) {
-          visitingCardDetails.value = visitingCardDetails.value
-              .copyWith(name: visitingCardEditModel.name);
-
-                 final index =filterdVisitingCards.indexWhere((e)=>e.id==visitingCardEditModel.cardId);
-              filterdVisitingCards[index]=filterdVisitingCards[index].copyWith(name: visitingCardEditModel.name); 
-        }
-
-        if (visitingCardEditModel.designation != receivedCard.designation) {
-          visitingCardDetails.value = visitingCardDetails.value
-              .copyWith(designation: visitingCardEditModel.designation);
-        }
-
-        if (visitingCardEditModel.location != receivedCard.location) {
-          visitingCardDetails.value = visitingCardDetails.value
-              .copyWith(location: visitingCardEditModel.location);
-        }
-
-        if (visitingCardEditModel.occation != receivedCard.occation) {
-          visitingCardDetails.value = visitingCardDetails.value
-              .copyWith(occation: visitingCardEditModel.occation);
-        }
-
-        if (visitingCardEditModel.occupation != receivedCard.occupation) {
-          visitingCardDetails.value = visitingCardDetails.value
-              .copyWith(occupation: visitingCardEditModel.occupation);
-        }
-
-        if (visitingCardEditModel.notes != receivedCard.notes) {
-          visitingCardDetails.value = visitingCardDetails.value
-              .copyWith(notes: visitingCardEditModel.notes);
-        }
-
-        if(visitingCardEditModel.cardImage!=receivedCard.cardImage){
-          visitingCardDetails.value=visitingCardDetails.value.copyWith(cardImage: visitingCardEditModel.cardImage);
-          selfie[0]=visitingCardEditModel.cardImage??''; 
-        }
-
-        if(selfiesListForEdit != receivedCard.selfie){
-          selfiesListForEdit.value=receivedCard.selfie??[];
-          selfie.assignAll(selfiesListForEdit);
-          selfie.insert(0, visitingCardEditModel.cardImage??'');
-        }
-
+        // final cardImageUrl = (r.data["card_image_url"] as String?) ?? '';
+        // final selfieImages = ((r.data["selfie_urls"] as List?) ?? [])
+        //     .map((toElement) => (toElement as String?) ?? '')
+        //     .toList();
+        // print(r.data);
 
         fetchReceivedCardDetails(
-            receivedCardId: visitingCardEditModel.cardId ?? '');
+            receivedCardId: visitingCardDetails.value.id ?? '');
         clearAllTextEditingControllers();
+
         showSnackbar(context, message: 'Visiting Card Edited Successfully');
         GoRouter.of(context).pop();
         isLoading.value = false;
@@ -380,7 +341,10 @@ class ReceivedCardController extends GetxController {
         visitingCardDetails.value = r;
         selfie.assignAll(visitingCardDetails.value.selfie ?? []);
         selfie.insert(0, visitingCardDetails.value.cardImage ?? '');
-        selfiesListForEdit.assignAll(visitingCardDetails.value.selfie ?? []);
+        selfiesListForEdit.assignAll(visitingCardDetails.value.selfie?.map(
+                (toElement) =>
+                    ImageCard(image: toElement, networkImage: true)) ??
+            []);
         isLoading.value = false;
       },
     );

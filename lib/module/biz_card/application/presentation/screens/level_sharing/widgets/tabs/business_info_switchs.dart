@@ -46,6 +46,7 @@ class _BusinessInfoSwitchsState extends State<BusinessInfoSwitchs> {
                                   businessCategory: false,
                                   businessLogo: false,
                                   businessSocialMedia: false,
+                                  bankDetails: false,
                                   designation: false,
                                   product: false));
                       levelSharingController.individualBusinessDetails.value =
@@ -82,32 +83,32 @@ class _BusinessInfoSwitchsState extends State<BusinessInfoSwitchs> {
                             .copyWith(businessCategory: value));
                   }
                 }),
-          widget.isCommonLevelSharing
-              ? buildSwitch(
-                  "Designation",
-                  levelSharingController
-                          .businessSharedFields.value.designation ??
-                      false, (value) {
-                  levelSharingController.changeBusinessSharedFields(
-                      isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                      commonBusinessSharedFields: levelSharingController
-                          .businessSharedFields.value
-                          .copyWith(designation: value));
-                })
-              : buildSwitch(
-                  "Designation",
-                  levelSharingController
-                          .individualBusinessSharedFields.value.designation ??
-                      false, (value) {
-                  if (levelSharingController.individualBusinessDetails.value) {
-                    levelSharingController.changeBusinessSharedFields(
-                        isCommonBusinessSharedField:
-                            widget.isCommonLevelSharing,
-                        individualBusinessSharedFields: levelSharingController
-                            .individualBusinessSharedFields.value
-                            .copyWith(designation: value));
-                  }
-                }),
+          // widget.isCommonLevelSharing
+          //     ? buildSwitch(
+          //         "Designation",
+          //         levelSharingController
+          //                 .businessSharedFields.value.designation ??
+          //             false, (value) {
+          //         levelSharingController.changeBusinessSharedFields(
+          //             isCommonBusinessSharedField: widget.isCommonLevelSharing,
+          //             commonBusinessSharedFields: levelSharingController
+          //                 .businessSharedFields.value
+          //                 .copyWith(designation: value));
+          //       })
+          //     : buildSwitch(
+          //         "Designation",
+          //         levelSharingController
+          //                 .individualBusinessSharedFields.value.designation ??
+          //             false, (value) {
+          //         if (levelSharingController.individualBusinessDetails.value) {
+          //           levelSharingController.changeBusinessSharedFields(
+          //               isCommonBusinessSharedField:
+          //                   widget.isCommonLevelSharing,
+          //               individualBusinessSharedFields: levelSharingController
+          //                   .individualBusinessSharedFields.value
+          //                   .copyWith(designation: value));
+          //         }
+          //       }),
           widget.isCommonLevelSharing
               ? buildSwitch(
                   "Product",
@@ -248,6 +249,32 @@ class _BusinessInfoSwitchsState extends State<BusinessInfoSwitchs> {
                     }
                   },
                 ),
+          widget.isCommonLevelSharing
+              ? buildSwitch(
+                  "Bank details",
+                  levelSharingController
+                          .businessSharedFields.value.bankDetails ??
+                      false, (value) {
+                  levelSharingController.changeBusinessSharedFields(
+                      isCommonBusinessSharedField: widget.isCommonLevelSharing,
+                      commonBusinessSharedFields: levelSharingController
+                          .businessSharedFields.value
+                          .copyWith(bankDetails: value));
+                })
+              : buildSwitch(
+                  "Bank details",
+                  levelSharingController
+                          .individualBusinessSharedFields.value.bankDetails ??
+                      false, (value) {
+                  if (levelSharingController.individualBusinessDetails.value) {
+                    levelSharingController.changeBusinessSharedFields(
+                        isCommonBusinessSharedField:
+                            widget.isCommonLevelSharing,
+                        individualBusinessSharedFields: levelSharingController
+                            .individualBusinessSharedFields.value
+                            .copyWith(bankDetails: value));
+                  }
+                }),
           widget.isCommonLevelSharing
               ? buildSwitch(
                   "Business logo",

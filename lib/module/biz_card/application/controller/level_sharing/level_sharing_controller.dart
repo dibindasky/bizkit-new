@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/module/biz_card/data/service/level_sharing/level_sharing_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/all_common_shared_fields_responce/all_common_shared_fields_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/business_shared_fields/business_shared_fields.dart';
@@ -45,8 +43,7 @@ class LevelSharingController extends GetxController {
   RxInt selectedRrCode = 0.obs;
 
   // Method to update the selected card's QR code
-  void updateSelectedCardQRData(String qrData, cardId) {
-    selectedCardQRData.value = qrData;
+  void updateSelectedCardQRData(cardId) {
     selectedCardId.value = cardId;
   }
 
@@ -61,10 +58,12 @@ class LevelSharingController extends GetxController {
   }) {
     if (isCommonBusinessSharedField) {
       personalSharedFields.value =
-          commonPersonalSharedFields ?? PersonalSharedFields();
+          commonPersonalSharedFields?.copyWith(name: true) ??
+              PersonalSharedFields();
     } else {
       this.individualPersonalSharedFields.value =
-          individualPersonalSharedFields ?? PersonalSharedFields();
+          individualPersonalSharedFields?.copyWith(name: true) ??
+              PersonalSharedFields();
     }
   }
 
@@ -75,10 +74,12 @@ class LevelSharingController extends GetxController {
   }) {
     if (isCommonBusinessSharedField) {
       businessSharedFields.value =
-          commonBusinessSharedFields ?? BusinessSharedFields();
+          commonBusinessSharedFields?.copyWith(designation: true) ??
+              BusinessSharedFields();
     } else {
       this.individualBusinessSharedFields.value =
-          individualBusinessSharedFields ?? BusinessSharedFields();
+          individualBusinessSharedFields?.copyWith(designation: true) ??
+              BusinessSharedFields();
     }
   }
 

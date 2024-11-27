@@ -17,6 +17,8 @@ class BusinessSharedFields {
   bool? brochure;
   @JsonKey(name: 'business_logo')
   bool? businessLogo;
+  @JsonKey(name: 'bank_details')
+  bool? bankDetails;
   @JsonKey(name: 'logo_story')
   bool? logoStory;
 
@@ -29,6 +31,7 @@ class BusinessSharedFields {
     this.branchOffices,
     this.brochure,
     this.businessLogo,
+    this.bankDetails,
     this.logoStory,
   });
 
@@ -46,6 +49,7 @@ class BusinessSharedFields {
     bool? branchOffices,
     bool? brochure,
     bool? businessLogo,
+    bool? bankDetails,
     bool? logoStory,
   }) {
     return BusinessSharedFields(
@@ -57,6 +61,7 @@ class BusinessSharedFields {
       branchOffices: branchOffices ?? this.branchOffices,
       brochure: brochure ?? this.brochure,
       businessLogo: businessLogo ?? this.businessLogo,
+      bankDetails: bankDetails ?? this.bankDetails,
       logoStory: logoStory ?? this.logoStory,
     );
   }
@@ -70,6 +75,7 @@ class BusinessSharedFields {
         (branchOffices ?? false) ||
         (brochure ?? false) ||
         (businessLogo ?? false) ||
+        (bankDetails ?? false) ||
         (logoStory ?? false);
   }
 }

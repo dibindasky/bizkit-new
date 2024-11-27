@@ -7,12 +7,11 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class LevelSharingAppBar extends StatelessWidget {
-  const LevelSharingAppBar({
-    super.key,
-    required this.isCommonLevelSharing,
-  });
+  const LevelSharingAppBar(
+      {super.key, required this.isCommonLevelSharing, required this.bizcardId});
 
   final bool isCommonLevelSharing;
+  final String bizcardId;
 
   @override
   build(BuildContext context) {
@@ -51,6 +50,7 @@ class LevelSharingAppBar extends StatelessWidget {
             IconButton(
                 onPressed: () {
                   levelSharingController.fetchAllCommonSharedFields();
+                  levelSharingController.updateSelectedCardQRData(bizcardId);
                   GoRouter.of(context)
                       .pushNamed(Routes.levelSharingSettings, extra: {
                     "isCommonLevelSharing": true,

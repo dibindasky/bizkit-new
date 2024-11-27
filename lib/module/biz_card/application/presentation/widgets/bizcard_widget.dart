@@ -14,7 +14,6 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
-import 'package:iconsax/iconsax.dart';
 
 class BizcardWidget extends StatelessWidget {
   BizcardWidget({
@@ -169,7 +168,10 @@ class BizcardWidget extends StatelessWidget {
                     border:
                         createCard ? Border.all(color: kneon, width: 2) : null,
                     image: createCard || (personImage?.isNotEmpty ?? false)
-                        ? null
+                        ? const DecorationImage(
+                            image: AssetImage(bizcardBgImage),
+                            fit: BoxFit.cover,
+                          )
                         : const DecorationImage(
                             image: AssetImage(dummyPersonImage),
                             fit: BoxFit.cover,
@@ -178,7 +180,15 @@ class BizcardWidget extends StatelessWidget {
                   child: createCard
                       ? const Icon(Icons.add, color: kwhite)
                       : (personImage?.isNotEmpty ?? false)
-                          ? NetworkImageWithLoader(personImage!, radius: 100)
+                          ? NetworkImageWithLoader(
+                              personImage!,
+                              radius: 100,
+                              errorWidget: const Icon(
+                                Icons.person,
+                                color: kwhite,
+                                size: 30,
+                              ),
+                            )
                           : null,
                 ),
               ],

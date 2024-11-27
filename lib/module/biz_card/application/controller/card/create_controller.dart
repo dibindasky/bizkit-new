@@ -157,7 +157,7 @@ class CardController extends GetxController {
     );
   }
 
-  // // Set card as default
+  /// Set card as default
   void setDefaultCard(
       {required String cardId, required BuildContext context}) async {
     log('cardId ==> $cardId');
@@ -242,6 +242,24 @@ class CardController extends GetxController {
       (r) {
         cardViews.assignAll(r.views ?? []);
         loadingForCardViews.value = false;
+      },
+    );
+  }
+
+  /// update the number of shares
+  void updateShareCount(
+      {required String cardId}) async {
+    log('cardId ==> $cardId');
+    final data = await cardRepo.updateShareCount(
+        bizcardIdParameterModel: BizcardIdParameterModel(bizcardId: cardId));
+    data.fold(
+      (l) => null,
+      (r) {
+        int? index = bizcards.indexWhere((e) => e.bizcardId == cardId);
+        if (index != null && index != -1) {
+          bizcards[index] = bizcards[index]
+              .copyWith(shareCount: (bizcards[index].shareCount ?? 0) + 1);
+        }
       },
     );
   }

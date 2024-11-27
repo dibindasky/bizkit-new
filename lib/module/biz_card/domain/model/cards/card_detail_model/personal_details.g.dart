@@ -27,6 +27,8 @@ PersonalDetails _$PersonalDetailsFromJson(Map<String, dynamic> json) =>
       datesToRemember: (json['dates_to_remember'] as List<dynamic>?)
           ?.map((e) => DatesToRemember.fromJson(e as Map<String, dynamic>))
           .toList(),
+      personalStory: json['personal_story'] as String?,
+      showPersonalStory: json['want_to_show_personal_story'] as bool?,
     );
 
 Map<String, dynamic> _$PersonalDetailsToJson(PersonalDetails instance) =>
@@ -39,6 +41,8 @@ Map<String, dynamic> _$PersonalDetailsToJson(PersonalDetails instance) =>
       'blood_group': instance.bloodGroup,
       'dob': instance.dob,
       'images': instance.images,
+      'personal_story': instance.personalStory,
+      'want_to_show_personal_story': instance.showPersonalStory,
       'personal_achievements': instance.personalAchievements,
       'personal_social_media': instance.personalSocialMedia,
       'dates_to_remember': instance.datesToRemember,

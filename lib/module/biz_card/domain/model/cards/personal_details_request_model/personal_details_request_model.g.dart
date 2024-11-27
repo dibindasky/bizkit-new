@@ -20,6 +20,8 @@ PersonalDetailsRequestModel _$PersonalDetailsRequestModelFromJson(
           (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       bizcardId: json['bizcard_id'] as String?,
       personalDetailsId: json['personal_details_id'] as String?,
+      personalStory: json['personal_story'] as String?,
+      showPersonalStory: json['want_to_show_personal_story'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$PersonalDetailsRequestModelToJson(
@@ -34,4 +36,6 @@ Map<String, dynamic> _$PersonalDetailsRequestModelToJson(
       'images': instance.images,
       'bizcard_id': instance.bizcardId,
       'personal_details_id': instance.personalDetailsId,
+      'personal_story': instance.personalStory,
+      'want_to_show_personal_story': instance.showPersonalStory,
     };

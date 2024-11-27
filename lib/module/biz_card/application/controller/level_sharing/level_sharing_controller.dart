@@ -162,6 +162,7 @@ class LevelSharingController extends GetxController {
   void fetchIndividualSharedFields(
       {required IndividualSharedFieldsQueryParamsModel queryParameter}) async {
     individualLevelSharingLoading.value = true;
+    selectedCardId.value = queryParameter.bizcardId ?? '';
     final data = await levelSharingService.getAllIndividualSharedFields(
         queryParameter: queryParameter);
 

@@ -190,4 +190,23 @@ class CardService implements CardRepo {
       return Left(Failure(message: 'Failed to request'));
     }
   }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> updateShareCount(
+      {required BizcardIdParameterModel bizcardIdParameterModel}) async {
+    try {
+      await apiService.post(
+        ApiEndPoints.cardShareCount,
+        data: bizcardIdParameterModel.toJson(),
+      );
+      log('updateShareCount ==> success');
+      return Right(SuccessResponseModel());
+    } on DioException catch (e) {
+      log('updateShareCount DioException ${e.response?.statusCode} $e');
+      return Left(Failure(message: errorMessage));
+    } catch (e) {
+      log('updateShareCount catch $e');
+      return Left(Failure(message: 'Failed to request'));
+    }
+  }
 }

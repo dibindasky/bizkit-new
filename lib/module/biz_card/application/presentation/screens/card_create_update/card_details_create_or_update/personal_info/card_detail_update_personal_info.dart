@@ -257,7 +257,7 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                 ),
                 // blood group selection
                 AutocompleteTextField(
-                  validate: Validate.notNull,
+                  validate: Validate.none,
                   enabled: false,
                   autocompleteItems: bloodGroups,
                   showDropdown: true,
@@ -288,7 +288,7 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                     );
                   },
                   child: CustomTextFormField(
-                    validate: Validate.notNull,
+                    validate: Validate.none,
                     labelText: 'DOB',
                     enabled: false,
                     controller: personalController.dOBController,
@@ -296,6 +296,34 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                   ),
                 ),
                 kHeight10,
+                // my story
+                CustomTextFormField(
+                  validate: Validate.none,
+                  labelText: 'My Story',
+                  maxLines: 5,
+                  controller: personalController.myStoryController,
+                ),
+                kHeight5,
+                CardDetailEditingButtonContainer(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Show my story to connections',
+                          style: Theme.of(context).textTheme.displaySmall),
+                      Obx(
+                        () => Switch(
+                          value:
+                              personalController.showStoryToConnections.value,
+                          onChanged: (value) {
+                            personalController.showStoryToConnections.value =
+                                value;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                kHeight20,
                 // personal achivements (accolades)
                 Obx(
                   () => ImageOrTextPreviewUnderWidget(

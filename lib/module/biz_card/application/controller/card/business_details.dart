@@ -52,6 +52,7 @@ class BusinesDetailsController extends GetxController {
   TextEditingController companyDesignation = TextEditingController();
   TextEditingController companyNumber = TextEditingController();
   TextEditingController companyEmail = TextEditingController();
+  TextEditingController companyStoryController = TextEditingController();
 
   // Business Achivement Controllers
   RxList<ImageCard>? achievementImages = <ImageCard>[].obs;
@@ -123,6 +124,7 @@ class BusinesDetailsController extends GetxController {
       companyName: commpanyName.text,
       businessDetailsId:
           cardController.bizcardDetail.value.businessDetails?.id ?? '',
+      companyStory: companyStoryController.text,
     );
     final data = await businessRepo.businessDetailInitial(
         businessInitial: businessInitial);
@@ -682,7 +684,7 @@ class BusinesDetailsController extends GetxController {
         description: businessProductDescription.text,
         enquiry: productEnquiry.value,
         title: businessProductName.text,
-        images: productImages.map((e)=>e.image??'').toList(),
+        images: productImages.map((e) => e.image ?? '').toList(),
         productId: cardController
             .bizcardDetail.value.businessDetails?.product?[productIndex].id);
     final data =

@@ -8,6 +8,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class CardSecondScannedDatas extends StatelessWidget {
               size: 17,
             ),
           ),
-          title:  Text(
+          title: Text(
             'Make Received Card',
             style: TextStyle(
               fontFamily: 'Euclid',
@@ -233,12 +234,12 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
               size: 17,
             ),
           ),
-          title: const Text(
+          title: Text(
             'Make Received Card',
             style: TextStyle(
               fontFamily: 'Euclid',
               fontWeight: FontWeight.bold,
-              color: kwhite,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
           backgroundColor: knill,
@@ -246,80 +247,116 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              ContainerPickImage(
-                fromMain: false,
-                onPressedGallery: () {
-                  textExtractionController.pickSelfie(camera: false);
-                },
-                onPressedCam: () {
-                  textExtractionController.pickSelfie(camera: true);
-                },
-                heading: 'Take Selfie',
-              ),
+              // ContainerPickImage(
+              //   fromMain: false,
+              //   onPressedGallery: () {
+              //     textExtractionController.pickSelfie(camera: false);
+              //   },
+              //   onPressedCam: () {
+              //     textExtractionController.pickSelfie(camera: true);
+              //   },
+              //   heading: 'Take Selfie',
+              // ),
               Obx(
                 () {
                   return SizedBox(
-                    height: 170.dm,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          textExtractionController.pickedSelfiesImageUrl.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 15),
-                          child: SizedBox(
-                            height: 170.dm,
-                            width: 290.dm,
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.memory(
-                                    base64Decode(
-                                      textExtractionController
-                                          .pickedSelfiesImageUrl[index],
-                                    ),
+                     height: 170.dm, 
+                    child: Stack(
+                      children: [
+                        SizedBox(
+                          height: 170.dm,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: textExtractionController
+                                .pickedSelfiesImageUrl.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                child: AspectRatio(
+                                  aspectRatio: 1.8/1, 
+                                  child: SizedBox(
                                     height: 170.dm,
-                                    width: 290.dm,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 10,
-                                  right: 10,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: ColoredBox(
-                                      color: neonShade,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          showCustomConfirmationDialogue(
-                                            context: context,
-                                            buttonText: 'Delete',
-                                            title:
-                                                'You want to remove your selfie',
-                                            onTap: () {
+                                    
+                                    child: Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.memory(
+                                            base64Decode(
                                               textExtractionController
-                                                  .pickedSelfiesImageUrl
-                                                  .removeAt(index);
-                                            },
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          size: 30,
-                                          color: kwhite,
-                                          Icons.delete,
+                                                  .pickedSelfiesImageUrl[index],
+                                            ),
+                                            height: 170.dm,
+                                            width: 290.dm,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                      ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Align(
+                                            alignment: Alignment.topRight,  
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(15),
+                                              child: ColoredBox(
+                                                color: neonShade,
+                                                child: IconButton(
+                                                  onPressed: () {
+                                                    showCustomConfirmationDialogue(
+                                                      context: context,
+                                                      buttonText: 'Delete',
+                                                      title:
+                                                          'You want to remove your selfie',
+                                                      onTap: () {
+                                                        textExtractionController
+                                                            .pickedSelfiesImageUrl
+                                                            .removeAt(index);
+                                                      },
+                                                    );
+                                                  },
+                                                  icon: const Icon(
+                                                    size: 30,
+                                                    color: kwhite,
+                                                    Icons.delete,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              );
+                            },
                           ),
-                        );
-                      },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20,bottom: 20,) ,
+                          child: Align(
+                              alignment: Alignment.bottomRight, 
+                              child: InkWell(
+                                onTap: () {
+                                  cameraAndGalleryPickImage(
+                                      context: context,
+                                      onPressCam: () {
+                                        textExtractionController.pickSelfie(
+                                            camera: true);
+                                      },
+                                      onPressGallery: () {
+                                        textExtractionController.pickSelfie(
+                                            camera: false);
+                                      },
+                                      tittle: "Choose image From");
+                                },
+                                child: const CircleAvatar(
+                                  radius: 30,
+                                  child: Icon(Icons.add_a_photo_outlined),
+                                ),
+                              )),
+                        )
+                      ],
                     ),
                   );
                 },
@@ -348,13 +385,13 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                         controller: receivedCardController.locationController,
                         inputType: TextInputType.name,
                       ),
-                      CustomTextFormField(
-                        textCapitalization: TextCapitalization.words,
-                        // validate: Validate.notNull,
-                        labelText: 'Occupation',
-                        controller: receivedCardController.occupationController,
-                        inputType: TextInputType.name,
-                      ),
+                      // CustomTextFormField(
+                      //   textCapitalization: TextCapitalization.words,
+                      //   // validate: Validate.notNull,
+                      //   labelText: 'Occupation',
+                      //   controller: receivedCardController.occupationController,
+                      //   inputType: TextInputType.name,
+                      // ),
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.sentences,
                         // validate: Validate.notNull,

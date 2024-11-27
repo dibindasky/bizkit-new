@@ -1,18 +1,18 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/widgets/last_skip_and_continue.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/image_preview.dart';
-import 'package:bizkit/module/biz_card/domain/model/received_cards/create_visiting_card/create_visiting_card.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_edit_model/visiting_card_edit_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
+import 'package:bizkit/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -55,6 +55,8 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
         visitingCardController.visitingCardDetails.value.notes ?? '';
     visitingCardController.websiteController.text =
         visitingCardController.visitingCardDetails.value.website ?? '';
+    visitingCardController.editCardImage.value =
+        visitingCardController.visitingCardDetails.value.cardImage ?? "";
 
     // newImageList = [];
     // if (widget.secondCard.selfie != null ||
@@ -98,20 +100,25 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
             icon: const Icon(Icons.keyboard_arrow_left_outlined),
           ),
           title: Text(
-            'Update received card',style: Theme.of(context).textTheme.titleMedium,
+            'Update received card',
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           backgroundColor: knill,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 adjustHieght(10),
                 visitingCardController.visitingCardDetails.value.cardImage ==
                         null
                     ? kempty
-                    :  Text('Received card image',style: Theme.of(context).textTheme.titleMedium,),
+                    : Text(
+                        'Received card image',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                 adjustHieght(20),
                 visitingCardController.visitingCardDetails.value.cardImage ==
                         null
@@ -122,25 +129,36 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                             onTap: () => Navigator.of(context).push(
                               cardFadePageRoute(ScreenImagePreview(
                                   image: visitingCardController
-                                          .visitingCardDetails
-                                          .value
-                                          .cardImage ??
-                                      '')),
+                                      .editCardImage.value)),
                             ),
                             child: Container(
                               height: kwidth * 0.60,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                      visitingCardController.visitingCardDetails
-                                              .value.cardImage ??
-                                          ''),
-                                  onError: (exception, stackTrace) =>
-                                      const Icon(
-                                          Icons.image_not_supported_outlined),
-                                  fit: BoxFit.cover,
-                                ),
+                                borderRadius: BorderRadius.circular(20),
+                                image: isURLValid(visitingCardController
+                                        .editCardImage.value)
+                                    ? DecorationImage(
+                                        image: NetworkImage(
+                                            visitingCardController
+                                                    .visitingCardDetails
+                                                    .value
+                                                    .cardImage ??
+                                                ''),
+                                        onError: (exception, stackTrace) =>
+                                            const Icon(Icons
+                                                .image_not_supported_outlined),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : DecorationImage(
+                                        image: MemoryImage(base64Decode(
+                                            visitingCardController
+                                                .editCardImage.value)),
+                                        onError: (exception, stackTrace) =>
+                                            const Icon(Icons
+                                                .image_not_supported_outlined),
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
 // Image.memory(
 //               image,
@@ -157,46 +175,85 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                               //         '')),
                             ),
                           ),
-                          Positioned(
-                            right: 10,
-                            bottom: 10,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: ColoredBox(
-                                color: neonShade,
-                                child: IconButton(
-                                  onPressed: () {
-                                    cameraAndGalleryPickImage(
-                                      context: context,
-                                      onPressCam: () {
-                                        // context.read<CardSecondBloc>().add(
-                                        //       const CardSecondEvent.scanImage(
-                                        //         isFront: false,
-                                        //         isCam: true,
-                                        //       ),
-                                        //     );
-                                      },
-                                      onPressGallery: () {
-                                        // context.read<CardSecondBloc>().add(
-                                        //       const CardSecondEvent.scanImage(
-                                        //           isFront: false, isCam: false),
-                                        //     );
-                                      },
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    size: 30,
-                                    color: kwhite,
-                                    Icons.add,
+                          visitingCardController.editCardImage.value ==
+                                      '' ||
+                                  visitingCardController.editCardImage.value ==
+                                      null
+                              ? Positioned(
+                                  right: 10,
+                                  bottom: 10,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: ColoredBox(
+                                      color: neonShade,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          cameraAndGalleryPickImage(
+                                            context: context,
+                                            onPressCam: () async {
+                                              final img = await ImagePickerClass
+                                                  .getImage(camera: true);
+                                              if (img != null) {
+                                                // imageList.insert(0, Selfie(selfie: img.base64));
+                                                // newImageList.add(Selfie(selfie: img.base64));
+                                                visitingCardController
+                                                    .editCardImage
+                                                    .value = img.base64 ?? '';
+
+                                                setState(() {});
+                                              }
+                                            },
+                                            onPressGallery: () async {
+                                              final img = await ImagePickerClass
+                                                  .getImage(camera: false);
+                                              if (img != null) {
+                                                // imageList.insert(0, Selfie(selfie: img.base64));
+                                                // newImageList.add(Selfie(selfie: img.base64));
+                                                visitingCardController
+                                                    .editCardImage
+                                                    .value = img.base64 ?? '';
+
+                                                setState(() {});
+                                              }
+                                            },
+                                          );
+                                        },
+                                        icon: const Icon(
+                                          size: 30,
+                                          color: kwhite,
+                                          Icons.add,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Positioned(
+                                  right: 10,
+                                  bottom: 10,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: ColoredBox(
+                                      color: neonShade,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          visitingCardController
+                                              .editCardImage.value = '';
+                                          setState(() {});
+                                        },
+                                        icon: const Icon(
+                                          size: 30,
+                                          color: kwhite,
+                                          Icons.delete,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                 adjustHieght(20),
-                 Text('Selfie image',style: Theme.of(context).textTheme.titleMedium),
+                Text('Selfie image',
+                    style: Theme.of(context).textTheme.titleMedium),
                 adjustHieght(20),
                 Obx(
                   () => visitingCardController
@@ -205,7 +262,7 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                       : Stack(
                           children: [
                             SizedBox(
-                              height: 200.dm,
+                              height: 170.dm,
                               child: ListView.separated(
                                 separatorBuilder: (context, index) {
                                   return adjustWidth(10);
@@ -235,19 +292,59 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                                           //   ),
                                           // );
                                         },
-                                        child: SizedBox(
-                                          width: 300.dm,
-                                          height: 200.dm,
-                                          child: Image.network(
-                                            visitingCardController 
-                                                .selfiesListForEdit[index],
-                                            fit: BoxFit.cover,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return const Icon(Icons.error);
-                                            },
-                                          ),
-                                        ),
+                                        child: visitingCardController
+                                                .selfiesListForEdit[index]
+                                                .networkImage
+                                            ? AspectRatio(
+                                                aspectRatio: 1.3 / 1,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  child: SizedBox(
+                                                    width: 300.dm,
+                                                    height: 170.dm,
+                                                    child: Image.network(
+                                                      visitingCardController
+                                                              .selfiesListForEdit[
+                                                                  index]
+                                                              .image ??
+                                                          '',
+                                                      fit: BoxFit.cover,
+                                                      errorBuilder: (context,
+                                                          error, stackTrace) {
+                                                        return const Icon(
+                                                            Icons.error);
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            : Obx(() => AspectRatio(
+                                                  aspectRatio: 1.3 / 1,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    child: SizedBox(
+                                                      width: 300.dm,
+                                                      height: 170.dm,
+                                                      child: Image.memory(
+                                                        base64Decode(
+                                                            visitingCardController
+                                                                    .selfiesListForEdit[
+                                                                        index]
+                                                                    .image ??
+                                                                ''),
+                                                        fit: BoxFit.cover,
+                                                        errorBuilder: (context,
+                                                            error, stackTrace) {
+                                                          return const Icon(
+                                                              Icons.error);
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )),
                                       ),
                                       Positioned(
                                         top: 10,
@@ -321,7 +418,8 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                                         // newImageList.add(Selfie(selfie: img.base64));
                                         visitingCardController
                                             .selfiesListForEdit
-                                            .add(img.base64 ?? '');
+                                            .add(ImageCard(
+                                                image: img.base64 ?? ''));
                                         setState(() {});
                                       }
                                     },
@@ -334,7 +432,8 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                                         // newImageList.add(Selfie(selfie: img.base64));
                                         visitingCardController
                                             .selfiesListForEdit
-                                            .add(img.base64 ?? '');
+                                            .add(ImageCard(
+                                                image: img.base64 ?? ''));
                                         setState(() {});
                                       }
                                     },
@@ -349,6 +448,7 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                           ],
                         ),
                 ),
+                kHeight15,
                 Form(
                   //key: context.read<CardSecondBloc>().cardUpdateKey,
                   child: Column(
@@ -457,47 +557,11 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                       CardLastSkipContinueButtons(
                         continueText: '  Save  ',
                         onTap: () {
-                          final cardImage = visitingCardController
-                                          .visitingCardDetails
-                                          .value
-                                          .cardImage !=
-                                      null &&
-                                  visitingCardController.visitingCardDetails
-                                      .value.cardImage!.isNotEmpty
-                              ? visitingCardController
-                                      .visitingCardDetails.value.cardImage ??
-                                  ''
-                              : null;
+                          // final cardImage = visitingCardController
+                          //                 .visitingCardDetails
+                          //                 .value
+                          //                 .cardImage;
                           visitingCardController.editVisitingCard(
-                              visitingCardEditModel: VisitingCardEditModel(
-                                cardId: visitingCardController
-                                        .visitingCardDetails.value.id ??
-                                    '',
-                                name:
-                                    visitingCardController.nameController.text,
-                                company: visitingCardController
-                                    .companyNameController.text,
-                                designation: visitingCardController
-                                    .designationController.text,
-                                email:
-                                    visitingCardController.emailController.text,
-                                location: visitingCardController
-                                    .locationController.text,
-                                notes:
-                                    visitingCardController.notesController.text,
-                                occation: visitingCardController
-                                    .occasionController.text,
-                                occupation: visitingCardController
-                                    .occupationController.text,
-                                phoneNumber:
-                                    visitingCardController.phoneController.text,
-                                website: visitingCardController
-                                    .websiteController.text,
-                                selfie:
-                                    visitingCardController.selfiesListForEdit,
-                                cardImage: cardImage,
-                                scanedImage: cardImage != null,
-                              ),
                               context: context);
                         },
                       ),

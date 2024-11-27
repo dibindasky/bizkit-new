@@ -67,7 +67,8 @@ class ReceivedCardService implements ReceivedCardRepo {
         data: visitingCardEditModel.toJson(),
       );
       log('editVisitingCard ==> success');
-      return Right(SuccessResponseModel.fromJson(responce.data));
+      final map=responce.data as Map<String,dynamic>?;
+      return Right(SuccessResponseModel(data: map));
     } on DioException catch (e) {
       log('editVisitingCard DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));

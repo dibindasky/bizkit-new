@@ -27,6 +27,7 @@ class BusinessCard extends StatelessWidget {
         Center(
           child: BizcardWidget(
             bizcardId: bizcard.bizcardId ?? "",
+            completeLevel: bizcard.completionLevel ?? 0,
             onTap: () {
               GoRouter.of(context).pushNamed(Routes.cardDetailView,
                   pathParameters: {

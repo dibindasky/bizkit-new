@@ -42,6 +42,7 @@ class BusinessCard extends StatelessWidget {
             name: bizcard.name ?? 'Name',
             personImage: bizcard.personalImage ?? bizcard.logo,
             qrScanner: bizcard.qRLink ?? "",
+            isDefault: bizcard.isDefault ?? false,
           ),
         ),
         adjustHieght(10.h),

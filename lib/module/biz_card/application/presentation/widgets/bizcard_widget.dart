@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
+import 'package:iconsax/iconsax.dart';
 
 class BizcardWidget extends StatelessWidget {
   BizcardWidget({
@@ -27,6 +28,7 @@ class BizcardWidget extends StatelessWidget {
     required this.width,
     required this.height,
     this.completeLevel,
+    this.isDefault,
     this.createCard = false,
   }) : _flipCardController = FlipCardController();
 
@@ -40,6 +42,7 @@ class BizcardWidget extends StatelessWidget {
   final bool createCard;
   final FlipCardController _flipCardController;
   final int? completeLevel;
+  final bool? isDefault;
 
   final levelSharingController = Get.find<LevelSharingController>();
   Uint8List? get decodedQrImage {
@@ -100,7 +103,24 @@ class BizcardWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                kWidth10,
+                if (isDefault == true)
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(6)),
+                    child: ColoredBox(
+                        color: kneon,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 2),
+                          child: Text(
+                            'Default',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(fontSize: 10),
+                          ),
+                        )),
+                  ),
+                if (isDefault == false) kWidth10,
                 Text(
                   'Business Card',
                   style: Theme.of(context).textTheme.bodyMedium,
@@ -135,7 +155,7 @@ class BizcardWidget extends StatelessWidget {
                     height: 80.w,
                     child: CircularProgressIndicator(
                       value: (completeLevel ?? 100) / 100,
-                      strokeWidth: 4,
+                      strokeWidth: 5,
                       backgroundColor: kdarkOffWhite,
                       valueColor: AlwaysStoppedAnimation<Color>(
                           Theme.of(context).colorScheme.primary),

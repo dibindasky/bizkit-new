@@ -40,6 +40,8 @@ class BusinessDetails {
   String? businessLogo;
   @JsonKey(name: 'logo_story')
   String? logoStory;
+  @JsonKey(name: 'company_story')
+  String? companyStory;
 
   BusinessDetails({
     this.businessEmail,
@@ -58,6 +60,7 @@ class BusinessDetails {
     this.brochure,
     this.businessLogo,
     this.logoStory,
+    this.companyStory,
   });
 
     BusinessDetails copyWith({
@@ -77,6 +80,7 @@ class BusinessDetails {
     List<Brochure>? brochure,
     String? businessLogo,
     String? logoStory,
+    String? companyStory,
   }) {
     return BusinessDetails(
       id: id ?? this.id,
@@ -95,6 +99,7 @@ class BusinessDetails {
       brochure: brochure ?? this.brochure,
       businessLogo: businessLogo ?? this.businessLogo,
       logoStory: logoStory ?? this.logoStory,
+      companyStory: companyStory ?? this.companyStory,
     );
   }
 

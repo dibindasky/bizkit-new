@@ -18,6 +18,10 @@ class PersonalDetails {
   String? bloodGroup;
   String? dob;
   List<String>? images;
+  @JsonKey(name: 'personal_story')
+  String? personalStory;
+  @JsonKey(name: 'want_to_show_personal_story')
+  bool? showPersonalStory;
   @JsonKey(name: 'personal_achievements')
   List<Achievement>? personalAchievements;
   @JsonKey(name: 'personal_social_media')
@@ -37,6 +41,8 @@ class PersonalDetails {
     this.personalAchievements,
     this.personalSocialMedia,
     this.datesToRemember,
+    this.personalStory,
+    this.showPersonalStory,
   });
 
   PersonalDetails copyWith({
@@ -47,6 +53,8 @@ class PersonalDetails {
     String? address,
     String? bloodGroup,
     String? dob,
+    String? personalStory,
+    bool? showPersonalStory,
     List<String>? images,
     List<Achievement>? personalAchievements,
     List<SocialMediaHandles>? personalSocialMedia,
@@ -64,6 +72,8 @@ class PersonalDetails {
       personalAchievements: personalAchievements ?? this.personalAchievements,
       personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
       datesToRemember: datesToRemember ?? this.datesToRemember,
+      personalStory: personalStory?? this.personalStory,
+      showPersonalStory: showPersonalStory?? this.showPersonalStory,
     );
   }
 

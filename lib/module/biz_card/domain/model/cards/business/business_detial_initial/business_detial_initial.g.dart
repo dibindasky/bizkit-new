@@ -17,6 +17,7 @@ BusinessDetialInitial _$BusinessDetialInitialFromJson(
           .toList(),
       businessDetailsId: json['business_details_id'] as String?,
       companyName: json['company_name'] as String?,
+      companyStory: json['company_story'] as String?,
     );
 
 Map<String, dynamic> _$BusinessDetialInitialToJson(
@@ -28,4 +29,5 @@ Map<String, dynamic> _$BusinessDetialInitialToJson(
       'business_phone': instance.bussinessPhone,
       'business_website': instance.websiteLink,
       'business_details_id': instance.businessDetailsId,
+      'company_story': instance.companyStory,
     };

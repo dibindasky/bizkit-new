@@ -53,8 +53,11 @@ class PersonalDetailsController extends GetxController {
   final mat.TextEditingController bloodGroupController =
       mat.TextEditingController();
   final mat.TextEditingController dOBController = mat.TextEditingController();
+  final mat.TextEditingController myStoryController =
+      mat.TextEditingController();
   final mat.TextEditingController personlAddressController =
       mat.TextEditingController();
+  RxBool showStoryToConnections = true.obs;
 
   /// personal phone numberes
   RxList<String> personalPhoneNumbers = <String>[].obs;
@@ -87,6 +90,7 @@ class PersonalDetailsController extends GetxController {
     dOBController.text = DateTimeFormater.getDateByDayMonthYear(
         cardDetail.personalDetails?.dob ?? '');
     bloodGroupController.text = cardDetail.personalDetails?.bloodGroup ?? '';
+    myStoryController.text = cardDetail.personalDetails?.personalStory ?? '';
   }
 
   /// add phone number to personal data
@@ -158,6 +162,8 @@ class PersonalDetailsController extends GetxController {
       images: personalController.personalImages,
       name: personalNameController.text,
       phone: personalPhoneNumbers,
+      personalStory: myStoryController.text,
+      showPersonalStory: showStoryToConnections.value,
     );
 
     final data = await personalDetailsRepo.personalDetailsAdding(
@@ -192,10 +198,6 @@ class PersonalDetailsController extends GetxController {
       personalDetailsId: cardController.bizcardDetail.value.personalDetails?.id,
       title: achievementTitle.text,
     );
-    print(personalAchiment.bizcardId);
-    print(personalAchiment.personalAchievementId);
-    print(personalAchiment.images?.first);
-    log('personal achivements adding => ${personalAchiment.toJson()}');
     final data = await personalRepo.personalAchivmentAdding(
         personalAchiment: personalAchiment);
     data.fold(
@@ -210,7 +212,6 @@ class PersonalDetailsController extends GetxController {
         achievementTitle.clear();
         personalAchivementImage.clear();
         final map = r.data as Map<String, dynamic>?;
-        print('image_urls  -->  ${map?['image_urls']}');
         Achievement achievement = Achievement(
             id: map?['personal_achievement_id'] as String?,
             date: personalAchiment.date,

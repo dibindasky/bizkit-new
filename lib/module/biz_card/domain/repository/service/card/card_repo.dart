@@ -13,13 +13,18 @@ import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responc
 import 'package:dartz/dartz.dart';
 
 abstract class CardRepo {
-  // New Card creation
+  /// New Card creation
   Future<Either<Failure, CreateCardResponce>> createCard(
       {required CreateCard createCard});
+  
+  /// get all cards list
   Future<Either<Failure, GetAllCards>> getAllCards();
+
+  /// get bizcard details
   Future<Either<Failure, CardDetailModel>> getCardDetail(
       {required String cardId});
 
+  /// scan and make connection
   Future<Either<Failure, ScanAndConnectModel>> scanAndConnect(
       {required String cardId});
 
@@ -27,18 +32,23 @@ abstract class CardRepo {
   Future<Either<Failure, SuccessResponseModel>> setDefaultCard(
       {required String cardId});
 
-  // Archive a  card
+  /// Archive a  card
   Future<Either<Failure, SuccessResponseModel>> archiveTheCard(
       {required CardArchiveModel cardArchive});
 
-  // Delete a Card
+  /// Delete a Card
   Future<Either<Failure, SuccessResponseModel>> deleteTheCard(
       {required CardDeleteModel cardDelete});
 
-  // fetch all archived & deleted cards
+  /// fetch all archived & deleted cards
   Future<Either<Failure, ArchivedAndDeletedCardsResponce>>
       getAllArchivedAndDeletedCards();
 
+  /// get the list of users who viewd my card
   Future<Either<Failure, GetCardViewsResponce>> getCardViews(
+      {required BizcardIdParameterModel bizcardIdParameterModel});
+
+  /// update the number of share 
+  Future<Either<Failure, SuccessResponseModel>> updateShareCount(
       {required BizcardIdParameterModel bizcardIdParameterModel});
 }

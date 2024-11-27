@@ -127,6 +127,13 @@ class CardUpdateBusinesstDetails extends StatelessWidget {
                 controller: businessController.companyWebsiteLink,
                 autocompleteItems: const [],
               ),
+              // company story
+              CustomTextFormField(
+                validate: Validate.none,
+                labelText: 'Company Story',
+                maxLines: 5,
+                controller: businessController.companyStoryController,
+              ),
               // Business Achivements
               Obx(
                 () => ImageOrTextPreviewUnderWidget(

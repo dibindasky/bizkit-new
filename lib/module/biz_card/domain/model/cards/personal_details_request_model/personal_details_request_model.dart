@@ -16,6 +16,10 @@ class PersonalDetailsRequestModel {
   String? bizcardId;
   @JsonKey(name: 'personal_details_id')
   String? personalDetailsId;
+  @JsonKey(name: 'personal_story')
+  String? personalStory;
+  @JsonKey(name: 'want_to_show_personal_story')
+  bool? showPersonalStory;
 
   PersonalDetailsRequestModel({
     this.name,
@@ -27,6 +31,8 @@ class PersonalDetailsRequestModel {
     this.images,
     this.bizcardId,
     this.personalDetailsId,
+    this.personalStory,
+    this.showPersonalStory = false,
   });
 
   factory PersonalDetailsRequestModel.fromJson(Map<String, dynamic> json) {

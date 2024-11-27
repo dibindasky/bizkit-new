@@ -39,6 +39,7 @@ BusinessDetails _$BusinessDetailsFromJson(Map<String, dynamic> json) =>
           .toList(),
       businessLogo: json['business_logo'] as String?,
       logoStory: json['logo_story'] as String?,
+      companyStory: json['company_story'] as String?,
     );
 
 Map<String, dynamic> _$BusinessDetailsToJson(BusinessDetails instance) =>
@@ -59,4 +60,5 @@ Map<String, dynamic> _$BusinessDetailsToJson(BusinessDetails instance) =>
       'brochure': instance.brochure,
       'business_logo': instance.businessLogo,
       'logo_story': instance.logoStory,
+      'company_story': instance.companyStory,
     };

@@ -124,6 +124,8 @@ class BusinessCard extends StatelessWidget {
                           children: [
                             ListTile(
                               onTap: () {
+                                bizcardController.updateShareCount(
+                                    cardId: bizcard.bizcardId ?? '');
                                 GoRouter.of(context).pop();
                                 showBottomSheet(
                                   context: Scaffold.of(context).context,
@@ -142,6 +144,8 @@ class BusinessCard extends StatelessWidget {
                             const Divider(),
                             ListTile(
                               onTap: () {
+                                bizcardController.updateShareCount(
+                                    cardId: bizcard.bizcardId ?? '');
                                 GoRouter.of(context).pop();
                                 if (bizcard.qRLink != null) {
                                   GoRouter.of(context).pushNamed(
@@ -159,6 +163,8 @@ class BusinessCard extends StatelessWidget {
                             const Divider(),
                             ListTile(
                               onTap: () {
+                                bizcardController.updateShareCount(
+                                    cardId: bizcard.bizcardId ?? '');
                                 GoRouter.of(context).pop();
                                 final link = bizcard.universalLink;
                                 if (link != null && link.isNotEmpty) {

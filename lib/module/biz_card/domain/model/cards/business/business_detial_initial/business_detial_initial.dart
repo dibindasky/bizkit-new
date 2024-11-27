@@ -16,6 +16,8 @@ class BusinessDetialInitial {
   String? websiteLink;
   @JsonKey(name: 'business_details_id')
   String? businessDetailsId;
+  @JsonKey(name: 'company_story')
+  String? companyStory;
 
   BusinessDetialInitial({
     this.websiteLink,
@@ -24,6 +26,7 @@ class BusinessDetialInitial {
     this.bussinessPhone,
     this.businessDetailsId,
     this.companyName,
+    this.companyStory,
   });
 
   factory BusinessDetialInitial.fromJson(Map<String, dynamic> json) {

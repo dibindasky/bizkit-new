@@ -27,6 +27,7 @@ class BusinessCard extends StatelessWidget {
         Center(
           child: BizcardWidget(
             bizcardId: bizcard.bizcardId ?? "",
+            completeLevel: bizcard.completionLevel ?? 0,
             onTap: () {
               GoRouter.of(context).pushNamed(Routes.cardDetailView,
                   pathParameters: {
@@ -41,6 +42,7 @@ class BusinessCard extends StatelessWidget {
             name: bizcard.name ?? 'Name',
             personImage: bizcard.personalImage ?? bizcard.logo,
             qrScanner: bizcard.qRLink ?? "",
+            isDefault: bizcard.isDefault ?? false,
           ),
         ),
         adjustHieght(10.h),

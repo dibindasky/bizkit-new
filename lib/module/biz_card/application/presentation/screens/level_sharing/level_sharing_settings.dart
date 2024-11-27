@@ -44,6 +44,7 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
         child: Column(
           children: [
             LevelSharingAppBar(
+                bizcardId: widget.bizcardId ?? '',
                 isCommonLevelSharing: widget.isCommonLevelSharing),
             PersonalAndBusinessInfoTab(tabController: tabController),
             Obx(
@@ -71,19 +72,19 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
             ),
             adjustHieght(20.h),
             if (widget.isCommonLevelSharing)
-             Obx(()=>
-                        buildSwitch(
-                  "Apply to all",
-                  levelSharingController.commonLevelSharedFields.value
-                          .applicableToIndividual ??
-                      false, (value) {
-                levelSharingController.changeComSharingApplicableToIndividual(
-                    applicableToIndividual: levelSharingController
-                        .commonLevelSharedFields.value
-                        .copyWith(applicableToIndividual: value));
-              }, textFieldFillColr,
-                  Border.all(color: Theme.of(context).colorScheme.onPrimary)),
-             ), 
+              Obx(
+                () => buildSwitch(
+                    "Apply to all",
+                    levelSharingController.commonLevelSharedFields.value
+                            .applicableToIndividual ??
+                        false, (value) {
+                  levelSharingController.changeComSharingApplicableToIndividual(
+                      applicableToIndividual: levelSharingController
+                          .commonLevelSharedFields.value
+                          .copyWith(applicableToIndividual: value));
+                }, textFieldFillColr,
+                    Border.all(color: Theme.of(context).colorScheme.onPrimary)),
+              ),
             adjustHieght(15.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),

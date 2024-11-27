@@ -7,7 +7,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_det
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/detail_row_icontext.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/detail_sharing_icon_image.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/social_media_handle.dart';
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,7 @@ class BizCardDetailsIconsWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     final cardController = Get.find<CardController>();
     return Obx(() => cardController.isLoading.value
-          // loader
+        // loader
         ? Column(
             children: [
               Row(
@@ -110,24 +109,33 @@ class BizCardDetailsIconsWidgets extends StatelessWidget {
         List<String> itemsHead = [];
         if (cardController.bizcardDetail.value.personalDetails != null &&
             cardController.bizcardDetail.value.personalDetails!.phone != null &&
-            cardController.bizcardDetail.value.personalDetails!.phone!.isNotEmpty) {
-          phone.addAll(cardController.bizcardDetail.value.personalDetails!.phone!);
+            cardController
+                .bizcardDetail.value.personalDetails!.phone!.isNotEmpty) {
+          phone.addAll(
+              cardController.bizcardDetail.value.personalDetails!.phone!);
           itemsHead.addAll(List.generate(
               cardController.bizcardDetail.value.personalDetails!.phone!.length,
               (index) => 'Personal'));
         }
         if (cardController.bizcardDetail.value.businessDetails != null &&
-            cardController.bizcardDetail.value.businessDetails!.businessPhone != null &&
-            cardController.bizcardDetail.value.businessDetails!.businessPhone!.isNotEmpty) {
-          phone.addAll(cardController.bizcardDetail.value.businessDetails!.businessPhone!);
+            cardController.bizcardDetail.value.businessDetails!.businessPhone !=
+                null &&
+            cardController.bizcardDetail.value.businessDetails!.businessPhone!
+                .isNotEmpty) {
+          phone.addAll(cardController
+              .bizcardDetail.value.businessDetails!.businessPhone!);
           itemsHead.addAll(List.generate(
-              cardController.bizcardDetail.value.businessDetails!.businessPhone!.length,
+              cardController
+                  .bizcardDetail.value.businessDetails!.businessPhone!.length,
               (index) => 'Business'));
         }
         if ((cardController.bizcardDetail.value.personalDetails != null &&
-                cardController.bizcardDetail.value.personalDetails!.phone != null) ||
+                cardController.bizcardDetail.value.personalDetails!.phone !=
+                    null) ||
             (cardController.bizcardDetail.value.businessDetails != null &&
-                cardController.bizcardDetail.value.businessDetails!.businessPhone != null)) {
+                cardController
+                        .bizcardDetail.value.businessDetails!.businessPhone !=
+                    null)) {
           showModalBottomSheet(
             context: context,
             enableDrag: true,
@@ -152,8 +160,10 @@ class BizCardDetailsIconsWidgets extends StatelessWidget {
           itemsHead.add('Personal Email');
         }
         if (cardController.bizcardDetail.value.businessDetails != null &&
-            cardController.bizcardDetail.value.businessDetails!.businessEmail != null) {
-          email.add(cardController.bizcardDetail.value.businessDetails!.businessEmail!);
+            cardController.bizcardDetail.value.businessDetails!.businessEmail !=
+                null) {
+          email.add(cardController
+              .bizcardDetail.value.businessDetails!.businessEmail!);
           itemsHead.add('Business Email');
         }
 
@@ -177,9 +187,12 @@ class BizCardDetailsIconsWidgets extends StatelessWidget {
           ),
         );
       case 3:
-        (cardController.bizcardDetail.value.personalDetails?.personalSocialMedia ?? [])
+        (cardController.bizcardDetail.value.personalDetails
+                            ?.personalSocialMedia ??
+                        [])
                     .isEmpty &&
-                (cardController.bizcardDetail.value.businessDetails?.businessSocialMedia ??
+                (cardController.bizcardDetail.value.businessDetails
+                            ?.businessSocialMedia ??
                         [])
                     .isEmpty
             ? showDialog(
@@ -215,11 +228,14 @@ class BizCardDetailsIconsWidgets extends StatelessWidget {
                 showDragHandle: true,
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 builder: (context) {
-                  List<SocialMediaHandles> personal = cardController.bizcardDetail.value
-                              .personalDetails?.personalSocialMedia ??
+                  List<SocialMediaHandles> personal = cardController
+                              .bizcardDetail
+                              .value
+                              .personalDetails
+                              ?.personalSocialMedia ??
                           [],
-                      business = cardController
-                              .bizcardDetail.value.businessDetails?.businessSocialMedia ??
+                      business = cardController.bizcardDetail.value
+                              .businessDetails?.businessSocialMedia ??
                           [];
                   return SocialMediaAccountsListsBottomSheet(
                     personal: personal,

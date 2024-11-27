@@ -22,7 +22,7 @@ class ScreenCardSharing extends StatelessWidget {
     final cardController = Get.find<CardController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       levelSharingController.updateSelectedCardQRData(
-          cardController.bizcards.first.qRLink ?? '',
+          // cardController.bizcards.first.qRLink ?? '',
           cardController.bizcards.first.bizcardId ?? '');
     });
     return Scaffold(
@@ -111,7 +111,7 @@ class ScreenCardSharing extends StatelessWidget {
                               onTap: () {
                                 levelSharingController.selectedQr(index);
                                 levelSharingController.updateSelectedCardQRData(
-                                    cardController.bizcards[index].qRLink ?? '',
+                                    // cardController.bizcards[index].qRLink ?? '',
                                     cardController.bizcards[index].bizcardId ??
                                         '');
                               },

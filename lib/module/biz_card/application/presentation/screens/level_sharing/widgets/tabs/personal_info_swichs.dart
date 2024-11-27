@@ -54,30 +54,30 @@ class _PersonalInfoSwichsState extends State<PersonalInfoSwitchs> {
                   Border.all(color: Theme.of(context).colorScheme.onPrimary),
                 ),
           adjustHieght(20.h),
-          if (widget.isCommonLevelSharing)
-            buildSwitch("Name",
-                levelSharingController.personalSharedFields.value.name ?? false,
-                (value) {
-              levelSharingController.changePersonalSharedFields(
-                  isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                  commonPersonalSharedFields: levelSharingController
-                      .personalSharedFields.value
-                      .copyWith(name: value));
-            })
-          else
-            buildSwitch(
-                "Name",
-                levelSharingController
-                        .individualPersonalSharedFields.value.name ??
-                    false, (value) {
-              if (levelSharingController.individualPersonalDetails.value) {
-                levelSharingController.changePersonalSharedFields(
-                    isCommonBusinessSharedField: widget.isCommonLevelSharing,
-                    individualPersonalSharedFields: levelSharingController
-                        .individualPersonalSharedFields.value
-                        .copyWith(name: value));
-              }
-            }),
+          // if (widget.isCommonLevelSharing)
+          //   buildSwitch("Name",
+          //       levelSharingController.personalSharedFields.value.name ?? false,
+          //       (value) {
+          //     levelSharingController.changePersonalSharedFields(
+          //         isCommonBusinessSharedField: widget.isCommonLevelSharing,
+          //         commonPersonalSharedFields: levelSharingController
+          //             .personalSharedFields.value
+          //             .copyWith(name: value));
+          //   })
+          // else
+          //   buildSwitch(
+          //       "Name",
+          //       levelSharingController
+          //               .individualPersonalSharedFields.value.name ??
+          //           false, (value) {
+          //     if (levelSharingController.individualPersonalDetails.value) {
+          //       levelSharingController.changePersonalSharedFields(
+          //           isCommonBusinessSharedField: widget.isCommonLevelSharing,
+          //           individualPersonalSharedFields: levelSharingController
+          //               .individualPersonalSharedFields.value
+          //               .copyWith(name: value));
+          //     }
+          //   }),
           widget.isCommonLevelSharing
               ? buildSwitch(
                   "Email",

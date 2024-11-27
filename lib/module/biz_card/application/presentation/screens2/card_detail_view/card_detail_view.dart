@@ -187,7 +187,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                         //                 .businessDetails.value?.businessName ??
                         //             ""
                         //         :
-                                 'Name',
+                        'Name',
                         overflow: TextOverflow.ellipsis,
                         style: custumText(fontSize: kwidth * 0.06),
                       ),
@@ -200,8 +200,8 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                         //         ? cardController
                         //                 .businessDetails.value?.designation ??
                         //             ""
-                        //         : 
-                                'Designation',
+                        //         :
+                        'Designation',
                         overflow: TextOverflow.ellipsis,
                       ),
                       adjustHieght(khieght * .02),

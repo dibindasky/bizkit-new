@@ -33,12 +33,6 @@ void showConnectionAcceptDialog(
             height: 510.h,
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            decoration: BoxDecoration(
-              color: kblack,
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              border: Border.all(
-                  color: Theme.of(dialogContext).colorScheme.primary),
-            ),
             child: Stack(
               children: [
                 SingleChildScrollView(
@@ -49,13 +43,11 @@ void showConnectionAcceptDialog(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Select fields to share',
-                              style: Theme.of(dialogContext)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(color: kwhite),
-                            ),
+                            Text('Select fields to share',
+                                style: Theme.of(dialogContext)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(fontSize: 14)),
                             IconButton(
                               onPressed: () {
                                 Navigator.of(dialogContext).pop();
@@ -70,20 +62,6 @@ void showConnectionAcceptDialog(
                         ),
                       ),
                       adjustHieght(khieght * .01),
-                      buildSwitch(
-                        "Name",
-                        levelSharingController
-                                .individualPersonalSharedFields.value.name ??
-                            false,
-                        (value) {
-                          levelSharingController.changePersonalSharedFields(
-                              isCommonBusinessSharedField: false,
-                              individualPersonalSharedFields:
-                                  levelSharingController
-                                      .individualPersonalSharedFields.value
-                                      .copyWith(name: value));
-                        },
-                      ),
                       buildSwitch(
                         "Email",
                         levelSharingController
@@ -180,13 +158,9 @@ void showConnectionAcceptDialog(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           child: Center(
-                            child: Text(
-                              "Business Details",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displaySmall
-                                  ?.copyWith(color: kwhite),
-                            ),
+                            child: Text("Business Details",
+                                style:
+                                    Theme.of(context).textTheme.displaySmall),
                           ),
                         ),
                       ),
@@ -203,20 +177,6 @@ void showConnectionAcceptDialog(
                                   levelSharingController
                                       .individualBusinessSharedFields.value
                                       .copyWith(businessCategory: value));
-                        },
-                      ),
-                      buildSwitch(
-                        "Designation",
-                        levelSharingController.individualBusinessSharedFields
-                                .value.designation ??
-                            false,
-                        (value) {
-                          levelSharingController.changeBusinessSharedFields(
-                              isCommonBusinessSharedField: false,
-                              individualBusinessSharedFields:
-                                  levelSharingController
-                                      .individualBusinessSharedFields.value
-                                      .copyWith(designation: value));
                         },
                       ),
                       buildSwitch(
@@ -290,6 +250,20 @@ void showConnectionAcceptDialog(
                         },
                       ),
                       buildSwitch(
+                        "Bank details",
+                        levelSharingController.individualBusinessSharedFields
+                                .value.bankDetails ??
+                            false,
+                        (value) {
+                          levelSharingController.changeBusinessSharedFields(
+                              isCommonBusinessSharedField: false,
+                              individualBusinessSharedFields:
+                                  levelSharingController
+                                      .individualBusinessSharedFields.value
+                                      .copyWith(bankDetails: value));
+                        },
+                      ),
+                      buildSwitch(
                         "Business logo",
                         levelSharingController.individualBusinessSharedFields
                                 .value.businessLogo ??
@@ -318,7 +292,6 @@ void showConnectionAcceptDialog(
                         },
                       ),
                       adjustHieght(khieght * .09),
-                      // ... rest of the UI code remains the same ...
                     ],
                   ),
                 ),
@@ -329,7 +302,7 @@ void showConnectionAcceptDialog(
                   child: Container(
                     height: 39.h,
                     width: double.infinity,
-                    decoration: const BoxDecoration(color: kblack),
+                    decoration: const BoxDecoration(color: kwhite),
                     child: Row(
                       children: [
                         Expanded(
@@ -340,16 +313,13 @@ void showConnectionAcceptDialog(
                               decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(5)),
-                                border: Border.all(color: neonShade),
+                                border: Border.all(color: kneon),
                               ),
                               child: Center(
-                                child: Text(
-                                  'Cancel',
-                                  style: Theme.of(dialogContext)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(color: kwhite),
-                                ),
+                                child: Text('Cancel',
+                                    style: Theme.of(dialogContext)
+                                        .textTheme
+                                        .displaySmall),
                               ),
                             ),
                           ),
@@ -388,7 +358,6 @@ void showConnectionAcceptDialog(
                               // GoRouter.of(dialogContext).pop(false);
 
                               if (followBackPossible == true) {
-                                
                                 showConfirmationDialog(
                                   actionButton: 'Follow',
                                   dialogContext,
@@ -451,7 +420,10 @@ void showConnectionAcceptDialog(
                                   style: Theme.of(dialogContext)
                                       .textTheme
                                       .displaySmall
-                                      ?.copyWith(color: kwhite),
+                                      ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onTertiary),
                                 ),
                               ),
                             ),
@@ -490,18 +462,12 @@ Widget buildSwitch(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                label,
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall
-                    ?.copyWith(color: kwhite),
-              ),
+              Text(label, style: Theme.of(context).textTheme.displaySmall),
               Switch(
                 inactiveTrackColor: kblack,
                 inactiveThumbColor: value == null ? kblack : kwhite,
-                trackOutlineColor: MaterialStateProperty.all(
-                  value == null ? kgrey : (value ? kneon : kwhite),
+                trackOutlineColor: WidgetStateProperty.all(
+                  value == null ? kgrey : (value ? kneon : kblack),
                 ),
                 activeTrackColor: color == kneon ? kwhite : kneon,
                 activeColor: color == kneon ? kneon : kwhite,

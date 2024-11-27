@@ -17,6 +17,7 @@ BusinessSharedFields _$BusinessSharedFieldsFromJson(
       branchOffices: json['branch_offices'] as bool?,
       brochure: json['brochure'] as bool?,
       businessLogo: json['business_logo'] as bool?,
+      bankDetails: json['bank_details'] as bool?,
       logoStory: json['logo_story'] as bool?,
     );
 
@@ -31,5 +32,6 @@ Map<String, dynamic> _$BusinessSharedFieldsToJson(
       'branch_offices': instance.branchOffices,
       'brochure': instance.brochure,
       'business_logo': instance.businessLogo,
+      'bank_details': instance.bankDetails,
       'logo_story': instance.logoStory,
     };

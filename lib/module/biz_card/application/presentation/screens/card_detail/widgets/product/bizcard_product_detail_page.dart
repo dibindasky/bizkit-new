@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
 import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -37,7 +35,6 @@ class _BizcardProductDetailScreenState
 
   @override
   Widget build(BuildContext context) {
-    log('Product details == > ${widget.product?.toJson()}');
     return Scaffold(
       body: SafeArea(
         child: Padding(

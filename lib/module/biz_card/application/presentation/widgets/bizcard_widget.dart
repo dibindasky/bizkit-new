@@ -26,6 +26,8 @@ class BizcardWidget extends StatelessWidget {
     this.bizcardId,
     required this.width,
     required this.height,
+    this.completeLevel,
+    this.isDefault,
     this.createCard = false,
   }) : _flipCardController = FlipCardController();
 
@@ -38,6 +40,8 @@ class BizcardWidget extends StatelessWidget {
   final double width, height;
   final bool createCard;
   final FlipCardController _flipCardController;
+  final int? completeLevel;
+  final bool? isDefault;
 
   final levelSharingController = Get.find<LevelSharingController>();
   Uint8List? get decodedQrImage {
@@ -98,7 +102,24 @@ class BizcardWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                kWidth10,
+                if (isDefault == true)
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(6)),
+                    child: ColoredBox(
+                        color: kneon,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 2),
+                          child: Text(
+                            'Default',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(fontSize: 10),
+                          ),
+                        )),
+                  ),
+                if (isDefault == false) kWidth10,
                 Text(
                   'Business Card',
                   style: Theme.of(context).textTheme.bodyMedium,
@@ -125,24 +146,52 @@ class BizcardWidget extends StatelessWidget {
               ],
             ),
             adjustHieght(18.h),
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: kneon, width: 2),
-                image: createCard || (personImage?.isNotEmpty ?? false)
-                    ? null
-                    : const DecorationImage(
-                        image: AssetImage(dummyPersonImage),
-                        fit: BoxFit.cover,
-                      ),
-              ),
-              child: createCard
-                  ? const Icon(Icons.add, color: kwhite)
-                  : (personImage?.isNotEmpty ?? false)
-                      ? NetworkImageWithLoader(personImage!, radius: 100)
-                      : null,
+            Stack(
+              children: [
+                if (!createCard)
+                  SizedBox(
+                    width: 80.w,
+                    height: 80.w,
+                    child: CircularProgressIndicator(
+                      value: (completeLevel ?? 100) / 100,
+                      strokeWidth: 5,
+                      backgroundColor: kdarkOffWhite,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).colorScheme.primary),
+                    ),
+                  ),
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border:
+                        createCard ? Border.all(color: kneon, width: 2) : null,
+                    image: createCard || (personImage?.isNotEmpty ?? false)
+                        ? const DecorationImage(
+                            image: AssetImage(bizcardBgImage),
+                            fit: BoxFit.cover,
+                          )
+                        : const DecorationImage(
+                            image: AssetImage(dummyPersonImage),
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                  child: createCard
+                      ? const Icon(Icons.add, color: kwhite)
+                      : (personImage?.isNotEmpty ?? false)
+                          ? NetworkImageWithLoader(
+                              personImage!,
+                              radius: 100,
+                              errorWidget: const Icon(
+                                Icons.person,
+                                color: kwhite,
+                                size: 30,
+                              ),
+                            )
+                          : null,
+                ),
+              ],
             ),
             createCard
                 ? Column(
@@ -161,7 +210,18 @@ class BizcardWidget extends StatelessWidget {
                   )
                 : Column(
                     children: [
-                      adjustHieght(10.h),
+                      adjustHieght(5.h),
+                      if (completeLevel == 100)
+                        kempty
+                      else
+                        Text(
+                          '${completeLevel ?? 0}%',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(fontSize: 8),
+                        ),
+                      adjustHieght(2.h),
                       Text(
                         name ?? 'name',
                         style: Theme.of(context).textTheme.bodyMedium,

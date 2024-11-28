@@ -213,7 +213,7 @@ class AuthenticationController extends GetxController {
     SecureStorage.setLogin();
     if (loadingAccountSwitching.value) {
       chooseModule(context);
-    } 
+    }
     usersLocalRepo.addUserToLocalStorageIfNotPresentInStorage(
         model: model.copyWith(logoutFromDevice: 'login'));
     loadingAccountSwitching.value = false;
@@ -293,7 +293,7 @@ class AuthenticationController extends GetxController {
       loadingAccountSwitching.value = true;
       doAccountSwitching.value = false;
       Get.find<ModuleController>().deleteAllControlers();
-        Get.find<ProfileController>().clearData();
+      Get.find<ProfileController>().clearData();
       final uid = await SecureStorage.getUserId();
       if (uid == userId) return;
       final result = await usersLocalRepo.getUserWithUid(userId: userId);

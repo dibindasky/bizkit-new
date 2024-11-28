@@ -161,8 +161,8 @@ class BizcardWidget extends StatelessWidget {
                     ),
                   ),
                 Container(
-                  width: 80,
-                  height: 80,
+                  width: 80.w,
+                  height: 80.w,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border:

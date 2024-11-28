@@ -4,6 +4,7 @@ part 'archived_or_deleted_card.g.dart';
 
 @JsonSerializable()
 class ArchivedOrDeletedCard {
+
   @JsonKey(name: 'bizcard_id')
   String? bizcardId;
   String? name;
@@ -17,6 +18,9 @@ class ArchivedOrDeletedCard {
   bool? isArchived;
   @JsonKey(name: 'is_disabled')
   bool? isDisabled;
+  @JsonKey(name: 'user_name')
+  String? deletedUserName;
+
 
   ArchivedOrDeletedCard({
     this.bizcardId,
@@ -27,6 +31,7 @@ class ArchivedOrDeletedCard {
     this.logo,
     this.isArchived,
     this.isDisabled,
+    this.deletedUserName
   });
 
   factory ArchivedOrDeletedCard.fromJson(Map<String, dynamic> json) {

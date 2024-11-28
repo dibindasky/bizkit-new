@@ -43,6 +43,7 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/aut
 import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/connections_and_networking.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/archived_data/archived_data_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/data_management_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/deleted_data/deleted_data_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/macho_meter_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/matcho_meter.dart';
@@ -208,7 +209,12 @@ class GoRouterConfig {
       name: Routes.archivedCardScreen,
       path: Routes.archivedCardScreen,
       builder: (context, state) => ArchivedCardScreen(),
-    )
+    ),
+    GoRoute(
+      name: Routes.dataManagementScreen,
+      path: Routes.dataManagementScreen,
+      builder: (context, state) => DataManagementScreen(),
+    ),
   ];
 
 //  <------------------------------------------------------------------------------>

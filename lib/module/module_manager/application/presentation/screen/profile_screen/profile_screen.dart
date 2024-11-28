@@ -115,7 +115,9 @@ class ProfileScreen extends StatelessWidget {
               ProfileTiles(
                 heading: 'Data Management',
                 subtitle: 'Archieved,Data Eport,Delete',
-                onTap: () {},
+                onTap: () {
+                  GoRouter.of(context).pushNamed(Routes.dataManagementScreen);
+                },
               ),
               ProfileTiles(
                 heading: 'Connections & Networking',

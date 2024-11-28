@@ -234,6 +234,7 @@ class CardController extends GetxController {
   // fetch card views
   void fetchCardViews(
       {required BizcardIdParameterModel bizcardIdParameterModel}) async {
+        print(bizcardIdParameterModel.toJson().toString());
     loadingForCardViews.value = true;
     final data = await cardRepo.getCardViews(
         bizcardIdParameterModel: bizcardIdParameterModel);

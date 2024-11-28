@@ -360,66 +360,66 @@ class PersonalDetails extends StatelessWidget {
                 () {
                   cardController.bizcardDetail.value;
                   return ImagePreviewUnderTextField(
-                  listString: cardController
-                          .bizcardDetail.value.personalDetails?.datesToRemember
-                          ?.map((e) => DateTimeFormater.getDateByDayMonthYear(
-                              e.date ?? ''))
-                          .toList() ??
-                      [],
-                  removeItem: (index) {
-                    showCustomConfirmationDialogue(
-                        context: context,
-                        title: 'are you sure want to delete ?',
-                        buttonText: 'Delete',
-                        onTap: () {
-                          personalController.personalDatesToReminderDelete(
-                              fromInner: false, index, context: context);
-                        });
-                  },
-                  onItemTap: (value, index) {
-                    final data = cardController.bizcardDetail.value
-                        .personalDetails?.datesToRemember?[index];
-                    showDailoges(context,
-                        heading: 'Dates To Remember',
-                        tittle:
-                            "Date : ${DateTimeFormater.getDateByDayMonthYear(data?.date ?? '')}",
-                        desc: 'Description : ${data?.description ?? ''}');
-                  },
-                  ontap: () {
-                    FocusScope.of(context).unfocus();
-                    Navigator.of(context)
-                        .push(cardFadePageRoute(const DatesToRememberScreen()));
-                  },
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: textFieldFillColr,
-                      boxShadow: [
-                        BoxShadow(
-                          color: textFieldFillColr,
-                          spreadRadius: 0.4,
-                          blurRadius: 4,
-                          offset: Offset(0.4, .2),
-                        ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.only(left: 12, right: 12),
-                    height: 48.0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Dates To Remember',
-                          style: custumText(
-                            fontSize: 16,
-                            colr: klightgrey,
+                    listString: cardController.bizcardDetail.value
+                            .personalDetails?.datesToRemember
+                            ?.map((e) => DateTimeFormater.getDateByDayMonthYear(
+                                e.date ?? ''))
+                            .toList() ??
+                        [],
+                    removeItem: (index) {
+                      showCustomConfirmationDialogue(
+                          context: context,
+                          title: 'are you sure want to delete ?',
+                          buttonText: 'Delete',
+                          onTap: () {
+                            personalController.personalDatesToReminderDelete(
+                                fromInner: false, index, context: context);
+                          });
+                    },
+                    onItemTap: (value, index) {
+                      final data = cardController.bizcardDetail.value
+                          .personalDetails?.datesToRemember?[index];
+                      showDailoges(context,
+                          heading: 'Dates To Remember',
+                          tittle:
+                              "Date : ${DateTimeFormater.getDateByDayMonthYear(data?.date ?? '')}",
+                          desc: 'Description : ${data?.description ?? ''}');
+                    },
+                    ontap: () {
+                      FocusScope.of(context).unfocus();
+                      Navigator.of(context).push(
+                          cardFadePageRoute(const DatesToRememberScreen()));
+                    },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: textFieldFillColr,
+                        boxShadow: [
+                          BoxShadow(
+                            color: textFieldFillColr,
+                            spreadRadius: 0.4,
+                            blurRadius: 4,
+                            offset: Offset(0.4, .2),
                           ),
-                        ),
-                        const Icon(Icons.arrow_forward_ios_rounded,
-                            size: 16, color: klightgrey)
-                      ],
+                        ],
+                      ),
+                      padding: const EdgeInsets.only(left: 12, right: 12),
+                      height: 48.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Dates To Remember',
+                            style: custumText(
+                              fontSize: 16,
+                              colr: klightgrey,
+                            ),
+                          ),
+                          const Icon(Icons.arrow_forward_ios_rounded,
+                              size: 16, color: klightgrey)
+                        ],
+                      ),
                     ),
-                  ),
-                );
+                  );
                 },
               ),
               adjustHieght(khieght * .05),

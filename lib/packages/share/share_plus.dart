@@ -20,9 +20,10 @@ class SharePlus {
     await Share.shareXFiles([XFile(tempFile.path)]);
   }
 
-  static Future<void> shareVisitingCardDetails(VisitingCardDetailsResponce card) async {
-  // Build the text data to share
-  String shareText = '''
+  static Future<void> shareVisitingCardDetails(
+      VisitingCardDetailsResponce card) async {
+    // Build the text data to share
+    String shareText = '''
     Name: ${card.name ?? "N/A"}
     Company: ${card.company ?? "N/A"}
     Phone Number: ${card.phoneNumber ?? "N/A"}
@@ -35,23 +36,23 @@ class SharePlus {
     Notes: ${card.notes ?? "N/A"}
   ''';
 
-  // Decode base64 image if available
-  if (card.cardImage != null && card.cardImage!.isNotEmpty) {
-    final decodedImage = base64Decode(card.cardImage!);
+    // Decode base64 image if available
+    if (card.cardImage != null && card.cardImage!.isNotEmpty) {
+      final decodedImage = base64Decode(card.cardImage!);
 
-    // Get the temporary directory to store the image file
-    final directory = await getTemporaryDirectory();
-    final imagePath = '${directory.path}/shared_card_image.png';
+      // Get the temporary directory to store the image file
+      final directory = await getTemporaryDirectory();
+      final imagePath = '${directory.path}/shared_card_image.png';
 
-    // Write the decoded image to a file
-    final imageFile = File(imagePath);
-    await imageFile.writeAsBytes(decodedImage);
+      // Write the decoded image to a file
+      final imageFile = File(imagePath);
+      await imageFile.writeAsBytes(decodedImage);
 
-    // Share both the text and the image
-    await Share.shareFiles([imageFile.path], text: shareText);
-  } else {
-    // Share only the text if there's no image
-    await Share.share(shareText);
+      // Share both the text and the image
+      await Share.shareFiles([imageFile.path], text: shareText);
+    } else {
+      // Share only the text if there's no image
+      await Share.share(shareText);
+    }
   }
-}
 }

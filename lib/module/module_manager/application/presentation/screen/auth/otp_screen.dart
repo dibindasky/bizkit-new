@@ -56,12 +56,11 @@ class ScreenOtpValidation extends StatelessWidget {
                           : profileController.phoneOtp(context,
                               phoneOtp: value);
                     }
-                  } else{
+                  } else {
                     if (controller.otpFromRegisterUser.value) {
-                      controller.verifyOtpEmailRegestration(context,  
+                      controller.verifyOtpEmailRegestration(context,
                           otp: value);
                     } else {
-                 
                       controller.verifyOtpLogin(context,
                           otp: value, isEmail: isEmail);
                     }
@@ -95,8 +94,7 @@ class ScreenOtpValidation extends StatelessWidget {
                     'Dont\'t get the code? ',
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
-
-                  const  Text(
+                  const Text(
                     'Resent it',
                     style: TextStyle(color: kneonDark),
                   )

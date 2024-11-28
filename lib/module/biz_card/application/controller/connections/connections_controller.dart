@@ -273,14 +273,13 @@ class ConnectionsController extends GetxController {
   void searchConnectionsLoadMore() {
     debouncer.run(
       () async {
-        print('called my connection load more ==>1'); 
+        print('called my connection load more ==>1');
         if (myConnectionLoadMore.value == true) {
-
-        print('called my connection load more ==>2'); 
+          print('called my connection load more ==>2');
           return;
         }
         myConnectionLoadMore.value = true;
-        print('called my connection load more ==>3'); 
+        print('called my connection load more ==>3');
 
         final result = await connectionService.searchConnections(
             searchQuery: SearchQuery(
@@ -289,11 +288,11 @@ class ConnectionsController extends GetxController {
                 search: searchController.text));
         result.fold(
           (failure) {
-        print('called my connection load more ==>4'); 
+            print('called my connection load more ==>4');
             myConnectionLoadMore.value = false;
           },
           (success) {
-        print('called my connection load more ==>5'); 
+            print('called my connection load more ==>5');
             for (var datas in success.data ?? <MyConnection>[]) {
               final index = connectionsSearchList
                   .indexWhere((value) => value.toUser == datas.toUser);
@@ -423,7 +422,7 @@ class ConnectionsController extends GetxController {
         recievedConnectionRequests.assignAll(success.requests ?? []);
       },
     );
-        recievedConnectionRequestLoading.value = false;
+    recievedConnectionRequestLoading.value = false;
   }
 
   // Get all send connection requests
@@ -435,7 +434,6 @@ class ConnectionsController extends GetxController {
         allSendConnectionRequestsLoading.value = false;
       },
       (success) {
-     
         allSendConnectionRequests.assignAll(success.requests ?? []);
         allSendConnectionRequestsLoading.value = false;
       },
@@ -650,7 +648,7 @@ class ConnectionsController extends GetxController {
       (failure) {
         followbackRequestLoading.value = false;
       },
-      (success) {  
+      (success) {
         followbackRequestLoading.value = false;
       },
     );
@@ -695,24 +693,23 @@ class ConnectionsController extends GetxController {
   Future<bool> connectionRequestAcceptOrReject(
       {required AcceptOrRejectConnectionRequest acceptOrReject,
       required BuildContext context}) async {
-        acceptOrReject.sharedFields?.business?.branchOffices ??= false;
-        acceptOrReject.sharedFields?.business?.brochure ??= false;
-        acceptOrReject.sharedFields?.business?.businessAchievements ??= false;
-        acceptOrReject.sharedFields?.business?.businessCategory ??= false;
-        acceptOrReject.sharedFields?.business?.businessLogo ??= false;
-        acceptOrReject.sharedFields?.business?.businessSocialMedia ??= false;
-        acceptOrReject.sharedFields?.business?.designation ??= false;
-        acceptOrReject.sharedFields?.business?.logoStory ??= false;
-        acceptOrReject.sharedFields?.business?.product ??= false;
+    acceptOrReject.sharedFields?.business?.branchOffices ??= false;
+    acceptOrReject.sharedFields?.business?.brochure ??= false;
+    acceptOrReject.sharedFields?.business?.businessAchievements ??= false;
+    acceptOrReject.sharedFields?.business?.businessCategory ??= false;
+    acceptOrReject.sharedFields?.business?.businessLogo ??= false;
+    acceptOrReject.sharedFields?.business?.businessSocialMedia ??= false;
+    acceptOrReject.sharedFields?.business?.designation ??= false;
+    acceptOrReject.sharedFields?.business?.logoStory ??= false;
+    acceptOrReject.sharedFields?.business?.product ??= false;
 
-        acceptOrReject.sharedFields?.personal?.bloodGroup ??= false;
-        acceptOrReject.sharedFields?.personal?.dob ??= false;
-        acceptOrReject.sharedFields?.personal?.email ??= false;
-        acceptOrReject.sharedFields?.personal?.name ??= false;
-        acceptOrReject.sharedFields?.personal?.personalAchievements ??= false;
-        acceptOrReject.sharedFields?.personal?.personalSocialMedia ??= false;
-        acceptOrReject.sharedFields?.personal?.phone ??= false;
-
+    acceptOrReject.sharedFields?.personal?.bloodGroup ??= false;
+    acceptOrReject.sharedFields?.personal?.dob ??= false;
+    acceptOrReject.sharedFields?.personal?.email ??= false;
+    acceptOrReject.sharedFields?.personal?.name ??= false;
+    acceptOrReject.sharedFields?.personal?.personalAchievements ??= false;
+    acceptOrReject.sharedFields?.personal?.personalSocialMedia ??= false;
+    acceptOrReject.sharedFields?.personal?.phone ??= false;
 
     recievedConnectionRequestLoading.value = true;
     bool followBackPossible = false;
@@ -724,8 +721,10 @@ class ConnectionsController extends GetxController {
         recievedConnectionRequestLoading.value = false;
       },
       (success) {
-        filterdConnectionRequest.removeWhere((e)=>e.id==acceptOrReject.connectionId);
-        recievedConnectionRequests.removeWhere((e)=> e.id==acceptOrReject.connectionId); 
+        filterdConnectionRequest
+            .removeWhere((e) => e.id == acceptOrReject.connectionId);
+        recievedConnectionRequests
+            .removeWhere((e) => e.id == acceptOrReject.connectionId);
         recievedConnectionRequestLoading.value = false;
         // fetchMyConnections(true);
         // fetchRecievedConnectionRequests();

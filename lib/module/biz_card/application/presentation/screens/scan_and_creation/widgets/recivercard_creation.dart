@@ -20,14 +20,14 @@ class RecivercardCreation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        final textExtractionController = Get.find<CardTextExtractionController>();
+    final textExtractionController = Get.find<CardTextExtractionController>();
     final receivedCardController = Get.find<ReceivedCardController>();
     return Column(
       children: [
         Stack(
           children: [
-            SizedBox( 
-              height: 250.h, 
+            SizedBox(
+              height: 250.h,
               width: double.infinity,
               child: ColoredBox(
                 color: Theme.of(context).colorScheme.onPrimary,
@@ -73,8 +73,7 @@ class RecivercardCreation extends StatelessWidget {
             ),
             Align(
               child: GestureDetector(
-                onTap: 
-                  onPressedCam,
+                onTap: onPressedCam,
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: kBorderRadius10,
@@ -103,9 +102,7 @@ class RecivercardCreation extends StatelessWidget {
           children: [
             kempty,
             GestureDetector(
-              onTap:
-                onPressedGallery
-                ,
+              onTap: onPressedGallery,
               child: Container(
                 margin: const EdgeInsets.all(40),
                 padding:
@@ -145,12 +142,10 @@ class RecivercardCreation extends StatelessWidget {
                   showGradiant: false,
                   width: double.infinity,
                   onTap: () {
-                         textExtractionController.pickedImageUrl.clear();
-                                receivedCardController
-                                    .clearAllTextEditingControllers();
-                                    
-                                GoRouter.of(context)
-                                    .pushNamed(Routes.scanedDataFeilds);
+                    textExtractionController.pickedImageUrl.clear();
+                    receivedCardController.clearAllTextEditingControllers();
+
+                    GoRouter.of(context).pushNamed(Routes.scanedDataFeilds);
                   }),
             ),
           ],

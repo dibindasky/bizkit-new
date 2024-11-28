@@ -218,7 +218,8 @@ class _BizcardDatesToRememberCreateUpdateScreenState
                                                           ''),
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .displaySmall?.copyWith(fontSize: 12.sp)),
+                                                  .displaySmall
+                                                  ?.copyWith(fontSize: 12.sp)),
                                         ],
                                       ),
                                     ),

@@ -248,8 +248,7 @@ class CardController extends GetxController {
   }
 
   /// update the number of shares
-  void updateShareCount(
-      {required String cardId}) async {
+  void updateShareCount({required String cardId}) async {
     log('cardId ==> $cardId');
     final data = await cardRepo.updateShareCount(
         bizcardIdParameterModel: BizcardIdParameterModel(bizcardId: cardId));

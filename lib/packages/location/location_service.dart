@@ -45,8 +45,8 @@ class LocationService {
       locationPermission = await Geolocator.checkPermission();
       print('location => 2');
       if (locationPermission == LocationPermission.denied) {
-      locationPermission = await Geolocator.requestPermission();
-      print('location => 3');
+        locationPermission = await Geolocator.requestPermission();
+        print('location => 3');
       }
       Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,

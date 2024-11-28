@@ -35,8 +35,11 @@ class CreatePoll {
     return CreatePoll(
       messageType: json['message_type'] as String?,
       question: json['question'] as String?,
-      answers: (json['answers'] as List<dynamic>?)?.map((item) => item as String).toList(),
-      isMultipleSelectionAllowed: json['is_multiple_selection_allowed'] as bool?,
+      answers: (json['answers'] as List<dynamic>?)
+          ?.map((item) => item as String)
+          .toList(),
+      isMultipleSelectionAllowed:
+          json['is_multiple_selection_allowed'] as bool?,
       isAnonymousVotingAllowed: json['is_anonymous_voting_allowed'] as bool?,
       isReasonRequired: json['is_reason_required'] as bool?,
       activeUntil: json['active_until'] as String?,

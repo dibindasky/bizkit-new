@@ -55,7 +55,9 @@ class ConnectionsAndNetworking extends StatelessWidget {
                       ),
                     ),
                   ),
-                 const SizedBox(height: 15,),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Container(
@@ -77,7 +79,7 @@ class ConnectionsAndNetworking extends StatelessWidget {
                           ),
                           IconButton(
                               onPressed: () {},
-                              icon:const Icon(Icons.arrow_forward_ios)),
+                              icon: const Icon(Icons.arrow_forward_ios)),
                         ],
                       ),
                     ),

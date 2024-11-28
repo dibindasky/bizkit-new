@@ -63,7 +63,7 @@ class BusinessDetails {
     this.companyStory,
   });
 
-    BusinessDetails copyWith({
+  BusinessDetails copyWith({
     String? id,
     String? businessCategory,
     String? designation,

@@ -40,7 +40,7 @@ class _BizCardAchivementCreationAndUpdationState
   @override
   void initState() {
     if (widget.achievement != null) {
-        Get.find<PersonalDetailsController>()
+      Get.find<PersonalDetailsController>()
           .addAchivementDetailsToController(achievement: widget.achievement);
     }
     super.initState();

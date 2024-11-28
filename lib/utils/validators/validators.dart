@@ -12,6 +12,7 @@ bool isValidPhoneNumber(String input) {
   final phoneNumberRegex = RegExp(r'\b\d{10}\b');
   return phoneNumberRegex.hasMatch(input);
 }
+
 bool isValidLandlineNumber(String number) {
   // Landline number regex: 10-12 digits (adjust as per your requirements)
   final RegExp landlineRegex = RegExp(r'^[0-9]{10,12}$');

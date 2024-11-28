@@ -1,6 +1,10 @@
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_detail.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,29 +16,18 @@ class TodaysRemindersSectionSliverHeaderDelegate
   final PageController pageController;
 
   final ValueChanged<int> onIndexChanged;
-
+  final reminderController = Get.find<ReminderController>();
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final reminderController = Get.find<ReminderController>();
     return AnimatedBuilder(
       animation: pageController,
       builder: (context, child) {
         return Obx(
           () {
+            if (!reminderController.todaysReminders.isEmpty) {}
             if (reminderController.todaysReminderLoading.value) {
               return const Center(child: CircularProgressIndicator());
-            } else if (reminderController.todaysReminders.isEmpty) {
-              return Column(
-                children: [
-                  Expanded(child: Image.asset(emptyNodata2)),
-                  Text(
-                    'No Reminders Found',
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                  adjustHieght(20.h),
-                ],
-              );
             } else {
               return PageView.builder(
                 allowImplicitScrolling: true,
@@ -60,53 +53,125 @@ class TodaysRemindersSectionSliverHeaderDelegate
                     opacity = 1 - (currentPage - index).abs() * 0.5;
                     opacity = opacity.clamp(0.0, 1.0);
                   }
-
+                  final Reminder todaysReminder =
+                      reminderController.todaysReminders[index];
                   return Transform.scale(
                     scale: scale,
                     child: Opacity(
                       opacity: opacity,
-                      child: Card(
-                        child: Container(
-                          height: 100.h,
-                          padding: EdgeInsets.all(15.w),
-                          decoration: BoxDecoration(
-                            borderRadius: kBorderRadius15,
-                            image: const DecorationImage(
-                              image: AssetImage(bizcardBgImage),
-                              fit: BoxFit.cover,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => BizcardReminderDetails(
+                              reminder: todaysReminder,
                             ),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Client Meeting',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                          ));
+                        },
+                        child: Card(
+                          child: Container(
+                            padding: const EdgeInsets.all(11),
+                            decoration: BoxDecoration(
+                              borderRadius: kBorderRadius15,
+                              image: const DecorationImage(
+                                image: AssetImage(bizcardBgImage),
+                                fit: BoxFit.cover,
                               ),
-                              SizedBox(height: 5.h),
-                              Text(
-                                '1 week',
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: kwhite,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  // mainAxisAlignment:
+                                  //     MainAxisAlignment.spaceAround,
+                                  children: [
+                                    CircleAvatar(
+                                      child: todaysReminder.profilePicture == ''
+                                          ? NetworkImageWithLoader(
+                                              todaysReminder.profilePicture ??
+                                                  chatSectionPersonDummyImg2,
+                                              radius: 50,
+                                            )
+                                          : Image.asset(
+                                              chatSectionPersonDummyImg2),
+                                    ),
+                                    adjustWidth(15.w),
+                                    Text(
+                                      todaysReminder.meetingLabel ??
+                                          'meetingLabel',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              SizedBox(height: 10.h),
-                              Text(
-                                'Quarterly business review',
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: kwhite,
+                                adjustHieght(15.h),
+                                Row(
+                                  // mainAxisAlignment:
+                                  //     MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      'Venue : ',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(fontSize: 11),
+                                    ),
+                                    Text(
+                                      todaysReminder.venue ?? 'Venue',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(fontSize: 11),
+                                    ),
+                                  ],
                                 ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                                Row(
+                                  // mainAxisAlignment:
+                                  //     MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      'Created : ',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(fontSize: 11),
+                                    ),
+                                    Text(
+                                      DateTimeFormater.getDDMMHHMMformat(
+                                          todaysReminder.reminderDate ??
+                                              'reminderDate'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(fontSize: 11),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  // mainAxisAlignment:
+                                  //     MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      'Occasion : ',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(fontSize: 11),
+                                    ),
+                                    Text(
+                                      todaysReminder.occasion ?? 'occasion',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(fontSize: 11),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -122,10 +187,12 @@ class TodaysRemindersSectionSliverHeaderDelegate
   }
 
   @override
-  double get maxExtent => khieght * 0.2;
+  double get maxExtent =>
+      reminderController.todaysReminders.isEmpty ? 0 : khieght * 0.2;
 
   @override
-  double get minExtent => khieght * 0.2;
+  double get minExtent =>
+      reminderController.todaysReminders.isEmpty ? 0 : khieght * 0.2;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {

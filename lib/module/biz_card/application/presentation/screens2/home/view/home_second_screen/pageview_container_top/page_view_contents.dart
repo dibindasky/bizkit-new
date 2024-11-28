@@ -15,104 +15,104 @@ class SecondScreenPageViewContents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          mainAxisSize: MainAxisSize.min,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        kHeight10,
+        Row(
           children: [
-            kHeight10,
-            Row(
-              children: [
-                kWidth10,
-                CircleAvatar(
-                  radius: 32,
-                  backgroundColor: neonShade,
-                  child: ClipOval(
-                    child: CircleAvatar(
-                        backgroundColor: kgrey,
-                        radius: 25.w,
-                        //  reminder != null &&
-                        //         reminder!.profilePicture != null &&
-                        //         reminder!.profilePicture!.isNotEmpty? ,
-                        child: Image.memory(
-                          base64Decode(
-                            reminder != null &&
-                                    reminder!.profilePicture != null &&
-                                    reminder!.profilePicture!.isNotEmpty
-                                ? reminder!.profilePicture!.startsWith('data')
-                                    ? reminder!.profilePicture!.replaceAll(
-                                        'data:image/png;base64,', '')
-                                    : reminder!.profilePicture!
-                                : imageTestingBase64,
-                          ),
-                          fit: BoxFit.cover,
-                        )),
-                  ),
+            kWidth10,
+            CircleAvatar(
+              radius: 32,
+              backgroundColor: neonShade,
+              child: ClipOval(
+                child: CircleAvatar(
+                  backgroundColor: kgrey,
+                  radius: 25.w,
+                  //  reminder != null &&
+                  //         reminder!.profilePicture != null &&
+                  //         reminder!.profilePicture!.isNotEmpty? ,
+                  // child: Image.memory(
+                  //   base64Decode(
+                  //     reminder != null &&
+                  //             reminder!.profilePicture != null &&
+                  //             reminder!.profilePicture!.isNotEmpty
+                  //         ? reminder!.profilePicture!.startsWith('data')
+                  //             ? reminder!.profilePicture!
+                  //                 .replaceAll('data:image/png;base64,', '')
+                  //             : reminder!.profilePicture!
+                  //         : imageTestingBase64,
+                  //   ),
+                  //   fit: BoxFit.cover,
+                  // ),
+                  child: Image.asset(chatSectionPersonDummyImg2),
                 ),
-                kWidth20,
-                Expanded(
-                  child: Text(
-                    reminder?.meetingLabel ?? 'Lebel',
-                    overflow: TextOverflow.clip,
-                    style: TextStyle(
-                      fontSize: kwidth * .047,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            kHeight20,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildTextRow('Name', reminder?.ownerName ?? ''),
-                  buildTextRow('Description', reminder?.description ?? ''),
-                  buildTextRow('Venue', reminder?.venue ?? ''),
-                  buildTextRow('Created', reminder?.reminderDate ?? ''),
-                  buildTextRow('Occation', reminder?.occasion ?? ''),
-                ],
               ),
             ),
-            kHeight10,
-            Row(
-              children: [
-                kWidth10,
-                buildButton(
-                  borderRadius: kBorderRadius10,
-                  backgroundColor: neonShade,
-                  text: 'View card',
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ScreenCardDetailView(
-                            cardId: reminder?.cardId ?? '', myCard: false),
-                      ),
-                    );
-                  },
+            kWidth20,
+            Expanded(
+              child: Text(
+                reminder?.meetingLabel ?? 'Lebel',
+                overflow: TextOverflow.clip,
+                style: TextStyle(
+                  fontSize: kwidth * .047,
+                  fontWeight: FontWeight.w700,
                 ),
-                kWidth5,
-                buildButton(
-                  borderRadius: kBorderRadius10,
-                  border: Border.all(color: neonShade),
-                  text: 'Postpone',
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ScreenCardReminderCreating(reminder: reminder),
-                    ),
-                  ),
-                ),
-                kWidth10,
-              ],
+              ),
             ),
           ],
-        );
-
+        ),
+        kHeight20,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildTextRow('Name', reminder?.ownerName ?? ''),
+              buildTextRow('Description', reminder?.description ?? ''),
+              buildTextRow('Venue', reminder?.venue ?? ''),
+              buildTextRow('Created', reminder?.reminderDate ?? ''),
+              buildTextRow('Occation', reminder?.occasion ?? ''),
+            ],
+          ),
+        ),
+        kHeight10,
+        Row(
+          children: [
+            kWidth10,
+            buildButton(
+              borderRadius: kBorderRadius10,
+              backgroundColor: neonShade,
+              text: 'View card',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ScreenCardDetailView(
+                        cardId: reminder?.cardId ?? '', myCard: false),
+                  ),
+                );
+              },
+            ),
+            kWidth5,
+            buildButton(
+              borderRadius: kBorderRadius10,
+              border: Border.all(color: neonShade),
+              text: 'Postpone',
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ScreenCardReminderCreating(reminder: reminder),
+                ),
+              ),
+            ),
+            kWidth10,
+          ],
+        ),
+      ],
+    );
   }
 
   Widget buildTextRow(String label, String? value) {

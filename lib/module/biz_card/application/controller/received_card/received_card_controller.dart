@@ -186,7 +186,7 @@ class ReceivedCardController extends GetxController {
       cardId: visitingCardDetails.value.id,
       // cardImage: visitingCardDetails.value.cardImage ,
       cardImage: editCardImage.value,
-         
+
       company: companyNameController.text != visitingCardDetails.value.company
           ? companyNameController.text
           : null,
@@ -218,7 +218,7 @@ class ReceivedCardController extends GetxController {
 
       selfie: editedSelfieImages != visitingCardDetails.value.selfie
           ? editedSelfieImages
-          : null, 
+          : null,
       website: websiteController.text != visitingCardDetails.value.website
           ? websiteController.text
           : null,

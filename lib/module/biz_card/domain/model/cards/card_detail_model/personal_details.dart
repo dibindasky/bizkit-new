@@ -72,8 +72,8 @@ class PersonalDetails {
       personalAchievements: personalAchievements ?? this.personalAchievements,
       personalSocialMedia: personalSocialMedia ?? this.personalSocialMedia,
       datesToRemember: datesToRemember ?? this.datesToRemember,
-      personalStory: personalStory?? this.personalStory,
-      showPersonalStory: showPersonalStory?? this.showPersonalStory,
+      personalStory: personalStory ?? this.personalStory,
+      showPersonalStory: showPersonalStory ?? this.showPersonalStory,
     );
   }
 

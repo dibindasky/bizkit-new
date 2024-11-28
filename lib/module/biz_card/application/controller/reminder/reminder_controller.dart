@@ -48,6 +48,7 @@ class ReminderController extends GetxController {
   void onInit() {
     fetchTodaysReminders();
     fetchAllReminders();
+    fetchHistoryReminders();
     fetchUpcomingReminders();
     super.onInit();
   }

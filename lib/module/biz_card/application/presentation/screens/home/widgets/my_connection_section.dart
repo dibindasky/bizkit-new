@@ -185,7 +185,8 @@ class MyConnectionSection extends StatelessWidget {
                                   showDialog(
                                     context: context,
                                     builder: (context) => Dialog(
-                                      shape: RoundedRectangleBorder(borderRadius: kBorderRadius10),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: kBorderRadius10),
                                       child: CardsbasedOnUserConnection(
                                         card: connection.cards,
                                       ),

@@ -14,7 +14,8 @@ class SearchConnectionResponce {
   @JsonKey(name: 'page_size')
   int? pageSize;
 
-  SearchConnectionResponce({this.data,this.currentPage,this.hasMore,this.pageSize});
+  SearchConnectionResponce(
+      {this.data, this.currentPage, this.hasMore, this.pageSize});
 
   factory SearchConnectionResponce.fromJson(Map<String, dynamic> json) {
     return _$SearchConnectionResponceFromJson(json);

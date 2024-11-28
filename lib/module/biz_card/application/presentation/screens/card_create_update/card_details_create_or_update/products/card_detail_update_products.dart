@@ -253,8 +253,9 @@ class ProductBuilder extends StatelessWidget {
                         //   fit: BoxFit.cover,
                         // )
                       ),
-                      child:
-                          NetworkImageWithLoader(product?.images?.first ?? '',radius: 10),
+                      child: NetworkImageWithLoader(
+                          product?.images?.first ?? '',
+                          radius: 10),
                     ),
                   ),
                   if (!bussinessController.isLoading.value &&

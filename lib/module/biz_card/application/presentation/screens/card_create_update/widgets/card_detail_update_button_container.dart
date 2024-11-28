@@ -16,20 +16,21 @@ class CardDetailEditingButtonContainer extends StatelessWidget {
           border: Border.all(color: Theme.of(context).colorScheme.secondary)),
       padding: const EdgeInsets.only(left: 12, right: 12),
       height: 48.0,
-      child: child ?? Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            text??'',
-            style: Theme.of(context).textTheme.displaySmall,
+      child: child ??
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                text ?? '',
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 16,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+            ],
           ),
-          Icon(
-            Icons.arrow_forward_ios_rounded,
-            size: 16,
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
-        ],
-      ),
     );
   }
 }

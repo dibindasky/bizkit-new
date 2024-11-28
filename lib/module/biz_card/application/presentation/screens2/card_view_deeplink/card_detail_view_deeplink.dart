@@ -75,7 +75,8 @@ class _CardDetailViewDeeplinkScreenState
                         GoRouter.of(context).pushNamed(
                             Routes.connectionDetailFilling,
                             extra:
-                                Get.find<CardController>().bizcardDetail.value);                      },
+                                Get.find<CardController>().bizcardDetail.value);
+                      },
                       icon: const Icon(Icons.people),
                     )
                   : kempty;

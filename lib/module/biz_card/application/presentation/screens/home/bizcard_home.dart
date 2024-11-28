@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/sliver_delegates/reminder_sliver_header.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/sliver_delegates/reminders_tabs_section.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/sliver_delegates/todays_reminder_section.dart';
@@ -79,13 +80,17 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
   Widget build(BuildContext context) {
     final bizcardController = Get.find<CardController>();
     final connectionsController = Get.find<ConnectionsController>();
-
+    final reminderController = Get.find<ReminderController>();
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
             bizcardController.getAllcards(true);
             connectionsController.fetchMyConnections(true);
+            reminderController.fetchAllReminders();
+            reminderController.fetchHistoryReminders();
+            reminderController.fetchTodaysReminders();
+            reminderController.fetchUpcomingReminders();
           },
           child: CustomScrollView(
             controller: _scrollController,

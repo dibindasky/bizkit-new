@@ -70,17 +70,15 @@ class ProfileController extends GetxController {
       isLoadingEmail.value = true;
       isLoadingPhone.value = true;
       final result = await profileService.getUserProfileData();
-      result.fold((left) => null 
-      
-      , (right) {
+      result.fold((left) => null, (right) {
         name.value = right.name ?? '';
         checkName = right.name ?? '';
         userName.text = right.name ?? '';
         email.value = right.email ?? '';
         checkEmail = right.email ?? '';
         userMail.text = right.email ?? '';
-          log(right.profileImage.toString()); 
-          print('get profile success');
+        log(right.profileImage.toString());
+        print('get profile success');
         // Remove +91 from number
         String editNumber = (right.phoneNumber ?? '').replaceFirst('+91', '');
         phone.value = editNumber;
@@ -226,27 +224,22 @@ class ProfileController extends GetxController {
       showSnackbar(context, message: 'Successfully updated');
       GoRouter.of(context).pop();
     });
-
-
-
   }
 
-  clearData(){
+  clearData() {
+    ///get datas to these varibales
+    name = ''.obs;
+    email = ''.obs;
+    phone = ''.obs;
+    image = ''.obs;
 
+    ///check the initial data changed or not in ui using these varibales
+    checkName = '';
+    checkEmail = '';
+    checkPhone = '';
 
-  ///get datas to these varibales
-   name = ''.obs;
-   email = ''.obs;
-   phone = ''.obs;
-   image = ''.obs;
-
-  ///check the initial data changed or not in ui using these varibales
-   checkName = '';
-   checkEmail = '';
-   checkPhone = '';
-
-      userPhone.clear();
-   userMail.clear();
-   userName.clear();
+    userPhone.clear();
+    userMail.clear();
+    userName.clear();
   }
 }

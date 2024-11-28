@@ -270,10 +270,10 @@ class _SelectedCardsState extends State<SelectedCards> {
                           ),
                         ),
                       )),
-                Obx(() {        
-                  if(textExtractionController.isLoading.value){
+                Obx(() {
+                  if (textExtractionController.isLoading.value) {
                     return const LoadingAnimation();
-                  }     
+                  }
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: EventButton(
@@ -281,23 +281,22 @@ class _SelectedCardsState extends State<SelectedCards> {
                         showGradiant: false,
                         width: double.infinity,
                         onTap: () {
-                         if (textExtractionController
-                                    .pickedImageUrl.isEmpty) {
-                                  showSnackbar(
-                                    context,
-                                    message: 'Select atleast one Image',
-                                    backgroundColor: kred,
-                                  );
-                                }
-                                textExtractionController.textExtraction(
-                                    context: context,
-                                    fromVisitingCard: true,
-                                    textExtractionModel: TextExtractionModel( 
-                                        images: textExtractionController
-                                            .pickedImageUrl
-                                            .map((e) => e.base64!)
-                                            .toList()));
-                                            textExtractionController.isLoading.value=false; 
+                          if (textExtractionController.pickedImageUrl.isEmpty) {
+                            showSnackbar(
+                              context,
+                              message: 'Select atleast one Image',
+                              backgroundColor: kred,
+                            );
+                          }
+                          textExtractionController.textExtraction(
+                              context: context,
+                              fromVisitingCard: true,
+                              textExtractionModel: TextExtractionModel(
+                                  images: textExtractionController
+                                      .pickedImageUrl
+                                      .map((e) => e.base64!)
+                                      .toList()));
+                          textExtractionController.isLoading.value = false;
                         }),
                   );
                 }),
@@ -333,4 +332,3 @@ class _SelectedCardsState extends State<SelectedCards> {
     );
   }
 }
-

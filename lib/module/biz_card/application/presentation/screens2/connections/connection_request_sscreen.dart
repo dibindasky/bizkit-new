@@ -100,16 +100,14 @@ class ScreenConnectionRequests extends StatelessWidget {
                           ),
                           adjustHieght(10),
                           Text(
-                            connectionController
-                                    .filterdConnectionRequest[index]
+                            connectionController.filterdConnectionRequest[index]
                                     .fromUserName ??
                                 'Name',
                             overflow: TextOverflow.ellipsis,
                             style: textThinStyle1,
                           ),
                           Text(
-                            connectionController
-                                    .filterdConnectionRequest[index]
+                            connectionController.filterdConnectionRequest[index]
                                     .fromUserDesignation ??
                                 'Designation',
                             overflow: TextOverflow.ellipsis,

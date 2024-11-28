@@ -150,7 +150,8 @@ class _CardPageSliderState extends State<CardPageSlider>
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(flex: 2,
+    return Expanded(
+      flex: 2,
       child: SizedBox(
         height: kwidth * 0.35,
         // width: kwidth * 0.55,

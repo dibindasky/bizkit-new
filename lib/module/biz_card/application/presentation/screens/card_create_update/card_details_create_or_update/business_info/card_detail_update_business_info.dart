@@ -269,6 +269,7 @@ class CardUpdateBusinesstDetails extends StatelessWidget {
                 () => businessController.isLoading.value
                     ? const LoadingAnimation()
                     : SkipOrContinueButtons(
+                        continueText: 'Update',
                         onTap: () {
                           if (businessFormKey.currentState!.validate()) {
                             businessController.bussinessDetailsInitail(

@@ -33,6 +33,7 @@ class BizcardDetailEditButton extends StatelessWidget {
           },
           child: Stack(
             children: [
+              // background color
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 width: double.infinity,
@@ -45,12 +46,16 @@ class BizcardDetailEditButton extends StatelessWidget {
                       Theme.of(context).colorScheme.secondary.withOpacity(0.3),
                 ),
               ),
+              // persentage color
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
-                width: (kwidth *
-                    ((cardController.bizcardDetail.value.completionLevel ??
-                            10) /
-                        100)),
+                width: cardController.bizcardDetail.value.completionLevel ==
+                        null
+                    ? double.infinity
+                    : (kwidth *
+                        ((cardController.bizcardDetail.value.completionLevel ??
+                                10) /
+                            100)),
                 height: 45,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(
@@ -59,6 +64,7 @@ class BizcardDetailEditButton extends StatelessWidget {
                   color: Theme.of(context).colorScheme.surface,
                 ),
               ),
+              // data
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 width: double.infinity,

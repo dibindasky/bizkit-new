@@ -242,6 +242,7 @@ class BizcardDetailTopPotion extends StatelessWidget {
                               enableDrag: true,
                               isDismissible: true,
                               showDragHandle: true,
+                              scrollControlDisabledMaxHeightRatio: 0.8,
                               backgroundColor:
                                   Theme.of(context).scaffoldBackgroundColor,
                               builder: (context) =>

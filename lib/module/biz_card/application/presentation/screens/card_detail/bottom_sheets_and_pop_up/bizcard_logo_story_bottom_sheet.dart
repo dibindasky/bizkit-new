@@ -43,7 +43,7 @@ class _BizcardLogoStoryViewBottomSheetState
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: khieght * 0.9,
+      // height: khieght,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -111,9 +111,13 @@ class _BizcardLogoStoryViewBottomSheetState
             style: Theme.of(context).textTheme.displayMedium,
           ),
           adjustHieght(khieght * .01),
-          Text(
-            story ?? '',
-            style: Theme.of(context).textTheme.displaySmall,
+          Expanded(
+            child: SingleChildScrollView(
+              child: Text(
+                story ?? '',
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+            ),
           ),
           kHeight40
         ],
@@ -132,30 +136,40 @@ class _BizcardLogoStoryViewBottomSheetState
           //             ScreenImagePreview(image: networkImage!))),
           child: AspectRatio(
             aspectRatio: 16 / 9,
-            child: SizedBox(
+            child: Container(
               height: 150.h,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 0.3),
+                  borderRadius: kBorderRadius10),
               width: double.infinity,
-              child: NetworkImageWithLoader(widget.logoNetworkImage ?? ''),
+              child: NetworkImageWithLoader(widget.logoNetworkImage ?? '',
+                  radius: 10),
             ),
           ),
         ),
         adjustHieght(khieght * .02),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'The Logo Story',
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-              adjustHieght(khieght * .01),
-              Text(
-                widget.logoStory ?? '',
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-              kHeight40
-            ],
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'The Logo Story',
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                adjustHieght(khieght * .01),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Text(
+                      widget.logoStory ?? '',
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
+                  ),
+                ),
+                kHeight40
+              ],
+            ),
           ),
         ),
       ],

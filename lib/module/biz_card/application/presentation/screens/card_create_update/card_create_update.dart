@@ -100,7 +100,7 @@ class _BizcardCreateOrUpdateScreenState
               ),
               Tab(
                 child: Text(
-                  'Banking info',
+                  'Commercial info',
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),

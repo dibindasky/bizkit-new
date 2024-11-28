@@ -3,10 +3,10 @@ class ApiEndPoints {
   // static const String baseUrl = 'https://bizkit.onrender.com';
 
   // [ Local base url  ]
-  static const String baseUrl = 'https://9jdcxxr1-8001.inc1.devtunnels.ms';
+  // static const String baseUrl = 'https://9jdcxxr1-8001.inc1.devtunnels.ms';
 
   // [ AWS base url ]
-  // static const String baseUrl = 'http://51.20.44.77';
+  static const String baseUrl = 'http://51.20.44.77';
 
   // Refesh token
   static const String refreshUrl = '/token/';
@@ -15,7 +15,7 @@ class ApiEndPoints {
   // [ General Routes ]
 
   // [ Auth ]
-  static const String login = '/login/'; 
+  static const String login = '/login/';
   static const String logOut = '/logout/';
   static const String register = '/register/';
   static const String sendOtpMail = '/verification/send_verification_email/';

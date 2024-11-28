@@ -86,7 +86,7 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
     )..addListener(() {
         if (Get.find<CardController>().autoScrollCard.value) {
           setState(() {
-            pageValue = pageController.page!;
+            pageValue = pageController.page ?? 0.0;
           });
         }
       });
@@ -249,8 +249,16 @@ class __RemindersSectionSliverHeaderDelegate
             double opacity = 1.0;
 
             if (pageController.position.haveDimensions) {
-              scale = 1 - (pageController.page! - index).abs() * 0.2;
-              opacity = 1 - (pageController.page! - index).abs() * 0.5;
+              // Ensure the page value is within the valid range
+              double currentPage = pageController.page ?? 0.0;
+
+              // Calculate scale with bounds
+              scale = 1 - (currentPage - index).abs() * 0.2;
+              scale = scale.clamp(0.8, 1.0);
+
+              // Calculate opacity with bounds
+              opacity = 1 - (currentPage - index).abs() * 0.5;
+              opacity = opacity.clamp(0.0, 1.0);
             }
 
             return Transform.scale(

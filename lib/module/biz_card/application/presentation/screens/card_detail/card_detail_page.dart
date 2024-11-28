@@ -10,9 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BizCardDetailScreen extends StatelessWidget {
-  const BizCardDetailScreen({super.key, this.cardId, required this.myCard});
+  const BizCardDetailScreen(
+      {super.key, this.cardId, required this.myCard, this.fromPreview = false});
   final String? cardId;
   final bool myCard;
+  final bool fromPreview;
 
   @override
   Widget build(BuildContext context) {
@@ -28,31 +30,31 @@ class BizCardDetailScreen extends StatelessWidget {
           }
         },
         child: SingleChildScrollView(
-          child: SafeArea(
-            child: Column(
-              children: [
-                // card user data and images
-                BizcardDetailTopPotion(myCard: myCard),
-                Column(
-                  children: [
-                    // card details icons and gifs
-                    const BizCardDetailsIconsWidgets(),
-                    // products and brands
-                    const BizCardProductsOrBrands(),
-                    myCard
-                        // edit button
-                        ? const BizcardDetailEditButton()
-                        // notes section
-                        : const BizCardRminderNotes(),
-                    kHeight50,
-                    kHeight50,
-                    kHeight50,
-                    kHeight50,
-                    kHeight50,
-                  ],
-                )
-              ],
-            ),
+          child: Column(
+            children: [
+              // card user data and images
+              BizcardDetailTopPotion(myCard: myCard, fromPreview: fromPreview),
+              Column(
+                children: [
+                  // card details icons and gifs
+                  const BizCardDetailsIconsWidgets(),
+                  // products and brands
+                  const BizCardProductsOrBrands(),
+                  myCard
+                      // edit button
+                      ? const BizcardDetailEditButton()
+                      : fromPreview
+                          ? kempty
+                          // notes section
+                          : const BizCardRminderNotes(),
+                  kHeight50,
+                  kHeight50,
+                  kHeight50,
+                  kHeight50,
+                  kHeight50,
+                ],
+              )
+            ],
           ),
         ),
       ),

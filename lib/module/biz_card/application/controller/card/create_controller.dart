@@ -278,10 +278,8 @@ class CardController extends GetxController {
         bizcardDetail.value = r.sharedDetails!;
         myCardDeeplinkPage.value = r.newConnection == null;
         connectionExist.value = r.newConnection ?? false;
-        print('bizcardDetail.value -> ${bizcardDetail.value.connectionId}');
         update();
         isLoading.value = false;
-        print('connection is scan and cpnncet -> ${r.connectionId}');
       },
     );
   }
@@ -289,13 +287,17 @@ class CardController extends GetxController {
   /// pop up for adding connection details
   void showConnectionDetailPopUp(BuildContext context) async {
     connectionExist.value = false;
-    await Future.delayed(const Duration(seconds: 3)).then((_) =>
-        showConfirmationDialog(context,
-            heading: 'Add Selfie And Details About This Connection..',
-            actionButton: 'Add Details',
-            onPressed: () => GoRouter.of(context).pushNamed(
-                Routes.connectionDetailFilling,
-                extra: bizcardDetail.value)));
+    await Future.delayed(const Duration(seconds: 3)).then(
+      (_) => showConfirmationDialog(
+        context,
+        heading: 'Add a Selfie Together or Details About This Connection.',
+        actionButton: 'Add Details',
+        onPressed: () => GoRouter.of(context).pushNamed(
+          Routes.connectionDetailFilling,
+          extra: bizcardDetail.value,
+        ),
+      ),
+    );
   }
 
   changeAutoScroll() {

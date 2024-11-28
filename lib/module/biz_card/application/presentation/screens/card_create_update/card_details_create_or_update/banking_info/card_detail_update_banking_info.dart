@@ -38,8 +38,7 @@ class CardUpdateBankingDetails extends StatelessWidget {
               CustomTextFormField(
                   labelText: 'Account Number',
                   validate: Validate.notNull,
-                  inputType: TextInputType.number,
-                  maxlegth: 16,
+                  maxlegth: 20,
                   controller: businessController.accountNumberController),
               // banking details accound number
               CustomTextFormField(

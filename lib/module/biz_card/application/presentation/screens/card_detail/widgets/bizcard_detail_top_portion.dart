@@ -18,10 +18,12 @@ class BizcardDetailTopPotion extends StatelessWidget {
     super.key,
     required this.myCard,
     this.scanPage = false,
+    this.fromPreview = false,
   });
 
   final bool myCard;
   final bool scanPage;
+  final bool fromPreview;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class BizcardDetailTopPotion extends StatelessWidget {
             height: 170.h,
             child: Column(
               children: [
-                kHeight10,
+                kHeight30,
                 myCard
                     // back and menu button for my card
                     ? Row(
@@ -176,93 +178,79 @@ class BizcardDetailTopPotion extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        PopupMenuButton<String>(
-                          icon: CircleAvatar(
-                            backgroundColor:
-                                Theme.of(context).scaffoldBackgroundColor,
-                            child: Icon(
-                              Icons.more_vert,
-                              size: 18.sp,
+                        if (!fromPreview)
+                          PopupMenuButton<String>(
+                            icon: CircleAvatar(
+                              backgroundColor:
+                                  Theme.of(context).scaffoldBackgroundColor,
+                              child: Icon(
+                                Icons.more_vert,
+                                size: 18.sp,
+                              ),
                             ),
+                            onSelected: (value) {},
+                            itemBuilder: (context) {
+                              List<PopupMenuEntry<String>> items = [];
+                              items.addAll([
+                                PopupMenuItem(
+                                    onTap: () {
+                                      showConfirmationDialog(
+                                        actionButton: 'Unfollow',
+                                        heading:
+                                            'Are you sure you want to unfollw this card',
+                                        context,
+                                        onPressed: () {
+                                          // TODO: unfollow controller call
+                                        },
+                                      );
+                                    },
+                                    value: 'Unfollow',
+                                    child: const Text('Unfollow')),
+                                PopupMenuItem(
+                                    onTap: () {
+                                      GoRouter.of(context).pushNamed(
+                                          Routes.reminderCreation,
+                                          extra: {
+                                            'cardId': cardController
+                                                    .bizcardDetail
+                                                    .value
+                                                    .bizcardId ??
+                                                '',
+                                            'connectionId': cardController
+                                                    .bizcardDetail
+                                                    .value
+                                                    .connectionId ??
+                                                ''
+                                          });
+                                    },
+                                    value: 'Add Reminder',
+                                    child: const Text('Add Reminder')),
+                              ]);
+                              return items;
+                            },
                           ),
-                          onSelected: (value) {},
-                          itemBuilder: (context) {
-                            List<PopupMenuEntry<String>> items = [];
-                            items.addAll([
-                              PopupMenuItem(
-                                  onTap: () {
-                                    showConfirmationDialog(
-                                      actionButton: 'Unfollow',
-                                      heading:
-                                          'Are you sure you want to unfollw this card',
-                                      context,
-                                      onPressed: () {
-                                        // TODO: unfollow controller call
-                                      },
-                                    );
-                                  },
-                                  value: 'Unfollow',
-                                  child: const Text('Unfollow')),
-                              PopupMenuItem(
-                                  onTap: () {
-                                    GoRouter.of(context).pushNamed(
-                                        Routes.reminderCreation,
-                                        extra: {
-                                          'cardId': cardController.bizcardDetail
-                                                  .value.bizcardId ??
-                                              '',
-                                          'connectionId': cardController
-                                                  .bizcardDetail
-                                                  .value
-                                                  .connectionId ??
-                                              ''
-                                        });
-                                  },
-                                  value: 'Add Reminder',
-                                  child: const Text('Add Reminder')),
-                            ]);
-                            return items;
-                          },
-                        ),
                         kWidth10,
                       ]),
                 kHeight5,
-                Obx(() => cardController.isLoading.value
-                    ? kempty
-                    : Expanded(
-                        child: WordByWordTextAnimation(
-                          text: cardController.bizcardDetail.value
-                                  .businessDetails?.logoStory ??
-                              '',
-                          textStyle: Theme.of(context).textTheme.bodySmall,
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              enableDrag: true,
-                              isDismissible: true,
-                              showDragHandle: true,
-                              backgroundColor:
-                                  Theme.of(context).scaffoldBackgroundColor,
-                              builder: (context) =>
-                                  BizcardLogoStoryViewBottomSheet(
-                                logoNetworkImage: cardController.bizcardDetail
-                                        .value.businessDetails?.businessLogo ??
-                                    '',
-                                logoStory: cardController.bizcardDetail.value
-                                    .businessDetails?.logoStory,
-                                compnayStory: cardController.bizcardDetail.value
-                                    .businessDetails?.companyStory,
-                                myStory: cardController.bizcardDetail.value
-                                    .personalDetails?.personalStory,
-                                showMyStory: cardController.bizcardDetail.value
-                                        .personalDetails?.showPersonalStory ??
-                                    true,
-                              ),
-                            );
-                          },
-                        ),
-                      ))
+                Obx(() {
+                  /// while scann and connect if the connection is creating for the first time
+                  /// then show the pop up for adding connection details for future reference of user
+                  if (cardController.connectionExist.value) {
+                    cardController.showConnectionDetailPopUp(context);
+                  }
+                  return cardController.isLoading.value
+                      ? kempty
+                      : Expanded(
+                          child: WordByWordTextAnimation(
+                            text: cardController.bizcardDetail.value
+                                    .businessDetails?.logoStory ??
+                                '',
+                            textStyle: Theme.of(context).textTheme.bodySmall,
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                           
+                          ),
+                        );
+                })
               ],
             ),
           ),
@@ -327,9 +315,19 @@ class BizcardDetailTopPotion extends StatelessWidget {
                             : '',
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
+                      Text(
+                        cardController.bizcardDetail.value.businessDetails
+                                    ?.companyName !=
+                                null
+                            ? cardController.bizcardDetail.value.businessDetails
+                                    ?.companyName ??
+                                ""
+                            : '',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
                     ],
                   ),
-                  kHeight20,
+                  kHeight10,
                 ],
               ),
             ),

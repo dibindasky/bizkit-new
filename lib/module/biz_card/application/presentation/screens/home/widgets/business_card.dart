@@ -32,7 +32,8 @@ class BusinessCard extends StatelessWidget {
               GoRouter.of(context).pushNamed(Routes.cardDetailView,
                   pathParameters: {
                     'cardId': bizcard.bizcardId ?? "",
-                    'myCard': 'true'
+                    'myCard': 'true',
+                    'fromPreview': 'false'
                   });
               bizcardController.cardDetail(cardId: bizcard.bizcardId ?? '');
             },
@@ -84,7 +85,8 @@ class BusinessCard extends StatelessWidget {
                   GoRouter.of(context).pushNamed(Routes.cardDetailView,
                       pathParameters: {
                         'cardId': bizcard.bizcardId ?? "",
-                        'myCard': 'false'
+                        'myCard': 'false',
+                        'fromPreview': 'true'
                       });
                 },
                 child: Card(

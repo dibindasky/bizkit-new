@@ -198,7 +198,8 @@ class MyConnectionSection extends StatelessWidget {
                                         'cardId':
                                             connection.cards?.first.toCard ??
                                                 '',
-                                        'myCard': 'false'
+                                        'myCard': 'false',
+                                        'fromPreview': 'false'
                                       });
                                   connectionsController.getConnectionCardDetail(
                                       cardId:

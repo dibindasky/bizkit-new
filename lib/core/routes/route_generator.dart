@@ -318,14 +318,15 @@ class GoRouterConfig {
 
     GoRoute(
       name: Routes.cardDetailView,
-      path: '${Routes.cardDetailView}/:cardId/:myCard',
+      path: '${Routes.cardDetailView}/:cardId/:myCard/:fromPreview',
       pageBuilder: (context, state) {
         final cardId = state.pathParameters['cardId'] ?? '';
         final myCard = state.pathParameters['myCard'] == 'true';
+        final fromPreview = state.pathParameters['fromPreview'] == 'true';
         if (cardId != null) {
           return FadeTransitionPage(
             key: state.pageKey,
-            child: BizCardDetailScreen(cardId: cardId, myCard: myCard),
+            child: BizCardDetailScreen(cardId: cardId, myCard: myCard, fromPreview:fromPreview),
           );
         } else {
           return _errorScreen();

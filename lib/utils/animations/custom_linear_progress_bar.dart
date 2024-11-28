@@ -10,14 +10,15 @@ class CustomLinearProgressBar extends StatefulWidget {
   const CustomLinearProgressBar({
     Key? key,
     required this.progress,
-    this.height=10,
+    this.height = 10,
     this.backgroundColor = Colors.grey,
     this.progressColor = Colors.blue,
     this.animationDuration = const Duration(milliseconds: 300),
   }) : super(key: key);
 
   @override
-  _CustomLinearProgressBarState createState() => _CustomLinearProgressBarState();
+  _CustomLinearProgressBarState createState() =>
+      _CustomLinearProgressBarState();
 }
 
 class _CustomLinearProgressBarState extends State<CustomLinearProgressBar>
@@ -32,10 +33,11 @@ class _CustomLinearProgressBarState extends State<CustomLinearProgressBar>
       vsync: this,
       duration: widget.animationDuration,
     );
-    _animation = Tween<double>(begin: 0.0, end: widget.progress).animate(_controller)
-      ..addListener(() {
-        setState(() {});
-      });
+    _animation =
+        Tween<double>(begin: 0.0, end: widget.progress).animate(_controller)
+          ..addListener(() {
+            setState(() {});
+          });
     _controller.forward();
   }
 
@@ -44,10 +46,12 @@ class _CustomLinearProgressBarState extends State<CustomLinearProgressBar>
     super.didUpdateWidget(oldWidget);
     if (oldWidget.progress != widget.progress) {
       _controller.reset();
-      _animation = Tween<double>(begin: oldWidget.progress, end: widget.progress).animate(_controller)
-        ..addListener(() {
-          setState(() {});
-        });
+      _animation =
+          Tween<double>(begin: oldWidget.progress, end: widget.progress)
+              .animate(_controller)
+            ..addListener(() {
+              setState(() {});
+            });
       _controller.forward();
     }
   }

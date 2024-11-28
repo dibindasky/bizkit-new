@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'card.g.dart';
+
 @JsonSerializable()
 class Card {
   @JsonKey(name: 'connection_id')
@@ -40,14 +41,14 @@ class Card {
   // equals function to compare Card objects
   bool equals(Card other) {
     return connectionId == other.connectionId &&
-           toUser == other.toUser &&
-           name == other.name &&
-           toCard == other.toCard &&
-           businessName == other.businessName &&
-           businessDesignation == other.businessDesignation &&
-           connectedDate == other.connectedDate &&
-           imageUrl == other.imageUrl &&
-           connectedViaQr == other.connectedViaQr;
+        toUser == other.toUser &&
+        name == other.name &&
+        toCard == other.toCard &&
+        businessName == other.businessName &&
+        businessDesignation == other.businessDesignation &&
+        connectedDate == other.connectedDate &&
+        imageUrl == other.imageUrl &&
+        connectedViaQr == other.connectedViaQr;
   }
 
   // Static constants

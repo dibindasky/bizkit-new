@@ -46,13 +46,13 @@ double khieght = 850;
 double kwidth = 400;
 
 // SizedBox kempty = const SizedBox(height: 0);
-// void sizeFinder(BuildContext context) {
-//   final size = MediaQuery.of(context).size;
-//   print(size.height);
-//   print(size.width);
-//   khieght = size.height > 900 ? 900 : size.height;
-//   kwidth = size.width > 450 ? 450 : size.width;
-// }
+void sizeFinder(BuildContext context) {
+  final size = MediaQuery.of(context).size;
+  print(size.height);
+  print(size.width);
+  khieght = size.height;
+  kwidth = size.width;
+}
 
 adjustWidth(double width) {
   return SizedBox(width: width);

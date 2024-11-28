@@ -25,7 +25,7 @@ class SelectedCard extends StatelessWidget {
         backgroundColor: knill,
         title: Text(
           'Selected Cards',
-          style:Theme.of(context).textTheme.titleMedium,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
       body: SingleChildScrollView(

@@ -21,5 +21,4 @@ class LocalStoragePreference {
     final module = await LocalStorageService.getString(_lastUsedModule);
     return module;
   }
-
 }

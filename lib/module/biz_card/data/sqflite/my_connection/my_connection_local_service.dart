@@ -231,11 +231,11 @@ class MyConnectionLocalService implements MyConnectionLocalRepo {
 
   @override
   Future<Either<Failure, SuccessResponce>> deleteMyconnectionFromlocal(
-      {required String currentUserId,required String colToUser}) async {
+      {required String currentUserId, required String colToUser}) async {
     try {
       const deleteUserQuery =
           '''DELETE FROM ${BizCardSql.myConnectionTable} WHERE ${MyConnection.colCurrentUserId} = ? AND ${MyConnection.colToUser} = ?''';
-      await localService.rawDelete(deleteUserQuery, [currentUserId,colToUser]);
+      await localService.rawDelete(deleteUserQuery, [currentUserId, colToUser]);
       return Right(SuccessResponce(data: 'success'));
     } catch (e) {
       return Left(Failure(data: e.toString()));

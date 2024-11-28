@@ -66,7 +66,7 @@ class CardUpdateBankingDetails extends StatelessWidget {
                 () => businessController.isLoading.value
                     ? const LoadingAnimation()
                     : SkipOrContinueButtons(
-                      continueText: 'Update',
+                        continueText: 'Update',
                         onTap: () {
                           if (bankingCardCreationKey.currentState!.validate()) {
                             businessController.bankingDetailsAdding(context);

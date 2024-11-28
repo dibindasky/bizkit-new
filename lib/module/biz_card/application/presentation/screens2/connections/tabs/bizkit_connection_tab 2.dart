@@ -23,8 +23,7 @@ class BizkitConnectionsTab extends StatelessWidget {
     return Expanded(
       child: RefreshIndicator(
         onRefresh: () async {
-          connectionsController.searchConnections(
-              );
+          connectionsController.searchConnections();
           await Future.delayed(const Duration(seconds: 2));
         },
         child: Obx(
@@ -36,8 +35,7 @@ class BizkitConnectionsTab extends StatelessWidget {
             } else if (connectionsController.connectionsSearchList.isEmpty) {
               return ErrorRefreshIndicator(
                 onRefresh: () async {
-                  connectionsController.searchConnections(
-                     );
+                  connectionsController.searchConnections();
                   await Future.delayed(const Duration(seconds: 2));
                 },
                 errorMessage: 'No bizcard connections',
@@ -112,8 +110,8 @@ class BizkitConnectionsTab extends StatelessWidget {
                             PopupMenuItem(
                               onTap: () {
                                 connectionsController.unfollowRequest(
-                                  toUserId:connectionsController
-                                            .connectionsSearchList[index].toUser,
+                                    toUserId: connectionsController
+                                        .connectionsSearchList[index].toUser,
                                     context: context,
                                     unfollowRequest: UnfollowConnectionModel(
                                         connectionId: connectionsController

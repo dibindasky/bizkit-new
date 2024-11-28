@@ -25,8 +25,9 @@ abstract class PersonalDetailsRepo {
       {required PersonalSocialMediaDeletion personalSocialMediaDeletion});
   Future<Either<Failure, SuccessResponseModel>> personalSocialMediaEditing(
       {required PersonalSocialMediaRequestModel personalSocialMediaModel});
-  Future<Either<Failure, PersonalDayesToReminderModel>> personalDatesToReminderAdding(
-      {required PersonalDayesToReminderModel personalDatesToReminderModel});
+  Future<Either<Failure, PersonalDayesToReminderModel>>
+      personalDatesToReminderAdding(
+          {required PersonalDayesToReminderModel personalDatesToReminderModel});
   Future<Either<Failure, SuccessResponseModel>> personalDatesToReminderEditing(
       {required PersonalDayesToReminderModel personalDatesToReminderModel});
   Future<Either<Failure, SuccessResponseModel>> personalDatesToReminderDeleting(

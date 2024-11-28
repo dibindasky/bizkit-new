@@ -88,7 +88,8 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
                 [
                   PopupMenuItem(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const CardSecondUpdation()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const CardSecondUpdation()));
                       // GoRouter.of(context).pushNamed(Routes.receivedCardEdit);
                     },
                     value: 'Edit card',
@@ -403,7 +404,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
             if (visitingCardController.visitingCardDetails.value != null &&
                 visitingCardController.visitingCardDetails.value.email !=
                     null) {
-                        showModalBottomSheet(
+              showModalBottomSheet(
                   showDragHandle: true,
                   isDismissible: true,
                   enableDrag: true,
@@ -414,7 +415,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                       image: gifPhone,
                       items: [
                         visitingCardController
-                                .visitingCardDetails.value.email??
+                                .visitingCardDetails.value.email ??
                             ''
                       ],
                       itemsHeading: ['personal'],
@@ -452,7 +453,8 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('Website', style: Theme.of(context).textTheme.titleMedium ),
+                        Text('Website',
+                            style: Theme.of(context).textTheme.titleMedium),
                         adjustHieght(10),
                         TextButton(
                           onPressed: () async {
@@ -542,14 +544,14 @@ class CardViewRowWiceIcons extends StatelessWidget {
                       children: [
                         Text(
                           'Address',
-                          style: Theme.of(context).textTheme.titleMedium, 
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                         adjustHieght(10),
                         Text(
                           location,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.titleSmall,  
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                         adjustHieght(10),
                         Row(

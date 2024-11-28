@@ -149,7 +149,6 @@ abstract class TaskRepo {
   Future<Either<Failure, SuccessResponce>> completeQuickTasks(
       {required CompleteQuickTask completeQuickTask});
 
-       Future<Either<Failure,SuccessResponce>>deleteAttachments({required DeleteAttachmentsModel deleteAttachmentsModel});
+  Future<Either<Failure, SuccessResponce>> deleteAttachments(
+      {required DeleteAttachmentsModel deleteAttachmentsModel});
 }
-
- 

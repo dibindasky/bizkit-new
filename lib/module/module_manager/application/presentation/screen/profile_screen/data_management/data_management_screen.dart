@@ -57,7 +57,6 @@ class DataManagementScreen extends StatelessWidget {
                           IconButton(
                               onPressed: () {
                                 cardController.fetchDeletedAndArchivedCards();
-
                                 GoRouter.of(context).pushNamed(Routes.archivedCardScreen);
                               },
                               icon: const Icon(Icons.arrow_forward_ios)),
@@ -98,7 +97,7 @@ class DataManagementScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                    const SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Padding(
@@ -127,7 +126,7 @@ class DataManagementScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                    const SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Padding(

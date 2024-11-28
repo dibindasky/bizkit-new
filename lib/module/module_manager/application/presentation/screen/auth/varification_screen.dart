@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VarificationScreen extends StatelessWidget {
-  const VarificationScreen({super.key,required this.islogin});
+  const VarificationScreen({super.key, required this.islogin});
   final bool islogin;
 
   @override
@@ -81,7 +81,9 @@ class VarificationScreen extends StatelessWidget {
               onTap: () {
                 authController.chooseModule(context);
                 showSnackbar(context,
-                    message:islogin? 'User Logged In Successfully':'User Registered Successfully', 
+                    message: islogin
+                        ? 'User Logged In Successfully'
+                        : 'User Registered Successfully',
                     backgroundColor: kneonShade,
                     textColor: kblack);
               },

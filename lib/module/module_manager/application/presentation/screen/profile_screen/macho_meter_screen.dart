@@ -20,7 +20,7 @@ class _MachoMeterScreenState extends State<MachoMeterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea( 
+      body: SafeArea(
         child: Column(children: [
           Padding(
             padding: const EdgeInsets.all(15),

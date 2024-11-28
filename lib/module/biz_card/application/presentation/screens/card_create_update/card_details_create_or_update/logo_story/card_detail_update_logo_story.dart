@@ -48,6 +48,7 @@ class _CardUpdateLogoStoryDetailsState
           children: [
             Text('Logo', style: Theme.of(context).textTheme.bodyLarge),
             adjustHieght(khieght * .02),
+            // logo
             Center(
               child: InkWell(
                 onTap: () {
@@ -237,6 +238,7 @@ class _CardUpdateLogoStoryDetailsState
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             adjustHieght(khieght * .02),
+            // logo story
             Form(
               key: logokey,
               child: CustomTextFormField(

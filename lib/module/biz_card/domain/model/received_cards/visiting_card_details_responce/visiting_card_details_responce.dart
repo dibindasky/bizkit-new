@@ -42,14 +42,12 @@ class VisitingCardDetailsResponce {
     this.selfie,
     this.cardImage,
   });
-  
 
   factory VisitingCardDetailsResponce.fromJson(Map<String, dynamic> json) {
     return _$VisitingCardDetailsResponceFromJson(json);
   }
 
   Map<String, dynamic> toJson() => _$VisitingCardDetailsResponceToJson(this);
-
 
   VisitingCardDetailsResponce copyWith({
     String? id,
@@ -86,5 +84,4 @@ class VisitingCardDetailsResponce {
       cardImage: cardImage ?? this.cardImage,
     );
   }
-
 }

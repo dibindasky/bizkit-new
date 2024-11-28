@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/bottom_sheets_and_pop_up/bizcard_logo_story_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
@@ -38,6 +39,7 @@ class BizcardDetailTopPotion extends StatelessWidget {
               children: [
                 kHeight10,
                 myCard
+                    // back and menu button for my card
                     ? Row(
                         children: [
                           kWidth20,
@@ -157,6 +159,7 @@ class BizcardDetailTopPotion extends StatelessWidget {
                           kWidth10,
                         ],
                       )
+                    // back and menu button for others card
                     : Row(children: [
                         kWidth10,
                         GestureDetector(
@@ -174,42 +177,53 @@ class BizcardDetailTopPotion extends StatelessWidget {
                         ),
                         const Spacer(),
                         PopupMenuButton<String>(
-                                    icon: CircleAvatar(
-                                      backgroundColor: Theme.of(context)
-                                          .scaffoldBackgroundColor,
-                                      child: Icon(
-                                        Icons.more_vert,
-                                        size: 18.sp,
-                                      ),
-                                    ),
-                                    onSelected: (value) {},
-                                    itemBuilder: (context) {
-                                      List<PopupMenuEntry<String>> items = [];
-                                      items.addAll([
-                                        PopupMenuItem(
-                                            onTap: () {
-                                              showConfirmationDialog(
-                                                actionButton: 'Unfollow',
-                                                heading:
-                                                    'Are you sure you want to unfollw this card',
-                                                context,
-                                                onPressed: () {
-                                                  // TODO: unfollow controller call
-                                                },
-                                              );
-                                            },
-                                            value: 'Unfollow',
-                                            child: const Text('Unfollow')),
-                                        PopupMenuItem(
-                                            onTap: () {
-                                              // TODO : add reminder
-                                            },
-                                            value: 'Add Reminder',
-                                            child: const Text('Add Reminder')),
-                                      ]);
-                                      return items;
-                                    },
-                                  ),
+                          icon: CircleAvatar(
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            child: Icon(
+                              Icons.more_vert,
+                              size: 18.sp,
+                            ),
+                          ),
+                          onSelected: (value) {},
+                          itemBuilder: (context) {
+                            List<PopupMenuEntry<String>> items = [];
+                            items.addAll([
+                              PopupMenuItem(
+                                  onTap: () {
+                                    showConfirmationDialog(
+                                      actionButton: 'Unfollow',
+                                      heading:
+                                          'Are you sure you want to unfollw this card',
+                                      context,
+                                      onPressed: () {
+                                        // TODO: unfollow controller call
+                                      },
+                                    );
+                                  },
+                                  value: 'Unfollow',
+                                  child: const Text('Unfollow')),
+                              PopupMenuItem(
+                                  onTap: () {
+                                    GoRouter.of(context).pushNamed(
+                                        Routes.reminderCreation,
+                                        extra: {
+                                          'cardId': cardController.bizcardDetail
+                                                  .value.bizcardId ??
+                                              '',
+                                          'connectionId': cardController
+                                                  .bizcardDetail
+                                                  .value
+                                                  .connectionId ??
+                                              ''
+                                        });
+                                  },
+                                  value: 'Add Reminder',
+                                  child: const Text('Add Reminder')),
+                            ]);
+                            return items;
+                          },
+                        ),
                         kWidth10,
                       ]),
                 kHeight5,
@@ -232,12 +246,18 @@ class BizcardDetailTopPotion extends StatelessWidget {
                                   Theme.of(context).scaffoldBackgroundColor,
                               builder: (context) =>
                                   BizcardLogoStoryViewBottomSheet(
-                                networkImage: cardController.bizcardDetail.value
-                                        .businessDetails?.businessLogo ??
+                                logoNetworkImage: cardController.bizcardDetail
+                                        .value.businessDetails?.businessLogo ??
                                     '',
                                 logoStory: cardController.bizcardDetail.value
-                                        .businessDetails?.logoStory ??
-                                    '',
+                                    .businessDetails?.logoStory,
+                                compnayStory: cardController.bizcardDetail.value
+                                    .businessDetails?.companyStory,
+                                myStory: cardController.bizcardDetail.value
+                                    .personalDetails?.personalStory,
+                                showMyStory: cardController.bizcardDetail.value
+                                        .personalDetails?.showPersonalStory ??
+                                    true,
                               ),
                             );
                           },

@@ -53,4 +53,3 @@ class ContactService extends ContactsRepo {
     }
   }
 }
-

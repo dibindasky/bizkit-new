@@ -23,7 +23,7 @@ class MessageCountController extends GetxController {
       final token = await SecureStorage.getToken();
       final accessToken = token.accessToken ?? '';
       unreadCounts = <String, RxInt>{}.obs;
- 
+
       channel = IOWebSocketChannel.connect(
         Uri.parse(SocketEndpoints.messageCount),
         headers: {'Authorization': 'Bearer $accessToken'},

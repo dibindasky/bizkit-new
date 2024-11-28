@@ -175,8 +175,7 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                               //         '')),
                             ),
                           ),
-                          visitingCardController.editCardImage.value ==
-                                      '' ||
+                          visitingCardController.editCardImage.value == '' ||
                                   visitingCardController.editCardImage.value ==
                                       null
                               ? Positioned(

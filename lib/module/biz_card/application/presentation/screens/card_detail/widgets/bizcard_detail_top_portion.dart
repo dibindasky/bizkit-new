@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/bottom_sheets_and_pop_up/bizcard_logo_story_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
@@ -174,42 +175,53 @@ class BizcardDetailTopPotion extends StatelessWidget {
                         ),
                         const Spacer(),
                         PopupMenuButton<String>(
-                                    icon: CircleAvatar(
-                                      backgroundColor: Theme.of(context)
-                                          .scaffoldBackgroundColor,
-                                      child: Icon(
-                                        Icons.more_vert,
-                                        size: 18.sp,
-                                      ),
-                                    ),
-                                    onSelected: (value) {},
-                                    itemBuilder: (context) {
-                                      List<PopupMenuEntry<String>> items = [];
-                                      items.addAll([
-                                        PopupMenuItem(
-                                            onTap: () {
-                                              showConfirmationDialog(
-                                                actionButton: 'Unfollow',
-                                                heading:
-                                                    'Are you sure you want to unfollw this card',
-                                                context,
-                                                onPressed: () {
-                                                  // TODO: unfollow controller call
-                                                },
-                                              );
-                                            },
-                                            value: 'Unfollow',
-                                            child: const Text('Unfollow')),
-                                        PopupMenuItem(
-                                            onTap: () {
-                                              // TODO : add reminder
-                                            },
-                                            value: 'Add Reminder',
-                                            child: const Text('Add Reminder')),
-                                      ]);
-                                      return items;
-                                    },
-                                  ),
+                          icon: CircleAvatar(
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            child: Icon(
+                              Icons.more_vert,
+                              size: 18.sp,
+                            ),
+                          ),
+                          onSelected: (value) {},
+                          itemBuilder: (context) {
+                            List<PopupMenuEntry<String>> items = [];
+                            items.addAll([
+                              PopupMenuItem(
+                                  onTap: () {
+                                    showConfirmationDialog(
+                                      actionButton: 'Unfollow',
+                                      heading:
+                                          'Are you sure you want to unfollw this card',
+                                      context,
+                                      onPressed: () {
+                                        // TODO: unfollow controller call
+                                      },
+                                    );
+                                  },
+                                  value: 'Unfollow',
+                                  child: const Text('Unfollow')),
+                              PopupMenuItem(
+                                  onTap: () {
+                                    GoRouter.of(context).pushNamed(
+                                        Routes.reminderCreation,
+                                        extra: {
+                                          'cardId': cardController.bizcardDetail
+                                                  .value.bizcardId ??
+                                              '',
+                                          'connectionId': cardController
+                                                  .bizcardDetail
+                                                  .value
+                                                  .connectionId ??
+                                              ''
+                                        });
+                                  },
+                                  value: 'Add Reminder',
+                                  child: const Text('Add Reminder')),
+                            ]);
+                            return items;
+                          },
+                        ),
                         kWidth10,
                       ]),
                 kHeight5,

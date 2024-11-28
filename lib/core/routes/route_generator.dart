@@ -12,6 +12,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_cre
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/card_details_create_or_update/social_media_handles/card_detail_social_media_handle_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_bizcard.dart/create_business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/create_card_screen.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/connection_detils/card_detail_connection_detils_create.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/scan_and_connect_card_detail_page.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/achivement/bizcard_detail_achivements.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/personal_and_banking/bizcard_detail_banking_and_personal_detail.dart';
@@ -337,11 +338,20 @@ class GoRouterConfig {
       name: Routes.connectionDetailFilling,
       path: Routes.connectionDetailFilling,
       builder: (context, state) {
-        return ScreenConnectionDetailFilling(
+        return BizCardConnectionDetailUpdateScreen(
           cardDetailModel: (state.extra as CardDetailModel?),
         );
       },
     ),
+    // GoRoute(
+    //   name: Routes.connectionDetailFilling,
+    //   path: Routes.connectionDetailFilling,
+    //   builder: (context, state) {
+    //     return ScreenConnectionDetailFilling(
+    //       cardDetailModel: (state.extra as CardDetailModel?),
+    //     );
+    //   },
+    // ),
     //second card detail
     GoRoute(
       name: Routes.secondcardDetail,

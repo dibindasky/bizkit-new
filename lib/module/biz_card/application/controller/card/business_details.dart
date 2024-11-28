@@ -512,9 +512,12 @@ class BusinesDetailsController extends GetxController {
   }
 
   void logoAdd({required BuildContext context}) async {
-    if (logoImage.value.networkImage) return;
-    isLoading.value = true;
     final cardController = Get.find<CardController>();
+    if (logoImage.value.networkImage &&
+        businessLogoLebel.text ==
+            (cardController.bizcardDetail.value.businessDetails?.logoStory ??
+                '')) return;
+    isLoading.value = true;
     LogoModel logoModel = LogoModel(
         bizcardId: cardController.bizcardDetail.value.bizcardId,
         businessDetailsId:
@@ -537,7 +540,7 @@ class BusinesDetailsController extends GetxController {
     isLoading.value = false;
   }
 
-  void takeLogoDetails() async {
+  void takeLogoDetails() {
     final cardController = Get.find<CardController>();
     logoImage.value = ImageCard(
         networkImage: true,

@@ -47,6 +47,8 @@ class ReminderController extends GetxController {
   @override
   void onInit() {
     fetchTodaysReminders();
+    fetchAllReminders();
+    fetchUpcomingReminders();
     super.onInit();
   }
 
@@ -71,8 +73,11 @@ class ReminderController extends GetxController {
       (failure) {
         createReminderLoading.value = false;
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text(errorMessage),
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: kred,
           ),
         );
@@ -81,8 +86,11 @@ class ReminderController extends GetxController {
         createReminderLoading.value = false;
         clearAllTextEditingControllers();
         scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text("Reminder set successfully"),
+          SnackBar(
+            content: Text(
+              "Reminder set successfully",
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
             backgroundColor: neonShade,
           ),
         );

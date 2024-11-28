@@ -24,6 +24,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_det
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/biz_card_nav_bar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_card_detail/received_card_detail_page.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/scan_and_creation/widgets/second_card_field.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/connection_details/connection_detail_filling.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/second_card_detail_view.dart';
@@ -201,8 +202,8 @@ class GoRouterConfig {
     ),
 
     GoRoute(
-      name: Routes. deletedCardScreen,
-      path: Routes. deletedCardScreen,
+      name: Routes.deletedCardScreen,
+      path: Routes.deletedCardScreen,
       builder: (context, state) => DeletedCardScreen(),
     ),
     GoRoute(
@@ -246,7 +247,7 @@ class GoRouterConfig {
         // if (cardId != '' && connectionId != '') {
 
         final extra = state.extra as Map<String, dynamic>;
-        return ScreenCardReminderCreating(
+        return BizcardReminderCreateUpdateScreen(
           cardId: extra['cardId'],
           connectionId: extra['connectionId'],
         );

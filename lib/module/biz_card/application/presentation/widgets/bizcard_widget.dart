@@ -100,7 +100,11 @@ class BizcardWidget extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: isDefault == true
+                  ? MainAxisAlignment.spaceAround
+                  : createCard == true
+                      ? MainAxisAlignment.center
+                      : MainAxisAlignment.spaceAround,
               children: [
                 if (isDefault == true)
                   ClipRRect(

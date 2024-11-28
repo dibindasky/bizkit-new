@@ -254,10 +254,12 @@ class ReceivedCardController extends GetxController {
 
   // Fetch all received cards
   void fetchAllreceivedCards({bool refresh = false}) async {
+    print(visitingCardDetails.toJson());
     if (visitingCards.isNotEmpty && !refresh) {
       filterdVisitingCards.assignAll(visitingCards);
       return;
     }
+    print(filterdVisitingCards.toJson());
     loadingForVisitingCard.value = true;
     final data = await receivedCardService.getAllReceivedCards();
     data.fold(

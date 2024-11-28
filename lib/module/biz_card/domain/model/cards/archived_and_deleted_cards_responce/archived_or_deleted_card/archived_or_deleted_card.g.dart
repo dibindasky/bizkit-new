@@ -17,6 +17,7 @@ ArchivedOrDeletedCard _$ArchivedOrDeletedCardFromJson(
       logo: json['logo'],
       isArchived: json['is_archived'] as bool?,
       isDisabled: json['is_disabled'] as bool?,
+      deletedUserName: json['user_name'] as String?,
     );
 
 Map<String, dynamic> _$ArchivedOrDeletedCardToJson(
@@ -30,4 +31,5 @@ Map<String, dynamic> _$ArchivedOrDeletedCardToJson(
       'logo': instance.logo,
       'is_archived': instance.isArchived,
       'is_disabled': instance.isDisabled,
+      'user_name':instance.deletedUserName
     };

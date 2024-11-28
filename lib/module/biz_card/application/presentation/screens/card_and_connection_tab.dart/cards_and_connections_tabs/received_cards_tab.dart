@@ -17,7 +17,6 @@ class ReceivedCardsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final receivedCardController = Get.find<ReceivedCardController>();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       receivedCardController.fetchAllreceivedCards();
     });

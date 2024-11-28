@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,6 +27,7 @@ class ScreenGeneralSplash extends StatelessWidget {
     Future.delayed(const Duration(milliseconds: 2000), () {
       // GoRouter.of(context).pushReplacementNamed(Routes.taskNavbar);
       Get.find<AuthenticationController>().checkOnBoarding(context);
+      sizeFinder(context);
     });
   }
 }

@@ -35,6 +35,7 @@ String getBase64(String? base64) {
   return base64.startsWith('data') ? base64.substring(22) : base64;
 }
 
+
 TextStyle fontPopins = const TextStyle(fontFamily: 'Poppins');
 
 enum Validate {

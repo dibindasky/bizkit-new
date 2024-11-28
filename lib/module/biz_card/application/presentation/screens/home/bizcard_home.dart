@@ -154,6 +154,7 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
             // Reminders Pinned Header
             SliverPersistentHeader(
               pinned: true,
+              floating: true,
               delegate: _RemindersSliverHeaderDelegate(),
             ),
             SliverPersistentHeader(
@@ -210,10 +211,10 @@ class _RemindersSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 60.h;
+  double get maxExtent => 50.h;
 
   @override
-  double get minExtent => 60.h;
+  double get minExtent => 50.h;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
@@ -537,7 +538,6 @@ class __RemindersTabsSectionSliverHeaderDelegate
         kHeight50,
         kHeight50,
         kHeight50,
-        kHeight50,
       ],
     );
   }
@@ -546,8 +546,7 @@ class __RemindersTabsSectionSliverHeaderDelegate
   double get maxExtent => khieght;
 
   @override
-  double get minExtent => khieght;
-
+  double get minExtent => khieght * 0.5;
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
     return false;

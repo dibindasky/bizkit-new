@@ -31,8 +31,8 @@ class _ScreenOnboardingGeneralState extends State<ScreenOnboardingGeneral> {
       pageController.nextPage(
           duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
     } else {
-       SecureStorage.setOnBoardBool();
-       Get.find<AuthenticationController>().checkLoginStatus(context);
+      SecureStorage.setOnBoardBool();
+      Get.find<AuthenticationController>().checkLoginStatus(context);
     }
   }
 
@@ -104,14 +104,14 @@ class _ScreenOnboardingGeneralState extends State<ScreenOnboardingGeneral> {
                         onBoardingController.currentIndex.value == index;
                     return AnimatedOpacity(
                       opacity: isActive ? 1.0 : 0.0,
-                      duration: const Duration(milliseconds: 500), 
+                      duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
                           onBoardingData[index]["subtitle"]!,
-                          style: const TextStyle(
-                              fontSize: 12, color: Colors.grey),
+                          style:
+                              const TextStyle(fontSize: 12, color: Colors.grey),
                           textAlign: TextAlign.start,
                         ),
                       ),

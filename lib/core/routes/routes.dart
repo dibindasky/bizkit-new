@@ -10,8 +10,8 @@ class Routes {
   static const String connectionsAndNetworking = '/connections_networking';
   static const String machoMeterScreen = '/macho_meter_screen';
   static const String varificationScreen = '/varification_screen';
-  static const String archivedCardScreen ='/archived_card_screen';
-  static const String deletedCardScreen ='/deleted_card_screen';
+  static const String archivedCardScreen = '/archived_card_screen';
+  static const String deletedCardScreen = '/deleted_card_screen';
 
   // biz card module
   static const String onBoardingBizCard = '/on_boarding_bizcard';

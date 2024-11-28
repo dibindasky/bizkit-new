@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 
-class MatchoMeterScreenController extends GetxController{
-
-  RxInt currentIndex=0.obs;
+class MatchoMeterScreenController extends GetxController {
+  RxInt currentIndex = 0.obs;
 
   RxList<String> items = [
     'Select your dream Job',

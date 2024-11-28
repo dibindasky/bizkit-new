@@ -199,7 +199,7 @@
 //               // if (eventController.text != '' || eventController.text != 'All') {
 //               //   achivementsList
 //               //       .removeWhere((e) => e.event != eventController.text);
-//               // } 
+//               // }
 //               // if (dateController.text != '') {
 //               //   achivementsList
 //               //       .removeWhere((e) => e.date == dateController.text);

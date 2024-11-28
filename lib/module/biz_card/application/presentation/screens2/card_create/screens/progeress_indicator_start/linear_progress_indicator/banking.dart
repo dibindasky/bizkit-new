@@ -8,7 +8,6 @@ import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class ScreenCardBankingDetails extends StatelessWidget {
   const ScreenCardBankingDetails({super.key, required this.fromBusiness});
 
@@ -16,7 +15,7 @@ class ScreenCardBankingDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-GlobalKey<FormState> bankingCardCreationKey = GlobalKey<FormState>();
+    GlobalKey<FormState> bankingCardCreationKey = GlobalKey<FormState>();
     final businessController = Get.find<BusinesDetailsController>();
     return FadeIn(
       duration: const Duration(milliseconds: 900),

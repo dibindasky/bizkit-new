@@ -83,7 +83,8 @@ class _PreviewScreenRowIconsModelSheetState
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   data,
-                                  style: Theme.of(context).textTheme.displaySmall,
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
                                 ),
                               ],
                             ),

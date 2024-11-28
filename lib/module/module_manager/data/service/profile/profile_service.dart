@@ -56,7 +56,7 @@ class ProfileService implements ProfileRepo {
     try {
       final response = await apiService.patch(ApiEndPoints.updateEmailorPhone,
           data: profileModel.toJson());
-          log('update email datas  ${response.data}');
+      log('update email datas  ${response.data}');
       log('update email or phone success');
       return Right(SuccessResponce.fromJson(response.data));
     } on DioException catch (e) {

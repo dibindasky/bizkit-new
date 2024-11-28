@@ -22,8 +22,10 @@ class MeetingDetailHistoryLogTabBuilder extends StatelessWidget {
               height: 50.h,
               width: double.infinity,
               seprator: kHeight10);
-        }else if(controller.historyCardReminders.isEmpty){
-          return const Center(child: Text('No history available'),);
+        } else if (controller.historyCardReminders.isEmpty) {
+          return const Center(
+            child: Text('No history available'),
+          );
         }
         return ListView.builder(
           padding: const EdgeInsets.all(0),

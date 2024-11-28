@@ -13,6 +13,7 @@ class LocalStoragePreferenceCard {
     final data = await LocalStorageService.getBool(contactsFetch);
     return data ?? false;
   }
+
   static void setContactsFirstFetchedOrNot(bool fetched) async {
     await LocalStorageService.setBool(contactsFirstFetch, fetched);
     print('setContactsFirstFetchedOrNot ========> $fetched');

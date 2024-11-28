@@ -86,8 +86,8 @@ class _ScreenCardCreationStartingState
                     ),
                     TextButton(
                       onPressed: () {
-                        GoRouter.of(context).pushNamed(
-                            Routes.cardCreationProfilePage);
+                        GoRouter.of(context)
+                            .pushNamed(Routes.cardCreationProfilePage);
                       },
                       child: Text(
                         'Create Card Manually',
@@ -104,7 +104,7 @@ class _ScreenCardCreationStartingState
               ),
               InkWell(
                 onTap: () {
-                    GoRouter.of(context).pop();
+                  GoRouter.of(context).pop();
                 },
                 child: Container(
                   decoration: BoxDecoration(

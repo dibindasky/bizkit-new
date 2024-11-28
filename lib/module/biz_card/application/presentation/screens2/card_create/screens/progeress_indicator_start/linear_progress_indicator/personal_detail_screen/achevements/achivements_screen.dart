@@ -235,15 +235,12 @@ class _ScreenCardAchivementsState extends State<ScreenCardAchivements> {
                                               achivement[index].images != null
                                                   ? achivement[index]
                                                           .images![0]
-                                                          
                                                           .startsWith('data')
                                                       ? achivement[index]
                                                           .images![0]
-                                                          
                                                           .substring(22)
                                                       : achivement[index]
                                                           .images![0]
-                                                          
                                                   : personDemoImg),
                                           fit: BoxFit.cover,
                                         ),

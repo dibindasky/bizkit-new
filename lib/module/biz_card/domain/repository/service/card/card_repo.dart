@@ -16,7 +16,7 @@ abstract class CardRepo {
   /// New Card creation
   Future<Either<Failure, CreateCardResponce>> createCard(
       {required CreateCard createCard});
-  
+
   /// get all cards list
   Future<Either<Failure, GetAllCards>> getAllCards();
 
@@ -48,7 +48,7 @@ abstract class CardRepo {
   Future<Either<Failure, GetCardViewsResponce>> getCardViews(
       {required BizcardIdParameterModel bizcardIdParameterModel});
 
-  /// update the number of share 
+  /// update the number of share
   Future<Either<Failure, SuccessResponseModel>> updateShareCount(
       {required BizcardIdParameterModel bizcardIdParameterModel});
 }

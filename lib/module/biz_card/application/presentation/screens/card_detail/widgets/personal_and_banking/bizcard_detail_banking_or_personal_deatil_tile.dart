@@ -35,7 +35,8 @@ class CardBankingPersonalTiles extends StatelessWidget {
                 Text(
                   first,
                   style: Theme.of(context).textTheme.displayMedium,
-                ),kHeight5,
+                ),
+                kHeight5,
                 Text(
                   second,
                   style: Theme.of(context).textTheme.displaySmall,

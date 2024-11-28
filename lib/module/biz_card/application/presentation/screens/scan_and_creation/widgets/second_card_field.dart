@@ -260,7 +260,7 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
               Obx(
                 () {
                   return SizedBox(
-                     height: 170.dm, 
+                    height: 170.dm,
                     child: Stack(
                       children: [
                         SizedBox(
@@ -274,14 +274,14 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 15),
                                 child: AspectRatio(
-                                  aspectRatio: 1.8/1, 
+                                  aspectRatio: 1.8 / 1,
                                   child: SizedBox(
                                     height: 170.dm,
-                                    
                                     child: Stack(
                                       children: [
                                         ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           child: Image.memory(
                                             base64Decode(
                                               textExtractionController
@@ -295,9 +295,10 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Align(
-                                            alignment: Alignment.topRight,  
+                                            alignment: Alignment.topRight,
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(15),
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
                                               child: ColoredBox(
                                                 color: neonShade,
                                                 child: IconButton(
@@ -333,9 +334,12 @@ class _SelfieTextFieldsState extends State<SelfieTextFields> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right: 20,bottom: 20,) ,
+                          padding: const EdgeInsets.only(
+                            right: 20,
+                            bottom: 20,
+                          ),
                           child: Align(
-                              alignment: Alignment.bottomRight, 
+                              alignment: Alignment.bottomRight,
                               child: InkWell(
                                 onTap: () {
                                   cameraAndGalleryPickImage(

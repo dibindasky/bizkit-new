@@ -15,7 +15,7 @@ class WordByWordTextAnimation extends StatefulWidget {
     this.textStyle,
     this.onTap,
     this.padding = EdgeInsets.zero,
-    this.textAlign =TextAlign.center,
+    this.textAlign = TextAlign.center,
     this.wordDisplayDuration = const Duration(milliseconds: 500),
   }) : super(key: key);
 
@@ -42,7 +42,8 @@ class _WordByWordTextAnimationState extends State<WordByWordTextAnimation> {
     _timer = Timer.periodic(widget.wordDisplayDuration, (timer) {
       if (currentWordIndex < words.length) {
         setState(() {
-          displayedText += (displayedText.isEmpty ? "" : " ") + words[currentWordIndex];
+          displayedText +=
+              (displayedText.isEmpty ? "" : " ") + words[currentWordIndex];
           currentWordIndex++;
         });
       } else {

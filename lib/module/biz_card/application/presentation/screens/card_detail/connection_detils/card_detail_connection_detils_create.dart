@@ -17,10 +17,12 @@ class BizCardConnectionDetailUpdateScreen extends StatefulWidget {
 
   final CardDetailModel? cardDetailModel;
   @override
-  State<BizCardConnectionDetailUpdateScreen> createState() => _BizCardConnectionDetailUpdateScreenState();
+  State<BizCardConnectionDetailUpdateScreen> createState() =>
+      _BizCardConnectionDetailUpdateScreenState();
 }
 
-class _BizCardConnectionDetailUpdateScreenState extends State<BizCardConnectionDetailUpdateScreen> {
+class _BizCardConnectionDetailUpdateScreenState
+    extends State<BizCardConnectionDetailUpdateScreen> {
   TextEditingController notesController = TextEditingController();
   TextEditingController occasionController = TextEditingController();
   TextEditingController locationController = TextEditingController();

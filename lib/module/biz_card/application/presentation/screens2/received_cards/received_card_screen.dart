@@ -269,8 +269,10 @@ class ContainerPickImages extends StatelessWidget {
             children: [
               SizedBox(height: iscardList ? 30.h : 10.h),
               // adjustHieght(30),
-              Text(heading ?? 'Scan information through image',
-          style:Theme.of(context).textTheme.titleMedium,),
+              Text(
+                heading ?? 'Scan information through image',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               SizedBox(height: iscardList ? 30.h : 10.h),
               // adjustHieght(30),
               Row(
@@ -302,8 +304,11 @@ class ContainerPickImages extends StatelessWidget {
                                     const BorderRadius.all(Radius.circular(5)),
                                 border: Border.all(color: neonShade),
                               ),
-                              child:  Center(child: Text('Gallery',
-          style:Theme.of(context).textTheme.titleMedium,)),
+                              child: Center(
+                                  child: Text(
+                                'Gallery',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              )),
                             ),
                           ),
                         )
@@ -334,8 +339,11 @@ class ContainerPickImages extends StatelessWidget {
                               const BorderRadius.all(Radius.circular(5)),
                           border: Border.all(color: neonShade),
                         ),
-                        child: Center(child: Text('Camera',
-          style:Theme.of(context).textTheme.titleMedium,)),
+                        child: Center(
+                            child: Text(
+                          'Camera',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        )),
                       ),
                     ),
                   ),

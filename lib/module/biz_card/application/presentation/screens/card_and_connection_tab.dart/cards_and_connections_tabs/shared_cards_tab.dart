@@ -22,17 +22,16 @@ class SharedCardsTab extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 6),
         child: Obx(
           () => controller.sharedCardLoading.value
-              ?const Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : controller.filteredSharedCards.isEmpty
                   ? Center(
                       child: ErrorRefreshIndicator(
-              onRefresh: () {
-                controller.getSharedCardList(isRefresh: true);
-              },
-              errorMessage: 'No shared cards',
-              image: emptyNodata2,
-            )
-                    )
+                      onRefresh: () {
+                        controller.getSharedCardList(isRefresh: true);
+                      },
+                      errorMessage: 'No shared cards',
+                      image: emptyNodata2,
+                    ))
                   : GridView.builder(
                       itemCount: controller.filteredSharedCards.length,
                       // itemCount: 20,
@@ -43,7 +42,6 @@ class SharedCardsTab extends StatelessWidget {
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10),
                       itemBuilder: (context, index) {
-                       
                         final data = controller.filteredSharedCards[index];
                         return Card(
                           elevation: 0,
@@ -88,8 +86,10 @@ class SharedCardsTab extends StatelessWidget {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        controller.acceptOrRejectSharedCard(context,
-                                            id: data.id ?? '', accept: false);
+                                        controller.acceptOrRejectSharedCard(
+                                            context,
+                                            id: data.id ?? '',
+                                            accept: false);
                                       },
                                       child: Container(
                                         padding: const EdgeInsets.all(5),
@@ -106,8 +106,10 @@ class SharedCardsTab extends StatelessWidget {
                                     kWidth20,
                                     GestureDetector(
                                       onTap: () {
-                                        controller.acceptOrRejectSharedCard(context,
-                                            id: data.id ?? '', accept: true);
+                                        controller.acceptOrRejectSharedCard(
+                                            context,
+                                            id: data.id ?? '',
+                                            accept: true);
                                       },
                                       child: Container(
                                         padding: const EdgeInsets.all(5),

@@ -135,8 +135,7 @@ class _ImagePreviewScrollViewState extends State<ImagePreviewScrollView> {
           child: SizedBox(
             width: double.infinity,
             height: 200,
-            child: 
-            NetworkImageWithLoader(widget.image), 
+            child: NetworkImageWithLoader(widget.image),
             // Image.memory(
             //   image,
             //   errorBuilder: (context, error, stackTrace) =>

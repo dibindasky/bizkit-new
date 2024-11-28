@@ -173,11 +173,43 @@ class BizcardDetailTopPotion extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        CircleAvatar(
-                          backgroundColor:
-                              Theme.of(context).scaffoldBackgroundColor,
-                          child: const Icon(Icons.more_vert_rounded),
-                        ),
+                        PopupMenuButton<String>(
+                                    icon: CircleAvatar(
+                                      backgroundColor: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      child: Icon(
+                                        Icons.more_vert,
+                                        size: 18.sp,
+                                      ),
+                                    ),
+                                    onSelected: (value) {},
+                                    itemBuilder: (context) {
+                                      List<PopupMenuEntry<String>> items = [];
+                                      items.addAll([
+                                        PopupMenuItem(
+                                            onTap: () {
+                                              showConfirmationDialog(
+                                                actionButton: 'Unfollow',
+                                                heading:
+                                                    'Are you sure you want to unfollw this card',
+                                                context,
+                                                onPressed: () {
+                                                  // TODO: unfollow controller call
+                                                },
+                                              );
+                                            },
+                                            value: 'Unfollow',
+                                            child: const Text('Unfollow')),
+                                        PopupMenuItem(
+                                            onTap: () {
+                                              // TODO : add reminder
+                                            },
+                                            value: 'Add Reminder',
+                                            child: const Text('Add Reminder')),
+                                      ]);
+                                      return items;
+                                    },
+                                  ),
                         kWidth10,
                       ]),
                 kHeight5,

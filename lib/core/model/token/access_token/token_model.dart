@@ -14,6 +14,9 @@ class TokenModel {
   String? uid;
   @JsonKey(name: 'logout_form_device')
   String? logoutFromDevice;
+  @JsonKey(name: 'organization_id')
+  String? organizationId;
+  String? role;
 
   TokenModel({
     this.accessToken,
@@ -21,6 +24,8 @@ class TokenModel {
     this.name,
     this.uid,
     this.logoutFromDevice,
+    this.organizationId,
+    this.role,
   });
 
   factory TokenModel.fromJson(Map<String, dynamic> json) =>
@@ -28,19 +33,22 @@ class TokenModel {
 
   Map<String, dynamic> toJson() => _$TokenModelToJson(this);
 
-  TokenModel copyWith({
-    String? accessToken,
-    String? refreshToken,
-    String? name,
-    String? uid,
-    String? logoutFromDevice,
-  }) {
+  TokenModel copyWith(
+      {String? accessToken,
+      String? refreshToken,
+      String? name,
+      String? uid,
+      String? logoutFromDevice,
+      String? organizationId,
+      String? role}) {
     return TokenModel(
       accessToken: accessToken ?? this.accessToken,
       refreshToken: refreshToken ?? this.refreshToken,
       name: name ?? this.name,
       uid: uid ?? this.uid,
       logoutFromDevice: logoutFromDevice ?? this.logoutFromDevice,
+      organizationId: organizationId ?? this.organizationId,
+      role: role ?? this.role,
     );
   }
 
@@ -49,4 +57,6 @@ class TokenModel {
   static const String colRefresh = 'refresh';
   static const String colName = 'name';
   static const String colLogout = 'logout_form_device';
+  static const String colOrganisationId = 'organization_id';
+  static const String colRole = 'role';
 }

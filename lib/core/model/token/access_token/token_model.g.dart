@@ -12,6 +12,8 @@ TokenModel _$TokenModelFromJson(Map<String, dynamic> json) => TokenModel(
       name: json['name'] as String?,
       uid: json['user_id'] as String?,
       logoutFromDevice: json['logout_form_device'] as String?,
+      organizationId: json['organization_id'] as String?,
+      role: json['role'] as String?,
     );
 
 Map<String, dynamic> _$TokenModelToJson(TokenModel instance) =>
@@ -21,4 +23,6 @@ Map<String, dynamic> _$TokenModelToJson(TokenModel instance) =>
       'name': instance.name,
       'user_id': instance.uid,
       'logout_form_device': instance.logoutFromDevice,
+      'organization_id': instance.organizationId,
+      'role': instance.role,
     };

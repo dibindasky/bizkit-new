@@ -51,7 +51,7 @@ class _BizCardConnectionDetailUpdateScreenState
     return Scaffold(
       body: Column(
         children: [
-          kHeight30,
+          kHeight40,
           Row(
             children: [
               kWidth20,

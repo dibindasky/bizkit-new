@@ -1,181 +1,168 @@
-import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/card_detail_page.dart';
+import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_create_update.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/widgets/history_cards_reminders.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
-import 'package:bizkit/module/biz_card/application/presentation/screens2/home/view/home_second_screen/meeting_detail_section/meeting_detail_tab/history_log_tab_builder.dart';
-
-class BizcardReminderDetails extends StatelessWidget {
-  const BizcardReminderDetails({super.key, required this.reminder});
+class BizcardReminderDetailScreen extends StatelessWidget {
+  const BizcardReminderDetailScreen({super.key, required this.reminder});
   final Reminder reminder;
   @override
   Widget build(BuildContext context) {
+    final reminderController = Get.find<ReminderController>();
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            kHeight20,
-            Stack(
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  height: khieght * .7,
-                  padding: EdgeInsets.all(7.w),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: neonShade,
-                      width: 1,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).pop(context);
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        size: 18.sp,
+                        color: Theme.of(context).colorScheme.onTertiary,
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(6),
                   ),
+                  adjustWidth(20.w),
+                  Text(
+                    reminder.meetingLabel ?? '',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  )
+                ],
+              ),
+              adjustHieght(20.h),
+              Card(
+                child: Container(
+                  height: 230..h,
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                      color: kGreyNormal,
+                      image: DecorationImage(
+                        image: AssetImage(
+                          bizcardBgImage,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(13))),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      BizcardReminderDetailsContent(reminder: reminder),
-                      kHeight20,
-                      // const Expanded(
-                      //   child: MeetingDetailTabBarItems(),
-                      // ),
-                      const Expanded(child: MeetingDetailHistoryLogTabBuilder())
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: 30,
+                            child: Image.asset(chatSectionPersonDummyImg2),
+                          ),
+                          kWidth20,
+                          Text(
+                            reminder.meetingLabel ?? 'Lebel',
+                            overflow: TextOverflow.clip,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                      adjustHieght(20.h),
+                      buildTextRow('Name', reminder.ownerName ?? '', context),
+                      buildTextRow(
+                          'Description', reminder.description ?? '', context),
+                      buildTextRow('Venue', reminder.venue ?? '', context),
+                      buildTextRow(
+                          'Created',
+                          DateTimeFormater.getDDMMHHMMformat(
+                              reminder.reminderDate ?? ''),
+                          context),
+                      buildTextRow(
+                          'Occation', reminder.occasion ?? '', context),
                     ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: InkWell(
+              ),
+              adjustHieght(10.h),
+              Row(
+                children: [
+                  kWidth10,
+                  buildButton(
+                    context: context,
+                    borderRadius: kBorderRadius10,
+                    backgroundColor: kneon,
+                    text: 'View card',
                     onTap: () {
-                      Navigator.pop(context);
+                      GoRouter.of(context).pop(context);
+                      GoRouter.of(context).pushNamed(Routes.cardDetailView,
+                          pathParameters: {
+                            'cardId': reminder.cardId ?? '',
+                            'myCard': 'false',
+                            'fromPreview': 'false'
+                          });
                     },
-                    child: CircleAvatar(
-                      radius: 15.w,
-                      backgroundColor: neonShade,
-                      child: const Icon(Icons.close),
-                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class BizcardReminderDetailsContent extends StatelessWidget {
-  const BizcardReminderDetailsContent({super.key, this.reminder});
-
-  final Reminder? reminder;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        kHeight10,
-        Row(
-          children: [
-            kWidth10,
-            CircleAvatar(
-              radius: 32,
-              backgroundColor: neonShade,
-              child: ClipOval(
-                child: CircleAvatar(
-                  backgroundColor: kgrey,
-                  radius: 25.w,
-                  child: Image.asset(chatSectionPersonDummyImg2),
-                ),
+                  kWidth5,
+                  buildButton(
+                    context: context,
+                    borderRadius: kBorderRadius10,
+                    border: Border.all(color: kneon),
+                    text: 'Postpone',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              BizcardReminderCreateUpdateScreen(
+                                  reminder: reminder),
+                        ),
+                      );
+                    },
+                  ),
+                  kWidth10,
+                ],
               ),
-            ),
-            kWidth20,
-            Expanded(
-              child: Text(
-                reminder?.meetingLabel ?? 'Lebel',
-                overflow: TextOverflow.clip,
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-            ),
-          ],
-        ),
-        kHeight20,
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildTextRow('Name', reminder?.ownerName ?? '', context),
-              buildTextRow('Description', reminder?.description ?? '', context),
-              buildTextRow('Venue', reminder?.venue ?? '', context),
-              buildTextRow(
-                  'Created',
-                  DateTimeFormater.getDDMMHHMMformat(
-                      reminder?.reminderDate ?? ''),
-                  context),
-              buildTextRow('Occation', reminder?.occasion ?? '', context),
+              adjustHieght(20.h),
+              Expanded(
+                  child: HistoryCardsReminders(
+                      reminderController: reminderController))
             ],
           ),
         ),
-        kHeight10,
-        Row(
-          children: [
-            kWidth10,
-            buildButton(
-              context: context,
-              borderRadius: kBorderRadius10,
-              backgroundColor: neonShade,
-              text: 'View card',
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BizCardDetailScreen(
-                        cardId: reminder?.cardId ?? '', myCard: false),
-                  ),
-                );
-              },
-            ),
-            kWidth5,
-            buildButton(
-              context: context,
-              borderRadius: kBorderRadius10,
-              border: Border.all(color: neonShade),
-              text: 'Postpone',
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      BizcardReminderCreateUpdateScreen(reminder: reminder),
-                ),
-              ),
-            ),
-            kWidth10,
-          ],
-        ),
-      ],
+      ),
     );
   }
 
   Widget buildTextRow(String label, String? value, BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Expanded(
           child: Text(
             '$label ',
-            style: Theme.of(context).textTheme.displaySmall,
+            style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
         Expanded(
           child: Text(
             value ?? '',
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.displaySmall,
+            style: Theme.of(context).textTheme.bodySmall,
             maxLines: 2,
           ),
         ),

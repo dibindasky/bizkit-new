@@ -1,5 +1,5 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_detail.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -8,6 +8,7 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class TodaysRemindersSectionSliverHeaderDelegate
     extends SliverPersistentHeaderDelegate {
@@ -61,11 +62,10 @@ class TodaysRemindersSectionSliverHeaderDelegate
                       opacity: opacity,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BizcardReminderDetails(
-                              reminder: todaysReminder,
-                            ),
-                          ));
+                          reminderController.getCardRemiderHistory(
+                              id: todaysReminder.id ?? '');
+                          GoRouter.of(context).pushNamed(Routes.reminderDetail,
+                              extra: todaysReminder);
                         },
                         child: Card(
                           child: Container(

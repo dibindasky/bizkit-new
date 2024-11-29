@@ -10,9 +10,9 @@ class Routes {
   static const String connectionsAndNetworking = '/connections_networking';
   static const String machoMeterScreen = '/macho_meter_screen';
   static const String varificationScreen = '/varification_screen';
-  static const String archivedCardScreen ='/archived_card_screen';
-  static const String deletedCardScreen ='/deleted_card_screen';
-  static const String dataManagementScreen='/data_management_screen';
+  static const String archivedCardScreen = '/archived_card_screen';
+  static const String deletedCardScreen = '/deleted_card_screen';
+  static const String dataManagementScreen = '/data_management_screen';
 
   // biz card module
   static const String onBoardingBizCard = '/on_boarding_bizcard';
@@ -43,6 +43,7 @@ class Routes {
   static const String notificationPage = '/notification_page';
   static const String selectedCards = '/selected_cards';
   static const String scanedDataFeilds = '/scanned_data_fields';
+  static const String reminderDetail = '/reminder_detail';
   static const String selfieDataFeilds = '/selfie_data_feilds';
   static const String cardListingboth = '/card_listing_both';
   static const String cardUpdating = '/card_updating';

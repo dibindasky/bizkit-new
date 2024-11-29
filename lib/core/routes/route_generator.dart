@@ -25,8 +25,8 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_det
 import 'package:bizkit/module/biz_card/application/presentation/screens/navbar/biz_card_nav_bar.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_card_detail/received_card_detail_page.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_create_update.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_detail.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/scan_and_creation/widgets/second_card_field.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/connection_details/connection_detail_filling.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_detail_view/second_card_detail_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/cards_listing/screen/card_screen_main.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/card_profile_creation/card_profile_creation.dart';
@@ -41,6 +41,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens2/onbaord
 import 'package:bizkit/module/biz_card/application/presentation/screens2/pdf/pdf_preview_screen.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/varification_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/connections_and_networking.dart';
@@ -51,7 +52,6 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/pro
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/matcho_meter.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/received_cards/widgets/selected_card_builder.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens2/reminder/reminder_create_update.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/account_switching/account_switching_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/profile_edit_screen.dart';
@@ -307,6 +307,21 @@ class GoRouterConfig {
       },
     ),
 
+    // Reminder Detail view
+    GoRoute(
+      name: Routes.reminderDetail,
+      path: Routes.reminderDetail,
+      pageBuilder: (context, state) {
+        Reminder? reminder = (state.extra) as Reminder;
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: BizcardReminderDetailScreen(
+            reminder: reminder,
+          ),
+        );
+      },
+    ),
+
     // First card detail secreen
     // GoRoute(
     //   name: Routes.cardDetailView,
@@ -332,7 +347,8 @@ class GoRouterConfig {
         if (cardId != null) {
           return FadeTransitionPage(
             key: state.pageKey,
-            child: BizCardDetailScreen(cardId: cardId, myCard: myCard, fromPreview:fromPreview),
+            child: BizCardDetailScreen(
+                cardId: cardId, myCard: myCard, fromPreview: fromPreview),
           );
         } else {
           return _errorScreen();

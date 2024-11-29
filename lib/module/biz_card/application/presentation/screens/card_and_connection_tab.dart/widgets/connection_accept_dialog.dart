@@ -25,7 +25,7 @@ void showConnectionAcceptDialog(
 
   showDialog(
     context: context,
-    builder: (BuildContext dialogContext) {
+    builder: (BuildContext mainDialogContext) {
       // Use named parameter for clarity
       return Dialog(
         child: Obx(
@@ -44,13 +44,13 @@ void showConnectionAcceptDialog(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text('Select fields to share',
-                                style: Theme.of(dialogContext)
+                                style: Theme.of(mainDialogContext)
                                     .textTheme
                                     .displaySmall
                                     ?.copyWith(fontSize: 14)),
                             IconButton(
                               onPressed: () {
-                                Navigator.of(dialogContext).pop();
+                                Navigator.of(mainDialogContext).pop();
                               },
                               icon: const Icon(
                                 Icons.close,
@@ -307,7 +307,7 @@ void showConnectionAcceptDialog(
                       children: [
                         Expanded(
                           child: InkWell(
-                            onTap: () => Navigator.pop(dialogContext, false),
+                            onTap: () => Navigator.pop(mainDialogContext, false),
                             child: Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -317,7 +317,7 @@ void showConnectionAcceptDialog(
                               ),
                               child: Center(
                                 child: Text('Cancel',
-                                    style: Theme.of(dialogContext)
+                                    style: Theme.of(mainDialogContext)
                                         .textTheme
                                         .displaySmall),
                               ),
@@ -335,14 +335,14 @@ void showConnectionAcceptDialog(
 
                               if (userId == null) {
                                 debugPrint('User ID is null');
-                                Navigator.pop(dialogContext, false);
+                                Navigator.pop(mainDialogContext, false);
                                 return;
                               }
 
                               final followBackPossible =
                                   await connectionController
                                       .connectionRequestAcceptOrReject(
-                                context: dialogContext,
+                                context: mainDialogContext,
                                 acceptOrReject: AcceptOrRejectConnectionRequest(
                                   sharedFields: SharedFields(
                                     business: levelSharingController
@@ -354,13 +354,12 @@ void showConnectionAcceptDialog(
                                   status: 'accepted',
                                 ),
                               );
-                              GoRouter.of(dialogContext).pop(false);
-                              // GoRouter.of(dialogContext).pop(false);
+                              GoRouter.of(mainDialogContext).pop(false);
 
                               if (followBackPossible == true) {
                                 showConfirmationDialog(
                                   actionButton: 'Follow',
-                                  dialogContext,
+                                  mainDialogContext,
                                   heading: 'Follow Back to Connect',
                                   onPressed: () {
                                     connectionController.followbackRequest(
@@ -368,11 +367,10 @@ void showConnectionAcceptDialog(
                                         toUser: userId,
                                       ),
                                     );
-                                    Navigator.pop(dialogContext);
                                   },
                                 );
                                 // showDialog(
-                                //   context: dialogContext,
+                                //   context: mainDialogContext,
                                 //   builder: (BuildContext alertContext) =>
                                 //       AlertDialog(
                                 //     title: Text(
@@ -417,7 +415,7 @@ void showConnectionAcceptDialog(
                               child: Center(
                                 child: Text(
                                   'Accept',
-                                  style: Theme.of(dialogContext)
+                                  style: Theme.of(mainDialogContext)
                                       .textTheme
                                       .displaySmall
                                       ?.copyWith(

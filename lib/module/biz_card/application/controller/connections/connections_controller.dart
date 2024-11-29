@@ -639,7 +639,7 @@ class ConnectionsController extends GetxController {
 
   // Follow back request
   void followbackRequest(
-      {required FollowBackRequestModel folowbackRequest}) async {
+      {required FollowBackRequestModel folowbackRequest,context}) async {
     followbackRequestLoading.value = true;
     final result = await connectionService.folowbackRequest(
         folowbackRequest: folowbackRequest);
@@ -647,9 +647,11 @@ class ConnectionsController extends GetxController {
     result.fold(
       (failure) {
         followbackRequestLoading.value = false;
+        showSnackbar(context, message: 'Follow back successfull',backgroundColor: kred);
       },
       (success) {
         followbackRequestLoading.value = false;
+        showSnackbar(context, message: 'Follow back successfull',backgroundColor: kneon);
       },
     );
   }
@@ -702,6 +704,7 @@ class ConnectionsController extends GetxController {
     acceptOrReject.sharedFields?.business?.designation ??= false;
     acceptOrReject.sharedFields?.business?.logoStory ??= false;
     acceptOrReject.sharedFields?.business?.product ??= false;
+    acceptOrReject.sharedFields?.business?.bankDetails ??= false;
 
     acceptOrReject.sharedFields?.personal?.bloodGroup ??= false;
     acceptOrReject.sharedFields?.personal?.dob ??= false;

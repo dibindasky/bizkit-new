@@ -21,8 +21,10 @@ class UsersLocalService implements UsersLocalRepo {
                   ${TokenModel.colName},
                   ${TokenModel.colAccess},
                   ${TokenModel.colRefresh},
+                  ${TokenModel.colRole},
+                  ${TokenModel.colOrganisationId},
                   ${TokenModel.colLogout})
-          VALUES (?,?,?,?,?)
+          VALUES (?,?,?,?,?,?,?)
           ''';
 
       await localService.rawInsert(query, [
@@ -30,6 +32,8 @@ class UsersLocalService implements UsersLocalRepo {
         model.name ?? '',
         model.accessToken ?? '',
         model.refreshToken ?? '',
+        model.role ?? '',
+        model.organizationId ?? '',
         model.logoutFromDevice ?? 'login'
       ]);
       return Right(SuccessResponseModel());
@@ -50,6 +54,8 @@ class UsersLocalService implements UsersLocalRepo {
           ${TokenModel.colName} = ?,
           ${TokenModel.colAccess} = ?,
           ${TokenModel.colRefresh} = ?,
+          ${TokenModel.colRole} = ?,
+          ${TokenModel.colOrganisationId} = ?,
           ${TokenModel.colLogout} = ?
         WHERE 
           ${TokenModel.colUserId} = ? 
@@ -59,6 +65,8 @@ class UsersLocalService implements UsersLocalRepo {
         model.name ?? '',
         model.accessToken ?? '',
         model.refreshToken ?? '',
+        model.role ?? '',
+        model.organizationId ?? '',
         model.logoutFromDevice ?? 'login',
         model.uid ?? ''
       ]);

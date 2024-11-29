@@ -1,7 +1,5 @@
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardBankingPersonalTiles extends StatelessWidget {
   const CardBankingPersonalTiles({

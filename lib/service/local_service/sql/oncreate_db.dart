@@ -27,7 +27,9 @@ class Sql {
         ${TokenModel.colName} TEXT,
         ${TokenModel.colAccess} TEXT,
         ${TokenModel.colRefresh} TEXT,
-        ${TokenModel.colLogout} TEXT
+        ${TokenModel.colLogout} TEXT,
+        ${TokenModel.colRole} TEXT,
+        ${TokenModel.colOrganisationId} TEXT
       )
     ''';
 

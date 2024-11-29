@@ -113,7 +113,7 @@ class BizcardDetailBankingAndPersonalDetail extends StatelessWidget {
                           return kempty;
                         }
                         return CardBankingPersonalTiles(
-                          first: 'Banking Namer',
+                          first: 'Banking Name',
                           second: bankDetails?.bankingName ?? '',
                         );
                       }),

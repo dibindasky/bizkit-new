@@ -130,9 +130,9 @@ class _BizcardReminderCreateUpdateScreenState
                       Container(
                         padding: const EdgeInsets.only(top: 5),
                         width: double.infinity,
-                        decoration: const BoxDecoration(
-                          color: textFieldFillColr,
-                          borderRadius: BorderRadius.all(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(7),
                           ),
                         ),
@@ -152,7 +152,7 @@ class _BizcardReminderCreateUpdateScreenState
                               labelText: 'write here',
                               textCapitalization: TextCapitalization.sentences,
                               maxLines: 3,
-                              maxlegth: 300,
+                              maxlegth: 150,
                             ),
                           ],
                         ),

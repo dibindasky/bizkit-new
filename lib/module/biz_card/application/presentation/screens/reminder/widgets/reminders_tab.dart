@@ -27,6 +27,8 @@ class RemindersTabs extends StatelessWidget {
           indicatorPadding: const EdgeInsets.all(3),
           dividerColor: Colors.transparent,
           indicatorSize: TabBarIndicatorSize.tab,
+          // isScrollable: true,
+          // tabAlignment: TabAlignment.start,
           controller: tabController,
           indicator: BoxDecoration(
             color: kneon,

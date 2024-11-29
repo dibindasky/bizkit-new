@@ -65,7 +65,7 @@ class HistoryCardsReminders extends StatelessWidget {
                         ),
                         kHeight5,
                         Text(
-                          'Scheduled to disscuss about ${data.meetingLabel} at ${data.venue ?? ''} while ${data.occasion}. Disscuss about ${data.description ?? ''}',
+                          'Scheduled to disscuss about ${data.meetingLabel?.toUpperCase() ?? ''} at ${data.venue?.toUpperCase() ?? ''} while ${data.occasion?.toUpperCase() ?? ''}. Disscuss about ${data.description ?? ''}',
                           style: Theme.of(context)
                               .textTheme
                               .displaySmall

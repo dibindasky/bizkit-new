@@ -251,7 +251,7 @@ class BusinessCard extends StatelessWidget {
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                       Text(
-                        'views',
+                        'Views',
                         style: Theme.of(context).textTheme.displaySmall,
                       )
                     ],
@@ -279,7 +279,7 @@ class BusinessCard extends StatelessWidget {
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                       Text(
-                        'shared',
+                        'Shared',
                         style: Theme.of(context).textTheme.displaySmall,
                       )
                     ],

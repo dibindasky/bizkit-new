@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:bizkit/core/api_endpoints/api_endpoints.dart';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminder/biz_card_reminders_responce/biz_card_reminders_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/create_reminder_model/create_reminder_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/create_reminder_responce/create_reminder_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminder_id_model/reminder_id_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminder/reminder_query_params_model/reminder_query_params_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminders_success_responce.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/update_reminder_model/update_reminder_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/reminder/reminder_repo.dart';
@@ -76,13 +78,15 @@ class ReminderService implements ReminderRepo {
   }
 
   @override
-  Future<Either<Failure, RemindersSuccessResponce>> getTodaysReminders() async {
+  Future<Either<Failure, RemindersSuccessResponce>> getTodaysReminders(
+      {required ReminderQueryParamsModel reminderQueryParams}) async {
     try {
       final responce = await apiService.get(
         ApiEndPoints.getReminders,
-        queryParameters: {
-          'category': 'today_reminders',
-        },
+        // queryParameters: {
+        //   'category': 'today_reminders',
+        // },
+        queryParameters: reminderQueryParams.toJson(),
       );
       log('getTodaysReminders ==> success ');
       return Right(RemindersSuccessResponce.fromJson(responce.data));
@@ -96,14 +100,16 @@ class ReminderService implements ReminderRepo {
   }
 
   @override
-  Future<Either<Failure, RemindersSuccessResponce>>
-      getHistoryReminders() async {
+  Future<Either<Failure, RemindersSuccessResponce>> getHistoryReminders(
+      {required ReminderQueryParamsModel reminderQueryParams}) async {
     try {
+      log('getHistoryReminders TO JSON  == > ${reminderQueryParams.toJson()}');
       final responce = await apiService.get(
         ApiEndPoints.getReminders,
-        queryParameters: {
-          'category': 'history_reminders',
-        },
+        // queryParameters: {
+        //   'category': 'history_reminders',
+        // },
+        queryParameters: reminderQueryParams.toJson(),
       );
       log('getHistoryReminders ==> success ');
       return Right(RemindersSuccessResponce.fromJson(responce.data));
@@ -134,14 +140,15 @@ class ReminderService implements ReminderRepo {
   }
 
   @override
-  Future<Either<Failure, RemindersSuccessResponce>>
-      getUpcomingReminders() async {
+  Future<Either<Failure, RemindersSuccessResponce>> getUpcomingReminders(
+      {required ReminderQueryParamsModel reminderQueryParams}) async {
     try {
       final responce = await apiService.get(
         ApiEndPoints.getReminders,
-        queryParameters: {
-          'category': 'upcoming_reminders',
-        },
+        // queryParameters: {
+        //   'category': 'upcoming_reminders',
+        // },
+        queryParameters: reminderQueryParams.toJson(),
       );
       log('getUpcomingReminders ==> success ');
       return Right(RemindersSuccessResponce.fromJson(responce.data));
@@ -155,9 +162,10 @@ class ReminderService implements ReminderRepo {
   }
 
   @override
-  Future<Either<Failure, RemindersSuccessResponce>> getCardReminderHistory(
+  Future<Either<Failure, BizCardRemindersResponce>> getCardReminderHistory(
       {required String id}) async {
     try {
+      log('getCardReminderHistory TO JSON reminder_id  == > $id');
       final responce = await apiService.get(
         ApiEndPoints.getCardRemindersHistory,
         queryParameters: {
@@ -165,7 +173,7 @@ class ReminderService implements ReminderRepo {
         },
       );
       log('getCardReminderHistory ==> success ');
-      return Right(RemindersSuccessResponce.fromJson(responce.data));
+      return Right(BizCardRemindersResponce.fromJson(responce.data));
     } on DioException catch (e) {
       log('getCardReminderHistory DioException ${e.response?.statusCode} $e');
       return Left(Failure(message: errorMessage));

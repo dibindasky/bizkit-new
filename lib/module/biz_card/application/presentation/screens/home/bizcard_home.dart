@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/sliver_delegates/reminder_sliver_header.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/sliver_delegates/reminders_tabs_section.dart';
@@ -116,10 +115,13 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
               ),
 
               // Reminder's tabs section
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: RemindersTabsSectionSliverHeaderDelegate(
-                    tabController, _scrollController),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 3),
+                sliver: SliverPersistentHeader(
+                  pinned: true,
+                  delegate: RemindersTabsSectionSliverHeaderDelegate(
+                      tabController, _scrollController),
+                ),
               ),
             ],
           ),

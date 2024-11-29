@@ -30,14 +30,21 @@ class TodaysRemindersSectionSliverHeaderDelegate
       builder: (context, child) {
         return Obx(() {
           if (reminderController.todaysReminderLoading.value) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-              child: ShimmerLoader(
-                  itemCount: 6,
-                  height: 120.h,
-                  scrollDirection: Axis.horizontal,
-                  width: 290.w,
-                  seprator: kWidth10),
+            return TodaysRemindersPagviewAnimateBuilder(
+              pageController: pageController,
+              pageValue: pagevalue,
+              pageCount: reminderController.todaysReminders.length,
+              onpageCallBack: onIndexChanged,
+              child: (index, context) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
+                  child: ShimmerLoaderTile(
+                    height: 120.h,
+                    width: 280.w,
+                  ),
+                );
+              },
             );
           } else {
             return TodaysRemindersPagviewAnimateBuilder(

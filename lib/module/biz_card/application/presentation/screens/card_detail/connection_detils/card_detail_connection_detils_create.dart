@@ -5,8 +5,10 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card
 import 'package:bizkit/module/biz_card/domain/model/connections/connection_detail/connection_detail.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
+import 'package:bizkit/utils/validators/validators.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +33,7 @@ class _BizCardConnectionDetailUpdateScreenState
 
   @override
   initState() {
-    Get.find<ConnectionsController>()
+    controller
         .restConnectionDetails(widget.cardDetailModel?.selfie ?? <String>[]);
     if (widget.cardDetailModel != null) {
       notesController.text = widget.cardDetailModel?.notes ?? '';
@@ -42,9 +44,10 @@ class _BizCardConnectionDetailUpdateScreenState
     super.initState();
   }
 
+  final controller = Get.find<ConnectionsController>();
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<ConnectionsController>();
     return Scaffold(
       body: Column(
         children: [
@@ -102,15 +105,27 @@ class _BizCardConnectionDetailUpdateScreenState
                                     decoration: BoxDecoration(
                                       borderRadius: kBorderRadius10,
                                       color: klightGreyClr,
-                                      image: DecorationImage(
-                                        image: MemoryImage(base64Decode(
-                                            controller.connectionSelfieIamges[
-                                                index])),
-                                        fit: BoxFit.cover,
-                                        onError: (exception, stackTrace) =>
-                                            const Icon(Icons.image),
-                                      ),
+                                      image: isURLValid(controller
+                                              .connectionSelfieIamges[index])
+                                          ? null
+                                          : DecorationImage(
+                                              image: MemoryImage(base64Decode(
+                                                  controller
+                                                          .connectionSelfieIamges[
+                                                      index])),
+                                              fit: BoxFit.cover,
+                                              onError:
+                                                  (exception, stackTrace) =>
+                                                      const Icon(Icons.image),
+                                            ),
                                     ),
+                                    child: isURLValid(controller
+                                            .connectionSelfieIamges[index])
+                                        ? NetworkImageWithLoader(
+                                            controller
+                                                .connectionSelfieIamges[index],
+                                            radius: 10)
+                                        : null,
                                   ),
                                   Positioned(
                                       right: 10.h,
@@ -206,8 +221,10 @@ class _BizCardConnectionDetailUpdateScreenState
                                         location: locationController.text,
                                         notes: notesController.text,
                                         occasion: occasionController.text,
-                                        selfie:
-                                            controller.connectionSelfieIamges));
+                                        selfie: controller
+                                            .connectionSelfieIamges
+                                            .map((e) => e)
+                                            .toList()));
                               });
                     })
                   ],

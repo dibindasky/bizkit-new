@@ -44,28 +44,6 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
         }
       });
     tabController = TabController(length: 3, vsync: this);
-    // Add auto-scroll functionality
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _startAutoScroll();
-    });
-  }
-
-  void _startAutoScroll() {
-    Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (!mounted) {
-        timer.cancel();
-        return;
-      }
-
-      if (pageController.hasClients) {
-        int nextPage = (pageController.page!.round() + 1) % 10;
-        pageController.animateToPage(
-          nextPage,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
   }
 
   @override
@@ -127,6 +105,7 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
               SliverPersistentHeader(
                 floating: true,
                 delegate: TodaysRemindersSectionSliverHeaderDelegate(
+                  pageValue,
                   pageController,
                   (index) {
                     setState(() {

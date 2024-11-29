@@ -769,8 +769,8 @@ class ConnectionsController extends GetxController {
       connectionDetailLoading.value = false;
       showSnackbar(context, message: l.message ?? errorMessage);
     }, (r) {
-      Get.find<CardController>().bizcardDetail.value.selfie =
-          connectionSelfieIamges;
+     final controller = Get.find<CardController>();
+    //  controller.bizcardDetail.value = controller.bizcardDetail.value.copyWith(selfie: r.data['image']);
       GoRouter.of(context).pop();
       connectionSelfieIamges.value = [];
       connectionDetailLoading.value = false;

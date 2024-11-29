@@ -225,6 +225,15 @@ class BizcardDetailTopPotion extends StatelessWidget {
                                     },
                                     value: 'Add Reminder',
                                     child: const Text('Add Reminder')),
+                                PopupMenuItem(
+                                    onTap: () {
+                                      GoRouter.of(context).push(
+                                          Routes.connectionDetailFilling,
+                                          extra: cardController
+                                              .bizcardDetail.value);
+                                    },
+                                    value: 'Connection Details',
+                                    child: const Text('Connection Details')),
                               ]);
                               return items;
                             },
@@ -247,7 +256,6 @@ class BizcardDetailTopPotion extends StatelessWidget {
                                 '',
                             textStyle: Theme.of(context).textTheme.bodySmall,
                             padding: const EdgeInsets.symmetric(horizontal: 30),
-                           
                           ),
                         );
                 })

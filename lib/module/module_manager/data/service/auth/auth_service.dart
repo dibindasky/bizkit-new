@@ -24,7 +24,7 @@ class AuthenticationService implements AuthenticationRepo {
         ApiEndPoints.register,
         data: authPostmodel.toJson(),
       );
-      log('Success registerUser');
+      log('Success registerUser => ${responce.data}');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException registerUser $e');
@@ -46,7 +46,7 @@ class AuthenticationService implements AuthenticationRepo {
         ApiEndPoints.verifyOtp,
         data: authPostmodel.toJson(),
       );
-      log('Success otpVerification ');
+      log('Success otpVerification => ${responce.data}');
       return Right(TokenModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException otpVerification $e');
@@ -68,7 +68,7 @@ class AuthenticationService implements AuthenticationRepo {
         ApiEndPoints.verifyOtp,
         data: authPostmodel,
       );
-      log('Success otpVerification');
+      log('Success otpVerification => ${responce.data}');
       return Right(TokenModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException otpVerification $e');
@@ -91,7 +91,7 @@ class AuthenticationService implements AuthenticationRepo {
         ApiEndPoints.login,
         data: authPostmodel.toJson(),
       );
-      log('Success loginUser');
+      log('Success loginUser =>  ${responce.data}');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException loginUser $e');
@@ -117,7 +117,7 @@ class AuthenticationService implements AuthenticationRepo {
         ApiEndPoints.logOut,
         data: TokenModel(refreshToken: token.refreshToken).toJson(),
       );
-      log('Success logOut');
+      log('Success logOut =>  ${responce.data}');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException logOut $e');
@@ -141,7 +141,7 @@ class AuthenticationService implements AuthenticationRepo {
         ApiEndPoints.passwordLogin,
         data: authPostmodel.toJson(),
       );
-      log('Success loginUsingPassword');
+      log('Success loginUsingPassword =>  ${responce.data}');
       return Right(TokenModel.fromJson(responce.data));
     } on DioException catch (e) {
       log('DioException loginUsingPassword $e');

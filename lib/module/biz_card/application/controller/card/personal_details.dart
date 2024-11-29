@@ -218,7 +218,9 @@ class PersonalDetailsController extends GetxController {
             description: personalAchiment.description,
             event: personalAchiment.event,
             title: personalAchiment.title,
-            images: map?['image_urls'] as List<String>?);
+            images: ((map?['image_urls'] as List<dynamic>?) ?? [])
+                .map((e) => e as String)
+                .toList());
         var achivementList = cardController
                 .bizcardDetail.value.personalDetails?.personalAchievements ??
             [];

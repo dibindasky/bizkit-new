@@ -44,9 +44,26 @@ class HistoryRemindersTab extends StatelessWidget {
               reminderController.fetchHistoryReminders();
             },
             child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+              controller: reminderController.historyReminderScrollControler,
+              itemCount: reminderController.historyReminders.length + 2,
+              separatorBuilder: (context, index) => SizedBox(height: 3.h),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
               shrinkWrap: true,
               itemBuilder: (context, index) {
+                if (index >= reminderController.historyReminders.length &&
+                    reminderController.historyReminderLoadMoreLoading.value) {
+                  return ShimmerLoaderTile(
+                    height: 110.h,
+                    width: double.infinity,
+                  );
+                } else if (index >=
+                        reminderController.historyReminders.length &&
+                    !reminderController.historyReminderLoadMoreLoading.value) {
+                  return SizedBox(
+                    height: 50.h,
+                  );
+                }
+
                 final Reminder historyReminder =
                     reminderController.historyReminders[index];
                 return FadeInLeft(
@@ -59,10 +76,10 @@ class HistoryRemindersTab extends StatelessWidget {
                           extra: historyReminder);
                     },
                     child: Card(
-                      margin:
-                          index == reminderController.historyReminders.length
-                              ? const EdgeInsets.only(bottom: 150)
-                              : null,
+                      // margin: index ==
+                      //         reminderController.historyReminders.length - 1
+                      //     ? EdgeInsets.only(bottom: 100.h)
+                      //     : null,
                       elevation: 0,
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -108,7 +125,7 @@ class HistoryRemindersTab extends StatelessWidget {
                                     .displaySmall
                                     ?.copyWith(fontSize: 10),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -116,8 +133,6 @@ class HistoryRemindersTab extends StatelessWidget {
                   ),
                 );
               },
-              itemCount: reminderController.historyReminders.length,
-              separatorBuilder: (context, index) => SizedBox(height: 3.h),
             ),
           );
         }

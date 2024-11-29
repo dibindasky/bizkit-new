@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminder_create_update.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/widgets/history_cards_reminders.dart';
@@ -17,6 +18,7 @@ class BizcardReminderDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final reminderController = Get.find<ReminderController>();
+    final connectionsController = Get.find<ConnectionsController>();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -50,7 +52,7 @@ class BizcardReminderDetailScreen extends StatelessWidget {
                 child: Container(
                   height: 230..h,
                   width: double.infinity,
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   decoration: const BoxDecoration(
                       color: kGreyNormal,
                       image: DecorationImage(
@@ -109,6 +111,8 @@ class BizcardReminderDetailScreen extends StatelessWidget {
                     text: 'View card',
                     onTap: () {
                       GoRouter.of(context).pop(context);
+                      connectionsController.getConnectionCardDetail(
+                          cardId: reminder.cardId ?? '');
                       GoRouter.of(context).pushNamed(Routes.cardDetailView,
                           pathParameters: {
                             'cardId': reminder.cardId ?? '',

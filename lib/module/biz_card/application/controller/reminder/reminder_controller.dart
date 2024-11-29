@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:bizkit/module/biz_card/data/service/reminder/reminder_service.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminder/biz_card_reminders_responce/reminder.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/create_reminder_model/create_reminder_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminder_id_model/reminder_id_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/reminder/reminder_query_params_model/reminder_query_params_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/update_reminder_model/update_reminder_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/reminder/reminder_repo.dart';
@@ -11,18 +13,30 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart' as mat;
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class ReminderController extends GetxController {
   final ReminderRepo reminderSerivce = ReminderService();
 
+  // ScrollControllers
+  final ScrollController historyReminderScrollControler =
+      ScrollController(); // history reminders scroll controller
+  final ScrollController allReminderScrollControler =
+      ScrollController(); // all reminders scroll controller
+  final ScrollController upcomingReminderScrollControler =
+      ScrollController(); // all reminders scroll controller
+
   // Loadings
   RxBool createReminderLoading = false.obs;
   RxBool deleteReminderLoading = false.obs;
   RxBool allReminderLoading = false.obs;
+  RxBool allReminderLoadMoreLoading = false.obs;
   RxBool historyReminderLoading = false.obs;
+  RxBool historyReminderLoadMoreLoading = false.obs;
   RxBool upcomingReminderLoading = false.obs;
+  RxBool upcomingReminderLoadMoreLoading = false.obs;
   RxBool todaysReminderLoading = false.obs;
 
   /// loading for history of a reminder
@@ -34,7 +48,7 @@ class ReminderController extends GetxController {
   RxList<Reminder> historyReminders = <Reminder>[].obs;
 
   /// history of a reminder for detail view
-  RxList<Reminder> historyCardReminders = <Reminder>[].obs;
+  RxList<BizCardReminder> historyCardReminders = <BizCardReminder>[].obs;
 
   final mat.TextEditingController messageController =
       mat.TextEditingController();
@@ -44,13 +58,28 @@ class ReminderController extends GetxController {
       mat.TextEditingController();
   final mat.TextEditingController venueController = mat.TextEditingController();
 
+  // Pagination controls
+  int historyReminderPage = 1, pageSize = 5;
+  int todaysReminderPage = 1;
+  int upcomingReminderPage = 1;
+
   @override
   void onInit() {
-    fetchTodaysReminders();
+    // fetchTodaysReminders();
     fetchAllReminders();
     fetchHistoryReminders();
-    fetchUpcomingReminders();
+    // fetchUpcomingReminders();
+
+    historyReminderScrollControler
+        .addListener(historyRemindersSearchScrollListener);
     super.onInit();
+  }
+
+  void historyRemindersSearchScrollListener() {
+    if (historyReminderScrollControler.position.pixels >=
+        historyReminderScrollControler.position.maxScrollExtent - 100.h) {
+      fetchHistoryRemindersLoadMore();
+    }
   }
 
   void clearAllTextEditingControllers() {
@@ -167,7 +196,9 @@ class ReminderController extends GetxController {
   void fetchTodaysReminders() async {
     todaysReminderLoading.value = true;
 
-    final result = await reminderSerivce.getTodaysReminders();
+    final result = await reminderSerivce.getTodaysReminders(
+      reminderQueryParams: ReminderQueryParamsModel(),
+    );
 
     result.fold(
       (failure) {
@@ -185,7 +216,9 @@ class ReminderController extends GetxController {
   void fetchUpcomingReminders() async {
     upcomingReminderLoading.value = true;
 
-    final result = await reminderSerivce.getUpcomingReminders();
+    final result = await reminderSerivce.getUpcomingReminders(
+      reminderQueryParams: ReminderQueryParamsModel(),
+    );
 
     result.fold(
       (failure) {
@@ -202,17 +235,52 @@ class ReminderController extends GetxController {
   // fetch all history reminders
   void fetchHistoryReminders() async {
     historyReminderLoading.value = true;
+    historyReminderPage = 1;
+    historyReminders.value = [];
 
-    final result = await reminderSerivce.getHistoryReminders();
+    final result = await reminderSerivce.getHistoryReminders(
+      reminderQueryParams: ReminderQueryParamsModel(
+        category: 'history_reminders',
+        page: historyReminderPage,
+        pageSize: pageSize,
+      ),
+    );
 
     result.fold(
       (failure) {
         historyReminderLoading.value = false;
       },
       (success) {
-        historyReminderLoading.value = false;
         historyReminders.assignAll(success.reminders ?? []);
-        log('historyReminders length ${historyReminders.length}');
+        historyReminderLoading.value = false;
+        update();
+      },
+    );
+  }
+
+  // fetch all history reminders [ pagination ]
+  void fetchHistoryRemindersLoadMore() async {
+    if (historyReminderLoadMoreLoading.value == true) {
+      return;
+    }
+    historyReminderLoadMoreLoading.value = true;
+
+    final result = await reminderSerivce.getHistoryReminders(
+      reminderQueryParams: ReminderQueryParamsModel(
+        category: 'history_reminders',
+        page: ++historyReminderPage,
+        pageSize: pageSize,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        historyReminderLoadMoreLoading.value = false;
+      },
+      (success) {
+        historyReminders.addAll(success.reminders ?? []);
+        historyReminderLoadMoreLoading.value = false;
+        update();
       },
     );
   }

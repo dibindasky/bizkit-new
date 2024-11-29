@@ -44,7 +44,7 @@ class UpcomingRemindersTab extends StatelessWidget {
               reminderController.fetchUpcomingReminders();
             },
             child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 final Reminder upcomingReminder =

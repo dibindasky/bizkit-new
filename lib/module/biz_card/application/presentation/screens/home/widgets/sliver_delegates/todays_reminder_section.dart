@@ -101,14 +101,14 @@ class TodaysRemindersSectionSliverHeaderDelegate
                                 children: [
                                   adjustWidth(35.w),
                                   CircleAvatar(
-                                    child: todaysReminder.profilePicture == ''
+                                    radius: 22,
+                                    child: todaysReminder.profilePicture != null
                                         ? NetworkImageWithLoader(
                                             todaysReminder.profilePicture ??
                                                 chatSectionPersonDummyImg2,
                                             radius: 50,
                                           )
-                                        : Image.asset(
-                                            chatSectionPersonDummyImg2),
+                                        : const Icon(Icons.person),
                                   ),
                                   adjustWidth(15.w),
                                   Text(

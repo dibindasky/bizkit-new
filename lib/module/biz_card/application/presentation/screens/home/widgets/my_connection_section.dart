@@ -45,7 +45,7 @@ class MyConnectionSection extends StatelessWidget {
                       navbarController.changeBottomBar(2);
                     },
                     child: Text(
-                      'View all',
+                      'View All',
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium

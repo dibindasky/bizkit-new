@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 
 class ScreenImagePreview extends StatefulWidget {
@@ -21,24 +17,24 @@ class ScreenImagePreview extends StatefulWidget {
 
 class _ScreenImagePreviewState extends State<ScreenImagePreview> {
   double scale = 1;
-  Uint8List? image;
-  List<Uint8List>? imagess;
-  @override
-  void initState() {
-    // if (widget.slideImages != null && widget.slideImages!.isNotEmpty) {
-    //   for (var image in widget.slideImages!) {
-    //     imagee = base64
-    //         .decode(image.startsWith('data') ? image.substring(22) : image);
-    //   }
-    //   imagess?.add(imagee!);
-    // }
-    if (!widget.isFileIamge) {
-      image = base64.decode(widget.image.startsWith('data')
-          ? widget.image.substring(22)
-          : widget.image);
-    }
-    super.initState();
-  }
+  // Uint8List? image;
+  // List<Uint8List>? imagess;
+  // @override
+  // void initState() {
+  //   // if (widget.slideImages != null && widget.slideImages!.isNotEmpty) {
+  //   //   for (var image in widget.slideImages!) {
+  //   //     imagee = base64
+  //   //         .decode(image.startsWith('data') ? image.substring(22) : image);
+  //   //   }
+  //   //   imagess?.add(imagee!);
+  //   // }
+  //   if (!widget.isFileIamge) {
+  //     image = base64.decode(widget.image.startsWith('data')
+  //         ? widget.image.substring(22)
+  //         : widget.image);
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +59,10 @@ class _ScreenImagePreviewState extends State<ScreenImagePreview> {
           },
           child: Transform.scale(
             scale: scale,
-            child: widget.isFileIamge
-                ? Image.file(File(widget.image))
-                : Image.memory(image!),
+            child:Image.network(widget.image) 
+            //  widget.isFileIamge
+            //     ? Image.file(File(widget.image))
+            //     : Image.memory(image!),
           ),
         ),
       ),

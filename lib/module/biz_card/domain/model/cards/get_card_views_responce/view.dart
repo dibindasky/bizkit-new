@@ -9,8 +9,10 @@ class Views {
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
   dynamic photo;
+  @JsonKey(name:'viewed_time')
+  String? viewdTime;
 
-  Views({this.name, this.email, this.phoneNumber, this.photo});
+  Views({this.name, this.email, this.phoneNumber, this.photo,this.viewdTime});
 
   factory Views.fromJson(Map<String, dynamic> json) => _$ViewsFromJson(json);
 

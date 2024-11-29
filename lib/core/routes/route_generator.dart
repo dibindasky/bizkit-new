@@ -17,6 +17,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_det
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/achivement/bizcard_detail_achivements.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/personal_and_banking/bizcard_detail_banking_and_personal_detail.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/widgets/product/bizcard_product_detail_page.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_notifications/card_notifications.dart';
 
 import 'package:bizkit/module/biz_card/application/presentation/screens/level_sharing/level_sharing_settings.dart';
 

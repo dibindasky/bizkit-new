@@ -2,6 +2,7 @@ import 'package:bizkit/module/biz_card/application/controller/card/create_contro
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,7 +43,6 @@ class BizCardViewsListPopUp extends StatelessWidget {
               itemCount: cardController.cardViews.length,
               itemBuilder: (context, index) {
                 final data = cardController.cardViews[index];
-
                 return Card(
                   elevation: 0,
                   child: Container(
@@ -64,6 +64,7 @@ class BizCardViewsListPopUp extends StatelessWidget {
                             .displaySmall
                             ?.copyWith(fontSize: 13),
                       ),
+                      trailing: Text(DateTimeFormater.getDDMMHHMMformat(data.viewdTime),style: Theme.of(context).textTheme.titleSmall?.copyWith(color: kGreyNormal,fontSize: 10),),
                     ),
                   ),
                 );

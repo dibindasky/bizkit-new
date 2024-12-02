@@ -49,7 +49,7 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/pro
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/archived_data/archived_data_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/data_management_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/deleted_data/deleted_data_screen.dart';
-import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/macho_meter_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/macho_meter/macho_meter_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/matcho_meter.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/received_cards/widgets/selected_card_builder.dart';

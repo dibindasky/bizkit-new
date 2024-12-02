@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/scan_and_creation/scan_and_create.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/widgets/last_skip_and_continue.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';

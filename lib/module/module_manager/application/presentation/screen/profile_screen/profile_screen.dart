@@ -5,6 +5,7 @@ import 'package:bizkit/module/module_manager/application/controller/profile_cont
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/widgets/profile_edit_widgets/profile_image_widget.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,8 +44,12 @@ class ProfileScreen extends StatelessWidget {
                       width: 70.w,
                       child: Obx(() {
                         if (profileController.isLoadingImage.value) {
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return ShimmerLoaderCircle(
+                            radius: 35,
+                            seprator: adjustWidth(kwidth * .02),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 8,
+                          );
                         } else {
                           return profileController.image.value.isNotEmpty
                               ? ProfileImagePreview(

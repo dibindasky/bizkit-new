@@ -16,8 +16,7 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TaskHomeScreenController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class TaskHomeScreenController extends GetxController {
   final HomeRepo homeService = HomeService();
 
   RxBool isLoading = false.obs;
@@ -42,8 +41,6 @@ class TaskHomeScreenController extends GetxController
   RxBool progresBarOrRecentTask = true.obs;
 
   RxInt taskStatusTabIndex = 0.obs;
-
-  // late AnimationController animationController;
 
   @override
   void onInit() {

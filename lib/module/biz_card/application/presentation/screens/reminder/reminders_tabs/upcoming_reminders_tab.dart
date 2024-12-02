@@ -44,9 +44,28 @@ class UpcomingRemindersTab extends StatelessWidget {
               reminderController.fetchUpcomingReminders();
             },
             child: ListView.separated(
+              itemCount: reminderController.upcomingReminders.length + 2,
+              separatorBuilder: (context, index) => SizedBox(
+                height: 2.h,
+              ),
+              controller: reminderController.upcomingReminderScrollControler,
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
               shrinkWrap: true,
               itemBuilder: (context, index) {
+                if (index >= reminderController.upcomingReminders.length &&
+                    reminderController.upcomingReminderLoadMoreLoading.value) {
+                  return ShimmerLoaderTile(
+                    height: 110.h,
+                    width: double.infinity,
+                  );
+                } else if (index >=
+                        reminderController.upcomingReminders.length &&
+                    !reminderController.upcomingReminderLoadMoreLoading.value) {
+                  return SizedBox(
+                    height: 50.h,
+                  );
+                }
+
                 final Reminder upcomingReminder =
                     reminderController.upcomingReminders[index];
                 return FadeInRight(
@@ -59,10 +78,10 @@ class UpcomingRemindersTab extends StatelessWidget {
                           extra: upcomingReminder);
                     },
                     child: Card(
-                      margin:
-                          index == reminderController.upcomingReminders.length
-                              ? const EdgeInsets.only(bottom: 150)
-                              : null,
+                      // margin:
+                      //     index == reminderController.upcomingReminders.length
+                      //         ? const EdgeInsets.only(bottom: 150)
+                      //         : null,
                       elevation: 0,
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -117,10 +136,6 @@ class UpcomingRemindersTab extends StatelessWidget {
                   ),
                 );
               },
-              itemCount: reminderController.upcomingReminders.length,
-              separatorBuilder: (context, index) => SizedBox(
-                height: 2.h,
-              ),
             ),
           );
         }

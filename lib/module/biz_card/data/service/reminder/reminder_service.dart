@@ -123,10 +123,13 @@ class ReminderService implements ReminderRepo {
   }
 
   @override
-  Future<Either<Failure, RemindersSuccessResponce>> getAllReminders() async {
+  Future<Either<Failure, RemindersSuccessResponce>> getAllReminders(
+      {required ReminderQueryParamsModel reminderQueryParams}) async {
+    log('getAllReminders TO JSON ${reminderQueryParams.toJson()} ');
     try {
       final responce = await apiService.get(
         ApiEndPoints.getReminders,
+        queryParameters: reminderQueryParams.toJson(),
       );
       log('getAllReminders ==> success ');
       return Right(RemindersSuccessResponce.fromJson(responce.data));
@@ -143,6 +146,7 @@ class ReminderService implements ReminderRepo {
   Future<Either<Failure, RemindersSuccessResponce>> getUpcomingReminders(
       {required ReminderQueryParamsModel reminderQueryParams}) async {
     try {
+      log('getUpcomingReminders TO JSON == ${reminderQueryParams.toJson()}');
       final responce = await apiService.get(
         ApiEndPoints.getReminders,
         // queryParameters: {

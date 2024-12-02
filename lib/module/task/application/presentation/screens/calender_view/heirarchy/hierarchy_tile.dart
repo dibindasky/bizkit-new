@@ -2,21 +2,27 @@ import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
+import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
+import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/calender_view_appbar.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/progres_bar_success_responce/counts.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/create_folder_inside_a_folder/create_folder_inside_a_folder.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/delete_inner_folder_model/delete_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/edit_inner_folder_model/edit_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
+import 'package:bizkit/module/task/domain/model/hierarchy/employee_tasks_based_on_type/employee_tasks_based_on_type.dart';
+import 'package:bizkit/module/task/domain/model/hierarchy/employees_list_responce/employee.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
@@ -29,28 +35,60 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class HierarchyListtile extends StatelessWidget {
-  const HierarchyListtile({super.key});
+  final Employee employee;
+  final Counts tasksCounts;
+  const HierarchyListtile({
+    super.key,
+    required this.employee,
+    required this.tasksCounts,
+  });
+
+  int _calculateTotalTasks() {
+    // Safely calculate total tasks, handling potential null values
+    int selfToOthersCount = tasksCounts.selfToOthers?.all ?? 0;
+    int selfToSelfCount = tasksCounts.selfToSelf?.all ?? 0;
+    int othersToSelfCount = tasksCounts.othersToSelf?.all ?? 0;
+
+    return selfToOthersCount + selfToSelfCount + othersToSelfCount;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final hierarchyController = Get.find<HierarchyController>();
+    final homeController = Get.find<TaskHomeScreenController>();
+    final totalTasks = _calculateTotalTasks();
     return GestureDetector(
       onTap: () {
-        Get.toNamed(Routes.heirarchyUserDetail, id: 2);
+        hierarchyController.filterTasksByType(
+            targetUserId: employee.userId ?? '');
+        homeController.changeSelectedTaskCategory('All');
+        hierarchyController.changeFilterTaskType('all');
+        hierarchyController.filterTasksByType(
+            targetUserId: employee.userId ?? '');
+        GoRouter.of(context).pushNamed(Routes.taskLists, extra: {
+          'fromHeirarachy': true,
+          'targetUserId': employee.userId ?? ''
+        });
       },
       child: Card(
         elevation: 0,
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: ListTile(
-            leading: const CustomStackOnlineDotCircleAvatar(
-              image: chatSectionPersonDummyImg2,
-              dotColor: neonShade,
-              backgroundColor: knill,
+            leading: CircleAvatar(
+              backgroundColor: kblack,
+              child: employee.profilePicture != null
+                  ? NetworkImageWithLoader(
+                      employee.profilePicture ?? '',
+                      radius: 50,
+                    )
+                  : const Icon(Icons.person, color: kneon),
             ),
             title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Addam Smith',
+                  employee.name ?? 'employee name',
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall
@@ -58,11 +96,11 @@ class HierarchyListtile extends StatelessWidget {
                 ),
                 adjustWidth(55),
                 Text(
-                  '12 Tasks',
+                  '$totalTasks',
                   style: Theme.of(context)
                       .textTheme
-                      .displaySmall
-                      ?.copyWith(color: kOrange),
+                      .displayMedium
+                      ?.copyWith(color: kOrange, fontSize: 12),
                   overflow: TextOverflow.ellipsis,
                 )
               ],

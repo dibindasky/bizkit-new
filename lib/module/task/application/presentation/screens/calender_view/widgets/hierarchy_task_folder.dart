@@ -1,4 +1,5 @@
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
+import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
   HeirarchyTaskFolderRow({super.key});
 
   final controller = Get.find<TaskCalenderViewController>();
-
+  final hierarchyController = Get.find<HierarchyController>();
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -31,6 +32,8 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        hierarchyController.fetchEmployeesList();
+
                         controller.taskTabchangeIndex(0);
                       },
                       child: Container(

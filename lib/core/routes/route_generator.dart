@@ -686,7 +686,16 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskLists,
       path: Routes.taskLists,
-      builder: (context, state) => const TotalTasksScreen(),
+      pageBuilder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: TotalTasksScreen(
+            fromHeirarachy: extra['fromHeirarachy'],
+            targetUserId: extra['targetUserId'],
+          ),
+        );
+      },
     ),
 
     // Tasks Screen

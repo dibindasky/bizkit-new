@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
+import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
 // import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_creation.dart';
@@ -41,6 +42,7 @@ class TaskContainer extends StatelessWidget {
       this.tasksFromFoldrs = false,
       this.fromInnerfolder = false,
       this.tasksFromTasksList = false,
+      this.fromHeirarachy = false,
       this.tasksFromFilterSection = false});
 
   final int index;
@@ -57,6 +59,7 @@ class TaskContainer extends StatelessWidget {
   final bool? tasksFromInnerFolder;
   final bool? tasksFromTasksList;
   final bool? tasksFromFilterSection;
+  final bool? fromHeirarachy;
 
   final controller = Get.find<TaskCalenderViewController>();
   final taskController = Get.find<CreateTaskController>();
@@ -89,10 +92,8 @@ class TaskContainer extends StatelessWidget {
       animate: spotlightOn ?? false,
       begin: 0.95,
       end: 0.99,
-      // backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       child: Container(
         decoration: BoxDecoration(
-          // color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: kBorderRadius15,
           boxShadow: spotlightOn ?? false
               ? [
@@ -404,9 +405,13 @@ class TaskContainer extends StatelessWidget {
                             maxLines: 1,
                             softWrap: true,
                             overflow: TextOverflow.ellipsis,
-                            typeTask?.isOwned == true ||
-                                    tasksInsideFolder?.isOwned == true ||
-                                    tasksInsideInnerFolder?.isOwned == true
+                            (fromHeirarachy == true
+                                    ? Get.find<HierarchyController>().userId ==
+                                        typeTask?.createdBy?.userId
+                                    : (typeTask?.isOwned == true ||
+                                        tasksInsideFolder?.isOwned == true ||
+                                        tasksInsideInnerFolder?.isOwned ==
+                                            true))
                                 ? 'Created by you'
                                 : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
                             style: Theme.of(context)

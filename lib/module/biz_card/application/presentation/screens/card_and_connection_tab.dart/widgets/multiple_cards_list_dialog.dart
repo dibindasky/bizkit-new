@@ -51,9 +51,13 @@ class CardsbasedOnUserConnection extends StatelessWidget {
               ),
               child: ListTile(
                 onTap: () {
-                  final id = card?.map((e) => e?.toCard ?? '').toList();
+                  final id = card?.map((e) => e.toCard ?? '').toList();
                   Map<String, String> map = id != null
-                      ? {'myCard': 'false', 'cardId': id[index]}
+                      ? {
+                          'myCard': 'false',
+                          'cardId': id[index],
+                          'fromPreview': 'false'
+                        }
                       : <String, String>{};
                   Get.find<ConnectionsController>().getConnectionCardDetail(
                       cardId: id?[index] ?? '', refresh: true);

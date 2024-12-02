@@ -87,7 +87,8 @@ class ConnectionsTab extends StatelessWidget {
                                 Map<String, String> map = id != null
                                     ? {
                                         'myCard': 'false',
-                                        'cardId': id.first ?? ''
+                                        'cardId': id.first ?? '',
+                                        'fromPreview':'false'
                                       }
                                     : <String, String>{};
 

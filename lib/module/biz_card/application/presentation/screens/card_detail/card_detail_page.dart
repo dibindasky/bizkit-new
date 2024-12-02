@@ -37,7 +37,7 @@ class BizCardDetailScreen extends StatelessWidget {
               BizcardDetailTopPotion(myCard: myCard, fromPreview: fromPreview),
               Column(
                 children: [
-                  ImageSlideWidget(images: [imageDummyNetwork,imageDummyNetwork,imageDummyNetwork,imageDummyNetwork,imageDummyNetwork,imageDummyNetwork,imageDummyNetwork,imageDummyNetwork],),
+                  // ImageSlideWidget(images: [imageDummyNetwork,imageDummyNetwork,imageDummyNetwork,imageDummyNetwork,imageDummyNetwork,imageDummyNetwork,imageDummyNetwork,imageDummyNetwork],),
                   // card details icons and gifs
                   const BizCardDetailsIconsWidgets(),
                   // products and brands

@@ -63,7 +63,7 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
         child: RefreshIndicator(
           onRefresh: () async {
             bizcardController.getAllcards(true);
-            connectionsController.fetchMyConnections(true);
+            connectionsController.searchConnections();
             reminderController.fetchAllReminders();
             reminderController.fetchHistoryReminders();
             reminderController.fetchTodaysReminders();

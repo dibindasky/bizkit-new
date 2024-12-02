@@ -11,8 +11,8 @@ class DataManagementScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final cardController = Get.find<CardController>();
-     final receivedCardController =Get.find<ReceivedCardController>();
+    final cardController = Get.find<CardController>();
+    final receivedCardController = Get.find<ReceivedCardController>();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -35,65 +35,67 @@ class DataManagementScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Container(
-                      height: 50,
-                      width: double.infinity,
-                      color: kwhite,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Text(
-                              'Archived Cards',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(fontWeight: FontWeight.w400),
+                  InkWell(
+                    onTap: () {
+                      cardController.fetchDeletedAndArchivedCards();
+                      GoRouter.of(context).pushNamed(Routes.archivedCardScreen);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Container(
+                        height: 50,
+                        width: double.infinity,
+                        color: kwhite,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Text(
+                                'Archived Cards',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(fontWeight: FontWeight.w400),
+                              ),
                             ),
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                cardController.fetchDeletedAndArchivedCards();
-                                GoRouter.of(context).pushNamed(Routes.archivedCardScreen);
-                              },
-                              icon: const Icon(Icons.arrow_forward_ios)),
-                        ],
+                            Icon(Icons.arrow_forward_ios),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(
                     height: 15,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Container(
-                      height: 50,
-                      width: double.infinity,
-                      color: kwhite,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Text(
-                              'Deleted Cards',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(fontWeight: FontWeight.w400),
+                  InkWell(
+                    onTap: () {
+                      cardController.fetchDeletedAndArchivedCards();
+                      receivedCardController.fetchAllDeletedVisitingCards();
+                      GoRouter.of(context).pushNamed(Routes.deletedCardScreen);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Container(
+                        height: 50,
+                        width: double.infinity,
+                        color: kwhite,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Text(
+                                'Deleted Cards',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(fontWeight: FontWeight.w400),
+                              ),
                             ),
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                cardController.fetchDeletedAndArchivedCards();
-                                receivedCardController.fetchAllDeletedVisitingCards();
-                                GoRouter.of(context).pushNamed(Routes.deletedCardScreen);
-                              },
-                              icon: const Icon(Icons.arrow_forward_ios)),
-                        ],
+                            const Icon(Icons.arrow_forward_ios),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -119,9 +121,7 @@ class DataManagementScreen extends StatelessWidget {
                                   ?.copyWith(fontWeight: FontWeight.w400),
                             ),
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.arrow_forward_ios)),
+                          const Icon(Icons.arrow_forward_ios),
                         ],
                       ),
                     ),
@@ -148,9 +148,7 @@ class DataManagementScreen extends StatelessWidget {
                                   ?.copyWith(fontWeight: FontWeight.w400),
                             ),
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.arrow_forward_ios)),
+                          const Icon(Icons.arrow_forward_ios),
                         ],
                       ),
                     ),

@@ -160,8 +160,8 @@ class _ScreenCardsHomeFirstAnimationState
                                     onRefresh: () async {
                                       Get.find<CardController>()
                                           .getAllcards(true);
-                                      connectionsController
-                                          .fetchMyConnections(true);
+                                      // connectionsController
+                                      //     .fetchMyConnections(true);
                                       Get.find<ReminderController>()
                                           .fetchAllReminders();
                                     },

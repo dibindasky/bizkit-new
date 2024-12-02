@@ -65,6 +65,8 @@ class ReceivedCardController extends GetxController {
 
   final LocationService locationService = LocationService();
 
+  final tabBarController=Get.find<NavbarController>();
+
   void clearAllTextEditingControllers() async {
     nameController.clear();
     emailController.clear();
@@ -166,13 +168,17 @@ class ReceivedCardController extends GetxController {
       (r) {
         visitingCardId.value = r.visitingCardId ?? '';
         clearAllTextEditingControllers();
-        fetchAllreceivedCards();
+        fetchAllreceivedCards(refresh: true);
         cardTextExtractionController.pickedImageUrl.clear();
         showSnackbar(context, message: 'Received card created successfully');
-        navbarController.slectedtabIndex.value = 2;
-        context.push(Routes.bizCardNavbar);
-
+        navbarController.slectedtabIndex.value = 2;   
         isLoading.value = false;
+        GoRouter.of(context).pop();
+        GoRouter.of(context).pop();
+        GoRouter.of(context).pop();
+        //  context.remo(Routes.bizCardNavbar);
+        tabBarController.tabController.index=3;
+        tabBarController.tabController.animateTo(3);
       },
     );
   }
@@ -254,7 +260,7 @@ class ReceivedCardController extends GetxController {
 
   // Fetch all received cards
   void fetchAllreceivedCards({bool refresh = false}) async {
-    print(visitingCardDetails.toJson());
+    print(filterdVisitingCards.toJson());
     if (visitingCards.isNotEmpty && !refresh) {
       filterdVisitingCards.assignAll(visitingCards);
       return;
@@ -304,7 +310,7 @@ class ReceivedCardController extends GetxController {
         loadingForVisitingCard.value = false;
       },
       (r) {
-        fetchAllreceivedCards();
+        fetchAllreceivedCards(refresh: true);
         fetchAllDeletedVisitingCards();
         visitingCardDeleteModel.isDisabled == true
             ? showSnackbar(context, message: 'Deleted Successfully')

@@ -31,7 +31,7 @@ Future<dynamic> cameraAndGalleryPickImage({
           child: const Text('Camera'),
         )
       ],
-      title: Text(tittle ?? 'Select Selfie Image'),
+      title: Text(tittle ?? 'Select Selfie Image',style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),),
     ),
   );
 }

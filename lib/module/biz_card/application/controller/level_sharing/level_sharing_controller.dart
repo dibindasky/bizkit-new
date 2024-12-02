@@ -100,6 +100,7 @@ class LevelSharingController extends GetxController {
 
   // get all Common shared fields
   void fetchAllCommonSharedFields() async {
+    print('fetch all common shared field');
     commonLevelSharingLoading.value = true;
     final data = await levelSharingService.getAllCommonSharedFields();
 
@@ -114,6 +115,11 @@ class LevelSharingController extends GetxController {
             success.sharedFields?.business ?? BusinessSharedFields();
         personalSharedFields.value =
             success.sharedFields?.personal ?? PersonalSharedFields();
+
+        individualPersonalSharedFields.value =
+            success.sharedFields?.personal ?? PersonalSharedFields();
+        individualBusinessSharedFields.value =
+            success.sharedFields?.business ?? BusinessSharedFields();
       },
     );
   }

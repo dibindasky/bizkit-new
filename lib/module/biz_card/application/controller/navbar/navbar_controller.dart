@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NavbarController extends GetxController {
@@ -6,4 +7,5 @@ class NavbarController extends GetxController {
   void changeBottomBar(int index) {
     slectedtabIndex.value = index;
   }
+  late TabController tabController;
 }

@@ -70,7 +70,7 @@ class ProfileController extends GetxController {
       isLoadingEmail.value = true;
       isLoadingPhone.value = true;
       final result = await profileService.getUserProfileData();
-      result.fold((left) => null, (right) {
+      result.fold((left) => isLoadingImage.value = false, (right) {
         name.value = right.name ?? '';
         checkName = right.name ?? '';
         userName.text = right.name ?? '';
@@ -78,20 +78,20 @@ class ProfileController extends GetxController {
         checkEmail = right.email ?? '';
         userMail.text = right.email ?? '';
         log(right.profileImage.toString());
-        print('get profile success');
+        log('get profile success');
         // Remove +91 from number
         String editNumber = (right.phoneNumber ?? '').replaceFirst('+91', '');
         phone.value = editNumber;
         checkPhone = editNumber;
         userPhone.text = editNumber;
-
+         isLoadingImage.value = false;
         image.value = right.profileImage ?? '';
       });
     } catch (e) {
       log('Error fetching profile details: $e');
       // Optionally, show a snackbar or error message
     } finally {
-      Timer(const Duration(seconds: 1), () {
+      Timer(const Duration(seconds: 2), () {
         isLoadingImage.value = false;
         isLoadingName.value = false;
         isLoadingEmail.value = false;

@@ -1,26 +1,27 @@
-import 'package:animate_do/animate_do.dart';
-import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/custom_pop_menubutton.dart';
-import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
-import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
+import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/filter_tasks_list.dart';
+import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/pinned_tasks_section.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
 
 class TotalTasksScreen extends StatelessWidget {
-  const TotalTasksScreen({super.key});
-
+  const TotalTasksScreen(
+      {super.key, this.fromHeirarachy = false, this.targetUserId});
+  final bool? fromHeirarachy;
+  final String? targetUserId;
   @override
   Widget build(BuildContext context) {
+    // print('use id == > $targetUserId');
+    final hierarchyController = Get.find<HierarchyController>();
     final homeController = Get.find<TaskHomeScreenController>();
     final taskController = Get.find<CreateTaskController>();
 
@@ -46,11 +47,20 @@ class TotalTasksScreen extends StatelessWidget {
             child: CustomPopupMenuItem(
               text: 'All Tasks',
               onTap: () {
-                homeController.changeSelectedTaskCategory('All');
-                taskController.changeFilterTaskType('all');
-                taskController.filterByType();
-                taskController.filterPinnedTasksByType();
-                Navigator.of(context).pop();
+                if (fromHeirarachy == true) {
+                  homeController.changeSelectedTaskCategory('All');
+                  hierarchyController.changeFilterTaskType('all');
+                  hierarchyController.changeTargetUsers(targetUserId ?? '');
+                  hierarchyController.filterTasksByType(
+                      targetUserId: targetUserId ?? '');
+                  Navigator.of(context).pop();
+                } else {
+                  homeController.changeSelectedTaskCategory('All');
+                  taskController.changeFilterTaskType('all');
+                  taskController.filterByType();
+                  taskController.filterPinnedTasksByType();
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ),
@@ -58,11 +68,20 @@ class TotalTasksScreen extends StatelessWidget {
             child: CustomPopupMenuItem(
               text: 'Self to Self',
               onTap: () {
-                homeController.changeSelectedTaskCategory('Self to self');
-                taskController.changeFilterTaskType('self_to_self');
-                taskController.filterByType();
-                taskController.filterPinnedTasksByType();
-                Navigator.of(context).pop();
+                if (fromHeirarachy == true) {
+                  homeController.changeSelectedTaskCategory('Self to self');
+                  hierarchyController.changeFilterTaskType('self_to_self');
+                  hierarchyController.changeTargetUsers(targetUserId ?? '');
+                  hierarchyController.filterTasksByType(
+                      targetUserId: targetUserId ?? '');
+                  Navigator.of(context).pop();
+                } else {
+                  homeController.changeSelectedTaskCategory('Self to self');
+                  taskController.changeFilterTaskType('self_to_self');
+                  taskController.filterByType();
+                  taskController.filterPinnedTasksByType();
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ),
@@ -70,11 +89,20 @@ class TotalTasksScreen extends StatelessWidget {
             child: CustomPopupMenuItem(
               text: 'Self to others',
               onTap: () {
-                homeController.changeSelectedTaskCategory('Self to others');
-                taskController.changeFilterTaskType('self_to_others');
-                taskController.filterByType();
-                taskController.filterPinnedTasksByType();
-                Navigator.of(context).pop();
+                if (fromHeirarachy == true) {
+                  homeController.changeSelectedTaskCategory('Self to others');
+                  hierarchyController.changeFilterTaskType('self_to_others');
+                  hierarchyController.changeTargetUsers(targetUserId ?? '');
+                  hierarchyController.filterTasksByType(
+                      targetUserId: targetUserId ?? '');
+                  Navigator.of(context).pop();
+                } else {
+                  homeController.changeSelectedTaskCategory('Self to others');
+                  taskController.changeFilterTaskType('self_to_others');
+                  taskController.filterByType();
+                  taskController.filterPinnedTasksByType();
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ),
@@ -82,335 +110,158 @@ class TotalTasksScreen extends StatelessWidget {
             child: CustomPopupMenuItem(
               text: 'Others to self',
               onTap: () {
-                homeController.changeSelectedTaskCategory('Others to self');
-                taskController.changeFilterTaskType('others_to_self');
-                taskController.filterByType();
-                taskController.filterPinnedTasksByType();
-                Navigator.of(context).pop();
+                if (fromHeirarachy == true) {
+                  homeController.changeSelectedTaskCategory('Others to self');
+                  hierarchyController.changeFilterTaskType('others_to_self');
+                  hierarchyController.changeTargetUsers(targetUserId ?? '');
+                  hierarchyController.filterTasksByType(
+                      targetUserId: targetUserId ?? '');
+                  Navigator.of(context).pop();
+                } else {
+                  homeController.changeSelectedTaskCategory('Others to self');
+                  taskController.changeFilterTaskType('others_to_self');
+                  taskController.filterByType();
+                  taskController.filterPinnedTasksByType();
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ),
-          PopupMenuItem(
-            child: CustomPopupMenuItem(
-              text: 'Completed Tasks',
-              onTap: () {
-                homeController.changeSelectedTaskCategory('Completed Tasks');
-                taskController.fetchAllCompletedTasks();
-                Navigator.of(context).pop();
-              },
+          if (fromHeirarachy == false)
+            PopupMenuItem(
+              child: CustomPopupMenuItem(
+                text: 'Completed Tasks',
+                onTap: () {
+                  homeController.changeSelectedTaskCategory('Completed Tasks');
+                  taskController.fetchAllCompletedTasks();
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
-          ),
-          PopupMenuItem(
-            child: CustomPopupMenuItem(
-              text: 'Killed Tasks',
-              onTap: () {
-                homeController.changeSelectedTaskCategory('Killed Tasks');
-                taskController.fetchAllKilledTasks();
-                Navigator.of(context).pop();
-              },
+          if (fromHeirarachy == false)
+            PopupMenuItem(
+              child: CustomPopupMenuItem(
+                text: 'Killed Tasks',
+                onTap: () {
+                  homeController.changeSelectedTaskCategory('Killed Tasks');
+                  taskController.fetchAllKilledTasks();
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
-          ),
         ],
       );
     }
 
     return Scaffold(
-      appBar: AppBar(
-        surfaceTintColor: knill,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: GetBuilder<TaskHomeScreenController>(
-          builder: (controller) {
-            return GestureDetector(
-              onTap: () => showCustomMenu(context),
-              child: Row(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  Text(
-                    controller.taskCategory.value.replaceAll('_', ' '),
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(fontSize: 14),
-                  ),
                   adjustWidth(6.w),
-                  const Icon(
-                    Icons.arrow_drop_down,
-                    size: 29,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop(context);
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        size: 18.sp,
+                        color: Theme.of(context).colorScheme.onTertiary,
+                      ),
+                    ),
                   ),
+                  adjustWidth(20.w),
+                  GetBuilder<TaskHomeScreenController>(
+                    builder: (controller) {
+                      return GestureDetector(
+                        onTap: () => showCustomMenu(context),
+                        child: Row(
+                          children: [
+                            Text(
+                              controller.taskCategory.value
+                                  .replaceAll('_', ' '),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(fontSize: 14),
+                            ),
+                            adjustWidth(6.w),
+                            const Icon(
+                              Icons.arrow_drop_down,
+                              size: 29,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  )
                 ],
               ),
-            );
-          },
-        ),
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios_new, size: 17),
-        ),
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Obx(
-              () => Visibility(
-                visible: taskController.pinnedTasksFilterByTypeLoading.value ||
-                        taskController.allPinnedTasks.isEmpty
-                    ? false
-                    : true,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: SizedBox(
-                      width: double.infinity,
-                      height: 130.h,
-                      child: ListView.separated(
-                        controller: taskController.pinnedTasksScrollController,
-                        shrinkWrap: true,
-                        separatorBuilder: (context, index) => kWidth5,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return FadeIn(
-                            animate: true,
-                            child: GestureDetector(
-                              onTap: () {
-                                taskController.fetchSingleTask(
-                                    singleTaskModel: GetSingleTaskModel(
-                                        taskId: taskController
-                                            .allPinnedTasks[index].id));
-
-                                GoRouter.of(context).pushNamed(
-                                  Routes.taskDeail,
-                                  pathParameters: {
-                                    "taskId":
-                                        '${taskController.allPinnedTasks[index].id}'
-                                  },
-                                );
-                              },
-                              child: Card(
-                                child: Container(
-                                  width:
-                                      taskController.allPinnedTasks.length == 1
-                                          ? 330.w
-                                          : 300.w,
-                                  height: 100.h,
-                                  decoration: BoxDecoration(
-                                    gradient: neonNewLinearGradient,
-                                    borderRadius: kBorderRadius15,
-                                    border: Border.all(color: kwhite, width: 3),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 4),
-                                  child: Stack(children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              taskController
-                                                      .allPinnedTasks[index]
-                                                      .title ??
-                                                  'title',
-                                              overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displayMedium
-                                                  ?.copyWith(
-                                                    fontSize: 13,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onTertiary,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                        adjustHieght(10.h),
-                                        Text(
-                                          taskController.allPinnedTasks[index]
-                                                  .description ??
-                                              'description',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displaySmall
-                                              ?.copyWith(
-                                                fontSize: 10,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onTertiary,
-                                              ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                          softWrap: true,
-                                        ),
-                                        adjustHieght(30.h),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Iconsax.calendar_1,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onTertiary,
-                                                  size: 18,
-                                                ),
-                                                adjustWidth(3.w),
-                                                Text(
-                                                  taskController
-                                                              .allPinnedTasks[
-                                                                  index]
-                                                              .deadLine !=
-                                                          null
-                                                      ? DateTimeFormater
-                                                          .formatDateForPinnedTaskCard(
-                                                              taskController
-                                                                      .allPinnedTasks[
-                                                                          index]
-                                                                      .deadLine ??
-                                                                  '')
-                                                      : '',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .displaySmall
-                                                      ?.copyWith(
-                                                        fontSize: 9,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .onTertiary,
-                                                      ),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              taskController
-                                                          .allPinnedTasks[index]
-                                                          .isOwned ==
-                                                      true
-                                                  ? 'Created by ${taskController.allPinnedTasks[index].createdBy?.name ?? 'name'}'
-                                                  : 'Assgined by ${taskController.allPinnedTasks[index].createdBy?.name ?? 'name'}',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall
-                                                  ?.copyWith(
-                                                    fontSize: 8,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onTertiary,
-                                                  ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    Positioned(
-                                      right: -1,
-                                      top: 1,
-                                      child: CircleAvatar(
-                                        backgroundColor:
-                                            kwhite.withOpacity(0.2),
-                                        child: Transform.rotate(
-                                          angle: 0.7,
-                                          child: const Icon(
-                                            Icons.push_pin,
-                                            color: kwhite,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ]),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        itemCount: taskController.allPinnedTasks.length,
-                      )),
+              Obx(
+                () => Visibility(
+                  visible:
+                      taskController.pinnedTasksFilterByTypeLoading.value ||
+                              taskController.allPinnedTasks.isEmpty ||
+                              fromHeirarachy == true
+                          ? false
+                          : true,
+                  child: PinnedTasksSection(taskController: taskController),
                 ),
               ),
-            ),
-            Expanded(
-              child: Obx(
-                () {
-                  if (taskController.filterByTypeLoading.value) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 5),
-                      child: ShimmerLoaderTaskContainer(
-                        height: 50.h,
-                        itemCount: 10,
-                        width: double.infinity,
-                      ),
-                    );
-                  } else if (taskController.typeTasks.isEmpty) {
-                    return ErrorRefreshIndicator(
-                      image: emptyNodata2,
-                      errorMessage: 'No Tasks',
-                      onRefresh: () {
-                        taskController.filterByType();
-                      },
-                    );
-                  } else {
-                    return RefreshIndicator(
-                      onRefresh: () async {
-                        taskController.filterByType();
-                      },
-                      child: ListView.builder(
-                        controller: taskController.typeTasksScrollController,
+              Expanded(
+                child: Obx(
+                  () {
+                    if (fromHeirarachy == true
+                        ? hierarchyController.isLoading.value
+                        : taskController.filterByTypeLoading.value) {
+                      return Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 0),
-                        itemCount: taskController.typeTasks.length +
-                            (taskController.filterByTypeLoadMoreLoading.value
-                                ? 1
-                                : 0),
-                        itemBuilder: (context, index) {
-                          if (index == taskController.typeTasks.length &&
-                              taskController
-                                  .filterByTypeLoadMoreLoading.value) {
-                            return ShimmerLoaderTaskContainer(
-                              height: 50.h,
-                              itemCount: 1,
-                              width: double.infinity,
-                            );
+                            horizontal: 15.0, vertical: 5),
+                        child: ShimmerLoaderTaskContainer(
+                          height: 50.h,
+                          itemCount: 10,
+                          width: double.infinity,
+                        ),
+                      );
+                    } else if (fromHeirarachy == true
+                        ? hierarchyController.filterTasks.isEmpty
+                        : taskController.typeTasks.isEmpty) {
+                      return ErrorRefreshIndicator(
+                        image: emptyNodata2,
+                        errorMessage: 'No Tasks',
+                        onRefresh: () {
+                          if (fromHeirarachy == true) {
                           } else {
-                            final typeTask = taskController.typeTasks[index];
-
-                            return GestureDetector(
-                              onLongPress: () {
-                                // controller.longPress(index);
-                              },
-                              onTap: () {
-                                taskController.fetchSingleTask(
-                                    singleTaskModel: GetSingleTaskModel(
-                                        taskId: typeTask.id));
-
-                                GoRouter.of(context).pushNamed(
-                                  Routes.taskDeail,
-                                  pathParameters: {"taskId": '${typeTask.id}'},
-                                );
-                                // log('Task id form filter by type==> ${typeTask.id}');
-                              },
-                              child: TaskContainer(
-                                tasksFromFilterSection: true,
-                                index: index,
-                                typeTask: typeTask,
-                              ),
-                            );
+                            taskController.filterByType();
                           }
                         },
-                      ),
-                    );
-                  }
-                },
+                      );
+                    } else {
+                      return RefreshIndicator(
+                        onRefresh: () async {
+                          if (fromHeirarachy == true) {
+                            hierarchyController.filterTasksByType(
+                                targetUserId: targetUserId ?? '');
+                          } else {
+                            taskController.filterByType();
+                          }
+                        },
+                        child: FilterTasksListView(
+                            fromHeirarachy: fromHeirarachy,
+                            hierarchyController: hierarchyController,
+                            taskController: taskController),
+                      );
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

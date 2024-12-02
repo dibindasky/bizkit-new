@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/module/biz_card/data/service/reminder/reminder_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/biz_card_reminders_responce/reminder.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/create_reminder_model/create_reminder_model.dart';
@@ -26,7 +24,9 @@ class ReminderController extends GetxController {
   final ScrollController allReminderScrollControler =
       ScrollController(); // all reminders scroll controller
   final ScrollController upcomingReminderScrollControler =
-      ScrollController(); // all reminders scroll controller
+      ScrollController(); // upcoming reminders scroll controller
+  final ScrollController todaysReminderScrollControler =
+      ScrollController(); // today's reminders scroll controller
 
   // Loadings
   RxBool createReminderLoading = false.obs;
@@ -38,6 +38,7 @@ class ReminderController extends GetxController {
   RxBool upcomingReminderLoading = false.obs;
   RxBool upcomingReminderLoadMoreLoading = false.obs;
   RxBool todaysReminderLoading = false.obs;
+  RxBool todaysReminderLoadMoreLoading = false.obs;
 
   /// loading for history of a reminder
   RxBool reminderHistoryCardLoading = false.obs;
@@ -62,16 +63,21 @@ class ReminderController extends GetxController {
   int historyReminderPage = 1, pageSize = 5;
   int todaysReminderPage = 1;
   int upcomingReminderPage = 1;
+  int allReminderPage = 1;
 
   @override
   void onInit() {
-    // fetchTodaysReminders();
+    fetchTodaysReminders();
     fetchAllReminders();
     fetchHistoryReminders();
-    // fetchUpcomingReminders();
-
+    fetchUpcomingReminders();
+    todaysReminderScrollControler
+        .addListener(todaysRemindersSearchScrollListener);
     historyReminderScrollControler
         .addListener(historyRemindersSearchScrollListener);
+    allReminderScrollControler.addListener(allRemindersSearchScrollListener);
+    upcomingReminderScrollControler
+        .addListener(upcomingRemindersSearchScrollListener);
     super.onInit();
   }
 
@@ -79,6 +85,27 @@ class ReminderController extends GetxController {
     if (historyReminderScrollControler.position.pixels >=
         historyReminderScrollControler.position.maxScrollExtent - 100.h) {
       fetchHistoryRemindersLoadMore();
+    }
+  }
+
+  void allRemindersSearchScrollListener() {
+    if (allReminderScrollControler.position.pixels >=
+        allReminderScrollControler.position.maxScrollExtent - 100.h) {
+      fetchAllRemindersLoadMore();
+    }
+  }
+
+  void upcomingRemindersSearchScrollListener() {
+    if (upcomingReminderScrollControler.position.pixels >=
+        upcomingReminderScrollControler.position.maxScrollExtent - 100.h) {
+      fetchUpcomingRemindersLoadMore();
+    }
+  }
+
+  void todaysRemindersSearchScrollListener() {
+    if (todaysReminderScrollControler.position.pixels ==
+        todaysReminderScrollControler.position.maxScrollExtent) {
+      fetchTodaysRemindersLoadMore();
     }
   }
 
@@ -177,17 +204,46 @@ class ReminderController extends GetxController {
   // fetch all reminders
   void fetchAllReminders() async {
     allReminderLoading.value = true;
+    allReminderPage = 1;
+    allReminders.value = [];
 
-    final result = await reminderSerivce.getAllReminders();
+    final result = await reminderSerivce.getAllReminders(
+      reminderQueryParams:
+          ReminderQueryParamsModel(page: allReminderPage, pageSize: pageSize),
+    );
 
     result.fold(
       (failure) {
         allReminderLoading.value = false;
       },
       (success) {
-        allReminderLoading.value = false;
         allReminders.assignAll(success.reminders ?? []);
-        log('allReminders length ${allReminders.length}');
+
+        allReminderLoading.value = false;
+      },
+    );
+  }
+
+  // fetch all  reminders [ pagination ]
+  void fetchAllRemindersLoadMore() async {
+    if (allReminderLoadMoreLoading.value == true) {
+      return;
+    }
+    allReminderLoadMoreLoading.value = true;
+    final result = await reminderSerivce.getAllReminders(
+      reminderQueryParams: ReminderQueryParamsModel(
+        page: ++allReminderPage,
+        pageSize: pageSize,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        allReminderLoadMoreLoading.value = false;
+      },
+      (success) {
+        allReminders.addAll(success.reminders ?? []);
+        allReminderLoadMoreLoading.value = false;
       },
     );
   }
@@ -195,9 +251,15 @@ class ReminderController extends GetxController {
   // fetch all today's reminders
   void fetchTodaysReminders() async {
     todaysReminderLoading.value = true;
+    todaysReminderPage = 1;
+    todaysReminders.value = [];
 
     final result = await reminderSerivce.getTodaysReminders(
-      reminderQueryParams: ReminderQueryParamsModel(),
+      reminderQueryParams: ReminderQueryParamsModel(
+        category: 'today_reminders',
+        page: todaysReminderPage,
+        pageSize: pageSize,
+      ),
     );
 
     result.fold(
@@ -205,9 +267,34 @@ class ReminderController extends GetxController {
         todaysReminderLoading.value = false;
       },
       (success) {
-        todaysReminderLoading.value = false;
         todaysReminders.assignAll(success.reminders ?? []);
-        log('todaysReminders length ${todaysReminders.length}');
+        todaysReminderLoading.value = false;
+      },
+    );
+  }
+
+  // fetch all today's reminders [ pagination ]
+  void fetchTodaysRemindersLoadMore() async {
+    if (todaysReminderLoadMoreLoading.value == true) {
+      return;
+    }
+
+    todaysReminderLoadMoreLoading.value = true;
+    final result = await reminderSerivce.getTodaysReminders(
+      reminderQueryParams: ReminderQueryParamsModel(
+        category: 'today_reminders',
+        page: ++todaysReminderPage,
+        pageSize: pageSize,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        todaysReminderLoadMoreLoading.value = false;
+      },
+      (success) {
+        todaysReminders.addAll(success.reminders ?? []);
+        todaysReminderLoadMoreLoading.value = false;
       },
     );
   }
@@ -215,9 +302,15 @@ class ReminderController extends GetxController {
   // fetch all upcoming reminders
   void fetchUpcomingReminders() async {
     upcomingReminderLoading.value = true;
+    upcomingReminderPage = 1;
+    upcomingReminders.value = [];
 
     final result = await reminderSerivce.getUpcomingReminders(
-      reminderQueryParams: ReminderQueryParamsModel(),
+      reminderQueryParams: ReminderQueryParamsModel(
+        category: 'upcoming_reminders',
+        page: upcomingReminderPage,
+        pageSize: pageSize,
+      ),
     );
 
     result.fold(
@@ -225,9 +318,35 @@ class ReminderController extends GetxController {
         upcomingReminderLoading.value = false;
       },
       (success) {
-        upcomingReminderLoading.value = false;
         upcomingReminders.assignAll(success.reminders ?? []);
-        log('upcomingReminders length ${upcomingReminders.length}');
+        upcomingReminderLoading.value = false;
+      },
+    );
+  }
+
+  // fetch all upcoming reminders [ pagination ]
+  void fetchUpcomingRemindersLoadMore() async {
+    if (upcomingReminderLoadMoreLoading.value == true) {
+      return;
+    }
+
+    upcomingReminderLoadMoreLoading.value = true;
+
+    final result = await reminderSerivce.getUpcomingReminders(
+      reminderQueryParams: ReminderQueryParamsModel(
+        category: 'upcoming_reminders',
+        page: ++upcomingReminderPage,
+        pageSize: pageSize,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        upcomingReminderLoadMoreLoading.value = false;
+      },
+      (success) {
+        upcomingReminders.addAll(success.reminders ?? []);
+        upcomingReminderLoadMoreLoading.value = false;
       },
     );
   }

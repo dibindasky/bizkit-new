@@ -176,6 +176,8 @@ class TodaysRemindersSectionSliverHeaderDelegate
                                         ?.copyWith(fontSize: 11),
                                   ),
                                   Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
                                     todaysReminder.occasion ?? 'occasion',
                                     style: Theme.of(context)
                                         .textTheme

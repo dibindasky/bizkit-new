@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:bizkit/core/dipendency/di/dipendency_injection.dart';
 import 'package:bizkit/core/model/pagination_query/pagination_query.dart';
 import 'package:bizkit/core/model/search_query/search_query.dart';
 import 'package:bizkit/core/routes/routes.dart';
@@ -639,7 +638,7 @@ class ConnectionsController extends GetxController {
 
   // Follow back request
   void followbackRequest(
-      {required FollowBackRequestModel folowbackRequest,context}) async {
+      {required FollowBackRequestModel folowbackRequest, context}) async {
     followbackRequestLoading.value = true;
     final result = await connectionService.folowbackRequest(
         folowbackRequest: folowbackRequest);
@@ -647,11 +646,13 @@ class ConnectionsController extends GetxController {
     result.fold(
       (failure) {
         followbackRequestLoading.value = false;
-        showSnackbar(context, message: 'Follow back successfull',backgroundColor: kred);
+        showSnackbar(context,
+            message: 'Follow back successfull', backgroundColor: kred);
       },
       (success) {
         followbackRequestLoading.value = false;
-        showSnackbar(context, message: 'Follow back successfull',backgroundColor: kneon);
+        showSnackbar(context,
+            message: 'Follow back successfull', backgroundColor: kneon);
       },
     );
   }
@@ -772,8 +773,8 @@ class ConnectionsController extends GetxController {
       connectionDetailLoading.value = false;
       showSnackbar(context, message: l.message ?? errorMessage);
     }, (r) {
-     final controller = Get.find<CardController>();
-    //  controller.bizcardDetail.value = controller.bizcardDetail.value.copyWith(selfie: r.data['image']);
+      final controller = Get.find<CardController>();
+      //  controller.bizcardDetail.value = controller.bizcardDetail.value.copyWith(selfie: r.data['image']);
       GoRouter.of(context).pop();
       connectionSelfieIamges.value = [];
       connectionDetailLoading.value = false;

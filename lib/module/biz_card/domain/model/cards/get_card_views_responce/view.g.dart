@@ -11,7 +11,7 @@ Views _$ViewsFromJson(Map<String, dynamic> json) => Views(
       email: json['email'] as String?,
       phoneNumber: json['phone_number'] as String?,
       photo: json['photo'],
-      viewdTime: json['viewed_time']as String
+      viewdTime: json['viewed_time'] as String?,
     );
 
 Map<String, dynamic> _$ViewsToJson(Views instance) => <String, dynamic>{
@@ -19,5 +19,5 @@ Map<String, dynamic> _$ViewsToJson(Views instance) => <String, dynamic>{
       'email': instance.email,
       'phone_number': instance.phoneNumber,
       'photo': instance.photo,
-      'viewed_time':instance.viewdTime
+      'viewed_time': instance.viewdTime,
     };

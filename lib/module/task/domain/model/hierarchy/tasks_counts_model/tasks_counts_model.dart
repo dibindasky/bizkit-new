@@ -10,9 +10,9 @@ class EmpolyeesTasksCountsModel {
   EmpolyeesTasksCountsModel({this.userIds});
 
   factory EmpolyeesTasksCountsModel.fromJson(Map<String, dynamic> json) {
-    return _$EmpolyeesTasksCountsModelTasksCountsModelFromJson(json);
+    return _$EmpolyeesTasksCountsModelFromJson(json);
   }
 
   Map<String, dynamic> toJson() =>
-      _$EmpolyeesTasksCountsModelTasksCountsModelToJson(this);
+      _$EmpolyeesTasksCountsModelToJson(this);
 }

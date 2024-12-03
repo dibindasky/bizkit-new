@@ -36,7 +36,7 @@ class ApiEndPoints {
 
   //  [  Matcho meter ]
   static const String matchoMeter = '/matcho-meter/';
-
+  static const String superAdminMatchoMeter= '/super-admin/matcho-meter/';
   // ---------------------------------------------------------------------------------------------
   /// [ Bizcard Module  ]
 

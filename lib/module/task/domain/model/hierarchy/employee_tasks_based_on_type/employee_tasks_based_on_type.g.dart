@@ -11,8 +11,8 @@ EmployeeTasksBasedOnType _$EmployeeTasksBasedOnTypeFromJson(
     EmployeeTasksBasedOnType(
       targetUserId: json['target_user_id'] as String?,
       taskType: json['task_type'] as String?,
-      page: (json['page'] as num?)?.toInt(),
-      pageSize: (json['page_size'] as num?)?.toInt(),
+      page: json['page'] as int?,
+      pageSize: json['page_size'] as int?,
     );
 
 Map<String, dynamic> _$EmployeeTasksBasedOnTypeToJson(

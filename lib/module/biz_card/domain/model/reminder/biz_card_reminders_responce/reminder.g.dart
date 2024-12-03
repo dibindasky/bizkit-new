@@ -6,7 +6,7 @@ part of 'reminder.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BizCardReminder _$BizCardReminderReminderFromJson(Map<String, dynamic> json) =>
+BizCardReminder _$BizCardReminderFromJson(Map<String, dynamic> json) =>
     BizCardReminder(
       reminderId: json['reminder_id'] as String?,
       reminderDate: json['reminder_date'] as String?,
@@ -16,8 +16,7 @@ BizCardReminder _$BizCardReminderReminderFromJson(Map<String, dynamic> json) =>
       meetingLabel: json['meeting_label'] as String?,
     );
 
-Map<String, dynamic> _$BizCardReminderReminderToJson(
-        BizCardReminder instance) =>
+Map<String, dynamic> _$BizCardReminderToJson(BizCardReminder instance) =>
     <String, dynamic>{
       'reminder_id': instance.reminderId,
       'reminder_date': instance.reminderDate,

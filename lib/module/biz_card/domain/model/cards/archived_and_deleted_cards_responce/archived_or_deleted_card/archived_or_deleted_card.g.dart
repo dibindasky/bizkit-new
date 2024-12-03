@@ -31,5 +31,5 @@ Map<String, dynamic> _$ArchivedOrDeletedCardToJson(
       'logo': instance.logo,
       'is_archived': instance.isArchived,
       'is_disabled': instance.isDisabled,
-      'user_name':instance.deletedUserName
+      'user_name': instance.deletedUserName,
     };

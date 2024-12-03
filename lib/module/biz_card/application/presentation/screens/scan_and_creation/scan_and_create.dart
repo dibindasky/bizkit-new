@@ -1,18 +1,11 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
-import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
-import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/scan_and_creation/widgets/qr_scanner_view.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/scan_and_creation/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/scan_and_creation/widgets/selected_cards.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/constant.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
-
 import 'widgets/recivercard_creation.dart';
 
 class BizCardScanAndCreateScreen extends StatefulWidget {
@@ -214,130 +207,6 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Image.asset(image),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ContainerPickImage extends StatelessWidget {
-  const ContainerPickImage({
-    this.iscardList = true,
-    super.key,
-    this.heading,
-    this.onPressedCam,
-    this.onPressedGallery,
-    this.isBoth = true,
-    this.fromMain = true,
-    this.needNavigate = true,
-  });
-  final String? heading;
-  final VoidCallback? onPressedCam;
-  final VoidCallback? onPressedGallery;
-  final bool isBoth;
-  final bool fromMain;
-  final bool needNavigate;
-  final bool iscardList;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
-      child: DottedBorder(
-        dashPattern: const [8, 8],
-        color: neonShade,
-        strokeWidth: 2.5,
-        child: SizedBox(
-          width: double.infinity,
-          height: iscardList ? 150.dm : 120,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: iscardList ? 30.h : 10.h),
-              // adjustHieght(30),
-              Text(
-                heading ?? 'Scan information through image',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              SizedBox(height: iscardList ? 30.h : 10.h),
-              // adjustHieght(30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  adjustWidth(20),
-                  isBoth
-                      ? Expanded(
-                          child: InkWell(
-                            onTap: onPressedGallery ??
-                                () {
-                                  if (needNavigate) {
-                                    Navigator.of(context).push(
-                                        cardFadePageRoute(
-                                            const SelectedCard()));
-                                  }
-                                  // context.read<CardSecondBloc>().add(
-                                  //     const CardSecondEvent.scanImage(
-                                  //         isFront: false, isCam: false));
-                                  if (fromMain) {
-                                    // context.read<CardSecondBloc>().add(
-                                    //     const CardSecondEvent.imageClear());
-                                  }
-                                },
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(5)),
-                                border: Border.all(color: neonShade),
-                              ),
-                              child: Center(
-                                  child: Text('Gallery',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium)),
-                            ),
-                          ),
-                        )
-                      : const SizedBox(),
-                  adjustWidth(20),
-                  Expanded(
-                    child: InkWell(
-                      onTap: onPressedCam ??
-                          () {
-                            if (needNavigate) {
-                              Navigator.of(context).push(
-                                  cardFadePageRoute(const SelectedCard()));
-                            }
-                            // context.read<CardSecondBloc>().add(
-                            //       const CardSecondEvent.scanImage(
-                            //           isCam: true, isFront: false),
-                            //     );
-                            if (fromMain) {
-                              // context
-                              //     .read<CardSecondBloc>()
-                              //     .add(const CardSecondEvent.imageClear());
-                            }
-                          },
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5)),
-                          border: Border.all(color: neonShade),
-                        ),
-                        child: Center(
-                            child: Text(
-                          'Camera',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        )),
-                      ),
-                    ),
-                  ),
-                  adjustWidth(20),
-                ],
-              ),
-            ],
           ),
         ),
       ),

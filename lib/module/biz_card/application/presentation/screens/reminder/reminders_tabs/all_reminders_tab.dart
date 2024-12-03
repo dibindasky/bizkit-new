@@ -44,9 +44,27 @@ class AllRemindersTab extends StatelessWidget {
               reminderController.fetchAllReminders();
             },
             child: ListView.separated(
+              controller: reminderController.allReminderScrollControler,
+              itemCount: reminderController.allReminders.length + 2,
+              separatorBuilder: (context, index) => SizedBox(
+                height: 2.h,
+              ),
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
               shrinkWrap: true,
               itemBuilder: (context, index) {
+                if (index >= reminderController.allReminders.length &&
+                    reminderController.allReminderLoadMoreLoading.value) {
+                  return ShimmerLoaderTile(
+                    height: 110.h,
+                    width: double.infinity,
+                  );
+                } else if (index >= reminderController.allReminders.length &&
+                    !reminderController.allReminderLoadMoreLoading.value) {
+                  return SizedBox(
+                    height: 50.h,
+                  );
+                }
+
                 final Reminder allReminder =
                     reminderController.allReminders[index];
                 return FadeIn(
@@ -59,9 +77,9 @@ class AllRemindersTab extends StatelessWidget {
                           .pushNamed(Routes.reminderDetail, extra: allReminder);
                     },
                     child: Card(
-                      margin: index == reminderController.allReminders.length
-                          ? const EdgeInsets.only(bottom: 150)
-                          : null,
+                      // margin: index == reminderController.allReminders.length
+                      //     ? const EdgeInsets.only(bottom: 150)
+                      //     : null,
                       elevation: 0,
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -116,10 +134,6 @@ class AllRemindersTab extends StatelessWidget {
                   ),
                 );
               },
-              itemCount: reminderController.allReminders.length,
-              separatorBuilder: (context, index) => SizedBox(
-                height: 2.h,
-              ),
             ),
           );
         }

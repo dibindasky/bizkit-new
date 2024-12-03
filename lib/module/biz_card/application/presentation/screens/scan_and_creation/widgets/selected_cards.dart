@@ -274,7 +274,11 @@ class _SelectedCardsState extends State<SelectedCards> {
                   if (textExtractionController.isLoading.value) {
                     return const LoadingAnimation();
                   }
-                  return Padding(
+                  return
+                   textExtractionController.continueLoading.value?
+                           const Center(child: LoadingAnimation())
+                          :
+                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: EventButton(
                         text: 'continue',
@@ -288,6 +292,7 @@ class _SelectedCardsState extends State<SelectedCards> {
                               backgroundColor: kred,
                             );
                           }
+                         
                           textExtractionController.textExtraction(
                               context: context,
                               fromVisitingCard: true,

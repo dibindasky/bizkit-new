@@ -12,9 +12,9 @@ RemindersSuccessResponce _$RemindersSuccessResponceFromJson(
       reminders: (json['data'] as List<dynamic>?)
           ?.map((e) => Reminder.fromJson(e as Map<String, dynamic>))
           .toList(),
+      hasMore: json['has_more'] as bool?,
       page: json['page'] as int?,
       pageSize: json['page_size'] as int?,
-      hasMore: json['has_more'] as bool?,
     );
 
 Map<String, dynamic> _$RemindersSuccessResponceToJson(

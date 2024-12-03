@@ -19,6 +19,7 @@ import 'package:bizkit/module/task/application/controller/chat/chat_controller.d
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/generate_report/generate_report.dart';
+import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -83,6 +84,7 @@ class ModuleController extends GetxController {
     Get.lazyPut(() => TaskFolderController());
     Get.lazyPut(() => ChatController());
     Get.lazyPut(() => MessageCountController());
+    Get.lazyPut(() => HierarchyController());
   }
 
   /// initilize all controllers in ATTENDANCE module [Module.attendance] and delte other module controllers
@@ -164,6 +166,9 @@ class ModuleController extends GetxController {
     if (Get.isRegistered<ChatController>()) Get.delete<ChatController>();
     if (Get.isRegistered<MessageCountController>()) {
       Get.delete<MessageCountController>();
+    }
+    if (Get.isRegistered<HierarchyController>()) {
+      Get.delete<HierarchyController>();
     }
   }
 

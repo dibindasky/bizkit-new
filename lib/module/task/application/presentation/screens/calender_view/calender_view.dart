@@ -46,7 +46,8 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                 taskCalenderViewController.selectedFolderContainer.value
                     ? kempty
                     : adjustHieght(5.h),
-                taskCalenderViewController.selectedFolderContainer.value
+                taskCalenderViewController.selectedFolderContainer.value ||
+                        taskCalenderViewController.taskTabChangeIndex.value == 0
                     ? kempty
                     : Obx(
                         () {

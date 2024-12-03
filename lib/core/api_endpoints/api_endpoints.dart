@@ -36,7 +36,7 @@ class ApiEndPoints {
 
   //  [  Matcho meter ]
   static const String matchoMeter = '/matcho-meter/';
-
+  static const String superAdminMatchoMeter= '/super-admin/matcho-meter/';
   // ---------------------------------------------------------------------------------------------
   /// [ Bizcard Module  ]
 
@@ -142,4 +142,5 @@ class ApiEndPoints {
       '/get-time-expense-data/';
   static const String taskTestRestoreTask = '/restore-task/';
   static const String quickTask = '/quick-tasks/';
+  static const String taskHierarchy = '/monitor-tasks/';
 }

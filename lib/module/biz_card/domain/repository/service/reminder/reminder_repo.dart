@@ -32,7 +32,8 @@ abstract class ReminderRepo {
       {required ReminderQueryParamsModel reminderQueryParams});
 
   // Get all reminders
-  Future<Either<Failure, RemindersSuccessResponce>> getAllReminders();
+  Future<Either<Failure, RemindersSuccessResponce>> getAllReminders(
+      {required ReminderQueryParamsModel reminderQueryParams});
 
   // Get upcoming reminders
   Future<Either<Failure, RemindersSuccessResponce>> getUpcomingReminders(

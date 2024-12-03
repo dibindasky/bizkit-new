@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
+import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/widgets/tasks_list_view.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/progres_bar_success_responce/counts.dart';
 import 'package:bizkit/module/task/domain/model/folders/filter_folder_by_deadline_model/filter_folder_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/get_task_inside_a_folder_params_model/get_task_inside_a_folder_params_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
@@ -20,21 +22,40 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
 
   final controller = Get.find<TaskCalenderViewController>();
   final taskFolderController = Get.find<TaskFolderController>();
+  final hierarchyController = Get.find<HierarchyController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () {
         if (controller.taskTabChangeIndex.value == 0) {
-          return Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 14.0.h),
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return const HierarchyListtile();
-              },
-            ),
-          );
+          if (hierarchyController.empolyeesListLoading.value) {
+            return const Expanded(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else {
+            return Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 14.0.h),
+                itemCount: hierarchyController.employees.length,
+                itemBuilder: (context, index) {
+                  return Obx(() => HierarchyListtile(
+                        tasksCounts:
+                            hierarchyController.tasksCountsLoading.value
+                                ? Counts()
+                                : hierarchyController.tasksCounts[
+                                        hierarchyController
+                                                .employees[index].userId ??
+                                            ''] ??
+                                    Counts(),
+                        employee: hierarchyController.employees[index],
+                      ));
+                },
+              ),
+            );
+          }
         }
         if (controller.taskTabChangeIndex.value == 1) {
           return const Expanded(child: TaskListView());

@@ -168,7 +168,7 @@ TextStyle appBarHeading1 = TextStyle(
 Color taskSpotLightColorChanger(String? date1, String? date2) {
   if (date1 == null || date2 == null) {
     log('Invalid date(s): date1=$date1, date2=$date2', name: 'TaskContainer');
-    return kwhite;
+    return kneon;
   }
 
   try {

@@ -44,4 +44,29 @@ class QuickTasks {
       _$QuickTasksFromJson(json);
 
   Map<String, dynamic> toJson() => _$QuickTasksToJson(this);
+  QuickTasks copyWith({
+    String? id,
+    String? title,
+    String? description,
+    List<AssignedTo>? assignedTo,
+    bool? isCompleted,
+    CreatedBy? createdBy,
+    String? createdAt,
+    List<CompletedBy>? completedBy,
+    String? completedAt,
+    bool? isOwned,
+  }) {
+    return QuickTasks(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      assignedTo: assignedTo ?? this.assignedTo,
+      isCompleted: isCompleted ?? this.isCompleted,
+      createdBy: createdBy ?? this.createdBy,
+      createdAt: createdAt ?? this.createdAt,
+      completedBy: completedBy ?? this.completedBy,
+      completedAt: completedAt ?? this.completedAt,
+      isOwned: isOwned ?? this.isOwned,
+    );
+  }
 }

@@ -17,5 +17,16 @@ class ReminderQueryParamsModel {
     return _$ReminderQueryParamsModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$ReminderQueryParamsModelToJson(this);
+  // Map<String, dynamic> toJson() => _$ReminderQueryParamsModelToJson(this);
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {
+      'page': page,
+      'pageSize': pageSize,
+    };
+    if (category != null) {
+      data['category'] = category;
+    }
+    return data;
+  }
 }

@@ -49,13 +49,15 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/pro
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/archived_data/archived_data_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/data_management_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/deleted_data/deleted_data_screen.dart';
-import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/macho_meter_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/macho_meter/macho_meter_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/matcho_meter.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/received_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/account_switching/account_switching_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/profile_edit_screen.dart';
+import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_task_create_update.dart';
+import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_tasks_listing.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks_screen.dart';
 import 'package:bizkit/utils/images/image_slidable_list.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/login_screen.dart';
@@ -686,7 +688,43 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskLists,
       path: Routes.taskLists,
-      builder: (context, state) => const TotalTasksScreen(),
+      pageBuilder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: TotalTasksScreen(
+            fromHeirarachy: extra['fromHeirarachy'],
+            targetUserId: extra['targetUserId'],
+          ),
+        );
+      },
+    ),
+
+// Quick Task Create & Update
+    GoRoute(
+      name: Routes.quickTaskCreateUpdate,
+      path: Routes.quickTaskCreateUpdate,
+      pageBuilder: (context, state) {
+        final extra = state.extra as bool;
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: QuickTaskCreateUpdateScreen(
+            edit: extra,
+          ),
+        );
+      },
+    ),
+
+    // Quick tasks listing active quick tasks and completed quick taks
+    GoRoute(
+      name: Routes.quickTasksListing,
+      path: Routes.quickTasksListing,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const QuickTasksListingScreen(),
+        );
+      },
     ),
 
     // Tasks Screen

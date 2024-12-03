@@ -24,6 +24,7 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       connectionController.fetchRecievedConnectionRequests();
+      levelSharingController.fetchAllCommonSharedFields();
     });
 
     return Padding(

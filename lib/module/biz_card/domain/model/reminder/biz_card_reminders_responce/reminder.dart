@@ -24,8 +24,8 @@ class BizCardReminder {
   });
 
   factory BizCardReminder.fromJson(Map<String, dynamic> json) {
-    return _$BizCardReminderReminderFromJson(json);
+    return _$BizCardReminderFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$BizCardReminderReminderToJson(this);
+  Map<String, dynamic> toJson() => _$BizCardReminderToJson(this);
 }

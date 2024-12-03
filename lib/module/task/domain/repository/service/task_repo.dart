@@ -143,6 +143,9 @@ abstract class TaskRepo {
   Future<Either<Failure, QuickTasksResponce>> getQuickTasks(
       {required PaginationQuery paginationQuery});
 
+  Future<Either<Failure, QuickTasksResponce>> getCompletedQuickTasks(
+      {required PaginationQuery paginationQuery});
+
   Future<Either<Failure, SuccessResponce>> updateQuickTasks(
       {required UpdateQuickTask updateQuickTask});
 

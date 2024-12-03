@@ -1,0 +1,197 @@
+{
+    "bizcard_id": "673c186734651c28b47ddf61",
+    "personal_details": {
+        "_id": "673c186734651c28b47ddf5f",
+        "name": "Athlya",
+        "email": "buetny@telegmail.com",
+        "phone": [
+            "7022702214",
+            "7025984086"
+        ],
+        "address": "Updated Address",
+        "blood_group": "B+",
+        "dob": "1990-01-01T00:00:00",
+        "images": [
+            "https://bizkitbucket.s3.eu-north-1.amazonaws.com/personal_images/673c186734651c28b47ddf5f/6746f4a97ba39681b667875b.jpg"
+        ],
+        "personal_achievements": [
+            {
+                "title": "Full",
+                "images": [
+                    "https://bizkitbucket.s3.eu-north-1.amazonaws.com/personal_achievements/673ddebf7682bc0ed28c61e3/673ddebf7682bc0ed28c61e4.jpg"
+                ],
+                "description": "Onn office and the other day",
+                "event": "Award",
+                "date": "2024-12-31T00:00:00",
+                "_id": "673ddebf7682bc0ed28c61e3"
+            },
+            {
+                "title": "Shoes👞",
+                "images": [
+                    "https://bizkitbucket.s3.eu-north-1.amazonaws.com/personal_achievements/674070811b088f452bd650b1/67457e6fe1984e877237cce0.jpg",
+                    "https://bizkitbucket.s3.eu-north-1.amazonaws.com/personal_achievements/674070811b088f452bd650b1/674070811b088f452bd650b2.jpg"
+                ],
+                "description": "Got one of projects and the other hand and abhilash also a great👍 day and abhilash dgf for me a call from me a call from me a little bit🤏 more and abhilash",
+                "event": "Other",
+                "date": "2024-08-16T00:00:00",
+                "_id": "674070811b088f452bd650b1"
+            },
+            {
+                "title": "Title",
+                "images": [
+                    "https://bizkitbucket.s3.eu-north-1.amazonaws.com/personal_achievements/67495b29ca0a8e0b5ae73c09/67495b29ca0a8e0b5ae73c0a.jpg"
+                ],
+                "description": "Ge to be b",
+                "event": "Certificate",
+                "_id": "67495b29ca0a8e0b5ae73c09"
+            }
+        ],
+        "dates_to_remember": [
+            {
+                "date": "2024-11-12T00:00:00",
+                "description": "Hddhdh",
+                "_id": "673f28317d26efc7b7bf0bfe"
+            },
+            {
+                "date": "2025-01-22T00:00:00",
+                "description": "Hcj",
+                "_id": "673f28847d26efc7b7bf0bff"
+            },
+            {
+                "date": "2024-12-27T00:00:00",
+                "description": "Message",
+                "_id": "6740910ebfb34ccc62d5aa4d"
+            },
+            {
+                "date": "2024-11-30T00:00:00",
+                "description": "Need to be b and the other day✨ of👍💯 projects that you have to go to bed and I have😅 to get a👍 chance of projects that you can discuss💕 it was I love you❤ can💕 discuss💕 it to be in the🥇🥇🥇 other✋ people I know you❤❤ can💕💕💕 discuss it to be a great👏 👍💯",
+                "_id": "67441cf892ddc6b471d5424c"
+            }
+        ],
+        "personal_social_media": [
+            {
+                "label": "Whatsapp",
+                "link": "https://wa.me/7025214086",
+                "_id": "67456e42797daea28663b289"
+            },
+            {
+                "label": "Youtube",
+                "link": "https://youtube.com",
+                "_id": "67456e732bfbd1ec69ebb136"
+            },
+            {
+                "label": "Youtube",
+                "link": "https://yogajba.com",
+                "_id": "6745c19cd944e24963eb1920"
+            }
+        ],
+        "personal_story": "so hapdddpy for you to be b and I have addd",
+        "want_to_show_personal_story": true
+    },
+    "business_details": {
+        "_id": "673c186734651c28b47ddf60",
+        "business_category": "Product",
+        "designation": "Deputy Manager",
+        "company_name": "Motor Private Limited",
+        "business_logo": "https://bizkitbucket.s3.eu-north-1.amazonaws.com/business_logos/673c186734651c28b47ddf60/6745b42fcb9e6736f16f8404.jpg",
+        "logo_story": "My logo story and the rest of the rest when we're www what was wondering what a beautiful day with✨ what was like a great👍 what we have ye wo wali wo w haha I'm not sure if it was so much w",
+        "bank_details": {
+            "banking_name": "Federal",
+            "account_number": "70",
+            "IFSC_code": "FDRL0000876",
+            "UPI": "",
+            "GST": "",
+            "_id": "6745bf29cb9e6736f16f8406"
+        },
+        "business_email": "ecomerce@gmail.com",
+        "business_name": "ecomerce",
+        "business_phone": [
+            "982959725"
+        ],
+        "business_website": "new website link",
+        "business_achievements": [
+            {
+                "title": "Hffjfh",
+                "images": [
+                    "https://bizkitbucket.s3.eu-north-1.amazonaws.com/business_achievements/673ef7a21ecdd679de560f4d/673ef7a21ecdd679de560f4e.jpg"
+                ],
+                "description": "Dydhhc gxdg xgh xhh",
+                "event": "Other",
+                "_id": "673ef7a21ecdd679de560f4d"
+            },
+            {
+                "title": "This weekends",
+                "images": [
+                    "https://bizkitbucket.s3.eu-north-1.amazonaws.com/business_achievements/674464007ddc91f25ee37d13/674473587ddc91f25ee37d36.jpg"
+                ],
+                "description": "Central air conditioning and abhilash also have to go to be b day",
+                "event": "Other",
+                "_id": "674464007ddc91f25ee37d13"
+            }
+        ],
+        "branch_offices": [
+            {
+                "branch_location": "New York",
+                "branch_address": "123 Main St, New York, NY",
+                "branch_contact_number": "8985698569",
+                "branch_contact_person": "Jane Smith",
+                "_id": "673f2a267d26efc7b7bf0c00"
+            },
+            {
+                "branch_location": "Jayanagat",
+                "branch_address": "Bengaluru",
+                "branch_contact_number": "5855858556",
+                "branch_contact_person": "Gxhddhb",
+                "_id": "673f33ab7d26efc7b7bf0c02"
+            },
+            {
+                "branch_location": "Hsr",
+                "branch_address": "Hst layout",
+                "branch_contact_number": "8965325698",
+                "branch_contact_person": "Albi",
+                "_id": "6740915abfb34ccc62d5aa4e"
+            }
+        ],
+        "product": [
+            {
+                "title": "Phone",
+                "images": [
+                    "https://bizkitbucket.s3.eu-north-1.amazonaws.com/business_products/67402d067f3a5762e89981dd/67402d067f3a5762e89981de.jpg",
+                    "https://bizkitbucket.s3.eu-north-1.amazonaws.com/business_products/67402d067f3a5762e89981dd/67402d077f3a5762e89981df.jpg"
+                ],
+                "description": "Coat..",
+                "enquiry": false,
+                "_id": "67402d067f3a5762e89981dd"
+            },
+            {
+                "title": "Ferb",
+                "images": [
+                    "https://bizkitbucket.s3.eu-north-1.amazonaws.com/business_products/67405c5de90c7cf5431e3823/67405c5de90c7cf5431e3824.jpg"
+                ],
+                "description": "Ch nahi hai na to be b and I ol ye bhi nhi",
+                "enquiry": false,
+                "_id": "67405c5de90c7cf5431e3823"
+            }
+        ],
+        "business_social_media": [
+            {
+                "label": "Instagram",
+                "link": "https://instagram.com",
+                "_id": "67457d6be1984e877237ccde"
+            },
+            {
+                "label": "Telegram",
+                "link": "https://t.me/+8965236985",
+                "_id": "67457d8fe1984e877237ccdf"
+            }
+        ],
+        "company_story": "company storytelling and I have to go"
+    },
+    "completion_level": 90,
+    "is_default": true,
+    "is_business_editable": true,
+    "is_archived": false,
+    "is_disabled": false,
+    "qr_code": "iVBORw0KGgoAAAANSUhEUgAAAZoAAAGaAQAAAAAefbjOAAADLUlEQVR4nO2cQY7iMBBFX00isXSkPgBHcW4wRxr1kfoG8VH6AEjJEsnRn4UdEnpWPT0TaCgvwAQ/UVZMueq7wMSnW/rxeQYccsghhxxyyKHHhKy2FuuZS4/UQekxLQP6m5jn0P5QlCSNoFc7lB4wm6SM9TSSJF1D+5nn0H5QW5+nDuIbEMcXjHA24vtBRji1YgKDJu9unkN3AIUMTC167WYDwPr/80kOfQsodbPVHaKsjcOfisV3m5NDn2jLrhEETFD2ivj2ki2OCKauOIrturjzOTn0D6BkZmbd9Q4xtVhPIyj5h9mtzHNobx9xtTHMptRhgrMJMvow4N7n5NBXIDYxQxwbaSjXMmuvvCFJJUsd7nxODn0FqitivecEiagMUbmujbos6mBfEc8BLUplfDfTawcwHWS29DSEjPW3Ms+hvaD6tdfiFEqLI0DIFB1zADQswqX7iGeAUgdVewiZJayoY+zXCESd/VzjCSA20QMhoyGohJc10LxcW5v7iEeGFoWKuSW+HQRTVR2UOowiUzG3xOEG5jm0O8T2u38JHDQ2JdO8ii0azz6fBqrFD1ML0Ih0PBtMLfVhvXYT8xzaH6oChGQ9s5VQsi6BRhqYbQ00v8ucHPpSHDF1KFmTSR0odSeU+hZBWRbZoJHtbZ5Du0P1XCMdc2uEk0EYMTjIosDiWweEkVJUs7d5Du0OLcI0VYMCGhXFemCrX3n2+SRQ8RG1ZC6M5WItowuntmwnZUg4tdrbPId2hy4nXWwTz6JVFZexOI9L8Ok+4qGhdu1aHATpZ0YwA8ymIk4JxPTitdhPAG3qI4p2DY1Wb1GOwEoL2U/DnwDaRoyXmpjN3d+ol6PXRzwDdIksAWiyUjcipnaJLMPZYHrJtTh3Z/Mc2h1i9Qx1mxibpaRqrHlo9Ru4j3gmaKo/6jQ7no3UzWY9s5VKiWRmECTrb2SeQ7eD4ntb8lDSMUOy9lrEurF5Dv1vqP3wWumoElbUFDSMGGHE4nubrRRJ3PmcHPoK9DGOKBXYw5JrrBlGGe0K1cND29vNIlKu8sSqR2xK63xFPDJk/s9kDjnkkEMOOeTQX0K/AQg5XYtpCW7KAAAAAElFTkSuQmCC",
+    "universal_link": "https://bizkit-card.vercel.app/get-bizcard/673c186734651c28b47ddf61"
+}

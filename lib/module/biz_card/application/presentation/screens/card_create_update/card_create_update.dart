@@ -67,6 +67,7 @@ class _BizcardCreateOrUpdateScreenState
             indicatorPadding: const EdgeInsets.all(5),
             dividerColor: knill,
             indicatorSize: TabBarIndicatorSize.tab,
+            tabAlignment: TabAlignment.start,
             controller: tabController,
             indicator: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,

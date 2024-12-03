@@ -41,7 +41,7 @@ class BizCardDetailScreen extends StatelessWidget {
                   // card details icons and gifs
                   const BizCardDetailsIconsWidgets(),
                   // products and brands
-                  const BizCardProductsOrBrands(), 
+                  const BizCardProductsOrBrands(),
                   myCard
                       // edit button
                       ? const BizcardDetailEditButton()
@@ -63,6 +63,7 @@ class BizCardDetailScreen extends StatelessWidget {
     );
   }
 }
+
 class ImageSlideWidget extends StatefulWidget {
   final List<String> images;
 
@@ -78,7 +79,9 @@ class _ImageSlideWidgetState extends State<ImageSlideWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,width: 300,color: kred.withOpacity(0.1),
+      height: 120,
+      width: 300,
+      color: kred.withOpacity(0.1),
       child: Stack(
         alignment: Alignment.center,
         children: [

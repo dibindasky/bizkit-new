@@ -6,7 +6,7 @@ part of 'tasks_counts_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-EmpolyeesTasksCountsModel _$EmpolyeesTasksCountsModelTasksCountsModelFromJson(
+EmpolyeesTasksCountsModel _$EmpolyeesTasksCountsModelFromJson(
         Map<String, dynamic> json) =>
     EmpolyeesTasksCountsModel(
       userIds: (json['user_ids'] as List<dynamic>?)
@@ -14,7 +14,7 @@ EmpolyeesTasksCountsModel _$EmpolyeesTasksCountsModelTasksCountsModelFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$EmpolyeesTasksCountsModelTasksCountsModelToJson(
+Map<String, dynamic> _$EmpolyeesTasksCountsModelToJson(
         EmpolyeesTasksCountsModel instance) =>
     <String, dynamic>{
       'user_ids': instance.userIds,

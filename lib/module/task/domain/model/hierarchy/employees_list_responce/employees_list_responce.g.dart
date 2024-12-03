@@ -13,8 +13,8 @@ EmployeesListResponce _$EmployeesListResponceFromJson(
           ?.map((e) => Employee.fromJson(e as Map<String, dynamic>))
           .toList(),
       hasMore: json['has_more'] as bool?,
-      page: (json['page'] as num?)?.toInt(),
-      pageSize: (json['page_size'] as num?)?.toInt(),
+      page: json['page'] as int?,
+      pageSize: json['page_size'] as int?,
     );
 
 Map<String, dynamic> _$EmployeesListResponceToJson(

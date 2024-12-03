@@ -12,6 +12,7 @@ class CurrentLocationMessage {
   bool isLoadMore;
   String? currentUid;
   String? place;
+  String? localId;
 
   CurrentLocationMessage(
       {this.messageType,
@@ -25,12 +26,14 @@ class CurrentLocationMessage {
       this.readByAll,
       this.sender = false,
       this.currentUid,
+      this.localId,
       this.isLoadMore = false,
       this.place});
 
   factory CurrentLocationMessage.fromJson(Map<String, dynamic> json,
       {String? uid, bool fromLocalDb = false}) {
     return CurrentLocationMessage(
+      localId: json['local_id'] as String?,
       messageType: json['message_type'] as String?,
       message: json['message'] as String?,
       userId: json['user_id'] as String?,
@@ -75,10 +78,12 @@ class CurrentLocationMessage {
       'is_load_more': isLoadMore,
       'current_uid': currentUid,
       'place': place,
+      'local_id': localId,
     };
   }
 
   static const String colLocalId = 'local_id';
+  static const String colLocalDbId = 'local_db_id';
   static const String colMessageType = 'message_type';
   static const String colMessage = 'message';
   static const String colUserId = 'user_id';

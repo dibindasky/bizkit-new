@@ -84,7 +84,7 @@ class ImagePickerClass {
         final bytes = await File(compressedFile.path).readAsBytes();
         String base64 = base64Encode(bytes);
         // base64 = 'data:image/$extension;base64,$base64';
-        print('imagepicker =>base64 ======================== $base64');
+        // print('imagepicker =>base64 ======================== $base64');
         return ImageModel(
             fileImage: compressedFile,
             base64: base64,

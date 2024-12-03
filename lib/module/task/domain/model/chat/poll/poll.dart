@@ -2,6 +2,7 @@ import 'package:bizkit/module/task/domain/model/chat/poll/poll_answer.dart';
 
 class Poll {
   bool sender;
+  String? localId;
   String? pollId;
   String? currentUid;
   String? messageId;
@@ -37,6 +38,7 @@ class Poll {
     this.multipleAnswer,
     this.resonRequired,
     this.messageType,
+    this.localId,
     this.isLoadMore = false,
     this.readByAll = false,
   });
@@ -60,6 +62,7 @@ class Poll {
     String? messageType,
     bool? isLoadMore,
     bool? readByAll,
+    String? localId,
   }) {
     return Poll(
       sender: sender ?? this.sender,
@@ -80,6 +83,7 @@ class Poll {
       isLoadMore: isLoadMore ?? this.isLoadMore,
       readByAll: readByAll ?? this.readByAll,
       messageType: messageType ?? this.messageType,
+      localId: localId ?? this.localId,
     );
   }
 
@@ -103,6 +107,7 @@ class Poll {
       'is_load_more': isLoadMore,
       'read_by_all': readByAll,
       'message_type': messageType,
+      'local_id': localId,
     };
   }
 
@@ -112,6 +117,7 @@ class Poll {
       sender: (json['user_id'] as String?) == uid,
       pollId: json['poll_id'] as String?,
       messageId: json['message_id'] as String?,
+      localId: json['local_id'] as String?,
       currentUid: uid,
       pollQuestion: json['poll_question'] as String?,
       pollAnswers: (json['poll_answers'] as List<dynamic>?)
@@ -151,10 +157,11 @@ class Poll {
 
   @override
   String toString() {
-    return 'Poll(sender: $sender, pollId: $pollId, currentUid: $currentUid, messageId: $messageId, pollQuestion: $pollQuestion, pollAnswers: $pollAnswers, timestamp: $timestamp, userName: $userName, profilePicture: $profilePicture, userId: $userId, readBy: $readBy, multipleAnswer: $multipleAnswer, anonymousVote: $anonymousVote, resonRequired: $resonRequired, activeUntil: $activeUntil, isLoadMore: $isLoadMore, readByAll: $readByAll)';
+    return 'Poll(sender: $sender, pollId: $pollId, currentUid: $currentUid, messageId: $messageId, pollQuestion: $pollQuestion, pollAnswers: $pollAnswers, timestamp: $timestamp, userName: $userName, profilePicture: $profilePicture, userId: $userId, readBy: $readBy, multipleAnswer: $multipleAnswer, anonymousVote: $anonymousVote, resonRequired: $resonRequired, activeUntil: $activeUntil, isLoadMore: $isLoadMore, readByAll: $readByAll, local_db_id: $localId)';
   }
 
   static const String colLocalId = 'local_id';
+  static const String colLocalDbId = 'local_db_id';
   static const String colSender = 'sender';
   static const String colPollId = 'poll_id';
   static const String colMessageId = 'message_id';

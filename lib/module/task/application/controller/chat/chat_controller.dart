@@ -30,6 +30,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_socket_channel/io.dart';
+import 'package:uuid/uuid.dart';
 
 class ChatController extends GetxController {
   late IOWebSocketChannel channel;
@@ -97,12 +98,18 @@ class ChatController extends GetxController {
   /// currently active poll details
   Rx<Poll> pollDetail = Poll().obs;
 
+  // current user id
+  String _uid = '';
+
   // Define the AppPermissionStatus enum
 
   /// connect to the channel with task id and handle the messages form the channel
   void connectChannel(BuildContext context, {required String? taskId}) async {
+    final token = await SecureStorage.getToken();
+    final accessToken = token.accessToken ?? '';
+    _uid = token.uid ?? '';
     _error = '';
-    connectionLoading.value = true;
+    // connectionLoading.value = true;
     loadMoreLoading.value = false;
     chatTaskId = taskId ?? '';
     chatScrollController.addListener(() {
@@ -112,15 +119,13 @@ class ChatController extends GetxController {
     isPlaying.value = false;
     isPaused.value = false;
     recordedAudio.value = '';
-    final token = await SecureStorage.getToken();
-    final accessToken = token.accessToken ?? '';
-    final uid = token.uid ?? '';
-    firstLoad = true;
+    // firstLoad = true;
     messages.clear();
 
     try {
       print('message count taskId => $taskId');
       await getMessageFromLocaldb(firstCall: true);
+      await Future.delayed(const Duration(seconds: 10));
       channel = IOWebSocketChannel.connect(
         Uri.parse(
             SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
@@ -128,7 +133,7 @@ class ChatController extends GetxController {
       );
       connectionLoading.value = false;
       channel.stream.listen(
-        (message) {
+        (message) async {
           // Decode the message from JSON
           final decodedMessage =
               jsonDecode(message as String) as Map<String, dynamic>;
@@ -149,9 +154,8 @@ class ChatController extends GetxController {
             loadMoreLoading.value = false;
           }
           // create model and add to list according to the position
-          doAnimate =
-              addMessageToListByCheckingType(decodedMessage, uid, doAnimate);
-
+          doAnimate = await _addMessageToListByCheckingType(
+              decodedMessage: decodedMessage, uid: _uid, doAnimate: doAnimate);
           update(['chat']);
           // animate the scroll controller if necessary
           if (decodedMessage['is_load_more'] != true && doAnimate) {
@@ -200,33 +204,51 @@ class ChatController extends GetxController {
     }
   }
 
+  /// generate an unique id for message to store locally
+  String getUniqueId() {
+    return const Uuid().v4();
+  }
+
   /// create the [Message] model for add to [messages] to show it in the ui
-  bool addMessageToListByCheckingType(
-      Map<String, dynamic> decodedMessage, String uid, bool doAnimate) {
+  Future<bool> _addMessageToListByCheckingType(
+      {required Map<String, dynamic> decodedMessage,
+      required String uid,
+      required bool doAnimate,
+      bool fromSend = false}) async {
+    print('decoadedMessage ${decodedMessage.toString()}');
     switch (decodedMessage['message_type']) {
       case 'text':
         final m = TextMessage.fromJson(decodedMessage, uid: uid);
         final mess = Message(
-            deleted: decodedMessage['deleted'] ?? false,
+            localId: decodedMessage['local_id'] as String?,
+            deleted: (decodedMessage['deleted'] as bool?) ?? false,
             textMessage: m,
             sender: m.sender,
             messageId: m.messageId,
-            messageType: m.messageType,
+            messageType: 'text',
             taskId: chatTaskId,
+            isLoadMore: false,
             timestamp: m.timestamp);
-        final index = messages.indexWhere(
-            (element) => element.textMessage?.messageId == m.messageId);
-        if (index != -1) {
-          messages[index] = mess;
-          doAnimate = false;
-        } else {
-          if (m.isLoadMore) {
-            loadMoreLoading.value = false;
-            doAnimate = false;
-          }
+        if (fromSend) {
           insertMessageToList(mess);
+        } else {
+          final index = messages.indexWhere((element) =>
+              element.textMessage?.localId == m.localId ||
+              ((element.textMessage?.messageId?.isNotEmpty ?? false) &&
+                  (m.messageId?.isNotEmpty ?? false) &&
+                  (element.textMessage?.messageId == m.messageId)));
+          if (index != -1) {
+            messages[index] = mess;
+            doAnimate = false;
+          } else {
+            if (m.isLoadMore) {
+              loadMoreLoading.value = false;
+              doAnimate = false;
+            }
+            insertMessageToList(mess);
+          }
         }
-        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
 
       case 'file':
@@ -239,8 +261,9 @@ class ChatController extends GetxController {
             messageType: m.messageType,
             taskId: chatTaskId,
             timestamp: m.timestamp);
-        final index = messages
-            .indexWhere((element) => element.file?.messageId == m.messageId);
+        final index = messages.indexWhere((element) =>
+            element.file?.messageId == m.messageId ||
+            element.file?.localId == m.localId);
         if (index != -1) {
           messages[index] = mess;
           doAnimate = false;
@@ -251,7 +274,7 @@ class ChatController extends GetxController {
           }
           insertMessageToList(mess);
         }
-        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
 
       case 'poll':
@@ -264,8 +287,9 @@ class ChatController extends GetxController {
             messageType: m.messageType,
             taskId: chatTaskId,
             timestamp: m.timestamp);
-        final index = messages
-            .indexWhere((element) => element.poll?.messageId == m.messageId);
+        final index = messages.indexWhere((element) =>
+            element.poll?.messageId == m.messageId ||
+            element.poll?.localId == m.localId);
         if (index != -1) {
           messages[index] = mess;
           doAnimate = false;
@@ -276,7 +300,7 @@ class ChatController extends GetxController {
           }
           insertMessageToList(mess);
         }
-        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
 
       case 'time_expense':
@@ -291,8 +315,9 @@ class ChatController extends GetxController {
             messageType: m.messageType,
             taskId: chatTaskId,
             timestamp: m.timestamp);
-        final index = messages.indexWhere(
-            (element) => element.timeExpence?.messageId == m.messageId);
+        final index = messages.indexWhere((element) =>
+            element.timeExpence?.messageId == m.messageId ||
+            element.timeExpence?.localId == m.localId);
         if (index != -1) {
           messages[index] = mess;
           doAnimate = false;
@@ -303,7 +328,7 @@ class ChatController extends GetxController {
           }
           insertMessageToList(mess);
         }
-        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
 
       case 'location':
@@ -316,8 +341,9 @@ class ChatController extends GetxController {
             messageType: m.messageType,
             taskId: chatTaskId,
             timestamp: m.timestamp);
-        final index = messages.indexWhere(
-            (element) => element.currentLocation?.messageId == m.messageId);
+        final index = messages.indexWhere((element) =>
+            element.currentLocation?.messageId == m.messageId ||
+            element.currentLocation?.localId == m.localId);
         if (index != -1) {
           messages[index] = mess;
           doAnimate = false;
@@ -328,7 +354,7 @@ class ChatController extends GetxController {
           }
           insertMessageToList(mess);
         }
-        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
 
       case 'voice':
@@ -341,8 +367,9 @@ class ChatController extends GetxController {
             messageType: m.messageType,
             taskId: chatTaskId,
             timestamp: m.timestamp);
-        final index = messages.indexWhere(
-            (element) => element.voiceMessage?.messageId == m.messageId);
+        final index = messages.indexWhere((element) =>
+            element.voiceMessage?.messageId == m.messageId ||
+            element.voiceMessage?.localId == m.localId);
         if (index != -1) {
           messages[index] = mess;
           doAnimate = false;
@@ -353,65 +380,15 @@ class ChatController extends GetxController {
           }
           insertMessageToList(mess);
         }
-        taskChatLocalService.insertOrUpdateMessage(message: mess);
+        await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
 
       default:
         // Handle unsupported message types if needed
+        log('message type not found ${decodedMessage['message_type']}');
         break;
     }
     return doAnimate;
-  }
-
-  /// add message to the list [messages] by binary search with datetime
-  void insertMessageToList(Message m) {
-    int left = 0;
-    int right = messages.length - 1;
-    // using binary search to find the position of message in chat
-    while (left <= right) {
-      int mid = left + (right - left) ~/ 2;
-      if (DateTime.tryParse(messages[mid].timestamp ?? '')!
-          .isAfter(DateTime.tryParse(m.timestamp ?? '')!)) {
-        left = mid + 1;
-      } else {
-        right = mid - 1;
-      }
-    }
-    messages.insert(left, m);
-  }
-
-  /// get messages form local db according to the current massage list limit
-  Future<void> getMessageFromLocaldb({required bool firstCall}) async {
-    try {
-      log('getMessageFromLocaldb called');
-      final messageList = await taskChatLocalService.getMessagesWithLimit(
-          limit: firstCall ? 40 : 20,
-          offset: firstCall ? 0 : messages.length,
-          taskId: chatTaskId);
-      log('getMessageFromLocaldb message list => ${messageList?.length}');
-      for (var e in messageList ?? <Message>[]) {
-        final index =
-            messages.indexWhere((element) => element.messageId == e.messageId);
-        if (index == -1) {
-          insertMessageToList(e);
-        }
-      }
-      loadMoreLoading.value = false;
-    } catch (e) {
-      log('getMessageFromLocaldb exception => ${e.toString()}');
-    }
-  }
-
-  /// responsible for adding message to the channel
-  void addMessage(Map<String, dynamic> data) {
-    try {
-      print('addMessage => $data');
-      data['local_id'] = 'mylocalID123456789';
-      channel.sink.add(jsonEncode(data));
-    } catch (e) {
-      log('message sending error $e');
-      rethrow;
-    }
   }
 
   /// close channel connection
@@ -431,16 +408,114 @@ class ChatController extends GetxController {
     }
   }
 
+  /// add message to the list [messages] by binary search with datetime
+  void insertMessageToList(Message m) {
+    int left = 0;
+    int right = messages.length - 1;
+    // using binary search to find the position of message in chat
+    while (left <= right) {
+      int mid = left + (right - left) ~/ 2;
+      if (DateTime.tryParse(messages[mid].timestamp ?? '')!
+          .isAfter(DateTime.tryParse(m.timestamp ?? '')!)) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+    messages.insert(left, m);
+    update(['chat']);
+  }
+
+  /// get messages form local db according to the current massage list limit
+  Future<void> getMessageFromLocaldb({required bool firstCall}) async {
+    try {
+      log('getMessageFromLocaldb called');
+      final messageList = await taskChatLocalService.getMessagesWithLimit(
+          limit: firstCall ? 40 : 20,
+          offset: firstCall ? 0 : messages.length,
+          taskId: chatTaskId);
+      log('getMessageFromLocaldb message list => ${messageList?.length}');
+      for (var e in messageList ?? <Message>[]) {
+        final index = messages.indexWhere((element) =>
+            (element.localId == e.localId) ||
+            ((e.messageId?.isNotEmpty ?? false) &&
+                (element.messageId?.isNotEmpty ?? false) &&
+                e.messageId == element.messageId));
+        if (index == -1 || index == null) {
+          insertMessageToList(e);
+        }
+      }
+      loadMoreLoading.value = false;
+    } catch (e) {
+      log('getMessageFromLocaldb exception => ${e.toString()}');
+    }
+  }
+
+  Message createMessageModelForLocalDb(String localId, String type) {
+    return Message(
+      isLoadMore: false,
+      sender: true,
+      localId: localId,
+      deleted: false,
+      messageType: type,
+      taskId: chatTaskId,
+      timestamp: DateTime.now().toIso8601String(),
+    );
+  }
+
+  /// responsible for adding message to the channel
+  void addMessageToChannel(
+      {required Map<String, dynamic> data,
+      Map<String, dynamic>? message}) async {
+    try {
+      if (message != null) {
+        // log('message => ${message.toJson().toString()}');
+        await _addMessageToListByCheckingType(
+          decodedMessage: message,
+          uid: _uid,
+          doAnimate: false,
+          fromSend: false,
+        );
+        data['local_id'] = message['local_id'];
+      }
+      print('addMessage => $data');
+      channel.sink.add(jsonEncode(data));
+      final messageList = await taskChatLocalService.getMessagesWithLimit(
+          limit: 40, offset: 0, taskId: chatTaskId);
+      print('message list after send data => ${messageList?.length}');
+      messageList?.map((e) {
+        print('message list data -> ${e.toJson()}');
+        return false;
+      });
+    } catch (e) {
+      log('message sending error $e');
+      rethrow;
+    }
+  }
+
   /// send text message
   void sendTextMessage() async {
     if (controller.text.isNotEmpty) {
-      final message = controller.text.trim();
+      final text = controller.text.trim();
       try {
-        // for (int i = 0; i < 400; i++) {
-        //   await Future.delayed(Duration(milliseconds: 1));
-        //   addMessage({"message_type": "text", "message": 'message - $i'});
-        // }
-        addMessage({"message_type": "text", "message": message});
+        String localId = getUniqueId();
+        // create a model for showing it to the ui before sending it to server
+        Message message = createMessageModelForLocalDb(localId, 'text');
+        // message.
+        var textMessage = TextMessage(
+            currentUid: _uid,
+            isLoadMore: false,
+            localId: localId,
+            message: text,
+            messageType: 'text',
+            readByAll: false,
+            sender: true,
+            userId: _uid,
+            readBy: [],
+            timestamp: message.timestamp);
+        addMessageToChannel(
+            data: {"message_type": "text", "message": text},
+            message: textMessage.toJson());
         controller.clear();
         firstLoad = false;
       } catch (e) {
@@ -453,7 +528,11 @@ class ChatController extends GetxController {
   /// create poll voting
   void createPollVoting({required CreatePoll createPoll}) {
     try {
-      addMessage(createPoll.toJson());
+      String localId = getUniqueId();
+      // create a model for showing it to the ui before sending it to server
+      Message message = createMessageModelForLocalDb(localId, 'poll');
+      message.poll = Poll();
+      addMessageToChannel(data: createPoll.toJson());
       controller.clear();
       firstLoad = false;
     } catch (e) {
@@ -465,7 +544,10 @@ class ChatController extends GetxController {
   /// add vote for pole
   void addVoteforPol({required VotePoll votePoll}) {
     try {
-      addMessage(votePoll.toJson());
+      // String localId = getUniqueId();
+      // create a model for showing it to the ui before sending it to server
+      // Message message = _createMessageModelForLocalDb(localId,'poll');
+      addMessageToChannel(data: votePoll.toJson());
       controller.clear();
       firstLoad = false;
     } catch (e) {
@@ -482,7 +564,7 @@ class ChatController extends GetxController {
       loadMoreLoading.value = true;
       await getMessageFromLocaldb(firstCall: false);
       update(['chat']);
-      addMessage({
+      addMessageToChannel(data: {
         "message_type": "load_more",
         "last_message_id": messages.last.messageId
       });
@@ -492,7 +574,13 @@ class ChatController extends GetxController {
   /// create time and expence chat
   void addTimeExpence({required TimeExpenseUpdation timeExpenceUpdation}) {
     try {
-      addMessage(timeExpenceUpdation.toJson());
+      String localId = getUniqueId();
+      // create a model for showing it to the ui before sending it to server
+      Message message = createMessageModelForLocalDb(localId, 'time_expense');
+      message.timeExpence = TimeExpense();
+      addMessageToChannel(
+        data: timeExpenceUpdation.toJson(),
+      );
     } catch (e) {
       print('Failed to update time and expence: $e');
       _error = 'Failed to update time and expence: $e';
@@ -517,8 +605,12 @@ class ChatController extends GetxController {
   void sendImageBase64() async {
     try {
       if (loadedImages.isEmpty) return;
+      String localId = getUniqueId();
+      // create a model for showing it to the ui before sending it to server
+      Message message = createMessageModelForLocalDb(localId, 'file');
+      message.file = FileMessage();
       print('send picture');
-      addMessage({
+      addMessageToChannel(data: {
         "message_type": "file",
         "files": List.generate(
           loadedImages.length,
@@ -551,14 +643,20 @@ class ChatController extends GetxController {
       final pdf = await PdfPickerImpl().getPdf();
       if (pdf == null || pdf.base64 == null) return;
       final base64 = pdf.base64!.split('base64,').last;
+      String localId = getUniqueId();
+      // create a model for showing it to the ui before sending it to server
+      Message message = createMessageModelForLocalDb(localId, 'file');
+      message.file = FileMessage();
       print('send pdf => ${pdf.name}');
-      addMessage({
-        "message_type": "file",
-        "files": [
-          {"file": base64, "file_type": 'pdf'}
-        ],
-        "messages": [pdf.name ?? 'Document']
-      });
+      addMessageToChannel(
+        data: {
+          "message_type": "file",
+          "files": [
+            {"file": base64, "file_type": 'pdf'}
+          ],
+          "messages": [pdf.name ?? 'Document']
+        },
+      );
     } catch (e) {
       return;
     }
@@ -585,11 +683,17 @@ class ChatController extends GetxController {
   /// send current location
   void sendCurrentLocation(BuildContext context) {
     try {
-      addMessage({
-        "message_type": "location",
-        "location": currentLocationLatLong,
-        "place": currentLocation.value
-      });
+      String localId = getUniqueId();
+      // create a model for showing it to the ui before sending it to server
+      Message message = createMessageModelForLocalDb(localId, 'location');
+      message.currentLocation = CurrentLocationMessage();
+      addMessageToChannel(
+        data: {
+          "message_type": "location",
+          "location": currentLocationLatLong,
+          "place": currentLocation.value
+        },
+      );
       GoRouter.of(context).pop();
     } catch (e) {
       return;
@@ -604,14 +708,14 @@ class ChatController extends GetxController {
   /// on mic tap record and stop
   void micTap() {
     if (isRecording.value) {
-      _stopRecording();
+      stopRecording();
     } else {
-      _startRecording();
+      startRecording();
     }
   }
 
   /// add counter for timer voice chat
-  void _startRecordTimer() {
+  void startRecordTimer() {
     recordDuration.value = 0;
     recordTimer = Timer.periodic(const Duration(seconds: 1), (_) {
       recordDuration.value++;
@@ -619,24 +723,24 @@ class ChatController extends GetxController {
   }
 
   /// end record timer
-  void _endRecordTimer() {
+  void endRecordTimer() {
     recordTimer.cancel();
   }
 
   /// start recording audio
-  void _startRecording() async {
+  void startRecording() async {
     recordDuration.value = 0;
     recordedAudio.value = '';
     isRecording.value = true;
     await soundManager.startRecording();
-    _startRecordTimer();
+    startRecordTimer();
     print('recording started ==> ');
   }
 
   /// stop recording audio
-  void _stopRecording() async {
+  void stopRecording() async {
     await soundManager.stopRecording();
-    _endRecordTimer();
+    endRecordTimer();
     recordedAudio.value = soundManager.getBase64Audio() ?? '';
     print('recorded audio => ${recordedAudio.value}');
     isRecording.value = false;
@@ -648,12 +752,12 @@ class ChatController extends GetxController {
   /// play pause controller
   void playPauseRecordedAudio() {
     if (isPaused.value) {
-      _resumeRecordedAudio();
+      resumeRecordedAudio();
     } else if (isPlaying.value) {
-      _pauseRecordedAudio();
+      pauseRecordedAudio();
       // _stopPlayingRecordedAudio();
     } else {
-      _playRecordedAudio();
+      playRecordedAudio();
     }
   }
 
@@ -671,13 +775,13 @@ class ChatController extends GetxController {
   // }
 
   /// when recording finished
-  void _whenFinished() {
+  void whenFinished() {
     isPlaying.value = false;
     isPaused.value = false;
   }
 
   /// play recorded audio
-  void _playRecordedAudio() async {
+  void playRecordedAudio() async {
     isPlaying.value = true;
     isPaused.value = false;
     print('playing recorded audio');
@@ -685,7 +789,7 @@ class ChatController extends GetxController {
     final play = await audioPlayerHandler.playAudioFromBase64(
         recordedAudio.value,
         onCurrentPositionChanged: (currentPosition) {},
-        whenFinished: _whenFinished);
+        whenFinished: whenFinished);
     print('played or not  ---------------------------==> $play');
     if (!play) {
       isPlaying.value = false;
@@ -699,7 +803,7 @@ class ChatController extends GetxController {
   }
 
   /// pause recorded audio
-  void _pauseRecordedAudio() async {
+  void pauseRecordedAudio() async {
     // await soundManager.pausePlayback();
     audioPlayerHandler.pauseAudio();
     isPlaying.value = false;
@@ -708,7 +812,7 @@ class ChatController extends GetxController {
   }
 
   /// pause recorded audio
-  void _stopPlayingRecordedAudio() async {
+  void stopPlayingRecordedAudio() async {
     // await soundManager.stopPlayback();
     audioPlayerHandler.stopAudio();
     isPlaying.value = false;
@@ -717,7 +821,7 @@ class ChatController extends GetxController {
   }
 
   /// resume recorded audio
-  void _resumeRecordedAudio() async {
+  void resumeRecordedAudio() async {
     // await soundManager.resumePlayback();
     audioPlayerHandler.resumeAudio();
     isPlaying.value = true;
@@ -728,12 +832,18 @@ class ChatController extends GetxController {
   /// send audio
   void sendAudio() {
     getRecordDuration();
-    if (isPlaying.value) _stopPlayingRecordedAudio();
-    addMessage({
-      "message_type": "voice",
-      "voice_message": recordedAudio.value,
-      "duration": DateTimeFormater.getDurtionFromSeconds(recordDuration.value)
-    });
+    if (isPlaying.value) stopPlayingRecordedAudio();
+    String localId = getUniqueId();
+    // create a model for showing it to the ui before sending it to server
+    Message message = createMessageModelForLocalDb(localId, 'voice');
+    message.voiceMessage = VoiceMessage();
+    addMessageToChannel(
+      data: {
+        "message_type": "voice",
+        "voice_message": recordedAudio.value,
+        "duration": DateTimeFormater.getDurtionFromSeconds(recordDuration.value)
+      },
+    );
     recordedAudio.value = '';
   }
 }

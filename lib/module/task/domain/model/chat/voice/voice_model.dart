@@ -1,5 +1,6 @@
 class VoiceMessage {
   final String? messageType;
+  final String? localId;
   final String? message;
   final String? userId;
   final String? username;
@@ -25,6 +26,7 @@ class VoiceMessage {
       this.duration,
       this.readByAll,
       this.currentUid,
+      this.localId,
       this.isLoadMore = false,
       this.sender = false});
 
@@ -35,6 +37,7 @@ class VoiceMessage {
       messageType: json['message_type'] as String?,
       message: json['message'] as String?,
       userId: json['user_id'] as String?,
+      localId: json['local_id'] as String?,
       username: json['username'] as String?,
       profilePicture: json['profile_picture'] as String?,
       messageId: json['message_id'] as String?,
@@ -65,6 +68,7 @@ class VoiceMessage {
       'read_by_all': readByAll,
       'current_uid': currentUid,
       'is_load_more': isLoadMore,
+      'local_id': localId
     };
   }
 
@@ -75,6 +79,7 @@ class VoiceMessage {
   }
 
   static const String colLocalId = 'local_id';
+  static const String colLocalDbId = 'local_db_id';
   static const String colMessageType = 'message_type';
   static const String colMessage = 'message';
   static const String colUserId = 'user_id';

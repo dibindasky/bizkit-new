@@ -6,6 +6,7 @@ class TimeExpense {
   String? profilePicture;
   String? messageId;
   String? timestamp;
+  String? localId;
   TimeExpenseData? timeExpenseData;
   bool? readByAll;
   bool sender;
@@ -21,6 +22,7 @@ class TimeExpense {
     this.timestamp,
     this.timeExpenseData,
     this.readByAll,
+    this.localId,
     this.sender = false,
     this.isLoadMore = false,
   });
@@ -31,6 +33,7 @@ class TimeExpense {
   factory TimeExpense.fromJson(Map<String, dynamic> json,
       {String? uid, bool fromLocalDb = false}) {
     return TimeExpense(
+      localId: json['local_id'] as String?,
       messageType: json['message_type'] as String?,
       message: json['message'] as String?,
       userId: json['user_id'] as String?,
@@ -58,6 +61,7 @@ class TimeExpense {
 
   Map<String, dynamic> toJson() {
     return {
+      'local_id': localId,
       'message_type': messageType,
       'message': message,
       'user_id': userId,
@@ -73,6 +77,7 @@ class TimeExpense {
   }
 
   static const String colLocalId = 'local_id';
+  static const String colLocalDbId = 'local_db_id';
   static const String colMessageType = 'message_type';
   static const String colMessage = 'message';
   static const String colUserId = 'user_id';

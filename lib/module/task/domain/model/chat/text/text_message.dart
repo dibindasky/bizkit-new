@@ -6,6 +6,7 @@ class TextMessage {
   String? profilePicture;
   String? timestamp;
   String? messageId;
+  String? localId;
   String? message;
   bool sender;
   bool isLoadMore;
@@ -23,6 +24,7 @@ class TextMessage {
     this.message,
     this.sender = false,
     this.readBy,
+    this.localId,
     this.isLoadMore = false,
     this.readByAll = false,
   });
@@ -42,6 +44,7 @@ class TextMessage {
       'read_by': readBy,
       'is_load_more': isLoadMore,
       'read_by_all': readByAll,
+      'local_id': localId,
     };
   }
 
@@ -50,6 +53,7 @@ class TextMessage {
       {String? uid, bool fromLocalDb = false}) {
     return TextMessage(
       messageType: json['message_type'] as String?,
+      localId: json['local_id'] as String?,
       userId: json['user_id'] as String?,
       currentUid: uid,
       username: json['username'] as String?,
@@ -75,6 +79,7 @@ class TextMessage {
   }
 
   static const String colLocalId = 'local_id';
+  static const String colLocalDbId = 'local_db_id';
   static const String colMessageType = 'message_type';
   static const String colUserId = 'user_id';
   static const String colCurrentUid = 'current_uid';

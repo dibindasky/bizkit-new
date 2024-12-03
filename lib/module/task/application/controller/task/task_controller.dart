@@ -54,6 +54,7 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -167,6 +168,9 @@ class CreateTaskController extends GetxController {
   // List of quick tasks
   RxList<QuickTasks> quickTasks = <QuickTasks>[].obs;
 
+  // List of completed quick tasks
+  RxList<QuickTasks> completedQuickTasks = <QuickTasks>[].obs;
+
 // Pagination controls for different task lists
   int pageNumber = 1, pageSize = 5; // Pagination for general tasks
   int taskSearchPageNumber = 1,
@@ -177,7 +181,8 @@ class CreateTaskController extends GetxController {
       typeTasksPageSize = 15; // Pagination for type-filtered tasks
 
   int quickTasksPageNumber = 1,
-      quickTasksPageSize = 10; // Pagination for quick tasks
+      quickTasksPageSize = 10,
+      completedQuickTaskPage = 1; // Pagination for quick tasks
 
   int pinnedTasksPageNumber = 1; // Pagination for pinned tasks
 
@@ -282,6 +287,12 @@ class CreateTaskController extends GetxController {
 
   RxBool loadingForAllQuickTasks =
       false.obs; // Loading state for all quick tasks
+
+  RxBool loadingForCompletedQuickTasks =
+      false.obs; // Loading state for completed quick tasks
+
+  RxBool completedQuickTasksLoadMore =
+      false.obs; // Loading state for completed quick tasks
 
   RxBool quickTasksLoadMore =
       false.obs; // Loading state for all quick tasks loadmore
@@ -1935,8 +1946,13 @@ class CreateTaskController extends GetxController {
   }
 
   // Create a quick task
-  void createQuickTask({required CreateQuickTask createQuickTask}) async {
+  void createQuickTask(
+      {required CreateQuickTask createQuickTask,
+      required BuildContext context}) async {
     loadingForQuickTask.value = true;
+    // Extract only the user IDs from the userslistNew
+    createQuickTask.assignedTo =
+        userslistNew.map((user) => user.userId ?? '').toList();
     final result =
         await taskService.createQuickTask(createQuickTask: createQuickTask);
 
@@ -1944,9 +1960,21 @@ class CreateTaskController extends GetxController {
       (failure) {
         loadingForQuickTask.value = false;
         log(failure.message.toString());
+        showSnackbar(
+          context,
+          message: errorMessage,
+          backgroundColor: kred,
+        );
       },
       (success) {
         loadingForQuickTask.value = false;
+        GoRouter.of(context).pop(context);
+        userslistNew.clear();
+        showSnackbar(
+          context,
+          message: 'Quick task created successfully',
+          backgroundColor: neonShade,
+        );
       },
     );
   }
@@ -1981,6 +2009,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         loadingForQuickTask.value = false;
+        fetchCompletedQuickTasks();
       },
     );
   }
@@ -2028,6 +2057,55 @@ class CreateTaskController extends GetxController {
       (success) {
         quickTasks.addAll(success.data ?? []);
         quickTasksLoadMore.value = false;
+      },
+    );
+  }
+
+  // fetch all quick tasks
+  void fetchCompletedQuickTasks() async {
+    loadingForCompletedQuickTasks.value = true;
+    completedQuickTaskPage = 1;
+    completedQuickTasks.value = [];
+    final result = await taskService.getCompletedQuickTasks(
+        paginationQuery: PaginationQuery(
+      completedTasks: true,
+      page: completedQuickTaskPage,
+      pageSize: quickTasksPageSize,
+    ));
+
+    result.fold(
+      (failure) {
+        loadingForCompletedQuickTasks.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        completedQuickTasks.assignAll(success.data ?? []);
+        loadingForCompletedQuickTasks.value = false;
+      },
+    );
+  }
+
+  // fetch completed quick tasks [ Pagination ]
+  void fetchCompletedQuickTasksLoadMore() async {
+    if (completedQuickTasksLoadMore.value == true) {
+      return;
+    }
+    completedQuickTasksLoadMore.value = true;
+    final result = await taskService.getQuickTasks(
+        paginationQuery: PaginationQuery(
+      completedTasks: true,
+      page: ++quickTasksPageNumber,
+      pageSize: completedQuickTaskPage,
+    ));
+
+    result.fold(
+      (failure) {
+        completedQuickTasksLoadMore.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        completedQuickTasks.addAll(success.data ?? []);
+        completedQuickTasksLoadMore.value = false;
       },
     );
   }

@@ -700,6 +700,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, CreateQuickTaskResponce>> createQuickTask(
       {required CreateQuickTask createQuickTask}) async {
     try {
+      // log('Create Quick Task  TO JSON  ==== > ${createQuickTask.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.quickTask,
         data: createQuickTask.toJson(),
@@ -720,7 +721,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, QuickTasksResponce>> getQuickTasks(
       {required PaginationQuery paginationQuery}) async {
     try {
-      log('get quick tasks TO JSON  ==> ${paginationQuery.toJson()}');
+      log('getQuickTasks TO JSON  ==> ${paginationQuery.toJson()}');
       final response = await apiService.get(
         ApiEndPoints.quickTask,
         queryParameters: paginationQuery.toJson(),
@@ -761,8 +762,6 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SuccessResponce>> deleteAttachments(
       {required DeleteAttachmentsModel deleteAttachmentsModel}) async {
     try {
-      print(deleteAttachmentsModel.toJson());
-      print('delete attachment function called');
       await apiService.delete(
         ApiEndPoints.deleteAttachments,
         data: deleteAttachmentsModel.toJson(),
@@ -775,6 +774,27 @@ class TaskService implements TaskRepo {
     } catch (e) {
       log(" catch error of delete attachment ${e.toString()}");
       return Left(Failure(data: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, QuickTasksResponce>> getCompletedQuickTasks(
+      {required PaginationQuery paginationQuery}) async {
+    try {
+      log('getCompletedQuickTaskss TO JSON  ==> ${paginationQuery.toJson()}');
+      final response = await apiService.get(
+        ApiEndPoints.quickTask,
+        queryParameters: paginationQuery.toJson(),
+      );
+      log("=> Response getCompletedQuickTasks ");
+
+      return Right(QuickTasksResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException getCompletedQuickTasks $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getCompletedQuickTasks $e');
+      return Left(Failure(message: e.toString()));
     }
   }
 }

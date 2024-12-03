@@ -19,6 +19,7 @@ class Message {
   String? messageType;
   String? timestamp;
   String? taskId;
+  String? localId;
 
   Message({
     this.poll,
@@ -34,6 +35,7 @@ class Message {
     this.messageType,
     this.timestamp,
     this.taskId,
+    this.localId,
   });
 
   // Convert a Message instance to a Map
@@ -52,6 +54,7 @@ class Message {
       'message_type': messageType,
       'timestamp': timestamp,
       'task_id': taskId,
+      'local_id': localId,
     };
   }
 
@@ -77,6 +80,7 @@ class Message {
           ? CurrentLocationMessage.fromJson(
               json['current_location'] as Map<String, dynamic>)
           : null,
+      localId: json['local_id'] as String?,
       sender: json['sender'] as bool?,
       messageId: json['message_id'] as String?,
       messageType: json['message_type'] as String?,
@@ -129,6 +133,7 @@ class Message {
   }
 
   static const String colLocalId = 'local_id';
+  static const String colLocalDbId = 'local_db_id';
   static const String colSender = 'sender';
   static const String colMessageId = 'message_id';
   static const String colIsLoadMore = 'is_load_more';

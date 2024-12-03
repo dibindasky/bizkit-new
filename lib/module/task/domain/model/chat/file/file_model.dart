@@ -8,7 +8,9 @@ class FileMessage {
   final String? timestamp;
   final String? file;
   final String? fileType;
+  final String? filePath;
   final String? currentUid;
+  final String? localId;
   final bool? readByAll;
   final bool sender;
   final bool isLoadMore;
@@ -23,8 +25,10 @@ class FileMessage {
       this.timestamp,
       this.file,
       this.fileType,
+      this.filePath,
       this.readByAll,
       this.currentUid,
+      this.localId,
       this.isLoadMore = false,
       this.sender = false});
 
@@ -32,6 +36,7 @@ class FileMessage {
   factory FileMessage.fromJson(Map<String, dynamic> json,
       {String? uid, bool fromLocalDb = false}) {
     return FileMessage(
+      localId: json['local_id'] as String?,
       messageType: json['message_type'] as String?,
       message: json['message'] as String?,
       userId: json['user_id'] as String?,
@@ -41,6 +46,7 @@ class FileMessage {
       timestamp: json['timestamp'] as String?,
       file: json['file'] as String?,
       fileType: json['file_type'] as String?,
+      filePath: json['file_path'] as String?,
       readByAll: fromLocalDb
           ? (json['read_by_all'] as int?) == 1
           : json['read_by_all'] as bool?,
@@ -62,9 +68,11 @@ class FileMessage {
       'timestamp': timestamp,
       'file': file,
       'file_type': fileType,
+      'file_path': filePath,
       'read_by_all': readByAll,
       'current_uid': currentUid,
       'is_load_more': isLoadMore,
+      'local_id': localId,
     };
   }
 
@@ -75,6 +83,7 @@ class FileMessage {
   }
 
   static const String colLocalId = 'local_id';
+  static const String colLocalDbId = 'local_db_id';
   static const String colMessageType = 'message_type';
   static const String colMessage = 'message';
   static const String colUserId = 'user_id';
@@ -83,6 +92,7 @@ class FileMessage {
   static const String colMessageId = 'message_id';
   static const String colTimestamp = 'timestamp';
   static const String colFile = 'file';
+  static const String colFilePath = 'file_path';
   static const String colFileType = 'file_type';
   static const String colReadByAll = 'read_by_all';
   static const String colCurrentUid = 'current_uid';

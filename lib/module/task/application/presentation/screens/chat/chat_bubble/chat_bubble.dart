@@ -38,7 +38,11 @@ class ChatBubble extends StatelessWidget {
             ),
           ),
           message.sender ? adjustWidth(5.w) : kempty,
-          message.sender ? MessageReadMarker(read: message.readByAll) : kempty
+          message.sender
+              ? MessageReadMarker(
+                  read: message.readByAll,
+                  pending: (message.messageId?.isEmpty ?? true))
+              : kempty
         ],
       ),
     ];

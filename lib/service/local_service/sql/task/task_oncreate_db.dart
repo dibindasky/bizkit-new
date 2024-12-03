@@ -145,7 +145,8 @@ class TaskSql {
   /// Table for [TextMessage]
   static const String _taskMesageTextTableCreation = '''
     CREATE TABLE IF NOT EXISTS $taskMessageText(
-      ${TextMessage.colLocalId}  INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${TextMessage.colLocalDbId}  INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${TextMessage.colLocalId}  TEXT,
       ${TextMessage.colUserId} TEXT ,
       ${TextMessage.colCurrentUid} TEXT ,
       ${TextMessage.colUsername} TEXT ,
@@ -162,7 +163,8 @@ class TaskSql {
   /// Table for [VoiceMessage]
   static const String _voiceMessageTableCreation = '''
    CREATE TABLE IF NOT EXISTS $taskMessageVoice(
-     ${VoiceMessage.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+     ${VoiceMessage.colLocalDbId} INTEGER PRIMARY KEY AUTOINCREMENT,
+     ${VoiceMessage.colLocalId} TEXT,
      ${VoiceMessage.colMessageType} TEXT,
      ${VoiceMessage.colMessage} TEXT,
      ${VoiceMessage.colUserId} TEXT,
@@ -181,7 +183,8 @@ class TaskSql {
   /// Table for [FileMessage]
   static const String _fileMessageTableCreation = '''
     CREATE TABLE IF NOT EXISTS $taskMessagefile(
-      ${FileMessage.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${FileMessage.colLocalDbId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${FileMessage.colLocalId} TEXT,
       ${FileMessage.colMessageType} TEXT,
       ${FileMessage.colMessage} TEXT,
       ${FileMessage.colUserId} TEXT,
@@ -191,6 +194,7 @@ class TaskSql {
       ${FileMessage.colTimestamp} TEXT,
       ${FileMessage.colFile} TEXT,
       ${FileMessage.colFileType} TEXT,
+      ${FileMessage.colFilePath} TEXT,
       ${FileMessage.colReadByAll} INTEGER,
       ${FileMessage.colSender} INTEGER,
       ${FileMessage.colCurrentUid} TEXT
@@ -200,7 +204,8 @@ class TaskSql {
   /// Table for [TimeExpense]
   static const String _timeExpenseTableCreation = '''
    CREATE TABLE IF NOT EXISTS $taskMessageTimeExpence(
-      ${TimeExpense.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${TimeExpense.colLocalDbId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${TimeExpense.colLocalId} TEXT,
       ${TimeExpense.colMessageType} TEXT,
       ${TimeExpense.colMessage} TEXT,
       ${TimeExpense.colUserId} TEXT,
@@ -225,7 +230,8 @@ class TaskSql {
   /// Table for [CurrentLocationMessage]
   static const String _currentLocationMessageTableCreation = '''
     CREATE TABLE IF NOT EXISTS $taskMessageCurrentLocation(
-      ${CurrentLocationMessage.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${CurrentLocationMessage.colLocalDbId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${CurrentLocationMessage.colLocalId} TEXT,
       ${CurrentLocationMessage.colMessageType} TEXT,
       ${CurrentLocationMessage.colMessage} TEXT,
       ${CurrentLocationMessage.colUserId} TEXT,
@@ -245,7 +251,8 @@ class TaskSql {
   /// Table for [Poll]
   static const String _pollMessageTableCreation = '''
     CREATE TABLE IF NOT EXISTS $taskMessagePoll(
-      ${Poll.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Poll.colLocalDbId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Poll.colLocalId} TEXT,
       ${Poll.colSender} INTEGER,
       ${Poll.colPollId} TEXT,
       ${Poll.colMessageId} TEXT,
@@ -292,7 +299,8 @@ class TaskSql {
   /// Table for [Message]
   static const String _taskMessagesTableCreation = '''
     CREATE TABLE IF NOT EXISTS $taskMessages(
-      ${Message.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Message.colLocalDbId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Message.colLocalId} TEXT,
       ${Message.colSender} INTEGER,
       ${Message.colMessageId} TEXT,
       ${Message.colTimestamp} TEXT,

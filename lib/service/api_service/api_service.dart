@@ -197,6 +197,17 @@ class ApiService {
     }
   }
 
+  Future<Response<dynamic>> download(
+      {required String urlPath, required String filePath}) async {
+    try {
+      final response = await _dio.download(urlPath, filePath);
+      return response;
+    } catch (e) {
+      log('excepton $e');
+      rethrow;
+    }
+  }
+
   _refreshAccessToken() async {
     try {
       // log('=====================================================');
@@ -210,7 +221,9 @@ class ApiService {
       await SecureStorage.setAccessToken(accessToken: data.access!);
     } on DioException catch (exception) {
       // logout if cannot refresh access token and got 401 or 403
-      if (exception.response?.statusCode == 401 ||
+      // if 400 refresh token got black listed
+      if (exception.response?.statusCode == 400 ||
+          exception.response?.statusCode == 401 ||
           exception.response?.statusCode == 403) {
         getx.Get.find<AuthenticationController>().clearDataWhileLogout();
         GoRouterConfig.router.go(Routes.initial);

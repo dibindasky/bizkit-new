@@ -191,7 +191,8 @@ class _VoiceMessageCardState extends State<VoiceMessageCard> {
                   sender ? kWidth10 : kempty,
                   sender
                       ? MessageReadMarker(
-                          read: widget.message.readByAll ?? false)
+                          read: widget.message.readByAll ?? false,
+                          pending: widget.message.messageId?.isEmpty ?? true)
                       : kempty
                 ],
               ),

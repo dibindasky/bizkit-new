@@ -6,6 +6,7 @@ class CreatePoll {
   final bool? isAnonymousVotingAllowed;
   final bool? isReasonRequired;
   final String? activeUntil;
+  String? localId;
 
   CreatePoll({
     this.messageType,
@@ -15,6 +16,7 @@ class CreatePoll {
     this.isAnonymousVotingAllowed,
     this.isReasonRequired,
     this.activeUntil,
+    this.localId,
   });
 
   // Convert a CreatePoll instance to a Map
@@ -27,6 +29,7 @@ class CreatePoll {
       'is_anonymous_voting_allowed': isAnonymousVotingAllowed,
       'is_reason_required': isReasonRequired,
       'active_until': activeUntil,
+      'local_id': localId,
     };
   }
 
@@ -43,6 +46,7 @@ class CreatePoll {
       isAnonymousVotingAllowed: json['is_anonymous_voting_allowed'] as bool?,
       isReasonRequired: json['is_reason_required'] as bool?,
       activeUntil: json['active_until'] as String?,
+      localId: json['local_id'] as String?,
     );
   }
 }

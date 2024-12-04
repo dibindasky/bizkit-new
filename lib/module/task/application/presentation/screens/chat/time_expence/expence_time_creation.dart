@@ -123,7 +123,7 @@ class _TimeExpenceCreationState extends State<TimeExpenceCreation> {
                                   time: ((hour * 60) + min).toString(),
                                   messageType: 'time_expense_updation'));
                           Timer(
-                            const Duration(seconds: 1),
+                            const Duration(milliseconds: 300),
                             () {
                               setState(() {
                                 isLoading = false;

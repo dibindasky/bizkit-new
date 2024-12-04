@@ -121,8 +121,10 @@ class Poll {
       currentUid: uid,
       pollQuestion: json['poll_question'] as String?,
       pollAnswers: (json['poll_answers'] as List<dynamic>?)
-          ?.map((item) => PollAnswer.fromJson(item as Map<String, dynamic>,
-              (json['message_id'] as String?) ?? ''))
+          ?.map((item) => PollAnswer.fromJson(
+              item as Map<String, dynamic>,
+              (json['message_id'] as String?) ?? '',
+              (json['local_id'] as String?) ?? ''))
           .toList(),
       timestamp: json['timestamp'] as String?,
       userName: json['username'] as String?,

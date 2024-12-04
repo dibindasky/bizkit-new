@@ -6,6 +6,7 @@ class PollAnswer {
   int? answerVotes;
   List<Supporter>? supporters;
   String? messageId;
+  String? localId;
 
   PollAnswer({
     this.answerId,
@@ -13,6 +14,7 @@ class PollAnswer {
     this.answerVotes,
     this.supporters,
     this.messageId,
+    this.localId,
   });
 
   PollAnswer copyWith({
@@ -21,6 +23,7 @@ class PollAnswer {
     int? answerVotes,
     List<Supporter>? supporters,
     String? messageId,
+    String? localId,
   }) {
     return PollAnswer(
       answerId: answerId ?? this.answerId,
@@ -28,6 +31,7 @@ class PollAnswer {
       answerVotes: answerVotes ?? this.answerVotes,
       supporters: supporters ?? this.supporters,
       messageId: messageId ?? this.messageId,
+      localId: localId ?? this.localId,
     );
   }
 
@@ -38,10 +42,12 @@ class PollAnswer {
       'answer_votes': answerVotes,
       'supporters': supporters?.map((supporter) => supporter.toJson()).toList(),
       'message_id': messageId,
+      'local_id': localId
     };
   }
 
-  factory PollAnswer.fromJson(Map<String, dynamic> json, String messageId) {
+  factory PollAnswer.fromJson(
+      Map<String, dynamic> json, String messageId, String localId) {
     return PollAnswer(
       answerId: json['answer_id'] as String?,
       answerText: json['answer_text'] as String?,
@@ -52,6 +58,7 @@ class PollAnswer {
               answerId: (json['answer_id'] as String?) ?? ''))
           .toList(),
       messageId: messageId,
+      localId: localId,
     );
   }
 
@@ -61,6 +68,7 @@ class PollAnswer {
   }
 
   static const String colLocalId = 'local_id';
+  static const String colLocalDbId = 'local_db_id';
   static const String colPollId = 'poll_local_id';
   static const String colAnswerId = 'answer_id';
   static const String colAnswerText = 'answer_text';

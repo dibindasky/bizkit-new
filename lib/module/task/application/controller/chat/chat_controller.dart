@@ -8,6 +8,7 @@ import 'package:bizkit/core/model/image/image_model.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/chat/current_location/current_location_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/file/file_model.dart';
+import 'package:bizkit/module/task/domain/model/chat/poll/poll_answer.dart';
 import 'package:bizkit/module/task/domain/model/chat/voice/voice_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll/create_poll.dart';
@@ -19,10 +20,12 @@ import 'package:bizkit/module/task/domain/model/chat/time_expence/time_expence_m
 import 'package:bizkit/module/task/domain/model/chat/poll/vote_poll.dart';
 import 'package:bizkit/module/task/domain/repository/sqfilte/chat/task_chat_local_service_repo.dart';
 import 'package:bizkit/packages/location/location_service.dart';
+import 'package:bizkit/packages/path_provider/path_provider.dart';
 import 'package:bizkit/packages/pdf/pdf_picker.dart';
 import 'package:bizkit/packages/sound/just_audio.dart';
 import 'package:bizkit/packages/sound/sound_manager.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
@@ -36,6 +39,7 @@ class ChatController extends GetxController {
   late IOWebSocketChannel channel;
   final TextEditingController controller = TextEditingController();
   final ScrollController chatScrollController = ScrollController();
+  final PathProvider pathProvider = PathProvider();
   SoundManager soundManager = SoundManager();
   AudioPlayerHandler audioPlayerHandler = AudioPlayerHandler();
 
@@ -125,7 +129,6 @@ class ChatController extends GetxController {
     try {
       print('message count taskId => $taskId');
       await getMessageFromLocaldb(firstCall: true);
-      await Future.delayed(const Duration(seconds: 10));
       channel = IOWebSocketChannel.connect(
         Uri.parse(
             SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
@@ -253,26 +256,38 @@ class ChatController extends GetxController {
 
       case 'file':
         final m = FileMessage.fromJson(decodedMessage, uid: uid);
+        if (!fromSend) {
+          // TODO :- save data to file storage
+          pathProvider.getDirectory(
+              path: 'file/${m.fileType}', module: Module.task);
+        }
         final mess = Message(
-            deleted: decodedMessage['deleted'] ?? false,
+            localId: decodedMessage['local_id'] as String?,
+            deleted: (decodedMessage['deleted'] as bool?) ?? false,
             file: m,
             sender: m.sender,
             messageId: m.messageId,
-            messageType: m.messageType,
+            messageType: 'file',
             taskId: chatTaskId,
             timestamp: m.timestamp);
-        final index = messages.indexWhere((element) =>
-            element.file?.messageId == m.messageId ||
-            element.file?.localId == m.localId);
-        if (index != -1) {
-          messages[index] = mess;
-          doAnimate = false;
-        } else {
-          if (m.isLoadMore) {
-            loadMoreLoading.value = false;
-            doAnimate = false;
-          }
+        if (fromSend) {
           insertMessageToList(mess);
+        } else {
+          final index = messages.indexWhere((element) =>
+              element.file?.localId == m.localId ||
+              ((element.file?.messageId?.isNotEmpty ?? false) &&
+                  (m.messageId?.isNotEmpty ?? false) &&
+                  (element.file?.messageId == m.messageId)));
+          if (index != -1) {
+            messages[index] = mess;
+            doAnimate = false;
+          } else {
+            if (m.isLoadMore) {
+              loadMoreLoading.value = false;
+              doAnimate = false;
+            }
+            insertMessageToList(mess);
+          }
         }
         await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
@@ -280,25 +295,32 @@ class ChatController extends GetxController {
       case 'poll':
         final m = Poll.fromJson(decodedMessage, uid: uid);
         final mess = Message(
-            deleted: decodedMessage['deleted'] ?? false,
+            localId: decodedMessage['local_id'] as String?,
+            deleted: (decodedMessage['deleted'] as bool?) ?? false,
             poll: m,
             sender: m.sender,
             messageId: m.messageId,
             messageType: m.messageType,
             taskId: chatTaskId,
             timestamp: m.timestamp);
-        final index = messages.indexWhere((element) =>
-            element.poll?.messageId == m.messageId ||
-            element.poll?.localId == m.localId);
-        if (index != -1) {
-          messages[index] = mess;
-          doAnimate = false;
-        } else {
-          if (m.isLoadMore) {
-            loadMoreLoading.value = false;
-            doAnimate = false;
-          }
+        if (fromSend) {
           insertMessageToList(mess);
+        } else {
+          final index = messages.indexWhere((element) =>
+              element.poll?.localId == m.localId ||
+              ((element.poll?.messageId?.isNotEmpty ?? false) &&
+                  (m.messageId?.isNotEmpty ?? false) &&
+                  (element.poll?.messageId == m.messageId)));
+          if (index != -1) {
+            messages[index] = mess;
+            doAnimate = false;
+          } else {
+            if (m.isLoadMore) {
+              loadMoreLoading.value = false;
+              doAnimate = false;
+            }
+            insertMessageToList(mess);
+          }
         }
         await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
@@ -308,25 +330,32 @@ class ChatController extends GetxController {
             singleTaskModel: GetSingleTaskModel(taskId: chatTaskId));
         final m = TimeExpense.fromJson(decodedMessage, uid: uid);
         final mess = Message(
-            deleted: decodedMessage['deleted'] ?? false,
+            localId: decodedMessage['local_id'] as String?,
+            deleted: (decodedMessage['deleted'] as bool?) ?? false,
             timeExpence: m,
             sender: m.sender,
             messageId: m.messageId,
             messageType: m.messageType,
             taskId: chatTaskId,
             timestamp: m.timestamp);
-        final index = messages.indexWhere((element) =>
-            element.timeExpence?.messageId == m.messageId ||
-            element.timeExpence?.localId == m.localId);
-        if (index != -1) {
-          messages[index] = mess;
-          doAnimate = false;
-        } else {
-          if (m.isLoadMore) {
-            loadMoreLoading.value = false;
-            doAnimate = false;
-          }
+        if (fromSend) {
           insertMessageToList(mess);
+        } else {
+          final index = messages.indexWhere((element) =>
+              element.timeExpence?.localId == m.localId ||
+              ((element.timeExpence?.messageId?.isNotEmpty ?? false) &&
+                  (m.messageId?.isNotEmpty ?? false) &&
+                  (element.timeExpence?.messageId == m.messageId)));
+          if (index != -1) {
+            messages[index] = mess;
+            doAnimate = false;
+          } else {
+            if (m.isLoadMore) {
+              loadMoreLoading.value = false;
+              doAnimate = false;
+            }
+            insertMessageToList(mess);
+          }
         }
         await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
@@ -334,25 +363,32 @@ class ChatController extends GetxController {
       case 'location':
         final m = CurrentLocationMessage.fromJson(decodedMessage, uid: uid);
         final mess = Message(
-            deleted: decodedMessage['deleted'] ?? false,
+            localId: decodedMessage['local_id'] as String?,
+            deleted: (decodedMessage['deleted'] as bool?) ?? false,
             currentLocation: m,
             sender: m.sender,
             messageId: m.messageId,
             messageType: m.messageType,
             taskId: chatTaskId,
             timestamp: m.timestamp);
-        final index = messages.indexWhere((element) =>
-            element.currentLocation?.messageId == m.messageId ||
-            element.currentLocation?.localId == m.localId);
-        if (index != -1) {
-          messages[index] = mess;
-          doAnimate = false;
-        } else {
-          if (m.isLoadMore) {
-            loadMoreLoading.value = false;
-            doAnimate = false;
-          }
+        if (fromSend) {
           insertMessageToList(mess);
+        } else {
+          final index = messages.indexWhere((element) =>
+              element.currentLocation?.localId == m.localId ||
+              ((element.currentLocation?.messageId?.isNotEmpty ?? false) &&
+                  (m.messageId?.isNotEmpty ?? false) &&
+                  (element.currentLocation?.messageId == m.messageId)));
+          if (index != -1) {
+            messages[index] = mess;
+            doAnimate = false;
+          } else {
+            if (m.isLoadMore) {
+              loadMoreLoading.value = false;
+              doAnimate = false;
+            }
+            insertMessageToList(mess);
+          }
         }
         await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
@@ -360,25 +396,32 @@ class ChatController extends GetxController {
       case 'voice':
         final m = VoiceMessage.fromJson(decodedMessage, uid: uid);
         final mess = Message(
-            deleted: decodedMessage['deleted'] ?? false,
+            localId: decodedMessage['local_id'] as String?,
+            deleted: (decodedMessage['deleted'] as bool?) ?? false,
             voiceMessage: m,
             sender: m.sender,
             messageId: m.messageId,
             messageType: m.messageType,
             taskId: chatTaskId,
             timestamp: m.timestamp);
-        final index = messages.indexWhere((element) =>
-            element.voiceMessage?.messageId == m.messageId ||
-            element.voiceMessage?.localId == m.localId);
-        if (index != -1) {
-          messages[index] = mess;
-          doAnimate = false;
-        } else {
-          if (m.isLoadMore) {
-            loadMoreLoading.value = false;
-            doAnimate = false;
-          }
+        if (fromSend) {
           insertMessageToList(mess);
+        } else {
+          final index = messages.indexWhere((element) =>
+              element.voiceMessage?.localId == m.localId ||
+              ((element.voiceMessage?.messageId?.isNotEmpty ?? false) &&
+                  (m.messageId?.isNotEmpty ?? false) &&
+                  (element.voiceMessage?.messageId == m.messageId)));
+          if (index != -1) {
+            messages[index] = mess;
+            doAnimate = false;
+          } else {
+            if (m.isLoadMore) {
+              loadMoreLoading.value = false;
+              doAnimate = false;
+            }
+            insertMessageToList(mess);
+          }
         }
         await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
@@ -451,17 +494,10 @@ class ChatController extends GetxController {
     }
   }
 
-  Message createMessageModelForLocalDb(String localId, String type) {
-    return Message(
-      isLoadMore: false,
-      sender: true,
-      localId: localId,
-      deleted: false,
-      messageType: type,
-      taskId: chatTaskId,
-      timestamp: DateTime.now().toIso8601String(),
-    );
-  }
+  /// get time string by substract 5 hr 30 min for local use
+  String _getTimeString() => DateTime.now()
+      .add(const Duration(hours: -5, minutes: -30))
+      .toIso8601String();
 
   /// responsible for adding message to the channel
   void addMessageToChannel(
@@ -480,13 +516,6 @@ class ChatController extends GetxController {
       }
       print('addMessage => $data');
       channel.sink.add(jsonEncode(data));
-      final messageList = await taskChatLocalService.getMessagesWithLimit(
-          limit: 40, offset: 0, taskId: chatTaskId);
-      print('message list after send data => ${messageList?.length}');
-      messageList?.map((e) {
-        print('message list data -> ${e.toJson()}');
-        return false;
-      });
     } catch (e) {
       log('message sending error $e');
       rethrow;
@@ -500,26 +529,26 @@ class ChatController extends GetxController {
       try {
         String localId = getUniqueId();
         // create a model for showing it to the ui before sending it to server
-        Message message = createMessageModelForLocalDb(localId, 'text');
         // message.
         var textMessage = TextMessage(
-            currentUid: _uid,
-            isLoadMore: false,
-            localId: localId,
-            message: text,
-            messageType: 'text',
-            readByAll: false,
-            sender: true,
-            userId: _uid,
-            readBy: [],
-            timestamp: message.timestamp);
+          currentUid: _uid,
+          isLoadMore: false,
+          localId: localId,
+          message: text,
+          messageType: 'text',
+          readByAll: false,
+          sender: true,
+          userId: _uid,
+          readBy: [],
+          timestamp: _getTimeString(),
+        );
         addMessageToChannel(
             data: {"message_type": "text", "message": text},
             message: textMessage.toJson());
         controller.clear();
         firstLoad = false;
       } catch (e) {
-        print('Failed to send message: $e');
+        log('Failed to send message: $e');
         _error = 'Failed to send message: $e';
       }
     }
@@ -530,8 +559,25 @@ class ChatController extends GetxController {
     try {
       String localId = getUniqueId();
       // create a model for showing it to the ui before sending it to server
-      Message message = createMessageModelForLocalDb(localId, 'poll');
-      message.poll = Poll();
+      var poll = Poll(
+        activeUntil: createPoll.activeUntil,
+        anonymousVote: createPoll.isAnonymousVotingAllowed,
+        currentUid: _uid,
+        isLoadMore: false,
+        localId: localId,
+        messageType: 'poll',
+        multipleAnswer: createPoll.isMultipleSelectionAllowed,
+        readBy: [],
+        readByAll: false,
+        sender: true,
+        userId: _uid,
+        pollQuestion: createPoll.question,
+        timestamp: _getTimeString(),
+        resonRequired: createPoll.isReasonRequired,
+        pollAnswers: List.generate(
+            createPoll.answers?.length ?? 0, (index) => PollAnswer()),
+      );
+      createPoll.localId = localId;
       addMessageToChannel(data: createPoll.toJson());
       controller.clear();
       firstLoad = false;
@@ -544,14 +590,11 @@ class ChatController extends GetxController {
   /// add vote for pole
   void addVoteforPol({required VotePoll votePoll}) {
     try {
-      // String localId = getUniqueId();
-      // create a model for showing it to the ui before sending it to server
-      // Message message = _createMessageModelForLocalDb(localId,'poll');
       addMessageToChannel(data: votePoll.toJson());
       controller.clear();
       firstLoad = false;
     } catch (e) {
-      print('Failed to create poll: $e');
+      log('Failed to create poll: $e');
       _error = 'Failed to create poll: $e';
     }
   }
@@ -576,10 +619,23 @@ class ChatController extends GetxController {
     try {
       String localId = getUniqueId();
       // create a model for showing it to the ui before sending it to server
-      Message message = createMessageModelForLocalDb(localId, 'time_expense');
-      message.timeExpence = TimeExpense();
+      var timeExpence = TimeExpense(
+          isLoadMore: false,
+          localId: localId,
+          sender: true,
+          userId: _uid,
+          readByAll: false,
+          messageType: 'time_expense',
+          timestamp: _getTimeString(),
+          timeExpenseData: TimeExpenseData(
+            description: timeExpenceUpdation.description,
+            time: timeExpenceUpdation.time,
+            expense: timeExpenceUpdation.expense,
+            userId: _uid,
+          ));
       addMessageToChannel(
         data: timeExpenceUpdation.toJson(),
+        message: timeExpence.toJson(),
       );
     } catch (e) {
       print('Failed to update time and expence: $e');
@@ -607,10 +663,21 @@ class ChatController extends GetxController {
       if (loadedImages.isEmpty) return;
       String localId = getUniqueId();
       // create a model for showing it to the ui before sending it to server
-      Message message = createMessageModelForLocalDb(localId, 'file');
-      message.file = FileMessage();
+      var file = FileMessage(
+        localId: localId,
+        currentUid: _uid,
+        file: loadedImages[0].base64 ?? '',
+        fileType: 'image',
+        timestamp: _getTimeString(),
+        isLoadMore: false,
+        messageType: 'file',
+        readByAll: false,
+        sender: true,
+        message: controller.text.trim(),
+        userId: _uid,
+      );
       print('send picture');
-      addMessageToChannel(data: {
+      final data = {
         "message_type": "file",
         "files": List.generate(
           loadedImages.length,
@@ -621,7 +688,8 @@ class ChatController extends GetxController {
           },
         ),
         "messages": [controller.text.trim()]
-      });
+      };
+      addMessageToChannel(data: data, message: file.toJson());
       controller.clear();
       loadedImages.clear();
     } catch (e) {
@@ -645,17 +713,29 @@ class ChatController extends GetxController {
       final base64 = pdf.base64!.split('base64,').last;
       String localId = getUniqueId();
       // create a model for showing it to the ui before sending it to server
-      Message message = createMessageModelForLocalDb(localId, 'file');
-      message.file = FileMessage();
+      var file = FileMessage(
+        currentUid: _uid,
+        userId: _uid,
+        file: base64,
+        fileType: 'pdf',
+        messageType: 'file',
+        isLoadMore: true,
+        sender: true,
+        readByAll: true,
+        localId: localId,
+        timestamp: _getTimeString(),
+      );
       print('send pdf => ${pdf.name}');
+      final data = {
+        "message_type": "file",
+        "files": [
+          {"file": base64, "file_type": 'pdf'}
+        ],
+        "messages": [pdf.name ?? 'Document']
+      };
       addMessageToChannel(
-        data: {
-          "message_type": "file",
-          "files": [
-            {"file": base64, "file_type": 'pdf'}
-          ],
-          "messages": [pdf.name ?? 'Document']
-        },
+        data: data,
+        message: file.toJson(),
       );
     } catch (e) {
       return;
@@ -685,14 +765,25 @@ class ChatController extends GetxController {
     try {
       String localId = getUniqueId();
       // create a model for showing it to the ui before sending it to server
-      Message message = createMessageModelForLocalDb(localId, 'location');
-      message.currentLocation = CurrentLocationMessage();
+      var currentLocation = CurrentLocationMessage(
+        currentUid: _uid,
+        isLoadMore: false,
+        localId: localId,
+        location: currentLocationLatLong,
+        place: this.currentLocation.value,
+        messageType: 'location',
+        timestamp: _getTimeString(),
+        sender: true,
+        userId: _uid,
+        readByAll: false,
+      );
       addMessageToChannel(
         data: {
           "message_type": "location",
           "location": currentLocationLatLong,
-          "place": currentLocation.value
+          "place": this.currentLocation.value
         },
+        message: currentLocation.toJson(),
       );
       GoRouter.of(context).pop();
     } catch (e) {
@@ -834,15 +925,28 @@ class ChatController extends GetxController {
     getRecordDuration();
     if (isPlaying.value) stopPlayingRecordedAudio();
     String localId = getUniqueId();
+    String duration =
+        DateTimeFormater.getDurtionFromSeconds(recordDuration.value);
     // create a model for showing it to the ui before sending it to server
-    Message message = createMessageModelForLocalDb(localId, 'voice');
-    message.voiceMessage = VoiceMessage();
+    var voiceMessage = VoiceMessage(
+      currentUid: _uid,
+      localId: localId,
+      duration: duration,
+      isLoadMore: false,
+      messageType: 'voice',
+      readByAll: false,
+      sender: true,
+      userId: _uid,
+      voice: recordedAudio.value,
+      timestamp: _getTimeString(),
+    );
     addMessageToChannel(
       data: {
         "message_type": "voice",
         "voice_message": recordedAudio.value,
-        "duration": DateTimeFormater.getDurtionFromSeconds(recordDuration.value)
+        "duration": duration
       },
+      message: voiceMessage.toJson(),
     );
     recordedAudio.value = '';
   }

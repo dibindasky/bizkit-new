@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:bizkit/core/model/image/image_model.dart';
+import 'package:bizkit/packages/path_provider/path_provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 
@@ -67,7 +67,7 @@ class ImagePickerClass {
       // );
       if (pickedImage != null) {
         final extension = pickedImage.path.split(".").last;
-        final directory = await getTemporaryDirectory();
+        final directory = await PathProvider().getTemporaryDirectory();
         final compressedFilePath =
             '${directory.path}/${const Uuid().v4()}.$extension';
         File? compressedFile;

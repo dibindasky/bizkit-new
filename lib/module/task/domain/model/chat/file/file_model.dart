@@ -1,19 +1,19 @@
 class FileMessage {
-  final String? messageType;
-  final String? message;
-  final String? userId;
-  final String? username;
-  final String? profilePicture;
-  final String? messageId;
-  final String? timestamp;
-  final String? file;
-  final String? fileType;
-  final String? filePath;
-  final String? currentUid;
-  final String? localId;
-  final bool? readByAll;
-  final bool sender;
-  final bool isLoadMore;
+  String? messageType;
+  String? message;
+  String? userId;
+  String? username;
+  String? profilePicture;
+  String? messageId;
+  String? timestamp;
+  String? file;
+  String? fileType;
+  String? filePath;
+  String? currentUid;
+  String? localId;
+  bool? readByAll;
+  bool sender;
+  bool isLoadMore;
 
   FileMessage(
       {this.messageType,

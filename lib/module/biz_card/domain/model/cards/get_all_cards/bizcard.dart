@@ -1,3 +1,4 @@
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'bizcard.g.dart';
@@ -87,6 +88,28 @@ class Bizcard {
       companyName: companyName ?? this.companyName,
       logo: logo ?? this.logo,
       personalImage: personalImage ?? this.personalImage,
+    );
+  }
+
+  static Bizcard fromMap(Map<String, Object?> map) {
+    return Bizcard(
+      bizcardId: map[CardDetailModel.colBizcardId] as String?,
+      companyName:
+          map[CardDetailModel.colBizcardBusinessCompanyName] as String?,
+      completionLevel: map[CardDetailModel.colBizcardCompletionLevel] as int?,
+      designation:
+          map[CardDetailModel.colBizcardBusinessDesignation] as String?,
+      isArchived: (map[CardDetailModel.colBizcardIsArchived] as int?) == 1,
+      isBusinessEditable:
+          (map[CardDetailModel.colBizcardisBusinessEditable] as int?) == 1,
+      isDefault: (map[CardDetailModel.colBizcardisDefault] as int?) == 1,
+      logo: map[CardDetailModel.colBizcardBusinessLogo] as String?,
+      name: map[CardDetailModel.colBizcardPersonlName] as String?,
+      // personalImage: map[CardDetailModel.colBizcardId] as String?,
+      qRLink: map[CardDetailModel.colBizcardQrCode] as String?,
+      shareCount: map[CardDetailModel.colBizcardShareCount] as int?,
+      universalLink: map[CardDetailModel.colBizcardUniversalLink] as String?,
+      views: map[CardDetailModel.colBizcardViews] as int?,
     );
   }
 }

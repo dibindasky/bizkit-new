@@ -154,4 +154,10 @@ abstract class TaskRepo {
 
   Future<Either<Failure, SuccessResponce>> deleteAttachments(
       {required DeleteAttachmentsModel deleteAttachmentsModel});
+
+  Future<Either<ErrorModel, SuccessResponce>> createNewNextActionDate(
+      {required EditTaskModel createNewNextActionDateModel});
+
+  Future<Either<ErrorModel, SuccessResponce>> updateNextActionDate(
+      {required EditTaskModel updateNextActionDateModel});
 }

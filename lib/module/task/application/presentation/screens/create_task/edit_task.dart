@@ -179,27 +179,28 @@ class ScreenEditTask extends StatelessWidget {
                           adjustHieght(15.h),
                           Center(
                             child: EventButton(
-                                color: const LinearGradient(
-                                    colors: [kneon, kneon]),
-                                width: 300.w,
-                                text: 'Edit Task',
-                                onTap: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    createTaskController.editTask(
-                                        context: context,
-                                        taskModel: EditTaskModel(
-                                          deadLine: createTaskController
-                                              .deadlineDateForTaskEdit.value,
-                                          assignedTo: [],
-                                          tags: [],
-                                          taskId: taskId ?? '',
-                                          title: titleController.text,
-                                          description:
-                                              descriptionController.text,
-                                        ),
-                                        taskId: taskId ?? '');
-                                  }
-                                }),
+                              color:
+                                  const LinearGradient(colors: [kneon, kneon]),
+                              width: 300.w,
+                              text: 'Edit Task',
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  createTaskController.editTask(
+                                      context: context,
+                                      taskModel: EditTaskModel(
+                                        isNextActionDate: false,
+                                        deadLine: createTaskController
+                                            .deadlineDateForTaskEdit.value,
+                                        assignedTo: [],
+                                        tags: [],
+                                        taskId: taskId ?? '',
+                                        title: titleController.text,
+                                        description: descriptionController.text,
+                                      ),
+                                      taskId: taskId ?? '');
+                                }
+                              },
+                            ),
                           ),
                           adjustHieght(17.h),
                         ],

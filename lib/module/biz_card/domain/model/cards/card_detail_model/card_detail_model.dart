@@ -33,29 +33,31 @@ class CardDetailModel {
   String? location;
   String? category;
   List<String>? selfie;
+  @JsonKey(name: "universal_link")
+  String? universalLink;
   @JsonKey(name: 'matcho_meter_comparison')
   List<MatchoMeterComparison>? matchoMeter;
   @JsonKey(name: 'connection_id')
   String? connectionId;
 
-  CardDetailModel({
-    this.matchoMeter,
-    this.selfie,
-    this.notes,
-    this.occasion,
-    this.location,
-    this.category,
-    this.bizcardId,
-    this.personalDetails,
-    this.businessDetails,
-    this.completionLevel,
-    this.isDefault,
-    this.isBusinessEditable,
-    this.isArchived,
-    this.isDisabled,
-    this.qrCode,
-    this.connectionId,
-  });
+  CardDetailModel(
+      {this.matchoMeter,
+      this.selfie,
+      this.notes,
+      this.occasion,
+      this.location,
+      this.category,
+      this.bizcardId,
+      this.personalDetails,
+      this.businessDetails,
+      this.completionLevel,
+      this.isDefault,
+      this.isBusinessEditable,
+      this.isArchived,
+      this.isDisabled,
+      this.qrCode,
+      this.connectionId,
+      this.universalLink});
 
   factory CardDetailModel.fromJson(Map<String, dynamic> json,
       {String? connectionId}) {
@@ -83,6 +85,7 @@ class CardDetailModel {
     String? location,
     String? category,
     List<String>? selfie,
+    String? universalLink,
     List<MatchoMeterComparison>? matchoMeter,
     String? connectionId,
   }) {
@@ -101,12 +104,14 @@ class CardDetailModel {
       location: location ?? this.location,
       category: category ?? this.category,
       selfie: selfie ?? this.selfie,
+      universalLink: universalLink ?? universalLink,
       matchoMeter: matchoMeter ?? this.matchoMeter,
       connectionId: connectionId ?? this.connectionId,
     );
   }
 
   static const colBizcardLocalId = 'bizcard_local_id';
+  static const colUserId = 'user_id';
 
   static const colBizcardId = 'bizcard_id';
   static const colBizcardCompletionLevel = 'bizcard_completion_level';
@@ -159,10 +164,6 @@ class CardDetailModel {
   static const colBizcardBusinessGST = 'bizcard_business_GST';
 
   //* All  Bizcards
-  static const colDesignation = 'bizcard_designation';
   static const colBizcardViews = 'bizcard_views';
   static const colBizcardShareCount = 'bizcard_share_count';
-  static const colName = 'bizcard_designation';
-  static const colCompanyName = 'bizcard_company_name';
-  static const colLogo = 'bizcard_logo';
 }

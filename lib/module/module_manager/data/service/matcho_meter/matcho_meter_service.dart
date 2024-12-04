@@ -62,10 +62,14 @@ class MatchoMeterservice implements MatchoMeterRepo {
       final List<Map<String, dynamic>> data =
           machoMeterModel.map((model) => model.answerToJson()).toList();
 
-      await apiService.post(ApiEndPoints.matchoMeter, data: data);
+      final response =
+          await apiService.post(ApiEndPoints.matchoMeter, data: data);
 
       log("addAnswerForQuestion ==> success");
-      return Right(SuccessResponce(message: 'success'));
+      return Right(SuccessResponce(
+          message: 'success',
+          data: (response.data as Map<String, dynamic>?)?['matcho_meter_id']
+              as String?)); 
     } on DioException catch (e) {
       log(" addAnswerForQuestion ${e.toString()}");
       return Left(Failure(data: e.toString()));

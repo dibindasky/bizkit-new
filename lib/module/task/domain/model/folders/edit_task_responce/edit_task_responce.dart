@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/module/task/domain/model/task/task_model/assigned_to.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -14,6 +15,9 @@ class EditTaskModel {
   String? deadLine;
   @JsonKey(name: 'assigned_to')
   List<TaskAssignedTo>? assignedTo;
+  @JsonKey(name: 'next_action_date')
+  List<NextActionDate>? nextActionDate;
+  bool? isNextActionDate;
 
   EditTaskModel(
       {this.title,
@@ -21,11 +25,27 @@ class EditTaskModel {
       this.tags,
       this.taskId,
       this.assignedTo,
-      this.deadLine});
+      this.deadLine,
+      this.isNextActionDate = false,
+      this.nextActionDate});
 
   factory EditTaskModel.fromJson(Map<String, dynamic> json) {
     return _$EditTaskModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$EditTaskModelToJson(this);
+  // Map<String, dynamic> toJson() => _$EditTaskModelToJson(this);
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = isNextActionDate == true
+        ? {'task_id': taskId, 'next_action_date': nextActionDate}
+        : {
+            'task_id': taskId,
+            'title': title,
+            'description': description,
+            'tags': tags,
+            'dead_line': deadLine,
+            'assigned_to': assignedTo,
+          };
+
+    return data;
+  }
 }

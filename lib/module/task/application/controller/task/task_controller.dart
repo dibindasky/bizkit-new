@@ -9,6 +9,7 @@ import 'package:bizkit/module/task/application/controller/home_controller/home_c
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/data/sqfilte/task/task_local_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
@@ -54,7 +55,6 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -100,6 +100,8 @@ class CreateTaskController extends GetxController {
 
   // Stores deadline date for creating a new task
   RxString deadlineDateForTaskCreation = ''.obs;
+
+  RxString nextActionDate = ''.obs;
 
   // Stores deadline date for editing an existing task
   RxString deadlineDateForTaskEdit = ''.obs;
@@ -207,6 +209,8 @@ class CreateTaskController extends GetxController {
 
   //  Text editing controller for task search input
   final TextEditingController taskSearchController = TextEditingController();
+  final TextEditingController nexActiondateDescriptionController =
+      TextEditingController();
 
   @override
   void onInit() {
@@ -244,6 +248,7 @@ class CreateTaskController extends GetxController {
   RxBool loadgingForFilterByType =
       false.obs; // Loading state for filtering tasks by type
 
+  RxBool loadingForNextActionDate = false.obs;
   RxBool filterByTypeLoading =
       false.obs; // Loading state when filtering tasks by type
   RxBool pinnedTasksFilterByTypeLoading = false.obs;
@@ -1481,6 +1486,7 @@ class CreateTaskController extends GetxController {
         // If the fetched task matches the current task, update the singleTask observable
         if (singleTaskModel.taskId == success.id) {
           singleTask.value = success;
+          // log('singleTask >>>> ${singleTask.toJson()}');
           fetchSingleTaskError.value = false;
           isSyncing.value = false; // End syncing indication
         }
@@ -2106,6 +2112,59 @@ class CreateTaskController extends GetxController {
       (success) {
         completedQuickTasks.addAll(success.data ?? []);
         completedQuickTasksLoadMore.value = false;
+      },
+    );
+  }
+
+  // Create New next action date
+  void createNewNextActionDate(
+      {required EditTaskModel createNadModel,
+      required BuildContext context}) async {
+    loadingForNextActionDate.value = true;
+
+    final result = await taskService.createNewNextActionDate(
+        createNewNextActionDateModel: createNadModel);
+    result.fold(
+      (failure) {
+        loadingForNextActionDate.value = false;
+        nextActionDate.value = '';
+        nexActiondateDescriptionController.clear();
+        Navigator.of(context).pop(context);
+        showSnackbar(context, message: failure.error ?? errorMessage);
+        log(failure.error.toString());
+      },
+      (success) {
+        // Update the singleTask value using copyWith
+        singleTask.value = singleTask.value.copyWith(
+          nextActionDate: createNadModel.nextActionDate,
+        );
+        nextActionDate.value = '';
+        nexActiondateDescriptionController.clear();
+        Navigator.of(context).pop(context);
+        showSnackbar(context, message: 'Next action date created successfully');
+        loadingForNextActionDate.value = false;
+      },
+    );
+  }
+
+  // Update New next action date
+  void editNextActionDate(
+      {required EditTaskModel updateNadModel,
+      required BuildContext context}) async {
+    loadingForNextActionDate.value = true;
+    final result = await taskService.updateNextActionDate(
+        updateNextActionDateModel: updateNadModel);
+    result.fold(
+      (failure) {
+        loadingForNextActionDate.value = false;
+        Navigator.of(context).pop(context);
+        showSnackbar(context, message: failure.error ?? errorMessage);
+        log(failure.error.toString());
+      },
+      (success) {
+        Navigator.of(context).pop(context);
+        showSnackbar(context, message: 'Next action date updated successfully');
+        loadingForNextActionDate.value = false;
       },
     );
   }

@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
 class TaskDetailUserInfoSection extends StatelessWidget {
@@ -212,30 +211,32 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                     ),
                   ),
                   adjustWidth(10.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Deadline',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ),
-                      if (taskController.isLoading.value)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: ShimmerLoaderTile(
-                            height: 9.h,
-                            width: 50.w,
-                          ),
-                        )
-                      else
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Text(
-                          formatDeadline(task.deadLine),
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(fontSize: 13),
+                          'Deadline',
+                          style: Theme.of(context).textTheme.displaySmall,
                         ),
-                    ],
+                        if (taskController.isLoading.value)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: ShimmerLoaderTile(
+                              height: 9.h,
+                              width: 50.w,
+                            ),
+                          )
+                        else
+                          Text(
+                            formatDeadline(task.deadLine),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(fontSize: 13),
+                          ),
+                      ],
+                    ),
                   ),
                 ],
               ),

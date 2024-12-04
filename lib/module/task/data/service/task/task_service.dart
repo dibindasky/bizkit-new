@@ -797,4 +797,44 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<ErrorModel, SuccessResponce>> createNewNextActionDate(
+      {required EditTaskModel createNewNextActionDateModel}) async {
+    try {
+      log('createNewNextActionDate ToJson === >>>>>> ${createNewNextActionDateModel.toJson()}');
+      final response = await apiService.patch(
+        ApiEndPoints.taskTestEditTask,
+        data: createNewNextActionDateModel.toJson(),
+      );
+      log("=> Response createNewNextActionDate  :");
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException createNewNextActionDate $e');
+      return Left(ErrorModel(error: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch createNewNextActionDate $e');
+      return Left(ErrorModel(error: '$e'));
+    }
+  }
+
+  @override
+  Future<Either<ErrorModel, SuccessResponce>> updateNextActionDate(
+      {required EditTaskModel updateNextActionDateModel}) async {
+    try {
+      log('updateNextActionDate ToJson === >>>>>> ${updateNextActionDateModel.toJson()}');
+      final response = await apiService.patch(
+        ApiEndPoints.taskTestEditTask,
+        data: updateNextActionDateModel.toJson(),
+      );
+      log("=> Response updateNextActionDate  :");
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException updateNextActionDate $e');
+      return Left(ErrorModel(error: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch updateNextActionDate $e');
+      return Left(ErrorModel(error: '$e'));
+    }
+  }
 }

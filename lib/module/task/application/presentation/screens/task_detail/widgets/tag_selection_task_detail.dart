@@ -1,4 +1,5 @@
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
@@ -100,6 +101,32 @@ class TagChip extends StatelessWidget {
         //       // handle tag deletion
         //     },
         //     child: const Icon(Icons.close, color: neonShade))
+      ]),
+    );
+  }
+}
+
+class NextActionChip extends StatelessWidget {
+  final NextActionDate label;
+
+  const NextActionChip({super.key, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.w),
+      decoration: BoxDecoration(
+        border: Border.all(color: kneon),
+        borderRadius: kBorderRadius5,
+        color: kblack,
+      ),
+      child: Row(mainAxisSize: MainAxisSize.min, children: [
+        Text(label.date ?? '',
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(color: kwhite)),
+        adjustWidth(10.w),
       ]),
     );
   }

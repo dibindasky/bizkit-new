@@ -14,7 +14,7 @@ class DeadlineChooserCreateTask extends StatelessWidget {
   const DeadlineChooserCreateTask(
       {super.key,
       required this.onPressed,
-      this.showTitle = true,
+      this.showTitle = false,
       this.deadlineFromEdit = false});
 
   final Function(String) onPressed;
@@ -62,15 +62,86 @@ class DeadlineChooserCreateTask extends StatelessWidget {
             },
           ),
           child: Obx(
-            () => ContainerTextFieldDummy(
-              text: deadlineFromEdit == false
-                  ? controller.deadlineDateForTaskCreation.value.isEmpty
-                      ? 'Choose Deadline'
-                      : controller.deadlineDateForTaskCreation.value
-                  : controller.singleTask.value.deadLine == ''
-                      ? 'Choose Deadline'
-                      : controller.singleTask.value.deadLine ?? '',
-              suffixIcon: Iconsax.calendar_add,
+            () => Card(
+              elevation: 0,
+              child: ContainerTextFieldDummy(
+                text: deadlineFromEdit == false
+                    ? controller.deadlineDateForTaskCreation.value.isEmpty
+                        ? 'Choose Deadline'
+                        : controller.deadlineDateForTaskCreation.value
+                    : controller.singleTask.value.deadLine == ''
+                        ? 'Choose Deadline'
+                        : controller.singleTask.value.deadLine ?? '',
+                suffixIcon: Iconsax.calendar_add,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class DeadlineChooserNextActionDate extends StatelessWidget {
+  const DeadlineChooserNextActionDate({
+    super.key,
+    required this.onPressed,
+    this.showTitle = false,
+  });
+
+  final Function(String) onPressed;
+  final bool showTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.find<CreateTaskController>();
+    final dateController = TextEditingController();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        showTitle ? adjustHieght(10.h) : kempty,
+        showTitle
+            ? Text('Date',
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ))
+            : kempty,
+        showTitle ? adjustHieght(3.h) : kempty,
+        InkWell(
+          onTap: () => showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              log('date : ${controller.singleTask.value.deadLine}');
+              final date = controller.nextActionDate.value == ''
+                  ? []
+                  : controller.nextActionDate.value.split('-');
+              return DatePickingBottomSheet(
+                year: 1,
+                last: 500,
+                initialDate: date.isNotEmpty
+                    ? DateTime(
+                        int.parse(date.first),
+                        int.parse(date[1]),
+                        int.parse(date.last),
+                      )
+                    : null,
+                onPressed: onPressed,
+                datePicker: dateController,
+              );
+            },
+          ),
+          child: Obx(
+            () => Card(
+              elevation: 0,
+              child: ContainerTextFieldDummy(
+                text: controller.nextActionDate.value.isEmpty
+                    ? 'Choose date'
+                    : controller.nextActionDate.value,
+                suffixIcon: Iconsax.calendar_add,
+              ),
             ),
           ),
         ),

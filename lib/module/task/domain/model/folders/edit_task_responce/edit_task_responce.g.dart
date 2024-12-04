@@ -16,6 +16,9 @@ EditTaskModel _$EditTaskModelFromJson(Map<String, dynamic> json) =>
           ?.map((e) => TaskAssignedTo.fromJson(e as Map<String, dynamic>))
           .toList(),
       deadLine: json['dead_line'] as String?,
+      nextActionDate: (json['next_action_date'] as List<dynamic>?)
+          ?.map((e) => NextActionDate.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$EditTaskModelToJson(EditTaskModel instance) =>

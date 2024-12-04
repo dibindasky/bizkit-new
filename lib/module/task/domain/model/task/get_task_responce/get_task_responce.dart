@@ -1,4 +1,7 @@
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/created_user_details.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/recent_visit_log.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/visit_log.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'assigned_to_detail.dart';
@@ -49,6 +52,16 @@ class GetTaskResponce {
   int? totalTime;
   @JsonKey(name: 'total_expense')
   int? totalExpense;
+  @JsonKey(name: 'recent_visit_logs')
+  List<RecentVisitLog>? recentVisitLogs;
+  @JsonKey(name: 'next_action_date')
+  List<NextActionDate>? nextActionDate;
+  @JsonKey(name: 'visit_logs')
+  List<VisitLog>? visitLogs;
+  @JsonKey(name: 'updated_at')
+  String? updatedAt;
+  @JsonKey(name: 'updated_field')
+  String? updatedField;
 
   GetTaskResponce({
     this.id,
@@ -70,10 +83,16 @@ class GetTaskResponce {
     this.totalExpense,
     this.totalTime,
     this.createdUserDetails,
-    this.isPinned,
-    this.localId,
-    this.spotlightOn,
-    this.taskType,
+    this.recentVisitLogs,
+    this.visitLogs,
+    this.nextActionDate,
+    this.updatedAt,
+    this.updatedField,
+
+    // this.isPinned,
+    // this.localId,
+    // this.spotlightOn,
+    // this.taskType,
   });
 
   factory GetTaskResponce.fromJson(Map<String, dynamic> json) {
@@ -81,36 +100,41 @@ class GetTaskResponce {
   }
 
   Map<String, dynamic> toJson() => _$GetTaskResponceToJson(this);
-  GetTaskResponce copyWith({
-    int? localId,
-    String? taskType,
-    bool? spotlightOn,
-    bool? isPinned,
-    String? id,
-    String? createdBy,
-    String? title,
-    String? description,
-    String? priorityLevel,
-    bool? recurrentTask,
-    bool? isCompleted,
-    bool? isOwned,
-    String? deadLine,
-    bool? isKilled,
-    List<String>? tags,
-    List<Attachment>? attachments,
-    List<SubTask>? subTask,
-    String? createdAt,
-    String? status,
-    CreatedUserDetails? createdUserDetails,
-    List<AssignedToDetail>? assignedToDetails,
-    int? totalTime,
-    int? totalExpense,
-  }) {
+  GetTaskResponce copyWith(
+      {
+      // int? localId,
+      // String? taskType,
+      // bool? spotlightOn,
+      // bool? isPinned,
+      String? id,
+      String? createdBy,
+      String? title,
+      String? description,
+      String? priorityLevel,
+      bool? recurrentTask,
+      bool? isCompleted,
+      bool? isOwned,
+      String? deadLine,
+      bool? isKilled,
+      List<String>? tags,
+      List<Attachment>? attachments,
+      List<SubTask>? subTask,
+      String? createdAt,
+      String? status,
+      CreatedUserDetails? createdUserDetails,
+      List<AssignedToDetail>? assignedToDetails,
+      int? totalTime,
+      int? totalExpense,
+      List<RecentVisitLog>? recentVisitLogs,
+      List<NextActionDate>? nextActionDate,
+      List<VisitLog>? visitLogs,
+      String? updatedAt,
+      String? updatedField}) {
     return GetTaskResponce(
-      localId: localId ?? this.localId,
-      taskType: taskType ?? this.taskType,
-      spotlightOn: spotlightOn ?? this.spotlightOn,
-      isPinned: isPinned ?? this.isPinned,
+      // localId: localId ?? this.localId,
+      // taskType: taskType ?? this.taskType,
+      // spotlightOn: spotlightOn ?? this.spotlightOn,
+      // isPinned: isPinned ?? this.isPinned,
       id: id ?? this.id,
       createdBy: createdBy ?? this.createdBy,
       title: title ?? this.title,
@@ -130,6 +154,11 @@ class GetTaskResponce {
       assignedToDetails: assignedToDetails ?? this.assignedToDetails,
       totalTime: totalTime ?? this.totalTime,
       totalExpense: totalExpense ?? this.totalExpense,
+      recentVisitLogs: recentVisitLogs ?? this.recentVisitLogs,
+      nextActionDate: nextActionDate ?? this.nextActionDate,
+      visitLogs: visitLogs ?? this.visitLogs,
+      updatedAt: updatedAt ?? this.updatedAt,
+      updatedField: updatedField ?? this.updatedField,
     );
   }
 

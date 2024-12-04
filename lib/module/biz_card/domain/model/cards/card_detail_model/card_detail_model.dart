@@ -107,6 +107,7 @@ class CardDetailModel {
   }
 
   static const colBizcardLocalId = 'bizcard_local_id';
+  static const colUserId = 'user_id';
 
   static const colBizcardId = 'bizcard_id';
   static const colBizcardCompletionLevel = 'bizcard_completion_level';
@@ -159,10 +160,6 @@ class CardDetailModel {
   static const colBizcardBusinessGST = 'bizcard_business_GST';
 
   //* All  Bizcards
-  static const colDesignation = 'bizcard_designation';
   static const colBizcardViews = 'bizcard_views';
   static const colBizcardShareCount = 'bizcard_share_count';
-  static const colName = 'bizcard_designation';
-  static const colCompanyName = 'bizcard_company_name';
-  static const colLogo = 'bizcard_logo';
 }

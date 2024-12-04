@@ -20,6 +20,11 @@ abstract class BizcardsLocalRepo {
     required CardDetailModel bizcardModel,
   });
 
+  Future<Either<Failure, CardDetailModel>>
+      getBizcardFullDetailsFromLocalLocalStorage({
+    required String bizcardId,
+  });
+
   Future<Either<Failure, SuccessResponseModel>> addBizcardToLocalStorage({
     required Bizcard bizcardModel,
   });

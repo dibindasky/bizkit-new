@@ -177,11 +177,21 @@ class CardController extends GetxController {
     if (refresh || cardId != (bizcardDetail.value.bizcardId ?? "")) {
       isLoading.value = true;
     }
+    // Step 1: Fetch and display local data first
+    await fetchBizcardDetailsFromLocalDb(cardId);
+
+    // Step 2: Then update with any network data if available
+    await fetchBizcardDetailFromNetWork(cardId, toEdit);
+  }
+
+  Future<void> fetchBizcardDetailFromNetWork(String cardId, bool toEdit) async {
     final data = await cardRepo.getCardDetail(cardId: cardId);
     data.fold(
       (l) => isLoading.value = false,
-      (r) {
+      (r) async {
         bizcardDetail.value = r;
+        await bizcardsLocalService.addBizcardFullDetailToLocalIfNotExists(
+            bizcardModel: r);
         if (toEdit) {
           Get.find<PersonalDetailsController>().getPersonalDetails(r);
           Get.find<BusinesDetailsController>().getBusinessDetails(r);
@@ -189,6 +199,23 @@ class CardController extends GetxController {
         isLoading.value = false;
         update();
         update(['logo_story']);
+      },
+    );
+  }
+
+  Future<void> fetchBizcardDetailsFromLocalDb(String cardId) async {
+    isLoading.value = true;
+    final localData = await bizcardsLocalService
+        .getBizcardFullDetailsFromLocalLocalStorage(bizcardId: cardId);
+    localData.fold(
+      (failure) {
+        log('getBizcardFullDetailsFromLocalLocalStorage error: ${failure.message}');
+      },
+      (success) {
+        if (success != null) {
+          bizcardDetail.value = success;
+          isLoading.value = false;
+        }
       },
     );
   }

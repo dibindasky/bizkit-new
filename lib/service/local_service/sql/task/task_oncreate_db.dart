@@ -275,7 +275,8 @@ class TaskSql {
   /// Table for [PollAnswer]
   static const String _taskMessagePollAnswersTableCreation = '''
    CREATE TABLE IF NOT EXISTS $taskMessagePollAnswer(
-     ${PollAnswer.colLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+     ${PollAnswer.colLocalDbId} INTEGER PRIMARY KEY AUTOINCREMENT,
+     ${PollAnswer.colLocalId} TEXT,
      ${PollAnswer.colAnswerId} TEXT,
      ${PollAnswer.colAnswerText} TEXT,
      ${PollAnswer.colAnswerVotes} INTEGER,

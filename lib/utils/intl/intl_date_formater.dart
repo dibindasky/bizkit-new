@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class DateTimeFormater {
-  // return HH:MM AM/PM
+  // return HH:MM AM/PM bu adding 5 hr 30 min to get indian time
   static String formatTimeAMPM(String? timestamp) {
     if (timestamp == null || timestamp.isEmpty) return '';
     try {

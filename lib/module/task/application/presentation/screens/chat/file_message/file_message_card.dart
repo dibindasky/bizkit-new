@@ -82,7 +82,9 @@ class FileMessageCard extends StatelessWidget {
                         sender ? kWidth10 : kempty,
                         sender
                             ? MessageReadMarker(
-                                read: message.readByAll ?? false)
+                                read: message.readByAll ?? false,
+                                pending: message.messageId?.isEmpty ?? true,
+                              )
                             : kempty
                       ],
                     ),

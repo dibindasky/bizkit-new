@@ -160,6 +160,7 @@ class TimeAndExpenseCard extends StatelessWidget {
                     sender
                         ? MessageReadMarker(
                             read: message.readByAll ?? false,
+                            pending: message.messageId?.isEmpty ?? true,
                           )
                         : kempty
                   ],

@@ -377,7 +377,11 @@ class _PollContainerChatState extends State<PollContainerChat> {
                         color: sender ? kgrey : kgrey, fontSize: 8.sp),
                   ),
                   sender ? kWidth10 : kempty,
-                  sender ? MessageReadMarker(read: message.readByAll) : kempty
+                  sender
+                      ? MessageReadMarker(
+                          read: message.readByAll,
+                          pending: message.messageId?.isEmpty ?? true)
+                      : kempty
                 ],
               ),
             ],

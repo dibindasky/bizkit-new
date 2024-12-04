@@ -51,19 +51,20 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
               ? await _getTextMessage(messageId: messageId, localId: localId)
               : null,
           currentLocation: (type == 'location')
-              ? await _getCurrentLocationMessage(messageId: messageId)
+              ? await _getCurrentLocationMessage(
+                  messageId: messageId, localId: localId)
               : null,
           file: (type == 'file')
-              ? await _getFileMessage(messageId: messageId)
+              ? await _getFileMessage(messageId: messageId, localId: localId)
               : null,
           poll: (type == 'poll')
-              ? await _getPollMessage(messageId: messageId)
+              ? await _getPollMessage(messageId: messageId, localId: localId)
               : null,
           timeExpence: (type == 'time_expense')
-              ? await _getTimeExpense(messageId: messageId)
+              ? await _getTimeExpense(messageId: messageId, localId: localId)
               : null,
           voiceMessage: (type == 'voice')
-              ? await _getVoiceMessage(messageId: messageId)
+              ? await _getVoiceMessage(messageId: messageId, localId: localId)
               : null,
           isLoadMore: true,
         );
@@ -430,11 +431,16 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
   }
 
   /// retrive [VoiceMessage] using message id
-  Future<VoiceMessage?> _getVoiceMessage({required String messageId}) async {
+  Future<VoiceMessage?> _getVoiceMessage(
+      {required String messageId, required String localId}) async {
     try {
       final uid = await SecureStorage.getUserId() ?? '';
-      final voiceMessagList = await localService.query(TaskSql.taskMessageVoice,
-          where: '${VoiceMessage.colMessageId} = ?', whereArgs: [messageId]);
+      final voiceMessagList =
+          await localService.query(TaskSql.taskMessageVoice, where: '''
+                    (${VoiceMessage.colMessageId} = ? AND ${VoiceMessage.colMessageId} != '')
+                    OR
+                    (${VoiceMessage.colLocalId} = ? AND ${VoiceMessage.colLocalId} != '')    
+                  ''', whereArgs: [messageId, localId]);
       return voiceMessagList.isEmpty
           ? null
           : VoiceMessage.fromJson(voiceMessagList.first,
@@ -554,11 +560,16 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
   }
 
   /// retrive [FileMessage] using message id
-  Future<FileMessage?> _getFileMessage({required String messageId}) async {
+  Future<FileMessage?> _getFileMessage(
+      {required String messageId, required String localId}) async {
     try {
       final uid = await SecureStorage.getUserId() ?? '';
-      final fileMessagList = await localService.query(TaskSql.taskMessagefile,
-          where: '${FileMessage.colMessageId} = ?', whereArgs: [messageId]);
+      final fileMessagList =
+          await localService.query(TaskSql.taskMessagefile, where: '''
+                    (${FileMessage.colMessageId} = ? AND ${FileMessage.colMessageId} != '')
+                    OR
+                    (${FileMessage.colLocalId} = ? AND ${FileMessage.colLocalId} != '')    
+                  ''', whereArgs: [messageId, localId]);
       return fileMessagList.isEmpty
           ? null
           : FileMessage.fromJson(fileMessagList.first,
@@ -697,13 +708,16 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
   }
 
   /// retrive [TimeExpense] using message id
-  Future<TimeExpense?> _getTimeExpense({required String messageId}) async {
+  Future<TimeExpense?> _getTimeExpense(
+      {required String messageId, required String localId}) async {
     try {
       final uid = await SecureStorage.getUserId() ?? '';
-      final timeExpenceMessagList = await localService.query(
-          TaskSql.taskMessageTimeExpence,
-          where: '${TimeExpense.colMessageId} = ?',
-          whereArgs: [messageId]);
+      final timeExpenceMessagList =
+          await localService.query(TaskSql.taskMessageTimeExpence, where: '''
+                    (${TimeExpense.colMessageId} = ? AND ${TimeExpense.colMessageId} != '')
+                    OR
+                    (${TimeExpense.colLocalId} = ? AND ${TimeExpense.colLocalId} != '')    
+                  ''', whereArgs: [messageId, localId]);
       return timeExpenceMessagList.isEmpty
           ? null
           : TimeExpense.fromJson(timeExpenceMessagList.first,
@@ -839,13 +853,15 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
 
   /// retrive [CurrentLocationMessage] using message id
   Future<CurrentLocationMessage?> _getCurrentLocationMessage(
-      {required String messageId}) async {
+      {required String messageId, required String localId}) async {
     try {
       final uid = await SecureStorage.getUserId() ?? '';
-      final currentLocationMessagList = await localService.query(
-          TaskSql.taskMessageCurrentLocation,
-          where: '${CurrentLocationMessage.colMessageId} = ?',
-          whereArgs: [messageId]);
+      final currentLocationMessagList = await localService
+          .query(TaskSql.taskMessageCurrentLocation, where: '''
+                    (${CurrentLocationMessage.colMessageId} = ? AND ${CurrentLocationMessage.colMessageId} != '')
+                    OR
+                    (${CurrentLocationMessage.colLocalId} = ? AND ${CurrentLocationMessage.colLocalId} != '')    
+                ''', whereArgs: [messageId, localId]);
       return currentLocationMessagList.isEmpty
           ? null
           : CurrentLocationMessage.fromJson(currentLocationMessagList.first,
@@ -983,17 +999,23 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
   }
 
   /// retrive [Poll] using message id
-  Future<Poll?> _getPollMessage({required String messageId}) async {
+  Future<Poll?> _getPollMessage(
+      {required String messageId, required String localId}) async {
     try {
       final uid = await SecureStorage.getUserId() ?? '';
-      final pollMessagList = await localService.query(TaskSql.taskMessagePoll,
-          where: '${Poll.colMessageId} = ?', whereArgs: [messageId]);
+      final pollMessagList =
+          await localService.query(TaskSql.taskMessagePoll, where: '''
+                    (${Poll.colMessageId} = ? AND ${Poll.colMessageId} != '')
+                    OR
+                    (${Poll.colLocalId} = ? AND ${Poll.colLocalId} != '')
+        ''', whereArgs: [messageId, localId]);
       if (pollMessagList.isEmpty) {
         return null;
       }
       Poll poll =
           Poll.fromJson(pollMessagList.first, uid: uid, fromLocalDb: true);
-      poll.pollAnswers = await _getPollAnswers(messageId: messageId);
+      poll.pollAnswers =
+          await _getPollAnswers(messageId: messageId, localId: localId);
       log('poll -> ${poll.toJson()}');
       return poll;
     } catch (e) {
@@ -1075,18 +1097,21 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
   }
 
   /// get poll answers with messageId
-  Future<List<PollAnswer>?> _getPollAnswers({required String messageId}) async {
+  Future<List<PollAnswer>?> _getPollAnswers(
+      {required String messageId, required String localId}) async {
     try {
-      final pollAnswerList = await localService.query(
-          TaskSql.taskMessagePollAnswer,
-          where: '${PollAnswer.colMessageId} = ?',
-          whereArgs: [messageId]);
+      final pollAnswerList =
+          await localService.query(TaskSql.taskMessagePollAnswer, where: '''
+                    (${Poll.colMessageId} = ? AND ${Poll.colMessageId} != '')
+                    OR
+                    (${Poll.colLocalId} = ? AND ${Poll.colLocalId} != '')
+                  ''', whereArgs: [messageId, localId]);
       if (pollAnswerList.isEmpty) {
         return null;
       }
       List<PollAnswer> pollAnswers = [];
       for (var e in pollAnswerList) {
-        PollAnswer answer = PollAnswer.fromJson(e, messageId);
+        PollAnswer answer = PollAnswer.fromJson(e, messageId, localId);
         answer.supporters = await _getPollAnswerSupporters(
             answerId: answer.answerId ?? '', messageId: messageId);
         pollAnswers.add(answer);

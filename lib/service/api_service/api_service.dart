@@ -200,10 +200,17 @@ class ApiService {
   Future<Response<dynamic>> download(
       {required String urlPath, required String filePath}) async {
     try {
-      final response = await _dio.download(urlPath, filePath);
+      final response = await Dio().download(urlPath, filePath,
+          options: Options(
+            responseType: ResponseType.bytes,
+            followRedirects: true,
+          ));
       return response;
+    } on DioException catch (e) {
+      log('excepton dio download $e');
+      rethrow;
     } catch (e) {
-      log('excepton $e');
+      log('excepton download $e');
       rethrow;
     }
   }

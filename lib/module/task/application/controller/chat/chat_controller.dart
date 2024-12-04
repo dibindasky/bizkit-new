@@ -105,6 +105,9 @@ class ChatController extends GetxController {
   // current user id
   String _uid = '';
 
+  /// file download messages ids
+  RxList<String> downloadingMessagesFilesId = <String>[].obs;
+
   // Define the AppPermissionStatus enum
 
   /// connect to the channel with task id and handle the messages form the channel
@@ -256,11 +259,12 @@ class ChatController extends GetxController {
 
       case 'file':
         final m = FileMessage.fromJson(decodedMessage, uid: uid);
-        if (!fromSend) {
-          // TODO :- save data to file storage
-          pathProvider.getDirectory(
-              path: 'file/${m.fileType}', module: Module.task);
-        }
+        // if (!fromSend) {
+        //   String? filePath = await pathProvider.downloadSaveToFileAndReturnPath(
+        //       path: 'chat/file', module: Module.task, urlPath: m.file ?? '');
+        //   print('file location  -> $filePath');
+        //   m.filePath = filePath;
+        // }
         final mess = Message(
             localId: decodedMessage['local_id'] as String?,
             deleted: (decodedMessage['deleted'] as bool?) ?? false,
@@ -279,6 +283,7 @@ class ChatController extends GetxController {
                   (m.messageId?.isNotEmpty ?? false) &&
                   (element.file?.messageId == m.messageId)));
           if (index != -1) {
+            mess.file?.filePath = messages[index].file?.filePath;
             messages[index] = mess;
             doAnimate = false;
           } else {
@@ -676,7 +681,7 @@ class ChatController extends GetxController {
         message: controller.text.trim(),
         userId: _uid,
       );
-      print('send picture');
+      print('send picture -> ${loadedImages.first.type}');
       final data = {
         "message_type": "file",
         "files": List.generate(
@@ -697,6 +702,27 @@ class ChatController extends GetxController {
       _error = 'Failed to send image: $e';
       return;
     }
+  }
+
+  void downloadFile(String? messageId) async {
+    if (messageId?.isNotEmpty ?? false) {
+      downloadingMessagesFilesId.add(messageId!);
+    } else {
+      return;
+    }
+    Message message = messages.firstWhere((m) => m.messageId == messageId);
+    String? filePath = await pathProvider.downloadSaveToFileAndReturnPath(
+        path: 'chat/file',
+        module: Module.task,
+        urlPath: message.file?.file ?? '');
+    message.file?.filePath = filePath;
+    final index = messages.indexWhere((m) => m.messageId == messageId);
+    if (index != -1 && index != null) {
+      messages[index] = message;
+      update(['chat']);
+    }
+    downloadingMessagesFilesId.remove(messageId);
+    await taskChatLocalService.insertOrUpdateMessage(message: message);
   }
 
   /// clear image form selected list

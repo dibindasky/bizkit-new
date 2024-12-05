@@ -180,7 +180,8 @@ class CreateTaskController extends GetxController {
   int deadlineTasksPageNumber = 1,
       deadlineTasksPageSize = 11; // Pagination for deadline-filtered tasks
   int typeTasksPageNumber = 1,
-      typeTasksPageSize = 15; // Pagination for type-filtered tasks
+      typeTasksPageSize = 15,
+      pinnedtTypeTasksPageSize = 100; // Pagination for type-filtered tasks
 
   int quickTasksPageNumber = 1,
       quickTasksPageSize = 10,
@@ -1306,7 +1307,7 @@ class CreateTaskController extends GetxController {
         filterPinnedTaskByType: FilterPinnedTaskByTypeModel(
       isPinned: true,
       page: pinnedTasksPageNumber,
-      pageSize: typeTasksPageSize,
+      pageSize: pinnedtTypeTasksPageSize,
       taskType: taskType.value,
     ));
     update();
@@ -1332,7 +1333,7 @@ class CreateTaskController extends GetxController {
         filterPinnedTaskByType: FilterPinnedTaskByTypeModel(
       isPinned: true,
       page: ++pinnedTasksPageNumber,
-      pageSize: typeTasksPageSize,
+      pageSize: pinnedtTypeTasksPageSize,
       taskType: taskType.value,
     ));
     update();

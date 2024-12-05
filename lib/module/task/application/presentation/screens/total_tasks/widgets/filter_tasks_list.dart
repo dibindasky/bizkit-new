@@ -74,7 +74,7 @@ class FilterTasksListView extends StatelessWidget {
                 );
               }
             },
-            child: FadeInLeft(
+            child: FadeIn(
               animate: true,
               child: TaskContainer(
                 fromHeirarachy: true,

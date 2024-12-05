@@ -51,6 +51,7 @@ class _BizCardScanAndConnectCardDetailScreenState
             child: Column(
               children: [
                 // card user data and images
+                /// connection detail and macho meter pop up coming from [BizcardDetailTopPotion]
                 const BizcardDetailTopPotion(myCard: false, scanPage: true),
                 Column(
                   children: [

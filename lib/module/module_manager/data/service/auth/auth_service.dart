@@ -136,7 +136,7 @@ class AuthenticationService implements AuthenticationRepo {
       {required AuthPostmodel authPostmodel}) async {
     try {
       log('loginUsingPassword data ${authPostmodel.toJson()}');
-      log('api uri ==> post  ${_dio.options.baseUrl + ApiEndPoints.verifyOtp}');
+      log('api uri ==> post  ${_dio.options.baseUrl + ApiEndPoints.passwordLogin}');
       final responce = await _dio.post(
         ApiEndPoints.passwordLogin,
         data: authPostmodel.toJson(),

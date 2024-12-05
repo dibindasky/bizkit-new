@@ -33,7 +33,7 @@ class NetworkImageWithLoader extends StatelessWidget {
           ),
         ),
         placeholder: (context, url) => const ShimmerLoaderTile(),
-        errorWidget: (context, url, error) => errorWidget,
+        errorWidget: (context, url, error) => Center(child: errorWidget),
       ),
     );
   }

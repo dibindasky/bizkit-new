@@ -20,7 +20,8 @@ class FilterByDeadlineModel {
     return _$FilterByDeadlineModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$FilterByDeadlineModelToJson(this);
+  Map<String, dynamic> toJson() =>
+      {'date': date, 'page': page, 'page_size': pageSize};
 
   static const colTaskFilterByDeadlineLocalId =
       'task_filter_by_deadline_local_id';

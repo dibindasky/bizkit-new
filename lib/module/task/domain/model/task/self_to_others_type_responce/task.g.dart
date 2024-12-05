@@ -24,6 +24,10 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
       createdBy: json['created_by'] == null
           ? null
           : CreatedBy.fromJson(json['created_by'] as Map<String, dynamic>),
+      matchedNextActionDates:
+          (json['matched_next_action_dates'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
@@ -40,4 +44,5 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'is_pinned': instance.isPinned,
       'status': instance.status,
       'created_by': instance.createdBy,
+      'matched_next_action_dates': instance.matchedNextActionDates,
     };

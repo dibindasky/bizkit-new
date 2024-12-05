@@ -158,7 +158,9 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
               onTap: () {
                 GoRouter.of(context).pushNamed(
                   Routes.quickTaskCreateUpdate,
-                  extra: false,
+                  extra: {
+                    'edit': false,
+                  },
                 );
               },
               backgroundColor: kblack,

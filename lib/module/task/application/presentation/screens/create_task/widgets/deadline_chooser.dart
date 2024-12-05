@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/container_textfield_dummy.dart';
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -87,10 +88,14 @@ class DeadlineChooserNextActionDate extends StatelessWidget {
     super.key,
     required this.onPressed,
     this.showTitle = false,
+    this.nextActionFromEdit = false,
+    this.nextActionDate,
   });
 
   final Function(String) onPressed;
   final bool showTitle;
+  final bool? nextActionFromEdit;
+  final NextActionDate? nextActionDate;
 
   @override
   Widget build(BuildContext context) {
@@ -114,10 +119,9 @@ class DeadlineChooserNextActionDate extends StatelessWidget {
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
-              log('date : ${controller.singleTask.value.deadLine}');
-              final date = controller.nextActionDate.value == ''
+              final date = nextActionDate?.date == ''
                   ? []
-                  : controller.nextActionDate.value.split('-');
+                  : nextActionDate?.date?.split('_') ?? [];
               return DatePickingBottomSheet(
                 year: 1,
                 last: 500,
@@ -133,15 +137,17 @@ class DeadlineChooserNextActionDate extends StatelessWidget {
               );
             },
           ),
-          child: Obx(
-            () => Card(
-              elevation: 0,
-              child: ContainerTextFieldDummy(
-                text: controller.nextActionDate.value.isEmpty
-                    ? 'Choose date'
-                    : controller.nextActionDate.value,
-                suffixIcon: Iconsax.calendar_add,
-              ),
+          child: Card(
+            elevation: 0,
+            child: ContainerTextFieldDummy(
+              text: nextActionFromEdit == false
+                  ? controller.nextActionDate.value.isEmpty
+                      ? 'Choose date'
+                      : controller.nextActionDate.value
+                  : nextActionDate?.date == ''
+                      ? 'Choose date'
+                      : nextActionDate?.date ?? '',
+              suffixIcon: Iconsax.calendar_add,
             ),
           ),
         ),

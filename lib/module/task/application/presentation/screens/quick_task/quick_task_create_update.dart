@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -5,6 +6,7 @@ import 'package:bizkit/module/task/application/presentation/screens/create_task/
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/container_textfield_dummy.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task/update_quick_task.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
@@ -14,16 +16,16 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class QuickTaskCreateUpdateScreen extends StatelessWidget {
-  QuickTaskCreateUpdateScreen({super.key, this.edit = false});
+  QuickTaskCreateUpdateScreen({super.key, this.edit = false, this.quickTaskId});
 
   final bool? edit;
+  final String? quickTaskId;
 
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
+    log('quickTaskId ===> $quickTaskId');
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       taskController.searchParticipants();
     });
@@ -48,8 +50,8 @@ class QuickTaskCreateUpdateScreen extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   GoRouter.of(context).pop(context);
-                                  titleController.clear();
-                                  descriptionController.clear();
+                                  taskController.titleController.clear();
+                                  taskController.descriptionController.clear();
                                   taskController.userslistNew.clear();
                                 },
                                 child: CircleAvatar(
@@ -88,7 +90,7 @@ class QuickTaskCreateUpdateScreen extends StatelessWidget {
                             onTapOutside: () =>
                                 FocusScope.of(context).unfocus(),
                             hintText: 'Title',
-                            controller: titleController,
+                            controller: taskController.titleController,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Title is required';
@@ -113,7 +115,7 @@ class QuickTaskCreateUpdateScreen extends StatelessWidget {
                             maxLines: 5,
                             hintText: 'Description',
                             textCapitalization: TextCapitalization.sentences,
-                            controller: descriptionController,
+                            controller: taskController.descriptionController,
                             onTapOutside: () =>
                                 FocusScope.of(context).unfocus(),
                           ),
@@ -185,12 +187,19 @@ class QuickTaskCreateUpdateScreen extends StatelessWidget {
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
                                   if (edit == true) {
+                                    taskController.updateQuickTask(
+                                      context: context,
+                                      updateQuickTask:
+                                          UpdateQuickTask(quickTaskId: ''),
+                                    );
                                   } else {
                                     taskController.createQuickTask(
                                       context: context,
                                       createQuickTask: CreateQuickTask(
-                                        title: titleController.text,
-                                        description: descriptionController.text,
+                                        title:
+                                            taskController.titleController.text,
+                                        description: taskController
+                                            .descriptionController.text,
                                         assignedTo: [],
                                       ),
                                     );

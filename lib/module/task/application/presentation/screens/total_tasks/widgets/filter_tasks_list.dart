@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -73,13 +74,16 @@ class FilterTasksListView extends StatelessWidget {
                 );
               }
             },
-            child: TaskContainer(
-              fromHeirarachy: true,
-              tasksFromFilterSection: true,
-              index: index,
-              typeTask: fromHeirarachy == true
-                  ? hierarchyController.filterTasks[index]
-                  : taskController.typeTasks[index],
+            child: FadeIn(
+              animate: true,
+              child: TaskContainer(
+                fromHeirarachy: true,
+                tasksFromFilterSection: true,
+                index: index,
+                typeTask: fromHeirarachy == true
+                    ? hierarchyController.filterTasks[index]
+                    : taskController.typeTasks[index],
+              ),
             ),
           );
         }

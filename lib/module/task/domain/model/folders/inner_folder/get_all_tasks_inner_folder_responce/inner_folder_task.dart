@@ -49,6 +49,8 @@ class InnerFolderTask {
     return _$InnerFolderTaskFromJson(json);
   }
 
+  get matchedNextActionDates => null;
+
   Map<String, dynamic> toJson() => _$InnerFolderTaskToJson(this);
 
   InnerFolderTask copyWith({

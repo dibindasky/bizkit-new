@@ -154,7 +154,7 @@ class ConnectionsController extends GetxController {
         case 0:
           searchConnections();
           break;
-        case 1:   
+        case 1:
           contactsController.searchContact(query);
           break;
         case 2:
@@ -221,8 +221,8 @@ class ConnectionsController extends GetxController {
       // log("sear connection datas ---- ${connectionsSearchList.toJson()}");
       searchConnectionsLoading.value = false;
     }
-    if(myConnections.isEmpty){
-      myConnectionsLoading.value=true;
+    if (myConnections.isEmpty) {
+      myConnectionsLoading.value = true;
     }
     final result = await connectionService.searchConnections(
         searchQuery: SearchQuery(
@@ -241,31 +241,30 @@ class ConnectionsController extends GetxController {
             await myConnectionLocalService
                 .addMyConnecitonToLocalStorageIfNotPresentInStorage(
                     myconnection: eachMyConnection);
-                    if(eachMyConnection.cards?.isNotEmpty??false){
-                      connectionsSearchList.add(eachMyConnection);
-                    }
+            if (eachMyConnection.cards?.isNotEmpty ?? false) {
+              connectionsSearchList.add(eachMyConnection);
+            }
           }
         } else {
           for (var datas in success.data ?? <MyConnection>[]) {
             final index = connectionsSearchList
                 .indexWhere((value) => value.toUser == datas.toUser);
             if (index == -1) {
-              if(datas.cards?.isNotEmpty??false){
+              if (datas.cards?.isNotEmpty ?? false) {
                 connectionsSearchList.insert(0, datas);
               }
-              
+
               myConnectionLocalService
                   .addMyConnecitonToLocalStorageIfNotPresentInStorage(
                       myconnection: datas);
             } else {
-
               if (!connectionsSearchList[index].equals(datas)) {
                 int localId = connectionsSearchList[index].localId!;
-                if(datas.cards?.isNotEmpty??false){
+                if (datas.cards?.isNotEmpty ?? false) {
                   connectionsSearchList[index] = datas;
-                }else{
+                } else {
                   connectionsSearchList.removeAt(index);
-                }   
+                }
                 myConnectionLocalService
                     .addMyConnecitonToLocalStorageIfNotPresentInStorage(
                         myconnection: datas.copyWith(localId: localId));
@@ -273,9 +272,9 @@ class ConnectionsController extends GetxController {
             }
           }
         }
-        if(myConnections.isEmpty){
+        if (myConnections.isEmpty) {
           myConnections.assignAll(connectionsSearchList);
-          myConnectionsLoading.value=false;
+          myConnectionsLoading.value = false;
         }
         searchConnectionsLoading.value = false;
       },
@@ -463,17 +462,17 @@ class ConnectionsController extends GetxController {
     }, (success) {
       myConnections.clear();
       connectionsSearchList.clear();
-      for(var data in success.data as List<MyConnection>){
-       if(data.cards?.isNotEmpty??false){
-        if(search){
-          connectionsSearchList.add(data);
-        }else{
-          myConnections.add(data);
+      for (var data in success.data as List<MyConnection>) {
+        if (data.cards?.isNotEmpty ?? false) {
+          if (search) {
+            connectionsSearchList.add(data);
+          } else {
+            myConnections.add(data);
+          }
         }
-       }
       }
       if (search) {
-        return ;
+        return;
       }
 
       // log('success local data get -----------------------------------------------------------------');

@@ -1,3 +1,4 @@
+import 'package:bizkit/module/module_manager/domain/model/access/access.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'token_model.g.dart';
@@ -17,6 +18,8 @@ class TokenModel {
   @JsonKey(name: 'organization_id')
   String? organizationId;
   String? role;
+  @JsonKey(name: 'allowed_accesses')
+  List<Access>? allowedAccesses;
 
   TokenModel({
     this.accessToken,
@@ -26,6 +29,7 @@ class TokenModel {
     this.logoutFromDevice,
     this.organizationId,
     this.role,
+    this.allowedAccesses,
   });
 
   factory TokenModel.fromJson(Map<String, dynamic> json) =>
@@ -40,6 +44,7 @@ class TokenModel {
       String? uid,
       String? logoutFromDevice,
       String? organizationId,
+      List<Access>? allowedAccesses,
       String? role}) {
     return TokenModel(
       accessToken: accessToken ?? this.accessToken,
@@ -49,6 +54,7 @@ class TokenModel {
       logoutFromDevice: logoutFromDevice ?? this.logoutFromDevice,
       organizationId: organizationId ?? this.organizationId,
       role: role ?? this.role,
+      allowedAccesses: allowedAccesses ?? this.allowedAccesses,
     );
   }
 

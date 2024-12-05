@@ -153,9 +153,15 @@ class ProfileScreen extends StatelessWidget {
                   );
                 },
               ),
-              TextButton(onPressed: (){
-            GoRouter.of(context).pushNamed(Routes.matchoMeterConnectionScreen);
-          }, child: Text('Navigate to matcho Meter connection screen',style: Theme.of(context).textTheme.titleSmall,)),
+              TextButton(
+                  onPressed: () {
+                    GoRouter.of(context)
+                        .pushNamed(Routes.matchoMeterConnectionScreen);
+                  },
+                  child: Text(
+                    'Navigate to matcho Meter connection screen',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  )),
             ],
           ),
         ),

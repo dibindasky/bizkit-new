@@ -23,13 +23,14 @@ class BizCardAndConnectionScreen extends StatefulWidget {
 class _BizCardAndConnectionScreenState extends State<BizCardAndConnectionScreen>
     with TickerProviderStateMixin {
   // late TabController tabController;
-  final tabBarController =Get.find<NavbarController>();
+  final tabBarController = Get.find<NavbarController>();
 
   @override
   void initState() {
     super.initState();
-   tabBarController.tabController = TabController(length: 5, vsync: this, initialIndex: 0);
-  tabBarController.tabController.addListener(() {
+    tabBarController.tabController =
+        TabController(length: 5, vsync: this, initialIndex: 0);
+    tabBarController.tabController.addListener(() {
       Get.find<ConnectionsController>().searchController.text = '';
     });
   }
@@ -44,10 +45,11 @@ class _BizCardAndConnectionScreenState extends State<BizCardAndConnectionScreen>
             children: [
               adjustHieght(10.h),
               SearchBarWidget(
-                tabController:tabBarController.tabController,
+                tabController: tabBarController.tabController,
               ),
               adjustHieght(5.h),
-              CardAndConnectionsTabBar(tabController:tabBarController.tabController),
+              CardAndConnectionsTabBar(
+                  tabController: tabBarController.tabController),
               adjustHieght(20.h),
               Expanded(
                 child: TabBarView(
@@ -70,7 +72,7 @@ class _BizCardAndConnectionScreenState extends State<BizCardAndConnectionScreen>
 
   @override
   void dispose() {
-   tabBarController.tabController.dispose();
+    tabBarController.tabController.dispose();
     super.dispose();
   }
 }

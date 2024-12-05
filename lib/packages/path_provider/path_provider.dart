@@ -41,12 +41,20 @@ class PathProvider {
     }
   }
 
+  /// will return a path to the directory.
+  /// if the given path is not found then crete and return the path
+  /// send [path] such a way how it should created in the [module] folder
+  /// send [urlPath] from where the data should get downloaded
+  /// send [fileName] only if want to add a given file name or it will trim form [urlPath]
   Future<String?> downloadSaveToFileAndReturnPath(
-      {required String path, Module? module, required String urlPath}) async {
+      {required String path,
+      Module? module,
+      required String urlPath,
+      String? fileName}) async {
     try {
       String? filePath = await getDirectory(path: path, module: module);
       if (filePath == null) return null;
-      final fileName = _sanitizeFileName(urlPath.split('/').last);
+      fileName = fileName ?? _sanitizeFileName(urlPath.split('/').last);
       // .replaceFirst('.image', '.jpg');
       final pathName = '$filePath/$fileName';
       await apiService.download(urlPath: urlPath, filePath: pathName);
@@ -54,6 +62,28 @@ class PathProvider {
       return pathName;
     } catch (e) {
       log('exception downloadAndReturnPath => $e');
+      return null;
+    }
+  }
+
+  /// pass [file] to be copied to the new [path]
+  /// send [Module] and [fileName] if want to store in a custom place
+  Future<String?> copyFileToPath(
+      {required String path,
+      Module? module,
+      required File file,
+      String? fileName}) async {
+    try {
+      String? filePath = await getDirectory(path: path, module: module);
+      if (filePath == null) return null;
+      fileName = fileName ?? _sanitizeFileName(file.path.split('/').last);
+      // .replaceFirst('.image', '.jpg');
+      final pathName = '$filePath/$fileName';
+      await file.copy(pathName);
+      log('success copyFileToPath => $pathName');
+      return pathName;
+    } catch (e) {
+      log('exception copyFileToPath => $e');
       return null;
     }
   }

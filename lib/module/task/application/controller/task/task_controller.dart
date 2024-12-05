@@ -799,7 +799,7 @@ class CreateTaskController extends GetxController {
   Future<void> taskFilterByDeadline() async {
     taksListLoading.value = true;
     deadlineTasksPageNumber = 1;
-    deadlineTasks.clear();
+    deadlineTasks.value = <Task>[];
 
     // Step 1: Fetch and display local data first
     await fetchTasksFromLocalDb();

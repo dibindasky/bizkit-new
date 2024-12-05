@@ -585,6 +585,12 @@ class TaskLocalService implements TaskLocalRepo {
       addTaskToLocalStorageIfNotPresentInStorage(
           {required task.Task taskModel}) async {
     try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('addTaskToLocalStorageIfNotPresentInStorage error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
       /// SQL query to check if the task is already present in the [ TaskSql.tasksTable ]
       const String query = '''
       SELECT COUNT(*) 
@@ -595,7 +601,7 @@ class TaskLocalService implements TaskLocalRepo {
 
       /// Check if the task is present in the database
       final bool present =
-          await localService.presentOrNot(query, [taskModel.id, await userId]);
+          await localService.presentOrNot(query, [taskModel.id, currentUserId]);
 
       // If not present, add the task; otherwise, update it
       if (!present) {

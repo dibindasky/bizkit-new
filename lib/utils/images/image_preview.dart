@@ -57,13 +57,12 @@ class _ScreenImagePreviewState extends State<ScreenImagePreview> {
               scale = details.scale;
             });
           },
-          child: Transform.scale(
-            scale: scale,
-            child:Image.network(widget.image) 
-            //  widget.isFileIamge
-            //     ? Image.file(File(widget.image))
-            //     : Image.memory(image!),
-          ),
+          child:
+              Transform.scale(scale: scale, child: Image.network(widget.image)
+                  //  widget.isFileIamge
+                  //     ? Image.file(File(widget.image))
+                  //     : Image.memory(image!),
+                  ),
         ),
       ),
     );

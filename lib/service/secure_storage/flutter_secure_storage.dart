@@ -9,6 +9,7 @@ class SecureStorage {
   static const String isLoged = 'is_loggedin';
   static const String userNameKey = 'user_name';
   static const String onboardSetBool = 'on_board';
+  static const String role = 'role';
   static const String showCaseSetBool = 'show_case_widget';
   static const String hasCardKey = 'has_card';
   static const String hasConnectionKey = 'has_connection';
@@ -33,6 +34,7 @@ class SecureStorage {
     await prefs.setString(refreshKey, tokenModel.refreshToken ?? '');
     await prefs.setString(userNameKey, tokenModel.name?.toString() ?? '');
     await prefs.setString(idKey, tokenModel.uid ?? '');
+    await prefs.setString(role, tokenModel.role ?? 'user');
   }
 
   static Future<TokenModel> getToken() async {
@@ -42,12 +44,28 @@ class SecureStorage {
     final refreshToken = prefs.getString(refreshKey);
     final userName = prefs.getString(userNameKey);
     final uid = prefs.getString(idKey);
+    final rol = prefs.getString(role);
     log('accessToken =>() $accessToken');
     return TokenModel(
         accessToken: accessToken,
         refreshToken: refreshToken,
         name: userName,
+        role: rol,
         uid: uid);
+  }
+
+  static Future<void> setrole({required String rol}) async {
+    final prefs = await _getPrefs();
+    log('set rol =>() $rol');
+    await prefs.setString(role, rol);
+  }
+
+    static Future<String> getRoll() async {
+    final prefs = await _getPrefs();
+    log('get role =>()');
+    final rol = prefs.getString(role);
+    log('get role =>($role)');
+    return rol??'user';
   }
 
   static Future<void> setUserName({required String userName}) async {

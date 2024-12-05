@@ -84,7 +84,7 @@ class ProfileController extends GetxController {
         phone.value = editNumber;
         checkPhone = editNumber;
         userPhone.text = editNumber;
-         isLoadingImage.value = false;
+        isLoadingImage.value = false;
         image.value = right.profileImage ?? '';
       });
     } catch (e) {

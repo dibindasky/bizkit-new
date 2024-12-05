@@ -43,10 +43,9 @@ class CustomCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.start,
-      
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Center(
@@ -75,8 +74,9 @@ class CustomCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20 ),
-              child: Column(mainAxisAlignment: MainAxisAlignment.center,
+              padding: const EdgeInsets.only(left: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   adjustHieght(10.h),
                   Text(
@@ -87,13 +87,19 @@ class CustomCard extends StatelessWidget {
                   Text(
                     textAlign: TextAlign.center,
                     designation ?? 'designation',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(fontSize: 10),
                   ),
                   adjustHieght(4.h),
                   Text(
                     textAlign: TextAlign.center,
                     companyName ?? 'Company',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(fontSize: 10),
                   ),
                   adjustHieght(10.h),
                 ],

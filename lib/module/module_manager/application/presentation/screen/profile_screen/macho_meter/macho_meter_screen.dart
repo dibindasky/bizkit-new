@@ -110,202 +110,213 @@ class _MachoMeterScreenState extends State<MachoMeterScreen> {
                                             .matchoMeter[indexs];
                                     final TextEditingController tagController =
                                         TextEditingController();
-                                  return Obx((){
-                                     return CustomExpansionTileWidget(
-                                        borderColor: kblack,
-                                        isExpandable: true,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: SizedBox(
-                                            child: Text(
-                                              machoMeterScreenController
-                                                      .matchoMeter[indexs]
-                                                      .question ??
-                                                  '',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium,
+                                    return Obx(() {
+                                      return CustomExpansionTileWidget(
+                                          borderColor: kblack,
+                                          isExpandable: true,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: SizedBox(
+                                              child: Text(
+                                                machoMeterScreenController
+                                                        .matchoMeter[indexs]
+                                                        .question ??
+                                                    '',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 10),
-                                            child: Align(
-                                              alignment: Alignment.topLeft,
-                                              child: Wrap(
-                                                spacing: 18.0,
-                                                runSpacing: 4.0,
-                                                children:
-                                                    machoMeterScreenController
-                                                            .matchoMeter[indexs]
-                                                            .userAnswer
-                                                            ?.map((userAnswer) {
-                                                          return Chip(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10),
+                                              child: Align(
+                                                alignment: Alignment.topLeft,
+                                                child: Wrap(
+                                                  spacing: 18.0,
+                                                  runSpacing: 4.0,
+                                                  children:
+                                                      machoMeterScreenController
+                                                              .matchoMeter[
+                                                                  indexs]
+                                                              .userAnswer
+                                                              ?.map(
+                                                                  (userAnswer) {
+                                                            return Chip(
+                                                              side: BorderSide
+                                                                  .none,
+                                                              onDeleted: () {
+                                                                machoMeterScreenController
+                                                                    .deleteFromUserAnswers(
+                                                                        userAnswer,
+                                                                        indexs);
+                                                              },
+                                                              label: Text(
+                                                                userAnswer,
+                                                                style: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .titleSmall,
+                                                              ),
+                                                            );
+                                                          }).toList() ??
+                                                          [],
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: CupertinoTextField(
+                                                textCapitalization:
+                                                    TextCapitalization.words,
+                                                placeholder: 'Add your answer',
+                                                placeholderStyle:
+                                                    Theme.of(context)
+                                                        .textTheme
+                                                        .displaySmall,
+                                                suffix: GestureDetector(
+                                                  onTap: () {
+                                                    final tag = tagController
+                                                        .text
+                                                        .trim();
+
+                                                    if (tag.isNotEmpty &&
+                                                        !(machoMeterScreenController
+                                                                    .matchoMeter[
+                                                                        indexs]
+                                                                    .userAnswer ??
+                                                                [])
+                                                            .contains(tag)) {
+                                                      var userAnswersList =
+                                                          machoMeterScreenController
+                                                                  .matchoMeter[
+                                                                      indexs]
+                                                                  .userAnswer ??
+                                                              [];
+                                                      userAnswersList.add(tag);
+                                                      machoMeterScreenController
+                                                                  .matchoMeter[
+                                                              indexs] =
+                                                          machoMeterScreenController
+                                                              .matchoMeter[
+                                                                  indexs]
+                                                              .copyWith(
+                                                                  userAnswer:
+                                                                      userAnswersList,
+                                                                  showButton:
+                                                                      true);
+                                                      // FocusScope.of(context).unfocus();
+                                                      log('Tags =====> ${machoMeterScreenController.matchoMeter[indexs].userAnswer}');
+                                                    }
+                                                    tagController.clear();
+                                                  },
+                                                  child: const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        right: 10.0),
+                                                    child: Icon(Icons.add,
+                                                        color: kneon),
+                                                  ),
+                                                ),
+                                                controller: tagController,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displaySmall,
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  border: Border.all(
+                                                    color: kneon,
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10),
+                                              child: Align(
+                                                alignment: Alignment.topLeft,
+                                                child: Wrap(
+                                                  spacing: 18.0,
+                                                  runSpacing: 4.0,
+                                                  children: machoMeterScreenController
+                                                          .matchoMeter[indexs]
+                                                          .answers
+                                                          ?.where((test) =>
+                                                              !(machoMeterScreenController
+                                                                          .matchoMeter[
+                                                                              indexs]
+                                                                          .userAnswer ??
+                                                                      [])
+                                                                  .contains(
+                                                                      test))
+                                                          .map((answer) {
+                                                        return InkWell(
+                                                          onTap: () {
+                                                            machoMeterScreenController
+                                                                .addToUserAnswers(
+                                                                    answer,
+                                                                    indexs);
+                                                          },
+                                                          child: Chip(
                                                             side:
                                                                 BorderSide.none,
-                                                            onDeleted: () {
-                                                              machoMeterScreenController
-                                                                  .deleteFromUserAnswers(
-                                                                      userAnswer,
-                                                                      indexs);
-                                                            },
                                                             label: Text(
-                                                              userAnswer,
+                                                              answer,
                                                               style: Theme.of(
                                                                       context)
                                                                   .textTheme
                                                                   .titleSmall,
                                                             ),
-                                                          );
-                                                        }).toList() ??
-                                                        [],
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: CupertinoTextField(
-                                              textCapitalization:
-                                                  TextCapitalization.words,
-                                              placeholder: 'Add your answer',
-                                              placeholderStyle:
-                                                  Theme.of(context)
-                                                      .textTheme
-                                                      .displaySmall,
-                                              suffix: GestureDetector(
-                                                onTap: () {
-                                                  final tag =
-                                                      tagController.text.trim();
-
-                                                  if (tag.isNotEmpty &&
-                                                      !(machoMeterScreenController
-                                                                  .matchoMeter[
-                                                                      indexs]
-                                                                  .userAnswer ??
-                                                              [])
-                                                          .contains(tag)) {
-                                                    var userAnswersList =
-                                                        machoMeterScreenController
-                                                                .matchoMeter[
-                                                                    indexs]
-                                                                .userAnswer ??
-                                                            [];
-                                                    userAnswersList.add(tag);
-                                                    machoMeterScreenController
-                                                                .matchoMeter[
-                                                            indexs] =
-                                                        machoMeterScreenController
-                                                            .matchoMeter[indexs]
-                                                            .copyWith(
-                                                                userAnswer:
-                                                                    userAnswersList,
-                                                                showButton:
-                                                                    true);
-                                                    // FocusScope.of(context).unfocus();
-                                                    log('Tags =====> ${machoMeterScreenController.matchoMeter[indexs].userAnswer}');
-                                                  }
-                                                  tagController.clear();
-                                                },
-                                                child: const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: 10.0),
-                                                  child: Icon(Icons.add,
-                                                      color: kneon),
-                                                ),
-                                              ),
-                                              controller: tagController,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall,
-                                              padding:
-                                                  const EdgeInsets.all(10.0),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                                border: Border.all(
-                                                  color: kneon,
-                                                  width: 1.0,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 10),
-                                            child: Align(
-                                              alignment: Alignment.topLeft,
-                                              child: Wrap(
-                                                spacing: 18.0,
-                                                runSpacing: 4.0,
-                                                children: machoMeterScreenController
-                                                        .matchoMeter[indexs]
-                                                        .answers
-                                                        ?.where((test) =>
-                                                            !(machoMeterScreenController
-                                                                        .matchoMeter[
-                                                                            indexs]
-                                                                        .userAnswer ??
-                                                                    [])
-                                                                .contains(test))
-                                                        .map((answer) {
-                                                      return InkWell(
-                                                        onTap: () {
-                                                          machoMeterScreenController
-                                                              .addToUserAnswers(
-                                                                  answer,
-                                                                  indexs);
-                                                        },
-                                                        child: Chip(
-                                                          side: BorderSide.none,
-                                                          label: Text(
-                                                            answer,
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .titleSmall,
                                                           ),
-                                                        ),
-                                                      );
-                                                    }).toList() ??
-                                                    [],
+                                                        );
+                                                      }).toList() ??
+                                                      [],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          if (userMachoMeterData.id == null &&
-                                              (userMachoMeterData
-                                                      .userAnswer?.isEmpty ??
-                                                  true))
-                                            kempty
-                                          else if (userMachoMeterData
-                                              .showButton)
-                                            Obx((){
-                                              return machoMeterScreenController
-                                                    .loadingList
-                                                    .contains(indexs)
-                                                ?const Center(child: CircularProgressIndicator())
-                                                : EventButton(
-                                                    showGradiant: false,
-                                                    text:
-                                                        userMachoMeterData.id ==
+                                            if (userMachoMeterData.id == null &&
+                                                (userMachoMeterData
+                                                        .userAnswer?.isEmpty ??
+                                                    true))
+                                              kempty
+                                            else if (userMachoMeterData
+                                                .showButton)
+                                              Obx(() {
+                                                return machoMeterScreenController
+                                                        .loadingList
+                                                        .contains(indexs)
+                                                    ? const Center(
+                                                        child:
+                                                            CircularProgressIndicator())
+                                                    : EventButton(
+                                                        showGradiant: false,
+                                                        text: userMachoMeterData
+                                                                    .id ==
                                                                 null
                                                             ? 'add'
                                                             : 'Update',
-                                                    onTap: () {
-                                                      userMachoMeterData.id ==
-                                                              null
-                                                          ? machoMeterScreenController
-                                                              .addMatchoMeter(
-                                                                  indexs)
-                                                          : machoMeterScreenController
-                                                              .editMatchoMeter(
-                                                                  indexs);
-                                                    },
-                                                  );
-                                            }),
-                                        ]);  
-                                   });
+                                                        onTap: () {
+                                                          userMachoMeterData
+                                                                      .id ==
+                                                                  null
+                                                              ? machoMeterScreenController
+                                                                  .addMatchoMeter(
+                                                                      indexs)
+                                                              : machoMeterScreenController
+                                                                  .editMatchoMeter(
+                                                                      indexs);
+                                                        },
+                                                      );
+                                              }),
+                                          ]);
+                                    });
                                   });
                         }),
                         kHeight20,

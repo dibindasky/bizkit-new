@@ -16,6 +16,7 @@ import 'package:bizkit/module/task/data/sqfilte/chat/task_chat_local_service.dar
     as _i578;
 import 'package:bizkit/module/task/domain/repository/sqfilte/chat/task_chat_local_service_repo.dart'
     as _i209;
+import 'package:bizkit/packages/path_provider/path_provider.dart' as _i1008;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -30,6 +31,7 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.lazySingleton<_i1008.PathProvider>(() => _i1008.PathProvider());
     gh.lazySingleton<_i209.TaskChatLocalServiceRepo>(
         () => _i578.TaskChatLocalService());
     gh.lazySingleton<_i253.ConnectionsRepo>(() => _i1029.ConnectionsService());

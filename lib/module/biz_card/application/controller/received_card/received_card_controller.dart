@@ -65,7 +65,7 @@ class ReceivedCardController extends GetxController {
 
   final LocationService locationService = LocationService();
 
-  final tabBarController=Get.find<NavbarController>();
+  final tabBarController = Get.find<NavbarController>();
 
   void clearAllTextEditingControllers() async {
     nameController.clear();
@@ -171,13 +171,13 @@ class ReceivedCardController extends GetxController {
         fetchAllreceivedCards(refresh: true);
         cardTextExtractionController.pickedImageUrl.clear();
         showSnackbar(context, message: 'Received card created successfully');
-        navbarController.slectedtabIndex.value = 2;   
+        navbarController.slectedtabIndex.value = 2;
         isLoading.value = false;
         GoRouter.of(context).pop();
         GoRouter.of(context).pop();
         GoRouter.of(context).pop();
         //  context.remo(Routes.bizCardNavbar);
-        tabBarController.tabController.index=3;
+        tabBarController.tabController.index = 3;
         tabBarController.tabController.animateTo(3);
       },
     );

@@ -25,4 +25,14 @@ class UserSearchSuccessResponce {
   }
 
   Map<String, dynamic> toJson() => _$UserSearchSuccessResponceToJson(this);
+
+  static const String colLocalId = 'local_id';
+  static const String colUserId = 'user_id';
+  static const String colName = 'name';
+  static const String colEmail = 'email';
+  static const String colPhoneNumber = 'phone_number';
+  static const String colPhoto = 'photo';
+  static const String colCount = 'count';
+  static const String colCurrentUserId = 'current_user_id';
+  static const String colModule = 'module';
 }

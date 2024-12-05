@@ -64,7 +64,13 @@ class BizCardViewsListPopUp extends StatelessWidget {
                             .displaySmall
                             ?.copyWith(fontSize: 13),
                       ),
-                      trailing: Text(DateTimeFormater.getDDMMHHMMformat(data.viewdTime),style: Theme.of(context).textTheme.titleSmall?.copyWith(color: kGreyNormal,fontSize: 10),),
+                      trailing: Text(
+                        DateTimeFormater.getDDMMHHMMformat(data.viewdTime),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.copyWith(color: kGreyNormal, fontSize: 10),
+                      ),
                     ),
                   ),
                 );

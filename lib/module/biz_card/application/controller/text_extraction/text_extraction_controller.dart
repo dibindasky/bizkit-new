@@ -19,7 +19,7 @@ class CardTextExtractionController extends GetxController {
   final TextExtractionRepo textExtractionService = TextExtractionService();
 
   RxBool isLoading = false.obs;
-  RxBool continueLoading =false.obs;
+  RxBool continueLoading = false.obs;
 
   // Holds extractedDetails response
   var extractedDetails = ExtractedDetails().obs;
@@ -38,7 +38,7 @@ class CardTextExtractionController extends GetxController {
       {required TextExtractionModel textExtractionModel,
       required BuildContext context,
       required bool fromVisitingCard}) async {
-        continueLoading.value=true;
+    continueLoading.value = true;
     isLoading.value = true;
 
     final data = await textExtractionService.textExtracion(
@@ -46,7 +46,7 @@ class CardTextExtractionController extends GetxController {
 
     data.fold(
       (failure) {
-        continueLoading.value=false;
+        continueLoading.value = false;
         isLoading.value = false;
         log('${failure.message}');
         showSnackbar(context,
@@ -54,7 +54,7 @@ class CardTextExtractionController extends GetxController {
       },
       (success) {
         try {
-          continueLoading.value=false;
+          continueLoading.value = false;
           extractedDetails.value = success.extractedDetails!;
           extractedEmails.assignAll((extractedDetails.value.emails ?? []));
           extractedPhoneNumbers.assignAll((extractedDetails.value.phoneNumbers
@@ -113,14 +113,14 @@ class CardTextExtractionController extends GetxController {
                 .pushReplacementNamed(Routes.cardCreationDetailAdding);
           }
         } catch (e) {
-          continueLoading.value=false;
+          continueLoading.value = false;
           print('errror text extrattion = $e');
         }
-        continueLoading.value=false;
+        continueLoading.value = false;
         isLoading.value = false;
       },
     );
-    continueLoading.value=false;
+    continueLoading.value = false;
     isLoading.value = false;
   }
 

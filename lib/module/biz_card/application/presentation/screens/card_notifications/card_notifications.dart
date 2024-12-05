@@ -135,11 +135,12 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const Text(
-                            '25m ago',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(color: kGreyNormal,fontWeight: FontWeight.w400,fontSize: 12)
-                          ),
+                          const Text('25m ago',
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: kGreyNormal,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12)),
                         ],
                       ),
                       adjustHieght(10),
@@ -150,12 +151,18 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
                       // adjustHieght(4),
                       Text(
                         "you have a new connection",
-                        style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 11),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(fontSize: 11),
                       ),
                       adjustHieght(12),
                       Text(
                         'click to get more information',
-                        style:Theme.of(context).textTheme.displaySmall?.copyWith(color: kGreyNormal),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(color: kGreyNormal),
                       ),
                       adjustHieght(10),
                     ],

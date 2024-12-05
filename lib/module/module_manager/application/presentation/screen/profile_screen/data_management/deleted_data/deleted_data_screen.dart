@@ -164,10 +164,8 @@ class _DeletedCardScreenState extends State<DeletedCardScreen>
                                         },
                                       );
                                     },
-                                  
                                   ),
-                                )
-                                );
+                                ));
                           },
                         ),
                       );
@@ -182,7 +180,6 @@ class _DeletedCardScreenState extends State<DeletedCardScreen>
               SizedBox(
                   height: khieght * 0.8,
                   child: GetBuilder<ReceivedCardController>(
-                    
                     builder: (controller) {
                       if (controller.isLoading.value) {
                         return const Center(
@@ -219,7 +216,6 @@ class _DeletedCardScreenState extends State<DeletedCardScreen>
                                       child: SizedBox(
                                         width: 362.w,
                                         height: 100.h,
-                                         
                                         child: CustomCard(
                                           companyName: visitingCards.company,
                                           designation:
@@ -245,8 +241,7 @@ class _DeletedCardScreenState extends State<DeletedCardScreen>
                                             );
                                           },
                                         ),
-                                      )
-                                      );
+                                      ));
                                 },
                               )),
                         );

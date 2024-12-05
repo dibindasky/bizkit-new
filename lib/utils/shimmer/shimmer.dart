@@ -131,9 +131,10 @@ class ShimmerLoaderSearchParticipants extends StatelessWidget {
       scrollDirection: scrollDirection,
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: baseColor ?? const Color.fromARGB(255, 54, 54, 54),
+          baseColor: baseColor ??
+              Theme.of(context).colorScheme.secondary.withOpacity(0.3),
           highlightColor:
-              highlightColor ?? const Color.fromARGB(255, 85, 85, 85),
+              baseColor ?? Theme.of(context).scaffoldBackgroundColor,
           child: const ListTile(
             leading: CircleAvatar(
               backgroundImage: AssetImage(personDemoImg),

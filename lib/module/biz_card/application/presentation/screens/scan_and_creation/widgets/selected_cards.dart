@@ -274,36 +274,36 @@ class _SelectedCardsState extends State<SelectedCards> {
                   if (textExtractionController.isLoading.value) {
                     return const LoadingAnimation();
                   }
-                  return
-                   textExtractionController.continueLoading.value?
-                           const Center(child: LoadingAnimation())
-                          :
-                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: EventButton(
-                        text: 'continue',
-                        showGradiant: false,
-                        width: double.infinity,
-                        onTap: () {
-                          if (textExtractionController.pickedImageUrl.isEmpty) {
-                            showSnackbar(
-                              context,
-                              message: 'Select atleast one Image',
-                              backgroundColor: kred,
-                            );
-                          }
-                         
-                          textExtractionController.textExtraction(
-                              context: context,
-                              fromVisitingCard: true,
-                              textExtractionModel: TextExtractionModel(
-                                  images: textExtractionController
-                                      .pickedImageUrl
-                                      .map((e) => e.base64!)
-                                      .toList()));
-                          textExtractionController.isLoading.value = false;
-                        }),
-                  );
+                  return textExtractionController.continueLoading.value
+                      ? const Center(child: LoadingAnimation())
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: EventButton(
+                              text: 'continue',
+                              showGradiant: false,
+                              width: double.infinity,
+                              onTap: () {
+                                if (textExtractionController
+                                    .pickedImageUrl.isEmpty) {
+                                  showSnackbar(
+                                    context,
+                                    message: 'Select atleast one Image',
+                                    backgroundColor: kred,
+                                  );
+                                }
+
+                                textExtractionController.textExtraction(
+                                    context: context,
+                                    fromVisitingCard: true,
+                                    textExtractionModel: TextExtractionModel(
+                                        images: textExtractionController
+                                            .pickedImageUrl
+                                            .map((e) => e.base64!)
+                                            .toList()));
+                                textExtractionController.isLoading.value =
+                                    false;
+                              }),
+                        );
                 }),
                 Obx(() => textExtractionController.pickedImageUrl.length == 2
                     ? Container(

@@ -36,29 +36,29 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
           ? null
           : CreatedUserDetails.fromJson(
               json['created_user_details'] as Map<String, dynamic>),
-      // isPinned: json['isPinned'] as bool?,
-      // localId: json['localId'] as int?,
-      // spotlightOn: json['spotlightOn'] as bool?,
-      // taskType: json['taskType'] as String?,
       recentVisitLogs: (json['recent_visit_logs'] as List<dynamic>?)
           ?.map((e) => RecentVisitLog.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      nextActionDate: (json['next_action_date'] as List<dynamic>?)
-          ?.map((e) => NextActionDate.fromJson(e as Map<String, dynamic>))
           .toList(),
       visitLogs: (json['visit_logs'] as List<dynamic>?)
           ?.map((e) => VisitLog.fromJson(e as Map<String, dynamic>))
           .toList(),
+      nextActionDate: (json['next_action_date'] as List<dynamic>?)
+          ?.map((e) => NextActionDate.fromJson(e as Map<String, dynamic>))
+          .toList(),
       updatedAt: json['updated_at'] as String?,
       updatedField: json['updated_field'] as String?,
-    );
+    )
+      ..localId = json['localId'] as int?
+      ..taskType = json['taskType'] as String?
+      ..spotlightOn = json['spotlightOn'] as bool?
+      ..isPinned = json['isPinned'] as bool?;
 
 Map<String, dynamic> _$GetTaskResponceToJson(GetTaskResponce instance) =>
     <String, dynamic>{
-      // 'localId': instance.localId,
-      // 'taskType': instance.taskType,
-      // 'spotlightOn': instance.spotlightOn,
-      // 'isPinned': instance.isPinned,
+      'localId': instance.localId,
+      'taskType': instance.taskType,
+      'spotlightOn': instance.spotlightOn,
+      'isPinned': instance.isPinned,
       '_id': instance.id,
       'created_by': instance.createdBy,
       'title': instance.title,

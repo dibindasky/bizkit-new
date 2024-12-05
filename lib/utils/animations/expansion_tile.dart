@@ -5,9 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomExpansionTileWidget extends StatefulWidget {
   const CustomExpansionTileWidget(
-      {
-        super.key,
-        this.borderColor,
+      {super.key,
+      this.borderColor,
       this.whileTap,
       this.isBorder = true,
       this.isExpandable = true,
@@ -40,7 +39,9 @@ class _CustomExpansionTileWidgetState extends State<CustomExpansionTileWidget> {
               color: widget.expansionColor != null && isExpanded
                   ? widget.expansionColor
                   : null,
-              border: isExpanded ? Border.all(color:widget.borderColor??kneon) : null,
+              border: isExpanded
+                  ? Border.all(color: widget.borderColor ?? kneon)
+                  : null,
               borderRadius: kBorderRadius10),
       child: Column(
         children: [

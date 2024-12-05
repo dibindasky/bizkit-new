@@ -19,7 +19,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
 
   Future<String?> get userId async {
     if (_userId != null) return _userId;
-    _userId = await SecureStorage.getUserId();
+    _userId = await SecureStorage.getUserId() ?? '';
     return _userId!;
   }
 
@@ -376,7 +376,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addBizcardToLocalStorage(
       {required Bizcard bizcardModel}) async {
     try {
-      final String? currentUserId = _userId;
+      final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('addBizcardToLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
@@ -431,7 +431,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> updateBizcardFromLocalStorage(
       {required Bizcard bizcardModel}) async {
     try {
-      final String? currentUserId = _userId;
+      final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('updateBizcardFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
@@ -490,6 +490,11 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addBizcardToLocalIfNotExists(
       {required Bizcard bizcardModel}) async {
     try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('addBizcardToLocalIfNotExists error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
       const String query = '''
       SELECT COUNT(*)
       FROM ${BizCardSql.bizcardTable}
@@ -499,7 +504,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
 
       final bool present = await localService.presentOrNot(query, [
         bizcardModel.bizcardId,
-        await userId,
+        currentUserId,
       ]);
 
       if (!present) {

@@ -42,6 +42,8 @@ class TaskSql {
       await db.execute(_taskAttachmentsTableCreation);
       await db.execute(_taskSubTasksTableCreation);
       await db.execute(_taskAssignedToDetailTableCreation);
+      await db.execute(_filterByDeadlineTableCreation);
+      // task chat tables
       await db.execute(_taskMessagesTableCreation);
       await db.execute(_pollMessageTableCreation);
       await db.execute(_taskMesageTextTableCreation);
@@ -51,7 +53,6 @@ class TaskSql {
       await db.execute(_currentLocationMessageTableCreation);
       await db.execute(_taskMessagePollAnswersTableCreation);
       await db.execute(_taskMessagePollSupportersTableCreation);
-      await db.execute(_filterByDeadlineTableCreation);
     } catch (e) {
       log('onCreate ==> ${e.toString()}');
     }

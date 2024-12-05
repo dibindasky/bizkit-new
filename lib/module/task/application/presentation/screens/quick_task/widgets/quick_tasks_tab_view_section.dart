@@ -17,6 +17,7 @@ class QuickTasksTabViewSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: TabBarView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: tabController,
         children: [
           ActiveQuickTasksTab(taskController: taskController),

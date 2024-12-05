@@ -191,13 +191,13 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, FilterByDeadlineResponce>> filterByDeadline(
       {required FilterByDeadlineModel filterByDeadline}) async {
     try {
-      log('Filter by deadline ToJson => ${filterByDeadline.toJson()}');
+      log('filterByDeadline ToJson => ${filterByDeadline.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.taskTestFilterByDeadline,
         data: filterByDeadline.toJson(),
       );
 
-      log("=> Response Filter by Deadline : ");
+      log("=> Response filterByDeadline :  ");
       return Right(FilterByDeadlineResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException filterByDeadline $e');
@@ -280,7 +280,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, GetTaskResponce>> getTask(
       {required GetSingleTaskModel singleTaskModel}) async {
     try {
-      // log('GetTask Json => ${singleTaskModel.toJson()}');
+      log('getTask Json => ${singleTaskModel.toJson()}');
       final response = await apiService.get(
         ApiEndPoints.taskTestEditTask,
         data: singleTaskModel.toJson(),

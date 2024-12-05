@@ -3,6 +3,7 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,10 +19,11 @@ class CompletedQuickTasksTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Obx(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SizedBox(
+          height: constraints.maxHeight,
+          child: Obx(
             () {
               if (taskController.loadingForCompletedQuickTasks.value) {
                 return Padding(
@@ -33,99 +35,133 @@ class CompletedQuickTasksTab extends StatelessWidget {
                     seprator: kHeight10,
                   ),
                 );
+              } else if (taskController.completedQuickTasks.isEmpty) {
+                return ErrorRefreshIndicator(
+                  image: emptyNodata2,
+                  errorMessage: 'No Completed Quick Tasks',
+                  onRefresh: () {
+                    taskController.fetchCompletedQuickTasks();
+                  },
+                );
               } else {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: RefreshIndicator(
-                    onRefresh: () async {
-                      taskController.fetchCompletedQuickTasks();
-                    },
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final completedQuickTasks =
-                            taskController.completedQuickTasks[index];
-                        return FadeInRight(
-                          animate: true,
-                          child: Card(
-                            elevation: 0,
-                            child: Padding(
-                              padding: const EdgeInsets.all(18.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    completedQuickTasks.title ?? 'title',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall,
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    taskController.fetchCompletedQuickTasks();
+                  },
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    itemCount: taskController.completedQuickTasks.length,
+                    separatorBuilder: (context, index) => SizedBox(height: 5.h),
+                    itemBuilder: (context, index) {
+                      final completedQuickTasks =
+                          taskController.completedQuickTasks[index];
+                      return FadeInRight(
+                        child: Card(
+                          elevation: 0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(13.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  completedQuickTasks.title ?? 'Untitled Task',
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                ),
+                                adjustHieght(10.h),
+                                Text(
+                                  completedQuickTasks.description ??
+                                      'No description',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(
+                                        fontSize: 10,
+                                        color: kGreyNormal,
+                                      ),
+                                ),
+                                adjustHieght(10.h),
+                                // Stacked profile images replacement
+                                if (completedQuickTasks.assignedTo != null &&
+                                    completedQuickTasks.assignedTo!.isNotEmpty)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: SizedBox(
+                                      height: 30.h,
+                                      child: completedQuickTasks.assignedTo !=
+                                                  null &&
+                                              completedQuickTasks
+                                                  .assignedTo!.isNotEmpty
+                                          ? LayoutBuilder(
+                                              builder: (context, constraints) {
+                                                return Stack(
+                                                  clipBehavior: Clip.none,
+                                                  children: List.generate(
+                                                    completedQuickTasks
+                                                        .assignedTo!.length,
+                                                    (index) => Positioned(
+                                                      left: index *
+                                                          20.0, // Adjust overlap as needed
+                                                      child: CircleAvatar(
+                                                        radius: 20
+                                                            .r, // Use .r for responsive sizing
+                                                        backgroundColor: knill,
+                                                        child: CircleAvatar(
+                                                          radius: 18.r,
+                                                          child: completedQuickTasks
+                                                                      .assignedTo?[
+                                                                          index]
+                                                                      .profilePicture !=
+                                                                  null
+                                                              ? NetworkImageWithLoader(
+                                                                  radius: 50,
+                                                                  completedQuickTasks
+                                                                          .assignedTo?[
+                                                                              index]
+                                                                          .profilePicture ??
+                                                                      '',
+                                                                )
+                                                              : const Icon(
+                                                                  Icons.person,
+                                                                  size: 19,
+                                                                ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            )
+                                          : const SizedBox.shrink(),
+                                    ),
                                   ),
-                                  adjustHieght(10.h),
-                                  Text(
-                                    completedQuickTasks.description ??
-                                        'description',
+
+                                Align(
+                                  alignment: AlignmentDirectional.bottomEnd,
+                                  child: Text(
+                                    completedQuickTasks.isOwned == true
+                                        ? 'Created by you'
+                                        : 'Assigned by ${completedQuickTasks.completedBy?.firstOrNull?.name ?? 'Unknown'}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall
-                                        ?.copyWith(
-                                          fontSize: 10,
-                                          color: kGreyNormal,
-                                        ),
+                                        ?.copyWith(fontSize: 9),
                                   ),
-                                  adjustHieght(10.h),
-                                  Row(
-                                    children: List.generate(
-                                      growable: true,
-                                      completedQuickTasks.assignedTo?.length ??
-                                          0,
-                                      (index) => CircleAvatar(
-                                        radius: 15,
-                                        child: completedQuickTasks
-                                                    .assignedTo?[index]
-                                                    .profilePicture !=
-                                                null
-                                            ? NetworkImageWithLoader(
-                                                radius: 50,
-                                                completedQuickTasks
-                                                        .assignedTo?[index]
-                                                        .profilePicture ??
-                                                    '')
-                                            : const Icon(
-                                                Icons.person,
-                                                size: 19,
-                                              ),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional.bottomEnd,
-                                    child: Text(
-                                      completedQuickTasks.isOwned == true
-                                          ? 'Created by you'
-                                          : 'Assgined by ${completedQuickTasks.completedBy?[index].name ?? ''}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall
-                                          ?.copyWith(fontSize: 9),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        );
-                      },
-                      separatorBuilder: (context, index) => kHeight5,
-                      itemCount: taskController.completedQuickTasks.length,
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 );
               }
             },
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

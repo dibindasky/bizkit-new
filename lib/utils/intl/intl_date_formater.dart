@@ -1,3 +1,5 @@
+import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DateTimeFormater {
@@ -22,6 +24,25 @@ class DateTimeFormater {
     } catch (_) {
       return '';
     }
+  }
+
+  static Map<String, dynamic>? checkCurrentDateMatch(List<String> dates) {
+    final taskController = Get.find<CreateTaskController>();
+
+    // Get the current selected date in 'yyyy-MM-dd' format
+    String currentDate = taskController.deadlineDate.value;
+
+    // Check if the current date matches any date in the list
+    for (String date in dates) {
+      if (date == currentDate) {
+        return {
+          'isMatched': true,
+          'matchedDate': 'Action Date : $date',
+        }; // Return the matched date and true
+      }
+    }
+
+    return null; // Return null if no match is found
   }
 
   /// return format "11 NOV 12:15 AM"

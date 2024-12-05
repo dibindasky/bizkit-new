@@ -39,7 +39,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         final type = data[i][Message.colMessageType] as String?;
         final messageId = (data[i][Message.colMessageId] as String?) ?? '';
         final localId = (data[i][Message.colLocalId] as String?) ?? '';
-        print('data -> message --> ${data[i]}');
         Message message = Message(
           messageId: messageId,
           messageType: type,
@@ -70,7 +69,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         );
         messages.add(message);
       }
-      print('getMessagesWithLimit messages length => ${messages.length}');
       return messages;
     } catch (e) {
       log('getMessages error => ${e.toString()}');
@@ -92,7 +90,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
     ''';
       final present = await localService.presentOrNot(
           query, [message.messageId ?? '', message.localId ?? '']);
-      print('insertOrUpdateMessage => present $present');
       if (present) {
         return _updateMessage(message: message);
       } else {
@@ -302,7 +299,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
   Future<TextMessage?> _getTextMessage(
       {required String messageId, required String localId}) async {
     try {
-      print('_getTextMessage -> $messageId, $localId');
       final uid = await SecureStorage.getUserId() ?? '';
       final textMessagList =
           await localService.query(TaskSql.taskMessageText, where: '''
@@ -310,7 +306,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
                   OR
                   (${TextMessage.colLocalId} = ? AND ${TextMessage.colLocalId} != '')
               ''', whereArgs: [messageId, localId]);
-      print('_getTextMessage -> ${textMessagList.first.toString()}');
       return textMessagList.isEmpty
           ? null
           : TextMessage.fromJson(textMessagList.first,
@@ -489,11 +484,12 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${FileMessage.colTimestamp},
         ${FileMessage.colFile},
         ${FileMessage.colFileType},
+        ${FileMessage.colFilePath},
         ${FileMessage.colReadByAll},
         ${FileMessage.colSender},
         ${FileMessage.colLocalId},
         ${FileMessage.colCurrentUid})
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     ''';
       return await localService.rawInsert(query, [
         fileMessage.messageType ?? '',
@@ -505,6 +501,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         fileMessage.timestamp ?? '',
         fileMessage.file ?? '',
         fileMessage.fileType ?? '',
+        fileMessage.filePath ?? '',
         (fileMessage.readByAll ?? false) ? 1 : 0,
         fileMessage.sender ? 1 : 0,
         fileMessage.localId ?? '',
@@ -530,6 +527,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${FileMessage.colTimestamp} = ?,
         ${FileMessage.colFile} = ?,
         ${FileMessage.colFileType} = ?,
+        ${FileMessage.colFilePath} = ?,
         ${FileMessage.colReadByAll} = ?,
         ${FileMessage.colSender} = ?,
         ${FileMessage.colCurrentUid} = ?
@@ -547,6 +545,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         fileMessage.timestamp ?? '',
         fileMessage.file ?? '',
         fileMessage.fileType ?? '',
+        fileMessage.filePath ?? '',
         (fileMessage.readByAll ?? false) ? 1 : 0,
         fileMessage.sender ? 1 : 0,
         fileMessage.currentUid ?? '',
@@ -570,6 +569,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
                     OR
                     (${FileMessage.colLocalId} = ? AND ${FileMessage.colLocalId} != '')    
                   ''', whereArgs: [messageId, localId]);
+      print('file message from local db -> ${fileMessagList.first.toString()}');
       return fileMessagList.isEmpty
           ? null
           : FileMessage.fromJson(fileMessagList.first,

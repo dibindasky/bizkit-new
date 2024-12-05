@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/sub_task.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -34,6 +35,8 @@ class Task {
   String? status;
   @JsonKey(name: 'created_by')
   CreatedBy? createdBy;
+  @JsonKey(name: 'matched_next_action_dates')
+  List<String>? matchedNextActionDates;
 
   Task(
       {this.id,
@@ -48,27 +51,28 @@ class Task {
       this.subtasks,
       this.title,
       this.status,
-      this.createdBy});
+      this.createdBy,
+      this.matchedNextActionDates});
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 
   Map<String, dynamic> toJson() => _$TaskToJson(this);
 
-  Task copyWith({
-    String? id,
-    String? description,
-    String? title,
-    String? createdAt,
-    String? deadLine,
-    String? priorityLevel,
-    List<SubTask>? subtasks,
-    String? taskType,
-    bool? isOwned,
-    bool? spotlightOn,
-    bool? isPinned,
-    String? status,
-    CreatedBy? createdBy,
-  }) {
+  Task copyWith(
+      {String? id,
+      String? description,
+      String? title,
+      String? createdAt,
+      String? deadLine,
+      String? priorityLevel,
+      List<SubTask>? subtasks,
+      String? taskType,
+      bool? isOwned,
+      bool? spotlightOn,
+      bool? isPinned,
+      String? status,
+      CreatedBy? createdBy,
+      List<String>? matchedNextActionDates}) {
     return Task(
       id: id ?? this.id,
       description: description ?? this.description,
@@ -83,6 +87,8 @@ class Task {
       isPinned: isPinned ?? this.isPinned,
       status: status ?? this.status,
       createdBy: createdBy ?? this.createdBy,
+      matchedNextActionDates:
+          matchedNextActionDates ?? this.matchedNextActionDates,
     );
   }
 

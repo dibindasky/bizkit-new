@@ -707,11 +707,12 @@ class GoRouterConfig {
       name: Routes.quickTaskCreateUpdate,
       path: Routes.quickTaskCreateUpdate,
       pageBuilder: (context, state) {
-        final extra = state.extra as bool;
+        final extra = state.extra as Map<String, dynamic>;
         return FadeTransitionPage(
           key: state.pageKey,
           child: QuickTaskCreateUpdateScreen(
-            edit: extra,
+            edit: extra['edit'],
+            quickTaskId: extra['quickTaskId'],
           ),
         );
       },

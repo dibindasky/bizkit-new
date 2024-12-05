@@ -356,6 +356,7 @@
 //   }
 // }
 
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -489,13 +490,16 @@ class _TaskListViewState extends State<TaskListView> {
     return GestureDetector(
       // onLongPress: () => controller.longPress(index),
       onTap: () => _handleTaskTap(task, index),
-      child: TaskContainer(
-        tasksFromTasksList: true,
-        fromFolders: false,
-        tasksFromFoldrs: false,
-        tasksFromInnerFolder: false,
-        typeTask: task,
-        index: index,
+      child: FadeIn(
+        animate: true,
+        child: TaskContainer(
+          tasksFromTasksList: true,
+          fromFolders: false,
+          tasksFromFoldrs: false,
+          tasksFromInnerFolder: false,
+          typeTask: task,
+          index: index,
+        ),
       ),
     );
   }

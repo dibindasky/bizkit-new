@@ -21,6 +21,7 @@ import 'package:bizkit/module/task/domain/model/task/spot_light_task/spot_light_
 import 'package:bizkit/utils/animations/custom_shrinking_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,6 +69,27 @@ class TaskContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final matchedDateResult = DateTimeFormater.checkCurrentDateMatch(
+      typeTask?.matchedNextActionDates ??
+          tasksInsideFolder?.matchedNextActionDates ??
+          tasksInsideInnerFolder?.matchedNextActionDates ??
+          [],
+    );
+
+// Extract the matched date and isMatched flag
+    final isMatched = matchedDateResult?['isMatched'] ?? false;
+    final matchedDate = matchedDateResult?['matchedDate'];
+
+// Determine the text to display
+    final displayedDate = matchedDate ??
+        typeTask?.deadLine ??
+        tasksInsideFolder?.deadLine ??
+        tasksInsideInnerFolder?.deadLine ??
+        'No deadline';
+
+// Define the text color
+    final textColor = isMatched ? kOrange : kblack;
+
     String? created, deadline, taskId;
     bool? spotlightOn;
     if (typeTask != null) {
@@ -136,50 +158,54 @@ class TaskContainer extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Row(
-                            children: [
-                              controller.selectedIndices.contains(index)
-                                  ? Container(
-                                      padding: const EdgeInsets.all(6),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: neonShade),
-                                        borderRadius: kBorderRadius25,
-                                        color: neonShade,
-                                      ),
-                                      child: const Icon(
-                                        Icons.done,
-                                        color: kwhite,
-                                        size: 16,
-                                      ),
-                                    )
-                                  : kempty,
-                              adjustWidth(10),
-                              Text(
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: true,
-                                maxLines: 1,
-                                typeTask?.title ??
-                                    tasksInsideFolder?.title ??
-                                    tasksInsideInnerFolder?.title ??
-                                    'Title',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(fontSize: 14),
-                              ),
-                              adjustWidth(15),
-                              Card(
-                                elevation: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  child: Text('status',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                controller.selectedIndices.contains(index)
+                                    ? Container(
+                                        padding: const EdgeInsets.all(6),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: neonShade),
+                                          borderRadius: kBorderRadius25,
+                                          color: neonShade,
+                                        ),
+                                        child: const Icon(
+                                          Icons.done,
+                                          color: kwhite,
+                                          size: 16,
+                                        ),
+                                      )
+                                    : kempty,
+                                adjustWidth(20),
+                                Expanded(
+                                  child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
+                                    maxLines: 1,
+                                    typeTask?.title ??
+                                        tasksInsideFolder?.title ??
+                                        tasksInsideInnerFolder?.title ??
+                                        'Title',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(fontSize: 14),
+                                  ),
                                 ),
-                              ),
-                            ],
+                                adjustWidth(15),
+                                Card(
+                                  elevation: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    child: Text('status',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           PopupMenuButton<String>(
                             icon: const Icon(
@@ -387,19 +413,16 @@ class TaskContainer extends StatelessWidget {
                         ],
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 45),
-                            child: Text(
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: true,
-                                typeTask?.deadLine ??
-                                    tasksInsideFolder?.deadLine ??
-                                    tasksInsideInnerFolder?.deadLine ??
-                                    'No deadline',
-                                style:
-                                    Theme.of(context).textTheme.displaySmall),
+                          Text(
+                            displayedDate,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(color: textColor),
                           ),
                           Text(
                             maxLines: 1,

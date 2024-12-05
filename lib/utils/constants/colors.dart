@@ -18,6 +18,7 @@ const Color kGreyNormal = Colors.grey;
 const Color klightgrey = Color.fromARGB(223, 231, 231, 233);
 const Color smallBigGrey = Color.fromRGBO(255, 255, 255, 0.162);
 const Color kdarkOffWhite = Color.fromARGB(255, 240, 241, 242);
+const Color kOrange = Color.fromARGB(255, 201, 121, 2);
 // ---------------------------------------------------------
 
 const Color textFieldFillColr = Colors.white;
@@ -37,7 +38,6 @@ const Color knill = Colors.transparent;
 const Color backgroundColour = Color.fromRGBO(41, 41, 41, 1);
 const Color lightColr = Color.fromRGBO(53, 53, 53, .42);
 Color lightGrey = Colors.grey[800] ?? Colors.grey;
-const Color kOrange = Color.fromARGB(255, 201, 121, 2);
 const klightGreyClr = Color(0xFF313131);
 const Color holidayBorderClr = Color(0xFF5E77FF);
 const Color leaveBorderClr = Color(0xFFFF814C);

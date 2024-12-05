@@ -216,8 +216,122 @@ class ScreenTaskDetailPage extends StatelessWidget {
                                                   runSpacing: 8.w,
                                                   children:
                                                       nextActionDate.map((tag) {
-                                                    return NextActionChip(
-                                                        label: tag);
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            return AlertDialog(
+                                                              backgroundColor:
+                                                                  Theme.of(
+                                                                          context)
+                                                                      .scaffoldBackgroundColor,
+                                                              title: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Text(
+                                                                    'Next Action Date',
+                                                                    style: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .displaySmall
+                                                                        ?.copyWith(
+                                                                            fontSize:
+                                                                                14),
+                                                                  ),
+                                                                  IconButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                    icon: const Icon(
+                                                                        Icons
+                                                                            .close),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              content: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Row(
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            Card(
+                                                                          elevation:
+                                                                              0,
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(25.0),
+                                                                            child:
+                                                                                Text('${tag.date}', style: Theme.of(context).textTheme.displaySmall),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  Row(
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            Card(
+                                                                          elevation:
+                                                                              0,
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(25.0),
+                                                                            child:
+                                                                                Text('${tag.description}', style: Theme.of(context).textTheme.displaySmall),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              actions: [
+                                                                Center(
+                                                                  child: EventButton(
+                                                                      width: double.infinity,
+                                                                      color: neonNewLinearGradient,
+                                                                      text: 'Update Next Action Date',
+                                                                      onTap: () {
+                                                                        Navigator.of(context)
+                                                                            .pop(context);
+                                                                        showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (BuildContext context) {
+                                                                            return NADCreateAndUpdateDialog(
+                                                                              nextActionDate: tag,
+                                                                              isEdit: true,
+                                                                              taskId: taskId ?? '',
+                                                                              taskController: taskController,
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      }),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                      child: NextActionChip(
+                                                          label: tag),
+                                                    );
                                                   }).toList(),
                                                 ),
                                               ],
@@ -251,10 +365,12 @@ class ScreenTaskDetailPage extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class NADCreateAndUpdateDialog extends StatelessWidget {
-  const NADCreateAndUpdateDialog(
+  NADCreateAndUpdateDialog(
       {super.key,
       required this.taskController,
+      this.nextActionDate,
       this.taskId,
       this.isEdit = false});
 
@@ -262,9 +378,14 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
 
   final bool? isEdit;
   final String? taskId;
+  NextActionDate? nextActionDate;
 
   @override
   Widget build(BuildContext context) {
+    if (isEdit == true) {
+      taskController.nexActiondateDescriptionController.text =
+          nextActionDate?.description ?? '';
+    }
     return AlertDialog(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       title: Row(
@@ -292,6 +413,7 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
           DeadlineChooserNextActionDate(
             onPressed: (date) {
               taskController.nextActionDate.value = date;
+
               FocusScope.of(context).unfocus();
             },
           ),
@@ -306,7 +428,7 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
           adjustHieght(15.h),
           Center(
               child: EventButton(
-                  showGradiant: false,
+                  width: double.infinity,
                   color: neonNewLinearGradient,
                   text: isEdit == true ? 'Update' : 'Create',
                   onTap: () {

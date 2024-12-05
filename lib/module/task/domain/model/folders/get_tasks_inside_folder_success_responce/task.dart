@@ -50,6 +50,8 @@ class InsideAFolderTasks {
   factory InsideAFolderTasks.fromJson(Map<String, dynamic> json) =>
       _$InsideAFolderTasksFromJson(json);
 
+  get matchedNextActionDates => null;
+
   Map<String, dynamic> toJson() => _$InsideAFolderTasksToJson(this);
 
   InsideAFolderTasks copyWith({

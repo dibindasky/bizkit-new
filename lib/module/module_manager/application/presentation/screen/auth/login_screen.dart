@@ -7,6 +7,7 @@ import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:bizkit/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
@@ -194,11 +195,14 @@ class _ScreenLoginState extends State<ScreenLogin>
                               height: tapOnPassword ? null : 0,
                               child: tapOnPassword
                                   ? Padding(
-                                      padding: const EdgeInsets.all(3.0),
+                                      padding: const EdgeInsets.only(bottom: 10,left: 10,right: 10),
                                       child: Text(
-                                        maxLines: 3,
+                                        maxLines: 6,
                                         'Password must contain at least 8 characters, including lowercase & uppercase letters, numbers, and special characters',
-                                        style: textThinerStyle1,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(fontSize: 10.sp),
                                       ),
                                     )
                                   : kempty,

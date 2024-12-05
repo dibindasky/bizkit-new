@@ -13,7 +13,7 @@ abstract class UsersLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> updateUserInLocalStorage({
     required TokenModel model,
   });
-  
+
   /// add accesses to loacl storage
   Future<Either<Failure, SuccessResponseModel>> addAccessToStorage(
       {required Access access});
@@ -32,8 +32,11 @@ abstract class UsersLocalRepo {
   /// add if not present and update if alredy there
   Future<Either<Failure, SuccessResponseModel>>
       addUserToLocalStorageIfNotPresentInStorage({required TokenModel model});
-      
+
   /// add if not present and update if alredy there
   Future<Either<Failure, SuccessResponseModel>>
       addAccessToLocalStorageIfNotPresentInStorage({required Access access});
+
+  /// get all access of an user
+  Future<Either<Failure, List<Access>>> getAccessFromLocalStorage();
 }

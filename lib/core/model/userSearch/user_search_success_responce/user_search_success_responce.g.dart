@@ -14,6 +14,7 @@ UserSearchSuccessResponce _$UserSearchSuccessResponceFromJson(
       email: json['email'] as String?,
       phoneNumber: json['phone_number'] as String?,
       photo: json['photo'] as String?,
+      count: json['count'] as int?,
     );
 
 Map<String, dynamic> _$UserSearchSuccessResponceToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$UserSearchSuccessResponceToJson(
       'email': instance.email,
       'phone_number': instance.phoneNumber,
       'photo': instance.photo,
+      'count': instance.count,
     };

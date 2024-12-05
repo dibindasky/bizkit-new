@@ -11,6 +11,7 @@ class UserSearchSuccessResponce {
   @JsonKey(name: 'phone_number')
   String? phoneNumber;
   String? photo;
+  int? count;
 
   UserSearchSuccessResponce({
     this.userId,
@@ -18,6 +19,7 @@ class UserSearchSuccessResponce {
     this.email,
     this.phoneNumber,
     this.photo,
+    this.count,
   });
 
   factory UserSearchSuccessResponce.fromJson(Map<String, dynamic> json) {

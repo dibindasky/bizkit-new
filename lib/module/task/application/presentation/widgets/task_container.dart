@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
@@ -415,15 +416,32 @@ class TaskContainer extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
-                            displayedDate,
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: true,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall
-                                ?.copyWith(color: textColor),
-                          ),
+                          isMatched
+                              ? Flash(
+                                  //Flash , ShakeX
+
+                                  animate: true,
+                                  // infinite: true,
+
+                                  child: Text(
+                                    displayedDate,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(color: textColor),
+                                  ),
+                                )
+                              : Text(
+                                  displayedDate,
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(color: textColor),
+                                ),
                           Text(
                             maxLines: 1,
                             softWrap: true,

@@ -48,7 +48,11 @@ class EventButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: textStyle ?? Theme.of(context).textTheme.displaySmall,
+            style: textStyle ??
+                Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(color: textColr ?? kblack),
           ),
         ),
       ),

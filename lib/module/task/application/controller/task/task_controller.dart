@@ -329,6 +329,8 @@ class CreateTaskController extends GetxController {
   var selectedAttachmentsDatas = <String>[].obs;
 
   RxBool attachmentDeleteLoading = false.obs;
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   ///task attachment delete function
   longPressOrOnTap(String attachment) {
@@ -1986,7 +1988,9 @@ class CreateTaskController extends GetxController {
   }
 
   // Update a quick task
-  void updateQuickTask({required UpdateQuickTask updateQuickTask}) async {
+  void updateQuickTask(
+      {required UpdateQuickTask updateQuickTask,
+      required BuildContext context}) async {
     loadingForQuickTask.value = true;
     final result =
         await taskService.updateQuickTasks(updateQuickTask: updateQuickTask);
@@ -1995,9 +1999,19 @@ class CreateTaskController extends GetxController {
       (failure) {
         loadingForQuickTask.value = false;
         log(failure.message.toString());
+        showSnackbar(
+          context,
+          message: errorMessage,
+          backgroundColor: kred,
+        );
       },
       (success) {
         loadingForQuickTask.value = false;
+        showSnackbar(
+          context,
+          message: 'Quick task updated successfully',
+          backgroundColor: neonShade,
+        );
       },
     );
   }
@@ -2015,6 +2029,13 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         loadingForQuickTask.value = false;
+        quickTasks.value = quickTasks.map((task) {
+          if (task.id == completeQuickTask.quickTaskId) {
+            // Match by ID or other unique identifier
+            return task.copyWith(isCompleted: true);
+          }
+          return task;
+        }).toList();
         fetchCompletedQuickTasks();
       },
     );

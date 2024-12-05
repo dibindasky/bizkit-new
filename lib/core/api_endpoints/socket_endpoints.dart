@@ -16,4 +16,5 @@ class SocketEndpoints {
   // [ AWS base url for chat  ]
   // static const taskChat = 'ws://51.20.106.168/ws/task/{task_id}/';
   // static const messageCount = 'ws://51.20.106.168/ws/messages/';
+
 }

@@ -91,7 +91,7 @@ class CardService implements CardRepo {
       }
       return Right(ScanAndConnectModel.fromJson(responce.data));
     } on DioException catch (e) {
-      log('scanAndConnect DioException ${e.response?.statusCode} $e');
+      log('scanAndConnect DioException ${e.response?.data} $e');
       return Left(Failure(message: errorMessage));
     } catch (e) {
       log('scanAndConnect catch $e');

@@ -200,6 +200,8 @@ class AuthenticationController extends GetxController {
       loadingLoginPassword.value = false;
     }, (r) {
       completeLogin(context, r);
+      GoRouter.of(context)
+          .pushReplacementNamed(Routes.varificationScreen, extra: false);
       showSnackbar(context,
           message: 'User Logged In Successfully',
           backgroundColor: kneonShade,

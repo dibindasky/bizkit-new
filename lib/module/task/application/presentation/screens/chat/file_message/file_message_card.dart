@@ -62,7 +62,7 @@ class FileMessageCard extends StatelessWidget {
                                       color: sender ? kwhite : kblack,
                                       fontSize: 13)),
                   adjustHieght(5.h),
-                  message.message!.isEmpty
+                  message.message?.isEmpty ?? true
                       ? kempty
                       : Text(message.message ?? "",
                           style: Theme.of(context)

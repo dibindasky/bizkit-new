@@ -210,6 +210,13 @@ class ChatController extends GetxController {
     }
   }
 
+  void _reConnect({required String accessToken}) {
+    channel = IOWebSocketChannel.connect(
+      Uri.parse(SocketEndpoints.taskChat.replaceFirst('{task_id}', chatTaskId)),
+      headers: {'Authorization': 'Bearer $accessToken'},
+    );
+  }
+
   /// generate an unique id for message to store locally
   String getUniqueId() {
     return const Uuid().v4();
@@ -221,7 +228,6 @@ class ChatController extends GetxController {
       required String uid,
       required bool doAnimate,
       bool fromSend = false}) async {
-    print('decoadedMessage ${decodedMessage.toString()}');
     switch (decodedMessage['message_type']) {
       case 'text':
         final m = TextMessage.fromJson(decodedMessage, uid: uid);
@@ -239,7 +245,9 @@ class ChatController extends GetxController {
           insertMessageToList(mess);
         } else {
           final index = messages.indexWhere((element) =>
-              element.textMessage?.localId == m.localId ||
+              ((element.textMessage?.localId?.isNotEmpty ?? false) &&
+                  (m.localId?.isNotEmpty ?? false) &&
+                  element.textMessage?.localId == m.localId) ||
               ((element.textMessage?.messageId?.isNotEmpty ?? false) &&
                   (m.messageId?.isNotEmpty ?? false) &&
                   (element.textMessage?.messageId == m.messageId)));
@@ -265,6 +273,7 @@ class ChatController extends GetxController {
         //   print('file location  -> $filePath');
         //   m.filePath = filePath;
         // }
+
         final mess = Message(
             localId: decodedMessage['local_id'] as String?,
             deleted: (decodedMessage['deleted'] as bool?) ?? false,
@@ -278,7 +287,9 @@ class ChatController extends GetxController {
           insertMessageToList(mess);
         } else {
           final index = messages.indexWhere((element) =>
-              element.file?.localId == m.localId ||
+              ((element.file?.localId?.isNotEmpty ?? false) &&
+                  (m.localId?.isNotEmpty ?? false) &&
+                  element.file?.localId == m.localId) ||
               ((element.file?.messageId?.isNotEmpty ?? false) &&
                   (m.messageId?.isNotEmpty ?? false) &&
                   (element.file?.messageId == m.messageId)));
@@ -312,7 +323,9 @@ class ChatController extends GetxController {
           insertMessageToList(mess);
         } else {
           final index = messages.indexWhere((element) =>
-              element.poll?.localId == m.localId ||
+              ((element.poll?.localId?.isNotEmpty ?? false) &&
+                  (m.localId?.isNotEmpty ?? false) &&
+                  element.poll?.localId == m.localId) ||
               ((element.poll?.messageId?.isNotEmpty ?? false) &&
                   (m.messageId?.isNotEmpty ?? false) &&
                   (element.poll?.messageId == m.messageId)));
@@ -347,7 +360,9 @@ class ChatController extends GetxController {
           insertMessageToList(mess);
         } else {
           final index = messages.indexWhere((element) =>
-              element.timeExpence?.localId == m.localId ||
+              ((element.timeExpence?.localId?.isNotEmpty ?? false) &&
+                  (m.localId?.isNotEmpty ?? false) &&
+                  element.timeExpence?.localId == m.localId) ||
               ((element.timeExpence?.messageId?.isNotEmpty ?? false) &&
                   (m.messageId?.isNotEmpty ?? false) &&
                   (element.timeExpence?.messageId == m.messageId)));
@@ -380,7 +395,9 @@ class ChatController extends GetxController {
           insertMessageToList(mess);
         } else {
           final index = messages.indexWhere((element) =>
-              element.currentLocation?.localId == m.localId ||
+              ((element.currentLocation?.localId?.isNotEmpty ?? false) &&
+                  (m.localId?.isNotEmpty ?? false) &&
+                  element.currentLocation?.localId == m.localId) ||
               ((element.currentLocation?.messageId?.isNotEmpty ?? false) &&
                   (m.messageId?.isNotEmpty ?? false) &&
                   (element.currentLocation?.messageId == m.messageId)));
@@ -413,7 +430,9 @@ class ChatController extends GetxController {
           insertMessageToList(mess);
         } else {
           final index = messages.indexWhere((element) =>
-              element.voiceMessage?.localId == m.localId ||
+              ((element.voiceMessage?.localId?.isNotEmpty ?? false) &&
+                  (m.localId?.isNotEmpty ?? false) &&
+                  element.voiceMessage?.localId == m.localId) ||
               ((element.voiceMessage?.messageId?.isNotEmpty ?? false) &&
                   (m.messageId?.isNotEmpty ?? false) &&
                   (element.voiceMessage?.messageId == m.messageId)));
@@ -484,8 +503,13 @@ class ChatController extends GetxController {
           taskId: chatTaskId);
       log('getMessageFromLocaldb message list => ${messageList?.length}');
       for (var e in messageList ?? <Message>[]) {
+        if (e.file != null) {
+          print('file from local db ---> ${e.file?.filePath}');
+        }
         final index = messages.indexWhere((element) =>
-            (element.localId == e.localId) ||
+            ((element.localId?.isNotEmpty ?? false) &&
+                (e.localId?.isNotEmpty ?? false) &&
+                element.localId == e.localId) ||
             ((e.messageId?.isNotEmpty ?? false) &&
                 (element.messageId?.isNotEmpty ?? false) &&
                 e.messageId == element.messageId));
@@ -667,6 +691,11 @@ class ChatController extends GetxController {
     try {
       if (loadedImages.isEmpty) return;
       String localId = getUniqueId();
+      String? filePath = await pathProvider.copyFileToPath(
+          path: '$chatTaskId/chat/file',
+          file: loadedImages[0].fileImage!,
+          module: Module.task);
+
       // create a model for showing it to the ui before sending it to server
       var file = FileMessage(
         localId: localId,
@@ -680,6 +709,7 @@ class ChatController extends GetxController {
         sender: true,
         message: controller.text.trim(),
         userId: _uid,
+        filePath: filePath,
       );
       print('send picture -> ${loadedImages.first.type}');
       final data = {
@@ -712,7 +742,7 @@ class ChatController extends GetxController {
     }
     Message message = messages.firstWhere((m) => m.messageId == messageId);
     String? filePath = await pathProvider.downloadSaveToFileAndReturnPath(
-        path: 'chat/file',
+        path: 'chat/$chatTaskId/file',
         module: Module.task,
         urlPath: message.file?.file ?? '');
     message.file?.filePath = filePath;
@@ -722,6 +752,7 @@ class ChatController extends GetxController {
       update(['chat']);
     }
     downloadingMessagesFilesId.remove(messageId);
+    print('downloaded message => ${message.toJson().toString()}');
     await taskChatLocalService.insertOrUpdateMessage(message: message);
   }
 
@@ -739,18 +770,21 @@ class ChatController extends GetxController {
       final base64 = pdf.base64!.split('base64,').last;
       String localId = getUniqueId();
       // create a model for showing it to the ui before sending it to server
+      String? filePath = await pathProvider.copyFileToPath(
+          path: 'chat/$chatTaskId/file', file: pdf.file!, module: Module.task);
       var file = FileMessage(
-        currentUid: _uid,
-        userId: _uid,
-        file: base64,
-        fileType: 'pdf',
-        messageType: 'file',
-        isLoadMore: true,
-        sender: true,
-        readByAll: true,
-        localId: localId,
-        timestamp: _getTimeString(),
-      );
+          currentUid: _uid,
+          userId: _uid,
+          file: base64,
+          fileType: 'pdf',
+          messageType: 'file',
+          isLoadMore: false,
+          sender: true,
+          readByAll: false,
+          localId: localId,
+          timestamp: _getTimeString(),
+          filePath: filePath,
+          message: filePath?.split('/').last);
       print('send pdf => ${pdf.name}');
       final data = {
         "message_type": "file",

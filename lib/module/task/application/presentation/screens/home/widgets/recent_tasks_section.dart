@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
@@ -130,12 +131,18 @@ class RecentTasksSection extends StatelessWidget {
                               else
                                 Padding(
                                   padding: const EdgeInsets.only(left: 50),
-                                  child: Text('unread messages $count',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall
-                                          ?.copyWith(
-                                              color: kGreyNormal, fontSize: 8)),
+                                  child: Flash(
+                                    // infinite: true,
+                                    animate: true,
+                                    child: Text('unread messages $count',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(
+                                                color: kneonDark,
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w500)),
+                                  ),
                                 ),
                               adjustHieght(5.h),
                               Column(

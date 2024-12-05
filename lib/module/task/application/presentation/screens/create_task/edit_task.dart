@@ -131,7 +131,11 @@ class ScreenEditTask extends StatelessWidget {
                               onTap: () {
                                 createTaskController.searchParticipants();
                                 showModalBottomSheet(
+                                  constraints:
+                                      BoxConstraints(maxHeight: khieght * 0.8),
                                   enableDrag: true,
+                                  isDismissible: true,
+                                  isScrollControlled: true,
                                   context: context,
                                   builder: (context) =>
                                       const AddParticipentForTaskEditBottomSheet(),

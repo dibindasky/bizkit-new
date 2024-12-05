@@ -822,9 +822,9 @@ class TaskLocalService implements TaskLocalRepo {
         return a.spotlightOn! ? -1 : 1;
       });
 
-      for (var task in filteredTasks) {
-        print('Task from sql database ==== > ${task.title}');
-      }
+      // for (var task in filteredTasks) {
+      //   print('Task from sql database ==== > ${task.title}');
+      // }
 
       log('getTasksFromLocalStorage success ');
       return Right(filteredTasks);

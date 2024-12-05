@@ -154,7 +154,11 @@ class ScreenAddTask extends StatelessWidget {
                                   suffixIcon: Icons.arrow_right,
                                   onTap: () {
                                     showModalBottomSheet(
+                                      constraints: BoxConstraints(
+                                          maxHeight: khieght * 0.8),
                                       enableDrag: true,
+                                      isDismissible: true,
+                                      isScrollControlled: true,
                                       context: context,
                                       builder: (context) =>
                                           const AddParticipentBottomSheet(),

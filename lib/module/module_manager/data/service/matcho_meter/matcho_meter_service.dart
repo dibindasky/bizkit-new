@@ -83,6 +83,7 @@ class MatchoMeterservice implements MatchoMeterRepo {
   Future<Either<Failure, SuccessResponce>> editAnswerForQuestion(
       {required MachoMeterModel machoMeterModel}) async {
     try {
+      log(" editAnswerForQuestion==> ${machoMeterModel.toJson().toString()}");
       await apiService.patch(ApiEndPoints.matchoMeter,
           data: machoMeterModel.answerToJson());
 

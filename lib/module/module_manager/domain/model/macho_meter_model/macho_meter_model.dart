@@ -31,7 +31,7 @@ class MachoMeterModel {
   ///this json used for post and patch
   Map<String, dynamic> answerToJson() {
     var map = {
-      '_id': id,
+      'question_id': id,
       'question': question,
       'answers': userAnswer,
     };

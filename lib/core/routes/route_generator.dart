@@ -45,17 +45,17 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/prod
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/varification_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
-import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/connections_and_networking.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/connection_and_network/connections_and_networking.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/archived_data/archived_data_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/data_management_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/deleted_data/deleted_data_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/macho_meter/macho_meter_screen.dart';
-import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/matcho_meter.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/received_cards/widgets/selected_card_builder.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/account_switching/account_switching_screen.dart';
-import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/profile_edit_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/account_settings/profile_edit_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/widgets/matcho_meter_connection_screen/matcho_meter_connection_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_task_create_update.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_tasks_listing.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks_screen.dart';
@@ -220,6 +220,13 @@ class GoRouterConfig {
       path: Routes.dataManagementScreen,
       builder: (context, state) => DataManagementScreen(),
     ),
+
+    GoRoute(
+      name: Routes.matchoMeterConnectionScreen,
+      path: Routes.matchoMeterConnectionScreen,
+      builder: (context, state) => MatchoMeterConnectionScreen(),
+    )
+
   ];
 
 //  <------------------------------------------------------------------------------>
@@ -491,11 +498,6 @@ class GoRouterConfig {
     //   },
     // ),
 
-    GoRoute(
-      name: Routes.matchoMeter,
-      path: Routes.matchoMeter,
-      builder: (context, state) => const CardMatchoMeter(),
-    ),
 
     // Second card creation selected scanned images
     GoRoute(

@@ -87,8 +87,28 @@ class NextActionDateSection extends StatelessWidget {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Next Action Dates',
-                              style: Theme.of(context).textTheme.displaySmall),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Next Action Dates',
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall),
+                              IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return NADCreateAndUpdateDialog(
+                                        taskId: taskId ?? '',
+                                        taskController: taskController,
+                                      );
+                                    },
+                                  );
+                                },
+                                icon: const Icon(Icons.add),
+                              ),
+                            ],
+                          ),
                           adjustHieght(15.h),
                           Center(
                             child: Text('No Next action date available',

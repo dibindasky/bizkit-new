@@ -11,6 +11,7 @@ UserSearchModel _$UserSearchModelFromJson(Map<String, dynamic> json) =>
       searchTerm: json['search_term'] as String?,
       page: json['page'] as int?,
       pageSize: json['page_size'] as int?,
+      filterType: json['filter_type'] as String?,
     );
 
 Map<String, dynamic> _$UserSearchModelToJson(UserSearchModel instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$UserSearchModelToJson(UserSearchModel instance) =>
       'search_term': instance.searchTerm,
       'page': instance.page,
       'page_size': instance.pageSize,
+      'filter_type': instance.filterType
     };

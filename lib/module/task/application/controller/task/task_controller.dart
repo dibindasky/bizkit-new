@@ -9,7 +9,6 @@ import 'package:bizkit/module/task/application/controller/home_controller/home_c
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/data/sqfilte/task/task_local_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
-import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
@@ -103,6 +102,8 @@ class CreateTaskController extends GetxController {
 
   RxString nextActionDate = ''.obs;
 
+  RxString userSearchfilterType = 'all'.obs;
+
   // Stores deadline date for editing an existing task
   RxString deadlineDateForTaskEdit = ''.obs;
 
@@ -150,6 +151,9 @@ class CreateTaskController extends GetxController {
 
   // List of users for task assignment search
   RxList<UserSearchSuccessResponce> userslist =
+      <UserSearchSuccessResponce>[].obs;
+
+  RxList<UserSearchSuccessResponce> organizationUserslist =
       <UserSearchSuccessResponce>[].obs;
 
   // List of tasks based on search results
@@ -1411,6 +1415,7 @@ class CreateTaskController extends GetxController {
       userslist.value = [];
       pageNumber = 1;
       final user = UserSearchModel(
+          filterType: userSearchfilterType.value,
           page: pageNumber,
           pageSize: pageSize,
           searchTerm: searchController.text);
@@ -1425,6 +1430,9 @@ class CreateTaskController extends GetxController {
         },
         (success) {
           userslist.assignAll(success);
+          if (userSearchfilterType.value == 'organization') {
+            organizationUserslist.assignAll(success);
+          }
           searchLoading.value = false;
           update(['searchUser']);
         },
@@ -1442,6 +1450,7 @@ class CreateTaskController extends GetxController {
       update(['searchUser']);
       final result = await taskService.participantsSearch(
           user: UserSearchModel(
+              filterType: userSearchfilterType.value,
               page: ++pageNumber,
               pageSize: pageSize,
               searchTerm: searchController.text));
@@ -1457,6 +1466,14 @@ class CreateTaskController extends GetxController {
             (newUser) => !userslist
                 .any((existingUser) => existingUser.userId == newUser.userId),
           ));
+
+          if (userSearchfilterType.value == 'organization') {
+            organizationUserslist.addAll(success.where(
+              (newUser) => organizationUserslist.any(
+                (existingUser) => existingUser.userId == newUser.userId,
+              ),
+            ));
+          }
           searchLoadMoreLoading.value = false;
           update(['searchUser']);
         },
@@ -1533,6 +1550,7 @@ class CreateTaskController extends GetxController {
       tasksSearch.value = [];
       final result = await taskService.taskSearch(
           taskSearchItem: UserSearchModel(
+              filterType: 'all',
               page: taskSearchPageNumber,
               pageSize: taskSearchPageSize,
               searchTerm: taskSearchController.text));
@@ -1559,6 +1577,7 @@ class CreateTaskController extends GetxController {
 
       final result = await taskService.taskSearch(
           taskSearchItem: UserSearchModel(
+              filterType: 'all',
               searchTerm: taskSearchController.text,
               page: ++taskSearchPageNumber,
               pageSize: taskSearchPageSize));
@@ -2189,6 +2208,23 @@ class CreateTaskController extends GetxController {
         loadingForNextActionDate.value = false;
       },
     );
+  }
+
+  void searchUsers(int index) {
+    debouncer.run(() {
+      switch (index) {
+        case 0:
+          searchParticipants();
+          break;
+        case 1:
+          searchParticipants();
+          break;
+        case 2:
+          searchParticipants();
+          break;
+        default:
+      }
+    });
   }
 
   void clearAllDatas() async {

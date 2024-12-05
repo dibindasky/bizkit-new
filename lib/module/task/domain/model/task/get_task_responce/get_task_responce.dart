@@ -288,6 +288,9 @@ class GetTaskResponce {
   static const colTaskTags = 'task_tags';
   static const colTaskCreatedAt = 'task_created_at';
   static const colTaskStatus = 'task_status';
+  static const colNextActionDate = 'task_next_action_date';
+  static const colNextActionDateDescription =
+      'task_next_action_date_description';
 
   /// [ Task created user details ]
   static const colTaskCreatedUserId = 'task_created_user_id';

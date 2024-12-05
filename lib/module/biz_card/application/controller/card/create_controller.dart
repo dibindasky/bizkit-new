@@ -350,10 +350,9 @@ class CardController extends GetxController {
   void showConnectionDetailPopUp(BuildContext context) async {
     connectionExist.value = false;
     await Future.delayed(const Duration(seconds: 3)).then(
-     
-      (_) => 
-        //  connectionExist.value? GoRouter.of(context).pushNamed(Routes.matchoMeterConnectionScreen):
-      showConfirmationDialog(
+      (_) =>
+          //  connectionExist.value? GoRouter.of(context).pushNamed(Routes.matchoMeterConnectionScreen):
+          showConfirmationDialog(
         context,
         heading: 'Add a Selfie Together or Details About This Connection.',
         actionButton: 'Add Details',

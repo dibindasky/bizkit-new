@@ -376,7 +376,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addBizcardToLocalStorage(
       {required Bizcard bizcardModel}) async {
     try {
-      final String? currentUserId = _userId;
+      final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('addBizcardToLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
@@ -431,7 +431,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> updateBizcardFromLocalStorage(
       {required Bizcard bizcardModel}) async {
     try {
-      final String? currentUserId = _userId;
+      final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('updateBizcardFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));

@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/bottom_sheets_and_pop_up/bizcard_logo_story_bottom_sheet.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_archive_model/card_archive_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_delete_model/card_delete_model.dart';
 import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
@@ -251,12 +252,42 @@ class BizcardDetailTopPotion extends StatelessWidget {
                       ? kempty
                       : Expanded(
                           child: WordByWordTextAnimation(
-                            text: cardController.bizcardDetail.value
-                                    .businessDetails?.logoStory ??
-                                '',
-                            textStyle: Theme.of(context).textTheme.bodySmall,
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                          ),
+                              text: cardController.bizcardDetail.value
+                                      .businessDetails?.logoStory ??
+                                  '',
+                              textStyle: Theme.of(context).textTheme.bodySmall,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              onTap: () {
+                                showModalBottomSheet(
+                                  constraints:
+                                      BoxConstraints(maxHeight: khieght * 0.8),
+                                  showDragHandle: true,
+                                  enableDrag: true,
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (context) =>
+                                      BizcardLogoStoryViewBottomSheet(
+                                    logoStory: cardController.bizcardDetail
+                                        .value.businessDetails?.logoStory,
+                                    compnayStory: cardController.bizcardDetail
+                                        .value.businessDetails?.companyStory,
+                                    logoNetworkImage: cardController
+                                        .bizcardDetail
+                                        .value
+                                        .businessDetails
+                                        ?.businessLogo,
+                                    myStory: cardController.bizcardDetail.value
+                                        .personalDetails?.personalStory,
+                                    showMyStory: cardController
+                                            .bizcardDetail
+                                            .value
+                                            .personalDetails
+                                            ?.showPersonalStory ??
+                                        true,
+                                  ),
+                                );
+                              }),
                         );
                 })
               ],
@@ -265,85 +296,81 @@ class BizcardDetailTopPotion extends StatelessWidget {
           Align(
             child: Obx(
               () => Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        kHeight40,
-                        // image
-                        Container(
-                          height: 100.h,
-                          width: 100.h,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              border: Border.all(
-                                  color: Theme.of(context).colorScheme.primary),
-                              borderRadius: kBorderRadius360),
-                          child: (cardController.bizcardDetail.value
-                                      .personalDetails?.images?.isEmpty ??
-                                  true)
-                              ? Image.asset(
-                                  iconPersonOutline,
-                                  color: Theme.of(context).colorScheme.primary,
-                                )
-                              : NetworkImageWithLoader(
-                                  (cardController
-                                              .bizcardDetail
-                                              .value
-                                              .personalDetails
-                                              ?.images
-                                              ?.isNotEmpty ??
-                                          false)
-                                      ? (cardController.bizcardDetail.value
-                                          .personalDetails!.images!.first)
-                                      : imageDummyNetwork,
-                                  radius: 100.h,
-                                ),
-                        ),
-                        kHeight10,
-                        // name, designation, company
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              cardController.bizcardDetail.value.personalDetails
-                                          ?.name !=
-                                      null
-                                  ? cardController.bizcardDetail.value
-                                          .personalDetails?.name ??
-                                      ''
-                                  : cardController.bizcardDetail.value
-                                              .businessDetails?.businessName !=
-                                          null
-                                      ? cardController.bizcardDetail.value
-                                              .businessDetails?.businessName ??
-                                          ""
-                                      : '',
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            Text(
-                              cardController.bizcardDetail.value.businessDetails
-                                          ?.designation !=
-                                      null
-                                  ? cardController.bizcardDetail.value
-                                          .businessDetails?.designation ??
-                                      ""
-                                  : '',
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                            Text(
-                              cardController.bizcardDetail.value.businessDetails
-                                          ?.companyName !=
-                                      null
-                                  ? cardController.bizcardDetail.value
-                                          .businessDetails?.companyName ??
-                                      ""
-                                  : '',
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                          ],
-                        ),
-                        kHeight10,
-                      ],
-                    ),
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  kHeight40,
+                  // image
+                  Container(
+                    height: 100.h,
+                    width: 100.h,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.primary),
+                        borderRadius: kBorderRadius360),
+                    child: (cardController.bizcardDetail.value.personalDetails
+                                ?.images?.isEmpty ??
+                            true)
+                        ? Image.asset(
+                            iconPersonOutline,
+                            color: Theme.of(context).colorScheme.primary,
+                          )
+                        : NetworkImageWithLoader(
+                            (cardController.bizcardDetail.value.personalDetails
+                                        ?.images?.isNotEmpty ??
+                                    false)
+                                ? (cardController.bizcardDetail.value
+                                    .personalDetails!.images!.first)
+                                : imageDummyNetwork,
+                            radius: 100.h,
+                          ),
+                  ),
+                  kHeight10,
+                  // name, designation, company
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        cardController.bizcardDetail.value.personalDetails
+                                    ?.name !=
+                                null
+                            ? cardController.bizcardDetail.value.personalDetails
+                                    ?.name ??
+                                ''
+                            : cardController.bizcardDetail.value.businessDetails
+                                        ?.businessName !=
+                                    null
+                                ? cardController.bizcardDetail.value
+                                        .businessDetails?.businessName ??
+                                    ""
+                                : '',
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      Text(
+                        cardController.bizcardDetail.value.businessDetails
+                                    ?.designation !=
+                                null
+                            ? cardController.bizcardDetail.value.businessDetails
+                                    ?.designation ??
+                                ""
+                            : '',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
+                      Text(
+                        cardController.bizcardDetail.value.businessDetails
+                                    ?.companyName !=
+                                null
+                            ? cardController.bizcardDetail.value.businessDetails
+                                    ?.companyName ??
+                                ""
+                            : '',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
+                    ],
+                  ),
+                  kHeight10,
+                ],
+              ),
             ),
           ),
         ],

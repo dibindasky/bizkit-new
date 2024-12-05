@@ -13,7 +13,12 @@ class MachoMeterModel {
   List<String>? userAnswer;
   bool showButton;
 
-  MachoMeterModel({this.question, this.answers, this.id, this.userAnswer,this.showButton=false});
+  MachoMeterModel(
+      {this.question,
+      this.answers,
+      this.id,
+      this.userAnswer,
+      this.showButton = false});
 
   factory MachoMeterModel.fromJson(Map<String, dynamic> json) {
     return _$MachoMeterModelFromJson(json);
@@ -48,7 +53,7 @@ class MachoMeterModel {
     List<String>? answers,
   }) {
     return MachoMeterModel(
-      showButton: showButton??this.showButton,
+      showButton: showButton ?? this.showButton,
       id: id ?? this.id,
       userAnswer: userAnswer ?? this.userAnswer,
       question: question ?? this.question,

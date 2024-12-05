@@ -88,7 +88,7 @@ class ConnectionsTab extends StatelessWidget {
                                     ? {
                                         'myCard': 'false',
                                         'cardId': id.first ?? '',
-                                        'fromPreview':'false'
+                                        'fromPreview': 'false'
                                       }
                                     : <String, String>{};
 

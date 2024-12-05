@@ -10,7 +10,7 @@ class MatchoMeterScreenController extends GetxController {
 
   RxBool isloadingDatas = false.obs;
 
-  RxList loadingList=[].obs;
+  RxList loadingList = [].obs;
 
   late final bool tagsForEdit;
 
@@ -40,8 +40,7 @@ class MatchoMeterScreenController extends GetxController {
     }, (success) {
       print('success get user macho datas');
       for (var data in success) {
-        int index =
-            matchoMeter.indexWhere((e) => e.question == data.question);
+        int index = matchoMeter.indexWhere((e) => e.question == data.question);
         if (index == -1) {
           continue;
         }
@@ -67,7 +66,7 @@ class MatchoMeterScreenController extends GetxController {
 
   addMatchoMeter(int index) async {
     loadingList.add(index);
-     print('loadingList after adding index: $loadingList');
+    print('loadingList after adding index: $loadingList');
     final result = await matchoMeterService
         .addAnswerForQuestion(machoMeterModel: [matchoMeter[index]]);
     result.fold((failure) {
@@ -82,17 +81,16 @@ class MatchoMeterScreenController extends GetxController {
   }
 
   editMatchoMeter(int index) async {
-    
-      loadingList.add(index);
-       print('loadingList after updating index: $loadingList');
-      final result = await matchoMeterService.editAnswerForQuestion(
-          machoMeterModel: matchoMeter[index]);
-      result.fold((failure) {
-        log(" editMatchoMeter ==> ${failure.message.toString()}");
-      }, (success) {
-        matchoMeter[index]=matchoMeter[index].copyWith(showButton: false);
-        log(" editMatchoMeter ==> ${success.message.toString()}");
-      });
-   loadingList.remove(index);
+    loadingList.add(index);
+    print('loadingList after updating index: $loadingList');
+    final result = await matchoMeterService.editAnswerForQuestion(
+        machoMeterModel: matchoMeter[index]);
+    result.fold((failure) {
+      log(" editMatchoMeter ==> ${failure.message.toString()}");
+    }, (success) {
+      matchoMeter[index] = matchoMeter[index].copyWith(showButton: false);
+      log(" editMatchoMeter ==> ${success.message.toString()}");
+    });
+    loadingList.remove(index);
   }
 }

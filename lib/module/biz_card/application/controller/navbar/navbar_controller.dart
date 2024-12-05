@@ -7,5 +7,6 @@ class NavbarController extends GetxController {
   void changeBottomBar(int index) {
     slectedtabIndex.value = index;
   }
+
   late TabController tabController;
 }

@@ -13,6 +13,5 @@ class EmpolyeesTasksCountsModel {
     return _$EmpolyeesTasksCountsModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() =>
-      _$EmpolyeesTasksCountsModelToJson(this);
+  Map<String, dynamic> toJson() => _$EmpolyeesTasksCountsModelToJson(this);
 }

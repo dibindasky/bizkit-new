@@ -307,7 +307,8 @@ void showConnectionAcceptDialog(
                       children: [
                         Expanded(
                           child: InkWell(
-                            onTap: () => Navigator.pop(mainDialogContext, false),
+                            onTap: () =>
+                                Navigator.pop(mainDialogContext, false),
                             child: Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(

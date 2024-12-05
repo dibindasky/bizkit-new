@@ -8,6 +8,7 @@ import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ScreenSignUp extends StatefulWidget {
   const ScreenSignUp({super.key});
@@ -176,7 +177,7 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                   ),
                   adjustHieght(khieght * .01),
                   InkWell(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => GoRouter.of(context).pop(),
                     child: Center(
                       child: Text.rich(
                         TextSpan(
@@ -188,11 +189,12 @@ class _ScreenSignUpState extends State<ScreenSignUp>
                                   fontSize: 14, fontWeight: FontWeight.w600),
                           children: [
                             TextSpan(
-                                text: 'Login',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(color: kneonDark)),
+                              text: 'Login',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(color: kneonDark),
+                            ),
                           ],
                         ),
                       ),

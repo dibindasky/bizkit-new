@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/core/model/token/access_token/token_model.dart';
+import 'package:bizkit/module/module_manager/domain/model/access/access.dart';
 import 'package:bizkit/module/module_manager/domain/repository/sqflite/users_local_service_repo.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/oncreate_db.dart';
@@ -36,6 +37,9 @@ class UsersLocalService implements UsersLocalRepo {
         model.organizationId ?? '',
         model.logoutFromDevice ?? 'login'
       ]);
+      for (var data in model.allowedAccesses ?? []) {
+        await addAccessToLocalStorageIfNotPresentInStorage(access: data);
+      }
       return Right(SuccessResponseModel());
     } catch (e) {
       log('addUserToLocalStorage error=====> ${e.toString()}');
@@ -70,7 +74,9 @@ class UsersLocalService implements UsersLocalRepo {
         model.logoutFromDevice ?? 'login',
         model.uid ?? ''
       ]);
-
+      for (var data in model.allowedAccesses ?? []) {
+        await addAccessToLocalStorageIfNotPresentInStorage(access: data);
+      }
       return Right(SuccessResponseModel());
     } catch (e) {
       log('updateUserInLocalStorage error=====> ${e.toString()}');
@@ -138,6 +144,112 @@ class UsersLocalService implements UsersLocalRepo {
       }
     } catch (e) {
       log('addUserToLocalStorageIfNotPresentInStorage ======> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>>
+      addAccessToLocalStorageIfNotPresentInStorage(
+          {required Access access}) async {
+    try {
+      final userId = await SecureStorage.getUserId();
+      const String query =
+          '''SELECT COUNT(*) FROM ${Sql.accessTable} WHERE ${Access.colCurrentUserId} = ? AND ${Access.colAccess} = ? AND ${Access.colComesUnder} =?''';
+      final bool present = await localService.presentOrNot(
+          query, [userId ?? '', access.access ?? '', access.comesUnder ?? '']);
+      log('user present in db => $present');
+      if (present) {
+        return await updateAccessToStorage(access: access);
+      } else {
+        return await addAccessToStorage(access: access);
+      }
+    } catch (e) {
+      log('addUserToLocalStorageIfNotPresentInStorage ======> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> addAccessToStorage(
+      {required Access access}) async {
+    try {
+      const query = '''
+          INSERT INTO ${Sql.accessTable} (
+                  ${Access.colComesUnder},
+                  ${Access.colId},
+                  ${Access.colAccess},
+                  ${Access.colPermissions},
+                  ${Access.colCurrentUserId})
+          VALUES (?,?,?,?,?)
+          ''';
+      final uid = await SecureStorage.getUserId() ?? '';
+      await localService.rawInsert(query, [
+        access.comesUnder ?? '',
+        access.id ?? '',
+        access.access ?? '',
+        (access.permissions ?? [])
+            .toString()
+            .replaceFirst('[', '')
+            .replaceFirst(']', ''),
+        uid,
+      ]);
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('addUserToLocalStorage error=====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> updateAccessToStorage({
+    required Access access,
+  }) async {
+    try {
+      final uid = await SecureStorage.getUserId() ?? '';
+      const query = '''
+        UPDATE ${Sql.accessTable}
+        SET 
+          ${Access.colComesUnder} = ?,
+          ${Access.colId} = ?,
+          ${Access.colAccess} = ?,
+          ${Access.colPermissions} = ?,
+        WHERE 
+          ${Access.colCurrentUserId} = ? 
+        ''';
+
+      await localService.rawUpdate(query, [
+        access.comesUnder ?? '',
+        access.id ?? '',
+        access.access ?? '',
+        access.permissions ?? '',
+        uid
+      ]);
+
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('updateUserInLocalStorage error=====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Access>>> getAccessFromLocalStorage() async {
+    try {
+      final uid = await SecureStorage.getUserId() ?? '';
+      const String query = '''SELECT * 
+      FROM ${Sql.accessTable}
+      WHERE ${Access.colCurrentUserId} = ?''';
+      final data = await localService.rawQuery(query, [uid]);
+      log('getUsersFromLocalStorage => length => ${data.length}');
+      List<Access> tokens = [];
+      for (var x in data) {
+        tokens.add(Access.fromJson(x));
+      }
+      log('getUsersFromLocalStorage success =====> ${tokens.length}');
+      return Right(tokens);
+    } catch (e) {
+      log('getUsersFromLocalStorage exception =====> ${e.toString()}');
       return Left(Failure());
     }
   }

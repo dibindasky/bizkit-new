@@ -226,7 +226,6 @@ class GoRouterConfig {
       path: Routes.matchoMeterConnectionScreen,
       builder: (context, state) => MatchoMeterConnectionScreen(),
     )
-
   ];
 
 //  <------------------------------------------------------------------------------>
@@ -497,7 +496,6 @@ class GoRouterConfig {
     //         product: map?['product'] as Product?);
     //   },
     // ),
-
 
     // Second card creation selected scanned images
     GoRoute(

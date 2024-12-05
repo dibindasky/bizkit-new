@@ -69,7 +69,7 @@ class MatchoMeterservice implements MatchoMeterRepo {
       return Right(SuccessResponce(
           message: 'success',
           data: (response.data as Map<String, dynamic>?)?['matcho_meter_id']
-              as String?)); 
+              as String?));
     } on DioException catch (e) {
       log(" addAnswerForQuestion ${e.toString()}");
       return Left(Failure(data: e.toString()));

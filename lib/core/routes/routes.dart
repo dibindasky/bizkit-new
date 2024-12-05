@@ -13,7 +13,8 @@ class Routes {
   static const String archivedCardScreen = '/archived_card_screen';
   static const String deletedCardScreen = '/deleted_card_screen';
   static const String dataManagementScreen = '/data_management_screen';
-  static const String matchoMeterConnectionScreen = '/matcho_meter_connection_screem';
+  static const String matchoMeterConnectionScreen =
+      '/matcho_meter_connection_screem';
 
   // biz card module
   static const String onBoardingBizCard = '/on_boarding_bizcard';

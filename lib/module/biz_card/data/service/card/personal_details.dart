@@ -47,7 +47,7 @@ class PersonalDetailsService implements PersonalDetailsRepo {
       final responce = await apiService.post(ApiEndPoints.personalAchievement,
           data: personalAchiment.toJson());
       log('personalAchivmentAdding ==>success');
-      final map = responce.data as Map<String,dynamic>?;
+      final map = responce.data as Map<String, dynamic>?;
       return Right(SuccessResponseModel(data: map));
     } on DioException catch (e) {
       log('personalAchivmentAdding DioException ${e.response?.data} $e');

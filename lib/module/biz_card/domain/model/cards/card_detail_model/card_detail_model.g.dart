@@ -33,12 +33,13 @@ CardDetailModel _$CardDetailModelFromJson(Map<String, dynamic> json) =>
       isArchived: json['is_archived'] as bool?,
       isDisabled: json['is_disabled'] as bool?,
       qrCode: json['qr_code'] as String?,
-      universalLink: json['universal_link'] as String?,
       connectionId: json['connection_id'] as String?,
-    );
+      universalLink: json['universal_link'] as String?,
+    )..localId = json['localId'] as int?;
 
 Map<String, dynamic> _$CardDetailModelToJson(CardDetailModel instance) =>
     <String, dynamic>{
+      'localId': instance.localId,
       'bizcard_id': instance.bizcardId,
       'personal_details': instance.personalDetails,
       'business_details': instance.businessDetails,
@@ -53,7 +54,7 @@ Map<String, dynamic> _$CardDetailModelToJson(CardDetailModel instance) =>
       'location': instance.location,
       'category': instance.category,
       'selfie': instance.selfie,
+      'universal_link': instance.universalLink,
       'matcho_meter_comparison': instance.matchoMeter,
       'connection_id': instance.connectionId,
-      'universal_link': instance.universalLink,
     };

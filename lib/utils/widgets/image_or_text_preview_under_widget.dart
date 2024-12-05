@@ -86,6 +86,7 @@ class ImageOrTextPreviewUnderWidget extends StatelessWidget {
                                         height: 80.w,
                                         width: 80.w,
                                         decoration: BoxDecoration(
+                                          border: Border.all(color: kGreyNormal),
                                             borderRadius:
                                                 const BorderRadius.all(
                                                     Radius.circular(10)),

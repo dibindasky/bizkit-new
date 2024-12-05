@@ -118,7 +118,7 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
                   child: Icon(Icons.add, color: kwhite),
                 ),
                 title: Text(
-                  'Add Account',
+                  'Login to Account',
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall

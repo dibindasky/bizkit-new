@@ -225,7 +225,7 @@ class PersonalDetails extends StatelessWidget {
                   removeItem: (index) {
                     showCustomConfirmationDialogue(
                         context: context,
-                        title: 'Are you sure want to delete ?',
+                        title: 'Are you sure you want to delete ?',
                         buttonText: 'Delete',
                         onTap: () {
                           PersonalAchieventDeletionModel
@@ -307,7 +307,7 @@ class PersonalDetails extends StatelessWidget {
                   removeItem: (index) {
                     showCustomConfirmationDialogue(
                         context: context,
-                        title: 'Are you sure want to delete ?',
+                        title: 'Are you sure you want to delete ?',
                         buttonText: 'Delete',
                         onTap: () {
                           Get.find<PersonalDetailsController>()
@@ -369,7 +369,7 @@ class PersonalDetails extends StatelessWidget {
                     removeItem: (index) {
                       showCustomConfirmationDialogue(
                           context: context,
-                          title: 'are you sure want to delete ?',
+                          title: 'Are you sure you want to delete ?',
                           buttonText: 'Delete',
                           onTap: () {
                             personalController.personalDatesToReminderDelete(

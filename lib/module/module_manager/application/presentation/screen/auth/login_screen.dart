@@ -32,6 +32,11 @@ class _ScreenLoginState extends State<ScreenLogin>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener((){
+      if(_tabController.indexIsChanging){
+        FocusScope.of(context).unfocus();
+      }
+    });
   }
 
   @override

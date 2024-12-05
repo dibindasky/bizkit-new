@@ -157,7 +157,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                   removeItem: (index) {
                     showCustomConfirmationDialogue(
                       context: context,
-                      title: 'Are you sure want to delete ?',
+                      title: 'Are you sure you want to delete ?',
                       buttonText: 'Delete',
                       onTap: () {
                         businessController.achievementDeleting(
@@ -221,7 +221,7 @@ class BusinessDetailsScreen extends StatelessWidget {
                 removeItem: (index) {
                   showCustomConfirmationDialogue(
                     context: context,
-                    title: 'are you sure want to delete ?',
+                    title: 'Are you sure you want to delete ?',
                     buttonText: 'Delete',
                     onTap: () {
                       businessController.socialMediaDelete(
@@ -357,8 +357,9 @@ showBranchDialoge(context, String? id, int? index) {
                         '${id != null ? 'Update' : 'Enter'} Branch Office Details'),
                     kHeight10,
                     CustomTextFormField(
-                        labelText: 'Branch name',
-                        textCapitalization: TextCapitalization.sentences,
+                
+                        labelText: 'Branch Name',
+                        textCapitalization: TextCapitalization.words,
                         controller:
                             businessController.businessBranchOfficeName),
                     kHeight10,
@@ -369,14 +370,14 @@ showBranchDialoge(context, String? id, int? index) {
                           labelText: 'Branch Address',
                           maxLines: 4,
                           maxlegth: 250,
-                          textCapitalization: TextCapitalization.sentences,
+                          textCapitalization: TextCapitalization.words,
                           controller:
                               businessController.businessBranchOfficesAddress),
                     ),
                     kHeight10,
                     CustomTextFormField(
                         labelText: 'Contact Person',
-                        textCapitalization: TextCapitalization.sentences,
+                        textCapitalization: TextCapitalization.words,
                         controller:
                             businessController.businessBranchOfficesPersonName),
                     kHeight10,

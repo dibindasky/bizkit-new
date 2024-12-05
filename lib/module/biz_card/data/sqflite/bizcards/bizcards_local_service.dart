@@ -490,6 +490,11 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addBizcardToLocalIfNotExists(
       {required Bizcard bizcardModel}) async {
     try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('addBizcardToLocalIfNotExists error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
       const String query = '''
       SELECT COUNT(*)
       FROM ${BizCardSql.bizcardTable}
@@ -499,7 +504,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
 
       final bool present = await localService.presentOrNot(query, [
         bizcardModel.bizcardId,
-        await userId,
+        currentUserId,
       ]);
 
       if (!present) {

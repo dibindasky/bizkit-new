@@ -7,12 +7,12 @@ import 'package:bizkit/module/biz_card/application/controller/card/personal_deta
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
-import 'package:bizkit/module/module_manager/application/controller/matcho_meter/matcho_meter_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/prompt/prompt_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/matcho_meter/matcho_meter_screen_controller.dart';
 import 'package:bizkit/module/module_manager/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
@@ -60,7 +60,7 @@ class ModuleController extends GetxController {
   void initCardControllers() {
     deleteAllControlers(Module.card);
     Get.lazyPut(() => ContactsController(), fenix: true);
-    Get.lazyPut(() => MatchoMeterController());
+    Get.lazyPut(() => MatchoMeterScreenController());
     Get.lazyPut(() => CardController(), fenix: true);
     Get.lazyPut(() => NavbarController());
     Get.lazyPut(() => PromtController());
@@ -114,8 +114,8 @@ class ModuleController extends GetxController {
     if (Get.isRegistered<ContactsController>()) {
       Get.delete<ContactsController>();
     }
-    if (Get.isRegistered<MatchoMeterController>()) {
-      Get.delete<MatchoMeterController>();
+    if (Get.isRegistered<MatchoMeterScreenController>()) {
+      Get.delete<MatchoMeterScreenController>();
     }
     if (Get.isRegistered<CardController>()) Get.delete<CardController>();
     if (Get.isRegistered<NavbarController>()) Get.delete<NavbarController>();

@@ -25,10 +25,6 @@ class ProfileScreen extends StatelessWidget {
     });
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   automaticallyImplyLeading: false,
-        //   backgroundColor: knill,
-        // ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Column(
@@ -157,6 +153,9 @@ class ProfileScreen extends StatelessWidget {
                   );
                 },
               ),
+              TextButton(onPressed: (){
+            GoRouter.of(context).pushNamed(Routes.matchoMeterConnectionScreen);
+          }, child: Text('Navigate to matcho Meter connection screen',style: Theme.of(context).textTheme.titleSmall,)),
             ],
           ),
         ),

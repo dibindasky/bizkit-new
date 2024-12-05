@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bizkit/module/module_manager/application/controller/matcho_meter/matcho_meter_screen_controller.dart';
 import 'package:bizkit/utils/animations/expansion_tile.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -83,7 +82,7 @@ class _MachoMeterScreenState extends State<MachoMeterScreen> {
                         Obx(() {
                           return machoMeterScreenController.isloadingDatas.value
                               ? ShimmerLoader(
-                                  baseColor: kgrey,
+                                  seprator: kHeight10,
                                   itemCount: machoMeterScreenController
                                       .matchoMeter.length,
                                   height: 35,
@@ -111,7 +110,8 @@ class _MachoMeterScreenState extends State<MachoMeterScreen> {
                                             .matchoMeter[indexs];
                                     final TextEditingController tagController =
                                         TextEditingController();
-                                    return CustomExpansionTileWidget(
+                                  return Obx((){
+                                     return CustomExpansionTileWidget(
                                         borderColor: kblack,
                                         isExpandable: true,
                                         child: Padding(
@@ -280,25 +280,35 @@ class _MachoMeterScreenState extends State<MachoMeterScreen> {
                                             kempty
                                           else if (userMachoMeterData
                                               .showButton)
-
-                                            EventButton(
-                                              showGradiant: false,
-                                              text:
-                                                  userMachoMeterData.id == null
-                                                      ? 'add'
-                                                      : 'Update',
-                                              onTap: () {
-                                                userMachoMeterData.id == null
-                                                    ? machoMeterScreenController
-                                                        .addMatchoMeter(indexs)
-                                                    : machoMeterScreenController
-                                                        .editMatchoMeter(
-                                                            indexs);
-                                              },
-                                            )
-                                        ]);
+                                            Obx((){
+                                              return machoMeterScreenController
+                                                    .loadingList
+                                                    .contains(indexs)
+                                                ?const Center(child: CircularProgressIndicator())
+                                                : EventButton(
+                                                    showGradiant: false,
+                                                    text:
+                                                        userMachoMeterData.id ==
+                                                                null
+                                                            ? 'add'
+                                                            : 'Update',
+                                                    onTap: () {
+                                                      userMachoMeterData.id ==
+                                                              null
+                                                          ? machoMeterScreenController
+                                                              .addMatchoMeter(
+                                                                  indexs)
+                                                          : machoMeterScreenController
+                                                              .editMatchoMeter(
+                                                                  indexs);
+                                                    },
+                                                  );
+                                            }),
+                                        ]);  
+                                   });
                                   });
-                        })
+                        }),
+                        kHeight20,
                       ]),
                 ),
               ),

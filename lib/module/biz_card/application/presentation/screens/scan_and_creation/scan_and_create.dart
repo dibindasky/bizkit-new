@@ -3,6 +3,7 @@ import 'package:bizkit/module/biz_card/application/controller/text_extraction/te
 import 'package:bizkit/module/biz_card/application/presentation/screens/scan_and_creation/widgets/qr_scanner_view.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/scan_and_creation/widgets/selected_cards.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -71,7 +72,7 @@ class _BizCardScanAndCreateScreenState extends State<BizCardScanAndCreateScreen>
         decoration: indexofButton == 2
             ? const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('asset/images/connecting_iphone.gif'),
+                  image: AssetImage(bizcardBgImage),
                   fit: BoxFit.cover,
                 ),
               )

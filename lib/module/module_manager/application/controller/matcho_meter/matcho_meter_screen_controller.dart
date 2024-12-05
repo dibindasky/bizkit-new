@@ -10,6 +10,8 @@ class MatchoMeterScreenController extends GetxController {
 
   RxBool isloadingDatas = false.obs;
 
+  RxList loadingList=[].obs;
+
   late final bool tagsForEdit;
 
   RxList<MachoMeterModel> matchoMeter = <MachoMeterModel>[].obs;
@@ -39,7 +41,7 @@ class MatchoMeterScreenController extends GetxController {
       print('success get user macho datas');
       for (var data in success) {
         int index =
-            matchoMeter.indexWhere((data) => data.question == data.question);
+            matchoMeter.indexWhere((e) => e.question == data.question);
         if (index == -1) {
           continue;
         }
@@ -53,20 +55,19 @@ class MatchoMeterScreenController extends GetxController {
     isloadingDatas.value = true;
     await getAdminsMachoMeter();
     await getuserMachoMeterDatas();
-    isloadingDatas.value=false;
+    isloadingDatas.value = false;
   }
 
   getAdminsMachoMeter() async {
     final adminQuestions = await matchoMeterService.getSuperAdminDatas();
     adminQuestions.fold((failure) {}, (success) {
       matchoMeter.assignAll(success);
-      for (var data in matchoMeter) {
-        print(data.toJson());
-      }
     });
   }
 
   addMatchoMeter(int index) async {
+    loadingList.add(index);
+     print('loadingList after adding index: $loadingList');
     final result = await matchoMeterService
         .addAnswerForQuestion(machoMeterModel: [matchoMeter[index]]);
     result.fold((failure) {
@@ -77,15 +78,21 @@ class MatchoMeterScreenController extends GetxController {
           matchoMeter[index].copyWith(id: id, showButton: false);
       print('sucess add matcho meter');
     });
+    loadingList.remove(index);
   }
 
   editMatchoMeter(int index) async {
-    final result = await matchoMeterService.editAnswerForQuestion(
-        machoMeterModel: matchoMeter[index]);
-    result.fold((failure) {
-      log(" editMatchoMeter ==> ${failure.message.toString()}");
-    }, (success) {
-      log(" editMatchoMeter ==> ${success.message.toString()}");
-    });
+    
+      loadingList.add(index);
+       print('loadingList after updating index: $loadingList');
+      final result = await matchoMeterService.editAnswerForQuestion(
+          machoMeterModel: matchoMeter[index]);
+      result.fold((failure) {
+        log(" editMatchoMeter ==> ${failure.message.toString()}");
+      }, (success) {
+        matchoMeter[index]=matchoMeter[index].copyWith(showButton: false);
+        log(" editMatchoMeter ==> ${success.message.toString()}");
+      });
+   loadingList.remove(index);
   }
 }

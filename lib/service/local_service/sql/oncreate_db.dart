@@ -67,7 +67,7 @@ class Sql {
         ${UserSearchSuccessResponce.colEmail} TEXT,
         ${UserSearchSuccessResponce.colPhoneNumber} TEXT,
         ${UserSearchSuccessResponce.colPhoto} TEXT,
-        ${UserSearchSuccessResponce.colCount} TEXT,
+        ${UserSearchSuccessResponce.colCount} INTEGER,
         ${UserSearchSuccessResponce.colCurrentUserId} TEXT,
         ${UserSearchSuccessResponce.colModule} TEXT
       )

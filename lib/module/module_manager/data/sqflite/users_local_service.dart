@@ -119,7 +119,12 @@ class UsersLocalService implements UsersLocalRepo {
       }
       log('getUserWithUid success =====> ${users.length}');
       if (users.isEmpty) return Left(Failure());
-      return Right(users.first);
+      TokenModel model = users.first;
+      final access = await getAccessFromLocalStorage();
+      access.fold((l) => null, (r) {
+        model = model.copyWith(allowedAccesses: r);
+      });
+      return Right(model);
     } catch (e) {
       log('getUserWithUid exception =====> ${e.toString()}');
       return Left(Failure());

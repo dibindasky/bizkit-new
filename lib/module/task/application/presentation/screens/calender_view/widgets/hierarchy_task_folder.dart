@@ -90,9 +90,11 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
                       child: Container(
                         width: 70.w,
                         height: 40.h,
-                        color: controller.taskTabChangeIndex.value == 1
-                            ? kneon
-                            : knill,
+                        decoration: BoxDecoration(
+                          color: controller.taskTabChangeIndex.value == 1
+                              ? kneon
+                              : knill,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -160,37 +162,6 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            // CustomCircleAvatar(
-            //   radius: 20,
-            //   onTap: () {},
-            //   backgroundColor: lightGrey,
-            //   backgroundColorInner: lightGrey,
-            //   child: const Icon(
-            //     Icons.search,
-            //     color: neonShade,
-            //   ),
-            // ),
-            // adjustWidth(10.w),
-            // CustomCircleAvatar(
-            //   radius: 20,
-            //   onTap: () {
-            //     // showModalBottomSheet(
-            //     //   isDismissible: true,
-            //     //   enableDrag: true,
-            //     //   showDragHandle: true,
-            //     //   context: context,
-            //     //   builder: (context) {
-            //     //     return TaskSortingBottomSheet();
-            //     //   },
-            //     // );
-            //   },
-            //   backgroundColor: lightGrey,
-            //   backgroundColorInner: lightGrey,
-            //   child: const Icon(
-            //     Icons.filter_alt_outlined,
-            //     color: neonShade,
-            //   ),
-            // ),
           ],
         ),
       ),

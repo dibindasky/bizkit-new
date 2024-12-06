@@ -200,7 +200,8 @@ class ActiveQuickTasksTab extends StatelessWidget {
                                 textColr: kwhite,
                                 color: const LinearGradient(
                                     colors: [kblack, kblack]),
-                                text: taskController.loadingForQuickTask.value
+                                text: taskController
+                                        .loadingForCompleteQuickTask.value
                                     ? 'Loading...'
                                     : 'Swipe to complete   ➠ ',
                                 onTap: () {},
@@ -223,11 +224,26 @@ class ActiveQuickTasksTab extends StatelessWidget {
                                     quickTask.description ?? '';
                                 // taskController.participantsForEditTask.value =
                                 //     quickTask.assignedTo;
+
+                                final isAlreadyAdded = taskController
+                                    .participantsForEditQuickTask
+                                    .any(
+                                  (participant) =>
+                                      participant.userId ==
+                                      taskController.quickTasks[index]
+                                          .assignedTo?[index].userId,
+                                );
+                                if (!isAlreadyAdded) {
+                                  taskController.participantsForEditQuickTask
+                                      .assignAll(taskController
+                                              .quickTasks[index].assignedTo ??
+                                          []);
+                                }
                                 GoRouter.of(context).pushNamed(
                                   Routes.quickTaskCreateUpdate,
                                   extra: {
                                     'edit': true,
-                                    'quickTaskId': quickTask.id ?? ''
+                                    'quickTaskId': quickTask.id ?? '',
                                   },
                                 );
                               },

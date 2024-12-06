@@ -14,7 +14,7 @@ import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigne
 import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks.dart';
-import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task/update_quick_task.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task_model/update_quick_task_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/task.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/sent_request.dart';
@@ -58,6 +58,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import '../../../domain/model/quick_task/quick_tasks_responce/assigned_to.dart';
 import '../../../domain/model/task/task_model/sub_task.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart'
     as subtask;
@@ -120,6 +121,8 @@ class CreateTaskController extends GetxController {
 
   // List of participants assigned for task editing
   var participantsForEditTask = <AssignedToDetail>[].obs;
+
+  var participantsForEditQuickTask = <AssignedTo>[].obs;
 
 // Stores time and expense information related to tasks
   RxList<TaskExpenseAndTimeSuccessResponce> taskExpenseAndTime =
@@ -305,7 +308,7 @@ class CreateTaskController extends GetxController {
       false.obs; // Loading state for fetching task time and expense data
 
   RxBool loadingForQuickTask = false.obs; // Loading state for quick task
-
+  RxBool loadingForCompleteQuickTask = false.obs;
   RxBool loadingForAllQuickTasks =
       false.obs; // Loading state for all quick tasks
 
@@ -499,6 +502,10 @@ class CreateTaskController extends GetxController {
 
   void removeParticipantsForEdit(dynamic participant) {
     participantsForEditTask.remove(participant);
+  }
+
+  void removeParticipantsForEditQuckTask(dynamic participant) {
+    participantsForEditQuickTask.remove(participant);
   }
 
   // Converts PriorityLevel enum to string
@@ -2111,9 +2118,14 @@ class CreateTaskController extends GetxController {
 
   // Update a quick task
   void updateQuickTask(
-      {required UpdateQuickTask updateQuickTask,
+      {required UpdateQuickTaskModel updateQuickTask,
       required BuildContext context}) async {
     loadingForQuickTask.value = true;
+
+    updateQuickTask.assignedTo = participantsForEditQuickTask
+        .map((element) => element.userId ?? '')
+        .toList();
+
     final result =
         await taskService.updateQuickTasks(updateQuickTask: updateQuickTask);
 
@@ -2134,23 +2146,25 @@ class CreateTaskController extends GetxController {
           message: 'Quick task updated successfully',
           backgroundColor: neonShade,
         );
+        fetchAllQuickTasks();
+        GoRouter.of(context).pop(context);
       },
     );
   }
 
   // Complete a quick task
   void completeQuickTask({required CompleteQuickTask completeQuickTask}) async {
-    loadingForQuickTask.value = true;
+    loadingForCompleteQuickTask.value = true;
     final result = await taskService.completeQuickTasks(
         completeQuickTask: completeQuickTask);
 
     result.fold(
       (failure) {
-        loadingForQuickTask.value = false;
+        loadingForCompleteQuickTask.value = false;
         log(failure.message.toString());
       },
       (success) {
-        loadingForQuickTask.value = false;
+        loadingForCompleteQuickTask.value = false;
         quickTasks.value = quickTasks.map((task) {
           if (task.id == completeQuickTask.quickTaskId) {
             // Match by ID or other unique identifier
@@ -2181,6 +2195,11 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         quickTasks.assignAll(success.data ?? []);
+        log('adfad${success.data?.map(
+          (e) => log('quick userId ${e.assignedTo?.map(
+            (e) => e.userId,
+          )}'),
+        )}');
         loadingForAllQuickTasks.value = false;
       },
     );

@@ -82,52 +82,77 @@ class UsersHistoryLocalService {
     }
   }
 
-Future<Either<Failure, List<UserSearchSuccessResponce>>> getSearchHistory({
-  Module? module,
-  String? searchQuery,
-}) async {
-  try {
-    // Base query
-    var query = '''
+  Future<Either<Failure, SuccessResponce>>
+      addUserToSearchHistoryLocalIfNotExists(
+          {required UserSearchSuccessResponce user, Module? module}) async {
+    try {
+      final userId = await SecureStorage.getUserId() ?? '';
+
+      const String query = '''
+      SELECT COUNT(*)
+      FROM ${Sql.userFreequentSearchTable}
+      WHERE ${UserSearchSuccessResponce.colCurrentUserId} = ?
+      AND ${UserSearchSuccessResponce.colUserId} = ?
+      ''';
+
+      final bool present =
+          await localService.presentOrNot(query, [userId, user.userId]);
+
+      if (!present) {
+        return await addUserToSearchHistory(user: user);
+      } else {
+        return await updateUserInSearchHistory(user: user);
+      }
+    } catch (e) {
+      log('addUserToSearchHistoryLocalIfNotExists exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  Future<Either<Failure, List<UserSearchSuccessResponce>>> getSearchHistory({
+    Module? module,
+    String? searchQuery,
+  }) async {
+    try {
+      // Base query
+      var query = '''
       SELECT * FROM ${Sql.userFreequentSearchTable}
       WHERE ${UserSearchSuccessResponce.colCurrentUserId} = ?
     ''';
 
-    final queryArgs = [await SecureStorage.getUserId() ?? ''];
+      final queryArgs = [await SecureStorage.getUserId() ?? ''];
 
-    // Add search filters if a search query is provided
-    if (searchQuery != null && searchQuery.isNotEmpty) {
-      query += '''
+      // Add search filters if a search query is provided
+      if (searchQuery != null && searchQuery.isNotEmpty) {
+        query += '''
         AND (
           ${UserSearchSuccessResponce.colEmail} LIKE ? OR 
-          ${UserSearchSuccessResponce.colPhone} LIKE ? OR 
+          ${UserSearchSuccessResponce.colPhoneNumber} LIKE ? OR 
           ${UserSearchSuccessResponce.colName} LIKE ?
         )
       ''';
-      final wildcardQuery = '%$searchQuery%';
-      queryArgs.addAll([wildcardQuery, wildcardQuery, wildcardQuery]);
-    }
+        final wildcardQuery = '%$searchQuery%';
+        queryArgs.addAll([wildcardQuery, wildcardQuery, wildcardQuery]);
+      }
 
-    // Add ordering
-    query += '''
+      // Add ordering
+      query += '''
       ORDER BY ${UserSearchSuccessResponce.colCount} DESC
     ''';
 
-    // Execute the query
-    final data = await localService.rawQuery(query, queryArgs);
-    log('getSearchHistory => length => ${data.length}');
+      // Execute the query
+      final data = await localService.rawQuery(query, queryArgs);
+      log('getSearchHistory => length => ${data.length}');
 
-    // Map results to the response list
-    List<UserSearchSuccessResponce> searchHistory = data
-        .map((x) => UserSearchSuccessResponce.fromJson(x))
-        .toList();
+      // Map results to the response list
+      List<UserSearchSuccessResponce> searchHistory =
+          data.map((x) => UserSearchSuccessResponce.fromJson(x)).toList();
 
-    log('getSearchHistory success =====> ${searchHistory.length}');
-    return Right(searchHistory);
-  } catch (e) {
-    log('getSearchHistory exception =====> ${e.toString()}');
-    return Left(Failure());
+      log('getSearchHistory success =====> ${searchHistory.length}');
+      return Right(searchHistory);
+    } catch (e) {
+      log('getSearchHistory exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
   }
-}
-
 }

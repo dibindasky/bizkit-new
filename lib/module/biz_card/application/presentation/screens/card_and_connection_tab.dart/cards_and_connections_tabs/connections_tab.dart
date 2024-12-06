@@ -26,7 +26,7 @@ class ConnectionsTab extends StatelessWidget {
           } else if (connectionsController.connectionsSearchList.isEmpty) {
             return ErrorRefreshIndicator(
               onRefresh: () async {
-                connectionsController.searchConnections();
+                connectionsController.searchConnections(refresh:true);
                 await Future.delayed(const Duration(seconds: 2));
               },
               errorMessage: 'No bizcard connections',
@@ -35,7 +35,7 @@ class ConnectionsTab extends StatelessWidget {
           } else {
             return RefreshIndicator(
               onRefresh: () async {
-                connectionsController.searchConnections();
+                connectionsController.searchConnections(refresh:true);
                 await Future.delayed(const Duration(seconds: 2));
               },
               child: SingleChildScrollView(

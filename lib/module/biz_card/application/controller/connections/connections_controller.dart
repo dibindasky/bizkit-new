@@ -152,7 +152,7 @@ class ConnectionsController extends GetxController {
     debouncer.run(() {
       switch (index) {
         case 0:
-          searchConnections();
+          searchConnections(refresh: true);
           break;
         case 1:
           contactsController.searchContact(query);
@@ -211,15 +211,20 @@ class ConnectionsController extends GetxController {
   }
 
   // Search My connections
-  void searchConnections() async {
+  void searchConnections({bool refresh = false}) async {
+    if (connectionsSearchList.isNotEmpty && !refresh) {
+      return;
+    }
+    // print('searchConnections ->========1');
     searchConnectionsLoading.value = true;
+    myConnectionsLoading.value = false;
     myConnectionPageNumber = 1;
     connectionsSearchList.value = [];
 
     if (searchController.text.isEmpty) {
       await getConnectionDatasFromLocal(search: true);
       // log("sear connection datas ---- ${connectionsSearchList.toJson()}");
-      searchConnectionsLoading.value = false;
+      // searchConnectionsLoading.value = false;
     }
     if (myConnections.isEmpty) {
       myConnectionsLoading.value = true;
@@ -232,9 +237,11 @@ class ConnectionsController extends GetxController {
 
     result.fold(
       (failure) {
+        // print('searchConnections ->========fail');
         searchConnectionsLoading.value = false;
       },
       (success) async {
+        // print('searchConnections ->========success ${success.data?.length}');
         if (connectionsSearchList.isEmpty) {
           // connectionsSearchList.assignAll(success.data ?? []);
           for (var eachMyConnection in connectionsSearchList) {
@@ -272,8 +279,10 @@ class ConnectionsController extends GetxController {
             }
           }
         }
+        // TODO: connections need to check local conditions above
+        connectionsSearchList.assignAll(success.data ?? []);
         if (myConnections.isEmpty) {
-          myConnections.assignAll(connectionsSearchList);
+          myConnections.assignAll(success.data ?? []);
           myConnectionsLoading.value = false;
         }
         searchConnectionsLoading.value = false;
@@ -305,24 +314,25 @@ class ConnectionsController extends GetxController {
           },
           (success) {
             // print('called my connection load more ==>5');
-            for (var datas in success.data ?? <MyConnection>[]) {
-              final index = connectionsSearchList
-                  .indexWhere((value) => value.toUser == datas.toUser);
-              if (index == -1) {
-                connectionsSearchList.insert(0, datas);
-                myConnectionLocalService
-                    .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                        myconnection: datas);
-              } else {
-                if (!connectionsSearchList[index].equals(datas)) {
-                  int localId = connectionsSearchList[index].localId!;
-                  connectionsSearchList[index] = datas;
-                  myConnectionLocalService
-                      .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                          myconnection: datas.copyWith(localId: localId));
-                }
-              }
-            }
+            // for (var datas in success.data ?? <MyConnection>[]) {
+            //   final index = connectionsSearchList
+            //       .indexWhere((value) => value.toUser == datas.toUser);
+            //   if (index == -1) {
+            //     connectionsSearchList.insert(0, datas);
+            //     myConnectionLocalService
+            //         .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+            //             myconnection: datas);
+            //   } else {
+            //     if (!connectionsSearchList[index].equals(datas)) {
+            //       int localId = connectionsSearchList[index].localId!;
+            //       connectionsSearchList[index] = datas;
+            //       myConnectionLocalService
+            //           .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+            //               myconnection: datas.copyWith(localId: localId));
+            //     }
+            //   }
+            // }
+            connectionsSearchList.addAll(success.data ?? []);
             myConnectionLoadMore.value = false;
           },
         );

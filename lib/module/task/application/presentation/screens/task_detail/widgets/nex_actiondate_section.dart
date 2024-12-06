@@ -33,67 +33,113 @@ class NextActionDateSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            (taskController.singleTask.value.nextActionDate?.isEmpty ??
-                    true && (taskController.singleTask.value.isOwned ?? false))
-                ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return NADCreateAndUpdateDialog(
-                              taskId: taskId ?? '',
-                              taskController: taskController,
-                            );
-                          },
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: kneon),
-                          borderRadius: kBorderRadius10,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Add Next Action Date',
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                            const Icon(Icons.add)
-                          ],
-                        ),
-                      ),
+            // ((taskController.singleTask.value.nextActionDate?.isEmpty ??
+            //             true) &&
+            //         (taskController.singleTask.value.isOwned ?? false))
+            //     ? Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: GestureDetector(
+            //           onTap: () {
+            //             if ((taskController.singleTask.value.isOwned ??
+            //                 false)) {
+            //               showDialog(
+            //                 context: context,
+            //                 builder: (BuildContext context) {
+            //                   return NADCreateAndUpdateDialog(
+            //                     taskId: taskId ?? '',
+            //                     taskController: taskController,
+            //                   );
+            //                 },
+            //               );
+            //             }
+            //           },
+            //           child: Container(
+            //             padding: const EdgeInsets.all(10.0),
+            //             decoration: BoxDecoration(
+            //               border: Border.all(color: kneon),
+            //               borderRadius: kBorderRadius10,
+            //             ),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Text(
+            //                   'Add Next Action Date',
+            //                   style: Theme.of(context).textTheme.displaySmall,
+            //                 ),
+            //                 if ((taskController.singleTask.value.isOwned ??
+            //                     false))
+            //                   const Icon(Icons.add)
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       )
+            //     :
+            Obx(() {
+              final nextActionDate =
+                  taskController.singleTask.value.nextActionDate;
+              if (taskController.isLoading.value) {
+                return SizedBox(
+                  height: 30.h,
+                  child: ShimmerLoader(
+                    height: 30.h,
+                    itemCount: 5,
+                    width: 80.w,
+                    scrollDirection: Axis.horizontal,
+                    seprator: const SizedBox(width: 8),
+                  ),
+                );
+              } else if (nextActionDate == null || nextActionDate.isEmpty) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Next Action Dates',
+                            style: Theme.of(context).textTheme.displaySmall),
+                        (taskController.singleTask.value.isOwned ?? false)
+                            ? IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return NADCreateAndUpdateDialog(
+                                        taskId: taskId ?? '',
+                                        taskController: taskController,
+                                      );
+                                    },
+                                  );
+                                },
+                                icon: const Icon(Icons.add),
+                              )
+                            : kHeight10,
+                      ],
                     ),
-                  )
-                : Obx(() {
-                    final nextActionDate =
-                        taskController.singleTask.value.nextActionDate;
-                    if (taskController.isLoading.value) {
-                      return SizedBox(
-                        height: 30.h,
-                        child: ShimmerLoader(
-                          height: 30.h,
-                          itemCount: 5,
-                          width: 80.w,
-                          scrollDirection: Axis.horizontal,
-                          seprator: const SizedBox(width: 8),
-                        ),
-                      );
-                    } else if (nextActionDate == null ||
-                        nextActionDate.isEmpty) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Next Action Dates',
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall),
-                              IconButton(
+                    adjustHieght(15.h),
+                    Center(
+                      child: Text('No Next action date available',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(color: kGreyNormal, fontSize: 11)),
+                    ),
+                  ],
+                );
+              } else {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Next Action Dates',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(fontSize: 14)),
+                        (taskController.singleTask.value.isOwned ?? false)
+                            ? IconButton(
                                 onPressed: () {
                                   showDialog(
                                     context: context,
@@ -106,162 +152,118 @@ class NextActionDateSection extends StatelessWidget {
                                   );
                                 },
                                 icon: const Icon(Icons.add),
-                              ),
-                            ],
-                          ),
-                          adjustHieght(15.h),
-                          Center(
-                            child: Text('No Next action date available',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(
-                                        color: kGreyNormal, fontSize: 11)),
-                          ),
-                        ],
-                      );
-                    } else {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Next Action Dates',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(fontSize: 14)),
-                              IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return NADCreateAndUpdateDialog(
-                                        taskId: taskId ?? '',
-                                        taskController: taskController,
-                                      );
-                                    },
-                                  );
-                                },
-                                icon: const Icon(Icons.add),
-                              ),
-                            ],
-                          ),
-                          Wrap(
-                            spacing: 8.w,
-                            runSpacing: 8.w,
-                            children: nextActionDate.map((tag) {
-                              return GestureDetector(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        backgroundColor: Theme.of(context)
-                                            .scaffoldBackgroundColor,
-                                        title: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Next Action Date',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall
-                                                  ?.copyWith(fontSize: 14),
+                              )
+                            : kHeight30,
+                      ],
+                    ),
+                    Wrap(
+                      spacing: 8.w,
+                      runSpacing: 8.w,
+                      children: nextActionDate.map((tag) {
+                        return GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  backgroundColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Next Action Date',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(fontSize: 14),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        icon: const Icon(Icons.close),
+                                      ),
+                                    ],
+                                  ),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Card(
+                                              elevation: 0,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(25.0),
+                                                child: Text('${tag.date}',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .displaySmall),
+                                              ),
                                             ),
-                                            IconButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              icon: const Icon(Icons.close),
-                                            ),
-                                          ],
-                                        ),
-                                        content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Card(
-                                                    elevation: 0,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              25.0),
-                                                      child: Text('${tag.date}',
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .displaySmall),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Card(
-                                                    elevation: 0,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              25.0),
-                                                      child: Text(
-                                                          '${tag.description}',
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .displaySmall),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        actions: [
-                                          Center(
-                                            child: EventButton(
-                                                width: double.infinity,
-                                                color: neonNewLinearGradient,
-                                                text: 'Update Next Action Date',
-                                                onTap: () {
-                                                  Navigator.of(context)
-                                                      .pop(context);
-                                                  showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return NADCreateAndUpdateDialog(
-                                                        nextActionDate: tag,
-                                                        isEdit: true,
-                                                        taskId: taskId ?? '',
-                                                        taskController:
-                                                            taskController,
-                                                      );
-                                                    },
-                                                  );
-                                                }),
                                           ),
                                         ],
-                                      );
-                                    },
-                                  );
-                                },
-                                child: NextActionChip(label: tag),
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      );
-                    }
-                  })
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Card(
+                                              elevation: 0,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(25.0),
+                                                child: Text(
+                                                    '${tag.description}',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .displaySmall),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  actions: [
+                                    Center(
+                                      child: EventButton(
+                                          width: double.infinity,
+                                          color: neonNewLinearGradient,
+                                          text: 'Update Next Action Date',
+                                          onTap: () {
+                                            Navigator.of(context).pop(context);
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return NADCreateAndUpdateDialog(
+                                                  nextActionDate: tag,
+                                                  isEdit: true,
+                                                  taskId: taskId ?? '',
+                                                  taskController:
+                                                      taskController,
+                                                );
+                                              },
+                                            );
+                                          }),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: NextActionChip(label: tag),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                );
+              }
+            })
           ],
         ),
       ),

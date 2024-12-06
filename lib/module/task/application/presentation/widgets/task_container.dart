@@ -447,19 +447,23 @@ class TaskContainer extends StatelessWidget {
                             softWrap: true,
                             overflow: TextOverflow.ellipsis,
                             (fromHeirarachy == true
-                                    ? Get.find<HierarchyController>().userId ==
-                                        typeTask?.createdBy?.userId
+                                    ? (Get.find<HierarchyController>().userId ==
+                                        typeTask?.createdBy?.userId)
                                     : (typeTask?.isOwned == true ||
                                         tasksInsideFolder?.isOwned == true ||
                                         tasksInsideInnerFolder?.isOwned ==
                                             true))
                                 ? 'Created by you'
-                                : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
+                                : (typeTask?.isOwned == true ||
+                                        tasksInsideFolder?.isOwned == true ||
+                                        tasksInsideInnerFolder?.isOwned == true)
+                                    ? 'Created by you'
+                                    : 'Assigned by ${typeTask?.createdBy?.name ?? tasksInsideFolder?.createdBy?.name ?? tasksInsideInnerFolder?.createdBy?.name ?? ''}',
                             style: Theme.of(context)
                                 .textTheme
                                 .displaySmall
                                 ?.copyWith(fontSize: 9),
-                          ),
+                          )
                         ],
                       ),
                       adjustHieght(10),

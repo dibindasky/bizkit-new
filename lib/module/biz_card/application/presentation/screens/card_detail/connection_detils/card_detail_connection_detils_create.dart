@@ -190,13 +190,13 @@ class _BizCardConnectionDetailUpdateScreenState
                     CustomTextFormField(
                         labelText: 'notes', controller: notesController),
                     kHeight10,
-                    CustomTextFormField(
+                    CustomTextFormField(textCapitalization: TextCapitalization.words,
                         labelText: 'Occasion', controller: occasionController),
                     kHeight10,
-                    CustomTextFormField(
+                    CustomTextFormField(textCapitalization: TextCapitalization.words,
                         labelText: 'Location', controller: locationController),
                     kHeight10,
-                    AutocompleteTextField(
+                    AutocompleteTextField(textCapitalization: TextCapitalization.words,
                         label: 'Category',
                         autocompleteItems: bizcardCategories,
                         controller: categoryController),
@@ -207,11 +207,13 @@ class _BizCardConnectionDetailUpdateScreenState
                               child: CircularProgressIndicator(),
                             )
                           : EventButton(
+                            
                               showGradiant: false,
                               text: 'Update Details',
                               onTap: () {
-                                print(
-                                    'updation on tap -----> ${widget.cardDetailModel?.connectionId}');
+                                FocusScope.of(context).unfocus(); 
+                                // print(
+                                //     'updation on tap -----> ${widget.cardDetailModel?.connectionId}');
                                 controller.addOrUpdateConnectionDetails(context,
                                     connectionDtail: ConnectionDetail(
                                         category: categoryController.text,

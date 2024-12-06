@@ -183,6 +183,7 @@ class ReceivedCardController extends GetxController {
     );
   }
 
+  RxString visitingCardImage=''.obs;
   // Edit visting card
   void editVisitingCard({required BuildContext context}) async {
     final editedSelfieImages =
@@ -191,7 +192,9 @@ class ReceivedCardController extends GetxController {
     final VisitingCardEditModel updatedReceivedCard = VisitingCardEditModel(
       cardId: visitingCardDetails.value.id,
       // cardImage: visitingCardDetails.value.cardImage ,
-      cardImage: editCardImage.value,
+      cardImage: visitingCardImage.value != editCardImage.value
+          ? editCardImage.value
+          : null,
 
       company: companyNameController.text != visitingCardDetails.value.company
           ? companyNameController.text
@@ -349,6 +352,7 @@ class ReceivedCardController extends GetxController {
         visitingCardDetails.value = r;
         selfie.assignAll(visitingCardDetails.value.selfie ?? []);
         selfie.insert(0, visitingCardDetails.value.cardImage ?? '');
+        visitingCardImage.value=visitingCardDetails.value.cardImage??'';
         selfiesListForEdit.assignAll(visitingCardDetails.value.selfie?.map(
                 (toElement) =>
                     ImageCard(image: toElement, networkImage: true)) ??

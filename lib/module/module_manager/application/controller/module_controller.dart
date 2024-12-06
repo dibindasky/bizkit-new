@@ -29,25 +29,33 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class ModuleController extends GetxController {
+  /// current module
+  Rx<Module?> currentModule = Module.none.obs;
+
+  /// chooose a module
   void chooseModule(BuildContext context, {required Module? module}) {
+    print('choose module -----> $module');
     switch (module) {
       case Module.card:
         initCardControllers();
         context.go(Routes.bizCardNavbar);
         Get.find<NavbarController>().changeBottomBar(1);
         LocalStoragePreference.setLastUsedModule(getStringFromModule(module)!);
+        currentModule.value = Module.card;
         break;
       case Module.task:
         initTaskControllers();
         context.go(Routes.taskNavbar);
         Get.find<TaskNavbarController>().changeBottomIndex(1);
         LocalStoragePreference.setLastUsedModule(getStringFromModule(module)!);
+        currentModule.value = Module.task;
         break;
       case Module.attendance:
         initAttendanceControllers();
         context.go(Routes.attendenceNavbar);
         Get.find<AttendenceNavBarConroller>().changeBottomIndex(1);
         LocalStoragePreference.setLastUsedModule(getStringFromModule(module)!);
+        currentModule.value = Module.attendance;
         break;
       default:
         context.go(Routes.moduleSelector);

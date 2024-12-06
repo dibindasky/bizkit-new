@@ -187,7 +187,8 @@ class ChatController extends GetxController {
           _error = 'Connection error: $error';
           connectionLoading.value = false;
           connected.value = false;
-          GoRouter.of(context).pop();
+          // connectChannel(context, taskId: taskId);
+          // GoRouter.of(context).pop();
         },
         onDone: () {
           if (channel.closeCode != null) {
@@ -197,7 +198,7 @@ class ChatController extends GetxController {
           }
           connectionLoading.value = false;
           connected.value = false;
-          GoRouter.of(context).pop();
+          // GoRouter.of(context).pop();
         },
       );
     } catch (e) {
@@ -206,21 +207,20 @@ class ChatController extends GetxController {
       connectionLoading.value = false;
       connected.value = false;
       // ignore: use_build_context_synchronously
-      GoRouter.of(context).pop();
+      // connectChannel(context, taskId: taskId);
+      // GoRouter.of(context).pop();
     }
   }
 
-  void _reConnect({required String accessToken}) {
-    channel = IOWebSocketChannel.connect(
-      Uri.parse(SocketEndpoints.taskChat.replaceFirst('{task_id}', chatTaskId)),
-      headers: {'Authorization': 'Bearer $accessToken'},
-    );
-  }
+  // void _reConnect({required String accessToken}) {
+  //   channel = IOWebSocketChannel.connect(
+  //     Uri.parse(SocketEndpoints.taskChat.replaceFirst('{task_id}', chatTaskId)),
+  //     headers: {'Authorization': 'Bearer $accessToken'},
+  //   );
+  // }
 
   /// generate an unique id for message to store locally
-  String getUniqueId() {
-    return const Uuid().v4();
-  }
+  String getUniqueId() => const Uuid().v4();
 
   /// create the [Message] model for add to [messages] to show it in the ui
   Future<bool> _addMessageToListByCheckingType(
@@ -470,6 +470,7 @@ class ChatController extends GetxController {
       connected.value = false;
       print('connection closed');
       // channel.sink.close(status.goingAway);
+      GoRouter.of(context).pop();
     } catch (e) {
       print('Channel close error =>$e');
     }

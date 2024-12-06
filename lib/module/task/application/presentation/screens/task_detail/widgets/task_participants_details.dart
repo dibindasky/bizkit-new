@@ -4,6 +4,7 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/participants_list_bottom_sheet.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
+import 'package:bizkit/utils/animations/custom_shrinking_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
@@ -501,7 +502,36 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
+              if (task.recentVisitLogs?.isNotEmpty ?? false)
+                Column(
+                  children: [
+                    kHeight10,
+                    ...List.generate(
+                      task.recentVisitLogs?.length ?? 0,
+                      (index) {
+                        final visitor = task.recentVisitLogs?[index];
+                        return Row(
+                          children: [
+                            AnimatedGrowShrinkContainer(
+                              animate: true,
+                              milliseconds: 200,
+                              child: Icon(Icons.radio_button_checked,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            ),
+                            kWidth5,
+                            Expanded(
+                              child: Text('${visitor?.designation} has viewed',
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall),
+                            )
+                          ],
+                        );
+                      },
+                    )
+                  ],
+                ),
             ],
           ),
         ),

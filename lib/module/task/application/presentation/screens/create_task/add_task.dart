@@ -35,7 +35,7 @@ class ScreenAddTask extends StatelessWidget {
     final controller = Get.find<CreateTaskController>();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controller.searchParticipants();
+      // controller.searchParticipants();
     });
 
     return Scaffold(
@@ -50,6 +50,7 @@ class ScreenAddTask extends StatelessWidget {
             titleController.clear();
             controller.deadlineDateForTaskCreation.value = '';
             descriptionController.clear();
+            controller.userslistNew.clear();
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:bizkit/core/model/pagination_query/pagination_query.dart';
+import 'package:bizkit/module/module_manager/data/sqflite/user_history_service.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
@@ -152,7 +153,8 @@ class CreateTaskController extends GetxController {
   // List of users for task assignment search
   RxList<UserSearchSuccessResponce> userslist =
       <UserSearchSuccessResponce>[].obs;
-
+  RxList<UserSearchSuccessResponce> recentlySearcheduserslist =
+      <UserSearchSuccessResponce>[].obs;
   RxList<UserSearchSuccessResponce> organizationUserslist =
       <UserSearchSuccessResponce>[].obs;
 
@@ -178,7 +180,7 @@ class CreateTaskController extends GetxController {
   RxList<QuickTasks> completedQuickTasks = <QuickTasks>[].obs;
 
 // Pagination controls for different task lists
-  int pageNumber = 1, pageSize = 5; // Pagination for general tasks
+  int pageNumber = 1, pageSize = 10; // Pagination for general tasks
   int taskSearchPageNumber = 1,
       taskSearchPageSize = 8; // Pagination for task search results
   int deadlineTasksPageNumber = 1,
@@ -267,9 +269,11 @@ class CreateTaskController extends GetxController {
 
   RxBool taskEditLoading = false.obs; // Loading state during task editing
 
+  RxBool recentlyUserSearchLoading = false.obs;
+  RxBool organizationSearchLoading = false.obs;
   RxBool searchLoading = false.obs; // Loading state for participant search
-
-  RxBool searchLoadMoreLoading =
+  RxBool searchLoadMoreLoading = false.obs;
+  RxBool organizationSearchLoadMoreLoading =
       false.obs; // Loading state for loading more participants during search
 
   RxBool taskSearchLoading = false.obs; // Loading state for task search results
@@ -324,6 +328,8 @@ class CreateTaskController extends GetxController {
   // final TaskLocalRepo taskLocalService = TaskLocalService();
 
   final TaskLocalService taskLocalService = TaskLocalService();
+  final UsersHistoryLocalService usersHistoryLocalService =
+      UsersHistoryLocalService();
 
   Rx<DateTime> selectedDate = DateTime.now().obs;
 
@@ -1407,78 +1413,160 @@ class CreateTaskController extends GetxController {
     );
   }
 
+  void addUserToRecentlySearched(
+      {required UserSearchSuccessResponce user}) async {
+    log('users data == ? ${user.toJson()}');
+    final result = await usersHistoryLocalService
+        .addUserToSearchHistoryLocalIfNotExists(user: user);
+
+    result.fold(
+      (failure) {
+        log(failure.message.toString());
+        update(['searchUser']);
+      },
+      (success) {
+        update(['searchUser']);
+      },
+    );
+  }
+
+  void updateUserInRecentlySearched(
+      {required UserSearchSuccessResponce user}) async {
+    final result = await usersHistoryLocalService
+        .addUserToSearchHistoryLocalIfNotExists(user: user);
+
+    result.fold(
+      (failure) {
+        log(failure.message.toString());
+        update(['searchUser']);
+      },
+      (success) {
+        update(['searchUser']);
+      },
+    );
+  }
+
+// Recently searched users - local db
+  void recentlySearched({String? searchQuery}) async {
+    recentlyUserSearchLoading.value = true;
+    update(['searchUser']);
+    final result = await usersHistoryLocalService.getSearchHistory(
+        searchQuery: searchQuery);
+
+    result.fold(
+      (failure) {
+        recentlyUserSearchLoading.value = false;
+        log(failure.message.toString());
+        update(['searchUser']);
+      },
+      (success) {
+        recentlySearcheduserslist.assignAll(success);
+        recentlyUserSearchLoading.value = false;
+        update(['searchUser']);
+      },
+    );
+  }
+
   // Searches for participants based on user input
-  void searchParticipants() {
-    debouncer.run(() async {
+  void searchParticipants() async {
+    if (userSearchfilterType.value == 'all') {
       searchLoading.value = true;
-      update(['searchUser']);
-      userslist.value = [];
-      pageNumber = 1;
-      final user = UserSearchModel(
-          filterType: userSearchfilterType.value,
-          page: pageNumber,
-          pageSize: pageSize,
-          searchTerm: searchController.text);
+    } else {
+      organizationSearchLoading.value = true;
+    }
+    update(['searchUser']);
+    userslist.value = [];
+    pageNumber = 1;
+    final user = UserSearchModel(
+        filterType: userSearchfilterType.value,
+        page: pageNumber,
+        pageSize: pageSize,
+        searchTerm: searchController.text);
 
-      final result = await taskService.participantsSearch(user: user);
+    final result = await taskService.participantsSearch(user: user);
 
-      result.fold(
-        (failure) {
+    result.fold(
+      (failure) {
+        if (userSearchfilterType.value == 'all') {
           searchLoading.value = false;
-          log(failure.message.toString());
-          update(['searchUser']);
-        },
-        (success) {
+        } else {
+          organizationSearchLoading.value = false;
+        }
+        update(['searchUser']);
+        log(failure.message.toString());
+      },
+      (success) {
+        if (userSearchfilterType.value == 'organization') {
+          organizationUserslist.assignAll(success);
+        } else {
           userslist.assignAll(success);
-          if (userSearchfilterType.value == 'organization') {
-            organizationUserslist.assignAll(success);
-          }
+        }
+        if (userSearchfilterType.value == 'all') {
           searchLoading.value = false;
-          update(['searchUser']);
-        },
-      );
-    });
+        } else {
+          organizationSearchLoading.value = false;
+        }
+        update(['searchUser']);
+      },
+    );
   }
 
 // Searches for participants - [ Pagination ]
   void searchParticipantsLoadMore() async {
-    debouncer.run(() async {
+    if (userSearchfilterType.value == 'all') {
       if (searchLoadMoreLoading.value == true) {
         return;
       }
+    } else {
+      if (organizationSearchLoadMoreLoading.value == true) {
+        return;
+      }
+    }
+    if (userSearchfilterType.value == 'all') {
       searchLoadMoreLoading.value = true;
-      update(['searchUser']);
-      final result = await taskService.participantsSearch(
-          user: UserSearchModel(
-              filterType: userSearchfilterType.value,
-              page: ++pageNumber,
-              pageSize: pageSize,
-              searchTerm: searchController.text));
+    } else {
+      organizationSearchLoadMoreLoading.value = true;
+    }
 
-      result.fold(
-        (failure) {
+    update(['searchUser']);
+    final result = await taskService.participantsSearch(
+        user: UserSearchModel(
+            filterType: userSearchfilterType.value,
+            page: ++pageNumber,
+            pageSize: pageSize,
+            searchTerm: searchController.text));
+
+    result.fold(
+      (failure) {
+        if (userSearchfilterType.value == 'all') {
           searchLoadMoreLoading.value = false;
-          log(failure.message.toString());
-          update(['searchUser']);
-        },
-        (success) {
-          userslist.addAll(success.where(
-            (newUser) => !userslist
-                .any((existingUser) => existingUser.userId == newUser.userId),
+        } else {
+          organizationSearchLoadMoreLoading.value = false;
+        }
+        log(failure.message.toString());
+        update(['searchUser']);
+      },
+      (success) {
+        userslist.addAll(success.where(
+          (newUser) => !userslist
+              .any((existingUser) => existingUser.userId == newUser.userId),
+        ));
+
+        if (userSearchfilterType.value == 'organization') {
+          organizationUserslist.addAll(success.where(
+            (newUser) => organizationUserslist.any(
+              (existingUser) => existingUser.userId == newUser.userId,
+            ),
           ));
-
-          if (userSearchfilterType.value == 'organization') {
-            organizationUserslist.addAll(success.where(
-              (newUser) => organizationUserslist.any(
-                (existingUser) => existingUser.userId == newUser.userId,
-              ),
-            ));
-          }
+        }
+        if (userSearchfilterType.value == 'all') {
           searchLoadMoreLoading.value = false;
-          update(['searchUser']);
-        },
-      );
-    });
+        } else {
+          organizationSearchLoadMoreLoading.value = false;
+        }
+        update(['searchUser']);
+      },
+    );
   }
 
   // Fetches a single task using the provided model
@@ -2214,7 +2302,7 @@ class CreateTaskController extends GetxController {
     debouncer.run(() {
       switch (index) {
         case 0:
-          searchParticipants();
+          recentlySearched();
           break;
         case 1:
           searchParticipants();

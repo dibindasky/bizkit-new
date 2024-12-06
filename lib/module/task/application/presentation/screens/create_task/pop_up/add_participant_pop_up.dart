@@ -23,16 +23,18 @@ class AddParticipentBottomSheet extends StatefulWidget {
 class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
     with TickerProviderStateMixin {
   late TabController tabController;
+  final taskController = Get.find<CreateTaskController>();
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+    if (tabController.index == 0) {
+      taskController.recentlySearched(searchQuery: '');
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final taskController = Get.find<CreateTaskController>();
-
     return Container(
       // height: khieght,
       padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -58,15 +60,17 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
           TaskTextField(
             onTapOutside: () => FocusScope.of(context).unfocus(),
             onChanged: (value) {
-              if (tabController.index == 1) {
+              if (tabController.index == 0) {
+                taskController.recentlySearched(searchQuery: value);
+              } else if (tabController.index == 1) {
                 taskController.userSearchfilterType.value = 'all';
-              } else if (tabController.index == 2) {
+              } else {
                 taskController.userSearchfilterType.value = 'organization';
               }
+
               taskController.searchUsers(
                 tabController.index,
               );
-              // taskController.searchParticipants();
             },
             controller: taskController.searchController,
             hintText: 'Find your Participant',
@@ -81,16 +85,28 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
           TabBar(
             overlayColor: WidgetStateColor.transparent,
             isScrollable: true,
+            indicatorSize: TabBarIndicatorSize.label,
             tabAlignment: TabAlignment.start,
             dividerColor: kGreyNormal,
             controller: tabController,
-            indicatorWeight: 5,
+            indicatorWeight: 2,
             indicatorColor: Theme.of(context).colorScheme.primary,
             labelColor: Theme.of(context).colorScheme.onPrimary,
+            onTap: (value) {
+              if (value == 0) {
+                taskController.recentlySearched(searchQuery: '');
+              } else if (value == 1) {
+                taskController.userSearchfilterType.value = 'all';
+                taskController.searchUsers(tabController.index);
+              } else {
+                taskController.userSearchfilterType.value = 'organization';
+                taskController.searchUsers(tabController.index);
+              }
+            },
             tabs: [
               Tab(
                 child: Text(
-                  'Recently searched ',
+                  'Frequently used',
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
@@ -114,6 +130,112 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
               physics: const NeverScrollableScrollPhysics(),
               controller: tabController,
               children: [
+                GetBuilder<CreateTaskController>(
+                  id: 'searchUser',
+                  builder: (controller) {
+                    if (controller.recentlyUserSearchLoading.value) {
+                      return ShimmerLoaderSearchParticipants(
+                          seprator: kHeight5,
+                          itemCount: 5,
+                          height: 50.h,
+                          width: double.infinity);
+                    } else if (controller.recentlySearcheduserslist.isEmpty) {
+                      return Center(
+                          child: Text(
+                        'No participants found.',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ));
+                    } else {
+                      return ListView.separated(
+                        controller: controller.searchScrollController,
+                        itemCount: controller.recentlySearcheduserslist.length,
+                        separatorBuilder: (context, index) => Divider(
+                          endIndent: 30.w,
+                          indent: 30.w,
+                          height: 0,
+                          color: kgrey,
+                          thickness: 0,
+                        ),
+                        itemBuilder: (context, index) {
+                          final user =
+                              controller.recentlySearcheduserslist[index];
+                          final isAlreadyAdded = controller.userslistNew.any(
+                              (participant) =>
+                                  participant.userId == user.userId);
+
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              leading: const CircleAvatar(
+                                backgroundImage: AssetImage(personDemoImg),
+                              ),
+                              title: Text(
+                                user.name ?? 'No Name',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(fontSize: 13),
+                              ),
+                              subtitle: Text(
+                                maskEmail(user.email ?? ''),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(fontSize: 10),
+                              ),
+                              trailing: GestureDetector(
+                                onTap: () {
+                                  if (isAlreadyAdded) {
+                                    controller.userslistNew.removeWhere(
+                                        (participant) =>
+                                            participant.userId == user.userId);
+
+                                    controller.updateUserInRecentlySearched(
+                                        user: user);
+                                  } else {
+                                    final participant =
+                                        UserSearchSuccessResponce(
+                                      name: user.name,
+                                      userId: user.userId,
+                                      // isAccepted: 'pending',
+                                    );
+
+                                    controller.userslistNew.add(participant);
+                                    controller.addUserToRecentlySearched(
+                                        user: user);
+                                  }
+
+                                  taskController.update(['searchUser']);
+                                  log('Participants  ${taskController.userslistNew.map(
+                                        (element) => element.name,
+                                      ).join(
+                                        ', ',
+                                      )}');
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 15.w, vertical: 5.w),
+                                  decoration: BoxDecoration(
+                                    gradient: const LinearGradient(
+                                        colors: [kneon, kneon]),
+                                    borderRadius: kBorderRadius5,
+                                    border: Border.all(color: kneon),
+                                  ),
+                                  child: Text(
+                                    isAlreadyAdded ? 'Remove' : 'Add',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
                 GetBuilder<CreateTaskController>(
                   id: 'searchUser',
                   builder: (controller) {
@@ -185,6 +307,8 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
                                           (participant) =>
                                               participant.userId ==
                                               user.userId);
+                                      controller.updateUserInRecentlySearched(
+                                          user: user);
                                     } else {
                                       final participant =
                                           UserSearchSuccessResponce(
@@ -192,8 +316,9 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
                                         userId: user.userId,
                                         // isAccepted: 'pending',
                                       );
-
                                       controller.userslistNew.add(participant);
+                                      controller.addUserToRecentlySearched(
+                                          user: user);
                                     }
 
                                     taskController.update(['searchUser']);
@@ -231,7 +356,7 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
                 GetBuilder<CreateTaskController>(
                   id: 'searchUser',
                   builder: (controller) {
-                    if (controller.searchLoading.value) {
+                    if (controller.organizationSearchLoading.value) {
                       return ShimmerLoaderSearchParticipants(
                           seprator: kHeight5,
                           itemCount: 5,
@@ -247,7 +372,8 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
                       return ListView.separated(
                         controller: controller.searchScrollController,
                         itemCount: controller.organizationUserslist.length +
-                            (taskController.searchLoadMoreLoading.value
+                            (taskController
+                                    .organizationSearchLoadMoreLoading.value
                                 ? 1
                                 : 0),
                         separatorBuilder: (context, index) => Divider(
@@ -260,7 +386,8 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
                         itemBuilder: (context, index) {
                           if (index ==
                                   taskController.organizationUserslist.length &&
-                              taskController.searchLoadMoreLoading.value) {
+                              taskController
+                                  .organizationSearchLoadMoreLoading.value) {
                             return ShimmerLoaderSearchParticipants(
                               seprator: kHeight10,
                               itemCount: 1,
@@ -301,6 +428,8 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
                                           (participant) =>
                                               participant.userId ==
                                               user.userId);
+                                      controller.updateUserInRecentlySearched(
+                                          user: user);
                                     } else {
                                       final participant =
                                           UserSearchSuccessResponce(
@@ -308,121 +437,8 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
                                         userId: user.userId,
                                         // isAccepted: 'pending',
                                       );
-
-                                      controller.userslistNew.add(participant);
-                                    }
-
-                                    taskController.update(['searchUser']);
-                                    log('Participants  ${taskController.userslistNew.map(
-                                          (element) => element.name,
-                                        ).join(
-                                          ', ',
-                                        )}');
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 15.w, vertical: 5.w),
-                                    decoration: BoxDecoration(
-                                      gradient: const LinearGradient(
-                                          colors: [kneon, kneon]),
-                                      borderRadius: kBorderRadius5,
-                                      border: Border.all(color: kneon),
-                                    ),
-                                    child: Text(
-                                      isAlreadyAdded ? 'Remove' : 'Add',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                      );
-                    }
-                  },
-                ),
-                GetBuilder<CreateTaskController>(
-                  id: 'searchUser',
-                  builder: (controller) {
-                    if (controller.searchLoading.value) {
-                      return ShimmerLoaderSearchParticipants(
-                          seprator: kHeight5,
-                          itemCount: 5,
-                          height: 50.h,
-                          width: double.infinity);
-                    } else if (controller.userslist.isEmpty) {
-                      return Center(
-                          child: Text(
-                        'No participants found.',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ));
-                    } else {
-                      return ListView.separated(
-                        controller: controller.searchScrollController,
-                        itemCount: controller.userslist.length +
-                            (taskController.searchLoadMoreLoading.value
-                                ? 1
-                                : 0),
-                        separatorBuilder: (context, index) => Divider(
-                          endIndent: 30.w,
-                          indent: 30.w,
-                          height: 0,
-                          color: kgrey,
-                          thickness: 0,
-                        ),
-                        itemBuilder: (context, index) {
-                          if (index == taskController.userslist.length &&
-                              taskController.searchLoadMoreLoading.value) {
-                            return ShimmerLoaderSearchParticipants(
-                              seprator: kHeight10,
-                              itemCount: 1,
-                              height: 50.h,
-                              width: 200.w,
-                            );
-                          } else {
-                            final user = controller.userslist[index];
-                            final isAlreadyAdded = controller.userslistNew.any(
-                                (participant) =>
-                                    participant.userId == user.userId);
-
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListTile(
-                                leading: const CircleAvatar(
-                                  backgroundImage: AssetImage(personDemoImg),
-                                ),
-                                title: Text(
-                                  user.name ?? 'No Name',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(fontSize: 13),
-                                ),
-                                subtitle: Text(
-                                  maskEmail(user.email ?? ''),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(fontSize: 10),
-                                ),
-                                trailing: GestureDetector(
-                                  onTap: () {
-                                    if (isAlreadyAdded) {
-                                      controller.userslistNew.removeWhere(
-                                          (participant) =>
-                                              participant.userId ==
-                                              user.userId);
-                                    } else {
-                                      final participant =
-                                          UserSearchSuccessResponce(
-                                        name: user.name,
-                                        userId: user.userId,
-                                        // isAccepted: 'pending',
-                                      );
-
+                                      controller.addUserToRecentlySearched(
+                                          user: user);
                                       controller.userslistNew.add(participant);
                                     }
 

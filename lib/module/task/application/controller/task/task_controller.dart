@@ -128,6 +128,7 @@ class CreateTaskController extends GetxController {
 // Scroll controller for participant search
   ScrollController searchScrollController =
       ScrollController(); // Scroll controller for participant search
+  ScrollController organizationSearchScrollController = ScrollController();
 
   /// Lists for storing task data filtered by different criteria
 
@@ -229,7 +230,13 @@ class CreateTaskController extends GetxController {
     taskFilterByDeadline(); // Filter tasks by today's deadline
 
     // Add scroll listeners for various scroll controllers
-    searchScrollController.addListener(searchParticipantsScrollListener);
+    if (userSearchfilterType.value == 'all') {
+      searchScrollController.addListener(searchParticipantsScrollListener);
+    } else {
+      organizationSearchScrollController
+          .addListener(organizationParticipantsScrollListener);
+    }
+
     taskSearchScrollController.addListener(tasksSearchScrollListener);
     deadlineTasksScrollController.addListener(deadlineTasksScrollListener);
     typeTasksScrollController.addListener(typeTasksScrollListener);
@@ -413,6 +420,13 @@ class CreateTaskController extends GetxController {
   void searchParticipantsScrollListener() {
     if (searchScrollController.position.pixels ==
         searchScrollController.position.maxScrollExtent) {
+      searchParticipantsLoadMore();
+    }
+  }
+
+  void organizationParticipantsScrollListener() {
+    if (organizationSearchScrollController.position.pixels ==
+        organizationSearchScrollController.position.maxScrollExtent) {
       searchParticipantsLoadMore();
     }
   }

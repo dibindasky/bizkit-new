@@ -274,6 +274,7 @@ class AuthenticationController extends GetxController {
         context.go(Routes.loginPage);
       } else {
         final module = await getLastUsedModule();
+        await Get.find<AccessController>().initUserData();
         Get.find<ModuleController>().chooseModule(context, module: module);
       }
     });

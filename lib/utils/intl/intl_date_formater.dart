@@ -26,6 +26,33 @@ class DateTimeFormater {
     }
   }
 
+  // return HH:MM AM/PM bu adding 5 hr 30 min to get indian time
+  static String formatTimeAMPMDate(String? timestamp) {
+    if (timestamp == null || timestamp.isEmpty) return '';
+    try {
+      // Parse the timestamp into a DateTime object
+      final dateTime = DateTime.parse(timestamp);
+
+      // Convert the DateTime to the user's local time zone
+      final localDateTime = dateTime.toLocal();
+
+      // Add 5 hours and 30 minutes to the localDateTime
+      final updatedDateTime =
+          localDateTime.add(const Duration(hours: 5, minutes: 30));
+
+      // Format the date
+      final formattedDate = DateFormat('yMMMd').format(updatedDateTime);
+
+      // Format the time in AM/PM format
+      final formattedTime = DateFormat.jm().format(updatedDateTime);
+
+      // Combine date and time
+      return '$formattedDate $formattedTime';
+    } catch (_) {
+      return '';
+    }
+  }
+
   static Map<String, dynamic>? checkCurrentDateMatch(List<String> dates) {
     final taskController = Get.find<CreateTaskController>();
 

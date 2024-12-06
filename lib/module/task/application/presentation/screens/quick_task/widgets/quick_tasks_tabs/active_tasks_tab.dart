@@ -161,7 +161,7 @@ class ActiveQuickTasksTab extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Created at : ${DateTimeFormater.formatTimeAMPM(quickTask.createdAt)}',
+                                        'Created at : ${DateTimeFormater.formatTimeAMPMDate(quickTask.createdAt)}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .displaySmall
@@ -223,47 +223,49 @@ class ActiveQuickTasksTab extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 4),
-                            child: EventButton(
-                              width: double.infinity,
-                              borderRadius: 10.0,
-                              textColr: kwhite,
-                              color: const LinearGradient(
-                                  colors: [kblack, kblack]),
-                              text: 'Edit quick task ',
-                              onTap: () {
-                                taskController.titleController.text =
-                                    quickTask.title ?? '';
-                                taskController.descriptionController.text =
-                                    quickTask.description ?? '';
-                                // taskController.participantsForEditTask.value =
-                                //     quickTask.assignedTo;
+                          if (quickTask.isOwned ?? false)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              child: EventButton(
+                                width: double.infinity,
+                                borderRadius: 10.0,
+                                textColr: kwhite,
+                                color: const LinearGradient(
+                                    colors: [kblack, kblack]),
+                                text: 'Edit quick task ',
+                                onTap: () {
+                                  taskController.titleController.text =
+                                      quickTask.title ?? '';
+                                  taskController.descriptionController.text =
+                                      quickTask.description ?? '';
+                                  // taskController.participantsForEditTask.value =
+                                  //     quickTask.assignedTo;
 
-                                final isAlreadyAdded = taskController
-                                    .participantsForEditQuickTask
-                                    .any(
-                                  (participant) =>
-                                      participant.userId ==
-                                      taskController.quickTasks[index]
-                                          .assignedTo?[index].userId,
-                                );
-                                if (!isAlreadyAdded) {
-                                  taskController.participantsForEditQuickTask
-                                      .assignAll(taskController
-                                              .quickTasks[index].assignedTo ??
-                                          []);
-                                }
-                                GoRouter.of(context).pushNamed(
-                                  Routes.quickTaskCreateUpdate,
-                                  extra: {
-                                    'edit': true,
-                                    'quickTaskId': quickTask.id ?? '',
-                                  },
-                                );
-                              },
-                            ),
-                          )
+                                  final isAlreadyAdded = taskController
+                                      .participantsForEditQuickTask
+                                      .any(
+                                    (participant) =>
+                                        participant.userId ==
+                                        taskController.quickTasks[index]
+                                            .assignedTo?[index].userId,
+                                  );
+                                  if (!isAlreadyAdded) {
+                                    taskController.participantsForEditQuickTask
+                                        .assignAll(taskController
+                                                .quickTasks[index].assignedTo ??
+                                            []);
+                                  }
+                                  GoRouter.of(context).pushNamed(
+                                    Routes.quickTaskCreateUpdate,
+                                    extra: {
+                                      'edit': true,
+                                      'quickTaskId': quickTask.id ?? '',
+                                    },
+                                  );
+                                },
+                              ),
+                            )
                         ],
                       );
                     },

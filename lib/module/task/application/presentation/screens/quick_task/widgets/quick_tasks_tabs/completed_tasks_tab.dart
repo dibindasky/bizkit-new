@@ -143,7 +143,7 @@ class CompletedQuickTasksTab extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Completed at : ${DateTimeFormater.formatTimeAMPM(completedQuickTasks.completedAt)}',
+                                      'Completed at : ${DateTimeFormater.formatTimeAMPMDate(completedQuickTasks.completedAt)}',
                                       style: Theme.of(context)
                                           .textTheme
                                           .displaySmall

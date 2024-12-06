@@ -529,10 +529,10 @@ class BizcardsLocalService implements BizcardsLocalRepo {
         return Left(Failure(message: "User ID is null"));
       }
       const String query = '''
-    SELECT * 
-    FROM ${BizCardSql.bizcardTable}
-    WHERE ${CardDetailModel.colUserId} = ?
-    ''';
+            SELECT * 
+            FROM ${BizCardSql.bizcardTable}
+            WHERE ${CardDetailModel.colUserId} = ?
+          ''';
 
       final List<Map<String, dynamic>> result =
           await localService.rawQuery(query, [currentUserId]);

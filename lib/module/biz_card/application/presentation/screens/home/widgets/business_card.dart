@@ -88,6 +88,7 @@ class BusinessCard extends StatelessWidget {
                         'myCard': 'false',
                         'fromPreview': 'true'
                       });
+                  bizcardController.cardDetail(cardId: bizcard.bizcardId ?? '');
                 },
                 child: Card(
                   elevation: 0,

@@ -23,7 +23,7 @@ class BizCardDetailScreen extends StatelessWidget {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          if (cardId != null && myCard) {
+          if ((cardId != null && myCard )|| fromPreview) {
             cardController.cardDetail(cardId: cardId ?? '', refresh: true);
           } else if (!myCard) {
             Get.find<ConnectionsController>()

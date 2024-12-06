@@ -82,30 +82,52 @@ class UsersHistoryLocalService {
     }
   }
 
-  Future<Either<Failure, List<UserSearchSuccessResponce>>> getSearchHistory({
-    Module? module,
-  }) async {
-    try {
-      const query = '''
-        SELECT * FROM ${Sql.userFreequentSearchTable}
-        WHERE ${UserSearchSuccessResponce.colCurrentUserId} = ?
-        ORDER BY ${UserSearchSuccessResponce.colCount} DESC
-        ''';
+Future<Either<Failure, List<UserSearchSuccessResponce>>> getSearchHistory({
+  Module? module,
+  String? searchQuery,
+}) async {
+  try {
+    // Base query
+    var query = '''
+      SELECT * FROM ${Sql.userFreequentSearchTable}
+      WHERE ${UserSearchSuccessResponce.colCurrentUserId} = ?
+    ''';
 
-      final userId = await SecureStorage.getUserId() ?? '';
-      final data = await localService.rawQuery(query, [userId]);
-      log('getSearchHistory => length => ${data.length}');
+    final queryArgs = [await SecureStorage.getUserId() ?? ''];
 
-      List<UserSearchSuccessResponce> searchHistory = [];
-      for (var x in data) {
-        searchHistory.add(UserSearchSuccessResponce.fromJson(x));
-      }
-
-      log('getSearchHistory success =====> ${searchHistory.length}');
-      return Right(searchHistory);
-    } catch (e) {
-      log('getSearchHistory exception =====> ${e.toString()}');
-      return Left(Failure());
+    // Add search filters if a search query is provided
+    if (searchQuery != null && searchQuery.isNotEmpty) {
+      query += '''
+        AND (
+          ${UserSearchSuccessResponce.colEmail} LIKE ? OR 
+          ${UserSearchSuccessResponce.colPhone} LIKE ? OR 
+          ${UserSearchSuccessResponce.colName} LIKE ?
+        )
+      ''';
+      final wildcardQuery = '%$searchQuery%';
+      queryArgs.addAll([wildcardQuery, wildcardQuery, wildcardQuery]);
     }
+
+    // Add ordering
+    query += '''
+      ORDER BY ${UserSearchSuccessResponce.colCount} DESC
+    ''';
+
+    // Execute the query
+    final data = await localService.rawQuery(query, queryArgs);
+    log('getSearchHistory => length => ${data.length}');
+
+    // Map results to the response list
+    List<UserSearchSuccessResponce> searchHistory = data
+        .map((x) => UserSearchSuccessResponce.fromJson(x))
+        .toList();
+
+    log('getSearchHistory success =====> ${searchHistory.length}');
+    return Right(searchHistory);
+  } catch (e) {
+    log('getSearchHistory exception =====> ${e.toString()}');
+    return Left(Failure());
   }
+}
+
 }

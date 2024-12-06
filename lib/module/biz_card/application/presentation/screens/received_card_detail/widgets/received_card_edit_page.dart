@@ -533,15 +533,15 @@ class _CardSecondUpdationState extends State<CardSecondUpdation> {
                         //     .updateoccationController,
                         inputType: TextInputType.name,
                       ),
-                      CustomTextFormField(
-                        //validate: Validate.notNull,
-                        labelText: 'Occupation',
-                        controller: visitingCardController.occupationController,
-                        // controller: context
-                        //     .read<CardSecondBloc>()
-                        //     .updateoccupationController,
-                        inputType: TextInputType.name,
-                      ),
+                      // CustomTextFormField(
+                      //   //validate: Validate.notNull,
+                      //   labelText: 'Occupation',
+                      //   controller: visitingCardController.occupationController,
+                      //   // controller: context
+                      //   //     .read<CardSecondBloc>()
+                      //   //     .updateoccupationController,
+                      //   inputType: TextInputType.name,
+                      // ),
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
                         //validate: Validate.notNull,

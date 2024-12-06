@@ -218,7 +218,10 @@ class ConnectionsController extends GetxController {
 
     if (searchController.text.isEmpty) {
       await getConnectionDatasFromLocal(search: true);
-      // log("sear connection datas ---- ${connectionsSearchList.toJson()}");
+      
+       for(var result in connectionsSearchList??<MyConnection>[]){
+          print(" search local data ${result.toJson()}");
+        }
       searchConnectionsLoading.value = false;
     }
     if (myConnections.isEmpty) {
@@ -232,9 +235,15 @@ class ConnectionsController extends GetxController {
 
     result.fold(
       (failure) {
+        print(" failure of myconnection search ${failure.data.toString()}");
+
         searchConnectionsLoading.value = false;
       },
       (success) async {
+        for(var result in success.data??<MyConnection>[]){
+          print(" search api data ${result.toJson()}");
+        }
+        
         if (connectionsSearchList.isEmpty) {
           // connectionsSearchList.assignAll(success.data ?? []);
           for (var eachMyConnection in connectionsSearchList) {
@@ -343,7 +352,6 @@ class ConnectionsController extends GetxController {
                 page: userSearchPageNumber,
                 pageSize: pageSize,
                 search: searchBizkitUsersController.text));
-
         result.fold(
           (failure) {
             searchBizkitUsersLoading.value = false;

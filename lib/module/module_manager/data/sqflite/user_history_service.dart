@@ -100,7 +100,7 @@ Future<Either<Failure, List<UserSearchSuccessResponce>>> getSearchHistory({
       query += '''
         AND (
           ${UserSearchSuccessResponce.colEmail} LIKE ? OR 
-          ${UserSearchSuccessResponce.colPhone} LIKE ? OR 
+          ${UserSearchSuccessResponce.colPhoneNumber} LIKE ? OR 
           ${UserSearchSuccessResponce.colName} LIKE ?
         )
       ''';

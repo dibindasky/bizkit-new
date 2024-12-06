@@ -150,7 +150,7 @@ class PersonalDetailsController extends GetxController {
     }
     isLoading.value = true;
     final personalController = Get.find<PersonalDetailsController>();
-
+    final cardController = Get.find<CardController>();
     PersonalDetailsRequestModel personalDetailsRequestModel =
         PersonalDetailsRequestModel(
       personalDetailsId: personalDetailsId,
@@ -178,6 +178,16 @@ class PersonalDetailsController extends GetxController {
         }
       },
       (r) {
+        if(personalNameController.text.isNotEmpty){
+          cardController.bizcardDetail.value.personalDetails?.name=personalNameController.text;
+        }
+      if(personalEmailController.text.isNotEmpty){
+        cardController.bizcardDetail.value.personalDetails?.email=personalEmailController.text;
+      }
+      if(bloodGroupController.text.isNotEmpty){
+        cardController.bizcardDetail.value.personalDetails?.bloodGroup=bloodGroupController.text;
+      }
+      update();
         showSnackbar(context, message: 'Successfully Added Personal Details');
         GoRouter.of(context).pop();
       },

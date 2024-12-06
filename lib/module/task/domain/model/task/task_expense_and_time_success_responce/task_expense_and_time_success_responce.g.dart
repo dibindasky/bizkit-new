@@ -9,6 +9,7 @@ part of 'task_expense_and_time_success_responce.dart';
 TaskExpenseAndTimeSuccessResponce _$TaskExpenseAndTimeSuccessResponceFromJson(
         Map<String, dynamic> json) =>
     TaskExpenseAndTimeSuccessResponce(
+      
       totalTime: json['total_time'] as int?,
       totalExpense: json['total_expense'] as int?,
       name: json['name'] as String?,

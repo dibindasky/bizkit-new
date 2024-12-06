@@ -396,9 +396,8 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                                           kHeight5,
                                           Padding(
                                             padding: EdgeInsets.only(left: 5.w),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                            child: Column( 
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   taskController
@@ -410,6 +409,21 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .displaySmall,
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: Text(
+                                                    DateTimeFormater.getDDMMHHMMformat( taskController
+                                                            .taskExpenseAndTime[
+                                                                index]
+                                                            .details?[detailIndex]
+                                                            .updatedTime??
+                                                        '')
+                                                   ,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .displaySmall?.copyWith(color: kGreyNormal,fontSize: 10),
+                                                  ),
                                                 ),
                                               ],
                                             ),

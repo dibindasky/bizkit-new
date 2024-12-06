@@ -2302,7 +2302,7 @@ class CreateTaskController extends GetxController {
     debouncer.run(() {
       switch (index) {
         case 0:
-          recentlySearched();
+          recentlySearched(searchQuery: searchController.text);
           break;
         case 1:
           searchParticipants();

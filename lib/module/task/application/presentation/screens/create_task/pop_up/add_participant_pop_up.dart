@@ -64,13 +64,15 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
                 taskController.recentlySearched(searchQuery: value);
               } else if (tabController.index == 1) {
                 taskController.userSearchfilterType.value = 'all';
+                taskController.searchUsers(
+                  tabController.index,
+                );
               } else {
                 taskController.userSearchfilterType.value = 'organization';
+                taskController.searchUsers(
+                  tabController.index,
+                );
               }
-
-              taskController.searchUsers(
-                tabController.index,
-              );
             },
             controller: taskController.searchController,
             hintText: 'Find your Participant',

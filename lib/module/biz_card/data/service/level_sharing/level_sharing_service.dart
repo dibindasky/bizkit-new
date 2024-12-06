@@ -74,18 +74,18 @@ class LevelSharingService implements LevelSharingRepo {
 
   @override
   Future<Either<Failure, SuccessResponseModel>> updateIndividualSharedFields(
-      {required IndividualSharedFieldsResponce
-          updateIndividualSharedFields}) async {
+      {required IndividualSharedFieldsResponce updateIndividualSharedFields,
+      bool sendPersonalOnly = false}) async {
     try {
       log('Update Individual shared fields TOJSON ====  ${updateIndividualSharedFields.toJson()}');
       final responce = await apiService.patch(
         ApiEndPoints.individualLevelSharing,
-        data: updateIndividualSharedFields.toJson(),
+        data: updateIndividualSharedFields.toJson(sendPersonalOnly),
       );
       log('updateIndividualSharedFields Responce  ==> success ');
       return Right(SuccessResponseModel.fromJson(responce.data));
     } on DioException catch (e) {
-      log('updateIndividualSharedFields DioException ${e.response?.statusCode} $e');
+      log('updateIndividualSharedFields DioException ${e.response?.data} \n$e');
       return Left(Failure(message: errorMessage));
     } catch (e) {
       log('updateIndividualSharedFields catch $e');

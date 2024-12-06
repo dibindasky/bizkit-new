@@ -16,5 +16,13 @@ class IndividualSharedFields {
     return _$IndividualSharedFieldsFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$IndividualSharedFieldsToJson(this);
+  Map<String, dynamic> toJson([bool sendPersonalOnly = false]) {
+    Map<String, dynamic> map = {};
+    map['personal'] = personal?.toJson();
+    if (sendPersonalOnly) {
+      return map;
+    }
+    map['business'] = business?.toJson();
+    return map;
+  }
 }

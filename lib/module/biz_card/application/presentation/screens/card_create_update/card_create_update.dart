@@ -78,39 +78,24 @@ class _BizcardCreateOrUpdateScreenState
             isScrollable: true,
             tabs: [
               Tab(
-                child: Text(
-                  'Personal Info',
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-              ),
+                  child: Text('Personal Info',
+                      style: Theme.of(context).textTheme.displaySmall)),
               if (accessController.userRole.value == 'user')
                 Tab(
-                  child: Text(
-                    'Business info',
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                ),
+                    child: Text('Business info',
+                        style: Theme.of(context).textTheme.displaySmall)),
               if (accessController.userRole.value == 'user')
                 Tab(
-                  child: Text(
-                    'Logo Story',
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                ),
+                    child: Text('Logo Story',
+                        style: Theme.of(context).textTheme.displaySmall)),
               if (accessController.userRole.value == 'user')
                 Tab(
-                  child: Text(
-                    'Products',
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                ),
+                    child: Text('Products',
+                        style: Theme.of(context).textTheme.displaySmall)),
               if (accessController.userRole.value == 'user')
                 Tab(
-                  child: Text(
-                    'Commercial info',
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                ),
+                    child: Text('Commercial info',
+                        style: Theme.of(context).textTheme.displaySmall)),
             ],
           ),
           kHeight10,

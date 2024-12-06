@@ -5,6 +5,7 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_query_params_model/individual_shared_fields_query_params_model.dart';
+import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
@@ -44,6 +45,8 @@ class BizcardWidget extends StatelessWidget {
   final bool? isDefault;
 
   final levelSharingController = Get.find<LevelSharingController>();
+  final accessController = Get.find<AccessController>();
+
   Uint8List? get decodedQrImage {
     if (qrScanner == null || qrScanner!.isEmpty) {
       return null; // Return null if the base64 string is invalid
@@ -201,7 +204,10 @@ class BizcardWidget extends StatelessWidget {
                 ? Column(
                     children: [
                       kHeight10,
-                      Text('Create a Business card',
+                      Text(
+                          (accessController.userRole.value == 'user')
+                              ? 'Create a Business card'
+                              : 'Request Organisation',
                           style: Theme.of(context).textTheme.bodyMedium),
                       kHeight10,
                       Padding(

@@ -18,5 +18,5 @@ abstract class LevelSharingRepo {
           {required IndividualSharedFieldsQueryParamsModel queryParameter});
 
   Future<Either<Failure, SuccessResponseModel>> updateIndividualSharedFields(
-      {required IndividualSharedFieldsResponce updateIndividualSharedFields});
+      {required IndividualSharedFieldsResponce updateIndividualSharedFields, bool sendPersonalOnly = false});
 }

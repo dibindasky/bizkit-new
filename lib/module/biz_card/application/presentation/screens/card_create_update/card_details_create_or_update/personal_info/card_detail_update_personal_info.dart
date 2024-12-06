@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
@@ -7,7 +6,6 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/card_cre
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/widgets/skip_or_continue_button.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/achievement/personal_achievent_deletion_model/personal_achievent_deletion_model.dart';
 import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
-import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
@@ -353,7 +351,7 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                     removeItem: (index) {
                       showCustomConfirmationDialogue(
                           context: context,
-                          title: 'Are you sure want to delete ?',
+                          title: 'Are you sure you want to delete ?',
                           buttonText: 'Delete',
                           onTap: () {
                             PersonalAchieventDeletionModel
@@ -385,7 +383,7 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                             .toList() ??
                         [],
                     child: const CardDetailEditingButtonContainer(
-                        text: 'Personal Achivements'),
+                        text: 'Personal Achievements'),
                   ),
                 ),
                 kHeight20,
@@ -408,7 +406,7 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                       removeItem: (index) {
                         showCustomConfirmationDialogue(
                             context: context,
-                            title: 'Are you sure want to delete ?',
+                            title: 'Are you sure you want to delete ?',
                             buttonText: 'Delete',
                             onTap: () {
                               Get.find<PersonalDetailsController>()
@@ -438,7 +436,7 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                     removeItem: (index) {
                       showCustomConfirmationDialogue(
                           context: context,
-                          title: 'are you sure want to delete ?',
+                          title: 'Are you sure you want to delete ?',
                           buttonText: 'Delete',
                           onTap: () {
                             personalController.personalDatesToReminderDelete(

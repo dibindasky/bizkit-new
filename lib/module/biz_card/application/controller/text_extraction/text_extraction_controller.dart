@@ -104,8 +104,10 @@ class CardTextExtractionController extends GetxController {
               (extractedDetails.value.websites?.isNotEmpty ?? false)
                   ? extractedDetails.value.websites!.first
                   : '';
+                  continueLoading.value=false;
           isLoading.value = false;
           if (fromVisitingCard) {
+            continueLoading.value=false;
             isLoading.value = false;
             GoRouter.of(context).pushNamed(Routes.scanedDataFeilds);
           } else {
@@ -156,6 +158,7 @@ class CardTextExtractionController extends GetxController {
   void deleteImage() {
     if (pickedImageUrl.isNotEmpty) {
       pickedImageUrl.removeLast();
+      pickedImageUrl.isEmpty?continueLoading.value=false:null;
     }
   }
 

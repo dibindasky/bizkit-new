@@ -24,7 +24,7 @@ showCustomConfirmationDialogue(
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.displayMedium,
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(fontWeight: FontWeight.w600,fontSize: 13),
             ),
             adjustHieght(10),
             Text(

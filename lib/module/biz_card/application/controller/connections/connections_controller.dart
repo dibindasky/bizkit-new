@@ -353,7 +353,6 @@ class ConnectionsController extends GetxController {
                 page: userSearchPageNumber,
                 pageSize: pageSize,
                 search: searchBizkitUsersController.text));
-
         result.fold(
           (failure) {
             searchBizkitUsersLoading.value = false;

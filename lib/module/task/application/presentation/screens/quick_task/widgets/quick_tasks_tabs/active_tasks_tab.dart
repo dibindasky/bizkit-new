@@ -6,6 +6,7 @@ import 'package:bizkit/utils/animations/expansion_tile.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
@@ -155,17 +156,31 @@ class ActiveQuickTasksTab extends StatelessWidget {
                                       ),
                                     ),
                                   adjustHieght(5.h),
-                                  Align(
-                                    alignment: AlignmentDirectional.bottomEnd,
-                                    child: Text(
-                                      quickTask.isOwned == true
-                                          ? 'Created by you'
-                                          : 'Assigned by ${quickTask.completedBy?.firstOrNull?.name ?? 'Unknown'}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall
-                                          ?.copyWith(fontSize: 9),
-                                    ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Created at : ${DateTimeFormater.formatTimeAMPM(quickTask.createdAt)}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(fontSize: 9),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional.bottomEnd,
+                                        child: Text(
+                                          quickTask.isOwned == true
+                                              ? 'Created by you'
+                                              : 'Assigned by ${quickTask.createdBy?.name ?? 'Unknown'}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall
+                                              ?.copyWith(fontSize: 9),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -200,7 +215,8 @@ class ActiveQuickTasksTab extends StatelessWidget {
                                 textColr: kwhite,
                                 color: const LinearGradient(
                                     colors: [kblack, kblack]),
-                                text: taskController.loadingForQuickTask.value
+                                text: taskController
+                                        .loadingForCompleteQuickTask.value
                                     ? 'Loading...'
                                     : 'Swipe to complete   ➠ ',
                                 onTap: () {},
@@ -223,11 +239,26 @@ class ActiveQuickTasksTab extends StatelessWidget {
                                     quickTask.description ?? '';
                                 // taskController.participantsForEditTask.value =
                                 //     quickTask.assignedTo;
+
+                                final isAlreadyAdded = taskController
+                                    .participantsForEditQuickTask
+                                    .any(
+                                  (participant) =>
+                                      participant.userId ==
+                                      taskController.quickTasks[index]
+                                          .assignedTo?[index].userId,
+                                );
+                                if (!isAlreadyAdded) {
+                                  taskController.participantsForEditQuickTask
+                                      .assignAll(taskController
+                                              .quickTasks[index].assignedTo ??
+                                          []);
+                                }
                                 GoRouter.of(context).pushNamed(
                                   Routes.quickTaskCreateUpdate,
                                   extra: {
                                     'edit': true,
-                                    'quickTaskId': quickTask.id ?? ''
+                                    'quickTaskId': quickTask.id ?? '',
                                   },
                                 );
                               },

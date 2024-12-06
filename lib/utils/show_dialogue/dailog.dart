@@ -25,7 +25,7 @@ showConfirmationDialog(
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall
-                    ?.copyWith(fontSize: 14)),
+                    ?.copyWith(fontSize: 13,fontWeight: FontWeight.w600)),
             const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

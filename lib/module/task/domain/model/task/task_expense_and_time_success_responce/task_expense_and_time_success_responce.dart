@@ -15,6 +15,7 @@ class TaskExpenseAndTimeSuccessResponce {
   String? profilePicture;
   List<Detail>? details;
 
+
   TaskExpenseAndTimeSuccessResponce({
     this.totalTime,
     this.totalExpense,

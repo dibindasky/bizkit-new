@@ -123,8 +123,11 @@ class _BizCardAchivementCreationAndUpdationState
                             },
                             child: SizedBox(
                               height: 170.dm,
-                              child: Stack(
+                              child: 
+                               Stack(
                                 children: [
+                                  personalController.personalAchivementImage.isEmpty||personalController.personalAchivementImage==null?
+                              Center(child: Text('Add Image',style: Theme.of(context).textTheme.titleSmall),):
                                   ListView.separated(
                                     separatorBuilder: (context, index) =>
                                         kWidth10,
@@ -311,13 +314,14 @@ class _BizCardAchivementCreationAndUpdationState
                                     ? 'Save'
                                     : 'Update',
                                 onTap: () {
-                                  if (personalController
-                                      .personalAchivementImage.isEmpty) {
-                                    showSnackbar(context,
-                                        message: 'Add image',
-                                        backgroundColor: kred);
-                                    return;
-                                  } else if (achivementFormKey.currentState!
+                                  // if (personalController
+                                  //     .personalAchivementImage.isEmpty) {
+                                  //   showSnackbar(context,
+                                  //       message: 'Add image',
+                                  //       backgroundColor: kred);
+                                  //   return;
+                                  // } else
+                                   if (achivementFormKey.currentState!
                                       .validate()) {
                                     List<String> sendImage = personalController
                                         .personalAchivementImage

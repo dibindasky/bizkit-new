@@ -7,8 +7,10 @@ class Detail {
   int? time;
   int? expense;
   String? description;
+  @JsonKey(name: 'updated_time')
+  String? updatedTime;
 
-  Detail({this.time, this.expense, this.description});
+  Detail({this.time, this.expense, this.description, this.updatedTime});
 
   factory Detail.fromJson(Map<String, dynamic> json) {
     return _$DetailFromJson(json);

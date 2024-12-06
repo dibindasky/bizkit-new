@@ -9,8 +9,8 @@ import 'package:get/get.dart';
 class ScreenModuleSelector extends StatelessWidget {
   ScreenModuleSelector({super.key});
 
-  final List<ListItemData> listItems = [
-    ListItemData(
+  final List<_ListItemData> listItems = [
+    _ListItemData(
         color: neonShadeGradientTopToBottom,
         height: 200.h,
         imageUrl: 'https://via.placeholder.com/50',
@@ -18,7 +18,7 @@ class ScreenModuleSelector extends StatelessWidget {
         subtitle:
             'We believe development must be an enjoyable, creative experience to be truly fulfilling',
         module: Module.card),
-    ListItemData(
+    _ListItemData(
         color: whiteShadeGradient,
         height: 170.h,
         imageUrl: 'https://via.placeholder.com/50',
@@ -26,7 +26,7 @@ class ScreenModuleSelector extends StatelessWidget {
         subtitle:
             'We believe development must be an enjoyable, creative experience to be truly fulfilling',
         module: Module.task),
-    ListItemData(
+    _ListItemData(
         color: blackShadeGradient,
         height: 210.h,
         imageUrl: 'https://via.placeholder.com/50',
@@ -55,7 +55,7 @@ class ScreenModuleSelector extends StatelessWidget {
   }
 }
 
-class ListItemData {
+class _ListItemData {
   final Gradient color;
   final double height;
   final String imageUrl;
@@ -63,7 +63,7 @@ class ListItemData {
   final String subtitle;
   final Module module;
 
-  ListItemData({
+  _ListItemData({
     required this.color,
     required this.height,
     required this.imageUrl,
@@ -74,7 +74,7 @@ class ListItemData {
 }
 
 class ListItem extends StatelessWidget {
-  final ListItemData item;
+  final _ListItemData item;
 
   const ListItem({required this.item, super.key});
 

@@ -46,7 +46,7 @@ class CardController extends GetxController {
 
   /// show machometer common screeen
   RxBool showMachoMeterScreen = false.obs;
-  
+
   final CardRepo cardRepo = CardService();
 
   RxList<Views> cardViews = <Views>[].obs;
@@ -122,7 +122,7 @@ class CardController extends GetxController {
     isLoading.value = true;
     bizcards.value = <Bizcard>[];
     // Step 1: Fetch and display local data first
-    await fetchBizcardsFromLocalDb();
+    // await fetchBizcardsFromLocalDb();
 
     // Step 2: Then update with any network data if available
     await fetchBizcardsFromNetWork();

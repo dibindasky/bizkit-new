@@ -60,6 +60,9 @@ class BizcardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlipCard(
       controller: _flipCardController,
+      onFlip: () {
+        Get.find<CardController>().changeAutoScroll();
+      },
       direction: FlipDirection.HORIZONTAL,
       flipOnTouch: false,
       front: _buildFrontCard(context),

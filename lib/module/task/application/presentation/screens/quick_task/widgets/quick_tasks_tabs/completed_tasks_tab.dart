@@ -3,6 +3,7 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -136,18 +137,31 @@ class CompletedQuickTasksTab extends StatelessWidget {
                                           : const SizedBox.shrink(),
                                     ),
                                   ),
-
-                                Align(
-                                  alignment: AlignmentDirectional.bottomEnd,
-                                  child: Text(
-                                    completedQuickTasks.isOwned == true
-                                        ? 'Created by you'
-                                        : 'Assigned by ${completedQuickTasks.completedBy?.firstOrNull?.name ?? 'Unknown'}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall
-                                        ?.copyWith(fontSize: 9),
-                                  ),
+                                adjustHieght(5.h),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Completed at : ${DateTimeFormater.formatTimeAMPM(completedQuickTasks.completedAt)}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall
+                                          ?.copyWith(fontSize: 9),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional.bottomEnd,
+                                      child: Text(
+                                        completedQuickTasks.isOwned == true
+                                            ? 'Created by you'
+                                            : 'Assigned by ${completedQuickTasks.createdBy?.name ?? 'Unknown'}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(fontSize: 9),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

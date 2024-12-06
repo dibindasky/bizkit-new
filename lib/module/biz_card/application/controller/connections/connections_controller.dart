@@ -220,7 +220,7 @@ class ConnectionsController extends GetxController {
       await getConnectionDatasFromLocal(search: true);
       
        for(var result in connectionsSearchList??<MyConnection>[]){
-          print(" search local data ${result.toJson()}");
+          print(" search local data intiali calling${result.toJson()}");
         }
       searchConnectionsLoading.value = false;
     }
@@ -243,7 +243,8 @@ class ConnectionsController extends GetxController {
         for(var result in success.data??<MyConnection>[]){
           print(" search api data ${result.toJson()}");
         }
-        
+        for(var datas in connectionsSearchList){}
+        print('connection searchlist data ${ connectionsSearchList}');
         if (connectionsSearchList.isEmpty) {
           // connectionsSearchList.assignAll(success.data ?? []);
           for (var eachMyConnection in connectionsSearchList) {

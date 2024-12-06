@@ -43,7 +43,7 @@ class CardController extends GetxController {
 
   /// connection alredy exist with scanned card or not
   RxBool connectionExist = false.obs;
-
+  RxBool showMachoMeterScreen = false.obs;
   final CardRepo cardRepo = CardService();
 
   RxList<Views> cardViews = <Views>[].obs;

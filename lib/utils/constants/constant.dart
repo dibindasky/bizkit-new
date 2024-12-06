@@ -57,7 +57,7 @@ enum Validate {
 }
 
 /// modules enum
-enum Module { card, task, attendance }
+enum Module { none, card, task, attendance }
 
 /// will return the enum string
 String? getStringFromModule(Module? module) {

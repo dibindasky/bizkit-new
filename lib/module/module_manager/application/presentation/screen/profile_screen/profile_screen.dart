@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/widgets/profile_edit_widgets/profile_image_widget.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -18,7 +19,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileController = Get.find<ProfileController>();
+    final moduleController = Get.find<ModuleController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      print('module controller = > ${moduleController.currentModule.value}');
       profileController.checkEmail.isEmpty
           ? profileController.getProfileDetails()
           : null;
@@ -113,21 +116,26 @@ class ProfileScreen extends StatelessWidget {
                 subtitle: 'Level,Security Prefrences',
                 onTap: () {},
               ),
-              ProfileTiles(
-                heading: 'Data Management',
-                subtitle: 'Archieved,Data Eport,Delete',
-                onTap: () {
-                  GoRouter.of(context).pushNamed(Routes.dataManagementScreen);
-                },
-              ),
-              ProfileTiles(
-                heading: 'Connections & Networking',
-                subtitle: 'Blocked,Restricted,Report Connections',
-                onTap: () {
-                  GoRouter.of(context)
-                      .pushNamed(Routes.connectionsAndNetworking);
-                },
-              ),
+              Obx(() => moduleController.currentModule.value == Module.card
+                  ? ProfileTiles(
+                      heading: 'Data Management',
+                      subtitle: 'Archieved,Data Eport,Delete',
+                      onTap: () {
+                        GoRouter.of(context)
+                            .pushNamed(Routes.dataManagementScreen);
+                      },
+                    )
+                  : kempty),
+              Obx(() => moduleController.currentModule.value == Module.card
+                  ? ProfileTiles(
+                      heading: 'Connections & Networking',
+                      subtitle: 'Blocked,Restricted,Report Connections',
+                      onTap: () {
+                        GoRouter.of(context)
+                            .pushNamed(Routes.connectionsAndNetworking);
+                      },
+                    )
+                  : kempty),
               ProfileTiles(
                 heading: 'Help & Support',
                 subtitle: 'Contact,Faq etc',

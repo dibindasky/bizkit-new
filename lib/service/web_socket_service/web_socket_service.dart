@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/status.dart' as status;
 
-class ChatWebSocket {
+class ChatWebSocketService {
   final String url;
   WebSocketChannel? _channel;
   StreamSubscription? _subscription;
@@ -10,7 +10,7 @@ class ChatWebSocket {
   int _retryDelay = 1; // Start with 1 second delay
   final int _maxRetryDelay = 32; // Maximum delay in seconds
 
-  ChatWebSocket(this.url);
+  ChatWebSocketService(this.url);
 
   void connect() {
     _channel = WebSocketChannel.connect(Uri.parse(url));
@@ -74,9 +74,9 @@ class ChatWebSocket {
 }
 
 // void main() {
-//   final chatWebSocket = ChatWebSocket('wss://example.com/chat');
+//   final chatWebSocketService = ChatWebSocketService('wss://example.com/chat');
 
-//   chatWebSocket.connect();
+//   chatWebSocketService.connect();
 
 //   // Simulate sending a message
 //   Future.delayed(Duration(seconds: 5), () {

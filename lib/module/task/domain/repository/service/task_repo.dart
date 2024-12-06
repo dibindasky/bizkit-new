@@ -7,7 +7,7 @@ import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/c
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task_responce/create_quick_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks_responce.dart';
-import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task/update_quick_task.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task_model/update_quick_task_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/send_requests_responce.dart';
@@ -147,7 +147,7 @@ abstract class TaskRepo {
       {required PaginationQuery paginationQuery});
 
   Future<Either<Failure, SuccessResponce>> updateQuickTasks(
-      {required UpdateQuickTask updateQuickTask});
+      {required UpdateQuickTaskModel updateQuickTask});
 
   Future<Either<Failure, SuccessResponce>> completeQuickTasks(
       {required CompleteQuickTask completeQuickTask});

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/core/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
@@ -24,9 +25,13 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
     with TickerProviderStateMixin {
   late TabController tabController;
   final taskController = Get.find<CreateTaskController>();
+  final accessController = Get.find<AccessController>();
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+    tabController = TabController(
+        length: accessController.userRole.value == 'employee' ? 3 : 2,
+        vsync: this,
+        initialIndex: 0);
     if (tabController.index == 0) {
       taskController.recentlySearched(searchQuery: '');
     }
@@ -87,7 +92,7 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
           TabBar(
             overlayColor: WidgetStateColor.transparent,
             isScrollable: true,
-            indicatorSize: TabBarIndicatorSize.label,
+            indicatorSize: TabBarIndicatorSize.tab,
             tabAlignment: TabAlignment.start,
             dividerColor: kGreyNormal,
             controller: tabController,
@@ -118,12 +123,13 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
-              Tab(
-                child: Text(
-                  'organization',
-                  style: Theme.of(context).textTheme.displaySmall,
+              if (accessController.userRole.value == 'employee')
+                Tab(
+                  child: Text(
+                    'organization',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
                 ),
-              ),
             ],
           ),
           adjustHieght(20.h),
@@ -355,127 +361,132 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
                     }
                   },
                 ),
-                GetBuilder<CreateTaskController>(
-                  id: 'searchUser',
-                  builder: (controller) {
-                    if (controller.organizationSearchLoading.value) {
-                      return ShimmerLoaderSearchParticipants(
-                          seprator: kHeight5,
-                          itemCount: 5,
-                          height: 50.h,
-                          width: double.infinity);
-                    } else if (controller.organizationUserslist.isEmpty) {
-                      return Center(
-                          child: Text(
-                        'No participants found.',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ));
-                    } else {
-                      return ListView.separated(
-                        controller: controller.searchScrollController,
-                        itemCount: controller.organizationUserslist.length +
-                            (taskController
-                                    .organizationSearchLoadMoreLoading.value
-                                ? 1
-                                : 0),
-                        separatorBuilder: (context, index) => Divider(
-                          endIndent: 30.w,
-                          indent: 30.w,
-                          height: 0,
-                          color: kgrey,
-                          thickness: 0,
-                        ),
-                        itemBuilder: (context, index) {
-                          if (index ==
-                                  taskController.organizationUserslist.length &&
-                              taskController
-                                  .organizationSearchLoadMoreLoading.value) {
-                            return ShimmerLoaderSearchParticipants(
-                              seprator: kHeight10,
-                              itemCount: 1,
-                              height: 50.h,
-                              width: 200.w,
-                            );
-                          } else {
-                            final user =
-                                controller.organizationUserslist[index];
-                            final isAlreadyAdded = controller.userslistNew.any(
-                                (participant) =>
-                                    participant.userId == user.userId);
+                if (accessController.userRole.value == 'employee')
+                  GetBuilder<CreateTaskController>(
+                    id: 'searchUser',
+                    builder: (controller) {
+                      if (controller.organizationSearchLoading.value) {
+                        return ShimmerLoaderSearchParticipants(
+                            seprator: kHeight5,
+                            itemCount: 5,
+                            height: 50.h,
+                            width: double.infinity);
+                      } else if (controller.organizationUserslist.isEmpty) {
+                        return Center(
+                            child: Text(
+                          'No participants found.',
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ));
+                      } else {
+                        return ListView.separated(
+                          controller:
+                              controller.organizationSearchScrollController,
+                          itemCount: controller.organizationUserslist.length +
+                              (taskController
+                                      .organizationSearchLoadMoreLoading.value
+                                  ? 1
+                                  : 0),
+                          separatorBuilder: (context, index) => Divider(
+                            endIndent: 30.w,
+                            indent: 30.w,
+                            height: 0,
+                            color: kgrey,
+                            thickness: 0,
+                          ),
+                          itemBuilder: (context, index) {
+                            if (index ==
+                                    taskController
+                                        .organizationUserslist.length &&
+                                taskController
+                                    .organizationSearchLoadMoreLoading.value) {
+                              return ShimmerLoaderSearchParticipants(
+                                seprator: kHeight10,
+                                itemCount: 1,
+                                height: 50.h,
+                                width: 200.w,
+                              );
+                            } else {
+                              final user =
+                                  controller.organizationUserslist[index];
+                              final isAlreadyAdded = controller.userslistNew
+                                  .any((participant) =>
+                                      participant.userId == user.userId);
 
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListTile(
-                                leading: const CircleAvatar(
-                                  backgroundImage: AssetImage(personDemoImg),
-                                ),
-                                title: Text(
-                                  user.name ?? 'No Name',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(fontSize: 13),
-                                ),
-                                subtitle: Text(
-                                  maskEmail(user.email ?? ''),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(fontSize: 10),
-                                ),
-                                trailing: GestureDetector(
-                                  onTap: () {
-                                    if (isAlreadyAdded) {
-                                      controller.userslistNew.removeWhere(
-                                          (participant) =>
-                                              participant.userId ==
-                                              user.userId);
-                                      controller.updateUserInRecentlySearched(
-                                          user: user);
-                                    } else {
-                                      final participant =
-                                          UserSearchSuccessResponce(
-                                        name: user.name,
-                                        userId: user.userId,
-                                        // isAccepted: 'pending',
-                                      );
-                                      controller.addUserToRecentlySearched(
-                                          user: user);
-                                      controller.userslistNew.add(participant);
-                                    }
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListTile(
+                                  leading: const CircleAvatar(
+                                    backgroundImage: AssetImage(personDemoImg),
+                                  ),
+                                  title: Text(
+                                    user.name ?? 'No Name',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(fontSize: 13),
+                                  ),
+                                  subtitle: Text(
+                                    maskEmail(user.email ?? ''),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(fontSize: 10),
+                                  ),
+                                  trailing: GestureDetector(
+                                    onTap: () {
+                                      if (isAlreadyAdded) {
+                                        controller.userslistNew.removeWhere(
+                                            (participant) =>
+                                                participant.userId ==
+                                                user.userId);
+                                        controller.updateUserInRecentlySearched(
+                                            user: user);
+                                      } else {
+                                        final participant =
+                                            UserSearchSuccessResponce(
+                                          name: user.name,
+                                          userId: user.userId,
+                                          // isAccepted: 'pending',
+                                        );
 
-                                    taskController.update(['searchUser']);
-                                    log('Participants  ${taskController.userslistNew.map(
-                                          (element) => element.name,
-                                        ).join(
-                                          ', ',
-                                        )}');
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 15.w, vertical: 5.w),
-                                    decoration: BoxDecoration(
-                                      gradient: const LinearGradient(
-                                          colors: [kneon, kneon]),
-                                      borderRadius: kBorderRadius5,
-                                      border: Border.all(color: kneon),
-                                    ),
-                                    child: Text(
-                                      isAlreadyAdded ? 'Remove' : 'Add',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall,
+                                        controller.userslistNew
+                                            .add(participant);
+                                        controller.addUserToRecentlySearched(
+                                            user: user);
+                                      }
+
+                                      taskController.update(['searchUser']);
+                                      log('Participants  ${taskController.userslistNew.map(
+                                            (element) => element.name,
+                                          ).join(
+                                            ', ',
+                                          )}');
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 15.w, vertical: 5.w),
+                                      decoration: BoxDecoration(
+                                        gradient: const LinearGradient(
+                                            colors: [kneon, kneon]),
+                                        borderRadius: kBorderRadius5,
+                                        border: Border.all(color: kneon),
+                                      ),
+                                      child: Text(
+                                        isAlreadyAdded ? 'Remove' : 'Add',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }
-                        },
-                      );
-                    }
-                  },
-                ),
+                              );
+                            }
+                          },
+                        );
+                      }
+                    },
+                  ),
               ],
             ),
           )

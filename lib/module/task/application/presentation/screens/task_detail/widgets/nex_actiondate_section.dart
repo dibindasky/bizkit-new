@@ -229,29 +229,29 @@ class NextActionDateSection extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  actions: [
-                                    Center(
-                                      child: EventButton(
-                                          width: double.infinity,
-                                          color: neonNewLinearGradient,
-                                          text: 'Update Next Action Date',
-                                          onTap: () {
-                                            Navigator.of(context).pop(context);
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return NADCreateAndUpdateDialog(
-                                                  nextActionDate: tag,
-                                                  isEdit: true,
-                                                  taskId: taskId ?? '',
-                                                  taskController:
-                                                      taskController,
-                                                );
-                                              },
-                                            );
-                                          }),
-                                    ),
-                                  ],
+                                  // actions: [
+                                  //   Center(
+                                  //     child: EventButton(
+                                  //         width: double.infinity,
+                                  //         color: neonNewLinearGradient,
+                                  //         text: 'Update Next Action Date',
+                                  //         onTap: () {
+                                  //           Navigator.of(context).pop(context);
+                                  //           showDialog(
+                                  //             context: context,
+                                  //             builder: (BuildContext context) {
+                                  //               return NADCreateAndUpdateDialog(
+                                  //                 nextActionDate: tag,
+                                  //                 isEdit: true,
+                                  //                 taskId: taskId ?? '',
+                                  //                 taskController:
+                                  //                     taskController,
+                                  //               );
+                                  //             },
+                                  //           );
+                                  //         }),
+                                  //   ),
+                                  // ],
                                 );
                               },
                             );

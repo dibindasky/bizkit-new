@@ -6,6 +6,7 @@ import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_sha
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/personal_shared_fields/personal_shared_fields.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/update_common_shared_fields_model/update_common_shared_fields_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/level_sharing/level_sharing_repo.dart';
+import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
@@ -198,9 +199,10 @@ class LevelSharingController extends GetxController {
       required BuildContext context}) async {
     individualLevelSharingLoading.value = true;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-
     final data = await levelSharingService.updateIndividualSharedFields(
-        updateIndividualSharedFields: updateIndividualSharedFields);
+        updateIndividualSharedFields: updateIndividualSharedFields,
+        sendPersonalOnly:
+            Get.find<AccessController>().userRole.value != 'user');
 
     data.fold(
       (failure) {

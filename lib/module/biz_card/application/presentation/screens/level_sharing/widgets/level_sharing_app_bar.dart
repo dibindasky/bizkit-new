@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,7 @@ class LevelSharingAppBar extends StatelessWidget {
   @override
   build(BuildContext context) {
     final levelSharingController = Get.find<LevelSharingController>();
+    final accessController = Get.find<AccessController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
@@ -46,7 +48,8 @@ class LevelSharingAppBar extends StatelessWidget {
               ),
             ],
           ),
-          if (!isCommonLevelSharing)
+          if (!isCommonLevelSharing &&
+              accessController.userRole.value == 'user')
             IconButton(
                 onPressed: () {
                   levelSharingController.fetchAllCommonSharedFields();

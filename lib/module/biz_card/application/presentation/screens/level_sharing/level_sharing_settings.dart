@@ -7,7 +7,9 @@ import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_sha
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_responce/shared_fields.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/shared_fields/shared_fields.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/update_common_shared_fields_model/update_common_shared_fields_model.dart';
+import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,7 +40,7 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
   @override
   Widget build(BuildContext context) {
     final levelSharingController = Get.find<LevelSharingController>();
-
+    final accessController = Get.find<AccessController>();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -46,7 +48,10 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
             LevelSharingAppBar(
                 bizcardId: widget.bizcardId ?? '',
                 isCommonLevelSharing: widget.isCommonLevelSharing),
-            PersonalAndBusinessInfoTab(tabController: tabController),
+            if (accessController.userRole.value == 'user')
+              PersonalAndBusinessInfoTab(tabController: tabController)
+            else
+              kHeight15,
             Obx(
               () {
                 if (!widget.isCommonLevelSharing
@@ -55,7 +60,7 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
                   return const Expanded(
                     child: Center(child: CircularProgressIndicator()),
                   );
-                } else {
+                } else if (accessController.userRole.value == 'user') {
                   return Expanded(
                     child: TabBarView(
                       controller: tabController,
@@ -67,6 +72,9 @@ class _BizCardLevelSharingScreenState extends State<BizCardLevelSharingScreen>
                       ],
                     ),
                   );
+                } else {
+                  return PersonalInfoSwitchs(
+                      isCommonLevelSharing: widget.isCommonLevelSharing);
                 }
               },
             ),

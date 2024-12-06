@@ -17,7 +17,10 @@ class IndividualSharedFieldsResponce {
     return _$IndividualSharedFieldsResponceFromJson(json);
   }
 
-  Map<String, dynamic> toJson() {
-    return _$IndividualSharedFieldsResponceToJson(this);
+  Map<String, dynamic> toJson([bool sendPersonalOnly = false]) {
+    return {
+      'bizcard_id': bizcardId,
+      'shared_fields': sharedFields?.toJson(sendPersonalOnly),
+    };
   }
 }

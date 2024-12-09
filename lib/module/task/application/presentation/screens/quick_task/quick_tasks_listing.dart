@@ -39,9 +39,7 @@ class _QuickTasksListingScreenState extends State<QuickTasksListingScreen>
             adjustHieght(20.h),
             QuickTasksTabBar(tabController: tabController),
             QuickTasksTabViewSection(
-              tabController: tabController,
-              taskController: taskController,
-            ),
+                tabController: tabController, taskController: taskController),
           ],
         ),
       )),

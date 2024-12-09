@@ -36,7 +36,10 @@ class EditTaskModel {
   // Map<String, dynamic> toJson() => _$EditTaskModelToJson(this);
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = isNextActionDate == true
-        ? {'task_id': taskId, 'next_action_date': nextActionDate}
+        ? {
+            'task_id': taskId,
+            'next_action_date': nextActionDate?.map((e) => e.toJson()).toList(),
+          }
         : {
             'task_id': taskId,
             'title': title,

@@ -523,22 +523,25 @@ class BizcardsLocalService implements BizcardsLocalRepo {
       getBizcardsFromLocalLocalStorage() async {
     try {
       final String? currentUserId = await userId;
+      print('currentUserId == >[ $currentUserId ]');
 
       if (currentUserId == null) {
         log('getBizcardsFromLocalLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
-      const String query = '''
-            SELECT * 
-            FROM ${BizCardSql.bizcardTable}
-            WHERE ${CardDetailModel.colUserId} = ?
-          ''';
 
+      const String query = '''
+      SELECT * 
+      FROM ${BizCardSql.bizcardTable}
+      WHERE ${CardDetailModel.colUserId} = ?
+    ''';
+
+      // Fetch only the current user's data
       final List<Map<String, dynamic>> result =
           await localService.rawQuery(query, [currentUserId]);
 
       if (result.isEmpty) {
-        log('getBizcardsFromLocalLocalStorage: No bizcards found');
+        log('getBizcardsFromLocalLocalStorage: No bizcards found for user $currentUserId');
         return const Right([]);
       }
 
@@ -569,7 +572,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
       log('getBizcardsFromLocalLocalStorage success: Found ${bizcards.length} bizcards');
       return Right(bizcards);
     } catch (e) {
-      log('getBizcardsFromLocalLocalStorage exception =====> ${e.toString()}');
+      log('getBizcardsFromLocalLocalStorage exception: ${e.toString()}');
       return Left(Failure());
     }
   }

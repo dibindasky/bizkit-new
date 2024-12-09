@@ -60,12 +60,12 @@ class SecureStorage {
     await prefs.setString(role, rol);
   }
 
-    static Future<String> getRoll() async {
+  static Future<String> getRoll() async {
     final prefs = await _getPrefs();
     log('get role =>()');
     final rol = prefs.getString(role);
     log('get role =>($role)');
-    return rol??'user';
+    return rol ?? 'user';
   }
 
   static Future<void> setUserName({required String userName}) async {
@@ -117,6 +117,11 @@ class SecureStorage {
   static Future<String?> getUserId() async {
     final prefs = await _getPrefs();
     return prefs.getString(idKey);
+  }
+
+  static Future<bool> setUserId(String userId) async {
+    final prefs = await _getPrefs();
+    return prefs.setString(idKey, userId);
   }
 
   // Show case function

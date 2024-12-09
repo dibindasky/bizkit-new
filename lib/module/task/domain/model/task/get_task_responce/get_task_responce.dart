@@ -4,6 +4,7 @@ import 'package:bizkit/module/task/domain/model/task/get_task_responce/recent_vi
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/visit_log.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../next_action_date_responce/next_action_date_responce.dart';
 import 'assigned_to_detail.dart';
 import 'attachment.dart';
 import 'sub_task.dart';
@@ -55,7 +56,7 @@ class GetTaskResponce {
   @JsonKey(name: 'recent_visit_logs')
   List<RecentVisitLog>? recentVisitLogs;
   @JsonKey(name: 'next_action_date')
-  List<NextActionDate>? nextActionDate;
+  List<NextActionDateResponce>? nextActionDate;
   @JsonKey(name: 'visit_logs')
   List<VisitLog>? visitLogs;
   @JsonKey(name: 'updated_at')
@@ -126,7 +127,7 @@ class GetTaskResponce {
       int? totalTime,
       int? totalExpense,
       List<RecentVisitLog>? recentVisitLogs,
-      List<NextActionDate>? nextActionDate,
+      List<NextActionDateResponce>? nextActionDate,
       List<VisitLog>? visitLogs,
       String? updatedAt,
       String? updatedField}) {

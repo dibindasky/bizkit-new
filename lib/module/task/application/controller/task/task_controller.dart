@@ -10,6 +10,7 @@ import 'package:bizkit/module/task/application/controller/home_controller/home_c
 import 'package:bizkit/module/task/data/service/task/task_service.dart';
 import 'package:bizkit/module/task/data/sqfilte/task/task_local_service.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
@@ -31,6 +32,7 @@ import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart'
     as attachment;
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
+import 'package:bizkit/module/task/domain/model/task/next_action_date_responce/next_action_date_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/pinned_a_task_model/pinned_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/pinned_task/unpin_a_task_model/unpin_a_task_model.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart';
@@ -48,6 +50,7 @@ import 'package:bizkit/module/task/domain/model/task/tasks_count_model/tasks_cou
 import 'package:bizkit/core/model/userSearch/user_search_model/user_search_model.dart';
 import 'package:bizkit/core/model/userSearch/user_search_success_responce/user_search_success_responce.dart';
 import 'package:bizkit/module/task/domain/repository/service/task_repo.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
@@ -2284,6 +2287,27 @@ class CreateTaskController extends GetxController {
       required BuildContext context}) async {
     loadingForNextActionDate.value = true;
 
+    var userData = await SecureStorage.getToken();
+
+    var list = singleTask.value.nextActionDate
+            ?.map(
+              (nextActionDateDatas) => NextActionDate(
+                date: nextActionDateDatas.date ?? '',
+                description: nextActionDateDatas.description ?? '',
+                byWhom: nextActionDateDatas.userId ?? '',
+              ),
+            )
+            .toList() ??
+        [];
+
+    list.add(NextActionDate(
+      date: nextActionDate.value,
+      description: nexActiondateDescriptionController.text,
+      byWhom: userData.uid,
+    ));
+
+    createNadModel.nextActionDate = list;
+
     final result = await taskService.createNewNextActionDate(
         createNewNextActionDateModel: createNadModel);
     result.fold(
@@ -2292,19 +2316,27 @@ class CreateTaskController extends GetxController {
         nextActionDate.value = '';
         nexActiondateDescriptionController.clear();
         Navigator.of(context).pop(context);
-        showSnackbar(context, message: failure.error ?? errorMessage);
+        showSnackbar(context, message: errorMessage, backgroundColor: kred);
         log(failure.error.toString());
       },
-      (success) {
+      (success) async {
         // Update the singleTask value using copyWith
         singleTask.value = singleTask.value.copyWith(
-          nextActionDate: createNadModel.nextActionDate,
+          nextActionDate: [
+            ...(singleTask.value.nextActionDate ?? []),
+            NextActionDateResponce(
+              date: nextActionDate.value,
+              description: nexActiondateDescriptionController.text,
+              userId: userData.uid,
+              userName: userData.name,
+            )
+          ],
         );
+        loadingForNextActionDate.value = false;
         nextActionDate.value = '';
         nexActiondateDescriptionController.clear();
         Navigator.of(context).pop(context);
         showSnackbar(context, message: 'Next action date created successfully');
-        loadingForNextActionDate.value = false;
       },
     );
   }

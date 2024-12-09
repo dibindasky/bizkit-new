@@ -1,5 +1,5 @@
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
-import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
+import 'package:bizkit/module/task/domain/model/task/next_action_date_responce/next_action_date_responce.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
@@ -107,7 +107,7 @@ class TagChip extends StatelessWidget {
 }
 
 class NextActionChip extends StatelessWidget {
-  final NextActionDate label;
+  final NextActionDateResponce label;
 
   const NextActionChip({super.key, required this.label});
 

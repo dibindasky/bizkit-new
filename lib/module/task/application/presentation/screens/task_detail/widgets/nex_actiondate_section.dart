@@ -334,31 +334,27 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
             onTapOutside: () => FocusScope.of(context).unfocus(),
           ),
           adjustHieght(15.h),
-          Center(
+          Obx(() => Center(
               child: EventButton(
                   width: double.infinity,
                   color: neonNewLinearGradient,
-                  text: isEdit == true ? 'Update' : 'Create',
+                  text: taskController.loadingForNextActionDate.value
+                      ? 'Loading....'
+                      : isEdit == true
+                          ? 'Update'
+                          : 'Create',
                   onTap: () {
                     if (isEdit == true) {
                     } else {
-                      var list =
-                          taskController.singleTask.value.nextActionDate ?? [];
-                      list.add(NextActionDate(
-                        date: taskController.nextActionDate.value,
-                        description: taskController
-                            .nexActiondateDescriptionController.text,
-                      ));
                       taskController.createNewNextActionDate(
                         context: context,
                         createNadModel: EditTaskModel(
                           isNextActionDate: true,
                           taskId: taskId,
-                          nextActionDate: list,
                         ),
                       );
                     }
-                  })),
+                  }))),
         ],
       ),
     );

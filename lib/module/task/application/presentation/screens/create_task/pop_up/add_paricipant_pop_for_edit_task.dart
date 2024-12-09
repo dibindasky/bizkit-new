@@ -665,7 +665,7 @@ class _AddParticipentForQuickTaskEditBottomSheetState
                                 controller.updateUserInRecentlySearched(
                                     user: user);
                               } else {
-                                final participant = AssignedTo(
+                                final participant = QuickTaskAssignedToResponce(
                                   name: user.name,
                                   userId: user.userId,
                                 );
@@ -777,7 +777,8 @@ class _AddParticipentForQuickTaskEditBottomSheetState
                                   controller.updateUserInRecentlySearched(
                                       user: user);
                                 } else {
-                                  final participant = AssignedTo(
+                                  final participant =
+                                      QuickTaskAssignedToResponce(
                                     name: user.name,
                                     userId: user.userId,
                                   );
@@ -897,7 +898,8 @@ class _AddParticipentForQuickTaskEditBottomSheetState
                                     controller.updateUserInRecentlySearched(
                                         user: user);
                                   } else {
-                                    final participant = AssignedTo(
+                                    final participant =
+                                        QuickTaskAssignedToResponce(
                                       name: user.name,
                                       userId: user.userId,
                                     );

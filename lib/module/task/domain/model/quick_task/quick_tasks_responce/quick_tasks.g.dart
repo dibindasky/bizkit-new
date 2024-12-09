@@ -11,7 +11,8 @@ QuickTasks _$QuickTasksFromJson(Map<String, dynamic> json) => QuickTasks(
       title: json['title'] as String?,
       description: json['description'] as String?,
       assignedTo: (json['assigned_to'] as List<dynamic>?)
-          ?.map((e) => AssignedTo.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              QuickTaskAssignedToResponce.fromJson(e as Map<String, dynamic>))
           .toList(),
       isCompleted: json['is_completed'] as bool?,
       createdBy: json['created_by'] == null

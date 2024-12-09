@@ -31,9 +31,7 @@ class GenerateReportButton extends StatelessWidget {
             },
           );
         },
-        color: const LinearGradient(
-          colors: [kneon, kneon],
-        ),
+        color: neonNewLinearGradient,
       ),
     );
   }

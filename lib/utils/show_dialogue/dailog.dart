@@ -14,9 +14,6 @@ showConfirmationDialog(
     context: context,
     builder: (context) => Dialog(
       child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: kneon, width: 2),
-            borderRadius: const BorderRadius.all(Radius.circular(25))),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 35),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -25,7 +22,7 @@ showConfirmationDialog(
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall
-                    ?.copyWith(fontSize: 13,fontWeight: FontWeight.w600)),
+                    ?.copyWith(fontSize: 13, fontWeight: FontWeight.w600)),
             const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -58,22 +55,16 @@ showConfirmationDialog(
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: neonShade,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(35)),
-                        border: Border.all(color: kneon),
+                      decoration: const BoxDecoration(
+                        color: kneon,
+                        borderRadius: BorderRadius.all(Radius.circular(35)),
                       ),
                       child: Center(
                           child: Text(actionButton ?? 'Delete',
                               style: Theme.of(context)
                                   .textTheme
                                   .displaySmall
-                                  ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onTertiary,
-                                  ))),
+                                  ?.copyWith())),
                     ),
                   ),
                 ),

@@ -14,7 +14,10 @@ import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_
 import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigned_model/remove_user_from_assigned_model.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_task_accept_or_reject/quick_task_accept_or_reject.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_task_assigned_to/quick_task_assigned_to.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/received_quick_task_requests/datum.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task_model/update_quick_task_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/task.dart';
@@ -58,6 +61,7 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -125,7 +129,7 @@ class CreateTaskController extends GetxController {
   // List of participants assigned for task editing
   var participantsForEditTask = <AssignedToDetail>[].obs;
 
-  var participantsForEditQuickTask = <AssignedTo>[].obs;
+  var participantsForEditQuickTask = <QuickTaskAssignedToResponce>[].obs;
 
 // Stores time and expense information related to tasks
   RxList<TaskExpenseAndTimeSuccessResponce> taskExpenseAndTime =
@@ -173,6 +177,9 @@ class CreateTaskController extends GetxController {
 
   // List of received task requests
   RxList<ReceivedTask> receivedRequests = <ReceivedTask>[].obs;
+
+  // List of received quick task by the user
+  RxList<QuickTaskRequests> receivedQuickTasksReqs = <QuickTaskRequests>[].obs;
 
   // Map of task counts
   RxMap<String, RxInt> tasksCounts = <String, RxInt>{}.obs;
@@ -254,6 +261,9 @@ class CreateTaskController extends GetxController {
 // Test task ID for validation or testing purposes
   String testTaskId = ''; // Placeholder for a test task ID
 
+  // Quick task complete loading list
+  RxList loadingList = [].obs;
+
 // Error state for fetching single task data
   RxBool fetchSingleTaskError =
       false.obs; // Boolean for tracking errors when fetching a single task
@@ -312,6 +322,7 @@ class CreateTaskController extends GetxController {
 
   RxBool loadingForQuickTask = false.obs; // Loading state for quick task
   RxBool loadingForCompleteQuickTask = false.obs;
+  RxBool loadingForQuickTaskReceivedReq = false.obs;
   RxBool loadingForAllQuickTasks =
       false.obs; // Loading state for all quick tasks
 
@@ -2091,8 +2102,13 @@ class CreateTaskController extends GetxController {
       required BuildContext context}) async {
     loadingForQuickTask.value = true;
     // Extract only the user IDs from the userslistNew
-    createQuickTask.assignedTo =
-        userslistNew.map((user) => user.userId ?? '').toList();
+    createQuickTask.assignedTo = userslistNew
+        .map(
+          (element) =>
+              QuickTaskAssignedTo(status: 'pending', userId: element.userId),
+        )
+        .toList();
+
     final result =
         await taskService.createQuickTask(createQuickTask: createQuickTask);
 
@@ -2110,11 +2126,109 @@ class CreateTaskController extends GetxController {
         loadingForQuickTask.value = false;
         GoRouter.of(context).pop(context);
         userslistNew.clear();
+        titleController.clear();
+        descriptionController.clear();
         showSnackbar(
           context,
           message: 'Quick task created successfully',
           backgroundColor: neonShade,
         );
+        fetchAllQuickTasks();
+      },
+    );
+  }
+
+  // Quick task received requests
+  void fetchQuickTaskRequests() async {
+    loadingForQuickTaskReceivedReq.value = true;
+    final result = await taskService.getQuickTasksRequests();
+
+    result.fold(
+      (failure) {
+        loadingForQuickTaskReceivedReq.value = false;
+        log(failure.message.toString());
+      },
+      (success) {
+        loadingForQuickTaskReceivedReq.value = false;
+        receivedQuickTasksReqs.assignAll(success.data ?? []);
+      },
+    );
+  }
+
+  // Quick task accept request
+  void acceptQuickTaskRequest({
+    required QuickTaskAcceptOrReject acceptOrRejct,
+    required BuildContext context,
+  }) async {
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    loadingForQuickTaskReceivedReq.value = true;
+    final result =
+        await taskService.acceptQuickTask(acceptOrRejct: acceptOrRejct);
+
+    result.fold(
+      (failure) {
+        loadingForQuickTaskReceivedReq.value = false;
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+            backgroundColor: kred,
+          ),
+        );
+        log(failure.message.toString());
+      },
+      (success) {
+        loadingForQuickTaskReceivedReq.value = false;
+        scaffoldMessenger.showSnackBar(SnackBar(
+          content: Text(
+            'Quick Task Accepted Successfully',
+            style: Theme.of(context).textTheme.displaySmall,
+          ),
+          backgroundColor: neonShade,
+        ));
+
+        fetchAllQuickTasks();
+      },
+    );
+  }
+
+  // Quick task reject request
+  void rejectQuickTaskRequest({
+    required QuickTaskAcceptOrReject acceptOrRejct,
+    required BuildContext context,
+  }) async {
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    loadingForQuickTaskReceivedReq.value = true;
+    final result =
+        await taskService.rejectQuickTask(acceptOrRejct: acceptOrRejct);
+
+    result.fold(
+      (failure) {
+        loadingForQuickTaskReceivedReq.value = false;
+        scaffoldMessenger.showSnackBar(
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+            backgroundColor: kred,
+          ),
+        );
+        log(failure.message.toString());
+      },
+      (success) {
+        loadingForQuickTaskReceivedReq.value = false;
+        scaffoldMessenger.showSnackBar(SnackBar(
+          content: Text(
+            'Quick Task Rejected Successfully',
+            style: Theme.of(context).textTheme.displaySmall,
+          ),
+          backgroundColor: neonShade,
+        ));
+
+        fetchAllQuickTasks();
       },
     );
   }
@@ -2126,7 +2240,12 @@ class CreateTaskController extends GetxController {
     loadingForQuickTask.value = true;
 
     updateQuickTask.assignedTo = participantsForEditQuickTask
-        .map((element) => element.userId ?? '')
+        .map(
+          (element) => QuickTaskAssignedTo(
+            userId: element.userId,
+            status: element.status,
+          ),
+        )
         .toList();
 
     final result =
@@ -2157,17 +2276,21 @@ class CreateTaskController extends GetxController {
 
   // Complete a quick task
   void completeQuickTask({required CompleteQuickTask completeQuickTask}) async {
-    loadingForCompleteQuickTask.value = true;
+    loadingList.add(completeQuickTask.quickTaskId ?? '');
+
+    // loadingForCompleteQuickTask.value = true;
     final result = await taskService.completeQuickTasks(
         completeQuickTask: completeQuickTask);
 
     result.fold(
       (failure) {
-        loadingForCompleteQuickTask.value = false;
+        // loadingForCompleteQuickTask.value = false;
+        loadingList.remove(completeQuickTask.quickTaskId ?? '');
         log(failure.message.toString());
       },
       (success) {
-        loadingForCompleteQuickTask.value = false;
+        // loadingForCompleteQuickTask.value = false;
+
         quickTasks.value = quickTasks.map((task) {
           if (task.id == completeQuickTask.quickTaskId) {
             // Match by ID or other unique identifier
@@ -2175,6 +2298,7 @@ class CreateTaskController extends GetxController {
           }
           return task;
         }).toList();
+        loadingList.remove(completeQuickTask.quickTaskId ?? '');
         fetchCompletedQuickTasks();
       },
     );
@@ -2198,11 +2322,6 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         quickTasks.assignAll(success.data ?? []);
-        log('adfad${success.data?.map(
-          (e) => log('quick userId ${e.assignedTo?.map(
-            (e) => e.userId,
-          )}'),
-        )}');
         loadingForAllQuickTasks.value = false;
       },
     );

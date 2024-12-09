@@ -91,6 +91,8 @@ class Routes {
   static const String taskCreateNewFolder = '/task_create_new_folder';
   static const String quickTaskCreateUpdate = '/quick_task_create_update';
   static const String quickTasksListing = '/quick_tasks_listing';
+  static const String quickTaskReceivedRequests =
+      '/quick_task_received_requests';
   static const String taskInsideTheInnerFolderScreen =
       '/task_inside_the_inner_folder';
   static const String taskSearch = '/task_search';

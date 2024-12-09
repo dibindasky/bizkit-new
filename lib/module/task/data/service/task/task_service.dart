@@ -9,7 +9,9 @@ import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigne
 import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task_responce/create_quick_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_task_accept_or_reject/quick_task_accept_or_reject.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/received_quick_task_requests/received_quick_task_requests.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task_model/update_quick_task_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
@@ -679,6 +681,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, SuccessResponce>> completeQuickTasks(
       {required CompleteQuickTask completeQuickTask}) async {
     try {
+      log('Task id for completeQuickTasks TOJSON -= > ${completeQuickTask.toJson()} ');
       final response = await apiService.patch(
         ApiEndPoints.quickTask,
         data: completeQuickTask.toJson(),
@@ -700,7 +703,7 @@ class TaskService implements TaskRepo {
   Future<Either<Failure, CreateQuickTaskResponce>> createQuickTask(
       {required CreateQuickTask createQuickTask}) async {
     try {
-      // log('Create Quick Task  TO JSON  ==== > ${createQuickTask.toJson()}');
+      log('Create Quick Task  TO JSON  ==== > ${createQuickTask.toJson()}');
       final response = await apiService.post(
         ApiEndPoints.quickTask,
         data: createQuickTask.toJson(),
@@ -760,6 +763,25 @@ class TaskService implements TaskRepo {
   }
 
   @override
+  Future<Either<Failure, ReceivedQuickTaskRequests>>
+      getQuickTasksRequests() async {
+    try {
+      final response = await apiService.get(
+        ApiEndPoints.quickTasksRequests,
+      );
+      log("=> Response getQuickTasksRequests ");
+
+      return Right(ReceivedQuickTaskRequests.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException getQuickTasksRequests $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch getQuickTasksRequests $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, SuccessResponce>> deleteAttachments(
       {required DeleteAttachmentsModel deleteAttachmentsModel}) async {
     try {
@@ -795,6 +817,48 @@ class TaskService implements TaskRepo {
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch getCompletedQuickTasks $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> acceptQuickTask(
+      {required QuickTaskAcceptOrReject acceptOrRejct}) async {
+    try {
+      log('acceptQuickTask TO JSON  ==> ${acceptOrRejct.toJson()}');
+      final response = await apiService.patch(
+        ApiEndPoints.quickTasksRequests,
+        data: acceptOrRejct.toJson(),
+      );
+      log("=> Response acceptQuickTask ");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException acceptQuickTask $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch acceptQuickTask $e');
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> rejectQuickTask(
+      {required QuickTaskAcceptOrReject acceptOrRejct}) async {
+    try {
+      log('rejectQuickTask TO JSON  ==> ${acceptOrRejct.toJson()}');
+      final response = await apiService.patch(
+        ApiEndPoints.quickTasksRequests,
+        data: acceptOrRejct.toJson(),
+      );
+      log("=> Response rejectQuickTask ");
+
+      return Right(SuccessResponce.fromJson(response.data));
+    } on DioException catch (e) {
+      log('DioException rejectQuickTask $e');
+      return Left(Failure(message: e.message ?? errorMessage));
+    } catch (e) {
+      log('catch rejectQuickTask $e');
       return Left(Failure(message: e.toString()));
     }
   }

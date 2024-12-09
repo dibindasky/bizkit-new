@@ -13,7 +13,7 @@ UpdateQuickTaskModel _$UpdateQuickTaskModelFromJson(
       title: json['title'] as String?,
       description: json['description'] as String?,
       assignedTo: (json['assigned_to'] as List<dynamic>?)
-          ?.map((e) => e as String)
+          ?.map((e) => QuickTaskAssignedTo.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

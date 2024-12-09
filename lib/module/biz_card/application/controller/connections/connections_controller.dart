@@ -467,7 +467,7 @@ class ConnectionsController extends GetxController {
         await myConnectionLocalService.getMyconnectionsFromLocal();
 
     resultLocal.fold((failure) {
-      log('local data fetch fail');
+      log('getConnectionDatasFromLocal => local data fetch fail');
     }, (success) {
       myConnections.clear();
       connectionsSearchList.clear();

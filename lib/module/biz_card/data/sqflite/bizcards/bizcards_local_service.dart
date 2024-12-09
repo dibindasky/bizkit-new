@@ -12,6 +12,7 @@ import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/bizcard/bizcard_oncreate_db.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
+import 'package:get/get.dart';
 
 class BizcardsLocalService implements BizcardsLocalRepo {
   final LocalService localService = LocalService();
@@ -523,7 +524,6 @@ class BizcardsLocalService implements BizcardsLocalRepo {
       getBizcardsFromLocalLocalStorage() async {
     try {
       final String? currentUserId = await userId;
-      print('currentUserId == >[ $currentUserId ]');
 
       if (currentUserId == null) {
         log('getBizcardsFromLocalLocalStorage error: User ID is null');
@@ -545,8 +545,10 @@ class BizcardsLocalService implements BizcardsLocalRepo {
         return const Right([]);
       }
 
+      final List<Bizcard> bizcards = [];
+
       // Map the result to a list of Bizcard objects
-      final List<Bizcard> bizcards = result.map((data) {
+      bizcards.assignAll(result.map((data) {
         return Bizcard(
           bizcardId: data[CardDetailModel.colBizcardId] as String?,
           companyName:
@@ -567,7 +569,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
               data[CardDetailModel.colBizcardUniversalLink] as String?,
           views: data[CardDetailModel.colBizcardViews] as int?,
         );
-      }).toList();
+      }).toList());
 
       log('getBizcardsFromLocalLocalStorage success: Found ${bizcards.length} bizcards');
       return Right(bizcards);

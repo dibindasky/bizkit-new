@@ -121,6 +121,7 @@ class CardController extends GetxController {
     if (!isLoad && bizcards.isNotEmpty) return;
     isLoading.value = true;
     bizcards.value = <Bizcard>[];
+
     // Step 1: Fetch and display local data first
     await fetchBizcardsFromLocalDb();
 

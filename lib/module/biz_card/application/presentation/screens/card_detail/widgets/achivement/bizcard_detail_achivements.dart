@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
@@ -184,77 +185,129 @@ class _BizCardDeatailAchivementsState extends State<BizCardDeatailAchivements> {
                               : ListView.separated(
                                   // physics: const NeverScrollableScrollPhysics(),
                                   separatorBuilder: (context, index) =>
-                                      adjustHieght(kwidth * .09),
+                                      adjustHieght(kwidth * .02),
                                   itemCount: achivement.length,
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 20),
-                                      child: InkWell(
-                                        onTap: () {
-                                          // Navigator.push(
-                                          //     context,
-                                          //     cardFadePageRoute(ScreenAchivementDetail(
-                                          //         achievement: achivement[index])));
-                                        },
-                                        child: SizedBox(
-                                          height: 250,
-                                          width: double.infinity,
-                                          child: Stack(
-                                            children: [
-                                              achivement[index].images?[0]==null? SizedBox(
-                                                height: 230,
+                                    return Card(
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                                height: 170,
                                                 width: double.infinity,
-                                                child:Image.asset(bizcardBgImage,fit: BoxFit.cover,),
-                                              ):
-                                              SizedBox(
-                                                height: 230,
-                                                width: double.infinity,
-                                                child: NetworkImageWithLoader(
-                                                  achivement[index].images![0],
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                              Positioned(
-                                                left: 0,
-                                                right: 0,
-                                                bottom: 0,
-                                                child: Container(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 10),
-                                                  color: kblack.withOpacity(.5),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(achivement[index]
-                                                              .title ??
-                                                          ''),
-                                                      Text(
-                                                        achivement[index]
-                                                                .description ??
-                                                            '',
-                                                        style:
-                                                            textStyle1.copyWith(
-                                                          fontSize:
-                                                              kwidth * .03,
-                                                        ),
+                                                child: ListView.separated(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemBuilder:
+                                                      (context, indexes) {
+                                                    final imageList = achivement[
+                                                                index]
+                                                            .images ??
+                                                        []; // Fallback to an empty list if null
+                                                    return SizedBox(
+                                                      height: 170.h,
+                                                      width: 230.w,
+                                                      child: Stack(
+                                                        children: [
+                                                          imageList.isEmpty ||
+                                                                  indexes >=
+                                                                      imageList
+                                                                          .length
+                                                              ? SizedBox(
+                                                                  height: 170.h,
+                                                                  width: 230.w,
+                                                                  child: Image
+                                                                      .asset(
+                                                                    bizcardBgImage, // Replace with your asset image path
+                                                                    fit: BoxFit
+                                                                        .fill,
+                                                                  ),
+                                                                )
+                                                              : InkWell(
+                                                                  onTap: () {
+                                                                    GoRouter.of(
+                                                                            context)
+                                                                        .pushNamed(
+                                                                            Routes.slidablePhotoGallery,
+                                                                            extra: {
+                                                                          'images': imageList,
+                                                                          'initial':
+                                                                              indexes,
+                                                                          'memory':
+                                                                              false,
+                                                                        });
+                                                                  },
+                                                                  child:
+                                                                      SizedBox(
+                                                                    height:
+                                                                        170.h,
+                                                                    width:
+                                                                        230.w,
+                                                                    child:
+                                                                        NetworkImageWithLoader(
+                                                                      imageList[
+                                                                          indexes],
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                                    );
+                                                  },
+                                                  separatorBuilder:
+                                                      (context, index) =>
+                                                          kWidth10,
+                                                  itemCount: achivement[index]
+                                                              .images
+                                                              ?.isEmpty ??
+                                                          true
+                                                      ? 1 // Show only one asset image if the list is empty
+                                                      : achivement[index]
+                                                          .images!
+                                                          .length,
+                                                )),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Text(
+                                                  achivement[index].title ?? '',
+                                                  overflow: TextOverflow.fade,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w700)),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Text(
+                                                  achivement[index]
+                                                          .description ??
+                                                      '',
+                                                  overflow: TextOverflow.fade,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall
+                                                      ?.copyWith(fontSize: 10)),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     );
                                   },
                                 ),
                         ),
+                        kHeight20
                       ],
                     );
                   })),

@@ -232,7 +232,7 @@ class _CardScreenAchievementsCreateState
                               setState(() {
                                 personalController.achievementDate.text = date;
                               });
-                              Navigator.pop(context);
+                             
                             },
                             datePicker: personalController.achievementDate,
                           );

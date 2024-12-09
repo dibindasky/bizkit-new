@@ -71,7 +71,7 @@ class _DatesToRememberScreenState extends State<DatesToRememberScreen> {
                             personalController
                                 .personalDatesToReminderDate.text = date;
                           });
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
                         },
                         datePicker:
                             personalController.personalDatesToReminderDate,

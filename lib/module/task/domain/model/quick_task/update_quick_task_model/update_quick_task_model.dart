@@ -1,3 +1,4 @@
+import 'package:bizkit/module/task/domain/model/quick_task/quick_task_assigned_to/quick_task_assigned_to.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'update_quick_task_model.g.dart';
@@ -9,7 +10,7 @@ class UpdateQuickTaskModel {
   String? title;
   String? description;
   @JsonKey(name: 'assigned_to')
-  List<String>? assignedTo;
+  List<QuickTaskAssignedTo>? assignedTo;
 
   UpdateQuickTaskModel({
     this.quickTaskId,

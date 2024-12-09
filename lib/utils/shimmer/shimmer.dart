@@ -211,11 +211,6 @@ class ShimmerLoaderTaskContainer extends StatelessWidget {
                           height: 13,
                           width: 120,
                         ),
-                        adjustWidth(10),
-                        const ShimmerLoaderTile(
-                          height: 20,
-                          width: 50,
-                        ),
                         adjustWidth(30),
                         Column(
                           children: [

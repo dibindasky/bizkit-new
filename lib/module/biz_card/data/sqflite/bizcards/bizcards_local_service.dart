@@ -12,6 +12,7 @@ import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/bizcard/bizcard_oncreate_db.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
+import 'package:get/get.dart';
 
 class BizcardsLocalService implements BizcardsLocalRepo {
   final LocalService localService = LocalService();
@@ -528,22 +529,26 @@ class BizcardsLocalService implements BizcardsLocalRepo {
         log('getBizcardsFromLocalLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
-      const String query = '''
-            SELECT * 
-            FROM ${BizCardSql.bizcardTable}
-            WHERE ${CardDetailModel.colUserId} = ?
-          ''';
 
+      const String query = '''
+      SELECT * 
+      FROM ${BizCardSql.bizcardTable}
+      WHERE ${CardDetailModel.colUserId} = ?
+    ''';
+
+      // Fetch only the current user's data
       final List<Map<String, dynamic>> result =
           await localService.rawQuery(query, [currentUserId]);
 
       if (result.isEmpty) {
-        log('getBizcardsFromLocalLocalStorage: No bizcards found');
+        log('getBizcardsFromLocalLocalStorage: No bizcards found for user $currentUserId');
         return const Right([]);
       }
 
+      final List<Bizcard> bizcards = [];
+
       // Map the result to a list of Bizcard objects
-      final List<Bizcard> bizcards = result.map((data) {
+      bizcards.assignAll(result.map((data) {
         return Bizcard(
           bizcardId: data[CardDetailModel.colBizcardId] as String?,
           companyName:
@@ -564,12 +569,12 @@ class BizcardsLocalService implements BizcardsLocalRepo {
               data[CardDetailModel.colBizcardUniversalLink] as String?,
           views: data[CardDetailModel.colBizcardViews] as int?,
         );
-      }).toList();
+      }).toList());
 
       log('getBizcardsFromLocalLocalStorage success: Found ${bizcards.length} bizcards');
       return Right(bizcards);
     } catch (e) {
-      log('getBizcardsFromLocalLocalStorage exception =====> ${e.toString()}');
+      log('getBizcardsFromLocalLocalStorage exception: ${e.toString()}');
       return Left(Failure());
     }
   }

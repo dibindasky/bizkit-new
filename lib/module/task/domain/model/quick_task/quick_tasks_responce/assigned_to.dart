@@ -3,16 +3,18 @@ import 'package:json_annotation/json_annotation.dart';
 part 'assigned_to.g.dart';
 
 @JsonSerializable()
-class AssignedTo {
+class QuickTaskAssignedToResponce {
   @JsonKey(name: 'user_id')
   String? userId;
   String? name;
+  String? status;
   @JsonKey(name: 'profile_picture')
   dynamic profilePicture;
 
-  AssignedTo({this.userId, this.name, this.profilePicture});
+  QuickTaskAssignedToResponce(
+      {this.userId, this.name, this.profilePicture, this.status});
 
-  factory AssignedTo.fromJson(Map<String, dynamic> json) {
+  factory QuickTaskAssignedToResponce.fromJson(Map<String, dynamic> json) {
     return _$AssignedToFromJson(json);
   }
 

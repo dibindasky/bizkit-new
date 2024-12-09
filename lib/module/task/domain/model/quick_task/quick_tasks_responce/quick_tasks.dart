@@ -13,7 +13,7 @@ class QuickTasks {
   String? title;
   String? description;
   @JsonKey(name: 'assigned_to')
-  List<AssignedTo>? assignedTo;
+  List<QuickTaskAssignedToResponce>? assignedTo;
   @JsonKey(name: 'is_completed')
   bool? isCompleted;
   @JsonKey(name: 'created_by')
@@ -48,7 +48,7 @@ class QuickTasks {
     String? id,
     String? title,
     String? description,
-    List<AssignedTo>? assignedTo,
+    List<QuickTaskAssignedToResponce>? assignedTo,
     bool? isCompleted,
     CreatedBy? createdBy,
     String? createdAt,

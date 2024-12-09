@@ -6,7 +6,9 @@ import 'package:bizkit/module/task/domain/model/folders/remove_user_from_assigne
 import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task_responce/create_quick_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_task_accept_or_reject/quick_task_accept_or_reject.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/received_quick_task_requests/received_quick_task_requests.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task_model/update_quick_task_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/accept_or_reject_model/accept_or_reject_model.dart';
 import 'package:bizkit/module/task/domain/model/requests/received_requests_responce/received_requests_responce.dart';
@@ -146,11 +148,20 @@ abstract class TaskRepo {
   Future<Either<Failure, QuickTasksResponce>> getCompletedQuickTasks(
       {required PaginationQuery paginationQuery});
 
+  Future<Either<Failure, ReceivedQuickTaskRequests>> getQuickTasksRequests();
+
   Future<Either<Failure, SuccessResponce>> updateQuickTasks(
       {required UpdateQuickTaskModel updateQuickTask});
 
   Future<Either<Failure, SuccessResponce>> completeQuickTasks(
       {required CompleteQuickTask completeQuickTask});
+
+  Future<Either<Failure, SuccessResponce>> acceptQuickTask({
+    required QuickTaskAcceptOrReject acceptOrRejct,
+  });
+  Future<Either<Failure, SuccessResponce>> rejectQuickTask({
+    required QuickTaskAcceptOrReject acceptOrRejct,
+  });
 
   Future<Either<Failure, SuccessResponce>> deleteAttachments(
       {required DeleteAttachmentsModel deleteAttachmentsModel});

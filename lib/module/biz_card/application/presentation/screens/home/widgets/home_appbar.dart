@@ -29,8 +29,11 @@ class HomeAppBarWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          "Hello ${authController.userName.value}",
-                          style: Theme.of(context).textTheme.titleMedium,
+                          "Hello ${authController.userName.value} ",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(fontSize: 16),
                         ),
                         const Icon(Icons.arrow_drop_down)
                       ],

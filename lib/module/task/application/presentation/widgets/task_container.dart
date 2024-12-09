@@ -150,7 +150,7 @@ class TaskContainer extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                margin: const EdgeInsets.symmetric(vertical: 7.0),
+                // margin: const EdgeInsets.symmetric(vertical: 7.0),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
@@ -194,17 +194,6 @@ class TaskContainer extends StatelessWidget {
                                   ),
                                 ),
                                 adjustWidth(15),
-                                Card(
-                                  elevation: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 5),
-                                    child: Text('status',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displaySmall),
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -442,6 +431,7 @@ class TaskContainer extends StatelessWidget {
                                       .displaySmall
                                       ?.copyWith(color: textColor),
                                 ),
+                          adjustWidth(50.w),
                           Text(
                             maxLines: 1,
                             softWrap: true,
@@ -463,7 +453,7 @@ class TaskContainer extends StatelessWidget {
                                 .textTheme
                                 .displaySmall
                                 ?.copyWith(fontSize: 9),
-                          )
+                          ),
                         ],
                       ),
                       adjustHieght(10),
@@ -471,16 +461,16 @@ class TaskContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                top: 40,
-                bottom: 40,
-                left: 0,
-                child: Container(
-                  color: kGreyNormal.withOpacity(0.4),
-                  width: 4,
-                  height: 5,
-                ),
-              ),
+              // Positioned(
+              //   top: 35,
+              //   bottom: 35,
+              //   left: 4,
+              //   child: Container(
+              //     color: kgrey.withOpacity(0.4),
+              //     width: 4,
+              //     height: 5,
+              //   ),
+              // ),
               Obx(() {
                 final count = messageCountController.unreadCounts[taskId];
                 if (count == null || count.value == 0) return kempty;

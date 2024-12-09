@@ -6,8 +6,9 @@ part 'next_action_date.g.dart';
 class NextActionDate {
   String? date;
   String? description;
-
-  NextActionDate({this.date, this.description});
+  @JsonKey(name: 'by_whom')
+  String? byWhom;
+  NextActionDate({this.date, this.description, this.byWhom});
 
   factory NextActionDate.fromJson(Map<String, dynamic> json) {
     return _$NextActionDateFromJson(json);

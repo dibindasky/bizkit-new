@@ -215,8 +215,8 @@ class ActiveQuickTasksTab extends StatelessWidget {
                                 textColr: kwhite,
                                 color: const LinearGradient(
                                     colors: [kblack, kblack]),
-                                text: taskController
-                                        .loadingForCompleteQuickTask.value
+                                text: taskController.loadingList
+                                        .contains(quickTask.id)
                                     ? 'Loading...'
                                     : 'Swipe to complete   ➠ ',
                                 onTap: () {},

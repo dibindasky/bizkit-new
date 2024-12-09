@@ -57,6 +57,7 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/acc
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/account_settings/profile_edit_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/widgets/matcho_meter_connection_screen/matcho_meter_connection_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_task_create_update.dart';
+import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_task_received_req.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_tasks_listing.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks_screen.dart';
 import 'package:bizkit/utils/images/image_slidable_list.dart';
@@ -724,6 +725,18 @@ class GoRouterConfig {
         return FadeTransitionPage(
           key: state.pageKey,
           child: const QuickTasksListingScreen(),
+        );
+      },
+    ),
+
+// Quick tasks received requests  listing
+    GoRoute(
+      name: Routes.quickTaskReceivedRequests,
+      path: Routes.quickTaskReceivedRequests,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const QuickTaskReceivedReqScreen(),
         );
       },
     ),

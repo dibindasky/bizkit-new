@@ -438,7 +438,7 @@ class _TaskListViewState extends State<TaskListView> {
 
   Widget _buildShimmerLoader() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: ShimmerLoaderTaskContainer(
         height: 50.h,
         itemCount: 10,
@@ -459,7 +459,7 @@ class _TaskListViewState extends State<TaskListView> {
   Widget _buildTaskList() {
     return ListView.builder(
       controller: taskController.deadlineTasksScrollController,
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       itemCount: taskController.deadlineTasks.length +
           (taskController.deadlineTasksLoadMoreLoading.value ? 1 : 0),
       itemBuilder: (context, index) {
@@ -477,10 +477,13 @@ class _TaskListViewState extends State<TaskListView> {
   }
 
   Widget _buildLoadMoreLoader() {
-    return ShimmerLoaderTaskContainer(
-      height: 50.h,
-      itemCount: 1,
-      width: double.infinity,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: ShimmerLoaderTaskContainer(
+        height: 50.h,
+        itemCount: 1,
+        width: double.infinity,
+      ),
     );
   }
 

@@ -152,6 +152,19 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
               labelBackgroundColor: kblack,
             ),
             SpeedDialChild(
+              child: const Icon(Iconsax.personalcard, color: kwhite),
+              label: 'Received Requests ',
+              labelStyle: Theme.of(context).textTheme.bodySmall,
+              onTap: () {
+                taskController.fetchQuickTaskRequests();
+                GoRouter.of(context).pushNamed(
+                  Routes.quickTaskReceivedRequests,
+                );
+              },
+              backgroundColor: kblack,
+              labelBackgroundColor: kblack,
+            ),
+            SpeedDialChild(
               child: const Icon(Iconsax.additem, color: kwhite),
               label: 'New Quick Task',
               labelStyle: Theme.of(context).textTheme.bodySmall,

@@ -43,7 +43,8 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
           ?.map((e) => VisitLog.fromJson(e as Map<String, dynamic>))
           .toList(),
       nextActionDate: (json['next_action_date'] as List<dynamic>?)
-          ?.map((e) => NextActionDate.fromJson(e as Map<String, dynamic>))
+          ?.map(
+              (e) => NextActionDateResponce.fromJson(e as Map<String, dynamic>))
           .toList(),
       updatedAt: json['updated_at'] as String?,
       updatedField: json['updated_field'] as String?,

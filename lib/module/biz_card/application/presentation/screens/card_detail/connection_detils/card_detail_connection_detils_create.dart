@@ -188,7 +188,7 @@ class _BizCardConnectionDetailUpdateScreenState
                     ),
                     kHeight20,
                     CustomTextFormField(
-                        labelText: 'notes', controller: notesController),
+                        labelText: 'notes', controller: notesController,textCapitalization: TextCapitalization.words),
                     kHeight10,
                     CustomTextFormField(textCapitalization: TextCapitalization.words,
                         labelText: 'Occasion', controller: occasionController),

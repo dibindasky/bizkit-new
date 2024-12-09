@@ -61,7 +61,7 @@ class _MachoMeterScreenState extends State<MachoMeterScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Machometer',
+                          'Matchometer',
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge

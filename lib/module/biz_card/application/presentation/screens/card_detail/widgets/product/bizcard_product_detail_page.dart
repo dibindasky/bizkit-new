@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
 import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -80,9 +81,19 @@ class _BizcardProductDetailScreenState
                   child: (index, context) {
                     return Card(
                       elevation: 1,
-                      child: NetworkImageWithLoader(
-                          fit: BoxFit.cover,
-                          widget.product?.images?[index] ?? ''),
+                      child: InkWell(
+                        onTap: () {
+                          GoRouter.of(context)
+                              .pushNamed(Routes.slidablePhotoGallery, extra: {
+                            'images': widget.product?.images,
+                            'initial': index,
+                            'memory': false,
+                          });
+                        },
+                        child: NetworkImageWithLoader(
+                            fit: BoxFit.cover,
+                            widget.product?.images?[index] ?? ''),
+                      ),
                     );
                   },
                 ),

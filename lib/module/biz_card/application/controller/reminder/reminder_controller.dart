@@ -201,8 +201,19 @@ class ReminderController extends GetxController {
     );
   }
 
+  fetchRemindersInOrder() async {
+    allReminderLoading.value = true;
+    todaysReminderLoading.value = true;
+    upcomingReminderLoading.value = true;
+    historyReminderLoading.value = true;
+    await fetchTodaysReminders();
+    await fetchAllReminders();
+    await fetchUpcomingReminders();
+    await fetchHistoryReminders();
+  }
+
   // fetch all reminders
-  void fetchAllReminders() async {
+  Future<void> fetchAllReminders() async {
     allReminderLoading.value = true;
     allReminderPage = 1;
     allReminders.value = [];
@@ -225,7 +236,7 @@ class ReminderController extends GetxController {
   }
 
   // fetch all  reminders [ pagination ]
-  void fetchAllRemindersLoadMore() async {
+  Future<void> fetchAllRemindersLoadMore() async {
     if (allReminderLoadMoreLoading.value == true) {
       return;
     }
@@ -249,7 +260,7 @@ class ReminderController extends GetxController {
   }
 
   // fetch all today's reminders
-  void fetchTodaysReminders() async {
+  Future<void> fetchTodaysReminders() async {
     todaysReminderLoading.value = true;
     todaysReminderPage = 1;
     todaysReminders.value = [];
@@ -274,7 +285,7 @@ class ReminderController extends GetxController {
   }
 
   // fetch all today's reminders [ pagination ]
-  void fetchTodaysRemindersLoadMore() async {
+  Future<void> fetchTodaysRemindersLoadMore() async {
     if (todaysReminderLoadMoreLoading.value == true) {
       return;
     }
@@ -300,7 +311,7 @@ class ReminderController extends GetxController {
   }
 
   // fetch all upcoming reminders
-  void fetchUpcomingReminders() async {
+  Future<void> fetchUpcomingReminders() async {
     upcomingReminderLoading.value = true;
     upcomingReminderPage = 1;
     upcomingReminders.value = [];
@@ -325,7 +336,7 @@ class ReminderController extends GetxController {
   }
 
   // fetch all upcoming reminders [ pagination ]
-  void fetchUpcomingRemindersLoadMore() async {
+  Future<void> fetchUpcomingRemindersLoadMore() async {
     if (upcomingReminderLoadMoreLoading.value == true) {
       return;
     }
@@ -352,7 +363,7 @@ class ReminderController extends GetxController {
   }
 
   // fetch all history reminders
-  void fetchHistoryReminders() async {
+  Future<void> fetchHistoryReminders() async {
     historyReminderLoading.value = true;
     historyReminderPage = 1;
     historyReminders.value = [];
@@ -378,7 +389,7 @@ class ReminderController extends GetxController {
   }
 
   // fetch all history reminders [ pagination ]
-  void fetchHistoryRemindersLoadMore() async {
+  Future<void> fetchHistoryRemindersLoadMore() async {
     if (historyReminderLoadMoreLoading.value == true) {
       return;
     }
@@ -404,7 +415,7 @@ class ReminderController extends GetxController {
     );
   }
 
-  void getCardRemiderHistory({required String id}) async {
+  Future<void> getCardRemiderHistory({required String id}) async {
     reminderHistoryCardLoading.value = true;
     historyCardReminders.value = [];
     final result = await reminderSerivce.getCardReminderHistory(id: id);

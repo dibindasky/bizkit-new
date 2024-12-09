@@ -42,7 +42,7 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
           });
         }
       });
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 3, vsync: this, initialIndex: 1);
   }
 
   @override
@@ -63,11 +63,12 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
         child: RefreshIndicator(
           onRefresh: () async {
             bizcardController.getAllcards(true);
-            connectionsController.searchConnections();
-            reminderController.fetchAllReminders();
-            reminderController.fetchHistoryReminders();
-            reminderController.fetchTodaysReminders();
-            reminderController.fetchUpcomingReminders();
+            connectionsController.fetchMyConnections(true);
+            reminderController.fetchRemindersInOrder();
+            // reminderController.fetchHistoryReminders();
+            // reminderController.fetchAllReminders();
+            // reminderController.fetchTodaysReminders();
+            // reminderController.fetchUpcomingReminders();
           },
           child: CustomScrollView(
             controller: _scrollController,

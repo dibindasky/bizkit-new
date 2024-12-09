@@ -12,8 +12,10 @@ class MyConnection {
   String? username;
   List<Card>? cards;
   int? localId;
+  @JsonKey(name: 'last_connected')
+  String? lastConnected;
 
-  MyConnection({this.toUser, this.username, this.cards, this.localId});
+  MyConnection({this.toUser, this.username, this.cards, this.localId, this.lastConnected});
 
   factory MyConnection.fromJson(Map<String, dynamic> json) {
     return _$MyConnectionFromJson(json);
@@ -31,8 +33,9 @@ class MyConnection {
   bool _compareCardLists(List<Card>? list1, List<Card>? list2) {
     if (list1 == null && list2 == null) return true;
 
-    if (list1 == null || list2 == null || list1.length != list2.length)
+    if (list1 == null || list2 == null || list1.length != list2.length) {
       return false;
+    }
 
     final map1 = {for (var card in list1) card.toCard: card};
     final map2 = {for (var card in list2) card.toCard: card};

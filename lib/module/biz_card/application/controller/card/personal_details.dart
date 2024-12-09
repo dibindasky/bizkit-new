@@ -65,6 +65,7 @@ class PersonalDetailsController extends GetxController {
   // personal Achivement Controllers
   String achievementTitleChange = '';
   String achievementDescriptionChange = '';
+  RxString achievementDateChange = ''.obs;
   TextEditingController achievementDate = TextEditingController();
   TextEditingController achievementEvent = TextEditingController();
   TextEditingController achievementTitle = TextEditingController();
@@ -79,6 +80,11 @@ class PersonalDetailsController extends GetxController {
   TextEditingController personalDatesToReminderDate = TextEditingController();
   TextEditingController personalDatesToReminderMessage =
       TextEditingController();
+
+  addDate({required String date}) {
+    achievementDateChange.value = date;
+    achievementDate.text = date;
+  }
 
   /// get the personal details informations to the controller for editing purpose
   void getPersonalDetails(CardDetailModel cardDetail) {
@@ -178,16 +184,19 @@ class PersonalDetailsController extends GetxController {
         }
       },
       (r) {
-        if(personalNameController.text.isNotEmpty){
-          cardController.bizcardDetail.value.personalDetails?.name=personalNameController.text;
+        if (personalNameController.text.isNotEmpty) {
+          cardController.bizcardDetail.value.personalDetails?.name =
+              personalNameController.text;
         }
-      if(personalEmailController.text.isNotEmpty){
-        cardController.bizcardDetail.value.personalDetails?.email=personalEmailController.text;
-      }
-      if(bloodGroupController.text.isNotEmpty){
-        cardController.bizcardDetail.value.personalDetails?.bloodGroup=bloodGroupController.text;
-      }
-      update();
+        if (personalEmailController.text.isNotEmpty) {
+          cardController.bizcardDetail.value.personalDetails?.email =
+              personalEmailController.text;
+        }
+        if (bloodGroupController.text.isNotEmpty) {
+          cardController.bizcardDetail.value.personalDetails?.bloodGroup =
+              bloodGroupController.text;
+        }
+        update();
         showSnackbar(context, message: 'Successfully Added Personal Details');
         GoRouter.of(context).pop();
       },

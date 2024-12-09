@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
-import 'package:bizkit/utils/images/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
-import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
@@ -15,7 +13,6 @@ import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/auto_fill_text_field.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +34,8 @@ class BizCardAchivementCreationAndUpdation extends StatefulWidget {
 class _BizCardAchivementCreationAndUpdationState
     extends State<BizCardAchivementCreationAndUpdation> {
   final GlobalKey<FormState> achivementFormKey = GlobalKey<FormState>();
+  final personalController = Get.find<PersonalDetailsController>();
+  final bussinessController = Get.find<BusinesDetailsController>();
   @override
   void initState() {
     if (widget.achievement != null) {
@@ -47,9 +46,24 @@ class _BizCardAchivementCreationAndUpdationState
   }
 
   @override
+  void dispose() {
+    personalController.personalAchivementImage.value = [];
+
+    personalController.achievementDate.clear();
+    personalController.achievementDateChange.value = '';
+
+    personalController.achievementEvent.clear();
+
+    personalController.achievementDescription.clear();
+    personalController.achievementDescriptionChange = '';
+
+    personalController.achievementTitle.clear();
+    personalController.achievementTitleChange = '';
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final personalController = Get.find<PersonalDetailsController>();
-    final bussinessController = Get.find<BusinesDetailsController>();
     return GestureDetector(
       onTap: () {
         FocusNode focus = FocusScope.of(context);
@@ -123,37 +137,45 @@ class _BizCardAchivementCreationAndUpdationState
                             },
                             child: SizedBox(
                               height: 170.dm,
-                              child: 
-                               Stack(
+                              child: Stack(
                                 children: [
-                                  personalController.personalAchivementImage.isEmpty||personalController.personalAchivementImage==null?
-                              Center(child: Text('Add Image',style: Theme.of(context).textTheme.titleSmall),):
-                                  ListView.separated(
-                                    separatorBuilder: (context, index) =>
-                                        kWidth10,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: personalController
-                                        .personalAchivementImage.length,
-                                    itemBuilder: (context, index) {
-                                      return CardAchivementImageMaker(
-                                          deleteTap: () {
-                                            showCustomConfirmationDialogue(
-                                                context: context,
-                                                title:
-                                                    'Are you sure want to remove ?',
-                                                buttonText: 'Delete',
-                                                onTap: () {
-                                                  personalController
-                                                      .personalAchivementImage
-                                                      .removeAt(index);
-                                                  setState(() {});
-                                                });
+                                  personalController.personalAchivementImage
+                                              .isEmpty ||
+                                          personalController
+                                                  .personalAchivementImage ==
+                                              null
+                                      ? Center(
+                                          child: Text('Add Image',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall),
+                                        )
+                                      : ListView.separated(
+                                          separatorBuilder: (context, index) =>
+                                              kWidth10,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: personalController
+                                              .personalAchivementImage.length,
+                                          itemBuilder: (context, index) {
+                                            return CardAchivementImageMaker(
+                                                deleteTap: () {
+                                                  showCustomConfirmationDialogue(
+                                                      context: context,
+                                                      title:
+                                                          'Are you sure want to remove ?',
+                                                      buttonText: 'Delete',
+                                                      onTap: () {
+                                                        personalController
+                                                            .personalAchivementImage
+                                                            .removeAt(index);
+                                                        setState(() {});
+                                                      });
+                                                },
+                                                image: personalController
+                                                    .personalAchivementImage,
+                                                index: index);
                                           },
-                                          image: personalController
-                                              .personalAchivementImage,
-                                          index: index);
-                                    },
-                                  ),
+                                        ),
                                   Positioned(
                                     bottom: 5,
                                     right: 5,
@@ -215,11 +237,11 @@ class _BizCardAchivementCreationAndUpdationState
                                   year: 500,
                                   last: 500,
                                   onPressed: (date) {
-                                    setState(() {
-                                      personalController.achievementDate.text =
-                                          date;
-                                    });
-                                    Navigator.pop(context);
+                                    personalController.addDate(date: date);
+                                    // setState(() {
+                                    //   personalController.achievementDate.text =
+                                    //       date;
+                                    // });
                                   },
                                   datePicker:
                                       personalController.achievementDate,
@@ -321,7 +343,7 @@ class _BizCardAchivementCreationAndUpdationState
                                   //       backgroundColor: kred);
                                   //   return;
                                   // } else
-                                   if (achivementFormKey.currentState!
+                                  if (achivementFormKey.currentState!
                                       .validate()) {
                                     List<String> sendImage = personalController
                                         .personalAchivementImage
@@ -385,6 +407,17 @@ class _CardAchivementImageMakerState extends State<CardAchivementImageMaker> {
   Uint8List image = Uint8List(0);
 
   @override
+  void initState() {
+    if (!widget.image![widget.index].networkImage) {
+      image = base64.decode(
+          widget.image![widget.index].image!.startsWith('data')
+              ? widget.image![widget.index].image!.substring(22)
+              : widget.image![widget.index].image!);
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
@@ -411,12 +444,7 @@ class _CardAchivementImageMakerState extends State<CardAchivementImageMaker> {
                       ? NetworkImageWithLoader(
                           widget.image![widget.index].image ?? "",
                           radius: 10)
-                      : Image.memory(
-                          base64.decode(widget.image![widget.index].image!
-                                  .startsWith('data')
-                              ? widget.image![widget.index].image!.substring(22)
-                              : widget.image![widget.index].image!),
-                          fit: BoxFit.cover),
+                      : Image.memory(image, fit: BoxFit.cover),
                 )),
             Positioned(
               top: 5,

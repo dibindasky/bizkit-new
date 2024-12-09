@@ -310,6 +310,14 @@ class DateTimeFormater {
     }
   }
 
+  static String timeAgoString(String? formattedString) {
+    try {
+      return timeAgo(DateTime.parse(formattedString ?? ''));
+    } catch (e) {
+      return '';
+    }
+  }
+
   static String timeAgo(DateTime dateTime) {
     final Duration difference = DateTime.now().difference(dateTime);
 

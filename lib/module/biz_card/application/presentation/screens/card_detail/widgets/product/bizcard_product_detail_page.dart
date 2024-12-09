@@ -1,7 +1,9 @@
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
 import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/copy_clipboard/copy_clipboard.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -94,6 +96,24 @@ class _BizcardProductDetailScreenState
                     .textTheme
                     .displayMedium
                     ?.copyWith(fontSize: 15),
+              ),
+              adjustHieght(10.h),
+              InkWell(
+                onTap: () {
+                  LaunchUrl.launchUrls(url: widget.product?.productLink ?? '');
+                },
+                onLongPress: () {
+                  copyToClipboard(
+                      context: context,
+                      text: widget.product?.productLink ?? '');
+                },
+                child: Text(
+                  widget.product?.productLink ?? '',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 10.sp, color: kblue),
+                ),
               ),
               adjustHieght(10.h),
               Text(

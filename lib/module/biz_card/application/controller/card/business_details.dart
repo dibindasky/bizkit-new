@@ -23,7 +23,6 @@ import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.
 import 'package:bizkit/module/biz_card/domain/repository/service/card/business_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
-import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +89,7 @@ class BusinesDetailsController extends GetxController {
   // Business Products Controllers
   RxList<ImageCard> productImages = <ImageCard>[].obs;
   TextEditingController businessProductName = TextEditingController();
+  TextEditingController businessProductLink = TextEditingController();
   TextEditingController businessProductDescription = TextEditingController();
   RxBool productEnquiry = false.obs;
 
@@ -649,6 +649,7 @@ class BusinesDetailsController extends GetxController {
       description: businessProductDescription.text,
       enquiry: productEnquiry.value,
       title: businessProductName.text,
+      productLink: businessProductLink.text,
       images: productImages.map((e) => e.image ?? '').toList(),
     );
     final data =
@@ -669,6 +670,7 @@ class BusinesDetailsController extends GetxController {
   productDataClear() {
     businessProductDescription.clear();
     businessProductName.clear();
+    businessProductLink.clear();
     productEnquiry.value = false;
   }
 
@@ -687,6 +689,7 @@ class BusinesDetailsController extends GetxController {
         description: businessProductDescription.text,
         enquiry: productEnquiry.value,
         title: businessProductName.text,
+        productLink: businessProductLink.text,
         images: productImages.map((e) => e.image ?? '').toList(),
         productId: cardController
             .bizcardDetail.value.businessDetails?.product?[productIndex].id);

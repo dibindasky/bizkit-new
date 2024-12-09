@@ -14,6 +14,8 @@ class BusinessProductAdding {
   String? bizcardId;
   @JsonKey(name: 'product_id')
   String? productId;
+  @JsonKey(name: 'product_link')
+  String? productLink;
 
   BusinessProductAdding({
     this.title,
@@ -23,6 +25,7 @@ class BusinessProductAdding {
     this.enquiry,
     this.businessDetailsId,
     this.bizcardId,
+    this.productLink,
   });
 
   factory BusinessProductAdding.fromJson(Map<String, dynamic> json) {

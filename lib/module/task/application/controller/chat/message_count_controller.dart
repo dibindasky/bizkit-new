@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
@@ -31,6 +32,9 @@ class MessageCountController extends GetxController {
 
       channel.stream.listen(
         (data) {
+          log('notification =======================> $data');
+          // print(
+          //     'notification =======================> \n ${jsonDecode(data as String) as Map<String, dynamic>}');
           final unread = UnreadCounts.fromJson(
               jsonDecode(data as String) as Map<String, dynamic>);
           for (var k in (unread.unreadCounts?.keys.toList()) ?? []) {

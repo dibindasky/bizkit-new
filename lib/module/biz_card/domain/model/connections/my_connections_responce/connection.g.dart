@@ -13,6 +13,7 @@ MyConnection _$MyConnectionFromJson(Map<String, dynamic> json) => MyConnection(
           ?.map((e) => Card.fromJson(e as Map<String, dynamic>))
           .toList(),
       localId: json['localId'] as int?,
+      lastConnected: json['last_connected'] as String?,
     );
 
 Map<String, dynamic> _$MyConnectionToJson(MyConnection instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$MyConnectionToJson(MyConnection instance) =>
       'username': instance.username,
       'cards': instance.cards,
       'localId': instance.localId,
+      'last_connected': instance.lastConnected,
     };

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/participants_list_bottom_sheet.dart';
@@ -511,23 +509,42 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                       task.recentVisitLogs?.length ?? 0,
                       (index) {
                         final visitor = task.recentVisitLogs?[index];
-                        return Row(
-                          children: [
-                            AnimatedGrowShrinkContainer(
-                              animate: true,
-                              milliseconds: 200,
-                              child: Icon(Icons.radio_button_checked,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                            ),
-                            kWidth5,
-                            Expanded(
-                              child: Text('${visitor?.designation} has viewed',
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall),
-                            )
-                          ],
-                        );
+                        return Card(
+                            child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.w, vertical: 5.h),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Row(
+                                  children: [
+                                    AnimatedGrowShrinkContainer(
+                                      animate: true,
+                                      milliseconds: 200,
+                                      child: Icon(Icons.radio_button_checked,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary),
+                                    ),
+                                    kWidth5,
+                                    Expanded(
+                                      child: Text(
+                                          '${visitor?.designation} has viewed',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall),
+                                    )
+                                  ],
+                                ),
+                                Text(
+                                    DateTimeFormater.timeAgoString(
+                                        visitor?.time ??''),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(fontSize: 8.sp))
+                              ]),
+                        ));
                       },
                     )
                   ],

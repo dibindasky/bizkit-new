@@ -41,6 +41,8 @@ class _BizcardProductCreateUpdateScreenState
       businessController.businessProductName.text = widget.product!.title ?? '';
       businessController.businessProductDescription.text =
           widget.product!.description ?? '';
+      businessController.businessProductLink.text =
+          widget.product!.productLink ?? '';
       businessController.productImages.assignAll(widget.product?.images
               ?.map((e) => ImageCard(image: e, networkImage: true)) ??
           []);
@@ -236,6 +238,13 @@ class _BizcardProductCreateUpdateScreenState
                     controller: businessController.businessProductName,
                     inputType: TextInputType.name,
                     textCapitalization: TextCapitalization.sentences,
+                    maxlegth: 50,
+                  ),
+                  kHeight10,
+                  CustomTextFormField(
+                    labelText: 'Product Prolio link',
+                    controller: businessController.businessProductLink,
+                    inputType: TextInputType.url,
                     maxlegth: 50,
                   ),
                   kHeight10,

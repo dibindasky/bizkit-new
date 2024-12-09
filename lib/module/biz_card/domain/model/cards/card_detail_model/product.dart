@@ -10,6 +10,8 @@ class Product {
   bool? enquiry;
   @JsonKey(name: '_id')
   String? id;
+  @JsonKey(name: 'product_link')
+  String? productLink;
 
   Product({
     this.title,
@@ -17,6 +19,7 @@ class Product {
     this.description,
     this.enquiry,
     this.id,
+    this.productLink,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {

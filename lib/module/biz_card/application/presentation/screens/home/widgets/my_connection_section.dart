@@ -21,9 +21,9 @@ class MyConnectionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final connectionsController = Get.find<ConnectionsController>();
     final navbarController = Get.find<NavbarController>();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    // connectionsController.fetchMyConnections(true);
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    connectionsController.fetchMyConnections(false);
+    });
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -139,7 +139,7 @@ class MyConnectionSection extends StatelessWidget {
                           connection =
                               connectionsController.myConnections[index - 1];
                         }
-
+                        // add connection button 
                         if (index == 0) {
                           return Padding(
                             padding: const EdgeInsets.only(left: 15),

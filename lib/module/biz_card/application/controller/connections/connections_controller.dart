@@ -212,12 +212,13 @@ class ConnectionsController extends GetxController {
 
   // Search My connections
   void searchConnections({bool refresh = false}) async {
+    print('user id ======> ${await SecureStorage.getUserId()}');
     if (connectionsSearchList.isNotEmpty && !refresh) {
       return;
     }
     // print('searchConnections ->========1');
     searchConnectionsLoading.value = true;
-    myConnectionsLoading.value = false;
+    // myConnectionsLoading.value = false;
     myConnectionPageNumber = 1;
     connectionsSearchList.value = [];
 
@@ -226,8 +227,8 @@ class ConnectionsController extends GetxController {
       // log("sear connection datas ---- ${connectionsSearchList.toJson()}");
       // searchConnectionsLoading.value = false;
     }
-    if (myConnections.isEmpty) {
-      myConnectionsLoading.value = true;
+    if (connectionsSearchList.isNotEmpty) {
+      searchConnectionsLoading.value = false;
     }
     final result = await connectionService.searchConnections(
         searchQuery: SearchQuery(
@@ -281,10 +282,10 @@ class ConnectionsController extends GetxController {
         }
         // TODO: connections need to check local conditions above
         connectionsSearchList.assignAll(success.data ?? []);
-        if (myConnections.isEmpty) {
-          myConnections.assignAll(success.data ?? []);
-          myConnectionsLoading.value = false;
-        }
+        // if (myConnections.isEmpty) {
+        //   myConnections.assignAll(success.data ?? []);
+        //   myConnectionsLoading.value = false;
+        // }
         searchConnectionsLoading.value = false;
       },
     );
@@ -313,27 +314,28 @@ class ConnectionsController extends GetxController {
             myConnectionLoadMore.value = false;
           },
           (success) {
-            // print('called my connection load more ==>5');
-            // for (var datas in success.data ?? <MyConnection>[]) {
-            //   final index = connectionsSearchList
-            //       .indexWhere((value) => value.toUser == datas.toUser);
-            //   if (index == -1) {
-            //     connectionsSearchList.insert(0, datas);
-            //     myConnectionLocalService
-            //         .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-            //             myconnection: datas);
-            //   } else {
-            //     if (!connectionsSearchList[index].equals(datas)) {
-            //       int localId = connectionsSearchList[index].localId!;
-            //       connectionsSearchList[index] = datas;
-            //       myConnectionLocalService
-            //           .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-            //               myconnection: datas.copyWith(localId: localId));
-            //     }
-            //   }
-            // }
-            connectionsSearchList.addAll(success.data ?? []);
+            print('called my connection load more ==> ${success.data?.length}');
             myConnectionLoadMore.value = false;
+            for (var datas in success.data ?? <MyConnection>[]) {
+              final index = connectionsSearchList
+                  .indexWhere((value) => value.toUser == datas.toUser);
+              print('index -> $index');
+              if (index == -1) {
+                connectionsSearchList.add(datas);
+                myConnectionLocalService
+                    .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                        myconnection: datas);
+              } else {
+                if (!connectionsSearchList[index].equals(datas)) {
+                  int localId = connectionsSearchList[index].localId!;
+                  connectionsSearchList[index] = datas;
+                  myConnectionLocalService
+                      .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                          myconnection: datas.copyWith(localId: localId));
+                }
+              }
+            }
+            // connectionsSearchList.addAll(success.data ?? []);
           },
         );
         myConnectionLoadMore.value = false;
@@ -462,15 +464,18 @@ class ConnectionsController extends GetxController {
   }
 
   Future<void> getConnectionDatasFromLocal({bool search = false}) async {
-    myConnectionsLoading.value = true;
+    // myConnectionsLoading.value = true;
     final resultLocal =
         await myConnectionLocalService.getMyconnectionsFromLocal();
 
     resultLocal.fold((failure) {
       log('local data fetch fail');
     }, (success) {
-      myConnections.clear();
-      connectionsSearchList.clear();
+      if (search) {
+        connectionsSearchList.clear();
+      } else {
+        myConnections.clear();
+      }
       for (var data in success.data as List<MyConnection>) {
         if (data.cards?.isNotEmpty ?? false) {
           if (search) {
@@ -493,60 +498,64 @@ class ConnectionsController extends GetxController {
   }
 
   /// Get my all connections
-  // void fetchMyConnections(bool isLoad) async {
-  //   if (myConnections.isNotEmpty && !isLoad) return;
-  //   myConnections.value = [];
-  //   fetchMyConnectionPageNumber = 1;
+  void fetchMyConnections(bool isLoad) async {
+    if (myConnections.isNotEmpty && !isLoad) return;
+    myConnections.value = [];
+    fetchMyConnectionPageNumber = 1;
 
-  //   ////delete complete datas of table
-  //   // await MyConnectionLocalService().deleteAllLocalDatas();
+    ////delete complete datas of table
+    // await MyConnectionLocalService().deleteAllLocalDatas();
 
-  //   //get connection datas form local
-  //   await getConnectionDatasFromLocal();
-  //   // myConnectionsLoading.value = true;
+    //get connection datas form local
+    myConnectionsLoading.value = true;
+    await getConnectionDatasFromLocal();
 
-  //   //get connection datas from api
-  //   final result = await connectionService.getMyconnections(
-  //       paginationQuery: PaginationQuery(
-  //           page: fetchMyConnectionPageNumber, pageSize: pageSize));
+    //get connection datas from api
+    final result = await connectionService.getMyconnections(
+        paginationQuery: PaginationQuery(
+            page: fetchMyConnectionPageNumber, pageSize: pageSize));
 
-  //   await result.fold(
-  //     (failure) {
-  //       myConnectionsLoading.value = false;
-  //     },
-  //     (success) async {
-  //       if (myConnections.isEmpty) {
-  //         myConnections.assignAll(success.data ?? []);
-  //         for (var eachMyConnection in myConnections) {
-  //           await myConnectionLocalService
-  //               .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-  //                   myconnection: eachMyConnection);
-  //         }
-  //       } else {
-  //         for (var datas in success.data ?? <MyConnection>[]) {
-  //           final index = myConnections
-  //               .indexWhere((value) => value.toUser == datas.toUser);
-  //           if (index == -1) {
-  //             myConnections.insert(0, datas);
-  //             myConnectionLocalService
-  //                 .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-  //                     myconnection: datas);
-  //           } else {
-  //             if (!myConnections[index].equals(datas)) {
-  //               int localid = myConnections[index].localId!;
-  //               myConnections[index] = datas;
-  //               myConnectionLocalService
-  //                   .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-  //                       myconnection: datas.copyWith(localId: localid));
-  //             }
-  //           }
-  //         }
-  //       }
-
-  //       myConnectionsLoading.value = false;
-  //     },
-  //   );
-  // }
+    await result.fold(
+      (failure) {
+        myConnectionsLoading.value = false;
+      },
+      (success) async {
+        if (myConnections.isEmpty) {
+          // myConnections.assignAll(success.data ?? []);
+          for (var eachMyConnection in success.data ?? []) {
+            await myConnectionLocalService
+                .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                    myconnection: eachMyConnection);
+            if (eachMyConnection.cards?.isNotEmpty ?? false) {
+              myConnections.add(eachMyConnection);
+            }
+          }
+        } else {
+          for (var datas in success.data ?? <MyConnection>[]) {
+            final index = myConnections
+                .indexWhere((value) => value.toUser == datas.toUser);
+            if (index == -1) {
+              if (datas.cards?.isNotEmpty ?? false) {
+                myConnections.insert(0, datas);
+              }
+              myConnectionLocalService
+                  .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                      myconnection: datas);
+            } else {
+              if (!myConnections[index].equals(datas)) {
+                int localid = myConnections[index].localId!;
+                myConnections[index] = datas;
+                myConnectionLocalService
+                    .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                        myconnection: datas.copyWith(localId: localid));
+              }
+            }
+          }
+        }
+        myConnectionsLoading.value = false;
+      },
+    );
+  }
 
   void fetchMyConnectionsLoadMore() async {
     if (fetchMyconnectionLoadMore.value) {

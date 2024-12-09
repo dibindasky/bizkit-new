@@ -215,6 +215,7 @@ class AuthenticationController extends GetxController {
   void completeLogin(BuildContext context, TokenModel model) async {
     await SecureStorage.saveToken(tokenModel: model);
     log('user name => ${model.name ?? ''}');
+    log('user data =------------===> ${model.toJson()}');
     await SecureStorage.setLogin();
     if (loadingAccountSwitching.value) {
       chooseModule(context);

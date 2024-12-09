@@ -16,8 +16,8 @@ class ConnectionsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final connectionsController = Get.find<ConnectionsController>();
-    connectionsController.searchConnections();
-
+    WidgetsBinding.instance.addPostFrameCallback(
+        (timeStamp) => connectionsController.searchConnections());
     return Scaffold(
       body: Obx(
         () {
@@ -26,7 +26,7 @@ class ConnectionsTab extends StatelessWidget {
           } else if (connectionsController.connectionsSearchList.isEmpty) {
             return ErrorRefreshIndicator(
               onRefresh: () async {
-                connectionsController.searchConnections(refresh:true);
+                connectionsController.searchConnections(refresh: true);
                 await Future.delayed(const Duration(seconds: 2));
               },
               errorMessage: 'No bizcard connections',
@@ -35,18 +35,17 @@ class ConnectionsTab extends StatelessWidget {
           } else {
             return RefreshIndicator(
               onRefresh: () async {
-                connectionsController.searchConnections(refresh:true);
+                connectionsController.searchConnections(refresh: true);
                 await Future.delayed(const Duration(seconds: 2));
               },
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
+                controller: connectionsController.myConnectionScrollController,
                 child: Column(
                   children: [
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      controller:
-                          connectionsController.myConnectionScrollController,
                       itemCount:
                           connectionsController.connectionsSearchList.length +
                               (connectionsController.myConnectionLoadMore.value

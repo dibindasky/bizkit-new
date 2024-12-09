@@ -17,6 +17,7 @@ BusinessProductAdding _$BusinessProductAddingFromJson(
       enquiry: json['enquiry'] as bool?,
       businessDetailsId: json['business_details_id'] as String?,
       bizcardId: json['bizcard_id'] as String?,
+      productLink: json['product_link'] as String?,
     );
 
 Map<String, dynamic> _$BusinessProductAddingToJson(
@@ -29,4 +30,5 @@ Map<String, dynamic> _$BusinessProductAddingToJson(
       'business_details_id': instance.businessDetailsId,
       'bizcard_id': instance.bizcardId,
       'product_id': instance.productId,
+      'product_link': instance.productLink,
     };

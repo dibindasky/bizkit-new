@@ -79,6 +79,7 @@ class Routes {
   static const String addTask = '/taskAdd';
   static const String editTask = '/editTask';
   static const String taskHome = '/taskHome';
+  static const String taskCaleneder = '/taskCalender';
   static const String taskLists = '/taskLists';
   static const String taskCalenderView = '/task_calender_view';
   static const String taskDeail = '/task_detail_page';

@@ -63,6 +63,7 @@ import 'package:bizkit/module/task/application/presentation/screens/generate_rep
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/search_tasks.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_search.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_task_create_update.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_task_received_req.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_tasks_listing.dart';

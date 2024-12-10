@@ -75,6 +75,7 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
                         const RecentTasksSection(),
                         adjustHieght(30.h),
                         const GenerateReportButton(),
+                        adjustHieght(60.h),
                       ],
                     ),
                   ),

@@ -65,10 +65,6 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
             bizcardController.getAllcards(true);
             connectionsController.fetchMyConnections(true);
             reminderController.fetchRemindersInOrder();
-            // reminderController.fetchHistoryReminders();
-            // reminderController.fetchAllReminders();
-            // reminderController.fetchTodaysReminders();
-            // reminderController.fetchUpcomingReminders();
           },
           child: CustomScrollView(
             controller: _scrollController,

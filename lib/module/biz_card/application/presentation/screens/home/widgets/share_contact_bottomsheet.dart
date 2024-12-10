@@ -44,7 +44,8 @@ class ShareCardThroughContactBottomSheet extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: controller.fetchingLoading.value
+                    child: controller.fetchingLoading.value ||
+                            controller.firstLoading.value
                         ? ShimmerLoader(
                             itemCount: 40,
                             height: 50.h,

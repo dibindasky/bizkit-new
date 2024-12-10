@@ -74,6 +74,7 @@ class TagsContainer extends StatelessWidget {
                         child: Icon(Icons.add, color: kneon),
                       ),
                     ),
+                    textCapitalization: TextCapitalization.words,
                     controller: tagController,
                     style: Theme.of(context).textTheme.displaySmall,
                     padding: const EdgeInsets.all(10.0),

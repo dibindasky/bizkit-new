@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'dart:ui';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';

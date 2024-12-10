@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 typedef ChildBuilder = Widget Function(int index, BuildContext context);
 typedef OnPageCallBack = void Function(int index);
@@ -21,7 +19,7 @@ class PagviewAnimateBuilder extends StatefulWidget {
   final ChildBuilder child;
   final int pageCount;
   final OnPageCallBack onpageCallBack;
-  final bool? offAnimation;
+  final bool offAnimation;
 
   @override
   PagviewAnimateBuilderState createState() => PagviewAnimateBuilderState();
@@ -35,8 +33,9 @@ class PagviewAnimateBuilderState extends State<PagviewAnimateBuilder> {
   void initState() {
     super.initState();
     // Auto-scroll every 3 seconds
-    if (Get.find<CardController>().autoScrollCard.value) {
+    if (!widget.offAnimation) {
       _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+        if (widget.offAnimation) return;
         if (widget.pageCount == 1) return;
         if (widget.pageController.page == widget.pageCount - 1 ||
             widget.pageController.page == 0) {

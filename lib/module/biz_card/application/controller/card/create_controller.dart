@@ -79,7 +79,7 @@ class CardController extends GetxController {
   final Debouncer debouncer = Debouncer(milliseconds: 300);
 
   /// variable to stop auto sliding cards while showing qr
-  RxBool autoScrollCard = true.obs;
+  RxBool autoScrollCard = false.obs;
 
   /// update the ui of card dummy for creation page
   void updateCardPreviewCardCreation(RxBool loader) {
@@ -368,7 +368,7 @@ class CardController extends GetxController {
     );
   }
 
-  changeAutoScroll() {
-    autoScrollCard.value = !autoScrollCard.value;
+  changeAutoScroll(bool value) {
+    autoScrollCard.value = value;
   }
 }

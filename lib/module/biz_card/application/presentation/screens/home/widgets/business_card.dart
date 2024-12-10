@@ -113,9 +113,11 @@ class BusinessCard extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  showDialog(
+                onTap: () async {
+                  Get.find<CardController>().changeAutoScroll(true);
+                  final result = await showDialog(
                     context: context,
+                    barrierDismissible: true,
                     builder: (ctx) => Dialog(
                       child: Container(
                         padding: const EdgeInsets.all(10),
@@ -125,12 +127,13 @@ class BusinessCard extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            // share to contact
                             ListTile(
-                              onTap: () {
+                              onTap: () async {
                                 bizcardController.updateShareCount(
                                     cardId: bizcard.bizcardId ?? '');
-                                GoRouter.of(context).pop();
-                                showBottomSheet(
+                                GoRouter.of(context).pop('result');
+                                await showModalBottomSheet(
                                   context: Scaffold.of(context).context,
                                   showDragHandle: true,
                                   backgroundColor:
@@ -139,14 +142,19 @@ class BusinessCard extends StatelessWidget {
                                       ShareCardThroughContactBottomSheet(
                                           cardId: bizcard.bizcardId ?? ''),
                                 );
+                                Get.find<CardController>()
+                                    .changeAutoScroll(false);
                               },
                               title: const Text('share to Bizkit contacts'),
                               leading:
                                   const Icon(Icons.phone_forwarded_rounded),
                             ),
                             const Divider(),
+                            // show qr code
                             ListTile(
                               onTap: () {
+                                Get.find<CardController>()
+                                    .changeAutoScroll(false);
                                 bizcardController.updateShareCount(
                                     cardId: bizcard.bizcardId ?? '');
                                 GoRouter.of(context).pop();
@@ -164,14 +172,20 @@ class BusinessCard extends StatelessWidget {
                               leading: const Icon(Icons.qr_code_2_rounded),
                             ),
                             const Divider(),
+                            // share to other apps
                             ListTile(
-                              onTap: () {
+                              onTap: () async {
+                                Get.find<CardController>()
+                                    .changeAutoScroll(false);
                                 bizcardController.updateShareCount(
                                     cardId: bizcard.bizcardId ?? '');
-                                GoRouter.of(context).pop();
+                                GoRouter.of(context).pop('result');
                                 final link = bizcard.universalLink;
                                 if (link != null && link.isNotEmpty) {
-                                  Share.share('Checkout my Bizkit card $link');
+                                  await Share.share(
+                                      'Checkout my Bizkit card $link');
+                                  Get.find<CardController>()
+                                      .changeAutoScroll(false);
                                 } else {
                                   showSnackbar(context,
                                       message:
@@ -187,6 +201,9 @@ class BusinessCard extends StatelessWidget {
                       ),
                     ),
                   );
+                  if (result == null) {
+                    Get.find<CardController>().changeAutoScroll(false);
+                  }
                 },
                 child: Card(
                   elevation: 0,

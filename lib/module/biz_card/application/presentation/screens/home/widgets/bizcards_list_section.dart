@@ -30,11 +30,9 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
     pageController = PageController(
       viewportFraction: 0.8,
     )..addListener(() {
-        if (Get.find<CardController>().autoScrollCard.value) {
-          setState(() {
-            pageValue = pageController.page!;
-          });
-        }
+        setState(() {
+          pageValue = pageController.page!;
+        });
       });
   }
 
@@ -74,16 +72,16 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
         height: 450.h,
         child: PagviewAnimateBuilder(
           pageController: pageController,
-
+          offAnimation: bizcardController.autoScrollCard.value,
           pageValue: pageValue,
           // Add 1 for the "add" button at the end
-          pageCount: (cardCount == 0 &&
-                  (accessController.userRole.value != 'user'))
-              ? (1)
-              : (cardCount +
-                  ((accessController.userRole.value == 'user')
-                      ? 1
-                      : 0)),
+          // for company employee accound dont need to show add card insted need to show
+          // request for card and card can be creted only by business admin
+          pageCount:
+              (cardCount == 0 && (accessController.userRole.value != 'user'))
+                  ? (1)
+                  : (cardCount +
+                      ((accessController.userRole.value == 'user') ? 1 : 0)),
           onpageCallBack: (index) {
             setState(() {
               currentIndex = index;
@@ -99,8 +97,7 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
                     height: 260.h,
                     createCard: true,
                     onTap: () {
-                      if ((accessController.userRole.value !=
-                          'user')) return;
+                      if ((accessController.userRole.value != 'user')) return;
                       Get.find<CardTextExtractionController>()
                           .clearCardImages();
                       GoRouter.of(context).pushNamed(Routes.cardCreation);

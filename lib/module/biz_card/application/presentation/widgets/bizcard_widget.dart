@@ -63,8 +63,8 @@ class BizcardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlipCard(
       controller: _flipCardController,
-      onFlip: () {
-        Get.find<CardController>().changeAutoScroll();
+      onFlipDone: (v) {
+        Get.find<CardController>().changeAutoScroll(v);
       },
       direction: FlipDirection.HORIZONTAL,
       flipOnTouch: false,
@@ -249,7 +249,6 @@ class BizcardWidget extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           _flipCardController.toggleCard();
-                          Get.find<CardController>().changeAutoScroll();
                         },
                         child: decodedQrImage == null
                             ? null
@@ -274,7 +273,6 @@ class BizcardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         _flipCardController.toggleCard();
-        Get.find<CardController>().changeAutoScroll();
       },
       child: Container(
         width: width,

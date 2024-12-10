@@ -80,6 +80,7 @@ class Routes {
   static const String editTask = '/editTask';
   static const String taskHome = '/taskHome';
   static const String taskLists = '/taskLists';
+  static const String taskCalenderView = '/task_calender_view';
   static const String taskDeail = '/task_detail_page';
   static const String heirarchyUserDetail = '/TaskheirarchyUserDetail';
   static const String taskNotification = '/taskNotification';

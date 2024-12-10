@@ -486,12 +486,8 @@ class BizcardsLocalService implements BizcardsLocalRepo {
         bizcardModel.bizcardId ?? '', // for WHERE clause
         model.uid, // for WHERE clause
       ];
-      final rowsUpdated = await localService.rawUpdate(query, values);
+      await localService.rawUpdate(query, values);
 
-      if (rowsUpdated == 0) {
-        log('updateBizcardFromLocalStorage error: No record found to update');
-        return Left(Failure(message: "No record found to update"));
-      }
       log('updateBizcardFromLocalStorage success =====> ');
       return Right(SuccessResponseModel());
     } catch (e) {

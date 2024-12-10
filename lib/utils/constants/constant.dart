@@ -69,7 +69,7 @@ String? getStringFromModule(Module? module) {
     case Module.attendance:
       return 'Attendance Module';
     default:
-      return null;
+      return '';
   }
 }
 
@@ -83,7 +83,7 @@ Module? getModuleFromString(String? moduleString) {
     case 'Attendance Module':
       return Module.attendance;
     default:
-      return null;
+      return Module.none;
   }
 }
 

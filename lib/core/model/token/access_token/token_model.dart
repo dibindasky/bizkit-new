@@ -32,8 +32,23 @@ class TokenModel {
     this.allowedAccesses,
   });
 
-  factory TokenModel.fromJson(Map<String, dynamic> json) =>
-      _$TokenModelFromJson(json);
+  factory TokenModel.fromJson(Map<String, dynamic> json,
+          {bool fromLocalDb = false}) =>
+      TokenModel(
+        accessToken: json['access'] as String?,
+        refreshToken: json['refresh'] as String?,
+        name: json['name'] as String?,
+        uid: json['user_id'] as String?,
+        logoutFromDevice: json['logout_form_device'] as String?,
+        organizationId: json['organization_id'] as String?,
+        role: json['role'] as String?,
+        allowedAccesses: fromLocalDb
+            ? null
+            : (json['allowed_accesses'] as List<dynamic>?)
+                ?.map((e) => Access.fromJson(e as Map<String, dynamic>))
+                .toList(),
+      );
+  // _$TokenModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$TokenModelToJson(this);
 

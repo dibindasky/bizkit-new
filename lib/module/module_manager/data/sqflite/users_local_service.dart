@@ -94,7 +94,8 @@ class UsersLocalService implements UsersLocalRepo {
       log('getUsersFromLocalStorage => length => ${data.length}');
       List<TokenModel> tokens = [];
       for (var x in data) {
-        tokens.add(TokenModel.fromJson(x));
+        print('user data ->  $x');
+        tokens.add(TokenModel.fromJson(x, fromLocalDb: true));
       }
       log('getUsersFromLocalStorage success =====> ${tokens.length}');
       return Right(tokens);
@@ -115,15 +116,15 @@ class UsersLocalService implements UsersLocalRepo {
       log('getUserWithUid => length => ${data.length}');
       List<TokenModel> users = [];
       for (var x in data) {
-        users.add(TokenModel.fromJson(x));
+        users.add(TokenModel.fromJson(x,fromLocalDb: true));
       }
       log('getUserWithUid success =====> ${users.length}');
       if (users.isEmpty) return Left(Failure());
       TokenModel model = users.first;
-      final access = await getAccessFromLocalStorage();
-      access.fold((l) => null, (r) {
-        model = model.copyWith(allowedAccesses: r);
-      });
+      // final access = await getAccessFromLocalStorage();
+      // access.fold((l) => null, (r) {
+      //   model = model.copyWith(allowedAccesses: r);
+      // });
       return Right(model);
     } catch (e) {
       log('getUserWithUid exception =====> ${e.toString()}');
@@ -227,7 +228,10 @@ class UsersLocalService implements UsersLocalRepo {
         access.comesUnder ?? '',
         access.id ?? '',
         access.access ?? '',
-        access.permissions ?? '',
+        (access.permissions ?? [])
+            .toString()
+            .replaceFirst('[', '')
+            .replaceFirst(']', ''),
         uid
       ]);
 
@@ -246,15 +250,15 @@ class UsersLocalService implements UsersLocalRepo {
       FROM ${Sql.accessTable}
       WHERE ${Access.colCurrentUserId} = ?''';
       final data = await localService.rawQuery(query, [uid]);
-      log('getUsersFromLocalStorage => length => ${data.length}');
-      List<Access> tokens = [];
+      log('getAccessFromLocalStorage => length => ${data.length}');
+      List<Access> accesses = [];
       for (var x in data) {
-        tokens.add(Access.fromJson(x));
+        accesses.add(Access.fromJson(x, fromLocalDb: true));
       }
-      log('getUsersFromLocalStorage success =====> ${tokens.length}');
-      return Right(tokens);
+      log('getAccessFromLocalStorage success =====> ${accesses.length}');
+      return Right(accesses);
     } catch (e) {
-      log('getUsersFromLocalStorage exception =====> ${e.toString()}');
+      log('getAccessFromLocalStorage exception =====> ${e.toString()}');
       return Left(Failure());
     }
   }

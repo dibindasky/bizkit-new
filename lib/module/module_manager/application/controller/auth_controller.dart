@@ -244,7 +244,7 @@ class AuthenticationController extends GetxController {
   /// if dont want to keep account for accoutn switching call usign [logOut] false
   void logOut(BuildContext context, [bool logout = true]) async {
     context.go(Routes.loginPage);
-    Get.find<ModuleController>().currentModule.value = null;
+    Get.find<ModuleController>().currentModule.value = Module.none;
     await clearDataWhileLogout(logout);
   }
 

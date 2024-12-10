@@ -13,8 +13,19 @@ class Access {
 
   Access({this.id, this.access, this.permissions, this.comesUnder});
 
-  factory Access.fromJson(Map<String, dynamic> json) {
-    return _$AccessFromJson(json);
+  factory Access.fromJson(Map<String, dynamic> json,
+      {bool fromLocalDb = false}) {
+    // return _$AccessFromJson(json);
+    return Access(
+      id: json['_id'] as String?,
+      access: json['access'] as String?,
+      permissions: fromLocalDb
+          ? ((json['permissions'] as String?) ?? '').split(',')
+          : (json['permissions'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
+      comesUnder: json['comes_under'] as String?,
+    );
   }
 
   Map<String, dynamic> toJson() => _$AccessToJson(this);

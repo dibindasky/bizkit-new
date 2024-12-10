@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 accountSwitchingBottomSheet(BuildContext context) async {
-  return showBottomSheet(
+  return showModalBottomSheet(
     context: context,
     builder: (context) => const AccountSwitcherBottomSheet(),
     showDragHandle: true,

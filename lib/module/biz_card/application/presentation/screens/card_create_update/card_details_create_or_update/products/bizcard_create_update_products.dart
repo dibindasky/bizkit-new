@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/image_slidable_list.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/product.dart';
@@ -34,10 +35,10 @@ class BizcardProductCreateUpdateScreen extends StatefulWidget {
 
 class _BizcardProductCreateUpdateScreenState
     extends State<BizcardProductCreateUpdateScreen> {
+  final businessController = Get.find<BusinesDetailsController>();
   @override
   void initState() {
     if (widget.product != null) {
-      final businessController = Get.find<BusinesDetailsController>();
       businessController.businessProductName.text = widget.product!.title ?? '';
       businessController.businessProductDescription.text =
           widget.product!.description ?? '';
@@ -50,6 +51,12 @@ class _BizcardProductCreateUpdateScreenState
           widget.product!.enquiry ?? false;
     }
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    businessController.productImages.value = [];
+    super.dispose();
   }
 
   @override
@@ -128,16 +135,13 @@ class _BizcardProductCreateUpdateScreenState
                                             .toList()[index];
                                         return InkWell(
                                           onTap: () {
-                                            // Navigator.of(context).push(
-                                            //     cardFadePageRoute(
-                                            //         SlidablePhotoGallery(
-                                            //             initialIndex: index,
-                                            //             images: businessController
-                                            //                 .productImages
-                                            //                 .map((e) => e)
-                                            //                 .toList()
-                                            //                 .reversed
-                                            //                 .toList())));
+                                            GoRouter.of(context).pushNamed(
+                                                Routes.slidablePhotoGallery,
+                                                extra: {
+                                                  'images':[data.image!] ,
+                                                  'initial': index,
+                                                  'memory':data.networkImage?false:true ,
+                                                });
                                           },
                                           child: Stack(
                                             children: [

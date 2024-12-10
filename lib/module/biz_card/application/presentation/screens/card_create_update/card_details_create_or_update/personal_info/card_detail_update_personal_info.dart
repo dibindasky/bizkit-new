@@ -102,46 +102,85 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                       Obx(
                         () => Stack(
                           children: [
-                            Container(
-                              height: 100.h,
-                              width: 100.h,
-                              decoration: BoxDecoration(
-                                  image:
-                                      personalController.personalImages.isEmpty
-                                          ? null
-                                          : DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: MemoryImage(base64Decode(
-                                                  personalController
-                                                      .personalImages.first))),
-                                  borderRadius: BorderRadius.circular(100.h),
-                                  border: Border.all(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary)),
-                              child:
-                                  personalController.personalImages.isNotEmpty
-                                      ? null
-                                      : (cardController
-                                                  .bizcardDetail
-                                                  .value
-                                                  .personalDetails
-                                                  ?.images
-                                                  ?.isNotEmpty ??
-                                              false)
-                                          ? NetworkImageWithLoader(
-                                              cardController
-                                                  .bizcardDetail
-                                                  .value
-                                                  .personalDetails!
-                                                  .images!
-                                                  .first,
-                                              radius: 100,
-                                            )
-                                          : Image.asset(iconPersonOutline,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondary),
+                            InkWell(
+                              onTap: () {
+                                (personalController.personalImages.isNotEmpty ||
+                                        cardController
+                                                .bizcardDetail
+                                                .value
+                                                .personalDetails!
+                                                .images
+                                                ?.isNotEmpty ==
+                                            true)
+                                    ? GoRouter.of(context).pushNamed(
+                                        Routes.slidablePhotoGallery,
+                                        extra: {
+                                            'images': personalController
+                                                    .personalImages.isNotEmpty
+                                                ? personalController
+                                                    .personalImages
+                                                : cardController
+                                                            .bizcardDetail
+                                                            .value
+                                                            .personalDetails
+                                                            ?.images
+                                                            ?.isNotEmpty ??
+                                                        false
+                                                    ? cardController
+                                                        .bizcardDetail
+                                                        .value
+                                                        .personalDetails
+                                                        ?.images
+                                                    : null,
+                                            'initial': 0,
+                                            'memory': personalController
+                                                    .personalImages.isNotEmpty
+                                                ? true
+                                                : false,
+                                          })
+                                    : null;
+                              },
+                              child: Container(
+                                height: 100.h,
+                                width: 100.h,
+                                decoration: BoxDecoration(
+                                    image: personalController
+                                            .personalImages.isEmpty
+                                        ? null
+                                        : DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: MemoryImage(base64Decode(
+                                                personalController
+                                                    .personalImages.first))),
+                                    borderRadius: BorderRadius.circular(100.h),
+                                    border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary)),
+                                child:
+                                    personalController.personalImages.isNotEmpty
+                                        ? null
+                                        : (cardController
+                                                    .bizcardDetail
+                                                    .value
+                                                    .personalDetails
+                                                    ?.images
+                                                    ?.isNotEmpty ??
+                                                false)
+                                            ? NetworkImageWithLoader(
+                                                cardController
+                                                    .bizcardDetail
+                                                    .value
+                                                    .personalDetails!
+                                                    .images!
+                                                    .first,
+                                                radius: 100,
+                                              )
+                                            : Image.asset(iconPersonOutline,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary),
+                              ),
                             ),
                             Positioned(
                               bottom: 10.h,

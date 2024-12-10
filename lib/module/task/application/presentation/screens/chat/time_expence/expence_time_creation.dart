@@ -90,6 +90,7 @@ class _TimeExpenceCreationState extends State<TimeExpenceCreation> {
               ),
               kHeight5,
               _buildTextField(
+
                   label: 'Description here',
                   maxLines: 4,
                   description: true,
@@ -149,6 +150,7 @@ class _TimeExpenceCreationState extends State<TimeExpenceCreation> {
       bool description = false,
       required TextEditingController controller}) {
     return TextFormField(
+      textCapitalization: TextCapitalization.sentences,
       controller: controller,
       keyboardType: description ? null : TextInputType.number,
       style: Theme.of(context).textTheme.displaySmall,

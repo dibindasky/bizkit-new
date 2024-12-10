@@ -298,7 +298,7 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            isEdit == true ? 'Update Next Action Date' : 'New Next Action Date',
+            isEdit == true ? 'Edit Next Action Date' : 'New Next Action Date',
             style: Theme.of(context)
                 .textTheme
                 .displaySmall

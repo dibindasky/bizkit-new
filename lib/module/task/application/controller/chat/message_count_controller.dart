@@ -32,7 +32,7 @@ class MessageCountController extends GetxController {
 
       channel.stream.listen(
         (data) {
-          log('notification =======================> $data');
+          // log('notification =======================> $data');
           // print(
           //     'notification =======================> \n ${jsonDecode(data as String) as Map<String, dynamic>}');
           final unread = UnreadCounts.fromJson(

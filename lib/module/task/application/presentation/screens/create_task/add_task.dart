@@ -230,7 +230,7 @@ class ScreenAddTask extends StatelessWidget {
                               },
                             ),
                           ),
-                          adjustHieght(10.h),
+                          adjustHieght(50.h),
                         ],
                       ),
                     ),

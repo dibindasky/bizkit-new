@@ -11,11 +11,10 @@ import 'package:bizkit/module/task/domain/model/chat/text/text_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/time_expence/time_expence_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/voice/voice_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart';
 import 'package:sqflite/sqflite.dart' as sql;
-
-import '../../../../module/task/domain/model/task/get_task_responce/attachment.dart';
 
 class TaskSql {
   static const tasksTable = 'bizkit_tasks';

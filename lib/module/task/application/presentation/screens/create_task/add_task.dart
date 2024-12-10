@@ -17,12 +17,16 @@ import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ScreenAddTask extends StatelessWidget {
-  ScreenAddTask({super.key, this.edit = false, required this.navigationId});
+  ScreenAddTask({
+    super.key,
+    this.edit = false,
+  });
 
   final bool edit;
-  final int navigationId;
+
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController taskHeadController = TextEditingController();
@@ -38,30 +42,6 @@ class ScreenAddTask extends StatelessWidget {
     });
 
     return Scaffold(
-      appBar: AppBar(
-        surfaceTintColor: knill,
-        leading: IconButton(
-          onPressed: () {
-            Get.back(id: navigationId);
-            controller.tags.clear();
-            controller.subTasks.clear();
-            controller.clearSelectedFiles();
-            titleController.clear();
-            controller.deadlineDateForTaskCreation.value = '';
-            descriptionController.clear();
-            controller.userslistNew.clear();
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        backgroundColor: knill,
-        title: Text(
-          edit ? 'Edit Task' : 'New Task',
-          style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
-        ),
-      ),
       body: SafeArea(
         child: Obx(
           () {
@@ -77,6 +57,41 @@ class ScreenAddTask extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  GoRouter.of(context).pop(context);
+                                  controller.tags.clear();
+                                  controller.subTasks.clear();
+                                  controller.clearSelectedFiles();
+                                  titleController.clear();
+                                  controller.deadlineDateForTaskCreation.value =
+                                      '';
+                                  descriptionController.clear();
+                                  controller.userslistNew.clear();
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  child: Icon(
+                                    Icons.arrow_back_ios_new,
+                                    size: 18.sp,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary,
+                                  ),
+                                ),
+                              ),
+                              adjustWidth(20.w),
+                              Text(
+                                'Create Task',
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              )
+                            ],
+                          ),
+                          adjustHieght(20.h),
                           Text('Title',
                               style: Theme.of(context)
                                   .textTheme
@@ -207,8 +222,7 @@ class ScreenAddTask extends StatelessWidget {
                           adjustHieght(10.h),
                           Center(
                             child: EventButton(
-                              color:
-                                  const LinearGradient(colors: [kneon, kneon]),
+                              color: neonNewLinearGradient,
                               width: 300.w,
                               text: edit ? 'Edit Task' : 'Create Task',
                               onTap: () {
@@ -243,7 +257,6 @@ class ScreenAddTask extends StatelessWidget {
           controller.convertFilesToAttachments(controller.selectedFiles);
 
       controller.createNewTask(
-        navigationId: navigationId,
         context: context,
         task: TaskModel(
           title: titleController.text,

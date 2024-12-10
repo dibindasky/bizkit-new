@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/card_and_connection_tabs_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/bizcard_home.dart';

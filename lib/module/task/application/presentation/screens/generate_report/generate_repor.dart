@@ -14,6 +14,7 @@ import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ScreenTaskReportGenerator extends StatefulWidget {
@@ -126,7 +127,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
       taskGenerateReportController.fromDate.clear();
       taskGenerateReportController.toDate.clear();
       Navigator.of(context).pop();
-      Get.toNamed(Routes.reportsview, id: 1);
+      GoRouter.of(context).pushNamed(Routes.reportsview);
     }
   }
 
@@ -209,7 +210,7 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
                     adjustHieght(20.h),
                     Center(
                       child: EventButton(
-                        color: const LinearGradient(colors: [kneon, kneon]),
+                        color: neonNewLinearGradient,
                         width: kwidth * 98,
                         text: 'Get Report',
                         onTap: _getReport,

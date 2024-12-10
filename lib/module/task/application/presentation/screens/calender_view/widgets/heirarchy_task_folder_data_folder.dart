@@ -16,6 +16,7 @@ import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class HeirarchyTaskFolderDataRow extends StatelessWidget {
   HeirarchyTaskFolderDataRow({super.key});
@@ -103,12 +104,17 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                         );
                       } else {
                         log('Folder ID ----===> ${taskFolderController.filteredFoldersByDeadline[index].folderId ?? ''}');
-                        Get.toNamed(Routes.heirarchyUserDetail,
-                            id: 2,
-                            arguments: taskFolderController
-                                    .filteredFoldersByDeadline[index]
-                                    .folderId ??
-                                '');
+
+                        GoRouter.of(context)
+                            .pushNamed(Routes.heirarchyUserDetail, extra: {
+                          "folderId": taskFolderController
+                                  .filteredFoldersByDeadline[index].folderId ??
+                              '',
+                          "folderName": taskFolderController
+                                  .filteredFoldersByDeadline[index]
+                                  .folderName ??
+                              ''
+                        });
 
                         taskFolderController.fetchTasksInsideFolder(
                             taskInsideFolder: GetTaskInsideAFolderParamsModel(
@@ -133,7 +139,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                           '',
                       name: taskFolderController
                               .filteredFoldersByDeadline[index].folderName ??
-                          'Folder Name',
+                          '',
                       index: index,
                     ),
                   );

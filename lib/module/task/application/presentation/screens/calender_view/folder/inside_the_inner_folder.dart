@@ -17,6 +17,7 @@ import 'package:go_router/go_router.dart';
 class TaskInsideTheInnerFolderScreen extends StatelessWidget {
   const TaskInsideTheInnerFolderScreen({super.key, this.arguments});
   final Map<String, dynamic>? arguments;
+
   @override
   Widget build(BuildContext context) {
     final folderController = Get.find<TaskFolderController>();
@@ -27,26 +28,31 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new,
-                      size: 16,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).pop(context);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
+                        child: Icon(
+                          Icons.arrow_back_ios_new,
+                          size: 18.sp,
+                          color: Theme.of(context).colorScheme.onTertiary,
+                        ),
+                      ),
                     ),
-                  ),
-                  adjustWidth(20),
-                  Text(
-                    arguments?['innerFolderName'],
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(fontSize: 15),
-                  ),
-                ],
+                    adjustWidth(20.w),
+                    Text(
+                      arguments?['innerFolderName'],
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                  ],
+                ),
               ),
               adjustHieght(10),
               if (folderController.isLoading.value)

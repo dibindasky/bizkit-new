@@ -10,6 +10,7 @@ import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ReportsView extends StatelessWidget {
   const ReportsView({super.key});
@@ -20,29 +21,36 @@ class ReportsView extends StatelessWidget {
         Get.find<TaskHomeScreenController>();
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            controller.selectedTaskIds.clear();
-            controller.selectedFields.clear();
-            controller.selectedReportType.value = '';
-            // Get.back(id: 1);
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        title: Text(
-          'Tasks',
-          style:
-              Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 17),
-        ),
-        backgroundColor: knill,
-      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             children: [
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).pop(context);
+                      controller.selectedTaskIds.clear();
+                      controller.selectedFields.clear();
+                      controller.selectedReportType.value = '';
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        size: 18.sp,
+                        color: Theme.of(context).colorScheme.onTertiary,
+                      ),
+                    ),
+                  ),
+                  adjustWidth(20.w),
+                  Text(
+                    ' Tasks',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  )
+                ],
+              ),
               adjustHieght(15.h),
               Expanded(
                 child: Obx(
@@ -120,7 +128,7 @@ class ReportsView extends StatelessWidget {
                 ),
               ),
               EventButton(
-                color: const LinearGradient(colors: [kneon, kneon]),
+                color: neonNewLinearGradient,
                 text: 'Confirm to generate report',
                 onTap: () {
                   if (controller.selectedTaskIds.isEmpty) {
@@ -288,8 +296,7 @@ class ReportsView extends StatelessWidget {
                                     child: Obx(
                                       () => EventButton(
                                         width: kwidth * 0.9,
-                                        color: const LinearGradient(
-                                            colors: [kneon, kneon]),
+                                        color: neonNewLinearGradient,
                                         text: controller.fileDownloading.value
                                             ? 'Downloading...'
                                             : 'Generate Report',

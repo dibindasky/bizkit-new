@@ -699,12 +699,9 @@ class GoRouterConfig {
       name: Routes.addTask,
       path: Routes.addTask,
       pageBuilder: (context, state) {
-        final extra = state.extra as int;
         return FadeTransitionPage(
           key: state.pageKey,
-          child: ScreenAddTask(
-            navigationId: extra,
-          ),
+          child: ScreenAddTask(),
         );
       },
     ),
@@ -765,11 +762,12 @@ class GoRouterConfig {
       name: Routes.heirarchyUserDetail,
       path: Routes.heirarchyUserDetail,
       pageBuilder: (context, state) {
-        final extra = state.extra as String;
+        final extra = state.extra as Map<String, dynamic>;
         return FadeTransitionPage(
           key: state.pageKey,
           child: ScreenHeirarchyTaskUserDetails(
-            folderId: extra,
+            folderId: extra['folderId'],
+            folderName: extra['folderName'],
           ),
         );
       },
@@ -791,11 +789,14 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskDeail,
       path: '${Routes.taskDeail}/:taskId',
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final taskId = state.pathParameters['taskId'] ?? '';
         if (taskId != '') {
-          return ScreenTaskDetailPage(
-            taskId: taskId,
+          return FadeTransitionPage(
+            key: state.pageKey,
+            child: ScreenTaskDetailPage(
+              taskId: taskId,
+            ),
           );
         } else {
           return _errorScreen();
@@ -819,7 +820,12 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskNotification,
       path: Routes.taskNotification,
-      builder: (context, state) => const NotoficationBuilder(),
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const NotoficationBuilder(),
+        );
+      },
     ),
 
     GoRoute(

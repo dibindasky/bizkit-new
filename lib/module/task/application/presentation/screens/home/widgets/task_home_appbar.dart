@@ -6,6 +6,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 
 class TaskHomeAppBar extends StatelessWidget {
@@ -46,7 +47,7 @@ class TaskHomeAppBar extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Get.toNamed(Routes.taskTabNotification, id: 1);
+                GoRouter.of(context).pushNamed(Routes.taskTabNotification);
                 taskController.fetchReceivedRequests();
               },
               child: Container(
@@ -66,7 +67,7 @@ class TaskHomeAppBar extends StatelessWidget {
             adjustWidth(9.w),
             GestureDetector(
               onTap: () {
-                Get.toNamed(Routes.taskNotification, id: 1);
+                GoRouter.of(context).pushNamed(Routes.taskNotification);
               },
               child: Container(
                 width: 45.w,

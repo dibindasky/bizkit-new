@@ -84,7 +84,9 @@ class _AddParticipentBottomSheetState extends State<AddParticipentBottomSheet>
             showBorder: true,
             fillColor: textFieldFillColr,
             suffixIcon: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                FocusScope.of(context).unfocus(); 
+              },
               icon: const Icon(Icons.search, color: neonShade),
             ),
           ),

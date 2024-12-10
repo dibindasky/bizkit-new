@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/module/task/domain/model/chat/current_location/current_location_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/file/file_model.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll/poll.dart';
@@ -42,6 +43,7 @@ class TaskSql {
       await db.execute(_taskSubTasksTableCreation);
       await db.execute(_taskAssignedToDetailTableCreation);
       await db.execute(_filterByDeadlineTableCreation);
+      await db.execute(_recentTasksTableCreation);
       // task chat tables
       await db.execute(_taskMessagesTableCreation);
       await db.execute(_pollMessageTableCreation);
@@ -139,6 +141,16 @@ class TaskSql {
     FOREIGN KEY (${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId}) 
       REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE
+  )
+''';
+
+  /// Table for Recent task [GetRecentTasksResponce] relation with [GetTaskResponce]
+  static const _recentTasksTableCreation = '''
+  CREATE TABLE IF NOT EXISTS $recentTasksTable(
+  ${GetRecentTasksResponce.colRecentTaskLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+  ${GetRecentTasksResponce.colUserId} TEXT,
+  ${GetRecentTasksResponce.colRecentTaskId} TEXT,
+  ${GetRecentTasksResponce.colRecentTaskType} TEXT,
   )
 ''';
 

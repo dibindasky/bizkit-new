@@ -5,6 +5,9 @@ part 'get_recent_tasks_responce.g.dart';
 
 @JsonSerializable()
 class GetRecentTasksResponce {
+  // Local ID
+  int? localId;
+
   @JsonKey(name: 'self_to_self')
   List<RecentTasks>? selfToSelf;
   @JsonKey(name: 'self_to_others')
@@ -23,4 +26,9 @@ class GetRecentTasksResponce {
   }
 
   Map<String, dynamic> toJson() => _$GetRecentTasksResponceToJson(this);
+
+  static const colRecentTaskLocalId = 'recent_task_local_id';
+  static const colUserId = 'user_id';
+  static const colRecentTaskId = 'recent_task_id';
+  static const colRecentTaskType = 'recent_task_type';
 }

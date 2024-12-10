@@ -162,6 +162,8 @@ class TaskStatusCardWidget extends StatelessWidget {
                                           );
                                         },
                                         child: Container(
+                                          width: 140.w,
+                                          height: 50.h,
                                           margin: const EdgeInsets.all(3),
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10),
@@ -170,15 +172,18 @@ class TaskStatusCardWidget extends StatelessWidget {
                                             borderRadius: kBorderRadius10,
                                           ),
                                           child: Center(
-                                            child: Text(
-                                                tasks.taskTitle ?? 'Task title',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displaySmall
-                                                    ?.copyWith(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .onTertiary)),
+                                            child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text(tasks.taskTitle ?? '',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displaySmall
+                                                      ?.copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .onTertiary)),
+                                            ),
                                           ),
                                         ),
                                       );

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
@@ -886,5 +887,91 @@ class TaskLocalService implements TaskLocalRepo {
       WHERE ${FilterByDeadlineModel.colUserId} = ?
       ''', [currentUserId]);
     return countResult;
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>>
+      addRecentTaskToLocalIfNotExists({
+    required String recentTaskId,
+    required String recentTaskType,
+  }) async {
+    try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('addRecentTaskToLocalIfNotExists error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
+      //   const String query = '''
+      //   SELECT COUNT(*)
+      //   FROM ${TaskSql.recentTasksTable}
+      //   WHERE ${GetRecentTasksResponce.colRecentTaskId} = ?
+      //   AND ${GetRecentTasksResponce.colUserId} = ?
+      //  ''';
+
+      //   final bool present = await localService.presentOrNot(
+      //     query,
+      //     [
+      //       recentTaskId,
+      //       currentUserId,
+      //     ],
+      //   );
+
+      return await addRecentTaskToLocalStorage(
+          recentTaskId: recentTaskId, recentTaskType: recentTaskType);
+    } catch (e) {
+      log('addRecentTaskToLocalIfNotExists exception: ${e.toString()}');
+      if (e is TypeError) {
+        log('TypeError details: ${e.stackTrace}');
+      }
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> addRecentTaskToLocalStorage({
+    required String recentTaskId,
+    required String recentTaskType,
+  }) async {
+    try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('addRecentTaskToLocalStorage error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
+      const query = '''
+      INSERT INTO ${TaskSql.recentTasksTable}(
+        ${GetRecentTasksResponce.colUserId},
+        ${GetRecentTasksResponce.colRecentTaskId},
+        ${GetRecentTasksResponce.colRecentTaskType}
+      )
+      VALUES (?,?,?)
+     ''';
+
+      final List<dynamic> values = [
+        currentUserId,
+        recentTaskId,
+        recentTaskType,
+      ];
+
+      await localService.rawInsert(query, values);
+
+      log('addRecentTaskToLocalStorage success');
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('addRecentTaskToLocalStorage exception: ${e.toString()}');
+      if (e is TypeError) {
+        log('TypeError details: ${e.stackTrace}');
+      }
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetRecentTasksResponce>>
+      getRecentsTasksFromLocalStorage() async {
+    // TODO: implement getRecentsTasksFromLocalStorage
+    throw UnimplementedError();
   }
 }

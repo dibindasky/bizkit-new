@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/achievement.dart';
@@ -428,14 +429,12 @@ class _CardAchivementImageMakerState extends State<CardAchivementImageMaker> {
           children: [
             InkWell(
                 onTap: () {
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //     builder: (context) => SlidablePhotoGallery(
-                  //         initialIndex: widget.image!.length - widget.index - 1,
-                  //         images: widget.image!
-                  //             .map((e) => e.image!)
-                  //             .toList()
-                  //             .reversed
-                  //             .toList())));
+                          GoRouter.of(context)
+                              .pushNamed(Routes.slidablePhotoGallery, extra: {
+                            'images':  [widget.image![widget.index].image!],
+                            'initial':widget.index,
+                            'memory':widget.image![widget.index].networkImage==true? false:true,
+                          });
                 },
                 child: SizedBox(
                   width: 270.dm,

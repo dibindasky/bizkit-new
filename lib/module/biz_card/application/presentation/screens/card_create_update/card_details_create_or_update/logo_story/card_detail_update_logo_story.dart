@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_create_update/widgets/skip_or_continue_button.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -17,6 +17,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CardUpdateLogoStoryDetails extends StatefulWidget {
@@ -116,14 +117,12 @@ class _CardUpdateLogoStoryDetailsState
                                               null
                                       ? InkWell(
                                           onTap: () {
-                                            // Navigator.push(
-                                            //     context,
-                                            //     cardFadePageRoute(
-                                            //         SlidablePhotoGallery(images: [
-                                            //       businessController
-                                            //               .logoImage.value.image ??
-                                            //           ''
-                                            //     ])));
+                                              GoRouter.of(context)
+                              .pushNamed(Routes.slidablePhotoGallery, extra: {
+                            'images': [businessController.logoImage.value.image!] ,
+                            'initial':0,
+                            'memory':businessController.logoImage.value.networkImage?false:true,
+                          });
                                           },
                                           child: businessController
                                                   .logoImage.value.networkImage

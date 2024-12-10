@@ -61,11 +61,12 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
                     elevation: 0,
                     child: ListTile(
                       onTap: () {
-                        // GoRouter.of(context).pop();
+                     
                         GoRouter.of(context)
                             .pushReplacementNamed(Routes.accountSwitching);
                         controller.switchAccountLogin(context,
                             userId: data.uid ?? '');
+                               GoRouter.of(context).pop();
                       },
                       leading: const CircleAvatar(
                         backgroundImage: AssetImage(chatSectionPersonDummyImg2),

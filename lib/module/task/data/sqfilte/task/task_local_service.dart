@@ -511,8 +511,6 @@ class TaskLocalService implements TaskLocalRepo {
       const query = '''
       UPDATE ${TaskSql.tasksTable}
       SET 
-        ${GetTaskResponce.colUserId} = ?,
-        ${GetTaskResponce.colTaskId} = ?,
         ${GetTaskResponce.colTaskTitle} = ?,
         ${GetTaskResponce.colTaskDescription} = ?,
         ${GetTaskResponce.colTaskCreatedAt} = ?,
@@ -530,8 +528,6 @@ class TaskLocalService implements TaskLocalRepo {
     ''';
 
       final List<dynamic> values = [
-        currentUserId,
-        taskModel.id ?? '',
         taskModel.title ?? '',
         taskModel.description ?? '',
         taskModel.createdAt ?? '',
@@ -820,8 +816,8 @@ class TaskLocalService implements TaskLocalRepo {
       List<Map<String, dynamic>> alltasks =
           await _getPaginatedTasks(currentUserData.uid ?? '', pageSize, offset);
 
-      List<task.Task> filteredTasks =
-          await _filterTasksByDeadline(alltasks, deadline);
+      List<task.Task> filteredTasks = await _filterTasksByDeadline(
+          alltasks, deadline, currentUserData.uid ?? '');
 
       // Sort tasks by spotlight status
       filteredTasks.sort((a, b) {
@@ -842,7 +838,9 @@ class TaskLocalService implements TaskLocalRepo {
   }
 
   Future<List<task.Task>> _filterTasksByDeadline(
-      List<Map<String, dynamic>> alltasks, DateTime deadline) async {
+      List<Map<String, dynamic>> alltasks,
+      DateTime deadline,
+      String uid) async {
     List<task.Task> filteredTasks = [];
 
     for (var item in alltasks) {
@@ -855,9 +853,10 @@ class TaskLocalService implements TaskLocalRepo {
           final data = await localService.rawQuery(
             '''
             SELECT * FROM ${TaskSql.tasksTable} 
-          WHERE ${GetTaskResponce.colTaskId} = ?
-          ''',
-            [item[FilterByDeadlineModel.colTaskId]],
+            WHERE ${GetTaskResponce.colTaskId} = ? AND
+            ${GetTaskResponce.colUserId} = ?
+            ''',
+            [item[FilterByDeadlineModel.colTaskId], uid],
           );
 
           if (data.isNotEmpty) {
@@ -873,10 +872,10 @@ class TaskLocalService implements TaskLocalRepo {
       currentUserId, int pageSize, int offset) async {
     final List<Map<String, dynamic>> alltasks = await localService.rawQuery('''
       SELECT * FROM ${TaskSql.filterByDeadlineTable} 
-    WHERE ${FilterByDeadlineModel.colUserId} = ? 
-    ORDER BY ${FilterByDeadlineModel.colTaskFilterByDeadline} DESC
-    LIMIT ? OFFSET ?
-    ''', [currentUserId, pageSize, offset]);
+      WHERE ${FilterByDeadlineModel.colUserId} = ? 
+      ORDER BY ${FilterByDeadlineModel.colTaskFilterByDeadline} DESC
+      LIMIT ? OFFSET ?
+      ''', [currentUserId, pageSize, offset]);
     return alltasks;
   }
 
@@ -884,8 +883,8 @@ class TaskLocalService implements TaskLocalRepo {
     final countResult = await localService.rawQuery('''
       SELECT COUNT(*) as count 
       FROM ${TaskSql.filterByDeadlineTable} 
-    WHERE ${FilterByDeadlineModel.colUserId} = ?
-    ''', [currentUserId]);
+      WHERE ${FilterByDeadlineModel.colUserId} = ?
+      ''', [currentUserId]);
     return countResult;
   }
 }

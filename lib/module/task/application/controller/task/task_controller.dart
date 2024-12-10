@@ -952,6 +952,7 @@ class CreateTaskController extends GetxController {
       (success) async {
         if (success.data?.isNotEmpty ?? false) {
           deadlineTasksPageNumber++;
+          // TODO: check and add uing id
           deadlineTasks.addAll(success.data ?? []);
 
           // Store new tasks in local database
@@ -1673,7 +1674,7 @@ class CreateTaskController extends GetxController {
       tasksSearch.value = [];
       final result = await taskService.taskSearch(
           taskSearchItem: UserSearchModel(
-              filterType: 'all',
+         
               page: taskSearchPageNumber,
               pageSize: taskSearchPageSize,
               searchTerm: taskSearchController.text));

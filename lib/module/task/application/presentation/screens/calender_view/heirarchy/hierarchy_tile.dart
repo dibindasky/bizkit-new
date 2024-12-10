@@ -17,7 +17,6 @@ import 'package:bizkit/module/task/domain/model/folders/inner_folder/delete_inne
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/edit_inner_folder_model/edit_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/filter_inner_folder_modle/filter_inner_folder_modle.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/inner_folder_tasks_get_params_model/inner_folder_tasks_get_params_model.dart';
-import 'package:bizkit/module/task/domain/model/hierarchy/employee_tasks_based_on_type/employee_tasks_based_on_type.dart';
 import 'package:bizkit/module/task/domain/model/hierarchy/employees_list_responce/employee.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -25,7 +24,6 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
-import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
@@ -113,10 +111,11 @@ class HierarchyListtile extends StatelessWidget {
 }
 
 class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
-  const ScreenHeirarchyTaskUserDetails({super.key, this.folderId});
+  const ScreenHeirarchyTaskUserDetails(
+      {super.key, this.folderId, this.folderName});
 
   final String? folderId;
-
+  final String? folderName;
   @override
   Widget build(BuildContext context) {
     // log('Main Folder Id :$folderId');
@@ -207,49 +206,50 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
               children: [
                 adjustHieght(10),
                 controller.selectedFolderContainer.value
-                    ? TaskLongPressAppBarItems(
-                        folderId: folderId ?? '',
-                        mergeInnerFolder: true,
+                    ? Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        child: TaskLongPressAppBarItems(
+                          folderId: folderId ?? '',
+                          mergeInnerFolder: true,
+                        ),
                       )
-                    : Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(
-                              Icons.arrow_back_ios_new,
-                              size: 16,
+                    : Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                GoRouter.of(context).pop(context);
+                              },
+                              child: CircleAvatar(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.onPrimary,
+                                child: Icon(
+                                  Icons.arrow_back_ios_new,
+                                  size: 18.sp,
+                                  color:
+                                      Theme.of(context).colorScheme.onTertiary,
+                                ),
+                              ),
                             ),
-                          ),
-                          adjustWidth(20),
-                          Obx(
-                            () => controller.isLoading.value
-                                ? ShimmerLoaderTile(
-                                    height: 15.h,
-                                    width: 80.w,
-                                  )
-                                : Text(
-                                    controller.foldername.value,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall
-                                        ?.copyWith(fontSize: 16),
-                                  ),
-                          ),
-                          const Spacer(),
-                          CustomCircleAvatar(
-                            backgroundColor: kblack,
-                            onTap: () => showInnerFolderDialog(),
-                            backgroundColorInner: kneon,
-                            child: const Icon(
-                              Icons.add,
-                              size: 20,
-                              color: kneon,
+                            adjustWidth(20.w),
+                            Text(
+                              folderName ?? '',
+                              style: Theme.of(context).textTheme.displayMedium,
                             ),
-                          ),
-                          adjustWidth(10),
-                        ],
+                            const Spacer(),
+                            CustomCircleAvatar(
+                              backgroundColor: kblack,
+                              onTap: () => showInnerFolderDialog(),
+                              backgroundColorInner: kneon,
+                              child: const Icon(
+                                Icons.add,
+                                size: 20,
+                                color: kneon,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                 adjustHieght(10),
                 Obx(
@@ -438,20 +438,18 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                           .innerFolderId ??
                                                       '');
                                             } else {
-                                              Get.toNamed(
-                                                Routes
-                                                    .taskInsideTheInnerFolderScreen,
-                                                arguments: {
-                                                  'innerFolderName': innerFolder
-                                                          .innerFolderName ??
-                                                      '',
-                                                  'innerFolderId': innerFolder
-                                                          .innerFolderId ??
-                                                      '',
-                                                  'folderId': folderId ?? ''
-                                                },
-                                                id: 2,
-                                              );
+                                              GoRouter.of(context).pushNamed(
+                                                  Routes
+                                                      .taskInsideTheInnerFolderScreen,
+                                                  extra: {
+                                                    'innerFolderName': innerFolder
+                                                            .innerFolderName ??
+                                                        '',
+                                                    'innerFolderId': innerFolder
+                                                            .innerFolderId ??
+                                                        '',
+                                                    'folderId': folderId ?? ''
+                                                  });
 
                                               controller.fetchAllTasksInsideAInnerFolder(
                                                   InnerFolderTasksGetParamsModel(
@@ -467,7 +465,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                             tileColor: controller
                                                     .selectedIndices
                                                     .contains(index)
-                                                ? lightColr
+                                                ? klightgrey
                                                 : knill,
                                             leading: controller.selectedIndices
                                                     .contains(index)

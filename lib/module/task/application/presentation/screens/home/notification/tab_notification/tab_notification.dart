@@ -2,8 +2,11 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/request_recieved.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/tab_notification/request_sent.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class TaskTabNotification extends StatelessWidget {
   TaskTabNotification({super.key});
@@ -21,28 +24,43 @@ class TaskTabNotification extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: knill,
           leading: IconButton(
-            onPressed: () => Get.back(id: 1),
+            onPressed: () => GoRouter.of(context).pop(context),
             icon: const Icon(Icons.arrow_back_ios_new, size: 17),
           ),
-          bottom: TabBar(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            dividerHeight: 0,
-            dividerColor: WidgetStateColor.transparent,
-            indicator: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            indicatorSize: TabBarIndicatorSize.tab,
-            labelColor: kwhite,
-            labelStyle: Theme.of(context).textTheme.displaySmall,
-            indicatorColor: knill,
-            tabs: const [
-              Tab(text: 'Requests Received'),
-              Tab(
-                text: 'Requests Sent',
-              ),
-            ],
-          ),
+          bottom: PreferredSize(
+              preferredSize: Size(double.infinity, 50.h),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: kneon,
+                    ),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(23),
+                    ),
+                  ),
+                  child: TabBar(
+                    dividerHeight: 0,
+                    dividerColor: WidgetStateColor.transparent,
+                    indicatorPadding: const EdgeInsets.all(3),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicator: BoxDecoration(
+                      color: kneon,
+                      borderRadius: kBorderRadius20,
+                    ),
+                    labelStyle: Theme.of(context).textTheme.displaySmall,
+                    labelColor: kwhite,
+                    indicatorColor: knill,
+                    tabs: const [
+                      Tab(text: 'Requests Received'),
+                      Tab(
+                        text: 'Requests Sent',
+                      ),
+                    ],
+                  ),
+                ),
+              )),
           title: Text(
             'Requests',
             style: Theme.of(context)

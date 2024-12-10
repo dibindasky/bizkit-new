@@ -604,10 +604,10 @@ class CreateTaskController extends GetxController {
   }
 
   // Creates a new task with the provided task model
-  void createNewTask(
-      {required TaskModel task,
-      required BuildContext context,
-      required int navigationId}) async {
+  void createNewTask({
+    required TaskModel task,
+    required BuildContext context,
+  }) async {
     taskCreationLoading.value = true;
 
     List<Attachment> attachments =
@@ -624,7 +624,7 @@ class CreateTaskController extends GetxController {
     result.fold(
       (error) {
         taskCreationLoading.value = false;
-        Get.back(id: navigationId);
+        GoRouter.of(context).pop(context);
         clearSelectedFiles();
         subTasks.clear();
         tags.clear();
@@ -642,7 +642,7 @@ class CreateTaskController extends GetxController {
         taskCreationLoading.value = false;
 
         testTaskId = success.taskId.toString();
-        Get.back(id: navigationId);
+        GoRouter.of(context).pop(context);
         clearSelectedFiles();
         subTasks.clear();
         tags.clear();

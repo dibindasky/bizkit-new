@@ -8,10 +8,11 @@ import 'package:bizkit/module/task/application/presentation/widgets/circle_avata
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/merge_inner_folder_model/merge_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
 class TaskCalenderViewAppBar extends StatelessWidget {
   const TaskCalenderViewAppBar({
@@ -42,11 +43,7 @@ class TaskCalenderViewAppBar extends StatelessWidget {
               if (controller.taskTabChangeIndex.value == 2) {
                 showCreateFolderDialog(context);
               } else {
-                Get.toNamed(
-                  Routes.addTask,
-                  id: 2,
-                  arguments: 2,
-                );
+                GoRouter.of(context).pushNamed(Routes.addTask);
               }
             },
             backgroundColorInner: kneon,
@@ -56,7 +53,7 @@ class TaskCalenderViewAppBar extends StatelessWidget {
               color: kneon,
             ),
           ),
-          adjustWidth(7.w),
+          adjustWidth(10.w),
         ],
       ),
     );
@@ -216,57 +213,65 @@ class TaskLongPressAppBarItems extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 80.h,
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {
-              if (mergeInnerFolder == true) {
-                folderController.selectedIndices.clear();
-                folderController.selectedInnerFolderIds.clear();
-                folderController.selectedFolderContainer.value = false;
-              } else {
-                controller.selectedIndices.clear();
-                folderController.selectedFolderIds.clear();
-                controller.selectedFolderContainer.value = false;
-              }
-            },
-            icon: const Icon(Icons.close, color: neonShade),
-          ),
-          const Spacer(),
-          InkWell(
-            onTap: () {
-              if (mergeInnerFolder == true) {
-                _showMergeInnerFoldersDialog(context);
-              } else {
-                _showMergeFoldersDialog(context);
-              }
-              // if (controller.taskTabChangeIndex.value == 2) {
-              //   log('clicked');
-              //   _showMergeFoldersDialog(context);
-              // } else {
-              //   log('_showMergeInnerFoldersDialog ===== >clicked');
-              //   _showMergeInnerFoldersDialog(context);
-              // }
-            },
-            child: SizedBox(
-              height: 20.h,
-              width: 20.w,
-              child: Image.asset(taskFolderLongPressMergeImage),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                if (mergeInnerFolder == true) {
+                  folderController.selectedIndices.clear();
+                  folderController.selectedInnerFolderIds.clear();
+                  folderController.selectedFolderContainer.value = false;
+                } else {
+                  controller.selectedIndices.clear();
+                  folderController.selectedFolderIds.clear();
+                  controller.selectedFolderContainer.value = false;
+                }
+              },
+              child: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                child: Icon(
+                  Icons.close,
+                  size: 18.sp,
+                  color: Theme.of(context).colorScheme.onTertiary,
+                ),
+              ),
             ),
-          ),
-          adjustWidth(22.w),
-          InkWell(
-            onTap: () {
-              if (controller.taskTabChangeIndex.value == 2) {}
-            },
-            child: SizedBox(
-              height: 25.h,
-              width: 25.w,
-              child: Image.asset(taskFolderLongPressSelectAllImage),
+            const Spacer(),
+            GestureDetector(
+              onTap: () {
+                if (mergeInnerFolder == true) {
+                  _showMergeInnerFoldersDialog(context);
+                } else {
+                  _showMergeFoldersDialog(context);
+                }
+              },
+              child: Container(
+                width: 45.w,
+                height: 45.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: klightgrey),
+                  color: Theme.of(context).colorScheme.onTertiary,
+                ),
+                child: const Icon(Iconsax.export_3),
+              ),
             ),
-          ),
-          adjustWidth(10.w),
-        ],
+            // adjustWidth(22.w),
+            // InkWell(
+            //   onTap: () {
+            //     if (controller.taskTabChangeIndex.value == 2) {}
+            //   },
+            //   child: SizedBox(
+            //     height: 25.h,
+            //     width: 25.w,
+            //     child: Image.asset(taskFolderLongPressSelectAllImage),
+            //   ),
+            // ),
+            adjustWidth(10.w),
+          ],
+        ),
       ),
     );
   }

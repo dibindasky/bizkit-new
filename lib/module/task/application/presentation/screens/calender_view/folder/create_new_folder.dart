@@ -54,13 +54,11 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Folder Name',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displaySmall
-                          ?.copyWith(color: kneon),
-                    ),
+                    Text('Folder Name',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(color: kneonDark)),
                     adjustHieght(3.h),
                     TaskTextField(
                       // showBorder: true,
@@ -74,7 +72,7 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
               actions: [
                 Center(
                   child: EventButton(
-                    color: const LinearGradient(colors: [kneon, kneon]),
+                    color: neonNewLinearGradient,
                     width: 160.w,
                     text: folderName != null ? 'Save Changes' : 'Create Folder',
                     onTap: () {

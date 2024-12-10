@@ -24,7 +24,7 @@ class TaskSearchScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Get.back(id: 1);
+            GoRouter.of(context).pop(context);
             taskController.taskSearchController.clear();
             FocusScope.of(context).unfocus();
           },

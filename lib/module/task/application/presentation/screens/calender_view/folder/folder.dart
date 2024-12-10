@@ -178,9 +178,11 @@ void showTaskSelectionBottomSheet(
 
   taskController.selectedTasks.clear();
 
-  showBottomSheet(
+  showModalBottomSheet(
     enableDrag: true,
     context: context,
+    constraints: BoxConstraints(maxHeight: khieght * 0.8),
+    isScrollControlled: true,
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     builder: (context) {
       return Container(
@@ -190,12 +192,25 @@ void showTaskSelectionBottomSheet(
           mainAxisSize: MainAxisSize.min,
           children: [
             adjustHieght(10.h),
-            Text(
-              'Select Tasks to Add',
-              style: Theme.of(context)
-                  .textTheme
-                  .displaySmall
-                  ?.copyWith(fontSize: 14),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Select Tasks to Add',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 14),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(context);
+                      },
+                      icon: const Icon(Icons.close))
+                ],
+              ),
             ),
             adjustHieght(10.h),
             Padding(
@@ -330,7 +345,7 @@ void showTaskSelectionBottomSheet(
                   }
                 }
               },
-              color: const LinearGradient(colors: [kneon, kneon]),
+              color: neonNewLinearGradient,
               text: 'Add Tasks',
             ),
             adjustHieght(10.h),

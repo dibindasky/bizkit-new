@@ -1,19 +1,22 @@
-import 'package:bizkit/core/routes/indexed_stack_route/on_generate_route.dart';
-import 'package:bizkit/core/routes/routes.dart';
+// import 'package:bizkit/core/routes/indexed_stack_route/on_generate_route.dart';
+// import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/module/module_selector.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/profile_screen.dart';
 import 'package:bizkit/module/task/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/calender_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
-import 'package:bizkit/utils/clipper/bottom_bar_clipper.dart';
+// import 'package:bizkit/module/task/application/presentation/screens/calender_view/calender_view.dart';
+// import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
+// import 'package:bizkit/utils/clipper/bottom_bar_clipper.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/show_dialogue/show_exit_dialog.dart';
 import 'package:bizkit/utils/widgets/custom_botoom_bar.dart';
-import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
-import 'package:bottom_bar_matu/bottom_bar_item.dart';
+// import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
+// import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ScreenNavbarTaskModule extends StatefulWidget {
@@ -25,19 +28,21 @@ class ScreenNavbarTaskModule extends StatefulWidget {
 
 class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
   final List<Widget> _widgetOptions = [
-    ScreenModuleSelector(),
     // const TaskHomeScreen(),
     // const ScreenTaskCalenderView(),
-    Navigator(
-      key: Get.nestedKey(1),
-      initialRoute: Routes.taskHome,
-      onGenerateRoute: RouteGenerator().onGenerateRoute,
-    ),
-    Navigator(
-      key: Get.nestedKey(2),
-      initialRoute: Routes.cardDetailView,
-      onGenerateRoute: RouteGenerator().onGenerateRoute,
-    ),
+    // Navigator(
+    //   key: Get.nestedKey(1),
+    //   initialRoute: Routes.taskHome,
+    //   onGenerateRoute: RouteGenerator().onGenerateRoute,
+    // ),
+    // Navigator(
+    //   key: Get.nestedKey(2),
+    //   initialRoute: Routes.cardDetailView,
+    //   onGenerateRoute: RouteGenerator().onGenerateRoute,
+    // ),
+    ScreenModuleSelector(),
+    const TaskHomeScreen(),
+    const ScreenTaskCalenderView(),
     const ProfileScreen()
   ];
   @override
@@ -46,8 +51,22 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
       builder: (controller) {
         return PopScope(
           canPop: false,
-          onPopInvoked: (didPop) =>
-              controller.handlePopInvocation(didPop, context),
+          onPopInvoked: (didPop) {
+            // controller.handlePopInvocation(didPop, context);
+            if (didPop) {
+              return;
+            }
+
+            if (controller.taskBottomIndex.value == 2 ||
+                controller.taskBottomIndex.value == 3) {
+              controller.changeBottomIndex(1);
+            } else if (controller.taskBottomIndex.value == 1) {
+              controller.changeBottomIndex(0);
+            } else {
+              // Shows an exit confirmation dialog
+              showExitDialog(context);
+            }
+          },
           child: Scaffold(
               // body: IndexedStack(index: selectedIndex, children: [
               //   ScreenModuleSelector(),

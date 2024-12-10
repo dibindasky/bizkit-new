@@ -1,6 +1,7 @@
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/widget/notification_container.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class NotoficationBuilder extends StatelessWidget {
   const NotoficationBuilder({super.key});
@@ -11,7 +12,7 @@ class NotoficationBuilder extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: knill,
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => GoRouter.of(context).pop(context),
           icon: const Icon(
             Icons.arrow_back_ios_new,
             size: 18,

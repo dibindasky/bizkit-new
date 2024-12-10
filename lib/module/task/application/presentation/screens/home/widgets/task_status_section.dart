@@ -8,6 +8,7 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class TaskStatusSection extends StatelessWidget {
   const TaskStatusSection({
@@ -29,7 +30,7 @@ class TaskStatusSection extends StatelessWidget {
             onTap: () {
               taskController.searchTasks();
               FocusScope.of(context).unfocus();
-              Get.toNamed(Routes.taskSearch, id: 1);
+              GoRouter.of(context).pushNamed(Routes.taskSearch);
             },
             child: TextField(
               enabled: false,
@@ -57,7 +58,7 @@ class TaskStatusSection extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Get.toNamed(Routes.addTask, id: 1, arguments: 1);
+                GoRouter.of(context).pushNamed(Routes.addTask);
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -92,7 +93,8 @@ class TaskStatusSection extends StatelessWidget {
 
               taskController.filterByType();
               taskController.filterPinnedTasksByType();
-              Get.toNamed(Routes.taskLists, id: 1);
+              GoRouter.of(context).pushNamed(Routes.taskLists,
+                  extra: {'fromHeirarachy': false, 'targetUserId': ''});
             } else if (homeController.taskStatusTabIndex.value == 1) {
               homeController.changeSelectedTaskCategory('Self to others');
 
@@ -100,7 +102,8 @@ class TaskStatusSection extends StatelessWidget {
 
               taskController.filterByType();
               taskController.filterPinnedTasksByType();
-              Get.toNamed(Routes.taskLists, id: 1);
+              GoRouter.of(context).pushNamed(Routes.taskLists,
+                  extra: {'fromHeirarachy': false, 'targetUserId': ''});
             } else {
               homeController.changeSelectedTaskCategory('Others to self');
 
@@ -108,7 +111,8 @@ class TaskStatusSection extends StatelessWidget {
               taskController.filterByType();
 
               taskController.filterPinnedTasksByType();
-              Get.toNamed(Routes.taskLists, id: 1);
+              GoRouter.of(context).pushNamed(Routes.taskLists,
+                  extra: {'fromHeirarachy': false, 'targetUserId': ''});
             }
           },
           child: SizedBox(
@@ -128,7 +132,11 @@ class TaskStatusSection extends StatelessWidget {
 
                         taskController.filterByType();
                         taskController.filterPinnedTasksByType();
-                        Get.toNamed(Routes.taskLists, id: 1);
+                        GoRouter.of(context).pushNamed(Routes.taskLists,
+                            extra: {
+                              'fromHeirarachy': false,
+                              'targetUserId': ''
+                            });
                       }
                     },
                     homeController: homeController,
@@ -154,7 +162,11 @@ class TaskStatusSection extends StatelessWidget {
 
                         taskController.filterByType();
                         taskController.filterPinnedTasksByType();
-                        Get.toNamed(Routes.taskLists, id: 1);
+                        GoRouter.of(context).pushNamed(Routes.taskLists,
+                            extra: {
+                              'fromHeirarachy': false,
+                              'targetUserId': ''
+                            });
                       }
                     },
                     homeController: homeController,
@@ -180,7 +192,11 @@ class TaskStatusSection extends StatelessWidget {
                         taskController.filterByType();
 
                         taskController.filterPinnedTasksByType();
-                        Get.toNamed(Routes.taskLists, id: 1);
+                        GoRouter.of(context).pushNamed(Routes.taskLists,
+                            extra: {
+                              'fromHeirarachy': false,
+                              'targetUserId': ''
+                            });
                       }
                     },
                     homeController: homeController,

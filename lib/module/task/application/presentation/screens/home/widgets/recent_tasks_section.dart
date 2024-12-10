@@ -40,7 +40,8 @@ class RecentTasksSection extends StatelessWidget {
                 taskController.changeFilterTaskType('all');
                 taskController.filterByType();
                 taskController.filterPinnedTasksByType();
-                Get.toNamed(Routes.taskLists, id: 1);
+                GoRouter.of(context).pushNamed(Routes.taskLists,
+                    extra: {'fromHeirarachy': false, 'targetUserId': ''});
               },
               child: Text(
                 'See all',
@@ -112,14 +113,14 @@ class RecentTasksSection extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                recnetTask.taskTitle ?? 'TaskTitle',
+                                recnetTask.taskTitle ?? '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .displaySmall
                                     ?.copyWith(fontSize: 13),
                               ),
                               Text(
-                                recnetTask.deadLine ?? 'deadline',
+                                recnetTask.deadLine ?? '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .displaySmall
@@ -134,7 +135,7 @@ class RecentTasksSection extends StatelessWidget {
                                   child: Flash(
                                     // infinite: true,
                                     animate: true,
-                                    child: Text('unread messages $count',
+                                    child: Text('Unread messages $count',
                                         style: Theme.of(context)
                                             .textTheme
                                             .displaySmall

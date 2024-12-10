@@ -25,7 +25,6 @@ import 'package:bizkit/module/attendence/application/presentation/screens/home/h
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/calender_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/inside_the_inner_folder.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
-import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/edit_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/reports_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/search_tasks.dart';
@@ -33,7 +32,6 @@ import 'package:bizkit/module/task/application/presentation/screens/home/notific
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/send_and_received_req/tab_notification.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_search.dart';
-import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/total_tasks_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -53,16 +51,16 @@ class RouteGenerator {
         );
       case Routes.taskLists:
         return MaterialPageRoute(builder: (ctx) => const TotalTasksScreen());
-      case Routes.addTask:
-        if (arguments is int) {
-          return MaterialPageRoute(
-            builder: (ctx) => ScreenAddTask(
-              navigationId: arguments,
-            ),
-          );
-        } else {
-          return _errorScreen();
-        }
+      // case Routes.addTask:
+      //   if (arguments is int) {
+      //     return MaterialPageRoute(
+      //       builder: (ctx) => ScreenAddTask(
+      //         navigationId: arguments,
+      //       ),
+      //     );
+      //   } else {
+      //     return _errorScreen();
+      //   }
 
       case Routes.taskInsideTheInnerFolderScreen:
         if (arguments is Map<String, dynamic>?) {
@@ -92,16 +90,16 @@ class RouteGenerator {
       case Routes.reportsview:
         return MaterialPageRoute(builder: (ctx) => const ReportsView());
 
-      case Routes.heirarchyUserDetail:
-        if (arguments is String) {
-          return MaterialPageRoute(
-            builder: (context) => ScreenHeirarchyTaskUserDetails(
-              folderId: arguments,
-            ),
-          );
-        } else {
-          return _errorScreen();
-        }
+      // case Routes.heirarchyUserDetail:
+      //   if (arguments is String) {
+      //     return MaterialPageRoute(
+      //       builder: (context) => ScreenHeirarchyTaskUserDetails(
+      //         folderId: arguments,
+      //       ),
+      //     );
+      //   } else {
+      //     return _errorScreen();
+      //   }
 
       //Attendence Module
       case Routes.attendenceHome:

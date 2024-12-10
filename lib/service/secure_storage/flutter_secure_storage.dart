@@ -119,10 +119,10 @@ class SecureStorage {
     return prefs.getString(idKey);
   }
 
-  static Future<bool> setUserId(String userId) async {
-    final prefs = await _getPrefs();
-    return prefs.setString(idKey, userId);
-  }
+  // static Future<bool> setUserId(String userId) async {
+  //   final prefs = await _getPrefs();
+  //   return prefs.setString(idKey, userId);
+  // }
 
   // Show case function
   static Future<void> setHomeShowCaseViwed(String key) async {

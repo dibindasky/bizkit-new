@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/core/model/token/access_token/token_model.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
@@ -794,9 +795,10 @@ class TaskLocalService implements TaskLocalRepo {
     try {
       log('getTasksFromLocalStorage To Json ==== > page : $page , pageSize : $pageSize');
       final deadline = DateTime.parse(filterByDeadline);
-      final String? currentUserId = await userId;
+      final currentUserData = await SecureStorage.getToken();
+      print('Taskcurrent User Id = ${currentUserData.uid ?? ''}');
 
-      if (currentUserId == null) {
+      if (currentUserData.uid == null) {
         log('getTaskFullDetailsFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
@@ -806,7 +808,7 @@ class TaskLocalService implements TaskLocalRepo {
 
       // First get total count of matching tasks
       List<Map<String, Object?>> countResult =
-          await _getTotalTaskCount(currentUserId);
+          await _getTotalTaskCount(currentUserData.uid ?? '');
 
       final totalTasks = Sqflite.firstIntValue(countResult) ?? 0;
 
@@ -817,7 +819,7 @@ class TaskLocalService implements TaskLocalRepo {
 
       // Get paginated tasks
       List<Map<String, dynamic>> alltasks =
-          await _getPaginatedTasks(currentUserId, pageSize, offset);
+          await _getPaginatedTasks(currentUserData.uid ?? '', pageSize, offset);
 
       List<task.Task> filteredTasks =
           await _filterTasksByDeadline(alltasks, deadline);
@@ -832,7 +834,7 @@ class TaskLocalService implements TaskLocalRepo {
       //   print('Task from sql database ==== > ${task.title}');
       // }
 
-      log('getTasksFromLocalStorage success ');
+      log('getTasksFromLocalStorage success  : ${filteredTasks.length} tasks found for user ${currentUserData.uid}');
       return Right(filteredTasks);
     } catch (e) {
       log('getTasksFromLocalStorage error: ${e.toString()}');
@@ -869,7 +871,7 @@ class TaskLocalService implements TaskLocalRepo {
   }
 
   Future<List<Map<String, dynamic>>> _getPaginatedTasks(
-      String currentUserId, int pageSize, int offset) async {
+      currentUserId, int pageSize, int offset) async {
     final List<Map<String, dynamic>> alltasks = await localService.rawQuery('''
       SELECT * FROM ${TaskSql.filterByDeadlineTable} 
     WHERE ${FilterByDeadlineModel.colUserId} = ? 
@@ -879,8 +881,7 @@ class TaskLocalService implements TaskLocalRepo {
     return alltasks;
   }
 
-  Future<List<Map<String, Object?>>> _getTotalTaskCount(
-      String currentUserId) async {
+  Future<List<Map<String, Object?>>> _getTotalTaskCount(currentUserId) async {
     final countResult = await localService.rawQuery('''
       SELECT COUNT(*) as count 
       FROM ${TaskSql.filterByDeadlineTable} 

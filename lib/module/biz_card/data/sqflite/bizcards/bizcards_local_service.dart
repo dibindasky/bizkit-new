@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/core/model/token/access_token/token_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/banking_details_model/banking_details_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/business_details.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
@@ -12,7 +13,6 @@ import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/bizcard/bizcard_oncreate_db.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
-import 'package:get/get.dart';
 
 class BizcardsLocalService implements BizcardsLocalRepo {
   final LocalService localService = LocalService();
@@ -377,10 +377,16 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addBizcardToLocalStorage(
       {required Bizcard bizcardModel}) async {
     try {
-      final String? currentUserId = await userId;
-      if (currentUserId == null) {
+      final model = await SecureStorage.getToken();
+      if (model.uid == null) {
         log('addBizcardToLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
+      }
+
+      // Validate BizcardModel
+      if (bizcardModel.bizcardId == null || bizcardModel.bizcardId!.isEmpty) {
+        log('addBizcardToLocalStorage error: Bizcard ID is missing');
+        return Left(Failure(message: "Bizcard ID is missing"));
       }
       const query = '''
       INSERT INTO ${BizCardSql.bizcardTable}(
@@ -402,7 +408,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
       ''';
 
       final List<dynamic> values = [
-        currentUserId,
+        model.uid,
         bizcardModel.bizcardId ?? '',
         bizcardModel.companyName ?? '',
         bizcardModel.completionLevel ?? 0,
@@ -432,10 +438,14 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> updateBizcardFromLocalStorage(
       {required Bizcard bizcardModel}) async {
     try {
-      final String? currentUserId = await userId;
-      if (currentUserId == null) {
+      final model = await SecureStorage.getToken();
+      if (model.uid == null) {
         log('updateBizcardFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
+      }
+      if (bizcardModel.bizcardId == null || bizcardModel.bizcardId!.isEmpty) {
+        log('updateBizcardFromLocalStorage error: Bizcard ID is missing');
+        return Left(Failure(message: "Bizcard ID is missing"));
       }
       const query = '''
       UPDATE ${BizCardSql.bizcardTable}
@@ -459,7 +469,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
       ''';
 
       final List<dynamic> values = [
-        currentUserId,
+        model.uid,
         bizcardModel.bizcardId ?? '',
         bizcardModel.companyName ?? '',
         bizcardModel.completionLevel ?? 0,
@@ -474,11 +484,14 @@ class BizcardsLocalService implements BizcardsLocalRepo {
         bizcardModel.universalLink ?? '',
         bizcardModel.views ?? 0,
         bizcardModel.bizcardId ?? '', // for WHERE clause
-        currentUserId, // for WHERE clause
+        model.uid, // for WHERE clause
       ];
+      final rowsUpdated = await localService.rawUpdate(query, values);
 
-      await localService.rawUpdate(query, values);
-
+      if (rowsUpdated == 0) {
+        log('updateBizcardFromLocalStorage error: No record found to update');
+        return Left(Failure(message: "No record found to update"));
+      }
       log('updateBizcardFromLocalStorage success =====> ');
       return Right(SuccessResponseModel());
     } catch (e) {
@@ -491,8 +504,9 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addBizcardToLocalIfNotExists(
       {required Bizcard bizcardModel}) async {
     try {
-      final String? currentUserId = await userId;
-      if (currentUserId == null) {
+      final model = await SecureStorage.getToken();
+
+      if (model.uid == null) {
         log('addBizcardToLocalIfNotExists error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
@@ -505,7 +519,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
 
       final bool present = await localService.presentOrNot(query, [
         bizcardModel.bizcardId,
-        currentUserId,
+        model.uid,
       ]);
 
       if (!present) {
@@ -523,32 +537,30 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, List<Bizcard>>>
       getBizcardsFromLocalLocalStorage() async {
     try {
-      final String? currentUserId = await userId;
+      final currentUserData = await SecureStorage.getToken();
 
-      if (currentUserId == null) {
+      if (currentUserData.uid == null) {
         log('getBizcardsFromLocalLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
 
       const String query = '''
-      SELECT * 
+      SELECT *
       FROM ${BizCardSql.bizcardTable}
       WHERE ${CardDetailModel.colUserId} = ?
     ''';
 
       // Fetch only the current user's data
       final List<Map<String, dynamic>> result =
-          await localService.rawQuery(query, [currentUserId]);
+          await localService.rawQuery(query, [currentUserData.uid ?? '']);
 
       if (result.isEmpty) {
-        log('getBizcardsFromLocalLocalStorage: No bizcards found for user $currentUserId');
+        log('getBizcardsFromLocalLocalStorage: No bizcards found for user ${currentUserData.uid ?? ''}');
         return const Right([]);
       }
 
-      final List<Bizcard> bizcards = [];
-
       // Map the result to a list of Bizcard objects
-      bizcards.assignAll(result.map((data) {
+      final List<Bizcard> bizcards = result.map((data) {
         return Bizcard(
           bizcardId: data[CardDetailModel.colBizcardId] as String?,
           companyName:
@@ -569,9 +581,9 @@ class BizcardsLocalService implements BizcardsLocalRepo {
               data[CardDetailModel.colBizcardUniversalLink] as String?,
           views: data[CardDetailModel.colBizcardViews] as int?,
         );
-      }).toList());
+      }).toList();
 
-      log('getBizcardsFromLocalLocalStorage success: Found ${bizcards.length} bizcards');
+      log('getBizcardsFromLocalStorage success: ${bizcards.length} bizcards found for user ${currentUserData.uid ?? ''}');
       return Right(bizcards);
     } catch (e) {
       log('getBizcardsFromLocalLocalStorage exception: ${e.toString()}');

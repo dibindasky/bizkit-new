@@ -137,10 +137,10 @@ class CardController extends GetxController {
     data.fold(
       (l) => isLoading.value = false,
       (r) async {
-        bizcards.value = r.bizcards ?? <Bizcard>[];
+        bizcards.assignAll(r.bizcards ?? <Bizcard>[]);
         if (bizcards.isNotEmpty) {
           bizcardId.value = r.bizcards?.first.bizcardId ?? '';
-          log('defalt Bizcard Id === > ${bizcardId.value}');
+          log('Defalt Bizcard Id === > ${bizcardId.value}');
 
           // Store new bizcards in local database
           for (var bizcard in r.bizcards ?? []) {

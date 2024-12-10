@@ -428,6 +428,7 @@ class TaskLocalService implements TaskLocalRepo {
       {required task.Task taskModel}) async {
     try {
       final String? currentUserId = await userId;
+      print('addTaskToLocalStorage --> currentUserId  ---> $currentUserId');
       if (currentUserId == null) {
         log('addTaskToLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
@@ -503,6 +504,7 @@ class TaskLocalService implements TaskLocalRepo {
       {required task.Task taskModel}) async {
     try {
       final String? currentUserId = await userId;
+      print('updateTaskFromLocalStorage --> currentUserId  ---> $currentUserId');
       if (currentUserId == null) {
         log('updateTaskFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
@@ -582,6 +584,7 @@ class TaskLocalService implements TaskLocalRepo {
           {required task.Task taskModel}) async {
     try {
       final String? currentUserId = await userId;
+      print('currentUserId  ---> $currentUserId');
       if (currentUserId == null) {
         log('addTaskToLocalStorageIfNotPresentInStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));

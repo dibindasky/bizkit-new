@@ -56,6 +56,8 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card
 import 'package:bizkit/module/module_manager/application/presentation/screen/account_switching/account_switching_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/account_settings/profile_edit_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/widgets/matcho_meter_connection_screen/matcho_meter_connection_screen.dart';
+import 'package:bizkit/module/task/application/presentation/screens/calender_view/calender_view.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_task_create_update.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_task_received_req.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_tasks_listing.dart';
@@ -670,6 +672,18 @@ class GoRouterConfig {
       name: Routes.taskNavbar,
       path: Routes.taskNavbar,
       builder: (context, state) => const ScreenNavbarTaskModule(),
+    ),
+
+    GoRoute(
+      name: Routes.taskHome,
+      path: Routes.taskHome,
+      builder: (context, state) => const TaskHomeScreen(),
+    ),
+
+    GoRoute(
+      name: Routes.taskCaleneder,
+      path: Routes.taskCaleneder,
+      builder: (context, state) => const ScreenTaskCalenderView(),
     ),
     // add task screen
     // GoRoute(

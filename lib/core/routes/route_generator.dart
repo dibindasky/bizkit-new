@@ -57,6 +57,12 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/acc
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/account_settings/profile_edit_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/widgets/matcho_meter_connection_screen/matcho_meter_connection_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/calender_view.dart';
+import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/inside_the_inner_folder.dart';
+import 'package:bizkit/module/task/application/presentation/screens/create_task/add_task.dart';
+import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/reports_view.dart';
+import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/search_tasks.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_search.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/task_home.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_task_create_update.dart';
 import 'package:bizkit/module/task/application/presentation/screens/quick_task/quick_task_received_req.dart';
@@ -334,21 +340,6 @@ class GoRouterConfig {
       },
     ),
 
-    // First card detail secreen
-    // GoRoute(
-    //   name: Routes.cardDetailView,
-    //   path: '${Routes.cardDetailView}/:cardId/:myCard',
-    //   builder: (context, state) {
-    //     final cardId = state.pathParameters['cardId'] ?? '';
-    //     final myCard = state.pathParameters['myCard'] == 'true';
-    //     if (cardId != null) {
-    //       return ScreenCardDetailView(cardId: cardId, myCard: myCard);
-    //     } else {
-    //       return _errorScreen();
-    //     }
-    //   },
-    // ),
-
     GoRoute(
       name: Routes.cardDetailView,
       path: '${Routes.cardDetailView}/:cardId/:myCard/:fromPreview',
@@ -378,15 +369,6 @@ class GoRouterConfig {
         );
       },
     ),
-    // GoRoute(
-    //   name: Routes.connectionDetailFilling,
-    //   path: Routes.connectionDetailFilling,
-    //   builder: (context, state) {
-    //     return ScreenConnectionDetailFilling(
-    //       cardDetailModel: (state.extra as CardDetailModel?),
-    //     );
-    //   },
-    // ),
     //second card detail
     GoRoute(
       name: Routes.secondcardDetail,
@@ -420,13 +402,6 @@ class GoRouterConfig {
         return const BizcardCreateOrUpdateScreen();
       },
     ),
-    // GoRoute(
-    //   name: Routes.receivedCardEdit,
-    //   path: Routes.receivedCardEdit,
-    //   builder: (context, state) {
-    //     return const CardSecondUpdation();
-    //   },
-    // ),
 
     GoRoute(
       name: Routes.cardCreationProfilePage,
@@ -489,17 +464,6 @@ class GoRouterConfig {
       },
     ),
 
-    // GoRoute(
-    //   name: Routes.cardProductsCreateOrUpdate,
-    //   path: Routes.cardProductsCreateOrUpdate,
-    //   builder: (context, state) {
-    //     final map = state.extra as Map<String, dynamic>?;
-    //     return BizcardProductCreateUpdateScreen(
-    //         selctedIndex: map?['index'] as int?,
-    //         product: map?['product'] as Product?);
-    //   },
-    // ),
-
     // Second card creation selected scanned images
     GoRoute(
       name: Routes.selectedCards,
@@ -556,18 +520,6 @@ class GoRouterConfig {
       path: Routes.cardPickedScanningCards,
       builder: (context, state) => const PickedScanningCards(),
     ),
-
-    // individual Level sharing  screen
-    // GoRoute(
-    //   name: Routes.individualLevelSharing,
-    //   path: Routes.individualLevelSharing,
-    //   pageBuilder: (context, state) {
-    //     return FadeTransitionPage(
-    //       key: state.pageKey,
-    //       child: const ScreenCardLevelSharing(),
-    //     );
-    //   },
-    // ),
 
     //  Level sharing screen
     GoRoute(
@@ -674,31 +626,6 @@ class GoRouterConfig {
       builder: (context, state) => const ScreenNavbarTaskModule(),
     ),
 
-    GoRoute(
-      name: Routes.taskHome,
-      path: Routes.taskHome,
-      builder: (context, state) => const TaskHomeScreen(),
-    ),
-
-    GoRoute(
-      name: Routes.taskCaleneder,
-      path: Routes.taskCaleneder,
-      builder: (context, state) => const ScreenTaskCalenderView(),
-    ),
-    // add task screen
-    // GoRoute(
-    //   name: Routes.addTask,
-    //   path: "${Routes.addTask}/:edit/:navid",
-    //   builder: (context, state) {
-    //     final edit = state.pathParameters['edit'] ?? '';
-    //     // final navId = state.pathParameters['navid'] ?? '';
-    //     return ScreenAddTask(
-    //       navigationId: int.parse(navId),
-    //       edit: edit == 'true',
-    //     );
-    //   },
-    // ),
-
     // Tasks Screen
     GoRoute(
       name: Routes.taskLists,
@@ -743,6 +670,111 @@ class GoRouterConfig {
       },
     ),
 
+    // Task Home screen
+    GoRoute(
+      name: Routes.taskHome,
+      path: Routes.taskHome,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const TaskHomeScreen(),
+        );
+      },
+    ),
+
+    // Task search screen
+    GoRoute(
+      name: Routes.taskSearch,
+      path: Routes.taskSearch,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const TaskSearchScreen(),
+        );
+      },
+    ),
+
+    // Task creation screen
+    GoRoute(
+      name: Routes.addTask,
+      path: Routes.addTask,
+      pageBuilder: (context, state) {
+        final extra = state.extra as int;
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: ScreenAddTask(
+            navigationId: extra,
+          ),
+        );
+      },
+    ),
+
+    // Tasks inside a inner folder - screen
+    GoRoute(
+      name: Routes.taskInsideTheInnerFolderScreen,
+      path: Routes.taskInsideTheInnerFolderScreen,
+      pageBuilder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: TaskInsideTheInnerFolderScreen(
+            arguments: extra,
+          ),
+        );
+      },
+    ),
+
+    // Task calender section -
+    GoRoute(
+      name: Routes.taskCalenderView,
+      path: Routes.taskCalenderView,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const ScreenTaskCalenderView(),
+        );
+      },
+    ),
+
+    //  Generate tasks search  -
+    GoRoute(
+      name: Routes.generateTasksSearch,
+      path: Routes.generateTasksSearch,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const SearchTasksWidget(),
+        );
+      },
+    ),
+
+    //  Generate tasks - list view
+    GoRoute(
+      name: Routes.reportsview,
+      path: Routes.reportsview,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const ReportsView(),
+        );
+      },
+    ),
+
+    //   HeirarchyTask User Details
+    GoRoute(
+      name: Routes.heirarchyUserDetail,
+      path: Routes.heirarchyUserDetail,
+      pageBuilder: (context, state) {
+        final extra = state.extra as String;
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: ScreenHeirarchyTaskUserDetails(
+            folderId: extra,
+          ),
+        );
+      },
+    ),
+
 // Quick tasks received requests  listing
     GoRoute(
       name: Routes.quickTaskReceivedRequests,
@@ -783,17 +815,6 @@ class GoRouterConfig {
       },
     ),
 
-    //  GoRoute(
-    //   name: Routes.secondcardDetail,
-    //   path: '${Routes.secondcardDetail}/:cardId',
-    //   builder: (context, state) {
-    //     final cardId = int.tryParse(state.pathParameters['cardId'] ?? '');
-    //     return SecondCardDetailView(
-    //       cardId: cardId,
-    //     );
-    //   },
-    // ),
-
     // Tsks notification
     GoRoute(
       name: Routes.taskNotification,
@@ -810,13 +831,6 @@ class GoRouterConfig {
           child: TaskTabNotification(),
         );
       },
-    ),
-
-    // HeirarchyUserDetail
-    GoRoute(
-      name: Routes.heirarchyUserDetail,
-      path: Routes.heirarchyUserDetail,
-      builder: (context, state) => const ScreenHeirarchyTaskUserDetails(),
     ),
 
     // chat Screen task

@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/custom_paints/bottom_bar_paint.dart';
 import 'package:flutter/material.dart';
@@ -51,20 +52,38 @@ class CustomBottomBar extends StatelessWidget {
               imageAssets.length,
               (index) => GestureDetector(
                 onTap: () => onTap(index),
-                child: Container(
-                  color: Colors.transparent,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Image.asset(
-                      imageAssets[index],
-                      // width: imageSize.h,
-                      height: imageSizes?[index] ?? (height.h / 2),
-                      color: selectedIndex == index
-                          ? selectedColor
-                          : unselectedColor,
-                    ),
-                  ),
-                ),
+                child: selectedIndex == index
+                    ? ElasticIn(
+                        animate: true,
+                        child: Container(
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Image.asset(
+                              imageAssets[index],
+                              // width: imageSize.h,
+                              height: imageSizes?[index] ?? (height.h / 2),
+                              color: selectedIndex == index
+                                  ? selectedColor
+                                  : unselectedColor,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        color: Colors.transparent,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Image.asset(
+                            imageAssets[index],
+                            // width: imageSize.h,
+                            height: imageSizes?[index] ?? (height.h / 2),
+                            color: selectedIndex == index
+                                ? selectedColor
+                                : unselectedColor,
+                          ),
+                        ),
+                      ),
               ),
             ),
           ),

@@ -204,7 +204,8 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                         },
                       ),
                 adjustHieght(10.h),
-                HeirarchyTaskFolderDataRow()
+                HeirarchyTaskFolderDataRow(),
+                adjustHieght(50.h),
               ],
             );
           },

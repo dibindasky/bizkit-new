@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
-import 'package:bizkit/core/model/token/access_token/token_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/banking_details_model/banking_details_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/business_details.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';

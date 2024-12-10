@@ -1,5 +1,6 @@
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
@@ -9,6 +10,20 @@ import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responc
     as task;
 
 abstract class TaskLocalRepo {
+  Future<Either<Failure, SuccessResponseModel>> addRecentTaskToLocalStorage({
+    required String recentTaskId,
+    required String recentTaskType,
+  });
+
+  Future<Either<Failure, SuccessResponseModel>>
+      addRecentTaskToLocalIfNotExists({
+    required String recentTaskId,
+    required String recentTaskType,
+  });
+
+  Future<Either<Failure, GetRecentTasksResponce>>
+      getRecentsTasksFromLocalStorage();
+
   Future<Either<Failure, SuccessResponseModel>> addTaskToLocalStorage(
       {required task.Task taskModel});
 

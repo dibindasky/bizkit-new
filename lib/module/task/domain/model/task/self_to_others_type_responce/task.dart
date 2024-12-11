@@ -1,4 +1,3 @@
-import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/sub_task.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -94,21 +93,22 @@ class Task {
 
   static Task fromMap(Map<String, Object?> map) {
     return Task(
-      id: map[GetTaskResponce.colTaskId] as String?,
-      description: map[GetTaskResponce.colTaskDescription] as String?,
-      title: map[GetTaskResponce.colTaskTitle] as String?,
-      createdAt: map[GetTaskResponce.colTaskCreatedAt] as String?,
-      deadLine: map[GetTaskResponce.colTaskDeadLine] as String?,
-      priorityLevel: map[GetTaskResponce.colTaskPriorityLevel] as String?,
-      taskType: map[GetTaskResponce.colTaskType] as String?,
-      isOwned: (map[GetTaskResponce.colTaskIsOwned] as int?) == 1,
-      spotlightOn: (map[GetTaskResponce.colTaskSpotlightOn] as int?) == 1,
-      isPinned: (map[GetTaskResponce.colTaskIsPinned] as int?) == 1,
-      status: map[GetTaskResponce.colTaskStatus] as String?,
-      createdBy: CreatedBy(
-        name: map[GetTaskResponce.colTaskCreatedUsername] as String?,
-        userId: map[GetTaskResponce.colTaskCreatedUserId] as String?,
-      ),
-    );
+        id: map[GetTaskResponce.colTaskId] as String?,
+        description: map[GetTaskResponce.colTaskDescription] as String?,
+        title: map[GetTaskResponce.colTaskTitle] as String?,
+        createdAt: map[GetTaskResponce.colTaskCreatedAt] as String?,
+        deadLine: map[GetTaskResponce.colTaskDeadLine] as String?,
+        priorityLevel: map[GetTaskResponce.colTaskPriorityLevel] as String?,
+        taskType: map[GetTaskResponce.colTaskType] as String?,
+        isOwned: (map[GetTaskResponce.colTaskIsOwned] as int?) == 1,
+        spotlightOn: (map[GetTaskResponce.colTaskSpotlightOn] as int?) == 1,
+        isPinned: (map[GetTaskResponce.colTaskIsPinned] as int?) == 1,
+        status: map[GetTaskResponce.colTaskStatus] as String?,
+        createdBy: CreatedBy(
+          name: map[GetTaskResponce.colTaskCreatedUsername] as String?,
+          userId: map[GetTaskResponce.colTaskCreatedUserId] as String?,
+        ),
+        matchedNextActionDates:
+            (map[GetTaskResponce.colNextActionDate] as String?)?.split(','));
   }
 }

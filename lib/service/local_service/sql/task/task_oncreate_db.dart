@@ -77,6 +77,7 @@ class TaskSql {
     ${GetTaskResponce.colTaskTags} TEXT,    -- Tags stored as TEXT (e.g. comma-separated)
     ${GetTaskResponce.colTaskCreatedAt} TEXT,
     ${GetTaskResponce.colTaskStatus} TEXT,
+    ${GetTaskResponce.colNextActionDate} TEXT,
     ${GetTaskResponce.colTaskCreatedUserId} TEXT,
     ${GetTaskResponce.colTaskCreatedUsername} TEXT,
     ${GetTaskResponce.colTaskCreatedUserProfilePic} TEXT,
@@ -137,6 +138,7 @@ class TaskSql {
     ${FilterByDeadlineModel.colTaskFilterByDeadline} TEXT,
     ${FilterByDeadlineModel.colUserId} TEXT,
     ${FilterByDeadlineModel.colTaskId} TEXT,
+    ${FilterByDeadlineModel.colTaskNextActionDates} TEXT,
     ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId} INTEGER,
     FOREIGN KEY (${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId}) 
       REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})

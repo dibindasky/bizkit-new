@@ -16,10 +16,7 @@ abstract class TaskLocalRepo {
   });
 
   Future<Either<Failure, SuccessResponseModel>>
-      addRecentTaskToLocalIfNotExists({
-    required String recentTaskId,
-    required String recentTaskType,
-  });
+      deleteRecentTaskFromLocalStorage();
 
   Future<Either<Failure, GetRecentTasksResponce>>
       getRecentsTasksFromLocalStorage();

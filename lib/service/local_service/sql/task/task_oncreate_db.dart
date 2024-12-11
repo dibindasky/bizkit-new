@@ -150,7 +150,7 @@ class TaskSql {
   ${GetRecentTasksResponce.colRecentTaskLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
   ${GetRecentTasksResponce.colUserId} TEXT,
   ${GetRecentTasksResponce.colRecentTaskId} TEXT,
-  ${GetRecentTasksResponce.colRecentTaskType} TEXT,
+  ${GetRecentTasksResponce.colRecentTaskType} TEXT
   )
 ''';
 

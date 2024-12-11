@@ -38,6 +38,8 @@ class CardController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool loadingForCardViews = false.obs;
 
+  bool isLocalDataLoaded = false; // Flag to track if local data has been loaded
+
   /// scanned card is my card or not
   RxBool myCardDeeplinkPage = false.obs;
 
@@ -126,16 +128,18 @@ class CardController extends GetxController {
     await fetchBizcardsFromLocalDb();
 
     // Step 2: Then update with any network data if available
-    await fetchBizcardsFromNetWork();
-
-    isLoading.value = false;
-    update();
+    if (!isLocalDataLoaded) {
+      await fetchBizcardsFromNetWork();
+    }
   }
 
   Future<void> fetchBizcardsFromNetWork() async {
     final data = await cardRepo.getAllCards();
     data.fold(
-      (l) => isLoading.value = false,
+      (l) {
+        isLoading.value = false;
+        update();
+      },
       (r) async {
         bizcards.assignAll(r.bizcards ?? <Bizcard>[]);
         if (bizcards.isNotEmpty) {
@@ -149,6 +153,7 @@ class CardController extends GetxController {
           }
         }
         isLoading.value = false;
+        update();
       },
     );
   }
@@ -164,6 +169,9 @@ class CardController extends GetxController {
       (success) {
         if (success.isNotEmpty) {
           bizcards.assignAll(success);
+
+          // Mark local data as loaded
+          isLocalDataLoaded = true;
           isLoading.value = false;
         }
       },
@@ -301,7 +309,6 @@ class CardController extends GetxController {
   // fetch card views
   void fetchCardViews(
       {required BizcardIdParameterModel bizcardIdParameterModel}) async {
-    print(bizcardIdParameterModel.toJson().toString());
     loadingForCardViews.value = true;
     final data = await cardRepo.getCardViews(
         bizcardIdParameterModel: bizcardIdParameterModel);

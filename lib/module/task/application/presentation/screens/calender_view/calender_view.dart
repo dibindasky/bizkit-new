@@ -97,7 +97,7 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                                       }
                                     },
                                     child: Card(
-                                      elevation: 0,
+                                      elevation: 1,
                                       margin: const EdgeInsets.all(1),
                                       child: AnimatedContainer(
                                         duration:

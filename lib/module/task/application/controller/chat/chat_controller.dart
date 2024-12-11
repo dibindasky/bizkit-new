@@ -786,11 +786,12 @@ class ChatController extends GetxController {
           timestamp: _getTimeString(),
           filePath: filePath,
           message: filePath?.split('/').last);
-      print('send pdf => ${pdf.name}');
+      final typee = (file.message ?? '').split('.').last;
+      print('send pdf => ${pdf.name} , \n typeee-> $typee');
       final data = {
         "message_type": "file",
         "files": [
-          {"file": base64, "file_type": 'pdf'}
+          {"file": base64, "file_type": _getTypeOfFile(typee)}
         ],
         "messages": [pdf.name ?? 'Document']
       };
@@ -800,6 +801,14 @@ class ChatController extends GetxController {
       );
     } catch (e) {
       return;
+    }
+  }
+
+  String _getTypeOfFile(String type) {
+    if (type == 'jpg' || type == 'png' || type == 'jpeg') {
+      return 'image';
+    } else {
+      return 'pdf';
     }
   }
 

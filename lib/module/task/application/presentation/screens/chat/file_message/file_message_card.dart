@@ -30,67 +30,68 @@ class FileMessageCard extends StatelessWidget {
         child: ClipPath(
           clipper: PollChatClipper(isSender: sender),
           child: AnimatedContainer(
-              color: sender ? neonShade.withGreen(190) : kwhite,
-              duration: const Duration(milliseconds: 300),
-              padding: EdgeInsets.only(
-                  left: !sender ? 15.w : 5.w,
-                  right: sender ? 15.w : 5.w,
-                  top: sender ? 5.w : 0.w,
-                  bottom: 0.h),
-              width: message.fileType == 'pdf' ? 150.h : null,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  sender
-                      ? kempty
-                      : Text(
-                          message.username ?? '',
-                          style: textThinStyle1.copyWith(
-                              fontSize: 8.sp, color: kblack),
-                        ),
-                  message.fileType == 'pdf'
-                      ? PdfMessageCard(message: message)
-                      : message.fileType == 'jpg' ||
-                              message.fileType == 'png' ||
-                              message.fileType == 'image'
-                          ? ImageMessageCard(message: message)
-                          : Text('Unknown file type',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displaySmall
-                                  ?.copyWith(
-                                      color: sender ? kwhite : kblack,
-                                      fontSize: 13)),
-                  adjustHieght(5.h),
-                  message.message?.isEmpty ?? true
-                      ? kempty
-                      : Text(message.message ?? "",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall
-                              ?.copyWith(color: sender ? kwhite : kblack)),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          DateTimeFormater.formatTimeAMPM(message.timestamp),
-                          style: textThinStyle1.copyWith(
-                              color: sender ? kgrey : kgrey, fontSize: 8.sp),
-                        ),
-                        sender ? kWidth10 : kempty,
-                        sender
-                            ? MessageReadMarker(
-                                read: message.readByAll ?? false,
-                                pending: message.messageId?.isEmpty ?? true,
-                              )
-                            : kempty
-                      ],
-                    ),
+            color: sender ? neonShade.withGreen(190) : kwhite,
+            duration: const Duration(milliseconds: 300),
+            padding: EdgeInsets.only(
+                left: !sender ? 15.w : 5.w,
+                right: sender ? 15.w : 5.w,
+                top: sender ? 5.w : 0.w,
+                bottom: 0.h),
+            width: message.fileType == 'pdf' ? 150.h : null,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                sender
+                    ? kempty
+                    : Text(
+                        message.username ?? '',
+                        style: textThinStyle1.copyWith(
+                            fontSize: 8.sp, color: kblack),
+                      ),
+                message.fileType == 'pdf'
+                    ? PdfMessageCard(message: message)
+                    : message.fileType == 'jpg' ||
+                            message.fileType == 'png' ||
+                            message.fileType == 'image'
+                        ? ImageMessageCard(message: message)
+                        : Text('Unknown file type',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
+                                    color: sender ? kwhite : kblack,
+                                    fontSize: 13)),
+                adjustHieght(5.h),
+                message.message?.isEmpty ?? true
+                    ? kempty
+                    : Text(message.message ?? "",
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(color: sender ? kwhite : kblack)),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        DateTimeFormater.formatTimeAMPM(message.timestamp),
+                        style: textThinStyle1.copyWith(
+                            color: sender ? kgrey : kgrey, fontSize: 8.sp),
+                      ),
+                      sender ? kWidth10 : kempty,
+                      sender
+                          ? MessageReadMarker(
+                              read: message.readByAll ?? false,
+                              pending: message.messageId?.isEmpty ?? true,
+                            )
+                          : kempty
+                    ],
                   ),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

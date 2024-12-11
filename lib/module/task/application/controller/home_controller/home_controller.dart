@@ -103,12 +103,33 @@ class TaskHomeScreenController extends GetxController {
 
   void fetchRecentTasks() async {
     loadingForRecentTasks.value = true;
-
+    selfieTasks.value = [];
+    toOthersTasks.value = [];
+    toMeTasks.value = [];
     // Step 1: Fetch and display local data first
     await fetchRecentTasksFromLocalDb();
 
     // Step 2: Then update with any network data if available
     await fetchRecentTaskFromNetWork();
+
+    loadingForRecentTasks.value = false;
+  }
+
+  Future<void> fetchRecentTasksFromLocalDb() async {
+    loadingForRecentTasks.value = true;
+    final localDbResult =
+        await taskLocalService.getRecentsTasksFromLocalStorage();
+
+    localDbResult.fold(
+      (failure) {
+        log(failure.message.toString());
+      },
+      (success) {
+        toMeTasks.assignAll(success.othersToSelf ?? []);
+        toOthersTasks.assignAll(success.selfToOthers ?? []);
+        selfieTasks.assignAll(success.selfToSelf ?? []);
+      },
+    );
   }
 
   Future<void> fetchRecentTaskFromNetWork() async {
@@ -122,51 +143,31 @@ class TaskHomeScreenController extends GetxController {
         toMeTasks.assignAll(success.othersToSelf ?? []);
         toOthersTasks.assignAll(success.selfToOthers ?? []);
         selfieTasks.assignAll(success.selfToSelf ?? []);
-
         loadingForRecentTasks.value = false;
 
+        // Delete all previous recent tasks from local storage
         await taskLocalService.deleteRecentTaskFromLocalStorage();
 
         // Other to self tasks add to local storage
-        for (var othersToSelfTask in toMeTasks) {
+        for (var task in toMeTasks) {
           taskLocalService.addRecentTaskToLocalStorage(
-            recentTaskId: othersToSelfTask.taskId ?? '',
+            recentTaskId: task.taskId ?? '',
             recentTaskType: 'others_to_self',
           );
         }
 
         // Self to others tasks add to local storage
-        for (var selfToOthersTask in toOthersTasks) {
+        for (var task in toOthersTasks) {
           taskLocalService.addRecentTaskToLocalStorage(
-              recentTaskId: selfToOthersTask.taskId ?? '',
+              recentTaskId: task.taskId ?? '',
               recentTaskType: 'self_to_others');
         }
 
         // Self to self tasks add to local storage
-        for (var selfToSelfTask in selfieTasks) {
+        for (var task in selfieTasks) {
           taskLocalService.addRecentTaskToLocalStorage(
-              recentTaskId: selfToSelfTask.taskId ?? '',
-              recentTaskType: 'self_to_self');
+              recentTaskId: task.taskId ?? '', recentTaskType: 'self_to_self');
         }
-      },
-    );
-  }
-
-  Future<void> fetchRecentTasksFromLocalDb() async {
-    final localDbResult =
-        await taskLocalService.getRecentsTasksFromLocalStorage();
-
-    localDbResult.fold(
-      (failure) {
-        loadingForRecentTasks.value = false;
-        log(failure.message.toString());
-      },
-      (success) {
-        toMeTasks.assignAll(success.othersToSelf ?? []);
-        toOthersTasks.assignAll(success.selfToOthers ?? []);
-        selfieTasks.assignAll(success.selfToSelf ?? []);
-
-        loadingForRecentTasks.value = false;
       },
     );
   }

@@ -119,7 +119,7 @@ class AllRemindersTab extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomRight,
                               child: Text(
-                                DateTimeFormater.getDDMMHHMMformat(
+                                DateTimeFormater.formatTimeAMPMDate(
                                     allReminder.reminderDate ?? ''),
                                 style: Theme.of(context)
                                     .textTheme

@@ -91,7 +91,7 @@ class BizcardReminderDetailScreen extends StatelessWidget {
                       buildTextRow('Venue', reminder.venue ?? '', context),
                       buildTextRow(
                           'Created',
-                          DateTimeFormater.getDDMMHHMMformat(
+                          DateTimeFormater.formatTimeAMPMDate(
                               reminder.reminderDate ?? ''),
                           context),
                       buildTextRow(

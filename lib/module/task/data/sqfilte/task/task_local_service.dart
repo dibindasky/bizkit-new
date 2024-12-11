@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/recent_tasks/created_by.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/recent_tasks/recent_tasks.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
@@ -505,7 +507,8 @@ class TaskLocalService implements TaskLocalRepo {
       {required task.Task taskModel}) async {
     try {
       final String? currentUserId = await userId;
-      print('updateTaskFromLocalStorage --> currentUserId  ---> $currentUserId');
+      print(
+          'updateTaskFromLocalStorage --> currentUserId  ---> $currentUserId');
       if (currentUserId == null) {
         log('updateTaskFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
@@ -585,7 +588,6 @@ class TaskLocalService implements TaskLocalRepo {
           {required task.Task taskModel}) async {
     try {
       final String? currentUserId = await userId;
-      print('currentUserId  ---> $currentUserId');
       if (currentUserId == null) {
         log('addTaskToLocalStorageIfNotPresentInStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
@@ -894,36 +896,27 @@ class TaskLocalService implements TaskLocalRepo {
 
   @override
   Future<Either<Failure, SuccessResponseModel>>
-      addRecentTaskToLocalIfNotExists({
-    required String recentTaskId,
-    required String recentTaskType,
-  }) async {
+      deleteRecentTaskFromLocalStorage() async {
     try {
       final String? currentUserId = await userId;
       if (currentUserId == null) {
-        log('addRecentTaskToLocalIfNotExists error: User ID is null');
+        log('deleteRecentTaskFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
+      const String deleteQuery = '''
+        DELETE FROM ${TaskSql.recentTasksTable}
+        WHERE ${GetRecentTasksResponce.colUserId} = ?
+      ''';
 
-      //   const String query = '''
-      //   SELECT COUNT(*)
-      //   FROM ${TaskSql.recentTasksTable}
-      //   WHERE ${GetRecentTasksResponce.colRecentTaskId} = ?
-      //   AND ${GetRecentTasksResponce.colUserId} = ?
-      //  ''';
+      await localService.rawDelete(
+        deleteQuery,
+        [currentUserId],
+      );
 
-      //   final bool present = await localService.presentOrNot(
-      //     query,
-      //     [
-      //       recentTaskId,
-      //       currentUserId,
-      //     ],
-      //   );
-
-      return await addRecentTaskToLocalStorage(
-          recentTaskId: recentTaskId, recentTaskType: recentTaskType);
+      log('deleteRecentTaskFromLocalStorage success');
+      return Right(SuccessResponseModel());
     } catch (e) {
-      log('addRecentTaskToLocalIfNotExists exception: ${e.toString()}');
+      log('deleteRecentTaskFromLocalStorage exception: ${e.toString()}');
       if (e is TypeError) {
         log('TypeError details: ${e.stackTrace}');
       }
@@ -974,7 +967,74 @@ class TaskLocalService implements TaskLocalRepo {
   @override
   Future<Either<Failure, GetRecentTasksResponce>>
       getRecentsTasksFromLocalStorage() async {
-    // TODO: implement getRecentsTasksFromLocalStorage
-    throw UnimplementedError();
+    try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('getRecentsTasksFromLocalStorage error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
+      const query = '''
+      SELECT * FROM ${TaskSql.recentTasksTable} 
+      WHERE ${GetRecentTasksResponce.colUserId} = ? 
+      ''';
+
+      final List<Map<String, dynamic>> allrecentTasks =
+          await localService.rawQuery(query, [currentUserId]);
+
+      final List<RecentTasks> selfToSelf = [];
+      final List<RecentTasks> othersToSelf = [];
+      final List<RecentTasks> selfToOthers = [];
+
+      for (var taskData in allrecentTasks) {
+        switch (taskData['recent_task_type']) {
+          case 'self_to_self':
+            await recentTaskAddToList(taskData, selfToSelf);
+            break;
+          case 'others_to_self':
+            await recentTaskAddToList(taskData, othersToSelf);
+            break;
+          case 'self_to_others':
+            await recentTaskAddToList(taskData, selfToOthers);
+            break;
+          default:
+            log('Unknown task type: ${taskData['recent_task_type']}');
+        }
+      }
+      final response = GetRecentTasksResponce(
+        selfToSelf: selfToSelf,
+        othersToSelf: othersToSelf,
+        selfToOthers: selfToOthers,
+      );
+      log('getRecentsTasksFromLocalStorage success');
+      return Right(response);
+    } catch (e) {
+      log('getRecentsTasksFromLocalStorage exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  Future<void> recentTaskAddToList(
+      Map<String, dynamic> taskData, List<RecentTasks> list) async {
+    final taskResponce = await getTaskFullDetailsFromLocalStorage(
+        taskId: taskData['recent_task_id']);
+    taskResponce.fold(
+      (failure) => null,
+      (success) {
+        list.add(
+          RecentTasks(
+            taskId: success.id,
+            deadLine: success.deadLine,
+            createdAt: success.createdAt,
+            createdBy: CreatedBy(
+                name: success.createdUserDetails?.name ?? '',
+                userId: success.createdUserDetails?.id ?? ''),
+            isOwned: success.isOwned,
+            status: success.status,
+            taskTitle: success.title,
+          ),
+        );
+      },
+    );
   }
 }

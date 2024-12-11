@@ -26,8 +26,7 @@ class TaskLocalService implements TaskLocalRepo {
   static String? _userID;
 
   Future<String?> get userId async {
-    if (_userID != null) return _userID;
-    _userID = await SecureStorage.getUserId();
+    _userID = await SecureStorage.getUserId() ?? '';
     return _userID!;
   }
 

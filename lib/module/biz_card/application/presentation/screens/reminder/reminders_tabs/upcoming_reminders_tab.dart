@@ -121,7 +121,7 @@ class UpcomingRemindersTab extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomRight,
                               child: Text(
-                                DateTimeFormater.getDDMMHHMMformat(
+                                DateTimeFormater.formatTimeAMPMDate(
                                     upcomingReminder.reminderDate ?? ''),
                                 style: Theme.of(context)
                                     .textTheme

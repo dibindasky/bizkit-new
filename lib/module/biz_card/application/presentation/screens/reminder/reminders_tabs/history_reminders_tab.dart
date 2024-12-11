@@ -118,7 +118,7 @@ class HistoryRemindersTab extends StatelessWidget {
                             Align(
                               alignment: Alignment.bottomRight,
                               child: Text(
-                                DateTimeFormater.getDDMMHHMMformat(
+                                DateTimeFormater.formatTimeAMPMDate(
                                     historyReminder.reminderDate ?? ''),
                                 style: Theme.of(context)
                                     .textTheme

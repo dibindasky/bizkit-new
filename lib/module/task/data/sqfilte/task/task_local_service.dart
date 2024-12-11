@@ -25,7 +25,8 @@ class TaskLocalService implements TaskLocalRepo {
 
   Future<String?> get userId async {
     if (_userID != null) return _userID;
-    _userID = await SecureStorage.getUserId();
+    final token = await SecureStorage.getToken();
+    _userID = token.uid;
     return _userID!;
   }
 
@@ -505,7 +506,8 @@ class TaskLocalService implements TaskLocalRepo {
       {required task.Task taskModel}) async {
     try {
       final String? currentUserId = await userId;
-      print('updateTaskFromLocalStorage --> currentUserId  ---> $currentUserId');
+      print(
+          'updateTaskFromLocalStorage --> currentUserId  ---> $currentUserId');
       if (currentUserId == null) {
         log('updateTaskFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));

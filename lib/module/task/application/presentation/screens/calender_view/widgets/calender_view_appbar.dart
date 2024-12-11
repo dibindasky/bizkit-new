@@ -4,7 +4,6 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
-import 'package:bizkit/module/task/application/presentation/widgets/circle_avatar.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/merge_inner_folder_model/merge_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -37,8 +36,7 @@ class TaskCalenderViewAppBar extends StatelessWidget {
                   ?.copyWith(fontSize: 16)),
           const Spacer(),
           adjustWidth(8.5.w),
-          CustomCircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.onSecondary,
+          GestureDetector(
             onTap: () {
               if (controller.taskTabChangeIndex.value == 2) {
                 showCreateFolderDialog(context);
@@ -46,14 +44,29 @@ class TaskCalenderViewAppBar extends StatelessWidget {
                 GoRouter.of(context).pushNamed(Routes.addTask);
               }
             },
-            backgroundColorInner: kneon,
-            child: const Icon(
-              Icons.add,
-              size: 20,
-              color: kneon,
+            child: Container(
+              width: 50.w,
+              height: 50.h,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: lightGrey.withOpacity(0.6),
+                    spreadRadius: 0,
+                    blurRadius: 1,
+                    offset: const Offset(-1, 2),
+                  ),
+                ],
+                border: Border.all(color: klightgrey),
+                color: Theme.of(context).colorScheme.onTertiary,
+              ),
+              child: const Icon(
+                Iconsax.add_square,
+                size: 23,
+              ),
             ),
           ),
-          adjustWidth(10.w),
+          adjustWidth(14.w),
         ],
       ),
     );

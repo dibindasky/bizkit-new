@@ -1,4 +1,5 @@
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 
 class SkipOrContinueButtons extends StatelessWidget {
@@ -44,7 +45,12 @@ class SkipOrContinueButtons extends StatelessWidget {
                 Radius.circular(5),
               ),
             ),
-            child: Center(child: Text(continueText)),
+            child: Center(
+                child: Text(
+              continueText,
+              style:
+                  Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 13),
+            )),
           ),
         ),
       ],

@@ -18,7 +18,14 @@ class UserSearchModel {
     return _$UserSearchModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$UserSearchModelToJson(this);
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {};
+    if (searchTerm != null) map['search_term'] = searchTerm;
+    if (page != null) map['page'] = page;
+    if (pageSize != null) map['page_size'] = pageSize;
+    if (filterType != null) map['filter_type'] = filterType;
+    return map;
+  }
 
   UserSearchModel copyWith({
     String? searchTerm,

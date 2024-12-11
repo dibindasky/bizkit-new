@@ -891,10 +891,14 @@ class CreateTaskController extends GetxController {
       },
       (success) async {
         if (success.data != null) {
-          deadlineTasks.assignAll(success.data ?? []);
-
           // Store new tasks in local database
-          for (var task in deadlineTasks) {
+          for (var task in success.data ?? <Task>[]) {
+            final index = deadlineTasks.indexWhere((e) => e.id == task.id);
+            if (index == -1) {
+              deadlineTasks.insert(0, task);
+            } else {
+              deadlineTasks[index] = task;
+            }
             await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
               taskModel: task,
             );
@@ -923,13 +927,16 @@ class CreateTaskController extends GetxController {
         await loadMoreFromNetwork();
       },
       (localTasks) async {
-        if (localTasks.isEmpty) {
-          // If no more local tasks, try network
-          await loadMoreFromNetwork();
-        } else {
+        if (localTasks.isNotEmpty) {
           deadlineTasksPageNumber++;
-          deadlineTasks.addAll(localTasks);
+          for (var task in localTasks) {
+            final index = deadlineTasks.indexWhere((e) => e.id == task.id);
+            if (index == -1) {
+              deadlineTasks.add(task);
+            }
+          }
         }
+        await loadMoreFromNetwork();
       },
     );
 
@@ -952,10 +959,14 @@ class CreateTaskController extends GetxController {
       (success) async {
         if (success.data?.isNotEmpty ?? false) {
           deadlineTasksPageNumber++;
-          deadlineTasks.addAll(success.data ?? []);
-
-          // Store new tasks in local database
-          for (var task in success.data ?? []) {
+          for (var task in success.data ?? <Task>[]) {
+            final index = deadlineTasks.indexWhere((e) => e.id == task.id);
+            if (index == -1) {
+              deadlineTasks.add(task);
+            } else {
+              deadlineTasks[index] = task;
+            }
+            // Store new tasks in local database
             await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
               taskModel: task,
             );
@@ -1673,7 +1684,6 @@ class CreateTaskController extends GetxController {
       tasksSearch.value = [];
       final result = await taskService.taskSearch(
           taskSearchItem: UserSearchModel(
-              filterType: 'all',
               page: taskSearchPageNumber,
               pageSize: taskSearchPageSize,
               searchTerm: taskSearchController.text));

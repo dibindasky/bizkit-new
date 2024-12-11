@@ -218,11 +218,12 @@ class AuthenticationController extends GetxController {
     log('user data =------------===> ${model.toJson()}');
     await SecureStorage.setLogin();
     if (loadingAccountSwitching.value) {
-      chooseModule(context);
+      await chooseModule(context);
     }
+    print('complete login modal => ${model.toJson()}');
     await usersLocalRepo.addUserToLocalStorageIfNotPresentInStorage(
         model: model.copyWith(logoutFromDevice: 'login'));
-    Get.find<AccessController>().initUserData();
+    await Get.find<AccessController>().initUserData();
     loadingAccountSwitching.value = false;
     getUserName();
   }
@@ -301,10 +302,10 @@ class AuthenticationController extends GetxController {
     try {
       loadingAccountSwitching.value = true;
       doAccountSwitching.value = false;
-      Get.find<ModuleController>().deleteAllControlers();
-      Get.find<ProfileController>().clearData();
       final uid = await SecureStorage.getUserId();
       if (uid == userId) return;
+      Get.find<ModuleController>().deleteAllControlers();
+      Get.find<ProfileController>().clearData();
       final result = await usersLocalRepo.getUserWithUid(userId: userId);
       result.fold((l) => log('get user id false'), (r) {
         log('get user and token succes ');

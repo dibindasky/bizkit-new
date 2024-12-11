@@ -97,6 +97,7 @@ class PersonalDetailsController extends GetxController {
         cardDetail.personalDetails?.dob ?? '');
     bloodGroupController.text = cardDetail.personalDetails?.bloodGroup ?? '';
     myStoryController.text = cardDetail.personalDetails?.personalStory ?? '';
+    update(['personalPhoneNumber']);
   }
 
   /// add phone number to personal data

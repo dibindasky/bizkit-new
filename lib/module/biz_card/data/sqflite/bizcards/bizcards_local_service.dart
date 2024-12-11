@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
-import 'package:bizkit/core/model/token/access_token/token_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/banking_details_model/banking_details_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/business_details.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
@@ -19,7 +18,6 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   static String? _userId;
 
   Future<String?> get userId async {
-    if (_userId != null) return _userId;
     _userId = await SecureStorage.getUserId() ?? '';
     return _userId!;
   }
@@ -534,8 +532,9 @@ class BizcardsLocalService implements BizcardsLocalRepo {
       getBizcardsFromLocalLocalStorage() async {
     try {
       final currentUserData = await SecureStorage.getToken();
+      final currentUserId = currentUserData.uid ?? '';
 
-      if (currentUserData.uid == null) {
+      if (currentUserId == null) {
         log('getBizcardsFromLocalLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
@@ -548,10 +547,10 @@ class BizcardsLocalService implements BizcardsLocalRepo {
 
       // Fetch only the current user's data
       final List<Map<String, dynamic>> result =
-          await localService.rawQuery(query, [currentUserData.uid ?? '']);
+          await localService.rawQuery(query, [currentUserId]);
 
       if (result.isEmpty) {
-        log('getBizcardsFromLocalLocalStorage: No bizcards found for user ${currentUserData.uid ?? ''}');
+        log('getBizcardsFromLocalLocalStorage: No bizcards found for user $currentUserId');
         return const Right([]);
       }
 
@@ -579,7 +578,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
         );
       }).toList();
 
-      log('getBizcardsFromLocalStorage success: ${bizcards.length} bizcards found for user ${currentUserData.uid ?? ''}');
+      log('getBizcardsFromLocalStorage success: ${bizcards.length} bizcards found for user $currentUserId');
       return Right(bizcards);
     } catch (e) {
       log('getBizcardsFromLocalLocalStorage exception: ${e.toString()}');

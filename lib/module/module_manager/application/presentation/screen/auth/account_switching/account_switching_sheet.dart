@@ -34,103 +34,105 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
         color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Obx(() {
-            if (controller.loadingAccountFetching.value) {
-              return ShimmerLoader(
-                  seprator: kHeight10,
-                  itemCount: 2,
-                  height: 30.h,
-                  width: double.infinity);
-            }
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: controller.accounts.length,
-              itemBuilder: (context, index) {
-                final data = controller.accounts[index];
-                return Container(
-                  padding: const EdgeInsets.all(8),
-                  margin: EdgeInsets.only(bottom: 5.h),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: kBorderRadius20,
-                  ),
-                  child: Card(
-                    elevation: 0,
-                    child: ListTile(
-                      onTap: () {
-                     
-                        GoRouter.of(context)
-                            .pushReplacementNamed(Routes.accountSwitching);
-                        controller.switchAccountLogin(context,
-                            userId: data.uid ?? '');
-                               GoRouter.of(context).pop();
-                      },
-                      leading: const CircleAvatar(
-                        backgroundImage: AssetImage(chatSectionPersonDummyImg2),
-                      ),
-                      title: Text(
-                        data.name ?? '',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall
-                            ?.copyWith(fontSize: 14),
-                      ),
-                      // subtitle: const Text(
-                      //   '',
-                      //   style: TextStyle(color: kgrey),
-                      // ),
-                      trailing: Obx(() {
-                        return controller.currentUserId.value == data.uid
-                            ? const Icon(
-                                Icons.check_circle,
-                                color: kneon,
-                                size: 27,
-                              )
-                            : const Icon(
-                                Icons.circle_outlined,
-                                color: kwhite,
-                                size: 27,
-                              );
-                      }),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Obx(() {
+              if (controller.loadingAccountFetching.value) {
+                return ShimmerLoader(
+                    seprator: kHeight10,
+                    itemCount: 2,
+                    height: 30.h,
+                    width: double.infinity);
+              }
+              return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: controller.accounts.length,
+                itemBuilder: (context, index) {
+                  final data = controller.accounts[index];
+                  return Container(
+                    padding: const EdgeInsets.all(8),
+                    margin: EdgeInsets.only(bottom: 5.h),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      borderRadius: kBorderRadius20,
                     ),
-                  ),
-                );
-              },
-            );
-          }),
-          Card(
-            elevation: 0,
-            child: Container(
-              margin: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: kBorderRadius20,
-              ),
-              child: ListTile(
-                onTap: () {
-                  // logout from application with out clalling logout to server
-                  // user account will be avilable for account switching
-                  controller.logOut(context, false);
+                    child: Card(
+                      elevation: 0,
+                      child: ListTile(
+                        onTap: () {
+                          GoRouter.of(context)
+                              .pushReplacementNamed(Routes.accountSwitching);
+                          controller.switchAccountLogin(context,
+                              userId: data.uid ?? '');
+                        },
+                        leading: const CircleAvatar(
+                          backgroundImage:
+                              AssetImage(chatSectionPersonDummyImg2),
+                        ),
+                        title: Text(
+                          data.name ?? '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(fontSize: 14),
+                        ),
+                        // subtitle: const Text(
+                        //   '',
+                        //   style: TextStyle(color: kgrey),
+                        // ),
+                        trailing: Obx(() {
+                          return controller.currentUserId.value == data.uid
+                              ? const Icon(
+                                  Icons.check_circle,
+                                  color: kneon,
+                                  size: 27,
+                                )
+                              : const Icon(
+                                  Icons.circle_outlined,
+                                  color: kGreyNormal,
+                                  size: 27,
+                                );
+                        }),
+                      ),
+                    ),
+                  );
                 },
-                leading: const CircleAvatar(
-                  backgroundImage: AssetImage(bizcardBgImage),
-                  child: Icon(Icons.add, color: kwhite),
+              );
+            }),
+            Card(
+              elevation: 0,
+              child: Container(
+                margin: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: kBorderRadius20,
                 ),
-                title: Text(
-                  'Login to Account',
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall
-                      ?.copyWith(fontSize: 14),
+                child: ListTile(
+                  onTap: () {
+                    // logout from application with out clalling logout to server
+                    // user account will be avilable for account switching
+                    controller.logOut(context, false);
+                  },
+                  leading: const CircleAvatar(
+                    backgroundImage: AssetImage(bizcardBgImage),
+                    child: Icon(Icons.add, color: kwhite),
+                  ),
+                  title: Text(
+                    'Login to Account',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 14),
+                  ),
                 ),
               ),
             ),
-          ),
-          kHeight50,
-          kHeight10,
-        ],
+            kHeight50,
+            kHeight10,
+          ],
+        ),
       ),
     );
   }

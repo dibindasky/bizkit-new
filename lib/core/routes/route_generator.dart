@@ -146,8 +146,12 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.accountSwitching,
       path: Routes.accountSwitching,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+            key: state.pageKey, child: const ScreenAccountSwitchingLoader());
+      },
       // builder: (context, state) => const ScreenConnectionDetailFilling(),
-      builder: (context, state) => const ScreenAccountSwitchingLoader(),
+      // builder: (context, state) => const ScreenAccountSwitchingLoader(),
     ),
 
     // login page

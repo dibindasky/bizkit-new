@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/module/task/domain/model/chat/current_location/current_location_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/file/file_model.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll/poll.dart';
@@ -11,11 +12,10 @@ import 'package:bizkit/module/task/domain/model/chat/text/text_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/time_expence/time_expence_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/voice/voice_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart';
 import 'package:sqflite/sqflite.dart' as sql;
-
-import '../../../../module/task/domain/model/task/get_task_responce/attachment.dart';
 
 class TaskSql {
   static const tasksTable = 'bizkit_tasks';
@@ -43,6 +43,7 @@ class TaskSql {
       await db.execute(_taskSubTasksTableCreation);
       await db.execute(_taskAssignedToDetailTableCreation);
       await db.execute(_filterByDeadlineTableCreation);
+      await db.execute(_recentTasksTableCreation);
       // task chat tables
       await db.execute(_taskMessagesTableCreation);
       await db.execute(_pollMessageTableCreation);
@@ -76,6 +77,7 @@ class TaskSql {
     ${GetTaskResponce.colTaskTags} TEXT,    -- Tags stored as TEXT (e.g. comma-separated)
     ${GetTaskResponce.colTaskCreatedAt} TEXT,
     ${GetTaskResponce.colTaskStatus} TEXT,
+    ${GetTaskResponce.colNextActionDate} TEXT,
     ${GetTaskResponce.colTaskCreatedUserId} TEXT,
     ${GetTaskResponce.colTaskCreatedUsername} TEXT,
     ${GetTaskResponce.colTaskCreatedUserProfilePic} TEXT,
@@ -136,10 +138,21 @@ class TaskSql {
     ${FilterByDeadlineModel.colTaskFilterByDeadline} TEXT,
     ${FilterByDeadlineModel.colUserId} TEXT,
     ${FilterByDeadlineModel.colTaskId} TEXT,
+    ${FilterByDeadlineModel.colTaskNextActionDates} TEXT,
     ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId} INTEGER,
     FOREIGN KEY (${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId}) 
       REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})
       ON DELETE CASCADE
+  )
+''';
+
+  /// Table for Recent task [GetRecentTasksResponce] relation with [GetTaskResponce]
+  static const _recentTasksTableCreation = '''
+  CREATE TABLE IF NOT EXISTS $recentTasksTable(
+  ${GetRecentTasksResponce.colRecentTaskLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+  ${GetRecentTasksResponce.colUserId} TEXT,
+  ${GetRecentTasksResponce.colRecentTaskId} TEXT,
+  ${GetRecentTasksResponce.colRecentTaskType} TEXT
   )
 ''';
 

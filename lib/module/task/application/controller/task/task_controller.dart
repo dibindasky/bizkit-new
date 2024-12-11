@@ -895,7 +895,7 @@ class CreateTaskController extends GetxController {
           for (var task in success.data ?? <Task>[]) {
             final index = deadlineTasks.indexWhere((e) => e.id == task.id);
             if (index == -1) {
-              deadlineTasks.add(task);
+              deadlineTasks.insert(0, task);
             } else {
               deadlineTasks[index] = task;
             }

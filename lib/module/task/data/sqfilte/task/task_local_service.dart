@@ -10,6 +10,7 @@ import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart';
+import 'package:bizkit/module/task/domain/model/task/next_action_date_responce/next_action_date_responce.dart';
 import 'package:bizkit/module/task/domain/repository/sqfilte/task_local_repo.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/task/task_oncreate_db.dart';
@@ -430,11 +431,14 @@ class TaskLocalService implements TaskLocalRepo {
       {required task.Task taskModel}) async {
     try {
       final String? currentUserId = await userId;
-      print('addTaskToLocalStorage --> currentUserId  ---> $currentUserId');
       if (currentUserId == null) {
         log('addTaskToLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
+
+      // Convert the matched next action dates list to a comma-separated string
+      String nextActionDatesAsString =
+          (taskModel.matchedNextActionDates ?? []).join(',');
 
       const query = '''
       INSERT INTO ${TaskSql.tasksTable}(
@@ -450,9 +454,10 @@ class TaskLocalService implements TaskLocalRepo {
         ${GetTaskResponce.colTaskSpotlightOn},
         ${GetTaskResponce.colTaskIsPinned},
         ${GetTaskResponce.colTaskStatus},
+        ${GetTaskResponce.colNextActionDate},
         ${GetTaskResponce.colTaskCreatedUserId},
         ${GetTaskResponce.colTaskCreatedUsername})
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)  
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)  
       ''';
 
       final List<dynamic> values = [
@@ -468,6 +473,7 @@ class TaskLocalService implements TaskLocalRepo {
         taskModel.spotlightOn == true ? 1 : 0,
         taskModel.isPinned == true ? 1 : 0,
         taskModel.status ?? '',
+        nextActionDatesAsString,
         taskModel.createdBy?.userId ?? '',
         taskModel.createdBy?.name ?? '',
       ];
@@ -480,13 +486,20 @@ class TaskLocalService implements TaskLocalRepo {
           ${FilterByDeadlineModel.colTaskFilterByDeadline},
           ${FilterByDeadlineModel.colUserId},
           ${FilterByDeadlineModel.colTaskId},
+          ${FilterByDeadlineModel.colTaskNextActionDates},
           ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId})
-        VALUES(?,?,?,?)  
+        VALUES(?,?,?,?,?)  
         ''';
 
         await localService.rawInsert(
           filterByDeadlineQuery,
-          [taskModel.deadLine, currentUserId, taskModel.id, referenceId],
+          [
+            taskModel.deadLine,
+            currentUserId,
+            taskModel.id,
+            nextActionDatesAsString,
+            referenceId
+          ],
         );
       }
 
@@ -506,12 +519,15 @@ class TaskLocalService implements TaskLocalRepo {
       {required task.Task taskModel}) async {
     try {
       final String? currentUserId = await userId;
-      print(
-          'updateTaskFromLocalStorage --> currentUserId  ---> $currentUserId');
+
       if (currentUserId == null) {
         log('updateTaskFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
+
+      // Convert the matched next action dates list to a comma-separated string
+      String nextActionDatesAsString =
+          (taskModel.matchedNextActionDates ?? []).join(',');
 
       const query = '''
       UPDATE ${TaskSql.tasksTable}
@@ -526,6 +542,7 @@ class TaskLocalService implements TaskLocalRepo {
         ${GetTaskResponce.colTaskSpotlightOn} = ?,
         ${GetTaskResponce.colTaskIsPinned} = ?,
         ${GetTaskResponce.colTaskStatus} = ?,
+        ${GetTaskResponce.colNextActionDate} = ?,
         ${GetTaskResponce.colTaskCreatedUserId} = ?,
         ${GetTaskResponce.colTaskCreatedUsername} = ?
       WHERE 
@@ -543,6 +560,7 @@ class TaskLocalService implements TaskLocalRepo {
         taskModel.spotlightOn == true ? 1 : 0,
         taskModel.isPinned == true ? 1 : 0,
         taskModel.status ?? '',
+        nextActionDatesAsString,
         taskModel.createdBy?.userId ?? '',
         taskModel.createdBy?.name ?? '',
         taskModel.id ?? '', // for WHERE clause
@@ -557,12 +575,15 @@ class TaskLocalService implements TaskLocalRepo {
       if (taskModel.deadLine != null) {
         const filterByDeadlineQuery = '''
         UPDATE ${TaskSql.filterByDeadlineTable}
-        SET ${FilterByDeadlineModel.colTaskFilterByDeadline} = ?
+        SET 
+        ${FilterByDeadlineModel.colTaskFilterByDeadline} = ?,
+          ${FilterByDeadlineModel.colTaskNextActionDates} = ?
         WHERE ${FilterByDeadlineModel.colTaskId} = ? AND ${FilterByDeadlineModel.colUserId} = ? 
       ''';
 
         final filterByDeadlineValues = [
           taskModel.deadLine,
+          nextActionDatesAsString,
           taskModel.id ?? '',
           currentUserId,
         ];
@@ -704,6 +725,13 @@ class TaskLocalService implements TaskLocalRepo {
                 type: r[Attachment.colTaskAttachmentType] as String?,
               ))
           .toList(),
+      nextActionDate:
+          ((taskData[GetTaskResponce.colNextActionDate] as String?) ?? '')
+              .split(',')
+              .map(
+                (e) => NextActionDateResponce(date: e),
+              )
+              .toList(),
       subTask: subtaskResults
           .map((r) => SubTask(
                 id: r[SubTask.colTaskSubtaskId] as String?,
@@ -737,55 +765,6 @@ class TaskLocalService implements TaskLocalRepo {
     return taskResponse;
   }
 
-  // @override
-  // Future<Either<Failure, List<task.Task>>> getTasksFromLocalStorage({
-  //   required String filterByDeadline,
-  // }) async {
-  //   try {
-  //     final deadline = DateTime.parse(filterByDeadline);
-  //     final String? currentUserId = await userId;
-
-  //     if (currentUserId == null) {
-  //       log('getTaskFullDetailsFromLocalStorage error: User ID is null');
-  //       return Left(Failure(message: "User ID is null"));
-  //     }
-
-  //     final List<Map<String, dynamic>> alltasks = await localService.rawQuery(
-  //         'SELECT * FROM ${TaskSql.filterByDeadlineTable} WHERE ${FilterByDeadlineModel.colUserId} = ? ORDER BY ${FilterByDeadlineModel.colTaskFilterByDeadline} DESC',
-  //         [currentUserId]);
-
-  //     List<task.Task> filterdTasks = [];
-
-  //     for (var item in alltasks) {
-  //       final taskDeadlineStr =
-  //           item[FilterByDeadlineModel.colTaskFilterByDeadline] as String?;
-
-  //       // Ensure task deadline is not null before parsing
-  //       if (taskDeadlineStr != null) {
-  //         final taskDeadline = DateTime.parse(taskDeadlineStr);
-  //         if (taskDeadline != null &&
-  //             taskDeadline.isBefore(deadline.add(const Duration(days: 1)))) {
-  //           final data = await localService.rawQuery(
-  //             'SELECT * FROM ${TaskSql.tasksTable} WHERE ${GetTaskResponce.colTaskId} = ?',
-  //             [item[FilterByDeadlineModel.colTaskId]],
-  //           );
-
-  //           if (data.isNotEmpty) {
-  //             filterdTasks.add(task.Task.fromMap(data.first));
-  //           }
-  //         }
-  //       }
-  //     }
-
-  //     log('getTasksFromLocalStorage success ===> ');
-
-  //     return Right(filterdTasks);
-  //   } catch (e) {
-  //     log('getTasksFromLocalStorage error: ${e.toString()}');
-  //     return Left(Failure(message: e.toString()));
-  //   }
-  // }
-
   @override
   Future<Either<Failure, List<task.Task>>> getTasksFromLocalStorage({
     required String filterByDeadline,
@@ -796,7 +775,6 @@ class TaskLocalService implements TaskLocalRepo {
       log('getTasksFromLocalStorage To Json ==== > page : $page , pageSize : $pageSize');
       final deadline = DateTime.parse(filterByDeadline);
       final currentUserData = await SecureStorage.getToken();
-      print('Taskcurrent User Id = ${currentUserData.uid ?? ''}');
 
       if (currentUserData.uid == null) {
         log('getTaskFullDetailsFromLocalStorage error: User ID is null');
@@ -829,10 +807,6 @@ class TaskLocalService implements TaskLocalRepo {
         if (a.spotlightOn == b.spotlightOn) return 0;
         return a.spotlightOn! ? -1 : 1;
       });
-
-      // for (var task in filteredTasks) {
-      //   print('Task from sql database ==== > ${task.title}');
-      // }
 
       log('getTasksFromLocalStorage success  : ${filteredTasks.length} tasks found for user ${currentUserData.uid}');
       return Right(filteredTasks);

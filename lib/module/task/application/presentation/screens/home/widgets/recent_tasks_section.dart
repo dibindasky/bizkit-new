@@ -59,33 +59,6 @@ class RecentTasksSection extends StatelessWidget {
           height: 95.h,
           child: Obx(
             () {
-              // if (homeController.loadingForRecentTasks.value &&
-              //     ((homeController.taskStatusTabIndex.value == 0 &&
-              //             homeController.selfieTasks.isEmpty) ||
-              //         (homeController.taskStatusTabIndex.value == 1 &&
-              //             homeController.toOthersTasks.isEmpty) ||
-              //         (homeController.taskStatusTabIndex.value == 2 &&
-              //             homeController.toMeTasks.isEmpty))) {
-              //   return ShimmerLoader(
-              //     itemCount: 10,
-              //     scrollDirection: Axis.horizontal,
-              //     height: 60.h,
-              //     width: 190.w,
-              //     seprator: kWidth20,
-              //   );
-              // } else if ((homeController.taskStatusTabIndex.value == 0 &&
-              //         homeController.selfieTasks.isEmpty) ||
-              //     (homeController.taskStatusTabIndex.value == 1 &&
-              //         homeController.toOthersTasks.isEmpty) ||
-              //     (homeController.taskStatusTabIndex.value == 2 &&
-              //         homeController.toMeTasks.isEmpty)) {
-              //   return Center(
-              //     child: Text(
-              //       'No recent tasks',
-              //       style: Theme.of(context).textTheme.displaySmall,
-              //     ),
-              //   );
-
               if (homeController.taskStatusTabIndex.value == 0 &&
                   homeController.selfieTasks.isEmpty &&
                   homeController.loadingForRecentTasks.value) {
@@ -156,8 +129,7 @@ class RecentTasksSection extends StatelessWidget {
                       : homeController.taskStatusTabIndex.value == 1
                           ? homeController.toOthersTasks[index]
                           : homeController.toMeTasks[index];
-                  final count =
-                      messageCountController.unreadCounts[recnetTask.taskId];
+
                   return GestureDetector(
                     onTap: () {
                       taskController.fetchSingleTask(
@@ -193,24 +165,36 @@ class RecentTasksSection extends StatelessWidget {
                                   ?.copyWith(fontSize: 10),
                             ),
                             adjustHieght(1.h),
-                            if (count == null || count.value == 0)
-                              kempty
-                            else
-                              Padding(
-                                padding: const EdgeInsets.only(left: 50),
-                                child: Flash(
-                                  // infinite: true,
-                                  animate: true,
-                                  child: Text('Unread messages $count',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall
-                                          ?.copyWith(
-                                              color: kneonDark,
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w500)),
-                                ),
-                              ),
+                            Obx(
+                              () {
+                                if (messageCountController
+                                            .unreadCounts[recnetTask.taskId] ==
+                                        null ||
+                                    messageCountController
+                                            .unreadCounts[recnetTask.taskId]
+                                            ?.value ==
+                                        0) {
+                                  return kempty;
+                                } else {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 50),
+                                    child: Flash(
+                                      // infinite: true,
+                                      animate: true,
+                                      child: Text(
+                                          'Unread messages ${messageCountController.unreadCounts[recnetTask.taskId]}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displaySmall
+                                              ?.copyWith(
+                                                  color: kneonDark,
+                                                  fontSize: 8,
+                                                  fontWeight: FontWeight.w500)),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
                             adjustHieght(5.h),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,

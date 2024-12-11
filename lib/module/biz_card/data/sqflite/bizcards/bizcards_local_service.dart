@@ -18,7 +18,7 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   static String? _userId;
 
   Future<String?> get userId async {
-    if (_userId != null) return _userId;
+    // if (_userId != null) return _userId;
     _userId = await SecureStorage.getUserId() ?? '';
     return _userId!;
   }

@@ -51,7 +51,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
                       : Column(
                           children: [
                             Text(
-                              taskController.singleTask.value.title ?? 'Title',
+                              taskController.singleTask.value.title ?? '',
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium

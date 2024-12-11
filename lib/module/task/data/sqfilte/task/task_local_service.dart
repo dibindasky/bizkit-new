@@ -26,7 +26,7 @@ class TaskLocalService implements TaskLocalRepo {
   static String? _userID;
 
   Future<String?> get userId async {
-    if (_userID != null) return _userID;
+    // if (_userID != null) return _userID;
     final token = await SecureStorage.getToken();
     _userID = token.uid;
     return _userID!;
@@ -859,9 +859,9 @@ class TaskLocalService implements TaskLocalRepo {
         if (taskDeadline.isBefore(deadline.add(const Duration(days: 1)))) {
           final data = await localService.rawQuery(
             '''
-            SELECT * FROM ${TaskSql.tasksTable} 
-            WHERE ${GetTaskResponce.colTaskId} = ? AND
-            ${GetTaskResponce.colUserId} = ?
+              SELECT * FROM ${TaskSql.tasksTable} 
+              WHERE ${GetTaskResponce.colTaskId} = ? 
+              AND ${GetTaskResponce.colUserId} = ?
             ''',
             [item[FilterByDeadlineModel.colTaskId], uid],
           );

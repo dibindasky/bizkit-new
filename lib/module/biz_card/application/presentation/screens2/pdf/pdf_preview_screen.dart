@@ -17,6 +17,7 @@ class ScreenPdfPreview extends StatelessWidget {
       appBar: AppBar(
         title: Text(label == '' ? 'Brochure' : label),
       ),
+      // body: OpenFile.open(filePath!),
       body: filePath != null
           ? PdfViewer.openFile(filePath!,
               onError: (_) => const Center(

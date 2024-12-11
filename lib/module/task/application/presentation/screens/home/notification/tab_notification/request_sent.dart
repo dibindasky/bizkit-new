@@ -1,4 +1,5 @@
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/home/notification/send_and_received_req/req_sent_notification_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/widget/notification_container.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -43,15 +44,15 @@ class RequestSentBuilder extends StatelessWidget {
                   separatorBuilder: (context, index) => adjustHieght(5),
                   itemCount: taskController.sentRequests.length,
                   itemBuilder: (context, index) {
-                    return NotificationCard(
+                    return ReqSentNotificationScreen(
                       createdAt:
                           taskController.sentRequests[index].createdAt ?? '',
                       assignedUsers:
                           taskController.sentRequests[index].assignedUsers ??
                               [],
-                      title: '${taskController.sentRequests[index].title}',
+                      title: '${taskController.sentRequests[index].title??''}',
                       description:
-                          '${taskController.sentRequests[index].description}',
+                          '${taskController.sentRequests[index].description??''}',
                     );
                   },
                 ));

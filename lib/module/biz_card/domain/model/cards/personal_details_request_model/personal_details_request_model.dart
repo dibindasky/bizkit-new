@@ -39,5 +39,21 @@ class PersonalDetailsRequestModel {
     return _$PersonalDetailsRequestModelFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$PersonalDetailsRequestModelToJson(this);
+  Map<String, dynamic> toJson() {
+    // return _$PersonalDetailsRequestModelToJson(this);
+    return {
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'address': address,
+      // dont send data in dob field if dob is empty
+      'dob': (dob?.isNotEmpty ?? false) ? dob : null,
+      'blood_group': bloodGroup,
+      'images': images,
+      'bizcard_id': bizcardId,
+      'personal_details_id': personalDetailsId,
+      'personal_story': personalStory,
+      'want_to_show_personal_story': showPersonalStory,
+    };
+  }
 }

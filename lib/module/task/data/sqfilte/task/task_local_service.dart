@@ -857,9 +857,9 @@ class TaskLocalService implements TaskLocalRepo {
         if (taskDeadline.isBefore(deadline.add(const Duration(days: 1)))) {
           final data = await localService.rawQuery(
             '''
-            SELECT * FROM ${TaskSql.tasksTable} 
-            WHERE ${GetTaskResponce.colTaskId} = ? AND
-            ${GetTaskResponce.colUserId} = ?
+              SELECT * FROM ${TaskSql.tasksTable} 
+              WHERE ${GetTaskResponce.colTaskId} = ? 
+              AND ${GetTaskResponce.colUserId} = ?
             ''',
             [item[FilterByDeadlineModel.colTaskId], uid],
           );

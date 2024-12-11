@@ -968,11 +968,14 @@ class TaskLocalService implements TaskLocalRepo {
   Future<Either<Failure, GetRecentTasksResponce>>
       getRecentsTasksFromLocalStorage() async {
     try {
-      final String? currentUserId = await userId;
-      if (currentUserId == null) {
+      final currentUserData = await SecureStorage.getToken();
+      if (currentUserData.uid == null) {
         log('getRecentsTasksFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
+
+      print(
+          'CURRENT USER ID [${currentUserData.uid}] AND USER NAME [ ${currentUserData.name} ]');
 
       const query = '''
       SELECT * FROM ${TaskSql.recentTasksTable} 
@@ -980,7 +983,7 @@ class TaskLocalService implements TaskLocalRepo {
       ''';
 
       final List<Map<String, dynamic>> allrecentTasks =
-          await localService.rawQuery(query, [currentUserId]);
+          await localService.rawQuery(query, [currentUserData.uid]);
 
       final List<RecentTasks> selfToSelf = [];
       final List<RecentTasks> othersToSelf = [];

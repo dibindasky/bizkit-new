@@ -23,6 +23,7 @@ class RecentTasksSection extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
     final messageCountController = Get.find<MessageCountController>();
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

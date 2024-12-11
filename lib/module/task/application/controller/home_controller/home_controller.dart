@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:bizkit/module/task/data/service/home/home_service.dart';
+import 'package:bizkit/module/task/data/sqfilte/task/task_local_service.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/genearate_report_model/genearate_report_model.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/recent_tasks/recent_tasks.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_report_model/get_report_model.dart';
@@ -41,6 +42,8 @@ class TaskHomeScreenController extends GetxController {
   RxBool progresBarOrRecentTask = true.obs;
 
   RxInt taskStatusTabIndex = 0.obs;
+
+  final TaskLocalService taskLocalService = TaskLocalService();
 
   @override
   void onInit() {
@@ -100,9 +103,60 @@ class TaskHomeScreenController extends GetxController {
 
   void fetchRecentTasks() async {
     loadingForRecentTasks.value = true;
-    final result = await homeService.getRecentTasks();
 
+    // Step 1: Fetch and display local data first
+    await fetchRecentTasksFromLocalDb();
+
+    // Step 2: Then update with any network data if available
+    await fetchRecentTaskFromNetWork();
+  }
+
+  Future<void> fetchRecentTaskFromNetWork() async {
+    final result = await homeService.getRecentTasks();
     result.fold(
+      (failure) {
+        loadingForRecentTasks.value = false;
+        log(failure.message.toString());
+      },
+      (success) async {
+        toMeTasks.assignAll(success.othersToSelf ?? []);
+        toOthersTasks.assignAll(success.selfToOthers ?? []);
+        selfieTasks.assignAll(success.selfToSelf ?? []);
+
+        loadingForRecentTasks.value = false;
+
+        await taskLocalService.deleteRecentTaskFromLocalStorage();
+
+        // Other to self tasks add to local storage
+        for (var othersToSelfTask in toMeTasks) {
+          taskLocalService.addRecentTaskToLocalStorage(
+            recentTaskId: othersToSelfTask.taskId ?? '',
+            recentTaskType: 'others_to_self',
+          );
+        }
+
+        // Self to others tasks add to local storage
+        for (var selfToOthersTask in toOthersTasks) {
+          taskLocalService.addRecentTaskToLocalStorage(
+              recentTaskId: selfToOthersTask.taskId ?? '',
+              recentTaskType: 'self_to_others');
+        }
+
+        // Self to self tasks add to local storage
+        for (var selfToSelfTask in selfieTasks) {
+          taskLocalService.addRecentTaskToLocalStorage(
+              recentTaskId: selfToSelfTask.taskId ?? '',
+              recentTaskType: 'self_to_self');
+        }
+      },
+    );
+  }
+
+  Future<void> fetchRecentTasksFromLocalDb() async {
+    final localDbResult =
+        await taskLocalService.getRecentsTasksFromLocalStorage();
+
+    localDbResult.fold(
       (failure) {
         loadingForRecentTasks.value = false;
         log(failure.message.toString());
@@ -111,6 +165,7 @@ class TaskHomeScreenController extends GetxController {
         toMeTasks.assignAll(success.othersToSelf ?? []);
         toOthersTasks.assignAll(success.selfToOthers ?? []);
         selfieTasks.assignAll(success.selfToSelf ?? []);
+
         loadingForRecentTasks.value = false;
       },
     );

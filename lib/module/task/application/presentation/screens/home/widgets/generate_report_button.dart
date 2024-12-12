@@ -17,7 +17,7 @@ class GenerateReportButton extends StatelessWidget {
         width: 320.w,
         borderRadius: 10,
         text: 'Generate Report',
-        textColr: kblack,
+        textColr: Theme.of(context).colorScheme.onTertiary,
         onTap: () {
           showModalBottomSheet(
             context: context,

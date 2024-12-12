@@ -65,11 +65,22 @@ class PinnedTasksSection extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
+                                if (taskController
+                                        .allPinnedTasks[index].spotlightOn ==
+                                    true)
+                                  Flash(
+                                      animate: true,
+                                      infinite: true,
+                                      child: const Icon(
+                                        Icons.radio_button_checked_rounded,
+                                        color: kwhite,
+                                      )),
+                                adjustWidth(5.w),
                                 Text(
                                   taskController.allPinnedTasks[index].title ??
-                                      'title',
+                                      '',
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
                                       .textTheme
@@ -87,7 +98,7 @@ class PinnedTasksSection extends StatelessWidget {
                             Text(
                               taskController
                                       .allPinnedTasks[index].description ??
-                                  'description',
+                                  '',
                               style: Theme.of(context)
                                   .textTheme
                                   .displaySmall

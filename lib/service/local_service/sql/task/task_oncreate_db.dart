@@ -139,6 +139,7 @@ class TaskSql {
     ${FilterByDeadlineModel.colUserId} TEXT,
     ${FilterByDeadlineModel.colTaskId} TEXT,
     ${FilterByDeadlineModel.colTaskNextActionDates} TEXT,
+    ${FilterByDeadlineModel.colTaskSpotlightOn} INTEGER,
     ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId} INTEGER,
     FOREIGN KEY (${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId}) 
       REFERENCES $tasksTable(${GetTaskResponce.colTaskLocalId})

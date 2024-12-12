@@ -487,8 +487,9 @@ class TaskLocalService implements TaskLocalRepo {
           ${FilterByDeadlineModel.colUserId},
           ${FilterByDeadlineModel.colTaskId},
           ${FilterByDeadlineModel.colTaskNextActionDates},
+          ${FilterByDeadlineModel.colTaskSpotlightOn},
           ${FilterByDeadlineModel.colTaskFilterByDeadlineReferenceId})
-        VALUES(?,?,?,?,?)  
+        VALUES(?,?,?,?,?,?)  
         ''';
 
         await localService.rawInsert(
@@ -498,6 +499,7 @@ class TaskLocalService implements TaskLocalRepo {
             currentUserId,
             taskModel.id,
             nextActionDatesAsString,
+            (taskModel.spotlightOn ?? false) ? 1 : 0,
             referenceId
           ],
         );
@@ -577,13 +579,16 @@ class TaskLocalService implements TaskLocalRepo {
         UPDATE ${TaskSql.filterByDeadlineTable}
         SET 
         ${FilterByDeadlineModel.colTaskFilterByDeadline} = ?,
-          ${FilterByDeadlineModel.colTaskNextActionDates} = ?
+        ${FilterByDeadlineModel.colTaskNextActionDates} = ?,
+        ${FilterByDeadlineModel.colTaskSpotlightOn} = ?
+
         WHERE ${FilterByDeadlineModel.colTaskId} = ? AND ${FilterByDeadlineModel.colUserId} = ? 
       ''';
 
         final filterByDeadlineValues = [
           taskModel.deadLine,
           nextActionDatesAsString,
+          (taskModel.spotlightOn ?? false) ? 1 : 0,
           taskModel.id ?? '',
           currentUserId,
         ];
@@ -772,99 +777,104 @@ class TaskLocalService implements TaskLocalRepo {
     required int pageSize,
   }) async {
     try {
-      log('getTasksFromLocalStorage To Json ==== > page : $page , pageSize : $pageSize');
+      // Parse the provided deadline string into a DateTime object
       final deadline = DateTime.parse(filterByDeadline);
-      final currentUserData = await SecureStorage.getToken();
 
-      if (currentUserData.uid == null) {
+      final currentUserId = await userId;
+
+      if (currentUserId == null) {
         log('getTaskFullDetailsFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
 
-      // Calculate offset for pagination
-      final offset = (page - 1) * pageSize;
+      // Query to fetch tasks from the database filtered by the user's ID
+      final List<Map<String, dynamic>> alltasks =
+          await localService.rawQuery('''
+      SELECT * FROM ${TaskSql.filterByDeadlineTable} 
+      WHERE ${FilterByDeadlineModel.colUserId} = ? 
+      ORDER BY ${FilterByDeadlineModel.colTaskFilterByDeadline} DESC
+      ''', [
+        await userId,
+      ]);
 
-      // First get total count of matching tasks
-      List<Map<String, Object?>> countResult =
-          await _getTotalTaskCount(currentUserData.uid ?? '');
+      // Separate tasks based on conditions
+      List<Map<String, dynamic>> prioritizedTasks = [];
+      List<Map<String, dynamic>> regularTasks = [];
 
-      final totalTasks = Sqflite.firstIntValue(countResult) ?? 0;
+      for (var item in alltasks) {
+        bool isTaskAdded = false;
 
-      // If offset is beyond total tasks, return empty list
-      if (offset >= totalTasks) {
-        return const Right([]);
+        // Split and check next action dates
+        List<String> nextActionDates =
+            ((item[FilterByDeadlineModel.colTaskNextActionDates] as String?) ??
+                    '')
+                .split(',');
+
+        for (var nextTaskDate in nextActionDates) {
+          if (nextTaskDate == filterByDeadline) {
+            prioritizedTasks.insert(0, item);
+            isTaskAdded = true;
+            break;
+          }
+        }
+        if (isTaskAdded) {
+          continue;
+        }
+
+        // Check if the task is spotlighted
+        if (((item[FilterByDeadlineModel.colTaskSpotlightOn] as int?) ?? 0) ==
+            1) {
+          prioritizedTasks.add(item);
+          isTaskAdded = true;
+          continue;
+        }
+
+        // Check if the task deadline is within the required range
+        final taskDeadlineStr =
+            item[FilterByDeadlineModel.colTaskFilterByDeadline] as String?;
+        if (taskDeadlineStr != null) {
+          final taskDeadline = DateTime.parse(taskDeadlineStr);
+          if (taskDeadline.isBefore(deadline.add(const Duration(days: 1)))) {
+            regularTasks.add(item);
+          }
+        }
       }
 
-      // Get paginated tasks
-      List<Map<String, dynamic>> alltasks =
-          await _getPaginatedTasks(currentUserData.uid ?? '', pageSize, offset);
+      // Merge prioritized tasks with regular tasks
+      prioritizedTasks.addAll(regularTasks);
 
-      List<task.Task> filteredTasks = await _filterTasksByDeadline(
-          alltasks, deadline, currentUserData.uid ?? '');
+      // Apply pagination
+      int startIndex = (page - 1) * pageSize;
+      List<task.Task> paginatedTasks = [];
 
-      // Sort tasks by spotlight status
-      filteredTasks.sort((a, b) {
-        if (a.spotlightOn == b.spotlightOn) return 0;
-        return a.spotlightOn! ? -1 : 1;
-      });
-
-      log('getTasksFromLocalStorage success  : ${filteredTasks.length} tasks found for user ${currentUserData.uid}');
-      return Right(filteredTasks);
-    } catch (e) {
-      log('getTasksFromLocalStorage error: ${e.toString()}');
-      return Left(Failure(message: e.toString()));
-    }
-  }
-
-  Future<List<task.Task>> _filterTasksByDeadline(
-      List<Map<String, dynamic>> alltasks,
-      DateTime deadline,
-      String uid) async {
-    List<task.Task> filteredTasks = [];
-
-    for (var item in alltasks) {
-      final taskDeadlineStr =
-          item[FilterByDeadlineModel.colTaskFilterByDeadline] as String?;
-
-      if (taskDeadlineStr != null) {
-        final taskDeadline = DateTime.parse(taskDeadlineStr);
-        if (taskDeadline.isBefore(deadline.add(const Duration(days: 1)))) {
-          final data = await localService.rawQuery(
+      for (var i = startIndex; i < startIndex + pageSize; i++) {
+        final taskDeadlineStr = prioritizedTasks[i]
+            [FilterByDeadlineModel.colTaskFilterByDeadline] as String?;
+        if (taskDeadlineStr != null) {
+          // Fetch full task details from the database
+          final taskDetails = await localService.rawQuery(
             '''
               SELECT * FROM ${TaskSql.tasksTable} 
               WHERE ${GetTaskResponce.colTaskId} = ? 
               AND ${GetTaskResponce.colUserId} = ?
             ''',
-            [item[FilterByDeadlineModel.colTaskId], uid],
+            [
+              prioritizedTasks[i][FilterByDeadlineModel.colTaskId],
+              await userId
+            ],
           );
 
-          if (data.isNotEmpty) {
-            filteredTasks.add(task.Task.fromMap(data.first));
+          if (taskDetails.isNotEmpty) {
+            paginatedTasks.add(task.Task.fromMap(taskDetails.first));
           }
         }
       }
+      log('getTasksFromLocalStorage success ');
+      return Right(paginatedTasks);
+    } catch (e) {
+      log('getTasksFromLocalStorage error: ${e.toString()}');
+      return Left(Failure(message: e.toString()));
     }
-    return filteredTasks;
-  }
-
-  Future<List<Map<String, dynamic>>> _getPaginatedTasks(
-      currentUserId, int pageSize, int offset) async {
-    final List<Map<String, dynamic>> alltasks = await localService.rawQuery('''
-      SELECT * FROM ${TaskSql.filterByDeadlineTable} 
-      WHERE ${FilterByDeadlineModel.colUserId} = ? 
-      ORDER BY ${FilterByDeadlineModel.colTaskFilterByDeadline} DESC
-      LIMIT ? OFFSET ?
-      ''', [currentUserId, pageSize, offset]);
-    return alltasks;
-  }
-
-  Future<List<Map<String, Object?>>> _getTotalTaskCount(currentUserId) async {
-    final countResult = await localService.rawQuery('''
-      SELECT COUNT(*) as count 
-      FROM ${TaskSql.filterByDeadlineTable} 
-      WHERE ${FilterByDeadlineModel.colUserId} = ?
-      ''', [currentUserId]);
-    return countResult;
   }
 
   @override
@@ -946,9 +956,6 @@ class TaskLocalService implements TaskLocalRepo {
         log('getRecentsTasksFromLocalStorage error: User ID is null');
         return Left(Failure(message: "User ID is null"));
       }
-
-      print(
-          'CURRENT USER ID [${currentUserData.uid}] AND USER NAME [ ${currentUserData.name} ]');
 
       const query = '''
       SELECT * FROM ${TaskSql.recentTasksTable} 

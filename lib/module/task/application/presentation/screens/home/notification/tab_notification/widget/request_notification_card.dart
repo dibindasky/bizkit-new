@@ -48,7 +48,7 @@ class NotificationRequestCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title ?? 'title',
+                      title ?? '',
                       style:
                           Theme.of(context).textTheme.displayMedium?.copyWith(
                                 fontWeight: FontWeight.w500,
@@ -56,7 +56,7 @@ class NotificationRequestCard extends StatelessWidget {
                     ),
                     adjustHieght(4.h),
                     Text(
-                      des ?? 'des',
+                      des ?? '',
                       maxLines: 3,
                       style: Theme.of(context).textTheme.displaySmall,
                     ),
@@ -79,14 +79,16 @@ class NotificationRequestCard extends StatelessWidget {
                           ),
                         ),
                         adjustWidth(8.w),
-                        Text(
-                          name ?? '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
+                        Expanded(
+                          child: Text(
+                            name ?? '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
                         ),
                         adjustWidth(16.w),
                         Icon(
@@ -95,14 +97,16 @@ class NotificationRequestCard extends StatelessWidget {
                           size: 12.0.w,
                         ),
                         adjustWidth(4.w),
-                        Text(
-                          deadline ?? '12 My',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
+                        Expanded(
+                          child: Text(
+                            deadline ?? '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
                         ),
                       ],
                     ),

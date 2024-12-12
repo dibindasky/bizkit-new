@@ -24,31 +24,40 @@ class TaskDetailHeaderSection extends StatelessWidget {
     final messageCountController = Get.find<MessageCountController>();
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                kWidth5,
-                GestureDetector(
-                    onTap: () {
-                      GoRouter.of(context).pop();
-                    },
-                    child: const Icon(Icons.arrow_back_ios)),
-                Obx(
-                  () => taskController.isLoading.value
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: ShimmerLoaderTile(
-                            height: 15.h,
-                            width: 150.w,
-                          ),
-                        )
-                      : Column(
+        Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              kWidth5,
+              GestureDetector(
+                onTap: () {
+                  GoRouter.of(context).pop(context);
+                },
+                child: CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                  child: Icon(
+                    Icons.arrow_back_ios_new,
+                    size: 18.sp,
+                    color: Theme.of(context).colorScheme.onTertiary,
+                  ),
+                ),
+              ),
+              adjustWidth(10.w),
+              Obx(
+                () => taskController.isLoading.value
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: ShimmerLoaderTile(
+                          height: 15.h,
+                          width: 150.w,
+                        ),
+                      )
+                    : Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               taskController.singleTask.value.title ?? '',
@@ -56,7 +65,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
                                   .textTheme
                                   .displayMedium
                                   ?.copyWith(
-                                    fontSize: 16,
+                                    fontSize: 15,
                                     color: kneonDark,
                                   ),
                               overflow: TextOverflow.ellipsis,
@@ -148,10 +157,10 @@ class TaskDetailHeaderSection extends StatelessWidget {
                             ),
                           ],
                         ),
-                ),
-              ],
-            ),
-          ],
+                      ),
+              ),
+            ],
+          ),
         ),
         Row(
           children: [

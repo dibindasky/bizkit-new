@@ -195,6 +195,7 @@ class GoRouterConfig {
           images: extra['images'] as List<String>,
           initialIndex: extra['initial'],
           isMemory: extra['memory'],
+          isFile: extra['file'],
         );
       },
     ),

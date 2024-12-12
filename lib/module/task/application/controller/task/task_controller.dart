@@ -61,7 +61,6 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -366,6 +365,29 @@ class CreateTaskController extends GetxController {
   RxBool attachmentDeleteLoading = false.obs;
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+
+  RxBool stausExpansionTileTap = false.obs;
+  RxString statusValue = ''.obs;
+
+  void statusValueChanged({required double value}) {
+    statusValue.value = value.floor().toString();
+  }
+
+  ///task detail section status percentage change function
+  void statusChange(
+      {required BuildContext context, required String taskId}) async {
+    singleTask.value = singleTask.value.copyWith(status: statusValue.value);
+    print(" status value after taping update status ${ statusValue.value}");
+    final result = await taskService.editTask(
+      taskModel: EditTaskModel(status: statusValue.value, taskId: taskId),
+    );
+    result.fold((failure){
+      print('failure status change');
+    }, (success){
+      print(singleTask.value.status);
+      print('success status change');
+    });
+  }
 
   ///task attachment delete function
   longPressOrOnTap(String attachment) {

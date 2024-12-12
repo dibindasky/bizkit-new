@@ -51,6 +51,9 @@ class ChatController extends GetxController {
   RxList<Message> messages = <Message>[].obs;
   String _error = '';
 
+  /// selected messages
+  RxList<Message> selectedMessages = <Message>[].obs;
+
   /// currently active chat task id
   String chatTaskId = '';
 
@@ -123,6 +126,7 @@ class ChatController extends GetxController {
       checkLoading();
     });
     soundManager = SoundManager();
+    selectedMessages.value = [];
     isPlaying.value = false;
     isPaused.value = false;
     recordedAudio.value = '';
@@ -735,6 +739,7 @@ class ChatController extends GetxController {
     }
   }
 
+  /// download file and store it in local db for ofline chat list
   void downloadFile(String? messageId) async {
     if (messageId?.isNotEmpty ?? false) {
       downloadingMessagesFilesId.add(messageId!);
@@ -803,11 +808,34 @@ class ChatController extends GetxController {
     }
   }
 
+  /// return the type of file as ["image"] or ["pdf"] by checking the extension
   String _getTypeOfFile(String type) {
     if (type == 'jpg' || type == 'png' || type == 'jpeg' || type == 'gif') {
       return 'image';
     } else {
       return 'pdf';
+    }
+  }
+
+  /// delete file from chat
+  void deleteFileFromChat() {
+    addMessageToChannel(data: {
+      "message_type": "delete_file",
+      "message_ids": List.generate(selectedMessages.length,
+          (index) => selectedMessages[index].messageId),
+      "files": List.generate(
+          selectedMessages.length, (index) => selectedMessages[index].file)
+    });
+    selectedMessages.value = [];
+  }
+
+  void selectOrUnselectMessage({required Message message}) {
+    final index =
+        selectedMessages.indexWhere((m) => m.messageId == message.messageId);
+    if (index == -1) {
+      selectedMessages.add(message);
+    } else {
+      selectedMessages.removeWhere((m) => m.messageId == message.messageId);
     }
   }
 

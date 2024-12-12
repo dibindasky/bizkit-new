@@ -46,10 +46,12 @@ class EditTaskModel {
     if (taskId != null) data['task_id'] = taskId;
     if (deadLine != null) data['dead_line'] = deadLine;
     if (assignedTo != null) {
-      data['assigned_to'] = assignedTo?.map((e) => e.toJson()).toList();}
+      data['assigned_to'] = assignedTo?.map((e) => e.toJson()).toList();
+    }
     if (nextActionDate != null) {
       data['next_action_date'] =
           nextActionDate?.map((e) => e.toJson()).toList();
     }
-    return data;}
+    return data;
+}
 }

@@ -366,6 +366,29 @@ class CreateTaskController extends GetxController {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
+  RxBool stausExpansionTileTap = false.obs;
+  RxString statusValue = ''.obs;
+
+  void statusValueChanged({required double value}) {
+    statusValue.value = value.floor().toString();
+  }
+
+  ///task detail section status percentage change function
+  void statusChange(
+      {required BuildContext context, required String taskId}) async {
+    singleTask.value = singleTask.value.copyWith(status: statusValue.value);
+    print(" status value after taping update status ${ statusValue.value}");
+    final result = await taskService.editTask(
+      taskModel: EditTaskModel(status: statusValue.value, taskId: taskId),
+    );
+    result.fold((failure){
+      print('failure status change');
+    }, (success){
+      print(singleTask.value.status);
+      print('success status change');
+    });
+  }
+
   ///task attachment delete function
   longPressOrOnTap(String attachment) {
     if (selectedAttachmentsDatas.contains(attachment)) {

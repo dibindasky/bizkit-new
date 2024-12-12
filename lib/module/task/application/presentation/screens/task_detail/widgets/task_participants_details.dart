@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
 class TaskDetailUserInfoSection extends StatelessWidget {
@@ -71,6 +72,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                     task.createdUserDetails?.profilePicture ??
                                         '',
                                     radius: 50,
+                                    errorWidget: const Icon(Iconsax.user),
                                   )
                                 : Text(
                                     task.createdUserDetails?.name?.isNotEmpty ==
@@ -146,6 +148,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                     task.createdUserDetails?.profilePicture ??
                                         '',
                                     radius: 50,
+                                    errorWidget: const Icon(Iconsax.user),
                                   )
                                 : Text(
                                     task.createdUserDetails?.name?.isNotEmpty ==
@@ -204,7 +207,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                       child: const CircleAvatar(
                         backgroundColor: kneon,
                         child: Icon(
-                          Icons.calendar_month,
+                          Iconsax.calendar_1,
                         ),
                       ),
                     ),
@@ -261,7 +264,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                         child: const CircleAvatar(
                           backgroundColor: kneon,
                           child: Icon(
-                            Icons.person,
+                            Iconsax.profile_2user,
                           ),
                         ),
                       ),
@@ -538,7 +541,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                 ),
                                 Text(
                                     DateTimeFormater.timeAgoString(
-                                        visitor?.time ??''),
+                                        visitor?.time ?? ''),
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall

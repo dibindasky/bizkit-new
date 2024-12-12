@@ -21,30 +21,40 @@ class TaskSearchScreen extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            GoRouter.of(context).pop(context);
-            taskController.taskSearchController.clear();
-            FocusScope.of(context).unfocus();
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        backgroundColor: knill,
-        surfaceTintColor: knill,
-        title: Text(
-          'Find your tasks',
-          style:
-              Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 15),
-        ),
-      ),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: Column(
-            children: [
-              adjustHieght(10.h),
-              Hero(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).pop(context);
+                      taskController.taskSearchController.clear();
+                      FocusScope.of(context).unfocus();
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        size: 18.sp,
+                        color: Theme.of(context).colorScheme.onTertiary,
+                      ),
+                    ),
+                  ),
+                  adjustWidth(20.w),
+                  Text(
+                    'Find your tasks',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  )
+                ],
+              ),
+            ),
+            adjustHieght(10.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Hero(
                 tag: 'taskSearch',
                 child: TaskTextField(
                   showBorder: true,
@@ -59,27 +69,32 @@ class TaskSearchScreen extends StatelessWidget {
                       const Icon(Iconsax.search_status, color: neonShade),
                 ),
               ),
-              adjustHieght(15.h),
-              Expanded(
-                child: Obx(
-                  () {
-                    if (taskController.taskSearchLoading.value) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        child: ShimmerLoaderTaskContainer(
-                          height: 50.h,
-                          itemCount: 10,
-                          width: double.infinity,
-                        ),
-                      );
-                    } else if (taskController.tasksSearch.isEmpty) {
-                      return ErrorRefreshIndicator(
-                        image: emptyNodata2,
-                        errorMessage: 'No Tasks',
-                        onRefresh: () {},
-                      );
-                    } else {
-                      return ListView.builder(
+            ),
+            adjustHieght(15.h),
+            Expanded(
+              child: Obx(
+                () {
+                  if (taskController.taskSearchLoading.value) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      child: ShimmerLoaderTaskContainer(
+                        height: 50.h,
+                        itemCount: 10,
+                        width: double.infinity,
+                      ),
+                    );
+                  } else if (taskController.tasksSearch.isEmpty) {
+                    return ErrorRefreshIndicator(
+                      image: emptyNodata2,
+                      errorMessage: 'No Tasks',
+                      onRefresh: () {
+                        taskController.searchTasks();
+                      },
+                    );
+                  } else {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      child: ListView.builder(
                         controller: taskController.taskSearchScrollController,
                         itemCount: taskController.tasksSearch.length +
                             (taskController.taskSearchLoadMoreLoading.value
@@ -93,8 +108,6 @@ class TaskSearchScreen extends StatelessWidget {
                               child: ShimmerLoaderTaskContainer(
                                 height: 50.h,
                                 itemCount: 1,
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
                                 width: double.infinity,
                               ),
                             );
@@ -123,13 +136,13 @@ class TaskSearchScreen extends StatelessWidget {
                             );
                           }
                         },
-                      );
-                    }
-                  },
-                ),
+                      ),
+                    );
+                  }
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

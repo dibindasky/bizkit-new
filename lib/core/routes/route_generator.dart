@@ -848,21 +848,28 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.taskTotalTimeAndExpense,
       path: Routes.taskTotalTimeAndExpense,
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final extra = state.extra as String;
-        return TaskTotalTimeAndExpenseView(
-          taskId: extra,
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: TaskTotalTimeAndExpenseView(
+            taskId: extra,
+          ),
         );
       },
     ),
     GoRoute(
       name: Routes.taskChatScreen,
       path: Routes.taskChatScreen,
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final extra = state.extra as Map<String, dynamic>;
-        return ScreenTaskChat(
-          active: extra['active'],
-          taskTitle: extra['taskTitle'],
+
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: ScreenTaskChat(
+            active: extra['active'],
+            taskTitle: extra['taskTitle'],
+          ),
         );
       },
     ),

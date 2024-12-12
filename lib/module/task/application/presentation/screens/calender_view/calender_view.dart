@@ -69,9 +69,12 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                                               .format(date)]
                                           ?.value ??
                                       0;
+
                                   return GestureDetector(
                                     onTap: () {
+                                      onTap();
                                       taskController.selctDate(date);
+
                                       if (taskCalenderViewController
                                               .taskTabChangeIndex.value ==
                                           1) {
@@ -199,6 +202,7 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                               );
                             },
                             activeColor: kneon,
+                            selectionMode: const SelectionMode.autoCenter(),
                             onDateChange: (selectedDate) {},
                           );
                         },

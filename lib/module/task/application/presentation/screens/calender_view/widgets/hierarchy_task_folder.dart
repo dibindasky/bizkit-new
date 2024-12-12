@@ -8,6 +8,7 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class HeirarchyTaskFolderRow extends StatelessWidget {
@@ -41,11 +42,16 @@ class HeirarchyTaskFolderRow extends StatelessWidget {
                           hierarchyController.fetchEmployeesList();
                           controller.taskTabchangeIndex(0);
                         } else {
-                          showSnackbar(context,
-                              backgroundColor: kred,
-                              textColor: kwhite,
-                              message:
-                                  'Access to view the hierarchy has been restricted');
+                          Fluttertoast.showToast(
+                            msg:
+                                'Access to view the hierarchy has been restricted',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.SNACKBAR,
+                            timeInSecForIosWeb: 3,
+                            fontSize: 12,
+                            backgroundColor: kred,
+                            textColor: kwhite,
+                          );
                         }
                       },
                       child: Container(

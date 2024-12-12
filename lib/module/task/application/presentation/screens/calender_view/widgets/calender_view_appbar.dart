@@ -1,14 +1,17 @@
 import 'dart:ui';
 
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/create_new_folder.dart';
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/merge_inner_folder_model/merge_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
@@ -21,6 +24,8 @@ class TaskCalenderViewAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<TaskCalenderViewController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return Container(
       padding: EdgeInsets.only(left: 10.h),
       width: double.infinity,
@@ -39,9 +44,35 @@ class TaskCalenderViewAppBar extends StatelessWidget {
           GestureDetector(
             onTap: () {
               if (controller.taskTabChangeIndex.value == 2) {
-                showCreateFolderDialog(context);
+                if (internetConnectinController.isConnectedToInternet.value) {
+                  showCreateFolderDialog(context);
+                } else {
+                  Fluttertoast.showToast(
+                    msg:
+                        'You must be online to create a new folder. Please check your internet connection.',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.SNACKBAR,
+                    timeInSecForIosWeb: 3,
+                    fontSize: 12,
+                    backgroundColor: kred,
+                    textColor: kwhite,
+                  );
+                }
               } else {
-                GoRouter.of(context).pushNamed(Routes.addTask);
+                if (internetConnectinController.isConnectedToInternet.value) {
+                  GoRouter.of(context).pushNamed(Routes.addTask);
+                } else {
+                  Fluttertoast.showToast(
+                    msg:
+                        'You must be online to create a new task. Please check your internet connection.',
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.SNACKBAR,
+                    timeInSecForIosWeb: 3,
+                    fontSize: 12,
+                    backgroundColor: kred,
+                    textColor: kwhite,
+                  );
+                }
               }
             },
             child: Container(

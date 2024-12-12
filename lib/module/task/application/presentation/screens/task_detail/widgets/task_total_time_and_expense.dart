@@ -3,6 +3,7 @@ import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_s
 import 'package:bizkit/utils/animations/expansion_tile.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
@@ -23,25 +24,33 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            GoRouter.of(context).pop();
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        backgroundColor: knill,
-        title: Text(
-          'Total Time & Expense',
-          style:
-              Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 15),
-        ),
-      ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
           child: Column(
             children: [
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).pop(context);
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        size: 18.sp,
+                        color: Theme.of(context).colorScheme.onTertiary,
+                      ),
+                    ),
+                  ),
+                  adjustWidth(20.w),
+                  Text(
+                    'Total Time & Expense',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  )
+                ],
+              ),
               adjustHieght(10.h),
               Padding(
                 padding: const EdgeInsets.all(9.0),
@@ -226,9 +235,15 @@ class TaskTotalTimeAndExpenseView extends StatelessWidget {
                             child: Card(
                               elevation: 1,
                               child: ListTile(
-                                  leading: const CircleAvatar(
-                                      child: Image(
-                                          image: AssetImage(personDemoImg))),
+                                  leading: CircleAvatar(
+                                    child: NetworkImageWithLoader(
+                                      radius: 50,
+                                      errorWidget: const Icon(Icons.person),
+                                      taskController.taskExpenseAndTime[index]
+                                              .profilePicture ??
+                                          '',
+                                    ),
+                                  ),
                                   title: Text(
                                     taskController
                                             .taskExpenseAndTime[index].name ??

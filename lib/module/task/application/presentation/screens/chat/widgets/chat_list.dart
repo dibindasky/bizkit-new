@@ -81,7 +81,7 @@ class ChatListView extends StatelessWidget {
               }
               // file type
               if (message.file != null) {
-                return FileMessageCard(message: message.file!);
+                return FileMessageCard(message: message);
               }
               // current location
               if (message.currentLocation != null) {

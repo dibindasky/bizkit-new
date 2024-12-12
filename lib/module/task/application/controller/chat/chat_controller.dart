@@ -787,7 +787,6 @@ class ChatController extends GetxController {
           filePath: filePath,
           message: filePath?.split('/').last);
       final typee = (file.message ?? '').split('.').last;
-      print('send pdf => ${pdf.name} , \n typeee-> $typee');
       final data = {
         "message_type": "file",
         "files": [
@@ -805,7 +804,7 @@ class ChatController extends GetxController {
   }
 
   String _getTypeOfFile(String type) {
-    if (type == 'jpg' || type == 'png' || type == 'jpeg') {
+    if (type == 'jpg' || type == 'png' || type == 'jpeg' || type == 'gif') {
       return 'image';
     } else {
       return 'pdf';

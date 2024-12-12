@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,11 +10,13 @@ class SlidablePhotoGallery extends StatelessWidget {
   final List<String> images;
   final int initialIndex;
   final bool isMemory;
+  final bool isFile;
 
   const SlidablePhotoGallery(
       {super.key,
       required this.images,
       this.initialIndex = 0,
+      this.isFile = false,
       this.isMemory = false});
 
   @override
@@ -41,14 +44,23 @@ class SlidablePhotoGallery extends StatelessWidget {
                           backgroundDecoration:
                               const BoxDecoration(color: Colors.black),
                         )
-                      : PhotoView(
-                          imageProvider: NetworkImage(images[index]),
-                          minScale: PhotoViewComputedScale.contained,
-                          maxScale: PhotoViewComputedScale.covered * 2,
-                          initialScale: PhotoViewComputedScale.contained,
-                          backgroundDecoration:
-                              const BoxDecoration(color: Colors.black),
-                        ),
+                      : isFile
+                          ? PhotoView(
+                              imageProvider: FileImage(File(images[index])),
+                              minScale: PhotoViewComputedScale.contained,
+                              maxScale: PhotoViewComputedScale.covered * 2,
+                              initialScale: PhotoViewComputedScale.contained,
+                              backgroundDecoration:
+                                  const BoxDecoration(color: Colors.black),
+                            )
+                          : PhotoView(
+                              imageProvider: NetworkImage(images[index]),
+                              minScale: PhotoViewComputedScale.contained,
+                              maxScale: PhotoViewComputedScale.covered * 2,
+                              initialScale: PhotoViewComputedScale.contained,
+                              backgroundDecoration:
+                                  const BoxDecoration(color: Colors.black),
+                            ),
                 );
               },
             ),
@@ -56,11 +68,17 @@ class SlidablePhotoGallery extends StatelessWidget {
           Positioned(
               top: 40.h,
               left: 10.h,
-              child: IconButton(
+              child: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.onTertiary,
+                child: IconButton(
                   onPressed: () {
                     GoRouter.of(context).pop();
                   },
-                  icon: const Icon(Icons.arrow_back)))
+                  icon: Icon(Icons.arrow_back_ios_new_sharp,
+                      size: 18.sp,
+                      color: Theme.of(context).colorScheme.onPrimary),
+                ),
+              ))
         ],
       ),
     );

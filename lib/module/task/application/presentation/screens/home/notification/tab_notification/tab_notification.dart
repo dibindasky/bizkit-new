@@ -18,19 +18,40 @@ class TaskTabNotification extends StatelessWidget {
       taskController.fetchSendRequests();
       taskController.fetchReceivedRequests();
     });
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: knill,
-          leading: IconButton(
-            onPressed: () => GoRouter.of(context).pop(context),
-            icon: const Icon(Icons.arrow_back_ios_new, size: 17),
-          ),
-          bottom: PreferredSize(
-              preferredSize: Size(double.infinity, 50.h),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
+    return Scaffold(
+      body: SafeArea(
+        child: DefaultTabController(
+          length: 2,
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).pop(context);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
+                        child: Icon(
+                          Icons.arrow_back_ios_new,
+                          size: 18.sp,
+                          color: Theme.of(context).colorScheme.onTertiary,
+                        ),
+                      ),
+                    ),
+                    adjustWidth(20.w),
+                    Text(
+                      'Requests',
+                      style: Theme.of(context).textTheme.displayMedium,
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -60,20 +81,18 @@ class TaskTabNotification extends StatelessWidget {
                     ],
                   ),
                 ),
-              )),
-          title: Text(
-            'Requests',
-            style: Theme.of(context)
-                .textTheme
-                .displaySmall
-                ?.copyWith(fontSize: 16),
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    const TabNotificationItemBuilder(),
+                    RequestSentBuilder(),
+                  ],
+                ),
+              ),
+              adjustHieght(3.h)
+            ],
           ),
-        ),
-        body: TabBarView(
-          children: [
-            const TabNotificationItemBuilder(),
-            RequestSentBuilder(),
-          ],
         ),
       ),
     );

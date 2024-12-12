@@ -31,4 +31,5 @@ class FilterByDeadlineModel {
   static const colTaskNextActionDates = 'task_next_action_dates';
   static const colTaskFilterByDeadlineReferenceId =
       'task_filter_by_deadline_reference_id ';
+  static const colTaskSpotlightOn = 'task_spotlight_on';
 }

@@ -2,6 +2,7 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/attachments_task_detail.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/description_task_detail.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/nex_actiondate_section.dart';
+import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/status_task_details.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/sub_task_list.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/tag_selection_task_detail.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/task_detail_header_section.dart';
@@ -73,6 +74,8 @@ class ScreenTaskDetailPage extends StatelessWidget {
                           const TaskDetailUserInfoSection(),
                           adjustHieght(15.h),
                           const TaskDetailDescriptionSection(),
+                          adjustHieght(15.h),
+                          TaskDetailStatusSection(),
                           adjustHieght(15.h),
                           NextActionDateSection(taskId: taskId),
                           adjustHieght(15.h),

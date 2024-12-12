@@ -82,16 +82,22 @@ class TaskHomeAppBar extends StatelessWidget {
                           border: Border.all(color: klightgrey),
                           color: Theme.of(context).colorScheme.onTertiary,
                         ),
-                        child: const Icon(
-                          Iconsax.notification,
-                          size: 21,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Badge(
+                            isLabelVisible : notificationController.viewed.value,
+                            child:const Center(
+                              child:  Icon(
+                                Iconsax.notification,
+                                size: 20,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      notificationController.viewed.value ?const Icon(
-                              Icons.message,
-                              color: Color.fromARGB(255, 189, 14, 2),
-                            )
-                          :const SizedBox()
+                      // notificationController.viewed.value
+                      //     ? Badge()
+                      //     : const SizedBox()
                     ],
                   )),
             ),

@@ -9,6 +9,7 @@ part of 'edit_task_responce.dart';
 EditTaskModel _$EditTaskModelFromJson(Map<String, dynamic> json) =>
     EditTaskModel(
       title: json['title'] as String?,
+      status: json['status'] as String?,
       description: json['description'] as String?,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       taskId: json['task_id'] as String?,
@@ -24,6 +25,7 @@ EditTaskModel _$EditTaskModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$EditTaskModelToJson(EditTaskModel instance) =>
     <String, dynamic>{
+      'status':instance.status,
       'title': instance.title,
       'description': instance.description,
       'tags': instance.tags,

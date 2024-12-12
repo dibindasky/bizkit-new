@@ -63,6 +63,10 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
                       elevation: 0,
                       child: ListTile(
                         onTap: () {
+                          if (controller.currentUserId.value == data.uid) {
+                            GoRouter.of(context).pop();
+                            return;
+                          }
                           GoRouter.of(context)
                               .pushReplacementNamed(Routes.accountSwitching);
                           controller.switchAccountLogin(context,

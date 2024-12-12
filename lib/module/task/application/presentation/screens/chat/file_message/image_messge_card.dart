@@ -53,11 +53,16 @@ class _ImageMessageCardState extends State<ImageMessageCard> {
     final chatController = Get.find<ChatController>();
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).pushNamed(Routes.slidablePhotoGallery, extra: {
-          'initial': 0,
-          'memory': false,
-          'images': [widget.message.file!]
-        });
+        if (widget.message.filePath?.isNotEmpty ?? false) {
+          GoRouter.of(context).pushNamed(Routes.slidablePhotoGallery, extra: {
+            'initial': 0,
+            'memory': false,
+            'file': true,
+            'images': [widget.message.filePath!]
+          });
+        } else {
+          chatController.downloadFile(widget.message.messageId);
+        }
       },
       child: Container(
         height: 200.h,

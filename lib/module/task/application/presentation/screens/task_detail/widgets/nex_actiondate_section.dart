@@ -159,7 +159,7 @@ class NextActionDateSection extends StatelessWidget {
                     Wrap(
                       spacing: 8.w,
                       runSpacing: 8.w,
-                      children: nextActionDate.map((tag) {
+                      children: nextActionDate.map((nextAction) {
                         return GestureDetector(
                           onTap: () {
                             showDialog(
@@ -200,7 +200,8 @@ class NextActionDateSection extends StatelessWidget {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(25.0),
-                                                child: Text('${tag.date}',
+                                                child: Text(
+                                                    '${nextAction.date}',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .displaySmall),
@@ -218,7 +219,7 @@ class NextActionDateSection extends StatelessWidget {
                                                 padding:
                                                     const EdgeInsets.all(25.0),
                                                 child: Text(
-                                                    '${tag.description}',
+                                                    '${nextAction.description}',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .displaySmall),
@@ -256,7 +257,7 @@ class NextActionDateSection extends StatelessWidget {
                               },
                             );
                           },
-                          child: NextActionChip(label: tag),
+                          child: NextActionChip(label: nextAction),
                         );
                       }).toList(),
                     ),

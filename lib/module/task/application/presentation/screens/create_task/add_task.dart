@@ -51,7 +51,8 @@ class ScreenAddTask extends StatelessWidget {
                 SingleChildScrollView(
                   controller: controller.scrollController,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
                     child: Form(
                       key: _formKey,
                       child: Column(

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
@@ -25,11 +26,13 @@ import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
 class HierarchyListtile extends StatelessWidget {
@@ -121,7 +124,8 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
     // log('Main Folder Id :$folderId');
     final controller = Get.find<TaskFolderController>();
     final taskController = Get.find<CreateTaskController>();
-
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     void showInnerFolderDialog({String? initialName, String? innerFolderId}) {
       TextEditingController folderNameController = TextEditingController(
         text: initialName ?? '',
@@ -238,14 +242,65 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                               style: Theme.of(context).textTheme.displayMedium,
                             ),
                             const Spacer(),
-                            CustomCircleAvatar(
-                              backgroundColor: kblack,
-                              onTap: () => showInnerFolderDialog(),
-                              backgroundColorInner: kneon,
-                              child: const Icon(
-                                Icons.add,
-                                size: 20,
-                                color: kneon,
+                            // CustomCircleAvatar(
+                            //   backgroundColor: kblack,
+                            //   onTap: () {
+                            //     if (internetConnectinController
+                            //         .isConnectedToInternet.value) {
+                            //       showInnerFolderDialog();
+                            //     } else {
+                            //       showSnackbar(
+                            //         context,
+                            //         message:
+                            //             'You must be online to create a new inner folder. Please check your internet connection.',
+                            //         backgroundColor: kred,
+                            //         textColor: kwhite,
+                            //       );
+                            //     }
+                            //   },
+                            //   backgroundColorInner: kneon,
+                            //   child: const Icon(
+                            //     Icons.add,
+                            //     size: 20,
+                            //     color: kneon,
+                            //   ),
+                            // ),
+                            GestureDetector(
+                              onTap: () {
+                                if (internetConnectinController
+                                    .isConnectedToInternet.value) {
+                                  showInnerFolderDialog();
+                                } else {
+                                  showSnackbar(
+                                    context,
+                                    message:
+                                        'You must be online to create a new inner folder. Please check your internet connection.',
+                                    backgroundColor: kred,
+                                    textColor: kwhite,
+                                  );
+                                }
+                              },
+                              child: Container(
+                                width: 50.w,
+                                height: 50.h,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: lightGrey.withOpacity(0.6),
+                                      spreadRadius: 0,
+                                      blurRadius: 1,
+                                      offset: const Offset(-1, 2),
+                                    ),
+                                  ],
+                                  border: Border.all(color: klightgrey),
+                                  color:
+                                      Theme.of(context).colorScheme.onTertiary,
+                                ),
+                                child: const Icon(
+                                  Iconsax.add_square,
+                                  size: 23,
+                                ),
                               ),
                             ),
                           ],
@@ -273,6 +328,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                 0;
                             return GestureDetector(
                               onTap: () {
+                                onTap();
                                 controller.selctDate(date);
                                 controller.deadlineDate.value =
                                     DateTimeFormater.dateTimeFormat(date);
@@ -284,7 +340,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                             controller.deadlineDate.value));
                               },
                               child: Card(
-                                elevation: 0,
+                                elevation: 1,
                                 margin: const EdgeInsets.all(1),
                                 child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 300),

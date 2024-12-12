@@ -1,6 +1,7 @@
 // import 'dart:developer';
 import 'dart:math' as math;
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/utils/animations/custom_shrinking_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
+import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,6 +24,8 @@ class TaskDetailHeaderSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
     final messageCountController = Get.find<MessageCountController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
 
     return Row(
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -177,13 +181,24 @@ class TaskDetailHeaderSection extends StatelessWidget {
                         size: 19,
                       ),
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: true,
-                          builder: (context) => TaskStatusChangeDialog(
-                            taskId: taskController.singleTask.value.id,
-                          ),
-                        );
+                        if (internetConnectinController
+                            .isConnectedToInternet.value) {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (context) => TaskStatusChangeDialog(
+                              taskId: taskController.singleTask.value.id,
+                            ),
+                          );
+                        } else {
+                          showSnackbar(
+                            context,
+                            message:
+                                'You cannot edit the task while offline. Please check your internet connection.',
+                            backgroundColor: kred,
+                            textColor: kwhite,
+                          );
+                        }
                       },
                     ),
                   );

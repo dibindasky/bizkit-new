@@ -46,23 +46,6 @@ class ScreenEditTask extends StatelessWidget {
         createTaskController.singleTask.value.recurrentTask ?? false;
 
     return Scaffold(
-      appBar: AppBar(
-        surfaceTintColor: knill,
-        leading: IconButton(
-          onPressed: () {
-            GoRouter.of(context).pop();
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        backgroundColor: knill,
-        title: Text(
-          'Edit Task',
-          style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
-        ),
-      ),
       body: SafeArea(
         child: Obx(
           () {
@@ -78,6 +61,35 @@ class ScreenEditTask extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  GoRouter.of(context).pop(context);
+                                  createTaskController.participantsForEditTask
+                                      .clear();
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  child: Icon(
+                                    Icons.arrow_back_ios_new,
+                                    size: 18.sp,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary,
+                                  ),
+                                ),
+                              ),
+                              adjustWidth(20.w),
+                              Text(
+                                'Edit Task',
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              )
+                            ],
+                          ),
+                          adjustHieght(20.h),
                           Text('Title',
                               style: Theme.of(context)
                                   .textTheme
@@ -142,16 +154,6 @@ class ScreenEditTask extends StatelessWidget {
                                 );
                               }),
                           adjustHieght(10.h),
-                          DeadlineChooserCreateTask(
-                            deadlineFromEdit: true,
-                            showTitle: true,
-                            onPressed: (date) {
-                              createTaskController.singleTask.value.deadLine =
-                                  date;
-                              FocusScope.of(context).unfocus();
-                            },
-                          ),
-                          adjustHieght(10.h),
                           Obx(() {
                             return Wrap(
                               spacing: 10.w,
@@ -176,6 +178,16 @@ class ScreenEditTask extends StatelessWidget {
                               ],
                             );
                           }),
+                          adjustHieght(10.h),
+                          DeadlineChooserCreateTask(
+                            deadlineFromEdit: true,
+                            showTitle: true,
+                            onPressed: (date) {
+                              createTaskController.singleTask.value.deadLine =
+                                  date;
+                              FocusScope.of(context).unfocus();
+                            },
+                          ),
                           adjustHieght(10.h),
                           TagsContainer(
                             tagsForEdit: true,

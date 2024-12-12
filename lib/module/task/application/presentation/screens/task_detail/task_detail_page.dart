@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/attachments_task_detail.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/description_task_detail.dart';
@@ -26,46 +24,41 @@ class ScreenTaskDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-    return GestureDetector(
-      onHorizontalDragStart: (details) {
-        log('heyyyyyyyyyyy ${details.kind} ');
-      },
-      child: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: RefreshIndicator(
-              onRefresh: () async {
-                taskController.fetchSingleTask(
-                    singleTaskModel: GetSingleTaskModel(taskId: taskId ?? ''));
-              },
-              child: Obx(
-                () {
-                  if (taskController.fetchSingleTaskError.value &&
-                      taskController.singleTask.value.title == null) {
-                    return GestureDetector(
-                      onTap: () {
-                        taskController.fetchSingleTask(
-                            singleTaskModel:
-                                GetSingleTaskModel(taskId: taskId ?? ''));
-                      },
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.refresh,
-                              color: neonShade,
-                            ),
-                            Text(
-                              'Tap to retry',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displaySmall
-                                  ?.copyWith(fontSize: 15),
-                            ),
-                          ],
-                        ),
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: RefreshIndicator(
+            onRefresh: () async {
+              taskController.fetchSingleTask(
+                  singleTaskModel: GetSingleTaskModel(taskId: taskId ?? ''));
+            },
+            child: Obx(
+              () {
+                if (taskController.fetchSingleTaskError.value &&
+                    taskController.singleTask.value.title == null) {
+                  return GestureDetector(
+                    onTap: () {
+                      taskController.fetchSingleTask(
+                          singleTaskModel:
+                              GetSingleTaskModel(taskId: taskId ?? ''));
+                    },
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.refresh,
+                            color: neonShade,
+                          ),
+                          Text(
+                            'Tap to retry',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(fontSize: 15),
+                          ),
+                        ],
                       ),
                     ),
                   );
@@ -82,7 +75,7 @@ class ScreenTaskDetailPage extends StatelessWidget {
                           adjustHieght(15.h),
                           const TaskDetailDescriptionSection(),
                           adjustHieght(15.h),
-                          TaskDetailStatusSection(),
+                          const TaskDetailStatusSection(),
                           adjustHieght(15.h),
                           NextActionDateSection(taskId: taskId),
                           adjustHieght(15.h),
@@ -94,10 +87,10 @@ class ScreenTaskDetailPage extends StatelessWidget {
                           adjustHieght(150.h),
                         ],
                       ),
-                    ],
-                  );
-                },
-              ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),
@@ -105,4 +98,3 @@ class ScreenTaskDetailPage extends StatelessWidget {
     );
   }
 }
-

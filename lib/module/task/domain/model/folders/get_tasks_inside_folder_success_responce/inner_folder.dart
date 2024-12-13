@@ -16,4 +16,15 @@ class InnerFolder {
   }
 
   Map<String, dynamic> toJson() => _$InnerFolderToJson(this);
+
+  // Adding the copyWith method
+  InnerFolder copyWith({
+    String? innerFolderId,
+    String? innerFolderName,
+  }) {
+    return InnerFolder(
+      innerFolderId: innerFolderId ?? this.innerFolderId,
+      innerFolderName: innerFolderName ?? this.innerFolderName,
+    );
+  }
 }

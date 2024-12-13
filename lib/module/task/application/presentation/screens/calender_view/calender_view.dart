@@ -212,7 +212,7 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                       child: folderController.isLoading.value
                           ? Row(
                               children: [
-                                Text('Syncing',
+                                Text('Processing',
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall

@@ -55,9 +55,9 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
           children: [
             RefreshIndicator(
               onRefresh: () async {
-                homeController.fetchRecentTasks();
                 homeController.progresBar();
                 messageCoutController.sendReqForUnread();
+                await homeController.fetchRecentTasks();
               },
               child: FadeIn(
                 animate: true,

@@ -103,7 +103,7 @@ class TaskHomeScreenController extends GetxController {
     );
   }
 
-  void fetchRecentTasks() async {
+  Future<void> fetchRecentTasks() async {
     loadingForRecentTasks.value = true;
     loadingForRecentTasksNetwork.value = true;
     loadingForRecentTasksNetworkError.value = false;

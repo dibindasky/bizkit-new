@@ -54,63 +54,63 @@ class TaskHomeAppBar extends StatelessWidget {
                     ],
                   ),
                 ),
-                Obx(() => AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      child: homeController
-                                  .loadingForRecentTasksNetwork.value ||
-                              homeController
-                                  .loadingForRecentTasksNetworkError.value
-                          ? Row(
-                              children: [
-                                Text(
-                                  homeController
-                                          .loadingForRecentTasksNetworkError
-                                          .value
-                                      ? 'syncing failed'
-                                      : 'syncing...',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(
-                                        color: homeController
-                                                .loadingForRecentTasksNetworkError
-                                                .value
-                                            ? kred
-                                            : kneonDark,
-                                      ),
-                                ),
-                                TweenAnimationBuilder(
-                                  tween:
-                                      Tween<double>(begin: 0, end: 2 * math.pi),
-                                  duration: const Duration(seconds: 1),
-                                  builder: (context, double angle, child) {
-                                    return Transform.rotate(
-                                      angle: angle,
-                                      child: Icon(
-                                        Icons.sync,
-                                        color: homeController
-                                                .loadingForRecentTasksNetworkError
-                                                .value
-                                            ? kred
-                                            : kneonDark,
-                                        size: 15,
-                                      ),
-                                    );
-                                  },
-                                  onEnd: () {
-                                    // Repeat the animation
-                                    taskController.isSyncing.value
-                                        ? Future.delayed(Duration.zero, () {
-                                            (context as Element)
-                                                .markNeedsBuild();
-                                          })
-                                        : null;
-                                  },
-                                ),
-                              ],
-                            )
-                          : kempty,
-                    ))
+                // Obx(() => AnimatedContainer(
+                //       duration: const Duration(milliseconds: 300),
+                //       child: homeController
+                //                   .loadingForRecentTasksNetwork.value ||
+                //               homeController
+                //                   .loadingForRecentTasksNetworkError.value
+                //           ? Row(
+                //               children: [
+                //                 Text(
+                //                   homeController
+                //                           .loadingForRecentTasksNetworkError
+                //                           .value
+                //                       ? 'syncing failed'
+                //                       : 'syncing...',
+                //                   style: Theme.of(context)
+                //                       .textTheme
+                //                       .displaySmall
+                //                       ?.copyWith(
+                //                         color: homeController
+                //                                 .loadingForRecentTasksNetworkError
+                //                                 .value
+                //                             ? kred
+                //                             : kneonDark,
+                //                       ),
+                //                 ),
+                //                 TweenAnimationBuilder(
+                //                   tween:
+                //                       Tween<double>(begin: 0, end: 2 * math.pi),
+                //                   duration: const Duration(seconds: 1),
+                //                   builder: (context, double angle, child) {
+                //                     return Transform.rotate(
+                //                       angle: angle,
+                //                       child: Icon(
+                //                         Icons.sync,
+                //                         color: homeController
+                //                                 .loadingForRecentTasksNetworkError
+                //                                 .value
+                //                             ? kred
+                //                             : kneonDark,
+                //                         size: 15,
+                //                       ),
+                //                     );
+                //                   },
+                //                   onEnd: () {
+                //                     // Repeat the animation
+                //                     taskController.isSyncing.value
+                //                         ? Future.delayed(Duration.zero, () {
+                //                             (context as Element)
+                //                                 .markNeedsBuild();
+                //                           })
+                //                         : null;
+                //                   },
+                //                 ),
+                //               ],
+                //             )
+                //           : kempty,
+                //     ))
               ],
             ),
           ),

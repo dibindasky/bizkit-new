@@ -454,6 +454,19 @@ class ChatController extends GetxController {
         await taskChatLocalService.insertOrUpdateMessage(message: mess);
         break;
 
+      case 'delete_file':
+        for (var id in (decodedMessage['message_ids'] as List?) ?? <String>[]) {
+          final index =
+              messages.indexWhere((m) => m.messageId == (id as String?));
+          if (index != -1) {
+            messages[index].deleted = true;
+            doAnimate = false;
+            update(['chat']);
+            await taskChatLocalService.insertOrUpdateMessage(
+                message: messages[index]);
+          }
+        }
+        break;
       default:
         // Handle unsupported message types if needed
         log('message type not found ${decodedMessage['message_type']}');
@@ -826,6 +839,14 @@ class ChatController extends GetxController {
       "files": List.generate(
           selectedMessages.length, (index) => selectedMessages[index].file)
     });
+    // for (var mess in selectedMessages) {
+    //   final index = messages.indexWhere((m) => m.messageId == mess.messageId);
+    //   if (index != -1) {
+    //     messages[index].deleted = true;
+    //     update(['chat']);
+    //     taskChatLocalService.insertOrUpdateMessage(message: messages[index]);
+    //   }
+    // }
     clearSelectedMessages();
   }
 
@@ -842,7 +863,7 @@ class ChatController extends GetxController {
     }
   }
 
-  void clearSelectedMessages(){
+  void clearSelectedMessages() {
     selectedMessages.value = [];
   }
 

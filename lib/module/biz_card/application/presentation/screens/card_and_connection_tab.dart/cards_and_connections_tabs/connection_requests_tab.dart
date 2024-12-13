@@ -2,6 +2,7 @@ import 'package:bizkit/module/biz_card/application/controller/connections/connec
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/connection_accept_dialog.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
@@ -21,7 +22,8 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
   Widget build(BuildContext context) {
     final connectionController = Get.find<ConnectionsController>();
     final levelSharingController = Get.find<LevelSharingController>();
-
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       connectionController.fetchRecievedConnectionRequests();
       levelSharingController.fetchAllCommonSharedFields();
@@ -36,6 +38,15 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
         },
         child: Obx(
           () {
+            if (!internetConnectinController.isConnectedToInternet.value) {
+              return Center(
+                child: InternetConnectionLostWidget(
+                  onTap: () {
+                    connectionController.fetchRecievedConnectionRequests();
+                  },
+                ),
+              );
+            }
             if (connectionController.recievedConnectionRequestLoading.value) {
               return const Center(
                 child: CircularProgressIndicator(),

@@ -2,9 +2,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,8 +22,17 @@ class HistoryRemindersTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final reminderController = Get.find<ReminderController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return Obx(
       () {
+        if (!internetConnectinController.isConnectedToInternet.value) {
+          return InternetConnectionLostWidget(
+            onTap: () {
+              reminderController.fetchHistoryReminders();
+            },
+          );
+        }
         if (reminderController.historyReminderLoading.value) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),

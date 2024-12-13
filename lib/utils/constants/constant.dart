@@ -97,6 +97,9 @@ String iconModuleSelectorBottomBar =
     'asset/module/module_manager/module_chooser.png';
 String iconTaskCalenderBottomBar = 'asset/images/task/task third tab.png';
 
+const String internetConnectionLost =
+    'asset/images/internet_connection_lost.png';
+
 BorderRadius kBorderRadius5 = BorderRadius.circular(5);
 BorderRadius kBorderRadius10 = BorderRadius.circular(10);
 BorderRadius kBorderRadius15 = const BorderRadius.all(Radius.circular(15));

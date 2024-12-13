@@ -434,6 +434,29 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                 adjustHieght(10),
                 Obx(
                   () {
+                    if (!internetConnectinController
+                        .isConnectedToInternet.value) {
+                      return Expanded(
+                        child: SizedBox(
+                          width: 300.w,
+                          child: InternetConnectionLostWidget(
+                            onTap: () {
+                              controller.fetchTasksInsideFolder(
+                                  taskInsideFolder:
+                                      GetTaskInsideAFolderParamsModel(
+                                folderId: folderId ?? '',
+                              ));
+
+                              controller.filterInnerFolderByDeadline(
+                                  filterInnerFolder: FilterInnerFolderModel(
+                                      folderId: folderId ?? '',
+                                      filterDate:
+                                          controller.deadlineDate.value));
+                            },
+                          ),
+                        ),
+                      );
+                    }
                     if (controller.isLoading.value) {
                       return const Expanded(
                         child: Center(
@@ -446,7 +469,18 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                         child: ErrorRefreshIndicator(
                           image: emptyNodata2,
                           errorMessage: 'No folders or tasks available',
-                          onRefresh: () {},
+                          onRefresh: () {
+                            controller.fetchTasksInsideFolder(
+                                taskInsideFolder:
+                                    GetTaskInsideAFolderParamsModel(
+                              folderId: folderId ?? '',
+                            ));
+
+                            controller.filterInnerFolderByDeadline(
+                                filterInnerFolder: FilterInnerFolderModel(
+                                    folderId: folderId ?? '',
+                                    filterDate: controller.deadlineDate.value));
+                          },
                         ),
                       );
                     } else {

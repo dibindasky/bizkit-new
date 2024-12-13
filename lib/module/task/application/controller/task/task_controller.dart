@@ -58,6 +58,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -377,13 +378,13 @@ class CreateTaskController extends GetxController {
   void statusChange(
       {required BuildContext context, required String taskId}) async {
     singleTask.value = singleTask.value.copyWith(status: statusValue.value);
-    print(" status value after taping update status ${ statusValue.value}");
+    print(" status value after taping update status ${statusValue.value}");
     final result = await taskService.editTask(
       taskModel: EditTaskModel(status: statusValue.value, taskId: taskId),
     );
-    result.fold((failure){
+    result.fold((failure) {
       print('failure status change');
-    }, (success){
+    }, (success) {
       print(singleTask.value.status);
       print('success status change');
     });
@@ -655,8 +656,10 @@ class CreateTaskController extends GetxController {
         attachments.clear;
         userslistNew.clear();
         deadlineDateForTaskCreation.value = '';
-        showSnackbar(context,
-            message: errorMessage, backgroundColor: kred, textColor: kblack);
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
+        );
       },
       (success) {
         deadlineDateForTaskCreation.value = '';
@@ -674,11 +677,11 @@ class CreateTaskController extends GetxController {
         userslistNew.clear();
         Get.find<TaskHomeScreenController>().fetchRecentTasks();
         Get.find<TaskHomeScreenController>().progresBar();
-        showSnackbar(
-          context,
+
+        showCustomToast(
           message: 'Task created successfully',
-          backgroundColor: neonShade,
-          textColor: kblack,
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
       },
     );
@@ -764,19 +767,20 @@ class CreateTaskController extends GetxController {
     result.fold(
       (error) {
         taskEditLoading.value = false;
-        showSnackbar(context,
-            message: errorMessage, backgroundColor: kred, textColor: kblack);
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
+        );
         log('${error.error}', name: 'Error from Edit Task');
       },
       (success) {
         taskEditLoading.value = false;
         log('${success.message}');
-        showSnackbar(
-          context,
+
+        showCustomToast(
           message: 'Task edited successfully',
-          backgroundColor: neonShade,
-          textColor: kblack,
-          duration: 4,
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
         Navigator.of(context).pop();
         fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
@@ -790,35 +794,26 @@ class CreateTaskController extends GetxController {
     required BuildContext context,
   }) async {
     isLoading.value = true;
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result =
         await taskService.completeTask(completedTaskModel: completedTaskModel);
 
     result.fold(
       (failure) {
         isLoading.value = false;
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
         GoRouter.of(context).pop();
         log(failure.message.toString());
       },
       (success) {
         log('${success.message}');
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              'Complete task successfully',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: neonShade,
-          ),
+
+        showCustomToast(
+          message: 'Task completed successfully',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
         GoRouter.of(context).pop();
         isLoading.value = false;
@@ -1051,18 +1046,12 @@ class CreateTaskController extends GetxController {
       required BuildContext context,
       required bool tasksFromTasksList,
       required bool tasksFromFilterSection}) async {
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.pinnedATask(pinnedATask: pinnedATask);
     result.fold(
       (error) {
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
       },
       (success) async {
@@ -1116,14 +1105,10 @@ class CreateTaskController extends GetxController {
           }
         }
 
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              'Successfully pinned this task',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kneon,
-          ),
+        showCustomToast(
+          message: 'Successfully pinned this task',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
 
         update();
@@ -1137,18 +1122,12 @@ class CreateTaskController extends GetxController {
       required BuildContext context,
       required bool tasksFromTasksList,
       required bool tasksFromFilterSection}) async {
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.unpinATask(unpinATask: unpinATask);
     result.fold(
       (failure) {
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
         log(failure.message.toString());
       },
@@ -1209,14 +1188,10 @@ class CreateTaskController extends GetxController {
           }
         }
 
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              'Successfully Unpinned this task',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kneon,
-          ),
+        showCustomToast(
+          message: 'Successfully unpinned this task',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
 
         update(); // Update the UI or state
@@ -1339,43 +1314,30 @@ class CreateTaskController extends GetxController {
     required BuildContext context,
   }) async {
     isLoading.value = true;
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
     final result =
         await taskService.acceptOrReject(acceptOrReject: acceptOrReject);
     result.fold(
       (error) {
         isLoading.value = false;
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
         log('${error.error}', name: 'Error from acceptOrReject ');
       },
       (success) {
         log("${success.message}");
         isAccept == true
-            ? scaffoldMessenger.showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Task Accepted successfully',
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                  backgroundColor: neonShade,
-                ),
+            ? showCustomToast(
+                message: 'Task Accepted successfully',
+                backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+                textColor: Get.isDarkMode ? kblack : kwhite,
               )
-            : scaffoldMessenger.showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Task Rejected successfully',
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                  backgroundColor: neonShade,
-                ),
+            : showCustomToast(
+                message: 'Task Rejected successfully',
+                backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+                textColor: Get.isDarkMode ? kblack : kwhite,
               );
         isLoading.value = false;
 
@@ -1667,8 +1629,10 @@ class CreateTaskController extends GetxController {
     result.fold(
       (failure) {
         isLoading.value = false;
-        showSnackbar(context,
-            message: errorMessage, backgroundColor: kred, textColor: kblack);
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
+        );
         log(failure.message.toString());
       },
       (success) {
@@ -1680,11 +1644,11 @@ class CreateTaskController extends GetxController {
         ];
         // fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
         GoRouter.of(context).pop();
-        showSnackbar(
-          context,
+
+        showCustomToast(
           message: 'Subtask added successfully',
-          backgroundColor: neonShade,
-          textColor: kblack,
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
         isLoading.value = false;
       },
@@ -1697,19 +1661,14 @@ class CreateTaskController extends GetxController {
       required String taskId,
       required BuildContext context}) async {
     isLoading.value = true;
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
     final result =
         await taskService.deleteSubTask(deletesubtask: deletesubtask);
     result.fold(
       (failure) {
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
         GoRouter.of(context).pop();
         isLoading.value = false;
@@ -1718,14 +1677,11 @@ class CreateTaskController extends GetxController {
       (success) {
         log("${success.message}");
         fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              'Subtask deleted successfully',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: neonShade,
-          ),
+
+        showCustomToast(
+          message: 'Subtask deleted successfully',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
         GoRouter.of(context).pop();
         isLoading.value = false;
@@ -1745,18 +1701,20 @@ class CreateTaskController extends GetxController {
       (failure) {
         isLoading.value = false;
         GoRouter.of(context).pop();
-        showSnackbar(context,
-            message: errorMessage, backgroundColor: kred, textColor: kblack);
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
+        );
         log(failure.message.toString());
       },
       (success) {
         log("${success.message}");
         GoRouter.of(context).pop();
-        showSnackbar(
-          context,
+
+        showCustomToast(
           message: 'Subtask edited successfully',
-          backgroundColor: neonShade,
-          textColor: kblack,
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
         fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
         isLoading.value = false;
@@ -1774,19 +1732,14 @@ class CreateTaskController extends GetxController {
       {required KillATaskModel killAtaskModel,
       required BuildContext context}) async {
     isLoading.value = true;
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
     final result = await taskService.killATask(killatask: killAtaskModel);
     result.fold(
       (failure) {
         isLoading.value = false;
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
         GoRouter.of(context).pop();
         log(failure.message.toString());
@@ -1794,14 +1747,10 @@ class CreateTaskController extends GetxController {
       (success) {
         log("${success.message}");
 
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              'Killed task successfully',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: neonShade,
-          ),
+        showCustomToast(
+          message: 'Killed task successfully',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
         GoRouter.of(context).pop();
         isLoading.value = false;
@@ -1814,19 +1763,13 @@ class CreateTaskController extends GetxController {
       {required KillATaskModel restoreTask,
       required BuildContext context}) async {
     isLoading.value = true;
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await taskService.restoreATask(restoreTask: restoreTask);
     result.fold(
       (failure) {
         isLoading.value = false;
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
         GoRouter.of(context).pop();
         log(failure.message.toString());
@@ -1834,14 +1777,11 @@ class CreateTaskController extends GetxController {
       (success) {
         log("${success.message}");
         fetchAllKilledTasks();
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              'Restore successfully',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: neonShade,
-          ),
+
+        showCustomToast(
+          message: 'Restore successfully',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
         GoRouter.of(context).pop();
         isLoading.value = false;
@@ -1950,7 +1890,6 @@ class CreateTaskController extends GetxController {
     required BuildContext context,
   }) async {
     isLoading.value = true;
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     final result =
         await taskService.completedSubTask(completedSubTask: completedSubTask);
@@ -1958,14 +1897,9 @@ class CreateTaskController extends GetxController {
       (failure) {
         isLoading.value = false;
 
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
         log(failure.message.toString());
       },
@@ -1983,14 +1917,11 @@ class CreateTaskController extends GetxController {
         //         GetSingleTaskModel(taskId: completedSubTask.taskId));
 
         isLoading.value = false;
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              'Subtask completed successfully',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: neonShade,
-          ),
+
+        showCustomToast(
+          message: 'Subtask completed successfully',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
       },
     );
@@ -2051,8 +1982,7 @@ class CreateTaskController extends GetxController {
       (failure) {
         loadingForQuickTask.value = false;
         log(failure.message.toString());
-        showSnackbar(
-          context,
+        showCustomToast(
           message: errorMessage,
           backgroundColor: kred,
         );
@@ -2063,10 +1993,10 @@ class CreateTaskController extends GetxController {
         userslistNew.clear();
         titleController.clear();
         descriptionController.clear();
-        showSnackbar(
-          context,
+        showCustomToast(
           message: 'Quick task created successfully',
-          backgroundColor: neonShade,
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
         fetchAllQuickTasks();
       },
@@ -2095,7 +2025,6 @@ class CreateTaskController extends GetxController {
     required QuickTaskAcceptOrReject acceptOrRejct,
     required BuildContext context,
   }) async {
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
     loadingForQuickTaskReceivedReq.value = true;
     final result =
         await taskService.acceptQuickTask(acceptOrRejct: acceptOrRejct);
@@ -2103,26 +2032,20 @@ class CreateTaskController extends GetxController {
     result.fold(
       (failure) {
         loadingForQuickTaskReceivedReq.value = false;
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
         log(failure.message.toString());
       },
       (success) {
         loadingForQuickTaskReceivedReq.value = false;
-        scaffoldMessenger.showSnackBar(SnackBar(
-          content: Text(
-            'Quick Task Accepted Successfully',
-            style: Theme.of(context).textTheme.displaySmall,
-          ),
-          backgroundColor: neonShade,
-        ));
+
+        showCustomToast(
+          message: 'Quick Task Accepted Successfully',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
+        );
 
         fetchAllQuickTasks();
       },
@@ -2134,7 +2057,6 @@ class CreateTaskController extends GetxController {
     required QuickTaskAcceptOrReject acceptOrRejct,
     required BuildContext context,
   }) async {
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
     loadingForQuickTaskReceivedReq.value = true;
     final result =
         await taskService.rejectQuickTask(acceptOrRejct: acceptOrRejct);
@@ -2142,27 +2064,20 @@ class CreateTaskController extends GetxController {
     result.fold(
       (failure) {
         loadingForQuickTaskReceivedReq.value = false;
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
         log(failure.message.toString());
       },
       (success) {
         loadingForQuickTaskReceivedReq.value = false;
-        scaffoldMessenger.showSnackBar(SnackBar(
-          content: Text(
-            'Quick Task Rejected Successfully',
-            style: Theme.of(context).textTheme.displaySmall,
-          ),
-          backgroundColor: neonShade,
-        ));
 
+        showCustomToast(
+          message: 'Quick Task Rejected Successfully',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
+        );
         fetchAllQuickTasks();
       },
     );
@@ -2190,18 +2105,18 @@ class CreateTaskController extends GetxController {
       (failure) {
         loadingForQuickTask.value = false;
         log(failure.message.toString());
-        showSnackbar(
-          context,
+        showCustomToast(
           message: errorMessage,
           backgroundColor: kred,
         );
       },
       (success) {
         loadingForQuickTask.value = false;
-        showSnackbar(
-          context,
+
+        showCustomToast(
           message: 'Quick task updated successfully',
-          backgroundColor: neonShade,
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
         fetchAllQuickTasks();
         GoRouter.of(context).pop(context);
@@ -2370,7 +2285,10 @@ class CreateTaskController extends GetxController {
         nextActionDate.value = '';
         nexActiondateDescriptionController.clear();
         Navigator.of(context).pop(context);
-        showSnackbar(context, message: errorMessage, backgroundColor: kred);
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
+        );
         log(failure.error.toString());
       },
       (success) async {
@@ -2390,7 +2308,11 @@ class CreateTaskController extends GetxController {
         nextActionDate.value = '';
         nexActiondateDescriptionController.clear();
         Navigator.of(context).pop(context);
-        showSnackbar(context, message: 'Next action date created successfully');
+        showCustomToast(
+          message: 'Next action date created successfully',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
+        );
       },
     );
   }
@@ -2406,12 +2328,20 @@ class CreateTaskController extends GetxController {
       (failure) {
         loadingForNextActionDate.value = false;
         Navigator.of(context).pop(context);
-        showSnackbar(context, message: failure.error ?? errorMessage);
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
+        );
         log(failure.error.toString());
       },
       (success) {
         Navigator.of(context).pop(context);
-        showSnackbar(context, message: 'Next action date updated successfully');
+
+        showCustomToast(
+          message: 'Next action date updated successfully',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
+        );
         loadingForNextActionDate.value = false;
       },
     );

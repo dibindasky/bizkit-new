@@ -5,8 +5,10 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/home/wid
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/share_contact_bottomsheet.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,6 +23,8 @@ class BusinessCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     final bizcardController = Get.find<CardController>();
     return Column(
       children: [
@@ -54,9 +58,17 @@ class BusinessCard extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  GoRouter.of(context).pushNamed(Routes.cardUpdating);
-                  bizcardController.cardDetail(
-                      cardId: bizcard.bizcardId ?? "", toEdit: true);
+                  if (internetConnectinController.isConnectedToInternet.value) {
+                    GoRouter.of(context).pushNamed(Routes.cardUpdating);
+                    bizcardController.cardDetail(
+                        cardId: bizcard.bizcardId ?? "", toEdit: true);
+                  } else {
+                    showCustomToast(
+                      message:
+                          'You cannot edit the bizcard while offline. Please check your internet connection.',
+                      backgroundColor: kred,
+                    );
+                  }
                 },
                 child: Card(
                   elevation: 0,

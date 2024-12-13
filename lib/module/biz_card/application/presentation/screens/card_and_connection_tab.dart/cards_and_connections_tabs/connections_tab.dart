@@ -16,6 +16,7 @@ class ConnectionsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final connectionsController = Get.find<ConnectionsController>();
+
     WidgetsBinding.instance.addPostFrameCallback(
         (timeStamp) => connectionsController.searchConnections());
     return Scaffold(

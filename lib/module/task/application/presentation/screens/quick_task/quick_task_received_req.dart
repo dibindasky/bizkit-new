@@ -1,3 +1,4 @@
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/quick_task_accept_or_reject/quick_task_accept_or_reject.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -5,6 +6,7 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,6 +18,8 @@ class QuickTaskReceivedReqScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return Scaffold(
       body: SafeArea(
           child: Padding(
@@ -48,6 +52,14 @@ class QuickTaskReceivedReqScreen extends StatelessWidget {
             Expanded(
               child: Obx(
                 () {
+                  if (!internetConnectinController
+                      .isConnectedToInternet.value) {
+                    return InternetConnectionLostWidget(
+                      onTap: () {
+                        taskController.fetchQuickTaskRequests();
+                      },
+                    );
+                  }
                   if (taskController.loadingForQuickTaskReceivedReq.value) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (taskController.receivedQuickTasksReqs.isEmpty) {
@@ -208,26 +220,36 @@ class QuickTaskReceivedReqScreen extends StatelessWidget {
                                         ),
                                         color: neonShade,
                                         onPressed: () {
-                                          showConfirmationDialog(
-                                            context,
-                                            heading:
-                                                'Do you want to accept this task?',
-                                            actionButton: 'Accept',
-                                            onPressed: () {
-                                              taskController.acceptQuickTaskRequest(
-                                                  acceptOrRejct:
-                                                      QuickTaskAcceptOrReject(
-                                                          quickTaskId:
-                                                              taskController
-                                                                      .receivedQuickTasksReqs[
-                                                                          index]
-                                                                      .id ??
-                                                                  '',
-                                                          status: 'accepted'),
-                                                  context: context);
-                                              Navigator.pop(context);
-                                            },
-                                          );
+                                          if (internetConnectinController
+                                              .isConnectedToInternet.value) {
+                                            showConfirmationDialog(
+                                              context,
+                                              heading:
+                                                  'Do you want to accept this task?',
+                                              actionButton: 'Accept',
+                                              onPressed: () {
+                                                taskController.acceptQuickTaskRequest(
+                                                    acceptOrRejct:
+                                                        QuickTaskAcceptOrReject(
+                                                            quickTaskId:
+                                                                taskController
+                                                                        .receivedQuickTasksReqs[
+                                                                            index]
+                                                                        .id ??
+                                                                    '',
+                                                            status: 'accepted'),
+                                                    context: context);
+                                                GoRouter.of(context)
+                                                    .pop(context);
+                                              },
+                                            );
+                                          } else {
+                                            showCustomToast(
+                                              message:
+                                                  'You must be online to accept this task. Please check your internet connection.',
+                                              backgroundColor: kred,
+                                            );
+                                          }
                                         },
                                       ),
                                     ),
@@ -244,26 +266,35 @@ class QuickTaskReceivedReqScreen extends StatelessWidget {
                                         color: const Color.fromARGB(
                                             255, 255, 169, 169),
                                         onPressed: () {
-                                          showConfirmationDialog(
-                                            context,
-                                            heading:
-                                                'Are you sure do you want to decline this task',
-                                            actionButton: 'Reject',
-                                            onPressed: () {
-                                              taskController.rejectQuickTaskRequest(
-                                                  acceptOrRejct:
-                                                      QuickTaskAcceptOrReject(
-                                                          quickTaskId:
-                                                              taskController
-                                                                      .receivedQuickTasksReqs[
-                                                                          index]
-                                                                      .id ??
-                                                                  '',
-                                                          status: 'rejected'),
-                                                  context: context);
-                                              Navigator.pop(context);
-                                            },
-                                          );
+                                          if (internetConnectinController
+                                              .isConnectedToInternet.value) {
+                                            showConfirmationDialog(
+                                              context,
+                                              heading:
+                                                  'Are you sure do you want to decline this task',
+                                              actionButton: 'Reject',
+                                              onPressed: () {
+                                                taskController.rejectQuickTaskRequest(
+                                                    acceptOrRejct:
+                                                        QuickTaskAcceptOrReject(
+                                                            quickTaskId:
+                                                                taskController
+                                                                        .receivedQuickTasksReqs[
+                                                                            index]
+                                                                        .id ??
+                                                                    '',
+                                                            status: 'rejected'),
+                                                    context: context);
+                                                Navigator.pop(context);
+                                              },
+                                            );
+                                          } else {
+                                            showCustomToast(
+                                              message:
+                                                  'You must be online to decline this task. Please check your internet connection.',
+                                              backgroundColor: kred,
+                                            );
+                                          }
                                         },
                                       ),
                                     ),

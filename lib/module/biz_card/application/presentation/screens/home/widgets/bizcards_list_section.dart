@@ -4,9 +4,12 @@ import 'package:bizkit/module/biz_card/application/controller/text_extraction/te
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/business_card.dart';
 import 'package:bizkit/module/biz_card/application/presentation/widgets/bizcard_widget.dart';
 import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -40,6 +43,8 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
   Widget build(BuildContext context) {
     final bizcardController = Get.find<CardController>();
     final accessController = Get.find<AccessController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return Obx(() {
       if (bizcardController.isLoading.value) {
         return _buildShimmerLoading();
@@ -97,10 +102,19 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
                     height: 260.h,
                     createCard: true,
                     onTap: () {
-                      if ((accessController.userRole.value != 'user')) return;
-                      Get.find<CardTextExtractionController>()
-                          .clearCardImages();
-                      GoRouter.of(context).pushNamed(Routes.cardCreation);
+                      if (internetConnectinController
+                          .isConnectedToInternet.value) {
+                        if ((accessController.userRole.value != 'user')) return;
+                        Get.find<CardTextExtractionController>()
+                            .clearCardImages();
+                        GoRouter.of(context).pushNamed(Routes.cardCreation);
+                      } else {
+                        showCustomToast(
+                          message:
+                              'You must be online to create a bizcard. Please check your internet connection.',
+                          backgroundColor: kred,
+                        );
+                      }
                     },
                   ),
                   kHeight30,

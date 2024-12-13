@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/complete_quick_task.dart';
 import 'package:bizkit/utils/animations/expansion_tile.dart';
@@ -9,10 +10,10 @@ import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
@@ -27,12 +28,21 @@ class ActiveQuickTasksTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return LayoutBuilder(
       builder: (context, constraints) {
         return SizedBox(
           height: constraints.maxHeight,
           child: Obx(
             () {
+              if (!internetConnectinController.isConnectedToInternet.value) {
+                return InternetConnectionLostWidget(
+                  onTap: () {
+                    taskController.fetchAllQuickTasks();
+                  },
+                );
+              }
               if (taskController.loadingForAllQuickTasks.value) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
@@ -192,6 +202,19 @@ class ActiveQuickTasksTab extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Dismissible(
                               direction: DismissDirection.startToEnd,
+                              confirmDismiss: (direction) async {
+                                if (internetConnectinController
+                                    .isConnectedToInternet.value) {
+                                  return true; // Allow dismissal if online
+                                } else {
+                                  showCustomToast(
+                                    message:
+                                        'You must be online to complete this task. Please check your internet connection.',
+                                    backgroundColor: kred,
+                                  );
+                                  return false; // Prevent dismissal if offline
+                                }
+                              },
                               onDismissed: (direction) {
                                 // Remove the task from the list immediately to prevent it from staying in the widget tree
                                 final dismissedTaskIndex =

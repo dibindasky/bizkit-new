@@ -2,6 +2,7 @@
 
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
@@ -17,6 +18,8 @@ class ReceivedCardsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final receivedCardController = Get.find<ReceivedCardController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       receivedCardController.fetchAllreceivedCards();
     });
@@ -26,6 +29,13 @@ class ReceivedCardsTab extends StatelessWidget {
       },
       child: Obx(
         () {
+          if (!internetConnectinController.isConnectedToInternet.value) {
+            return InternetConnectionLostWidget(
+              onTap: () {
+                receivedCardController.fetchAllreceivedCards(refresh: true);
+              },
+            );
+          }
           if (receivedCardController.loadingForVisitingCard.value) {
             return const Center(
               child: CircularProgressIndicator(),

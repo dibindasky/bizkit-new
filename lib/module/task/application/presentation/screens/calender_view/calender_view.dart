@@ -207,6 +207,28 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                           );
                         },
                       ),
+                Obx(() => Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: folderController.isLoading.value
+                          ? Row(
+                              children: [
+                                Text('Syncing',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(fontSize: 10)),
+                                kWidth10,
+                                const SizedBox(
+                                  width: 12,
+                                  height: 12,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 3,
+                                  ),
+                                )
+                              ],
+                            )
+                          : const SizedBox(),
+                    )),
                 adjustHieght(10.h),
                 HeirarchyTaskFolderDataRow(),
                 adjustHieght(50.h),

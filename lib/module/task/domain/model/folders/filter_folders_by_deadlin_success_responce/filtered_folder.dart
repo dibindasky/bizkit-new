@@ -18,4 +18,17 @@ class FilteredFolders {
   }
 
   Map<String, dynamic> toJson() => _$FilteredFoldersToJson(this);
+
+  // Adding the copyWith method
+  FilteredFolders copyWith({
+    String? folderId,
+    String? folderName,
+    int? tasksCount,
+  }) {
+    return FilteredFolders(
+      folderId: folderId ?? this.folderId,
+      folderName: folderName ?? this.folderName,
+      tasksCount: tasksCount ?? this.tasksCount,
+    );
+  }
 }

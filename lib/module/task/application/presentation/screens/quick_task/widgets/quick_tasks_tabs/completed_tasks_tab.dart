@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -20,12 +21,21 @@ class CompletedQuickTasksTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return LayoutBuilder(
       builder: (context, constraints) {
         return SizedBox(
           height: constraints.maxHeight,
           child: Obx(
             () {
+              if (!internetConnectinController.isConnectedToInternet.value) {
+                return InternetConnectionLostWidget(
+                  onTap: () {
+                    taskController.fetchCompletedQuickTasks();
+                  },
+                );
+              }
               if (taskController.loadingForCompletedQuickTasks.value) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),

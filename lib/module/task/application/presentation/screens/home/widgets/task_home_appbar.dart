@@ -2,12 +2,14 @@ import 'dart:math' as math;
 
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/account_switching/account_switching_sheet.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -27,6 +29,8 @@ class TaskHomeAppBar extends StatelessWidget {
     final taskController = Get.find<CreateTaskController>();
     final notificationController = Get.find<MessageCountController>();
     final homeController = Get.find<TaskHomeScreenController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -115,8 +119,16 @@ class TaskHomeAppBar extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                GoRouter.of(context).pushNamed(Routes.taskTabNotification);
-                taskController.fetchReceivedRequests();
+                if (internetConnectinController.isConnectedToInternet.value) {
+                  GoRouter.of(context).pushNamed(Routes.taskTabNotification);
+                  taskController.fetchReceivedRequests();
+                } else {
+                  showCustomToast(
+                    message:
+                        'You must be online to access the requests section. Please check your internet connection.',
+                    backgroundColor: kred,
+                  );
+                }
               },
               child: Container(
                 width: 45.w,

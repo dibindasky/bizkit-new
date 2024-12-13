@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:animate_do/animate_do.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
@@ -24,8 +25,10 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class TaskContainer extends StatelessWidget {
@@ -67,7 +70,7 @@ class TaskContainer extends StatelessWidget {
   final taskController = Get.find<CreateTaskController>();
   final taskFolderController = Get.find<TaskFolderController>();
   final messageCountController = Get.find<MessageCountController>();
-
+  final internetConnectinController = Get.find<InternetConnectionController>();
   @override
   Widget build(BuildContext context) {
     final matchedDateResult = DateTimeFormater.checkCurrentDateMatch(
@@ -197,9 +200,25 @@ class TaskContainer extends StatelessWidget {
                               ],
                             ),
                           ),
+
                           PopupMenuButton<String>(
-                            icon: const Icon(
-                              Icons.more_vert_outlined,
+                            enabled: internetConnectinController
+                                .isConnectedToInternet.value,
+                            position: PopupMenuPosition.under,
+                            icon: GestureDetector(
+                              onTap: () {
+                                if (internetConnectinController
+                                    .isConnectedToInternet.value) {
+                                  showCustomToast(
+                                    message:
+                                        'You must be online. Please check your internet connection.',
+                                    backgroundColor: kred,
+                                  );
+                                }
+                              },
+                              child: const Icon(
+                                Icons.more_vert_outlined,
+                              ),
                             ),
                             onSelected: (value) {
                               if (value == 'Move task') {

@@ -61,7 +61,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
         if (controller.taskTabChangeIndex.value == 1) {
           return const Expanded(child: TaskListView());
         } else {
-          if (taskFolderController.isLoading.value) {
+          if (taskFolderController.getFoldersLoading.value) {
             return const Expanded(
               child: Center(
                 child: CircularProgressIndicator(),

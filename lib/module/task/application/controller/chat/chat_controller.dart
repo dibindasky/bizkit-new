@@ -748,7 +748,7 @@ class ChatController extends GetxController {
     }
     Message message = messages.firstWhere((m) => m.messageId == messageId);
     String? filePath = await pathProvider.downloadSaveToFileAndReturnPath(
-        path: 'chat/$chatTaskId/file',
+        path: '$chatTaskId/file',
         module: Module.task,
         urlPath: message.file?.file ?? '');
     message.file?.filePath = filePath;
@@ -777,7 +777,7 @@ class ChatController extends GetxController {
       String localId = getUniqueId();
       // create a model for showing it to the ui before sending it to server
       String? filePath = await pathProvider.copyFileToPath(
-          path: 'chat/$chatTaskId/file', file: pdf.file!, module: Module.task);
+          path: '$chatTaskId/file', file: pdf.file!, module: Module.task);
       var file = FileMessage(
           currentUid: _uid,
           userId: _uid,
@@ -795,7 +795,7 @@ class ChatController extends GetxController {
       final data = {
         "message_type": "file",
         "files": [
-          {"file": base64, "file_type": _getTypeOfFile(typee)}
+          {"file": base64, "file_type": getTypeOfFile(typee)}
         ],
         "messages": [pdf.name ?? 'Document']
       };
@@ -809,7 +809,7 @@ class ChatController extends GetxController {
   }
 
   /// return the type of file as ["image"] or ["pdf"] by checking the extension
-  String _getTypeOfFile(String type) {
+  String getTypeOfFile(String type) {
     if (type == 'jpg' || type == 'png' || type == 'jpeg' || type == 'gif') {
       return 'image';
     } else {
@@ -826,10 +826,13 @@ class ChatController extends GetxController {
       "files": List.generate(
           selectedMessages.length, (index) => selectedMessages[index].file)
     });
-    selectedMessages.value = [];
+    clearSelectedMessages();
   }
 
   void selectOrUnselectMessage({required Message message}) {
+    if (!(message.sender ?? true)) {
+      return;
+    }
     final index =
         selectedMessages.indexWhere((m) => m.messageId == message.messageId);
     if (index == -1) {
@@ -837,6 +840,10 @@ class ChatController extends GetxController {
     } else {
       selectedMessages.removeWhere((m) => m.messageId == message.messageId);
     }
+  }
+
+  void clearSelectedMessages(){
+    selectedMessages.value = [];
   }
 
   void getCurrentLocation() async {

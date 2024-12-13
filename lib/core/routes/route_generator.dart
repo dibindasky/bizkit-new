@@ -192,10 +192,10 @@ class GoRouterConfig {
       builder: (context, state) {
         final extra = state.extra as Map<String, dynamic>;
         return SlidablePhotoGallery(
-          images: extra['images'] as List<String>,
-          initialIndex: extra['initial'],
-          isMemory: extra['memory'],
-          isFile: extra['file'],
+          images: (extra['images'] as List<String>?) ?? <String>[],
+          initialIndex: extra['initial'] ?? 0,
+          isMemory: extra['memory'] ?? false,
+          isFile: extra['file'] ?? false,
         );
       },
     ),

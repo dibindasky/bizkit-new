@@ -75,7 +75,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                       },
                     )));
           }
-          if (taskFolderController.isLoading.value) {
+          if (taskFolderController.getFoldersLoading.value) {
             return const Expanded(
               child: Center(
                 child: CircularProgressIndicator(),

@@ -457,7 +457,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                         ),
                       );
                     }
-                    if (controller.isLoading.value) {
+                    if (controller.getFoldersLoading.value) { 
                       return const Expanded(
                         child: Center(
                           child: CircularProgressIndicator(),

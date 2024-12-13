@@ -1,9 +1,13 @@
+import 'dart:math' as math;
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/auth/account_switching/account_switching_sheet.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
+import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,26 +26,88 @@ class TaskHomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
     final notificationController = Get.find<MessageCountController>();
+    final homeController = Get.find<TaskHomeScreenController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Obx(
           () => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: GestureDetector(
-              onTap: () => accountSwitchingBottomSheet(context),
-              child: Row(
-                children: [
-                  Text(
-                    "Welcome ${authController.userName.value}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(fontSize: 15.5),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () => accountSwitchingBottomSheet(context),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Hi ${authController.userName.value}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(fontSize: 15.5),
+                      ),
+                      const Icon(Icons.arrow_drop_down)
+                    ],
                   ),
-                  const Icon(Icons.arrow_drop_down)
-                ],
-              ),
+                ),
+                Obx(() => AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      child: homeController
+                                  .loadingForRecentTasksNetwork.value ||
+                              homeController
+                                  .loadingForRecentTasksNetworkError.value
+                          ? Row(
+                              children: [
+                                Text(
+                                  homeController
+                                          .loadingForRecentTasksNetworkError
+                                          .value
+                                      ? 'syncing failed'
+                                      : 'syncing...',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(
+                                        color: homeController
+                                                .loadingForRecentTasksNetworkError
+                                                .value
+                                            ? kred
+                                            : kneonDark,
+                                      ),
+                                ),
+                                TweenAnimationBuilder(
+                                  tween:
+                                      Tween<double>(begin: 0, end: 2 * math.pi),
+                                  duration: const Duration(seconds: 1),
+                                  builder: (context, double angle, child) {
+                                    return Transform.rotate(
+                                      angle: angle,
+                                      child: Icon(
+                                        Icons.sync,
+                                        color: homeController
+                                                .loadingForRecentTasksNetworkError
+                                                .value
+                                            ? kred
+                                            : kneonDark,
+                                        size: 15,
+                                      ),
+                                    );
+                                  },
+                                  onEnd: () {
+                                    // Repeat the animation
+                                    taskController.isSyncing.value
+                                        ? Future.delayed(Duration.zero, () {
+                                            (context as Element)
+                                                .markNeedsBuild();
+                                          })
+                                        : null;
+                                  },
+                                ),
+                              ],
+                            )
+                          : kempty,
+                    ))
+              ],
             ),
           ),
         ),
@@ -85,9 +151,9 @@ class TaskHomeAppBar extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: Badge(
-                            isLabelVisible : notificationController.viewed.value,
-                            child:const Center(
-                              child:  Icon(
+                            isLabelVisible: notificationController.viewed.value,
+                            child: const Center(
+                              child: Icon(
                                 Iconsax.notification,
                                 size: 20,
                               ),

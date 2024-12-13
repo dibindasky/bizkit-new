@@ -42,7 +42,6 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final homeController = Get.find<TaskHomeScreenController>();
-
     final messageCoutController = Get.find<MessageCountController>();
     final authController = Get.find<AuthenticationController>();
 

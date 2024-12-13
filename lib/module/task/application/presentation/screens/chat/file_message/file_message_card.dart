@@ -1,3 +1,4 @@
+import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/file_message/image_messge_card.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/file_message/pdf_message_card.dart';
@@ -10,6 +11,7 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class FileMessageCard extends StatelessWidget {
   const FileMessageCard({super.key, required this.message});
@@ -22,13 +24,11 @@ class FileMessageCard extends StatelessWidget {
     final sender = message!.sender;
     final controller = Get.find<ChatController>();
     return Obx(
-      () => Container(
-        color: controller.selectedMessages
-                    .indexWhere((t) => t.messageId == this.message.messageId) ==
-                -1
-            ? null
-            : kblue,
-        child: Align(
+      () {
+        final selected = controller.selectedMessages
+                .indexWhere((t) => t.messageId == this.message.messageId) !=
+            -1;
+        return Align(
           alignment: message.fileType == 'pdf' && sender
               ? Alignment.centerRight
               : Alignment.centerLeft,
@@ -43,14 +43,37 @@ class FileMessageCard extends StatelessWidget {
                 controller.selectOrUnselectMessage(message: this.message);
               },
               onTap: () {
+                final type = controller
+                    .getTypeOfFile((message.message ?? '').split('.').last);
                 if (controller.selectedMessages.isNotEmpty) {
                   controller.selectOrUnselectMessage(message: this.message);
+                } else if (type == 'pdf') {
+                  GoRouter.of(context).pushNamed(Routes.pdfPreview, extra: {
+                    'filePath': message.filePath,
+                    'label': message.message ?? 'Document'
+                  });
+                } else if (type == 'image') {
+                  if (message.filePath?.isNotEmpty ?? false) {
+                    GoRouter.of(context)
+                        .pushNamed(Routes.slidablePhotoGallery, extra: {
+                      'initial': 0,
+                      'memory': false,
+                      'file': true,
+                      'images': [message.filePath!]
+                    });
+                  } else {
+                    controller.downloadFile(message.messageId);
+                  }
                 }
               },
               child: ClipPath(
                 clipper: PollChatClipper(isSender: sender),
                 child: AnimatedContainer(
-                  color: sender ? neonShade.withGreen(190) : kwhite,
+                  color: selected
+                      ? kblue
+                      : sender
+                          ? neonShade.withGreen(190)
+                          : kwhite,
                   duration: const Duration(milliseconds: 300),
                   padding: EdgeInsets.only(
                       left: !sender ? 15.w : 5.w,
@@ -117,8 +140,8 @@ class FileMessageCard extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

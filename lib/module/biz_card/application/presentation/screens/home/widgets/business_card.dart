@@ -163,7 +163,7 @@ class BusinessCard extends StatelessWidget {
                                       Routes.slidablePhotoGallery,
                                       extra: {
                                         'memory': true,
-                                        'images': [bizcard.qRLink!],
+                                        'images': [bizcard.qRLink ?? ''],
                                         'initial': 0
                                       });
                                 }

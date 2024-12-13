@@ -24,6 +24,8 @@ class TaskHomeScreenController extends GetxController {
   RxBool loadingForGetReports = false.obs;
   RxBool fileDownloading = false.obs;
   RxBool loadingForRecentTasks = false.obs;
+  RxBool loadingForRecentTasksNetwork = false.obs;
+  RxBool loadingForRecentTasksNetworkError = false.obs;
   RxString taskCategory = ''.obs;
   Rx<Counts> progresBarCounts = Counts().obs;
   RxList<ReportTask> reportTasks = <ReportTask>[].obs;
@@ -103,6 +105,8 @@ class TaskHomeScreenController extends GetxController {
 
   void fetchRecentTasks() async {
     loadingForRecentTasks.value = true;
+    loadingForRecentTasksNetwork.value = true;
+    loadingForRecentTasksNetworkError.value = false;
     selfieTasks.value = [];
     toOthersTasks.value = [];
     toMeTasks.value = [];
@@ -112,6 +116,7 @@ class TaskHomeScreenController extends GetxController {
     // Step 2: Then update with any network data if available
     await fetchRecentTaskFromNetWork();
 
+    loadingForRecentTasksNetwork.value = false;
     loadingForRecentTasks.value = false;
   }
 
@@ -137,6 +142,7 @@ class TaskHomeScreenController extends GetxController {
     result.fold(
       (failure) {
         loadingForRecentTasks.value = false;
+        loadingForRecentTasksNetworkError.value = true;
         log(failure.message.toString());
       },
       (success) async {

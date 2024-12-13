@@ -32,8 +32,6 @@ import 'package:intl/intl.dart';
 class TaskFolderController extends GetxController {
   RxList<Datum> allFolders = <Datum>[].obs;
 
-
-
   RxList<String> selectedFolderIds = <String>[].obs;
   RxList<String> selectedInnerFolderIds = <String>[].obs;
 
@@ -48,7 +46,7 @@ class TaskFolderController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxBool folderNameLoading = false.obs;
-  RxBool getFoldersLoading=false.obs;
+  RxBool getFoldersLoading = false.obs;
 
   RxString deadlineDate = ''.obs;
 
@@ -141,7 +139,8 @@ class TaskFolderController extends GetxController {
         // filterFoldersByDeadline(
         //     filterFolder:
         //         FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
-        filteredFoldersByDeadline.add(FilteredFolders(folderName: folder.folderName,folderId: success.folderId));
+        filteredFoldersByDeadline.add(FilteredFolders(
+            folderName: folder.folderName, folderId: success.folderId));
 
         scaffoldMessenger.showSnackBar(
           SnackBar(
@@ -154,7 +153,6 @@ class TaskFolderController extends GetxController {
         );
         isLoading.value = false;
       },
-      
     );
     isLoading.value = false;
   }
@@ -162,7 +160,7 @@ class TaskFolderController extends GetxController {
   void editFolderName(
       {required EditFolderModel editFolderName,
       required BuildContext context}) async {
-        print("editfoldername function called");
+    print("editfoldername function called");
     isLoading.value = true;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result =
@@ -183,13 +181,15 @@ class TaskFolderController extends GetxController {
       },
       (success) {
         log('${success.message}');
-         isLoading.value = false;
+        isLoading.value = false;
         // filterFoldersByDeadline(
         //     filterFolder:
         //         FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
-        int index=filteredFoldersByDeadline.indexWhere((data)=>data.folderId==editFolderName.folderId);
-        if(index!=-1){
-          filteredFoldersByDeadline[index]=filteredFoldersByDeadline[index].copyWith(folderName: editFolderName.folderName);
+        int index = filteredFoldersByDeadline
+            .indexWhere((data) => data.folderId == editFolderName.folderId);
+        if (index != -1) {
+          filteredFoldersByDeadline[index] = filteredFoldersByDeadline[index]
+              .copyWith(folderName: editFolderName.folderName);
         }
 
         scaffoldMessenger.showSnackBar(
@@ -232,7 +232,8 @@ class TaskFolderController extends GetxController {
         // filterFoldersByDeadline(
         //     filterFolder:
         //         FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
-        filteredFoldersByDeadline.removeWhere((data)=>data.folderId==deleteFolder.folderId);
+        filteredFoldersByDeadline
+            .removeWhere((data) => data.folderId == deleteFolder.folderId);
         scaffoldMessenger.showSnackBar(
           SnackBar(
             content: Text(
@@ -271,6 +272,7 @@ class TaskFolderController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
+        isLoading.value = false;
         addOrDelete == true
             ? scaffoldMessenger.showSnackBar(
                 SnackBar(
@@ -293,6 +295,7 @@ class TaskFolderController extends GetxController {
         isLoading.value = false;
       },
     );
+    isLoading.value = false;
   }
 
   void mergeFolders(
@@ -337,6 +340,7 @@ class TaskFolderController extends GetxController {
         );
       },
     );
+    isLoading.value = false;
   }
 
   void createNewFolderInsideFolder({
@@ -364,10 +368,13 @@ class TaskFolderController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
-        filterInnerFolderByDeadline(
-            filterInnerFolder: FilterInnerFolderModel(
-                folderId: folderId, filterDate: deadlineDate.value));
-
+        isLoading.value = false;
+        // filterInnerFolderByDeadline(
+        //     filterInnerFolder: FilterInnerFolderModel(
+        //         folderId: folderId, filterDate: deadlineDate.value));
+        innerFolders.add(InnerFolder(
+            innerFolderId: createNewFolderInsideFolder.folderId,
+            innerFolderName: createNewFolderInsideFolder.innerFolderName));
         scaffoldMessenger.showSnackBar(
           SnackBar(
             content: Text(
@@ -381,6 +388,7 @@ class TaskFolderController extends GetxController {
         log('${success.message}');
       },
     );
+    isLoading.value = false;
   }
 
   void fetchTasksInsideFolder(
@@ -430,14 +438,18 @@ class TaskFolderController extends GetxController {
       },
       (success) {
         log('${success.message}');
-        filterInnerFolderByDeadline(
-            filterInnerFolder: FilterInnerFolderModel(
-                folderId: folderId, filterDate: deadlineDate.value));
-        fetchTasksInsideFolder(
-          taskInsideFolder: GetTaskInsideAFolderParamsModel(
-            folderId: folderId,
-          ),
-        );
+        // filterInnerFolderByDeadline(
+        //     filterInnerFolder: FilterInnerFolderModel(
+        //         folderId: folderId, filterDate: deadlineDate.value));
+        // fetchTasksInsideFolder(
+        //   taskInsideFolder: GetTaskInsideAFolderParamsModel(
+        //     folderId: folderId,
+        //   ),
+        // );
+
+        innerFolders.removeWhere(
+            (data) => data.innerFolderId == deleteInnerFolder.innerFolderId);
+
         scaffoldMessenger.showSnackBar(
           SnackBar(
             content: Text(
@@ -458,6 +470,7 @@ class TaskFolderController extends GetxController {
       required BuildContext context,
       required String folderId}) async {
     isLoading.value = true;
+    
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await folderService.editInnerFolder(
         editInnerFolder: editInnerFolderName);
@@ -476,10 +489,17 @@ class TaskFolderController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
+        isLoading.value = false;
         log('${success.message}');
-        filterInnerFolderByDeadline(
-            filterInnerFolder: FilterInnerFolderModel(
-                folderId: folderId, filterDate: deadlineDate.value));
+        // filterInnerFolderByDeadline(
+        //     filterInnerFolder: FilterInnerFolderModel(
+        //         folderId: folderId, filterDate: deadlineDate.value));
+
+        int index = innerFolders.indexWhere(
+            (data) => data.innerFolderId == editInnerFolderName.innerFolderId);
+        innerFolders[index] = innerFolders[index]
+            .copyWith(innerFolderName: editInnerFolderName.innerFolderName);
+
         scaffoldMessenger.showSnackBar(
           SnackBar(
             content: Text(
@@ -492,6 +512,7 @@ class TaskFolderController extends GetxController {
         isLoading.value = false;
       },
     );
+    isLoading.value = false;
   }
 
   void taskAddOrDeleteInnerFolder(
@@ -517,6 +538,7 @@ class TaskFolderController extends GetxController {
         log(failure.message.toString());
       },
       (success) {
+        isLoading.value = false;
         addOrDelete == true
             ? scaffoldMessenger.showSnackBar(
                 SnackBar(
@@ -539,6 +561,7 @@ class TaskFolderController extends GetxController {
         isLoading.value = false;
       },
     );
+    isLoading.value = false;
   }
 
   void fetchAllTasksInsideAInnerFolder(

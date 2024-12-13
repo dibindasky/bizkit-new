@@ -205,20 +205,8 @@ class TaskContainer extends StatelessWidget {
                             enabled: internetConnectinController
                                 .isConnectedToInternet.value,
                             position: PopupMenuPosition.under,
-                            icon: GestureDetector(
-                              onTap: () {
-                                if (internetConnectinController
-                                    .isConnectedToInternet.value) {
-                                  showCustomToast(
-                                    message:
-                                        'You must be online. Please check your internet connection.',
-                                    backgroundColor: kred,
-                                  );
-                                }
-                              },
-                              child: const Icon(
-                                Icons.more_vert_outlined,
-                              ),
+                            icon: const Icon(
+                              Icons.more_vert_outlined,
                             ),
                             onSelected: (value) {
                               if (value == 'Move task') {

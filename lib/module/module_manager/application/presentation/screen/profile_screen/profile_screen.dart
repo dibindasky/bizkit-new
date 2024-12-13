@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/fade_transition/fade_transition.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/widgets/profile_edit_widgets/profile_image_widget.dart';
@@ -8,10 +9,12 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -20,6 +23,8 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final profileController = Get.find<ProfileController>();
     final moduleController = Get.find<ModuleController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       print('module controller = > ${moduleController.currentModule.value}');
       profileController.checkEmail.isEmpty
@@ -107,8 +112,16 @@ class ProfileScreen extends StatelessWidget {
                 heading: 'Account Settings',
                 subtitle: 'Profile,Name,Email,Phone',
                 onTap: () {
-                  profileController.getProfileDetails();
-                  GoRouter.of(context).pushNamed(Routes.editProfile);
+                  if (internetConnectinController.isConnectedToInternet.value) {
+                    profileController.getProfileDetails();
+                    GoRouter.of(context).pushNamed(Routes.editProfile);
+                  } else {
+                    showCustomToast(
+                      message:
+                          'You must be online to access the account settings. Please check your internet connection.',
+                      backgroundColor: kred,
+                    );
+                  }
                 },
               ),
               ProfileTiles(
@@ -119,7 +132,7 @@ class ProfileScreen extends StatelessWidget {
               Obx(() => moduleController.currentModule.value == Module.card
                   ? ProfileTiles(
                       heading: 'Data Management',
-                      subtitle: 'Archieved,Data Eport,Delete',
+                      subtitle: 'Archieved,Delete',
                       onTap: () {
                         GoRouter.of(context)
                             .pushNamed(Routes.dataManagementScreen);
@@ -161,15 +174,15 @@ class ProfileScreen extends StatelessWidget {
                   );
                 },
               ),
-              TextButton(
-                  onPressed: () {
-                    GoRouter.of(context)
-                        .pushNamed(Routes.matchoMeterConnectionScreen);
-                  },
-                  child: Text(
-                    'Navigate to matcho Meter connection screen',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  )),
+              // TextButton(
+              //     onPressed: () {
+              //       GoRouter.of(context)
+              //           .pushNamed(Routes.matchoMeterConnectionScreen);
+              //     },
+              //     child: Text(
+              //       'Navigate to matcho Meter connection screen',
+              //       style: Theme.of(context).textTheme.titleSmall,
+              //     )),
             ],
           ),
         ),
@@ -193,56 +206,68 @@ class ProfileTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (onTap != null) {
-          onTap!();
-        } else {
-          Navigator.of(context).push(cardFadePageRoute(widget!));
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
-        child: ColoredBox(
-          color: textFieldFillColr,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(heading,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(fontSize: 15)),
-                    subtitle == null
-                        ? const SizedBox()
-                        : Text(subtitle!,
-                            style: const TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w400,
-                                color: kGreyNormal)),
-                  ],
-                ),
-                const Spacer(),
-                IconButton(
-                  onPressed: () {
-                    if (onTap != null) {
-                      onTap!();
-                    } else {
-                      Navigator.of(context).push(cardFadePageRoute(widget!));
-                    }
-                  },
-                  icon: const Icon(
-                    Icons.arrow_forward_ios_sharp,
-                    color: kblack,
-                    size: 17,
+    return Card(
+      elevation: 0,
+      child: GestureDetector(
+        onTap: () {
+          if (onTap != null) {
+            onTap!();
+          } else {
+            Navigator.of(context).push(cardFadePageRoute(widget!));
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
+          child: ColoredBox(
+            color: textFieldFillColr,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(heading,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(fontSize: 15)),
+                      subtitle == null
+                          ? const SizedBox()
+                          : Text(subtitle ?? '',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(color: kGreyNormal, fontSize: 11)),
+                    ],
                   ),
-                )
-              ],
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      if (onTap != null) {
+                        onTap!();
+                      } else {
+                        Navigator.of(context).push(cardFadePageRoute(widget!));
+                      }
+                    },
+                    icon: Container(
+                      width: 30.w,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: klightgrey),
+                        color: Theme.of(context).colorScheme.onTertiary,
+                      ),
+                      child: const Icon(
+                        Iconsax.arrow_right_3,
+                        color: kblack,
+                        size: 13,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

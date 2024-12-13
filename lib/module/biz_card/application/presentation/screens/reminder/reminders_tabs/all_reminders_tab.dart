@@ -27,10 +27,15 @@ class AllRemindersTab extends StatelessWidget {
     return Obx(
       () {
         if (!internetConnectinController.isConnectedToInternet.value) {
-          return InternetConnectionLostWidget(
-            onTap: () {
-              reminderController.fetchAllReminders();
-            },
+          return Center(
+            child: SizedBox(
+              width: 300.w,
+              child: InternetConnectionLostWidget(
+                onTap: () {
+                  reminderController.fetchAllReminders();
+                },
+              ),
+            ),
           );
         }
         if (reminderController.allReminderLoading.value) {

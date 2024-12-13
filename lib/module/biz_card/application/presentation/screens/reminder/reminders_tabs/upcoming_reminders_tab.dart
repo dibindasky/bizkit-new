@@ -28,10 +28,13 @@ class UpcomingRemindersTab extends StatelessWidget {
       () {
         if (!internetConnectinController.isConnectedToInternet.value) {
           return Center(
-            child: InternetConnectionLostWidget(
-              onTap: () {
-                reminderController.fetchHistoryReminders();
-              },
+            child: SizedBox(
+              width: 300.w,
+              child: InternetConnectionLostWidget(
+                onTap: () {
+                  reminderController.fetchHistoryReminders();
+                },
+              ),
             ),
           );
         }

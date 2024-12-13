@@ -27,10 +27,15 @@ class HistoryRemindersTab extends StatelessWidget {
     return Obx(
       () {
         if (!internetConnectinController.isConnectedToInternet.value) {
-          return InternetConnectionLostWidget(
-            onTap: () {
-              reminderController.fetchHistoryReminders();
-            },
+          return Center(
+            child: SizedBox(
+              width: 300.w,
+              child: InternetConnectionLostWidget(
+                onTap: () {
+                  reminderController.fetchHistoryReminders();
+                },
+              ),
+            ),
           );
         }
         if (reminderController.historyReminderLoading.value) {

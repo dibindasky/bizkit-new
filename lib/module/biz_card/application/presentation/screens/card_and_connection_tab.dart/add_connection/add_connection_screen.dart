@@ -1,13 +1,17 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_and_connection_tab.dart/widgets/add_connection_tail.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
 class AddConnectionScreen extends StatelessWidget {
   const AddConnectionScreen({super.key});
@@ -15,6 +19,8 @@ class AddConnectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final connectionController = Get.find<ConnectionsController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
@@ -26,32 +32,48 @@ class AddConnectionScreen extends StatelessWidget {
               return [
                 SliverAppBar(
                   floating: false,
-                  leading: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      size: 23,
+                  leading: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).pop(context);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
+                        child: Icon(
+                          Icons.arrow_back_ios_new,
+                          size: 18.sp,
+                          color: Theme.of(context).colorScheme.onTertiary,
+                        ),
+                      ),
                     ),
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                    },
                   ),
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
                   title: Text(
                     'New Connection',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(fontSize: 16),
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                   actions: [
-                    IconButton(
-                      onPressed: () {
+                    GestureDetector(
+                      onTap: () {
                         connectionController.fetchAllSendConnectionRequests();
                         GoRouter.of(context)
                             .pushNamed(Routes.pendingConnectionRequests);
                       },
-                      icon: const Icon(Icons.person_2_outlined),
+                      child: Container(
+                        width: 45.w,
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: klightgrey),
+                          color: Theme.of(context).colorScheme.onTertiary,
+                        ),
+                        child: const Icon(
+                          Iconsax.profile_2user,
+                        ),
+                      ),
                     ),
                     kWidth10
                   ],
@@ -79,6 +101,18 @@ class AddConnectionScreen extends StatelessWidget {
             },
             body: Obx(
               () {
+                if (!internetConnectinController.isConnectedToInternet.value) {
+                  return Center(
+                    child: SizedBox(
+                      width: 300.w,
+                      child: InternetConnectionLostWidget(
+                        onTap: () {
+                          connectionController.searchBizkitUsers();
+                        },
+                      ),
+                    ),
+                  );
+                }
                 if (connectionController.searchBizkitUsersLoading.value) {
                   return const Center(
                     child: CircularProgressIndicator(),

@@ -25,14 +25,23 @@ class ScreenProfileEdit extends StatelessWidget {
             kHeight20,
             Row(
               children: [
-                IconButton(
-                    onPressed: () => GoRouter.of(context).pop(),
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                    )),
+                GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).pop(context);
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                    child: Icon(
+                      Icons.arrow_back_ios_new,
+                      size: 18.sp,
+                      color: Theme.of(context).colorScheme.onTertiary,
+                    ),
+                  ),
+                ),
+                adjustWidth(20.w),
                 Text(
                   'Edit Profile',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
               ],
             ),

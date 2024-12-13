@@ -5,8 +5,8 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/bottom_sheets_and_pop_up/email_or_phone_list_bottomlist.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_card_detail/widgets/received_card_edit_page.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens/scan_and_creation/widgets/second_card_field.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/packages/share/share_plus.dart';
 import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -16,6 +16,7 @@ import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:bizkit/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
@@ -63,232 +64,281 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final visitingCardController = Get.find<ReceivedCardController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Received Card',
-            style: Theme.of(context)
-                .textTheme
-                .displayMedium
-                ?.copyWith(fontSize: 16)),
-        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
-        actions: [
-          PopupMenuButton<String>(
-            icon: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Icon(
-                Icons.more_vert,
-                size: 25,
-              ),
-            ),
-            onSelected: (value) {},
-            itemBuilder: (context) {
-              List<PopupMenuEntry<String>> items = [];
-
-              items.addAll(
-                [
-                  PopupMenuItem(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const CardSecondUpdation()));
-                      // GoRouter.of(context).pushNamed(Routes.receivedCardEdit);
-                    },
-                    value: 'Edit card',
-                    child: const Text('Edit card'),
-                  ),
-                  PopupMenuItem(
-                    onTap: () => showConfirmationDialog(
-                      heading:
-                          'Are you sure you want to delete your visiting card',
-                      context,
-                      onPressed: () {
-                        visitingCardController.deleteVisitingCard(
-                            context: context,
-                            visitingCardDeleteModel: VisitingCardDeleteModel(
-                              cardId: visitingCardController
-                                      .visitingCardDetails.value.id ??
-                                  '',
-                              isDisabled: true,
-                            ));
-                      },
-                    ),
-                    value: 'Delete card',
-                    child: const Text('Delete card'),
-                  ),
-                  PopupMenuItem(
-                    onTap: () {
-                      SharePlus.shareVisitingCardDetails(
-                          visitingCardController.visitingCardDetails.value);
-                    },
-                    value: 'Share card',
-                    child: const Text('Share card'),
-                  )
-                ],
-              );
-              return items;
-            },
-          )
-        ],
-        leading: IconButton(
-          onPressed: () {
-            GoRouter.of(context).pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 18,
-          ),
-        ),
-        backgroundColor: knill,
-        // title: null,
-      ),
-      body: Obx(
-        () {
-          if (visitingCardController.isLoading.value) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (visitingCardController.filterdVisitingCards == null) {
-            return GestureDetector(
-              onTap: () {
-                if (widget.visitingCardId != null) {
-                  visitingCardController.fetchReceivedCardDetails(
-                      receivedCardId: widget.visitingCardId ?? '');
-                }
-              },
-              child: const Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: Row(
                   children: [
-                    Icon(Icons.refresh),
-                    Text('Tap to retry'),
+                    GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).pop(context);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
+                        child: Icon(
+                          Icons.arrow_back_ios_new,
+                          size: 18.sp,
+                          color: Theme.of(context).colorScheme.onTertiary,
+                        ),
+                      ),
+                    ),
+                    adjustWidth(20.w),
+                    Text(
+                      'Received Card',
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    const Spacer(),
+                    PopupMenuButton<String>(
+                      position: PopupMenuPosition.under,
+                      enabled: internetConnectinController
+                          .isConnectedToInternet.value,
+                      icon: Container(
+                        width: 45.w,
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: klightgrey),
+                          color: Theme.of(context).colorScheme.onTertiary,
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Icon(
+                            Icons.more_vert,
+                            size: 25,
+                          ),
+                        ),
+                      ),
+                      onSelected: (value) {},
+                      itemBuilder: (context) {
+                        List<PopupMenuEntry<String>> items = [];
+
+                        items.addAll(
+                          [
+                            PopupMenuItem(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CardSecondUpdation()));
+                                // GoRouter.of(context).pushNamed(Routes.receivedCardEdit);
+                              },
+                              value: 'Edit card',
+                              child: const Text('Edit card'),
+                            ),
+                            PopupMenuItem(
+                              onTap: () => showConfirmationDialog(
+                                heading:
+                                    'Are you sure you want to delete your visiting card',
+                                context,
+                                onPressed: () {
+                                  visitingCardController.deleteVisitingCard(
+                                      context: context,
+                                      visitingCardDeleteModel:
+                                          VisitingCardDeleteModel(
+                                        cardId: visitingCardController
+                                                .visitingCardDetails.value.id ??
+                                            '',
+                                        isDisabled: true,
+                                      ));
+                                },
+                              ),
+                              value: 'Delete card',
+                              child: const Text('Delete card'),
+                            ),
+                            PopupMenuItem(
+                              onTap: () {
+                                SharePlus.shareVisitingCardDetails(
+                                    visitingCardController
+                                        .visitingCardDetails.value);
+                              },
+                              value: 'Share card',
+                              child: const Text('Share card'),
+                            )
+                          ],
+                        );
+                        return items;
+                      },
+                    )
                   ],
                 ),
               ),
-            );
-          }
-
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: RefreshIndicator(
-              onRefresh: () async {
-                visitingCardController.fetchReceivedCardDetails(
-                    receivedCardId: widget.visitingCardId ?? '');
-              },
-              child: SingleChildScrollView(
-                child: SizedBox(
-                  height: khieght,
-                  child: Column(
-                    children: [
-                      adjustHieght(20),
-                      // image carosal view
-                      SizedBox(
-                          height: 200,
-                          child: PagviewAnimateBuilder(
-                              pageController: pageController,
-                              pageValue: pageValue,
-                              pageCount: visitingCardController.selfie.length,
-                              onpageCallBack: (index) {
-                                setState(() {
-                                  currentIndex = index;
-                                });
-                              },
-                              child: (index, context) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      GoRouter.of(context).pushNamed(
-                                          Routes.slidablePhotoGallery,
-                                          extra: {
-                                            'images':
-                                                visitingCardController.selfie,
-                                            'initial': index,
-                                            'memory': false,
-                                          });
-                                    },
-                                    child: NetworkImageWithLoader(
-                                        radius: 25,
-                                        visitingCardController.selfie[index]),
-                                  )))),
-                      Column(
-                        children: [
-                          const SizedBox(height: 20),
-                          Text(
-                            visitingCardController
-                                    .visitingCardDetails.value.company ??
-                                'Company',
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.displayMedium,
-                          ),
-                          Text(
-                            visitingCardController
-                                    .visitingCardDetails.value.designation ??
-                                'designation',
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.displaySmall,
-                          ),
-                          adjustHieght(khieght * .02),
-                        ],
-                      ),
-                      const CardViewRowWiceIcons(),
-                      adjustHieght(khieght * .02),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 4),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: neonShade),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+              Obx(
+                () {
+                  if (visitingCardController.isLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (visitingCardController.filterdVisitingCards ==
+                      null) {
+                    return GestureDetector(
+                      onTap: () {
+                        if (widget.visitingCardId != null) {
+                          visitingCardController.fetchReceivedCardDetails(
+                              receivedCardId: widget.visitingCardId ?? '');
+                        }
+                      },
+                      child: const Center(
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            adjustHieght(10),
-                            ItemsContainer(
-                              heading: 'Location',
-                              item: visitingCardController
-                                      .visitingCardDetails.value.location ??
-                                  'Location',
-                            ),
-                            ItemsContainer(
-                              heading: 'Occasion',
-                              item: visitingCardController
-                                      .visitingCardDetails.value.occation ??
-                                  'Occation',
-                            ),
-                            ItemsContainer(
-                              heading: 'Occupation',
-                              item: visitingCardController
-                                      .visitingCardDetails.value.occupation ??
-                                  'Occupation',
-                            ),
-                            ItemsContainer(
-                              heading: 'Designation',
-                              item: visitingCardController
-                                      .visitingCardDetails.value.designation ??
-                                  'Designation',
-                            ),
-                            ItemsContainer(
-                              heading: 'Notes',
-                              item: visitingCardController
-                                      .visitingCardDetails.value.notes ??
-                                  'Notes',
-                            ),
-                            // const ItemsContainer(
-                            //   heading: 'Date',
-                            //   item: 'Date',
-                            // ),
-                            // const ItemsContainer(
-                            //   heading: 'Time',
-                            //   item: 'Time',
-                            //   istime: false,
-                            // ),
-                            // adjustHieght(10),
+                            Icon(Icons.refresh),
+                            Text('Tap to retry'),
                           ],
                         ),
                       ),
-                      adjustHieght(30),
-                    ],
-                  ),
-                ),
+                    );
+                  }
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        visitingCardController.fetchReceivedCardDetails(
+                            receivedCardId: widget.visitingCardId ?? '');
+                      },
+                      child: SingleChildScrollView(
+                        child: SizedBox(
+                          height: khieght,
+                          child: Column(
+                            children: [
+                              adjustHieght(20),
+                              // image carosal view
+                              SizedBox(
+                                  height: 200,
+                                  child: PagviewAnimateBuilder(
+                                      pageController: pageController,
+                                      pageValue: pageValue,
+                                      pageCount:
+                                          visitingCardController.selfie.length,
+                                      onpageCallBack: (index) {
+                                        setState(() {
+                                          currentIndex = index;
+                                        });
+                                      },
+                                      child: (index, context) => Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              GoRouter.of(context).pushNamed(
+                                                  Routes.slidablePhotoGallery,
+                                                  extra: {
+                                                    'images':
+                                                        visitingCardController
+                                                            .selfie,
+                                                    'initial': index,
+                                                    'memory': false,
+                                                  });
+                                            },
+                                            child: NetworkImageWithLoader(
+                                                radius: 25,
+                                                visitingCardController
+                                                    .selfie[index]),
+                                          )))),
+                              Column(
+                                children: [
+                                  const SizedBox(height: 20),
+                                  Text(
+                                    visitingCardController.visitingCardDetails
+                                            .value.company ??
+                                        'Company',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium,
+                                  ),
+                                  Text(
+                                    visitingCardController.visitingCardDetails
+                                            .value.designation ??
+                                        'designation',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
+                                  ),
+                                  adjustHieght(khieght * .02),
+                                ],
+                              ),
+                              const CardViewRowWiceIcons(),
+                              adjustHieght(khieght * .02),
+                              Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 4),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: neonShade),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  children: [
+                                    adjustHieght(10),
+                                    ItemsContainer(
+                                      heading: 'Location',
+                                      item: visitingCardController
+                                              .visitingCardDetails
+                                              .value
+                                              .location ??
+                                          'Location',
+                                    ),
+                                    ItemsContainer(
+                                      heading: 'Occasion',
+                                      item: visitingCardController
+                                              .visitingCardDetails
+                                              .value
+                                              .occation ??
+                                          'Occation',
+                                    ),
+                                    ItemsContainer(
+                                      heading: 'Occupation',
+                                      item: visitingCardController
+                                              .visitingCardDetails
+                                              .value
+                                              .occupation ??
+                                          'Occupation',
+                                    ),
+                                    ItemsContainer(
+                                      heading: 'Designation',
+                                      item: visitingCardController
+                                              .visitingCardDetails
+                                              .value
+                                              .designation ??
+                                          'Designation',
+                                    ),
+                                    ItemsContainer(
+                                      heading: 'Notes',
+                                      item: visitingCardController
+                                              .visitingCardDetails
+                                              .value
+                                              .notes ??
+                                          'Notes',
+                                    ),
+                                    // const ItemsContainer(
+                                    //   heading: 'Date',
+                                    //   item: 'Date',
+                                    // ),
+                                    // const ItemsContainer(
+                                    //   heading: 'Time',
+                                    //   item: 'Time',
+                                    //   istime: false,
+                                    // ),
+                                    // adjustHieght(10),
+                                  ],
+                                ),
+                              ),
+                              adjustHieght(30),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
-            ),
-          );
-        },
+            ],
+          ),
+        ),
       ),
     );
   }

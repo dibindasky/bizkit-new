@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/attachments_chooser.dart';
@@ -13,6 +14,7 @@ import 'package:bizkit/module/task/application/presentation/widgets/task_textfro
 import 'package:bizkit/module/task/domain/model/task/task_model/task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,6 +33,7 @@ class ScreenAddTask extends StatelessWidget {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController taskHeadController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final internetConnectinController = Get.find<InternetConnectionController>();
 
   @override
   Widget build(BuildContext context) {
@@ -223,11 +226,21 @@ class ScreenAddTask extends StatelessWidget {
                           adjustHieght(10.h),
                           Center(
                             child: EventButton(
+                              textColr: kwhite,
                               color: neonNewLinearGradient,
                               width: 300.w,
                               text: edit ? 'Edit Task' : 'Create Task',
                               onTap: () {
-                                createNewTask(controller, context);
+                                if (internetConnectinController
+                                    .isConnectedToInternet.value) {
+                                  createNewTask(controller, context);
+                                } else {
+                                  showCustomToast(
+                                    message:
+                                        'You must be online to create a new task. Please check your internet connection.',
+                                    backgroundColor: kred,
+                                  );
+                                }
                               },
                             ),
                           ),

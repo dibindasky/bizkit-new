@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
@@ -24,7 +25,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
   final controller = Get.find<TaskCalenderViewController>();
   final taskFolderController = Get.find<TaskFolderController>();
   final hierarchyController = Get.find<HierarchyController>();
-
+  final internetConnectinController = Get.find<InternetConnectionController>();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -61,6 +62,19 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
         if (controller.taskTabChangeIndex.value == 1) {
           return const Expanded(child: TaskListView());
         } else {
+          if (!internetConnectinController.isConnectedToInternet.value) {
+            return Expanded(
+                child: SizedBox(
+                    width: 300.w,
+                    child: InternetConnectionLostWidget(
+                      onTap: () {
+                        taskFolderController.filterFoldersByDeadline(
+                            filterFolder: FilterFolderByDeadlineModel(
+                          filterDate: taskFolderController.deadlineDate.value,
+                        ));
+                      },
+                    )));
+          }
           if (taskFolderController.getFoldersLoading.value) {
             return const Expanded(
               child: Center(

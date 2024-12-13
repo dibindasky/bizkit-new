@@ -1,3 +1,4 @@
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -24,6 +25,9 @@ class TotalTasksScreen extends StatelessWidget {
     final hierarchyController = Get.find<HierarchyController>();
     final homeController = Get.find<TaskHomeScreenController>();
     final taskController = Get.find<CreateTaskController>();
+
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
 
     void showCustomMenu(BuildContext context) {
       final RenderBox button = context.findRenderObject() as RenderBox;
@@ -216,6 +220,17 @@ class TotalTasksScreen extends StatelessWidget {
               Expanded(
                 child: Obx(
                   () {
+                    if (!internetConnectinController
+                        .isConnectedToInternet.value) {
+                      return InternetConnectionLostWidget(
+                        onTap: () {
+                          if (fromHeirarachy == true) {
+                          } else {
+                            taskController.filterByType();
+                          }
+                        },
+                      );
+                    }
                     if (fromHeirarachy == true
                         ? hierarchyController.isLoading.value
                         : taskController.filterByTypeLoading.value) {

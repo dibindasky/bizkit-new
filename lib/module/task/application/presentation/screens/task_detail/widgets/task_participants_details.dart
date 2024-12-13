@@ -62,7 +62,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                       ?.profilePicture?.isEmpty ??
                                   true
                               ? klightDarkGrey
-                              : neonShade,
+                              : kneon,
                           child: Padding(
                             padding: EdgeInsets.all(1.w),
                             child: task.createdUserDetails?.profilePicture
@@ -138,7 +138,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                       ?.profilePicture?.isEmpty ??
                                   true
                               ? klightDarkGrey
-                              : neonShade,
+                              : kneon,
                           child: Padding(
                             padding: EdgeInsets.all(1.w),
                             child: task.createdUserDetails?.profilePicture

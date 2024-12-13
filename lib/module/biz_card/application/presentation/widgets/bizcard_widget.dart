@@ -6,9 +6,11 @@ import 'package:bizkit/module/biz_card/application/controller/card/create_contro
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/individual_shared_fields_query_params_model/individual_shared_fields_query_params_model.dart';
 import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -46,6 +48,7 @@ class BizcardWidget extends StatelessWidget {
 
   final levelSharingController = Get.find<LevelSharingController>();
   final accessController = Get.find<AccessController>();
+  final internetConnectinController = Get.find<InternetConnectionController>();
 
   Uint8List? get decodedQrImage {
     if (qrScanner == null || qrScanner!.isEmpty) {
@@ -138,15 +141,26 @@ class BizcardWidget extends StatelessWidget {
                     ? kempty
                     : GestureDetector(
                         onTap: () {
-                          levelSharingController.fetchIndividualSharedFields(
-                              queryParameter:
-                                  IndividualSharedFieldsQueryParamsModel(
-                                      bizcardId: bizcardId ?? ""));
-                          GoRouter.of(context)
-                              .pushNamed(Routes.levelSharingSettings, extra: {
-                            "isCommonLevelSharing": false,
-                            "bizcardId": bizcardId,
-                          });
+                          if (internetConnectinController
+                              .isConnectedToInternet.value) {
+                            GoRouter.of(context).pushNamed(
+                              Routes.levelSharingSettings,
+                              extra: {
+                                "isCommonLevelSharing": false,
+                                "bizcardId": bizcardId,
+                              },
+                            );
+                            levelSharingController.fetchIndividualSharedFields(
+                                queryParameter:
+                                    IndividualSharedFieldsQueryParamsModel(
+                                        bizcardId: bizcardId ?? ""));
+                          } else {
+                            showCustomToast(
+                              message:
+                                  'You must be online to access the level sharing section. Please check your internet connection.',
+                              backgroundColor: kred,
+                            );
+                          }
                         },
                         child: const CircleAvatar(
                           radius: 15,
@@ -236,13 +250,13 @@ class BizcardWidget extends StatelessWidget {
                         ),
                       adjustHieght(2.h),
                       Text(
-                        name ?? 'name',
+                        name ?? '',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       adjustHieght(4.h),
                       Text(
                         textAlign: TextAlign.center,
-                        designation ?? 'designation',
+                        designation ?? '',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       adjustHieght(10.h),

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -24,27 +24,19 @@ class InternetConnectionController extends GetxController {
         switch (status) {
           case InternetConnectionStatus.connected:
             isConnectedToInternet.value = true;
-            Fluttertoast.showToast(
-              msg: "You are now back online.",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.SNACKBAR,
-              timeInSecForIosWeb: 3,
-              fontSize: 12,
-              backgroundColor: Get.isDarkMode ? kwhite : kblack,
+            showCustomToast(
+              message: "You are now back online.",
+              backgroundColor: Get.isDarkMode ? klightGrey : kblack,
               textColor: Get.isDarkMode ? kblack : kwhite,
             );
 
             break;
           case InternetConnectionStatus.disconnected:
             isConnectedToInternet.value = false;
-            Fluttertoast.showToast(
-              msg: 'You are currently offline. Please check your connection.',
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.SNACKBAR,
-              timeInSecForIosWeb: 3,
-              fontSize: 12,
+            showCustomToast(
+              message:
+                  'Oops! Some features need the internet to work. Please connect and try again.',
               backgroundColor: kred,
-              textColor: kwhite,
             );
             break;
         }

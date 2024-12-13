@@ -1,3 +1,4 @@
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/deadline_chooser.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/tag_selection_task_detail.dart';
@@ -5,8 +6,8 @@ import 'package:bizkit/module/task/application/presentation/widgets/task_textfro
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +24,8 @@ class NextActionDateSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return Card(
       elevation: 0,
       child: Container(
@@ -98,22 +101,29 @@ class NextActionDateSection extends StatelessWidget {
                       children: [
                         Text('Next Action Dates',
                             style: Theme.of(context).textTheme.displaySmall),
-                        (taskController.singleTask.value.isOwned ?? false)
-                            ? IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return NADCreateAndUpdateDialog(
-                                        taskId: taskId ?? '',
-                                        taskController: taskController,
-                                      );
-                                    },
+                        IconButton(
+                          onPressed: () {
+                            if (internetConnectinController
+                                .isConnectedToInternet.value) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return NADCreateAndUpdateDialog(
+                                    taskId: taskId ?? '',
+                                    taskController: taskController,
                                   );
                                 },
-                                icon: const Icon(Icons.add),
-                              )
-                            : kHeight10,
+                              );
+                            } else {
+                              showCustomToast(
+                                message:
+                                    'You must be online to create a next action date. Please check your internet connection.',
+                                backgroundColor: kred,
+                              );
+                            }
+                          },
+                          icon: const Icon(Icons.add),
+                        )
                       ],
                     ),
                     adjustHieght(15.h),
@@ -138,22 +148,29 @@ class NextActionDateSection extends StatelessWidget {
                                 .textTheme
                                 .displaySmall
                                 ?.copyWith(fontSize: 14)),
-                        (taskController.singleTask.value.isOwned ?? false)
-                            ? IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return NADCreateAndUpdateDialog(
-                                        taskId: taskId ?? '',
-                                        taskController: taskController,
-                                      );
-                                    },
+                        IconButton(
+                          onPressed: () {
+                            if (internetConnectinController
+                                .isConnectedToInternet.value) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return NADCreateAndUpdateDialog(
+                                    taskId: taskId ?? '',
+                                    taskController: taskController,
                                   );
                                 },
-                                icon: const Icon(Icons.add),
-                              )
-                            : kHeight30,
+                              );
+                            } else {
+                              showCustomToast(
+                                message:
+                                    'You must be online to create a next action date. Please check your internet connection.',
+                                backgroundColor: kred,
+                              );
+                            }
+                          },
+                          icon: const Icon(Icons.add),
+                        )
                       ],
                     ),
                     Wrap(

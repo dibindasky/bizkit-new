@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
@@ -19,6 +20,8 @@ class TaskSearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
 
     return Scaffold(
       body: SafeArea(
@@ -74,6 +77,16 @@ class TaskSearchScreen extends StatelessWidget {
             Expanded(
               child: Obx(
                 () {
+                  if (!internetConnectinController
+                      .isConnectedToInternet.value) {
+                    return SizedBox(
+                        width: 320.w,
+                        child: InternetConnectionLostWidget(
+                          onTap: () {
+                            taskController.searchTasks();
+                          },
+                        ));
+                  }
                   if (taskController.taskSearchLoading.value) {
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),

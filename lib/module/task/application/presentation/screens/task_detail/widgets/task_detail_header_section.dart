@@ -10,7 +10,7 @@ import 'package:bizkit/utils/animations/custom_shrinking_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -191,12 +191,10 @@ class TaskDetailHeaderSection extends StatelessWidget {
                             ),
                           );
                         } else {
-                          showSnackbar(
-                            context,
+                          showCustomToast(
                             message:
                                 'You cannot edit the task while offline. Please check your internet connection.',
                             backgroundColor: kred,
-                            textColor: kwhite,
                           );
                         }
                       },

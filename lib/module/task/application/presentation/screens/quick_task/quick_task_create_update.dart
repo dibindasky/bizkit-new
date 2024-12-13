@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:ui';
 
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_paricipant_pop_for_edit_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/add_participant_pop_up.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/module/task/application/presentation/widgets/task_textfro
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task_model/update_quick_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +31,8 @@ class QuickTaskCreateUpdateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
-    log('quickTaskId ===> $quickTaskId');
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       taskController.recentlySearched(searchQuery: '');
     });
@@ -206,33 +209,56 @@ class QuickTaskCreateUpdateScreen extends StatelessWidget {
                             child: EventButton(
                               color: neonNewLinearGradient,
                               width: 300.w,
+                              textColr: kwhite,
                               text: edit == true
                                   ? 'Edit Quick Task'
                                   : 'Create Quick Task',
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
                                   if (edit == true) {
-                                    taskController.updateQuickTask(
-                                      context: context,
-                                      updateQuickTask: UpdateQuickTaskModel(
-                                          quickTaskId: quickTaskId,
+                                    if (internetConnectinController
+                                        .isConnectedToInternet.value) {
+                                      taskController.updateQuickTask(
+                                        context: context,
+                                        updateQuickTask: UpdateQuickTaskModel(
+                                            quickTaskId: quickTaskId,
+                                            title: taskController
+                                                .titleController.text,
+                                            description: taskController
+                                                .descriptionController.text,
+                                            assignedTo: []),
+                                      );
+                                    } else {
+                                      showCustomToast(
+                                        message:
+                                            'You cannot edit the quick task while offline. Please check your internet connection.',
+                                        backgroundColor: kred,
+                                      );
+                                    }
+                                  } else {
+                                    if (internetConnectinController
+                                        .isConnectedToInternet.value) {
+                                      taskController.createQuickTask(
+                                        context: context,
+                                        createQuickTask: CreateQuickTask(
                                           title: taskController
                                               .titleController.text,
                                           description: taskController
                                               .descriptionController.text,
-                                          assignedTo: []),
-                                    );
-                                  } else {
-                                    taskController.createQuickTask(
-                                      context: context,
-                                      createQuickTask: CreateQuickTask(
-                                        title:
-                                            taskController.titleController.text,
-                                        description: taskController
-                                            .descriptionController.text,
-                                        assignedTo: [],
-                                      ),
-                                    );
+                                          assignedTo: [],
+                                        ),
+                                      );
+                                    } else {
+                                      showCustomToast(
+                                        message:
+                                            'You must be online to create a new quick task. Please check your internet connection.',
+                                        backgroundColor: kred,
+                                      );
+                                      taskController.titleController.clear();
+                                      taskController.descriptionController
+                                          .clear();
+                                      taskController.userslistNew.clear();
+                                    }
                                   }
                                 }
                               },

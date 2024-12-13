@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_creation.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/pop_up/sub_task_detail_view.dart';
@@ -9,6 +8,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,7 +20,8 @@ class TaskDetailSubtasksSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<CreateTaskController>();
-
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: Column(
@@ -43,13 +44,22 @@ class TaskDetailSubtasksSection extends StatelessWidget {
                       controller.singleTask.value.isOwned == true) {
                     return GestureDetector(
                       onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => SubTaskCreationCustomDialog(
-                            taskId: controller.singleTask.value.id,
-                            afterTaskCreation: true,
-                          ),
-                        );
+                        if (internetConnectinController
+                            .isConnectedToInternet.value) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => SubTaskCreationCustomDialog(
+                              taskId: controller.singleTask.value.id,
+                              afterTaskCreation: true,
+                            ),
+                          );
+                        } else {
+                          showCustomToast(
+                            message:
+                                'You must be online to create a new subtask. Please check your internet connection.',
+                            backgroundColor: kred,
+                          );
+                        }
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(
@@ -187,6 +197,8 @@ class SubTaskTileDetailPage extends StatelessWidget {
     }
 
     final taskController = Get.find<CreateTaskController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return GestureDetector(
       onTap: () {
         showDialog(
@@ -254,92 +266,100 @@ class SubTaskTileDetailPage extends StatelessWidget {
               else if (isOwned == false)
                 kempty
               else
-                PopupMenuButton(
-                  color: kwhite,
-                  icon: const Icon(
-                    Icons.more_vert_outlined,
-                  ),
-                  itemBuilder: (context) {
-                    List<PopupMenuItem<String>> items = [
-                      PopupMenuItem<String>(
-                        value: 'Edit subtask',
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => SubTaskCreationCustomDialog(
-                              taskId: taskId,
-                              subtaskId: subTaskId,
-                              subtaskTitile: subTaskTitle,
-                              subtaskDescription: subTaskDes,
-                              afterTaskCreation: true,
-                              isEdit: true,
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          'Edit subtask',
-                          style: TextStyle(color: kblack),
+                Obx(() => PopupMenuButton(
+                      position: PopupMenuPosition.under,
+                      enabled: internetConnectinController
+                          .isConnectedToInternet.value,
+                      color: kwhite,
+                      icon: GestureDetector(
+                        onTap: () {},
+                        child: const Icon(
+                          Icons.more_vert_outlined,
                         ),
                       ),
-                      PopupMenuItem<String>(
-                        value: 'Delete subtask',
-                        onTap: () {
-                          showCustomConfirmationDialogue(
-                            description:
-                                'Are you sure you want to delete this subtask ?',
-                            buttonText: 'Delete',
-                            context: context,
+                      itemBuilder: (context) {
+                        List<PopupMenuItem<String>> items = [
+                          PopupMenuItem<String>(
+                            value: 'Edit subtask',
                             onTap: () {
-                              taskController.deleteSubTask(
-                                  context: context,
-                                  deletesubtask: DeleteSubTaskModel(
-                                      subTaskId: subTaskId ?? '',
-                                      taskId: taskId ?? ''),
-                                  taskId: taskId ?? '');
-                            },
-                            title: 'Delete Subtask',
-                            buttonColor: neonShade,
-                          );
-                        },
-                        child: const Text(
-                          'Delete subtask',
-                          style: TextStyle(color: kblack),
-                        ),
-                      ),
-                      PopupMenuItem<String>(
-                        value: 'Complete subtask',
-                        onTap: () {
-                          showCustomConfirmationDialogue(
-                            description:
-                                'Are you sure you want to complete this subtask ?',
-                            buttonText: 'Complete',
-                            context: context,
-                            onTap: () {
-                              taskController.completedSubTask(
-                                completedSubTask: CompletedSubTask(
-                                  isCompleted: true,
-                                  subTaskId: subTaskId ?? '',
-                                  taskId: taskId ?? '',
-                                  totalTimeTaken: formatDateTimeWithTimeZone(
-                                      DateTime.now()),
-                                ),
+                              showDialog(
                                 context: context,
+                                builder: (context) =>
+                                    SubTaskCreationCustomDialog(
+                                  taskId: taskId,
+                                  subtaskId: subTaskId,
+                                  subtaskTitile: subTaskTitle,
+                                  subtaskDescription: subTaskDes,
+                                  afterTaskCreation: true,
+                                  isEdit: true,
+                                ),
                               );
                             },
-                            title: 'Complete Subtask',
-                            buttonColor: neonShade,
-                          );
-                        },
-                        child: const Text(
-                          'Complete subtask',
-                          style: TextStyle(color: kblack),
-                        ),
-                      ),
-                    ];
+                            child: const Text(
+                              'Edit subtask',
+                              style: TextStyle(color: kblack),
+                            ),
+                          ),
+                          PopupMenuItem<String>(
+                            value: 'Delete subtask',
+                            onTap: () {
+                              showCustomConfirmationDialogue(
+                                description:
+                                    'Are you sure you want to delete this subtask ?',
+                                buttonText: 'Delete',
+                                context: context,
+                                onTap: () {
+                                  taskController.deleteSubTask(
+                                      context: context,
+                                      deletesubtask: DeleteSubTaskModel(
+                                          subTaskId: subTaskId ?? '',
+                                          taskId: taskId ?? ''),
+                                      taskId: taskId ?? '');
+                                },
+                                title: 'Delete Subtask',
+                                buttonColor: neonShade,
+                              );
+                            },
+                            child: const Text(
+                              'Delete subtask',
+                              style: TextStyle(color: kblack),
+                            ),
+                          ),
+                          PopupMenuItem<String>(
+                            value: 'Complete subtask',
+                            onTap: () {
+                              showCustomConfirmationDialogue(
+                                description:
+                                    'Are you sure you want to complete this subtask ?',
+                                buttonText: 'Complete',
+                                context: context,
+                                onTap: () {
+                                  taskController.completedSubTask(
+                                    completedSubTask: CompletedSubTask(
+                                      isCompleted: true,
+                                      subTaskId: subTaskId ?? '',
+                                      taskId: taskId ?? '',
+                                      totalTimeTaken:
+                                          formatDateTimeWithTimeZone(
+                                              DateTime.now()),
+                                    ),
+                                    context: context,
+                                  );
+                                },
+                                title: 'Complete Subtask',
+                                buttonColor: neonShade,
+                              );
+                            },
+                            child: const Text(
+                              'Complete subtask',
+                              style: TextStyle(color: kblack),
+                            ),
+                          ),
+                        ];
 
-                    return items;
-                  },
-                )
+                        return items;
+                      },
+                    ))
             ],
           ),
         ),

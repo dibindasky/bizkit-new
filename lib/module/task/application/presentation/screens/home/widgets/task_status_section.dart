@@ -6,10 +6,9 @@ import 'package:bizkit/module/task/application/presentation/screens/home/widgets
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_status_tab_bar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
@@ -66,15 +65,10 @@ class TaskStatusSection extends StatelessWidget {
                 if (internetConnectinController.isConnectedToInternet.value) {
                   GoRouter.of(context).pushNamed(Routes.addTask);
                 } else {
-                  Fluttertoast.showToast(
-                    msg:
+                  showCustomToast(
+                    message:
                         'You must be online to create a new task. Please check your internet connection.',
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.SNACKBAR,
-                    timeInSecForIosWeb: 3,
-                    fontSize: 12,
                     backgroundColor: kred,
-                    textColor: kwhite,
                   );
                 }
               },

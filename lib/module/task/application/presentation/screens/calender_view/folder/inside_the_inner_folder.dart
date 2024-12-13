@@ -55,7 +55,7 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                 ),
               ),
               adjustHieght(10),
-              if (folderController.isLoading.value)
+              if (folderController.getFoldersLoading.value)
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

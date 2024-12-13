@@ -32,6 +32,8 @@ import 'package:intl/intl.dart';
 class TaskFolderController extends GetxController {
   RxList<Datum> allFolders = <Datum>[].obs;
 
+
+
   RxList<String> selectedFolderIds = <String>[].obs;
   RxList<String> selectedInnerFolderIds = <String>[].obs;
 
@@ -46,6 +48,7 @@ class TaskFolderController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxBool folderNameLoading = false.obs;
+  RxBool getFoldersLoading=false.obs;
 
   RxString deadlineDate = ''.obs;
 
@@ -114,7 +117,6 @@ class TaskFolderController extends GetxController {
   void createNewFolder(
       {required FolderModel folder, required BuildContext context}) async {
     isLoading.value = true;
-
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result = await folderService.createNewFolder(folder: folder);
     result.fold(
@@ -134,11 +136,12 @@ class TaskFolderController extends GetxController {
       },
       (success) {
         log('${success.message}');
-
+        isLoading.value = false;
         folderId = success.folderId.toString();
-        filterFoldersByDeadline(
-            filterFolder:
-                FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
+        // filterFoldersByDeadline(
+        //     filterFolder:
+        //         FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
+        filteredFoldersByDeadline.add(FilteredFolders(folderName: folder.folderName,folderId: success.folderId));
 
         scaffoldMessenger.showSnackBar(
           SnackBar(
@@ -151,12 +154,15 @@ class TaskFolderController extends GetxController {
         );
         isLoading.value = false;
       },
+      
     );
+    isLoading.value = false;
   }
 
   void editFolderName(
       {required EditFolderModel editFolderName,
       required BuildContext context}) async {
+        print("editfoldername function called");
     isLoading.value = true;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result =
@@ -177,10 +183,14 @@ class TaskFolderController extends GetxController {
       },
       (success) {
         log('${success.message}');
-
-        filterFoldersByDeadline(
-            filterFolder:
-                FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
+         isLoading.value = false;
+        // filterFoldersByDeadline(
+        //     filterFolder:
+        //         FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
+        int index=filteredFoldersByDeadline.indexWhere((data)=>data.folderId==editFolderName.folderId);
+        if(index!=-1){
+          filteredFoldersByDeadline[index]=filteredFoldersByDeadline[index].copyWith(folderName: editFolderName.folderName);
+        }
 
         scaffoldMessenger.showSnackBar(
           SnackBar(
@@ -194,6 +204,7 @@ class TaskFolderController extends GetxController {
         isLoading.value = false;
       },
     );
+    isLoading.value = false;
   }
 
   void deleteFolder(
@@ -218,10 +229,10 @@ class TaskFolderController extends GetxController {
       },
       (success) {
         log('${success.message}');
-        filterFoldersByDeadline(
-            filterFolder:
-                FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
-
+        // filterFoldersByDeadline(
+        //     filterFolder:
+        //         FilterFolderByDeadlineModel(filterDate: deadlineDate.value));
+        filteredFoldersByDeadline.removeWhere((data)=>data.folderId==deleteFolder.folderId);
         scaffoldMessenger.showSnackBar(
           SnackBar(
             content: Text(
@@ -374,20 +385,20 @@ class TaskFolderController extends GetxController {
 
   void fetchTasksInsideFolder(
       {required GetTaskInsideAFolderParamsModel taskInsideFolder}) async {
-    isLoading.value = true;
+    getFoldersLoading.value = true;
     final result = await folderService.getTasksInsideFolder(
         taskInsideFolder: taskInsideFolder);
 
     result.fold(
       (failure) {
-        isLoading.value = false;
+        getFoldersLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         foldername.value = success.data?.first.folderName ?? 'Folder Name';
         tasksInsideFolder.assignAll(success.data?.first.tasks ?? []);
         innerFolders.assignAll(success.data?.first.innerFolders ?? []);
-        isLoading.value = false;
+        getFoldersLoading.value = false;
       },
     );
   }
@@ -533,18 +544,18 @@ class TaskFolderController extends GetxController {
   void fetchAllTasksInsideAInnerFolder(
     InnerFolderTasksGetParamsModel innerFolderGetParams,
   ) async {
-    isLoading.value = true;
+    getFoldersLoading.value = true;
     final result = await folderService.getTasksInsideAInnerFolder(
         innerFolderGetParams: innerFolderGetParams);
     result.fold(
       (failure) {
-        isLoading.value = false;
+        getFoldersLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         tasksInsideInnerFolder
             .assignAll(success.data?.first.innerFolderTasks ?? []);
-        isLoading.value = false;
+        getFoldersLoading.value = false;
       },
     );
   }
@@ -552,34 +563,34 @@ class TaskFolderController extends GetxController {
   void filterInnerFolderByDeadline({
     required FilterInnerFolderModel filterInnerFolder,
   }) async {
-    isLoading.value = true;
+    getFoldersLoading.value = true;
     final result = await folderService.filterInnerFolderByDealine(
         filterInnerFolder: filterInnerFolder);
     result.fold(
       (failure) {
-        isLoading.value = false;
+        getFoldersLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         filteredInnerFolders.assignAll(success.filteredFolders ?? []);
-        isLoading.value = false;
+        getFoldersLoading.value = false;
       },
     );
   }
 
   void filterFoldersByDeadline(
       {required FilterFolderByDeadlineModel filterFolder}) async {
-    isLoading.value = true;
+    getFoldersLoading.value = true;
     final result =
         await folderService.filterFolderByDeadline(filterFolder: filterFolder);
     result.fold(
       (failure) {
-        isLoading.value = false;
+        getFoldersLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         filteredFoldersByDeadline.assignAll(success.filteredFolders ?? []);
-        isLoading.value = false;
+        getFoldersLoading.value = false;
       },
     );
   }

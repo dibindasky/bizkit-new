@@ -434,7 +434,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                 adjustHieght(10),
                 Obx(
                   () {
-                    if (controller.isLoading.value) {
+                    if (controller.getFoldersLoading.value) { 
                       return const Expanded(
                         child: Center(
                           child: CircularProgressIndicator(),

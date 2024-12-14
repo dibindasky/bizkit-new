@@ -44,7 +44,7 @@ class TaskHomeAppBar extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        "Hi ${authController.userName.value}",
+                        "Hello ${authController.userName.value}",
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall

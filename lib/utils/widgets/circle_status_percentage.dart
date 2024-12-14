@@ -7,12 +7,14 @@ class CircularSlider extends StatefulWidget {
   final double initialValue; // Initial percentage (0-100)
   final ValueChanged<double> onChanged; // Callback to return the percentage
   final bool statusUpdate;
+  final bool isOwned;
 
   const CircularSlider({
     Key? key,
     this.initialValue = 0,
     required this.onChanged,
     required this.statusUpdate,
+    this.isOwned = true,
   }) : super(key: key);
 
   @override
@@ -58,18 +60,27 @@ class _CircularSliderState extends State<CircularSlider> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onPanStart: (details) {
-        RenderBox box = context.findRenderObject() as RenderBox;
-        center = box.size.center(Offset.zero);
-        radius = min(center.dx, center.dy);
-        _updatePercentage(details.localPosition);
+        if (widget.isOwned == true) {
+          RenderBox box = context.findRenderObject() as RenderBox;
+          center = box.size.center(Offset.zero);
+          radius = min(center.dx, center.dy);
+          _updatePercentage(details.localPosition);
+        }
       },
       onPanUpdate: (details) {
-        _updatePercentage(details.localPosition);
+        if (widget.isOwned == true) {
+          _updatePercentage(details.localPosition);
+        }
       },
       child: CustomPaint(
-        size: widget.statusUpdate?const Size(100, 100):const Size(30, 30), // Fixed size
-        painter: _CircularSliderPainter(percentage: percentage,innerWidth:widget.statusUpdate?7:4,outerWidth: widget.statusUpdate?10:6,
-        fontSize: widget.statusUpdate?20:11),
+        size: widget.statusUpdate
+            ? const Size(100, 100)
+            : const Size(30, 30), // Fixed size
+        painter: _CircularSliderPainter(
+            percentage: percentage,
+            innerWidth: widget.statusUpdate ? 7 : 4,
+            outerWidth: widget.statusUpdate ? 10 : 6,
+            fontSize: widget.statusUpdate ? 20 : 11),
       ),
     );
   }
@@ -81,7 +92,11 @@ class _CircularSliderPainter extends CustomPainter {
   final double outerWidth;
   final double fontSize;
 
-  _CircularSliderPainter({required this.percentage,required this.innerWidth,required this.outerWidth,required this.fontSize});
+  _CircularSliderPainter(
+      {required this.percentage,
+      required this.innerWidth,
+      required this.outerWidth,
+      required this.fontSize});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -91,10 +106,10 @@ class _CircularSliderPainter extends CustomPainter {
     final backgroundPaint = Paint()
       ..color = Colors.grey.shade300
       ..style = PaintingStyle.stroke
-      ..strokeWidth =  innerWidth;
+      ..strokeWidth = innerWidth;
 
     final progressPaint = Paint()
-      ..color = neonShade
+      ..color = kneon
       ..style = PaintingStyle.stroke
       ..strokeWidth = outerWidth
       ..strokeCap = StrokeCap.round;
@@ -116,7 +131,7 @@ class _CircularSliderPainter extends CustomPainter {
     final textPainter = TextPainter(
       text: TextSpan(
         text: '${percentage.toInt()}%',
-        style:  TextStyle(
+        style: TextStyle(
           color: Colors.black,
           fontSize: fontSize,
           fontWeight: FontWeight.bold,

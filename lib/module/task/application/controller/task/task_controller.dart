@@ -386,7 +386,6 @@ class CreateTaskController extends GetxController {
       print('failure status change');
     }, (success) {
       print(singleTask.value.status);
-      print('success status change');
     });
   }
 
@@ -1532,7 +1531,7 @@ class CreateTaskController extends GetxController {
         // If the fetched task matches the current task, update the singleTask observable
         if (singleTaskModel.taskId == success.id) {
           singleTask.value = success;
-          // log('singleTask >>>> ${singleTask.toJson()}');
+
           fetchSingleTaskError.value = false;
           isSyncing.value = false; // End syncing indication
         }

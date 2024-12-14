@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 class CircularSlider extends StatefulWidget {
   final double initialValue; // Initial percentage (0-100)
   final ValueChanged<double> onChanged; // Callback to return the percentage
+  final bool statusUpdate;
 
   const CircularSlider({
     Key? key,
     this.initialValue = 0,
     required this.onChanged,
+    required this.statusUpdate,
   }) : super(key: key);
 
   @override
@@ -26,33 +28,31 @@ class _CircularSliderState extends State<CircularSlider> {
   void initState() {
     super.initState();
     percentage = widget.initialValue;
-
   }
 
- void _updatePercentage(Offset touchPosition) {
-  // Calculate the angle from the center
-  final dx = touchPosition.dx - center.dx;
-  final dy = touchPosition.dy - center.dy;
-  double angle = atan2(dy, dx) + pi / 2;
+  void _updatePercentage(Offset touchPosition) {
+    // Calculate the angle from the center
+    final dx = touchPosition.dx - center.dx;
+    final dy = touchPosition.dy - center.dy;
+    double angle = atan2(dy, dx) + pi / 2;
 
-  // Adjust angle if it crosses the top point
-  if (angle < 0) angle += 2 * pi;
+    // Adjust angle if it crosses the top point
+    if (angle < 0) angle += 2 * pi;
 
-  // Convert angle to percentage
-  double newPercentage = (angle / (2 * pi)) * 100;
+    // Convert angle to percentage
+    double newPercentage = (angle / (2 * pi)) * 100;
 
-  // Explicitly handle full-circle case
-  if ((2 * pi - angle).abs() < 0.1) {
-    newPercentage = 100;
+    // Explicitly handle full-circle case
+    if ((2 * pi - angle).abs() < 0.1) {
+      newPercentage = 100;
+    }
+
+    setState(() {
+      percentage = newPercentage.clamp(0, 100);
+    });
+
+    widget.onChanged(percentage);
   }
-
-  setState(() {
-    percentage = newPercentage.clamp(0, 100);
-  });
-
-  widget.onChanged(percentage);
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +67,9 @@ class _CircularSliderState extends State<CircularSlider> {
         _updatePercentage(details.localPosition);
       },
       child: CustomPaint(
-        size: const Size(100, 100), // Fixed size
-        painter: _CircularSliderPainter(percentage),
+        size: widget.statusUpdate?const Size(100, 100):const Size(30, 30), // Fixed size
+        painter: _CircularSliderPainter(percentage: percentage,innerWidth:widget.statusUpdate?7:4,outerWidth: widget.statusUpdate?10:6,
+        fontSize: widget.statusUpdate?20:11),
       ),
     );
   }
@@ -76,8 +77,11 @@ class _CircularSliderState extends State<CircularSlider> {
 
 class _CircularSliderPainter extends CustomPainter {
   final double percentage;
+  final double innerWidth;
+  final double outerWidth;
+  final double fontSize;
 
-  _CircularSliderPainter(this.percentage);
+  _CircularSliderPainter({required this.percentage,required this.innerWidth,required this.outerWidth,required this.fontSize});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -87,12 +91,12 @@ class _CircularSliderPainter extends CustomPainter {
     final backgroundPaint = Paint()
       ..color = Colors.grey.shade300
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 7;
+      ..strokeWidth =  innerWidth;
 
     final progressPaint = Paint()
-      ..color = neonShade 
+      ..color = neonShade
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10
+      ..strokeWidth = outerWidth
       ..strokeCap = StrokeCap.round;
 
     // Draw background circle
@@ -112,9 +116,9 @@ class _CircularSliderPainter extends CustomPainter {
     final textPainter = TextPainter(
       text: TextSpan(
         text: '${percentage.toInt()}%',
-        style: const TextStyle(
+        style:  TextStyle(
           color: Colors.black,
-          fontSize: 20,
+          fontSize: fontSize,
           fontWeight: FontWeight.bold,
         ),
       ),

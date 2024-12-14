@@ -25,7 +25,7 @@ GetTaskResponce _$GetTaskResponceFromJson(Map<String, dynamic> json) =>
           ?.map((e) => SubTask.fromJson(e as Map<String, dynamic>))
           .toList(),
       createdAt: json['created_at'] as String?,
-      status: json['status'] as String?,
+      status: json['status'] as String,
       isOwned: json['is_owned'] as bool?,
       assignedToDetails: (json['assigned_to_details'] as List<dynamic>?)
           ?.map((e) => AssignedToDetail.fromJson(e as Map<String, dynamic>))

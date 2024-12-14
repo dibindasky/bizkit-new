@@ -5,13 +5,13 @@ part 'filtered_folder.g.dart';
 @JsonSerializable()
 class FilteredFolder {
   @JsonKey(name: 'folder_id')
-  String? folderId;
+  final String? folderId;
   @JsonKey(name: 'inner_folder_id')
-  String? innerFolderId;
+  final String? innerFolderId;
   @JsonKey(name: 'inner_folder_name')
-  String? innerFolderName;
+  final String? innerFolderName;
   @JsonKey(name: 'tasks_count')
-  int? tasksCount;
+  final int? tasksCount;
 
   FilteredFolder({
     this.folderId,
@@ -25,4 +25,19 @@ class FilteredFolder {
   }
 
   Map<String, dynamic> toJson() => _$FilteredFolderToJson(this);
+
+  // Add copyWith method
+  FilteredFolder copyWith({
+    String? folderId,
+    String? innerFolderId,
+    String? innerFolderName,
+    int? tasksCount,
+  }) {
+    return FilteredFolder(
+      folderId: folderId ?? this.folderId,
+      innerFolderId: innerFolderId ?? this.innerFolderId,
+      innerFolderName: innerFolderName ?? this.innerFolderName,
+      tasksCount: tasksCount ?? this.tasksCount,
+    );
+  }
 }

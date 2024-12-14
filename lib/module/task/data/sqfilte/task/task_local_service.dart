@@ -719,7 +719,7 @@ class TaskLocalService implements TaskLocalRepo {
       isKilled: taskData[GetTaskResponce.colTaskIsKilled] == 1,
       tags: (taskData[GetTaskResponce.colTaskTags] as String?)?.split(','),
       createdAt: taskData[GetTaskResponce.colTaskCreatedAt] as String?,
-      status: taskData[GetTaskResponce.colTaskStatus] as String?,
+      status: taskData[GetTaskResponce.colTaskStatus] as String,
       totalTime: int.tryParse(
           taskData[GetTaskResponce.colTaskTotalTime]?.toString() ?? ''),
       totalExpense: int.tryParse(

@@ -27,7 +27,7 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
   Widget build(BuildContext context) {
     final folderController = Get.find<TaskFolderController>();
     final taskCalenderViewController = Get.find<TaskCalenderViewController>();
-
+    final calendercontroller = Get.find<TaskCalenderViewController>();
     final taskController = Get.find<CreateTaskController>();
     return Scaffold(
       body: SafeArea(
@@ -209,7 +209,10 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                       ),
                 Obx(() => Padding(
                       padding: const EdgeInsets.only(left: 20),
-                      child: folderController.isLoading.value
+                      child: folderController.isLoading.value &&
+                                  calendercontroller.taskTabChangeIndex.value == 2 ||
+                              taskController.getNetworkLoading.value &&
+                                  calendercontroller.taskTabChangeIndex.value ==1
                           ? Row(
                               children: [
                                 Text('Processing',

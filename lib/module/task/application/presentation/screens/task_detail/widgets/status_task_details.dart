@@ -1,4 +1,5 @@
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/widgets/circle_status_percentage.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
@@ -38,7 +39,7 @@ class TaskDetailStatusSection extends StatelessWidget {
             ),
           ),
         ),
-        kWidth10, 
+        kWidth10,
         Expanded(
           child: GestureDetector(
             onTap: () {
@@ -46,6 +47,7 @@ class TaskDetailStatusSection extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return Dialog(
+                      insetAnimationCurve: Curves.easeIn,
                       child: Padding(
                         padding: const EdgeInsets.all(13),
                         child: Column(
@@ -58,12 +60,12 @@ class TaskDetailStatusSection extends StatelessWidget {
                                 top: 5,
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    (taskController.singleTask.value.status
-                                                .isNotEmpty
-                                            )
+                                    (taskController
+                                            .singleTask.value.status.isNotEmpty)
                                         ? "Current Status ${taskController.singleTask.value.status}%"
                                         : 'Current Status 0%',
                                     style: Theme.of(context)
@@ -75,41 +77,48 @@ class TaskDetailStatusSection extends StatelessWidget {
                                       onPressed: () {
                                         GoRouter.of(context).pop();
                                       },
-                                      icon: Icon(Icons.close))
+                                      icon: const Icon(Icons.close))
                                 ],
                               ),
                             ),
                             kHeight10,
-                            SizedBox(
-                              width: double.infinity,
-                              child: CircularSlider(
-                                statusUpdate: true, 
-                                initialValue: (double.tryParse(taskController
-                                        .singleTask.value.status) ??
-                                    0.0),
-                                onChanged: (value) {
-                                  taskController.statusValueChanged(value: value);
-                                },
-                              ),
-                            ),
+                            Obx(() => SizedBox(
+                                  width: double.infinity,
+                                  child: CircularSlider(
+                                    isOwned: taskController
+                                            .singleTask.value.isOwned ??
+                                        false,
+                                    statusUpdate: true,
+                                    initialValue: (double.tryParse(
+                                            taskController
+                                                .singleTask.value.status) ??
+                                        0.0),
+                                    onChanged: (value) {
+                                      taskController.statusValueChanged(
+                                          value: value);
+                                    },
+                                  ),
+                                )),
                             kHeight20,
-                            Center(
-                              child: EventButton(
-                                // width: double.infinity,
-                                borderRadius: 10,
-          
-                                showGradiant: false,
-                                text: 'Update',
-                                onTap: () {
-                                  taskController.statusChange(
-                                      context: context,
-                                      taskId:
-                                          taskController.singleTask.value.id ??
-                                              '');
-                                  GoRouter.of(context).pop();
-                                },
+                            if (taskController.singleTask.value.isOwned == true)
+                              Center(
+                                child: EventButton(
+                                  // width: double.infinity,
+                                  borderRadius: 10,
+                                  color: const LinearGradient(
+                                      colors: [kneon, kneon]),
+                                  // showGradiant: false,
+                                  text: 'Update',
+                                  onTap: () {
+                                    taskController.statusChange(
+                                        context: context,
+                                        taskId: taskController
+                                                .singleTask.value.id ??
+                                            '');
+                                    GoRouter.of(context).pop();
+                                  },
+                                ),
                               ),
-                            ),
                             kHeight15
                           ],
                         ),
@@ -126,19 +135,34 @@ class TaskDetailStatusSection extends StatelessWidget {
                 ),
                 child: SizedBox(
                   height: 40.h,
-                  child: Obx(() => Padding(
+                  child: Padding(
                     padding: const EdgeInsets.all(5),
-                    child: CircularSlider(
-                                  statusUpdate: false,
-                                  initialValue: (double.tryParse(taskController
-                                          .singleTask.value.status) ??
-                                      0.0),
-                                  onChanged: (value) {
-                                    // taskController.statusValueChanged(value: value);
-                                  },
-                                ),
+                    // child: CircularSlider(
+                    //   statusUpdate: false,
+                    //   initialValue: (double.tryParse(
+                    //           taskController.singleTask.value.status == '0'
+                    //               ? '0'
+                    //               : taskController.singleTask.value.status) ??
+                    //       0.0),
+                    //   onChanged: (value) {},
+                    // ),
+                    child: CircleAvatar(
+                      backgroundColor: kneon,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: CircleAvatar(
+                          backgroundColor: kwhite,
+                          child: Obx(() => Text(
+                                '${taskController.singleTask.value.status}%',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(fontSize: 10),
+                              )),
+                        ),
+                      ),
+                    ),
                   ),
-                          ),
                 ),
               ),
             ),

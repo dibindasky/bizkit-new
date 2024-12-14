@@ -1,4 +1,6 @@
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:just_audio/just_audio.dart';
 import 'dart:async';
 import 'dart:typed_data';
@@ -149,6 +151,24 @@ class AudioPlayerHandler {
   // Get the current position of the audio
   Duration? getCurrentPosition() {
     return currentPosition;
+  }
+
+  // Add this method to your existing class or create a separate method
+  void showNotificationWithSound(String message) async {
+    // Play notification sound
+    await audioPlayer.setAsset('asset/audio/notification.mp3');
+    audioPlayer.play();
+
+    // Show Flutter toast
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 3,
+      fontSize: 13,
+      backgroundColor: kblack,
+      textColor: kwhite,
+    );
   }
 
   // Dispose resources when no longer needed

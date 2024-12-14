@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
 import 'package:bizkit/module/task/domain/model/task_notifications/task_notifications.dart';
+import 'package:bizkit/packages/sound/just_audio.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/task/domain/model/chat/unread_count.dart';
 import 'package:get/get.dart';
@@ -17,11 +18,11 @@ class MessageCountController extends GetxController {
 
   late IOWebSocketChannel channel;
   String _error = '';
-  RxBool viewed=false.obs;
+  RxBool viewed = false.obs;
   RxMap<String, RxInt> unreadCounts = <String, RxInt>{}.obs;
 
   RxList<TaskNotification> taskNotification = <TaskNotification>[].obs;
-
+  final AudioPlayerHandler audioPlayerHandler = AudioPlayerHandler();
   void connectChannel() async {
     try {
       final token = await SecureStorage.getToken();
@@ -51,13 +52,16 @@ class MessageCountController extends GetxController {
               if (index == -1) {
                 taskNotification.add(task);
                 if (task.notificationType == 'task_viewed') {
-                  Get.showSnackbar(GetSnackBar(
-                    title: task.message,
-                    message: task.message,
-                    snackPosition: SnackPosition.TOP,
-                  ));
+                  // Get.showSnackbar(GetSnackBar(
+                  //   title: task.message,
+                  //   message: task.message,
+                  //   snackPosition: SnackPosition.TOP,
+                  // ));
+
+                  audioPlayerHandler
+                      .showNotificationWithSound(task.message ?? '');
                 }
-                viewed.value=true;
+                viewed.value = true;
               } else {
                 taskNotification[index] = task;
               }

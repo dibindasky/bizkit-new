@@ -11,22 +11,22 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class NotificationCard extends StatelessWidget {
-  const NotificationCard(
-      {super.key,
-      this.title,
-      this.description,
-      this.assignedUsers,
-      this.createdAt,
-      this.taskId,
-      this.notificationId,
-      });
+  const NotificationCard({
+    super.key,
+    this.title,
+    this.description,
+    this.assignedUsers,
+    this.createdAt,
+    this.taskId,
+    this.notificationId,
+  });
 
   final String? title;
   final String? taskId;
   final String? description;
   final List<AssignedUser>? assignedUsers;
   final String? createdAt;
-  final String?notificationId;
+  final String? notificationId;
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +47,12 @@ class NotificationCard extends StatelessWidget {
             Routes.taskDeail,
             pathParameters: {"taskId": '$taskId'},
           );
-          taskNotification.clearNotification([notificationId]); 
+          taskNotification.clearNotification([notificationId]);
         },
         child: Dismissible(
           key: Key(notificationId!),
           onDismissed: (direction) {
-            taskNotification.clearNotification([notificationId]); 
+            taskNotification.clearNotification([notificationId]);
           },
           child: Card(
             elevation: 0,
@@ -77,7 +77,7 @@ class NotificationCard extends StatelessWidget {
                             adjustWidth(8),
                             Flexible(
                               child: Text(
-                                title ?? 'Task Title',
+                                title ?? ' ',
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium
@@ -99,7 +99,7 @@ class NotificationCard extends StatelessWidget {
                         ),
                         adjustHieght(4),
                         Text(
-                          description ?? 'Task Description',
+                          description ?? ' ',
                           maxLines: 2,
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
@@ -115,10 +115,12 @@ class NotificationCard extends StatelessWidget {
                               : 'No users assigned',
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style:
-                              Theme.of(context).textTheme.displaySmall?.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall
+                              ?.copyWith(
+                                fontWeight: FontWeight.w500,
+                              ),
                         ),
                       ],
                     ),

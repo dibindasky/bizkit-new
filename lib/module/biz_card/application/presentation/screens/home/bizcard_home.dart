@@ -1,3 +1,4 @@
+import 'package:bizkit/module/biz_card/application/controller/notifications/bizcard_notification_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/sliver_delegates/reminder_sliver_header.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/sliver_delegates/reminders_tabs_section.dart';
@@ -58,6 +59,7 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
     final bizcardController = Get.find<CardController>();
     final connectionsController = Get.find<ConnectionsController>();
     final reminderController = Get.find<ReminderController>();
+    final notificationController = Get.find<BizcardNotificationController>();
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(

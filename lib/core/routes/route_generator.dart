@@ -517,7 +517,12 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.notificationPage,
       path: Routes.notificationPage,
-      builder: (context, state) => const ScreenCardNotification(),
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+          key: state.pageKey,
+          child: const ScreenCardNotification(),
+        );
+      },
     ),
 
     GoRoute(

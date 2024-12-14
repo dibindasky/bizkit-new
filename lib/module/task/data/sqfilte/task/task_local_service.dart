@@ -43,6 +43,12 @@ class TaskLocalService implements TaskLocalRepo {
       }
       // Convert the tags list to a comma-separated string
       String tagsAsString = (taskModel.tags ?? []).join(',');
+      // Convert the matched next action dates list to a comma-separated string
+      String nextActionDatesAsString =
+          (taskModel.nextActionDate ?? <NextActionDateResponce>[])
+              .map((e) => e.date)
+              .toList()
+              .join(',');
 
       // SQL query to insert task details into the local database
       const query = '''
@@ -65,8 +71,9 @@ class TaskLocalService implements TaskLocalRepo {
         ${GetTaskResponce.colTaskCreatedUsername},
         ${GetTaskResponce.colTaskCreatedUserProfilePic},
         ${GetTaskResponce.colTaskTotalTime},
+        ${GetTaskResponce.colNextActionDate},
         ${GetTaskResponce.colTaskTotalExpense})
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
       ''';
 
       final referenceId = await localService.rawInsert(
@@ -92,6 +99,7 @@ class TaskLocalService implements TaskLocalRepo {
           taskModel.createdUserDetails?.name ?? '',
           taskModel.createdUserDetails?.profilePicture ?? '',
           taskModel.totalTime ?? 0,
+          nextActionDatesAsString,
           taskModel.totalExpense ?? 0
         ],
       );
@@ -198,6 +206,12 @@ class TaskLocalService implements TaskLocalRepo {
 
       // Convert the tags list to a comma-separated string
       String tagsAsString = (taskModel.tags ?? []).join(',');
+      // Convert the matched next action dates list to a comma-separated string
+      String nextActionDatesAsString =
+          (taskModel.nextActionDate ?? <NextActionDateResponce>[])
+              .map((e) => e.date)
+              .toList()
+              .join(',');
 
       // SQL query to update the existing task in the [ TaskSql.tasksTable ]
       const query = '''
@@ -221,6 +235,7 @@ class TaskLocalService implements TaskLocalRepo {
           ${GetTaskResponce.colTaskCreatedUsername} = ?,
           ${GetTaskResponce.colTaskCreatedUserProfilePic} = ?,
           ${GetTaskResponce.colTaskTotalTime} = ?,
+          ${GetTaskResponce.colNextActionDate} = ?,
           ${GetTaskResponce.colTaskTotalExpense} = ?
         WHERE 
           ${GetTaskResponce.colTaskId} = ? AND ${GetTaskResponce.colUserId} = ?  
@@ -249,6 +264,7 @@ class TaskLocalService implements TaskLocalRepo {
           taskModel.createdUserDetails?.name ?? '',
           taskModel.createdUserDetails?.profilePicture ?? '',
           taskModel.totalTime ?? 0,
+          nextActionDatesAsString,
           taskModel.totalExpense ?? 0,
           taskModel.id ?? '',
           currentUserId
@@ -791,8 +807,7 @@ class TaskLocalService implements TaskLocalRepo {
       final List<Map<String, dynamic>> alltasks =
           await localService.rawQuery('''
       SELECT * FROM ${TaskSql.filterByDeadlineTable} 
-      WHERE ${FilterByDeadlineModel.colUserId} = ? 
-      ORDER BY ${FilterByDeadlineModel.colTaskFilterByDeadline} DESC
+      WHERE ${FilterByDeadlineModel.colUserId} = ?
       ''', [
         await userId,
       ]);
@@ -828,6 +843,8 @@ class TaskLocalService implements TaskLocalRepo {
           isTaskAdded = true;
           continue;
         }
+
+        
 
         // Check if the task deadline is within the required range
         final taskDeadlineStr =

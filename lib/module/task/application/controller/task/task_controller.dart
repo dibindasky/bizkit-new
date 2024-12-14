@@ -911,6 +911,11 @@ class CreateTaskController extends GetxController {
             final index = deadlineTasks.indexWhere((e) => e.id == task.id);
             if (index == -1) {
               deadlineTasks.insert(0, task);
+            } else if ((task.spotlightOn ?? false) ||
+                ((task.matchedNextActionDates ?? [])
+                    .contains(deadlineDate.value))) {
+              deadlineTasks.removeAt(index);
+              deadlineTasks.insert(0, task);
             } else {
               deadlineTasks[index] = task;
             }

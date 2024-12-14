@@ -271,11 +271,8 @@ class SubTaskTileDetailPage extends StatelessWidget {
                       enabled: internetConnectinController
                           .isConnectedToInternet.value,
                       color: kwhite,
-                      icon: GestureDetector(
-                        onTap: () {},
-                        child: const Icon(
-                          Icons.more_vert_outlined,
-                        ),
+                      icon: const Icon(
+                        Icons.more_vert_outlined,
                       ),
                       itemBuilder: (context) {
                         List<PopupMenuItem<String>> items = [

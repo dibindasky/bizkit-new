@@ -18,7 +18,6 @@ class EditTaskModel {
   List<TaskAssignedTo>? assignedTo;
   @JsonKey(name: 'next_action_date')
   List<NextActionDate>? nextActionDate;
-  bool? isNextActionDate;
 
   EditTaskModel(
       {this.title,
@@ -27,7 +26,6 @@ class EditTaskModel {
       this.taskId,
       this.assignedTo,
       this.deadLine,
-      this.isNextActionDate = false,
       this.nextActionDate,
       this.status
       });

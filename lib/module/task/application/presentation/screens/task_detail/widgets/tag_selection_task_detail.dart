@@ -107,7 +107,7 @@ class TagChip extends StatelessWidget {
 }
 
 class NextActionChip extends StatelessWidget {
-  final NextActionDateResponce label;
+  final NextActionDateResponce? label;
 
   const NextActionChip({super.key, required this.label});
 
@@ -121,7 +121,7 @@ class NextActionChip extends StatelessWidget {
         color: kblack,
       ),
       child: Row(mainAxisSize: MainAxisSize.min, children: [
-        Text(label.date ?? '',
+        Text(label?.date ?? '',
             style: Theme.of(context)
                 .textTheme
                 .displaySmall

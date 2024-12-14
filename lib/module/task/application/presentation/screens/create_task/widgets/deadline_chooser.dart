@@ -121,7 +121,7 @@ class DeadlineChooserNextActionDate extends StatelessWidget {
             builder: (BuildContext context) {
               final date = nextActionDate?.date == ''
                   ? []
-                  : nextActionDate?.date?.split('_') ?? [];
+                  : nextActionDate?.date?.split('-') ?? [];
               return DatePickingBottomSheet(
                 year: 1,
                 last: 500,

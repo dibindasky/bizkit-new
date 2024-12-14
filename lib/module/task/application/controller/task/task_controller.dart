@@ -2324,11 +2324,24 @@ class CreateTaskController extends GetxController {
 
   // Update New next action date
   void editNextActionDate(
-      {required EditTaskModel updateNadModel,
-      required BuildContext context}) async {
+      {required int index, required BuildContext context}) async {
     loadingForNextActionDate.value = true;
+    List<NextActionDate> list = [];
+    for (int i = 0; i < (singleTask.value.nextActionDate ?? []).length; i++) {
+      final nad = singleTask.value.nextActionDate![i];
+      if (i == index) {
+        list.add(NextActionDate(
+            byWhom: nad.userId,
+            date: nextActionDate.value,
+            description: nexActiondateDescriptionController.text));
+      } else {
+        list.add(NextActionDate(
+            byWhom: nad.userId, date: nad.date, description: nad.description));
+      }
+    }
     final result = await taskService.updateNextActionDate(
-        updateNextActionDateModel: updateNadModel);
+        updateNextActionDateModel:
+            EditTaskModel(taskId: singleTask.value.id, nextActionDate: list));
     result.fold(
       (failure) {
         loadingForNextActionDate.value = false;
@@ -2341,7 +2354,6 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         Navigator.of(context).pop(context);
-
         showCustomToast(
           message: 'Next action date updated successfully',
           backgroundColor: Get.isDarkMode ? klightGrey : kblack,

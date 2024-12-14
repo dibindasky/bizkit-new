@@ -204,7 +204,6 @@ class ScreenEditTask extends StatelessWidget {
                                   createTaskController.editTask(
                                       context: context,
                                       taskModel: EditTaskModel(
-                                        isNextActionDate: false,
                                         deadLine: createTaskController
                                             .deadlineDateForTaskEdit.value,
                                         assignedTo: [],

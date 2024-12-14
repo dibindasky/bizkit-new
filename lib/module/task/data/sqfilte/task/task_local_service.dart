@@ -496,7 +496,7 @@ class TaskLocalService implements TaskLocalRepo {
 
       final int referenceId = await localService.rawInsert(query, values);
 
-      if (taskModel.deadLine != null && taskModel.deadLine!.isNotEmpty) {
+      if (taskModel.deadLine?.isNotEmpty ?? false) {
         const filterByDeadlineQuery = '''
           INSERT INTO ${TaskSql.filterByDeadlineTable} (
           ${FilterByDeadlineModel.colTaskFilterByDeadline},
@@ -808,9 +808,7 @@ class TaskLocalService implements TaskLocalRepo {
           await localService.rawQuery('''
       SELECT * FROM ${TaskSql.filterByDeadlineTable} 
       WHERE ${FilterByDeadlineModel.colUserId} = ?
-      ''', [
-        await userId,
-      ]);
+      ''', [await userId]);
 
       // Separate tasks based on conditions
       List<Map<String, dynamic>> prioritizedTasks = [];
@@ -843,8 +841,6 @@ class TaskLocalService implements TaskLocalRepo {
           isTaskAdded = true;
           continue;
         }
-
-        
 
         // Check if the task deadline is within the required range
         final taskDeadlineStr =

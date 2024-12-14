@@ -6,6 +6,7 @@ import 'package:bizkit/module/task/application/presentation/widgets/task_textfro
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
@@ -92,7 +93,7 @@ class NextActionDateSection extends StatelessWidget {
                     seprator: const SizedBox(width: 8),
                   ),
                 );
-              } else if (nextActionDate == null || nextActionDate.isEmpty) {
+              } else if (nextActionDate?.isEmpty ?? true) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -176,9 +177,26 @@ class NextActionDateSection extends StatelessWidget {
                     Wrap(
                       spacing: 8.w,
                       runSpacing: 8.w,
-                      children: nextActionDate.map((nextAction) {
+                      children:
+                          List.generate(nextActionDate?.length ?? 0, (index) {
+                        final nextAction = nextActionDate?[index];
                         return GestureDetector(
                           onTap: () {
+                            // showDialog(
+                            //   context: context,
+                            //   builder: (BuildContext context) {
+                            //     return NADCreateAndUpdateDialog(
+                            //       taskId: taskId ?? '',
+                            //       taskController: taskController,
+                            //       isEdit: true,
+                            //       index: index,
+                            //       nextActionDate: NextActionDate(
+                            //           description: nextAction?.description,
+                            //           date: nextAction?.date,
+                            //           byWhom: nextAction?.userId),
+                            //     );
+                            //   },
+                            // );
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -218,7 +236,7 @@ class NextActionDateSection extends StatelessWidget {
                                                 padding:
                                                     const EdgeInsets.all(25.0),
                                                 child: Text(
-                                                    '${nextAction.date}',
+                                                    '${nextAction?.date}',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .displaySmall),
@@ -236,7 +254,7 @@ class NextActionDateSection extends StatelessWidget {
                                                 padding:
                                                     const EdgeInsets.all(25.0),
                                                 child: Text(
-                                                    '${nextAction.description}',
+                                                    '${nextAction?.description}',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .displaySmall),
@@ -273,10 +291,11 @@ class NextActionDateSection extends StatelessWidget {
                                 );
                               },
                             );
+                          
                           },
                           child: NextActionChip(label: nextAction),
                         );
-                      }).toList(),
+                      }),
                     ),
                   ],
                 );
@@ -295,12 +314,14 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
       {super.key,
       required this.taskController,
       this.nextActionDate,
+      this.index,
       this.taskId,
       this.isEdit = false});
 
   final CreateTaskController taskController;
 
   final bool? isEdit;
+  final int? index;
   final String? taskId;
   NextActionDate? nextActionDate;
 
@@ -309,6 +330,7 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
     if (isEdit == true) {
       taskController.nexActiondateDescriptionController.text =
           nextActionDate?.description ?? '';
+      taskController.nextActionDate.value = nextActionDate?.date ?? '';
     }
     return AlertDialog(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -363,11 +385,12 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
                           : 'Create',
                   onTap: () {
                     if (isEdit == true) {
+                      taskController.editNextActionDate(
+                          index: index!, context: context);
                     } else {
                       taskController.createNewNextActionDate(
                         context: context,
                         createNadModel: EditTaskModel(
-                          isNextActionDate: true,
                           taskId: taskId,
                         ),
                       );

@@ -1,6 +1,5 @@
 import 'package:bizkit/module/biz_card/application/controller/notifications/bizcard_notification_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/widgets/popup_button.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,24 +42,6 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
   Widget build(BuildContext context) {
     final notificationController = Get.find<BizcardNotificationController>();
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Row(
-              children: [
-               const PopupBackButton(),
-                Text('Notifications',style:  Theme.of(context).textTheme.titleLarge),
-              ],
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    // log('scroll');
-                    // context.read<NotificationBloc>().add(
-                    //     const NotificationEvent.getNotification(isLoad: false));
-                  },
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.all(7.0),
@@ -98,11 +79,6 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
                     separatorBuilder: (context, index) {
                       return adjustHieght(10);
                     },
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      // log('notification length ${!state.notificationLoading && state.notification!.length <= index}=>$index ${state.notification!.length}');
-                      // final notification = state.notification![index];
-              
                     itemCount:
                         notificationController.bizcardNotifications.length,
                     itemBuilder: (context, index) {
@@ -121,7 +97,7 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
                       //     index >= state.notification!.length - 1) {
                       //   return const LoadingAnimation();
                       // } else {
-                      log('in normal return tile $index');
+
                       return GestureDetector(
                         onTap: () {
                           // if (notification.tag == 'Connection request') {
@@ -157,72 +133,6 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
                           // }
                           // if (notification.tag == 'Request Diclined') {}
                         },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          decoration: BoxDecoration(
-                              color: kwhite, borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              adjustHieght(20),
-                              Row(
-                                children: [
-                                  const CircleAvatar(
-                                    backgroundColor: kblue,
-                                    radius: 8,
-                                  ),
-                                  adjustWidth(10),
-                                  Expanded(
-                                    child: Text(
-                                      "notification.title",
-                                      style: textStyle1.copyWith(
-                                        color: kGreyNormal,
-                                        fontSize: kwidth * .034,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  const Text('25m ago',
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          color: kGreyNormal,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12)),
-                                ],
-                              ),
-                              adjustHieght(10),
-                              Text(
-                                "Jaisai has shared his bizcard with you",
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                              // adjustHieght(4),
-                              Text(
-                                "you have a new connection",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(fontSize: 11),
-                              ),
-                              adjustHieght(12),
-                              Text(
-                                'click to get more information',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(color: kGreyNormal),
-                              ),
-                              adjustHieght(10),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ],
                         child: Dismissible(
                           key: Key(notificationController
                                   .bizcardNotifications[index].id ??

@@ -79,42 +79,42 @@ class NotoficationBuilder extends StatelessWidget {
                 notificationController.clearNotification(ids);
               })
           : null,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                PopupBackButton(),
-                Text('Notification',style: Theme.of(context).textTheme.titleLarge,)
-              ],
-            ),
+      // body: SafeArea(
+      //   child: Column(
+      //     children: [
+      //       Row(
+      //         children: [
+      //           PopupBackButton(),
+      //           Text('Notification',style: Theme.of(context).textTheme.titleLarge,)
+      //         ],
+      //       ),
 
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Obx(() => ListView.separated(
-                      separatorBuilder: (context, index) => adjustHieght(10),
-                      itemCount: notificationController.taskNotification.length,
-                      itemBuilder: (context, index) {
-                        return NotificationCard(
-                          title: notificationController
-                              .taskNotification[index].taskTitle,
-                          description:
-                              notificationController.taskNotification[index].message,
-                          createdAt: notificationController
-                              .taskNotification[index].createdAt,
-                          taskId:
-                              notificationController.taskNotification[index].taskId,
-                          notificationId:
-                              notificationController.taskNotification[index].id,
-                        );
-                      },
-                    )),
-              ),
-            ),
-          ],
-        ),
-      ),
+      //       Expanded(
+      //         child: Padding(
+      //           padding: const EdgeInsets.symmetric(horizontal: 15),
+      //           child: Obx(() => ListView.separated(
+      //                 separatorBuilder: (context, index) => adjustHieght(10),
+      //                 itemCount: notificationController.taskNotification.length,
+      //                 itemBuilder: (context, index) {
+      //                   return NotificationCard(
+      //                     title: notificationController
+      //                         .taskNotification[index].taskTitle,
+      //                     description:
+      //                         notificationController.taskNotification[index].message,
+      //                     createdAt: notificationController
+      //                         .taskNotification[index].createdAt,
+      //                     taskId:
+      //                         notificationController.taskNotification[index].taskId,
+      //                     notificationId:
+      //                         notificationController.taskNotification[index].id,
+      //                   );
+      //                 },
+      //               )),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
+import 'package:bizkit/utils/widgets/popup_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,25 +35,7 @@ class _MachoMeterScreenState extends State<MachoMeterScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Row(
-                children: [
-                  InkWell(
-                    child: CircleAvatar(
-                      backgroundColor:
-                          Theme.of(context).colorScheme.onSecondary,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Icon(Icons.arrow_back_ios,
-                            color: Theme.of(context).colorScheme.onTertiary),
-                      ),
-                    ),
-                    onTap: () => GoRouter.of(context).pop(),
-                  )
-                ],
-              ),
-            ),
+           PopupBackButton(),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(

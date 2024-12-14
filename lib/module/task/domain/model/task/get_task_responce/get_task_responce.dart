@@ -43,7 +43,7 @@ class GetTaskResponce {
   List<SubTask>? subTask;
   @JsonKey(name: 'created_at')
   String? createdAt;
-  String? status;
+  String status;
   @JsonKey(name: 'created_user_details')
   CreatedUserDetails? createdUserDetails;
   @JsonKey(name: 'assigned_to_details')
@@ -77,7 +77,7 @@ class GetTaskResponce {
     this.attachments,
     this.subTask,
     this.createdAt,
-    this.status,
+    this.status = '0',
     this.isOwned,
     this.assignedToDetails,
     this.totalExpense,

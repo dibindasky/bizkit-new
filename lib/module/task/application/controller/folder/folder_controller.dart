@@ -372,7 +372,7 @@ class TaskFolderController extends GetxController {
         // filterInnerFolderByDeadline(
         //     filterInnerFolder: FilterInnerFolderModel(
         //         folderId: folderId, filterDate: deadlineDate.value));
-        innerFolders.add(InnerFolder(
+        filteredInnerFolders.add(FilteredFolder(
             innerFolderId: createNewFolderInsideFolder.folderId,
             innerFolderName: createNewFolderInsideFolder.innerFolderName));
         scaffoldMessenger.showSnackBar(
@@ -447,7 +447,7 @@ class TaskFolderController extends GetxController {
         //   ),
         // );
 
-        innerFolders.removeWhere(
+        filteredInnerFolders.removeWhere(
             (data) => data.innerFolderId == deleteInnerFolder.innerFolderId);
 
         scaffoldMessenger.showSnackBar(
@@ -495,9 +495,9 @@ class TaskFolderController extends GetxController {
         //     filterInnerFolder: FilterInnerFolderModel(
         //         folderId: folderId, filterDate: deadlineDate.value));
 
-        int index = innerFolders.indexWhere(
+        int index = filteredInnerFolders.indexWhere(
             (data) => data.innerFolderId == editInnerFolderName.innerFolderId);
-        innerFolders[index] = innerFolders[index]
+        filteredInnerFolders[index] = filteredInnerFolders[index]
             .copyWith(innerFolderName: editInnerFolderName.innerFolderName);
 
         scaffoldMessenger.showSnackBar(

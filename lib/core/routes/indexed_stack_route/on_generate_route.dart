@@ -24,7 +24,6 @@ import 'package:bizkit/module/attendence/application/presentation/screens/attend
 import 'package:bizkit/module/attendence/application/presentation/screens/home/home_screen.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/calender_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/calender_view/folder/inside_the_inner_folder.dart';
-import 'package:bizkit/module/task/application/presentation/screens/calender_view/heirarchy/hierarchy_tile.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/edit_task.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/reports_view.dart';
 import 'package:bizkit/module/task/application/presentation/screens/generate_report/widgets/search_tasks.dart';

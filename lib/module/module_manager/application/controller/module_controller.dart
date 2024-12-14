@@ -8,6 +8,7 @@ import 'package:bizkit/module/biz_card/application/controller/connections/connec
 import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/level_sharing/level_sharing_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/notifications/bizcard_notification_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/prompt/prompt_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
@@ -68,6 +69,7 @@ class ModuleController extends GetxController {
   void initCardControllers() {
     deleteAllControlers(Module.card);
     Get.lazyPut(() => ContactsController(), fenix: true);
+    Get.lazyPut(() => BizcardNotificationController());
     Get.lazyPut(() => MatchoMeterScreenController());
     Get.lazyPut(() => CardController(), fenix: true);
     Get.lazyPut(() => NavbarController());
@@ -124,6 +126,9 @@ class ModuleController extends GetxController {
     }
     if (Get.isRegistered<MatchoMeterScreenController>()) {
       Get.delete<MatchoMeterScreenController>();
+    }
+    if (Get.isRegistered<BizcardNotificationController>()) {
+      Get.delete<BizcardNotificationController>();
     }
     if (Get.isRegistered<CardController>()) Get.delete<CardController>();
     if (Get.isRegistered<NavbarController>()) Get.delete<NavbarController>();

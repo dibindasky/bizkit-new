@@ -8,6 +8,7 @@ import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class ArchivedCardScreen extends StatefulWidget {
   const ArchivedCardScreen({super.key});
@@ -28,18 +29,26 @@ class _ArchivedCardScreenState extends State<ArchivedCardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 20,
-            color: kblack,
+        leading: Padding(
+          padding: const EdgeInsets.all(7.0),
+          child: GestureDetector(
+            onTap: () {
+              GoRouter.of(context).pop(context);
+            },
+            child: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.onPrimary,
+              child: Icon(
+                Icons.arrow_back_ios_new,
+                size: 18.sp,
+                color: Theme.of(context).colorScheme.onTertiary,
+              ),
+            ),
           ),
         ),
         backgroundColor: knill,
         title: Text(
           'Archived Cards',
-          style: Theme.of(context).textTheme.titleMedium,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
       body: Padding(
@@ -51,8 +60,7 @@ class _ArchivedCardScreenState extends State<ArchivedCardScreen> {
               if (controller.isLoading.value) {
                 return SizedBox(
                     height: 550.h,
-                    child: const Center(
-                        child: CircularProgressIndicator(color: neonShade)));
+                    child: const Center(child: CircularProgressIndicator()));
               } else if (controller.archivedCards.isEmpty) {
                 return SizedBox(
                   height: 400.h,

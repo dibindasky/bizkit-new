@@ -10,6 +10,7 @@ import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class DeletedCardScreen extends StatefulWidget {
   const DeletedCardScreen({super.key});
@@ -55,61 +56,69 @@ class _DeletedCardScreenState extends State<DeletedCardScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 20,
-            color: kblack,
+        leading: Padding(
+          padding: const EdgeInsets.all(7.0),
+          child: GestureDetector(
+            onTap: () {
+              GoRouter.of(context).pop(context);
+            },
+            child: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.onPrimary,
+              child: Icon(
+                Icons.arrow_back_ios_new,
+                size: 18.sp,
+                color: Theme.of(context).colorScheme.onTertiary,
+              ),
+            ),
           ),
         ),
         backgroundColor: knill,
         title: Text(
           'Deleted Cards',
-          style: Theme.of(context).textTheme.titleMedium,
+          style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
       body: Column(
         children: [
           Padding(
-      padding: const EdgeInsets.all(25.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: kneon,
-          ),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(23),
-          ),
-        ),
-        child: TabBar(
-          indicatorPadding: const EdgeInsets.all(3),
-          dividerColor: Colors.transparent,
-          indicatorSize: TabBarIndicatorSize.tab,
-          controller: _tabController,
-          indicator: BoxDecoration(
-            color: kneon,
-            borderRadius: kBorderRadius20,
-          ),
-          labelStyle: textThinStyle1.copyWith(color: kwhite),
-          labelColor: kwhite,
-          tabs: [
-            Tab(
-              child: Text(
-                'My Cards',
-                style: Theme.of(context).textTheme.displaySmall,
+            padding: const EdgeInsets.all(25.0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: kneon,
+                ),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(23),
+                ),
+              ),
+              child: TabBar(
+                indicatorPadding: const EdgeInsets.all(3),
+                dividerColor: Colors.transparent,
+                indicatorSize: TabBarIndicatorSize.tab,
+                controller: _tabController,
+                indicator: BoxDecoration(
+                  color: kneon,
+                  borderRadius: kBorderRadius20,
+                ),
+                labelStyle: textThinStyle1.copyWith(color: kwhite),
+                labelColor: kwhite,
+                tabs: [
+                  Tab(
+                    child: Text(
+                      'My Cards',
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      'Reciver Cards',
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
+                  ),
+                ],
               ),
             ),
-            Tab(
-              child: Text(
-                'Reciver Cards',
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
+          ),
           Expanded(
             child: TabBarView(
               physics: const NeverScrollableScrollPhysics(),
@@ -123,8 +132,7 @@ class _DeletedCardScreenState extends State<DeletedCardScreen>
                         builder: (controller) {
                           if (controller.isLoading.value) {
                             return const Center(
-                                child: CircularProgressIndicator(
-                                    color: neonShade));
+                                child: CircularProgressIndicator());
                           } else if (controller.deletedCards.isEmpty) {
                             return SizedBox(
                               height: 400.h,
@@ -197,8 +205,7 @@ class _DeletedCardScreenState extends State<DeletedCardScreen>
                           builder: (controller) {
                             if (controller.isLoading.value) {
                               return const Center(
-                                  child: CircularProgressIndicator(
-                                      color: neonShade));
+                                  child: CircularProgressIndicator());
                             } else if (controller
                                 .deletedVisitingCards.isEmpty) {
                               return SizedBox(

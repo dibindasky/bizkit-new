@@ -8,7 +8,6 @@ class TaskNavbarController extends GetxController {
 
   void changeBottomIndex(int index) {
     taskBottomIndex.value = index;
-    update();
   }
 
   /// Handles the system back button press and custom navigation logic.

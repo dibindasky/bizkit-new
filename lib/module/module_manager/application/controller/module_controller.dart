@@ -40,6 +40,10 @@ class ModuleController extends GetxController {
     log('choose module -----> $module');
     switch (module) {
       case Module.card:
+        if (module == currentModule.value) {
+          Get.find<NavbarController>().changeBottomBar(1);
+          return;
+        }
         initCardControllers();
         context.go(Routes.bizCardNavbar);
         Get.find<NavbarController>().changeBottomBar(1);
@@ -47,6 +51,10 @@ class ModuleController extends GetxController {
         currentModule.value = Module.card;
         break;
       case Module.task:
+        if (module == currentModule.value) {
+          Get.find<TaskNavbarController>().changeBottomIndex(1);
+          return;
+        }
         initTaskControllers();
         context.go(Routes.taskNavbar);
         Get.find<TaskNavbarController>().changeBottomIndex(1);
@@ -54,6 +62,10 @@ class ModuleController extends GetxController {
         currentModule.value = Module.task;
         break;
       case Module.attendance:
+        if (module == currentModule.value) {
+          Get.find<AttendenceNavBarConroller>().changeBottomIndex(1);
+          return;
+        }
         initAttendanceControllers();
         context.go(Routes.attendenceNavbar);
         Get.find<AttendenceNavBarConroller>().changeBottomIndex(1);

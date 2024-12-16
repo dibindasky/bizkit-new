@@ -203,6 +203,7 @@ class MyConnectionSection extends StatelessWidget {
                                         'fromPreview': 'false'
                                       });
                                   connectionsController.getConnectionCardDetail(
+                                    uid: connection.cards?.first.toUser??'',
                                       cardId:
                                           connection.cards?.first.toCard ?? '');
                                 }

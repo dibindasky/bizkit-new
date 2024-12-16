@@ -97,7 +97,10 @@ class ConnectionsTab extends StatelessWidget {
 
                                 Get.find<ConnectionsController>()
                                     .getConnectionCardDetail(
-                                        cardId: id?.first ?? '', refresh: true);
+                                  uid: currentConnection.toUser ?? '',
+                                  cardId: id?.first ?? '',
+                                  refresh: true,
+                                );
                                 GoRouter.of(context).pushNamed(
                                   Routes.cardDetailView,
                                   pathParameters: map,

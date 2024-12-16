@@ -83,10 +83,10 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
                               .displaySmall
                               ?.copyWith(fontSize: 14),
                         ),
-                        // subtitle: const Text(
-                        //   '',
-                        //   style: TextStyle(color: kgrey),
-                        // ),
+                        subtitle:  Text(data.role=='user'?'Personl':'Business'
+                          '',
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 12,color: kGreyNormal),
+                        ),
                         trailing: Obx(() {
                           return controller.currentUserId.value == data.uid
                               ? const Icon(

@@ -780,9 +780,10 @@ class ConnectionsController extends GetxController {
 
   /// get card detail connection
   void getConnectionCardDetail(
-      {required String cardId, bool refresh = false}) async {
+      {required String cardId, bool refresh = false,required String uid}) async {
     log('Bizcard ID -->> $cardId');
     final cardController = Get.find<CardController>();
+    cardController.toUserId=uid;
     if (refresh ||
         cardId != (cardController.bizcardDetail.value.bizcardId ?? "")) {
       cardController.isLoading.value = true;
@@ -859,7 +860,8 @@ class ConnectionsController extends GetxController {
         if (connected.isNotEmpty) {
           GoRouter.of(context).pushNamed(Routes.cardView,
               pathParameters: {'cardId': connected.first.toCard ?? ''});
-          getConnectionCardDetail(cardId: connected.first.toCard ?? '');
+              
+          getConnectionCardDetail(cardId: connected.first.toCard ?? '',uid: userID);
         } else if (requested.isNotEmpty) {
           Get.dialog(Container(
             margin: const EdgeInsets.all(10),

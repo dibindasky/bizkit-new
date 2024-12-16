@@ -59,7 +59,7 @@ class CardsbasedOnUserConnection extends StatelessWidget {
                           'fromPreview': 'false'
                         }
                       : <String, String>{};
-                  Get.find<ConnectionsController>().getConnectionCardDetail(
+                  Get.find<ConnectionsController>().getConnectionCardDetail(uid: card?.first.toUser??'',
                       cardId: id?[index] ?? '', refresh: true);
 
                   GoRouter.of(context)

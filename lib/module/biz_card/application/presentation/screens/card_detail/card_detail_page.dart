@@ -27,7 +27,7 @@ class BizCardDetailScreen extends StatelessWidget {
             cardController.cardDetail(cardId: cardId ?? '', refresh: true);
           } else if (!myCard) {
             Get.find<ConnectionsController>()
-                .getConnectionCardDetail(cardId: cardId ?? '', refresh: true);
+                .getConnectionCardDetail(cardId: cardId ?? '', refresh: true,uid: cardController.toUserId);
           }
         },
         child: SingleChildScrollView(

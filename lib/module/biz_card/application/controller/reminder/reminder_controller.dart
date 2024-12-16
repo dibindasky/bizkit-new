@@ -415,15 +415,19 @@ class ReminderController extends GetxController {
     );
   }
 
-  Future<void> getCardRemiderHistory({required String id}) async {
-    reminderHistoryCardLoading.value = true;
-    historyCardReminders.value = [];
-    final result = await reminderSerivce.getCardReminderHistory(id: id);
+  Future<void> getCardRemiderHistory({required String id,bool card=false}) async {
+    if(!card){
+       reminderHistoryCardLoading.value = true;
+       historyCardReminders.value = [];
+    }
+    
+    final result = await reminderSerivce.getCardReminderHistory(id: id,card: card);
     result.fold((l) {
       reminderHistoryCardLoading.value = false;
     }, (r) {
       historyCardReminders.value = r.reminders ?? [];
       reminderHistoryCardLoading.value = false;
     });
+    reminderHistoryCardLoading.value = false;
   }
 }

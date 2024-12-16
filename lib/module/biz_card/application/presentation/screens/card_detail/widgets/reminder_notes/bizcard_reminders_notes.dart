@@ -1,6 +1,8 @@
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,15 +16,18 @@ class BizCardRminderNotes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cardController = Get.find<CardController>();
+    final reminderController = Get.find<ReminderController>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Obx(
-        () => cardController.isLoading.value
+        () => cardController.isLoading.value ||
+                reminderController.reminderHistoryCardLoading.value
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   kHeight10,
-                  Text('Notes', style: Theme.of(context).textTheme.titleSmall),
+                  Text('Reminders',
+                      style: Theme.of(context).textTheme.titleSmall),
                   kHeight10,
                   ShimmerLoader(
                     itemCount: 6,
@@ -36,9 +41,10 @@ class BizCardRminderNotes extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   kHeight10,
-                  Text('Notes', style: Theme.of(context).textTheme.titleSmall),
+                  Text('Reminders',
+                      style: Theme.of(context).textTheme.titleSmall),
                   ...List.generate(
-                    4,
+                    reminderController.historyCardReminders.length,
                     (index) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: ClipRRect(
@@ -61,7 +67,14 @@ class BizCardRminderNotes extends StatelessWidget {
                                     ),
                                     kWidth10,
                                     Text(
-                                      '0${index + 1}-0${index + 1}-2024',
+                                      DateTimeFormater.formatDateToDDMMYYYY(
+                                          reminderController
+                                                  .historyCardReminders[index]
+                                                  .reminderDate ??
+                                              ''
+                                          // '0${index + 1}-0${index + 1}-2024'
+
+                                          ),
                                       style: Theme.of(context)
                                           .textTheme
                                           .displaySmall,
@@ -70,9 +83,11 @@ class BizCardRminderNotes extends StatelessWidget {
                                 ),
                                 adjustHieght(khieght * .006),
                                 Text(
-                                  'Scheduled on ${index + 1}:${12 - index} PM to discuss about Mesage.',
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall,
+                                  'Scheduled to disscuss about ${reminderController.historyCardReminders[index].meetingLabel?.toUpperCase() ?? ''} at ${reminderController.historyCardReminders[index].venue?.toUpperCase() ?? ''} while ${reminderController.historyCardReminders[index].occasion?.toUpperCase() ?? ''}. Disscuss about ${reminderController.historyCardReminders[index].description ?? ''}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(fontSize: 11),
                                 ),
                               ],
                             ),

@@ -5,6 +5,7 @@ import 'package:bizkit/core/model/bizcard_id_parameter_model/bizcard_id_paramete
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/business_details.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/personal_details.dart';
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/card/card_service.dart';
 import 'package:bizkit/module/biz_card/data/sqflite/bizcards/bizcards_local_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/archived_and_deleted_cards_responce/archived_or_deleted_card/archived_or_deleted_card.dart';
@@ -57,6 +58,8 @@ class CardController extends GetxController {
   RxList<Bizcard> bizcards = <Bizcard>[].obs;
 
   RxString bizcardId = ''.obs;
+
+  final reminderController=Get.find<ReminderController>();
 
   Rx<CardDetailModel> bizcardDetail = CardDetailModel().obs;
 
@@ -355,6 +358,8 @@ class CardController extends GetxController {
         connectionExist.value = r.newConnection ?? false;
         update();
         isLoading.value = false;
+         reminderController.getCardRemiderHistory(
+            id: bizcardDetail.value.bizcardId ?? '', card: true);
       },
     );
   }

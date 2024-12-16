@@ -160,7 +160,6 @@ class TaskFolderController extends GetxController {
   void editFolderName(
       {required EditFolderModel editFolderName,
       required BuildContext context}) async {
-    print("editfoldername function called");
     isLoading.value = true;
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final result =

@@ -12,7 +12,6 @@ class ScreenPollDetailTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ChatController>();
-    print(controller.pollDetail.value.toJson());
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

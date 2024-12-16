@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/attendence/application/controller/home/home_controller.dart';
 import 'package:bizkit/module/attendence/application/controller/navabar/navabar_controller.dart';
@@ -35,7 +37,7 @@ class ModuleController extends GetxController {
 
   /// chooose a module
   void chooseModule(BuildContext context, {required Module? module}) {
-    print('choose module -----> $module');
+    log('choose module -----> $module');
     switch (module) {
       case Module.card:
         initCardControllers();

@@ -26,7 +26,6 @@ class ProfileScreen extends StatelessWidget {
     final internetConnectinController =
         Get.find<InternetConnectionController>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      print('module controller = > ${moduleController.currentModule.value}');
       profileController.checkEmail.isEmpty
           ? profileController.getProfileDetails()
           : null;

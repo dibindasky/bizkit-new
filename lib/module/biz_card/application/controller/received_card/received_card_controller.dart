@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'dart:developer';
 
-import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/navbar/navbar_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/received_card/received_card_service.dart';
@@ -188,7 +186,7 @@ class ReceivedCardController extends GetxController {
   void editVisitingCard({required BuildContext context}) async {
     final editedSelfieImages =
         selfiesListForEdit.map((f) => f.image as String).toList();
-    print(" this edite visig card function  $editCardImage");
+
     final VisitingCardEditModel updatedReceivedCard = VisitingCardEditModel(
       cardId: visitingCardDetails.value.id,
       // cardImage: visitingCardDetails.value.cardImage ,
@@ -263,12 +261,12 @@ class ReceivedCardController extends GetxController {
 
   // Fetch all received cards
   void fetchAllreceivedCards({bool refresh = false}) async {
-    print(filterdVisitingCards.toJson());
+
     if (visitingCards.isNotEmpty && !refresh) {
       filterdVisitingCards.assignAll(visitingCards);
       return;
     }
-    print(filterdVisitingCards.toJson());
+
     loadingForVisitingCard.value = true;
     final data = await receivedCardService.getAllReceivedCards();
     data.fold(

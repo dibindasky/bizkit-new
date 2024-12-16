@@ -116,7 +116,7 @@ class CardTextExtractionController extends GetxController {
           }
         } catch (e) {
           continueLoading.value = false;
-          print('errror text extrattion = $e');
+          log('errror text extrattion = $e');
         }
         continueLoading.value = false;
         isLoading.value = false;

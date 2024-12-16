@@ -134,7 +134,6 @@ class ChatController extends GetxController {
     messages.clear();
 
     try {
-      print('message count taskId => $taskId');
       await getMessageFromLocaldb(firstCall: true);
       channel = IOWebSocketChannel.connect(
         Uri.parse(
@@ -148,13 +147,10 @@ class ChatController extends GetxController {
           final decodedMessage =
               jsonDecode(message as String) as Map<String, dynamic>;
 
-          print(decodedMessage);
           bool doAnimate = true;
 
           // WebSocket connection established successfully
           if (decodedMessage['type'] == 'connection_success') {
-            print(
-                "connection success => WebSocket connection established successfully");
             connectionLoading.value = false;
             connected.value = true;
           }
@@ -187,7 +183,6 @@ class ChatController extends GetxController {
           }
         },
         onError: (error) {
-          print('Connection error: $error');
           _error = 'Connection error: $error';
           connectionLoading.value = false;
           connected.value = false;
@@ -196,9 +191,7 @@ class ChatController extends GetxController {
         },
         onDone: () {
           if (channel.closeCode != null) {
-            print('Connection closed with code: ${channel.closeCode}');
             _error = 'Connection closed with code: ${channel.closeCode}';
-            print('connection close reason => ${channel.closeReason}');
           }
           connectionLoading.value = false;
           connected.value = false;
@@ -206,7 +199,6 @@ class ChatController extends GetxController {
         },
       );
     } catch (e) {
-      print('Failed to connect: $e');
       _error = 'Failed to connect: $e';
       connectionLoading.value = false;
       connected.value = false;
@@ -485,11 +477,11 @@ class ChatController extends GetxController {
       messages.clear();
       channel.sink.close();
       connected.value = false;
-      print('connection closed');
+      log('connection closed');
       // channel.sink.close(status.goingAway);
       GoRouter.of(context).pop();
     } catch (e) {
-      print('Channel close error =>$e');
+      log('Channel close error =>$e');
     }
   }
 
@@ -521,9 +513,7 @@ class ChatController extends GetxController {
           taskId: chatTaskId);
       log('getMessageFromLocaldb message list => ${messageList?.length}');
       for (var e in messageList ?? <Message>[]) {
-        if (e.file != null) {
-          print('file from local db ---> ${e.file?.filePath}');
-        }
+
         final index = messages.indexWhere((element) =>
             ((element.localId?.isNotEmpty ?? false) &&
                 (e.localId?.isNotEmpty ?? false) &&
@@ -561,7 +551,6 @@ class ChatController extends GetxController {
         );
         data['local_id'] = message['local_id'];
       }
-      print('addMessage => $data');
       channel.sink.add(jsonEncode(data));
     } catch (e) {
       log('message sending error $e');
@@ -629,7 +618,7 @@ class ChatController extends GetxController {
       controller.clear();
       firstLoad = false;
     } catch (e) {
-      print('Failed to create poll: $e');
+      log('Failed to create poll: $e');
       _error = 'Failed to create poll: $e';
     }
   }
@@ -650,7 +639,6 @@ class ChatController extends GetxController {
   void checkLoading() async {
     if (chatScrollController.offset ==
         chatScrollController.position.maxScrollExtent) {
-      print('call load more message');
       loadMoreLoading.value = true;
       await getMessageFromLocaldb(firstCall: false);
       update(['chat']);
@@ -685,7 +673,7 @@ class ChatController extends GetxController {
         message: timeExpence.toJson(),
       );
     } catch (e) {
-      print('Failed to update time and expence: $e');
+      log('Failed to update time and expence: $e');
       _error = 'Failed to update time and expence: $e';
     }
   }
@@ -698,7 +686,7 @@ class ChatController extends GetxController {
         loadedImages.value = [images]; // Assign the image to loadedImages
       }
     } catch (e) {
-      print('Failed to get image: $e');
+      log('Failed to get image: $e');
       _error = 'Failed to get image: $e';
       return;
     }
@@ -729,7 +717,6 @@ class ChatController extends GetxController {
         userId: _uid,
         filePath: filePath,
       );
-      print('send picture -> ${loadedImages.first.type}');
       final data = {
         "message_type": "file",
         "files": List.generate(
@@ -746,7 +733,7 @@ class ChatController extends GetxController {
       controller.clear();
       loadedImages.clear();
     } catch (e) {
-      print('Failed to send image: $e');
+      log('Failed to send image: $e');
       _error = 'Failed to send image: $e';
       return;
     }
@@ -771,7 +758,6 @@ class ChatController extends GetxController {
       update(['chat']);
     }
     downloadingMessagesFilesId.remove(messageId);
-    print('downloaded message => ${message.toJson().toString()}');
     await taskChatLocalService.insertOrUpdateMessage(message: message);
   }
 
@@ -872,7 +858,6 @@ class ChatController extends GetxController {
     currentLocationLatLong.value = <double>[];
     currentLocationFetching.value = true;
     final locationService = LocationService();
-    print('location started');
     final location = await locationService.getLatLong();
     if (location == null) {
       currentLocationFetching.value = false;
@@ -950,7 +935,6 @@ class ChatController extends GetxController {
     isRecording.value = true;
     await soundManager.startRecording();
     startRecordTimer();
-    print('recording started ==> ');
   }
 
   /// stop recording audio
@@ -958,7 +942,6 @@ class ChatController extends GetxController {
     await soundManager.stopRecording();
     endRecordTimer();
     recordedAudio.value = soundManager.getBase64Audio() ?? '';
-    print('recorded audio => ${recordedAudio.value}');
     isRecording.value = false;
     getRecordDuration();
     audioPlayerHandler = AudioPlayerHandler()
@@ -1000,16 +983,14 @@ class ChatController extends GetxController {
   void playRecordedAudio() async {
     isPlaying.value = true;
     isPaused.value = false;
-    print('playing recorded audio');
     // final play = await soundManager.playRecording(whenFinished: _whenFinished);
     final play = await audioPlayerHandler.playAudioFromBase64(
         recordedAudio.value,
         onCurrentPositionChanged: (currentPosition) {},
         whenFinished: whenFinished);
-    print('played or not  ---------------------------==> $play');
     if (!play) {
       isPlaying.value = false;
-      print('-------------------error playing audio------------------');
+      log('-------------------error playing audio------------------');
     }
     // print('player status -> ${soundManager.isPlaying()}');
     // while (soundManager.isPlaying() && isPlaying.value && !isPaused.value) {
@@ -1024,7 +1005,6 @@ class ChatController extends GetxController {
     audioPlayerHandler.pauseAudio();
     isPlaying.value = false;
     isPaused.value = true;
-    print('pause recorded audio');
   }
 
   /// pause recorded audio
@@ -1033,7 +1013,6 @@ class ChatController extends GetxController {
     audioPlayerHandler.stopAudio();
     isPlaying.value = false;
     isPaused.value = false;
-    print('stop playing recorded audio');
   }
 
   /// resume recorded audio
@@ -1042,7 +1021,6 @@ class ChatController extends GetxController {
     audioPlayerHandler.resumeAudio();
     isPlaying.value = true;
     isPaused.value = false;
-    print('pause recorded audio');
   }
 
   /// send audio

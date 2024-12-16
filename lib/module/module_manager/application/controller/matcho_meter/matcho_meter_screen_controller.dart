@@ -36,9 +36,9 @@ class MatchoMeterScreenController extends GetxController {
     final userQuestionAnswered =
         await matchoMeterService.getUserMatchoMeterDatas();
     userQuestionAnswered.fold((failure) {
-      print(failure.message.toString());
+      log(failure.message.toString());
     }, (success) {
-      print('success get user macho datas');
+      log('success get user macho datas');
       for (var data in success) {
         int index = matchoMeter.indexWhere((e) => e.question == data.question);
         if (index == -1) {
@@ -66,23 +66,23 @@ class MatchoMeterScreenController extends GetxController {
 
   addMatchoMeter(int index) async {
     loadingList.add(index);
-    print('loadingList after adding index: $loadingList');
+    log('loadingList after adding index: $loadingList');
     final result = await matchoMeterService
         .addAnswerForQuestion(machoMeterModel: [matchoMeter[index]]);
     result.fold((failure) {
-      print('failure add matcho meter');
+      log('failure add matcho meter');
     }, (success) {
       String id = success.data;
       matchoMeter[index] =
           matchoMeter[index].copyWith(id: id, showButton: false);
-      print('sucess add matcho meter');
+      log('sucess add matcho meter');
     });
     loadingList.remove(index);
   }
 
   editMatchoMeter(int index) async {
     loadingList.add(index);
-    print('loadingList after updating index: $loadingList');
+    log('loadingList after updating index: $loadingList');
     final result = await matchoMeterService.editAnswerForQuestion(
         machoMeterModel: matchoMeter[index]);
     result.fold((failure) {

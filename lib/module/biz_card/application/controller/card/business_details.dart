@@ -745,7 +745,7 @@ class BusinesDetailsController extends GetxController {
         upi: uPIIDController.text,
         businessDetailsId:
             cardController.bizcardDetail.value.businessDetails?.id ?? '');
-    print(
+    log(
         'patch banking data => businessDetails id --->  ${cardController.bizcardDetail.value.businessDetails?.id ?? 'empty'}');
     final data =
         await businessRepo.businessBankDetails(bankingDetail: bankingDetail);

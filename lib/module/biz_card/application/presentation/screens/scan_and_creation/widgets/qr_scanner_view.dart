@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
@@ -31,11 +33,9 @@ class _QrScannerViewState extends State<QrScannerView> {
         setState(() {
           result = barcode;
         });
-        print('===========================scan===========================');
         if (result != null && result!.barcodes.isNotEmpty) {
           final code = result!.barcodes.first.rawValue;
           if (code != null) {
-            print(code);
             _launchUrl(code);
           }
         }
@@ -48,8 +48,6 @@ class _QrScannerViewState extends State<QrScannerView> {
     if (url.contains('/get-bizcard/')) {
       try {
         if (!goturl) {
-          print(
-              '===========================got url and navigated===========================');
           final id = url.split('/').last;
           goturl = true;
           cameraController.stop(); // Pause the scanner
@@ -59,7 +57,7 @@ class _QrScannerViewState extends State<QrScannerView> {
           cameraController.start(); // Resume the scanner
         }
       } catch (e) {
-        print('launch web ------------------web');
+        log('launch web ------------------web');
         await LaunchUrl.launchUrls(url: url);
       }
     }

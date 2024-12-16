@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
+
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
@@ -45,7 +46,7 @@ class SoundManager {
         await _recorder!.openRecorder();
         _isRecorderInitialized = true;
       } catch (e) {
-        print('Failed to initialize recorder: $e');
+        log('Failed to initialize recorder: $e');
       }
     }
   }
@@ -58,7 +59,7 @@ class SoundManager {
   //       await _player!.openPlayer();
   //       _isPlayerInitialized = true;
   //     } catch (e) {
-  //       print('Failed to initialize player: $e');
+  //       log('Failed to initialize player: $e');
   //     }
   //   }
   // }
@@ -74,11 +75,11 @@ class SoundManager {
   // Start recording
   Future<void> startRecording() async {
     if (!_isRecorderInitialized) {
-      print('-----------> > > > -----init recorder---------->,./');
+      log('-----------> > > > -----init recorder---------->,./');
       // Wait for the recorder to be initialized
       await _initRecorder();
       if (!_isRecorderInitialized) {
-        print('Recorder not initialized, cannot start recording.');
+        log('Recorder not initialized, cannot start recording.');
         return;
       }
     }
@@ -91,7 +92,7 @@ class SoundManager {
       _recordDuration = 0; // Reset the record duration
       _updateRecordDuration(); // Start updating the record duration
     } catch (e) {
-      print('Failed to start recording: $e');
+      log('Failed to start recording: $e');
     }
   }
 
@@ -118,13 +119,13 @@ class SoundManager {
     if (!_isRecorderInitialized) return;
     try {
       await _recorder!.stopRecorder();
-      print('stop recording');
+      log('stop recording');
       if (_filePath != null) {
         final bytes = await File(_filePath!).readAsBytes();
         _base64Audio = base64Encode(bytes);
       }
     } catch (e) {
-      print('Failed to stop recording: $e');
+      log('Failed to stop recording: $e');
     }
   }
 
@@ -146,7 +147,7 @@ class SoundManager {
   //     _updatePlaybackPosition(); // Start updating the playback position
   //     return true;
   //   } catch (e) {
-  //     print('Failed to play recording: $e');
+  //     log('Failed to play recording: $e');
   //     return false;
   //   }
   // }
@@ -172,7 +173,7 @@ class SoundManager {
   //   try {
   //     await _player!.pausePlayer();
   //   } catch (e) {
-  //     print('Failed to pause playback: $e');
+  //     log('Failed to pause playback: $e');
   //   }
   // }
 
@@ -183,7 +184,7 @@ class SoundManager {
   //   try {
   //     await _player!.resumePlayer();
   //   } catch (e) {
-  //     print('Failed to resume playback: $e');
+  //     log('Failed to resume playback: $e');
   //   }
   // }
 
@@ -194,7 +195,7 @@ class SoundManager {
   //   try {
   //     await _player!.stopPlayer();
   //   } catch (e) {
-  //     print('Failed to stop playback: $e');
+  //     log('Failed to stop playback: $e');
   //   }
   // }
 
@@ -207,7 +208,7 @@ class SoundManager {
       _recorder?.closeRecorder();
       _player?.closePlayer();
     } catch (e) {
-      print('Failed to dispose resources: $e');
+      log('Failed to dispose resources: $e');
     }
   }
 }

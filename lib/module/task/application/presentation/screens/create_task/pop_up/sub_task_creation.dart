@@ -37,7 +37,7 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
     final descriptionController =
         TextEditingController(text: subtaskDescription);
 
-    final _formKey = GlobalKey<FormState>(); // GlobalKey for Form
+    final formKey = GlobalKey<FormState>(); // GlobalKey for Form
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -45,7 +45,7 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         width: 300,
         child: Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +108,7 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                   color: const LinearGradient(colors: [kneon, kneon]),
                   text: isEdit ? 'Edit Sub Task' : 'Create Sub Task',
                   onTap: () {
-                    if (_formKey.currentState?.validate() ?? false) {
+                    if (formKey.currentState?.validate() ?? false) {
                       if (isEdit) {
                         // Edit existing subtask
                         final editsubtask = EditSubTaskModel(

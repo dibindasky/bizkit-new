@@ -6,8 +6,8 @@ import 'package:bizkit/module/task/domain/model/task_notifications/task_notifica
 import 'package:bizkit/packages/sound/just_audio.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/task/domain/model/chat/unread_count.dart';
+import 'package:bizkit/service/web_socket_service/web_socket_service.dart';
 import 'package:get/get.dart';
-import 'package:web_socket_channel/io.dart';
 
 class MessageCountController extends GetxController {
   @override
@@ -16,10 +16,10 @@ class MessageCountController extends GetxController {
     super.onInit();
   }
 
-  late IOWebSocketChannel channel;
   String _error = '';
   RxBool viewed = false.obs;
   RxMap<String, RxInt> unreadCounts = <String, RxInt>{}.obs;
+  late WebSocketService webSocketService;
 
   RxList<TaskNotification> taskNotification = <TaskNotification>[].obs;
   final AudioPlayerHandler audioPlayerHandler = AudioPlayerHandler();
@@ -29,17 +29,10 @@ class MessageCountController extends GetxController {
       final accessToken = token.accessToken ?? '';
       unreadCounts = <String, RxInt>{}.obs;
       taskNotification.value = [];
-
-      channel = IOWebSocketChannel.connect(
-        Uri.parse(SocketEndpoints.messageCount),
+      webSocketService = WebSocketService(SocketEndpoints.messageCount);
+      webSocketService.connect(
         headers: {'Authorization': 'Bearer $accessToken'},
-      );
-
-      log('TASK NOTIFICATION CONNECTED', name: 'TASK NOTIFICATION');
-
-      channel.stream.listen(
-        (data) {
-
+        listener: (data) {
           log('TASK NOTIFICATIONS : $data', name: 'TASK NOTIFICATION');
 
           final decodedData =
@@ -70,16 +63,18 @@ class MessageCountController extends GetxController {
             }
           }
         },
-        onError: (error) {
+        onErrors: (error) {
           _error = 'Connection error: $error';
         },
-        onDone: () {
-          if (channel.closeCode != null) {
-            log('Connection closed with code: ${channel.closeCode}');
-            _error = 'Connection closed with code: ${channel.closeCode}';
+        onDones: () {
+          if (webSocketService.channel?.closeCode != null) {
+            log('Connection closed with code: ${webSocketService.channel?.closeCode}');
+            _error =
+                'Connection closed with code: ${webSocketService.channel?.closeCode}';
           }
         },
       );
+      log('TASK NOTIFICATION CONNECTED', name: 'TASK NOTIFICATION');
     } catch (e) {
       log('Failed to connect: $e');
       _error = 'Failed to connect: $e';
@@ -102,7 +97,7 @@ class MessageCountController extends GetxController {
 
   void addMessageToChannel({required Map<String, dynamic> data}) async {
     try {
-      channel.sink.add(jsonEncode(data));
+      webSocketService.sendMessage(jsonEncode(data));
       log('successfull addmessage');
     } catch (e) {
       log('message sending error $e');
@@ -112,7 +107,7 @@ class MessageCountController extends GetxController {
 
   void closeConnetion() {
     try {
-      channel.sink.close();
+      webSocketService.disconnect();
       // channel.sink.close(status.goingAway);
     } catch (e) {
       log('Channel close error =>$e');
@@ -123,7 +118,7 @@ class MessageCountController extends GetxController {
   void sendReqForUnread() {
     Timer(const Duration(seconds: 5), () {
       try {
-        channel.sink.add(jsonEncode({"message_type": "unread_count"}));
+        addMessageToChannel(data: {"message_type": "unread_count"});
       } catch (e) {
         log('Failed to call message count socket: $e');
         _error = 'Failed to call message count socket: $e';

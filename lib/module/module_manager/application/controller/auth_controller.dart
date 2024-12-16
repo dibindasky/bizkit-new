@@ -229,7 +229,9 @@ class AuthenticationController extends GetxController {
   ///choose module and navigate to home screen.
   Future<void> chooseModule(BuildContext context) async {
     final module = await getLastUsedModule();
-    Get.find<ModuleController>().chooseModule(context, module: module);
+    final moduleController = Get.find<ModuleController>();
+    moduleController.clearCurrentModule();
+    await moduleController.chooseModule(context, module: module);
   }
 
   /// will return the last used [Module] by the user if not will return [null]

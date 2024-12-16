@@ -25,6 +25,7 @@ import 'package:bizkit/packages/pdf/pdf_picker.dart';
 import 'package:bizkit/packages/sound/just_audio.dart';
 import 'package:bizkit/packages/sound/sound_manager.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/web_socket_service/web_socket_service.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
@@ -32,16 +33,15 @@ import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:web_socket_channel/io.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatController extends GetxController {
-  late IOWebSocketChannel channel;
   final TextEditingController controller = TextEditingController();
   final ScrollController chatScrollController = ScrollController();
   final PathProvider pathProvider = PathProvider();
   SoundManager soundManager = SoundManager();
   AudioPlayerHandler audioPlayerHandler = AudioPlayerHandler();
+  late WebSocketService webSocketService;
 
   /// task chat local db service model
   final TaskChatLocalServiceRepo taskChatLocalService =
@@ -132,79 +132,94 @@ class ChatController extends GetxController {
     recordedAudio.value = '';
     // firstLoad = true;
     messages.clear();
-
+    webSocketService = WebSocketService(
+        SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? ''));
     try {
       await getMessageFromLocaldb(firstCall: true);
-      channel = IOWebSocketChannel.connect(
-        Uri.parse(
-            SocketEndpoints.taskChat.replaceFirst('{task_id}', taskId ?? '')),
-        headers: {'Authorization': 'Bearer $accessToken'},
-      );
       connectionLoading.value = false;
-      channel.stream.listen(
-        (message) async {
-          // Decode the message from JSON
-          final decodedMessage =
-              jsonDecode(message as String) as Map<String, dynamic>;
+      webSocketService.connect(
+          headers: {'Authorization': 'Bearer $accessToken'},
+          listener: (message) async {
+            // Decode the message from JSON
+            final decodedMessage =
+                jsonDecode(message as String) as Map<String, dynamic>;
 
-          bool doAnimate = true;
+            bool doAnimate = true;
 
-          // WebSocket connection established successfully
-          if (decodedMessage['type'] == 'connection_success') {
+            // WebSocket connection established successfully
+            if (decodedMessage['type'] == 'connection_success') {
+              connectionLoading.value = false;
+              connected.value = true;
+            }
+            // if there is nothing to load more then stop loading
+            else if (loadMoreLoading.value &&
+                decodedMessage['is_last_batch'] != null) {
+              loadMoreLoading.value = false;
+            }
+            // create model and add to list according to the position
+            doAnimate = await _addMessageToListByCheckingType(
+                decodedMessage: decodedMessage,
+                uid: _uid,
+                doAnimate: doAnimate);
+            update(['chat']);
+            // animate the scroll controller if necessary
+            if (decodedMessage['is_load_more'] != true && doAnimate) {
+              Timer(
+                const Duration(milliseconds: 200),
+                () {
+                  // chatScrollController.animateTo(
+                  //   firstLoad
+                  //       ? chatScrollController.position.minScrollExtent
+                  //       : chatScrollController.position.pixels -
+                  //           (decodedMessage['message_type'] == 'text'
+                  //               ? 100
+                  //               : 500),
+                  //   duration: const Duration(milliseconds: 300),
+                  //   curve: Curves.easeIn,
+                  // );
+                },
+              );
+            }
+          },
+          onErrors: (error) {
+            _error = 'Connection error: $error';
             connectionLoading.value = false;
-            connected.value = true;
-          }
-          // if there is nothing to load more then stop loading
-          else if (loadMoreLoading.value &&
-              decodedMessage['is_last_batch'] != null) {
-            loadMoreLoading.value = false;
-          }
-          // create model and add to list according to the position
-          doAnimate = await _addMessageToListByCheckingType(
-              decodedMessage: decodedMessage, uid: _uid, doAnimate: doAnimate);
-          update(['chat']);
-          // animate the scroll controller if necessary
-          if (decodedMessage['is_load_more'] != true && doAnimate) {
-            Timer(
-              const Duration(milliseconds: 200),
-              () {
-                // chatScrollController.animateTo(
-                //   firstLoad
-                //       ? chatScrollController.position.minScrollExtent
-                //       : chatScrollController.position.pixels -
-                //           (decodedMessage['message_type'] == 'text'
-                //               ? 100
-                //               : 500),
-                //   duration: const Duration(milliseconds: 300),
-                //   curve: Curves.easeIn,
-                // );
-              },
-            );
-          }
-        },
-        onError: (error) {
-          _error = 'Connection error: $error';
-          connectionLoading.value = false;
-          connected.value = false;
-          // connectChannel(context, taskId: taskId);
-          // GoRouter.of(context).pop();
-        },
-        onDone: () {
-          if (channel.closeCode != null) {
-            _error = 'Connection closed with code: ${channel.closeCode}';
-          }
-          connectionLoading.value = false;
-          connected.value = false;
-          // GoRouter.of(context).pop();
-        },
-      );
+            connected.value = false;
+            // connectChannel(context, taskId: taskId);
+            // GoRouter.of(context).pop();
+          },
+          onDones: () {
+            if (webSocketService.channel?.closeCode != null) {
+              _error =
+                  'Connection closed with code: ${webSocketService.channel?.closeCode}';
+            }
+          });
+      // webSocketService.channel?.stream.listen(
+      //   ,
+      //   onError: (error) {
+      //     _error = 'Connection error: $error';
+      //     connectionLoading.value = false;
+      //     connected.value = false;
+      //     // connectChannel(context, taskId: taskId);
+      //     // GoRouter.of(context).pop();
+      //   },
+      //   onDone: () {
+      //     if (webSocketService.channel?.closeCode != null) {
+      //       _error =
+      //           'Connection closed with code: ${webSocketService.channel?.closeCode}';
+      //     }
+      //     connectionLoading.value = false;
+      //     connected.value = false;
+      //     // GoRouter.of(context).pop();
+      //   },
+      // );
     } catch (e) {
       _error = 'Failed to connect: $e';
       connectionLoading.value = false;
       connected.value = false;
+      webSocketService.disconnect();
       // ignore: use_build_context_synchronously
       // connectChannel(context, taskId: taskId);
-      // GoRouter.of(context).pop();
     }
   }
 
@@ -469,17 +484,18 @@ class ChatController extends GetxController {
 
   /// close channel connection
   void closeConnetion(BuildContext context) {
-    if (!connected.value) {
-      GoRouter.of(context).pop();
-      return;
-    }
+    // if (!connected.value) {
+    //   GoRouter.of(context).pop();
+    //   return;
+    // }
     try {
       messages.clear();
-      channel.sink.close();
+      // channel.sink.close();
+      webSocketService.disconnect();
       connected.value = false;
       log('connection closed');
       // channel.sink.close(status.goingAway);
-      GoRouter.of(context).pop();
+      // GoRouter.of(context).pop();
     } catch (e) {
       log('Channel close error =>$e');
     }
@@ -513,7 +529,6 @@ class ChatController extends GetxController {
           taskId: chatTaskId);
       log('getMessageFromLocaldb message list => ${messageList?.length}');
       for (var e in messageList ?? <Message>[]) {
-
         final index = messages.indexWhere((element) =>
             ((element.localId?.isNotEmpty ?? false) &&
                 (e.localId?.isNotEmpty ?? false) &&
@@ -551,7 +566,7 @@ class ChatController extends GetxController {
         );
         data['local_id'] = message['local_id'];
       }
-      channel.sink.add(jsonEncode(data));
+      webSocketService.sendMessage(jsonEncode(data));
     } catch (e) {
       log('message sending error $e');
       rethrow;

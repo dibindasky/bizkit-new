@@ -23,37 +23,76 @@ class ScreenTaskChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final chatController = Get.find<ChatController>();
-    return Obx(
-      () {
-        return Scaffold(
-          backgroundColor: Get.isDarkMode ? kblack : kdarkOffWhite,
-          body: SafeArea(
-            child: chatController.connectionLoading.value
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Column(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20.w, vertical: 6.h),
-                          child: AnimatedCrossFade(
-                              crossFadeState:
-                                  chatController.selectedMessages.isNotEmpty
-                                      ? CrossFadeState.showSecond
-                                      : CrossFadeState.showFirst,
-                              firstChild: Row(
-                                children: [
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (didPop) {
+        if (didPop) {
+          chatController.closeConnetion(context);
+          return;
+        }
+      },
+      child: Obx(
+        () {
+          return Scaffold(
+            backgroundColor: Get.isDarkMode ? kblack : kdarkOffWhite,
+            body: SafeArea(
+              child: chatController.connectionLoading.value
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Column(
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.w, vertical: 6.h),
+                            child: AnimatedCrossFade(
+                                crossFadeState:
+                                    chatController.selectedMessages.isNotEmpty
+                                        ? CrossFadeState.showSecond
+                                        : CrossFadeState.showFirst,
+                                firstChild: Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        GoRouter.of(context).pop();
+                                        // chatController.closeConnetion(context);
+                                      },
+                                      child: CircleAvatar(
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                        child: Icon(
+                                          Icons.arrow_back_ios_new,
+                                          size: 18.sp,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onTertiary,
+                                        ),
+                                      ),
+                                    ),
+                                    adjustWidth(10.w),
+                                    Text(
+                                      taskTitle,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall
+                                          ?.copyWith(fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                                secondChild: Row(children: [
                                   GestureDetector(
                                     onTap: () {
-                                      chatController.closeConnetion(context);
+                                      chatController.clearSelectedMessages();
                                     },
                                     child: CircleAvatar(
                                       backgroundColor: Theme.of(context)
                                           .colorScheme
                                           .onPrimary,
                                       child: Icon(
-                                        Icons.arrow_back_ios_new,
+                                        Icons.close,
                                         size: 18.sp,
                                         color: Theme.of(context)
                                             .colorScheme
@@ -63,7 +102,7 @@ class ScreenTaskChat extends StatelessWidget {
                                   ),
                                   adjustWidth(10.w),
                                   Text(
-                                    taskTitle,
+                                    "${chatController.selectedMessages.length} Selected",
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
@@ -71,68 +110,40 @@ class ScreenTaskChat extends StatelessWidget {
                                         .displaySmall
                                         ?.copyWith(fontSize: 15),
                                   ),
-                                ],
-                              ),
-                              secondChild: Row(children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    chatController.clearSelectedMessages();
-                                  },
-                                  child: CircleAvatar(
-                                    backgroundColor:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                    child: Icon(
-                                      Icons.close,
-                                      size: 18.sp,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onTertiary,
-                                    ),
-                                  ),
-                                ),
-                                adjustWidth(10.w),
-                                Text(
-                                  "${chatController.selectedMessages.length} Selected",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(fontSize: 15),
-                                ),
-                                const Spacer(),
-                                GestureDetector(
-                                    child: const Icon(Icons.delete),
-                                    onTap: () {
-                                      chatController.deleteFileFromChat();
-                                    })
-                              ]),
-                              duration: const Duration(milliseconds: 300))),
-                      const Divider(
-                        thickness: 1,
-                        color: kGrayLight,
-                      ),
-                      adjustHieght(5.h),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15.0.w),
-                          child: Obx(
-                            () {
-                              return chatController.loadedImages.isNotEmpty
-                                  ? const PreviewContainer()
-                                  : ChatListView(active: active);
-                            },
+                                  const Spacer(),
+                                  GestureDetector(
+                                      child: const Icon(Icons.delete),
+                                      onTap: () {
+                                        chatController.deleteFileFromChat();
+                                      })
+                                ]),
+                                duration: const Duration(milliseconds: 300))),
+                        const Divider(
+                          thickness: 1,
+                          color: kGrayLight,
+                        ),
+                        adjustHieght(5.h),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+                            child: Obx(
+                              () {
+                                return chatController.loadedImages.isNotEmpty
+                                    ? const PreviewContainer()
+                                    : ChatListView(active: active);
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                      adjustHieght(5.h),
-                      const VoicePreviewChat(),
-                      active ? const ChatTextfieldContainer() : kempty,
-                    ],
-                  ),
-          ),
-        );
-      },
+                        adjustHieght(5.h),
+                        const VoicePreviewChat(),
+                        active ? const ChatTextfieldContainer() : kempty,
+                      ],
+                    ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

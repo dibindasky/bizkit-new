@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:bizkit/core/routes/routes.dart';
@@ -36,7 +38,8 @@ class ModuleController extends GetxController {
   Rx<Module?> currentModule = Module.none.obs;
 
   /// chooose a module
-  void chooseModule(BuildContext context, {required Module? module}) {
+  Future<void> chooseModule(BuildContext context,
+      {required Module? module}) async {
     log('choose module -----> $module');
     switch (module) {
       case Module.card:
@@ -44,7 +47,7 @@ class ModuleController extends GetxController {
           Get.find<NavbarController>().changeBottomBar(1);
           return;
         }
-        initCardControllers();
+        await initCardControllers();
         context.go(Routes.bizCardNavbar);
         Get.find<NavbarController>().changeBottomBar(1);
         LocalStoragePreference.setLastUsedModule(getStringFromModule(module)!);
@@ -55,7 +58,7 @@ class ModuleController extends GetxController {
           Get.find<TaskNavbarController>().changeBottomIndex(1);
           return;
         }
-        initTaskControllers();
+        await initTaskControllers();
         context.go(Routes.taskNavbar);
         Get.find<TaskNavbarController>().changeBottomIndex(1);
         LocalStoragePreference.setLastUsedModule(getStringFromModule(module)!);
@@ -66,7 +69,7 @@ class ModuleController extends GetxController {
           Get.find<AttendenceNavBarConroller>().changeBottomIndex(1);
           return;
         }
-        initAttendanceControllers();
+        await initAttendanceControllers();
         context.go(Routes.attendenceNavbar);
         Get.find<AttendenceNavBarConroller>().changeBottomIndex(1);
         LocalStoragePreference.setLastUsedModule(getStringFromModule(module)!);
@@ -77,11 +80,13 @@ class ModuleController extends GetxController {
     }
   }
 
+  void clearCurrentModule() => currentModule.value = Module.none;
+
 // [--------------------------------init controlleres------------------------]
 
   /// initilize all controllers in CARD module [Module.card] and delte other module controllers
-  void initCardControllers() {
-    deleteAllControlers(Module.card);
+  Future<void> initCardControllers() async {
+    await deleteAllControlers(Module.card);
     Get.lazyPut(() => ContactsController(), fenix: true);
     Get.lazyPut(() => BizcardNotificationController());
     Get.lazyPut(() => MatchoMeterScreenController());
@@ -98,8 +103,8 @@ class ModuleController extends GetxController {
   }
 
   /// initilize all controllers in TASK module [Module.task] and delte other module controllers
-  void initTaskControllers() {
-    deleteAllControlers(Module.task);
+  Future<void> initTaskControllers() async {
+    await deleteAllControlers(Module.task);
     Get.lazyPut(() => TaskNavbarController());
     Get.lazyPut(() => TaskCalenderViewController());
     Get.lazyPut(() => CreateTaskController());
@@ -112,8 +117,8 @@ class ModuleController extends GetxController {
   }
 
   /// initilize all controllers in ATTENDANCE module [Module.attendance] and delte other module controllers
-  void initAttendanceControllers() {
-    deleteAllControlers(Module.attendance);
+  Future<void> initAttendanceControllers() async {
+    await deleteAllControlers(Module.attendance);
     Get.lazyPut(() => AttendenceNavBarConroller());
     Get.lazyPut(() => AttendenceHomeConroller());
   }
@@ -122,90 +127,92 @@ class ModuleController extends GetxController {
 
   /// delete all controllers
   /// except module managers and except the [Module] passed as a optional param
-  void deleteAllControlers([Module? module]) {
+  Future<void> deleteAllControlers([Module? module]) async {
     // if (module == null || module != Module.task) deleteTaskControllers();
     // if (module == null || module != Module.card) deleteCardControllers();
     // if (module == null || module != Module.attendance) {
     //   deleteAttendanceControllers();
     // }
-    deleteCardControllers();
-    deleteAttendanceControllers();
-    deleteTaskControllers();
+    await deleteCardControllers();
+    await deleteAttendanceControllers();
+    await deleteTaskControllers();
   }
 
   /// delete card controllers
-  void deleteCardControllers() {
+  Future<void> deleteCardControllers() async {
     if (Get.isRegistered<ContactsController>()) {
-      Get.delete<ContactsController>();
+      await Get.delete<ContactsController>();
     }
     if (Get.isRegistered<MatchoMeterScreenController>()) {
-      Get.delete<MatchoMeterScreenController>();
+      await Get.delete<MatchoMeterScreenController>();
     }
     if (Get.isRegistered<BizcardNotificationController>()) {
-      Get.delete<BizcardNotificationController>();
+      await Get.delete<BizcardNotificationController>();
     }
-    if (Get.isRegistered<CardController>()) Get.delete<CardController>();
-    if (Get.isRegistered<NavbarController>()) Get.delete<NavbarController>();
-    if (Get.isRegistered<PromtController>()) Get.delete<PromtController>();
+    if (Get.isRegistered<CardController>()) await Get.delete<CardController>();
+    if (Get.isRegistered<NavbarController>())
+      await Get.delete<NavbarController>();
+    if (Get.isRegistered<PromtController>())
+      await Get.delete<PromtController>();
     if (Get.isRegistered<PersonalDetailsController>()) {
-      Get.delete<PersonalDetailsController>();
+      await Get.delete<PersonalDetailsController>();
     }
     if (Get.isRegistered<BusinesDetailsController>()) {
-      Get.delete<BusinesDetailsController>();
+      await Get.delete<BusinesDetailsController>();
     }
     if (Get.isRegistered<CardTextExtractionController>()) {
-      Get.delete<CardTextExtractionController>();
+      await Get.delete<CardTextExtractionController>();
     }
     if (Get.isRegistered<ReceivedCardController>()) {
-      Get.delete<ReceivedCardController>();
+      await Get.delete<ReceivedCardController>();
     }
     if (Get.isRegistered<LevelSharingController>()) {
-      Get.delete<LevelSharingController>();
+      await Get.delete<LevelSharingController>();
     }
     if (Get.isRegistered<ConnectionsController>()) {
-      Get.delete<ConnectionsController>();
+      await Get.delete<ConnectionsController>();
     }
     if (Get.isRegistered<ReminderController>()) {
-      Get.delete<ReminderController>();
+      await Get.delete<ReminderController>();
     }
   }
 
   /// delete task controllers
-  void deleteTaskControllers() {
+  Future<void> deleteTaskControllers() async {
     if (Get.isRegistered<TaskNavbarController>()) {
-      Get.delete<TaskNavbarController>();
+      await Get.delete<TaskNavbarController>();
     }
     if (Get.isRegistered<TaskCalenderViewController>()) {
-      Get.delete<TaskCalenderViewController>();
+      await Get.delete<TaskCalenderViewController>();
     }
     if (Get.isRegistered<CreateTaskController>()) {
-      Get.delete<CreateTaskController>();
+      await Get.delete<CreateTaskController>();
     }
     if (Get.isRegistered<TaskGenerateReportController>()) {
-      Get.delete<TaskGenerateReportController>();
+      await Get.delete<TaskGenerateReportController>();
     }
     if (Get.isRegistered<TaskHomeScreenController>()) {
-      Get.delete<TaskHomeScreenController>();
+      await Get.delete<TaskHomeScreenController>();
     }
     if (Get.isRegistered<TaskFolderController>()) {
-      Get.delete<TaskFolderController>();
+      await Get.delete<TaskFolderController>();
     }
-    if (Get.isRegistered<ChatController>()) Get.delete<ChatController>();
+    if (Get.isRegistered<ChatController>()) await Get.delete<ChatController>();
     if (Get.isRegistered<MessageCountController>()) {
-      Get.delete<MessageCountController>();
+      await Get.delete<MessageCountController>();
     }
     if (Get.isRegistered<HierarchyController>()) {
-      Get.delete<HierarchyController>();
+      await Get.delete<HierarchyController>();
     }
   }
 
   /// delete attendance controllers
-  void deleteAttendanceControllers() {
+  Future<void> deleteAttendanceControllers() async {
     if (Get.isRegistered<AttendenceNavBarConroller>()) {
-      Get.delete<AttendenceNavBarConroller>();
+      await Get.delete<AttendenceNavBarConroller>();
     }
     if (Get.isRegistered<AttendenceHomeConroller>()) {
-      Get.delete<AttendenceHomeConroller>();
+      await Get.delete<AttendenceHomeConroller>();
     }
   }
 }

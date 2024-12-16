@@ -5,9 +5,8 @@ import 'package:bizkit/core/api_endpoints/socket_endpoints.dart';
 import 'package:bizkit/module/biz_card/domain/model/notifications/bizcard_notification/bizcard_notification.dart';
 import 'package:bizkit/packages/sound/just_audio.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
+import 'package:bizkit/service/web_socket_service/web_socket_service.dart';
 import 'package:get/get.dart';
-
-import 'package:web_socket_channel/io.dart';
 
 class BizcardNotificationController extends GetxController {
   @override
@@ -16,7 +15,7 @@ class BizcardNotificationController extends GetxController {
     super.onInit();
   }
 
-  late IOWebSocketChannel channel;
+  late WebSocketService webSocketService;
 
   String error = '';
 
@@ -36,17 +35,11 @@ class BizcardNotificationController extends GetxController {
       final accessToken = token.accessToken ?? '';
 
       bizcardNotifications.value = [];
+      webSocketService = WebSocketService(SocketEndpoints.messageCount);
 
-      channel = IOWebSocketChannel.connect(
-        Uri.parse(SocketEndpoints.bizcardNotification),
+      webSocketService.connect(
         headers: {'Authorization': 'Bearer $accessToken'},
-      );
-
-      log('BIZCARD NOTIFICATIONS CONNECTED ====> ',
-          name: ' BIZCARD NOTIFICATIONS');
-
-      channel.stream.listen(
-        (event) {
+        listener: (event) {
           log('BIZCARD NOTIFICATIONS ====> $event',
               name: ' BIZCARD NOTIFICATIONS');
 
@@ -77,18 +70,22 @@ class BizcardNotificationController extends GetxController {
             audioPlayerHandler.showNotificationWithSound(message);
           }
         },
-        onError: (error) {
+        onErrors: (error) {
           log('Connection error: $error', name: 'bizcard notification');
           error = 'Connection error: $error';
         },
-        onDone: () {
-          if (channel.closeCode != null) {
-            log('Connection closed with code: ${channel.closeCode}',
+        onDones: () {
+          if (webSocketService.channel?.closeCode != null) {
+            log('Connection closed with code: ${webSocketService.channel?.closeCode}',
                 name: 'bizcard notification');
-            error = 'Connection closed with code: ${channel.closeCode}';
+            error =
+                'Connection closed with code: ${webSocketService.channel?.closeCode}';
           }
         },
       );
+
+      log('BIZCARD NOTIFICATIONS CONNECTED ====> ',
+          name: ' BIZCARD NOTIFICATIONS');
     } catch (e) {
       log('Failed to connect $e', name: 'bizcard notification');
       error = 'Failed to connect $e';
@@ -108,7 +105,7 @@ class BizcardNotificationController extends GetxController {
 
   void addMessageToChannel({required Map<String, dynamic> data}) async {
     try {
-      channel.sink.add(jsonEncode(data));
+      webSocketService.sendMessage(jsonEncode(data));
       log('addmessage successfully');
     } catch (e) {
       log('message sending error $e');
@@ -118,7 +115,7 @@ class BizcardNotificationController extends GetxController {
 
   void closeConnection() {
     try {
-      channel.sink.close();
+      webSocketService.disconnect();
     } catch (e) {
       log('Channel close error : $e', name: 'bizcard notification');
     }

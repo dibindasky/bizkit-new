@@ -1,43 +1,60 @@
 import 'dart:async';
-import 'package:web_socket_channel/web_socket_channel.dart';
+import 'dart:developer';
+import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
 
-class ChatWebSocketService {
+class WebSocketService {
   final String url;
-  WebSocketChannel? _channel;
-  StreamSubscription? _subscription;
+  IOWebSocketChannel? _channel;
+  // StreamSubscription? _subscription;
   bool _isReconnecting = false;
   int _retryDelay = 1; // Start with 1 second delay
   final int _maxRetryDelay = 32; // Maximum delay in seconds
 
-  ChatWebSocketService(this.url);
+  WebSocketService(this.url);
 
-  void connect() {
-    _channel = WebSocketChannel.connect(Uri.parse(url));
+  IOWebSocketChannel? get channel => _channel;
+  Function(dynamic data)? listener;
+  Function(dynamic error)? onErrors;
+  Function? onDones;
+  Map<String, dynamic>? headers;
 
-    _subscription = _channel!.stream.listen(
-      (message) {
-        // Handle incoming messages
-        print('Message received: $message');
-      },
+  void connect(
+      {Map<String, dynamic>? headers,
+      required Function(dynamic data)? listener,
+      Function(dynamic error)? onErrors,
+      Function? onDones}) {
+    _channel = IOWebSocketChannel.connect(Uri.parse(url), headers: headers);
+    this.headers = headers;
+    this.listener = listener;
+    this.onDones = onDones;
+    this.onErrors = onErrors;
+    _channel!.stream.listen(
+      listener,
       onError: (error) {
-        print('WebSocket error: $error');
+        // log('WebSocket error: $error');
+        if (this.onErrors != null) {
+          this.onErrors!(error);
+        }
         _handleConnectionError();
       },
       onDone: () {
-        print('WebSocket connection closed.');
-        _handleConnectionError();
+        // log('WebSocket connection closed.');
+        if (this.onDones != null) {
+          this.onDones!();
+        }
+        // _handleConnectionError();
       },
     );
 
-    print('WebSocket connected.');
+    log('WebSocket connected.');
   }
 
   void sendMessage(String message) {
     if (_channel != null) {
       _channel!.sink.add(message);
     } else {
-      print('Cannot send message: WebSocket is not connected.');
+      log('Cannot send message: WebSocket is not connected.');
     }
   }
 
@@ -51,14 +68,18 @@ class ChatWebSocketService {
 
   void _attemptReconnect() {
     Timer(Duration(seconds: _retryDelay), () {
-      print('Attempting to reconnect...');
+      log('Attempting to reconnect...');
 
       try {
-        connect();
+        connect(
+            listener: listener,
+            headers: headers,
+            onDones: onDones,
+            onErrors: onErrors);
         _isReconnecting = false; // Reset reconnection state on success
         _retryDelay = 1; // Reset delay
       } catch (e) {
-        print('Reconnection failed: $e');
+        log('Reconnection failed: $e');
         _retryDelay =
             (_retryDelay * 2).clamp(1, _maxRetryDelay); // Exponential backoff
         _attemptReconnect();
@@ -67,16 +88,15 @@ class ChatWebSocketService {
   }
 
   void disconnect() {
-    _subscription?.cancel();
-    _channel?.sink.close(status.goingAway);
-    print('WebSocket disconnected.');
+    _channel?.sink.close();
+    log('WebSocket disconnected.');
   }
 }
 
 // void main() {
-//   final chatWebSocketService = ChatWebSocketService('wss://example.com/chat');
+//   final WebSocketService = WebSocketService('wss://example.com/chat');
 
-//   chatWebSocketService.connect();
+//   WebSocketService.connect();
 
 //   // Simulate sending a message
 //   Future.delayed(Duration(seconds: 5), () {

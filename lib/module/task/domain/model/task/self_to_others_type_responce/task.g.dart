@@ -28,6 +28,9 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
           (json['matched_next_action_dates'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList(),
+      allActionDates: (json['all_action_dates'] as List<dynamic>?)
+          ?.map((e) => AllActionDates.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
@@ -45,4 +48,5 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'status': instance.status,
       'created_by': instance.createdBy,
       'matched_next_action_dates': instance.matchedNextActionDates,
+      'all_action_dates': instance.allActionDates
     };

@@ -69,13 +69,14 @@ class NotificationCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const CircleAvatar(
                               backgroundColor: kred,
                               radius: 6.0,
                             ),
                             adjustWidth(8),
-                            Flexible(
+                            Expanded(
                               child: Text(
                                 title ?? ' ',
                                 style: Theme.of(context)
@@ -87,11 +88,10 @@ class NotificationCard extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            const Spacer(),
                             Text(
                               createdAtDateTime != null
                                   // ? DateTimeFormater.timeAgo(createdAtDateTime)
-                                  ? DateTimeFormater.timeAgo(createdAtDateTime)
+                                  ? DateTimeFormater.formatTimeAMPM(createdAt)
                                   : 'Unknown time',
                               style: Theme.of(context).textTheme.displaySmall,
                             ),

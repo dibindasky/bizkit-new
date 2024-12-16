@@ -77,13 +77,11 @@ class TaskCreateNewFolderDialog extends StatelessWidget {
                     onTap: () {
                       if (folderName != null && folderId != null) {
                         folderController.editFolderName(
-                            context: context,
                             editFolderName: EditFolderModel(
                                 folderName: folderNameController.text,
                                 folderId: folderId));
                       } else {
                         folderController.createNewFolder(
-                          context: context,
                           folder: FolderModel(
                             folderName: folderNameController.text,
                             tasks: [],

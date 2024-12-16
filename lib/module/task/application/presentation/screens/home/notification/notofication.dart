@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../../../../controller/chat/message_count_controller.dart';
 
@@ -46,7 +47,7 @@ class NotoficationBuilder extends StatelessWidget {
               Expanded(
                 child: Obx(() {
                   return ListView.separated(
-                    separatorBuilder: (context, index) => adjustHieght(10),
+                    separatorBuilder: (context, index) => adjustHieght(0),
                     itemCount: notificationController.taskNotification.length,
                     itemBuilder: (context, index) {
                       return NotificationCard(
@@ -71,7 +72,9 @@ class NotoficationBuilder extends StatelessWidget {
       ),
       floatingActionButton: notificationController.taskNotification.isNotEmpty
           ? FloatingActionButton(
-              child: const Icon(Icons.close),
+              backgroundColor: Get.isDarkMode ? kwhite : kblack,
+              child: Icon(Iconsax.close_square,
+                  color: Get.isDarkMode ? kblack : kwhite),
               onPressed: () {
                 final ids = notificationController.taskNotification
                     .map((datas) => datas.id)

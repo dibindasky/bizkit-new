@@ -35,11 +35,12 @@ class MessageCountController extends GetxController {
         headers: {'Authorization': 'Bearer $accessToken'},
       );
 
+      log('TASK NOTIFICATION CONNECTED', name: 'TASK NOTIFICATION');
+
       channel.stream.listen(
         (data) {
-          // log('notification =======================> $data');
-          // log(
-          //     'notification =======================> \n ${jsonDecode(data as String) as Map<String, dynamic>}');
+
+          log('TASK NOTIFICATIONS : $data', name: 'TASK NOTIFICATION');
 
           final decodedData =
               jsonDecode(data as String) as Map<String, dynamic>;
@@ -51,12 +52,8 @@ class MessageCountController extends GetxController {
                   TaskNotification.fromJson(data as Map<String, dynamic>);
               if (index == -1) {
                 taskNotification.add(task);
-                if (task.notificationType == 'task_viewed') {
-                  // Get.showSnackbar(GetSnackBar(
-                  //   title: task.message,
-                  //   message: task.message,
-                  //   snackPosition: SnackPosition.TOP,
-                  // ));
+                if (task.notificationType != null) {
+                  log('TASK MODULE NOTIFICATION ', name: 'TASK NOTIFICATION');
 
                   audioPlayerHandler
                       .showNotificationWithSound(task.message ?? '');
@@ -74,7 +71,6 @@ class MessageCountController extends GetxController {
           }
         },
         onError: (error) {
-          log('Connection error: $error');
           _error = 'Connection error: $error';
         },
         onDone: () {

@@ -41,7 +41,6 @@ void showInnerFolderDialogWidget(
               if (innerFolderName.isNotEmpty) {
                 if (innerFolderId == null) {
                   controller.createNewFolderInsideFolder(
-                    context: context,
                     folderId: folderId ?? '',
                     createNewFolderInsideFolder: CreateFolderInsideAFolder(
                       folderId: folderId ?? '',
@@ -57,7 +56,6 @@ void showInnerFolderDialogWidget(
                   ));
                 } else {
                   controller.editInnerFolderName(
-                      context: context,
                       folderId: folderId ?? '',
                       editInnerFolderName: EditInnerFolderModel(
                         folderId: folderId ?? '',

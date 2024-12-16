@@ -176,8 +176,10 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
                                     Text(
                                       createdAtDateTime != null
                                           // ? DateTimeFormater.timeAgo(createdAtDateTime)
-                                          ? DateTimeFormater.timeAgo(
-                                              createdAtDateTime)
+                                          ? DateTimeFormater.formatTimeAMPM(
+                                              notificationController
+                                                  .bizcardNotifications[index]
+                                                  .createdAt)
                                           : 'Unknown time',
                                       style: Theme.of(context)
                                           .textTheme

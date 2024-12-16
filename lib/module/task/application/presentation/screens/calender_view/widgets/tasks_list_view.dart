@@ -26,13 +26,13 @@ class _TaskListViewState extends State<TaskListView> {
   @override
   void initState() {
     super.initState();
-    _initializeData();
+    // _initializeData();
     _setupScrollController();
   }
 
-  Future<void> _initializeData() async {
-    taskController.taskFilterByDeadline();
-  }
+  // Future<void> _initializeData() async {
+  //   taskController.taskFilterByDeadline();
+  // }
 
   void _setupScrollController() {
     taskController.deadlineTasksScrollController.addListener(() {

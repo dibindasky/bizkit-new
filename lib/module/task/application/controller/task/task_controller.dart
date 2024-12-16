@@ -319,6 +319,7 @@ class CreateTaskController extends GetxController {
 
   RxBool loadingFortTaskExpenseAndTime =
       false.obs; // Loading state for fetching task time and expense data
+  RxBool getNetworkLoading = false.obs;
 
   RxBool loadingForQuickTask = false.obs; // Loading state for quick task
   RxBool loadingForCompleteQuickTask = false.obs;
@@ -857,13 +858,13 @@ class CreateTaskController extends GetxController {
     taksListLoading.value = true;
     deadlineTasksPageNumber = 1;
     deadlineTasks.value = <Task>[];
-    getNetworkLoading.value=true;
+    getNetworkLoading.value = true;
     // Step 1: Fetch and display local data first
     await fetchTasksFromLocalDb();
 
     // Step 2: Then update with any network data if available
     await fetchTasksFromNetwork();
-    getNetworkLoading.value=false;
+    getNetworkLoading.value = false;
     taksListLoading.value = false;
   }
 
@@ -890,10 +891,7 @@ class CreateTaskController extends GetxController {
     );
   }
 
-  RxBool getNetworkLoading=false.obs;
-
   Future<void> fetchTasksFromNetwork() async {
-   
     final result = await taskService.filterByDeadline(
       filterByDeadline: FilterByDeadlineModel(
         date: deadlineDate.value,
@@ -905,10 +903,8 @@ class CreateTaskController extends GetxController {
     result.fold(
       (failure) {
         log(failure.message.toString());
-       
       },
       (success) async {
-
         if (success.data != null) {
           // Store new tasks in local database
           for (var task in success.data ?? <Task>[]) {
@@ -927,11 +923,9 @@ class CreateTaskController extends GetxController {
               taskModel: task,
             );
           }
-     
         }
       },
     );
-
   }
 
   Future<void> taskFilterByDeadlineLoadMore() async {

@@ -72,15 +72,11 @@ class _PollContainerChatState extends State<PollContainerChat> {
     sender = message.sender;
     selectedOption.clear();
     totalVotes = 0;
-    print('poll current user id -- >  ${message.currentUid}');
     if (message.pollAnswers != null) {
       for (var x in message.pollAnswers!) {
         if (x.supporters != null) {
           for (var y in x.supporters!) {
-            print(
-                'poll supporter user id -- >  ${y.userId} == ${message.currentUid}');
             if (y.userId == message.currentUid) {
-              print('poll supporter user id == >  ${y.userId}');
               completed = true;
               selectedOption.add(x.answerId ?? '');
             }
@@ -137,11 +133,6 @@ class _PollContainerChatState extends State<PollContainerChat> {
     super.didUpdateWidget(oldWidget);
   }
 
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -48,26 +48,22 @@ class _VoiceMessageCardState extends State<VoiceMessageCard> {
         .inMilliseconds
         .toDouble();
     if (isPlaying) {
-      print('isPlaying -> pause');
       setState(() {
         isPlaying = false;
       });
       audioPlayerHandler.pauseAudio();
     } else if (sliderValue == totalDuration) {
-      print('audio finished -> restart');
       setState(() {
         sliderValue = 0.0;
         isPlaying = true;
       });
       playAudio();
     } else if (sliderValue != 0.0) {
-      print('in between paused -> resume');
       setState(() {
         isPlaying = true;
       });
       audioPlayerHandler.resumeAudio();
     } else {
-      print('ini--> play audio');
       playAudio();
     }
   }

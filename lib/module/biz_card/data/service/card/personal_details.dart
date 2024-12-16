@@ -84,7 +84,6 @@ class PersonalDetailsService implements PersonalDetailsRepo {
           data: personalAchiment.toJson());
       log('personalAchivmentEditing ==>success');
       final map = responce.data as Map<String, dynamic>?;
-      print(map.toString());
       return Right(SuccessResponseModel(
           message: map?['message'],
           data: (map?['image_urls'] as List<dynamic>?)

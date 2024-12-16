@@ -88,8 +88,6 @@ class ContactsController extends GetxController {
     try {
       final fetched =
           await LocalStoragePreferenceCard.getContactsFetchedOrNot();
-      print(
-          '---------------------------------fetched ------------------------$fetched');
       if (fetched) {
         // TODO: add daily fetch using time check store last contact updated time and check here for weekly fetch or daily fetch
         await getConnectionsFromSqlTable();

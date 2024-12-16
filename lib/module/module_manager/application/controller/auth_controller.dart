@@ -94,7 +94,6 @@ class AuthenticationController extends GetxController {
   /// verify email otp otp for regestration
   void verifyOtpEmailRegestration(BuildContext context,
       {required String otp}) async {
-    print('register user ==> 1');
     loadingOtpEmail.value = true;
     final result = await authRepo.otpVerification(
         authPostmodel: registerPostModel.value.copyWith(otp: otp));
@@ -220,7 +219,6 @@ class AuthenticationController extends GetxController {
     if (loadingAccountSwitching.value) {
       await chooseModule(context);
     }
-    print('complete login modal => ${model.toJson()}');
     await usersLocalRepo.addUserToLocalStorageIfNotPresentInStorage(
         model: model.copyWith(logoutFromDevice: 'login'));
     await Get.find<AccessController>().initUserData();

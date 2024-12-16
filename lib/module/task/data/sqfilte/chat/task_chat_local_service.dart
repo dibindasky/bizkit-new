@@ -569,7 +569,6 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
                     OR
                     (${FileMessage.colLocalId} = ? AND ${FileMessage.colLocalId} != '')    
                   ''', whereArgs: [messageId, localId]);
-      print('file message from local db -> ${fileMessagList.first.toString()}');
       return fileMessagList.isEmpty
           ? null
           : FileMessage.fromJson(fileMessagList.first,

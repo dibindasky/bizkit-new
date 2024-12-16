@@ -34,8 +34,9 @@ class ConnectionDetail {
     if (occasion != null && occasion!.isNotEmpty) data['occasion'] = occasion;
     if (location != null && location!.isNotEmpty) data['location'] = location;
     if (category != null && category!.isNotEmpty) data['category'] = category;
-    if (connectionId != null && connectionId!.isNotEmpty)
+    if (connectionId != null && connectionId!.isNotEmpty) {
       data['connection_id'] = connectionId;
+    }
     return data;
   }
 }

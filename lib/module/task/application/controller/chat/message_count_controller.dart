@@ -38,7 +38,7 @@ class MessageCountController extends GetxController {
       channel.stream.listen(
         (data) {
           // log('notification =======================> $data');
-          // print(
+          // log(
           //     'notification =======================> \n ${jsonDecode(data as String) as Map<String, dynamic>}');
 
           final decodedData =
@@ -74,18 +74,18 @@ class MessageCountController extends GetxController {
           }
         },
         onError: (error) {
-          print('Connection error: $error');
+          log('Connection error: $error');
           _error = 'Connection error: $error';
         },
         onDone: () {
           if (channel.closeCode != null) {
-            print('Connection closed with code: ${channel.closeCode}');
+            log('Connection closed with code: ${channel.closeCode}');
             _error = 'Connection closed with code: ${channel.closeCode}';
           }
         },
       );
     } catch (e) {
-      print('Failed to connect: $e');
+      log('Failed to connect: $e');
       _error = 'Failed to connect: $e';
     }
   }
@@ -107,7 +107,7 @@ class MessageCountController extends GetxController {
   void addMessageToChannel({required Map<String, dynamic> data}) async {
     try {
       channel.sink.add(jsonEncode(data));
-      print('successfull addmessage');
+      log('successfull addmessage');
     } catch (e) {
       log('message sending error $e');
       rethrow;
@@ -119,7 +119,7 @@ class MessageCountController extends GetxController {
       channel.sink.close();
       // channel.sink.close(status.goingAway);
     } catch (e) {
-      print('Channel close error =>$e');
+      log('Channel close error =>$e');
     }
   }
 
@@ -129,7 +129,7 @@ class MessageCountController extends GetxController {
       try {
         channel.sink.add(jsonEncode({"message_type": "unread_count"}));
       } catch (e) {
-        print('Failed to call message count socket: $e');
+        log('Failed to call message count socket: $e');
         _error = 'Failed to call message count socket: $e';
       }
     });

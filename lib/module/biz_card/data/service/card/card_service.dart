@@ -74,7 +74,7 @@ class CardService implements CardRepo {
   Future<Either<Failure, ScanAndConnectModel>> scanAndConnect(
       {required String cardId}) async {
     try {
-      print('deeplink id -> $cardId');
+      log('deeplink id -> $cardId');
       final responce = await apiService
           .post(ApiEndPoints.scanAndConnect, data: {'bizcard_id': cardId});
       log('scanAndConnect ==>success');

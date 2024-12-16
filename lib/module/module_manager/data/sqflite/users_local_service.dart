@@ -94,7 +94,6 @@ class UsersLocalService implements UsersLocalRepo {
       log('getUsersFromLocalStorage => length => ${data.length}');
       List<TokenModel> tokens = [];
       for (var x in data) {
-        print('user data ->  $x');
         tokens.add(TokenModel.fromJson(x, fromLocalDb: true));
       }
       log('getUsersFromLocalStorage success =====> ${tokens.length}');

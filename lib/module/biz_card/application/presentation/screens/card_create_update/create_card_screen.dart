@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/text_extraction/text_extraction_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/text_extraction/text_extraction_model/text_extraction_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';

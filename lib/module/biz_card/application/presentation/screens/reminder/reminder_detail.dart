@@ -112,6 +112,7 @@ class BizcardReminderDetailScreen extends StatelessWidget {
                     onTap: () {
                       GoRouter.of(context).pop(context);
                       connectionsController.getConnectionCardDetail(
+                        uid:reminder.userId??'' ,
                           cardId: reminder.cardId ?? '');
                       GoRouter.of(context).pushNamed(Routes.cardDetailView,
                           pathParameters: {

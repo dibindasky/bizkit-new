@@ -34,6 +34,8 @@ class CardController extends GetxController {
     getAllcards(true);
   }
 
+
+  String toUserId='';
   // Loading
   RxBool isLoading = false.obs;
   RxBool loadingForCardViews = false.obs;

@@ -39,7 +39,7 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
     if (widget.cardId != null && widget.myCard) {
       cardController.cardDetail(cardId: widget.cardId ?? '');
     } else if (!widget.myCard) {
-      connectionController.getConnectionCardDetail(cardId: widget.cardId ?? '');
+    //  connectionController.getConnectionCardDetail(cardId: widget.cardId ?? '') ;
     }
   }
 
@@ -103,8 +103,8 @@ class _ScreenCardDetailViewState extends State<ScreenCardDetailView> {
                 if (widget.cardId != null) {
                   cardController.cardDetail(cardId: widget.cardId!);
                 } else if (!widget.myCard && widget.cardId != null) {
-                  connectionController.getConnectionCardDetail(
-                      cardId: widget.cardId ?? '');
+                  // connectionController.getConnectionCardDetail(
+                  //     cardId: widget.cardId ?? '');
                 }
               },
               child: const Center(

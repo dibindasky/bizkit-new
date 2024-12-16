@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+// import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -9,6 +10,7 @@ import 'package:bizkit/module/task/application/presentation/screens/home/widgets
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_home_appbar.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_status_section.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+// import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -44,7 +46,8 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
     final homeController = Get.find<TaskHomeScreenController>();
     final messageCoutController = Get.find<MessageCountController>();
     final authController = Get.find<AuthenticationController>();
-
+    // final internetConnectinController =
+    //     Get.find<InternetConnectionController>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       messageCoutController.sendReqForUnread();
     });
@@ -74,7 +77,10 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
                         const RecentTasksSection(),
                         adjustHieght(30.h),
                         const GenerateReportButton(),
-                        adjustHieght(60.h),
+                        adjustHieght(60.h)
+                        // internetConnectinController.isConnectedToInternet.value
+                        //     ? adjustHieght(60.h)
+                        //     : adjustHieght(100.h),
                       ],
                     ),
                   ),

@@ -31,7 +31,7 @@ class ErrorRefreshIndicator extends StatelessWidget {
       child: ListView(
         shrinkWrap: shrinkWrap,
         children: [
-          adjustHieght(50),
+          // adjustHieght(0),
           image != null
               ? Image.asset(image!)
               : const Icon(Icons.refresh, color: kgrey),

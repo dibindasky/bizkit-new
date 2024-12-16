@@ -82,16 +82,21 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
               ),
             );
           } else if (taskFolderController.filteredFoldersByDeadline.isEmpty) {
-            return ErrorRefreshIndicator(
-              shrinkWrap: true,
-              image: emptyNodata2,
-              errorMessage: 'No folders available',
-              onRefresh: () {
-                taskFolderController.filterFoldersByDeadline(
-                    filterFolder: FilterFolderByDeadlineModel(
-                  filterDate: taskFolderController.deadlineDate.value,
-                ));
-              },
+            return Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ErrorRefreshIndicator(
+                  shrinkWrap: true,
+                  image: emptyNodata2,
+                  errorMessage: 'No folders available',
+                  onRefresh: () {
+                    taskFolderController.filterFoldersByDeadline(
+                        filterFolder: FilterFolderByDeadlineModel(
+                      filterDate: taskFolderController.deadlineDate.value,
+                    ));
+                  },
+                ),
+              ),
             );
           } else {
             return Expanded(

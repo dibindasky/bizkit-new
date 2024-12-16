@@ -64,10 +64,11 @@ class TaskDetailStatusSection extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    (taskController
-                                            .singleTask.value.status.isNotEmpty)
-                                        ? "Current Status ${taskController.singleTask.value.status}%"
-                                        : 'Current Status 0%',
+                                    ((taskController.singleTask.value.status
+                                                .replaceAll(' ', ''))
+                                            .isEmpty)
+                                        ? 'Current Status 0%'
+                                        : "Current Status ${taskController.singleTask.value.status}%",
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall

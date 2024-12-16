@@ -41,5 +41,5 @@ abstract class ReminderRepo {
 
   // Get card reminder history
   Future<Either<Failure, BizCardRemindersResponce>> getCardReminderHistory(
-      {required String id, bool card = false});
+      {required String id,required bool card});
 }

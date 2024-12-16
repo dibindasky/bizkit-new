@@ -167,7 +167,7 @@ class ReminderService implements ReminderRepo {
 
   @override
   Future<Either<Failure, BizCardRemindersResponce>> getCardReminderHistory(
-      {required String id, bool card = false}) async {
+      {required String id,required bool card}) async {
     try {
       log('getCardReminderHistory TO JSON reminder_id  == > $id');
       final responce = await apiService.get(

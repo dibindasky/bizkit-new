@@ -5,6 +5,7 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/contacts/contacts_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/data/service/connections/connections_service.dart';
 import 'package:bizkit/module/biz_card/data/sqflite/my_connection/my_connection_local_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
@@ -113,6 +114,7 @@ class ConnectionsController extends GetxController {
 
   /// shared card list
   RxList<SharedCardModel> filteredSharedCards = <SharedCardModel>[].obs;
+
 
   @override
   void onInit() {
@@ -780,14 +782,19 @@ class ConnectionsController extends GetxController {
 
   /// get card detail connection
   void getConnectionCardDetail(
-      {required String cardId, bool refresh = false,required String uid}) async {
+      {required String cardId,
+      bool refresh = false,
+      required String uid}) async {
+          final reminderController = Get.find<ReminderController>();
     log('Bizcard ID -->> $cardId');
     final cardController = Get.find<CardController>();
-    cardController.toUserId=uid;
+    cardController.toUserId = uid;
     if (refresh ||
         cardId != (cardController.bizcardDetail.value.bizcardId ?? "")) {
       cardController.isLoading.value = true;
       cardLoading.value = true;
+      reminderController.reminderHistoryCardLoading.value = true;
+      reminderController.historyCardReminders.value = [];
     }
     cardController.bizcardDetail.value = CardDetailModel();
     final data = await connectionService.getConnectionCard(cardId: cardId);
@@ -797,6 +804,8 @@ class ConnectionsController extends GetxController {
         cardController.bizcardDetail.value = r;
         cardController.bizcardDetail.value.personalDetails = r.personalDetails;
         cardController.bizcardDetail.value.businessDetails = r.businessDetails;
+        reminderController.getCardRemiderHistory(
+            id: cardController.bizcardDetail.value.bizcardId ?? '', card: true);
       },
     );
     cardController.isLoading.value = false;
@@ -860,8 +869,9 @@ class ConnectionsController extends GetxController {
         if (connected.isNotEmpty) {
           GoRouter.of(context).pushNamed(Routes.cardView,
               pathParameters: {'cardId': connected.first.toCard ?? ''});
-              
-          getConnectionCardDetail(cardId: connected.first.toCard ?? '',uid: userID);
+
+          getConnectionCardDetail(
+              cardId: connected.first.toCard ?? '', uid: userID);
         } else if (requested.isNotEmpty) {
           Get.dialog(Container(
             margin: const EdgeInsets.all(10),

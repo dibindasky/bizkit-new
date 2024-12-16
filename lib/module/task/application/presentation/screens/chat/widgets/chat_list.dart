@@ -24,8 +24,6 @@ class ChatListView extends StatelessWidget {
     return GetBuilder<ChatController>(
         id: 'chat',
         builder: (controller) {
-          print(
-              'rebuid chat new chat arrived => ${chatController.messages.length}');
           final length = chatController.messages.length +
               (chatController.loadMoreLoading.value ? 1 : 0);
           return ListView.builder(

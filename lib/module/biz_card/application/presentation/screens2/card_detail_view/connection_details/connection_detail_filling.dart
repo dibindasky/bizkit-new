@@ -167,8 +167,6 @@ class _ScreenConnectionDetailFillingState
                     : EventButton(
                         text: 'Update Details',
                         onTap: () {
-                          print(
-                              'updation on tap -----> ${widget.cardDetailModel?.connectionId}');
                           controller.addOrUpdateConnectionDetails(context,
                               connectionDtail: ConnectionDetail(
                                   category: categoryController.text,

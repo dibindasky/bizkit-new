@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/service/secure_storage/local_storage.dart';
 
 class LocalStoragePreferenceCard {
@@ -6,7 +8,7 @@ class LocalStoragePreferenceCard {
 
   static void setContactsFetchedOrNot(bool fetched) async {
     await LocalStorageService.setBool(contactsFetch, fetched);
-    print('setContactsFetchedOrNot ====> $fetched');
+    log('setContactsFetchedOrNot ====> $fetched');
   }
 
   static Future<bool> getContactsFetchedOrNot() async {
@@ -16,7 +18,7 @@ class LocalStoragePreferenceCard {
 
   static void setContactsFirstFetchedOrNot(bool fetched) async {
     await LocalStorageService.setBool(contactsFirstFetch, fetched);
-    print('setContactsFirstFetchedOrNot ========> $fetched');
+    log('setContactsFirstFetchedOrNot ========> $fetched');
   }
 
   static Future<bool> getContactsFirstFetchedOrNot() async {

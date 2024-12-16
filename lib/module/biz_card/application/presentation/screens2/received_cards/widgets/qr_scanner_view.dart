@@ -31,11 +31,9 @@ class _QrScannerViewState extends State<QrScannerView> {
         setState(() {
           result = barcode;
         });
-        print('===========================scan===========================');
         if (result != null && result!.barcodes.isNotEmpty) {
           final code = result!.barcodes.first.rawValue;
           if (code != null) {
-            print(code);
             _launchUrl(code);
           }
         }
@@ -48,8 +46,6 @@ class _QrScannerViewState extends State<QrScannerView> {
     if (url.contains('/get-bizcard/')) {
       try {
         if (!goturl) {
-          print(
-              '===========================got url and navigated===========================');
           final id = url.split('/').last;
           goturl = true;
           cameraController.stop(); // Pause the scanner
@@ -59,7 +55,6 @@ class _QrScannerViewState extends State<QrScannerView> {
           cameraController.start(); // Resume the scanner
         }
       } catch (e) {
-        print('launch web ------------------web');
         await LaunchUrl.launchUrls(url: url);
       }
     }

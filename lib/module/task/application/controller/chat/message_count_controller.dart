@@ -39,6 +39,7 @@ class MessageCountController extends GetxController {
 
       channel.stream.listen(
         (data) {
+
           log('TASK NOTIFICATIONS : $data', name: 'TASK NOTIFICATION');
 
           final decodedData =
@@ -74,11 +75,13 @@ class MessageCountController extends GetxController {
         },
         onDone: () {
           if (channel.closeCode != null) {
+            log('Connection closed with code: ${channel.closeCode}');
             _error = 'Connection closed with code: ${channel.closeCode}';
           }
         },
       );
     } catch (e) {
+      log('Failed to connect: $e');
       _error = 'Failed to connect: $e';
     }
   }
@@ -100,6 +103,7 @@ class MessageCountController extends GetxController {
   void addMessageToChannel({required Map<String, dynamic> data}) async {
     try {
       channel.sink.add(jsonEncode(data));
+      log('successfull addmessage');
     } catch (e) {
       log('message sending error $e');
       rethrow;

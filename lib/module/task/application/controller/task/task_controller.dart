@@ -379,14 +379,14 @@ class CreateTaskController extends GetxController {
   void statusChange(
       {required BuildContext context, required String taskId}) async {
     singleTask.value = singleTask.value.copyWith(status: statusValue.value);
-    print(" status value after taping update status ${statusValue.value}");
+    log(" status value after taping update status ${statusValue.value}");
     final result = await taskService.editTask(
       taskModel: EditTaskModel(status: statusValue.value, taskId: taskId),
     );
     result.fold((failure) {
-      print('failure status change');
+      log('failure status change');
     }, (success) {
-      print(singleTask.value.status);
+      log(singleTask.value.status);
     });
   }
 

@@ -212,7 +212,6 @@ class ConnectionsController extends GetxController {
 
   // Search My connections
   void searchConnections({bool refresh = false}) async {
-    print('user id ======> ${await SecureStorage.getUserId()}');
     if (connectionsSearchList.isNotEmpty && !refresh) {
       return;
     }
@@ -314,12 +313,10 @@ class ConnectionsController extends GetxController {
             myConnectionLoadMore.value = false;
           },
           (success) {
-            print('called my connection load more ==> ${success.data?.length}');
             myConnectionLoadMore.value = false;
             for (var datas in success.data ?? <MyConnection>[]) {
               final index = connectionsSearchList
                   .indexWhere((value) => value.toUser == datas.toUser);
-              print('index -> $index');
               if (index == -1) {
                 connectionsSearchList.add(datas);
                 myConnectionLocalService

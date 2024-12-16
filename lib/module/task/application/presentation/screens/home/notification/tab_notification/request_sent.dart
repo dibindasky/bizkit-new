@@ -49,8 +49,7 @@ class RequestSentBuilder extends StatelessWidget {
                       assignedUsers:
                           taskController.sentRequests[index].assignedUsers ??
                               [],
-                      title:
-                          taskController.sentRequests[index].title ?? '',
+                      title: taskController.sentRequests[index].title ?? '',
                       description:
                           taskController.sentRequests[index].description ?? '',
                     );

@@ -69,17 +69,21 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                 )
               else if (folderController.tasksInsideInnerFolder.isEmpty)
                 Expanded(
-                  child: ErrorRefreshIndicator(
-                    image: emptyNodata2,
-                    errorMessage: 'No Tasks',
-                    onRefresh: () {
-                      folderController.fetchAllTasksInsideAInnerFolder(
-                        InnerFolderTasksGetParamsModel(
-                          folderId: arguments?['folderId'],
-                          innerFolderId: arguments?['innerFolderId'],
-                        ),
-                      );
-                    },
+                  child: Padding(
+                    padding: const EdgeInsets.all(48.0),
+                    child: ErrorRefreshIndicator(
+                      image: emptyNodata2,
+                      errorMessage:
+                          '${arguments?['innerFolderName']} folder have no tasks',
+                      onRefresh: () {
+                        folderController.fetchAllTasksInsideAInnerFolder(
+                          InnerFolderTasksGetParamsModel(
+                            folderId: arguments?['folderId'],
+                            innerFolderId: arguments?['innerFolderId'],
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 )
               else

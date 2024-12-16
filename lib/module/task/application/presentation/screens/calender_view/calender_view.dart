@@ -15,14 +15,9 @@ import 'package:get/get.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:intl/intl.dart';
 
-class ScreenTaskCalenderView extends StatefulWidget {
+class ScreenTaskCalenderView extends StatelessWidget {
   const ScreenTaskCalenderView({super.key});
 
-  @override
-  State<ScreenTaskCalenderView> createState() => _ScreenTaskCalenderViewState();
-}
-
-class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
   @override
   Widget build(BuildContext context) {
     final folderController = Get.find<TaskFolderController>();
@@ -210,12 +205,19 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                 Obx(() => Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: folderController.isLoading.value &&
-                                  calendercontroller.taskTabChangeIndex.value == 2 ||
+                                  calendercontroller.taskTabChangeIndex.value ==
+                                      2 ||
                               taskController.getNetworkLoading.value &&
-                                  calendercontroller.taskTabChangeIndex.value ==1
+                                  calendercontroller.taskTabChangeIndex.value ==
+                                      1
                           ? Row(
                               children: [
-                                Text('Processing',
+                                Text(
+                                    calendercontroller
+                                                .taskTabChangeIndex.value ==
+                                            2
+                                        ? 'Processing'
+                                        : 'Syncing ....',
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall
@@ -225,7 +227,7 @@ class _ScreenTaskCalenderViewState extends State<ScreenTaskCalenderView> {
                                   width: 12,
                                   height: 12,
                                   child: CircularProgressIndicator(
-                                    strokeWidth: 3,
+                                    strokeWidth: 2,
                                   ),
                                 )
                               ],

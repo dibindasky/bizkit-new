@@ -18,7 +18,6 @@ import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart'
     as task;
-import 'package:sqflite/sqflite.dart';
 
 import '../../../domain/model/task/get_task_responce/created_user_details.dart';
 
@@ -453,8 +452,12 @@ class TaskLocalService implements TaskLocalRepo {
       }
 
       // Convert the matched next action dates list to a comma-separated string
-      String nextActionDatesAsString =
-          (taskModel.matchedNextActionDates ?? []).join(',');
+      String nextActionDatesAsString = (taskModel.allActionDates?.map(
+                (e) => e.date,
+              ) ??
+              [])
+          .toList()
+          .join(',');
 
       const query = '''
       INSERT INTO ${TaskSql.tasksTable}(
@@ -544,8 +547,12 @@ class TaskLocalService implements TaskLocalRepo {
       }
 
       // Convert the matched next action dates list to a comma-separated string
-      String nextActionDatesAsString =
-          (taskModel.matchedNextActionDates ?? []).join(',');
+      String nextActionDatesAsString = (taskModel.allActionDates?.map(
+                (e) => e.date,
+              ) ??
+              [])
+          .toList()
+          .join(',');
 
       const query = '''
       UPDATE ${TaskSql.tasksTable}
@@ -862,8 +869,11 @@ class TaskLocalService implements TaskLocalRepo {
       // Apply pagination
       int startIndex = (page - 1) * pageSize;
       List<task.Task> paginatedTasks = [];
+      int range = ((startIndex + pageSize) > prioritizedTasks.length)
+          ? prioritizedTasks.length
+          : startIndex + pageSize;
 
-      for (var i = startIndex; i < startIndex + pageSize; i++) {
+      for (var i = startIndex; i < range; i++) {
         final taskDeadlineStr = prioritizedTasks[i]
             [FilterByDeadlineModel.colTaskFilterByDeadline] as String?;
         if (taskDeadlineStr != null) {

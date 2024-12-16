@@ -35,11 +35,11 @@ class MessageCountController extends GetxController {
         headers: {'Authorization': 'Bearer $accessToken'},
       );
 
+      log('TASK NOTIFICATION CONNECTED', name: 'TASK NOTIFICATION');
+
       channel.stream.listen(
         (data) {
-          // log('notification =======================> $data');
-          // print(
-          //     'notification =======================> \n ${jsonDecode(data as String) as Map<String, dynamic>}');
+          log('TASK NOTIFICATIONS : $data', name: 'TASK NOTIFICATION');
 
           final decodedData =
               jsonDecode(data as String) as Map<String, dynamic>;
@@ -51,12 +51,8 @@ class MessageCountController extends GetxController {
                   TaskNotification.fromJson(data as Map<String, dynamic>);
               if (index == -1) {
                 taskNotification.add(task);
-                if (task.notificationType == 'task_viewed') {
-                  // Get.showSnackbar(GetSnackBar(
-                  //   title: task.message,
-                  //   message: task.message,
-                  //   snackPosition: SnackPosition.TOP,
-                  // ));
+                if (task.notificationType != null) {
+                  log('TASK MODULE NOTIFICATION ', name: 'TASK NOTIFICATION');
 
                   audioPlayerHandler
                       .showNotificationWithSound(task.message ?? '');
@@ -74,18 +70,15 @@ class MessageCountController extends GetxController {
           }
         },
         onError: (error) {
-          print('Connection error: $error');
           _error = 'Connection error: $error';
         },
         onDone: () {
           if (channel.closeCode != null) {
-            print('Connection closed with code: ${channel.closeCode}');
             _error = 'Connection closed with code: ${channel.closeCode}';
           }
         },
       );
     } catch (e) {
-      print('Failed to connect: $e');
       _error = 'Failed to connect: $e';
     }
   }
@@ -107,7 +100,6 @@ class MessageCountController extends GetxController {
   void addMessageToChannel({required Map<String, dynamic> data}) async {
     try {
       channel.sink.add(jsonEncode(data));
-      print('successfull addmessage');
     } catch (e) {
       log('message sending error $e');
       rethrow;
@@ -119,7 +111,7 @@ class MessageCountController extends GetxController {
       channel.sink.close();
       // channel.sink.close(status.goingAway);
     } catch (e) {
-      print('Channel close error =>$e');
+      log('Channel close error =>$e');
     }
   }
 
@@ -129,7 +121,7 @@ class MessageCountController extends GetxController {
       try {
         channel.sink.add(jsonEncode({"message_type": "unread_count"}));
       } catch (e) {
-        print('Failed to call message count socket: $e');
+        log('Failed to call message count socket: $e');
         _error = 'Failed to call message count socket: $e';
       }
     });

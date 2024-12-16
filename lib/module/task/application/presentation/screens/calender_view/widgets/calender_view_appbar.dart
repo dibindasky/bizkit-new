@@ -165,7 +165,6 @@ class TaskLongPressAppBarItems extends StatelessWidget {
                   String newFolderName = folderNameController.text;
                   if (newFolderName.isNotEmpty) {
                     folderController.mergeFolders(
-                      context: context,
                       mergeFolders: MergeFolderModel(
                         folderName: newFolderName,
                         folders: folderController.selectedFolderIds,
@@ -233,7 +232,6 @@ class TaskLongPressAppBarItems extends StatelessWidget {
                   if (newFolderName.isNotEmpty) {
                     folderController.mergeInnerFolders(
                       folderId: folderId ?? '',
-                      context: context,
                       mergeInnerFolders: MergeInnerFolderModel(
                         folderId: folderId,
                         innerFolders: folderController.selectedInnerFolderIds,

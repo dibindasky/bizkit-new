@@ -140,7 +140,6 @@ class TaskFolderSection extends StatelessWidget {
                     context: context,
                     onTap: () {
                       folderController.deleteFolder(
-                        context: context,
                         deleteFolder: DeleteFolderModel(
                           folderId: folderId,
                         ),
@@ -306,7 +305,6 @@ void showTaskSelectionBottomSheet(
                     );
 
                     folderController.taskAddOrDeleteInnerFolder(
-                        context: context,
                         addOrDelete: true,
                         taskAddOrDelete: addOrDeleteInnerFolderModel);
                     Navigator.pop(context);
@@ -330,9 +328,7 @@ void showTaskSelectionBottomSheet(
                     );
 
                     folderController.tasksAddToFolder(
-                        addOrDelete: true,
-                        context: context,
-                        taskAddToFolder: taskAddToFolder);
+                        addOrDelete: true, taskAddToFolder: taskAddToFolder);
 
                     Navigator.pop(context);
                   } else {

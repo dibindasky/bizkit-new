@@ -1,4 +1,5 @@
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/all_action_dates/all_action_dates.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/sub_task.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -36,6 +37,8 @@ class Task {
   CreatedBy? createdBy;
   @JsonKey(name: 'matched_next_action_dates')
   List<String>? matchedNextActionDates;
+  @JsonKey(name: 'all_action_dates')
+  List<AllActionDates>? allActionDates;
 
   Task(
       {this.id,
@@ -51,7 +54,8 @@ class Task {
       this.title,
       this.status,
       this.createdBy,
-      this.matchedNextActionDates});
+      this.matchedNextActionDates,
+      this.allActionDates});
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 
@@ -71,7 +75,8 @@ class Task {
       bool? isPinned,
       String? status,
       CreatedBy? createdBy,
-      List<String>? matchedNextActionDates}) {
+      List<String>? matchedNextActionDates,
+      List<AllActionDates>? allActionDates}) {
     return Task(
       id: id ?? this.id,
       description: description ?? this.description,
@@ -88,27 +93,29 @@ class Task {
       createdBy: createdBy ?? this.createdBy,
       matchedNextActionDates:
           matchedNextActionDates ?? this.matchedNextActionDates,
+      allActionDates: allActionDates ?? this.allActionDates,
     );
   }
 
   static Task fromMap(Map<String, Object?> map) {
     return Task(
-        id: map[GetTaskResponce.colTaskId] as String?,
-        description: map[GetTaskResponce.colTaskDescription] as String?,
-        title: map[GetTaskResponce.colTaskTitle] as String?,
-        createdAt: map[GetTaskResponce.colTaskCreatedAt] as String?,
-        deadLine: map[GetTaskResponce.colTaskDeadLine] as String?,
-        priorityLevel: map[GetTaskResponce.colTaskPriorityLevel] as String?,
-        taskType: map[GetTaskResponce.colTaskType] as String?,
-        isOwned: (map[GetTaskResponce.colTaskIsOwned] as int?) == 1,
-        spotlightOn: (map[GetTaskResponce.colTaskSpotlightOn] as int?) == 1,
-        isPinned: (map[GetTaskResponce.colTaskIsPinned] as int?) == 1,
-        status: map[GetTaskResponce.colTaskStatus] as String?,
-        createdBy: CreatedBy(
-          name: map[GetTaskResponce.colTaskCreatedUsername] as String?,
-          userId: map[GetTaskResponce.colTaskCreatedUserId] as String?,
-        ),
-        matchedNextActionDates:
-            (map[GetTaskResponce.colNextActionDate] as String?)?.split(','));
+      id: map[GetTaskResponce.colTaskId] as String?,
+      description: map[GetTaskResponce.colTaskDescription] as String?,
+      title: map[GetTaskResponce.colTaskTitle] as String?,
+      createdAt: map[GetTaskResponce.colTaskCreatedAt] as String?,
+      deadLine: map[GetTaskResponce.colTaskDeadLine] as String?,
+      priorityLevel: map[GetTaskResponce.colTaskPriorityLevel] as String?,
+      taskType: map[GetTaskResponce.colTaskType] as String?,
+      isOwned: (map[GetTaskResponce.colTaskIsOwned] as int?) == 1,
+      spotlightOn: (map[GetTaskResponce.colTaskSpotlightOn] as int?) == 1,
+      isPinned: (map[GetTaskResponce.colTaskIsPinned] as int?) == 1,
+      status: map[GetTaskResponce.colTaskStatus] as String?,
+      createdBy: CreatedBy(
+        name: map[GetTaskResponce.colTaskCreatedUsername] as String?,
+        userId: map[GetTaskResponce.colTaskCreatedUserId] as String?,
+      ),
+      matchedNextActionDates:
+          (map[GetTaskResponce.colNextActionDate] as String?)?.split(','),
+    );
   }
 }

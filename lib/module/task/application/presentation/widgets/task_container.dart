@@ -343,7 +343,6 @@ class TaskContainer extends StatelessWidget {
                                               fromInnerfolder == true) {
                                             taskFolderController
                                                 .taskAddOrDeleteInnerFolder(
-                                                    context: context,
                                                     addOrDelete: false,
                                                     taskAddOrDelete:
                                                         TaskAddOrDeleteInnerFolderModel(
@@ -367,7 +366,6 @@ class TaskContainer extends StatelessWidget {
                                             taskFolderController
                                                 .tasksAddToFolder(
                                               addOrDelete: false,
-                                              context: context,
                                               taskAddToFolder:
                                                   TaskAddToFolderModel(
                                                       folderId: folderId,

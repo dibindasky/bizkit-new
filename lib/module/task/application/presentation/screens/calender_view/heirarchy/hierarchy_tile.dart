@@ -159,7 +159,6 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                     if (innerFolderId == null) {
                       controller.createNewFolderInsideFolder(
                         folderId: folderId ?? '',
-                        context: context,
                         createNewFolderInsideFolder: CreateFolderInsideAFolder(
                           folderId: folderId ?? '',
                           innerFolderName: innerFolderName,
@@ -175,7 +174,6 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                     } else {
                       controller.editInnerFolderName(
                           folderId: folderId ?? '',
-                          context: context,
                           editInnerFolderName: EditInnerFolderModel(
                             folderId: folderId ?? '',
                             innerFolderId: innerFolderId,
@@ -520,9 +518,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 4),
                                           child: Obx(() {
-                                            return 
-                                             GestureDetector(
-                                              
+                                            return GestureDetector(
                                               onLongPress: () {
                                                 controller.longPress(index);
                                                 controller
@@ -530,12 +526,11 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                   controller
                                                           .filteredInnerFolders[
                                                               index]
-                                                          .innerFolderId ?? 
+                                                          .innerFolderId ??
                                                       '',
                                                 );
                                               },
                                               onTap: () {
-                                                
                                                 if (controller
                                                     .selectedFolderContainer
                                                     .value) {
@@ -561,7 +556,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                         'folderId':
                                                             folderId ?? ''
                                                       });
-                                                  controller.innerFolders; 
+                                                  controller.innerFolders;
                                                   controller.fetchAllTasksInsideAInnerFolder(
                                                       InnerFolderTasksGetParamsModel(
                                                           folderId: folderId,
@@ -697,8 +692,6 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                                 folderId:
                                                                     folderId ??
                                                                         '',
-                                                                context:
-                                                                    context,
                                                                 deleteInnerFolder:
                                                                     DeleteInnerFolderModel(
                                                                   folderId:

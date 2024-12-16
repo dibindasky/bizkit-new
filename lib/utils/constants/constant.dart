@@ -204,7 +204,9 @@ const emptyDataGif = 'asset/images/Reminders.gif';
 // const emptyNodata3 = 'asset/images/File searching.gif';
 // const emptyNodata4 = 'asset/images/Menstrual calendar-pana 1.png';
 const emptyNodata1 = 'asset/images/Reminders-pana 1 (1).png';
-const emptyNodata2 = 'asset/images/No data-pana 1.png';
+// const emptyNodata2 = 'asset/images/No data-pana 1.png';
+const emptyNodata2 = 'asset/images/Empty-amico.png';
+
 const emptyNodata3 = 'asset/images/No data-amico 1.png';
 const emptyNodata4 = 'asset/images/Menstrual calendar-pana 1.png';
 

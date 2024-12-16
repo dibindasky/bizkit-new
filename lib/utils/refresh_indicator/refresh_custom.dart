@@ -9,12 +9,14 @@ class ErrorRefreshIndicator extends StatelessWidget {
   const ErrorRefreshIndicator({
     super.key,
     this.shrinkWrap = false,
+    // required this.onTap,
     required this.onRefresh,
     this.errorMessage = 'something went wrong pull to refresh',
     this.image,
   });
 
   final VoidCallback onRefresh;
+  // final VoidCallback onTap;
   final String errorMessage;
   final bool shrinkWrap;
   final String? image;
@@ -36,9 +38,21 @@ class ErrorRefreshIndicator extends StatelessWidget {
           Center(
               child: Text(
             errorMessage,
-            style: Theme.of(context).textTheme.displaySmall,
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(fontSize: 13),
           )),
-          const SizedBox(width: double.infinity)
+          adjustHieght(15.h),
+          Center(
+            child: EventButton(
+              textColr: Get.isDarkMode ? kblack : kwhite,
+              color: LinearGradient(
+                  colors: Get.isDarkMode ? [kblack, kblack] : [kblack, kblack]),
+              text: 'Try Again',
+              onTap: onRefresh,
+            ),
+          ),
         ],
       ),
     );

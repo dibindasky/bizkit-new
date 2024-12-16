@@ -479,21 +479,25 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                     } else if (controller.filteredInnerFolders.isEmpty &&
                         controller.tasksInsideFolder.isEmpty) {
                       return Expanded(
-                        child: ErrorRefreshIndicator(
-                          image: emptyNodata2,
-                          errorMessage: 'No folders or tasks available',
-                          onRefresh: () {
-                            controller.fetchTasksInsideFolder(
-                                taskInsideFolder:
-                                    GetTaskInsideAFolderParamsModel(
-                              folderId: folderId ?? '',
-                            ));
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ErrorRefreshIndicator(
+                            image: emptyNodata2,
+                            errorMessage: 'No folders or tasks not available',
+                            onRefresh: () {
+                              controller.fetchTasksInsideFolder(
+                                  taskInsideFolder:
+                                      GetTaskInsideAFolderParamsModel(
+                                folderId: folderId ?? '',
+                              ));
 
-                            controller.filterInnerFolderByDeadline(
-                                filterInnerFolder: FilterInnerFolderModel(
-                                    folderId: folderId ?? '',
-                                    filterDate: controller.deadlineDate.value));
-                          },
+                              controller.filterInnerFolderByDeadline(
+                                  filterInnerFolder: FilterInnerFolderModel(
+                                      folderId: folderId ?? '',
+                                      filterDate:
+                                          controller.deadlineDate.value));
+                            },
+                          ),
                         ),
                       );
                     } else {

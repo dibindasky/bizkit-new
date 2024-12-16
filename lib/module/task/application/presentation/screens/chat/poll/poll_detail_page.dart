@@ -2,6 +2,7 @@ import 'package:bizkit/module/task/application/controller/chat/chat_controller.d
 import 'package:bizkit/utils/widgets/appbar.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/widgets/popup_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,52 +14,59 @@ class ScreenPollDetailTask extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<ChatController>();
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const CardAppbarCommen(tittle: 'Poll Details'),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: SafeArea( 
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+             Row(
                 children: [
-                  Text(
-                    'Poll Question',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(fontSize: 15, color: neonShade),
-                  ),
-                  Obx(() {
-                    return Text(
-                      controller.pollDetail.value.pollQuestion ?? '',
+                 const PopupBackButton(),
+                  Text('Poll Details',style:  Theme.of(context).textTheme.titleLarge),
+                ],
+              ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Poll Question',
                       style: Theme.of(context)
                           .textTheme
                           .displaySmall
-                          ?.copyWith(fontSize: 13),
-                    );
-                  }),
-                  adjustHieght(10.h),
-                  Expanded(
-                    child: Obx(() {
-                      return ListView.separated(
-                          padding: EdgeInsets.zero,
-                          itemBuilder: (context, index) => PollDetailAnswerTile(
-                                index: index,
-                              ),
-                          separatorBuilder: (context, index) =>
-                              adjustHieght(5.h),
-                          itemCount:
-                              controller.pollDetail.value.pollAnswers?.length ??
-                                  0);
+                          ?.copyWith(fontSize: 15, color: neonShade),
+                    ),
+                    Obx(() {
+                      return Text(
+                        controller.pollDetail.value.pollQuestion ?? '',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall
+                            ?.copyWith(fontSize: 13),
+                      );
                     }),
-                  )
-                ],
+                    adjustHieght(10.h),
+                    Expanded(
+                      child: Obx(() {
+                        return ListView.separated(
+                            padding: EdgeInsets.zero,
+                            itemBuilder: (context, index) => PollDetailAnswerTile(
+                                  index: index,
+                                ),
+                            separatorBuilder: (context, index) =>
+                                adjustHieght(5.h),
+                            itemCount:
+                                controller.pollDetail.value.pollAnswers?.length ??
+                                    0);
+                      }),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

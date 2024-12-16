@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -92,7 +94,7 @@ class AudioPlayerHandler {
       // Listen to the total duration of the audio
       _durationSubscription = audioPlayer.durationStream.listen((duration) {
         totalDuration = duration;
-        print("Total Duration: $totalDuration");
+        log("Total Duration: $totalDuration");
       });
 
       // Listen to the current position of the audio while playing
@@ -111,7 +113,7 @@ class AudioPlayerHandler {
       await audioPlayer.play();
       return true;
     } catch (e) {
-      print("Error playing audio: $e");
+      log("Error playing audio: $e");
       return false;
     }
   }
@@ -121,7 +123,7 @@ class AudioPlayerHandler {
     try {
       audioPlayer.pause();
     } catch (e) {
-      print('Error while pausing audio: $e');
+      log('Error while pausing audio: $e');
     }
   }
 
@@ -130,7 +132,7 @@ class AudioPlayerHandler {
     try {
       audioPlayer.stop();
     } catch (e) {
-      print('Error while stopping audio: $e');
+      log('Error while stopping audio: $e');
     }
   }
 
@@ -139,7 +141,7 @@ class AudioPlayerHandler {
     try {
       audioPlayer.play();
     } catch (e) {
-      print('Error while resuming audio: $e');
+      log('Error while resuming audio: $e');
     }
   }
 

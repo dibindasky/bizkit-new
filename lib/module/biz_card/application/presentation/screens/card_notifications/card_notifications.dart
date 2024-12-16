@@ -82,14 +82,6 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
                     itemCount:
                         notificationController.bizcardNotifications.length,
                     itemBuilder: (context, index) {
-                      final DateTime? createdAtDateTime = notificationController
-                                  .bizcardNotifications[index].createdAt !=
-                              null
-                          ? DateTime.parse(notificationController
-                                  .bizcardNotifications[index].createdAt ??
-                              '')
-                          : null;
-
                       // log('notification length ${!state.notificationLoading && state.notification!.length <= index}=>$index ${state.notification!.length}');
                       // final notification = state.notification![index];
 
@@ -168,19 +160,17 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
                                             "",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .displaySmall,
+                                            .displaySmall
+                                            ?.copyWith(fontSize: 13),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                     Text(
-                                      createdAtDateTime != null
-                                          // ? DateTimeFormater.timeAgo(createdAtDateTime)
-                                          ? DateTimeFormater.formatTimeAMPM(
-                                              notificationController
-                                                  .bizcardNotifications[index]
-                                                  .createdAt)
-                                          : 'Unknown time',
+                                      DateTimeFormater.formatTimeAMPM(
+                                          notificationController
+                                              .bizcardNotifications[index]
+                                              .createdAt),
                                       style: Theme.of(context)
                                           .textTheme
                                           .displaySmall
@@ -197,7 +187,7 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .displaySmall
-                                      ?.copyWith(fontSize: 14),
+                                      ?.copyWith(fontSize: 12),
                                 ),
                                 adjustHieght(7.h),
                                 Text(

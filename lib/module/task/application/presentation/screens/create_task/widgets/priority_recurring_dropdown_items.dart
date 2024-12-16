@@ -9,7 +9,7 @@ class PriorityRecurringDropDownItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String priority = 'Medium';
-    String recurring = 'No';
+    // String recurring = 'No';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -19,12 +19,12 @@ class PriorityRecurringDropDownItems extends StatelessWidget {
             value: priority,
             items: const <String>['Low', 'Medium', 'High'],
             onChanged: (newValue) {}),
-        adjustHieght(10.h),
-        CustomDropDown(
-            label: 'Recurring',
-            value: recurring,
-            items: const <String>['No', 'Yes'],
-            onChanged: (newValue) {}),
+        adjustHieght(0.h),
+        // CustomDropDown(
+        //     label: 'Recurring',
+        //     value: recurring,
+        //     items: const <String>['No', 'Yes'],
+        //     onChanged: (newValue) {}),
       ],
     );
   }

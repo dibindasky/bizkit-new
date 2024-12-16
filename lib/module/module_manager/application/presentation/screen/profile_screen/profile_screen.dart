@@ -89,12 +89,26 @@ class ProfileScreen extends StatelessWidget {
                     child: Obx(() => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              profileController.name.value,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            Text(profileController.email.value,
-                                style: Theme.of(context).textTheme.titleSmall)
+                            profileController.isLoadingName.value
+                                ? Column(
+                                    children: [
+                                      ShimmerLoaderTile(
+                                        width: 100.w,
+                                        height: 15.h,
+                                      ),
+                                      kHeight10
+                                    ],
+                                  )
+                                : Text(
+                                    profileController.name.value,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                            profileController.isLoadingEmail.value
+                                ? ShimmerLoaderTile(width: 100.w, height: 12.h)
+                                : Text(profileController.email.value,
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall)
                           ],
                         )),
                   )

@@ -3,6 +3,7 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/pro
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/show_dailogue.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +126,7 @@ class ScreenProfileEdit extends StatelessWidget {
             }),
             kHeight50,
             Obx(() {
-              return CustomTextFormField(
+              return controller.isLoadingName.value?ShimmerLoaderTile(width: double.infinity,height: 35.h): CustomTextFormField(
                 labelText: 'Name',
                 controller: controller.userName,
                 onChanaged: (value) {
@@ -154,7 +155,7 @@ class ScreenProfileEdit extends StatelessWidget {
             Obx(() {
               return Form(
                 key: controller.mailKey,
-                child: CustomTextFormField(
+                child:controller.isLoadingEmail.value?ShimmerLoaderTile(width: double.infinity,height: 35.h): CustomTextFormField(
                     inputType: TextInputType.emailAddress,
                     validate: Validate.email,
                     labelText: 'Email',
@@ -184,7 +185,7 @@ class ScreenProfileEdit extends StatelessWidget {
             Obx(() {
               return Form(
                 key: controller.phoneKey,
-                child: CustomTextFormField(
+                child:controller.isLoadingPhone.value?ShimmerLoaderTile(width: double.infinity,height: 35.h): CustomTextFormField(
                   inputType: TextInputType.number,
                   validate: Validate.phone,
                   labelText: 'Phone',

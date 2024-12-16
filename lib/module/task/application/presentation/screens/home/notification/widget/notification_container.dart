@@ -14,7 +14,7 @@ class NotificationCard extends StatelessWidget {
   const NotificationCard({
     super.key,
     this.title,
-    this.description,
+    this.message,
     this.assignedUsers,
     this.createdAt,
     this.taskId,
@@ -23,7 +23,7 @@ class NotificationCard extends StatelessWidget {
 
   final String? title;
   final String? taskId;
-  final String? description;
+  final String? message;
   final List<AssignedUser>? assignedUsers;
   final String? createdAt;
   final String? notificationId;
@@ -32,8 +32,6 @@ class NotificationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
     final taskNotification = Get.find<MessageCountController>();
-    final DateTime? createdAtDateTime =
-        createdAt != null ? DateTime.parse(createdAt!) : null;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
@@ -56,15 +54,11 @@ class NotificationCard extends StatelessWidget {
           },
           child: Card(
             elevation: 0,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              decoration: BoxDecoration(
-                borderRadius: kBorderRadius15,
-              ),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
               child: Row(
                 children: [
-                  SizedBox(
-                    width: kwidth * .7,
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -72,55 +66,45 @@ class NotificationCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const CircleAvatar(
-                              backgroundColor: kred,
+                              backgroundColor: kblue,
                               radius: 6.0,
                             ),
                             adjustWidth(8),
                             Expanded(
                               child: Text(
-                                title ?? ' ',
+                                title ?? '',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .displayMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    .displaySmall
+                                    ?.copyWith(fontSize: 14),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Text(
-                              createdAtDateTime != null
-                                  // ? DateTimeFormater.timeAgo(createdAtDateTime)
-                                  ? DateTimeFormater.formatTimeAMPM(createdAt)
-                                  : 'Unknown time',
-                              style: Theme.of(context).textTheme.displaySmall,
+                              DateTimeFormater.formatTimeAMPM(createdAt),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.copyWith(color: kGreyNormal),
                             ),
                           ],
                         ),
+                        adjustHieght(5),
+                        Text(message ?? '',
+                            maxLines: 2,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(fontSize: 11)),
                         adjustHieght(4),
                         Text(
-                          description ?? ' ',
-                          maxLines: 2,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
+                          'Click to get more information',
                           style: Theme.of(context)
                               .textTheme
                               .displaySmall
-                              ?.copyWith(fontSize: 10, color: kgrey),
-                        ),
-                        adjustHieght(4),
-                        Text(
-                          assignedUsers != null && assignedUsers!.isNotEmpty
-                              ? 'New project task assigned to ${assignedUsers!.map((user) => user.name).join(", ")}'
-                              : 'No users assigned',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall
-                              ?.copyWith(
-                                fontWeight: FontWeight.w500,
-                              ),
+                              ?.copyWith(color: kGreyNormal, fontSize: 10),
                         ),
                       ],
                     ),

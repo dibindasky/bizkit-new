@@ -1,3 +1,4 @@
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -30,7 +31,7 @@ class TaskFolderSection extends StatelessWidget {
 
   final controller = Get.find<TaskCalenderViewController>();
   final taskcontroller = Get.find<CreateTaskController>();
-
+  final internetConnectinController = Get.find<InternetConnectionController>();
   final folderController = Get.find<TaskFolderController>();
   @override
   Widget build(BuildContext context) {
@@ -89,6 +90,8 @@ class TaskFolderSection extends StatelessWidget {
           ],
         ),
         trailing: PopupMenuButton<String>(
+          position: PopupMenuPosition.under,
+          enabled: internetConnectinController.isConnectedToInternet.value,
           onSelected: (value) {
             if (value == 'Add New Task to Folder') {
               taskcontroller.searchTasks();

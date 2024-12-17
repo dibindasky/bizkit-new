@@ -477,6 +477,7 @@ class TaskFolderController extends GetxController {
     InnerFolderTasksGetParamsModel innerFolderGetParams,
   ) async {
     getFoldersLoading.value = true;
+
     final result = await folderService.getTasksInsideAInnerFolder(
         innerFolderGetParams: innerFolderGetParams);
     result.fold(

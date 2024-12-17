@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_container.dart';
@@ -22,7 +23,8 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final folderController = Get.find<TaskFolderController>();
     final taskController = Get.find<CreateTaskController>();
-
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return Obx(
       () => Scaffold(
         body: SafeArea(
@@ -67,6 +69,22 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                     ),
                   ),
                 )
+              else if (!internetConnectinController
+                      .isConnectedToInternet.value &&
+                  folderController.tasksInsideInnerFolder.isEmpty)
+                Expanded(
+                    child: SizedBox(
+                        width: 300.w,
+                        child: InternetConnectionLostWidget(
+                          onTap: () {
+                            folderController.fetchAllTasksInsideAInnerFolder(
+                              InnerFolderTasksGetParamsModel(
+                                folderId: arguments?['folderId'],
+                                innerFolderId: arguments?['innerFolderId'],
+                              ),
+                            );
+                          },
+                        )))
               else if (folderController.tasksInsideInnerFolder.isEmpty)
                 Expanded(
                   child: Padding(
@@ -74,7 +92,7 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                     child: ErrorRefreshIndicator(
                       image: emptyNodata2,
                       errorMessage:
-                          '${arguments?['innerFolderName']} folder have no tasks',
+                          'The folder "${arguments?['innerFolderName']}" has no tasks yet!',
                       onRefresh: () {
                         folderController.fetchAllTasksInsideAInnerFolder(
                           InnerFolderTasksGetParamsModel(

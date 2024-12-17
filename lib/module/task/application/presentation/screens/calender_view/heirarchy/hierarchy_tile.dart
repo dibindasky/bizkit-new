@@ -26,6 +26,7 @@ import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
@@ -269,13 +270,10 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                     .isConnectedToInternet.value) {
                                   showInnerFolderDialog();
                                 } else {
-                                  showSnackbar(
-                                    context,
-                                    message:
-                                        'You must be online to create a new inner folder. Please check your internet connection.',
-                                    backgroundColor: kred,
-                                    textColor: kwhite,
-                                  );
+                                  showCustomToast(
+                                      message:
+                                          'You must be online to create a new inner folder. Please check your internet connection.',
+                                      backgroundColor: kred);
                                 }
                               },
                               child: Container(
@@ -430,32 +428,45 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                         ),
                 ),
                 adjustHieght(10),
-                Obx(() => Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: controller.isLoading.value
-                          ? Row(
-                              children: [
-                                Text('Processing',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall
-                                        ?.copyWith(fontSize: 10)),
-                                kWidth10,
-                                const SizedBox(
-                                  width: 12,
-                                  height: 12,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 3,
-                                  ),
-                                )
-                              ],
-                            )
-                          : const SizedBox(),
-                    )),
+                Obx(() {
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: controller.isLoading.value
+                        ? Row(
+                            children: [
+                              Text('Processing',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(fontSize: 10)),
+                              kWidth10,
+                              const SizedBox(
+                                width: 12,
+                                height: 12,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            ],
+                          )
+                        : const SizedBox(),
+                  );
+                }),
                 Obx(
                   () {
+                    if (controller.getFoldersLoading.value) {
+                      return const Expanded(
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3,
+                          ),
+                        ),
+                      );
+                    }
                     if (!internetConnectinController
-                        .isConnectedToInternet.value) {
+                            .isConnectedToInternet.value &&
+                        (controller.filteredInnerFolders.isEmpty &&
+                            controller.tasksInsideFolder.isEmpty)) {
                       return Expanded(
                         child: SizedBox(
                           width: 300.w,
@@ -483,7 +494,7 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: ErrorRefreshIndicator(
                             image: emptyNodata2,
-                            errorMessage: 'No folders or tasks not available',
+                            errorMessage: 'No folders or tasks found!',
                             onRefresh: () {
                               controller.fetchTasksInsideFolder(
                                   taskInsideFolder:
@@ -625,6 +636,12 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                 ),
                                                 trailing:
                                                     PopupMenuButton<String>(
+                                                  position:
+                                                      PopupMenuPosition.under,
+                                                  enabled:
+                                                      internetConnectinController
+                                                          .isConnectedToInternet
+                                                          .value,
                                                   onSelected: (value) {
                                                     if (value ==
                                                         'Add New Task to Folder') {

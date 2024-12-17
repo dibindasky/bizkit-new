@@ -8,6 +8,7 @@ import 'package:bizkit/module/task/application/presentation/screens/calender_vie
 import 'package:bizkit/module/task/domain/model/folders/inner_folder/merge_inner_folder_model/merge_inner_folder_model.dart';
 import 'package:bizkit/module/task/domain/model/folders/merge_folder_model/merge_folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -268,25 +269,30 @@ class TaskLongPressAppBarItems extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            GestureDetector(
-              onTap: () {
-                if (mergeInnerFolder == true) {
-                  _showMergeInnerFoldersDialog(context);
-                } else {
-                  _showMergeFoldersDialog(context);
-                }
-              },
-              child: Container(
-                width: 45.w,
-                height: 45.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: klightgrey),
-                  color: Theme.of(context).colorScheme.onTertiary,
-                ),
-                child: const Icon(Iconsax.export_3),
-              ),
-            ),
+            Obx(() => ((mergeInnerFolder == false &&
+                        controller.selectedIndices.length > 1) ||
+                    (mergeInnerFolder == true &&
+                        folderController.selectedInnerFolderIds.length > 1))
+                ? GestureDetector(
+                    onTap: () {
+                      if (mergeInnerFolder == true) {
+                        _showMergeInnerFoldersDialog(context);
+                      } else {
+                        _showMergeFoldersDialog(context);
+                      }
+                    },
+                    child: Container(
+                      width: 45.w,
+                      height: 45.h,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: klightgrey),
+                        color: Theme.of(context).colorScheme.onTertiary,
+                      ),
+                      child: const Icon(Iconsax.export_3),
+                    ),
+                  )
+                : kempty),
             // adjustWidth(22.w),
             // InkWell(
             //   onTap: () {

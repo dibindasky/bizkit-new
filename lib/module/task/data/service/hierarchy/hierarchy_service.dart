@@ -48,6 +48,13 @@ class HierarchyService implements HierarchyRepo {
       return Right(EmployeesListResponce.fromJson(response.data));
     } on DioException catch (e) {
       log('DioException getEmployeeslist $e');
+      if (e.response?.statusCode == 403) {
+        return Left(Failure(
+            message: ((e.response?.data as Map<String, dynamic>?)?['error']
+                    as String?) ??
+                errorMessage,
+            data: 403));
+      }
       return Left(Failure(message: e.message ?? errorMessage));
     } catch (e) {
       log('catch getEmployeeslist $e');

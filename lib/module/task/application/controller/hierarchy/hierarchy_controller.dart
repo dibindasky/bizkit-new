@@ -27,6 +27,8 @@ class HierarchyController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool filterTasksLoadMoreLoading = false.obs;
 
+  RxString heirarchyErrorMsg = ''.obs;
+
   RxList<String> employeesKeys = <String>[].obs;
   RxMap<String, Counts> tasksCounts = <String, Counts>{}.obs;
   RxList<Employee> employees = <Employee>[].obs;
@@ -91,12 +93,17 @@ class HierarchyController extends GetxController {
 
   void fetchEmployeesList() async {
     empolyeesListLoading.value = true;
-
+    employees.value = [];
+    heirarchyErrorMsg.value = '';
     final result = await hirerachyService.getEmployeeslist();
 
     result.fold(
       (failure) {
         log(failure.message.toString());
+        if (failure.data == 403) {
+          heirarchyErrorMsg.value =
+              failure.message ?? 'Permission denied to access this feature';
+        }
         empolyeesListLoading.value = false;
       },
       (success) {

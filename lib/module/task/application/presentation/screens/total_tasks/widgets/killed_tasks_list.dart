@@ -1,3 +1,4 @@
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/task/kill_a_task_model/kill_a_task_model.dart';
@@ -17,6 +18,8 @@ class KilledTasksListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
     final homeController = Get.find<TaskHomeScreenController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return Obx(
       () {
         if (taskController.filterByTypeLoading.value) {
@@ -28,6 +31,16 @@ class KilledTasksListView extends StatelessWidget {
               width: double.infinity,
             ),
           );
+        } else if (!internetConnectinController.isConnectedToInternet.value &&
+            taskController.killedTasks.isEmpty) {
+          return Expanded(
+              child: SizedBox(
+                  width: 300.w,
+                  child: InternetConnectionLostWidget(
+                    onTap: () {
+                      taskController.fetchAllKilledTasks();
+                    },
+                  )));
         } else if (taskController.killedTasks.isEmpty) {
           return ErrorRefreshIndicator(
             image: emptyNodata2,

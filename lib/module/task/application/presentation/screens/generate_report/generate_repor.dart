@@ -139,86 +139,85 @@ class _ScreenTaskReportGeneratorState extends State<ScreenTaskReportGenerator> {
         () => SizedBox(
           width: double.infinity,
           height: khieght * 0.6,
-          child: controller.loadingForGetReports.value
-              ? const Center(child: CircularProgressIndicator())
-              : ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  children: [
-                    Text(
-                      'Get report for your tasks',
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                            fontSize: 18,
-                            color: kneonDark,
-                          ),
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            children: [
+              Text(
+                'Get report for your tasks',
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                      fontSize: 18,
+                      color: kneonDark,
                     ),
-                    adjustHieght(8.h),
-                    Text(
-                      'Identify the problem which is affecting the task progress by getting a detailed report',
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                            color: kGreyNormal,
-                          ),
+              ),
+              adjustHieght(8.h),
+              Text(
+                'Identify the problem which is affecting the task progress by getting a detailed report',
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                      color: kGreyNormal,
                     ),
-                    adjustHieght(16.h),
-                    _buildCheckboxRow(
-                        'Select the reports you want to generate', [
-                      _buildCheckbox('Others to self', 'Others to self',
-                          selectedOptionCategory, _handleCategoryChange),
-                      _buildCheckbox('Self to others', 'Self to others',
-                          selectedOptionCategory, _handleCategoryChange),
-                      _buildCheckbox('Self to self', 'Self to self',
-                          selectedOptionCategory, _handleCategoryChange),
-                    ]),
-                    _buildCheckboxRow('Select the Task type', [
-                      _buildCheckbox('Personal', 'Personal', selectedTaskType,
-                          _handleTaskTypeChange),
-                      _buildCheckbox('Official', 'Official', selectedTaskType,
-                          _handleTaskTypeChange),
-                      _buildCheckbox('Others', 'Others', selectedTaskType,
-                          _handleTaskTypeChange),
-                    ]),
-                    _buildCheckboxRow('Select the Priority type', [
-                      _buildCheckbox('High', 'High', selectedPriorityType,
-                          _handlePriorityTypeChange),
-                      _buildCheckbox('Medium', 'Medium', selectedPriorityType,
-                          _handlePriorityTypeChange),
-                      _buildCheckbox('Low', 'Low', selectedPriorityType,
-                          _handlePriorityTypeChange),
-                    ]),
-                    adjustHieght(16.h),
-                    adjustHieght(8.h),
-                    TaskTextField(
-                      onTapOutside: () => FocusScope.of(context).unfocus(),
-                      onChanged: (value) {
-                        taskController.searchTasks();
-                      },
-                      controller: taskController.taskSearchController,
-                      hintText: 'Search with title , des , type etc..',
-                      showBorder: true,
-                      fillColor: textFieldFillColr,
-                      suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon:
-                            const Icon(Iconsax.search_status, color: kneonDark),
-                      ),
-                    ),
-                    adjustHieght(10.h),
-                    DateContainer(
-                      isFromDate: false,
-                      title: 'Select date range',
-                    ),
-                    // GenerateReportDropDownButton(),
-                    adjustHieght(20.h),
-                    Center(
-                      child: EventButton(
-                        color: neonNewLinearGradient,
-                        width: kwidth * 98,
-                        text: 'Get Report',
-                        onTap: _getReport,
-                      ),
-                    ),
-                    adjustHieght(10.h),
-                  ],
+              ),
+              adjustHieght(16.h),
+              _buildCheckboxRow('Select the reports you want to generate', [
+                _buildCheckbox('Others to self', 'Others to self',
+                    selectedOptionCategory, _handleCategoryChange),
+                _buildCheckbox('Self to others', 'Self to others',
+                    selectedOptionCategory, _handleCategoryChange),
+                _buildCheckbox('Self to self', 'Self to self',
+                    selectedOptionCategory, _handleCategoryChange),
+              ]),
+              _buildCheckboxRow('Select the Task type', [
+                _buildCheckbox('Personal', 'Personal', selectedTaskType,
+                    _handleTaskTypeChange),
+                _buildCheckbox('Official', 'Official', selectedTaskType,
+                    _handleTaskTypeChange),
+                _buildCheckbox('Others', 'Others', selectedTaskType,
+                    _handleTaskTypeChange),
+              ]),
+              _buildCheckboxRow('Select the Priority type', [
+                _buildCheckbox('High', 'High', selectedPriorityType,
+                    _handlePriorityTypeChange),
+                _buildCheckbox('Medium', 'Medium', selectedPriorityType,
+                    _handlePriorityTypeChange),
+                _buildCheckbox('Low', 'Low', selectedPriorityType,
+                    _handlePriorityTypeChange),
+              ]),
+              adjustHieght(16.h),
+              adjustHieght(8.h),
+              TaskTextField(
+                onTapOutside: () => FocusScope.of(context).unfocus(),
+                onChanged: (value) {
+                  taskController.searchTasks();
+                },
+                controller: taskController.taskSearchController,
+                hintText: 'Search with title , des , type etc..',
+                showBorder: true,
+                fillColor: textFieldFillColr,
+                suffixIcon: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Iconsax.search_status, color: kneonDark),
                 ),
+              ),
+              adjustHieght(10.h),
+              DateContainer(
+                isFromDate: false,
+                title: 'Select date range',
+              ),
+              // GenerateReportDropDownButton(),
+              adjustHieght(20.h),
+              Center(
+                child: EventButton(
+                  color: neonNewLinearGradient,
+                  width: kwidth * 98,
+                  text: controller.loadingForGetReports.value
+                      ? 'Loading...'
+                      : 'Get Report',
+                  onTap: _getReport,
+                  textColr: kwhite,
+                ),
+              ),
+              adjustHieght(10.h),
+            ],
+          ),
         ),
       ),
     );

@@ -222,17 +222,6 @@ class TotalTasksScreen extends StatelessWidget {
               Expanded(
                 child: Obx(
                   () {
-                    if (!internetConnectinController
-                        .isConnectedToInternet.value) {
-                      return InternetConnectionLostWidget(
-                        onTap: () {
-                          if (fromHeirarachy == true) {
-                          } else {
-                            taskController.filterByType();
-                          }
-                        },
-                      );
-                    }
                     if (fromHeirarachy == true
                         ? hierarchyController.isLoading.value
                         : taskController.filterByTypeLoading.value) {
@@ -245,16 +234,46 @@ class TotalTasksScreen extends StatelessWidget {
                           width: double.infinity,
                         ),
                       );
+                    } else if (!internetConnectinController
+                            .isConnectedToInternet.value &&
+                        (fromHeirarachy == true
+                            ? hierarchyController.filterTasks.isEmpty
+                            : taskController.typeTasks.isEmpty)) {
+                      return InternetConnectionLostWidget(
+                        onTap: () {
+                          if (fromHeirarachy == true) {
+                            hierarchyController.filterTasksByType(
+                                targetUserId: targetUserId ?? '');
+                          } else {
+                            if (homeController.taskCategory.value !=
+                                    'Completed Tasks' ||
+                                homeController.taskCategory.value !=
+                                    'Killed Tasks') {
+                              taskController.filterByType();
+                              taskController.filterPinnedTasksByType();
+                            }
+                          }
+                        },
+                      );
                     } else if (fromHeirarachy == true
                         ? hierarchyController.filterTasks.isEmpty
                         : taskController.typeTasks.isEmpty) {
                       return ErrorRefreshIndicator(
                         image: emptyNodata2,
-                        errorMessage: 'No Tasks',
+                        errorMessage:
+                            'No ${homeController.taskCategory} tasks !',
                         onRefresh: () {
                           if (fromHeirarachy == true) {
+                            hierarchyController.filterTasksByType(
+                                targetUserId: targetUserId ?? '');
                           } else {
-                            taskController.filterByType();
+                            if (homeController.taskCategory.value !=
+                                    'Completed Tasks' ||
+                                homeController.taskCategory.value !=
+                                    'Killed Tasks') {
+                              taskController.filterByType();
+                              taskController.filterPinnedTasksByType();
+                            }
                           }
                         },
                       );
@@ -265,7 +284,13 @@ class TotalTasksScreen extends StatelessWidget {
                             hierarchyController.filterTasksByType(
                                 targetUserId: targetUserId ?? '');
                           } else {
-                            taskController.filterByType();
+                            if (homeController.taskCategory.value !=
+                                    'Completed Tasks' ||
+                                homeController.taskCategory.value !=
+                                    'Killed Tasks') {
+                              taskController.filterByType();
+                              taskController.filterPinnedTasksByType();
+                            }
                           }
                         },
                         child: homeController.taskCategory.value ==

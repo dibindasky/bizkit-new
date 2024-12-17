@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
@@ -34,25 +35,43 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
           if (hierarchyController.empolyeesListLoading.value) {
             return const Expanded(
               child: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
+                ),
               ),
             );
+          } else if (!internetConnectinController.isConnectedToInternet.value &&
+              hierarchyController.employees.isEmpty) {
+            return Expanded(
+                child: SizedBox(
+                    width: 300.w,
+                    child: InternetConnectionLostWidget(
+                      onTap: () {
+                        taskFolderController.filterFoldersByDeadline(
+                            filterFolder: FilterFolderByDeadlineModel(
+                          filterDate: taskFolderController.deadlineDate.value,
+                        ));
+                      },
+                    )));
           } else {
             return Expanded(
               child: ListView.builder(
                 padding: EdgeInsets.symmetric(horizontal: 14.0.h),
                 itemCount: hierarchyController.employees.length,
                 itemBuilder: (context, index) {
-                  return Obx(() => HierarchyListtile(
-                        tasksCounts:
-                            hierarchyController.tasksCountsLoading.value
-                                ? Counts()
-                                : hierarchyController.tasksCounts[
-                                        hierarchyController
-                                                .employees[index].userId ??
-                                            ''] ??
-                                    Counts(),
-                        employee: hierarchyController.employees[index],
+                  return Obx(() => FadeInLeft(
+                        animate: true,
+                        child: HierarchyListtile(
+                          tasksCounts:
+                              hierarchyController.tasksCountsLoading.value
+                                  ? Counts()
+                                  : hierarchyController.tasksCounts[
+                                          hierarchyController
+                                                  .employees[index].userId ??
+                                              ''] ??
+                                      Counts(),
+                          employee: hierarchyController.employees[index],
+                        ),
                       ));
                 },
               ),
@@ -154,14 +173,17 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                                     taskFolderController.deadlineDate.value));
                       }
                     },
-                    child: TaskFolderSection(
-                      folderId: taskFolderController
-                              .filteredFoldersByDeadline[index].folderId ??
-                          '',
-                      name: taskFolderController
-                              .filteredFoldersByDeadline[index].folderName ??
-                          '',
-                      index: index,
+                    child: FadeIn(
+                      animate: true,
+                      child: TaskFolderSection(
+                        folderId: taskFolderController
+                                .filteredFoldersByDeadline[index].folderId ??
+                            '',
+                        name: taskFolderController
+                                .filteredFoldersByDeadline[index].folderName ??
+                            '',
+                        index: index,
+                      ),
                     ),
                   );
                 },

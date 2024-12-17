@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
@@ -142,16 +143,19 @@ class TaskInsideTheInnerFolderScreen extends StatelessWidget {
                                 },
                               );
                             },
-                            child: TaskContainer(
-                              fromInnerfolder: true,
-                              fromFolders: true,
-                              tasksFromInnerFolder: true,
-                              folderId: arguments?['folderId'],
-                              innerFolderId: arguments?['innerFolderId'],
-                              isInnerFolderTask: true,
-                              index: index,
-                              tasksInsideInnerFolder: folderController
-                                  .tasksInsideInnerFolder[index],
+                            child: FadeIn(
+                              animate: true,
+                              child: TaskContainer(
+                                fromInnerfolder: true,
+                                fromFolders: true,
+                                tasksFromInnerFolder: true,
+                                folderId: arguments?['folderId'],
+                                innerFolderId: arguments?['innerFolderId'],
+                                isInnerFolderTask: true,
+                                index: index,
+                                tasksInsideInnerFolder: folderController
+                                    .tasksInsideInnerFolder[index],
+                              ),
                             ),
                           ),
                         );

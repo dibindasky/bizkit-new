@@ -52,16 +52,16 @@ class QuickTaskReceivedReqScreen extends StatelessWidget {
             Expanded(
               child: Obx(
                 () {
-                  if (!internetConnectinController
-                      .isConnectedToInternet.value) {
+                  if (taskController.loadingForQuickTaskReceivedReq.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (!internetConnectinController
+                          .isConnectedToInternet.value &&
+                      taskController.receivedQuickTasksReqs.isEmpty) {
                     return InternetConnectionLostWidget(
                       onTap: () {
                         taskController.fetchQuickTaskRequests();
                       },
                     );
-                  }
-                  if (taskController.loadingForQuickTaskReceivedReq.value) {
-                    return const Center(child: CircularProgressIndicator());
                   } else if (taskController.receivedQuickTasksReqs.isEmpty) {
                     return ErrorRefreshIndicator(
                       image: emptyNodata2,
@@ -291,7 +291,7 @@ class QuickTaskReceivedReqScreen extends StatelessWidget {
                                           } else {
                                             showCustomToast(
                                               message:
-                                                  'You must be online to decline this task. Please check your internet connection.',
+                                                  'You must be online to rejected this task. Please check your internet connection.',
                                               backgroundColor: kred,
                                             );
                                           }

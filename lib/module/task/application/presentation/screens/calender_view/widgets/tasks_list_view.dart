@@ -135,17 +135,29 @@ class _TaskListViewState extends State<TaskListView> {
     return GestureDetector(
       // onLongPress: () => controller.longPress(index),
       onTap: () => _handleTaskTap(task, index),
-      child: FadeIn(
-        animate: true,
-        child: TaskContainer(
-          tasksFromTasksList: true,
-          fromFolders: false,
-          tasksFromFoldrs: false,
-          tasksFromInnerFolder: false,
-          typeTask: task,
-          index: index,
-        ),
-      ),
+      child: !taskController.getNetworkLoading.value
+          ? FadeInUp(
+              animate: true,
+              child: TaskContainer(
+                tasksFromTasksList: true,
+                fromFolders: false,
+                tasksFromFoldrs: false,
+                tasksFromInnerFolder: false,
+                typeTask: task,
+                index: index,
+              ),
+            )
+          : FadeIn(
+              animate: true,
+              child: TaskContainer(
+                tasksFromTasksList: true,
+                fromFolders: false,
+                tasksFromFoldrs: false,
+                tasksFromInnerFolder: false,
+                typeTask: task,
+                index: index,
+              ),
+            ),
     );
   }
 

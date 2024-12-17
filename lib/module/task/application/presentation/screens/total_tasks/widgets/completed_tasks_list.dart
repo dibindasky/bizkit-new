@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -16,6 +17,8 @@ class CompletedTasksListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     final taskController = Get.find<CreateTaskController>();
     return Obx(
       () {
@@ -28,6 +31,16 @@ class CompletedTasksListView extends StatelessWidget {
               width: double.infinity,
             ),
           );
+        } else if (!internetConnectinController.isConnectedToInternet.value &&
+            taskController.completedTasks.isEmpty) {
+          return Expanded(
+              child: SizedBox(
+                  width: 300.w,
+                  child: InternetConnectionLostWidget(
+                    onTap: () {
+                      taskController.fetchAllCompletedTasks();
+                    },
+                  )));
         } else if (taskController.completedTasks.isEmpty) {
           return ErrorRefreshIndicator(
             image: emptyNodata2,

@@ -1,3 +1,4 @@
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/send_and_received_req/req_sent_notification_screen.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -11,11 +12,11 @@ class RequestSentBuilder extends StatelessWidget {
   RequestSentBuilder({super.key});
 
   final taskController = Get.find<CreateTaskController>();
-
+  final internetConnectinController = Get.find<InternetConnectionController>();
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 15.h, right: 15.h, top: 10.h),
+      padding: EdgeInsets.only(left: 10.h, right: 10.h, top: 10.h),
       child: RefreshIndicator(
         onRefresh: () async {
           taskController.fetchSendRequests();
@@ -23,15 +24,27 @@ class RequestSentBuilder extends StatelessWidget {
         child: Obx(
           () {
             if (taskController.loadingForSendRequests.value) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
-            if (taskController.sentRequests.isEmpty) {
+              return const Center(
+                  child: CircularProgressIndicator(
+                strokeWidth: 3,
+              ));
+            } else if (!internetConnectinController
+                    .isConnectedToInternet.value &&
+                taskController.sentRequests.isEmpty) {
+              return Expanded(
+                  child: SizedBox(
+                      width: 300.w,
+                      child: InternetConnectionLostWidget(
+                        onTap: () {
+                          taskController.fetchSendRequests();
+                        },
+                      )));
+            } else if (taskController.sentRequests.isEmpty) {
               return ErrorRefreshIndicator(
                 image: emptyNodata2,
-                errorMessage: 'No sent requests available',
+                errorMessage: 'No sent requests',
                 onRefresh: () {
-                  taskController.fetchReceivedRequests();
+                  taskController.fetchSendRequests();
                 },
               );
             }
@@ -40,7 +53,7 @@ class RequestSentBuilder extends StatelessWidget {
                   taskController.fetchSendRequests();
                 },
                 child: ListView.separated(
-                  separatorBuilder: (context, index) => adjustHieght(5),
+                  separatorBuilder: (context, index) => adjustHieght(2),
                   itemCount: taskController.sentRequests.length,
                   itemBuilder: (context, index) {
                     return ReqSentNotificationScreen(

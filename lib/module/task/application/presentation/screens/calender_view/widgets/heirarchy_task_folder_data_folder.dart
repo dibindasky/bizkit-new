@@ -30,11 +30,33 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
+        // heirarchy list
         if (controller.taskTabChangeIndex.value == 0) {
           if (hierarchyController.empolyeesListLoading.value) {
             return const Expanded(
               child: Center(
                 child: CircularProgressIndicator(),
+              ),
+            );
+          } else if (hierarchyController.heirarchyErrorMsg.isNotEmpty) {
+            return Expanded(
+              child: ErrorRefreshIndicator(
+                onRefresh: () {
+                  hierarchyController.fetchEmployeesList();
+                },
+                showTryAgain: false,
+                image: emptyNodata2,
+                errorMessage: hierarchyController.heirarchyErrorMsg.value,
+              ),
+            );
+          } else if (hierarchyController.employees.isEmpty) {
+            return Expanded(
+              child: ErrorRefreshIndicator(
+                onRefresh: () {
+                  hierarchyController.fetchEmployeesList();
+                },
+                image: emptyNodata2,
+                errorMessage: 'No users found',
               ),
             );
           } else {
@@ -59,9 +81,12 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
             );
           }
         }
+        // tasks list sorting
         if (controller.taskTabChangeIndex.value == 1) {
           return const Expanded(child: TaskListView());
-        } else {
+        }
+        // folder list
+        else {
           if (taskFolderController.getFoldersLoading.value) {
             return const Expanded(
               child: Center(

@@ -336,7 +336,13 @@ class TaskFolderController extends GetxController {
 
   void fetchTasksInsideFolder(
       {required GetTaskInsideAFolderParamsModel taskInsideFolder}) async {
+    if (taskInsideFolder.folderId != folderId) {
+      innerFolders.value = [];
+      tasksInsideFolder.value = [];
+      foldername.value = '';
+    }
     getFoldersLoading.value = true;
+    folderId = taskInsideFolder.folderId ?? '';
     final result = await folderService.getTasksInsideFolder(
         taskInsideFolder: taskInsideFolder);
 

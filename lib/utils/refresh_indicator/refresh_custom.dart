@@ -13,12 +13,14 @@ class ErrorRefreshIndicator extends StatelessWidget {
     required this.onRefresh,
     this.errorMessage = 'something went wrong pull to refresh',
     this.image,
+    this.showTryAgain = true,
   });
 
   final VoidCallback onRefresh;
   // final VoidCallback onTap;
   final String errorMessage;
   final bool shrinkWrap;
+  final bool showTryAgain;
   final String? image;
 
   @override
@@ -42,17 +44,20 @@ class ErrorRefreshIndicator extends StatelessWidget {
                 .textTheme
                 .displaySmall
                 ?.copyWith(fontSize: 13),
+            textAlign: TextAlign.center,
           )),
           adjustHieght(15.h),
-          Center(
-            child: EventButton(
-              textColr: Get.isDarkMode ? kblack : kwhite,
-              color: LinearGradient(
-                  colors: Get.isDarkMode ? [kblack, kblack] : [kblack, kblack]),
-              text: 'Try Again',
-              onTap: onRefresh,
+          if (showTryAgain)
+            Center(
+              child: EventButton(
+                textColr: Get.isDarkMode ? kblack : kwhite,
+                color: LinearGradient(
+                    colors:
+                        Get.isDarkMode ? [kblack, kblack] : [kblack, kblack]),
+                text: 'Try Again',
+                onTap: onRefresh,
+              ),
             ),
-          ),
         ],
       ),
     );

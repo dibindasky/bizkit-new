@@ -241,7 +241,7 @@ class _ScreenCardAchivementsState extends State<ScreenCardAchivements> {
                                                           .substring(22)
                                                       : achivement[index]
                                                           .images![0]
-                                                  : personDemoImg),
+                                                  : userProfileDummy),
                                           fit: BoxFit.cover,
                                         ),
                                       ),

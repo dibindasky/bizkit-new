@@ -84,7 +84,7 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
                           //           : imageTestingBase64),
                           // ),
                           backgroundImage:
-                              const AssetImage(chatSectionPersonDummyImg2),
+                              const AssetImage(userProfileDummy),
                           backgroundColor: smallBigGrey,
                         ),
                         adjustHieght(10),

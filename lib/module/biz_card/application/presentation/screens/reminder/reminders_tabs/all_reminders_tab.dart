@@ -120,7 +120,7 @@ class AllRemindersTab extends StatelessWidget {
                                 const CircleAvatar(
                                   radius: 15,
                                   backgroundImage:
-                                      AssetImage(chatSectionPersonDummyImg2),
+                                      AssetImage(userProfileDummy),
                                 )
                               ],
                             ),

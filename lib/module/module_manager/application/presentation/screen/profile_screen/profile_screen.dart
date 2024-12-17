@@ -167,12 +167,12 @@ class ProfileScreen extends StatelessWidget {
                 subtitle: 'Contact,Faq etc',
                 onTap: () {},
               ),
-              ProfileTiles(
-                heading: 'Matcho Meter',
-                onTap: () {
-                  GoRouter.of(context).pushNamed(Routes.machoMeterScreen);
-                },
-              ),
+              // ProfileTiles(
+              //   heading: 'Matcho Meter',
+              //   onTap: () {
+              //     GoRouter.of(context).pushNamed(Routes.machoMeterScreen);
+              //   },
+              // ),
               ProfileTiles(
                 heading: 'Log Out',
                 onTap: () {

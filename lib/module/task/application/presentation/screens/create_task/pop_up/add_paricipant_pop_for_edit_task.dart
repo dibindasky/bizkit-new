@@ -169,7 +169,7 @@ class _AddParticipentForTaskEditBottomSheetState
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
                           leading: const CircleAvatar(
-                            backgroundImage: AssetImage(personDemoImg),
+                            backgroundImage: AssetImage(userProfileDummy),
                           ),
                           title: Text(
                             user.name ?? 'No Name',
@@ -282,7 +282,7 @@ class _AddParticipentForTaskEditBottomSheetState
                           padding: const EdgeInsets.all(8.0),
                           child: ListTile(
                             leading: const CircleAvatar(
-                              backgroundImage: AssetImage(personDemoImg),
+                              backgroundImage: AssetImage(userProfileDummy),
                             ),
                             title: Text(
                               user.name ?? 'No Name',
@@ -403,7 +403,7 @@ class _AddParticipentForTaskEditBottomSheetState
                             padding: const EdgeInsets.all(8.0),
                             child: ListTile(
                               leading: const CircleAvatar(
-                                backgroundImage: AssetImage(personDemoImg),
+                                backgroundImage: AssetImage(userProfileDummy),
                               ),
                               title: Text(
                                 user.name ?? 'No Name',
@@ -640,7 +640,7 @@ class _AddParticipentForQuickTaskEditBottomSheetState
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
                           leading: const CircleAvatar(
-                            backgroundImage: AssetImage(personDemoImg),
+                            backgroundImage: AssetImage(userProfileDummy),
                           ),
                           title: Text(
                             user.name ?? 'No Name',
@@ -752,7 +752,7 @@ class _AddParticipentForQuickTaskEditBottomSheetState
                           padding: const EdgeInsets.all(8.0),
                           child: ListTile(
                             leading: const CircleAvatar(
-                              backgroundImage: AssetImage(personDemoImg),
+                              backgroundImage: AssetImage(userProfileDummy),
                             ),
                             title: Text(
                               user.name ?? 'No Name',
@@ -873,7 +873,7 @@ class _AddParticipentForQuickTaskEditBottomSheetState
                             padding: const EdgeInsets.all(8.0),
                             child: ListTile(
                               leading: const CircleAvatar(
-                                backgroundImage: AssetImage(personDemoImg),
+                                backgroundImage: AssetImage(userProfileDummy),
                               ),
                               title: Text(
                                 user.name ?? 'No Name',

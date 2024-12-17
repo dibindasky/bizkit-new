@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
@@ -26,6 +28,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
   final taskFolderController = Get.find<TaskFolderController>();
   final hierarchyController = Get.find<HierarchyController>();
   final internetConnectinController = Get.find<InternetConnectionController>();
+  final accessController = Get.find<AccessController>();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -35,9 +38,23 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
           if (hierarchyController.empolyeesListLoading.value) {
             return const Expanded(
               child: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
+                ),
               ),
             );
+          } else if (!internetConnectinController.isConnectedToInternet.value &&
+              hierarchyController.employees.isEmpty) {
+            return Expanded(
+                child: SizedBox(
+                    width: 300.w,
+                    child: InternetConnectionLostWidget(
+                      onTap: () {
+                        if (accessController.userRole.value == 'employee') {
+                          hierarchyController.fetchEmployeesList();
+                        }
+                      },
+                    )));
           } else if (hierarchyController.heirarchyErrorMsg.isNotEmpty) {
             return Expanded(
               child: ErrorRefreshIndicator(
@@ -61,22 +78,29 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
             );
           } else {
             return Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 14.0.h),
-                itemCount: hierarchyController.employees.length,
-                itemBuilder: (context, index) {
-                  return Obx(() => HierarchyListtile(
-                        tasksCounts:
-                            hierarchyController.tasksCountsLoading.value
-                                ? Counts()
-                                : hierarchyController.tasksCounts[
-                                        hierarchyController
-                                                .employees[index].userId ??
-                                            ''] ??
-                                    Counts(),
-                        employee: hierarchyController.employees[index],
-                      ));
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  if (accessController.userRole.value == 'employee') {
+                    hierarchyController.fetchEmployeesList();
+                  }
                 },
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 14.0.h),
+                  itemCount: hierarchyController.employees.length,
+                  itemBuilder: (context, index) {
+                    return Obx(() => HierarchyListtile(
+                          tasksCounts:
+                              hierarchyController.tasksCountsLoading.value
+                                  ? Counts()
+                                  : hierarchyController.tasksCounts[
+                                          hierarchyController
+                                                  .employees[index].userId ??
+                                              ''] ??
+                                      Counts(),
+                          employee: hierarchyController.employees[index],
+                        ));
+                  },
+                ),
               ),
             );
           }
@@ -179,14 +203,17 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                                     taskFolderController.deadlineDate.value));
                       }
                     },
-                    child: TaskFolderSection(
-                      folderId: taskFolderController
-                              .filteredFoldersByDeadline[index].folderId ??
-                          '',
-                      name: taskFolderController
-                              .filteredFoldersByDeadline[index].folderName ??
-                          '',
-                      index: index,
+                    child: FadeIn(
+                      animate: true,
+                      child: TaskFolderSection(
+                        folderId: taskFolderController
+                                .filteredFoldersByDeadline[index].folderId ??
+                            '',
+                        name: taskFolderController
+                                .filteredFoldersByDeadline[index].folderName ??
+                            '',
+                        index: index,
+                      ),
                     ),
                   );
                 },

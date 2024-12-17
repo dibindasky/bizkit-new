@@ -29,16 +29,16 @@ class ReceivedCardsTab extends StatelessWidget {
       },
       child: Obx(
         () {
-          if (!internetConnectinController.isConnectedToInternet.value) {
+          if (receivedCardController.loadingForVisitingCard.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (!internetConnectinController.isConnectedToInternet.value &&
+              receivedCardController.filterdVisitingCards.isEmpty) {
             return InternetConnectionLostWidget(
               onTap: () {
                 receivedCardController.fetchAllreceivedCards(refresh: true);
               },
-            );
-          }
-          if (receivedCardController.loadingForVisitingCard.value) {
-            return const Center(
-              child: CircularProgressIndicator(),
             );
           } else if (receivedCardController.filterdVisitingCards.isEmpty) {
             return ErrorRefreshIndicator(

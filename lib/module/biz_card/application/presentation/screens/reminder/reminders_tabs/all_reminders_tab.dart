@@ -27,7 +27,17 @@ class AllRemindersTab extends StatelessWidget {
         Get.find<InternetConnectionController>();
     return Obx(
       () {
-        if (!internetConnectinController.isConnectedToInternet.value) {
+        if (reminderController.allReminderLoading.value) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+            child: ShimmerLoader(
+                itemCount: 6,
+                height: 110.h,
+                width: double.infinity,
+                seprator: kHeight5),
+          );
+        } else if (!internetConnectinController.isConnectedToInternet.value &&
+            reminderController.allReminders.isEmpty) {
           return Center(
             child: SizedBox(
               width: 300.w,
@@ -37,16 +47,6 @@ class AllRemindersTab extends StatelessWidget {
                 },
               ),
             ),
-          );
-        }
-        if (reminderController.allReminderLoading.value) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-            child: ShimmerLoader(
-                itemCount: 6,
-                height: 110.h,
-                width: double.infinity,
-                seprator: kHeight5),
           );
         } else if (reminderController.allReminders.isEmpty) {
           return Center(

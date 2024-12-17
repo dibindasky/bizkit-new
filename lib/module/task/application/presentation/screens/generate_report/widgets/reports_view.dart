@@ -57,7 +57,9 @@ class ReportsView extends StatelessWidget {
                   () {
                     if (controller.loadingForGetReports.value) {
                       return const Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 3,
+                        ),
                       );
                     } else if (controller.reportTasks.isEmpty) {
                       return ErrorRefreshIndicator(
@@ -129,12 +131,14 @@ class ReportsView extends StatelessWidget {
               ),
               EventButton(
                 color: neonNewLinearGradient,
+                textColr: kwhite,
                 text: 'Confirm to generate report',
                 onTap: () {
                   if (controller.selectedTaskIds.isEmpty) {
                     showSnackbar(context,
                         message: 'Please select any tasks',
-                        backgroundColor: kred);
+                        backgroundColor: kred,
+                        textColor: kwhite);
                     return;
                   } else {
                     Navigator.of(context).pop();
@@ -170,7 +174,7 @@ class ReportsView extends StatelessWidget {
                                                   .displaySmall
                                                   ?.copyWith(
                                                       fontSize: 14,
-                                                      color: neonShade)),
+                                                      color: kneonDark)),
                                         ),
                                       ),
                                       IconButton(
@@ -295,6 +299,7 @@ class ReportsView extends StatelessWidget {
                                   Center(
                                     child: Obx(
                                       () => EventButton(
+                                        textColr: kwhite,
                                         width: kwidth * 0.9,
                                         color: neonNewLinearGradient,
                                         text: controller.fileDownloading.value
@@ -385,7 +390,7 @@ class ReportsView extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => onChanged(value),
       style: ElevatedButton.styleFrom(
-        backgroundColor: selectedType == value ? neonShade : kblack,
+        backgroundColor: selectedType == value ? kneon : kblack,
       ),
       child: Text(
         label,

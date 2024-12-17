@@ -77,7 +77,7 @@ class FilterTasksListView extends StatelessWidget {
             child: FadeIn(
               animate: true,
               child: TaskContainer(
-                fromHeirarachy: true,
+                fromHeirarachy: fromHeirarachy,
                 tasksFromFilterSection: true,
                 index: index,
                 typeTask: fromHeirarachy == true

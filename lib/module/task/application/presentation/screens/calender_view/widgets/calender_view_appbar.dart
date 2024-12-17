@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
@@ -63,25 +64,36 @@ class TaskCalenderViewAppBar extends StatelessWidget {
                 }
               }
             },
-            child: Container(
-              width: 50.w,
-              height: 50.h,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: lightGrey.withOpacity(0.6),
-                    spreadRadius: 0,
-                    blurRadius: 1,
-                    offset: const Offset(-1, 2),
+            child: Obx(
+              () => Visibility(
+                visible: (controller.taskTabChangeIndex.value == 1 ||
+                        controller.taskTabChangeIndex.value == 2
+                    ? true
+                    : false),
+                child: FadeIn(
+                  animate: true,
+                  child: Container(
+                    width: 50.w,
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: lightGrey.withOpacity(0.6),
+                          spreadRadius: 0,
+                          blurRadius: 1,
+                          offset: const Offset(-1, 2),
+                        ),
+                      ],
+                      border: Border.all(color: klightgrey),
+                      color: Theme.of(context).colorScheme.onTertiary,
+                    ),
+                    child: const Icon(
+                      Iconsax.add_square,
+                      size: 23,
+                    ),
                   ),
-                ],
-                border: Border.all(color: klightgrey),
-                color: Theme.of(context).colorScheme.onTertiary,
-              ),
-              child: const Icon(
-                Iconsax.add_square,
-                size: 23,
+                ),
               ),
             ),
           ),

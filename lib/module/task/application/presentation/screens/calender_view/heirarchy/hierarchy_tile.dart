@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
@@ -27,7 +28,6 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:bizkit/utils/snackbar/flutter_toast.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,40 +72,43 @@ class HierarchyListtile extends StatelessWidget {
           'targetUserId': employee.userId ?? ''
         });
       },
-      child: Card(
-        elevation: 0,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: kblack,
-              child: employee.profilePicture != null
-                  ? NetworkImageWithLoader(
-                      employee.profilePicture ?? '',
-                      radius: 50,
-                    )
-                  : const Icon(Icons.person, color: kneon),
-            ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  employee.name ?? 'employee name',
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall
-                      ?.copyWith(fontSize: 13),
-                ),
-                adjustWidth(55),
-                Text(
-                  '$totalTasks',
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(color: kOrange, fontSize: 12),
-                  overflow: TextOverflow.ellipsis,
-                )
-              ],
+      child: FadeInLeft(
+        animate: true,
+        child: Card(
+          elevation: 0,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: kblack,
+                child: employee.profilePicture != null
+                    ? NetworkImageWithLoader(
+                        employee.profilePicture ?? '',
+                        radius: 50,
+                      )
+                    : const Icon(Icons.person, color: kneon),
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    employee.name ?? 'employee name',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 13),
+                  ),
+                  adjustWidth(55),
+                  Text(
+                    '$totalTasks',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(color: kOrange, fontSize: 12),
+                    overflow: TextOverflow.ellipsis,
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -582,182 +585,184 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                               ''));
                                                 }
                                               },
-                                              child: ListTile(
-                                                tileColor: controller
-                                                        .selectedIndices
-                                                        .contains(index)
-                                                    ? klightgrey
-                                                    : knill,
-                                                leading: controller
-                                                        .selectedIndices
-                                                        .contains(index)
-                                                    ? Stack(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 50.w,
-                                                            height: 50.h,
-                                                            child: Image.asset(
-                                                                taskFolderImage),
-                                                          ),
-                                                          const Positioned(
-                                                            top: 13,
-                                                            left: 0,
-                                                            right: 0,
-                                                            child: CircleAvatar(
-                                                              backgroundColor:
-                                                                  neonShade,
-                                                              radius: 15,
-                                                              child: Icon(
-                                                                Icons.check,
-                                                                color: kblack,
+                                              child: FadeInRight(
+                                                animate: true,
+                                                child: ListTile(
+                                                  tileColor: controller
+                                                          .selectedIndices
+                                                          .contains(index)
+                                                      ? klightgrey
+                                                      : knill,
+                                                  leading: controller
+                                                          .selectedIndices
+                                                          .contains(index)
+                                                      ? Stack(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 50.w,
+                                                              height: 50.h,
+                                                              child: Image.asset(
+                                                                  taskFolderImage),
+                                                            ),
+                                                            const Positioned(
+                                                              top: 13,
+                                                              left: 0,
+                                                              right: 0,
+                                                              child:
+                                                                  CircleAvatar(
+                                                                backgroundColor:
+                                                                    neonShade,
+                                                                radius: 15,
+                                                                child: Icon(
+                                                                  Icons.check,
+                                                                  color: kblack,
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    : SizedBox(
-                                                        width: 50.w,
-                                                        height: 50.h,
-                                                        child: Image.asset(
-                                                            taskFolderImage),
-                                                      ),
-                                                title: SizedBox(
-                                                  width: 100,
-                                                  child: Text(
-                                                    innerFolder
-                                                            .innerFolderName ??
-                                                        '',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .displaySmall
-                                                        ?.copyWith(
-                                                            fontSize: 13),
+                                                          ],
+                                                        )
+                                                      : SizedBox(
+                                                          width: 50.w,
+                                                          height: 50.h,
+                                                          child: Image.asset(
+                                                              taskFolderImage),
+                                                        ),
+                                                  title: SizedBox(
+                                                    width: 100,
+                                                    child: Text(
+                                                      innerFolder
+                                                              .innerFolderName ??
+                                                          '',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .displaySmall
+                                                          ?.copyWith(
+                                                              fontSize: 13),
+                                                    ),
                                                   ),
-                                                ),
-                                                trailing:
-                                                    PopupMenuButton<String>(
-                                                  position:
-                                                      PopupMenuPosition.under,
-                                                  enabled:
-                                                      internetConnectinController
-                                                          .isConnectedToInternet
-                                                          .value,
-                                                  onSelected: (value) {
-                                                    if (value ==
-                                                        'Add New Task to Folder') {
-                                                      taskController
-                                                          .searchTasks();
-                                                      showTaskSelectionBottomSheet(
-                                                        context,
-                                                        folderId ?? '',
-                                                        innerFolder
-                                                                .innerFolderId ??
-                                                            '',
-                                                        true,
-                                                      );
-                                                    } else if (value ==
-                                                        'Edit Inner Folder Name') {
-                                                      showInnerFolderDialog(
-                                                        initialName: innerFolder
-                                                            .innerFolderName,
-                                                        innerFolderId:
-                                                            innerFolder
-                                                                .innerFolderId,
-                                                      );
-                                                    }
-                                                  },
-                                                  color: kwhite,
-                                                  icon: const Icon(
-                                                    Icons.more_vert,
-                                                  ),
-                                                  itemBuilder: (context) {
-                                                    return [
-                                                      const PopupMenuItem<
-                                                          String>(
-                                                        value:
+                                                  trailing:
+                                                      PopupMenuButton<String>(
+                                                    position:
+                                                        PopupMenuPosition.under,
+                                                    enabled:
+                                                        internetConnectinController
+                                                            .isConnectedToInternet
+                                                            .value,
+                                                    onSelected: (value) {
+                                                      if (value ==
+                                                          'Add New Task to Folder') {
+                                                        taskController
+                                                            .searchTasks();
+                                                        showTaskSelectionBottomSheet(
+                                                          context,
+                                                          folderId ?? '',
+                                                          innerFolder
+                                                                  .innerFolderId ??
+                                                              '',
+                                                          true,
+                                                        );
+                                                      } else if (value ==
+                                                          'Edit Inner Folder Name') {
+                                                        showInnerFolderDialog(
+                                                          initialName: innerFolder
+                                                              .innerFolderName,
+                                                          innerFolderId:
+                                                              innerFolder
+                                                                  .innerFolderId,
+                                                        );
+                                                      }
+                                                    },
+                                                    color: kwhite,
+                                                    icon: const Icon(
+                                                      Icons.more_vert,
+                                                    ),
+                                                    itemBuilder: (context) {
+                                                      return [
+                                                        const PopupMenuItem<
+                                                            String>(
+                                                          value:
+                                                              'Add New Task to Folder',
+                                                          child: Text(
                                                             'Add New Task to Folder',
-                                                        child: Text(
-                                                          'Add New Task to Folder',
-                                                          style: TextStyle(
-                                                              color: kblack),
+                                                            style: TextStyle(
+                                                                color: kblack),
+                                                          ),
                                                         ),
-                                                      ),
-                                                      const PopupMenuItem<
-                                                          String>(
-                                                        value:
+                                                        const PopupMenuItem<
+                                                            String>(
+                                                          value:
+                                                              'Edit Inner Folder Name',
+                                                          child: Text(
                                                             'Edit Inner Folder Name',
-                                                        child: Text(
-                                                          'Edit Inner Folder Name',
-                                                          style: TextStyle(
-                                                              color: kblack),
+                                                            style: TextStyle(
+                                                                color: kblack),
+                                                          ),
                                                         ),
-                                                      ),
-                                                      PopupMenuItem<String>(
-                                                        value:
+                                                        PopupMenuItem<String>(
+                                                          value:
+                                                              'Delete Inner Folder',
+                                                          child: const Text(
                                                             'Delete Inner Folder',
-                                                        child: const Text(
-                                                          'Delete Inner Folder',
-                                                          style: TextStyle(
-                                                              color: kblack),
-                                                        ),
-                                                        onTap: () {
-                                                          showCustomConfirmationDialogue(
-                                                            description:
-                                                                'Are you sure you want to delete this folder ?',
-                                                            buttonText:
-                                                                'Delete',
-                                                            context: context,
-                                                            onTap: () {
-                                                              controller
-                                                                  .deleteInnerFolder(
-                                                                folderId:
-                                                                    folderId ??
-                                                                        '',
-                                                                deleteInnerFolder:
-                                                                    DeleteInnerFolderModel(
+                                                            style: TextStyle(
+                                                                color: kblack),
+                                                          ),
+                                                          onTap: () {
+                                                            showCustomConfirmationDialogue(
+                                                              description:
+                                                                  'Are you sure you want to delete this folder ?',
+                                                              buttonText:
+                                                                  'Delete',
+                                                              context: context,
+                                                              onTap: () {
+                                                                controller
+                                                                    .deleteInnerFolder(
                                                                   folderId:
-                                                                      folderId,
-                                                                  innerFolderId:
-                                                                      controller
-                                                                              .filteredInnerFolders[index]
-                                                                              .innerFolderId ??
+                                                                      folderId ??
                                                                           '',
-                                                                ),
-                                                              );
+                                                                  deleteInnerFolder:
+                                                                      DeleteInnerFolderModel(
+                                                                    folderId:
+                                                                        folderId,
+                                                                    innerFolderId:
+                                                                        controller.filteredInnerFolders[index].innerFolderId ??
+                                                                            '',
+                                                                  ),
+                                                                );
 
-                                                              // controller.filterInnerFolderByDeadline(
-                                                              //     filterInnerFolder:
-                                                              //         FilterInnerFolderModel(
-                                                              //             folderId:
-                                                              //                 folderId ??
-                                                              //                     '',
-                                                              //             filterDate: controller
-                                                              //                 .deadlineDate
-                                                              //                 .value));
-                                                              // controller
-                                                              //     .fetchTasksInsideFolder(
-                                                              //   taskInsideFolder:
-                                                              //       GetTaskInsideAFolderParamsModel(
-                                                              //     folderId: folderId,
-                                                              //   ),
-                                                              // );
-                                                            },
-                                                            title:
-                                                                'Delete Folder',
-                                                            buttonColor:
-                                                                neonShade,
-                                                          );
-                                                        },
-                                                      ),
-                                                      // const PopupMenuItem<String>(
-                                                      //   value: 'Merge Folders',
-                                                      //   child: Text(
-                                                      //     'Merge Folders',
-                                                      //     style: TextStyle(color: kblack),
-                                                      //   ),
-                                                      // ),
-                                                    ];
-                                                  },
+                                                                // controller.filterInnerFolderByDeadline(
+                                                                //     filterInnerFolder:
+                                                                //         FilterInnerFolderModel(
+                                                                //             folderId:
+                                                                //                 folderId ??
+                                                                //                     '',
+                                                                //             filterDate: controller
+                                                                //                 .deadlineDate
+                                                                //                 .value));
+                                                                // controller
+                                                                //     .fetchTasksInsideFolder(
+                                                                //   taskInsideFolder:
+                                                                //       GetTaskInsideAFolderParamsModel(
+                                                                //     folderId: folderId,
+                                                                //   ),
+                                                                // );
+                                                              },
+                                                              title:
+                                                                  'Delete Folder',
+                                                              buttonColor:
+                                                                  neonShade,
+                                                            );
+                                                          },
+                                                        ),
+                                                        // const PopupMenuItem<String>(
+                                                        //   value: 'Merge Folders',
+                                                        //   child: Text(
+                                                        //     'Merge Folders',
+                                                        //     style: TextStyle(color: kblack),
+                                                        //   ),
+                                                        // ),
+                                                      ];
+                                                    },
+                                                  ),
                                                 ),
                                               ),
                                             );
@@ -824,15 +829,18 @@ class ScreenHeirarchyTaskUserDetails extends StatelessWidget {
                                                 },
                                               );
                                             },
-                                            child: TaskContainer(
-                                              tasksFromFoldrs: true,
-                                              fromFolders: true,
-                                              tasksFromInnerFolder: false,
-                                              fromInnerfolder: false,
-                                              folderId: folderId,
-                                              isInnerFolderTask: false,
-                                              tasksInsideFolder: task,
-                                              index: index,
+                                            child: FadeInUp(
+                                              animate: true,
+                                              child: TaskContainer(
+                                                tasksFromFoldrs: true,
+                                                fromFolders: true,
+                                                tasksFromInnerFolder: false,
+                                                fromInnerfolder: false,
+                                                folderId: folderId,
+                                                isInnerFolderTask: false,
+                                                tasksInsideFolder: task,
+                                                index: index,
+                                              ),
                                             ),
                                           );
                                         },

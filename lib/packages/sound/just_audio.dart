@@ -158,8 +158,8 @@ class AudioPlayerHandler {
   // Add this method to your existing class or create a separate method
   void showNotificationWithSound(String message) async {
     // Play notification sound
-    await audioPlayer.setAsset('asset/audio/notification.mp3');
-    audioPlayer.play();
+    // await audioPlayer.setAsset('asset/audio/notification.mp3');
+    // audioPlayer.play();
 
     // Show Flutter toast
     Fluttertoast.showToast(

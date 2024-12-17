@@ -36,13 +36,6 @@ class ActiveQuickTasksTab extends StatelessWidget {
           height: constraints.maxHeight,
           child: Obx(
             () {
-              if (!internetConnectinController.isConnectedToInternet.value) {
-                return InternetConnectionLostWidget(
-                  onTap: () {
-                    taskController.fetchAllQuickTasks();
-                  },
-                );
-              }
               if (taskController.loadingForAllQuickTasks.value) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
@@ -52,6 +45,14 @@ class ActiveQuickTasksTab extends StatelessWidget {
                     width: double.infinity,
                     seprator: kHeight10,
                   ),
+                );
+              } else if (!internetConnectinController
+                      .isConnectedToInternet.value &&
+                  taskController.quickTasks.isEmpty) {
+                return InternetConnectionLostWidget(
+                  onTap: () {
+                    taskController.fetchAllQuickTasks();
+                  },
                 );
               } else if (taskController.quickTasks.isEmpty) {
                 return ErrorRefreshIndicator(
@@ -258,34 +259,45 @@ class ActiveQuickTasksTab extends StatelessWidget {
                                     colors: [kblack, kblack]),
                                 text: 'Edit quick task ',
                                 onTap: () {
-                                  taskController.titleController.text =
-                                      quickTask.title ?? '';
-                                  taskController.descriptionController.text =
-                                      quickTask.description ?? '';
-                                  // taskController.participantsForEditTask.value =
-                                  //     quickTask.assignedTo;
+                                  if (internetConnectinController
+                                      .isConnectedToInternet.value) {
+                                    taskController.titleController.text =
+                                        quickTask.title ?? '';
+                                    taskController.descriptionController.text =
+                                        quickTask.description ?? '';
+                                    // taskController.participantsForEditTask.value =
+                                    //     quickTask.assignedTo;
 
-                                  final isAlreadyAdded = taskController
-                                      .participantsForEditQuickTask
-                                      .any(
-                                    (participant) =>
-                                        participant.userId ==
-                                        taskController.quickTasks[index]
-                                            .assignedTo?[index].userId,
-                                  );
-                                  if (!isAlreadyAdded) {
-                                    taskController.participantsForEditQuickTask
-                                        .assignAll(taskController
-                                                .quickTasks[index].assignedTo ??
-                                            []);
+                                    final isAlreadyAdded = taskController
+                                        .participantsForEditQuickTask
+                                        .any(
+                                      (participant) =>
+                                          participant.userId ==
+                                          taskController.quickTasks[index]
+                                              .assignedTo?[index].userId,
+                                    );
+                                    if (!isAlreadyAdded) {
+                                      taskController
+                                          .participantsForEditQuickTask
+                                          .assignAll(taskController
+                                                  .quickTasks[index]
+                                                  .assignedTo ??
+                                              []);
+                                    }
+                                    GoRouter.of(context).pushNamed(
+                                      Routes.quickTaskCreateUpdate,
+                                      extra: {
+                                        'edit': true,
+                                        'quickTaskId': quickTask.id ?? '',
+                                      },
+                                    );
+                                  } else {
+                                    showCustomToast(
+                                      message:
+                                          'You cannot edit the quick task while offline. Please check your internet connection.',
+                                      backgroundColor: kred,
+                                    );
                                   }
-                                  GoRouter.of(context).pushNamed(
-                                    Routes.quickTaskCreateUpdate,
-                                    extra: {
-                                      'edit': true,
-                                      'quickTaskId': quickTask.id ?? '',
-                                    },
-                                  );
                                 },
                               ),
                             )

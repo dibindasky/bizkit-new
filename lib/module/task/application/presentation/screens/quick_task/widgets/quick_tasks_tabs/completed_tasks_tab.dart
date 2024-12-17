@@ -29,13 +29,6 @@ class CompletedQuickTasksTab extends StatelessWidget {
           height: constraints.maxHeight,
           child: Obx(
             () {
-              if (!internetConnectinController.isConnectedToInternet.value) {
-                return InternetConnectionLostWidget(
-                  onTap: () {
-                    taskController.fetchCompletedQuickTasks();
-                  },
-                );
-              }
               if (taskController.loadingForCompletedQuickTasks.value) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
@@ -45,6 +38,14 @@ class CompletedQuickTasksTab extends StatelessWidget {
                     width: double.infinity,
                     seprator: kHeight10,
                   ),
+                );
+              } else if (!internetConnectinController
+                      .isConnectedToInternet.value &&
+                  taskController.completedQuickTasks.isEmpty) {
+                return InternetConnectionLostWidget(
+                  onTap: () {
+                    taskController.fetchCompletedQuickTasks();
+                  },
                 );
               } else if (taskController.completedQuickTasks.isEmpty) {
                 return ErrorRefreshIndicator(

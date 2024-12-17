@@ -33,7 +33,7 @@ class ConnectionsTab extends StatelessWidget {
                 connectionsController.searchConnections(refresh: true);
                 await Future.delayed(const Duration(seconds: 2));
               },
-              errorMessage: 'No bizcard connections',
+              errorMessage: 'No bizcard connections!',
               image: emptyNodata2,
             );
           } else {

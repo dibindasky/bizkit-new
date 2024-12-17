@@ -10,11 +10,11 @@ import 'package:bizkit/module/task/domain/model/folders/inner_folder/task_add_or
 import 'package:bizkit/module/task/domain/model/folders/task_add_to_folder_model/task_add_to_folder_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -177,7 +177,7 @@ void showTaskSelectionBottomSheet(
 ) {
   final taskController = Get.find<CreateTaskController>();
   final folderController = Get.find<TaskFolderController>();
-
+  final internetConnectinController = Get.find<InternetConnectionController>();
   taskController.selectedTasks.clear();
 
   showModalBottomSheet(
@@ -247,6 +247,18 @@ void showTaskSelectionBottomSheet(
                         itemCount: 8,
                       ),
                     );
+                  } else if (!internetConnectinController
+                          .isConnectedToInternet.value &&
+                      taskController.tasksSearch.isEmpty) {
+                    return SizedBox(
+                        width: 300.w,
+                        height: 90.h,
+                        child: InternetConnectionLostWidget(
+                          showImage: false,
+                          onTap: () {
+                            taskController.searchTasks();
+                          },
+                        ));
                   } else if (taskController.tasksSearch.isEmpty) {
                     return ErrorRefreshIndicator(
                       image: emptyNodata2,
@@ -255,36 +267,70 @@ void showTaskSelectionBottomSheet(
                     );
                   } else {
                     return ListView.builder(
-                      itemCount: taskController.tasksSearch.length,
+                      controller: taskController.taskSearchScrollController,
+                      itemCount: taskController.tasksSearch.length +
+                          (taskController.taskSearchLoadMoreLoading.value
+                              ? 1
+                              : 0),
                       itemBuilder: (context, index) {
-                        final task = taskController.tasksSearch[index];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          child: Card(
-                            child: ListTile(
-                              title: Text(
-                                task.title ?? 'Title',
-                                style: Theme.of(context).textTheme.displaySmall,
+                        if (index == taskController.tasksSearch.length &&
+                            taskController.taskSearchLoadMoreLoading.value) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ShimmerLoader(
+                              width: 100.w,
+                              seprator: const SizedBox(
+                                height: 13,
                               ),
-                              trailing: Obx(
-                                () => Checkbox(
-                                  checkColor: kblack,
-                                  activeColor: kneon,
-                                  value: taskController.selectedTasks
-                                      .contains(task),
-                                  onChanged: (bool? value) {
-                                    if (value == true) {
-                                      taskController.selectedTasks.add(task);
-                                    } else {
-                                      taskController.selectedTasks.remove(task);
-                                    }
-                                  },
+                              height: 60.h,
+                              itemCount: 1,
+                            ),
+                          );
+                        } else {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 2),
+                            child: Card(
+                              elevation: 1,
+                              child: ListTile(
+                                title: Text(
+                                  taskController.tasksSearch[index].title ?? '',
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                ),
+                                subtitle: Text(
+                                  taskController.tasksSearch[index].deadLine ??
+                                      '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(
+                                        fontSize: 10,
+                                        color: kGreyNormal,
+                                      ),
+                                ),
+                                trailing: Obx(
+                                  () => Checkbox(
+                                    checkColor: kblack,
+                                    activeColor: kneon,
+                                    value: taskController.selectedTasks
+                                        .contains(
+                                            taskController.tasksSearch[index]),
+                                    onChanged: (bool? value) {
+                                      if (value == true) {
+                                        taskController.selectedTasks.add(
+                                            taskController.tasksSearch[index]);
+                                      } else {
+                                        taskController.selectedTasks.remove(
+                                            taskController.tasksSearch[index]);
+                                      }
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
+                          );
+                        }
                       },
                     );
                   }
@@ -306,18 +352,23 @@ void showTaskSelectionBottomSheet(
                       innerFolderId: innerFoldrId,
                       innerFolderTasks: selectedTaskIds,
                     );
-
-                    folderController.taskAddOrDeleteInnerFolder(
-                        addOrDelete: true,
-                        taskAddOrDelete: addOrDeleteInnerFolderModel);
-                    Navigator.pop(context);
+                    if (internetConnectinController
+                        .isConnectedToInternet.value) {
+                      folderController.taskAddOrDeleteInnerFolder(
+                          addOrDelete: true,
+                          taskAddOrDelete: addOrDeleteInnerFolderModel);
+                      Navigator.pop(context);
+                    } else {
+                      showCustomToast(
+                          message:
+                              'You must be online to add task to this folder. Please check your internet connection.',
+                          backgroundColor: kred);
+                      Navigator.pop(context);
+                    }
                   } else {
-                    showSnackbar(
-                      context,
-                      message: 'No tasks selected',
-                      backgroundColor: kred,
-                      textColor: kblack,
-                    );
+                    showCustomToast(
+                        message: 'Please select at least one task to add.',
+                        backgroundColor: kred);
                   }
                 } else {
                   if (taskController.selectedTasks.isNotEmpty) {
@@ -330,22 +381,28 @@ void showTaskSelectionBottomSheet(
                       tasks: selectedTaskIds,
                     );
 
-                    folderController.tasksAddToFolder(
-                        addOrDelete: true, taskAddToFolder: taskAddToFolder);
-
-                    Navigator.pop(context);
+                    if (internetConnectinController
+                        .isConnectedToInternet.value) {
+                      folderController.tasksAddToFolder(
+                          addOrDelete: true, taskAddToFolder: taskAddToFolder);
+                      Navigator.pop(context);
+                    } else {
+                      showCustomToast(
+                          message:
+                              'You must be online to add task to this folder. Please check your internet connection.',
+                          backgroundColor: kred);
+                      Navigator.pop(context);
+                    }
                   } else {
-                    showSnackbar(
-                      context,
-                      message: 'No tasks selected',
-                      backgroundColor: kwhite,
-                      textColor: kblack,
-                    );
+                    showCustomToast(
+                        message: 'Please select at least one task to add.',
+                        backgroundColor: kred);
                   }
                 }
               },
               color: neonNewLinearGradient,
               text: 'Add Tasks',
+              textColr: kwhite,
             ),
             adjustHieght(10.h),
           ],

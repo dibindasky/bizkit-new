@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/caleder_view/calender_view.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
@@ -27,6 +28,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
   final taskFolderController = Get.find<TaskFolderController>();
   final hierarchyController = Get.find<HierarchyController>();
   final internetConnectinController = Get.find<InternetConnectionController>();
+  final accessController = Get.find<AccessController>();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -47,21 +49,24 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                     width: 300.w,
                     child: InternetConnectionLostWidget(
                       onTap: () {
-                        taskFolderController.filterFoldersByDeadline(
-                            filterFolder: FilterFolderByDeadlineModel(
-                          filterDate: taskFolderController.deadlineDate.value,
-                        ));
+                        if (accessController.userRole.value == 'employee') {
+                          hierarchyController.fetchEmployeesList();
+                        }
                       },
                     )));
           } else {
             return Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 14.0.h),
-                itemCount: hierarchyController.employees.length,
-                itemBuilder: (context, index) {
-                  return Obx(() => FadeInLeft(
-                        animate: true,
-                        child: HierarchyListtile(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  if (accessController.userRole.value == 'employee') {
+                    hierarchyController.fetchEmployeesList();
+                  }
+                },
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 14.0.h),
+                  itemCount: hierarchyController.employees.length,
+                  itemBuilder: (context, index) {
+                    return Obx(() => HierarchyListtile(
                           tasksCounts:
                               hierarchyController.tasksCountsLoading.value
                                   ? Counts()
@@ -71,9 +76,9 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                                               ''] ??
                                       Counts(),
                           employee: hierarchyController.employees[index],
-                        ),
-                      ));
-                },
+                        ));
+                  },
+                ),
               ),
             );
           }

@@ -5,7 +5,10 @@ import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/show_dialogue/dailog.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -38,18 +41,19 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
         },
         child: Obx(
           () {
-            if (!internetConnectinController.isConnectedToInternet.value) {
+            if (connectionController.recievedConnectionRequestLoading.value) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (!internetConnectinController
+                    .isConnectedToInternet.value &&
+                connectionController.filterdConnectionRequest.isEmpty) {
               return Center(
                 child: InternetConnectionLostWidget(
                   onTap: () {
                     connectionController.fetchRecievedConnectionRequests();
                   },
                 ),
-              );
-            }
-            if (connectionController.recievedConnectionRequestLoading.value) {
-              return const Center(
-                child: CircularProgressIndicator(),
               );
             } else if (connectionController.filterdConnectionRequest.isEmpty) {
               return ErrorRefreshIndicator(
@@ -112,49 +116,67 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
                             // cancel request
                             InkWell(
                               onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                      title: Text(
-                                        'Reject Connection Request',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayMedium,
-                                      ),
-                                      actions: [
-                                        OutlinedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text(
-                                              'Cancel',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall,
-                                            )),
-                                        OutlinedButton(
-                                            onPressed: () {
-                                              connectionController.connectionRequestAcceptOrReject(
-                                                  context: context,
-                                                  acceptOrReject:
-                                                      AcceptOrRejectConnectionRequest(
-                                                          connectionId:
-                                                              connectionController
-                                                                      .filterdConnectionRequest[
-                                                                          index]
-                                                                      .id ??
-                                                                  '',
-                                                          status: 'rejected'));
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text(
-                                              'Reject',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall,
-                                            ))
-                                      ]),
-                                );
+                                if (internetConnectinController
+                                    .isConnectedToInternet.value) {
+                                  showConfirmationDialog(
+                                    context,
+                                    heading:
+                                        'Are you sure do you want to reject this connection request',
+                                    actionButton: 'Reject',
+                                    onPressed: () {
+                                      connectionController
+                                          .connectionRequestAcceptOrReject(
+                                              context: context,
+                                              acceptOrReject:
+                                                  AcceptOrRejectConnectionRequest(
+                                                      connectionId:
+                                                          connectionController
+                                                                  .filterdConnectionRequest[
+                                                                      index]
+                                                                  .id ??
+                                                              '',
+                                                      status: 'rejected'));
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                  );
+                                } else {
+                                  showCustomToast(
+                                      message:
+                                          'You must be online to rejected this connection request. Please check your internet connection.',
+                                      backgroundColor: kred);
+                                }
+
+                                // showDialog(
+                                //   context: context,
+                                //   builder: (context) => AlertDialog(
+                                //       title: Text(
+                                //         'Reject Connection Request',
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .displayMedium,
+                                //       ),
+                                //       actions: [
+                                //         OutlinedButton(
+                                //             onPressed: () {
+                                //               Navigator.pop(context);
+                                //             },
+                                //             child: Text(
+                                //               'Cancel',
+                                //               style: Theme.of(context)
+                                //                   .textTheme
+                                //                   .displaySmall,
+                                //             )),
+                                //         OutlinedButton(
+                                //             onPressed: () {},
+                                //             child: Text(
+                                //               'Reject',
+                                //               style: Theme.of(context)
+                                //                   .textTheme
+                                //                   .displaySmall,
+                                //             ))
+                                //       ]),
+                                // );
                               },
                               child: const Padding(
                                 padding: EdgeInsets.all(1),
@@ -169,11 +191,19 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
                             // accept request
                             InkWell(
                                 onTap: () {
-                                  showConnectionAcceptDialog(
-                                      context,
-                                      levelSharingController,
-                                      connectionController,
-                                      index);
+                                  if (internetConnectinController
+                                      .isConnectedToInternet.value) {
+                                    showConnectionAcceptDialog(
+                                        context,
+                                        levelSharingController,
+                                        connectionController,
+                                        index);
+                                  } else {
+                                    showCustomToast(
+                                        message:
+                                            'You must be online to accept this connection request. Please check your internet connection.',
+                                        backgroundColor: kred);
+                                  }
                                 },
                                 child: const CircleAvatar(
                                     child: Icon(Icons.check, color: kwhite))),

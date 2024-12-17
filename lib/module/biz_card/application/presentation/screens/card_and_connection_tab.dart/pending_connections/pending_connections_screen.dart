@@ -51,19 +51,22 @@ class PendingConnectionRequestsScreen extends StatelessWidget {
             },
             child: Obx(
               () {
-                if (!internetConnectinController.isConnectedToInternet.value) {
+                if (connectionController
+                    .allSendConnectionRequestsLoading.value) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                    ),
+                  );
+                } else if (!internetConnectinController
+                        .isConnectedToInternet.value &&
+                    connectionController.allSendConnectionRequests.isEmpty) {
                   return Center(
                     child: InternetConnectionLostWidget(
                       onTap: () {
                         connectionController.fetchAllSendConnectionRequests();
                       },
                     ),
-                  );
-                }
-                if (connectionController
-                    .allSendConnectionRequestsLoading.value) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
                   );
                 } else if (connectionController
                     .allSendConnectionRequests.isEmpty) {

@@ -72,40 +72,43 @@ class HierarchyListtile extends StatelessWidget {
           'targetUserId': employee.userId ?? ''
         });
       },
-      child: Card(
-        elevation: 0,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: kblack,
-              child: employee.profilePicture != null
-                  ? NetworkImageWithLoader(
-                      employee.profilePicture ?? '',
-                      radius: 50,
-                    )
-                  : const Icon(Icons.person, color: kneon),
-            ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  employee.name ?? 'employee name',
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall
-                      ?.copyWith(fontSize: 13),
-                ),
-                adjustWidth(55),
-                Text(
-                  '$totalTasks',
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(color: kOrange, fontSize: 12),
-                  overflow: TextOverflow.ellipsis,
-                )
-              ],
+      child: FadeInLeft(
+        animate: true,
+        child: Card(
+          elevation: 0,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: kblack,
+                child: employee.profilePicture != null
+                    ? NetworkImageWithLoader(
+                        employee.profilePicture ?? '',
+                        radius: 50,
+                      )
+                    : const Icon(Icons.person, color: kneon),
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    employee.name ?? 'employee name',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 13),
+                  ),
+                  adjustWidth(55),
+                  Text(
+                    '$totalTasks',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(color: kOrange, fontSize: 12),
+                    overflow: TextOverflow.ellipsis,
+                  )
+                ],
+              ),
             ),
           ),
         ),

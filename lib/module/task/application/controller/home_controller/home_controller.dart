@@ -14,6 +14,7 @@ import 'package:bizkit/packages/pdf/pdf_generator.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -219,21 +220,17 @@ class TaskHomeScreenController extends GetxController {
       {required GenearateReportModel generateReportModel,
       required BuildContext context}) async {
     fileDownloading.value = true;
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
+
     final result = await homeService.generateReport(
         generateReportModel: generateReportModel);
 
     result.fold(
       (failure) {
         fileDownloading.value = false;
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
         log(failure.message.toString());
       },
@@ -248,14 +245,11 @@ class TaskHomeScreenController extends GetxController {
             base64String: success.report ?? '',
             filetype: generateReportModel.reportType ?? '',
             context: context);
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              'Task Report Downloaded Successfully',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: neonShade,
-          ),
+
+        showCustomToast(
+          message: 'Task Report Downloaded Successfully',
+          backgroundColor: Get.isDarkMode ? klightGrey : kblack,
+          textColor: Get.isDarkMode ? kblack : kwhite,
         );
 
         fileDownloading.value = false;

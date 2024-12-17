@@ -26,7 +26,17 @@ class HistoryRemindersTab extends StatelessWidget {
         Get.find<InternetConnectionController>();
     return Obx(
       () {
-        if (!internetConnectinController.isConnectedToInternet.value) {
+        if (reminderController.historyReminderLoading.value) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+            child: ShimmerLoader(
+                itemCount: 6,
+                height: 110.h,
+                width: double.infinity,
+                seprator: kHeight5),
+          );
+        } else if (!internetConnectinController.isConnectedToInternet.value &&
+            reminderController.historyReminders.isEmpty) {
           return Center(
             child: SizedBox(
               width: 300.w,
@@ -36,16 +46,6 @@ class HistoryRemindersTab extends StatelessWidget {
                 },
               ),
             ),
-          );
-        }
-        if (reminderController.historyReminderLoading.value) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-            child: ShimmerLoader(
-                itemCount: 6,
-                height: 110.h,
-                width: double.infinity,
-                seprator: kHeight5),
           );
         } else if (reminderController.historyReminders.isEmpty) {
           return Center(

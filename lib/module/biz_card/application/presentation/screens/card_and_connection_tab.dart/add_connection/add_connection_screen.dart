@@ -101,7 +101,15 @@ class AddConnectionScreen extends StatelessWidget {
             },
             body: Obx(
               () {
-                if (!internetConnectinController.isConnectedToInternet.value) {
+                if (connectionController.searchBizkitUsersLoading.value) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                    ),
+                  );
+                } else if (!internetConnectinController
+                        .isConnectedToInternet.value &&
+                    connectionController.bizkitUsers.isEmpty) {
                   return Center(
                     child: SizedBox(
                       width: 300.w,
@@ -112,11 +120,6 @@ class AddConnectionScreen extends StatelessWidget {
                       ),
                     ),
                   );
-                }
-                if (connectionController.searchBizkitUsersLoading.value) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
                 } else if (connectionController.bizkitUsers.isEmpty) {
                   return ErrorRefreshIndicator(
                     onRefresh: () {
@@ -126,48 +129,49 @@ class AddConnectionScreen extends StatelessWidget {
                     image: emptyNodata2,
                   );
                 } else {
-                  return Obx(() => CustomScrollView(
-                        controller:
-                            connectionController.userSearchScrollController,
-                        slivers: [
-                          SliverPadding(
-                            padding: const EdgeInsets.all(8.0),
-                            sliver: SliverGrid(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 1 / 1.3,
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 1,
-                                mainAxisSpacing: 1,
-                              ),
-                              delegate: SliverChildBuilderDelegate(
-                                (context, index) {
-                                  if (index >=
-                                      connectionController.bizkitUsers.length) {
-                                    return const ShimmerGridView();
-                                  }
-                                  return ConnectionTile(
-                                    index: index,
-                                    fromPendingRequests: false,
-                                    data:
-                                        connectionController.bizkitUsers[index],
-                                  );
-                                },
-                                childCount: connectionController
-                                        .bizkitUsers.length +
-                                    (connectionController.usersLoadMore.value
-                                        ? (connectionController
-                                                        .bizkitUsers.length %
-                                                    2 ==
-                                                0)
-                                            ? 1
-                                            : 2
-                                        : 0),
-                              ),
+                  return Obx(
+                    () => CustomScrollView(
+                      controller:
+                          connectionController.userSearchScrollController,
+                      slivers: [
+                        SliverPadding(
+                          padding: const EdgeInsets.all(8.0),
+                          sliver: SliverGrid(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio: 1 / 1.3,
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 1,
+                              mainAxisSpacing: 1,
+                            ),
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                if (index >=
+                                    connectionController.bizkitUsers.length) {
+                                  return const ShimmerGridView();
+                                }
+                                return ConnectionTile(
+                                  index: index,
+                                  fromPendingRequests: false,
+                                  data: connectionController.bizkitUsers[index],
+                                );
+                              },
+                              childCount:
+                                  connectionController.bizkitUsers.length +
+                                      (connectionController.usersLoadMore.value
+                                          ? (connectionController
+                                                          .bizkitUsers.length %
+                                                      2 ==
+                                                  0)
+                                              ? 1
+                                              : 2
+                                          : 0),
                             ),
                           ),
-                        ],
-                      ));
+                        ),
+                      ],
+                    ),
+                  );
                 }
               },
             ),

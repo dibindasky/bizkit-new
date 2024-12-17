@@ -25,7 +25,11 @@ class SharedCardsTab extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 6),
         child: Obx(
           () {
-            if (!internetConnectinController.isConnectedToInternet.value) {
+            if (controller.sharedCardLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (!internetConnectinController
+                    .isConnectedToInternet.value &&
+                controller.filteredSharedCards.isEmpty) {
               return Center(
                 child: InternetConnectionLostWidget(
                   onTap: () {
@@ -33,9 +37,6 @@ class SharedCardsTab extends StatelessWidget {
                   },
                 ),
               );
-            }
-            if (controller.sharedCardLoading.value) {
-              return const Center(child: CircularProgressIndicator());
             } else {
               if (controller.filteredSharedCards.isEmpty) {
                 return Center(

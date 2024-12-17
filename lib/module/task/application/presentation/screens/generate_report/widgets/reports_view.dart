@@ -137,7 +137,8 @@ class ReportsView extends StatelessWidget {
                   if (controller.selectedTaskIds.isEmpty) {
                     showSnackbar(context,
                         message: 'Please select any tasks',
-                        backgroundColor: kred);
+                        backgroundColor: kred,
+                        textColor: kwhite);
                     return;
                   } else {
                     Navigator.of(context).pop();

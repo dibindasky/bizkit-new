@@ -126,90 +126,98 @@ class ScreenProfileEdit extends StatelessWidget {
             }),
             kHeight50,
             Obx(() {
-              return controller.isLoadingName.value?ShimmerLoaderTile(width: double.infinity,height: 35.h): CustomTextFormField(
-                labelText: 'Name',
-                controller: controller.userName,
-                onChanaged: (value) {
-                  controller.nameOnChanges(value);
-                },
-                suffixIcon: controller.nameChangingLoading.value
-                    ? const Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: SizedBox(width: 50, child: LoadingAnimation()),
-                      )
-                    : controller.checkName != controller.name.value &&
-                            controller.name.value.isNotEmpty
-                        ? IconButton(
-                            icon: const Icon(
-                              Icons.check_circle_outline,
-                              color: neonShade,
-                            ),
-                            onPressed: () {
-                              controller.profileNameEditSave(context);
-                            },
-                          )
-                        : null,
-              );
+              return controller.isLoadingName.value
+                  ? ShimmerLoaderTile(width: double.infinity, height: 35.h)
+                  : CustomTextFormField(
+                      labelText: 'Name',
+                      controller: controller.userName,
+                      onChanaged: (value) {
+                        controller.nameOnChanges(value);
+                      },
+                      suffixIcon: controller.nameChangingLoading.value
+                          ? const Padding(
+                              padding: EdgeInsets.only(right: 10),
+                              child: SizedBox(
+                                  width: 50, child: LoadingAnimation()),
+                            )
+                          : controller.checkName != controller.name.value &&
+                                  controller.name.value.isNotEmpty
+                              ? IconButton(
+                                  icon: const Icon(
+                                    Icons.check_circle_outline,
+                                    color: neonShade,
+                                  ),
+                                  onPressed: () {
+                                    controller.profileNameEditSave(context);
+                                  },
+                                )
+                              : null,
+                    );
             }),
             kHeight10,
             Obx(() {
               return Form(
                 key: controller.mailKey,
-                child:controller.isLoadingEmail.value?ShimmerLoaderTile(width: double.infinity,height: 35.h): CustomTextFormField(
-                    inputType: TextInputType.emailAddress,
-                    validate: Validate.email,
-                    labelText: 'Email',
-                    controller: controller.userMail,
-                    onChanaged: (value) {
-                      controller.emailOnChanges(value);
-                    },
-                    suffixIcon: controller.emailChangingLoading.value
-                        ? const Padding(
-                            padding: EdgeInsets.only(right: 10),
-                            child:
-                                SizedBox(width: 50, child: LoadingAnimation()),
-                          )
-                        : controller.checkEmail != controller.email.value
-                            ? IconButton(
-                                onPressed: () {
-                                  controller.updateEmail(context);
-                                },
-                                icon: const Icon(
-                                  Icons.check_circle_outline,
-                                  color: neonShade,
-                                ))
-                            : null),
+                child: controller.isLoadingEmail.value
+                    ? ShimmerLoaderTile(width: double.infinity, height: 35.h)
+                    : CustomTextFormField(
+                        inputType: TextInputType.emailAddress,
+                        validate: Validate.email,
+                        labelText: 'Email',
+                        controller: controller.userMail,
+                        onChanaged: (value) {
+                          controller.emailOnChanges(value);
+                        },
+                        suffixIcon: controller.emailChangingLoading.value
+                            ? const Padding(
+                                padding: EdgeInsets.only(right: 10),
+                                child: SizedBox(
+                                    width: 50, child: LoadingAnimation()),
+                              )
+                            : controller.checkEmail != controller.email.value
+                                ? IconButton(
+                                    onPressed: () {
+                                      controller.updateEmail(context);
+                                    },
+                                    icon: const Icon(
+                                      Icons.check_circle_outline,
+                                      color: neonShade,
+                                    ))
+                                : null),
               );
             }),
             kHeight10,
             Obx(() {
               return Form(
                 key: controller.phoneKey,
-                child:controller.isLoadingPhone.value?ShimmerLoaderTile(width: double.infinity,height: 35.h): CustomTextFormField(
-                  inputType: TextInputType.number,
-                  validate: Validate.phone,
-                  labelText: 'Phone',
-                  controller: controller.userPhone,
-                  onChanaged: (value) {
-                    controller.phoneOnChanges(value);
-                  },
-                  suffixIcon: controller.phoneChangingLoading.value
-                      ? const Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: SizedBox(width: 50, child: LoadingAnimation()),
-                        )
-                      : controller.checkPhone != controller.phone.value
-                          ? IconButton(
-                              icon: const Icon(
-                                Icons.check_circle_outline,
-                                color: neonShade,
-                              ),
-                              onPressed: () {
-                                controller.updatePhone(context);
-                              },
-                            )
-                          : null,
-                ),
+                child: controller.isLoadingPhone.value
+                    ? ShimmerLoaderTile(width: double.infinity, height: 35.h)
+                    : CustomTextFormField(
+                        inputType: TextInputType.number,
+                        validate: Validate.phone,
+                        labelText: 'Phone',
+                        controller: controller.userPhone,
+                        onChanaged: (value) {
+                          controller.phoneOnChanges(value);
+                        },
+                        suffixIcon: controller.phoneChangingLoading.value
+                            ? const Padding(
+                                padding: EdgeInsets.only(right: 10),
+                                child: SizedBox(
+                                    width: 50, child: LoadingAnimation()),
+                              )
+                            : controller.checkPhone != controller.phone.value
+                                ? IconButton(
+                                    icon: const Icon(
+                                      Icons.check_circle_outline,
+                                      color: neonShade,
+                                    ),
+                                    onPressed: () {
+                                      controller.updatePhone(context);
+                                    },
+                                  )
+                                : null,
+                      ),
               );
             }),
           ],

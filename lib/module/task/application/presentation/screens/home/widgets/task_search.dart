@@ -77,16 +77,6 @@ class TaskSearchScreen extends StatelessWidget {
             Expanded(
               child: Obx(
                 () {
-                  if (!internetConnectinController
-                      .isConnectedToInternet.value) {
-                    return SizedBox(
-                        width: 320.w,
-                        child: InternetConnectionLostWidget(
-                          onTap: () {
-                            taskController.searchTasks();
-                          },
-                        ));
-                  }
                   if (taskController.taskSearchLoading.value) {
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -96,6 +86,16 @@ class TaskSearchScreen extends StatelessWidget {
                         width: double.infinity,
                       ),
                     );
+                  } else if (!internetConnectinController
+                          .isConnectedToInternet.value &&
+                      taskController.tasksSearch.isEmpty) {
+                    return SizedBox(
+                        width: 320.w,
+                        child: InternetConnectionLostWidget(
+                          onTap: () {
+                            taskController.searchTasks();
+                          },
+                        ));
                   } else if (taskController.tasksSearch.isEmpty) {
                     return ErrorRefreshIndicator(
                       image: emptyNodata2,

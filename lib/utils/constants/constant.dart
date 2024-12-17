@@ -197,7 +197,7 @@ const iconConnectionPeople = 'asset/images/connection_icon.png';
 const iconAddCircle = 'asset/images/add_icon.png';
 const iconNotification = 'asset/images/notification_icon.png';
 const iconBizkitPng = 'asset/images/bizkitIcon.png';
-const userProfileDummy='asset/images/pngaaa.com-2546523.png';
+const userProfileDummy = 'asset/images/pngaaa.com-2546523.png';
 
 // empty images
 const emptyDataGif = 'asset/images/Reminders.gif';
@@ -207,7 +207,7 @@ const emptyDataGif = 'asset/images/Reminders.gif';
 const emptyNodata1 = 'asset/images/Reminders-pana 1 (1).png';
 // const emptyNodata2 = 'asset/images/No data-pana 1.png';
 const emptyNodata2 = 'asset/images/Empty-amico.png';
-
+const forbiddenImage = 'asset/images/403 Error Forbidden-bro.png';
 const emptyNodata3 = 'asset/images/No data-amico 1.png';
 const emptyNodata4 = 'asset/images/Menstrual calendar-pana 1.png';
 

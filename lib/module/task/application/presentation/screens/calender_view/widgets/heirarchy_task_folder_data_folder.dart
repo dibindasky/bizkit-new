@@ -62,7 +62,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                   hierarchyController.fetchEmployeesList();
                 },
                 showTryAgain: false,
-                image: emptyNodata2,
+                image: forbiddenImage,
                 errorMessage: hierarchyController.heirarchyErrorMsg.value,
               ),
             );

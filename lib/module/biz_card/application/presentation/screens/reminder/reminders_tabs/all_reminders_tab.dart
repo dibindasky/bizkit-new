@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_r
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
@@ -117,11 +118,16 @@ class AllRemindersTab extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                const CircleAvatar(
-                                  radius: 15,
-                                  backgroundImage:
-                                      AssetImage(chatSectionPersonDummyImg2),
-                                )
+                                CircleAvatar(
+                                    radius: 20,
+                                    child: allReminder.profilePicture != null
+                                        ? NetworkImageWithLoader(
+                                            allReminder.profilePicture ??
+                                                userProfileDummy,
+                                            radius: 50,
+                                          )
+                                        : Image.asset(userProfileDummy),
+                                  ),
                               ],
                             ),
                             adjustHieght(10.h),

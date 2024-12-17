@@ -833,7 +833,7 @@ class CardViewsListPopUp extends StatelessWidget {
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: kgrey,
-                      child: Image.asset(personDemoImg),
+                      child: Image.asset(userProfileDummy),
                     ),
                     title: Text(
                       data.name ?? 'name',

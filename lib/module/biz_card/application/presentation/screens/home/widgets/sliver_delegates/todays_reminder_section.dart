@@ -105,7 +105,7 @@ class TodaysRemindersSectionSliverHeaderDelegate
                                     child: todaysReminder.profilePicture != null
                                         ? NetworkImageWithLoader(
                                             todaysReminder.profilePicture ??
-                                                chatSectionPersonDummyImg2,
+                                                userProfileDummy,
                                             radius: 50,
                                           )
                                         : const Icon(Icons.person),
@@ -123,22 +123,34 @@ class TodaysRemindersSectionSliverHeaderDelegate
                               ),
                               adjustHieght(15.h),
                               Row(
+                                
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(
-                                    'Venue : ',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(fontSize: 11),
+                                  SizedBox(
+                                    width: 80.h,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 30),
+                                      child: Text(
+                                        'Venue',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(fontSize: 11),
+                                      ),
+                                    ),
                                   ),
-                                  Text(
-                                    todaysReminder.venue ?? 'Venue',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(fontSize: 11),
+                                 const SizedBox(
+                                    width: 30,
+                                    child: Text(':')),
+                                  Expanded(
+                                    child: Text(
+                                      todaysReminder.venue ?? 'Venue',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(fontSize: 11),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -146,21 +158,32 @@ class TodaysRemindersSectionSliverHeaderDelegate
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(
-                                    'Created : ',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(fontSize: 11),
+                                  SizedBox(
+                                    width: 80.h,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 30),
+                                      child: Text(
+                                        'Created',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(fontSize: 11),
+                                      ),
+                                    ),
                                   ),
-                                  Text(
-                                    DateTimeFormater.getDDMMHHMMformat(
-                                        todaysReminder.reminderDate ??
-                                            'reminderDate'),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(fontSize: 11),
+                                  const SizedBox(
+                                    width: 30,
+                                    child: Text(':')),
+                                  Expanded(
+                                    child: Text(
+                                      DateTimeFormater.getDDMMHHMMformat(
+                                          todaysReminder.reminderDate ??
+                                              'reminderDate'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(fontSize: 11),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -168,21 +191,32 @@ class TodaysRemindersSectionSliverHeaderDelegate
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(
-                                    'Occasion : ',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(fontSize: 11),
+                                  SizedBox(
+                                    width: 80.h,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 30),
+                                      child: Text(
+                                        'Occasion',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(fontSize: 11),
+                                      ),
+                                    ),
                                   ),
-                                  Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    todaysReminder.occasion ?? 'occasion',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(fontSize: 11),
+                                    const SizedBox(
+                                    width: 30,
+                                    child: Text(':')),
+                                  Expanded(
+                                    child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      todaysReminder.occasion ?? 'occasion',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(fontSize: 11),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -214,3 +248,4 @@ class TodaysRemindersSectionSliverHeaderDelegate
     return false;
   }
 }
+

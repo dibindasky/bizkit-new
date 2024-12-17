@@ -4,7 +4,6 @@ import 'package:bizkit/module/task/application/controller/task/task_controller.d
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/assigned_user.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
 import 'package:bizkit/utils/constants/colors.dart';
-import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +18,7 @@ class NotificationCard extends StatelessWidget {
     this.createdAt,
     this.taskId,
     this.notificationId,
+    this.taskTitle,
   });
 
   final String? title;
@@ -27,6 +27,7 @@ class NotificationCard extends StatelessWidget {
   final List<AssignedUser>? assignedUsers;
   final String? createdAt;
   final String? notificationId;
+  final String? taskTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,7 @@ class NotificationCard extends StatelessWidget {
                             ),
                             adjustWidth(8),
                             Expanded(
-                              child: Text(
+                              child: Text(taskTitle??
                                 title ?? '',
                                 style: Theme.of(context)
                                     .textTheme

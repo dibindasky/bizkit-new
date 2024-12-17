@@ -18,7 +18,7 @@ class AttedenceMsLeavesAndRequestsTabsViewsSection extends StatelessWidget {
             itemCount: 10,
             itemBuilder: (context, index) {
               return const UpcomingLeavesCard(
-                imageUrl: personDemoImg,
+                imageUrl: userProfileDummy,
                 appliedDays: '09',
                 date: 'June 15th 2024 - June 25th 2024',
                 employeeName: 'Jane Cooper',
@@ -32,7 +32,7 @@ class AttedenceMsLeavesAndRequestsTabsViewsSection extends StatelessWidget {
             itemCount: 10,
             itemBuilder: (context, inx) {
               return const UpcomingLeavesCard(
-                imageUrl: personDemoImg,
+                imageUrl: userProfileDummy,
                 appliedDays: '03',
                 date: 'June 15th 2024 - June 25th 2024',
                 employeeName: 'Jane Cooper',

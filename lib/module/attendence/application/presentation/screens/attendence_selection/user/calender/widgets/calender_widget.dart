@@ -36,7 +36,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   List<Event> _getEventsForDay(DateTime day) {
     if (day.day == 5) {
-      return [const Event('Event 1', personDemoImg)];
+      return [const Event('Event 1', userProfileDummy)];
     }
     if (day.day == 10) {
       return [const Event('Event 2', demoPerosnImgPeltandpell)];

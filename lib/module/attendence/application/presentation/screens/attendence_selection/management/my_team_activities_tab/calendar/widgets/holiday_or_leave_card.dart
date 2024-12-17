@@ -81,7 +81,7 @@ class HolidayOrLeaveCard extends StatelessWidget {
                         radius: 15,
                         backgroundColor: kwhite,
                         backgroundImage: AssetImage(
-                          personDemoImg,
+                          userProfileDummy,
                         ),
                       ),
                     ),

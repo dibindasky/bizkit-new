@@ -74,7 +74,7 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
                         },
                         leading: const CircleAvatar(
                           backgroundImage:
-                              AssetImage(chatSectionPersonDummyImg2),
+                              AssetImage(userProfileDummy),
                         ),
                         title: Text(
                           data.name ?? '',

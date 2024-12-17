@@ -136,7 +136,7 @@ class AttendenceReportHistoryScreen extends StatelessWidget {
                           CircleAvatar(
                             radius: 19,
                             backgroundImage:
-                                AssetImage(chatSectionPersonDummyImg2),
+                                AssetImage(userProfileDummy),
                           ),
                           Positioned(
                             bottom: 2,
@@ -308,7 +308,7 @@ class AttendenceReportHistoryScreen extends StatelessWidget {
                           CircleAvatar(
                             radius: 19,
                             backgroundImage:
-                                AssetImage(chatSectionPersonDummyImg2),
+                                AssetImage(userProfileDummy),
                           ),
                           Positioned(
                             bottom: 2,

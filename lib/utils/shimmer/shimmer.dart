@@ -137,7 +137,7 @@ class ShimmerLoaderSearchParticipants extends StatelessWidget {
               baseColor ?? Theme.of(context).scaffoldBackgroundColor,
           child: const ListTile(
             leading: CircleAvatar(
-              backgroundImage: AssetImage(personDemoImg),
+              backgroundImage: AssetImage(userProfileDummy),
             ),
             title: ShimmerLoaderTile(
               height: 10,

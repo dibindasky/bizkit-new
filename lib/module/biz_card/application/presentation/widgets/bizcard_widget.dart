@@ -197,7 +197,7 @@ class BizcardWidget extends StatelessWidget {
                             fit: BoxFit.cover,
                           )
                         : const DecorationImage(
-                            image: AssetImage(dummyPersonImage),
+                            image: AssetImage(userProfileDummy), 
                             fit: BoxFit.cover,
                           ),
                   ),
@@ -266,7 +266,7 @@ class BizcardWidget extends StatelessWidget {
                         },
                         child: decodedQrImage == null
                             ? null
-                            : FadeInImage(
+                            : FadeInImage( 
                                 placeholder: const AssetImage(bizcardBgImage),
                                 height: 40.h,
                                 fit: BoxFit.cover,

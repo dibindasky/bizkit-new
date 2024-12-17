@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/domain/model/requests/send_requests_responce/assigned_user.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
@@ -27,6 +28,8 @@ class ReqSentNotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskController = Get.find<CreateTaskController>();
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     final DateTime? createdAtDateTime =
         createdAt != null ? DateTime.parse(createdAt!) : null;
 
@@ -34,19 +37,21 @@ class ReqSentNotificationScreen extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10.0),
       child: GestureDetector(
         onTap: () {
-          taskController.fetchSingleTask(
-            singleTaskModel: GetSingleTaskModel(taskId: taskId),
-          );
+          if (internetConnectinController.isConnectedToInternet.value) {
+            taskController.fetchSingleTask(
+              singleTaskModel: GetSingleTaskModel(taskId: taskId),
+            );
 
-          GoRouter.of(context).pushNamed(
-            Routes.taskDeail,
-            pathParameters: {"taskId": '$taskId'},
-          );
+            GoRouter.of(context).pushNamed(
+              Routes.taskDeail,
+              pathParameters: {"taskId": '$taskId'},
+            );
+          } else {}
         },
         child: Card(
           elevation: 0,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             decoration: BoxDecoration(
               borderRadius: kBorderRadius15,
             ),
@@ -58,15 +63,16 @@ class ReqSentNotificationScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const CircleAvatar(
                             backgroundColor: kred,
                             radius: 6.0,
                           ),
-                          adjustWidth(8),
-                          Flexible(
+                          adjustWidth(10),
+                          Expanded(
                             child: Text(
-                              title ?? 'Task Title',
+                              title ?? '',
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium
@@ -76,7 +82,6 @@ class ReqSentNotificationScreen extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const Spacer(),
                           Text(
                             createdAtDateTime != null
                                 // ? DateTimeFormater.timeAgo(createdAtDateTime)
@@ -86,9 +91,9 @@ class ReqSentNotificationScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      adjustHieght(4),
+                      adjustHieght(8),
                       Text(
-                        description ?? 'Task Description',
+                        description ?? '',
                         maxLines: 2,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,

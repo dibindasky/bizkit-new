@@ -1,8 +1,11 @@
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/send_and_received_req/widget/request_dicline_dailog.dart';
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/send_and_received_req/widget/request_mark_dailog.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NotificationRequestCard extends StatelessWidget {
   const NotificationRequestCard(
@@ -28,6 +31,8 @@ class NotificationRequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final internetConnectinController =
+        Get.find<InternetConnectionController>();
     return GestureDetector(
       onTap: () {
         // log('Task id ------- >>> $taskId');
@@ -125,10 +130,18 @@ class NotificationRequestCard extends StatelessWidget {
                   ),
                   color: neonShade,
                   onPressed: () {
-                    requestMarkingDailog(
-                      context,
-                      taskId: taskId,
-                    );
+                    if (internetConnectinController
+                        .isConnectedToInternet.value) {
+                      requestMarkingDailog(
+                        context,
+                        taskId: taskId,
+                      );
+                    } else {
+                      showCustomToast(
+                          message:
+                              'You must be online to accept this task. Please check your internet connection.',
+                          backgroundColor: kred);
+                    }
                   },
                 ),
               ),
@@ -144,11 +157,19 @@ class NotificationRequestCard extends StatelessWidget {
                   ),
                   color: const Color.fromARGB(255, 255, 169, 169),
                   onPressed: () {
-                    requestDiclineShowDailog(
-                      context,
-                      taskId: taskId,
-                      isAccepted: isAccepted,
-                    );
+                    if (internetConnectinController
+                        .isConnectedToInternet.value) {
+                      requestDiclineShowDailog(
+                        context,
+                        taskId: taskId,
+                        isAccepted: isAccepted,
+                      );
+                    } else {
+                      showCustomToast(
+                          message:
+                              'You must be online to rejected this task. Please check your internet connection.',
+                          backgroundColor: kred);
+                    }
                   },
                 ),
               ),

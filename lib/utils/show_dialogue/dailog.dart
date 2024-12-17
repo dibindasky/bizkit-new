@@ -19,6 +19,7 @@ showConfirmationDialog(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(heading ?? '',
+                textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall

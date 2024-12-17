@@ -21,7 +21,7 @@ class CompletedTasksListView extends StatelessWidget {
       () {
         if (taskController.filterByTypeLoading.value) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
             child: ShimmerLoaderTaskContainer(
               height: 50.h,
               itemCount: 10,
@@ -31,7 +31,7 @@ class CompletedTasksListView extends StatelessWidget {
         } else if (taskController.completedTasks.isEmpty) {
           return ErrorRefreshIndicator(
             image: emptyNodata2,
-            errorMessage: 'No Tasks',
+            errorMessage: 'No completed tasks',
             onRefresh: () {
               taskController.fetchAllCompletedTasks();
             },
@@ -42,7 +42,8 @@ class CompletedTasksListView extends StatelessWidget {
               taskController.fetchAllCompletedTasks();
             },
             child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
               itemCount: taskController.completedTasks.length,
               itemBuilder: (context, index) {
                 final typeTask = taskController.completedTasks[index];
@@ -58,90 +59,64 @@ class CompletedTasksListView extends StatelessWidget {
                       pathParameters: {"taskId": '${typeTask.taskId}'},
                     );
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: kBorderRadius15, border: Border.all()),
-                    child: Stack(
-                      children: [
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(
-                              width: 2,
-                              color: kwhite,
-                            ),
-                            borderRadius: BorderRadius.circular(15.0),
+                  child: Card(
+                    elevation: 1,
+                    margin: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              adjustWidth(10),
+                              Expanded(
+                                child: Text(
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  typeTask.taskTitle ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(fontSize: 14),
+                                ),
+                              ),
+                              adjustWidth(15),
+                            ],
                           ),
-                          margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                          adjustHieght(5.h),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        adjustWidth(10),
-                                        Text(
-                                          overflow: TextOverflow.ellipsis,
-                                          softWrap: true,
-                                          typeTask.taskTitle ?? 'Title',
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: neonShade,
-                                          ),
-                                        ),
-                                        adjustWidth(15),
-                                        Card(
-                                          color: lightGrey,
-                                          child: const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 5),
-                                            child: Text(
-                                              'status',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                color: neonShade,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-
-                                    // adjustWidth(30.w),s
-                                  ],
+                                Text(
+                                  typeTask.deadLine ?? '',
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(fontSize: 10),
                                 ),
                                 Text(
-                                  maxLines: 1,
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  typeTask.isOwned == true
-                                      ? 'Created by  ${typeTask.createdBy?.name ?? 'no name'}'
-                                      : 'Assigned by ${typeTask.createdBy?.name ?? 'no name'}',
-                                  style: textThinStyle1.copyWith(fontSize: 8),
-                                ),
-                                adjustHieght(10),
+                                    maxLines: 1,
+                                    softWrap: true,
+                                    overflow: TextOverflow.ellipsis,
+                                    typeTask.isOwned == true
+                                        ? 'Created by  ${typeTask.createdBy?.name ?? 'no name'}'
+                                        : 'Assigned by ${typeTask.createdBy?.name ?? 'no name'}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(fontSize: 9)),
                               ],
                             ),
                           ),
-                        ),
-                        Positioned(
-                          top: 40,
-                          bottom: 40,
-                          left: 0,
-                          child: Container(
-                            color: klightgrey,
-                            width: 4,
-                            height: 6,
-                          ),
-                        ),
-                      ],
+                          adjustHieght(10),
+                        ],
+                      ),
                     ),
                   ),
                 );

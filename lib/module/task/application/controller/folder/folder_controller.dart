@@ -26,6 +26,7 @@ import 'package:bizkit/module/task/domain/repository/service/folder_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/snackbar/flutter_toast.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -475,11 +476,7 @@ class TaskFolderController extends GetxController {
   void fetchAllTasksInsideAInnerFolder(
     InnerFolderTasksGetParamsModel innerFolderGetParams,
   ) async {
-    if (innerFolderGetParams.innerFolderId != innerFolderId) {
-      tasksInsideInnerFolder.value = <InnerFolderTask>[];
-      getFoldersLoading.value = true;
-    }
-    innerFolderId = innerFolderGetParams.innerFolderId ?? "";
+    getFoldersLoading.value = true;
     final result = await folderService.getTasksInsideAInnerFolder(
         innerFolderGetParams: innerFolderGetParams);
     result.fold(

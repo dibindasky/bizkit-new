@@ -187,7 +187,7 @@ class TaskContainer extends StatelessWidget {
                                     typeTask?.title ??
                                         tasksInsideFolder?.title ??
                                         tasksInsideInnerFolder?.title ??
-                                        'Title',
+                                        '',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall

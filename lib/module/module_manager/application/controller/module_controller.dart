@@ -128,11 +128,10 @@ class ModuleController extends GetxController {
   /// delete all controllers
   /// except module managers and except the [Module] passed as a optional param
   Future<void> deleteAllControlers([Module? module]) async {
-    // if (module == null || module != Module.task) deleteTaskControllers();
-    // if (module == null || module != Module.card) deleteCardControllers();
-    // if (module == null || module != Module.attendance) {
-    //   deleteAttendanceControllers();
-    // }
+    // if (module == null || module != Module.task) {}
+    // if (module == null || module != Module.card) {}
+    // if (module == null || module != Module.attendance) {}
+
     await deleteCardControllers();
     await deleteAttendanceControllers();
     await deleteTaskControllers();
@@ -147,13 +146,17 @@ class ModuleController extends GetxController {
       await Get.delete<MatchoMeterScreenController>();
     }
     if (Get.isRegistered<BizcardNotificationController>()) {
+      // close card notigication connection if connected
+      Get.find<BizcardNotificationController>().closeConnection();
       await Get.delete<BizcardNotificationController>();
     }
     if (Get.isRegistered<CardController>()) await Get.delete<CardController>();
-    if (Get.isRegistered<NavbarController>())
+    if (Get.isRegistered<NavbarController>()) {
       await Get.delete<NavbarController>();
-    if (Get.isRegistered<PromtController>())
+    }
+    if (Get.isRegistered<PromtController>()) {
       await Get.delete<PromtController>();
+    }
     if (Get.isRegistered<PersonalDetailsController>()) {
       await Get.delete<PersonalDetailsController>();
     }
@@ -199,6 +202,8 @@ class ModuleController extends GetxController {
     }
     if (Get.isRegistered<ChatController>()) await Get.delete<ChatController>();
     if (Get.isRegistered<MessageCountController>()) {
+      // close task notification socket connection if connected
+      Get.find<MessageCountController>().closeConnetion();
       await Get.delete<MessageCountController>();
     }
     if (Get.isRegistered<HierarchyController>()) {

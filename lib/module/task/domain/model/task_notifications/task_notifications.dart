@@ -9,8 +9,10 @@ class TaskNotification {
   final String? notificationType;
   final bool? isNewTask;
   final String? taskTitle; // Added field
+  final String? title; // Added field
 
   TaskNotification({
+    this.title,
     this.id,
     this.userId,
     this.taskId,
@@ -35,6 +37,7 @@ class TaskNotification {
       notificationType: json['notification_type'] != null && json['notification_type'].isNotEmpty ? json['notification_type'] : null,
       isNewTask: json['is_new_task'],
       taskTitle: json['task_title'] != null && json['task_title'].isNotEmpty ? json['task_title'] : null, // Handle task_title
+      title: json['title'] != null && json['title'].isNotEmpty ? json['title'] : null, // Handle title
     );
   }
 
@@ -50,6 +53,7 @@ class TaskNotification {
       if (notificationType != null) 'notification_type': notificationType,
       if (isNewTask != null) 'is_new_task': isNewTask,
       if (taskTitle != null) 'task_title': taskTitle, // Include task_title if not null
+      if (title != null) 'title': title, // Include title if not null
     };
   }
 }

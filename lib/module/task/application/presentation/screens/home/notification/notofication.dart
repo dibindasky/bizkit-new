@@ -1,5 +1,7 @@
 import 'package:bizkit/module/task/application/presentation/screens/home/notification/widget/notification_container.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -43,14 +45,22 @@ class NotoficationBuilder extends StatelessWidget {
                 ],
               ),
               adjustHieght(10.h),
+              notificationController.taskNotification.isEmpty?
+              Column(
+                children: [
+                  SizedBox( child: Image.asset(emptyNodata2)),
+                  Text('No notifications available\n at the moment',style: Theme.of(context).textTheme.titleSmall,textAlign: TextAlign.center,)
+                ],
+              ):
               Expanded(
                 child: Obx(() {
                   return ListView.builder(
                     itemCount: notificationController.taskNotification.length,
                     itemBuilder: (context, index) {
                       return NotificationCard(
-                        title: notificationController
-                            .taskNotification[index].taskTitle,
+                        taskTitle:notificationController
+                            .taskNotification[index].taskTitle ,
+                        title: notificationController.taskNotification[index].title,
                         message: notificationController
                             .taskNotification[index].message,
                         createdAt: notificationController
@@ -78,6 +88,7 @@ class NotoficationBuilder extends StatelessWidget {
                     .map((datas) => datas.id)
                     .toList();
                 notificationController.clearNotification(ids);
+                
               })
           : null,
     );

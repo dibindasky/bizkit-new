@@ -1,5 +1,6 @@
 import 'package:bizkit/module/biz_card/application/controller/notifications/bizcard_notification_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
+import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,7 +67,13 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
           style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
-      body: Padding(
+      body:  notificationController.bizcardNotifications.isEmpty?
+      Column(
+                children: [
+                  SizedBox( child: Image.asset(emptyNodata2)),
+                  Text('No notifications available\n at the moment',style: Theme.of(context).textTheme.titleSmall,textAlign: TextAlign.center,)
+                ],
+              ): Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Obx(
           () {
@@ -226,6 +233,7 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
 
                     notificationController
                         .clearNotification(bizcardNotificationIds);
+                        GoRouter.of(context).pop();
                   },
                 )
               : null,

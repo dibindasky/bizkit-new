@@ -62,7 +62,16 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
         if (controller.taskTabChangeIndex.value == 1) {
           return const Expanded(child: TaskListView());
         } else {
-          if (!internetConnectinController.isConnectedToInternet.value) {
+          if (taskFolderController.getFoldersLoading.value) {
+            return const Expanded(
+              child: Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
+                ),
+              ),
+            );
+          } else if (!internetConnectinController.isConnectedToInternet.value &&
+              taskFolderController.filteredFoldersByDeadline.isEmpty) {
             return Expanded(
                 child: SizedBox(
                     width: 300.w,
@@ -74,13 +83,6 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                         ));
                       },
                     )));
-          }
-          if (taskFolderController.getFoldersLoading.value) {
-            return const Expanded(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
           } else if (taskFolderController.filteredFoldersByDeadline.isEmpty) {
             return Expanded(
               child: Padding(
@@ -88,7 +90,7 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                 child: ErrorRefreshIndicator(
                   shrinkWrap: true,
                   image: emptyNodata2,
-                  errorMessage: 'No folders available',
+                  errorMessage: 'No folders available yet!',
                   onRefresh: () {
                     taskFolderController.filterFoldersByDeadline(
                         filterFolder: FilterFolderByDeadlineModel(

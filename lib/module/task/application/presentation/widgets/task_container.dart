@@ -25,10 +25,8 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
-import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class TaskContainer extends StatelessWidget {

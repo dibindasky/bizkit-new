@@ -71,7 +71,7 @@ class BizcardReminderDetailScreen extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 30,
-                            child: Image.asset(chatSectionPersonDummyImg2),
+                            child: Image.asset(userProfileDummy),
                           ),
                           kWidth20,
                           Text(

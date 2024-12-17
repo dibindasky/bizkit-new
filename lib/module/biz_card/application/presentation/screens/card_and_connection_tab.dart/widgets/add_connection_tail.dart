@@ -44,7 +44,7 @@ class _ConnectionTileState extends State<ConnectionTile> {
             radius: kwidth * 0.08,
             backgroundColor: textFieldFillColr,
             backgroundImage: const AssetImage(
-              chatSectionPersonDummyImg2,
+              userProfileDummy,
             ),
           ),
           adjustHieght(15.h),

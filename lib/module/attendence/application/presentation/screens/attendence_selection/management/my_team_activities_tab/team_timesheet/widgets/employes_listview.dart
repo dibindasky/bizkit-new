@@ -64,7 +64,7 @@ class EmployesListView extends StatelessWidget {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return const EmployeeTimeSheetContainer(
-                    employeProfile: chatSectionPersonDummyImg2,
+                    employeProfile: userProfileDummy,
                     attendence: 'On Work',
                     employeDesignation: 'UI/UX Designer',
                     employeName: 'Albert Flores',

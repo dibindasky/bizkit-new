@@ -119,7 +119,7 @@ class HistoryRemindersTab extends StatelessWidget {
                                 ),
                                 const CircleAvatar(
                                   radius: 15,
-                                  backgroundImage: AssetImage(personDemoImg),
+                                  backgroundImage: AssetImage(userProfileDummy),
                                 )
                               ],
                             ),

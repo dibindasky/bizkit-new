@@ -73,7 +73,7 @@ class LeaveItemWidget extends StatelessWidget {
                   child: const CircleAvatar(
                     radius: 16,
                     backgroundColor: neonShade,
-                    backgroundImage: AssetImage(chatSectionPersonDummyImg2),
+                    backgroundImage: AssetImage(userProfileDummy),
                   ),
                 ))
             .toList(),

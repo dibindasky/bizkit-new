@@ -46,7 +46,7 @@ class SecondScreenPageViewContents extends StatelessWidget {
                   //   ),
                   //   fit: BoxFit.cover,
                   // ),
-                  child: Image.asset(chatSectionPersonDummyImg2),
+                  child: Image.asset(userProfileDummy),
                 ),
               ),
             ),

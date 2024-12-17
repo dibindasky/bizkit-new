@@ -105,7 +105,7 @@ class TodaysRemindersSectionSliverHeaderDelegate
                                     child: todaysReminder.profilePicture != null
                                         ? NetworkImageWithLoader(
                                             todaysReminder.profilePicture ??
-                                                chatSectionPersonDummyImg2,
+                                                userProfileDummy,
                                             radius: 50,
                                           )
                                         : const Icon(Icons.person),

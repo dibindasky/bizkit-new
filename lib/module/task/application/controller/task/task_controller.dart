@@ -1860,6 +1860,7 @@ class CreateTaskController extends GetxController {
 // Fetch all completed tasks
   void fetchAllCompletedTasks() async {
     filterByTypeLoading.value = true;
+    allPinnedTasks.value = [];
     final result = await taskService.getAllCompletedTasks();
     result.fold(
       (failure) {
@@ -1876,6 +1877,7 @@ class CreateTaskController extends GetxController {
 // Fetch all killed tasks
   void fetchAllKilledTasks() async {
     filterByTypeLoading.value = true;
+    allPinnedTasks.value = [];
     final result = await taskService.getAllKilledTasks();
     result.fold(
       (failure) {

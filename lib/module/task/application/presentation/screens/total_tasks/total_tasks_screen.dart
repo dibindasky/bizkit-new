@@ -2,8 +2,10 @@ import 'package:bizkit/module/module_manager/application/controller/internet_con
 import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/completed_tasks_list.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/custom_pop_menubutton.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/filter_tasks_list.dart';
+import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/killed_tasks_list.dart';
 import 'package:bizkit/module/task/application/presentation/screens/total_tasks/widgets/pinned_tasks_section.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -266,10 +268,16 @@ class TotalTasksScreen extends StatelessWidget {
                             taskController.filterByType();
                           }
                         },
-                        child: FilterTasksListView(
-                            fromHeirarachy: fromHeirarachy,
-                            hierarchyController: hierarchyController,
-                            taskController: taskController),
+                        child: homeController.taskCategory.value ==
+                                'Completed Tasks'
+                            ? const CompletedTasksListView()
+                            : homeController.taskCategory.value ==
+                                    'Killed Tasks'
+                                ? const KilledTasksListView()
+                                : FilterTasksListView(
+                                    fromHeirarachy: fromHeirarachy,
+                                    hierarchyController: hierarchyController,
+                                    taskController: taskController),
                       );
                     }
                   },

@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -77,16 +78,32 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
                         adjustHieght(10.h),
                         CircleAvatar(
                           radius: kwidth * 0.08,
-                          // backgroundImage: MemoryImage(
-                          //   base64.decode(
-                          //       imageTestingBase64.startsWith('data')
-                          //           ? imageTestingBase64.substring(22)
-                          //           : imageTestingBase64),
-                          // ),
-                          backgroundImage:
-                              const AssetImage(userProfileDummy),
-                          backgroundColor: smallBigGrey,
+                          child: (connectionController
+                                      .filterdConnectionRequest[index]
+                                      .fromUserProfilePicture
+                                      ?.isNotEmpty ??
+                                  false)
+                              ? NetworkImageWithLoader(
+                                  connectionController
+                                          .filterdConnectionRequest[index]
+                                          .fromUserProfilePicture ??
+                                      userProfileDummy,
+                                  radius: 50,
+                                )
+                              : Image.asset(userProfileDummy),
                         ),
+                        // CircleAvatar(
+                        //   radius: kwidth * 0.08,
+                        //   // backgroundImage: MemoryImage(
+                        //   //   base64.decode(
+                        //   //       imageTestingBase64.startsWith('data')
+                        //   //           ? imageTestingBase64.substring(22)
+                        //   //           : imageTestingBase64),
+                        //   // ),
+                        //   backgroundImage:
+                        //       const AssetImage(userProfileDummy),
+                        //   backgroundColor: smallBigGrey,
+                        // ),
                         adjustHieght(10),
                         Text(
                           connectionController.filterdConnectionRequest[index]

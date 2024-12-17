@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_
 import 'package:bizkit/module/biz_card/domain/model/connections/send_connection_requets_responce/request.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
@@ -41,12 +42,24 @@ class _ConnectionTileState extends State<ConnectionTile> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircleAvatar(
-            radius: kwidth * 0.08,
-            backgroundColor: textFieldFillColr,
-            backgroundImage: const AssetImage(
-              userProfileDummy,
-            ),
+            radius:  kwidth * 0.08,
+            child: widget.allSendRequests?.toUserProfilePicture != null||widget.data?.profilePicture!=null
+                ? NetworkImageWithLoader(
+                    widget.fromPendingRequests
+                        ? widget.allSendRequests?.toUserProfilePicture ??
+                            userProfileDummy
+                        : widget.data?.profilePicture ?? userProfileDummy,
+                    radius: kwidth * 0.08,
+                  )
+                : Image.asset(userProfileDummy),
           ),
+          // CircleAvatar(
+          //   radius: kwidth * 0.08,
+          //   backgroundColor: textFieldFillColr,
+          //   backgroundImage: const AssetImage(
+          //     userProfileDummy,
+          //   ),
+          // ),
           adjustHieght(15.h),
           Text(
             widget.fromPendingRequests

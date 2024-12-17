@@ -26,7 +26,12 @@ class ContactFetchService {
           log('permission denied');
           return Left(Failure(message: 'permission denied'));
         } else if (permissionStatus == PermissionStatus.permanentlyDenied) {
-          log('permission denied permentanly');
+          final success = await openAppSettings();
+          // fetch contacts if granted
+          if (success) {
+            contactsList = await ContactsService.getContacts();
+            return Right(contactsList);
+          }
           return Left(Failure(message: 'permission denied permentanly'));
         } else {
           return Left(Failure(message: 'something went wrong'));

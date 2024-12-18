@@ -211,7 +211,8 @@ class TaskDetailHeaderSection extends StatelessWidget {
             Obx(
               () => taskController.isLoading.value ||
                       taskController.singleTask.value.id == null ||
-                      fromHeirarchy
+                      (fromHeirarchy &&
+                          taskController.singleTask.value.isOwned == false)
                   ? kempty
                   : Stack(
                       children: [
@@ -221,7 +222,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
                             icon: const Icon(
                               Iconsax.message,
                               size: 20,
-                            ),
+                            ), 
                             onPressed: () {
                               Get.find<ChatController>().connectChannel(context,
                                   taskId: taskController.singleTask.value.id);

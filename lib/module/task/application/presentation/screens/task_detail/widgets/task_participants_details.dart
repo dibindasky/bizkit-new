@@ -56,189 +56,201 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                 children: [
                   // Created by or assigned by section
                   if (task.isOwned == true) ...[
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: task.createdUserDetails
-                                      ?.profilePicture?.isEmpty ??
-                                  true
-                              ? klightDarkGrey
-                              : kneon,
-                          child: Padding(
-                            padding: EdgeInsets.all(1.w),
-                            child: task.createdUserDetails?.profilePicture
-                                        ?.isNotEmpty ==
+                    Expanded(
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: task.createdUserDetails
+                                        ?.profilePicture?.isEmpty ??
                                     true
-                                ? NetworkImageWithLoader(
-                                    task.createdUserDetails?.profilePicture ??
-                                        '',
-                                    radius: 50,
-                                    errorWidget: const Icon(Iconsax.user),
-                                  )
-                                : Text(
-                                    task.createdUserDetails?.name?.isNotEmpty ==
-                                            true
-                                        ? task.createdUserDetails!.name!
-                                            .substring(0, 2)
-                                            .toUpperCase()
-                                        : 'NA',
-                                    style: textHeadStyle1,
-                                  ),
-                          ),
-                        ),
-                        adjustWidth(7.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (taskController.isLoading.value)
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: ShimmerLoaderTile(
-                                  height: 9.h,
-                                  width: 100.w,
-                                ),
-                              )
-                            else
-                              Text(
-                                'Created By',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(
-                                      overflow: TextOverflow.ellipsis,
+                                ? klightDarkGrey
+                                : kneon,
+                            child: Padding(
+                              padding: EdgeInsets.all(1.w),
+                              child: task.createdUserDetails?.profilePicture
+                                          ?.isNotEmpty ==
+                                      true
+                                  ? NetworkImageWithLoader(
+                                      task.createdUserDetails?.profilePicture ??
+                                          '',
+                                      radius: 50,
+                                      errorWidget: const Icon(Iconsax.user),
+                                    )
+                                  : Text(
+                                      task.createdUserDetails?.name?.isNotEmpty ==
+                                              true
+                                          ? task.createdUserDetails!.name!
+                                              .substring(0, 2)
+                                              .toUpperCase()
+                                          : 'NA',
+                                      style: textHeadStyle1,
                                     ),
-                              ),
-                            if (taskController.isLoading.value)
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: ShimmerLoaderTile(
-                                  height: 9.h,
-                                  width: 100.w,
+                            ),
+                          ),
+                          adjustWidth(7.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (taskController.isLoading.value)
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: ShimmerLoaderTile(
+                                    height: 9.h,
+                                    width: 100.w,
+                                  ),
+                                )
+                              else
+                                Text(
+                                  'Created By',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                 ),
-                              )
-                            else
-                              Text(
-                                task.createdUserDetails?.name ?? 'Unknown',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(fontSize: 11),
-                              ),
-                          ],
-                        ),
-                      ],
+                              if (taskController.isLoading.value)
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: ShimmerLoaderTile(
+                                    height: 9.h,
+                                    width: 100.w,
+                                  ),
+                                )
+                              else
+                                Text(
+                                  task.createdUserDetails?.name ?? 'Unknown',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(fontSize: 11),
+                                ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ] else ...[
                     // Assigned by section for non-owned tasks
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: task.createdUserDetails
-                                      ?.profilePicture?.isEmpty ??
-                                  true
-                              ? klightDarkGrey
-                              : kneon,
-                          child: Padding(
-                            padding: EdgeInsets.all(1.w),
-                            child: task.createdUserDetails?.profilePicture
-                                        ?.isNotEmpty ==
+                    Expanded(
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: task.createdUserDetails
+                                        ?.profilePicture?.isEmpty ??
                                     true
-                                ? NetworkImageWithLoader(
-                                    task.createdUserDetails?.profilePicture ??
-                                        '',
-                                    radius: 50,
-                                    errorWidget: const Icon(Iconsax.user),
-                                  )
-                                : Text(
-                                    task.createdUserDetails?.name?.isNotEmpty ==
-                                            true
-                                        ? task.createdUserDetails!.name!
-                                            .substring(0, 2)
-                                            .toUpperCase()
-                                        : 'NA',
-                                    style:
-                                        textHeadStyle1.copyWith(color: kwhite),
-                                  ),
+                                ? klightDarkGrey
+                                : kneon,
+                            child: Padding(
+                              padding: EdgeInsets.all(1.w),
+                              child: task.createdUserDetails?.profilePicture
+                                          ?.isNotEmpty ==
+                                      true
+                                  ? NetworkImageWithLoader(
+                                      task.createdUserDetails?.profilePicture ??
+                                          '',
+                                      radius: 50,
+                                      errorWidget: const Icon(Iconsax.user),
+                                    )
+                                  : Text(
+                                      task.createdUserDetails?.name?.isNotEmpty ==
+                                              true
+                                          ? task.createdUserDetails!.name!
+                                              .substring(0, 2)
+                                              .toUpperCase()
+                                          : 'NA',
+                                      style:
+                                          textHeadStyle1.copyWith(color: kwhite),
+                                    ),
+                            ),
                           ),
-                        ),
-                        adjustWidth(7.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (taskController.isLoading.value)
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: ShimmerLoaderTile(
-                                  height: 9.h,
-                                  width: 100.w,
+                          adjustWidth(7.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (taskController.isLoading.value)
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: ShimmerLoaderTile(
+                                    height: 9.h,
+                                    width: 100.w,
+                                  ),
+                                )
+                              else
+                                Text(
+                                  'Assigned By',
+                                  style: Theme.of(context).textTheme.displaySmall,
                                 ),
-                              )
-                            else
-                              Text(
-                                'Assigned By',
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                            if (taskController.isLoading.value)
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: ShimmerLoaderTile(
-                                  height: 9.h,
-                                  width: 100.w,
+                              if (taskController.isLoading.value)
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: ShimmerLoaderTile(
+                                    height: 9.h,
+                                    width: 100.w,
+                                  ),
+                                )
+                              else
+                                Text(
+                                  task.createdUserDetails?.name ?? 'Unknown',
+                                  style: Theme.of(context).textTheme.displaySmall,
                                 ),
-                              )
-                            else
-                              Text(
-                                task.createdUserDetails?.name ?? 'Unknown',
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                  const Spacer(),
-                  // Deadline section
-                  CircleAvatar(
-                    child: Padding(
-                      padding: EdgeInsets.all(1.w),
-                      child: const CircleAvatar(
-                        backgroundColor: kneon,
-                        child: Icon(
-                          Iconsax.calendar_1,
-                        ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  adjustWidth(10.w),
+                  ],
+                  // const Spacer(),
+                  // Deadline section
+                  kWidth20,
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Deadline',
-                          style: Theme.of(context).textTheme.displaySmall,
-                        ),
-                        if (taskController.isLoading.value)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: ShimmerLoaderTile(
-                              height: 9.h,
-                              width: 50.w,
+                    child: SizedBox(
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            child: Padding(
+                              padding: EdgeInsets.all(1.w),
+                              child: const CircleAvatar(
+                                backgroundColor: kneon,
+                                child: Icon(
+                                  Iconsax.calendar_1,
+                                ),
+                              ),
                             ),
-                          )
-                        else
-                          Text(
-                            formatDeadline(task.deadLine),
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(fontSize: 13),
                           ),
-                      ],
+                          adjustWidth(10.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Deadline',
+                                style: Theme.of(context).textTheme.displaySmall,
+                              ),
+                              if (taskController.isLoading.value)
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: ShimmerLoaderTile(
+                                    height: 9.h,
+                                    width: 50.w,
+                                  ),
+                                )
+                              else
+                                Text(
+                                  formatDeadline(task.deadLine),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(fontSize: 13),
+                                ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -246,96 +258,119 @@ class TaskDetailUserInfoSection extends StatelessWidget {
               adjustHieght(15.h),
 
               // Participants section
-              GestureDetector(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    enableDrag: true,
-                    isDismissible: true,
-                    showDragHandle: true,
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    builder: (context) => const ParticipantsListBottomSheet(),
-                  );
-                },
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      child: Padding(
-                        padding: EdgeInsets.all(1.w),
-                        child: const CircleAvatar(
-                          backgroundColor: kneon,
-                          child: Icon(
-                            Iconsax.profile_2user,
-                          ),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          enableDrag: true,
+                          isDismissible: true,
+                          showDragHandle: true,
+                          backgroundColor:
+                              Theme.of(context).scaffoldBackgroundColor,
+                          builder: (context) =>
+                              const ParticipantsListBottomSheet(),
+                        );
+                      },
+                      child: SizedBox(
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              child: Padding(
+                                padding: EdgeInsets.all(1.w),
+                                child: const CircleAvatar(
+                                  backgroundColor: kneon,
+                                  child: Icon(
+                                    Iconsax.profile_2user,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            adjustWidth(10.w),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Participants',
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                ),
+                                if (taskController.isLoading.value)
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    child: ShimmerLoaderTile(
+                                      height: 9.h,
+                                      width: 100.w,
+                                    ),
+                                  )
+                                else
+                                  Text(
+                                    participants,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    adjustWidth(10.w),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                  kWidth20,
+                  Expanded(
+                    child: SizedBox(
+                      child: Row(
                         children: [
-                          Text(
-                            'Participants',
-                            style: Theme.of(context).textTheme.displaySmall,
-                          ),
-                          if (taskController.isLoading.value)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: ShimmerLoaderTile(
-                                height: 9.h,
-                                width: 100.w,
+                          CircleAvatar(
+                            child: Padding(
+                              padding: EdgeInsets.all(1.w),
+                              child: const CircleAvatar(
+                                backgroundColor: kneon,
+                                child: Icon(
+                                  Icons.access_time,
+                                ),
                               ),
-                            )
-                          else
-                            Text(
-                              participants,
-                              style: Theme.of(context).textTheme.displaySmall,
-                              overflow: TextOverflow.ellipsis,
                             ),
+                          ),
+                          adjustWidth(10.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Created at',
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall),
+                              if (taskController.isLoading.value)
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: ShimmerLoaderTile(
+                                    height: 9.h,
+                                    width: 70.w,
+                                  ),
+                                )
+                              else
+                                Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
+                                    DateTimeFormater.getDDMMHHMMformat(
+                                      task.createdAt ?? 'No createdAt',
+                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(fontSize: 10)),
+                            ],
+                          ),
                         ],
                       ),
                     ),
-                    CircleAvatar(
-                      child: Padding(
-                        padding: EdgeInsets.all(1.w),
-                        child: const CircleAvatar(
-                          backgroundColor: kneon,
-                          child: Icon(
-                            Icons.access_time,
-                          ),
-                        ),
-                      ),
-                    ),
-                    adjustWidth(10.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Created at',
-                            style: Theme.of(context).textTheme.displaySmall),
-                        if (taskController.isLoading.value)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: ShimmerLoaderTile(
-                              height: 9.h,
-                              width: 70.w,
-                            ),
-                          )
-                        else
-                          Text(
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                              DateTimeFormater.getDDMMHHMMformat(
-                                task.createdAt ?? 'No createdAt',
-                              ),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displaySmall
-                                  ?.copyWith(fontSize: 10)),
-                      ],
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               adjustHieght(20.h),
               // Time and expense section

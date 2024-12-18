@@ -45,18 +45,26 @@ class _ConnectionTileState extends State<ConnectionTile> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius:  kwidth * 0.08,
-            child: widget.allSendRequests?.toUserProfilePicture != null||widget.data?.profilePicture!=null
-                ? NetworkImageWithLoader(
-                    widget.fromPendingRequests
-                        ? widget.allSendRequests?.toUserProfilePicture ??
-                            userProfileDummy
-                        : widget.data?.profilePicture ?? userProfileDummy,
-                    radius: kwidth * 0.08,
-                  )
-                : Image.asset(userProfileDummy),
-          ),
+          widget.fromPendingRequests
+              ? CircleAvatar(
+                  radius: kwidth * 0.08,
+                  child: widget.allSendRequests?.toUserProfilePicture != null
+                      ? NetworkImageWithLoader(
+                          widget.allSendRequests?.toUserProfilePicture ??
+                              userProfileDummy,
+                          radius: kwidth * 0.08,
+                        )
+                      : Image.asset(userProfileDummy),
+                )
+              : CircleAvatar(
+                  radius: kwidth * 0.08,
+                  child: widget.data?.profilePicture != null
+                      ? NetworkImageWithLoader(
+                          widget.data!.profilePicture!,
+                          radius: kwidth * 0.08,
+                        )
+                      : Image.asset(userProfileDummy),
+                ),
           // CircleAvatar(
           //   radius: kwidth * 0.08,
           //   backgroundColor: textFieldFillColr,

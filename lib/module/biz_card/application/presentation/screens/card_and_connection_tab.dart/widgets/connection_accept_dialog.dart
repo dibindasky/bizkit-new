@@ -3,6 +3,7 @@ import 'package:bizkit/module/biz_card/application/controller/level_sharing/leve
 import 'package:bizkit/module/biz_card/domain/model/connections/accept_or_reject_connection_request/accept_or_reject_connection_request.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/follow_back_request_model/follow_back_request_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/level_sharing/shared_fields/shared_fields.dart';
+import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
@@ -13,6 +14,7 @@ import 'package:go_router/go_router.dart';
 
 void showConnectionAcceptDialog(
     BuildContext context,
+    AccessController accessController,
     LevelSharingController levelSharingController,
     ConnectionsController connectionController,
     int index) {
@@ -30,7 +32,7 @@ void showConnectionAcceptDialog(
       return Dialog(
         child: Obx(
           () => Container(
-            height: 510.h,
+            height: accessController.userRole.value=="user"? 510.h:410.h,
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: Stack(
@@ -149,148 +151,198 @@ void showConnectionAcceptDialog(
                         },
                       ),
                       adjustHieght(khieght * .02),
-                      Container(
-                        width: kwidth,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: kneon),
-                            borderRadius: kBorderRadius15),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: Center(
-                            child: Text("Business Details",
-                                style:
-                                    Theme.of(context).textTheme.displaySmall),
-                          ),
+                      accessController.userRole.value=="user"?
+                      SizedBox(
+                        child: Column(
+                          children: [
+                            Container(
+                              width: kwidth,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: kneon),
+                                  borderRadius: kBorderRadius15),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                child: Center(
+                                  child: Text("Business Details",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall),
+                                ),
+                              ),
+                            ),
+                            adjustHieght(khieght * .01),
+                            buildSwitch(
+                              "Business category",
+                              levelSharingController
+                                      .individualBusinessSharedFields
+                                      .value
+                                      .businessCategory ??
+                                  false,
+                              (value) {
+                                levelSharingController
+                                    .changeBusinessSharedFields(
+                                        isCommonBusinessSharedField: false,
+                                        individualBusinessSharedFields:
+                                            levelSharingController
+                                                .individualBusinessSharedFields
+                                                .value
+                                                .copyWith(
+                                                    businessCategory: value));
+                              },
+                            ),
+                            buildSwitch(
+                              "Product",
+                              levelSharingController
+                                      .individualBusinessSharedFields
+                                      .value
+                                      .product ??
+                                  false,
+                              (value) {
+                                levelSharingController
+                                    .changeBusinessSharedFields(
+                                        isCommonBusinessSharedField: false,
+                                        individualBusinessSharedFields:
+                                            levelSharingController
+                                                .individualBusinessSharedFields
+                                                .value
+                                                .copyWith(product: value));
+                              },
+                            ),
+                            buildSwitch(
+                              "Business achievements",
+                              levelSharingController
+                                      .individualBusinessSharedFields
+                                      .value
+                                      .businessAchievements ??
+                                  false,
+                              (value) {
+                                levelSharingController
+                                    .changeBusinessSharedFields(
+                                        isCommonBusinessSharedField: false,
+                                        individualBusinessSharedFields:
+                                            levelSharingController
+                                                .individualBusinessSharedFields
+                                                .value
+                                                .copyWith(
+                                                    businessAchievements:
+                                                        value));
+                              },
+                            ),
+                            buildSwitch(
+                              "Business social medias",
+                              levelSharingController
+                                      .individualBusinessSharedFields
+                                      .value
+                                      .businessSocialMedia ??
+                                  false,
+                              (value) {
+                                levelSharingController
+                                    .changeBusinessSharedFields(
+                                        isCommonBusinessSharedField: false,
+                                        individualBusinessSharedFields:
+                                            levelSharingController
+                                                .individualBusinessSharedFields
+                                                .value
+                                                .copyWith(
+                                                    businessSocialMedia:
+                                                        value));
+                              },
+                            ),
+                            buildSwitch(
+                              "Branch offices",
+                              levelSharingController
+                                      .individualBusinessSharedFields
+                                      .value
+                                      .branchOffices ??
+                                  false,
+                              (value) {
+                                levelSharingController
+                                    .changeBusinessSharedFields(
+                                        isCommonBusinessSharedField: false,
+                                        individualBusinessSharedFields:
+                                            levelSharingController
+                                                .individualBusinessSharedFields
+                                                .value
+                                                .copyWith(
+                                                    branchOffices: value));
+                              },
+                            ),
+                            buildSwitch(
+                              "Brochure",
+                              levelSharingController
+                                      .individualBusinessSharedFields
+                                      .value
+                                      .brochure ??
+                                  false,
+                              (value) {
+                                levelSharingController
+                                    .changeBusinessSharedFields(
+                                        isCommonBusinessSharedField: false,
+                                        individualBusinessSharedFields:
+                                            levelSharingController
+                                                .individualBusinessSharedFields
+                                                .value
+                                                .copyWith(brochure: value));
+                              },
+                            ),
+                            buildSwitch(
+                              "Bank details",
+                              levelSharingController
+                                      .individualBusinessSharedFields
+                                      .value
+                                      .bankDetails ??
+                                  false,
+                              (value) {
+                                levelSharingController
+                                    .changeBusinessSharedFields(
+                                        isCommonBusinessSharedField: false,
+                                        individualBusinessSharedFields:
+                                            levelSharingController
+                                                .individualBusinessSharedFields
+                                                .value
+                                                .copyWith(bankDetails: value));
+                              },
+                            ),
+                            buildSwitch(
+                              "Business logo",
+                              levelSharingController
+                                      .individualBusinessSharedFields
+                                      .value
+                                      .businessLogo ??
+                                  false,
+                              (value) {
+                                levelSharingController
+                                    .changeBusinessSharedFields(
+                                        isCommonBusinessSharedField: false,
+                                        individualBusinessSharedFields:
+                                            levelSharingController
+                                                .individualBusinessSharedFields
+                                                .value
+                                                .copyWith(businessLogo: value));
+                              },
+                            ),
+                            buildSwitch(
+                              "Logo story",
+                              levelSharingController
+                                      .individualBusinessSharedFields
+                                      .value
+                                      .logoStory ??
+                                  false,
+                              (value) {
+                                levelSharingController
+                                    .changeBusinessSharedFields(
+                                        isCommonBusinessSharedField: false,
+                                        individualBusinessSharedFields:
+                                            levelSharingController
+                                                .individualBusinessSharedFields
+                                                .value
+                                                .copyWith(logoStory: value));
+                              },
+                            ),
+                          ],
                         ),
-                      ),
-                      adjustHieght(khieght * .01),
-                      buildSwitch(
-                        "Business category",
-                        levelSharingController.individualBusinessSharedFields
-                                .value.businessCategory ??
-                            false,
-                        (value) {
-                          levelSharingController.changeBusinessSharedFields(
-                              isCommonBusinessSharedField: false,
-                              individualBusinessSharedFields:
-                                  levelSharingController
-                                      .individualBusinessSharedFields.value
-                                      .copyWith(businessCategory: value));
-                        },
-                      ),
-                      buildSwitch(
-                        "Product",
-                        levelSharingController
-                                .individualBusinessSharedFields.value.product ??
-                            false,
-                        (value) {
-                          levelSharingController.changeBusinessSharedFields(
-                              isCommonBusinessSharedField: false,
-                              individualBusinessSharedFields:
-                                  levelSharingController
-                                      .individualBusinessSharedFields.value
-                                      .copyWith(product: value));
-                        },
-                      ),
-                      buildSwitch(
-                        "Business achievements",
-                        levelSharingController.individualBusinessSharedFields
-                                .value.businessAchievements ??
-                            false,
-                        (value) {
-                          levelSharingController.changeBusinessSharedFields(
-                              isCommonBusinessSharedField: false,
-                              individualBusinessSharedFields:
-                                  levelSharingController
-                                      .individualBusinessSharedFields.value
-                                      .copyWith(businessAchievements: value));
-                        },
-                      ),
-                      buildSwitch(
-                        "Business social medias",
-                        levelSharingController.individualBusinessSharedFields
-                                .value.businessSocialMedia ??
-                            false,
-                        (value) {
-                          levelSharingController.changeBusinessSharedFields(
-                              isCommonBusinessSharedField: false,
-                              individualBusinessSharedFields:
-                                  levelSharingController
-                                      .individualBusinessSharedFields.value
-                                      .copyWith(businessSocialMedia: value));
-                        },
-                      ),
-                      buildSwitch(
-                        "Branch offices",
-                        levelSharingController.individualBusinessSharedFields
-                                .value.branchOffices ??
-                            false,
-                        (value) {
-                          levelSharingController.changeBusinessSharedFields(
-                              isCommonBusinessSharedField: false,
-                              individualBusinessSharedFields:
-                                  levelSharingController
-                                      .individualBusinessSharedFields.value
-                                      .copyWith(branchOffices: value));
-                        },
-                      ),
-                      buildSwitch(
-                        "Brochure",
-                        levelSharingController.individualBusinessSharedFields
-                                .value.brochure ??
-                            false,
-                        (value) {
-                          levelSharingController.changeBusinessSharedFields(
-                              isCommonBusinessSharedField: false,
-                              individualBusinessSharedFields:
-                                  levelSharingController
-                                      .individualBusinessSharedFields.value
-                                      .copyWith(brochure: value));
-                        },
-                      ),
-                      buildSwitch(
-                        "Bank details",
-                        levelSharingController.individualBusinessSharedFields
-                                .value.bankDetails ??
-                            false,
-                        (value) {
-                          levelSharingController.changeBusinessSharedFields(
-                              isCommonBusinessSharedField: false,
-                              individualBusinessSharedFields:
-                                  levelSharingController
-                                      .individualBusinessSharedFields.value
-                                      .copyWith(bankDetails: value));
-                        },
-                      ),
-                      buildSwitch(
-                        "Business logo",
-                        levelSharingController.individualBusinessSharedFields
-                                .value.businessLogo ??
-                            false,
-                        (value) {
-                          levelSharingController.changeBusinessSharedFields(
-                              isCommonBusinessSharedField: false,
-                              individualBusinessSharedFields:
-                                  levelSharingController
-                                      .individualBusinessSharedFields.value
-                                      .copyWith(businessLogo: value));
-                        },
-                      ),
-                      buildSwitch(
-                        "Logo story",
-                        levelSharingController.individualBusinessSharedFields
-                                .value.logoStory ??
-                            false,
-                        (value) {
-                          levelSharingController.changeBusinessSharedFields(
-                              isCommonBusinessSharedField: false,
-                              individualBusinessSharedFields:
-                                  levelSharingController
-                                      .individualBusinessSharedFields.value
-                                      .copyWith(logoStory: value));
-                        },
-                      ),
+                      ):SizedBox(),
                       adjustHieght(khieght * .09),
                     ],
                   ),

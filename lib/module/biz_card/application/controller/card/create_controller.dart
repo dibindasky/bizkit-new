@@ -35,8 +35,7 @@ class CardController extends GetxController {
     getAllcards(true);
   }
 
-
-  String toUserId='';
+  String toUserId = '';
   // Loading
   RxBool isLoading = false.obs;
   RxBool loadingForCardViews = false.obs;
@@ -58,8 +57,9 @@ class CardController extends GetxController {
   RxList<Bizcard> bizcards = <Bizcard>[].obs;
 
   RxString bizcardId = ''.obs;
+  RxString defaultBizcardId = ''.obs;
 
-  final reminderController=Get.find<ReminderController>();
+  final reminderController = Get.find<ReminderController>();
 
   Rx<CardDetailModel> bizcardDetail = CardDetailModel().obs;
 
@@ -152,9 +152,12 @@ class CardController extends GetxController {
           log('Defalt Bizcard Id === > ${bizcardId.value}');
 
           // Store new bizcards in local database
-          for (var bizcard in r.bizcards ?? []) {
+          for (Bizcard bizcard in r.bizcards ?? <Bizcard>[]) {
             await bizcardsLocalService.addBizcardToLocalIfNotExists(
                 bizcardModel: bizcard);
+            if (bizcard.isDefault ?? false) {
+              defaultBizcardId.value = bizcard.bizcardId ?? '';
+            }
           }
         }
         isLoading.value = false;
@@ -174,7 +177,8 @@ class CardController extends GetxController {
       (success) {
         if (success.isNotEmpty) {
           bizcards.assignAll(success);
-
+          defaultBizcardId.value =
+              bizcards.firstWhere((e) => e.isDefault ?? false).bizcardId ?? '';
           // Mark local data as loaded
           isLocalDataLoaded = true;
           isLoading.value = false;
@@ -358,7 +362,7 @@ class CardController extends GetxController {
         connectionExist.value = r.newConnection ?? false;
         update();
         isLoading.value = false;
-         reminderController.getCardRemiderHistory(
+        reminderController.getCardRemiderHistory(
             id: bizcardDetail.value.bizcardId ?? '', card: true);
       },
     );

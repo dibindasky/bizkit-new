@@ -6,7 +6,7 @@ class LocalStoragePreferenceCard {
   static String contactsFetch = 'contacts_fetched_and_saved';
   static String contactsFirstFetch = 'contacts_first_time_fetching';
 
-  static void setContactsFetchedOrNot(bool fetched) async {
+  static Future<void> setContactsFetchedOrNot(bool fetched) async {
     await LocalStorageService.setBool(contactsFetch, fetched);
     log('setContactsFetchedOrNot ====> $fetched');
   }
@@ -16,7 +16,7 @@ class LocalStoragePreferenceCard {
     return data ?? false;
   }
 
-  static void setContactsFirstFetchedOrNot(bool fetched) async {
+  static Future<void> setContactsFirstFetchedOrNot(bool fetched) async {
     await LocalStorageService.setBool(contactsFirstFetch, fetched);
     log('setContactsFirstFetchedOrNot ========> $fetched');
   }

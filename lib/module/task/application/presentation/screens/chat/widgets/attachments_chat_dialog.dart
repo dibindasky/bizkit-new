@@ -70,7 +70,7 @@ class AttachmentsChatDialog extends StatelessWidget {
                         ),
                       );
                     },
-                    text: 'Update Time/Expence'),
+                    text: 'Update Time/Expense'),
                 AttachmentTile(
                     iconData: Icons.location_on_outlined,
                     onTap: () {

@@ -801,12 +801,13 @@ class GoRouterConfig {
       path: '${Routes.taskDeail}/:taskId',
       pageBuilder: (context, state) {
         final taskId = state.pathParameters['taskId'] ?? '';
+        final extra = state.extra as Map<String, dynamic>?;
         if (taskId != '') {
           return FadeTransitionPage(
             key: state.pageKey,
             child: ScreenTaskDetailPage(
-              taskId: taskId,
-            ),
+                taskId: taskId,
+                fromHeirarchy: (extra?['fromHeirarchy'] as bool?) ?? false),
           );
         } else {
           return _errorScreen();

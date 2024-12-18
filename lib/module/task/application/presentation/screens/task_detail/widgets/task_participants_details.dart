@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/task_detail/widgets/participants_list_bottom_sheet.dart';
 import 'package:bizkit/module/task/domain/model/task/get_single_task_model/get_single_task_model.dart';
@@ -512,6 +513,12 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                       task.recentVisitLogs?.length ?? 0,
                       (index) {
                         final visitor = task.recentVisitLogs?[index];
+                        if (visitor?.userId ==
+                            Get.find<AuthenticationController>()
+                                .currentUserId
+                                .value) {
+                          return kempty;
+                        }
                         return Card(
                             child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -521,13 +528,16 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    AnimatedGrowShrinkContainer(
+                                    const AnimatedGrowShrinkContainer(
                                       animate: true,
                                       milliseconds: 200,
-                                      child: Icon(Icons.radio_button_checked,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary),
+                                      child: Icon(
+                                        Icons.radio_button_checked,
+                                        // color: Theme.of(context)
+                                        //     .colorScheme
+                                        //     .primary
+                                        color: kred,
+                                      ),
                                     ),
                                     kWidth5,
                                     Expanded(

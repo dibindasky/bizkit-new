@@ -18,7 +18,9 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 
 class TaskDetailHeaderSection extends StatelessWidget {
-  const TaskDetailHeaderSection({super.key});
+  const TaskDetailHeaderSection({super.key, required this.fromHeirarchy});
+
+  final bool fromHeirarchy;
 
   @override
   Widget build(BuildContext context) {
@@ -207,7 +209,8 @@ class TaskDetailHeaderSection extends StatelessWidget {
             ),
             adjustWidth(10.w),
             Obx(
-              () => taskController.isLoading.value ||
+              () => fromHeirarchy ||
+                      taskController.isLoading.value ||
                       taskController.singleTask.value.id == null
                   ? kempty
                   : Stack(

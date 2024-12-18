@@ -258,7 +258,7 @@ class TaskLocalService implements TaskLocalRepo {
           taskModel.isKilled == true ? 1 : 0, // Convert boolean to int (1/0)
           tagsAsString,
           taskModel.createdAt ?? '',
-          taskModel.status ?? '',
+          taskModel.status,
           taskModel.createdUserDetails?.id ?? '',
           taskModel.createdUserDetails?.name ?? '',
           taskModel.createdUserDetails?.profilePicture ?? '',
@@ -514,7 +514,7 @@ class TaskLocalService implements TaskLocalRepo {
         await localService.rawInsert(
           filterByDeadlineQuery,
           [
-            taskModel.deadLine,
+            taskModel.deadLine ?? '',
             currentUserId,
             taskModel.id,
             nextActionDatesAsString,
@@ -826,7 +826,7 @@ class TaskLocalService implements TaskLocalRepo {
 
       for (var item in alltasks) {
         bool isTaskAdded = false;
-
+        // print('item ---> $item');
         // Split and check next action dates
         List<String> nextActionDates =
             ((item[FilterByDeadlineModel.colTaskNextActionDates] as String?) ??
@@ -844,21 +844,22 @@ class TaskLocalService implements TaskLocalRepo {
           continue;
         }
 
-        // Check if the task is spotlighted
-        if (((item[FilterByDeadlineModel.colTaskSpotlightOn] as int?) ?? 0) ==
-            1) {
-          prioritizedTasks.add(item);
-          isTaskAdded = true;
-          continue;
-        }
-
         // Check if the task deadline is within the required range
         final taskDeadlineStr =
             item[FilterByDeadlineModel.colTaskFilterByDeadline] as String?;
         if (taskDeadlineStr != null) {
           final taskDeadline = DateTime.parse(taskDeadlineStr);
           if (taskDeadline.isBefore(deadline.add(const Duration(days: 1)))) {
-            regularTasks.add(item);
+            // Check if the task is spotlighted
+            if (((item[FilterByDeadlineModel.colTaskSpotlightOn] as int?) ??
+                    0) ==
+                1) {
+              prioritizedTasks.add(item);
+              isTaskAdded = true;
+              continue;
+            } else {
+              regularTasks.add(item);
+            }
           }
         }
       }

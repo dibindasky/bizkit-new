@@ -152,16 +152,16 @@ class ProfileScreen extends StatelessWidget {
                       },
                     )
                   : kempty),
-              Obx(() => moduleController.currentModule.value == Module.card
-                  ? ProfileTiles(
-                      heading: 'Connections & Networking',
-                      subtitle: 'Blocked,Restricted,Report Connections',
-                      onTap: () {
-                        GoRouter.of(context)
-                            .pushNamed(Routes.connectionsAndNetworking);
-                      },
-                    )
-                  : kempty),
+              // Obx(() => moduleController.currentModule.value == Module.card
+              //     ? ProfileTiles(
+              //         heading: 'Connections & Networking',
+              //         subtitle: 'Blocked,Restricted,Report Connections',
+              //         onTap: () {
+              //           GoRouter.of(context)
+              //               .pushNamed(Routes.connectionsAndNetworking);
+              //         },
+              //       )
+              //     : kempty),
               ProfileTiles(
                 heading: 'Help & Support',
                 subtitle: 'Contact,Faq etc',

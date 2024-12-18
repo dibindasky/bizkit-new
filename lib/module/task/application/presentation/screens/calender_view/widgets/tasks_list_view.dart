@@ -90,11 +90,14 @@ class _TaskListViewState extends State<TaskListView> {
   }
 
   Widget _buildEmptyState() {
-    return ErrorRefreshIndicator(
-      shrinkWrap: true,
-      image: emptyNodata2,
-      errorMessage: 'No tasks available',
-      onRefresh: _handleRefresh,
+    return SizedBox(
+      width: 300.w,
+      child: ErrorRefreshIndicator(
+        shrinkWrap: true,
+        image: emptyNodata2,
+        errorMessage: 'No tasks available yet!',
+        onRefresh: _handleRefresh,
+      ),
     );
   }
 

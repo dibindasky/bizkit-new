@@ -134,8 +134,8 @@ class HeirarchyTaskFolderDataRow extends StatelessWidget {
                     )));
           } else if (taskFolderController.filteredFoldersByDeadline.isEmpty) {
             return Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 300.w,
                 child: ErrorRefreshIndicator(
                   shrinkWrap: true,
                   image: emptyNodata2,

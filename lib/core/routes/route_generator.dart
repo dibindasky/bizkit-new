@@ -404,7 +404,9 @@ class GoRouterConfig {
       name: Routes.cardUpdating,
       path: Routes.cardUpdating,
       builder: (context, state) {
-        return const BizcardCreateOrUpdateScreen();
+        return BizcardCreateOrUpdateScreen(
+          index: (state.extra as int?) ?? 0,
+        );
       },
     ),
 

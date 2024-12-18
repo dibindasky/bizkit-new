@@ -47,50 +47,47 @@ class BizCardRminderNotes extends StatelessWidget {
                     reminderController.historyCardReminders.length,
                     (index) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        child: ColoredBox(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .secondary
-                              .withOpacity(0.3),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      imageHistoryList[0],
-                                      fit: BoxFit.cover,
-                                    ),
-                                    kWidth10,
-                                    Text(
-                                      DateTimeFormater.formatDateToDDMMYYYY(
-                                          reminderController
-                                                  .historyCardReminders[index]
-                                                  .reminderDate ??
-                                              ''
-                                          // '0${index + 1}-0${index + 1}-2024'
+                      child: Card(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .secondary
+                            .withOpacity(0.2),
+                        elevation: 0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(11.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    imageHistoryList[0],
+                                    fit: BoxFit.cover,
+                                  ),
+                                  kWidth10,
+                                  Text(
+                                    DateTimeFormater.formatDateToDDMMYYYY(
+                                        reminderController
+                                                .historyCardReminders[index]
+                                                .reminderDate ??
+                                            ''
+                                        // '0${index + 1}-0${index + 1}-2024'
 
-                                          ),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall,
-                                    ),
-                                  ],
-                                ),
-                                adjustHieght(khieght * .006),
-                                Text(
-                                  'Scheduled to disscuss about ${reminderController.historyCardReminders[index].meetingLabel?.toUpperCase() ?? ''} at ${reminderController.historyCardReminders[index].venue?.toUpperCase() ?? ''} while ${reminderController.historyCardReminders[index].occasion?.toUpperCase() ?? ''}. Disscuss about ${reminderController.historyCardReminders[index].description ?? ''}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(fontSize: 11),
-                                ),
-                              ],
-                            ),
+                                        ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
+                                  ),
+                                ],
+                              ),
+                              adjustHieght(khieght * .006),
+                              Text(
+                                'Scheduled to disscuss about ${reminderController.historyCardReminders[index].meetingLabel?.toUpperCase() ?? ''} at ${reminderController.historyCardReminders[index].venue?.toUpperCase() ?? ''} while ${reminderController.historyCardReminders[index].occasion?.toUpperCase() ?? ''}. Disscuss about ${reminderController.historyCardReminders[index].description ?? ''}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(fontSize: 10),
+                              ),
+                            ],
                           ),
                         ),
                       ),

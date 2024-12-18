@@ -14,7 +14,8 @@ import 'card_details_create_or_update/personal_info/card_detail_update_personal_
 import 'card_details_create_or_update/products/card_detail_update_products.dart';
 
 class BizcardCreateOrUpdateScreen extends StatefulWidget {
-  const BizcardCreateOrUpdateScreen({super.key});
+  const BizcardCreateOrUpdateScreen({super.key, this.index = 0});
+  final int index;
 
   @override
   State<BizcardCreateOrUpdateScreen> createState() =>
@@ -26,7 +27,9 @@ class _BizcardCreateOrUpdateScreenState
   late TabController tabController;
   @override
   void initState() {
-    tabController = TabController(length: 5, vsync: this);
+    tabController =
+        TabController(length: 5, vsync: this, initialIndex: widget.index);
+
     super.initState();
   }
 

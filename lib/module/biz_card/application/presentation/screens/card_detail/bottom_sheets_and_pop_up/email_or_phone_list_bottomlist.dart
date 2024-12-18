@@ -48,9 +48,12 @@ class _PreviewScreenRowIconsModelSheetState
                   final dataHead = widget.itemsHeading![index];
                   return Container(
                     height: 65.h,
-                    decoration: const BoxDecoration(
-                      color: kGrayLight,
-                      borderRadius: BorderRadius.all(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(0.1),
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(10),
                       ),
                     ),

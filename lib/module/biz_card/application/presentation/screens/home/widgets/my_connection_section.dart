@@ -219,7 +219,8 @@ class MyConnectionSection extends StatelessWidget {
                                         errorWidget: const Icon(Icons.person),
                                       ),
                                     )
-                                  : const CircleAvatar(
+                                  : const CircleAvatar( 
+                                    radius: 33,
                                       backgroundColor: kblack,
                                       child: Icon(
                                         Icons.person,

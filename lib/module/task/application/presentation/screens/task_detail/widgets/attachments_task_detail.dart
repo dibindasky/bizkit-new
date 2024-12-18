@@ -3,6 +3,7 @@ import 'package:bizkit/module/task/application/presentation/screens/task_detail/
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
+import 'package:bizkit/utils/widgets/blur_maker.dart';
 import 'package:flutter/material.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
@@ -217,44 +218,47 @@ class AttachmentTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          width: 80.w,
-          height: 80.w,
-          decoration:
-              BoxDecoration(borderRadius: kBorderRadius15, color: lightColr),
-          // padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.w),
-          margin: EdgeInsets.symmetric(horizontal: 4.0.w),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              type == 'pdf'
-                  ? Expanded(
-                      child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: kBorderRadius15,
-                        color: kblack,
-                      ),
-                      child: const Icon(
-                        Icons.picture_as_pdf,
-                        color: kwhite,
-                      ),
-                    ))
-                  : Expanded(
-                      child: Container(
+        BlurMaker(
+          show: isSelected,
+          child: Container(
+            width: 80.w,
+            height: 80.w,
+            decoration:
+                BoxDecoration(borderRadius: kBorderRadius15, color: lightColr),
+            // padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.w),
+            margin: EdgeInsets.symmetric(horizontal: 4.0.w),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                type == 'pdf'
+                    ? Expanded(
+                        child: Container(
                         width: double.infinity,
-                        height: 35.w,
                         decoration: BoxDecoration(
                           borderRadius: kBorderRadius15,
+                          color: kblack,
                         ),
-                        child: NetworkImageWithLoader(
-                          attachmet,
-                          radius: 10,
+                        child: const Icon(
+                          Icons.picture_as_pdf,
+                          color: kwhite,
+                        ),
+                      ))
+                    : Expanded(
+                        child: Container(
+                          width: double.infinity,
+                          height: 35.w,
+                          decoration: BoxDecoration(
+                            borderRadius: kBorderRadius15,
+                          ),
+                          child: NetworkImageWithLoader(
+                            attachmet,
+                            radius: 10,
+                          ),
                         ),
                       ),
-                    ),
-            ],
+              ],
+            ),
           ),
         ),
         isSelected

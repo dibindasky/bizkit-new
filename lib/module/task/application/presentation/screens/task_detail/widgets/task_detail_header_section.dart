@@ -209,9 +209,9 @@ class TaskDetailHeaderSection extends StatelessWidget {
             ),
             adjustWidth(10.w),
             Obx(
-              () => fromHeirarchy ||
-                      taskController.isLoading.value ||
-                      taskController.singleTask.value.id == null
+              () => taskController.isLoading.value ||
+                      taskController.singleTask.value.id == null ||
+                      fromHeirarchy
                   ? kempty
                   : Stack(
                       children: [

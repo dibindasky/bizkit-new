@@ -41,8 +41,18 @@ class BizCardRminderNotes extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   kHeight10,
-                  Text('Reminders',
-                      style: Theme.of(context).textTheme.titleSmall),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Reminders',
+                        style: Theme.of(context).textTheme.titleSmall),
+                  ),
+                  adjustHieght(3.h),
+                  if (reminderController.historyCardReminders.isEmpty)
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text('No reminders available yet!',
+                          style: Theme.of(context).textTheme.displaySmall),
+                    ),
                   ...List.generate(
                     reminderController.historyCardReminders.length,
                     (index) => Padding(

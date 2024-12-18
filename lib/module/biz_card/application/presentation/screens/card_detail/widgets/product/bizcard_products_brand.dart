@@ -45,6 +45,7 @@ class BizCardProductsOrBrands extends StatelessWidget {
                               ?.isEmpty ??
                           true)
                       ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             if (accessController.userRole.value == 'user')
                               AspectRatio(
@@ -69,9 +70,12 @@ class BizCardProductsOrBrands extends StatelessWidget {
                                 ),
                               ),
                             kWidth10,
-                            Text('No products available',
-                                style:
-                                    Theme.of(context).textTheme.displaySmall),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text('No products available',
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall),
+                            ),
                           ],
                         )
                       : ListView.builder(

@@ -65,15 +65,15 @@ class ModuleController extends GetxController {
         currentModule.value = Module.task;
         break;
       case Module.attendance:
-        if (module == currentModule.value) {
-          Get.find<AttendenceNavBarConroller>().changeBottomIndex(1);
-          return;
-        }
-        await initAttendanceControllers();
-        context.go(Routes.attendenceNavbar);
-        Get.find<AttendenceNavBarConroller>().changeBottomIndex(1);
-        LocalStoragePreference.setLastUsedModule(getStringFromModule(module)!);
-        currentModule.value = Module.attendance;
+        // if (module == currentModule.value) {
+        //   Get.find<AttendenceNavBarConroller>().changeBottomIndex(1);
+        //   return;
+        // }
+        // await initAttendanceControllers();
+        // context.go(Routes.attendenceNavbar);
+        // Get.find<AttendenceNavBarConroller>().changeBottomIndex(1);
+        // LocalStoragePreference.setLastUsedModule(getStringFromModule(module)!);
+        // currentModule.value = Module.attendance;
         break;
       default:
         context.go(Routes.moduleSelector);

@@ -291,7 +291,6 @@ class NextActionDateSection extends StatelessWidget {
                                 );
                               },
                             );
-                          
                           },
                           child: NextActionChip(label: nextAction),
                         );
@@ -324,7 +323,7 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
   final int? index;
   final String? taskId;
   NextActionDate? nextActionDate;
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     if (isEdit == true) {
@@ -352,51 +351,64 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
           ),
         ],
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DeadlineChooserNextActionDate(
-            nextActionDate: nextActionDate,
-            nextActionFromEdit: isEdit,
-            onPressed: (date) {
-              taskController.nextActionDate.value = date;
+      content: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            DeadlineChooserNextActionDate(
+              nextActionDate: nextActionDate,
+              nextActionFromEdit: isEdit,
+              onPressed: (date) {
+                taskController.nextActionDate.value = date;
 
-              FocusScope.of(context).unfocus();
-            },
-          ),
-          adjustHieght(10.h),
-          TaskTextField(
-            maxLines: 5,
-            hintText: 'Description',
-            textCapitalization: TextCapitalization.sentences,
-            controller: taskController.nexActiondateDescriptionController,
-            onTapOutside: () => FocusScope.of(context).unfocus(),
-          ),
-          adjustHieght(15.h),
-          Obx(() => Center(
-              child: EventButton(
-                  width: double.infinity,
-                  color: neonNewLinearGradient,
-                  text: taskController.loadingForNextActionDate.value
-                      ? 'Loading....'
-                      : isEdit == true
-                          ? 'Update'
-                          : 'Create',
-                  onTap: () {
-                    if (isEdit == true) {
-                      taskController.editNextActionDate(
-                          index: index!, context: context);
-                    } else {
-                      taskController.createNewNextActionDate(
-                        context: context,
-                        createNadModel: EditTaskModel(
-                          taskId: taskId,
-                        ),
-                      );
-                    }
-                  }))),
-        ],
+                FocusScope.of(context).unfocus();
+              },
+            ),
+            adjustHieght(10.h),
+            TaskTextField(
+              maxLines: 5,
+              hintText: 'Description',
+              textCapitalization: TextCapitalization.sentences,
+              controller: taskController.nexActiondateDescriptionController,
+              onTapOutside: () => FocusScope.of(context).unfocus(),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Description is required';
+                }
+
+                return null;
+              },
+            ),
+            adjustHieght(15.h),
+            Obx(() => Center(
+                child: EventButton(
+                    width: double.infinity,
+                    textColr: kwhite,
+                    color: neonNewLinearGradient,
+                    text: taskController.loadingForNextActionDate.value
+                        ? 'Loading....'
+                        : isEdit == true
+                            ? 'Update'
+                            : 'Create',
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        if (isEdit == true) {
+                          taskController.editNextActionDate(
+                              index: index!, context: context);
+                        } else {
+                          taskController.createNewNextActionDate(
+                            context: context,
+                            createNadModel: EditTaskModel(
+                              taskId: taskId,
+                            ),
+                          );
+                        }
+                      }
+                    }))),
+          ],
+        ),
       ),
     );
   }

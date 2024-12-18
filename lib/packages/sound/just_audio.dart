@@ -165,7 +165,7 @@ class AudioPlayerHandler {
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.TOP,
+      gravity: ToastGravity.SNACKBAR,
       timeInSecForIosWeb: 3,
       fontSize: 13,
       backgroundColor: kblack,

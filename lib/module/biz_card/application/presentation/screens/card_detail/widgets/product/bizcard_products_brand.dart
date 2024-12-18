@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
@@ -17,6 +18,7 @@ class BizCardProductsOrBrands extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cardController = Get.find<CardController>();
+    final accessController = Get.find<AccessController>();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -44,20 +46,28 @@ class BizCardProductsOrBrands extends StatelessWidget {
                           true)
                       ? Row(
                           children: [
-                            AspectRatio(
-                              aspectRatio: 0.9,
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 5),
-                                decoration: BoxDecoration(
-                                    borderRadius: kBorderRadius10,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary
-                                        .withOpacity(0.3)),
-                                child: const Icon(Icons.add),
+                            if (accessController.userRole.value == 'user')
+                              AspectRatio(
+                                aspectRatio: 0.9,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    GoRouter.of(context).pushNamed(
+                                        Routes.cardUpdating,
+                                        extra: 3);
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 5, vertical: 5),
+                                    decoration: BoxDecoration(
+                                        borderRadius: kBorderRadius10,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary
+                                            .withOpacity(0.3)),
+                                    child: const Icon(Icons.add),
+                                  ),
+                                ),
                               ),
-                            ),
                             kWidth10,
                             Text('No products available',
                                 style:

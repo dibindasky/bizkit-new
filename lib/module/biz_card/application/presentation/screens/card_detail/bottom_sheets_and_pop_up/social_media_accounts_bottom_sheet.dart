@@ -83,77 +83,93 @@ class AccountsListviewBuilder extends StatelessWidget {
   };
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        adjustHieght(khieght * .03),
-        const Divider(
-          thickness: .3,
-        ),
-        Column(
-          children: [
-            SizedBox(
-              height: 450,
-              child: ListView.builder(
-                itemCount: socialMedia.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == socialMedia.length) {
-                    return const SizedBox(height: 200);
-                  }
-                  return Container(
-                    height: 70,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .secondary
-                          .withOpacity(0.2),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    margin: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: InkWell(
-                      onTap: () {
-                        LaunchUrl.launchUrls(
-                            url: socialMedia[index].link ?? "");
-                      },
-                      child: Row(
-                        children: [
-                          adjustWidth(kwidth * .03),
-                          CircleAvatar(
-                            backgroundColor: kwhite,
-                            radius: 14,
-                            backgroundImage:
-                                AssetImage(map[socialMedia[index].label!]!),
-                          ),
-                          adjustWidth(kwidth * .04),
-                          Text(socialMedia[index].label!,
-                              style: Theme.of(context).textTheme.displaySmall),
-                          const Spacer(),
-                          TextButton(
-                            onPressed: () {
-                              onCopyToClipboard(socialMedia[index].link ?? '');
-                            },
-                            child: Text(
-                              'Copy Link',
-                              style: textHeadStyle1.copyWith(
-                                color: kblue,
-                                fontSize: 10.sp,
-                                decoration: TextDecoration.underline,
-                                decorationColor: kblue,
-                              ),
+    return socialMedia.isEmpty
+        ? Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.mobile_off_rounded),
+                adjustWidth(10.w),
+                Text('No social medias available yet!',
+                    style: Theme.of(context).textTheme.displaySmall),
+              ],
+            ),
+          )
+        : ListView(
+            children: [
+              adjustHieght(khieght * .03),
+              const Divider(
+                thickness: .3,
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: 450,
+                    child: ListView.builder(
+                      itemCount: socialMedia.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index == socialMedia.length) {
+                          return const SizedBox(height: 200);
+                        }
+                        return Container(
+                          height: 70,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondary
+                                .withOpacity(0.1),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
                             ),
                           ),
-                          adjustWidth(kwidth * .04),
-                        ],
-                      ),
+                          margin: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: InkWell(
+                            onTap: () {
+                              LaunchUrl.launchUrls(
+                                  url: socialMedia[index].link ?? "");
+                            },
+                            child: Row(
+                              children: [
+                                adjustWidth(kwidth * .03),
+                                CircleAvatar(
+                                  backgroundColor: kwhite,
+                                  radius: 14,
+                                  backgroundImage: AssetImage(
+                                      map[socialMedia[index].label ?? ''] ??
+                                          ''),
+                                ),
+                                adjustWidth(kwidth * .04),
+                                Text(socialMedia[index].label ?? '',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall),
+                                const Spacer(),
+                                TextButton(
+                                  onPressed: () {
+                                    onCopyToClipboard(
+                                        socialMedia[index].link ?? '');
+                                  },
+                                  child: Text(
+                                    'Copy Link',
+                                    style: textHeadStyle1.copyWith(
+                                      color: kblue,
+                                      fontSize: 10.sp,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: kblue,
+                                    ),
+                                  ),
+                                ),
+                                adjustWidth(kwidth * .04),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-      ],
-    );
+            ],
+          );
   }
 }

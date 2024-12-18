@@ -9,7 +9,6 @@ import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 class SubTaskCreationCustomDialog extends StatelessWidget {
   const SubTaskCreationCustomDialog({
@@ -66,6 +65,7 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                       color: kneon,
                     ),
                     onPressed: () {
+                      controller.subTaskLoading.value = false;
                       Navigator.of(context).pop();
                     },
                   ),
@@ -104,54 +104,58 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
               SizedBox(height: 20.h),
               SizedBox(
                 width: double.infinity,
-                child: EventButton(
-                  color: const LinearGradient(colors: [kneon, kneon]),
-                  text: isEdit ? 'Edit Sub Task' : 'Create Sub Task',
-                  onTap: () {
-                    if (formKey.currentState?.validate() ?? false) {
-                      if (isEdit) {
-                        // Edit existing subtask
-                        final editsubtask = EditSubTaskModel(
-                          taskId: taskId ?? '',
-                          subTaskId: subtaskId ?? '',
-                          title: titleController.text,
-                          description: descriptionController.text,
-                        );
-                        controller.editSubTask(
-                            context: context,
-                            editsubtask: editsubtask,
-                            taskId: taskId ?? '');
-                      } else {
-                        // Create new subtask
-                        final subtasks = SubTasks(
-                          title: titleController.text,
-                          description: descriptionController.text,
-                          isCompleted: false,
-                        );
-
-                        if (afterTaskCreation == true) {
-                          controller.addSubTask(
-                              context: context,
-                              newsubtask: SubTaskAddModel(
-                                taskId: taskId,
-                                subTask: subtasks,
-                              ),
-                              taskId: taskId ?? '');
-                        } else {
-                          controller.createSubtaskBeforeTaskCreation(
-                            subTask: SubTask(
+                child: Obx(() => EventButton(
+                      color: const LinearGradient(colors: [kneon, kneon]),
+                      text: controller.subTaskLoading.value
+                          ? 'Loading....'
+                          : isEdit
+                              ? 'Edit Sub Task'
+                              : 'Create Sub Task',
+                      onTap: () {
+                        if (formKey.currentState?.validate() ?? false) {
+                          if (isEdit) {
+                            // Edit existing subtask
+                            final editsubtask = EditSubTaskModel(
+                              taskId: taskId ?? '',
+                              subTaskId: subtaskId ?? '',
+                              title: titleController.text,
+                              description: descriptionController.text,
+                            );
+                            controller.editSubTask(
+                                context: context,
+                                editsubtask: editsubtask,
+                                taskId: taskId ?? '');
+                          } else {
+                            // Create new subtask
+                            final subtasks = SubTasks(
                               title: titleController.text,
                               description: descriptionController.text,
                               isCompleted: false,
-                            ),
-                          );
-                          GoRouter.of(context).pop();
+                            );
+
+                            if (afterTaskCreation == true) {
+                              controller.addSubTask(
+                                  context: context,
+                                  newsubtask: SubTaskAddModel(
+                                    taskId: taskId,
+                                    subTask: subtasks,
+                                  ),
+                                  taskId: taskId ?? '');
+                            } else {
+                              controller.createSubtaskBeforeTaskCreation(
+                                subTask: SubTask(
+                                  title: titleController.text,
+                                  description: descriptionController.text,
+                                  isCompleted: false,
+                                ),
+                              );
+                              // GoRouter.of(context).pop();
+                            }
+                          }
+                          // GoRouter.of(context).pop();
                         }
-                      }
-                      // GoRouter.of(context).pop();
-                    }
-                  },
-                ),
+                      },
+                    )),
               ),
             ],
           ),

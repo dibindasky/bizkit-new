@@ -271,7 +271,7 @@ class CreateTaskController extends GetxController {
   final RxBool isSyncing = false.obs;
 // Loading states for various UI components
   RxBool isLoading = false.obs; // General loading state
-
+  RxBool subTaskLoading = false.obs;
   RxBool deadlineTasksLoadMoreLoading =
       false.obs; // Loading state for loading more deadline tasks
 
@@ -1628,12 +1628,12 @@ class CreateTaskController extends GetxController {
       {required SubTaskAddModel newsubtask,
       required String taskId,
       required BuildContext context}) async {
-    isLoading.value = true;
+    subTaskLoading.value = true;
 
     final result = await taskService.addSubTask(newsubtask: newsubtask);
     result.fold(
       (failure) {
-        isLoading.value = false;
+        subTaskLoading.value = false;
         showCustomToast(
           message: errorMessage,
           backgroundColor: kred,
@@ -1643,19 +1643,18 @@ class CreateTaskController extends GetxController {
       (success) {
         log("${success.message}");
         final subTask = singleTask.value.subTask;
-        singleTask.value.subTask = [
+        singleTask.value = singleTask.value.copyWith(subTask: [
           ...subTask ?? [],
           subtask.SubTask.fromJson(success.data['sub_task'])
-        ];
-        // fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
-        GoRouter.of(context).pop();
+        ]);
 
         showCustomToast(
           message: 'Subtask added successfully',
           backgroundColor: Get.isDarkMode ? klightGrey : kblack,
           textColor: Get.isDarkMode ? kblack : kwhite,
         );
-        isLoading.value = false;
+        subTaskLoading.value = false;
+        GoRouter.of(context).pop();
       },
     );
   }
@@ -1665,7 +1664,7 @@ class CreateTaskController extends GetxController {
       {required DeleteSubTaskModel deletesubtask,
       required String taskId,
       required BuildContext context}) async {
-    isLoading.value = true;
+    subTaskLoading.value = true;
 
     final result =
         await taskService.deleteSubTask(deletesubtask: deletesubtask);
@@ -1676,20 +1675,24 @@ class CreateTaskController extends GetxController {
           backgroundColor: kred,
         );
         GoRouter.of(context).pop();
-        isLoading.value = false;
+        subTaskLoading.value = false;
         log(failure.message.toString());
       },
       (success) {
         log("${success.message}");
-        fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
+        singleTask.value = singleTask.value.copyWith(
+          subTask: singleTask.value.subTask
+              ?.where((sub) => sub.id != deletesubtask.subTaskId)
+              .toList(),
+        );
+        // fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
 
         showCustomToast(
           message: 'Subtask deleted successfully',
           backgroundColor: Get.isDarkMode ? klightGrey : kblack,
           textColor: Get.isDarkMode ? kblack : kwhite,
         );
-        GoRouter.of(context).pop();
-        isLoading.value = false;
+        subTaskLoading.value = false;
       },
     );
   }
@@ -1699,12 +1702,12 @@ class CreateTaskController extends GetxController {
       {required EditSubTaskModel editsubtask,
       required String taskId,
       required BuildContext context}) async {
-    isLoading.value = true;
+    subTaskLoading.value = true;
 
     final result = await taskService.editSubTask(editsubtask: editsubtask);
     result.fold(
       (failure) {
-        isLoading.value = false;
+        subTaskLoading.value = false;
         GoRouter.of(context).pop();
         showCustomToast(
           message: errorMessage,
@@ -1715,14 +1718,26 @@ class CreateTaskController extends GetxController {
       (success) {
         log("${success.message}");
         GoRouter.of(context).pop();
-
+        // Use copyWith to update the singleTask locally
+        singleTask.value = singleTask.value.copyWith(
+          subTask: singleTask.value.subTask?.map((sub) {
+            // Check if the subtask is the one being edited
+            if (sub.id == editsubtask.subTaskId) {
+              return sub.copyWith(
+                title: editsubtask.title,
+                description: editsubtask.description,
+              );
+            }
+            return sub;
+          }).toList(),
+        );
         showCustomToast(
           message: 'Subtask edited successfully',
           backgroundColor: Get.isDarkMode ? klightGrey : kblack,
           textColor: Get.isDarkMode ? kblack : kwhite,
         );
-        fetchSingleTask(singleTaskModel: GetSingleTaskModel(taskId: taskId));
-        isLoading.value = false;
+
+        subTaskLoading.value = false;
       },
     );
   }
@@ -1896,13 +1911,13 @@ class CreateTaskController extends GetxController {
     required CompletedSubTask completedSubTask,
     required BuildContext context,
   }) async {
-    isLoading.value = true;
+    subTaskLoading.value = true;
 
     final result =
         await taskService.completedSubTask(completedSubTask: completedSubTask);
     result.fold(
       (failure) {
-        isLoading.value = false;
+        subTaskLoading.value = false;
 
         showCustomToast(
           message: errorMessage,
@@ -1912,18 +1927,28 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         log("${success.message}");
-        final index = singleTask.value.subTask?.indexWhere(
-          (element) => element.id == completedSubTask.subTaskId,
+        // final index = singleTask.value.subTask?.indexWhere(
+        //   (element) => element.id == completedSubTask.subTaskId,
+        // );
+        // if (index != null && index != -1 && singleTask.value.subTask != null) {
+        //   singleTask.value.subTask![index] =
+        //       singleTask.value.subTask![index].copyWith(isCompleted: true);
+        // }
+
+        // Update the subTask list using a new list
+        singleTask.value = singleTask.value.copyWith(
+          subTask: singleTask.value.subTask?.map((subTask) {
+            if (subTask.id == completedSubTask.subTaskId) {
+              return subTask.copyWith(isCompleted: true);
+            }
+            return subTask;
+          }).toList(),
         );
-        if (index != null && index != -1 && singleTask.value.subTask != null) {
-          singleTask.value.subTask![index] =
-              singleTask.value.subTask![index].copyWith(isCompleted: true);
-        }
         // fetchSingleTask(
         //     singleTaskModel:
         //         GetSingleTaskModel(taskId: completedSubTask.taskId));
 
-        isLoading.value = false;
+        subTaskLoading.value = false;
 
         showCustomToast(
           message: 'Subtask completed successfully',

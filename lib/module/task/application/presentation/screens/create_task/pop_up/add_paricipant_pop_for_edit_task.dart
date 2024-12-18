@@ -1,11 +1,13 @@
 import 'dart:developer';
 
 import 'package:bizkit/module/module_manager/application/controller/access/access_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/widgets/task_textfrom_fireld.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,6 +30,7 @@ class _AddParticipentForTaskEditBottomSheetState
     with TickerProviderStateMixin {
   final taskController = Get.find<CreateTaskController>();
   final accessController = Get.find<AccessController>();
+  final internetConnectinController = Get.find<InternetConnectionController>();
   late TabController tabController;
   @override
   void initState() {
@@ -245,6 +248,24 @@ class _AddParticipentForTaskEditBottomSheetState
                       itemCount: 5,
                       height: 50.h,
                       width: double.infinity);
+                } else if (!internetConnectinController
+                        .isConnectedToInternet.value &&
+                    controller.userslist.isEmpty) {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          width: 250.w,
+                          child: InternetConnectionLostWidget(
+                            onTap: () {
+                              taskController.userSearchfilterType.value = 'all';
+                              taskController.searchUsers(tabController.index);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
                 } else if (controller.userslist.isEmpty) {
                   return Center(
                       child: Text(
@@ -361,6 +382,25 @@ class _AddParticipentForTaskEditBottomSheetState
                         itemCount: 5,
                         height: 50.h,
                         width: double.infinity);
+                  } else if (!internetConnectinController
+                          .isConnectedToInternet.value &&
+                      controller.organizationUserslist.isEmpty) {
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            width: 250.w,
+                            child: InternetConnectionLostWidget(
+                              onTap: () {
+                                taskController.userSearchfilterType.value =
+                                    'organization';
+                                taskController.searchUsers(tabController.index);
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
                   } else if (controller.organizationUserslist.isEmpty) {
                     return Center(
                         child: Text(
@@ -496,7 +536,7 @@ class _AddParticipentForQuickTaskEditBottomSheetState
   final taskController = Get.find<CreateTaskController>();
 
   final accessController = Get.find<AccessController>();
-
+  final internetConnectinController = Get.find<InternetConnectionController>();
   late TabController tabController;
 
   @override
@@ -715,6 +755,24 @@ class _AddParticipentForQuickTaskEditBottomSheetState
                       itemCount: 5,
                       height: 50.h,
                       width: double.infinity);
+                } else if (!internetConnectinController
+                        .isConnectedToInternet.value &&
+                    controller.userslist.isEmpty) {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          width: 250.w,
+                          child: InternetConnectionLostWidget(
+                            onTap: () {
+                              taskController.userSearchfilterType.value = 'all';
+                              taskController.searchUsers(tabController.index);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
                 } else if (controller.userslist.isEmpty) {
                   return Center(
                       child: Text(
@@ -831,6 +889,25 @@ class _AddParticipentForQuickTaskEditBottomSheetState
                         itemCount: 5,
                         height: 50.h,
                         width: double.infinity);
+                  } else if (!internetConnectinController
+                          .isConnectedToInternet.value &&
+                      controller.organizationUserslist.isEmpty) {
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            width: 250.w,
+                            child: InternetConnectionLostWidget(
+                              onTap: () {
+                                taskController.userSearchfilterType.value =
+                                    'organization';
+                                taskController.searchUsers(tabController.index);
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
                   } else if (controller.organizationUserslist.isEmpty) {
                     return Center(
                         child: Text(

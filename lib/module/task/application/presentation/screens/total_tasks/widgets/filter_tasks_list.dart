@@ -55,12 +55,13 @@ class FilterTasksListView extends StatelessWidget {
                     taskId: GetSingleTaskModel(
                         taskId:
                             hierarchyController.filterTasks[index].id ?? ''));
-                GoRouter.of(context).pushNamed(
-                  Routes.taskDeail,
-                  pathParameters: {
-                    "taskId": hierarchyController.filterTasks[index].id ?? ''
-                  },
-                );
+                GoRouter.of(context).pushNamed(Routes.taskDeail,
+                    pathParameters: {
+                      "taskId": hierarchyController.filterTasks[index].id ?? ''
+                    },
+                    extra: {
+                      'fromHeirarchy': true
+                    });
               } else {
                 taskController.fetchSingleTask(
                     singleTaskModel: GetSingleTaskModel(

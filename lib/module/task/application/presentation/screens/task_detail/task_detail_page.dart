@@ -17,9 +17,11 @@ class ScreenTaskDetailPage extends StatelessWidget {
   const ScreenTaskDetailPage({
     super.key,
     this.taskId,
+    this.fromHeirarchy = false,
   });
 
   final String? taskId;
+  final bool fromHeirarchy;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +71,7 @@ class ScreenTaskDetailPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const TaskDetailHeaderSection(),
+                          TaskDetailHeaderSection(fromHeirarchy: fromHeirarchy),
                           adjustHieght(15.h),
                           const TaskDetailUserInfoSection(),
                           adjustHieght(15.h),

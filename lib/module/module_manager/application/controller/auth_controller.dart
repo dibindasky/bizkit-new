@@ -129,7 +129,9 @@ class AuthenticationController extends GetxController {
 
   /// get user name from local storage
   void getUserName() async {
-    userName.value = await SecureStorage.getName();
+    final token = await SecureStorage.getToken();
+    userName.value = token.name ?? '';
+    currentUserId.value = token.uid ?? '';
     log('USer name ${userName.value}');
   }
 

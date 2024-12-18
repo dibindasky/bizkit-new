@@ -147,7 +147,6 @@ class ContactsController extends GetxController {
       }
     }
     // LocalStoragePreferenceCard.setContactsFetchedOrNot(true);
-    LocalStoragePreferenceCard.setContactsFirstFetchedOrNot(false);
     getConnectionsFromSqlTable();
   }
 
@@ -177,6 +176,8 @@ class ContactsController extends GetxController {
       List<Contact> contacts = [];
       final result = await contactFetchFeature.getContactsList();
       result.fold((l) => null, (r) => contacts = r);
+      await LocalStoragePreferenceCard.setContactsFetchedOrNot(true);
+      await LocalStoragePreferenceCard.setContactsFirstFetchedOrNot(false);
       return contacts;
     } catch (e) {
       firstLoading.value = false;

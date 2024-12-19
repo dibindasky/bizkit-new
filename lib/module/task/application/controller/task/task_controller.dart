@@ -1743,8 +1743,10 @@ class CreateTaskController extends GetxController {
   }
 
   // Adds a subtask to the list before task creation
-  void createSubtaskBeforeTaskCreation({required SubTask subTask}) async {
+  void createSubtaskBeforeTaskCreation(
+      {required SubTask subTask, required BuildContext context}) async {
     subTasks.add(subTask);
+    GoRouter.of(context).pop();
   }
 
   // Kill a task

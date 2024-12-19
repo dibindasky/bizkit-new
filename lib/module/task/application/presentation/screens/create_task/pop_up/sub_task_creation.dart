@@ -143,6 +143,7 @@ class SubTaskCreationCustomDialog extends StatelessWidget {
                                   taskId: taskId ?? '');
                             } else {
                               controller.createSubtaskBeforeTaskCreation(
+                                context: context,
                                 subTask: SubTask(
                                   title: titleController.text,
                                   description: descriptionController.text,

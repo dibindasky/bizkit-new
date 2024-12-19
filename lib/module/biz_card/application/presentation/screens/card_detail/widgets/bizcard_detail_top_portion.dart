@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
@@ -31,9 +33,13 @@ class BizcardDetailTopPotion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final cardController = Get.find<CardController>();
     final accessController = Get.find<AccessController>();
     final connectionsController = Get.find<ConnectionsController>();
+    //  log(" detail card id ======>   ${cardController.bizcardId.value}");
+    //  log(" defualt card id ======>   ${cardController.defaultBizcardId.value}");
+
     return SizedBox(
       height: 260.h,
       child: Stack(
@@ -60,6 +66,7 @@ class BizcardDetailTopPotion extends StatelessWidget {
                                       module: Module.card);
                                 }
                               }
+                             
                               GoRouter.of(context).pop();
                             },
                             child: CircleAvatar(
@@ -71,10 +78,12 @@ class BizcardDetailTopPotion extends StatelessWidget {
                               ),
                             ),
                           ),
+                          
                           kWidth10,
                           Text('Card',
                               style: Theme.of(context).textTheme.bodyMedium),
                           const Spacer(),
+                          cardController.defaultBizcardId.value==cardController.bizcardId.value?const SizedBox():
                           accessController.userRole.value == 'user'
                               ? Obx(
                                   () => cardController.isLoading.value

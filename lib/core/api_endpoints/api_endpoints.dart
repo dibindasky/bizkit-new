@@ -8,7 +8,6 @@ class ApiEndPoints {
   // [ AWS base url ]
   static const String baseUrl = 'http://13.201.227.18';
 
-
   // Refesh token
   static const String refreshUrl = '/token/';
 

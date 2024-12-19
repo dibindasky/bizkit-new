@@ -98,6 +98,8 @@ dependencies:
   uuid: ^4.5.1
   flutter_speed_dial: ^7.0.0
   internet_connection_checker: ^1.0.0+1
+  floating_draggable_widget: ^2.3.0
+  
   
 
 
@@ -111,6 +113,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   injectable_generator: ^2.6.2
+  pretty_dio_logger: ^1.4.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

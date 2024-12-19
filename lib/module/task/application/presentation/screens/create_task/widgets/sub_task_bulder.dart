@@ -90,11 +90,31 @@ class SubTaskBuilder extends StatelessWidget {
                               BoxDecoration(borderRadius: kBorderRadius10),
                           child: Padding(
                             padding: EdgeInsets.symmetric(
-                                vertical: 15.h, horizontal: 15.h),
-                            child: Text(
-                              controller.subTasks[index].title ??
-                                  'SubTask Title',
-                              style: Theme.of(context).textTheme.displaySmall,
+                                vertical: 12.h, horizontal: 15.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  controller.subTasks[index].title ??
+                                      'SubTask Title',
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.subTasks.removeAt(index);
+                                  },
+                                  child: const CircleAvatar(
+                                    backgroundColor: kblack,
+                                    radius: 12,
+                                    child: Icon(
+                                      Icons.close,
+                                      color: kwhite,
+                                      size: 12,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),

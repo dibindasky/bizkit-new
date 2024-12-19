@@ -191,3 +191,165 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
     );
   }
 }
+
+// import 'package:animate_do/animate_do.dart';
+// import 'package:bizkit/core/routes/routes.dart';
+// import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+// import 'package:bizkit/module/task/application/controller/chat/message_count_controller.dart';
+// import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
+// import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+// import 'package:bizkit/module/task/application/presentation/screens/home/widgets/generate_report_button.dart';
+// import 'package:bizkit/module/task/application/presentation/screens/home/widgets/recent_tasks_section.dart';
+// import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_home_appbar.dart';
+// import 'package:bizkit/module/task/application/presentation/screens/home/widgets/task_status_section.dart';
+// import 'package:bizkit/utils/constants/colors.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+// import 'package:floating_draggable_widget/floating_draggable_widget.dart';
+// import 'package:get/get.dart';
+// import 'package:go_router/go_router.dart';
+// import 'package:iconsax/iconsax.dart';
+
+// class TaskHomeScreen extends StatefulWidget {
+//   const TaskHomeScreen({super.key});
+
+//   @override
+//   State<TaskHomeScreen> createState() => _TaskHomeScreenState();
+// }
+
+// class _TaskHomeScreenState extends State<TaskHomeScreen>
+//     with TickerProviderStateMixin {
+//   late TabController tabController;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final homeController = Get.find<TaskHomeScreenController>();
+//     final messageCoutController = Get.find<MessageCountController>();
+//     final authController = Get.find<AuthenticationController>();
+
+//     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+//       messageCoutController.sendReqForUnread();
+//     });
+
+//     return FloatingDraggableWidget(
+//       bottom: 0,
+//       isDraggable: true,
+//       floatingWidgetHeight: 90,
+//       floatingWidgetWidth: 90,
+//       floatingWidget: _buildFloatingButton(),
+//       autoAlign: true,
+//       disableBounceAnimation: true,
+//       autoAlignType: AlignmentType.both,
+//       resizeToAvoidBottomInset: true,
+//       dx: 260,
+//       dy: 570,
+//       screenHeight: 650.h,
+//       mainScreenWidget: Scaffold(
+//         body: SafeArea(
+//           child: Stack(
+//             children: [
+//               RefreshIndicator(
+//                 onRefresh: () async {
+//                   homeController.progresBar();
+//                   messageCoutController.sendReqForUnread();
+//                   await homeController.fetchRecentTasks();
+//                 },
+//                 child: FadeIn(
+//                   animate: true,
+//                   child: SingleChildScrollView(
+//                     child: Padding(
+//                       padding: const EdgeInsets.symmetric(
+//                           horizontal: 15, vertical: 15),
+//                       child: Column(
+//                         children: [
+//                           TaskHomeAppBar(authController: authController),
+//                           adjustHieght(25.h),
+//                           TaskStatusSection(tabController: tabController),
+//                           adjustHieght(1.h),
+//                           const RecentTasksSection(),
+//                           adjustHieght(30.h),
+//                           const GenerateReportButton(),
+//                           adjustHieght(60.h),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _buildFloatingButton() {
+//     final taskController = Get.find<CreateTaskController>();
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 20),
+//       child: SpeedDial(
+//         icon: Iconsax.flash_15,
+//         activeIcon: Icons.close,
+//         iconTheme: IconThemeData(
+//           color: Get.isDarkMode ? kblack : kneon,
+//         ),
+//         backgroundColor: Get.isDarkMode ? kneon : kblack,
+//         overlayColor: Colors.black,
+//         overlayOpacity: 0.5,
+//         direction: SpeedDialDirection.up,
+//         elevation: 3,
+//         children: [
+//           SpeedDialChild(
+//             child: const Icon(Iconsax.task, color: kwhite),
+//             label: 'All Quick Tasks',
+//             labelStyle: Theme.of(context).textTheme.bodySmall,
+//             onTap: () {
+//               taskController.fetchAllQuickTasks();
+//               taskController.fetchCompletedQuickTasks();
+//               GoRouter.of(context).pushNamed(
+//                 Routes.quickTasksListing,
+//               );
+//             },
+//             backgroundColor: kblack,
+//             labelBackgroundColor: kblack,
+//           ),
+//           SpeedDialChild(
+//             child: const Icon(Iconsax.personalcard, color: kwhite),
+//             label: 'Received Requests ',
+//             labelStyle: Theme.of(context).textTheme.bodySmall,
+//             onTap: () {
+//               taskController.fetchQuickTaskRequests();
+//               GoRouter.of(context).pushNamed(
+//                 Routes.quickTaskReceivedRequests,
+//               );
+//             },
+//             backgroundColor: kblack,
+//             labelBackgroundColor: kblack,
+//           ),
+//           SpeedDialChild(
+//             child: const Icon(Iconsax.additem, color: kwhite),
+//             label: 'New Quick Task',
+//             labelStyle: Theme.of(context).textTheme.bodySmall,
+//             onTap: () {
+//               GoRouter.of(context).pushNamed(
+//                 Routes.quickTaskCreateUpdate,
+//                 extra: {
+//                   'edit': false,
+//                 },
+//               );
+//             },
+//             backgroundColor: kblack,
+//             labelBackgroundColor: kblack,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

@@ -196,7 +196,7 @@ class ScreenAddTask extends StatelessWidget {
                                         deleteIconColor: kred,
                                         side: const BorderSide(color: kneon),
                                         label: Text(
-                                          participant.name ?? 'name',
+                                          participant.name ?? '',
                                           style: Theme.of(context)
                                               .textTheme
                                               .displaySmall,

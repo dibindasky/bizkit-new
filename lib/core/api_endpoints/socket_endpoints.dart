@@ -16,7 +16,7 @@ class SocketEndpoints {
 
   // ----------------------------------------------------------------------------
   // [ AWS base url for chat  ]
-  static const taskChat = 'ws://15.207.98.151/ws/task/{task_id}/';
-  static const messageCount = 'ws://15.207.98.151/ws/messages/tasks/';
-  static const bizcardNotification = 'ws://15.207.98.151/ws/messages/bizcards/';
+  static const taskChat = 'ws://13.201.227.18/ws/task/{task_id}/';
+  static const messageCount = 'ws://13.201.227.18/ws/messages/tasks/';
+  static const bizcardNotification = 'ws://13.201.227.18/ws/messages/bizcards/';
 }

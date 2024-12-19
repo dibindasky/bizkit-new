@@ -824,7 +824,11 @@ class ChatController extends GetxController {
 
   /// return the type of file as ["image"] or ["pdf"] by checking the extension
   String getTypeOfFile(String type) {
-    if (type == 'jpg' || type == 'png' || type == 'jpeg' || type == 'gif') {
+    if (type == 'jpg' ||
+        type == 'png' ||
+        type == 'gif' ||
+        type == 'jpeg' ||
+        type == 'image') {
       return 'image';
     } else {
       return 'pdf';

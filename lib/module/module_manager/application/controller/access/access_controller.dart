@@ -15,7 +15,7 @@ class AccessController extends GetxController {
 
   Future<void> initUserData() async {
     await getUserRole();
-    await getUserAccess();
+    // await getUserAccess();
   }
 
   Future<String> getUserRole() async {

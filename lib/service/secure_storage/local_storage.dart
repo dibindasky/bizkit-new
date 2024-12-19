@@ -8,7 +8,7 @@ class LocalStorageService {
 
   /// get user id
   static Future<String> get getUid async {
-    if (uid != '') return uid;
+    // if (uid != '') return uid;
     return await SecureStorage.getUserId() ?? '';
   }
 
@@ -109,7 +109,7 @@ class LocalStorageService {
       if (data.isEmpty) return null;
       final value = data.first['value'] as String?;
       if (value == null) return null;
-      return int.parse(value);
+      return int.tryParse(value);
     } catch (e) {
       return null;
     }

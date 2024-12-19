@@ -6,7 +6,7 @@ class ApiEndPoints {
   // static const String baseUrl = 'https://9jdcxxr1-8001.inc1.devtunnels.ms';
 
   // [ AWS base url ]
-  static const String baseUrl = 'http://15.207.98.151';
+  static const String baseUrl = 'http://13.201.227.18';
 
 
   // Refesh token

@@ -44,7 +44,7 @@ class FileMessageCard extends StatelessWidget {
               },
               onTap: () {
                 final type = controller
-                    .getTypeOfFile((message.message ?? '').split('.').last);
+                    .getTypeOfFile((message.file ?? '').split('.').last);
                 if (controller.selectedMessages.isNotEmpty) {
                   controller.selectOrUnselectMessage(message: this.message);
                 } else if (type == 'pdf') {

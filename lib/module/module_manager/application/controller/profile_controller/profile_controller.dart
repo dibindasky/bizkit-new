@@ -4,12 +4,14 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/data/service/profile/profile_service.dart';
 import 'package:bizkit/module/module_manager/domain/model/profile_model/profile_model.dart';
 import 'package:bizkit/module/module_manager/domain/repository/service/profile_repo/profile_repo.dart';
+import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:bizkit/module/biz_card/data/local_storage/local_storage_preference.dart';
 
 class ProfileController extends GetxController {
   TextEditingController userPhone = TextEditingController();
@@ -48,6 +50,7 @@ class ProfileController extends GetxController {
   onInit() {
     super.onInit();
     getProfileDetails();
+    getValueFromLocal();
   }
 
   @override
@@ -55,6 +58,32 @@ class ProfileController extends GetxController {
     userPhone.dispose();
     userMail.dispose();
     super.onClose();
+  }
+    ///this bool value for checking whether user want to store or not.
+    RxBool saveLocalData=false.obs;
+
+    ///this function for get local data
+    getValueFromLocal() async {
+    final value = await LocalStoragePreferenceCard.getStoreCardLocalyOrNot();
+   
+    if (value != null) {
+      saveLocalData.value = value; 
+    }
+  }
+  ///this function for data store to local data
+  setLocalData()async{
+   await LocalStoragePreferenceCard.setStoreCardLocalyOrNot(saveLocalData.value);
+  }
+
+  deleteAllDataFromLocal(BuildContext context)async{
+  final result= await profileService.deleteAllLocalData(currentUserId:await SecureStorage.getUserId() ?? '' );
+  result.fold((failure){
+    print("delete Data From Local --> ${failure.message}");
+    // GoRouter.of(context).pop();
+  }, (success){
+    print("deleteAllDataFromLocal ==> success local data delete");
+    // GoRouter.of(context).pop();
+  });
   }
 
   /// get profile details for user Profile edit

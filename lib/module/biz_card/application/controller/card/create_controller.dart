@@ -17,6 +17,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/get_all_cards/bizcard.
 import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responce/view.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
@@ -125,12 +126,16 @@ class CardController extends GetxController {
   }
 
   void getAllcards(bool isLoad) async {
+    final profileController=Get.find<ProfileController>(); 
     if (!isLoad && bizcards.isNotEmpty) return;
     isLoading.value = true;
     bizcards.value = <Bizcard>[];
 
-    // Step 1: Fetch and display local data first
+  if(profileController.saveLocalData.isTrue){
+      // Step 1: Fetch and display local data first
     await fetchBizcardsFromLocalDb();
+  }
+  
 
     // Step 2: Then update with any network data if available
     if (!isLocalDataLoaded) {
@@ -139,6 +144,7 @@ class CardController extends GetxController {
   }
 
   Future<void> fetchBizcardsFromNetWork() async {
+    final profileController = Get.find<ProfileController>();
     final data = await cardRepo.getAllCards();
     data.fold(
       (l) {
@@ -153,8 +159,11 @@ class CardController extends GetxController {
 
           // Store new bizcards in local database
           for (Bizcard bizcard in r.bizcards ?? <Bizcard>[]) {
-            await bizcardsLocalService.addBizcardToLocalIfNotExists(
+            if(profileController.saveLocalData.isTrue){
+                await bizcardsLocalService.addBizcardToLocalIfNotExists(
                 bizcardModel: bizcard);
+            }
+          
             if (bizcard.isDefault ?? false) {
               defaultBizcardId.value = bizcard.bizcardId ?? '';
             }
@@ -191,6 +200,7 @@ class CardController extends GetxController {
       {required String cardId,
       bool refresh = false,
       bool toEdit = false}) async {
+        final profileController = Get.find<ProfileController>();
     log('Bizcard ID -> $cardId');
     if (cardId != bizcardDetail.value.bizcardId) {
       bizcardDetail.value = CardDetailModel();
@@ -198,21 +208,29 @@ class CardController extends GetxController {
     if (refresh || cardId != (bizcardDetail.value.bizcardId ?? "")) {
       isLoading.value = true;
     }
+
+    if (profileController.saveLocalData.isTrue){
+        await fetchBizcardDetailsFromLocalDb(cardId);
+    }
     // Step 1: Fetch and display local data first
-    await fetchBizcardDetailsFromLocalDb(cardId);
+  
 
     // Step 2: Then update with any network data if available
     await fetchBizcardDetailFromNetWork(cardId, toEdit);
   }
 
   Future<void> fetchBizcardDetailFromNetWork(String cardId, bool toEdit) async {
+    final profileController = Get.find<ProfileController>();
     final data = await cardRepo.getCardDetail(cardId: cardId);
     data.fold(
       (l) => isLoading.value = false,
       (r) async {
         bizcardDetail.value = r;
-        await bizcardsLocalService.addBizcardFullDetailToLocalIfNotExists(
-            bizcardModel: r);
+        if (profileController.saveLocalData.isTrue) {
+          await bizcardsLocalService.addBizcardFullDetailToLocalIfNotExists(
+              bizcardModel: r);
+        }
+
         if (toEdit) {
           Get.find<PersonalDetailsController>().getPersonalDetails(r);
           Get.find<BusinesDetailsController>().getBusinessDetails(r);

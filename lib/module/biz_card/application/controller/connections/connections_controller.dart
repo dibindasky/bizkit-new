@@ -23,6 +23,7 @@ import 'package:bizkit/module/biz_card/domain/model/connections/shared_cards/sha
 import 'package:bizkit/module/biz_card/domain/model/connections/unfollow_connection_model/unfollow_connection_model.dart';
 import 'package:bizkit/module/biz_card/domain/repository/service/connections/connections_repo.dart';
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/my_connection_repo.dart';
+import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -114,7 +115,6 @@ class ConnectionsController extends GetxController {
 
   /// shared card list
   RxList<SharedCardModel> filteredSharedCards = <SharedCardModel>[].obs;
-
 
   @override
   void onInit() {
@@ -214,6 +214,7 @@ class ConnectionsController extends GetxController {
 
   // Search My connections
   void searchConnections({bool refresh = false}) async {
+    final profileController = Get.find<ProfileController>();
     if (connectionsSearchList.isNotEmpty && !refresh) {
       return;
     }
@@ -222,12 +223,14 @@ class ConnectionsController extends GetxController {
     // myConnectionsLoading.value = false;
     myConnectionPageNumber = 1;
     connectionsSearchList.value = [];
-
-    if (searchController.text.isEmpty) {
-      await getConnectionDatasFromLocal(search: true);
-      // log("sear connection datas ---- ${connectionsSearchList.toJson()}");
-      // searchConnectionsLoading.value = false;
+    if (profileController.saveLocalData.value) {
+      if (searchController.text.isEmpty) {
+        await getConnectionDatasFromLocal(search: true);
+        // log("sear connection datas ---- ${connectionsSearchList.toJson()}");
+        // searchConnectionsLoading.value = false;
+      }
     }
+
     if (connectionsSearchList.isNotEmpty) {
       searchConnectionsLoading.value = false;
     }
@@ -244,14 +247,16 @@ class ConnectionsController extends GetxController {
       },
       (success) async {
         // print('searchConnections ->========success ${success.data?.length}');
-        if (connectionsSearchList.isEmpty) {
-          // connectionsSearchList.assignAll(success.data ?? []);
-          for (var eachMyConnection in connectionsSearchList) {
-            await myConnectionLocalService
-                .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                    myconnection: eachMyConnection);
-            if (eachMyConnection.cards?.isNotEmpty ?? false) {
-              connectionsSearchList.add(eachMyConnection);
+        if (profileController.saveLocalData.value) {
+          if (connectionsSearchList.isEmpty) {
+            // connectionsSearchList.assignAll(success.data ?? []);
+            for (var eachMyConnection in connectionsSearchList) {
+              await myConnectionLocalService
+                  .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                      myconnection: eachMyConnection);
+              if (eachMyConnection.cards?.isNotEmpty ?? false) {
+                connectionsSearchList.add(eachMyConnection);
+              }
             }
           }
         } else {
@@ -262,10 +267,11 @@ class ConnectionsController extends GetxController {
               if (datas.cards?.isNotEmpty ?? false) {
                 connectionsSearchList.insert(0, datas);
               }
-
-              myConnectionLocalService
-                  .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                      myconnection: datas);
+              if (profileController.saveLocalData.value) {
+                myConnectionLocalService
+                    .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                        myconnection: datas);
+              }
             } else {
               if (!connectionsSearchList[index].equals(datas)) {
                 int localId = connectionsSearchList[index].localId!;
@@ -274,9 +280,11 @@ class ConnectionsController extends GetxController {
                 } else {
                   connectionsSearchList.removeAt(index);
                 }
-                myConnectionLocalService
-                    .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                        myconnection: datas.copyWith(localId: localId));
+                if (profileController.saveLocalData.value) {
+                  myConnectionLocalService
+                      .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                          myconnection: datas.copyWith(localId: localId));
+                }
               }
             }
           }
@@ -294,6 +302,7 @@ class ConnectionsController extends GetxController {
 
   // Search My connections for pagination
   void searchConnectionsLoadMore() {
+     final profileController = Get.find<ProfileController>();
     debouncer.run(
       () async {
         // print('called my connection load more ==>1');
@@ -321,16 +330,21 @@ class ConnectionsController extends GetxController {
                   .indexWhere((value) => value.toUser == datas.toUser);
               if (index == -1) {
                 connectionsSearchList.add(datas);
-                myConnectionLocalService
+                 if (profileController.saveLocalData.value){
+                   myConnectionLocalService
                     .addMyConnecitonToLocalStorageIfNotPresentInStorage(
                         myconnection: datas);
+                 }
+               
               } else {
                 if (!connectionsSearchList[index].equals(datas)) {
                   int localId = connectionsSearchList[index].localId!;
                   connectionsSearchList[index] = datas;
-                  myConnectionLocalService
+                   if (profileController.saveLocalData.value){
+                    myConnectionLocalService
                       .addMyConnecitonToLocalStorageIfNotPresentInStorage(
                           myconnection: datas.copyWith(localId: localId));
+                   } 
                 }
               }
             }
@@ -498,16 +512,20 @@ class ConnectionsController extends GetxController {
 
   /// Get my all connections
   void fetchMyConnections(bool isLoad) async {
+    final profileController = ProfileController();
     if (myConnections.isNotEmpty && !isLoad) return;
     myConnections.value = [];
     fetchMyConnectionPageNumber = 1;
-
+ 
     ////delete complete datas of table
     // await MyConnectionLocalService().deleteAllLocalDatas();
 
     //get connection datas form local
     myConnectionsLoading.value = true;
-    await getConnectionDatasFromLocal();
+    if(profileController.saveLocalData.value){
+       await getConnectionDatasFromLocal();
+    }
+   
 
     //get connection datas from api
     final result = await connectionService.getMyconnections(
@@ -758,6 +776,7 @@ class ConnectionsController extends GetxController {
 
     recievedConnectionRequestLoading.value = true;
     bool followBackPossible = false;
+    
     final result = await connectionService.acceptOrRejectConnectionRequest(
         acceptOrReject: acceptOrReject);
 
@@ -785,7 +804,7 @@ class ConnectionsController extends GetxController {
       {required String cardId,
       bool refresh = false,
       required String uid}) async {
-          final reminderController = Get.find<ReminderController>();
+    final reminderController = Get.find<ReminderController>();
     log('Bizcard ID -->> $cardId');
     final cardController = Get.find<CardController>();
     cardController.toUserId = uid;

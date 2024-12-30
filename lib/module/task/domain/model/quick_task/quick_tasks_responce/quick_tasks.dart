@@ -8,6 +8,9 @@ part 'quick_tasks.g.dart';
 
 @JsonSerializable()
 class QuickTasks {
+  // Local ID
+  int? localId;
+
   @JsonKey(name: '_id')
   String? id;
   String? title;
@@ -69,4 +72,27 @@ class QuickTasks {
       isOwned: isOwned ?? this.isOwned,
     );
   }
+
+  static const colQuickTaskLocalId = 'quick_task_local_id';
+
+  static const colUserId = 'user_id';
+  static const colQuickTaskId = 'quick_task_id';
+  static const colQuickTaskTitle = 'quick_task_title';
+  static const colQuickTaskDescription = 'quick_task_description';
+  static const colQuickTaskIsCompleted = 'quick_task_is_completed';
+  static const colQuickTaskCreatedAt = 'quick_task_created_at';
+  static const colQuickTaskCompletedAt = 'quick_task_completed_at';
+  static const colQuickTaskIsOwned = 'quick_task_is_owned';
+
+  // Quick Task Created User details
+  static const colQuickTaskCreatedUserId = 'quick_task_created_user_id';
+  static const colQuickTaskCreatedUserName = 'quick_task_created_user_name';
+  static const colQuickTaskCreatedUserProfilePicture =
+      'quick_task_created_user_profile_picture';
+
+  // Quick Task Completed User details
+  static const colQuickTaskCompletedUserId = 'quick_task_completed_user_id';
+  static const colQuickTaskCompletedUserName = 'quick_task_completed_user_name';
+  static const colQuickTaskCompletedUserProfilePicture =
+      'quick_task_completed_user_profile_picture';
 }

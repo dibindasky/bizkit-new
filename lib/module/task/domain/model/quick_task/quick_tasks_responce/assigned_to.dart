@@ -4,6 +4,9 @@ part 'assigned_to.g.dart';
 
 @JsonSerializable()
 class QuickTaskAssignedToResponce {
+  // Local ID
+  int? localId;
+
   @JsonKey(name: 'user_id')
   String? userId;
   String? name;
@@ -19,4 +22,17 @@ class QuickTaskAssignedToResponce {
   }
 
   Map<String, dynamic> toJson() => _$AssignedToToJson(this);
+
+  static const colQuickTaskAssignedToLocalId =
+      'quick_task_assigned_to_local_id';
+
+  static const colQuickTaskAssignedToUserId = 'quick_task_assigned_to_user_id';
+  static const colQuickTaskAssignedToUserName =
+      'quick_task_assigned_to_user_name';
+  static const colQuickTaskAssignedToStatus = 'quick_task_assigned_to_status';
+  static const colQuickTaskAssignedToUserProfilePicture =
+      'quick_task_assigned_to_user_profile_picture';
+
+  static const colQuickTaskAssignedToReferenceId =
+      'quick_task_assigned_to_reference_id';
 }

@@ -9,6 +9,7 @@ import 'package:bizkit/module/module_manager/application/controller/module_contr
 import 'package:bizkit/module/module_manager/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/module/module_manager/data/sqflite/users_local_service.dart';
 import 'package:bizkit/module/module_manager/domain/repository/sqflite/users_local_service_repo.dart';
+import 'package:bizkit/packages/device_info/device_ino.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/module/module_manager/data/service/auth/auth_service.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
@@ -96,7 +97,9 @@ class AuthenticationController extends GetxController {
       {required String otp}) async {
     loadingOtpEmail.value = true;
     final result = await authRepo.otpVerification(
-        authPostmodel: registerPostModel.value.copyWith(otp: otp));
+        authPostmodel: registerPostModel.value.copyWith(
+            otp: otp,
+            deviceId: await DeviceInformation.getDeviceInformation()));
     result.fold((l) {
       GoRouter.of(context).pop();
       showSnackbar(context,
@@ -165,12 +168,18 @@ class AuthenticationController extends GetxController {
   void verifyOtpLogin(BuildContext context,
       {required String otp, required bool isEmail}) async {
     loadingOtpPhone.value = true;
+    final String deviceId = await DeviceInformation.getDeviceInformation();
     final result = await authRepo.otpVerificationPhone(
         authPostmodel: isEmail
-            ? {'otp': otp, 'email': registerPostModel.value.email}
+            ? {
+                'otp': otp,
+                'email': registerPostModel.value.email,
+                'device_id': deviceId
+              }
             : {
                 'otp': otp,
-                'phone_number': registerPostModel.value.phoneNumber
+                'phone_number': registerPostModel.value.phoneNumber,
+                'device_id': deviceId
               });
     result.fold((l) {
       GoRouter.of(context).pop();
@@ -196,6 +205,7 @@ class AuthenticationController extends GetxController {
   void loginUsingPassword(BuildContext context,
       {required AuthPostmodel authPostModel}) async {
     loadingLoginPassword.value = true;
+    authPostModel.deviceId = await DeviceInformation.getDeviceInformation();
     final data =
         await authRepo.loginUsingPassword(authPostmodel: authPostModel);
     data.fold((l) {

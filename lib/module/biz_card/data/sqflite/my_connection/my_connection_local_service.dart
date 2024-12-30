@@ -180,7 +180,9 @@ class MyConnectionLocalService implements MyConnectionLocalRepo {
           '''SELECT * FROM ${BizCardSql.myConnectionTable} WHERE ${MyConnection.colCurrentUserId} = ?''';
       final myConnectionResult =
           await localService.rawQuery(myConnectionQuery, [currentUserId]);
+          log(myConnectionResult.isEmpty?'no data in my connection':'data available in my connection ');
       if (myConnectionResult.isEmpty) {
+        
         return Left(Failure());
       }
 

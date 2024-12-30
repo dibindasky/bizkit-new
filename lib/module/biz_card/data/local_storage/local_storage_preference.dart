@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bizkit/service/secure_storage/local_storage.dart';
 
 class LocalStoragePreferenceCard {

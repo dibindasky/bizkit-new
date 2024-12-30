@@ -314,7 +314,10 @@ class ApiService {
           await _dio.get(url, data: data, queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401 ||
+      if (exception.response?.statusCode == 406) {
+        clearDataLogout();
+        rethrow;
+      } else if (exception.response?.statusCode == 401 ||
           exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
@@ -343,7 +346,10 @@ class ApiService {
           await _dio.post(url, data: data, queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401 ||
+      if (exception.response?.statusCode == 406) {
+        clearDataLogout();
+        rethrow;
+      } else if (exception.response?.statusCode == 401 ||
           exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
@@ -375,7 +381,10 @@ class ApiService {
           queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401 ||
+      if (exception.response?.statusCode == 406) {
+        clearDataLogout();
+        rethrow;
+      } else if (exception.response?.statusCode == 401 ||
           exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
@@ -406,7 +415,10 @@ class ApiService {
           await _dio.delete(url, data: data, queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401 ||
+      if (exception.response?.statusCode == 406) {
+        clearDataLogout();
+        rethrow;
+      } else if (exception.response?.statusCode == 401 ||
           exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
@@ -437,7 +449,10 @@ class ApiService {
           await _dio.patch(url, data: data, queryParameters: queryParameters);
       return response;
     } on DioException catch (exception) {
-      if (exception.response?.statusCode == 401 ||
+      if (exception.response?.statusCode == 406) {
+        clearDataLogout();
+        rethrow;
+      } else if (exception.response?.statusCode == 401 ||
           exception.response?.statusCode == 403) {
         await _refreshAccessToken();
         return await _retry(exception.requestOptions);
@@ -477,8 +492,7 @@ class ApiService {
       if (exception.response?.statusCode == 400 ||
           exception.response?.statusCode == 401 ||
           exception.response?.statusCode == 403) {
-        getx.Get.find<AuthenticationController>().clearDataWhileLogout();
-        GoRouterConfig.router.go(Routes.initial);
+        clearDataLogout();
         rethrow;
       } else {
         rethrow;
@@ -486,6 +500,11 @@ class ApiService {
     } catch (e) {
       rethrow;
     }
+  }
+
+  void clearDataLogout() {
+    getx.Get.find<AuthenticationController>().clearDataWhileLogout();
+    GoRouterConfig.router.go(Routes.initial);
   }
 
   Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {

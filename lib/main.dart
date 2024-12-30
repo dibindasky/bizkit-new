@@ -3,7 +3,6 @@ import 'package:bizkit/core/dipendency/di/dipendency_injection.dart';
 import 'package:bizkit/core/routes/route_generator.dart';
 import 'package:bizkit/core/themes/app_themes.dart';
 import 'package:bizkit/firebase_options.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +24,11 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await configuteInjection();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(MyApp(connectivity: Connectivity()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.connectivity});
-  final Connectivity connectivity;
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

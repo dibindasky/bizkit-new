@@ -5,6 +5,7 @@ class AuthPostmodel {
   String? phoneNumber;
   String? password;
   String? emailOrPhone;
+  String? deviceId;
 
   AuthPostmodel(
       {this.otp,
@@ -12,6 +13,7 @@ class AuthPostmodel {
       this.email,
       this.phoneNumber,
       this.password,
+      this.deviceId,
       this.emailOrPhone});
 
   factory AuthPostmodel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class AuthPostmodel {
       phoneNumber: json['phone_number'] as String?,
       password: json['password'] as String?,
       emailOrPhone: json['email_or_phone'] as String?,
+      deviceId: json['device_id'] as String?,
     );
   }
 
@@ -33,6 +36,7 @@ class AuthPostmodel {
     if (phoneNumber != null) data['phone_number'] = phoneNumber;
     if (password != null) data['password'] = password;
     if (emailOrPhone != null) data['email_or_phone'] = emailOrPhone;
+    if (deviceId != null) data['device_id'] = deviceId;
     return data;
   }
 
@@ -42,6 +46,7 @@ class AuthPostmodel {
     String? email,
     String? phoneNumber,
     String? password,
+    String? deviceId,
   }) {
     return AuthPostmodel(
       otp: otp ?? this.otp,
@@ -49,6 +54,7 @@ class AuthPostmodel {
       email: email ?? this.email,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       password: password ?? this.password,
+      deviceId: deviceId ?? this.deviceId,
     );
   }
 }

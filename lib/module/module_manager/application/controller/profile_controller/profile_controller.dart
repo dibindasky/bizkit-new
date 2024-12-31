@@ -7,6 +7,7 @@ import 'package:bizkit/module/module_manager/domain/repository/service/profile_r
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -78,11 +79,14 @@ class ProfileController extends GetxController {
   deleteAllDataFromLocal(BuildContext context)async{
   final result= await profileService.deleteAllLocalData(currentUserId:await SecureStorage.getUserId() ?? '' );
   result.fold((failure){
-    print("delete Data From Local --> ${failure.message}");
+    showCustomToast(message: 'Failed to clear local data');
+    // print("delete Data From Local --> ${failure.message}");
     // GoRouter.of(context).pop();
   }, (success){
-    print("deleteAllDataFromLocal ==> success local data delete");
+    showCustomToast(message: 'Local data cleared successfully');
+    // print("deleteAllDataFromLocal ==> success local data delete");
     // GoRouter.of(context).pop();
+    
   });
   }
 

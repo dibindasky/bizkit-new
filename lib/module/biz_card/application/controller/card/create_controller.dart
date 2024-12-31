@@ -117,7 +117,8 @@ class CardController extends GetxController {
       (r) {
         showSnackbar(context, message: 'Card Created Successfully');
         // context.push(Routes.bizCardNavbar);
-        Get.find<ModuleController>().chooseModule(context, module: Module.card);
+        // Get.find<ModuleController>().chooseModule(context, module: Module.card);
+        context.go(Routes.bizCardNavbar);
         getAllcards(true);
         isLoading.value = false;
       },

@@ -141,6 +141,7 @@ class CardController extends GetxController {
     if (!isLocalDataLoaded) {
       await fetchBizcardsFromNetWork();
     }
+     isLoading.value = false;
   }
 
   Future<void> fetchBizcardsFromNetWork() async {

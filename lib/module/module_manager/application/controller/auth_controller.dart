@@ -99,8 +99,7 @@ class AuthenticationController extends GetxController {
     final result = await authRepo.otpVerification(
         authPostmodel: registerPostModel.value.copyWith(
             otp: otp,
-            // deviceId: await DeviceInformation.getDeviceInformation()
-            ));
+            deviceId: await DeviceInformation.getDeviceInformation()));
     result.fold((l) {
       GoRouter.of(context).pop();
       showSnackbar(context,
@@ -175,12 +174,12 @@ class AuthenticationController extends GetxController {
             ? {
                 'otp': otp,
                 'email': registerPostModel.value.email,
-                // 'device_id': deviceId
+                'device_id': deviceId
               }
             : {
                 'otp': otp,
                 'phone_number': registerPostModel.value.phoneNumber,
-                // 'device_id': deviceId 
+                'device_id': deviceId
               });
     result.fold((l) {
       GoRouter.of(context).pop();
@@ -206,7 +205,7 @@ class AuthenticationController extends GetxController {
   void loginUsingPassword(BuildContext context,
       {required AuthPostmodel authPostModel}) async {
     loadingLoginPassword.value = true;
-    // authPostModel.deviceId = await DeviceInformation.getDeviceInformation();
+    authPostModel.deviceId = await DeviceInformation.getDeviceInformation();
     final data =
         await authRepo.loginUsingPassword(authPostmodel: authPostModel);
     data.fold((l) {

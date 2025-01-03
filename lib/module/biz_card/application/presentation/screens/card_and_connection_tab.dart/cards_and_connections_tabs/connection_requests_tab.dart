@@ -68,7 +68,7 @@ class _ConnectionRequestsTabState extends State<ConnectionRequestsTab> {
             } else {
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 1 / 1.3,
+                    childAspectRatio: 1 / 1.2,
                     crossAxisCount: 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10),

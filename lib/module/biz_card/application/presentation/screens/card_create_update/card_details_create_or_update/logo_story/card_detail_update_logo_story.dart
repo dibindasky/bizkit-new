@@ -93,12 +93,12 @@ class _CardUpdateLogoStoryDetailsState
                     tittle: 'Choose image',
                   );
                 },
-                child: DottedBorder(
-                  dashPattern: const [8, 8],
-                  color: showLogoError
-                      ? kDarkRed
-                      : Theme.of(context).colorScheme.surface,
-                  strokeWidth: 2.5,
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      borderRadius: kBorderRadius15),
                   child: Obx(
                     () => businessController.logoLoading.value
                         ? const Center(
@@ -117,12 +117,21 @@ class _CardUpdateLogoStoryDetailsState
                                               null
                                       ? InkWell(
                                           onTap: () {
-                                              GoRouter.of(context)
-                              .pushNamed(Routes.slidablePhotoGallery, extra: {
-                            'images': [businessController.logoImage.value.image!] ,
-                            'initial':0,
-                            'memory':businessController.logoImage.value.networkImage?false:true,
-                          });
+                                            GoRouter.of(context).pushNamed(
+                                                Routes.slidablePhotoGallery,
+                                                extra: {
+                                                  'images': [
+                                                    businessController
+                                                        .logoImage.value.image!
+                                                  ],
+                                                  'initial': 0,
+                                                  'memory': businessController
+                                                          .logoImage
+                                                          .value
+                                                          .networkImage
+                                                      ? false
+                                                      : true,
+                                                });
                                           },
                                           child: businessController
                                                   .logoImage.value.networkImage

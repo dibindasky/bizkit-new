@@ -60,34 +60,37 @@ class ProfileController extends GetxController {
     userMail.dispose();
     super.onClose();
   }
-    ///this bool value for checking whether user want to store or not.
-    RxBool saveLocalData=false.obs;
 
-    ///this function for get local data
-    getValueFromLocal() async {
+  ///this bool value for checking whether user want to store or not.
+  RxBool saveLocalData = false.obs;
+
+  ///this function for get local data
+  getValueFromLocal() async {
     final value = await LocalStoragePreferenceCard.getStoreCardLocalyOrNot();
-   
+
     if (value != null) {
-      saveLocalData.value = value; 
+      saveLocalData.value = value;
     }
   }
+
   ///this function for data store to local data
-  setLocalData()async{
-   await LocalStoragePreferenceCard.setStoreCardLocalyOrNot(saveLocalData.value);
+  setLocalData() async {
+    await LocalStoragePreferenceCard.setStoreCardLocalyOrNot(
+        saveLocalData.value);
   }
 
-  deleteAllDataFromLocal(BuildContext context)async{
-  final result= await profileService.deleteAllLocalData(currentUserId:await SecureStorage.getUserId() ?? '' );
-  result.fold((failure){
-    showCustomToast(message: 'Failed to clear local data');
-    // print("delete Data From Local --> ${failure.message}");
-    // GoRouter.of(context).pop();
-  }, (success){
-    showCustomToast(message: 'Local data cleared successfully');
-    // print("deleteAllDataFromLocal ==> success local data delete");
-    // GoRouter.of(context).pop();
-    
-  });
+  deleteAllDataFromLocal(BuildContext context) async {
+    final result = await profileService.deleteAllLocalData(
+        currentUserId: await SecureStorage.getUserId() ?? '');
+    result.fold((failure) {
+      showCustomToast(message: 'Failed to clear local data');
+      // print("delete Data From Local --> ${failure.message}");
+      // GoRouter.of(context).pop();
+    }, (success) {
+      showCustomToast(message: 'Local data cleared successfully');
+      // print("deleteAllDataFromLocal ==> success local data delete");
+      // GoRouter.of(context).pop();
+    });
   }
 
   /// get profile details for user Profile edit

@@ -24,10 +24,11 @@ class _BizCardAndConnectionScreenState extends State<BizCardAndConnectionScreen>
     with TickerProviderStateMixin {
   // late TabController tabController;
   final tabBarController = Get.find<NavbarController>();
-
+  final connectionController = Get.find<ConnectionsController>();
   @override
   void initState() {
     super.initState();
+    connectionController.fetchRecievedConnectionRequests();
     tabBarController.tabController =
         TabController(length: 5, vsync: this, initialIndex: 0);
     tabBarController.tabController.addListener(() {

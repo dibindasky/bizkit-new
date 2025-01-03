@@ -58,7 +58,9 @@ class _BizCardScanAndConnectCardDetailScreenState
                     // card details icons and gifs
                     const BizCardDetailsIconsWidgets(),
                     // products and brands
-                    const BizCardProductsOrBrands(),
+                    const BizCardProductsOrBrands(
+                      myCard: false,
+                    ),
                     // widget.myCard
                     //     // edit button
                     //     ? const BizcardDetailEditButton()

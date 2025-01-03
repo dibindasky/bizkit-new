@@ -222,7 +222,7 @@ class TaskDetailHeaderSection extends StatelessWidget {
                             icon: const Icon(
                               Iconsax.message,
                               size: 20,
-                            ), 
+                            ),
                             onPressed: () {
                               Get.find<ChatController>().connectChannel(context,
                                   taskId: taskController.singleTask.value.id);

@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:bizkit/module/task/domain/model/chat/current_location/current_location_message.dart';
 import 'package:bizkit/module/task/domain/model/chat/file/file_model.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/assigned_to.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/chat/message.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll/poll.dart';
@@ -18,10 +20,15 @@ import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.
 import 'package:sqflite/sqflite.dart' as sql;
 
 class TaskSql {
+  // Task
   static const tasksTable = 'bizkit_tasks';
   static const taskAttachmentsTable = 'task_attachments';
   static const taskSubTasksTable = 'task_subtasks';
   static const taskAssignedToDetailTable = 'task_assigned_to_detail';
+  static const recentTasksTable = 'recent_tasks';
+  static const filterByDeadlineTable = 'tasks_filter_by_deadline';
+
+  // Chat
   static const taskMessages = 'task_message_table';
   static const taskMessageCurrentLocation = 'task_message_current_location';
   static const taskMessagefile = 'task_message_file';
@@ -32,8 +39,9 @@ class TaskSql {
   static const taskMessagePollAnswer = 'task_message_poll_answer';
   static const taskMessagePollSupporters = 'task_message_poll_supporters';
 
-  static const recentTasksTable = 'recent_tasks';
-  static const filterByDeadlineTable = 'tasks_filter_by_deadline';
+  // Quick Task
+  static const quickTasksTable = 'quick_tasks';
+  static const quickTaskAssignedToTable = 'quick_task_assigned_to';
 
   static Future onCreate(sql.Database db) async {
     try {
@@ -44,6 +52,8 @@ class TaskSql {
       await db.execute(_taskAssignedToDetailTableCreation);
       await db.execute(_filterByDeadlineTableCreation);
       await db.execute(_recentTasksTableCreation);
+      await db.execute(_quickTasksTableCreation);
+      await db.execute(_quickTaskAssignedToTableCreation);
       // task chat tables
       await db.execute(_taskMessagesTableCreation);
       await db.execute(_pollMessageTableCreation);
@@ -156,6 +166,41 @@ class TaskSql {
   ${GetRecentTasksResponce.colRecentTaskType} TEXT
   )
 ''';
+
+  /// Table for Quick Task
+  static const String _quickTasksTableCreation = '''
+  CREATE TABLE IF NOT EXISTS $quickTasksTable(
+    ${QuickTasks.colQuickTaskLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+    ${QuickTasks.colUserId} TEXT,
+    ${QuickTasks.colQuickTaskId} TEXT,
+    ${QuickTasks.colQuickTaskTitle} TEXT,
+    ${QuickTasks.colQuickTaskDescription} TEXT,
+    ${QuickTasks.colQuickTaskCreatedAt} TEXT,
+    ${QuickTasks.colQuickTaskCreatedUserId} TEXT,
+    ${QuickTasks.colQuickTaskCreatedUserName} TEXT,
+    ${QuickTasks.colQuickTaskCreatedUserProfilePicture} TEXT,
+    ${QuickTasks.colQuickTaskCompletedAt} TEXT,
+    ${QuickTasks.colQuickTaskCompletedUserId} TEXT,
+    ${QuickTasks.colQuickTaskCompletedUserName} TEXT,
+    ${QuickTasks.colQuickTaskCompletedUserProfilePicture} TEXT,
+    ${QuickTasks.colQuickTaskIsCompleted} INTEGER,    -- Boolean field (1 for true, 0 for false)
+    ${QuickTasks.colQuickTaskIsOwned} INTEGER    -- Boolean field (1 for true, 0 for false)
+  )
+ ''';
+
+  /// Table for [QuickTaskAssignedToResponce] relation with [QuickTasks]
+  static const String _quickTaskAssignedToTableCreation = '''
+  CREATE TABLE IF NOT EXISTS $quickTaskAssignedToTable(
+    ${QuickTaskAssignedToResponce.colQuickTaskAssignedToLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+    ${QuickTaskAssignedToResponce.colQuickTaskAssignedToUserId} TEXT,
+    ${QuickTaskAssignedToResponce.colQuickTaskAssignedToUserName} TEXT,
+    ${QuickTaskAssignedToResponce.colQuickTaskAssignedToStatus} TEXT,
+    ${QuickTaskAssignedToResponce.colQuickTaskAssignedToUserProfilePicture} TEXT,
+    ${QuickTaskAssignedToResponce.colQuickTaskAssignedToReferenceId} INTEGER,
+    FOREIGN KEY (${QuickTaskAssignedToResponce.colQuickTaskAssignedToReferenceId}) REFERENCES $quickTasksTable(${QuickTasks.colQuickTaskLocalId})
+    ON DELETE CASCADE 
+  )
+  ''';
 
   /// Table for [TextMessage]
   static const String _taskMesageTextTableCreation = '''

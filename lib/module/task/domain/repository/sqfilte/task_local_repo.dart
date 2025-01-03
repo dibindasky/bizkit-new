@@ -1,6 +1,8 @@
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/assigned_to.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
@@ -64,4 +66,24 @@ abstract class TaskLocalRepo {
 
   Future<Either<Failure, GetTaskResponce>> getTaskFullDetailsFromLocalStorage(
       {required String taskId});
+
+  Future<Either<Failure, SuccessResponseModel>> addQuickTaskToLocalStorage(
+      {required QuickTasks quickTask});
+
+  Future<Either<Failure, SuccessResponseModel>> updateQuickTaskFromLocalStorage(
+      {required QuickTasks quickTask});
+
+  Future<Either<Failure, SuccessResponseModel>> addQuickTaskToLocalIfNotExists(
+      {required QuickTasks quickTask});
+
+  Future<Either<Failure, SuccessResponseModel>>
+      addQuickTaskAssignedToDetailsToLocalIfNotExists(
+          {required List<QuickTaskAssignedToResponce> assignedToDetails,
+          required int referenceId});
+
+  // Future<Either<Failure, List<QuickTasks>>> getQuickTasksFromLocalStorage({
+  //   required int page,
+  //   required int pageSize,
+  //   bool completedTasks = false,
+  // });
 }

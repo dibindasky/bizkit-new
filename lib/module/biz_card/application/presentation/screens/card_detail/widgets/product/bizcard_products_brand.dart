@@ -45,7 +45,11 @@ class BizCardProductsOrBrands extends StatelessWidget {
                               ?.isEmpty ??
                           true)
                       ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: (cardController.bizcardDetail.value
+                                      .businessDetails?.product?.isEmpty ??
+                                  true)
+                              ? MainAxisAlignment.start
+                              : MainAxisAlignment.center,
                           children: [
                             if (accessController.userRole.value == 'user')
                               AspectRatio(

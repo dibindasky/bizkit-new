@@ -57,6 +57,7 @@ class RequestSentBuilder extends StatelessWidget {
                   itemCount: taskController.sentRequests.length,
                   itemBuilder: (context, index) {
                     return ReqSentNotificationScreen(
+                      taskId: taskController.sentRequests[index].taskId ?? '',
                       createdAt:
                           taskController.sentRequests[index].createdAt ?? '',
                       assignedUsers:

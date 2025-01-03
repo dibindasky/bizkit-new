@@ -139,7 +139,7 @@ class AddConnectionScreen extends StatelessWidget {
                           sliver: SliverGrid(
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 1 / 1.3,
+                              childAspectRatio: 1 / 1.1,
                               crossAxisCount: 2,
                               crossAxisSpacing: 1,
                               mainAxisSpacing: 1,

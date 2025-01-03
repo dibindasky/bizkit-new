@@ -88,10 +88,18 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
                     adjustHieght(30.h),
                     const BizcardsListSection(),
                     const MyConnectionSection(),
+                    if (reminderController.allReminders.isEmpty ||
+                        reminderController.historyReminders.isEmpty ||
+                        reminderController.upcomingReminders.isEmpty ||
+                        reminderController.todaysReminders.isEmpty)
+                      adjustHieght(90.h),
                   ],
                 ),
               ),
-
+              // if (reminderController.allReminders.isNotEmpty ||
+              //     reminderController.historyReminders.isNotEmpty ||
+              //     reminderController.upcomingReminders.isNotEmpty ||
+              //     reminderController.todaysReminders.isNotEmpty)
               // Reminders pinned appbar
               SliverPersistentHeader(
                 pinned: true,
@@ -99,6 +107,10 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
                 delegate: RemindersSliverHeaderDelegate(),
               ),
 
+              // if (reminderController.allReminders.isNotEmpty ||
+              //     reminderController.historyReminders.isNotEmpty ||
+              //     reminderController.upcomingReminders.isNotEmpty ||
+              //     reminderController.todaysReminders.isNotEmpty)
               // Today's reminders horizontal lists section
               SliverPersistentHeader(
                 floating: true,
@@ -113,6 +125,10 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
                 ),
               ),
 
+              // if (reminderController.allReminders.isNotEmpty ||
+              //     reminderController.historyReminders.isNotEmpty ||
+              //     reminderController.upcomingReminders.isNotEmpty ||
+              //     reminderController.todaysReminders.isNotEmpty)
               // Reminder's tabs section
               SliverPadding(
                 padding: const EdgeInsets.symmetric(horizontal: 3),

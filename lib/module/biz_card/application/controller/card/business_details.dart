@@ -23,6 +23,7 @@ import 'package:bizkit/module/biz_card/domain/model/cards/image_card/image_card.
 import 'package:bizkit/module/biz_card/domain/repository/service/card/business_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -135,8 +136,7 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(
-          context,
+        showCustomToast(
           message: 'Business Data Added Successfully',
         );
       },
@@ -146,7 +146,7 @@ class BusinesDetailsController extends GetxController {
   /// add business phone numbers to list
   void addBusinessPhoneNumber(BuildContext context, String phone) {
     if (businessPhoneNumbers.contains(phone)) {
-      showSnackbar(context, message: 'Phone number alredy exist');
+      showCustomToast(message: 'Phone number alredy exist');
     } else {
       businessPhoneNumbers.add(phone);
       companyNumber.text = '';
@@ -194,7 +194,7 @@ class BusinesDetailsController extends GetxController {
             .copyWith(businessDetails: business);
         branchDataClear();
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Branch Added Successfully');
+        showCustomToast(message: 'Branch Added Successfully');
       },
     );
   }
@@ -238,7 +238,7 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Branch Updated Successfully');
+        showCustomToast(message: 'Branch Updated Successfully');
         branchDataClear();
       },
     );
@@ -282,7 +282,7 @@ class BusinesDetailsController extends GetxController {
         if (frominner) {
           GoRouter.of(context).pop();
         }
-        // showSnackbar(context, message: 'Branch Deleted Successfully');
+        // showCustomToast(context, message: 'Branch Deleted Successfully');
         branchDataClear();
       },
     );
@@ -309,7 +309,7 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Social Media Added Successfully');
+        showCustomToast(message: 'Social Media Added Successfully');
       },
     );
   }
@@ -335,7 +335,7 @@ class BusinesDetailsController extends GetxController {
         cardCntroller.cardDetail(
             cardId: cardCntroller.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Social Media Updated Successfully');
+        showCustomToast(message: 'Social Media Updated Successfully');
       },
     );
   }
@@ -362,7 +362,7 @@ class BusinesDetailsController extends GetxController {
         if (fromInner) {
           GoRouter.of(context).pop();
         }
-        showSnackbar(context, message: 'Social Media Deleted Successfully');
+        showCustomToast(message: 'Social Media Deleted Successfully');
       },
     );
   }
@@ -387,7 +387,7 @@ class BusinesDetailsController extends GetxController {
     data.fold(
       (l) {
         achivementLoading.value = false;
-        showSnackbar(context,
+        showCustomToast(
             message: 'Failed to add achivement, please try again',
             backgroundColor: kred);
       },
@@ -396,7 +396,7 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Achievement Added Successfully');
+        showCustomToast(message: 'Achievement Added Successfully');
       },
     );
   }
@@ -420,7 +420,7 @@ class BusinesDetailsController extends GetxController {
     final data = await businessRepo.businessAchievementUpdating(
         achievementModel: achievementModel);
     data.fold(
-      (l) => showSnackbar(context,
+      (l) => showCustomToast(
           message: 'Failed to update achivement, please try again',
           backgroundColor: kred),
       (r) {
@@ -445,7 +445,7 @@ class BusinesDetailsController extends GetxController {
               .copyWith(businessDetails: businessData);
           GoRouter.of(context).pop();
         }
-        showSnackbar(context, message: 'Achievement Updated Successfully');
+        showCustomToast(message: 'Achievement Updated Successfully');
       },
     );
     achivementLoading.value = false;
@@ -483,7 +483,7 @@ class BusinesDetailsController extends GetxController {
         if (fromInner) {
           GoRouter.of(context).pop();
         }
-        showSnackbar(context, message: 'Achievement  Deleted Successfully');
+        showCustomToast(message: 'Achievement  Deleted Successfully');
       },
     );
   }
@@ -533,7 +533,7 @@ class BusinesDetailsController extends GetxController {
             businessDetails: cardController.bizcardDetail.value.businessDetails
                 ?.copyWith(logoStory: businessLogoLebel.text));
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Logo Added Successfully');
+        showCustomToast(message: 'Logo Added Successfully');
         isLoading.value = false;
       },
     );
@@ -576,7 +576,7 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Brochure Added SucessFully');
+        showCustomToast(message: 'Brochure Added SucessFully');
       },
     );
   }
@@ -606,7 +606,7 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Brochure Updated SucessFully');
+        showCustomToast(message: 'Brochure Updated SucessFully');
       },
     );
   }
@@ -634,7 +634,7 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
 
-        showSnackbar(context, message: 'Brochure Deleted SucessFully');
+        showCustomToast(message: 'Brochure Deleted SucessFully');
       },
     );
   }
@@ -662,7 +662,7 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Product Added Successfully');
+        showCustomToast(message: 'Product Added Successfully');
       },
     );
   }
@@ -703,7 +703,7 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Product Updated Successfully');
+        showCustomToast(message: 'Product Updated Successfully');
       },
     );
   }
@@ -727,7 +727,7 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
 
-        showSnackbar(context, message: 'Product Deleted Successfully');
+        showCustomToast(message: 'Product Deleted Successfully');
       },
     );
     deleteProductIds
@@ -745,8 +745,7 @@ class BusinesDetailsController extends GetxController {
         upi: uPIIDController.text,
         businessDetailsId:
             cardController.bizcardDetail.value.businessDetails?.id ?? '');
-    log(
-        'patch banking data => businessDetails id --->  ${cardController.bizcardDetail.value.businessDetails?.id ?? 'empty'}');
+    log('patch banking data => businessDetails id --->  ${cardController.bizcardDetail.value.businessDetails?.id ?? 'empty'}');
     final data =
         await businessRepo.businessBankDetails(bankingDetail: bankingDetail);
     data.fold(
@@ -756,7 +755,7 @@ class BusinesDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Banking Details Added Successfully');
+        showCustomToast(message: 'Banking Details Added Successfully');
       },
     );
   }

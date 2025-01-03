@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/validators/validation_textfield.dart';
 import 'package:flutter/material.dart';
@@ -212,30 +213,37 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: ListView.builder(
+              child: ListView.separated(
+                separatorBuilder: (context, index) => const Divider(
+                  color: kGreyNormal,
+                  thickness: 0,
+                ),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: filteredAutocompleteItems.length,
                 itemBuilder: (context, index) {
                   return SizedBox(
-                    height: 30,
-                    child: ListTile(
-                      title: Text(filteredAutocompleteItems[index],
-                          style: Theme.of(context).textTheme.displaySmall),
-                      onTap: () {
-                        setState(() {
-                          widget.controller?.text =
-                              filteredAutocompleteItems[index];
-                          filteredAutocompleteItems = [];
-                          if (widget.enabled) {
-                            myFocusNode.requestFocus();
+                    height: 35,
+                    child: Center(
+                      child: ListTile(
+                        title: Text(filteredAutocompleteItems[index],
+                            style: Theme.of(context).textTheme.displaySmall),
+                        onTap: () {
+                          setState(() {
+                            widget.controller?.text =
+                                filteredAutocompleteItems[index];
+                            filteredAutocompleteItems = [];
+                            if (widget.enabled) {
+                              myFocusNode.requestFocus();
+                            }
+                          });
+                          if (widget.onDropDownSelection != null) {
+                            widget
+                                .onDropDownSelection!(widget.controller!.text);
                           }
-                        });
-                        if (widget.onDropDownSelection != null) {
-                          widget.onDropDownSelection!(widget.controller!.text);
-                        }
-                      },
+                        },
+                      ),
                     ),
                   );
                 },

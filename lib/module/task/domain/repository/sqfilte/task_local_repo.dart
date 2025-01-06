@@ -80,6 +80,9 @@ abstract class TaskLocalRepo {
       addQuickTaskAssignedToDetailsToLocalIfNotExists(
           {required List<QuickTaskAssignedToResponce> assignedToDetails,
           required int referenceId});
+          
+  Future<Either<Failure, List<QuickTasks>>> getQuickTaskList(
+      {required bool isCompleted});
 
   // Future<Either<Failure, List<QuickTasks>>> getQuickTasksFromLocalStorage({
   //   required int page,

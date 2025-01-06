@@ -17,7 +17,15 @@ class QuickTaskAssignedToResponce {
   QuickTaskAssignedToResponce(
       {this.userId, this.name, this.profilePicture, this.status});
 
-  factory QuickTaskAssignedToResponce.fromJson(Map<String, dynamic> json) {
+  factory QuickTaskAssignedToResponce.fromJson(Map<String, dynamic> json,
+      {bool formLocalDb = false}) {
+    if (formLocalDb) {
+      return QuickTaskAssignedToResponce(
+          name: json[colQuickTaskAssignedToUserName],
+          profilePicture: json[colQuickTaskAssignedToUserProfilePicture],
+          status: json[colQuickTaskAssignedToStatus],
+          userId: json[colQuickTaskAssignedToUserId]);
+    }
     return _$AssignedToFromJson(json);
   }
 

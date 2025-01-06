@@ -35,9 +35,9 @@ class BizcardDetailEditButton extends StatelessWidget {
             children: [
               // background color
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 25),
                 width: double.infinity,
-                height: 45,
+                height: 40,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(
                     Radius.circular(25),
@@ -48,7 +48,7 @@ class BizcardDetailEditButton extends StatelessWidget {
               ),
               // persentage color
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 25),
                 width: cardController.bizcardDetail.value.completionLevel ==
                         null
                     ? double.infinity
@@ -56,7 +56,7 @@ class BizcardDetailEditButton extends StatelessWidget {
                         ((cardController.bizcardDetail.value.completionLevel ??
                                 10) /
                             100)),
-                height: 45,
+                height: 40,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(
                     Radius.circular(25),
@@ -68,7 +68,7 @@ class BizcardDetailEditButton extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 width: double.infinity,
-                height: 45,
+                height: 40,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(25),

@@ -83,7 +83,7 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
                               .displaySmall
                               ?.copyWith(fontSize: 14),
                         ),
-                        subtitle:  Text(data.role=='user'?'Personl':'Business'
+                        subtitle:  Text(data.role=='user'?'Personal':'Business'
                           '',
                           style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 12,color: kGreyNormal),
                         ),

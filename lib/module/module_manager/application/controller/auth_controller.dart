@@ -99,7 +99,8 @@ class AuthenticationController extends GetxController {
     final result = await authRepo.otpVerification(
         authPostmodel: registerPostModel.value.copyWith(
             otp: otp,
-            deviceId: await DeviceInformation.getDeviceInformation()));
+            deviceId: await DeviceInformation.getDeviceInformation()
+            ));
     result.fold((l) {
       GoRouter.of(context).pop();
       showSnackbar(context,
@@ -179,7 +180,7 @@ class AuthenticationController extends GetxController {
             : {
                 'otp': otp,
                 'phone_number': registerPostModel.value.phoneNumber,
-                'device_id': deviceId
+                'device_id': deviceId 
               });
     result.fold((l) {
       GoRouter.of(context).pop();

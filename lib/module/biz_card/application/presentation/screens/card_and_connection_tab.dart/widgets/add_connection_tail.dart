@@ -9,6 +9,7 @@ import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/loading_indicator/loading_animation.dart';
 import 'package:bizkit/utils/show_dialogue/confirmation_dialog.dart';
+import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -96,24 +97,24 @@ class _ConnectionTileState extends State<ConnectionTile> {
           GestureDetector(
             onTap: () {
               if (internetConnectinController.isConnectedToInternet.value) {
-                showCustomConfirmationDialogue(
-                  context: context,
-                  title: widget.fromPendingRequests
-                      ? widget.allSendRequests?.requestId != null
-                          ? 'Remove Connection Request'
-                          : 'Send Connection Request'
-                      : widget.data?.connectionRequestId != null
-                          ? 'Remove Connection'
-                          : 'Send Connection Request',
-                  buttonText: widget.fromPendingRequests
+                  showConfirmationDialog(
+                    actionButton:widget.fromPendingRequests
                       ? widget.allSendRequests?.requestId != null
                           ? 'Remove'
                           : 'Send'
                       : widget.data?.connectionRequestId != null
                           ? 'Remove'
                           : 'Send',
-                  onTap: () {
-                    if (widget.fromPendingRequests) {
+                    heading:widget.fromPendingRequests
+                      ? widget.allSendRequests?.requestId != null
+                          ? 'Remove Connection Request'
+                          : 'Send Connection Request'
+                      : widget.data?.connectionRequestId != null
+                          ? 'Remove Connection'
+                          : 'Send Connection Request',
+                    context,
+                    onPressed: () {
+                      if (widget.fromPendingRequests) {
                       connectionController.cancelConnectionRequest(
                           fromSendrequests: true,
                           cancelConnectionRequest: CancelConnectionRequestModel(
@@ -135,8 +136,8 @@ class _ConnectionTileState extends State<ConnectionTile> {
                             context: context);
                       }
                     }
-                  },
-                );
+                    },
+                  );
               } else {
                 showCustomToast(
                   message:

@@ -51,12 +51,14 @@ class CardUpdateBusinesstDetails extends StatelessWidget {
                 controller: businessController.businessCategory,
                 autocompleteItems: const [],
               ),
+              kHeight5,
               // Business name
               CustomTextFormField(
                   labelText: 'Business Name',
                   validate: Validate.notNull,
                   textCapitalization: TextCapitalization.words,
                   controller: businessController.businessName),
+                  kHeight5,
               // company name
               AutocompleteTextField(
                 validate: Validate.notNull,
@@ -68,6 +70,7 @@ class CardUpdateBusinesstDetails extends StatelessWidget {
                 textCapitalization: TextCapitalization.words,
                 controller: businessController.commpanyName,
               ),
+               kHeight5,
               // designation
               AutocompleteTextField(
                 label: 'Designation',
@@ -77,6 +80,7 @@ class CardUpdateBusinesstDetails extends StatelessWidget {
                 controller: businessController.companyDesignation,
                 autocompleteItems: const [],
               ),
+               kHeight5,
               // compnay mail
               AutocompleteTextField(
                 inputType: TextInputType.emailAddress,
@@ -86,6 +90,7 @@ class CardUpdateBusinesstDetails extends StatelessWidget {
                 controller: businessController.companyEmail,
                 autocompleteItems: const [],
               ),
+               
               // Company Number
               Form(
                 key: businessDataPhoneNumber,
@@ -126,6 +131,7 @@ class CardUpdateBusinesstDetails extends StatelessWidget {
                 controller: businessController.companyWebsiteLink,
                 autocompleteItems: const [],
               ),
+               kHeight5,
               // company story
               CustomTextFormField(
                 validate: Validate.none,
@@ -133,6 +139,7 @@ class CardUpdateBusinesstDetails extends StatelessWidget {
                 maxLines: 5,
                 controller: businessController.companyStoryController,
               ),
+               kHeight5,
               // Business Achivements
               Obx(
                 () => ImageOrTextPreviewUnderWidget(

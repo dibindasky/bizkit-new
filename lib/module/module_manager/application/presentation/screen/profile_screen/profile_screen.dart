@@ -123,7 +123,7 @@ class ProfileScreen extends StatelessWidget {
               kHeight20,
               ProfileTiles(
                 heading: 'Account Settings',
-                subtitle: 'Profile,Name,Email,Phone',
+                subtitle: 'Profile, Name, Email, Phone',
                 onTap: () {
                   if (internetConnectinController.isConnectedToInternet.value) {
                     profileController.getProfileDetails();
@@ -139,13 +139,13 @@ class ProfileScreen extends StatelessWidget {
               ),
               ProfileTiles(
                 heading: 'Privacy and Security',
-                subtitle: 'Level,Security Prefrences',
+                subtitle: 'Level, Security Prefrences',
                 onTap: () {},
               ),
               Obx(() => moduleController.currentModule.value == Module.card
                   ? ProfileTiles(
                       heading: 'Data Management',
-                      subtitle: 'Archieved,Delete',
+                      subtitle: 'Archieved, Delete',
                       onTap: () {
                         GoRouter.of(context)
                             .pushNamed(Routes.dataManagementScreen);
@@ -164,7 +164,7 @@ class ProfileScreen extends StatelessWidget {
               //     : kempty),
               ProfileTiles(
                 heading: 'Help & Support',
-                subtitle: 'Contact,Faq etc',
+                subtitle: 'Contact, Faq etc',
                 onTap: () {},
               ),
               // ProfileTiles(
@@ -177,7 +177,7 @@ class ProfileScreen extends StatelessWidget {
                 heading: 'Log Out',
                 onTap: () {
                   showConfirmationDialog(
-                    actionButton: 'Log-out',
+                    actionButton: 'Log Out',
                     heading: 'Are you sure want to logout',
                     context,
                     onPressed: () {

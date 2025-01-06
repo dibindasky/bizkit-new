@@ -118,19 +118,26 @@ class BizcardWidget extends StatelessWidget {
                 if (isDefault == true)
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(6)),
-                    child: ColoredBox(
-                        color: kneon,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 5, vertical: 2),
-                          child: Text(
-                            'Default',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(fontSize: 10),
-                          ),
-                        )),
+                    child: SizedBox(
+                      height: 20,
+                      width: 55,
+                      child: ColoredBox(
+                        
+                          color: kneon,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            child: Center(
+                              child: Text(
+                                'Default',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall
+                                    ?.copyWith(fontSize: 9 ),
+                              ),
+                            ),
+                          )),
+                    ),
                   ),
                 if (isDefault == false) kWidth10,
                 Text(

@@ -7,6 +7,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
+import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -169,20 +170,28 @@ class ConnectionsTab extends StatelessWidget {
                                 return [
                                   PopupMenuItem(
                                     onTap: () {
-                                      connectionsController.unfollowRequest(
-                                          toUserId: connectionsController
-                                              .connectionsSearchList[index]
-                                              .toUser,
-                                          context: context,
-                                          unfollowRequest:
-                                              UnfollowConnectionModel(
-                                                  connectionId:
-                                                      connectionsController
-                                                          .connectionsSearchList[
-                                                              index]
-                                                          .cards!
-                                                          .first
-                                                          .connectionId));
+                                      showConfirmationDialog(
+                                        context,
+                                        actionButton: 'Unfollow',
+                                        heading:
+                                            'Are you sure want to Unfollow',
+                                        onPressed: () {
+                                          connectionsController.unfollowRequest(
+                                              toUserId: connectionsController
+                                                  .connectionsSearchList[index]
+                                                  .toUser,
+                                              context: context,
+                                              unfollowRequest:
+                                                  UnfollowConnectionModel(
+                                                      connectionId:
+                                                          connectionsController
+                                                              .connectionsSearchList[
+                                                                  index]
+                                                              .cards!
+                                                              .first
+                                                              .connectionId));
+                                        },
+                                      );
                                     },
                                     child: Text(
                                       'Unfollow',

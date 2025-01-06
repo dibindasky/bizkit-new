@@ -1274,4 +1274,37 @@ class TaskLocalService implements TaskLocalRepo {
       return Left(Failure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<QuickTasks>>> getQuickTaskList(
+      {required bool isCompleted}) async {
+    try {
+      final String? currentUserId = await userId;
+      const query = '''
+        SELECT * FROM ${TaskSql.quickTasksTable} 
+        WHERE ${QuickTasks.colUserId} = ? 
+        AND ${QuickTasks.colQuickTaskIsCompleted} = ?
+      ''';
+
+      final List<Map<String, dynamic>> allrecentTasks = await localService
+          .rawQuery(query, [currentUserId, isCompleted ? 1 : 0]);
+      List<QuickTasks> quickTask = [];
+      for (var e in allrecentTasks) {
+        List<Map<String, dynamic>> assines = await localService.rawQuery('''
+            SELECT * FROM ${TaskSql.quickTaskAssignedToTable}
+            WHERE ${QuickTaskAssignedToResponce.colQuickTaskAssignedToReferenceId} = ?
+          ''', [e[QuickTasks.colQuickTaskLocalId]]);
+        quickTask.add(QuickTasks.fromJson(e, fromLocalDb: true).copyWith(
+            assignedTo: assines
+                .map((x) =>
+                    QuickTaskAssignedToResponce.fromJson(x, formLocalDb: true))
+                .toList()));
+      }
+      log('getQuickTaskList local success =====> ${quickTask.length}');
+      return Right(quickTask);
+    } catch (e) {
+      log('getQuickTaskList exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
 }

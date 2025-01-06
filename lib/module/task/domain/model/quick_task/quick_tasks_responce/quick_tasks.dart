@@ -43,8 +43,32 @@ class QuickTasks {
     this.isOwned,
   });
 
-  factory QuickTasks.fromJson(Map<String, dynamic> json) =>
-      _$QuickTasksFromJson(json);
+  factory QuickTasks.fromJson(Map<String, dynamic> json,
+      {bool fromLocalDb = false}) {
+    if (fromLocalDb) {
+      return QuickTasks(
+        id: json[colQuickTaskId] as String?,
+        title: json[colQuickTaskTitle] as String?,
+        description: json[colQuickTaskDescription] as String?,
+        assignedTo: [],
+        isCompleted: (json[colQuickTaskIsCompleted] as int?) == 1,
+        createdBy: CreatedBy(
+            name: json[colQuickTaskCreatedUserName],
+            profilePicture: json[colQuickTaskCreatedUserProfilePicture],
+            userId: json[colQuickTaskCreatedUserId]),
+        createdAt: json[colQuickTaskCreatedAt] as String?,
+        completedBy: [
+          CompletedBy(
+              name: json[colQuickTaskCompletedUserName],
+              profilePicture: json[colQuickTaskCompletedUserProfilePicture],
+              userId: json[colQuickTaskCompletedUserId])
+        ],
+        completedAt: json[colQuickTaskCompletedAt] as String?,
+        isOwned: (json[colQuickTaskIsOwned] as int?) == 1,
+      );
+    }
+    return _$QuickTasksFromJson(json);
+  }
 
   Map<String, dynamic> toJson() => _$QuickTasksToJson(this);
   QuickTasks copyWith({

@@ -115,7 +115,9 @@ class BizCardProductsOrBrands extends StatelessWidget {
                                         color: kGrayLight, width: 0.3),
                                   ),
                                   child: NetworkImageWithLoader(
-                                    product.images?.first ?? '',
+                                    product.images?.isEmpty ?? true
+                                        ? ''
+                                        : (product.images!.first),
                                     fit: BoxFit.cover,
                                   ),
                                 ),

@@ -2193,6 +2193,12 @@ class CreateTaskController extends GetxController {
     loadingForAllQuickTasks.value = true;
     quickTasksPageNumber = 1;
     quickTasks.value = [];
+    final localresult =
+        await taskLocalService.getQuickTaskList(isCompleted: false);
+    localresult.fold((l) => null, (r) {
+      quickTasks.value = r;
+      loadingForAllQuickTasks.value = false;
+    });
     final result = await taskService.getQuickTasks(
         paginationQuery: PaginationQuery(
       page: quickTasksPageNumber,
@@ -2234,9 +2240,13 @@ class CreateTaskController extends GetxController {
         quickTasksLoadMore.value = false;
         log(failure.message.toString());
       },
-      (success) {
+      (success) async {
         quickTasks.addAll(success.data ?? []);
         quickTasksLoadMore.value = false;
+        for (var quickTask in success.data ?? <QuickTasks>[]) {
+          await taskLocalService.addQuickTaskToLocalIfNotExists(
+              quickTask: quickTask);
+        }
       },
     );
   }
@@ -2246,6 +2256,12 @@ class CreateTaskController extends GetxController {
     loadingForCompletedQuickTasks.value = true;
     completedQuickTaskPage = 1;
     completedQuickTasks.value = [];
+    final localresult =
+        await taskLocalService.getQuickTaskList(isCompleted: true);
+    localresult.fold((l) => null, (r) {
+      completedQuickTasks.value = r;
+      loadingForCompletedQuickTasks.value = false;
+    });
     final result = await taskService.getCompletedQuickTasks(
         paginationQuery: PaginationQuery(
       completedTasks: true,
@@ -2290,9 +2306,13 @@ class CreateTaskController extends GetxController {
         completedQuickTasksLoadMore.value = false;
         log(failure.message.toString());
       },
-      (success) {
+      (success) async {
         completedQuickTasks.addAll(success.data ?? []);
         completedQuickTasksLoadMore.value = false;
+        for (var quickTask in success.data ?? <QuickTasks>[]) {
+          await taskLocalService.addQuickTaskToLocalIfNotExists(
+              quickTask: quickTask);
+        }
       },
     );
   }

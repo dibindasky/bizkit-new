@@ -1,3 +1,4 @@
+import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/home/widgets/scroll_to_top_button.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminders_tabs/all_reminders_tab.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/reminder/reminders_tabs/history_reminders_tab.dart';
@@ -7,6 +8,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class RemindersTabsSectionSliverHeaderDelegate
     extends SliverPersistentHeaderDelegate {
@@ -19,35 +21,44 @@ class RemindersTabsSectionSliverHeaderDelegate
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Column(
-      children: [
-        adjustHieght(10.h),
-        RemindersTabs(tabController: tabController),
-        Expanded(
-            child: Stack(
-          children: [
-            TabBarView(
-              controller: tabController,
-              children: const [
-                HistoryRemindersTab(),
-                AllRemindersTab(),
-                UpcomingRemindersTab(),
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ScrollToTopButton(scrollController: scrollController),
-                  kHeight40
+    final reminderController = Get.find<ReminderController>();
+    return Obx(() {
+      if (reminderController.allReminders.isEmpty &&
+          reminderController.historyReminders.isEmpty &&
+          reminderController.upcomingReminders.isEmpty &&
+          reminderController.todaysReminders.isEmpty) {
+        return kempty;
+      }
+      return Column(
+        children: [
+          adjustHieght(10.h),
+          RemindersTabs(tabController: tabController),
+          Expanded(
+              child: Stack(
+            children: [
+              TabBarView(
+                controller: tabController,
+                children: const [
+                  HistoryRemindersTab(),
+                  AllRemindersTab(),
+                  UpcomingRemindersTab(),
                 ],
               ),
-            ),
-          ],
-        )),
-      ],
-    );
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ScrollToTopButton(scrollController: scrollController),
+                    kHeight40
+                  ],
+                ),
+              ),
+            ],
+          )),
+        ],
+      );
+    });
   }
 
   @override

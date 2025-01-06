@@ -6,6 +6,7 @@ import 'package:bizkit/module/biz_card/application/presentation/screens/reminder
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -71,7 +72,12 @@ class BizcardReminderDetailScreen extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 30,
-                            child: Image.asset(userProfileDummy),
+                            child: reminder.profilePicture != null
+                                ? NetworkImageWithLoader(
+                                    reminder.profilePicture ?? '',
+                                    radius: 50,
+                                  )
+                                : Image.asset(userProfileDummy),
                           ),
                           kWidth20,
                           Text(
@@ -112,7 +118,7 @@ class BizcardReminderDetailScreen extends StatelessWidget {
                     onTap: () {
                       GoRouter.of(context).pop(context);
                       connectionsController.getConnectionCardDetail(
-                        uid:reminder.userId??'' ,
+                          uid: reminder.userId ?? '',
                           cardId: reminder.cardId ?? '');
                       GoRouter.of(context).pushNamed(Routes.cardDetailView,
                           pathParameters: {

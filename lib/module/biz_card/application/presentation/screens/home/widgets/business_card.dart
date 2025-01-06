@@ -300,7 +300,6 @@ class BusinessCard extends StatelessWidget {
               ),
             ),
             adjustWidth(5.w),
-            
             Expanded(
               child: GestureDetector(
                 onTap: () {},
@@ -314,7 +313,10 @@ class BusinessCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Icon(Icons.share_sharp,size: 19 ,),
+                      const Icon(
+                        Icons.share_sharp,
+                        size: 19,
+                      ),
                       Text(
                         (bizcard.shareCount ?? 0).toString(),
                         style: Theme.of(context).textTheme.displaySmall,

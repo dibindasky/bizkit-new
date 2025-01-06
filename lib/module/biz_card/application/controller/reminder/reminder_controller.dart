@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/biz_card/data/service/reminder/reminder_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/biz_card_reminders_responce/reminder.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/create_reminder_model/create_reminder_model.dart';
@@ -8,6 +10,7 @@ import 'package:bizkit/module/biz_card/domain/model/reminder/update_reminder_mod
 import 'package:bizkit/module/biz_card/domain/repository/service/reminder/reminder_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart' as mat;
 import 'package:flutter/material.dart';
@@ -121,7 +124,6 @@ class ReminderController extends GetxController {
       {required CreateReminderModel createReminderModel,
       required BuildContext context}) async {
     createReminderLoading.value = true;
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     final result = await reminderSerivce.createReminder(
         createReminderModel: createReminderModel);
@@ -129,27 +131,18 @@ class ReminderController extends GetxController {
     result.fold(
       (failure) {
         createReminderLoading.value = false;
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              errorMessage,
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: kred,
-          ),
+
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
         );
       },
       (success) {
         createReminderLoading.value = false;
         clearAllTextEditingControllers();
-        scaffoldMessenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              "Reminder set successfully",
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            backgroundColor: neonShade,
-          ),
+
+        showCustomToast(
+          message: "Reminder set successfully",
         );
         GoRouter.of(context).pop();
         fetchAllReminders();
@@ -162,20 +155,25 @@ class ReminderController extends GetxController {
       {required UpdateReminderModel updateReminderModel,
       required BuildContext context}) async {
     createReminderLoading.value = true;
-
+    log('createReminderMupdateReminderModelodel [ reminderDate ] == > ${updateReminderModel.toJson()}');
     final result = await reminderSerivce.updateReminder(
         updateReminderModel: updateReminderModel);
 
     result.fold(
       (failure) {
         createReminderLoading.value = false;
-        showSnackbar(context, message: errorMessage, backgroundColor: kred);
+        showCustomToast(
+          message: errorMessage,
+          backgroundColor: kred,
+        );
       },
       (success) {
         createReminderLoading.value = false;
         GoRouter.of(context).pop();
-        showSnackbar(context,
-            message: success.message ?? '', backgroundColor: neonShade);
+
+        showCustomToast(
+          message: success.message ?? '',
+        );
       },
     );
   }
@@ -191,12 +189,14 @@ class ReminderController extends GetxController {
     result.fold(
       (failure) {
         deleteReminderLoading.value = false;
-        showSnackbar(context, message: errorMessage, backgroundColor: kred);
+        showCustomToast(message: errorMessage, backgroundColor: kred);
       },
       (success) {
         deleteReminderLoading.value = false;
-        showSnackbar(context,
-            message: success.message ?? '', backgroundColor: neonShade);
+
+        showCustomToast(
+          message: success.message ?? '',
+        );
       },
     );
   }
@@ -415,13 +415,15 @@ class ReminderController extends GetxController {
     );
   }
 
-  Future<void> getCardRemiderHistory({required String id,bool card=false}) async {
-    if(!card){
-       reminderHistoryCardLoading.value = true;
-       historyCardReminders.value = [];
+  Future<void> getCardRemiderHistory(
+      {required String id, bool card = false}) async {
+    if (!card) {
+      reminderHistoryCardLoading.value = true;
+      historyCardReminders.value = [];
     }
-    
-    final result = await reminderSerivce.getCardReminderHistory(id: id,card: card);
+
+    final result =
+        await reminderSerivce.getCardReminderHistory(id: id, card: card);
     result.fold((l) {
       reminderHistoryCardLoading.value = false;
     }, (r) {

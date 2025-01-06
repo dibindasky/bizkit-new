@@ -2,6 +2,7 @@ import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_
 import 'package:bizkit/module/biz_card/domain/model/reminder/create_reminder_model/create_reminder_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/update_reminder_model/update_reminder_model.dart';
+import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
@@ -32,8 +33,9 @@ class _BizcardReminderCreateUpdateScreenState
   String time = '';
   String date = '';
   bool showError = false;
-  DateTime dates = DateTime.now();
+  DateTime reminderdates = DateTime.now();
   TimeOfDay timeOfDay = TimeOfDay.now();
+  final TextEditingController _dateController = TextEditingController();
 
   @override
   void initState() {
@@ -51,6 +53,20 @@ class _BizcardReminderCreateUpdateScreenState
           widget.reminder?.description ?? '';
     }
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _dateController.dispose();
+    super.dispose();
+  }
+
+  void _handleDateSelection(String selectedDate) {
+    setState(() {
+      date = selectedDate;
+      _dateController.text = selectedDate;
+      reminderdates = DateTime.parse(selectedDate);
+    });
   }
 
   @override
@@ -160,53 +176,66 @@ class _BizcardReminderCreateUpdateScreenState
                       kHeight10,
                       GestureDetector(
                         onTap: () {
+                          // showModalBottomSheet(
+                          //   context: context,
+                          //   isScrollControlled: true,
+                          //   builder: (BuildContext context) {
+                          //     return Column(
+                          //       mainAxisSize: MainAxisSize.min,
+                          //       children: [
+                          //         CalendarDatePicker(
+                          //           initialDate: DateTime.now(),
+                          //           firstDate: DateTime.now(),
+                          //           lastDate: DateTime.now()
+                          //               .add(const Duration(days: 365 * 100)),
+                          //           onDateChanged: (dates) {
+                          //             setState(() {
+                          //               reminderdates = dates;
+                          //               date = DateTimeFormater
+                          //                   .formatYearMonthDate(
+                          //                       dates.toString());
+                          //               '${dates.year}-${dates.month}-${dates.day}';
+                          //             });
+                          //           },
+                          //         ),
+                          //         Row(
+                          //           mainAxisAlignment: MainAxisAlignment.end,
+                          //           children: [
+                          //             OutlinedButton(
+                          //               onPressed: () {
+                          //                 Navigator.of(context).pop();
+                          //               },
+                          //               child: const Text(
+                          //                 'Cancel',
+                          //               ),
+                          //             ),
+                          //             adjustWidth(20),
+                          //             OutlinedButton(
+                          //               onPressed: () {
+                          //                 Navigator.of(context).pop();
+                          //               },
+                          //               child: const Text(
+                          //                 'Ok',
+                          //               ),
+                          //             ),
+                          //             adjustWidth(20)
+                          //           ],
+                          //         ),
+                          //         adjustHieght(15.h)
+                          //       ],
+                          //     );
+                          //   },
+                          // );
                           showModalBottomSheet(
                             context: context,
                             isScrollControlled: true,
                             builder: (BuildContext context) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CalendarDatePicker(
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime.now(),
-                                    lastDate: DateTime.now()
-                                        .add(const Duration(days: 365 * 100)),
-                                    onDateChanged: (dates) {
-                                      setState(() {
-                                        dates = dates;
-                                        date = DateTimeFormater
-                                            .formatYearMonthDate(
-                                                dates.toString());
-                                        '${dates.year}-${dates.month}-${dates.day}';
-                                      });
-                                    },
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      OutlinedButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text(
-                                          'Cancel',
-                                        ),
-                                      ),
-                                      adjustWidth(20),
-                                      OutlinedButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text(
-                                          'Ok',
-                                        ),
-                                      ),
-                                      adjustWidth(20)
-                                    ],
-                                  ),
-                                  adjustHieght(15.h)
-                                ],
+                              return DatePickingBottomSheet(
+                                datePicker: _dateController,
+                                initialDate: date == ''
+                                    ? DateTime.now()
+                                    : DateTime.parse(date),
+                                onPressed: _handleDateSelection,
                               );
                             },
                           );
@@ -214,7 +243,7 @@ class _BizcardReminderCreateUpdateScreenState
                         child: Card(
                           elevation: 0,
                           child: Container(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
                               border: date == '' && showError
                                   ? Border.all(color: kred)
@@ -267,7 +296,11 @@ class _BizcardReminderCreateUpdateScreenState
                       InkWell(
                         onTap: () async {
                           final selectedTime = await showTimePicker(
-                              context: context, initialTime: TimeOfDay.now());
+                            barrierDismissible: true,
+                            context: context,
+                            initialTime:
+                                time == '' ? TimeOfDay.now() : timeOfDay,
+                          );
                           if (selectedTime != null) {
                             setState(() {
                               time =
@@ -279,7 +312,7 @@ class _BizcardReminderCreateUpdateScreenState
                         child: Card(
                           elevation: 0,
                           child: Container(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
                               border: time == '' && showError
                                   ? Border.all(color: kred)
@@ -357,26 +390,57 @@ class _BizcardReminderCreateUpdateScreenState
                                     if (reminderKey.currentState!.validate()) {
                                       widget.reminder?.id == null
                                           ? reminderController.createReminder(
-                                              createReminderModel: CreateReminderModel(
-                                                  bizcardId: widget.cardId,
-                                                  description: reminderController
-                                                      .messageController.text,
+                                              createReminderModel:
+                                                  CreateReminderModel(
+                                                bizcardId: widget.cardId,
+                                                description: reminderController
+                                                    .messageController.text,
+                                                meetingLabel: reminderController
+                                                    .meetingLabelController
+                                                    .text,
+                                                occasion: reminderController
+                                                    .occasionController.text,
+                                                reminderDate: DateTime(
+                                                        reminderdates.year,
+                                                        reminderdates.month,
+                                                        reminderdates.day)
+                                                    .add(Duration(
+                                                        hours: timeOfDay.hour,
+                                                        minutes:
+                                                            timeOfDay.minute))
+                                                    .toUtc()
+                                                    .toString(),
+                                                venue: reminderController
+                                                    .venueController.text,
+                                              ),
+                                              context: context)
+                                          : reminderController.updateReminder(
+                                              updateReminderModel: UpdateReminderModel(
+                                                  bizcardId:
+                                                      widget.cardId ?? '',
+                                                  reminderId:
+                                                      widget.reminder?.id ?? '',
+                                                  description:
+                                                      reminderController
+                                                          .messageController
+                                                          .text,
                                                   meetingLabel:
                                                       reminderController
                                                           .meetingLabelController
                                                           .text,
                                                   occasion: reminderController
                                                       .occasionController.text,
-                                                  reminderDate: DateTime(dates.year, dates.month, dates.day)
+                                                  reminderDate: reminderdates
                                                       .add(Duration(
                                                           hours: timeOfDay.hour,
                                                           minutes:
                                                               timeOfDay.minute))
                                                       .toUtc()
                                                       .toString(),
-                                                  venue: reminderController.venueController.text),
-                                              context: context)
-                                          : reminderController.updateReminder(updateReminderModel: UpdateReminderModel(bizcardId: widget.cardId, reminderId: widget.reminder!.id, description: reminderController.messageController.text, meetingLabel: reminderController.meetingLabelController.text, occasion: reminderController.occasionController.text, reminderDate: dates.add(Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute)).toUtc().toString(), venue: reminderController.venueController.text), context: context);
+                                                  venue: reminderController
+                                                      .venueController.text),
+                                              context: context,
+                                            );
                                     }
                                   }
                                 },

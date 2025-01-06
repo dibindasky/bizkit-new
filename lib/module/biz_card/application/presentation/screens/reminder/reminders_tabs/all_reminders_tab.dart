@@ -110,8 +110,7 @@ class AllRemindersTab extends StatelessWidget {
                                     const Icon(Iconsax.calendar_tick),
                                     adjustWidth(10.w),
                                     Text(
-                                      allReminder.meetingLabel ??
-                                          'meetingLabel',
+                                      allReminder.meetingLabel ?? '',
                                       style: Theme.of(context)
                                           .textTheme
                                           .displaySmall,
@@ -119,20 +118,20 @@ class AllRemindersTab extends StatelessWidget {
                                   ],
                                 ),
                                 CircleAvatar(
-                                    radius: 20,
-                                    child: allReminder.profilePicture != null
-                                        ? NetworkImageWithLoader(
-                                            allReminder.profilePicture ??
-                                                userProfileDummy,
-                                            radius: 50,
-                                          )
-                                        : Image.asset(userProfileDummy),
-                                  ),
+                                  radius: 20,
+                                  child: allReminder.profilePicture != null
+                                      ? NetworkImageWithLoader(
+                                          allReminder.profilePicture ??
+                                              userProfileDummy,
+                                          radius: 50,
+                                        )
+                                      : Image.asset(userProfileDummy),
+                                ),
                               ],
                             ),
                             adjustHieght(10.h),
                             Text(
-                              allReminder.description ?? 'description',
+                              allReminder.description ?? '',
                               style: Theme.of(context)
                                   .textTheme
                                   .displaySmall

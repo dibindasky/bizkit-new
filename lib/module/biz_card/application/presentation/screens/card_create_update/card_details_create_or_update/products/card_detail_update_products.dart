@@ -54,7 +54,7 @@ class CardUpdateProductDetails extends StatelessWidget {
                       : kHeight30,
                   if (cardController.bizcardDetail.value.businessDetails
                           ?.product?.isEmpty ??
-                      false)
+                      true)
                     Center(
                       child: InkWell(
                         onTap: () async {
@@ -64,7 +64,7 @@ class CardUpdateProductDetails extends StatelessWidget {
                         },
                         child: DottedBorder(
                           dashPattern: const [4, 4],
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Theme.of(context).colorScheme.secondary,
                           strokeWidth: 2.5,
                           child: SizedBox(
                             width: 290.dm,
@@ -77,7 +77,7 @@ class CardUpdateProductDetails extends StatelessWidget {
                                   height: 32.dm,
                                   child: CircleAvatar(
                                     backgroundColor:
-                                        Theme.of(context).colorScheme.surface,
+                                        Theme.of(context).colorScheme.primary,
                                     child: const Icon(
                                       Icons.add,
                                     ),

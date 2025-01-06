@@ -111,7 +111,7 @@ class BusinessCard extends StatelessWidget {
                     elevation: 0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
+                          horizontal: 10, vertical: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

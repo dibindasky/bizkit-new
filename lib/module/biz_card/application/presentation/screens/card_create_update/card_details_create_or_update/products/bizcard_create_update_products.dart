@@ -77,7 +77,6 @@ class _BizcardProductCreateUpdateScreenState
                   kHeight10,
                   Row(
                     children: [
-                     
                       GestureDetector(
                         onTap: () {
                           GoRouter.of(context).pop();
@@ -104,27 +103,34 @@ class _BizcardProductCreateUpdateScreenState
                   Stack(
                     children: [
                       Container(
-                        decoration: BoxDecoration(border: Border.all(color: kGreyNormal ),
-                        borderRadius: BorderRadius.circular(20)),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: kGreyNormal),
+                              borderRadius: BorderRadius.circular(20)),
                           height: 200.dm,
                           width: double.infinity,
                           child: businessController.productImages.isEmpty
-                              ? Column(mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IconButton(
-                                      splashRadius: 1,
-                                      splashColor: knill,
-                                      onPressed: () {
-                                        chooseImageProduct(
-                                            context, businessController);
-                                      },
-                                      icon: const Icon(
-                                        Icons.add_a_photo_outlined,
-                                        color: neonShade,
-                                      )),
-                                      Text('Add Product Images',style: Theme.of(context).textTheme.titleSmall,)
-                                ],
-                              )
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        splashRadius: 1,
+                                        splashColor: knill,
+                                        onPressed: () {
+                                          chooseImageProduct(
+                                              context, businessController);
+                                        },
+                                        icon: const Icon(
+                                          Icons.add_a_photo_outlined,
+                                          color: neonShade,
+                                        )),
+                                    Text(
+                                      'Add Product Images',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    )
+                                  ],
+                                )
                               : Stack(children: [
                                   SizedBox(
                                     height: 200.dm,
@@ -272,7 +278,6 @@ class _BizcardProductCreateUpdateScreenState
                     padding: const EdgeInsets.only(left: 10),
                     decoration: BoxDecoration(
                       border: Border.all(color: kgrey),
-                     
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Row(

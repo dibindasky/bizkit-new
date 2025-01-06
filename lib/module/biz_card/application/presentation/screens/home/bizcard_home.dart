@@ -86,7 +86,7 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     adjustHieght(30.h),
-                    const BizcardsListSection(), 
+                    const BizcardsListSection(),
                     const MyConnectionSection(),
                     // if (reminderController.allReminders.isEmpty &&
                     //     reminderController.historyReminders.isEmpty &&
@@ -103,31 +103,31 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
               //     reminderController.todaysReminders.isEmpty)
               //   const SliverToBoxAdapter()
               // else
-                // Reminders pinned appbar
-                SliverPersistentHeader(
-                  pinned: true,
-                  floating: true,
-                  delegate: RemindersSliverHeaderDelegate(),
-                ),
+              // Reminders pinned appbar
+              SliverPersistentHeader(
+                pinned: true,
+                floating: true,
+                delegate: RemindersSliverHeaderDelegate(),
+              ),
               // if (reminderController.allReminders.isEmpty &&
               //     reminderController.historyReminders.isEmpty &&
               //     reminderController.upcomingReminders.isEmpty &&
               //     reminderController.todaysReminders.isEmpty)
               //   const SliverToBoxAdapter()
               // else
-                // Today's reminders horizontal lists section
-                SliverPersistentHeader(
-                  floating: true,
-                  delegate: TodaysRemindersSectionSliverHeaderDelegate(
-                    pageValue,
-                    pageController,
-                    (index) {
-                      setState(() {
-                        currentIndex = index;
-                      });
-                    },
-                  ),
+              // Today's reminders horizontal lists section
+              SliverPersistentHeader(
+                floating: true,
+                delegate: TodaysRemindersSectionSliverHeaderDelegate(
+                  pageValue,
+                  pageController,
+                  (index) {
+                    setState(() {
+                      currentIndex = index;
+                    });
+                  },
                 ),
+              ),
 
               // if (reminderController.allReminders.isEmpty &&
               //     reminderController.historyReminders.isEmpty &&
@@ -135,14 +135,14 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
               //     reminderController.todaysReminders.isEmpty)
               //   const SliverToBoxAdapter()
               // else // Reminder's tabs section
-                SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 3),
-                  sliver: SliverPersistentHeader(
-                    pinned: true,
-                    delegate: RemindersTabsSectionSliverHeaderDelegate(
-                        tabController, _scrollController),
-                  ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 3),
+                sliver: SliverPersistentHeader(
+                  pinned: true,
+                  delegate: RemindersTabsSectionSliverHeaderDelegate(
+                      tabController, _scrollController),
                 ),
+              ),
             ],
           ),
         ),

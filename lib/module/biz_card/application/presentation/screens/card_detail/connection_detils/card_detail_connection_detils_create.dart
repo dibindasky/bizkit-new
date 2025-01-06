@@ -85,7 +85,10 @@ class _BizCardConnectionDetailUpdateScreenState
                     // images
                     Stack(
                       children: [
-                        SizedBox(
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(),
+                              borderRadius: kBorderRadius15),
                           height: 200.h,
                           child: Obx(() {
                             if (controller.connectionSelfieIamges.isEmpty) {
@@ -153,13 +156,23 @@ class _BizCardConnectionDetailUpdateScreenState
                             onTap: () => showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
-                                title: const Text('Choose an option'),
+                                title: Text(
+                                  'Choose an option',
+                                  style:
+                                      Theme.of(context).textTheme.displayMedium,
+                                ),
                                 content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     ListTile(
                                       leading: const Icon(Icons.camera_alt),
-                                      title: const Text('Take a photo'),
+                                      title: Text(
+                                        'Take a photo',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(fontSize: 14),
+                                      ),
                                       onTap: () {
                                         Navigator.of(context).pop();
                                         controller.addSelfieimageToList(
@@ -168,7 +181,13 @@ class _BizCardConnectionDetailUpdateScreenState
                                     ),
                                     ListTile(
                                       leading: const Icon(Icons.photo_library),
-                                      title: const Text('Choose from gallery'),
+                                      title: Text(
+                                        'Choose from gallery',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(fontSize: 14),
+                                      ),
                                       onTap: () {
                                         Navigator.of(context).pop();
                                         controller.addSelfieimageToList(
@@ -188,15 +207,22 @@ class _BizCardConnectionDetailUpdateScreenState
                     ),
                     kHeight20,
                     CustomTextFormField(
-                        labelText: 'notes', controller: notesController,textCapitalization: TextCapitalization.words),
+                        labelText: 'notes',
+                        controller: notesController,
+                        textCapitalization: TextCapitalization.words),
                     kHeight10,
-                    CustomTextFormField(textCapitalization: TextCapitalization.words,
-                        labelText: 'Occasion', controller: occasionController),
+                    CustomTextFormField(
+                        textCapitalization: TextCapitalization.words,
+                        labelText: 'Occasion',
+                        controller: occasionController),
                     kHeight10,
-                    CustomTextFormField(textCapitalization: TextCapitalization.words,
-                        labelText: 'Location', controller: locationController),
+                    CustomTextFormField(
+                        textCapitalization: TextCapitalization.words,
+                        labelText: 'Location',
+                        controller: locationController),
                     kHeight10,
-                    AutocompleteTextField(textCapitalization: TextCapitalization.words,
+                    AutocompleteTextField(
+                        textCapitalization: TextCapitalization.words,
                         label: 'Category',
                         autocompleteItems: bizcardCategories,
                         controller: categoryController),
@@ -207,11 +233,10 @@ class _BizCardConnectionDetailUpdateScreenState
                               child: CircularProgressIndicator(),
                             )
                           : EventButton(
-                            
                               showGradiant: false,
                               text: 'Update Details',
                               onTap: () {
-                                FocusScope.of(context).unfocus(); 
+                                FocusScope.of(context).unfocus();
                                 // print(
                                 //     'updation on tap -----> ${widget.cardDetailModel?.connectionId}');
                                 controller.addOrUpdateConnectionDetails(context,

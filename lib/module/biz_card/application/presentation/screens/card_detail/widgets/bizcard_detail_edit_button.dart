@@ -43,7 +43,7 @@ class BizcardDetailEditButton extends StatelessWidget {
                     Radius.circular(25),
                   ),
                   color:
-                      Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.2),
                 ),
               ),
               // persentage color

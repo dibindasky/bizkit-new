@@ -74,7 +74,7 @@ class BizCardProductsOrBrands extends StatelessWidget {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .secondary
-                                            .withOpacity(0.3)),
+                                            .withOpacity(0.2)),
                                     child: const Icon(Icons.add),
                                   ),
                                 ),
@@ -82,7 +82,7 @@ class BizCardProductsOrBrands extends StatelessWidget {
                             kWidth10,
                             Align(
                               alignment: Alignment.center,
-                              child: Text('No products available',
+                              child: Text('Products not available',
                                   style:
                                       Theme.of(context).textTheme.displaySmall),
                             ),

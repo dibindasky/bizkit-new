@@ -39,16 +39,28 @@ class ScreenModuleSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(8.h),
-        child: MasonryGridView.count(
-          itemCount: listItems.length,
-          crossAxisCount: 3,
-          mainAxisSpacing: 4,
-          crossAxisSpacing: 4,
-          itemBuilder: (context, index) {
-            return ListItem(item: listItems[index]);
-          },
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(8.h),
+          // child: MasonryGridView.count(
+          //   itemCount: listItems.length,
+          //   crossAxisCount: 3,
+          //   mainAxisSpacing: 4,
+          //   crossAxisSpacing: 4,
+          //   itemBuilder: (context, index) {
+          //     return ListItem(item: listItems[index]);
+          //   },
+          // ),
+
+          child: ListView.separated(
+            shrinkWrap: true,
+            separatorBuilder: (context, index) => kHeight10,
+            itemCount: listItems.length,
+            // padding: const EdgeInsets.only(top: 10, bottom: 60),
+            itemBuilder: (context, index) {
+              return ListItem(item: listItems[index]);
+            },
+          ),
         ),
       ),
     );
@@ -81,41 +93,107 @@ class ListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ModuleController>();
+    // return GestureDetector(
+    //   onTap: () {
+    //     controller.chooseModule(context, module: item.module);
+    //   },
+    //   child: Container(
+    //     width: (MediaQuery.of(context).size.width) / 3.h,
+    //     height: item.height,
+    //     margin: EdgeInsets.symmetric(vertical: 1.0.h, horizontal: 1.0.h),
+    //     padding: EdgeInsets.all(8.0.h),
+    //     decoration: BoxDecoration(
+    //       gradient: item.color,
+    //       borderRadius: BorderRadius.circular(8.0.h),
+    //     ),
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         Image.network(item.imageUrl, height: 50.h),
+    //         SizedBox(height: 8.h),
+    //         Text(
+    //           item.title,
+    //           style: TextStyle(
+    //               fontSize: 16.sp,
+    //               color: item.color == whiteShadeGradient ? kblack : kwhite),
+    //           textAlign: TextAlign.center,
+    //         ),
+    //         SizedBox(height: 4.h),
+    //         Text(
+    //           item.subtitle,
+    //           style: TextStyle(
+    //               fontSize: 9.sp,
+    //               color:
+    //                   item.color == whiteShadeGradient ? kblack : klightgrey),
+    //           textAlign: TextAlign.center,
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
     return GestureDetector(
       onTap: () {
         controller.chooseModule(context, module: item.module);
       },
+      // child: Container(
+      //   width: (MediaQuery.of(context).size.width) / 3.h,
+      //   height: item.height,
+      //   margin: EdgeInsets.symmetric(vertical: 1.0.h, horizontal: 1.0.h),
+      //   padding: EdgeInsets.all(8.0.h),
+      //   decoration: BoxDecoration(
+      //     gradient: item.color,
+      //     borderRadius: BorderRadius.circular(8.0.h),
+      //   ),
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Image.network(item.imageUrl, height: 50.h),
+      //       SizedBox(height: 8.h),
+      //       Text(
+      //         item.title,
+      //         style: TextStyle(
+      //             fontSize: 16.sp,
+      //             color: item.color == whiteShadeGradient ? kblack : kwhite),
+      //         textAlign: TextAlign.center,
+      //       ),
+      //       SizedBox(height: 4.h),
+      //       Text(
+      //         item.subtitle,
+      //         style: TextStyle(
+      //             fontSize: 9.sp,
+      //             color:
+      //                 item.color == whiteShadeGradient ? kblack : klightgrey),
+      //         textAlign: TextAlign.center,
+      //       ),
+      //     ],
+      //   ),
+      // ),
       child: Container(
-        width: (MediaQuery.of(context).size.width) / 3.h,
-        height: item.height,
-        margin: EdgeInsets.symmetric(vertical: 1.0.h, horizontal: 1.0.h),
-        padding: EdgeInsets.all(8.0.h),
+        margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
         decoration: BoxDecoration(
           gradient: item.color,
-          borderRadius: BorderRadius.circular(8.0.h),
+          borderRadius: BorderRadius.circular(10.0),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(item.imageUrl, height: 50.h),
-            SizedBox(height: 8.h),
-            Text(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: ListTile(
+            tileColor: kGreyNormal.withOpacity(0.1),
+            leading: Image.network(item.imageUrl, height: 50.h),
+            title: Text(
               item.title,
-              style: TextStyle(
-                  fontSize: 16.sp,
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  fontSize: 15,
                   color: item.color == whiteShadeGradient ? kblack : kwhite),
-              textAlign: TextAlign.center,
             ),
-            SizedBox(height: 4.h),
-            Text(
+            subtitle: Text(
               item.subtitle,
-              style: TextStyle(
-                  fontSize: 9.sp,
-                  color:
-                      item.color == whiteShadeGradient ? kblack : klightgrey),
-              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                    fontSize: 9,
+                    color:
+                        item.color == whiteShadeGradient ? kblack : klightgrey,
+                  ),
             ),
-          ],
+          ),
         ),
       ),
     );

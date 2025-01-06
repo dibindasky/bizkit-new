@@ -6,6 +6,7 @@ import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
+import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -181,7 +182,13 @@ class _BizCardDeatailAchivementsState extends State<BizCardDeatailAchivements> {
                         kHeight20,
                         Expanded(
                           child: achivement.isEmpty
-                              ? Center(child: Image.asset(emptyNodata2))
+                              ? Center(
+                                  child: ErrorRefreshIndicator(
+                                  onRefresh: () {},
+                                  errorMessage:
+                                      'No achievements available yet!',
+                                  image: emptyNodata2,
+                                ))
                               : ListView.separated(
                                   // physics: const NeverScrollableScrollPhysics(),
                                   separatorBuilder: (context, index) =>
@@ -236,7 +243,8 @@ class _BizCardDeatailAchivementsState extends State<BizCardDeatailAchivements> {
                                                                         .pushNamed(
                                                                             Routes.slidablePhotoGallery,
                                                                             extra: {
-                                                                          'images': imageList,
+                                                                          'images':
+                                                                              imageList,
                                                                           'initial':
                                                                               indexes,
                                                                           'memory':

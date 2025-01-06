@@ -140,7 +140,7 @@ class RemindersTabsSectionSliverHeaderDelegate
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         ScrollToTopButton(scrollController: scrollController),
-                        kHeight40
+                        kHeight50
                       ],
                     ),
                   ),

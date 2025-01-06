@@ -144,6 +144,10 @@ class ReminderController extends GetxController {
         showCustomToast(
           message: "Reminder set successfully",
         );
+        meetingLabelController.clear();
+        venueController.clear();
+        occasionController.clear();
+        messageController.clear();
         GoRouter.of(context).pop();
         fetchAllReminders();
       },
@@ -155,7 +159,6 @@ class ReminderController extends GetxController {
       {required UpdateReminderModel updateReminderModel,
       required BuildContext context}) async {
     createReminderLoading.value = true;
-    log('createReminderMupdateReminderModelodel [ reminderDate ] == > ${updateReminderModel.toJson()}');
     final result = await reminderSerivce.updateReminder(
         updateReminderModel: updateReminderModel);
 

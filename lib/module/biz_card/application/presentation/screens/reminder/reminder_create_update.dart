@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/module/biz_card/application/controller/reminder/reminder_controller.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/create_reminder_model/create_reminder_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_responce/reminder.dart';
@@ -6,6 +8,7 @@ import 'package:bizkit/utils/bottom_sheets/date_bottom_sheet.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:bizkit/utils/text_field/textform_field.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +86,10 @@ class _BizcardReminderCreateUpdateScreenState
                   children: [
                     GestureDetector(
                       onTap: () {
+                        reminderController.meetingLabelController.clear();
+                        reminderController.venueController.clear();
+                        reminderController.occasionController.clear();
+                        reminderController.messageController.clear();
                         GoRouter.of(context).pop(context);
                       },
                       child: CircleAvatar(
@@ -114,6 +121,7 @@ class _BizcardReminderCreateUpdateScreenState
                         ),
 
                         labelText: 'Write Meeting Label',
+                        onTapOutside: () => FocusScope.of(context).unfocus(),
                         textCapitalization: TextCapitalization.sentences,
                         maxlegth: 100,
                         controller: reminderController.meetingLabelController,
@@ -126,6 +134,7 @@ class _BizcardReminderCreateUpdateScreenState
                             Icons.edit_outlined,
                           ),
                           labelText: 'Venue',
+                          onTapOutside: () => FocusScope.of(context).unfocus(),
                           controller: reminderController.venueController,
                           textCapitalization: TextCapitalization.sentences,
                           maxlegth: 100,
@@ -137,6 +146,7 @@ class _BizcardReminderCreateUpdateScreenState
                           Icons.edit_outlined,
                         ),
                         labelText: 'Occasion',
+                        onTapOutside: () => FocusScope.of(context).unfocus(),
                         controller: reminderController.occasionController,
                         textCapitalization: TextCapitalization.sentences,
                         maxlegth: 100,
@@ -161,6 +171,8 @@ class _BizcardReminderCreateUpdateScreenState
                             ),
                             kHeight5,
                             CustomTextFormField(
+                              onTapOutside: () =>
+                                  FocusScope.of(context).unfocus(),
                               controller: reminderController.messageController,
                               // controller:
                               //     context.read<ReminderBloc>().messageController,
@@ -247,7 +259,7 @@ class _BizcardReminderCreateUpdateScreenState
                             decoration: BoxDecoration(
                               border: date == '' && showError
                                   ? Border.all(color: kred)
-                                  : null,
+                                  : Border.all(color: kGreyNormal),
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(7),
                               ),
@@ -306,6 +318,7 @@ class _BizcardReminderCreateUpdateScreenState
                               time =
                                   '${'${selectedTime.hour}'.length == 1 ? '0${selectedTime.hour}' : selectedTime.hour}:${'${selectedTime.minute}'.length == 1 ? '0${selectedTime.minute}' : selectedTime.minute}';
                               timeOfDay = selectedTime;
+                              log('timeOfDay ==> ${timeOfDay}');
                             });
                           }
                         },
@@ -316,7 +329,7 @@ class _BizcardReminderCreateUpdateScreenState
                             decoration: BoxDecoration(
                               border: time == '' && showError
                                   ? Border.all(color: kred)
-                                  : null,
+                                  : Border.all(color: kGreyNormal),
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(7),
                               ),
@@ -375,13 +388,15 @@ class _BizcardReminderCreateUpdateScreenState
                                     setState(() {
                                       showError = true;
                                     });
-                                    showSnackbar(context,
+                                    showCustomToast(
+                                        backgroundColor: kred,
                                         message: 'Choose date to continue');
                                   } else if (time == '') {
                                     setState(() {
                                       showError = true;
                                     });
-                                    showSnackbar(context,
+                                    showCustomToast(
+                                        backgroundColor: kred,
                                         message: 'Choose time to continue');
                                   } else {
                                     setState(() {

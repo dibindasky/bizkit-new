@@ -29,6 +29,12 @@ class TodaysRemindersSectionSliverHeaderDelegate
       animation: pageController,
       builder: (context, child) {
         return Obx(() {
+          if (reminderController.allReminders.isEmpty &&
+              reminderController.historyReminders.isEmpty &&
+              reminderController.upcomingReminders.isEmpty &&
+              reminderController.todaysReminders.isEmpty) {
+            return kempty;
+          }
           if (reminderController.todaysReminderLoading.value) {
             return TodaysRemindersPagviewAnimateBuilder(
               pageController: pageController,
@@ -123,7 +129,6 @@ class TodaysRemindersSectionSliverHeaderDelegate
                               ),
                               adjustHieght(15.h),
                               Row(
-                                
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
@@ -140,9 +145,7 @@ class TodaysRemindersSectionSliverHeaderDelegate
                                       ),
                                     ),
                                   ),
-                                 const SizedBox(
-                                    width: 30,
-                                    child: Text(':')),
+                                  const SizedBox(width: 30, child: Text(':')),
                                   Expanded(
                                     child: Text(
                                       todaysReminder.venue ?? 'Venue',
@@ -171,9 +174,7 @@ class TodaysRemindersSectionSliverHeaderDelegate
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 30,
-                                    child: Text(':')),
+                                  const SizedBox(width: 30, child: Text(':')),
                                   Expanded(
                                     child: Text(
                                       DateTimeFormater.getDDMMHHMMformat(
@@ -204,9 +205,7 @@ class TodaysRemindersSectionSliverHeaderDelegate
                                       ),
                                     ),
                                   ),
-                                    const SizedBox(
-                                    width: 30,
-                                    child: Text(':')),
+                                  const SizedBox(width: 30, child: Text(':')),
                                   Expanded(
                                     child: Text(
                                       overflow: TextOverflow.ellipsis,
@@ -248,4 +247,3 @@ class TodaysRemindersSectionSliverHeaderDelegate
     return false;
   }
 }
-

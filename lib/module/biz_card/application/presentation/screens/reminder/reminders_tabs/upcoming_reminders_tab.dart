@@ -5,6 +5,7 @@ import 'package:bizkit/module/biz_card/domain/model/reminder/reminders_success_r
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
 import 'package:bizkit/utils/refresh_indicator/refresh_custom.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
@@ -111,24 +112,28 @@ class UpcomingRemindersTab extends StatelessWidget {
                                     const Icon(Iconsax.calendar_tick),
                                     adjustWidth(10.w),
                                     Text(
-                                      upcomingReminder.meetingLabel ??
-                                          'meetingLabel',
+                                      upcomingReminder.meetingLabel ?? '',
                                       style: Theme.of(context)
                                           .textTheme
                                           .displaySmall,
                                     ),
                                   ],
                                 ),
-                                const CircleAvatar(
-                                  radius: 15,
-                                  backgroundImage:
-                                      AssetImage(chatSectionPersonDummyImg1),
-                                )
+                                CircleAvatar(
+                                  radius: 20,
+                                  child: upcomingReminder.profilePicture != null
+                                      ? NetworkImageWithLoader(
+                                          upcomingReminder.profilePicture ??
+                                              userProfileDummy,
+                                          radius: 50,
+                                        )
+                                      : Image.asset(chatSectionPersonDummyImg1),
+                                ),
                               ],
                             ),
                             adjustHieght(10.h),
                             Text(
-                              upcomingReminder.description ?? 'description',
+                              upcomingReminder.description ?? '',
                               style: Theme.of(context)
                                   .textTheme
                                   .displaySmall

@@ -28,7 +28,10 @@ class BizCardProductsOrBrands extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: Text('Products/Brands',
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w100)),
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontWeight: FontWeight.w100)),
           ),
           kHeight5,
           SizedBox(
@@ -85,7 +88,8 @@ class BizCardProductsOrBrands extends StatelessWidget {
                             ),
                           ],
                         )
-                      : ListView.builder(
+                      : ListView.separated(
+                          separatorBuilder: (context, index) => kWidth10,
                           itemCount: cardController.bizcardDetail.value
                                   .businessDetails?.product?.length ??
                               0,
@@ -103,8 +107,8 @@ class BizCardProductsOrBrands extends StatelessWidget {
                                   );
                                 },
                                 child: Container(
-                                  margin: const EdgeInsets.symmetric(
-                                       vertical: 5),
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 5),
                                   decoration: BoxDecoration(
                                     borderRadius: kBorderRadius10,
                                     border: Border.all(

@@ -61,7 +61,7 @@ class BizCardRminderNotes extends StatelessWidget {
                         color: Theme.of(context)
                             .colorScheme
                             .secondary
-                            .withOpacity(0.2),
+                            .withOpacity(0.1),
                         elevation: 0,
                         child: Padding(
                           padding: const EdgeInsets.all(11.0),

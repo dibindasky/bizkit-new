@@ -34,12 +34,14 @@ class CardUpdateBankingDetails extends StatelessWidget {
                   validate: Validate.notNull,
                   textCapitalization: TextCapitalization.sentences,
                   controller: businessController.companyBankingName),
+                  kHeight10,
               // banking details accound number
               CustomTextFormField(
                   labelText: 'Account Number',
                   validate: Validate.notNull,
                   maxlegth: 20,
                   controller: businessController.accountNumberController),
+                  kHeight10,
               // banking details accound number
               CustomTextFormField(
                 labelText: 'IFSC',
@@ -49,11 +51,13 @@ class CardUpdateBankingDetails extends StatelessWidget {
                 inputType: TextInputType.name,
                 controller: businessController.iFSCController,
               ),
+                  kHeight10,
               // upi details
               CustomTextFormField(
                   labelText: 'UPI ID',
                   validate: Validate.upi,
                   controller: businessController.uPIIDController),
+                  kHeight10,
               // gst number
               CustomTextFormField(
                   labelText: 'GST Number',

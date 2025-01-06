@@ -70,24 +70,27 @@ class BusinessCard extends StatelessWidget {
                     );
                   }
                 },
-                child: Card(
-                  elevation: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          bizcardEditIcon,
-                          width: 30,
-                        ),
-                        adjustHieght(3.h),
-                        Text(
-                          'Edit',
-                          style: Theme.of(context).textTheme.displaySmall,
-                        )
-                      ],
+                child: SizedBox(
+                  width: 70.h,
+                  child: Card(
+                    elevation: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            bizcardEditIcon,
+                            width: 30,
+                          ),
+                          adjustHieght(3.h),
+                          Text(
+                            'Edit',
+                            style: Theme.of(context).textTheme.displaySmall,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -102,24 +105,27 @@ class BusinessCard extends StatelessWidget {
                       });
                   bizcardController.cardDetail(cardId: bizcard.bizcardId ?? '');
                 },
-                child: Card(
-                  elevation: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          bizcardPreviewIcon,
-                          width: 30,
-                        ),
-                        adjustHieght(3.h),
-                        Text(
-                          'Preview',
-                          style: Theme.of(context).textTheme.displaySmall,
-                        )
-                      ],
+                child: SizedBox(
+                  width: 70.h,
+                  child: Card(
+                    elevation: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            bizcardPreviewIcon,
+                            width: 30,
+                          ),
+                          adjustHieght(3.h),
+                          Text(
+                            'Preview',
+                            style: Theme.of(context).textTheme.displaySmall,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -217,24 +223,27 @@ class BusinessCard extends StatelessWidget {
                     Get.find<CardController>().changeAutoScroll(false);
                   }
                 },
-                child: Card(
-                  elevation: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          bizcardShareIcon,
-                          width: 30,
-                        ),
-                        adjustHieght(3.h),
-                        Text(
-                          'Share',
-                          style: Theme.of(context).textTheme.displaySmall,
-                        )
-                      ],
+                child: SizedBox(
+                  width: 70.h,
+                  child: Card(
+                    elevation: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            bizcardShareIcon,
+                            width: 30,
+                          ),
+                          adjustHieght(3.h),
+                          Text(
+                            'Share',
+                            style: Theme.of(context).textTheme.displaySmall,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -246,6 +255,7 @@ class BusinessCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            kWidth30,
             Expanded(
               child: GestureDetector(
                 onTap: () {
@@ -270,7 +280,7 @@ class BusinessCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.primary,
-                    borderRadius: kBorderRadius10,
+                    borderRadius: BorderRadius.circular(50),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -290,6 +300,7 @@ class BusinessCard extends StatelessWidget {
               ),
             ),
             adjustWidth(5.w),
+            
             Expanded(
               child: GestureDetector(
                 onTap: () {},
@@ -298,12 +309,12 @@ class BusinessCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.primary,
-                    borderRadius: kBorderRadius10,
+                    borderRadius: BorderRadius.circular(50),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Icon(Icons.share_outlined),
+                      const Icon(Icons.share_sharp,size: 19 ,),
                       Text(
                         (bizcard.shareCount ?? 0).toString(),
                         style: Theme.of(context).textTheme.displaySmall,
@@ -317,6 +328,7 @@ class BusinessCard extends StatelessWidget {
                 ),
               ),
             ),
+            kWidth30,
           ],
         ),
       ],

@@ -286,7 +286,7 @@ class CardUpdatePersonalDetails extends StatelessWidget {
                   showDropdownOnTap: true,
                   validate: Validate.none,
                   maxLines: 2,
-                  label: 'Home address',
+                  label: 'Home Address',
                   textCapitalization: TextCapitalization.words,
                   maxLength: 250,
                   controller: personalController.personlAddressController,

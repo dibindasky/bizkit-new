@@ -77,7 +77,7 @@ class _BizcardProductCreateUpdateScreenState
                   kHeight10,
                   Row(
                     children: [
-                      kWidth10,
+                     
                       GestureDetector(
                         onTap: () {
                           GoRouter.of(context).pop();
@@ -103,21 +103,28 @@ class _BizcardProductCreateUpdateScreenState
                   kHeight10,
                   Stack(
                     children: [
-                      SizedBox(
+                      Container(
+                        decoration: BoxDecoration(border: Border.all(color: kGreyNormal ),
+                        borderRadius: BorderRadius.circular(20)),
                           height: 200.dm,
                           width: double.infinity,
                           child: businessController.productImages.isEmpty
-                              ? IconButton(
-                                  splashRadius: 1,
-                                  splashColor: knill,
-                                  onPressed: () {
-                                    chooseImageProduct(
-                                        context, businessController);
-                                  },
-                                  icon: const Icon(
-                                    Icons.add_a_photo_outlined,
-                                    color: neonShade,
-                                  ))
+                              ? Column(mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  IconButton(
+                                      splashRadius: 1,
+                                      splashColor: knill,
+                                      onPressed: () {
+                                        chooseImageProduct(
+                                            context, businessController);
+                                      },
+                                      icon: const Icon(
+                                        Icons.add_a_photo_outlined,
+                                        color: neonShade,
+                                      )),
+                                      Text('Add Product Images',style: Theme.of(context).textTheme.titleSmall,)
+                                ],
+                              )
                               : Stack(children: [
                                   SizedBox(
                                     height: 200.dm,
@@ -252,7 +259,7 @@ class _BizcardProductCreateUpdateScreenState
                   kHeight10,
                   CustomTextFormField(
                     labelText: 'Description',
-                    maxLines: 10,
+                    maxLines: 5,
                     controller: businessController.businessProductDescription,
                     inputType: TextInputType.name,
                     textCapitalization: TextCapitalization.sentences,
@@ -262,8 +269,9 @@ class _BizcardProductCreateUpdateScreenState
                   Container(
                     padding: const EdgeInsets.only(left: 10),
                     decoration: BoxDecoration(
-                      color: textFieldFillColr,
-                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: kgrey),
+                     
+                      borderRadius: BorderRadius.circular(15),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

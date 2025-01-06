@@ -20,7 +20,7 @@ class BizCardProductsOrBrands extends StatelessWidget {
     final cardController = Get.find<CardController>();
     final accessController = Get.find<AccessController>();
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,11 +28,11 @@ class BizCardProductsOrBrands extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: Text('Products/Brands',
-                style: Theme.of(context).textTheme.displaySmall),
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.w100)),
           ),
           kHeight5,
           SizedBox(
-            height: 100.h,
+            height: 90.h,
             child: Obx(
               () => cardController.isLoading.value
                   ? ShimmerLoader(
@@ -97,7 +97,7 @@ class BizCardProductsOrBrands extends StatelessWidget {
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.symmetric(
-                                      horizontal: 5, vertical: 5),
+                                       vertical: 5),
                                   decoration: BoxDecoration(
                                     borderRadius: kBorderRadius10,
                                     border: Border.all(

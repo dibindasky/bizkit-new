@@ -110,6 +110,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         controller: widget.controller,
         keyboardType: widget.inputType,
         decoration: InputDecoration(
+          alignLabelWithHint: true, 
           counter: const SizedBox.shrink(),
           suffixIcon: widget.obscureText
               ? IconButton(

@@ -43,7 +43,7 @@ class BizCardDetailScreen extends StatelessWidget {
                   // card details icons and gifs
                   const BizCardDetailsIconsWidgets(),
                   // products and brands
-                  const BizCardProductsOrBrands(),
+                  BizCardProductsOrBrands(myCard: myCard),
                   myCard
                       // edit button
                       ? const BizcardDetailEditButton()

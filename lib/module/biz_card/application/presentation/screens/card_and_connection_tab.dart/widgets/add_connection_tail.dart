@@ -73,7 +73,7 @@ class _ConnectionTileState extends State<ConnectionTile> {
           //     userProfileDummy,
           //   ),
           // ),
-          adjustHieght(15.h),
+          adjustHieght(10.h),
           Text(
             widget.fromPendingRequests
                 ? widget.allSendRequests?.toUserName ?? 'name'

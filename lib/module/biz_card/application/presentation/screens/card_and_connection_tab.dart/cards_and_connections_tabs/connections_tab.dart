@@ -116,15 +116,18 @@ class ConnectionsTab extends StatelessWidget {
                                 ? CircleAvatar(
                                     backgroundColor:
                                         kGreyNormal.withOpacity(0.3),
-                                    child: NetworkImageWithLoader(
-                                      connectionsController
-                                              .connectionsSearchList[index]
-                                              .cards!
-                                              .first
-                                              .imageUrl ??
-                                          '',
-                                      radius: 50,
-                                      errorWidget: const Icon(Icons.person),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(1.0),
+                                      child: NetworkImageWithLoader(
+                                        connectionsController
+                                                .connectionsSearchList[index]
+                                                .cards!
+                                                .first
+                                                .imageUrl ??
+                                            '',
+                                        radius: 50,
+                                        errorWidget: const Icon(Icons.person),
+                                      ),
                                     ))
                                 : const CircleAvatar(
                                     backgroundColor: kGreyDark,

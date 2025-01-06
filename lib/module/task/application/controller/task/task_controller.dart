@@ -2204,9 +2204,15 @@ class CreateTaskController extends GetxController {
         loadingForAllQuickTasks.value = false;
         log(failure.message.toString());
       },
-      (success) {
-        quickTasks.assignAll(success.data ?? []);
-        loadingForAllQuickTasks.value = false;
+      (success) async {
+        if (success.data != null) {
+          quickTasks.assignAll(success.data ?? []);
+          loadingForAllQuickTasks.value = false;
+          for (var quickTask in success.data ?? <QuickTasks>[]) {
+            await taskLocalService.addQuickTaskToLocalIfNotExists(
+                quickTask: quickTask);
+          }
+        }
       },
     );
   }
@@ -2252,9 +2258,16 @@ class CreateTaskController extends GetxController {
         loadingForCompletedQuickTasks.value = false;
         log(failure.message.toString());
       },
-      (success) {
-        completedQuickTasks.assignAll(success.data ?? []);
-        loadingForCompletedQuickTasks.value = false;
+      (success) async {
+        if (success.data != null) {
+          completedQuickTasks.assignAll(success.data ?? []);
+          loadingForCompletedQuickTasks.value = false;
+
+          for (var quickTask in success.data ?? <QuickTasks>[]) {
+            await taskLocalService.addQuickTaskToLocalIfNotExists(
+                quickTask: quickTask);
+          }
+        }
       },
     );
   }

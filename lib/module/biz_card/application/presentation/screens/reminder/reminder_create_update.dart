@@ -158,54 +158,111 @@ class _BizcardReminderCreateUpdateScreenState
                         ),
                       ),
                       kHeight10,
-                      Card(
-                        elevation: 0,
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            border: date == '' && showError
-                                ? Border.all(color: kred)
-                                : null,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(7),
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (BuildContext context) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CalendarDatePicker(
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime.now(),
+                                    lastDate: DateTime.now()
+                                        .add(const Duration(days: 365 * 100)),
+                                    onDateChanged: (dates) {
+                                      setState(() {
+                                        dates = dates;
+                                        date = DateTimeFormater
+                                            .formatYearMonthDate(
+                                                dates.toString());
+                                        '${dates.year}-${dates.month}-${dates.day}';
+                                      });
+                                    },
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      OutlinedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text(
+                                          'Cancel',
+                                        ),
+                                      ),
+                                      adjustWidth(20),
+                                      OutlinedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text(
+                                          'Ok',
+                                        ),
+                                      ),
+                                      adjustWidth(20)
+                                    ],
+                                  ),
+                                  adjustHieght(15.h)
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Card(
+                          elevation: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: date == '' && showError
+                                  ? Border.all(color: kred)
+                                  : null,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(7),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  date == '' ? 'Select the Date' : date,
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
+                                ),
+                                const Icon(
+                                  Icons.calendar_month_outlined,
+                                  color: neonShade,
+                                )
+                              ],
                             ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                date == '' ? 'Select the Date' : date,
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                              const Icon(
-                                Icons.calendar_month_outlined,
-                                color: neonShade,
-                              )
-                            ],
-                          ),
                         ),
                       ),
-                      ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
-                        child: ColoredBox(
-                          color: kwhite.withOpacity(0.05),
-                          child: CalendarDatePicker(
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime.now()
-                                .add(const Duration(days: 365 * 100)),
-                            onDateChanged: (dates) {
-                              setState(() {
-                                dates = dates;
-                                date = DateTimeFormater.formatYearMonthDate(
-                                    dates.toString());
-                                '${dates.year}-${dates.month}-${dates.day}';
-                              });
-                            },
-                          ),
-                        ),
-                      ),
+                      // ClipRRect(
+                      //   borderRadius:
+                      //       const BorderRadius.all(Radius.circular(8)),
+                      //   child: ColoredBox(
+                      //     color: kwhite.withOpacity(0.05),
+                      //     child: CalendarDatePicker(
+                      //       initialDate: widget.reminder?.id == null
+                      //           ? DateTime.now()
+                      //           : DateTime.parse(date),
+                      //       firstDate: DateTime.now(),
+                      //       lastDate: DateTime.now()
+                      //           .add(const Duration(days: 365 * 100)),
+                      //       onDateChanged: (dates) {
+                      //         setState(() {
+                      //           dates = dates;
+                      //           date = DateTimeFormater.formatYearMonthDate(
+                      //               dates.toString());
+                      //           '${dates.year}-${dates.month}-${dates.day}';
+                      //         });
+                      //       },
+                      //     ),
+                      //   ),
+                      // ),
                       kHeight10,
                       InkWell(
                         onTap: () async {
@@ -254,7 +311,6 @@ class _BizcardReminderCreateUpdateScreenState
                         }
                         return Row(
                           children: [
-                            kWidth50,
                             Expanded(
                               child: InkWell(
                                 onTap: () => GoRouter.of(context).pop(context),
@@ -279,7 +335,6 @@ class _BizcardReminderCreateUpdateScreenState
                                 ),
                               ),
                             ),
-                            adjustWidth(kwidth * 0.10),
                             Expanded(
                               child: InkWell(
                                 onTap: () {

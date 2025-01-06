@@ -23,6 +23,7 @@ class CardUpdateProductDetails extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GetBuilder<CardController>(builder: (cotext) {
               return Column(
@@ -51,43 +52,47 @@ class CardUpdateProductDetails extends StatelessWidget {
                           0
                       ? kempty
                       : kHeight30,
-                  Center(
-                    child: InkWell(
-                      onTap: () async {
-                        GoRouter.of(context)
-                            .pushNamed(Routes.cardProductsCreateOrUpdate);
-                        bussinessController.productDataClear();
-                      },
-                      child: DottedBorder(
-                        dashPattern: const [8, 8],
-                        color: Theme.of(context).colorScheme.surface,
-                        strokeWidth: 2.5,
-                        child: SizedBox(
-                          width: 290.dm,
-                          height: 81.dm,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 32.dm,
-                                height: 32.dm,
-                                child: CircleAvatar(
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.surface,
-                                  child: const Icon(
-                                    Icons.add,
+                  if (cardController.bizcardDetail.value.businessDetails
+                          ?.product?.isEmpty ??
+                      false)
+                    Center(
+                      child: InkWell(
+                        onTap: () async {
+                          GoRouter.of(context)
+                              .pushNamed(Routes.cardProductsCreateOrUpdate);
+                          bussinessController.productDataClear();
+                        },
+                        child: DottedBorder(
+                          dashPattern: const [4, 4],
+                          color: Theme.of(context).colorScheme.surface,
+                          strokeWidth: 2.5,
+                          child: SizedBox(
+                            width: 290.dm,
+                            height: 81.dm,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 32.dm,
+                                  height: 32.dm,
+                                  child: CircleAvatar(
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.surface,
+                                    child: const Icon(
+                                      Icons.add,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Text('Add Products',
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall),
-                            ],
+                                Text('Add Products',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
                   // kHeight20,
                   // (cardController.bizcardDetail.value.businessDetails?.brochure
                   //                 ?.length ??
@@ -209,12 +214,39 @@ class ProductBuilder extends StatelessWidget {
                 ));
           }
           return ListView.builder(
-            itemCount: cardController
-                .bizcardDetail.value.businessDetails!.product!.length,
+            itemCount: (cardController
+                        .bizcardDetail.value.businessDetails?.product?.length ??
+                    0) +
+                1,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
+              if (index ==
+                  (cardController.bizcardDetail.value.businessDetails?.product
+                          ?.length ??
+                      0)) {
+                return GestureDetector(
+                  onTap: () {
+                    // Handle the "Add" button tap action
+                    bussinessController.productDataClear();
+                    GoRouter.of(context)
+                        .pushNamed(Routes.cardProductsCreateOrUpdate);
+                  },
+                  child: Container(
+                    height: kwidth * 0.2,
+                    margin: const EdgeInsets.only(right: 10, left: 10, top: 10),
+                    width: kwidth * 0.2,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: kGreyNormal),
+                      borderRadius: kBorderRadius10,
+                    ),
+                    child: const Icon(
+                      Icons.add,
+                    ),
+                  ),
+                );
+              }
               final product = cardController
                   .bizcardDetail.value.businessDetails?.product?[index];
               return Stack(

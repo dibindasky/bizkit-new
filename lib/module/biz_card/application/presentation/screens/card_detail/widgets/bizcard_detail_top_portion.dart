@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/connections/connections_controller.dart';
@@ -33,7 +31,6 @@ class BizcardDetailTopPotion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final cardController = Get.find<CardController>();
     final accessController = Get.find<AccessController>();
     final connectionsController = Get.find<ConnectionsController>();
@@ -66,7 +63,7 @@ class BizcardDetailTopPotion extends StatelessWidget {
                                       module: Module.card);
                                 }
                               }
-                             
+
                               GoRouter.of(context).pop();
                             },
                             child: CircleAvatar(
@@ -78,113 +75,113 @@ class BizcardDetailTopPotion extends StatelessWidget {
                               ),
                             ),
                           ),
-                          
                           kWidth10,
                           Text('Card',
                               style: Theme.of(context).textTheme.bodyMedium),
                           const Spacer(),
-                          cardController.defaultBizcardId.value==cardController.bizcardId.value?const SizedBox():
-                          accessController.userRole.value == 'user'
-                              ? Obx(
-                                  () => cardController.isLoading.value
-                                      ? kempty
-                                      : PopupMenuButton<String>(
-                                          icon: CircleAvatar(
-                                            backgroundColor: Theme.of(context)
-                                                .scaffoldBackgroundColor,
-                                            child: Icon(
-                                              Icons.more_vert,
-                                              size: 18.sp,
-                                            ),
-                                          ),
-                                          onSelected: (value) {},
-                                          itemBuilder: (context) {
-                                            List<PopupMenuEntry<String>> items =
-                                                [];
-                                            items.add(
-                                              PopupMenuItem(
-                                                onTap: () {
-                                                  showConfirmationDialog(
-                                                    actionButton: 'Default',
-                                                    heading:
-                                                        'Are you sure you want to set as defult card',
-                                                    context,
-                                                    onPressed: () {
-                                                      cardController.setDefaultCard(
-                                                          context: context,
-                                                          cardId: cardController
-                                                                  .bizcardDetail
-                                                                  .value
-                                                                  .bizcardId ??
-                                                              '');
-                                                    },
-                                                  );
-                                                },
-                                                value: 'Default',
-                                                child: const Text(
-                                                    'Set as default'),
+                          cardController.defaultBizcardId.value ==
+                                  cardController.bizcardId.value
+                              ? const SizedBox()
+                              : accessController.userRole.value == 'user'
+                                  ? Obx(
+                                      () => cardController.isLoading.value
+                                          ? kempty
+                                          : PopupMenuButton<String>(
+                                              icon: CircleAvatar(
+                                                backgroundColor: Theme.of(
+                                                        context)
+                                                    .scaffoldBackgroundColor,
+                                                child: Icon(
+                                                  Icons.more_vert,
+                                                  size: 18.sp,
+                                                ),
                                               ),
-                                            );
-                                            items.addAll([
-                                              PopupMenuItem(
-                                                  onTap: () {
-                                                    showConfirmationDialog(
-                                                      actionButton: 'Archive',
-                                                      heading:
-                                                          'Are you sure you want to archive your card',
-                                                      context,
-                                                      onPressed: () {
-                                                        cardController
-                                                            .archiveACard(
-                                                                context:
-                                                                    context,
-                                                                cardArchive:
-                                                                    CardArchiveModel(
-                                                                  bizcardId: cardController
-                                                                          .bizcardDetail
-                                                                          .value
-                                                                          .bizcardId ??
-                                                                      '',
-                                                                  isArchived:
-                                                                      true,
-                                                                ));
-                                                      },
-                                                    );
-                                                  },
-                                                  value: 'Archive',
-                                                  child: const Text('Archive')),
-                                              PopupMenuItem(
-                                                  onTap: () =>
+                                              onSelected: (value) {},
+                                              itemBuilder: (context) {
+                                                List<PopupMenuEntry<String>>
+                                                    items = [];
+                                                items.add(
+                                                  PopupMenuItem(
+                                                    onTap: () {
                                                       showConfirmationDialog(
+                                                        actionButton: 'Default',
                                                         heading:
-                                                            'Are you sure you want to delete your card',
+                                                            'Are you sure you want to set as defult card',
                                                         context,
                                                         onPressed: () {
-                                                          cardController
-                                                              .deleteACard(
-                                                                  context:
-                                                                      context,
-                                                                  cardDelete:
-                                                                      CardDeleteModel(
-                                                                    bizcardId: cardController
-                                                                            .bizcardDetail
-                                                                            .value
-                                                                            .bizcardId ??
-                                                                        '',
-                                                                    isDisabled:
-                                                                        true,
-                                                                  ));
+                                                          cardController.setDefaultCard(
+                                                              context: context,
+                                                              cardId: cardController
+                                                                      .bizcardDetail
+                                                                      .value
+                                                                      .bizcardId ??
+                                                                  '');
                                                         },
-                                                      ),
-                                                  value: 'Delete Card',
-                                                  child: const Text(
-                                                      'Delete Card')),
-                                            ]);
-                                            return items;
-                                          },
-                                        ),
-                                )
-                              : const SizedBox(),
+                                                      );
+                                                    },
+                                                    value: 'Default',
+                                                    child: const Text(
+                                                        'Set as default'),
+                                                  ),
+                                                );
+                                                items.addAll([
+                                                  PopupMenuItem(
+                                                      onTap: () {
+                                                        showConfirmationDialog(
+                                                          actionButton:
+                                                              'Archive',
+                                                          heading:
+                                                              'Are you sure you want to archive your card',
+                                                          context,
+                                                          onPressed: () {
+                                                            cardController
+                                                                .archiveACard(
+                                                                    context:
+                                                                        context,
+                                                                    cardArchive:
+                                                                        CardArchiveModel(
+                                                                      bizcardId:
+                                                                          cardController.bizcardDetail.value.bizcardId ??
+                                                                              '',
+                                                                      isArchived:
+                                                                          true,
+                                                                    ));
+                                                          },
+                                                        );
+                                                      },
+                                                      value: 'Archive',
+                                                      child: const Text(
+                                                          'Archive')),
+                                                  PopupMenuItem(
+                                                      onTap: () =>
+                                                          showConfirmationDialog(
+                                                            heading:
+                                                                'Are you sure you want to delete your card',
+                                                            context,
+                                                            onPressed: () {
+                                                              cardController
+                                                                  .deleteACard(
+                                                                      context:
+                                                                          context,
+                                                                      cardDelete:
+                                                                          CardDeleteModel(
+                                                                        bizcardId:
+                                                                            cardController.bizcardDetail.value.bizcardId ??
+                                                                                '',
+                                                                        isDisabled:
+                                                                            true,
+                                                                      ));
+                                                            },
+                                                          ),
+                                                      value: 'Delete Card',
+                                                      child: const Text(
+                                                          'Delete Card')),
+                                                ]);
+                                                return items;
+                                              },
+                                            ),
+                                    )
+                                  : const SizedBox(),
                           kWidth10,
                         ],
                       )

@@ -143,9 +143,11 @@ class _BizcardProductCreateUpdateScreenState
                                             GoRouter.of(context).pushNamed(
                                                 Routes.slidablePhotoGallery,
                                                 extra: {
-                                                  'images':[data.image!] ,
+                                                  'images': [data.image!],
                                                   'initial': index,
-                                                  'memory':data.networkImage?false:true ,
+                                                  'memory': data.networkImage
+                                                      ? false
+                                                      : true,
                                                 });
                                           },
                                           child: Stack(

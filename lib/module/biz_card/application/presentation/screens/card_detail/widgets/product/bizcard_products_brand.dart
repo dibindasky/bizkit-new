@@ -11,9 +11,9 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class BizCardProductsOrBrands extends StatelessWidget {
-  const BizCardProductsOrBrands({
-    super.key,
-  });
+  final bool myCard;
+
+  const BizCardProductsOrBrands({super.key, required this.myCard});
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +34,27 @@ class BizCardProductsOrBrands extends StatelessWidget {
           SizedBox(
             height: 90.h,
             child: Obx(
-              () => cardController.isLoading.value
-                  ? ShimmerLoader(
+              () {
+                if (cardController.isLoading.value) {
+                  return ShimmerLoader(
                       seprator: kWidth10,
                       scrollDirection: Axis.horizontal,
                       itemCount: 5,
                       height: 100.h,
-                      width: 80.h)
-                  : (cardController.bizcardDetail.value.businessDetails?.product
-                              ?.isEmpty ??
+                      width: 80.h);
+                } else {
+                  return (cardController.bizcardDetail.value.businessDetails
+                              ?.product?.isEmpty ??
                           true)
                       ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: (cardController.bizcardDetail.value
+                                      .businessDetails?.product?.isEmpty ??
+                                  true && myCard)
+                              ? MainAxisAlignment.start
+                              : MainAxisAlignment.center,
                           children: [
-                            if (accessController.userRole.value == 'user')
+                            if (accessController.userRole.value == 'user' &&
+                                myCard)
                               AspectRatio(
                                 aspectRatio: 0.9,
                                 child: GestureDetector(
@@ -111,7 +118,9 @@ class BizCardProductsOrBrands extends StatelessWidget {
                               ),
                             );
                           },
-                        ),
+                        );
+                }
+              },
             ),
           ),
         ],

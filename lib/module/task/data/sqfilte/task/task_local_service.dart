@@ -5,6 +5,8 @@ import 'package:bizkit/core/model/success_response_model/success_response_model.
 import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/recent_tasks/created_by.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/recent_tasks/recent_tasks.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/assigned_to.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks.dart';
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
@@ -1046,5 +1048,230 @@ class TaskLocalService implements TaskLocalRepo {
         );
       },
     );
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> addQuickTaskToLocalStorage(
+      {required QuickTasks quickTask}) async {
+    try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('addQuickTaskToLocalStorage error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
+      const query = '''
+      INSERT INTO ${TaskSql.quickTasksTable} (
+        ${QuickTasks.colUserId},
+        ${QuickTasks.colQuickTaskId},
+        ${QuickTasks.colQuickTaskTitle},
+        ${QuickTasks.colQuickTaskDescription},
+        ${QuickTasks.colQuickTaskCreatedAt},
+        ${QuickTasks.colQuickTaskCreatedUserId},
+        ${QuickTasks.colQuickTaskCreatedUserName},
+        ${QuickTasks.colQuickTaskCreatedUserProfilePicture},
+        ${QuickTasks.colQuickTaskCompletedAt},
+        ${QuickTasks.colQuickTaskCompletedUserId},
+        ${QuickTasks.colQuickTaskCompletedUserName},
+        ${QuickTasks.colQuickTaskCompletedUserProfilePicture},
+        ${QuickTasks.colQuickTaskIsCompleted},
+        ${QuickTasks.colQuickTaskIsOwned})
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)    
+      ''';
+
+      var values = [
+        currentUserId,
+        quickTask.id ?? '',
+        quickTask.title ?? '',
+        quickTask.description ?? '',
+        quickTask.createdAt ?? '',
+        quickTask.createdBy?.userId ?? '',
+        quickTask.createdBy?.name ?? '',
+        quickTask.createdBy?.profilePicture ?? '',
+        quickTask.completedAt ?? '',
+        quickTask.completedBy?.isNotEmpty == true
+            ? quickTask.completedBy!.first.userId
+            : '',
+        quickTask.completedBy?.isNotEmpty == true
+            ? quickTask.completedBy!.first.name
+            : '',
+        quickTask.completedBy?.isNotEmpty == true
+            ? quickTask.completedBy!.first.profilePicture
+            : '',
+        quickTask.isCompleted == true ? 1 : 0,
+        quickTask.isOwned == true ? 1 : 0,
+      ];
+
+      final qucikTaskReferenceId = await localService.rawInsert(query, values);
+
+      addQuickTaskAssignedToDetailsToLocalIfNotExists(
+        assignedToDetails:
+            quickTask.assignedTo ?? <QuickTaskAssignedToResponce>[],
+        referenceId: qucikTaskReferenceId,
+      );
+
+      log('addQuickTaskToLocalStorage success =====> ');
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('addQuickTaskToLocalStorage exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>>
+      addQuickTaskAssignedToDetailsToLocalIfNotExists(
+          {required List<QuickTaskAssignedToResponce> assignedToDetails,
+          required int referenceId}) async {
+    try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('addQuickTaskAssignedToDetailsToLocalIfNotExists error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
+      const String query = '''
+      DELETE FROM ${TaskSql.quickTaskAssignedToTable}
+      WHERE ${QuickTaskAssignedToResponce.colQuickTaskAssignedToReferenceId} =?
+    ''';
+
+      await localService.rawDelete(query, [referenceId]);
+
+      for (var assignedToDetail in assignedToDetails) {
+        await addQuickTaskAssignedToDetails(assignedToDetail, referenceId);
+      }
+
+      log('addQuickTaskAssignedToDetailsToLocalIfNotExists success =====> ');
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('addQuickTaskAssignedToDetailsToLocalIfNotExists exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  Future<void> addQuickTaskAssignedToDetails(
+      QuickTaskAssignedToResponce assignedToDetail, int referenceId) async {
+    const assignedToDetailsQuery = '''
+        INSERT INTO ${TaskSql.quickTaskAssignedToTable}(
+         ${QuickTaskAssignedToResponce.colQuickTaskAssignedToUserId},
+         ${QuickTaskAssignedToResponce.colQuickTaskAssignedToUserName},
+         ${QuickTaskAssignedToResponce.colQuickTaskAssignedToStatus},
+         ${QuickTaskAssignedToResponce.colQuickTaskAssignedToUserProfilePicture},
+         ${QuickTaskAssignedToResponce.colQuickTaskAssignedToReferenceId})
+      VALUES(?,?,?,?,?)   
+      ''';
+
+    await localService.rawInsert(
+      assignedToDetailsQuery,
+      [
+        assignedToDetail.userId,
+        assignedToDetail.name,
+        assignedToDetail.status,
+        assignedToDetail.profilePicture,
+        referenceId
+      ],
+    );
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> updateQuickTaskFromLocalStorage(
+      {required QuickTasks quickTask}) async {
+    try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('updateQuickTaskFromLocalStorage error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
+      const query = '''
+      UPDATE ${TaskSql.quickTasksTable}
+      SET 
+        ${QuickTasks.colUserId} = ?,
+        ${QuickTasks.colQuickTaskId} = ?,
+        ${QuickTasks.colQuickTaskTitle} = ?,
+        ${QuickTasks.colQuickTaskDescription} = ?,
+        ${QuickTasks.colQuickTaskCreatedAt} = ?,
+        ${QuickTasks.colQuickTaskCreatedUserId} = ?,
+        ${QuickTasks.colQuickTaskCreatedUserName} = ?,
+        ${QuickTasks.colQuickTaskCreatedUserProfilePicture} = ?,
+        ${QuickTasks.colQuickTaskCompletedAt} = ?,
+        ${QuickTasks.colQuickTaskCompletedUserId} = ?,
+        ${QuickTasks.colQuickTaskCompletedUserName} = ?,
+        ${QuickTasks.colQuickTaskCompletedUserProfilePicture} = ?,
+        ${QuickTasks.colQuickTaskIsCompleted} = ?,
+        ${QuickTasks.colQuickTaskIsOwned} = ?
+      WHERE ${QuickTasks.colQuickTaskId} = ? AND ${QuickTasks.colUserId} = ?  
+      ''';
+
+      var values = [
+        currentUserId,
+        quickTask.id ?? '',
+        quickTask.title ?? '',
+        quickTask.description ?? '',
+        quickTask.createdAt ?? '',
+        quickTask.createdBy?.userId ?? '',
+        quickTask.createdBy?.name ?? '',
+        quickTask.createdBy?.profilePicture ?? '',
+        quickTask.completedAt ?? '',
+        quickTask.completedBy?.isNotEmpty == true
+            ? quickTask.completedBy!.first.userId
+            : '',
+        quickTask.completedBy?.isNotEmpty == true
+            ? quickTask.completedBy!.first.name
+            : '',
+        quickTask.completedBy?.isNotEmpty == true
+            ? quickTask.completedBy!.first.profilePicture
+            : '',
+        quickTask.isCompleted == true ? 1 : 0,
+        quickTask.isOwned == true ? 1 : 0,
+        quickTask.id ?? '',
+        currentUserId
+      ];
+
+      final qucikTaskReferenceId = await localService.rawUpdate(query, values);
+
+      addQuickTaskAssignedToDetailsToLocalIfNotExists(
+        assignedToDetails:
+            quickTask.assignedTo ?? <QuickTaskAssignedToResponce>[],
+        referenceId: qucikTaskReferenceId,
+      );
+
+      log('updateQuickTaskFromLocalStorage success =====> ');
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('updateQuickTaskFromLocalStorage exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>> addQuickTaskToLocalIfNotExists(
+      {required QuickTasks quickTask}) async {
+    try {
+      final String? currentUserId = await userId;
+      if (currentUserId == null) {
+        log('addQuickTaskToLocalIfNotExists error: User ID is null');
+        return Left(Failure(message: "User ID is null"));
+      }
+
+      const String query = '''
+      SELECT COUNT(*) 
+      FROM ${TaskSql.quickTasksTable} 
+      WHERE ${QuickTasks.colQuickTaskId} = ? 
+      AND ${QuickTasks.colUserId} = ?
+    ''';
+
+      final bool present =
+          await localService.presentOrNot(query, [quickTask.id, currentUserId]);
+
+      if (!present) {
+        return await addQuickTaskToLocalStorage(quickTask: quickTask);
+      } else {
+        return await updateQuickTaskFromLocalStorage(quickTask: quickTask);
+      }
+    } catch (e) {
+      log('addQuickTaskToLocalIfNotExists exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
   }
 }

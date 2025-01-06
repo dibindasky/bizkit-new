@@ -186,7 +186,7 @@ class AuthenticationController extends GetxController {
       showSnackbar(context,
           message: l.message ?? errorMessage,
           backgroundColor: kred,
-          textColor: kblack);
+          textColor: kblack); 
     }, (r) {
       completeLogin(context, r);
       GoRouter.of(context)

@@ -313,7 +313,8 @@ class ConnectionsController extends GetxController {
         }
         myConnectionLoadMore.value = true;
         // print('called my connection load more ==>3');
-        final value = await LocalStoragePreferenceCard.getStoreCardLocalyOrNot();
+        final value =
+            await LocalStoragePreferenceCard.getStoreCardLocalyOrNot();
         final result = await connectionService.searchConnections(
             searchQuery: SearchQuery(
                 page: (connectionsSearchList.length ~/ pageSize) + 1,
@@ -331,21 +332,20 @@ class ConnectionsController extends GetxController {
                   .indexWhere((value) => value.toUser == datas.toUser);
               if (index == -1) {
                 connectionsSearchList.add(datas);
-                 if (value){
-                   myConnectionLocalService
-                    .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                        myconnection: datas);
-                 }
-               
+                if (value) {
+                  myConnectionLocalService
+                      .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                          myconnection: datas);
+                }
               } else {
                 if (!connectionsSearchList[index].equals(datas)) {
                   int localId = connectionsSearchList[index].localId!;
                   connectionsSearchList[index] = datas;
-                   if (value){
+                  if (value) {
                     myConnectionLocalService
-                      .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                          myconnection: datas.copyWith(localId: localId));
-                   } 
+                        .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                            myconnection: datas.copyWith(localId: localId));
+                  }
                 }
               }
             }
@@ -520,7 +520,7 @@ class ConnectionsController extends GetxController {
     if (myConnections.isNotEmpty && !isLoad) return;
     myConnections.value = [];
     fetchMyConnectionPageNumber = 1;
- 
+
     ////delete complete datas of table
     // await MyConnectionLocalService().deleteAllLocalDatas();
 
@@ -528,13 +528,12 @@ class ConnectionsController extends GetxController {
     myConnectionsLoading.value = true;
     final value = await LocalStoragePreferenceCard.getStoreCardLocalyOrNot();
 
-       log(' call fetch my connection  ===> 1');
-      value?log('save local data true'):log('save local data false');
-    if(value){
-       log(' call fetch my connection  ===> 2');
-       await getConnectionDatasFromLocal();
+    log(' call fetch my connection  ===> 1');
+    value ? log('save local data true') : log('save local data false');
+    if (value) {
+      log(' call fetch my connection  ===> 2');
+      await getConnectionDatasFromLocal();
     }
-   
 
     //get connection datas from api
     final result = await connectionService.getMyconnections(
@@ -548,10 +547,12 @@ class ConnectionsController extends GetxController {
       (success) async {
         if (myConnections.isEmpty) {
           // myConnections.assignAll(success.data ?? []);
-          for (var eachMyConnection in success.data ?? []) {
-            await myConnectionLocalService
-                .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                    myconnection: eachMyConnection);
+          for (var eachMyConnection in success.data ?? <MyConnection>[]) {
+            if (value) {
+              await myConnectionLocalService
+                  .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                      myconnection: eachMyConnection);
+            }
             if (eachMyConnection.cards?.isNotEmpty ?? false) {
               myConnections.add(eachMyConnection);
             }
@@ -564,16 +565,20 @@ class ConnectionsController extends GetxController {
               if (datas.cards?.isNotEmpty ?? false) {
                 myConnections.insert(0, datas);
               }
-              myConnectionLocalService
-                  .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                      myconnection: datas);
-            } else {
-              if (!myConnections[index].equals(datas)) {
-                int localid = myConnections[index].localId!;
-                myConnections[index] = datas;
+              if (value) {
                 myConnectionLocalService
                     .addMyConnecitonToLocalStorageIfNotPresentInStorage(
-                        myconnection: datas.copyWith(localId: localid));
+                        myconnection: datas);
+              }
+            } else {
+              if (!myConnections[index].equals(datas)) {
+                int? localid = myConnections[index].localId;
+                myConnections[index] = datas.copyWith(localId: localid);
+                if (value) {
+                  myConnectionLocalService
+                      .addMyConnecitonToLocalStorageIfNotPresentInStorage(
+                          myconnection: datas.copyWith(localId: localid));
+                }
               }
             }
           }
@@ -785,7 +790,7 @@ class ConnectionsController extends GetxController {
 
     recievedConnectionRequestLoading.value = true;
     bool followBackPossible = false;
-    
+
     final result = await connectionService.acceptOrRejectConnectionRequest(
         acceptOrReject: acceptOrReject);
 

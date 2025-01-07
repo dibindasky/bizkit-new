@@ -11,6 +11,7 @@ import 'package:bizkit/utils/animations/word_by_word_text_animation.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -363,42 +364,67 @@ class BizcardDetailTopPotion extends StatelessWidget {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        cardController.bizcardDetail.value.personalDetails
-                                    ?.name !=
-                                null
-                            ? cardController.bizcardDetail.value.personalDetails
-                                    ?.name ??
-                                ''
-                            : cardController.bizcardDetail.value.businessDetails
-                                        ?.businessName !=
-                                    null
-                                ? cardController.bizcardDetail.value
-                                        .businessDetails?.businessName ??
-                                    ""
-                                : '',
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                      Text(
-                        cardController.bizcardDetail.value.businessDetails
-                                    ?.designation !=
-                                null
-                            ? cardController.bizcardDetail.value.businessDetails
-                                    ?.designation ??
-                                ""
-                            : '',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ),
-                      Text(
-                        cardController.bizcardDetail.value.businessDetails
-                                    ?.companyName !=
-                                null
-                            ? cardController.bizcardDetail.value.businessDetails
-                                    ?.companyName ??
-                                ""
-                            : '',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ),
+                      cardController.isLoading.value
+                          ? ShimmerLoaderTile(
+                              height: 7.h,
+                              width: 70.h,
+                            )
+                          : Text(
+                              cardController.bizcardDetail.value.personalDetails
+                                          ?.name !=
+                                      null
+                                  ? cardController.bizcardDetail.value
+                                          .personalDetails?.name ??
+                                      ''
+                                  : cardController.bizcardDetail.value
+                                              .businessDetails?.businessName !=
+                                          null
+                                      ? cardController.bizcardDetail.value
+                                              .businessDetails?.businessName ??
+                                          ""
+                                      : '',
+                              style: Theme.of(context).textTheme.displayMedium,
+                            ),
+                      cardController.isLoading.value
+                          ? Column(
+                              children: [
+                                adjustHieght(2.h),
+                                ShimmerLoaderTile(
+                                  height: 7.h,
+                                  width: 90.h,
+                                ),
+                              ],
+                            )
+                          : Text(
+                              cardController.bizcardDetail.value.businessDetails
+                                          ?.designation !=
+                                      null
+                                  ? cardController.bizcardDetail.value
+                                          .businessDetails?.designation ??
+                                      ""
+                                  : '',
+                              style: Theme.of(context).textTheme.displaySmall,
+                            ),
+                      cardController.isLoading.value
+                          ? Column(
+                              children: [
+                                adjustHieght(2.h),
+                                ShimmerLoaderTile(
+                                  height: 7.h,
+                                  width: 110.h,
+                                ),
+                              ],
+                            )
+                          : Text(
+                              cardController.bizcardDetail.value.businessDetails
+                                          ?.companyName !=
+                                      null
+                                  ? cardController.bizcardDetail.value
+                                          .businessDetails?.companyName ??
+                                      ""
+                                  : '',
+                              style: Theme.of(context).textTheme.displaySmall,
+                            ),
                     ],
                   ),
                   kHeight10,

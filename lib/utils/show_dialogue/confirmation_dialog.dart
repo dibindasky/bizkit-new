@@ -14,6 +14,7 @@ showCustomConfirmationDialogue(
     context: context,
     builder: (context) => Dialog(
       // backgroundColor: kblack,
+
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(

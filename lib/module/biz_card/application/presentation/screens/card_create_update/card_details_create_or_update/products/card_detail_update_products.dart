@@ -296,7 +296,7 @@ class ProductBuilder extends StatelessWidget {
                         onTap: () {
                           showCustomConfirmationDialogue(
                             context: context,
-                            title: 'Are you sure want to delete?',
+                            title: 'Are you sure want to delete ?',
                             buttonText: 'Delete',
                             onTap: () {
                               bussinessController.productDelete(

@@ -11,20 +11,20 @@ class ScreenModuleSelector extends StatelessWidget {
   final List<_ListItemData> listItems = [
     _ListItemData(
         color: neonShadeGradientTopToBottom,
-        height: 200.h,
+        height: 120.h,
         imageUrl: flutterIcon,
         title: 'Biz Card',
         subtitle:
             'We believe development must be an enjoyable, creative experience to be truly fulfilling',
         module: Module.card),
-    _ListItemData(
-        color: whiteShadeGradient,
-        height: 170.h,
-        imageUrl: flutterIcon,
-        title: 'Task',
-        subtitle:
-            'We believe development must be an enjoyable, creative experience to be truly fulfilling',
-        module: Module.task),
+    // _ListItemData(
+    //     color: whiteShadeGradient,
+    //     height: 170.h,
+    //     imageUrl: flutterIcon,
+    //     title: 'Task',
+    //     subtitle:
+    //         'We believe development must be an enjoyable, creative experience to be truly fulfilling',
+    //     module: Module.task),
     // _ListItemData(
     //     color: blackShadeGradient,
     //     height: 210.h,
@@ -168,6 +168,7 @@ class ListItem extends StatelessWidget {
       //   ),
       // ),
       child: Container(
+        height: item.height,
         margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
         decoration: BoxDecoration(
           gradient: item.color,
@@ -175,30 +176,33 @@ class ListItem extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          child: ListTile(
-            tileColor: kGreyNormal.withOpacity(0.1),
-            leading: Container(
-              width: 50.0,
-              height: 50.0,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color.fromARGB(255, 69, 140, 199),
+          child: Center(
+            child: ListTile(
+              tileColor: kGreyNormal.withOpacity(0.1),
+              leading: Container(
+                width: 55.0,
+                height: 50.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: kblack.withOpacity(0.2),
+                ),
+                child: const Icon(Icons.logo_dev, color: Colors.white),
               ),
-              child: Icon(Icons.logo_dev, color: Colors.white),
-            ),
-            title: Text(
-              item.title,
-              style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  fontSize: 19,
-                  color: item.color == whiteShadeGradient ? kblack : kwhite),
-            ),
-            subtitle: Text(
-              item.subtitle,
-              style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    fontSize:12,
-                    color:
-                        item.color == whiteShadeGradient ? kblack : klightgrey,
-                  ),
+              title: Text(
+                item.title,
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                    fontSize: 19,
+                    color: item.color == whiteShadeGradient ? kblack : kwhite),
+              ),
+              subtitle: Text(
+                item.subtitle,
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                      fontSize: 12,
+                      color: item.color == whiteShadeGradient
+                          ? kblack
+                          : klightgrey,
+                    ),
+              ),
             ),
           ),
         ),

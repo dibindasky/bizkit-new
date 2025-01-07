@@ -164,14 +164,20 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
                         );
                         return items;
                       },
-                    )
+                    ),
                   ],
                 ),
               ),
               Obx(
                 () {
                   if (visitingCardController.isLoading.value) {
-                    return const Center(child: CircularProgressIndicator());
+                    return SizedBox(
+                      height: khieght,
+                      child: const Center(
+                          child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                      )),
+                    );
                   } else if (visitingCardController.filterdVisitingCards ==
                       null) {
                     return GestureDetector(

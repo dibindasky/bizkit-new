@@ -189,7 +189,7 @@ class _BizcardProductCreateUpdateScreenState
                                                           context: context,
                                                           buttonText: 'Delete',
                                                           title:
-                                                              'You want to delete product image',
+                                                              'You want to delete product image ?',
                                                           onTap: () {
                                                             if (widget.product !=
                                                                     null &&

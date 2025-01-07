@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bizkit/module/biz_card/data/service/reminder/reminder_service.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/biz_card_reminders_responce/reminder.dart';
 import 'package:bizkit/module/biz_card/domain/model/reminder/create_reminder_model/create_reminder_model.dart';
@@ -11,7 +9,6 @@ import 'package:bizkit/module/biz_card/domain/repository/service/reminder/remind
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/snackbar/flutter_toast.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart' as mat;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -150,6 +147,7 @@ class ReminderController extends GetxController {
         messageController.clear();
         GoRouter.of(context).pop();
         fetchAllReminders();
+        fetchUpcomingReminders();
       },
     );
   }

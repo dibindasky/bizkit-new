@@ -18,9 +18,11 @@ import 'package:bizkit/module/biz_card/domain/model/cards/get_card_views_responc
 import 'package:bizkit/module/biz_card/domain/repository/service/card/card_repo.dart';
 import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
+import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/debouncer/debouncer.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' as mat;
@@ -112,10 +114,10 @@ class CardController extends GetxController {
     data.fold(
       (l) {
         isLoading.value = false;
-        showSnackbar(context, message: errorMessage);
+        showCustomToast(backgroundColor: kred, message: errorMessage);
       },
       (r) {
-        showSnackbar(context, message: 'Card Created Successfully');
+        showCustomToast(message: 'Card Created Successfully');
         // context.push(Routes.bizCardNavbar);
         // Get.find<ModuleController>().chooseModule(context, module: Module.card);
         context.go(Routes.bizCardNavbar);

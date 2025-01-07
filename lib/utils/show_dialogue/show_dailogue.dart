@@ -18,7 +18,13 @@ Future<dynamic> cameraAndGalleryPickImage({
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: neonShade, foregroundColor: kwhite),
-          child: const Text('Gallery'),
+          child: Text(
+            'Gallery',
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(color: kwhite),
+          ),
         ),
         adjustHieght(khieght * .02),
         ElevatedButton(
@@ -28,7 +34,13 @@ Future<dynamic> cameraAndGalleryPickImage({
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: neonShade, foregroundColor: kwhite),
-          child: const Text('Camera'),
+          child: Text(
+            'Camera',
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall
+                ?.copyWith(color: kwhite),
+          ),
         )
       ],
       title: Text(

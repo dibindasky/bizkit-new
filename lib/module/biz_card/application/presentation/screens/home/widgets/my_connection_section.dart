@@ -203,7 +203,7 @@ class MyConnectionSection extends StatelessWidget {
                                         'fromPreview': 'false'
                                       });
                                   connectionsController.getConnectionCardDetail(
-                                    uid: connection.cards?.first.toUser??'',
+                                      uid: connection.cards?.first.toUser ?? '',
                                       cardId:
                                           connection.cards?.first.toCard ?? '');
                                 }
@@ -219,8 +219,8 @@ class MyConnectionSection extends StatelessWidget {
                                         errorWidget: const Icon(Icons.person),
                                       ),
                                     )
-                                  : const CircleAvatar( 
-                                    radius: 33,
+                                  : const CircleAvatar(
+                                      radius: 33,
                                       backgroundColor: kblack,
                                       child: Icon(
                                         Icons.person,

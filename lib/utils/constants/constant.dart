@@ -95,6 +95,9 @@ String iconAccountBottomBar =
 String iconScannerBottombar = 'asset/module/bizcard/scanner_card_nav_icon.png';
 String iconModuleSelectorBottomBar =
     'asset/module/module_manager/module_chooser.png';
+
+// String iconModuleSelectorBottomBar =
+//     'asset/module/module_manager/module_selector.png';
 String iconTaskCalenderBottomBar = 'asset/images/task/task third tab.png';
 
 const String internetConnectionLost =

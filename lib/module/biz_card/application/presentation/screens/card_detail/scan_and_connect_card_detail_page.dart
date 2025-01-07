@@ -71,7 +71,7 @@ class _BizCardScanAndConnectCardDetailScreenState
                     kHeight50,
                     kHeight50,
                     kHeight50,
-                    kHeight50,
+                    // kHeight50,
                   ],
                 )
               ],

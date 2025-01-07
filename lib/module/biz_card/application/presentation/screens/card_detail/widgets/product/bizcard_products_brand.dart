@@ -93,13 +93,14 @@ class BizCardProductsOrBrands extends StatelessWidget {
                           itemCount: (cardController.bizcardDetail.value
                                       .businessDetails?.product?.length ??
                                   0) +
-                              1,
+                              (myCard ? 1 : 0),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             if (index ==
-                                (cardController.bizcardDetail.value
-                                        .businessDetails?.product?.length ??
-                                    0)) {
+                                    (cardController.bizcardDetail.value
+                                            .businessDetails?.product?.length ??
+                                        0) &&
+                                myCard) {
                               return GestureDetector(
                                 onTap: () {
                                   GoRouter.of(context)

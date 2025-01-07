@@ -63,7 +63,7 @@ class _BizcardCreateOrUpdateScreenState
                 ),
               ),
               kWidth10,
-              Text('Edit Card',
+              Text('Manage Card',
                   style: Theme.of(context).textTheme.displayMedium)
             ],
           ),

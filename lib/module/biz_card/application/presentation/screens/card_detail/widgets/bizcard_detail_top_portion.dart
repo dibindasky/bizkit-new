@@ -342,20 +342,63 @@ class BizcardDetailTopPotion extends StatelessWidget {
                         border: Border.all(
                             color: Theme.of(context).colorScheme.primary),
                         borderRadius: kBorderRadius360),
+                    // child: (cardController.bizcardDetail.value.personalDetails
+                    //             ?.images?.isEmpty ??
+                    //         true &&
+                    //             (cardController
+                    //                     .bizcardDetail
+                    //                     .value
+                    //                     .businessDetails
+                    //                     ?.businessLogo
+                    //                     ?.isEmpty ??
+                    //                 true))
+                    //     ? Image.asset(
+                    //         iconPersonOutline,
+                    //         color: Theme.of(context).colorScheme.primary,
+                    //       )
+                    //     : (cardController.bizcardDetail.value.businessDetails
+                    //                 ?.businessLogo?.isNotEmpty ??
+                    //             false)
+                    //         ? NetworkImageWithLoader(
+                    //             cardController.bizcardDetail.value
+                    //                     .businessDetails!.businessLogo ??
+                    //                 '',
+                    //             radius: 100.h,
+                    //           )
+                    //         : NetworkImageWithLoader(
+                    //             (cardController
+                    //                         .bizcardDetail
+                    //                         .value
+                    //                         .personalDetails
+                    //                         ?.images
+                    //                         ?.isNotEmpty ??
+                    //                     false)
+                    //                 ? (cardController.bizcardDetail.value
+                    //                     .personalDetails!.images!.first)
+                    //                 : '',
+                    //             radius: 100.h,
+                    //           ),
+
                     child: (cardController.bizcardDetail.value.personalDetails
                                 ?.images?.isEmpty ??
-                            true)
+                            true &&
+                                (cardController
+                                        .bizcardDetail
+                                        .value
+                                        .businessDetails
+                                        ?.businessLogo
+                                        ?.isEmpty ??
+                                    true))
                         ? Image.asset(
                             iconPersonOutline,
                             color: Theme.of(context).colorScheme.primary,
                           )
                         : NetworkImageWithLoader(
-                            (cardController.bizcardDetail.value.personalDetails
-                                        ?.images?.isNotEmpty ??
-                                    false)
-                                ? (cardController.bizcardDetail.value
-                                    .personalDetails!.images!.first)
-                                : imageDummyNetwork,
+                            cardController.bizcardDetail.value.personalDetails
+                                    ?.images?.first ??
+                                cardController.bizcardDetail.value
+                                    .businessDetails?.businessLogo ??
+                                '',
                             radius: 100.h,
                           ),
                   ),

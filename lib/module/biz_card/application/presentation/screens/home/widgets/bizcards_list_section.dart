@@ -74,7 +74,7 @@ class _BizcardsListSectionState extends State<BizcardsListSection> {
 
       return SizedBox(
         width: 382.w,
-        height: 450.h,
+        height: bizcardController.bizcards.isEmpty ? 330.h : 450.h,
         child: PagviewAnimateBuilder(
           pageController: pageController,
           offAnimation: bizcardController.autoScrollCard.value,

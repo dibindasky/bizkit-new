@@ -122,7 +122,6 @@ class BizcardWidget extends StatelessWidget {
                       height: 20,
                       width: 55,
                       child: ColoredBox(
-                        
                           color: kneon,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -133,7 +132,7 @@ class BizcardWidget extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleSmall
-                                    ?.copyWith(fontSize: 9 ),
+                                    ?.copyWith(fontSize: 9),
                               ),
                             ),
                           )),
@@ -204,7 +203,7 @@ class BizcardWidget extends StatelessWidget {
                             fit: BoxFit.cover,
                           )
                         : const DecorationImage(
-                            image: AssetImage(userProfileDummy), 
+                            image: AssetImage(userProfileDummy),
                             fit: BoxFit.cover,
                           ),
                   ),
@@ -273,7 +272,7 @@ class BizcardWidget extends StatelessWidget {
                         },
                         child: decodedQrImage == null
                             ? null
-                            : FadeInImage( 
+                            : FadeInImage(
                                 placeholder: const AssetImage(bizcardBgImage),
                                 height: 40.h,
                                 fit: BoxFit.cover,

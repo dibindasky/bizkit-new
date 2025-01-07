@@ -54,8 +54,8 @@ class BizCardDetailScreen extends StatelessWidget {
                   kHeight50,
                   kHeight50,
                   kHeight50,
-                  kHeight50,
-                  kHeight50,
+                  // kHeight50,
+                  // kHeight50,
                 ],
               )
             ],

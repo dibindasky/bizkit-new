@@ -247,8 +247,10 @@ class _BizCardAchivementCreationAndUpdationState
                               isScrollControlled: true,
                               builder: (BuildContext context) {
                                 return DatePickingBottomSheet(
-                                  year: 500,
+                                  year: 0,
                                   last: 500,
+                                  initialDate: DateTime.tryParse(
+                                      personalController.achievementDate.text),
                                   onPressed: (date) {
                                     personalController.addDate(date: date);
                                     // setState(() {
@@ -274,16 +276,20 @@ class _BizCardAchivementCreationAndUpdationState
                               child: Row(
                                 children: [
                                   Expanded(
-                                    child: Text(
+                                    child: Obx(() {
                                       personalController
-                                              .achievementDate.text.isEmpty
-                                          ? 'Choose Date'
-                                          : personalController
-                                              .achievementDate.text,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall,
-                                    ),
+                                          .achievementDateChange.value;
+                                      return Text(
+                                        personalController
+                                                .achievementDate.text.isEmpty
+                                            ? 'Choose Date'
+                                            : personalController
+                                                .achievementDate.text,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall,
+                                      );
+                                    }),
                                   ),
                                   Icon(Icons.calendar_month,
                                       color: Theme.of(context)

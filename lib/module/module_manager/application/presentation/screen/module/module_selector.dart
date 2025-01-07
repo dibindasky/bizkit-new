@@ -12,7 +12,7 @@ class ScreenModuleSelector extends StatelessWidget {
     _ListItemData(
         color: neonShadeGradientTopToBottom,
         height: 120.h,
-        imageUrl: flutterIcon,
+        imageUrl: image,
         title: 'Biz Card',
         subtitle:
             'We believe development must be an enjoyable, creative experience to be truly fulfilling',
@@ -188,6 +188,7 @@ class ListItem extends StatelessWidget {
                 ),
                 child: const Icon(Icons.logo_dev, color: Colors.white),
               ),
+              // leading: Image.network(item.imageUrl, height: 40.h),
               title: Text(
                 item.title,
                 style: Theme.of(context).textTheme.displaySmall?.copyWith(

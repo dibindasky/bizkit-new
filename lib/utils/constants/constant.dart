@@ -94,11 +94,12 @@ String iconHomeGreyBottomBar = 'asset/images/NavPngs/home_icon_grey.png';
 String iconAccountBottomBar =
     'asset/module/module_manager/account_profile_nav_iocn.png';
 String iconScannerBottombar = 'asset/module/bizcard/scanner_card_nav_icon.png';
-String iconModuleSelectorBottomBar =
-    'asset/module/module_manager/module_chooser.png';
-
 // String iconModuleSelectorBottomBar =
-//     'asset/module/module_manager/module_selector.png';
+//     'asset/module/module_manager/module_chooser.png';
+
+String iconModuleSelectorBottomBar =
+    'asset/module/module_manager/module_selector.png';
+
 String iconTaskCalenderBottomBar = 'asset/images/task/task third tab.png';
 
 const String internetConnectionLost =

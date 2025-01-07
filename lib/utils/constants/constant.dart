@@ -18,6 +18,7 @@ const dummyImg3 = 'asset/images/dummy_img3.png';
 const personDemoImg = 'asset/images/person_img_demo.png';
 const personImage = 'asset/images/camera select Icon.png';
 const chatSectionPersonDummyImg1 = 'asset/images/chat_section_dummy_img1.png';
+const String flutterIcon = 'asset/images/flutter-seeklogo.png';
 // const userProfileDummy = 'asset/images/chat_section_dummy_img2.png';
 const image =
     'https://firebasestorage.googleapis.com/v0/b/travelapp-c2e16.appspot.com/o/userprofile%2Ftest%2Fqr_dummy.jpg?alt=media&token=366b2bb2-6de0-4aa2-835e-1b1fc546f924';

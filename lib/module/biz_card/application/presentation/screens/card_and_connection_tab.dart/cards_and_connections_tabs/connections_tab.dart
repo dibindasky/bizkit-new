@@ -163,46 +163,49 @@ class ConnectionsTab extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.displaySmall,
                             ),
-                            trailing: PopupMenuButton(
-                              enabled: internetConnectinController
-                                  .isConnectedToInternet.value,
-                              itemBuilder: (context) {
-                                return [
-                                  PopupMenuItem(
-                                    onTap: () {
-                                      showConfirmationDialog(
-                                        context,
-                                        actionButton: 'Unfollow',
-                                        heading:
-                                            'Are you sure want to Unfollow',
-                                        onPressed: () {
-                                          connectionsController.unfollowRequest(
-                                              toUserId: connectionsController
-                                                  .connectionsSearchList[index]
-                                                  .toUser,
-                                              context: context,
-                                              unfollowRequest:
-                                                  UnfollowConnectionModel(
-                                                      connectionId:
-                                                          connectionsController
-                                                              .connectionsSearchList[
-                                                                  index]
-                                                              .cards!
-                                                              .first
-                                                              .connectionId));
-                                        },
-                                      );
-                                    },
-                                    child: Text(
-                                      'Unfollow',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall
-                                          ?.copyWith(color: kred),
-                                    ),
-                                  )
-                                ];
-                              },
+                            trailing: SizedBox(
+                              width: 15,
+                              child: PopupMenuButton(
+                                enabled: internetConnectinController
+                                    .isConnectedToInternet.value,
+                                itemBuilder: (context) {
+                                  return [
+                                    PopupMenuItem(
+                                      onTap: () {
+                                        showConfirmationDialog(
+                                          context,
+                                          actionButton: 'Unfollow',
+                                          heading:
+                                              'Are you sure want to Unfollow',
+                                          onPressed: () {
+                                            connectionsController.unfollowRequest(
+                                                toUserId: connectionsController
+                                                    .connectionsSearchList[index]
+                                                    .toUser,
+                                                context: context,
+                                                unfollowRequest:
+                                                    UnfollowConnectionModel(
+                                                        connectionId:
+                                                            connectionsController
+                                                                .connectionsSearchList[
+                                                                    index]
+                                                                .cards!
+                                                                .first
+                                                                .connectionId));
+                                          },
+                                        );
+                                      },
+                                      child: Text(
+                                        'Unfollow',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(color: kred),
+                                      ),
+                                    )
+                                  ];
+                                },
+                              ),
                             ),
                           ),
                         );

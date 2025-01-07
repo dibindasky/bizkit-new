@@ -2,7 +2,6 @@ import 'package:bizkit/module/module_manager/application/controller/module_contr
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +12,7 @@ class ScreenModuleSelector extends StatelessWidget {
     _ListItemData(
         color: neonShadeGradientTopToBottom,
         height: 200.h,
-        imageUrl: 'https://via.placeholder.com/50',
+        imageUrl: flutterIcon,
         title: 'Biz Card',
         subtitle:
             'We believe development must be an enjoyable, creative experience to be truly fulfilling',
@@ -21,19 +20,19 @@ class ScreenModuleSelector extends StatelessWidget {
     _ListItemData(
         color: whiteShadeGradient,
         height: 170.h,
-        imageUrl: 'https://via.placeholder.com/50',
+        imageUrl: flutterIcon,
         title: 'Task',
         subtitle:
             'We believe development must be an enjoyable, creative experience to be truly fulfilling',
         module: Module.task),
-    _ListItemData(
-        color: blackShadeGradient,
-        height: 210.h,
-        imageUrl: 'https://via.placeholder.com/50',
-        title: 'Attendance',
-        subtitle:
-            'We believe development must be an enjoyable, creative experience to be truly fulfilling',
-        module: Module.attendance),
+    // _ListItemData(
+    //     color: blackShadeGradient,
+    //     height: 210.h,
+    //     imageUrl: 'https://via.placeholder.com/50',
+    //     title: 'Attendance',
+    //     subtitle:
+    //         'We believe development must be an enjoyable, creative experience to be truly fulfilling',
+    //     module: Module.attendance),
   ];
 
   @override
@@ -178,17 +177,25 @@ class ListItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: ListTile(
             tileColor: kGreyNormal.withOpacity(0.1),
-            leading: Image.network(item.imageUrl, height: 50.h),
+            leading: Container(
+              width: 50.0,
+              height: 50.0,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color.fromARGB(255, 69, 140, 199),
+              ),
+              child: Icon(Icons.logo_dev, color: Colors.white),
+            ),
             title: Text(
               item.title,
               style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  fontSize: 15,
+                  fontSize: 19,
                   color: item.color == whiteShadeGradient ? kblack : kwhite),
             ),
             subtitle: Text(
               item.subtitle,
               style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    fontSize: 9,
+                    fontSize:12,
                     color:
                         item.color == whiteShadeGradient ? kblack : klightgrey,
                   ),

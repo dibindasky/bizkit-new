@@ -86,8 +86,8 @@ class BusinessCard extends StatelessWidget {
                           ),
                           adjustHieght(3.h),
                           Text(
-                            'Edit',
-                            style: Theme.of(context).textTheme.displaySmall,
+                            'Manage',
+                            style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 11 ),
                           )
                         ],
                       ),
@@ -122,7 +122,7 @@ class BusinessCard extends StatelessWidget {
                           adjustHieght(3.h),
                           Text(
                             'Preview',
-                            style: Theme.of(context).textTheme.displaySmall,
+                            style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 11),
                           )
                         ],
                       ),
@@ -210,8 +210,8 @@ class BusinessCard extends StatelessWidget {
                                           "Something went wrong please try again",
                                       backgroundColor: kred);
                                 }
-                              },
-                              title: const Text('share'),
+                              }, 
+                              title:  Text('share' ,style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 11),),
                               leading: const Icon(Icons.share),
                             ),
                           ],

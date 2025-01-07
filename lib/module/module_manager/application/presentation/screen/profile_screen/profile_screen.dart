@@ -138,6 +138,7 @@ class ProfileScreen extends StatelessWidget {
                 },
               ),
               ProfileTiles(
+                showBtn: false,
                 heading: 'Privacy and Security',
                 subtitle: 'Level, Security Prefrences',
                 onTap: () {},
@@ -163,6 +164,7 @@ class ProfileScreen extends StatelessWidget {
               //       )
               //     : kempty),
               ProfileTiles(
+                showBtn: false,
                 heading: 'Help & Support',
                 subtitle: 'Contact, Faq etc',
                 onTap: () {},
@@ -211,11 +213,13 @@ class ProfileTiles extends StatelessWidget {
     required this.heading,
     this.subtitle,
     this.onTap,
+    this.showBtn = true,
   }) : super(key: key);
   final Widget? widget;
   final String heading;
   final String? subtitle;
   final VoidCallback? onTap;
+  final bool showBtn;
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +238,8 @@ class ProfileTiles extends StatelessWidget {
           child: ColoredBox(
             color: textFieldFillColr,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 10, vertical: showBtn ? 3 : 10),
               child: Row(
                 children: [
                   Column(
@@ -256,29 +261,31 @@ class ProfileTiles extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  IconButton(
-                    onPressed: () {
-                      if (onTap != null) {
-                        onTap!();
-                      } else {
-                        Navigator.of(context).push(cardFadePageRoute(widget!));
-                      }
-                    },
-                    icon: Container(
-                      width: 30.w,
-                      height: 30.h,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: klightgrey),
-                        color: Theme.of(context).colorScheme.onTertiary,
+                  if (showBtn)
+                    IconButton(
+                      onPressed: () {
+                        if (onTap != null) {
+                          onTap!();
+                        } else {
+                          Navigator.of(context)
+                              .push(cardFadePageRoute(widget!));
+                        }
+                      },
+                      icon: Container(
+                        width: 30.w,
+                        height: 30.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: klightgrey),
+                          color: Theme.of(context).colorScheme.onTertiary,
+                        ),
+                        child: const Icon(
+                          Iconsax.arrow_right_3,
+                          color: kblack,
+                          size: 13,
+                        ),
                       ),
-                      child: const Icon(
-                        Iconsax.arrow_right_3,
-                        color: kblack,
-                        size: 13,
-                      ),
-                    ),
-                  )
+                    )
                 ],
               ),
             ),

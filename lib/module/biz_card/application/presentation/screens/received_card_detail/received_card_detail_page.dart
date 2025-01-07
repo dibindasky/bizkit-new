@@ -474,7 +474,7 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                 .visitingCardDetails.value.email ??
                             ''
                       ],
-                      itemsHeading: ['personal'],
+                      itemsHeading: const ['personal'],
                     );
                   });
             }

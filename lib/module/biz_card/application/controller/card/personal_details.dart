@@ -19,6 +19,7 @@ import 'package:bizkit/module/biz_card/domain/repository/service/card/personal_d
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/intl/intl_date_formater.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +153,7 @@ class PersonalDetailsController extends GetxController {
       required String personalDetailsId,
       required BuildContext context}) async {
     if (personalNameController.text.isEmpty) {
-      showSnackbar(context, message: 'Please Add Name');
+      showCustomToast(message: 'Please Add Name', backgroundColor: kred);
       return;
     }
     isLoading.value = true;
@@ -179,8 +180,7 @@ class PersonalDetailsController extends GetxController {
       (l) {
         isLoading.value = false;
         if (l.data == 304) {
-          showSnackbar(context,
-              message: 'Successfully Updated Personal Details');
+          showCustomToast(message: 'Successfully updated personal details');
           GoRouter.of(context).pop();
         }
       },
@@ -198,7 +198,7 @@ class PersonalDetailsController extends GetxController {
               bloodGroupController.text;
         }
         update();
-        showSnackbar(context, message: 'Successfully Added Personal Details');
+        showCustomToast(message: 'Successfully added personal details');
         GoRouter.of(context).pop();
       },
     );
@@ -221,7 +221,7 @@ class PersonalDetailsController extends GetxController {
     final data = await personalRepo.personalAchivmentAdding(
         personalAchiment: personalAchiment);
     data.fold(
-        (l) => showSnackbar(context,
+        (l) => showCustomToast(
             message: 'Failed to add achivement, please try again',
             backgroundColor: kred), (r) {
       if (cardController.bizcardDetail.value.bizcardId ==
@@ -250,7 +250,7 @@ class PersonalDetailsController extends GetxController {
         cardController.bizcardDetail.value = cardController.bizcardDetail.value
             .copyWith(personalDetails: personalData);
       }
-      showSnackbar(context, message: 'Achievement Added Successfully');
+      showCustomToast(message: 'Achievement added successfully');
       GoRouter.of(context).pop();
     });
     achievementLoading.value = false;
@@ -287,7 +287,7 @@ class PersonalDetailsController extends GetxController {
     final data = await personalRepo.personalAchivmentEditing(
         personalAchiment: personalAchiment);
     data.fold(
-      (l) => showSnackbar(context,
+      (l) => showCustomToast(
           message: 'Failed to update achivement, please try again',
           backgroundColor: kred),
       (r) {
@@ -312,7 +312,7 @@ class PersonalDetailsController extends GetxController {
               .copyWith(personalDetails: personalData);
           GoRouter.of(context).pop();
         }
-        showSnackbar(context, message: 'Achievement Updated Successfully');
+        showCustomToast(message: 'Achievement updated successfully');
       },
     );
     achievementLoading.value = false;
@@ -344,7 +344,7 @@ class PersonalDetailsController extends GetxController {
         if (fromInner) {
           GoRouter.of(context).pop();
         }
-        showSnackbar(context, message: 'Acheievement Deleted Successfully');
+        showCustomToast(message: 'Acheievement Deleted Successfully');
       },
     );
     deleteLoading.value = false;
@@ -365,7 +365,7 @@ class PersonalDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Social Media Added Successfully');
+        showCustomToast(message: 'Social Media Added Successfully');
       },
     );
     isLoading.value = false;
@@ -384,7 +384,7 @@ class PersonalDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Social Media Updated Successfully');
+        showCustomToast(message: 'Social Media Updated Successfully');
       },
     );
     isLoading.value = false;
@@ -408,7 +408,7 @@ class PersonalDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         if (fromIner) GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Social Media Deleted Successfully');
+        showCustomToast(message: 'Social Media Deleted Successfully');
       },
     );
     deleteLoading.value = false;
@@ -446,7 +446,7 @@ class PersonalDetailsController extends GetxController {
         cardController.bizcardDetail.value = cardController.bizcardDetail.value
             .copyWith(personalDetails: personalDetails);
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Dates To Remider Added Successfully');
+        showCustomToast(message: 'Dates To Remider Added Successfully');
       },
     );
     isLoading.value = false;
@@ -466,7 +466,7 @@ class PersonalDetailsController extends GetxController {
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
-        showSnackbar(context, message: 'Dates To Remider Updated Successfully');
+        showCustomToast(message: 'Dates To Remider Updated Successfully');
       },
     );
   }

@@ -127,22 +127,21 @@ class CardController extends GetxController {
   }
 
   void getAllcards(bool isLoad) async {
-    final profileController=Get.find<ProfileController>(); 
+    final profileController = Get.find<ProfileController>();
     if (!isLoad && bizcards.isNotEmpty) return;
     isLoading.value = true;
     bizcards.value = <Bizcard>[];
 
-  if(profileController.saveLocalData.isTrue){
+    if (profileController.saveLocalData.isTrue) {
       // Step 1: Fetch and display local data first
-    await fetchBizcardsFromLocalDb();
-  }
-  
+      await fetchBizcardsFromLocalDb();
+    }
 
     // Step 2: Then update with any network data if available
     if (!isLocalDataLoaded) {
       await fetchBizcardsFromNetWork();
     }
-     isLoading.value = false;
+    isLoading.value = false;
   }
 
   Future<void> fetchBizcardsFromNetWork() async {
@@ -161,11 +160,11 @@ class CardController extends GetxController {
 
           // Store new bizcards in local database
           for (Bizcard bizcard in r.bizcards ?? <Bizcard>[]) {
-            if(profileController.saveLocalData.isTrue){
-                await bizcardsLocalService.addBizcardToLocalIfNotExists(
-                bizcardModel: bizcard);
+            if (profileController.saveLocalData.isTrue) {
+              await bizcardsLocalService.addBizcardToLocalIfNotExists(
+                  bizcardModel: bizcard);
             }
-          
+
             if (bizcard.isDefault ?? false) {
               defaultBizcardId.value = bizcard.bizcardId ?? '';
             }
@@ -202,7 +201,7 @@ class CardController extends GetxController {
       {required String cardId,
       bool refresh = false,
       bool toEdit = false}) async {
-        final profileController = Get.find<ProfileController>();
+    final profileController = Get.find<ProfileController>();
     log('Bizcard ID -> $cardId');
     if (cardId != bizcardDetail.value.bizcardId) {
       bizcardDetail.value = CardDetailModel();
@@ -211,11 +210,10 @@ class CardController extends GetxController {
       isLoading.value = true;
     }
 
-    if (profileController.saveLocalData.isTrue){
-        await fetchBizcardDetailsFromLocalDb(cardId);
+    if (profileController.saveLocalData.isTrue) {
+      await fetchBizcardDetailsFromLocalDb(cardId);
     }
     // Step 1: Fetch and display local data first
-  
 
     // Step 2: Then update with any network data if available
     await fetchBizcardDetailFromNetWork(cardId, toEdit);

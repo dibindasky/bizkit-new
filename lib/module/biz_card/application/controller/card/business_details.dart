@@ -723,6 +723,8 @@ class BusinesDetailsController extends GetxController {
     data.fold(
       (l) => isLoading.value = false,
       (r) {
+        deleteProductIds.removeWhere(
+            (element) => element == (productDeletion.productId ?? ''));
         isLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
@@ -730,8 +732,6 @@ class BusinesDetailsController extends GetxController {
         showCustomToast(message: 'Product Deleted Successfully');
       },
     );
-    deleteProductIds
-        .removeWhere((element) => element == (productDeletion.productId ?? ''));
   }
 
   void bankingDetailsAdding(BuildContext context) async {

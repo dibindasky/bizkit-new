@@ -112,118 +112,130 @@ class _BizCardAchivementCreationAndUpdationState
                         children: [
                           kHeight5,
                           // images adding or deleting section
-                          InkWell(
-                            onTap: () async {
-                              cameraAndGalleryPickImage(
-                                  tittle: "Choose image from",
-                                  context: context,
-                                  onPressCam: () async {
-                                    final img = await ImagePickerClass.getImage(
-                                        camera: true);
-                                    if (img != null) {
-                                      personalController.personalAchivementImage
-                                          .add(ImageCard(image: img.base64));
-                                      setState(() {});
-                                    }
-                                  },
-                                  onPressGallery: () async {
-                                    final img = await ImagePickerClass.getImage(
-                                        camera: false);
-                                    if (img != null) {
-                                      personalController.personalAchivementImage
-                                          .add(ImageCard(image: img.base64));
-                                      setState(() {});
-                                    }
-                                  });
-                            },
-                            child: SizedBox(
-                              height: 170.dm,
-                              child: Stack(
-                                children: [
-                                  personalController.personalAchivementImage
-                                              .isEmpty ||
-                                          personalController
-                                                  .personalAchivementImage ==
-                                              null
-                                      ? Center(
-                                          child: Text('Add Image',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleSmall),
-                                        )
-                                      : ListView.separated(
-                                          separatorBuilder: (context, index) =>
-                                              kWidth10,
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: personalController
-                                              .personalAchivementImage.length,
-                                          itemBuilder: (context, index) {
-                                            return CardAchivementImageMaker(
-                                                deleteTap: () {
-                                                  showCustomConfirmationDialogue(
-                                                      context: context,
-                                                      title:
-                                                          'Are you sure want to remove ?',
-                                                      buttonText: 'Delete',
-                                                      onTap: () {
-                                                        personalController
-                                                            .personalAchivementImage
-                                                            .removeAt(index);
-                                                        setState(() {});
-                                                      });
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: kGreyNormal),
+                                borderRadius: BorderRadius.circular(20)),
+                            height: 200.dm,
+                            width: double.infinity,
+                            child: InkWell(
+                              onTap: () async {
+                                cameraAndGalleryPickImage(
+                                    tittle: "Choose image from",
+                                    context: context,
+                                    onPressCam: () async {
+                                      final img =
+                                          await ImagePickerClass.getImage(
+                                              camera: true);
+                                      if (img != null) {
+                                        personalController
+                                            .personalAchivementImage
+                                            .add(ImageCard(image: img.base64));
+                                        setState(() {});
+                                      }
+                                    },
+                                    onPressGallery: () async {
+                                      final img =
+                                          await ImagePickerClass.getImage(
+                                              camera: false);
+                                      if (img != null) {
+                                        personalController
+                                            .personalAchivementImage
+                                            .add(ImageCard(image: img.base64));
+                                        setState(() {});
+                                      }
+                                    });
+                              },
+                              child: SizedBox(
+                                height: 170.dm,
+                                child: Stack(
+                                  children: [
+                                    personalController.personalAchivementImage
+                                                .isEmpty ||
+                                            personalController
+                                                    .personalAchivementImage ==
+                                                null
+                                        ? Center(
+                                            child: Text('Add Image',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall),
+                                          )
+                                        : ListView.separated(
+                                            separatorBuilder:
+                                                (context, index) => kWidth10,
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: personalController
+                                                .personalAchivementImage.length,
+                                            itemBuilder: (context, index) {
+                                              return CardAchivementImageMaker(
+                                                  deleteTap: () {
+                                                    showCustomConfirmationDialogue(
+                                                        context: context,
+                                                        title:
+                                                            'Are you sure want to remove ?',
+                                                        buttonText: 'Delete',
+                                                        onTap: () {
+                                                          personalController
+                                                              .personalAchivementImage
+                                                              .removeAt(index);
+                                                          setState(() {});
+                                                        });
+                                                  },
+                                                  image: personalController
+                                                      .personalAchivementImage,
+                                                  index: index);
+                                            },
+                                          ),
+                                    Positioned(
+                                      bottom: 5,
+                                      right: 5,
+                                      child: InkWell(
+                                          onTap: () {
+                                            cameraAndGalleryPickImage(
+                                                tittle: "Choose image from",
+                                                context: context,
+                                                onPressCam: () async {
+                                                  final img =
+                                                      await ImagePickerClass
+                                                          .getImage(
+                                                              camera: true);
+                                                  if (img != null) {
+                                                    personalController
+                                                        .personalAchivementImage
+                                                        .insert(
+                                                            0,
+                                                            ImageCard(
+                                                                image: img
+                                                                    .base64));
+                                                    setState(() {});
+                                                  }
                                                 },
-                                                image: personalController
-                                                    .personalAchivementImage,
-                                                index: index);
+                                                onPressGallery: () async {
+                                                  final img =
+                                                      await ImagePickerClass
+                                                          .getImage(
+                                                              camera: false);
+                                                  if (img != null) {
+                                                    personalController
+                                                        .personalAchivementImage
+                                                        .insert(
+                                                            0,
+                                                            ImageCard(
+                                                                image: img
+                                                                    .base64));
+                                                    setState(() {});
+                                                  }
+                                                });
                                           },
-                                        ),
-                                  Positioned(
-                                    bottom: 5,
-                                    right: 5,
-                                    child: InkWell(
-                                        onTap: () {
-                                          cameraAndGalleryPickImage(
-                                              tittle: "Choose image from",
-                                              context: context,
-                                              onPressCam: () async {
-                                                final img =
-                                                    await ImagePickerClass
-                                                        .getImage(camera: true);
-                                                if (img != null) {
-                                                  personalController
-                                                      .personalAchivementImage
-                                                      .insert(
-                                                          0,
-                                                          ImageCard(
-                                                              image:
-                                                                  img.base64));
-                                                  setState(() {});
-                                                }
-                                              },
-                                              onPressGallery: () async {
-                                                final img =
-                                                    await ImagePickerClass
-                                                        .getImage(
-                                                            camera: false);
-                                                if (img != null) {
-                                                  personalController
-                                                      .personalAchivementImage
-                                                      .insert(
-                                                          0,
-                                                          ImageCard(
-                                                              image:
-                                                                  img.base64));
-                                                  setState(() {});
-                                                }
-                                              });
-                                        },
-                                        child: const CircleAvatar(
-                                          radius: 30,
-                                          child:
-                                              Icon(Icons.add_a_photo_outlined),
-                                        )),
-                                  )
-                                ],
+                                          child: const CircleAvatar(
+                                            radius: 30,
+                                            child: Icon(
+                                                Icons.add_a_photo_outlined),
+                                          )),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -429,12 +441,14 @@ class _CardAchivementImageMakerState extends State<CardAchivementImageMaker> {
           children: [
             InkWell(
                 onTap: () {
-                          GoRouter.of(context)
-                              .pushNamed(Routes.slidablePhotoGallery, extra: {
-                            'images':  [widget.image![widget.index].image!],
-                            'initial':widget.index,
-                            'memory':widget.image![widget.index].networkImage==true? false:true,
-                          });
+                  GoRouter.of(context)
+                      .pushNamed(Routes.slidablePhotoGallery, extra: {
+                    'images': [widget.image![widget.index].image!],
+                    'initial': widget.index,
+                    'memory': widget.image![widget.index].networkImage == true
+                        ? false
+                        : true,
+                  });
                 },
                 child: SizedBox(
                   width: 270.dm,

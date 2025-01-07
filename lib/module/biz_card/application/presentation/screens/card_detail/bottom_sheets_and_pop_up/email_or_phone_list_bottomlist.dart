@@ -1,9 +1,12 @@
+import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/copy_clipboard/copy_clipboard.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
 import 'package:bizkit/utils/validators/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class PreviewScreenRowIconsModelSheet extends StatefulWidget {
   const PreviewScreenRowIconsModelSheet({
@@ -28,6 +31,7 @@ class _PreviewScreenRowIconsModelSheetState
     extends State<PreviewScreenRowIconsModelSheet> {
   @override
   Widget build(BuildContext context) {
+    final cardController = Get.find<CardController>();
     return Container(
       height: 300,
       padding: const EdgeInsets.all(16.0),

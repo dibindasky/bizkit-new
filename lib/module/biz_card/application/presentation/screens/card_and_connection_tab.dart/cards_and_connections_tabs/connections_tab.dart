@@ -70,6 +70,8 @@ class ConnectionsTab extends StatelessWidget {
                         return Card(
                           elevation: 0,
                           child: ListTile(
+                            
+                            contentPadding: EdgeInsets.symmetric(horizontal: -10 ), 
                             onTap: () {
                               final currentConnection =
                                   connectionsController.myConnections[index];
@@ -113,22 +115,25 @@ class ConnectionsTab extends StatelessWidget {
                                         .cards
                                         ?.isNotEmpty ==
                                     true
-                                ? CircleAvatar(
-                                    backgroundColor:
-                                        kGreyNormal.withOpacity(0.3),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(1.0),
-                                      child: NetworkImageWithLoader(
-                                        connectionsController
-                                                .connectionsSearchList[index]
-                                                .cards!
-                                                .first
-                                                .imageUrl ??
-                                            '',
-                                        radius: 50,
-                                        errorWidget: const Icon(Icons.person),
-                                      ),
-                                    ))
+                                ? Padding(
+                                  padding: const EdgeInsets.only(left: 15),
+                                  child: CircleAvatar(
+                                      backgroundColor:
+                                          kGreyNormal.withOpacity(0.3),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(1.0),
+                                        child: NetworkImageWithLoader(
+                                          connectionsController
+                                                  .connectionsSearchList[index]
+                                                  .cards!
+                                                  .first
+                                                  .imageUrl ??
+                                              '',
+                                          radius: 50,
+                                          errorWidget: const Icon(Icons.person),
+                                        ),
+                                      )),
+                                )
                                 : const CircleAvatar(
                                     backgroundColor: kGreyDark,
                                     child: Icon(Icons.person),
@@ -163,8 +168,9 @@ class ConnectionsTab extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.displaySmall,
                             ),
-                            trailing: SizedBox(
-                              width: 15,
+                            trailing: Container(
+                              // color: Colors.amber,
+                              width: 40 ,
                               child: PopupMenuButton(
                                 enabled: internetConnectinController
                                     .isConnectedToInternet.value,

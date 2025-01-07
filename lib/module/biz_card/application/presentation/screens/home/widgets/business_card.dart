@@ -76,7 +76,7 @@ class BusinessCard extends StatelessWidget {
                     elevation: 0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
+                          horizontal: 12, vertical: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -87,7 +87,10 @@ class BusinessCard extends StatelessWidget {
                           adjustHieght(3.h),
                           Text(
                             'Manage',
-                            style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 11 ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(fontSize: 11),
                           )
                         ],
                       ),
@@ -122,7 +125,10 @@ class BusinessCard extends StatelessWidget {
                           adjustHieght(3.h),
                           Text(
                             'Preview',
-                            style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 11),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(fontSize: 11),
                           )
                         ],
                       ),
@@ -210,8 +216,14 @@ class BusinessCard extends StatelessWidget {
                                           "Something went wrong please try again",
                                       backgroundColor: kred);
                                 }
-                              }, 
-                              title:  Text('share' ,style: Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 11),),
+                              },
+                              title: Text(
+                                'share',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(fontSize: 11),
+                              ),
                               leading: const Icon(Icons.share),
                             ),
                           ],

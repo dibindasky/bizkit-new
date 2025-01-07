@@ -219,7 +219,10 @@ class _BizCardDeatailAchivementsState extends State<BizCardDeatailAchivements> {
                                                         []; // Fallback to an empty list if null
                                                     return SizedBox(
                                                       height: 170.h,
-                                                      width: 230.w,
+                                                      width:
+                                                          imageList.length == 1
+                                                              ? kwidth
+                                                              : 230.w,
                                                       child: Stack(
                                                         children: [
                                                           imageList.isEmpty ||
@@ -228,7 +231,11 @@ class _BizCardDeatailAchivementsState extends State<BizCardDeatailAchivements> {
                                                                           .length
                                                               ? SizedBox(
                                                                   height: 170.h,
-                                                                  width: 230.w,
+                                                                  width: imageList
+                                                                              .length ==
+                                                                          1
+                                                                      ? kwidth
+                                                                      : 230.w,
                                                                   child: Image
                                                                       .asset(
                                                                     bizcardBgImage, // Replace with your asset image path
@@ -255,14 +262,18 @@ class _BizCardDeatailAchivementsState extends State<BizCardDeatailAchivements> {
                                                                       SizedBox(
                                                                     height:
                                                                         170.h,
-                                                                    width:
-                                                                        230.w,
+                                                                    width: imageList.length ==
+                                                                            1
+                                                                        ? kwidth
+                                                                        : 230.w,
                                                                     child:
                                                                         NetworkImageWithLoader(
                                                                       imageList[
                                                                           indexes],
                                                                       fit: BoxFit
                                                                           .cover,
+                                                                      radius:
+                                                                          10,
                                                                     ),
                                                                   ),
                                                                 ),
@@ -282,6 +293,7 @@ class _BizCardDeatailAchivementsState extends State<BizCardDeatailAchivements> {
                                                           .images!
                                                           .length,
                                                 )),
+                                            kHeight5,
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 5),
@@ -295,6 +307,7 @@ class _BizCardDeatailAchivementsState extends State<BizCardDeatailAchivements> {
                                                           fontWeight:
                                                               FontWeight.w700)),
                                             ),
+                                            kHeight5,
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 5),

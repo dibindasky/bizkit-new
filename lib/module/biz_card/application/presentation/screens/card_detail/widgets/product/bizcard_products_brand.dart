@@ -90,11 +90,37 @@ class BizCardProductsOrBrands extends StatelessWidget {
                         )
                       : ListView.separated(
                           separatorBuilder: (context, index) => kWidth10,
-                          itemCount: cardController.bizcardDetail.value
-                                  .businessDetails?.product?.length ??
-                              0,
+                          itemCount: (cardController.bizcardDetail.value
+                                      .businessDetails?.product?.length ??
+                                  0) +
+                              1,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
+                            if (index ==
+                                (cardController.bizcardDetail.value
+                                        .businessDetails?.product?.length ??
+                                    0)) {
+                              return GestureDetector(
+                                onTap: () {
+                                  GoRouter.of(context)
+                                      .pushNamed(Routes.cardUpdating, extra: 3);
+                                },
+                                child: AspectRatio(
+                                  aspectRatio: 0.9,
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 5, vertical: 5),
+                                    decoration: BoxDecoration(
+                                        borderRadius: kBorderRadius10,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary
+                                            .withOpacity(0.2)),
+                                    child: const Icon(Icons.add),
+                                  ),
+                                ),
+                              );
+                            }
                             final product = cardController.bizcardDetail.value
                                 .businessDetails!.product![index];
                             return AspectRatio(

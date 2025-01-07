@@ -152,7 +152,7 @@ class BizCardNavBarScreen extends StatelessWidget {
                       iconScannerBottombar,
                       iconAccountBottomBar
                     ],
-                    imageSizes: const [40, 25, 25, 25, 30],
+                    imageSizes: const [23, 25, 25, 25, 30],
                   ))
             ],
           ),

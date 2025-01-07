@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/bottom_sheets_and_pop_up/email_or_phone_list_bottomlist.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens/card_detail/bottom_sheets_and_pop_up/website_list_bizcard.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens/received_card_detail/widgets/received_card_edit_page.dart';
 import 'package:bizkit/module/biz_card/domain/model/received_cards/visiting_card_delete_model/visiting_card_delete_model.dart';
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
@@ -12,6 +13,7 @@ import 'package:bizkit/utils/animations/pageview_animated_builder.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:bizkit/utils/images/network_image_with_loader.dart';
+import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:bizkit/utils/previewscreen_icons/detail_sharing_icon.dart';
 import 'package:bizkit/utils/url_launcher/url_launcher_functions.dart';
@@ -19,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ReceivedCardDetailScreen extends StatefulWidget {
@@ -250,7 +253,7 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
                                   Text(
                                     visitingCardController.visitingCardDetails
                                             .value.company ??
-                                        'Company',
+                                        '',
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme
@@ -259,7 +262,7 @@ class _ReceivedCardDetailScreenState extends State<ReceivedCardDetailScreen> {
                                   Text(
                                     visitingCardController.visitingCardDetails
                                             .value.designation ??
-                                        'designation',
+                                        '',
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme
@@ -498,71 +501,163 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     null) {
               showDialog(
                 context: context,
-                builder: (context) => Dialog(
-                  child: Container(
+                builder: (context) {
+                  // return Dialog(
+                  //   child: Container(
+                  //     padding: const EdgeInsets.symmetric(
+                  //         vertical: 20, horizontal: 20),
+                  //     decoration: BoxDecoration(
+                  //         border: Border.all(color: neonShade),
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         color: Theme.of(context).scaffoldBackgroundColor),
+                  //     child: Column(
+                  //       mainAxisSize: MainAxisSize.min,
+                  //       children: [
+                  //         Text('Website',
+                  //             style: Theme.of(context).textTheme.titleMedium),
+                  //         adjustHieght(10),
+                  //         TextButton(
+                  //           onPressed: () async {
+                  //             await LaunchUrl.googleSearch(
+                  //               url: website,
+                  //             ).then((value) => Navigator.pop(context));
+                  //           },
+                  //           child: Text(
+                  //             website,
+                  //             style: textStyle1.copyWith(
+                  //               color: kblue,
+                  //               decoration: TextDecoration.underline,
+                  //               decorationColor: kblue,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         adjustHieght(10),
+                  //         Row(
+                  //           mainAxisAlignment: MainAxisAlignment.center,
+                  //           children: [
+                  //             OutlinedButton.icon(
+                  //               style: OutlinedButton.styleFrom(
+                  //                   side: const BorderSide(color: neonShade)),
+                  //               onPressed: () async {
+                  //                 await LaunchUrl.googleSearch(
+                  //                   url: website,
+                  //                 ).then((value) => Navigator.pop(context));
+                  //               },
+                  //               icon: const Icon(Icons.webhook_rounded),
+                  //               label: const Text(
+                  //                 'View site',
+                  //                 style: TextStyle(color: neonShade),
+                  //               ),
+                  //             ),
+                  //             adjustWidth(10),
+                  //             OutlinedButton(
+                  //               style: OutlinedButton.styleFrom(
+                  //                   side: const BorderSide(color: neonShade)),
+                  //               onPressed: () {
+                  //                 Navigator.pop(context);
+                  //               },
+                  //               child: const Text(
+                  //                 'Cancel',
+                  //                 style: TextStyle(color: neonShade),
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // );
+
+                  return Dialog(
+                      child: Container(
                     padding: const EdgeInsets.symmetric(
                         vertical: 20, horizontal: 20),
                     decoration: BoxDecoration(
-                        border: Border.all(color: neonShade),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: kBorderRadius10,
                         color: Theme.of(context).scaffoldBackgroundColor),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text('Website',
-                            style: Theme.of(context).textTheme.titleMedium),
-                        adjustHieght(10),
-                        TextButton(
-                          onPressed: () async {
-                            await LaunchUrl.googleSearch(
-                              url: website,
-                            ).then((value) => Navigator.pop(context));
-                          },
-                          child: Text(
-                            website,
-                            style: textStyle1.copyWith(
-                              color: kblue,
-                              decoration: TextDecoration.underline,
-                              decorationColor: kblue,
-                            ),
-                          ),
-                        ),
-                        adjustHieght(10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            OutlinedButton.icon(
-                              style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(color: neonShade)),
-                              onPressed: () async {
-                                await LaunchUrl.googleSearch(
-                                  url: website,
-                                ).then((value) => Navigator.pop(context));
-                              },
-                              icon: const Icon(Icons.webhook_rounded),
-                              label: const Text(
-                                'View site',
-                                style: TextStyle(color: neonShade),
+                      children: website != null
+                          ? [
+                              Text('Website Link',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium),
+                              kHeight10,
+                              Text(
+                                website,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(
+                                      fontSize: 13.sp,
+                                    ),
                               ),
-                            ),
-                            adjustWidth(10),
-                            OutlinedButton(
-                              style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(color: neonShade)),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text(
-                                'Cancel',
-                                style: TextStyle(color: neonShade),
+                              kHeight10,
+                              FittedBox(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    OutlinedButton.icon(
+                                      style: OutlinedButton.styleFrom(
+                                          side: BorderSide(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary)),
+                                      onPressed: () async {
+                                        await LaunchUrl.googleSearch(
+                                          url: website,
+                                        ).then(
+                                          (value) => GoRouter.of(context).pop(),
+                                        );
+                                      },
+                                      icon: Icon(Iconsax.direct_send,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary),
+                                      label: Text(
+                                        'View Website',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall,
+                                      ),
+                                    ),
+                                    adjustWidth(10),
+                                    OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                          side: BorderSide(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary)),
+                                      onPressed: () {
+                                        GoRouter.of(context).pop();
+                                      },
+                                      child: Text(
+                                        'Cancel',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ]
+                          : [
+                              kHeight10,
+                              Icon(Icons.web_sharp,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary),
+                              kHeight10,
+                              Text(
+                                'Website details not available',
+                                style: Theme.of(context).textTheme.displaySmall,
                               ),
-                            ),
-                          ],
-                        )
-                      ],
+                              kHeight10
+                            ],
                     ),
-                  ),
-                ),
+                  ));
+                },
               );
             }
           },
@@ -592,22 +687,22 @@ class CardViewRowWiceIcons extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 20, horizontal: 20),
                     decoration: BoxDecoration(
-                        border: Border.all(color: neonShade),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: kBorderRadius10,
                         color: Theme.of(context).scaffoldBackgroundColor),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           'Address',
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                         adjustHieght(10),
                         Text(
                           location,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.titleSmall,
+                          style: Theme.of(context).textTheme.displaySmall,
+                          textAlign: TextAlign.center,
                         ),
                         adjustHieght(10),
                         Row(
@@ -615,7 +710,10 @@ class CardViewRowWiceIcons extends StatelessWidget {
                           children: [
                             OutlinedButton.icon(
                               style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(color: neonShade)),
+                                  side: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary)),
                               onPressed: () async {
                                 await LaunchUrl.launchMap(
                                   address: location,
@@ -623,23 +721,27 @@ class CardViewRowWiceIcons extends StatelessWidget {
                                 ).then((value) => Navigator.pop(context));
                               },
                               icon: const Icon(
-                                Icons.location_on_outlined,
+                                Iconsax.location,
+                                color: kblack,
                               ),
                               label: Text(
                                 'ViewMap',
-                                style: textThinStyle1,
+                                style: Theme.of(context).textTheme.displaySmall,
                               ),
                             ),
                             adjustWidth(10),
                             OutlinedButton(
                               style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(color: neonShade)),
+                                  side: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary)),
                               onPressed: () {
                                 Navigator.pop(context);
                               },
                               child: Text(
                                 'Cancel',
-                                style: textThinStyle1,
+                                style: Theme.of(context).textTheme.displaySmall,
                               ),
                             ),
                           ],

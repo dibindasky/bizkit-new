@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/data/service/profile/profile_service.dart';
+import 'package:bizkit/module/module_manager/data/sqflite/users_local_service.dart';
 import 'package:bizkit/module/module_manager/domain/model/profile_model/profile_model.dart';
 import 'package:bizkit/module/module_manager/domain/repository/service/profile_repo/profile_repo.dart';
+import 'package:bizkit/module/module_manager/domain/repository/sqflite/users_local_service_repo.dart';
 import 'package:bizkit/module/task/data/local_storage/local_storage_preference.dart';
-import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
 import 'package:bizkit/utils/snackbar/flutter_toast.dart';
@@ -20,6 +21,7 @@ class ProfileController extends GetxController {
   TextEditingController userMail = TextEditingController();
   TextEditingController userName = TextEditingController();
   ProfileRepo profileService = ProfileService();
+  UsersLocalRepo userLocalRepo = UsersLocalService();
 
   ///loading state
   RxBool nameChangingLoading = false.obs;
@@ -101,8 +103,7 @@ class ProfileController extends GetxController {
   }
 
   deleteAllDataFromLocal(BuildContext context) async {
-    final result = await profileService.deleteAllLocalData(
-        currentUserId: await SecureStorage.getUserId() ?? '');
+    final result = await userLocalRepo.deleteAllLocalData();
     result.fold((failure) {
       showCustomToast(message: 'Failed to clear local data');
       // print("delete Data From Local --> ${failure.message}");

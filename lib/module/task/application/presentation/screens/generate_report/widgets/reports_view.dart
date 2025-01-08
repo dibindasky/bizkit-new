@@ -48,7 +48,7 @@ class ReportsView extends StatelessWidget {
                   Text(
                     ' Tasks',
                     style: Theme.of(context).textTheme.displayMedium,
-                  )
+                  ),
                 ],
               ),
               adjustHieght(15.h),
@@ -73,6 +73,7 @@ class ReportsView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Obx(
                             () => Card(
+                              elevation: 0,
                               child: ListTile(
                                 leading: Checkbox(
                                   value: controller.selectedTaskIds.contains(

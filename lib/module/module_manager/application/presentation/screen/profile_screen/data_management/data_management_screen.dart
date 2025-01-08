@@ -2,10 +2,8 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
-import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/show_dialogue/dailog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,7 +20,6 @@ class DataManagementScreen extends StatefulWidget {
 class _DataManagementScreenState extends State<DataManagementScreen> {
   @override
   Widget build(BuildContext context) {
-    final profileController = Get.find<ProfileController>();
     final moduleController = Get.find<ModuleController>();
 
     final cardController = moduleController.currentModule.value == Module.card
@@ -235,14 +232,16 @@ class _DataManagementScreenState extends State<DataManagementScreen> {
                     elevation: 0,
                     child: GestureDetector(
                       onTap: () {
-                        showConfirmationDialog(
-                          actionButton: 'Clear All',
-                          heading: 'Are you sure want to Clear All Local Data',
-                          context,
-                          onPressed: () {
-                            profileController.deleteAllDataFromLocal(context);
-                          },
-                        );
+                        GoRouter.of(context)
+                            .pushNamed(Routes.clearAllLocalDbData);
+                        // showConfirmationDialog(
+                        //   actionButton: 'Clear All',
+                        //   heading: 'Are you sure want to Clear All Local Data',
+                        //   context,
+                        //   onPressed: () {
+                        //     profileController.deleteAllDataFromLocal(context);
+                        //   },
+                        // );
                         // cardController.fetchDeletedAndArchivedCards();
                         // receivedCardController.fetchAllDeletedVisitingCards();
                         // GoRouter.of(context)
@@ -261,7 +260,7 @@ class _DataManagementScreenState extends State<DataManagementScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 15),
                                 child: Text(
-                                  'Clear All Local Data',
+                                  'Clear Local Storage Preferences',
                                   style: Theme.of(context)
                                       .textTheme
                                       .displaySmall

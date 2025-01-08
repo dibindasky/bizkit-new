@@ -47,6 +47,7 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/aut
 import 'package:bizkit/module/module_manager/application/presentation/screen/onboarding/onboarding_general.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/connection_and_network/connections_and_networking.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/archived_data/archived_data_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/clear_local_data/clear_local_data.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/data_management_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/deleted_data/deleted_data_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/enable_local_db/enable_local_db.dart';
@@ -245,6 +246,14 @@ class GoRouterConfig {
       pageBuilder: (context, state) {
         return FadeTransitionPage(
             key: state.pageKey, child: const ArchivedCardScreen());
+      },
+    ),
+    GoRoute(
+      name: Routes.clearAllLocalDbData,
+      path: Routes.clearAllLocalDbData,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+            key: state.pageKey, child: const ClearAllLocalDataScreen());
       },
     ),
     GoRoute(

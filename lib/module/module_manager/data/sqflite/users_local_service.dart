@@ -6,12 +6,22 @@ import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/module/module_manager/domain/model/access/access.dart';
 import 'package:bizkit/module/module_manager/domain/repository/sqflite/users_local_service_repo.dart';
+import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/assigned_to.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks.dart';
 import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
+import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/bizcard/bizcard_oncreate_db.dart';
 import 'package:bizkit/service/local_service/sql/oncreate_db.dart';
+import 'package:bizkit/service/local_service/sql/task/task_oncreate_db.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
+
+import '../../../task/domain/model/task/get_task_responce/attachment.dart';
+import '../../../task/domain/model/task/get_task_responce/sub_task.dart';
 
 class UsersLocalService implements UsersLocalRepo {
   final LocalService localService = LocalService();
@@ -267,7 +277,7 @@ class UsersLocalService implements UsersLocalRepo {
   }
 
   @override
-  Future<Either<Failure, SuccessResponce>> deleteAllLocalData() async {
+  Future<Either<Failure, SuccessResponce>> clearBizcardLocalStorage() async {
     try {
       final currentUserId = await SecureStorage.getUserId() ?? '';
       // final beforeDelete = await localService.query(
@@ -296,6 +306,43 @@ class UsersLocalService implements UsersLocalRepo {
       // for (var value in values) {
       //   print(value);
       // }
+      return Right(SuccessResponce(message: 'success'));
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> clearTaskLocalStorage() async {
+    try {
+      final currentUserId = await SecureStorage.getUserId() ?? '';
+
+      const taskQuery =
+          '''DELETE FROM ${TaskSql.tasksTable} WHERE ${GetTaskResponce.colUserId} = ? ''';
+      const taskAttachmentQuery =
+          '''DELETE FROM ${TaskSql.taskAttachmentsTable} WHERE ${Attachment.colUserId} = ? ''';
+      const taskSubTaskQuery =
+          '''DELETE FROM ${TaskSql.taskSubTasksTable} WHERE ${SubTask.colUserId} = ? ''';
+      const taskAssignedToDetailQuery =
+          '''DELETE FROM ${TaskSql.taskAssignedToDetailTable} WHERE ${AssignedToDetail.colUserId} = ? ''';
+      const filterByDeadlineTaskQuery =
+          '''DELETE FROM ${TaskSql.filterByDeadlineTable} WHERE ${FilterByDeadlineModel.colUserId} = ? ''';
+      const recentTaskQuery =
+          '''DELETE FROM ${TaskSql.recentTasksTable} WHERE ${GetRecentTasksResponce.colUserId} = ? ''';
+      const quickTaskQuery =
+          '''DELETE FROM ${TaskSql.quickTasksTable} WHERE ${QuickTasks.colUserId} = ? ''';
+      const quickTaskAssignedToQuery =
+          '''DELETE FROM ${TaskSql.quickTaskAssignedToTable} WHERE ${QuickTaskAssignedToResponce.colUserId} = ? ''';
+
+      await localService.rawDelete(taskQuery, [currentUserId]);
+      await localService.rawDelete(taskAttachmentQuery, [currentUserId]);
+      await localService.rawDelete(taskSubTaskQuery, [currentUserId]);
+      await localService.rawDelete(taskAssignedToDetailQuery, [currentUserId]);
+      await localService.rawDelete(filterByDeadlineTaskQuery, [currentUserId]);
+      await localService.rawDelete(recentTaskQuery, [currentUserId]);
+      await localService.rawDelete(quickTaskQuery, [currentUserId]);
+      await localService.rawDelete(quickTaskAssignedToQuery, [currentUserId]);
+
       return Right(SuccessResponce(message: 'success'));
     } catch (e) {
       return Left(Failure(message: e.toString()));

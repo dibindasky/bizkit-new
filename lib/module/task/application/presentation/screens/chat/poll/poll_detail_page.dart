@@ -14,16 +14,17 @@ class ScreenPollDetailTask extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<ChatController>();
     return Scaffold(
-      body: SafeArea( 
+      body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Row(
-                children: [
-                 const PopupBackButton(),
-                  Text('Poll Details',style:  Theme.of(context).textTheme.titleLarge),
-                ],
-              ),
+            Row(
+              children: [
+                const PopupBackButton(),
+                Text('Poll Details',
+                    style: Theme.of(context).textTheme.titleLarge),
+              ],
+            ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -51,14 +52,15 @@ class ScreenPollDetailTask extends StatelessWidget {
                       child: Obx(() {
                         return ListView.separated(
                             padding: EdgeInsets.zero,
-                            itemBuilder: (context, index) => PollDetailAnswerTile(
+                            itemBuilder: (context, index) =>
+                                PollDetailAnswerTile(
                                   index: index,
                                 ),
                             separatorBuilder: (context, index) =>
                                 adjustHieght(5.h),
-                            itemCount:
-                                controller.pollDetail.value.pollAnswers?.length ??
-                                    0);
+                            itemCount: controller
+                                    .pollDetail.value.pollAnswers?.length ??
+                                0);
                       }),
                     )
                   ],

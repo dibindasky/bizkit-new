@@ -102,14 +102,29 @@ class ProfileController extends GetxController {
         isTaskStorageEnabled.value);
   }
 
-  deleteAllDataFromLocal(BuildContext context) async {
-    final result = await userLocalRepo.deleteAllLocalData();
+  clearBizcardLocalStorage(BuildContext context) async {
+    final result = await userLocalRepo.clearBizcardLocalStorage();
     result.fold((failure) {
-      showCustomToast(message: 'Failed to clear local data');
+      showCustomToast(message: 'Failed to clear "Bizcard Module" local data');
       // print("delete Data From Local --> ${failure.message}");
       // GoRouter.of(context).pop();
     }, (success) {
-      showCustomToast(message: 'Local data cleared successfully');
+      showCustomToast(
+          message: '"Bizcard Module" Local storage data cleared successfully');
+      // print("deleteAllDataFromLocal ==> success local data delete");
+      // GoRouter.of(context).pop();
+    });
+  }
+
+  clearTaskLocalStorage(BuildContext context) async {
+    final result = await userLocalRepo.clearTaskLocalStorage();
+    result.fold((failure) {
+      showCustomToast(message: 'Failed to clear "Task Module" local data');
+      // print("delete Data From Local --> ${failure.message}");
+      // GoRouter.of(context).pop();
+    }, (success) {
+      showCustomToast(
+          message: '"Task Module" Local storage data cleared successfully');
       // print("deleteAllDataFromLocal ==> success local data delete");
       // GoRouter.of(context).pop();
     });

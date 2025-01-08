@@ -48,17 +48,28 @@ abstract class TaskLocalRepo {
   });
 
   Future<Either<Failure, SuccessResponseModel>>
-      addTaskAttachmentsToLocalStorageIfNotPresentInStorage(
-          {required List<Attachment> attachments, required int referenceId});
+      addTaskAttachmentsToLocalStorageIfNotPresentInStorage({
+    required List<Attachment> attachments,
+    required int referenceId,
+    required String taskId,
+    required String currentUserId,
+  });
 
   Future<Either<Failure, SuccessResponseModel>>
-      addTaskSubtasksToLocalStorageIfNotPresentInStorage(
-          {required List<SubTask> subtasks, required int referenceId});
+      addTaskSubtasksToLocalStorageIfNotPresentInStorage({
+    required List<SubTask> subtasks,
+    required int referenceId,
+    required String taskId,
+    required String currentUserId,
+  });
 
   Future<Either<Failure, SuccessResponseModel>>
-      addTaskAssignedToDetailsToLocalStorageIfNotPresentInStorage(
-          {required List<AssignedToDetail> assignedToDetails,
-          required int referenceId});
+      addTaskAssignedToDetailsToLocalStorageIfNotPresentInStorage({
+    required List<AssignedToDetail> assignedToDetails,
+    required String taskId,
+    required int referenceId,
+    required String currentUserId,
+  });
 
   Future<Either<Failure, SuccessResponseModel>>
       updateTaskFullDetailsFromLocalStorage(
@@ -77,10 +88,13 @@ abstract class TaskLocalRepo {
       {required QuickTasks quickTask});
 
   Future<Either<Failure, SuccessResponseModel>>
-      addQuickTaskAssignedToDetailsToLocalIfNotExists(
-          {required List<QuickTaskAssignedToResponce> assignedToDetails,
-          required int referenceId});
-          
+      addQuickTaskAssignedToDetailsToLocalIfNotExists({
+    required List<QuickTaskAssignedToResponce> assignedToDetails,
+    required int referenceId,
+    required String quickTaskId,
+    required String currentUserId,
+  });
+
   Future<Either<Failure, List<QuickTasks>>> getQuickTaskList(
       {required bool isCompleted});
 

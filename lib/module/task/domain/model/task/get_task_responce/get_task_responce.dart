@@ -275,6 +275,7 @@ class GetTaskResponce {
   static const colTaskLocalId = 'task_local_id';
 
   static const colUserId = 'user_id';
+
   static const colTaskId = 'task_id';
   static const colTaskCreatedBy = 'task_created_by';
   static const colTaskTitle = 'task_title';

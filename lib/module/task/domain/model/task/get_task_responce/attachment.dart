@@ -25,6 +25,9 @@ class Attachment {
 
   static const colTaskAttachmentLocalId = 'task_attachment_local_id';
 
+  static const colTaskId = 'task_id';
+  static const colUserId = 'user_id';
+
   static const colTaskAttachment = 'task_attachment';
   static const colTaskAttachmentType = 'task_attachment_type';
 

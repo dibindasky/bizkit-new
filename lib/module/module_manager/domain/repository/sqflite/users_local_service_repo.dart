@@ -41,6 +41,9 @@ abstract class UsersLocalRepo {
   /// get all access of an user
   Future<Either<Failure, List<Access>>> getAccessFromLocalStorage();
 
-  /// delete all locally stored data of current user
-  Future<Either<Failure, SuccessResponce>> deleteAllLocalData();
+  /// delete all locally stored data of current user [ Bizcard Module]
+  Future<Either<Failure, SuccessResponce>> clearBizcardLocalStorage();
+
+  /// delete all locally stored data of current user [ Task Module ]
+  Future<Either<Failure, SuccessResponce>> clearTaskLocalStorage();
 }

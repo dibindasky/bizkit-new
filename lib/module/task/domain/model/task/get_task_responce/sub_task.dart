@@ -69,6 +69,9 @@ class SubTask {
 
   static const colTaskSubtaskLocalId = 'task_subtask_local_id';
 
+  static const colTaskId = 'task_id';
+  static const colUserId = 'user_id';
+
   static const colTaskSubtaskId = 'task_subtask_id';
   static const colTaskSubtaskTitle = 'task_subtask_title';
   static const colTaskSubtaskDescription = 'task_subtask_description';

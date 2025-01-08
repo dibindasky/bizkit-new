@@ -117,7 +117,7 @@ class ProfileScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(left: 15, right: 15),
                 child: Divider(
-                  color: Colors.grey,
+                  color: kGreyNormal,
                 ),
               ),
               kHeight20,
@@ -148,7 +148,7 @@ class ProfileScreen extends StatelessWidget {
                     subtitle:
                         moduleController.currentModule.value == Module.card
                             ? 'Archieved, Delete, Local save option '
-                            : 'Local save option , Clear all data option',
+                            : 'Local save option , Clear local storage',
                     onTap: () {
                       GoRouter.of(context)
                           .pushNamed(Routes.dataManagementScreen);

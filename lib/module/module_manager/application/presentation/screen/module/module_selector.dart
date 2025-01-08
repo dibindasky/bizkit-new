@@ -17,14 +17,14 @@ class ScreenModuleSelector extends StatelessWidget {
         subtitle:
             'We believe development must be an enjoyable, creative experience to be truly fulfilling',
         module: Module.card),
-    // _ListItemData(
-    //     color: whiteShadeGradient,
-    //     height: 170.h,
-    //     imageUrl: flutterIcon,
-    //     title: 'Task',
-    //     subtitle:
-    //         'We believe development must be an enjoyable, creative experience to be truly fulfilling',
-    //     module: Module.task),
+    _ListItemData(
+        color: whiteShadeGradient,
+        height: 170.h,
+        imageUrl: flutterIcon,
+        title: 'Task',
+        subtitle:
+            'We believe development must be an enjoyable, creative experience to be truly fulfilling',
+        module: Module.task),
     // _ListItemData(
     //     color: blackShadeGradient,
     //     height: 210.h,

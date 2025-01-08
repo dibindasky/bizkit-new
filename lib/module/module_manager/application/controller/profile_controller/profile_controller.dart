@@ -50,7 +50,7 @@ class ProfileController extends GetxController {
   @override
   onInit() {
     super.onInit();
-    getProfileDetails();
+    // getProfileDetails();
     getValueFromLocal();
   }
 

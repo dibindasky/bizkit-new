@@ -1,5 +1,6 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/auth/account_switching/account_switching_sheet.dart';
 import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/auth_postmodel.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -33,8 +34,8 @@ class _ScreenLoginState extends State<ScreenLogin>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener((){
-      if(_tabController.indexIsChanging){
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
         FocusScope.of(context).unfocus();
       }
     });
@@ -112,7 +113,7 @@ class _ScreenLoginState extends State<ScreenLogin>
               ),
               kHeight20,
               SizedBox(
-                height: 350, // Adjust this height as needed
+                height: 450, // Adjust this height as needed
                 child: TabBarView(
                   controller: _tabController,
                   children: [
@@ -175,7 +176,8 @@ class _ScreenLoginState extends State<ScreenLogin>
                               }),
                             ),
                             kHeight30,
-                            _signUP(context)
+                            _signUP(context),
+                            _savedAccounts(context)
                           ],
                         ),
                       ),
@@ -200,7 +202,8 @@ class _ScreenLoginState extends State<ScreenLogin>
                               height: tapOnPassword ? null : 0,
                               child: tapOnPassword
                                   ? Padding(
-                                      padding: const EdgeInsets.only(bottom: 10,left: 10,right: 10),
+                                      padding: const EdgeInsets.only(
+                                          bottom: 10, left: 10, right: 10),
                                       child: Text(
                                         maxLines: 6,
                                         'Password must contain at least 8 characters, including lowercase & uppercase letters, numbers, and special characters',
@@ -273,7 +276,8 @@ class _ScreenLoginState extends State<ScreenLogin>
                               }),
                             ),
                             kHeight30,
-                            _signUP(context)
+                            _signUP(context),
+                            _savedAccounts(context)
                           ],
                         ),
                       ),
@@ -285,6 +289,35 @@ class _ScreenLoginState extends State<ScreenLogin>
           ),
         ),
       ),
+    );
+  }
+
+  Widget _savedAccounts(BuildContext context) {
+    return Column(
+      children: [
+        kHeight20,
+        Text('or', style: Theme.of(context).textTheme.displaySmall),
+        const Divider(thickness: 0.1),
+        GestureDetector(
+          onTap: () {
+            accountSwitchingBottomSheet(context, formLoginPage: true);
+          },
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Saved Accounts',
+                      style: Theme.of(context).textTheme.displaySmall),
+                  kWidth10,
+                  const Icon(Icons.person_pin)
+                ],
+              ),
+              const Divider(thickness: 0.1),
+            ],
+          ),
+        )
+      ],
     );
   }
 

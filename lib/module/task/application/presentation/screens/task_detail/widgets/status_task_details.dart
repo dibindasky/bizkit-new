@@ -154,7 +154,11 @@ class TaskDetailStatusSection extends StatelessWidget {
                         child: CircleAvatar(
                           backgroundColor: kwhite,
                           child: Obx(() => Text(
-                                '${taskController.singleTask.value.status}%',
+                                ((taskController.singleTask.value.status
+                                            .replaceAll(' ', ''))
+                                        .isEmpty)
+                                    ? '0%'
+                                    : '${taskController.singleTask.value.status}%',
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium

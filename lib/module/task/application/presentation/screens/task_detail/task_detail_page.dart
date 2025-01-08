@@ -86,7 +86,7 @@ class ScreenTaskDetailPage extends StatelessWidget {
                           const TaskDetailTagsSection(),
                           adjustHieght(15.h),
                           const TaskDetailSubtasksSection(),
-                          adjustHieght(150.h),
+                          // adjustHieght(150.h),
                         ],
                       ),
                     ),

@@ -11,20 +11,20 @@ class ScreenModuleSelector extends StatelessWidget {
   final List<_ListItemData> listItems = [
     _ListItemData(
         color: neonShadeGradientTopToBottom,
-        height: 120.h,
+        height: 100.h,
         imageUrl: image,
         title: 'Biz Card',
         subtitle:
             'We believe development must be an enjoyable, creative experience to be truly fulfilling',
         module: Module.card),
-    // _ListItemData(
-    //     color: whiteShadeGradient,
-    //     height: 170.h,
-    //     imageUrl: flutterIcon,
-    //     title: 'Task',
-    //     subtitle:
-    //         'We believe development must be an enjoyable, creative experience to be truly fulfilling',
-    //     module: Module.task),
+    _ListItemData(
+        color: whiteShadeGradient,
+        height: 100.h,
+        imageUrl: flutterIcon,
+        title: 'Task',
+        subtitle:
+            'We believe development must be an enjoyable, creative experience to be truly fulfilling',
+        module: Module.task),
     // _ListItemData(
     //     color: blackShadeGradient,
     //     height: 210.h,

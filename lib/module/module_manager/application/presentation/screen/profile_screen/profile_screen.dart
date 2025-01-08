@@ -143,16 +143,17 @@ class ProfileScreen extends StatelessWidget {
                 subtitle: 'Level, Security Prefrences',
                 onTap: () {},
               ),
-              Obx(() => moduleController.currentModule.value == Module.card
-                  ? ProfileTiles(
-                      heading: 'Data Management',
-                      subtitle: 'Archieved, Delete',
-                      onTap: () {
-                        GoRouter.of(context)
-                            .pushNamed(Routes.dataManagementScreen);
-                      },
-                    )
-                  : kempty),
+              Obx(() => ProfileTiles(
+                    heading: 'Data Management',
+                    subtitle:
+                        moduleController.currentModule.value == Module.card
+                            ? 'Archieved, Delete, Local save option '
+                            : 'Local save option , Clear all data option',
+                    onTap: () {
+                      GoRouter.of(context)
+                          .pushNamed(Routes.dataManagementScreen);
+                    },
+                  )),
               // Obx(() => moduleController.currentModule.value == Module.card
               //     ? ProfileTiles(
               //         heading: 'Connections & Networking',

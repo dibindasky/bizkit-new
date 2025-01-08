@@ -68,7 +68,7 @@ class _ScreenNavbarTaskModuleState extends State<ScreenNavbarTaskModule> {
                         iconTaskCalenderBottomBar,
                         iconAccountBottomBar
                       ],
-                      imageSizes: const [40, 25, 25, 30],
+                      imageSizes: const [23, 25, 25, 30],
                     ),
                   ),
                 ],

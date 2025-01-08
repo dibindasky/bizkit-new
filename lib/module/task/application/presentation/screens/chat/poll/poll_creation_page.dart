@@ -225,7 +225,7 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '    Active Till',
+                        'Active Till',
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall
@@ -269,6 +269,7 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                 children: [
                   SwitchListTile(
                     splashRadius: double.minPositive,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                     title: Text(
                       'Anonymous Voting',
                       style: Theme.of(context)
@@ -298,6 +299,7 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                 children: [
                   SwitchListTile(
                     splashRadius: double.minPositive,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                     title: Text(
                       'Multiple Answers',
                       style: Theme.of(context)
@@ -330,6 +332,7 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                 children: [
                   SwitchListTile(
                       splashRadius: double.minPositive,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                       title: Text(
                         'Mention Reason for the answer',
                         style: Theme.of(context)

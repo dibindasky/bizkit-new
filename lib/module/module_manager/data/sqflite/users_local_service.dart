@@ -2,9 +2,13 @@ import 'dart:developer';
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/core/model/token/access_token/token_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
+import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/module/module_manager/domain/model/access/access.dart';
 import 'package:bizkit/module/module_manager/domain/repository/sqflite/users_local_service_repo.dart';
+import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
+import 'package:bizkit/service/local_service/sql/bizcard/bizcard_oncreate_db.dart';
 import 'package:bizkit/service/local_service/sql/oncreate_db.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
@@ -115,7 +119,7 @@ class UsersLocalService implements UsersLocalRepo {
       log('getUserWithUid => length => ${data.length}');
       List<TokenModel> users = [];
       for (var x in data) {
-        users.add(TokenModel.fromJson(x,fromLocalDb: true));
+        users.add(TokenModel.fromJson(x, fromLocalDb: true));
       }
       log('getUserWithUid success =====> ${users.length}');
       if (users.isEmpty) return Left(Failure());
@@ -259,6 +263,42 @@ class UsersLocalService implements UsersLocalRepo {
     } catch (e) {
       log('getAccessFromLocalStorage exception =====> ${e.toString()}');
       return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponce>> deleteAllLocalData() async {
+    try {
+      final currentUserId = await SecureStorage.getUserId() ?? '';
+      // final beforeDelete = await localService.query(
+      //     BizCardSql.myConnectionTable,
+      //     where: '${MyConnection.colCurrentUserId} = ?',
+      //     whereArgs: [currentUserId]);
+      // if (beforeDelete.isEmpty) {
+      //   print('no values in local data before delete');
+      // }
+      // for (var value in beforeDelete) {
+      //   print(value);
+      // }
+      const deleteconnectionQuery =
+          '''DELETE FROM ${BizCardSql.myConnectionTable} WHERE ${MyConnection.colCurrentUserId} = ? ''';
+      const deleteBizcardQuery =
+          '''DELETE FROM ${BizCardSql.bizcardTable} WHERE ${CardDetailModel.colUserId} = ? ''';
+
+      await localService.rawDelete(deleteconnectionQuery, [currentUserId]);
+      await localService.rawDelete(deleteBizcardQuery, [currentUserId]);
+      // final values = await localService.query(BizCardSql.myConnectionTable,
+      //     where: '${MyConnection.colCurrentUserId} = ?',
+      //     whereArgs: [currentUserId]);
+      // if (values.isEmpty) {
+      //   print('no values in local data');
+      // }
+      // for (var value in values) {
+      //   print(value);
+      // }
+      return Right(SuccessResponce(message: 'success'));
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
 import 'package:bizkit/core/model/token/access_token/token_model.dart';
 import 'package:bizkit/module/module_manager/domain/model/access/access.dart';
+import 'package:bizkit/module/task/domain/model/success_responce/success_responce.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class UsersLocalRepo {
@@ -39,4 +40,7 @@ abstract class UsersLocalRepo {
 
   /// get all access of an user
   Future<Either<Failure, List<Access>>> getAccessFromLocalStorage();
+
+  /// delete all locally stored data of current user
+  Future<Either<Failure, SuccessResponce>> deleteAllLocalData();
 }

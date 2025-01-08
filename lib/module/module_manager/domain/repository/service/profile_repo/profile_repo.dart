@@ -11,5 +11,4 @@ abstract class ProfileRepo {
   Future<Either<Failure, SuccessResponce>> emailAndPhoneOtp(
       {required ProfileModel profileModel});
   Future<Either<Failure, ProfileModel>> getUserProfileData();
-  Future<Either<Failure,SuccessResponce>>deleteAllLocalData({required String currentUserId});
 }

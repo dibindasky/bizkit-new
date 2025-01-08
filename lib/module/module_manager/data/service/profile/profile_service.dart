@@ -96,38 +96,4 @@ class ProfileService implements ProfileRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, SuccessResponce>> deleteAllLocalData(
-      {required String currentUserId}) async {
-    try {
-      final beforeDelete = await localService.query(BizCardSql.myConnectionTable,
-          where: '${MyConnection.colCurrentUserId} = ?',
-          whereArgs: [currentUserId]);
-          if(beforeDelete.isEmpty){
-            print('no values in local data before delete'); 
-          }
-      for (var value in beforeDelete) {
-        print(value);
-      }
-      const deleteconnectionQuery =
-          '''DELETE FROM ${BizCardSql.myConnectionTable} WHERE ${MyConnection.colCurrentUserId} = ? ''';
-      const deleteBizcardQuery =
-          '''DELETE FROM ${BizCardSql.bizcardTable} WHERE ${CardDetailModel.colUserId} = ? ''';
-
-      await localService.rawDelete(deleteconnectionQuery, [currentUserId]);
-      await localService.rawDelete(deleteBizcardQuery, [currentUserId]);
-      final values = await localService.query(BizCardSql.myConnectionTable,
-          where: '${MyConnection.colCurrentUserId} = ?',
-          whereArgs: [currentUserId]);
-          if(values.isEmpty){
-            print('no values in local data'); 
-          }
-      for (var value in values) {
-        print(value);
-      }
-      return Right(SuccessResponce(message: 'success'));
-    } catch (e) {
-      return Left(Failure(message: e.toString()));
-    }
-  }
 }

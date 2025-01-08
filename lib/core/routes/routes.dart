@@ -11,6 +11,7 @@ class Routes {
   static const String machoMeterScreen = '/macho_meter_screen';
   static const String varificationScreen = '/varification_screen';
   static const String archivedCardScreen = '/archived_card_screen';
+  static const String clearAllLocalDbData = '/clear_all_local_data_screen';
   static const String deletedCardScreen = '/deleted_card_screen';
   static const String enbaleLocalDbScreen = '/enable_local_db_screen';
   static const String dataManagementScreen = '/data_management_screen';

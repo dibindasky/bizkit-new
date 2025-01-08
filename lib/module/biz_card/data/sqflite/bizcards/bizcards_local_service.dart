@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/biz_card/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/business/banking_details_model/banking_details_model.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/business_details.dart';
 import 'package:bizkit/module/biz_card/domain/model/cards/card_detail_model/card_detail_model.dart';
@@ -28,6 +29,9 @@ class BizcardsLocalService implements BizcardsLocalRepo {
       addBizcardFullDetailToLocalStorage(
           {required CardDetailModel bizcardModel}) async {
     try {
+      if (!await LocalStoragePreferenceCard.getStoreCardLocalyOrNot()) {
+        return Left(Failure());
+      }
       final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('addBizcardFullDetailToLocalStorage error: User ID is null');
@@ -252,6 +256,9 @@ class BizcardsLocalService implements BizcardsLocalRepo {
       addBizcardFullDetailToLocalIfNotExists(
           {required CardDetailModel bizcardModel}) async {
     try {
+      if (!await LocalStoragePreferenceCard.getStoreCardLocalyOrNot()) {
+        return Left(Failure());
+      }
       final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('addBizcardFullDetailToLocalIfNotExists error: User ID is null');
@@ -286,6 +293,9 @@ class BizcardsLocalService implements BizcardsLocalRepo {
       getBizcardFullDetailsFromLocalLocalStorage(
           {required String bizcardId}) async {
     try {
+      if (!await LocalStoragePreferenceCard.getStoreCardLocalyOrNot()) {
+        return Left(Failure());
+      }
       final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('getBizcardFullDetailsFromLocalLocalStorage error: User ID is null');
@@ -375,6 +385,9 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addBizcardToLocalStorage(
       {required Bizcard bizcardModel}) async {
     try {
+      if (!await LocalStoragePreferenceCard.getStoreCardLocalyOrNot()) {
+        return Left(Failure());
+      }
       final model = await SecureStorage.getToken();
       if (model.uid == null) {
         log('addBizcardToLocalStorage error: User ID is null');
@@ -498,6 +511,9 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addBizcardToLocalIfNotExists(
       {required Bizcard bizcardModel}) async {
     try {
+      if (!await LocalStoragePreferenceCard.getStoreCardLocalyOrNot()) {
+        return Left(Failure());
+      }
       final model = await SecureStorage.getToken();
 
       if (model.uid == null) {
@@ -531,6 +547,9 @@ class BizcardsLocalService implements BizcardsLocalRepo {
   Future<Either<Failure, List<Bizcard>>>
       getBizcardsFromLocalLocalStorage() async {
     try {
+      if (!await LocalStoragePreferenceCard.getStoreCardLocalyOrNot()) {
+        return Left(Failure());
+      }
       final currentUserData = await SecureStorage.getToken();
       final currentUserId = currentUserData.uid ?? '';
 

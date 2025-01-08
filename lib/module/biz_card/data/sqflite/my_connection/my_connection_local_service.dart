@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/biz_card/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/card.dart';
 import 'package:bizkit/module/biz_card/domain/model/connections/my_connections_responce/connection.dart';
 import 'package:bizkit/module/biz_card/domain/repository/sqflite/my_connection_repo.dart';
@@ -12,15 +13,18 @@ import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
 
 class MyConnectionLocalService implements MyConnectionLocalRepo {
-  deleteAllLocalDatas() async {
-    await localService.delete(BizCardSql.myConnectionTable);
-  }
+  // deleteAllLocalDatas() async {
+  //   await localService.delete(BizCardSql.myConnectionTable);
+  // }
 
   final localService = LocalService();
   @override
   Future<Either<Failure, SuccessResponce>> addMyConnectionsIntoLocal(
       {required MyConnection myconnection}) async {
     try {
+      if (!await LocalStoragePreferenceCard.getStoreCardLocalyOrNot()) {
+        return Left(Failure());
+      }
       final currentUserId = await SecureStorage.getUserId();
       const query = '''INSERT INTO ${BizCardSql.myConnectionTable}(
           ${MyConnection.colCurrentUserId},
@@ -126,6 +130,9 @@ class MyConnectionLocalService implements MyConnectionLocalRepo {
 
   cardInsertOrUpdate(List<Card> listOfCards, localId) async {
     try {
+      if (!await LocalStoragePreferenceCard.getStoreCardLocalyOrNot()) {
+        return Left(Failure());
+      }
       const String query =
           '''SELECT COUNT(*) FROM ${BizCardSql.myConnectionCardTable} WHERE ${Card.myConnectionIdReference} = ? AND ${Card.colCard} = ?''';
       for (var card in listOfCards) {
@@ -174,15 +181,19 @@ class MyConnectionLocalService implements MyConnectionLocalRepo {
   @override
   Future<Either<Failure, SuccessResponce>> getMyconnectionsFromLocal() async {
     try {
+      if (!await LocalStoragePreferenceCard.getStoreCardLocalyOrNot()) {
+        return Left(Failure());
+      }
       final currentUserId = await SecureStorage.getUserId();
       // First, get the connections for the current user
       const myConnectionQuery =
           '''SELECT * FROM ${BizCardSql.myConnectionTable} WHERE ${MyConnection.colCurrentUserId} = ?''';
       final myConnectionResult =
           await localService.rawQuery(myConnectionQuery, [currentUserId]);
-          log(myConnectionResult.isEmpty?'no data in my connection':'data available in my connection ');
+      log(myConnectionResult.isEmpty
+          ? 'no data in my connection'
+          : 'data available in my connection ');
       if (myConnectionResult.isEmpty) {
-        
         return Left(Failure());
       }
 

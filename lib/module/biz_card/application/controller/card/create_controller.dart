@@ -43,8 +43,6 @@ class CardController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool loadingForCardViews = false.obs;
 
-  bool isLocalDataLoaded = false; // Flag to track if local data has been loaded
-
   /// scanned card is my card or not
   RxBool myCardDeeplinkPage = false.obs;
 
@@ -129,25 +127,19 @@ class CardController extends GetxController {
   }
 
   void getAllcards(bool isLoad) async {
-    final profileController = Get.find<ProfileController>();
     if (!isLoad && bizcards.isNotEmpty) return;
     isLoading.value = true;
     bizcards.value = <Bizcard>[];
 
-    if (profileController.isBizCardStorageEnabled.isTrue) {
-      // Step 1: Fetch and display local data first
-      await fetchBizcardsFromLocalDb();
-    }
+    // Step 1: Fetch and display local data first
+    await fetchBizcardsFromLocalDb();
 
     // Step 2: Then update with any network data if available
-    if (!isLocalDataLoaded) {
-      await fetchBizcardsFromNetWork();
-    }
+    await fetchBizcardsFromNetWork();
     isLoading.value = false;
   }
 
   Future<void> fetchBizcardsFromNetWork() async {
-    final profileController = Get.find<ProfileController>();
     final data = await cardRepo.getAllCards();
     data.fold(
       (l) {
@@ -162,11 +154,8 @@ class CardController extends GetxController {
 
           // Store new bizcards in local database
           for (Bizcard bizcard in r.bizcards ?? <Bizcard>[]) {
-            if (profileController.isBizCardStorageEnabled.isTrue) {
-              await bizcardsLocalService.addBizcardToLocalIfNotExists(
-                  bizcardModel: bizcard);
-            }
-
+            await bizcardsLocalService.addBizcardToLocalIfNotExists(
+                bizcardModel: bizcard);
             if (bizcard.isDefault ?? false) {
               defaultBizcardId.value = bizcard.bizcardId ?? '';
             }
@@ -191,8 +180,6 @@ class CardController extends GetxController {
           bizcards.assignAll(success);
           defaultBizcardId.value =
               bizcards.firstWhere((e) => e.isDefault ?? false).bizcardId ?? '';
-          // Mark local data as loaded
-          isLocalDataLoaded = true;
           isLoading.value = false;
         }
       },

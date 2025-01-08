@@ -77,7 +77,8 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                       errorWidget: const Icon(Iconsax.user),
                                     )
                                   : Text(
-                                      task.createdUserDetails?.name?.isNotEmpty ==
+                                      task.createdUserDetails?.name
+                                                  ?.isNotEmpty ==
                                               true
                                           ? task.createdUserDetails!.name!
                                               .substring(0, 2)
@@ -96,9 +97,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 5),
                                   child: ShimmerLoaderTile(
-                                    height: 9.h,
-                                    width: 100.w,
-                                  ),
+                                      height: 9.h, width: 50.w),
                                 )
                               else
                                 Text(
@@ -115,9 +114,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 5),
                                   child: ShimmerLoaderTile(
-                                    height: 9.h,
-                                    width: 100.w,
-                                  ),
+                                      height: 9.h, width: 50.w),
                                 )
                               else
                                 Text(
@@ -155,14 +152,15 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                       errorWidget: const Icon(Iconsax.user),
                                     )
                                   : Text(
-                                      task.createdUserDetails?.name?.isNotEmpty ==
+                                      task.createdUserDetails?.name
+                                                  ?.isNotEmpty ==
                                               true
                                           ? task.createdUserDetails!.name!
                                               .substring(0, 2)
                                               .toUpperCase()
                                           : 'NA',
-                                      style:
-                                          textHeadStyle1.copyWith(color: kwhite),
+                                      style: textHeadStyle1.copyWith(
+                                          color: kwhite),
                                     ),
                             ),
                           ),
@@ -175,28 +173,26 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 5),
                                   child: ShimmerLoaderTile(
-                                    height: 9.h,
-                                    width: 100.w,
-                                  ),
+                                      height: 9.h, width: 50.w),
                                 )
                               else
                                 Text(
                                   'Assigned By',
-                                  style: Theme.of(context).textTheme.displaySmall,
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
                                 ),
                               if (taskController.isLoading.value)
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 5),
                                   child: ShimmerLoaderTile(
-                                    height: 9.h,
-                                    width: 100.w,
-                                  ),
+                                      height: 9.h, width: 50.w),
                                 )
                               else
                                 Text(
                                   task.createdUserDetails?.name ?? 'Unknown',
-                                  style: Theme.of(context).textTheme.displaySmall,
+                                  style:
+                                      Theme.of(context).textTheme.displaySmall,
                                 ),
                             ],
                           ),
@@ -302,9 +298,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                     padding:
                                         const EdgeInsets.symmetric(vertical: 5),
                                     child: ShimmerLoaderTile(
-                                      height: 9.h,
-                                      width: 100.w,
-                                    ),
+                                        height: 9.h, width: 50.w),
                                   )
                                 else
                                   Text(
@@ -349,9 +343,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 5),
                                   child: ShimmerLoaderTile(
-                                    height: 9.h,
-                                    width: 70.w,
-                                  ),
+                                      height: 9.h, width: 50.w),
                                 )
                               else
                                 Text(
@@ -432,9 +424,8 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 5),
                                         child: ShimmerLoaderTile(
-                                          height: 9.h,
-                                          width: 100.w,
-                                        ),
+                                            height: 9.h,
+                                            width: double.infinity),
                                       )
                                     else
                                       FittedBox(
@@ -515,9 +506,8 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 5),
                                         child: ShimmerLoaderTile(
-                                          height: 9.h,
-                                          width: 60.w,
-                                        ),
+                                            height: 9.h,
+                                            width: double.infinity),
                                       )
                                     else
                                       FittedBox(

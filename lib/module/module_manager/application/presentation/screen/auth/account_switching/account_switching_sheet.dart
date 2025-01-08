@@ -1,4 +1,5 @@
 import 'package:bizkit/core/routes/routes.dart';
+import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/create_card.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -8,10 +9,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
-accountSwitchingBottomSheet(BuildContext context) async {
+accountSwitchingBottomSheet(BuildContext context,
+    {bool formLoginPage = false}) async {
   return showModalBottomSheet(
     context: context,
-    builder: (context) => const AccountSwitcherBottomSheet(),
+    builder: (context) =>
+        AccountSwitcherBottomSheet(formLoginPage: formLoginPage),
     showDragHandle: true,
     elevation: 10,
     backgroundColor: Theme.of(context).colorScheme.onTertiary,
@@ -20,7 +23,9 @@ accountSwitchingBottomSheet(BuildContext context) async {
 }
 
 class AccountSwitcherBottomSheet extends StatelessWidget {
-  const AccountSwitcherBottomSheet({super.key});
+  const AccountSwitcherBottomSheet({super.key, required this.formLoginPage});
+
+  final bool formLoginPage;
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +78,7 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
                               userId: data.uid ?? '');
                         },
                         leading: const CircleAvatar(
-                          backgroundImage:
-                              AssetImage(userProfileDummy),
+                          backgroundImage: AssetImage(userProfileDummy),
                         ),
                         title: Text(
                           data.name ?? '',
@@ -83,9 +87,15 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
                               .displaySmall
                               ?.copyWith(fontSize: 14),
                         ),
-                        subtitle:  Text(data.role=='user'?'Personal':'Business'
-                          '',
-                          style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 12,color: kGreyNormal),
+                        subtitle: Text(
+                          data.role == 'user'
+                              ? 'Personal'
+                              : 'Business'
+                                  '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontSize: 12, color: kGreyNormal),
                         ),
                         trailing: Obx(() {
                           return controller.currentUserId.value == data.uid
@@ -106,33 +116,34 @@ class AccountSwitcherBottomSheet extends StatelessWidget {
                 },
               );
             }),
-            Card(
-              elevation: 0,
-              child: Container(
-                margin: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  borderRadius: kBorderRadius20,
-                ),
-                child: ListTile(
-                  onTap: () {
-                    // logout from application with out clalling logout to server
-                    // user account will be avilable for account switching
-                    controller.logOut(context, false);
-                  },
-                  leading: const CircleAvatar(
-                    backgroundImage: AssetImage(bizcardBgImage),
-                    child: Icon(Icons.add, color: kwhite),
+            if (!formLoginPage)
+              Card(
+                elevation: 0,
+                child: Container(
+                  margin: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: kBorderRadius20,
                   ),
-                  title: Text(
-                    'Login to Account',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(fontSize: 14),
+                  child: ListTile(
+                    onTap: () {
+                      // logout from application with out clalling logout to server
+                      // user account will be avilable for account switching
+                      controller.logOut(context, false);
+                    },
+                    leading: const CircleAvatar(
+                      backgroundImage: AssetImage(bizcardBgImage),
+                      child: Icon(Icons.add, color: kwhite),
+                    ),
+                    title: Text(
+                      'Login to Account',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall
+                          ?.copyWith(fontSize: 14),
+                    ),
                   ),
                 ),
               ),
-            ),
             kHeight50,
             kHeight10,
           ],

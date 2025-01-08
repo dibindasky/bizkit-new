@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/biz_card/application/controller/card/create_controller.dart';
 import 'package:bizkit/module/biz_card/application/controller/received_card/received_card_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/module_controller.dart';
 import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
@@ -22,8 +23,15 @@ class _DataManagementScreenState extends State<DataManagementScreen> {
   @override
   Widget build(BuildContext context) {
     final profileController = Get.find<ProfileController>();
-    final cardController = Get.find<CardController>();
-    final receivedCardController = Get.find<ReceivedCardController>();
+    final moduleController = Get.find<ModuleController>();
+
+    final cardController = moduleController.currentModule.value == Module.card
+        ? Get.find<CardController>()
+        : null;
+    final receivedCardController =
+        moduleController.currentModule.value == Module.card
+            ? Get.find<ReceivedCardController>()
+            : null;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -55,13 +63,129 @@ class _DataManagementScreenState extends State<DataManagementScreen> {
               const SizedBox(height: 20),
               Column(
                 children: [
+                  if (moduleController.currentModule.value == Module.card)
+                    Card(
+                      elevation: 0,
+                      child: GestureDetector(
+                        onTap: () {
+                          cardController?.fetchDeletedAndArchivedCards();
+                          GoRouter.of(context)
+                              .pushNamed(Routes.archivedCardScreen);
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 3.h),
+                          child: Container(
+                            height: 50,
+                            width: double.infinity,
+                            color: kwhite,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15),
+                                  child: Text(
+                                    'Archived Cards',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 13),
+                                  ),
+                                ),
+                                Container(
+                                  width: 30.w,
+                                  height: 30.h,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: klightgrey),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary,
+                                  ),
+                                  child: const Icon(
+                                    Iconsax.arrow_right_3,
+                                    color: kblack,
+                                    size: 13,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  kWidth10,
+                  if (moduleController.currentModule.value == Module.card)
+                    Card(
+                      elevation: 0,
+                      child: GestureDetector(
+                        onTap: () {
+                          cardController?.fetchDeletedAndArchivedCards();
+                          receivedCardController
+                              ?.fetchAllDeletedVisitingCards();
+                          GoRouter.of(context)
+                              .pushNamed(Routes.deletedCardScreen);
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 3.h),
+                          child: Container(
+                            height: 50,
+                            width: double.infinity,
+                            color: kwhite,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15),
+                                  child: Text(
+                                    'Deleted Cards',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 13),
+                                  ),
+                                ),
+                                Container(
+                                  width: 30.w,
+                                  height: 30.h,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: klightgrey),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onTertiary,
+                                  ),
+                                  child: const Icon(
+                                    Iconsax.arrow_right_3,
+                                    color: kblack,
+                                    size: 13,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  kWidth10,
+                  // Obx(() => buildSwitch("Enable Local Save Option",
+                  //         profileController.isBizCardStorageEnabled.value,
+                  //         (value) {
+                  //       profileController.isBizCardStorageEnabled.value = value;
+                  //       profileController.saveBizCardStoragePreference();
+                  //     })),
+
                   Card(
                     elevation: 0,
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: () {
-                        cardController.fetchDeletedAndArchivedCards();
                         GoRouter.of(context)
-                            .pushNamed(Routes.archivedCardScreen);
+                            .pushNamed(Routes.enbaleLocalDbScreen);
                       },
                       child: Padding(
                         padding:
@@ -76,7 +200,7 @@ class _DataManagementScreenState extends State<DataManagementScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 15),
                                 child: Text(
-                                  'Archived Cards',
+                                  'Enable Local Save Option',
                                   style: Theme.of(context)
                                       .textTheme
                                       .displaySmall
@@ -109,66 +233,7 @@ class _DataManagementScreenState extends State<DataManagementScreen> {
                   kWidth10,
                   Card(
                     elevation: 0,
-                    child: InkWell(
-                      onTap: () {
-                        cardController.fetchDeletedAndArchivedCards();
-                        receivedCardController.fetchAllDeletedVisitingCards();
-                        GoRouter.of(context)
-                            .pushNamed(Routes.deletedCardScreen);
-                      },
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 3.h),
-                        child: Container(
-                          height: 50,
-                          width: double.infinity,
-                          color: kwhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Text(
-                                  'Deleted Cards',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 13),
-                                ),
-                              ),
-                              Container(
-                                width: 30.w,
-                                height: 30.h,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: klightgrey),
-                                  color:
-                                      Theme.of(context).colorScheme.onTertiary,
-                                ),
-                                child: const Icon(
-                                  Iconsax.arrow_right_3,
-                                  color: kblack,
-                                  size: 13,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  kWidth10,
-                  Obx(() => buildSwitch('Save Local Data',
-                          profileController.saveLocalData.value, (value) {
-                        profileController.saveLocalData.value = value;
-                        profileController.setLocalData();
-                      })),
-                  kWidth10,
-                  Card(
-                    elevation: 0,
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: () {
                         showConfirmationDialog(
                           actionButton: 'Clear All',

@@ -134,7 +134,7 @@ class CardController extends GetxController {
     isLoading.value = true;
     bizcards.value = <Bizcard>[];
 
-    if (profileController.saveLocalData.isTrue) {
+    if (profileController.isBizCardStorageEnabled.isTrue) {
       // Step 1: Fetch and display local data first
       await fetchBizcardsFromLocalDb();
     }
@@ -162,7 +162,7 @@ class CardController extends GetxController {
 
           // Store new bizcards in local database
           for (Bizcard bizcard in r.bizcards ?? <Bizcard>[]) {
-            if (profileController.saveLocalData.isTrue) {
+            if (profileController.isBizCardStorageEnabled.isTrue) {
               await bizcardsLocalService.addBizcardToLocalIfNotExists(
                   bizcardModel: bizcard);
             }
@@ -212,10 +212,10 @@ class CardController extends GetxController {
       isLoading.value = true;
     }
 
-    if (profileController.saveLocalData.isTrue) {
+    if (profileController.isBizCardStorageEnabled.isTrue) {
+      // Step 1: Fetch and display local data first
       await fetchBizcardDetailsFromLocalDb(cardId);
     }
-    // Step 1: Fetch and display local data first
 
     // Step 2: Then update with any network data if available
     await fetchBizcardDetailFromNetWork(cardId, toEdit);
@@ -228,7 +228,7 @@ class CardController extends GetxController {
       (l) => isLoading.value = false,
       (r) async {
         bizcardDetail.value = r;
-        if (profileController.saveLocalData.isTrue) {
+        if (profileController.isBizCardStorageEnabled.isTrue) {
           await bizcardsLocalService.addBizcardFullDetailToLocalIfNotExists(
               bizcardModel: r);
         }

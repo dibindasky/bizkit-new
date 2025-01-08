@@ -95,5 +95,4 @@ class ProfileService implements ProfileRepo {
       return Left(Failure(message: errorMessage));
     }
   }
-
 }

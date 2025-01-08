@@ -34,6 +34,9 @@ class QuickTaskAssignedToResponce {
   static const colQuickTaskAssignedToLocalId =
       'quick_task_assigned_to_local_id';
 
+  static const colUserId = 'user_id';
+  static const colQuickTaskId = 'quick_task_id';
+
   static const colQuickTaskAssignedToUserId = 'quick_task_assigned_to_user_id';
   static const colQuickTaskAssignedToUserName =
       'quick_task_assigned_to_user_name';

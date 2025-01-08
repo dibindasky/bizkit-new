@@ -66,7 +66,7 @@ class ClearAllLocalDataScreen extends StatelessWidget {
                               context,
                               onPressed: () {
                                 profileController
-                                    .deleteAllDataFromLocal(context);
+                                    .clearBizcardLocalStorage(context);
                               },
                             );
                           },
@@ -100,7 +100,7 @@ class ClearAllLocalDataScreen extends StatelessWidget {
                               context,
                               onPressed: () {
                                 profileController
-                                    .deleteAllDataFromLocal(context);
+                                    .clearTaskLocalStorage(context);
                               },
                             );
                           },

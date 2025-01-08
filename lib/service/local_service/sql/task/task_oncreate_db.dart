@@ -103,6 +103,8 @@ class TaskSql {
   static const String _taskAttachmentsTableCreation = '''
     CREATE TABLE IF NOT EXISTS $taskAttachmentsTable(
       ${Attachment.colTaskAttachmentLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${Attachment.colUserId} TEXT,
+      ${Attachment.colTaskId} TEXT,
       ${Attachment.colTaskAttachment} TEXT,
       ${Attachment.colTaskAttachmentType} TEXT,
       ${Attachment.colTaskAttachmentReferenceId} INTEGER,
@@ -115,6 +117,8 @@ class TaskSql {
   static const String _taskSubTasksTableCreation = '''
     CREATE TABLE IF NOT EXISTS $taskSubTasksTable(
       ${SubTask.colTaskSubtaskLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${SubTask.colUserId} TEXT,
+      ${SubTask.colTaskId} TEXT,
       ${SubTask.colTaskSubtaskId} TEXT,
       ${SubTask.colTaskSubtaskTitle} TEXT,
       ${SubTask.colTaskSubtaskDescription} TEXT,
@@ -132,6 +136,8 @@ class TaskSql {
   static const String _taskAssignedToDetailTableCreation = '''
     CREATE TABLE IF NOT EXISTS $taskAssignedToDetailTable(
       ${AssignedToDetail.colTaskAssignedToDetailLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${AssignedToDetail.colUserId} TEXT,
+      ${AssignedToDetail.colTaskId} TEXT,
       ${AssignedToDetail.colTaskAssignedToDetailUserId} TEXT,
       ${AssignedToDetail.colTaskAssignedToDetailUserName} TEXT,
       ${AssignedToDetail.colTaskAssignedToDetailIsAccepted} TEXT,
@@ -192,6 +198,8 @@ class TaskSql {
   static const String _quickTaskAssignedToTableCreation = '''
   CREATE TABLE IF NOT EXISTS $quickTaskAssignedToTable(
     ${QuickTaskAssignedToResponce.colQuickTaskAssignedToLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+    ${QuickTaskAssignedToResponce.colUserId} TEXT,
+    ${QuickTaskAssignedToResponce.colQuickTaskId} TEXT,
     ${QuickTaskAssignedToResponce.colQuickTaskAssignedToUserId} TEXT,
     ${QuickTaskAssignedToResponce.colQuickTaskAssignedToUserName} TEXT,
     ${QuickTaskAssignedToResponce.colQuickTaskAssignedToStatus} TEXT,

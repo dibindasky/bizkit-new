@@ -35,11 +35,27 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
     final controller = Get.find<ChatController>();
     return Scaffold(
       appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(7.0),
+          child: GestureDetector(
+            onTap: () {
+              GoRouter.of(context).pop(context);
+            },
+            child: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.onPrimary,
+              child: Icon(
+                Icons.arrow_back_ios_new,
+                size: 18.sp,
+                color: Theme.of(context).colorScheme.onTertiary,
+              ),
+            ),
+          ),
+        ),
+        backgroundColor: knill,
         surfaceTintColor: knill,
         title: Text(
           'Create Poll',
-          style:
-              Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 15),
+          style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -167,7 +183,7 @@ class _ScreenPollCreationState extends State<ScreenPollCreation> {
                 }).toList(),
               ),
               adjustHieght(8.h),
-              _optionsControllers.length < 7
+              _optionsControllers.length < 6
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

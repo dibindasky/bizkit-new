@@ -31,6 +31,9 @@ class AssignedToDetail {
   static const colTaskAssignedToDetailLocalId =
       'task_assigned_to_detail_local_id';
 
+  static const colTaskId = 'task_id';
+  static const colUserId = 'user_id';
+
   static const colTaskAssignedToDetailUserId =
       'task_assigned_to_detail_user_id';
   static const colTaskAssignedToDetailUserName =

@@ -96,7 +96,7 @@ class TaskLocalService implements TaskLocalRepo {
           taskModel.isKilled == true ? 1 : 0, // Convert boolean to int (1/0)
           tagsAsString,
           taskModel.createdAt ?? '',
-          taskModel.status ?? '',
+          taskModel.status,
           taskModel.createdUserDetails?.id ?? '',
           taskModel.createdUserDetails?.name ?? '',
           taskModel.createdUserDetails?.profilePicture ?? '',
@@ -108,15 +108,22 @@ class TaskLocalService implements TaskLocalRepo {
 
       // SQL query to insert task attachments
       addTaskAttachmentsToLocalStorageIfNotPresentInStorage(
+          currentUserId: currentUserId,
+          taskId: taskModel.id ?? '',
           attachments: taskModel.attachments ?? <Attachment>[],
           referenceId: referenceId);
 
       // SQL query to insert sub-task details
       addTaskSubtasksToLocalStorageIfNotPresentInStorage(
-          subtasks: taskModel.subTask ?? <SubTask>[], referenceId: referenceId);
+          currentUserId: currentUserId,
+          taskId: taskModel.id ?? '',
+          subtasks: taskModel.subTask ?? <SubTask>[],
+          referenceId: referenceId);
 
       // SQL query to insert assigned-to details [users assigned to the task]
       addTaskAssignedToDetailsToLocalStorageIfNotPresentInStorage(
+          currentUserId: currentUserId,
+          taskId: taskModel.id ?? '',
           assignedToDetails:
               taskModel.assignedToDetails ?? <AssignedToDetail>[],
           referenceId: referenceId);
@@ -129,20 +136,24 @@ class TaskLocalService implements TaskLocalRepo {
     }
   }
 
-  Future<void> addAssignedToDetails(
-      AssignedToDetail assignedToDetail, int referenceId) async {
+  Future<void> addAssignedToDetails(AssignedToDetail assignedToDetail,
+      int referenceId, String currentUserId, String taskId) async {
     const assignedToDetailsQuery = '''
         INSERT INTO ${TaskSql.taskAssignedToDetailTable}(
+         ${AssignedToDetail.colUserId},
+         ${AssignedToDetail.colTaskId},
          ${AssignedToDetail.colTaskAssignedToDetailUserId},
          ${AssignedToDetail.colTaskAssignedToDetailUserName},
          ${AssignedToDetail.colTaskAssignedToDetailIsAccepted},
          ${AssignedToDetail.ccolTaskAssignedToDetailReferenceId})
-      VALUES(?,?,?,?)   
+      VALUES(?,?,?,?,?,?)   
       ''';
 
     await localService.rawInsert(
       assignedToDetailsQuery,
       [
+        currentUserId,
+        taskId,
         assignedToDetail.userId,
         assignedToDetail.name,
         assignedToDetail.isAccepted,
@@ -151,9 +162,12 @@ class TaskLocalService implements TaskLocalRepo {
     );
   }
 
-  Future<void> addSubTask(SubTask subtask, int referenceId) async {
+  Future<void> addSubTask(SubTask subtask, int referenceId,
+      String currentUserId, String taskId) async {
     const subTaskQuery = '''
         INSERT INTO ${TaskSql.taskSubTasksTable}(
+        ${SubTask.colUserId},
+        ${SubTask.colTaskId},
         ${SubTask.colTaskSubtaskId},
         ${SubTask.colTaskSubtaskTitle},
         ${SubTask.colTaskSubtaskDescription},
@@ -162,11 +176,13 @@ class TaskLocalService implements TaskLocalRepo {
         ${SubTask.colTaskSubtaskTotalTimeTaken},
         ${SubTask.colTaskSubtaskDuration},
         ${SubTask.colTaskSubTaskReferenceId})
-      VALUES(?,?,?,?,?,?,?,?)  
+      VALUES(?,?,?,?,?,?,?,?,?,?)  
       ''';
     await localService.rawInsert(
       subTaskQuery,
       [
+        currentUserId,
+        taskId,
         subtask.id,
         subtask.title,
         subtask.description,
@@ -179,18 +195,27 @@ class TaskLocalService implements TaskLocalRepo {
     );
   }
 
-  Future<void> addAttachments(Attachment attachment, int referenceId) async {
+  Future<void> addAttachments(Attachment attachment, int referenceId,
+      String currentUserId, String taskId) async {
     const attachmentQuery = '''
         INSERT INTO ${TaskSql.taskAttachmentsTable} (
+        ${Attachment.colUserId},
+        ${Attachment.colTaskId},
         ${Attachment.colTaskAttachment},
         ${Attachment.colTaskAttachmentType},
         ${Attachment.colTaskAttachmentReferenceId})
-      VALUES(?,?,?)  
+      VALUES(?,?,?,?,?)  
       ''';
 
     await localService.rawInsert(
       attachmentQuery,
-      [attachment.attachment, attachment.type, referenceId],
+      [
+        currentUserId,
+        taskId,
+        attachment.attachment,
+        attachment.type,
+        referenceId
+      ],
     );
   }
 
@@ -274,12 +299,19 @@ class TaskLocalService implements TaskLocalRepo {
       );
 
       addTaskAttachmentsToLocalStorageIfNotPresentInStorage(
+          currentUserId: currentUserId,
+          taskId: taskModel.id ?? '',
           attachments: taskModel.attachments ?? <Attachment>[],
           referenceId: referenceId);
       addTaskSubtasksToLocalStorageIfNotPresentInStorage(
-          subtasks: taskModel.subTask ?? <SubTask>[], referenceId: referenceId);
+          currentUserId: currentUserId,
+          taskId: taskModel.id ?? '',
+          subtasks: taskModel.subTask ?? <SubTask>[],
+          referenceId: referenceId);
 
       addTaskAssignedToDetailsToLocalStorageIfNotPresentInStorage(
+          currentUserId: currentUserId,
+          taskId: taskModel.id ?? '',
           assignedToDetails:
               taskModel.assignedToDetails ?? <AssignedToDetail>[],
           referenceId: referenceId);
@@ -292,11 +324,14 @@ class TaskLocalService implements TaskLocalRepo {
     }
   }
 
-  Future<void> _updateSubtasks(SubTask subtask, int referenceId) async {
+  Future<void> _updateSubtasks(SubTask subtask, int referenceId,
+      String currentUserId, String taskId) async {
     // Then, insert all current subtasks
     const insertSubTaskQuery = '''
     UPDATE ${TaskSql.taskSubTasksTable}
     SET
+      ${SubTask.colUserId} = ?,
+      ${SubTask.colTaskId} = ?,
       ${SubTask.colTaskSubtaskId} = ?,
       ${SubTask.colTaskSubtaskTitle} = ?,
       ${SubTask.colTaskSubtaskDescription} = ?,
@@ -311,6 +346,8 @@ class TaskLocalService implements TaskLocalRepo {
     await localService.rawUpdate(
       insertSubTaskQuery,
       [
+        currentUserId,
+        taskId,
         subtask.id,
         subtask.title,
         subtask.description,
@@ -326,9 +363,12 @@ class TaskLocalService implements TaskLocalRepo {
 
   @override
   Future<Either<Failure, SuccessResponseModel>>
-      addTaskAttachmentsToLocalStorageIfNotPresentInStorage(
-          {required List<Attachment> attachments,
-          required int referenceId}) async {
+      addTaskAttachmentsToLocalStorageIfNotPresentInStorage({
+    required List<Attachment> attachments,
+    required String currentUserId,
+    required int referenceId,
+    required String taskId,
+  }) async {
     try {
       const String query = '''
       DELETE FROM ${TaskSql.taskAttachmentsTable}
@@ -338,7 +378,7 @@ class TaskLocalService implements TaskLocalRepo {
       await localService.rawDelete(query, [referenceId]);
 
       for (var attachment in attachments) {
-        await addAttachments(attachment, referenceId);
+        await addAttachments(attachment, referenceId, currentUserId, taskId);
       }
 
       return Right(SuccessResponseModel());
@@ -350,8 +390,12 @@ class TaskLocalService implements TaskLocalRepo {
 
   @override
   Future<Either<Failure, SuccessResponseModel>>
-      addTaskSubtasksToLocalStorageIfNotPresentInStorage(
-          {required List<SubTask> subtasks, required int referenceId}) async {
+      addTaskSubtasksToLocalStorageIfNotPresentInStorage({
+    required List<SubTask> subtasks,
+    required int referenceId,
+    required String currentUserId,
+    required String taskId,
+  }) async {
     try {
       const String query = '''
       SELECT COUNT(*) 
@@ -370,9 +414,9 @@ class TaskLocalService implements TaskLocalRepo {
         );
 
         if (!present) {
-          await addSubTask(subtask, referenceId);
+          await addSubTask(subtask, referenceId, currentUserId, taskId);
         } else {
-          await _updateSubtasks(subtask, referenceId);
+          await _updateSubtasks(subtask, referenceId, currentUserId, taskId);
         }
       }
 
@@ -385,9 +429,12 @@ class TaskLocalService implements TaskLocalRepo {
 
   @override
   Future<Either<Failure, SuccessResponseModel>>
-      addTaskAssignedToDetailsToLocalStorageIfNotPresentInStorage(
-          {required List<AssignedToDetail> assignedToDetails,
-          required int referenceId}) async {
+      addTaskAssignedToDetailsToLocalStorageIfNotPresentInStorage({
+    required List<AssignedToDetail> assignedToDetails,
+    required String currentUserId,
+    required int referenceId,
+    required String taskId,
+  }) async {
     try {
       const String query = '''
       DELETE FROM ${TaskSql.taskAssignedToDetailTable}
@@ -397,7 +444,8 @@ class TaskLocalService implements TaskLocalRepo {
       await localService.rawDelete(query, [referenceId]);
 
       for (var assignedToDetail in assignedToDetails) {
-        await addAssignedToDetails(assignedToDetail, referenceId);
+        await addAssignedToDetails(
+            assignedToDetail, referenceId, currentUserId, taskId);
       }
 
       return Right(SuccessResponseModel());
@@ -1139,6 +1187,8 @@ class TaskLocalService implements TaskLocalRepo {
         assignedToDetails:
             quickTask.assignedTo ?? <QuickTaskAssignedToResponce>[],
         referenceId: qucikTaskReferenceId,
+        currentUserId: currentUserId,
+        quickTaskId: quickTask.id ?? '',
       );
 
       log('addQuickTaskToLocalStorage success =====> ');
@@ -1151,9 +1201,12 @@ class TaskLocalService implements TaskLocalRepo {
 
   @override
   Future<Either<Failure, SuccessResponseModel>>
-      addQuickTaskAssignedToDetailsToLocalIfNotExists(
-          {required List<QuickTaskAssignedToResponce> assignedToDetails,
-          required int referenceId}) async {
+      addQuickTaskAssignedToDetailsToLocalIfNotExists({
+    required List<QuickTaskAssignedToResponce> assignedToDetails,
+    required int referenceId,
+    required String quickTaskId,
+    required String currentUserId,
+  }) async {
     try {
       final String? currentUserId = await userId;
       if (currentUserId == null) {
@@ -1169,7 +1222,8 @@ class TaskLocalService implements TaskLocalRepo {
       await localService.rawDelete(query, [referenceId]);
 
       for (var assignedToDetail in assignedToDetails) {
-        await addQuickTaskAssignedToDetails(assignedToDetail, referenceId);
+        await addQuickTaskAssignedToDetails(
+            assignedToDetail, referenceId, quickTaskId, currentUserId);
       }
 
       log('addQuickTaskAssignedToDetailsToLocalIfNotExists success =====> ');
@@ -1181,20 +1235,28 @@ class TaskLocalService implements TaskLocalRepo {
   }
 
   Future<void> addQuickTaskAssignedToDetails(
-      QuickTaskAssignedToResponce assignedToDetail, int referenceId) async {
+    QuickTaskAssignedToResponce assignedToDetail,
+    int referenceId,
+    String quickTaskId,
+    String currentUserId,
+  ) async {
     const assignedToDetailsQuery = '''
         INSERT INTO ${TaskSql.quickTaskAssignedToTable}(
+        ${QuickTaskAssignedToResponce.colUserId},
+        ${QuickTaskAssignedToResponce.colQuickTaskId},
          ${QuickTaskAssignedToResponce.colQuickTaskAssignedToUserId},
          ${QuickTaskAssignedToResponce.colQuickTaskAssignedToUserName},
          ${QuickTaskAssignedToResponce.colQuickTaskAssignedToStatus},
          ${QuickTaskAssignedToResponce.colQuickTaskAssignedToUserProfilePicture},
          ${QuickTaskAssignedToResponce.colQuickTaskAssignedToReferenceId})
-      VALUES(?,?,?,?,?)   
+      VALUES(?,?,?,?,?,?,?)   
       ''';
 
     await localService.rawInsert(
       assignedToDetailsQuery,
       [
+        currentUserId,
+        quickTaskId,
         assignedToDetail.userId,
         assignedToDetail.name,
         assignedToDetail.status,
@@ -1262,10 +1324,11 @@ class TaskLocalService implements TaskLocalRepo {
       final qucikTaskReferenceId = await localService.rawUpdate(query, values);
 
       addQuickTaskAssignedToDetailsToLocalIfNotExists(
-        assignedToDetails:
-            quickTask.assignedTo ?? <QuickTaskAssignedToResponce>[],
-        referenceId: qucikTaskReferenceId,
-      );
+          assignedToDetails:
+              quickTask.assignedTo ?? <QuickTaskAssignedToResponce>[],
+          referenceId: qucikTaskReferenceId,
+          currentUserId: currentUserId,
+          quickTaskId: quickTask.id ?? '');
 
       log('updateQuickTaskFromLocalStorage success =====> ');
       return Right(SuccessResponseModel());

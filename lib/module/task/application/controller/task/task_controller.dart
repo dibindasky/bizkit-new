@@ -111,6 +111,7 @@ class CreateTaskController extends GetxController {
   RxString deadlineDateForTaskCreation = ''.obs;
 
   RxString nextActionDate = ''.obs;
+  RxBool nextActionDateAddedError = false.obs;
 
   RxString userSearchfilterType = 'all'.obs;
 
@@ -2375,6 +2376,7 @@ class CreateTaskController extends GetxController {
         );
         loadingForNextActionDate.value = false;
         nextActionDate.value = '';
+        nextActionDateAddedError.value = false;
         nexActiondateDescriptionController.clear();
         Navigator.of(context).pop(context);
         showCustomToast(

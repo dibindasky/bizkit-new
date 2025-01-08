@@ -269,11 +269,11 @@ class AuthenticationController extends GetxController {
     if (logout) {
       await authRepo.logOut();
       final model = await SecureStorage.getToken();
-      usersLocalRepo.updateUserInLocalStorage(
+      await usersLocalRepo.updateUserInLocalStorage(
           model: model.copyWith(logoutFromDevice: 'logout'));
     }
-    SecureStorage.clearLogin();
-    Get.find<ModuleController>().deleteAllControlers();
+    await SecureStorage.clearLogin();
+    await Get.find<ModuleController>().deleteAllControlers();
   }
 
   Future<void> checkOnBoarding(BuildContext context) async {

@@ -90,12 +90,14 @@ class DeadlineChooserNextActionDate extends StatelessWidget {
     this.showTitle = false,
     this.nextActionFromEdit = false,
     this.nextActionDate,
+    this.error = false,
   });
 
   final Function(String) onPressed;
   final bool showTitle;
   final bool? nextActionFromEdit;
   final NextActionDate? nextActionDate;
+  final bool error;
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +142,7 @@ class DeadlineChooserNextActionDate extends StatelessWidget {
           child: Card(
             elevation: 0,
             child: ContainerTextFieldDummy(
+              borderColor: error ? kred : null,
               text: nextActionFromEdit == false
                   ? controller.nextActionDate.value.isEmpty
                       ? 'Choose date'

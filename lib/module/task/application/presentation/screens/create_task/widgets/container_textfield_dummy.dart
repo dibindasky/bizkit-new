@@ -5,11 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ContainerTextFieldDummy extends StatelessWidget {
   const ContainerTextFieldDummy(
-      {super.key, required this.text, this.suffixIcon, this.onTap});
+      {super.key,
+      required this.text,
+      this.suffixIcon,
+      this.onTap,
+      this.borderColor});
 
   final String text;
   final IconData? suffixIcon;
   final VoidCallback? onTap;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +27,9 @@ class ContainerTextFieldDummy extends StatelessWidget {
           height: 40.h,
           width: double.infinity,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-          ),
+              borderRadius: BorderRadius.circular(12),
+              border:
+                  borderColor == null ? null : Border.all(color: borderColor!)),
           child: Row(
             children: [
               Expanded(

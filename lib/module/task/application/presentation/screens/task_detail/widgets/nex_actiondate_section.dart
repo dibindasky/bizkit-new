@@ -357,15 +357,16 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DeadlineChooserNextActionDate(
-              nextActionDate: nextActionDate,
-              nextActionFromEdit: isEdit,
-              onPressed: (date) {
-                taskController.nextActionDate.value = date;
-
-                FocusScope.of(context).unfocus();
-              },
-            ),
+            Obx(() => DeadlineChooserNextActionDate(
+                  error: taskController.nextActionDateAddedError.value,
+                  nextActionDate: nextActionDate,
+                  nextActionFromEdit: isEdit,
+                  onPressed: (date) {
+                    taskController.nextActionDate.value = date;
+                    taskController.nextActionDateAddedError.value = false;
+                    FocusScope.of(context).unfocus();
+                  },
+                )),
             adjustHieght(10.h),
             TaskTextField(
               maxLines: 5,
@@ -394,6 +395,10 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
                             : 'Create',
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
+                        if (taskController.nextActionDate.value.isEmpty) {
+                          taskController.nextActionDateAddedError.value = true;
+                          return;
+                        }
                         if (isEdit == true) {
                           taskController.editNextActionDate(
                               index: index!, context: context);

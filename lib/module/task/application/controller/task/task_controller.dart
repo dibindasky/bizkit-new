@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:bizkit/core/model/pagination_query/pagination_query.dart';
+import 'package:bizkit/module/module_manager/application/controller/profile_controller/profile_controller.dart';
 import 'package:bizkit/module/module_manager/data/sqflite/user_history_service.dart';
 import 'package:bizkit/module/task/application/controller/folder/folder_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
@@ -855,15 +856,19 @@ class CreateTaskController extends GetxController {
 
   // Filters tasks by deadline
   Future<void> taskFilterByDeadline() async {
+    final profileController = Get.find<ProfileController>();
     taksListLoading.value = true;
     deadlineTasksPageNumber = 1;
     deadlineTasks.value = <Task>[];
     getNetworkLoading.value = true;
-    // Step 1: Fetch and display local data first
-    await fetchTasksFromLocalDb();
+
+    if (profileController.isTaskStorageEnabled.isTrue) {
+      // Step 1: Fetch and display local data first
+      await fetchTasksFromLocalDb();
+    }
 
     // Step 2: Then update with any network data if available
-    await fetchTasksFromNetwork();
+    await fetchTasksFromNetwork(profileController: profileController);
     getNetworkLoading.value = false;
     taksListLoading.value = false;
   }
@@ -891,7 +896,8 @@ class CreateTaskController extends GetxController {
     );
   }
 
-  Future<void> fetchTasksFromNetwork() async {
+  Future<void> fetchTasksFromNetwork(
+      {required ProfileController profileController}) async {
     final result = await taskService.filterByDeadline(
       filterByDeadline: FilterByDeadlineModel(
         date: deadlineDate.value,
@@ -919,9 +925,11 @@ class CreateTaskController extends GetxController {
             } else {
               deadlineTasks[index] = task;
             }
-            await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
-              taskModel: task,
-            );
+            if (profileController.isTaskStorageEnabled.isTrue) {
+              await taskLocalService.addTaskToLocalStorageIfNotPresentInStorage(
+                taskModel: task,
+              );
+            }
           }
         }
       },

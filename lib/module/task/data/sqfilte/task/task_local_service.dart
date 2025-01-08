@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bizkit/core/model/failure/failure.dart';
 import 'package:bizkit/core/model/success_response_model/success_response_model.dart';
+import 'package:bizkit/module/task/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/get_recent_tasks_responce.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/recent_tasks/created_by.dart';
 import 'package:bizkit/module/task/domain/model/dashboard/get_recent_tasks_responce/recent_tasks/recent_tasks.dart';
@@ -412,6 +413,10 @@ class TaskLocalService implements TaskLocalRepo {
       addTaskFullDetailsToLocalStorageIfNotPresentInStorage(
           {required GetTaskResponce taskModel}) async {
     try {
+      // Check if task caching is enabled
+      if (!await LocalStoragePreferenceTask.isTaskCachingEnabled()) {
+        return Left(Failure());
+      }
       final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('updateTaskFromLocalStorage error: User ID is null');
@@ -447,6 +452,10 @@ class TaskLocalService implements TaskLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addTaskToLocalStorage(
       {required task.Task taskModel}) async {
     try {
+      // Check if task caching is enabled
+      if (!await LocalStoragePreferenceTask.isTaskCachingEnabled()) {
+        return Left(Failure());
+      }
       final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('addTaskToLocalStorage error: User ID is null');
@@ -637,6 +646,10 @@ class TaskLocalService implements TaskLocalRepo {
       addTaskToLocalStorageIfNotPresentInStorage(
           {required task.Task taskModel}) async {
     try {
+      // Check if task caching is enabled
+      if (!await LocalStoragePreferenceTask.isTaskCachingEnabled()) {
+        return Left(Failure());
+      }
       final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('addTaskToLocalStorageIfNotPresentInStorage error: User ID is null');
@@ -672,6 +685,10 @@ class TaskLocalService implements TaskLocalRepo {
     required String taskId,
   }) async {
     try {
+      // Check if task caching is enabled
+      if (!await LocalStoragePreferenceTask.isTaskCachingEnabled()) {
+        return Left(Failure());
+      }
       final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('getTaskFullDetailsFromLocalStorage error: User ID is null');
@@ -805,6 +822,10 @@ class TaskLocalService implements TaskLocalRepo {
     required int pageSize,
   }) async {
     try {
+      // Check if task caching is enabled
+      if (!await LocalStoragePreferenceTask.isTaskCachingEnabled()) {
+        return Left(Failure());
+      }
       // Parse the provided deadline string into a DateTime object
       final deadline = DateTime.parse(filterByDeadline);
 
@@ -910,6 +931,9 @@ class TaskLocalService implements TaskLocalRepo {
   Future<Either<Failure, SuccessResponseModel>>
       deleteRecentTaskFromLocalStorage() async {
     try {
+      if (!await LocalStoragePreferenceTask.isTaskCachingEnabled()) {
+        return Left(Failure());
+      }
       final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('deleteRecentTaskFromLocalStorage error: User ID is null');
@@ -942,6 +966,9 @@ class TaskLocalService implements TaskLocalRepo {
     required String recentTaskType,
   }) async {
     try {
+      if (!await LocalStoragePreferenceTask.isTaskCachingEnabled()) {
+        return Left(Failure());
+      }
       final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('addRecentTaskToLocalStorage error: User ID is null');
@@ -980,6 +1007,10 @@ class TaskLocalService implements TaskLocalRepo {
   Future<Either<Failure, GetRecentTasksResponce>>
       getRecentsTasksFromLocalStorage() async {
     try {
+      // Check if task caching is enabled
+      if (!await LocalStoragePreferenceTask.isTaskCachingEnabled()) {
+        return Left(Failure());
+      }
       final currentUserData = await SecureStorage.getToken();
       if (currentUserData.uid == null) {
         log('getRecentsTasksFromLocalStorage error: User ID is null');
@@ -1248,6 +1279,10 @@ class TaskLocalService implements TaskLocalRepo {
   Future<Either<Failure, SuccessResponseModel>> addQuickTaskToLocalIfNotExists(
       {required QuickTasks quickTask}) async {
     try {
+      // Check if task caching is enabled
+      if (!await LocalStoragePreferenceTask.isTaskCachingEnabled()) {
+        return Left(Failure());
+      }
       final String? currentUserId = await userId;
       if (currentUserId == null) {
         log('addQuickTaskToLocalIfNotExists error: User ID is null');
@@ -1279,6 +1314,10 @@ class TaskLocalService implements TaskLocalRepo {
   Future<Either<Failure, List<QuickTasks>>> getQuickTaskList(
       {required bool isCompleted}) async {
     try {
+      // Check if task caching is enabled
+      if (!await LocalStoragePreferenceTask.isTaskCachingEnabled()) {
+        return Left(Failure());
+      }
       final String? currentUserId = await userId;
       const query = '''
         SELECT * FROM ${TaskSql.quickTasksTable} 

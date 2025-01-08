@@ -49,6 +49,7 @@ import 'package:bizkit/module/module_manager/application/presentation/screen/pro
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/archived_data/archived_data_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/data_management_screen.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/deleted_data/deleted_data_screen.dart';
+import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/data_management/enable_local_db/enable_local_db.dart';
 import 'package:bizkit/module/module_manager/application/presentation/screen/profile_screen/macho_meter/macho_meter_screen.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/qr_screen/level_sharing_settings.dart';
 import 'package:bizkit/module/biz_card/application/presentation/screens2/received_cards/widgets/selected_card_builder.dart';
@@ -216,29 +217,52 @@ class GoRouterConfig {
     GoRoute(
       name: Routes.editProfile,
       path: Routes.editProfile,
-      builder: (context, state) => const ScreenProfileEdit(),
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+            key: state.pageKey, child: const ScreenProfileEdit());
+      },
     ),
 
     GoRoute(
       name: Routes.deletedCardScreen,
       path: Routes.deletedCardScreen,
-      builder: (context, state) => DeletedCardScreen(),
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+            key: state.pageKey, child: const DeletedCardScreen());
+      },
+    ),
+    GoRoute(
+      name: Routes.enbaleLocalDbScreen,
+      path: Routes.enbaleLocalDbScreen,
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+            key: state.pageKey, child: const EnableLocalDbScreen());
+      },
     ),
     GoRoute(
       name: Routes.archivedCardScreen,
       path: Routes.archivedCardScreen,
-      builder: (context, state) => ArchivedCardScreen(),
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+            key: state.pageKey, child: const ArchivedCardScreen());
+      },
     ),
     GoRoute(
       name: Routes.dataManagementScreen,
       path: Routes.dataManagementScreen,
-      builder: (context, state) => DataManagementScreen(),
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+            key: state.pageKey, child: const DataManagementScreen());
+      },
     ),
 
     GoRoute(
       name: Routes.matchoMeterConnectionScreen,
       path: Routes.matchoMeterConnectionScreen,
-      builder: (context, state) => MatchoMeterConnectionScreen(),
+      pageBuilder: (context, state) {
+        return FadeTransitionPage(
+            key: state.pageKey, child: const MatchoMeterConnectionScreen());
+      },
     )
   ];
 

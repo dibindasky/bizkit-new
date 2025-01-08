@@ -4,6 +4,7 @@ import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/data/service/profile/profile_service.dart';
 import 'package:bizkit/module/module_manager/domain/model/profile_model/profile_model.dart';
 import 'package:bizkit/module/module_manager/domain/repository/service/profile_repo/profile_repo.dart';
+import 'package:bizkit/module/task/data/local_storage/local_storage_preference.dart';
 import 'package:bizkit/service/secure_storage/flutter_secure_storage.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/image_picker/image_picker.dart';
@@ -47,11 +48,18 @@ class ProfileController extends GetxController {
   GlobalKey<FormState> mailKey = GlobalKey<FormState>();
   GlobalKey<FormState> phoneKey = GlobalKey<FormState>();
 
+  /// Boolean value to check whether the user wants to store [Bizcard] locally.
+  RxBool isBizCardStorageEnabled = false.obs;
+
+  /// Boolean value to check whether the user wants to store [Task] locally.
+  RxBool isTaskStorageEnabled = false.obs;
+
   @override
   onInit() {
     super.onInit();
     // getProfileDetails();
-    getValueFromLocal();
+    fetchBizCardStoragePreference();
+    fetchTaskStoragePreference();
   }
 
   @override
@@ -61,22 +69,35 @@ class ProfileController extends GetxController {
     super.onClose();
   }
 
-  ///this bool value for checking whether user want to store or not.
-  RxBool saveLocalData = false.obs;
+  /// Function to retrieve the user's preference for storing BizCards locally.
+  fetchBizCardStoragePreference() async {
+    final isEnabled =
+        await LocalStoragePreferenceCard.getStoreCardLocalyOrNot();
 
-  ///this function for get local data
-  getValueFromLocal() async {
-    final value = await LocalStoragePreferenceCard.getStoreCardLocalyOrNot();
-
-    if (value != null) {
-      saveLocalData.value = value;
+    if (isEnabled != null) {
+      isBizCardStorageEnabled.value = isEnabled;
     }
   }
 
-  ///this function for data store to local data
-  setLocalData() async {
+  /// Function to save the user's preference for storing BizCards locally.
+  saveBizCardStoragePreference() async {
     await LocalStoragePreferenceCard.setStoreCardLocalyOrNot(
-        saveLocalData.value);
+        isBizCardStorageEnabled.value);
+  }
+
+  /// Function to retrieve the user's preference for storing Tasks locally.
+  fetchTaskStoragePreference() async {
+    final isEnabled = await LocalStoragePreferenceTask.isTaskCachingEnabled();
+
+    if (isEnabled != null) {
+      isTaskStorageEnabled.value = isEnabled;
+    }
+  }
+
+  /// Function to save the user's preference for storing Tasks locally.
+  saveTaskStoragePreference() async {
+    await LocalStoragePreferenceTask.setTaskCachingEnabled(
+        isTaskStorageEnabled.value);
   }
 
   deleteAllDataFromLocal(BuildContext context) async {

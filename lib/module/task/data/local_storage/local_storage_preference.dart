@@ -1,14 +1,21 @@
+import 'dart:developer';
+
 import 'package:bizkit/service/secure_storage/local_storage.dart';
 
 class LocalStoragePreferenceTask {
-  // static String userName = 'user_name_key';
+  // Storage key for task caching preference
+  static String taskCachingKey = 'task_caching_enabled';
 
-  // static void setName(String name) async {
-  //   await LocalStorageService.setString(userName, name);
-  // }
+  /// Sets whether tasks should be cached locally
+  static Future<void> setTaskCachingEnabled(bool enabled) async {
+    await LocalStorageService.setBool(taskCachingKey, enabled);
+    log('Task caching preference updated: $enabled');
+  }
 
-  // static Future<String> getName() async {
-  //   final name = await LocalStorageService.getString(userName);
-  //   return name ?? '';
-  // }
+  /// Retrieves whether tasks are set to be cached locally
+  /// Returns false if no preference has been set
+  static Future<bool> isTaskCachingEnabled() async {
+    final isCachingEnabled = await LocalStorageService.getBool(taskCachingKey);
+    return isCachingEnabled ?? false;
+  }
 }

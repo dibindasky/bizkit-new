@@ -11,7 +11,7 @@ class ScreenModuleSelector extends StatelessWidget {
   final List<_ListItemData> listItems = [
     _ListItemData(
         color: neonShadeGradientTopToBottom,
-        height: 120.h,
+        height: 100.h,
         imageUrl: image,
         title: 'Biz Card',
         subtitle:
@@ -19,7 +19,7 @@ class ScreenModuleSelector extends StatelessWidget {
         module: Module.card),
     _ListItemData(
         color: whiteShadeGradient,
-        height: 170.h,
+        height: 100.h,
         imageUrl: flutterIcon,
         title: 'Task',
         subtitle:

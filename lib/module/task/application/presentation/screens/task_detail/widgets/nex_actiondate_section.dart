@@ -224,44 +224,101 @@ class NextActionDateSection extends StatelessWidget {
                                   ),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Expanded(
-                                            child: Card(
-                                              elevation: 0,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(25.0),
-                                                child: Text(
-                                                    '${nextAction?.date}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .displaySmall),
-                                              ),
-                                            ),
-                                          ),
+                                          Text('Action Date :',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(fontSize: 13)),
+                                          Text(' ${nextAction?.date}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall),
                                         ],
                                       ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Card(
-                                              elevation: 0,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(25.0),
-                                                child: Text(
-                                                    '${nextAction?.description}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .displaySmall),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: kBorderRadius15,
+                                            color:
+                                                kGreyNormal.withOpacity(0.1)),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            // Row(
+                                            //   children: [
+                                            //     Expanded(
+                                            //       child: Card(
+                                            //         elevation: 0,
+                                            //         child: Padding(
+                                            //           padding: const EdgeInsets.all(
+                                            //               25.0),
+                                            //           child: Text(
+                                            //               '${nextAction?.date}',
+                                            //               style: Theme.of(context)
+                                            //                   .textTheme
+                                            //                   .displaySmall),
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+
+                                            // Row(
+                                            //   children: [
+                                            //     Expanded(
+                                            //       child: Card(
+                                            //         elevation: 0,
+                                            //         child: Padding(
+                                            //           padding: const EdgeInsets.all(
+                                            //               25.0),
+                                            //           child: Text(
+                                            //               '${nextAction?.description}',
+                                            //               style: Theme.of(context)
+                                            //                   .textTheme
+                                            //                   .displaySmall),
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //   ],
+                                            // ),
+
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(18.0),
+                                              child: Column(
+                                                children: [
+                                                  adjustHieght(10.h),
+                                                  Text(
+                                                      maxLines: 4,
+                                                      'Description : ${nextAction?.description}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .displaySmall),
+                                                  adjustHieght(10.h),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                          'Created by ${nextAction?.userName}',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .displaySmall),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),

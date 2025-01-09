@@ -7,6 +7,7 @@ import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart';
+import 'package:bizkit/module/task/domain/model/task/next_action_date_responce/next_action_date_responce.dart';
 import 'package:dartz/dartz.dart';
 import 'package:bizkit/module/task/domain/model/task/self_to_others_type_responce/task.dart'
     as task;
@@ -51,6 +52,13 @@ abstract class TaskLocalRepo {
       addTaskAttachmentsToLocalStorageIfNotPresentInStorage({
     required List<Attachment> attachments,
     required int referenceId,
+    required String taskId,
+    required String currentUserId,
+  });
+
+  Future<Either<Failure, SuccessResponseModel>>
+      addTaskNextActionDatesToLocalStorage({
+    required List<NextActionDateResponce> nextActionDates,
     required String taskId,
     required String currentUserId,
   });

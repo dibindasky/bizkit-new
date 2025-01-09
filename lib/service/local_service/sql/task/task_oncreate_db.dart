@@ -17,6 +17,7 @@ import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/attachment.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/sub_task.dart';
+import 'package:bizkit/module/task/domain/model/task/next_action_date_responce/next_action_date_responce.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 class TaskSql {
@@ -25,6 +26,7 @@ class TaskSql {
   static const taskAttachmentsTable = 'task_attachments';
   static const taskSubTasksTable = 'task_subtasks';
   static const taskAssignedToDetailTable = 'task_assigned_to_detail';
+  static const taskNextActionDatesTable = 'task_next_action_dates';
   static const recentTasksTable = 'recent_tasks';
   static const filterByDeadlineTable = 'tasks_filter_by_deadline';
 
@@ -51,6 +53,7 @@ class TaskSql {
       await db.execute(_taskSubTasksTableCreation);
       await db.execute(_taskAssignedToDetailTableCreation);
       await db.execute(_filterByDeadlineTableCreation);
+      await db.execute(_taskNextActionDatesTableCreation);
       await db.execute(_recentTasksTableCreation);
       await db.execute(_quickTasksTableCreation);
       await db.execute(_quickTaskAssignedToTableCreation);
@@ -146,6 +149,21 @@ class TaskSql {
       ON DELETE CASCADE 
     )
   ''';
+
+  /// Table for [NextActionDateResponce] relation with [GetTaskResponce]
+  static const String _taskNextActionDatesTableCreation = '''
+    CREATE TABLE IF NOT EXISTS $taskNextActionDatesTable(
+      ${NextActionDateResponce.colTaskNextActionDatesLocalId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${NextActionDateResponce.colCurrentUserId} TEXT,
+      ${NextActionDateResponce.colTaskId} TEXT,
+      ${NextActionDateResponce.colNextActionDate} TEXT,
+      ${NextActionDateResponce.colNextActionDateDescription} TEXT,
+      ${NextActionDateResponce.colNextActionDateUserId} TEXT,
+      ${NextActionDateResponce.colNextActionDateUserName} TEXT,
+      ${NextActionDateResponce.colNextActionDateUserEmail} TEXT,
+      ${NextActionDateResponce.colNextActionDateUserProfile} TEXT
+    )
+ ''';
 
   /// Table for Filter task by deadline [FilterByDeadlineModel] relation with [GetTaskResponce]
   static const _filterByDeadlineTableCreation = '''

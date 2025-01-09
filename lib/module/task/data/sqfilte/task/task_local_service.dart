@@ -46,11 +46,11 @@ class TaskLocalService implements TaskLocalRepo {
       // Convert the tags list to a comma-separated string
       String tagsAsString = (taskModel.tags ?? []).join(',');
       // Convert the matched next action dates list to a comma-separated string
-      String nextActionDatesAsString =
-          (taskModel.nextActionDate ?? <NextActionDateResponce>[])
-              .map((e) => e.date)
-              .toList()
-              .join(',');
+      // String nextActionDatesAsString =
+      //     (taskModel.nextActionDate ?? <NextActionDateResponce>[])
+      //         .map((e) => e.date)
+      //         .toList()
+      //         .join(',');
 
       // SQL query to insert task details into the local database
       const query = '''
@@ -73,9 +73,8 @@ class TaskLocalService implements TaskLocalRepo {
         ${GetTaskResponce.colTaskCreatedUsername},
         ${GetTaskResponce.colTaskCreatedUserProfilePic},
         ${GetTaskResponce.colTaskTotalTime},
-        ${GetTaskResponce.colNextActionDate},
         ${GetTaskResponce.colTaskTotalExpense})
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
       ''';
 
       final referenceId = await localService.rawInsert(
@@ -101,9 +100,15 @@ class TaskLocalService implements TaskLocalRepo {
           taskModel.createdUserDetails?.name ?? '',
           taskModel.createdUserDetails?.profilePicture ?? '',
           taskModel.totalTime ?? 0,
-          nextActionDatesAsString,
           taskModel.totalExpense ?? 0
         ],
+      );
+
+      // SQL query to inset task next action dates
+      addTaskNextActionDatesToLocalStorage(
+        nextActionDates: taskModel.nextActionDate ?? <NextActionDateResponce>[],
+        currentUserId: currentUserId,
+        taskId: taskModel.id ?? '',
       );
 
       // SQL query to insert task attachments
@@ -234,11 +239,11 @@ class TaskLocalService implements TaskLocalRepo {
       // Convert the tags list to a comma-separated string
       String tagsAsString = (taskModel.tags ?? []).join(',');
       // Convert the matched next action dates list to a comma-separated string
-      String nextActionDatesAsString =
-          (taskModel.nextActionDate ?? <NextActionDateResponce>[])
-              .map((e) => e.date)
-              .toList()
-              .join(',');
+      // String nextActionDatesAsString =
+      //     (taskModel.nextActionDate ?? <NextActionDateResponce>[])
+      //         .map((e) => e.date)
+      //         .toList()
+      //         .join(',');
 
       // SQL query to update the existing task in the [ TaskSql.tasksTable ]
       const query = '''
@@ -262,7 +267,6 @@ class TaskLocalService implements TaskLocalRepo {
           ${GetTaskResponce.colTaskCreatedUsername} = ?,
           ${GetTaskResponce.colTaskCreatedUserProfilePic} = ?,
           ${GetTaskResponce.colTaskTotalTime} = ?,
-          ${GetTaskResponce.colNextActionDate} = ?,
           ${GetTaskResponce.colTaskTotalExpense} = ?
         WHERE 
           ${GetTaskResponce.colTaskId} = ? AND ${GetTaskResponce.colUserId} = ?  
@@ -291,11 +295,16 @@ class TaskLocalService implements TaskLocalRepo {
           taskModel.createdUserDetails?.name ?? '',
           taskModel.createdUserDetails?.profilePicture ?? '',
           taskModel.totalTime ?? 0,
-          nextActionDatesAsString,
           taskModel.totalExpense ?? 0,
           taskModel.id ?? '',
           currentUserId
         ],
+      );
+
+      addTaskNextActionDatesToLocalStorage(
+        nextActionDates: taskModel.nextActionDate ?? <NextActionDateResponce>[],
+        currentUserId: currentUserId,
+        taskId: taskModel.id ?? '',
       );
 
       addTaskAttachmentsToLocalStorageIfNotPresentInStorage(
@@ -386,6 +395,62 @@ class TaskLocalService implements TaskLocalRepo {
       log('addTaskAttachmentsToLocalStorageIfNotPresentInStorage exception =====> ${e.toString()}');
       return Left(Failure());
     }
+  }
+
+  @override
+  Future<Either<Failure, SuccessResponseModel>>
+      addTaskNextActionDatesToLocalStorage(
+          {required List<NextActionDateResponce> nextActionDates,
+          required String taskId,
+          required String currentUserId}) async {
+    try {
+      const String query = '''
+      DELETE FROM ${TaskSql.taskNextActionDatesTable}
+      WHERE ${NextActionDateResponce.colTaskId} = ?
+      AND ${NextActionDateResponce.colCurrentUserId} = ?
+    ''';
+
+      await localService.rawDelete(query, [taskId, currentUserId]);
+
+      for (var nextActionDate in nextActionDates) {
+        await addNextActionDates(nextActionDate, currentUserId, taskId);
+      }
+
+      return Right(SuccessResponseModel());
+    } catch (e) {
+      log('addTaskNextActionDatesToLocalStorage exception =====> ${e.toString()}');
+      return Left(Failure());
+    }
+  }
+
+  Future<void> addNextActionDates(NextActionDateResponce nextActionDate,
+      String currentUserId, String taskId) async {
+    const nextActionDateQuery = '''
+        INSERT INTO ${TaskSql.taskNextActionDatesTable} (
+        ${NextActionDateResponce.colCurrentUserId},
+        ${NextActionDateResponce.colTaskId},
+        ${NextActionDateResponce.colNextActionDate},
+        ${NextActionDateResponce.colNextActionDateDescription},
+        ${NextActionDateResponce.colNextActionDateUserId},
+        ${NextActionDateResponce.colNextActionDateUserName},
+        ${NextActionDateResponce.colNextActionDateUserEmail},
+        ${NextActionDateResponce.colNextActionDateUserProfile})
+      VALUES(?,?,?,?,?,?,?,?)  
+      ''';
+
+    await localService.rawInsert(
+      nextActionDateQuery,
+      [
+        currentUserId,
+        taskId,
+        nextActionDate.date ?? '',
+        nextActionDate.description ?? '',
+        nextActionDate.userId ?? '',
+        nextActionDate.userName ?? '',
+        nextActionDate.userEmail ?? '',
+        nextActionDate.userProfile ?? '',
+      ],
+    );
   }
 
   @override
@@ -758,6 +823,13 @@ class TaskLocalService implements TaskLocalRepo {
       final String localTaskId =
           taskData[GetTaskResponce.colTaskLocalId].toString();
 
+      // Fetch next action dates
+      final List<
+          Map<String,
+              dynamic>> nextActionDatesResults = await localService.rawQuery(
+          'SELECT * FROM ${TaskSql.taskNextActionDatesTable} WHERE ${NextActionDateResponce.colTaskId} = ? AND ${NextActionDateResponce.colCurrentUserId} = ?',
+          [taskId, currentUserId]);
+
       // Fetch attachments
       final List<
           Map<String,
@@ -781,7 +853,12 @@ class TaskLocalService implements TaskLocalRepo {
 
       // Parse the results into GetTaskResponce
       GetTaskResponce taskResponse = _parseResultsToGetTaskResponce(
-          taskData, attachmentResults, subtaskResults, assignedUserResults);
+        taskData,
+        nextActionDatesResults,
+        attachmentResults,
+        subtaskResults,
+        assignedUserResults,
+      );
 
       log('getTaskFullDetailsFromLocalStorage success =====> ');
       return Right(taskResponse);
@@ -792,10 +869,12 @@ class TaskLocalService implements TaskLocalRepo {
   }
 
   GetTaskResponce _parseResultsToGetTaskResponce(
-      Map<String, dynamic> taskData,
-      List<Map<String, dynamic>> attachmentResults,
-      List<Map<String, dynamic>> subtaskResults,
-      List<Map<String, dynamic>> assignedUserResults) {
+    Map<String, dynamic> taskData,
+    List<Map<String, dynamic>> nextActionDatesResults,
+    List<Map<String, dynamic>> attachmentResults,
+    List<Map<String, dynamic>> subtaskResults,
+    List<Map<String, dynamic>> assignedUserResults,
+  ) {
     final GetTaskResponce taskResponse = GetTaskResponce(
       id: taskData[GetTaskResponce.colTaskId] as String?,
       title: taskData[GetTaskResponce.colTaskTitle] as String?,
@@ -823,13 +902,36 @@ class TaskLocalService implements TaskLocalRepo {
                 type: r[Attachment.colTaskAttachmentType] as String?,
               ))
           .toList(),
-      nextActionDate:
-          ((taskData[GetTaskResponce.colNextActionDate] as String?) ?? '')
-              .split(',')
-              .map(
-                (e) => NextActionDateResponce(date: e),
-              )
-              .toList(),
+      // nextActionDate:
+      //     ((taskData[GetTaskResponce.colNextActionDate] as String?) ?? '')
+      //         .split(',')
+      //         .map(
+      //   (nextActionDate) {
+      //     return NextActionDateResponce(
+      //       date: nextActionDate,
+      //     );
+      //   },
+      // ).toList(),
+
+      nextActionDate: nextActionDatesResults
+          .map(
+            (nextActionDate) => NextActionDateResponce(
+              date: nextActionDate[NextActionDateResponce.colNextActionDate]
+                  as String?,
+              description: nextActionDate[NextActionDateResponce
+                  .colNextActionDateDescription] as String?,
+              userName: nextActionDate[
+                  NextActionDateResponce.colNextActionDateUserName] as String?,
+              userEmail: nextActionDate[
+                  NextActionDateResponce.colNextActionDateUserEmail] as String?,
+              userId:
+                  nextActionDate[NextActionDateResponce.colNextActionDateUserId]
+                      as String?,
+              userProfile: nextActionDate[NextActionDateResponce
+                  .colNextActionDateUserProfile] as String?,
+            ),
+          )
+          .toList(),
       subTask: subtaskResults
           .map((r) => SubTask(
                 id: r[SubTask.colTaskSubtaskId] as String?,

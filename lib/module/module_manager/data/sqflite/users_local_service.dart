@@ -325,6 +325,9 @@ class UsersLocalService implements UsersLocalRepo {
           '''DELETE FROM ${TaskSql.taskSubTasksTable} WHERE ${SubTask.colUserId} = ? ''';
       const taskAssignedToDetailQuery =
           '''DELETE FROM ${TaskSql.taskAssignedToDetailTable} WHERE ${AssignedToDetail.colUserId} = ? ''';
+
+      const taskNextActionDateQuery =
+          '''DELETE FROM ${TaskSql.taskNextActionDatesTable} WHERE ${AssignedToDetail.colUserId} = ? ''';
       const filterByDeadlineTaskQuery =
           '''DELETE FROM ${TaskSql.filterByDeadlineTable} WHERE ${FilterByDeadlineModel.colUserId} = ? ''';
       const recentTaskQuery =
@@ -336,6 +339,7 @@ class UsersLocalService implements UsersLocalRepo {
 
       await localService.rawDelete(taskQuery, [currentUserId]);
       await localService.rawDelete(taskAttachmentQuery, [currentUserId]);
+      await localService.rawDelete(taskNextActionDateQuery, [currentUserId]);
       await localService.rawDelete(taskSubTaskQuery, [currentUserId]);
       await localService.rawDelete(taskAssignedToDetailQuery, [currentUserId]);
       await localService.rawDelete(filterByDeadlineTaskQuery, [currentUserId]);

@@ -497,8 +497,7 @@ class ConnectionsController extends GetxController {
   }
 
   /// Get my all connections
-  void fetchMyConnections(bool isLoad) async {
-    print(' call fetch my connection');
+  Future<void> fetchMyConnections(bool isLoad) async {
     if (myConnections.isNotEmpty && !isLoad) return;
     myConnections.value = [];
     fetchMyConnectionPageNumber = 1;

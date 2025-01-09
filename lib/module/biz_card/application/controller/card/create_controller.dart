@@ -126,7 +126,7 @@ class CardController extends GetxController {
     isLoading.value = false;
   }
 
-  void getAllcards(bool isLoad) async {
+  Future<void> getAllcards(bool isLoad) async {
     if (!isLoad && bizcards.isNotEmpty) return;
     isLoading.value = true;
     bizcards.value = <Bizcard>[];

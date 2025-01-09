@@ -16,6 +16,6 @@ class LocalStoragePreferenceTask {
   /// Returns false if no preference has been set
   static Future<bool> isTaskCachingEnabled() async {
     final isCachingEnabled = await LocalStorageService.getBool(taskCachingKey);
-    return isCachingEnabled ?? false;
+    return isCachingEnabled ?? true;
   }
 }

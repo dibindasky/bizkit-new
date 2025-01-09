@@ -17,6 +17,7 @@ import 'package:bizkit/module/task/domain/model/quick_task/complete_quick_task/c
 import 'package:bizkit/module/task/domain/model/quick_task/create_quick_task/create_quick_task.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/quick_task_accept_or_reject/quick_task_accept_or_reject.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/quick_task_assigned_to/quick_task_assigned_to.dart';
+import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/completed_by.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/quick_tasks_responce/quick_tasks.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/received_quick_task_requests/datum.dart';
 import 'package:bizkit/module/task/domain/model/quick_task/update_quick_task_model/update_quick_task_model.dart';
@@ -2162,7 +2163,10 @@ class CreateTaskController extends GetxController {
   }
 
   // Complete a quick task
-  void completeQuickTask({required CompleteQuickTask completeQuickTask}) async {
+  void completeQuickTask(
+      {required CompleteQuickTask completeQuickTask,
+      required QuickTasks quickTask,
+      required int index}) async {
     loadingList.add(completeQuickTask.quickTaskId ?? '');
 
     // loadingForCompleteQuickTask.value = true;
@@ -2173,19 +2177,35 @@ class CreateTaskController extends GetxController {
       (failure) {
         // loadingForCompleteQuickTask.value = false;
         loadingList.remove(completeQuickTask.quickTaskId ?? '');
+        if (quickTasks.length > index) {
+          quickTasks[index] = quickTask;
+        } else {
+          quickTasks.add(quickTask);
+        }
         log(failure.message.toString());
       },
-      (success) {
+      (success) async {
         // loadingForCompleteQuickTask.value = false;
 
-        quickTasks.value = quickTasks.map((task) {
-          if (task.id == completeQuickTask.quickTaskId) {
-            // Match by ID or other unique identifier
-            return task.copyWith(isCompleted: true);
-          }
-          return task;
-        }).toList();
+        // quickTasks.value = quickTasks.map((task) {
+        //   if (task.id == completeQuickTask.quickTaskId) {
+        //     // Match by ID or other unique identifier
+        //     return task.copyWith(isCompleted: true);
+        //   }
+        //   return task;
+        // }).toList();
         loadingList.remove(completeQuickTask.quickTaskId ?? '');
+        quickTask = quickTask.copyWith(
+            isCompleted: true,
+            completedAt: DateTime.now().toString(),
+            completedBy: [
+              CompletedBy(userId: await SecureStorage.getUserId())
+            ]);
+        showCustomToast(
+            message: '${quickTask.title ?? 'quick task'} marked as completed');
+        completedQuickTasks.add(quickTask);
+        await taskLocalService.addQuickTaskToLocalIfNotExists(
+            quickTask: quickTask);
         fetchCompletedQuickTasks();
       },
     );

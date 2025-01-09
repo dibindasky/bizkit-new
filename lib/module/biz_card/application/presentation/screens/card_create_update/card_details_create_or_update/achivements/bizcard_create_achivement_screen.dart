@@ -161,32 +161,34 @@ class _BizCardAchivementCreationAndUpdationState
                                                     .textTheme
                                                     .titleSmall),
                                           )
-                                        : ListView.separated(
-                                            separatorBuilder:
-                                                (context, index) => kWidth10,
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: personalController
-                                                .personalAchivementImage.length,
-                                            itemBuilder: (context, index) {
-                                              return CardAchivementImageMaker(
-                                                  deleteTap: () {
-                                                    showCustomConfirmationDialogue(
-                                                        context: context,
-                                                        title:
-                                                            'Are you sure want to remove ?',
-                                                        buttonText: 'Delete',
-                                                        onTap: () {
-                                                          personalController
-                                                              .personalAchivementImage
-                                                              .removeAt(index);
-                                                          setState(() {});
-                                                        });
-                                                  },
-                                                  image: personalController
-                                                      .personalAchivementImage,
-                                                  index: index);
-                                            },
-                                          ),
+                                        : Obx(() => ListView.separated(
+                                              separatorBuilder:
+                                                  (context, index) => kWidth10,
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: personalController
+                                                  .personalAchivementImage
+                                                  .length,
+                                              itemBuilder: (context, index) {
+                                                return CardAchivementImageMaker(
+                                                    deleteTap: () {
+                                                      showCustomConfirmationDialogue(
+                                                          context: context,
+                                                          title:
+                                                              'Are you sure want to remove ?',
+                                                          buttonText: 'Delete',
+                                                          onTap: () {
+                                                            personalController
+                                                                .personalAchivementImage
+                                                                .removeAt(
+                                                                    index);
+                                                            setState(() {});
+                                                          });
+                                                    },
+                                                    image: personalController
+                                                        .personalAchivementImage,
+                                                    index: index);
+                                              },
+                                            )),
                                     Positioned(
                                       bottom: 5,
                                       right: 5,
@@ -423,62 +425,59 @@ class CardAchivementImageMaker extends StatefulWidget {
 }
 
 class _CardAchivementImageMakerState extends State<CardAchivementImageMaker> {
-  Uint8List image = Uint8List(0);
-
-  @override
-  void initState() {
-    if (!widget.image![widget.index].networkImage) {
-      image = base64.decode(
-          widget.image![widget.index].image!.startsWith('data')
-              ? widget.image![widget.index].image!.substring(22)
-              : widget.image![widget.index].image!);
-    }
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final Uint8List image = !widget.image![widget.index].networkImage
+        ? base64.decode(
+            widget.image![widget.index].image!.startsWith('data')
+                ? widget.image![widget.index].image!.substring(22)
+                : widget.image![widget.index].image!)
+        : Uint8List(0);
+
     return Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: kgrey), borderRadius: kBorderRadius10),
-        width: 270.dm,
-        height: 170.dm,
-        child: Stack(
-          children: [
-            InkWell(
-                onTap: () {
-                  GoRouter.of(context)
-                      .pushNamed(Routes.slidablePhotoGallery, extra: {
-                    'images': [widget.image![widget.index].image!],
-                    'initial': widget.index,
-                    'memory': widget.image![widget.index].networkImage == true
-                        ? false
-                        : true,
-                  });
-                },
-                child: SizedBox(
-                  width: 270.dm,
-                  height: 170.dm,
-                  child: widget.image![widget.index].networkImage
-                      ? NetworkImageWithLoader(
-                          widget.image![widget.index].image ?? "",
-                          radius: 10)
-                      : Image.memory(image, fit: BoxFit.cover),
-                )),
-            Positioned(
-              top: 5,
-              right: 5,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: ColoredBox(
-                  color: neonShade,
-                  child: IconButton.filled(
-                      onPressed: widget.deleteTap,
-                      icon: const Icon(Icons.delete, color: kwhite)),
+      decoration: BoxDecoration(
+        border: Border.all(color: kgrey),
+        borderRadius: kBorderRadius10,
+      ),
+      width: 270.dm,
+      height: 170.dm,
+      child: Stack(
+        children: [
+          InkWell(
+            onTap: () {
+              GoRouter.of(context).pushNamed(Routes.slidablePhotoGallery, extra: {
+                'images': [widget.image![widget.index].image!],
+                'initial': widget.index,
+                'memory': !widget.image![widget.index].networkImage,
+              });
+            },
+            child: SizedBox(
+              width: 270.dm,
+              height: 170.dm,
+              child: widget.image![widget.index].networkImage
+                  ? NetworkImageWithLoader(
+                      widget.image![widget.index].image ?? "",
+                      radius: 10,
+                    )
+                  : Image.memory(image, fit: BoxFit.cover),
+            ),
+          ),
+          Positioned(
+            top: 5,
+            right: 5,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: ColoredBox(
+                color: neonShade,
+                child: IconButton.filled(
+                  onPressed: widget.deleteTap,
+                  icon: const Icon(Icons.delete, color: kwhite),
                 ),
               ),
-            )
-          ],
-        ));
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

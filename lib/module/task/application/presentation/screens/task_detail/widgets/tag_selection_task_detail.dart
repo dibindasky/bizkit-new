@@ -85,7 +85,7 @@ class TagChip extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(8.w),
       decoration: BoxDecoration(
-        border: Border.all(color: kneon),
+        // border: Border.all(color: kneon),
         borderRadius: kBorderRadius5,
         color: kblack,
       ),
@@ -116,7 +116,7 @@ class NextActionChip extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(8.w),
       decoration: BoxDecoration(
-        border: Border.all(color: kneon),
+        // border: Border.all(color: kneon),
         borderRadius: kBorderRadius5,
         color: kblack,
       ),
@@ -126,7 +126,7 @@ class NextActionChip extends StatelessWidget {
                 .textTheme
                 .displaySmall
                 ?.copyWith(color: kwhite)),
-        adjustWidth(10.w),
+        adjustWidth(5.w),
       ]),
     );
   }

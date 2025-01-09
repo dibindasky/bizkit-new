@@ -1,5 +1,4 @@
 import 'package:bizkit/core/routes/routes.dart';
-import 'package:bizkit/module/biz_card/application/presentation/screens2/card_create/screens/create_card.dart';
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';

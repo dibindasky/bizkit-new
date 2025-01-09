@@ -226,11 +226,12 @@ class ActiveQuickTasksTab extends StatelessWidget {
                                 taskController.quickTasks
                                     .removeAt(dismissedTaskIndex);
                                 taskController.completeQuickTask(
-                                  completeQuickTask: CompleteQuickTask(
-                                    isCompleted: true,
-                                    quickTaskId: dismissedTask.id ?? '',
-                                  ),
-                                );
+                                    completeQuickTask: CompleteQuickTask(
+                                      isCompleted: true,
+                                      quickTaskId: dismissedTask.id ?? '',
+                                    ),
+                                    quickTask: dismissedTask,
+                                    index: index);
                               },
                               key: Key(quickTask.id ?? ''),
                               child: EventButton(

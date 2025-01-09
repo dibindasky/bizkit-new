@@ -53,6 +53,9 @@ class _ScreenLoginState extends State<ScreenLogin>
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<AuthenticationController>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getAccountList();
+    });
     final size = MediaQuery.of(context).size;
     khieght = size.height;
     kwidth = size.width;
@@ -177,7 +180,7 @@ class _ScreenLoginState extends State<ScreenLogin>
                             ),
                             kHeight30,
                             _signUP(context),
-                            _savedAccounts(context)
+                            _savedAccounts(context, controller)
                           ],
                         ),
                       ),
@@ -277,7 +280,7 @@ class _ScreenLoginState extends State<ScreenLogin>
                             ),
                             kHeight30,
                             _signUP(context),
-                            _savedAccounts(context)
+                            _savedAccounts(context, controller)
                           ],
                         ),
                       ),
@@ -292,33 +295,44 @@ class _ScreenLoginState extends State<ScreenLogin>
     );
   }
 
-  Widget _savedAccounts(BuildContext context) {
-    return Column(
-      children: [
-        kHeight20,
-        Text('or', style: Theme.of(context).textTheme.displaySmall),
-        const Divider(thickness: 0.1),
-        GestureDetector(
-          onTap: () {
-            accountSwitchingBottomSheet(context, formLoginPage: true);
-          },
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Saved Accounts',
-                      style: Theme.of(context).textTheme.displaySmall),
-                  kWidth10,
-                  const Icon(Icons.person_pin)
-                ],
-              ),
-              const Divider(thickness: 0.1),
-            ],
-          ),
-        )
-      ],
-    );
+  Widget _savedAccounts(
+      BuildContext context, AuthenticationController controller) {
+    return Obx(() => controller.accounts.isEmpty
+        ? kempty
+        : SizedBox(
+            width: double.infinity,
+            child: Column(
+              children: [
+                kHeight20,
+                Text('or', style: Theme.of(context).textTheme.displaySmall),
+                GestureDetector(
+                  onTap: () {
+                    accountSwitchingBottomSheet(context, formLoginPage: true);
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    child: Column(
+                      children: [
+                        const Divider(thickness: 0.1),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Saved Accounts',
+                                style:
+                                    Theme.of(context).textTheme.displaySmall),
+                            kWidth10,
+                            const Icon(Icons.person_pin)
+                          ],
+                        ),
+                        const Divider(thickness: 0.1),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ));
   }
 
   Row _signUP(BuildContext context) {

@@ -33,6 +33,6 @@ class LocalStoragePreferenceCard {
 
   static Future<bool> getStoreCardLocalyOrNot() async {
     final data = await LocalStorageService.getBool(storeCardLocaly);
-    return data ?? false;
+    return data ?? true;
   }
 }

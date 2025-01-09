@@ -89,6 +89,7 @@ class PersonalDetailsController extends GetxController {
 
   /// get the personal details informations to the controller for editing purpose
   void getPersonalDetails(CardDetailModel cardDetail) {
+    personalImages.clear();
     personalEmailController.text = cardDetail.personalDetails?.email ?? '';
     personalNameController.text = cardDetail.personalDetails?.name ?? '';
     personalPhoneNumbers.value =

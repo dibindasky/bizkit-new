@@ -6,7 +6,10 @@ class ApiEndPoints {
   // static const String baseUrl = 'https://9jdcxxr1-8001.inc1.devtunnels.ms';
 
   // [ AWS base url ]
-  static const String baseUrl = 'http://13.232.28.52';
+  static const String baseUrl = 'http://13.126.153.37';
+
+   // [ beta launch AWS base url ]
+   // static const String baseUrl = 'http://13.232.28.52';
 
   // Refesh token
   static const String refreshUrl = '/token/';

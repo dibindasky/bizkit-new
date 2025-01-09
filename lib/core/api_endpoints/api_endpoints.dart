@@ -6,7 +6,7 @@ class ApiEndPoints {
   static const String baseUrl = 'https://9jdcxxr1-8001.inc1.devtunnels.ms';
 
   // [ AWS base url ]
-  // static const String baseUrl = 'http://13.126.183.37';
+  // static const String baseUrl = 'http://3.7.66.232';
 
   // [ beta launch AWS base url ]
   // static const String baseUrl = 'http://13.232.28.52';

@@ -200,10 +200,10 @@ class ProfileController extends GetxController {
     final result = await profileService.editNameAndProfileImage(
         profileModel: profileModel);
     result.fold((left) {
-      showSnackbar(context, message: 'something went wrong');
+      showCustomToast(message: 'something went wrong', backgroundColor: kred);
       imageChangingLoading.value = false;
     }, (right) {
-      showSnackbar(context, message: 'Successfully updated');
+      showCustomToast(message: 'Successfully updated');
       image.value = right.profileImage ?? '';
       imageChangingLoading.value = false;
     });
@@ -215,10 +215,10 @@ class ProfileController extends GetxController {
     final result = await profileService.editNameAndProfileImage(
         profileModel: profileModel);
     result.fold((left) {
-      showSnackbar(context, message: 'something went wrong');
+      showCustomToast(backgroundColor: kred, message: 'something went wrong');
       nameChangingLoading.value = false;
     }, (right) {
-      showSnackbar(context, message: 'Successfully updated');
+      showCustomToast(message: 'Successfully updated');
       name.value = right.name ?? '';
       checkName = right.name ?? '';
       nameChangingLoading.value = false;
@@ -233,7 +233,7 @@ class ProfileController extends GetxController {
           await profileService.updateEmailOrPhone(profileModel: profileModel);
       result.fold((ifLeft) {
         emailChangingLoading.value = false;
-        showSnackbar(context, message: 'Something Went Wrong');
+        showCustomToast(backgroundColor: kred, message: 'something went wrong');
       }, (ifRight) {
         emailChangingLoading.value = false;
         checkEmail = email.value;
@@ -253,7 +253,7 @@ class ProfileController extends GetxController {
       final result =
           await profileService.updateEmailOrPhone(profileModel: profileModel);
       result.fold((left) {
-        showSnackbar(context, message: 'something went wrong');
+        showCustomToast(backgroundColor: kred, message: 'something went wrong');
         phoneChangingLoading.value = false;
       }, (right) {
         phoneChangingLoading.value = false;
@@ -271,10 +271,9 @@ class ProfileController extends GetxController {
         await profileService.emailAndPhoneOtp(profileModel: profileModel);
     result.fold((ifLeft) {
       otpChangingLoading.value = false;
-      showSnackbar(context,
-          message: 'something went wrong', backgroundColor: kred);
+      showCustomToast(backgroundColor: kred, message: 'something went wrong');
     }, (ifRight) {
-      showSnackbar(context, message: 'Successfully updated');
+      showCustomToast(message: 'Successfully updated');
       GoRouter.of(context).pop();
       otpChangingLoading.value = false;
     });
@@ -290,11 +289,11 @@ class ProfileController extends GetxController {
     final result =
         await profileService.emailAndPhoneOtp(profileModel: profileModel);
     result.fold((ifLeft) {
-      showSnackbar(context, message: 'something went wrong');
+      showCustomToast(backgroundColor: kred, message: 'something went wrong');
       otpChangingLoading.value = false;
     }, (ifRight) {
       otpChangingLoading.value = false;
-      showSnackbar(context, message: 'Successfully updated');
+      showCustomToast(message: 'Successfully updated');
       GoRouter.of(context).pop();
     });
   }

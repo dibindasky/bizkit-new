@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/create_task/widgets/deadline_chooser.dart';
@@ -7,6 +8,7 @@ import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/edit_
 import 'package:bizkit/module/task/domain/model/folders/edit_task_responce/next_action_date.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/widgets/event_button.dart';
@@ -222,106 +224,92 @@ class NextActionDateSection extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Action Date :',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displayMedium
-                                                  ?.copyWith(fontSize: 13)),
-                                          Text(' ${nextAction?.date}',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displaySmall),
-                                        ],
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: kBorderRadius15,
-                                            color:
-                                                kGreyNormal.withOpacity(0.1)),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            // Row(
-                                            //   children: [
-                                            //     Expanded(
-                                            //       child: Card(
-                                            //         elevation: 0,
-                                            //         child: Padding(
-                                            //           padding: const EdgeInsets.all(
-                                            //               25.0),
-                                            //           child: Text(
-                                            //               '${nextAction?.date}',
-                                            //               style: Theme.of(context)
-                                            //                   .textTheme
-                                            //                   .displaySmall),
-                                            //         ),
-                                            //       ),
-                                            //     ),
-                                            //   ],
-                                            // ),
-
-                                            // Row(
-                                            //   children: [
-                                            //     Expanded(
-                                            //       child: Card(
-                                            //         elevation: 0,
-                                            //         child: Padding(
-                                            //           padding: const EdgeInsets.all(
-                                            //               25.0),
-                                            //           child: Text(
-                                            //               '${nextAction?.description}',
-                                            //               style: Theme.of(context)
-                                            //                   .textTheme
-                                            //                   .displaySmall),
-                                            //         ),
-                                            //       ),
-                                            //     ),
-                                            //   ],
-                                            // ),
-
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(18.0),
-                                              child: Column(
+                                  content: Container(
+                                    decoration: BoxDecoration(
+                                      color: kGreyNormal.withOpacity(0.1),
+                                      borderRadius: kBorderRadius15,
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(18.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
-                                                  adjustHieght(10.h),
-                                                  Text(
-                                                      maxLines: 4,
-                                                      'Description : ${nextAction?.description}',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .displaySmall),
-                                                  adjustHieght(10.h),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                          'Created by ${nextAction?.userName}',
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .displaySmall),
-                                                    ],
+                                                  Flash(
+                                                    animate: true,
+                                                    child: Text('Action Date :',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .displayMedium
+                                                            ?.copyWith(
+                                                                fontSize: 13)),
+                                                  ),
+                                                  Flash(
+                                                    animate: true,
+                                                    child: Text(
+                                                        ' ${nextAction?.date}',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .displayMedium
+                                                            ?.copyWith(
+                                                              fontSize: 13,
+                                                            )),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                          ],
+                                              adjustHieght(10.h),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 1,
+                                                        vertical: 10),
+                                                child: Text(
+                                                    textAlign: TextAlign.start,
+                                                    '${nextAction?.description}',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .displaySmall),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
+
+                                  actions: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 15,
+                                          child: NetworkImageWithLoader(
+                                              errorWidget:
+                                                  const Icon(Icons.person),
+                                              radius: 15,
+                                              nextAction?.userProfile ?? ''),
+                                        ),
+                                        adjustWidth(10.w),
+                                        Text(
+                                            overflow: TextOverflow.ellipsis,
+                                            'Created by ${nextAction?.userName}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displaySmall
+                                                ?.copyWith(fontSize: 10)),
+                                      ],
+                                    ),
+                                  ],
                                   // actions: [
                                   //   Center(
                                   //     child: EventButton(
@@ -402,6 +390,8 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
+              taskController.nexActiondateDescriptionController.clear();
+              taskController.nextActionDate.value = '';
               Navigator.pop(context);
             },
             icon: const Icon(Icons.close),
@@ -428,6 +418,7 @@ class NADCreateAndUpdateDialog extends StatelessWidget {
             TaskTextField(
               maxLines: 5,
               hintText: 'Description',
+              maxLength: 150,
               textCapitalization: TextCapitalization.sentences,
               controller: taskController.nexActiondateDescriptionController,
               onTapOutside: () => FocusScope.of(context).unfocus(),

@@ -13,6 +13,7 @@ import 'package:bizkit/module/task/domain/model/success_responce/success_responc
 import 'package:bizkit/module/task/domain/model/task/filter_by_deadline_model/filter_by_deadline_model.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/assigned_to_detail.dart';
 import 'package:bizkit/module/task/domain/model/task/get_task_responce/get_task_responce.dart';
+import 'package:bizkit/module/task/domain/model/task/next_action_date_responce/next_action_date_responce.dart';
 import 'package:bizkit/service/local_service/sqflite_local_service.dart';
 import 'package:bizkit/service/local_service/sql/bizcard/bizcard_oncreate_db.dart';
 import 'package:bizkit/service/local_service/sql/oncreate_db.dart';
@@ -327,7 +328,7 @@ class UsersLocalService implements UsersLocalRepo {
           '''DELETE FROM ${TaskSql.taskAssignedToDetailTable} WHERE ${AssignedToDetail.colUserId} = ? ''';
 
       const taskNextActionDateQuery =
-          '''DELETE FROM ${TaskSql.taskNextActionDatesTable} WHERE ${AssignedToDetail.colUserId} = ? ''';
+          '''DELETE FROM ${TaskSql.taskNextActionDatesTable} WHERE ${NextActionDateResponce.colCurrentUserId} = ? ''';
       const filterByDeadlineTaskQuery =
           '''DELETE FROM ${TaskSql.filterByDeadlineTable} WHERE ${FilterByDeadlineModel.colUserId} = ? ''';
       const recentTaskQuery =

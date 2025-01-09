@@ -16,7 +16,7 @@ import 'package:bizkit/module/module_manager/domain/model/auth/auth_postmodel/au
 import 'package:bizkit/module/module_manager/domain/repository/service/authentication_repo/authentication_repo.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
-import 'package:bizkit/utils/snackbar/snackbar.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -77,17 +77,16 @@ class AuthenticationController extends GetxController {
             email: authPostModel.email,
             phoneNumber: authPostModel.phoneNumber));
     result.fold((l) {
-      showSnackbar(context,
-          message: l.message ?? errorMessage,
-          backgroundColor: kred,
-          textColor: kblack);
+      showCustomToast(
+        message: l.message ?? errorMessage,
+        backgroundColor: kred,
+      );
     }, (r) {
       otpFromRegisterUser.value = true;
       GoRouter.of(context).pushNamed(Routes.otpPage, extra: {'email': true});
-      showSnackbar(context,
-          message: r.message ?? 'Otp send to your mail id',
-          backgroundColor: kneonShade,
-          textColor: kblack);
+      showCustomToast(
+        message: r.message ?? 'Otp send to your mail id',
+      );
     });
     loadingregister.value = false;
   }
@@ -99,21 +98,19 @@ class AuthenticationController extends GetxController {
     final result = await authRepo.otpVerification(
         authPostmodel: registerPostModel.value.copyWith(
             otp: otp,
-            deviceId: await DeviceInformation.getDeviceInformation()
-            ));
+            deviceId: await DeviceInformation.getDeviceInformation()));
     result.fold((l) {
       GoRouter.of(context).pop();
-      showSnackbar(context,
-          message: l.message ?? errorMessage,
-          backgroundColor: kred,
-          textColor: kblack);
+      showCustomToast(
+        message: l.message ?? errorMessage,
+        backgroundColor: kred,
+      );
     }, (r) {
       completeLogin(context, r);
 
-      showSnackbar(context,
-          message: 'User Registered Successfully',
-          backgroundColor: kneonShade,
-          textColor: kblack);
+      showCustomToast(
+        message: 'User Registered Successfully',
+      );
       GoRouter.of(context)
           .pushReplacementNamed(Routes.varificationScreen, extra: false);
       // showSnackbar(context,
@@ -147,20 +144,19 @@ class AuthenticationController extends GetxController {
     final result = await authRepo.loginUser(authPostmodel: authPostModel);
     result.fold((l) {
       log('Otp resent failed');
-      showSnackbar(context,
-          message: l.message ?? errorMessage,
-          backgroundColor: kred,
-          textColor: kblack);
+      showCustomToast(
+        message: l.message ?? errorMessage,
+        backgroundColor: kred,
+      );
     }, (r) {
       log('Otp resent successs');
       otpFromRegisterUser.value = false;
       GoRouter.of(context)
           .pushNamed(Routes.otpPage, extra: {'email': emailLogin});
-      showSnackbar(context,
-          message:
-              'Otp send to your registered ${emailLogin ? 'email address' : 'mobile number'}',
-          backgroundColor: kneonShade,
-          textColor: kblack);
+      showCustomToast(
+        message:
+            'Otp send to your registered ${emailLogin ? 'email address' : 'mobile number'}',
+      );
     });
     loadingLogin.value = false;
   }
@@ -180,14 +176,14 @@ class AuthenticationController extends GetxController {
             : {
                 'otp': otp,
                 'phone_number': registerPostModel.value.phoneNumber,
-                'device_id': deviceId 
+                'device_id': deviceId
               });
     result.fold((l) {
       GoRouter.of(context).pop();
-      showSnackbar(context,
-          message: l.message ?? errorMessage,
-          backgroundColor: kred,
-          textColor: kblack); 
+      showCustomToast(
+        message: l.message ?? errorMessage,
+        backgroundColor: kred,
+      );
     }, (r) {
       completeLogin(context, r);
       GoRouter.of(context)
@@ -215,10 +211,9 @@ class AuthenticationController extends GetxController {
       completeLogin(context, r);
       GoRouter.of(context)
           .pushReplacementNamed(Routes.varificationScreen, extra: false);
-      showSnackbar(context,
-          message: 'User Logged In Successfully',
-          backgroundColor: kneonShade,
-          textColor: kblack);
+      showCustomToast(
+        message: 'User Logged In Successfully',
+      );
       loadingLoginPassword.value = false;
     });
   }

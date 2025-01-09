@@ -1,6 +1,7 @@
 import 'package:bizkit/module/module_manager/application/controller/auth_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/snackbar/flutter_toast.dart';
 import 'package:bizkit/utils/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -80,12 +81,11 @@ class VarificationScreen extends StatelessWidget {
                   ))),
               onTap: () {
                 authController.chooseModule(context);
-                showSnackbar(context,
-                    message: islogin
-                        ? 'User Logged In Successfully'
-                        : 'User Registered Successfully',
-                    backgroundColor: kneonShade,
-                    textColor: kblack);
+                showCustomToast(
+                  message: islogin
+                      ? 'User Logged In Successfully'
+                      : 'User Registered Successfully',
+                );
               },
             ),
           ),

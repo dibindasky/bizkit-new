@@ -17,6 +17,7 @@ class TaskTextField extends StatelessWidget {
     this.textCapitalization,
     this.onChanged,
     this.onTapOutside,
+    this.maxLength,
     this.validator,
     this.enabled = true,
     this.onTap,
@@ -31,6 +32,7 @@ class TaskTextField extends StatelessWidget {
   final TextCapitalization? textCapitalization;
   final Widget? suffixIcon;
   final int? maxLines;
+  final int? maxLength;
   final bool showBorder;
   final TextEditingController? controller;
   final Function(String)? onChanged;
@@ -47,6 +49,7 @@ class TaskTextField extends StatelessWidget {
       style: Theme.of(context).textTheme.displaySmall,
       maxLines: maxLines,
       onChanged: onChanged,
+      maxLength: maxLength,
       onTap: onTap,
       onTapOutside: (event) {
         if (onTapOutside != null) {

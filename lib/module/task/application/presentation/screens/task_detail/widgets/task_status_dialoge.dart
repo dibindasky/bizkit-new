@@ -106,7 +106,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                   controller.taskFilterByDeadline();
                   homeController.progresBar();
                   controller.getTasksCountWithoutDate();
-
+                  homeController.fetchRecentTasks();
                   GoRouter.of(context).pop();
                 },
               ),

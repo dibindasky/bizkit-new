@@ -140,7 +140,6 @@ class TotalTasksScreen extends StatelessWidget {
                 onTap: () {
                   homeController.changeSelectedTaskCategory('Completed Tasks');
                   taskController.fetchAllCompletedTasks();
-
                   Navigator.of(context).pop();
                 },
               ),
@@ -239,12 +238,24 @@ class TotalTasksScreen extends StatelessWidget {
                             .isConnectedToInternet.value &&
                         (fromHeirarachy == true
                             ? hierarchyController.filterTasks.isEmpty
-                            : taskController.typeTasks.isEmpty)) {
+                            : homeController.taskCategory.value ==
+                                    'Completed Tasks'
+                                ? taskController.completedTasks.isEmpty
+                                : homeController.taskCategory.value ==
+                                        'Killed Tasks'
+                                    ? taskController.killedTasks.isEmpty
+                                    : taskController.typeTasks.isEmpty)) {
                       return InternetConnectionLostWidget(
                         onTap: () {
                           if (fromHeirarachy == true) {
                             hierarchyController.filterTasksByType(
                                 targetUserId: targetUserId ?? '');
+                          } else if (homeController.taskCategory.value ==
+                              'Completed Tasks') {
+                            taskController.fetchAllCompletedTasks();
+                          } else if (homeController.taskCategory.value !=
+                              'Killed Tasks') {
+                            taskController.fetchAllKilledTasks();
                           } else {
                             if (homeController.taskCategory.value !=
                                     'Completed Tasks' ||
@@ -258,7 +269,12 @@ class TotalTasksScreen extends StatelessWidget {
                       );
                     } else if (fromHeirarachy == true
                         ? hierarchyController.filterTasks.isEmpty
-                        : taskController.typeTasks.isEmpty) {
+                        : homeController.taskCategory.value == 'Completed Tasks'
+                            ? taskController.completedTasks.isEmpty
+                            : homeController.taskCategory.value ==
+                                    'Killed Tasks'
+                                ? taskController.killedTasks.isEmpty
+                                : taskController.typeTasks.isEmpty) {
                       return ErrorRefreshIndicator(
                         image: emptyNodata2,
                         errorMessage: 'No ${homeController.taskCategory}',

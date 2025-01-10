@@ -3,13 +3,13 @@ class ApiEndPoints {
   // static const String baseUrl = 'https://bizkit.onrender.com';
 
   // [ Local base url  ]
-  static const String baseUrl = 'https://9jdcxxr1-8001.inc1.devtunnels.ms';
+  // static const String baseUrl = 'https://9jdcxxr1-8001.inc1.devtunnels.ms';
 
   // [ AWS base url ]
   // static const String baseUrl = 'http://3.7.66.232';
 
   // [ beta launch AWS base url ]
-  // static const String baseUrl = 'https://bizkit.club';
+  static const String baseUrl = 'https://bizkit.club';
 
   // Refesh token
   static const String refreshUrl = '/token/';

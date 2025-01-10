@@ -139,6 +139,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                     kHeight10,
                     EventButton(
                       text: 'Edit Task',
+                      textColr: kwhite,
                       onTap: () {
                         log('Edit');
                         GoRouter.of(context).pop();
@@ -167,8 +168,8 @@ class TaskStatusChangeDialog extends StatelessWidget {
                       },
                       color: const LinearGradient(
                         colors: [
-                          kneon,
-                          kneon,
+                          kblack,
+                          kblack,
                         ],
                       ),
                       width: double.infinity,
@@ -176,6 +177,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                     kHeight10,
                     EventButton(
                       text: 'Kill Task',
+                      textColr: kwhite,
                       onTap: () {
                         log('Kill');
                         GoRouter.of(context).pop();
@@ -184,14 +186,15 @@ class TaskStatusChangeDialog extends StatelessWidget {
                       width: double.infinity,
                       color: const LinearGradient(
                         colors: [
-                          kneon,
-                          kneon,
+                          kblack,
+                          kblack,
                         ],
                       ),
                     ),
                     kHeight10,
                     EventButton(
                       text: 'Complete Task',
+                      textColr: kwhite,
                       onTap: () {
                         GoRouter.of(context).pop();
                         showCompleteATaskConfirmationDialog();
@@ -199,8 +202,8 @@ class TaskStatusChangeDialog extends StatelessWidget {
                       width: double.infinity,
                       color: const LinearGradient(
                         colors: [
-                          kneon,
-                          kneon,
+                          kblack,
+                          kblack,
                         ],
                       ),
                     ),

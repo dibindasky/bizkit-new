@@ -99,37 +99,43 @@ class NextActionDateSection extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    adjustHieght(5.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Next Action Dates',
                             style: Theme.of(context).textTheme.displaySmall),
-                        IconButton(
-                          onPressed: () {
-                            if (internetConnectinController
-                                .isConnectedToInternet.value) {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return NADCreateAndUpdateDialog(
-                                    taskId: taskId ?? '',
-                                    taskController: taskController,
-                                  );
-                                },
-                              );
-                            } else {
-                              showCustomToast(
-                                message:
-                                    'You must be online to create a next action date. Please check your internet connection.',
-                                backgroundColor: kred,
-                              );
-                            }
-                          },
-                          icon: const Icon(Icons.add),
-                        )
+                        if ((taskController.singleTask.value.isCompleted !=
+                                    true &&
+                                taskController.singleTask.value.isKilled !=
+                                    true) &&
+                            taskController.singleTask.value.isOwned == true)
+                          IconButton(
+                            onPressed: () {
+                              if (internetConnectinController
+                                  .isConnectedToInternet.value) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return NADCreateAndUpdateDialog(
+                                      taskId: taskId ?? '',
+                                      taskController: taskController,
+                                    );
+                                  },
+                                );
+                              } else {
+                                showCustomToast(
+                                  message:
+                                      'You must be online to create a next action date. Please check your internet connection.',
+                                  backgroundColor: kred,
+                                );
+                              }
+                            },
+                            icon: const Icon(Icons.add),
+                          )
                       ],
                     ),
-                    adjustHieght(5.h),
+                    adjustHieght(10.h),
                     Center(
                       child: Text('No Next action date available',
                           style: Theme.of(context)

@@ -43,89 +43,94 @@ class TaskDetailStatusSection extends StatelessWidget {
         Expanded(
           child: GestureDetector(
             onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return Dialog(
-                      insetAnimationCurve: Curves.easeIn,
-                      child: Padding(
-                        padding: const EdgeInsets.all(13),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 15,
-                                top: 5,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    ((taskController.singleTask.value.status
-                                                .replaceAll(' ', ''))
-                                            .isEmpty)
-                                        ? 'Current Status 0%'
-                                        : "Current Status ${taskController.singleTask.value.status}%",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall
-                                        ?.copyWith(fontSize: 14),
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        GoRouter.of(context).pop();
-                                      },
-                                      icon: const Icon(Icons.close))
-                                ],
-                              ),
-                            ),
-                            kHeight10,
-                            Obx(() => SizedBox(
-                                  width: double.infinity,
-                                  child: CircularSlider(
-                                    isOwned: taskController
-                                            .singleTask.value.isOwned ??
-                                        false,
-                                    statusUpdate: true,
-                                    initialValue: (double.tryParse(
-                                            taskController
-                                                .singleTask.value.status) ??
-                                        0.0),
-                                    onChanged: (value) {
-                                      taskController.statusValueChanged(
-                                          value: value);
-                                    },
-                                  ),
-                                )),
-                            kHeight20,
-                            if (taskController.singleTask.value.isOwned == true)
-                              Center(
-                                child: EventButton(
-                                  // width: double.infinity,
-                                  borderRadius: 10,
-                                  color: const LinearGradient(
-                                      colors: [kneon, kneon]),
-                                  // showGradiant: false,
-                                  text: 'Update',
-                                  onTap: () {
-                                    taskController.statusChange(
-                                        context: context,
-                                        taskId: taskController
-                                                .singleTask.value.id ??
-                                            '');
-                                    GoRouter.of(context).pop();
-                                  },
+              if ((taskController.singleTask.value.isCompleted != true &&
+                      taskController.singleTask.value.isKilled != true) &&
+                  taskController.singleTask.value.isOwned == true) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                        insetAnimationCurve: Curves.easeIn,
+                        child: Padding(
+                          padding: const EdgeInsets.all(13),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 15,
+                                  top: 5,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      ((taskController.singleTask.value.status
+                                                  .replaceAll(' ', ''))
+                                              .isEmpty)
+                                          ? 'Current Status 0%'
+                                          : "Current Status ${taskController.singleTask.value.status}%",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall
+                                          ?.copyWith(fontSize: 14),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          GoRouter.of(context).pop();
+                                        },
+                                        icon: const Icon(Icons.close))
+                                  ],
                                 ),
                               ),
-                            kHeight15
-                          ],
+                              kHeight10,
+                              Obx(() => SizedBox(
+                                    width: double.infinity,
+                                    child: CircularSlider(
+                                      isOwned: taskController
+                                              .singleTask.value.isOwned ??
+                                          false,
+                                      statusUpdate: true,
+                                      initialValue: (double.tryParse(
+                                              taskController
+                                                  .singleTask.value.status) ??
+                                          0.0),
+                                      onChanged: (value) {
+                                        taskController.statusValueChanged(
+                                            value: value);
+                                      },
+                                    ),
+                                  )),
+                              kHeight20,
+                              if (taskController.singleTask.value.isOwned ==
+                                  true)
+                                Center(
+                                  child: EventButton(
+                                    // width: double.infinity,
+                                    borderRadius: 10,
+                                    color: const LinearGradient(
+                                        colors: [kneon, kneon]),
+                                    // showGradiant: false,
+                                    text: 'Update',
+                                    onTap: () {
+                                      taskController.statusChange(
+                                          context: context,
+                                          taskId: taskController
+                                                  .singleTask.value.id ??
+                                              '');
+                                      GoRouter.of(context).pop();
+                                    },
+                                  ),
+                                ),
+                              kHeight15
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  });
+                      );
+                    });
+              }
             },
             child: Card(
               elevation: 0,

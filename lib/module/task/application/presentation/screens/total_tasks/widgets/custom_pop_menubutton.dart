@@ -16,20 +16,24 @@ class CustomPopupMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-        decoration: BoxDecoration(
-          gradient: neonNewLinearGradient,
-          borderRadius: kBorderRadius10,
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(fontWeight: FontWeight.w500, fontSize: 13),
+      child: Card(
+        elevation: 0,
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          decoration: BoxDecoration(
+            // gradient: neonNewLinearGradient,
+            color: kblack,
+            borderRadius: kBorderRadius10,
+          ),
+          child: Center(
+            child: Text(
+              text,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(fontWeight: FontWeight.w500, fontSize: 13),
+            ),
           ),
         ),
       ),

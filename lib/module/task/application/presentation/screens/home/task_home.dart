@@ -111,7 +111,7 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
       final newPosition = details.offset;
       final screenWidth = MediaQuery.of(context).size.width;
 
-      const double minHeight = 0; // Top of the screen
+      const double minHeight = 180; // Top of the screen
       final double maxHeight =
           screenHeight * 0.8; // Limit for the button's Y-axis
 
@@ -119,7 +119,9 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
       final bool snapToLeft = newPosition.dx < screenWidth / 3;
 
       buttonPosition = Offset(
-        snapToLeft ? 0 : screenWidth - 90, // Snap to left or right
+        snapToLeft
+            ? screenWidth - 90
+            : screenWidth - 90, // Snap to left or right
         newPosition.dy.clamp(minHeight, maxHeight - 60), // Constrain Y axis
       );
     });

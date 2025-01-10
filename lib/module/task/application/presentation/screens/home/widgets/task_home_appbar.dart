@@ -137,10 +137,16 @@ class TaskHomeAppBar extends StatelessWidget {
                   border: Border.all(color: klightgrey),
                   color: Theme.of(context).colorScheme.onTertiary,
                 ),
-                child: const Icon(
-                  Iconsax.personalcard,
-                  size: 21,
-                ),
+                child: Obx(() => Center(
+                  child: Badge(
+                        isLabelVisible:
+                            taskController.receivedRequests.isNotEmpty,
+                        child: const Icon(
+                          Iconsax.personalcard,
+                          size: 21,
+                        ),
+                      ),
+                )),
               ),
             ),
             adjustWidth(9.w),

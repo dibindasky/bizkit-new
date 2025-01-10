@@ -46,14 +46,14 @@ class CompletedTasksListView extends StatelessWidget {
                     },
                   )));
         } else if (taskController.completedTasks.isEmpty) {
-        
-          return ErrorRefreshIndicator(
-            image: emptyNodata2,
-            errorMessage: 'No completed tasks',
-            onRefresh: () {
-              taskController.fetchAllCompletedTasks();
-            },
-          );
+            return Container();
+          // return ErrorRefreshIndicator(
+          //   image: emptyNodata2,
+          //   errorMessage: 'No completed tasks',
+          //   onRefresh: () {
+          //     taskController.fetchAllCompletedTasks();
+          //   },
+          // );
         } else {
           return RefreshIndicator(
             onRefresh: () async {

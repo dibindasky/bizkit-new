@@ -244,7 +244,7 @@ class CreateTaskController extends GetxController {
         .format(todaydate); // Set today's date as default deadline
 
     taskFilterByDeadline(); // Filter tasks by today's deadline
-
+    fetchReceivedRequests();
     // Add scroll listeners for various scroll controllers
     if (userSearchfilterType.value == 'all') {
       searchScrollController.addListener(searchParticipantsScrollListener);

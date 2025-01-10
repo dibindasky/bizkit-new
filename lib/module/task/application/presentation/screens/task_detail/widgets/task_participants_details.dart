@@ -349,7 +349,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                 Text(
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: true,
-                                    DateTimeFormater.getDDMMHHMMformat(
+                                    DateTimeFormater.formatTimeAMPM(
                                       task.createdAt ?? 'No createdAt',
                                     ),
                                     style: Theme.of(context)

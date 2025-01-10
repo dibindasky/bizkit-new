@@ -48,7 +48,7 @@ class DeadlineChooserCreateTask extends StatelessWidget {
                   ? []
                   : controller.singleTask.value.deadLine?.split('-') ?? [];
               return DatePickingBottomSheet(
-                year: 1,
+                year: 0,
                 last: 500,
                 initialDate: date.isNotEmpty
                     ? DateTime(

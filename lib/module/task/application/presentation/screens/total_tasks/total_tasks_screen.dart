@@ -1,4 +1,4 @@
- import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
+import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/hierarchy/hierarchy_controller.dart';
 import 'package:bizkit/module/task/application/controller/home_controller/home_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -140,8 +140,9 @@ class TotalTasksScreen extends StatelessWidget {
                 onTap: () {
                   homeController.changeSelectedTaskCategory('Completed Tasks');
                   taskController.fetchAllCompletedTasks();
- print('competed datas = > ${taskController.completedTasks.length}');
-                  
+                  print(
+                      'competed datas = > ${taskController.completedTasks.length}');
+
                   Navigator.of(context).pop();
                 },
               ),
@@ -240,12 +241,24 @@ class TotalTasksScreen extends StatelessWidget {
                             .isConnectedToInternet.value &&
                         (fromHeirarachy == true
                             ? hierarchyController.filterTasks.isEmpty
-                            : taskController.typeTasks.isEmpty)) {
+                            : homeController.taskCategory.value ==
+                                    'Completed Tasks'
+                                ? taskController.completedTasks.isEmpty
+                                : homeController.taskCategory.value ==
+                                        'Killed Tasks'
+                                    ? taskController.killedTasks.isEmpty
+                                    : taskController.typeTasks.isEmpty)) {
                       return InternetConnectionLostWidget(
                         onTap: () {
                           if (fromHeirarachy == true) {
                             hierarchyController.filterTasksByType(
                                 targetUserId: targetUserId ?? '');
+                          } else if (homeController.taskCategory.value ==
+                              'Completed Tasks') {
+                            taskController.fetchAllCompletedTasks();
+                          } else if (homeController.taskCategory.value !=
+                              'Killed Tasks') {
+                            taskController.fetchAllKilledTasks();
                           } else {
                             if (homeController.taskCategory.value !=
                                     'Completed Tasks' ||
@@ -259,20 +272,24 @@ class TotalTasksScreen extends StatelessWidget {
                       );
                     } else if (fromHeirarachy == true
                         ? hierarchyController.filterTasks.isEmpty
-                        : taskController.typeTasks.isEmpty) {
+                        : homeController.taskCategory.value == 'Completed Tasks'
+                            ? taskController.completedTasks.isEmpty
+                            : homeController.taskCategory.value ==
+                                    'Killed Tasks'
+                                ? taskController.killedTasks.isEmpty
+                                : taskController.typeTasks.isEmpty) {
                       return ErrorRefreshIndicator(
                         image: emptyNodata2,
-                        errorMessage:
-                            'No ${homeController.taskCategory}',
+                        errorMessage: 'No ${homeController.taskCategory}',
                         onRefresh: () {
                           if (fromHeirarachy == true) {
                             hierarchyController.filterTasksByType(
                                 targetUserId: targetUserId ?? '');
-                          }else if (homeController.taskCategory.value ==
-                                    'Completed Tasks' ){
+                          } else if (homeController.taskCategory.value ==
+                              'Completed Tasks') {
                             taskController.fetchAllCompletedTasks();
-                          }else if ( homeController.taskCategory.value !=
-                                    'Killed Tasks'){
+                          } else if (homeController.taskCategory.value !=
+                              'Killed Tasks') {
                             taskController.fetchAllKilledTasks();
                           } else {
                             if (homeController.taskCategory.value !=
@@ -291,11 +308,11 @@ class TotalTasksScreen extends StatelessWidget {
                           if (fromHeirarachy == true) {
                             hierarchyController.filterTasksByType(
                                 targetUserId: targetUserId ?? '');
-                          }else if (homeController.taskCategory.value ==
-                                    'Completed Tasks' ){
+                          } else if (homeController.taskCategory.value ==
+                              'Completed Tasks') {
                             taskController.fetchAllCompletedTasks();
-                          }else if ( homeController.taskCategory.value !=
-                                    'Killed Tasks'){
+                          } else if (homeController.taskCategory.value !=
+                              'Killed Tasks') {
                             taskController.fetchAllKilledTasks();
                           } else {
                             if (homeController.taskCategory.value !=

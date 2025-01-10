@@ -84,12 +84,19 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
                 } else if (controller.singleTask.value.attachments == null ||
                     controller.singleTask.value.attachments!.isEmpty) {
                   return Center(
-                    child: Text('No Attachments Available',
-                        style:
-                            Theme.of(context).textTheme.displaySmall?.copyWith(
+                    child: Column(
+                      children: [
+                        Text('No Attachments Available',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
                                   fontSize: 11,
                                   color: kGreyNormal,
                                 )),
+                        adjustHieght(10.h),
+                      ],
+                    ),
                   );
                 } else {
                   final listAttachment =

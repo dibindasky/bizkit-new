@@ -84,9 +84,7 @@ class AuthenticationController extends GetxController {
     }, (r) {
       otpFromRegisterUser.value = true;
       GoRouter.of(context).pushNamed(Routes.otpPage, extra: {'email': true});
-      showCustomToast(
-        message: r.message ?? 'Otp send to your mail id',
-      );
+      showCustomToast(message: r.message ?? 'Otp send to your mail id');
     });
     loadingregister.value = false;
   }

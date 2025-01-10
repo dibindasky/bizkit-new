@@ -285,30 +285,33 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                               ),
                             ),
                             adjustWidth(10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Participants',
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall,
-                                ),
-                                if (taskController.isLoading.value)
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 5),
-                                    child: ShimmerLoaderTile(
-                                        height: 9.h, width: 50.w),
-                                  )
-                                else
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                   Text(
-                                    participants,
+                                    'Participants',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall,
-                                    overflow: TextOverflow.ellipsis,
                                   ),
-                              ],
+                                  if (taskController.isLoading.value)
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: ShimmerLoaderTile(
+                                          height: 9.h, width: 50.w),
+                                    )
+                                  else
+                                    Text(
+                                      participants,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -530,6 +533,7 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                   ),
                 ],
               ),
+              // visitors log
               if (task.recentVisitLogs?.isNotEmpty ?? false)
                 Column(
                   children: [
@@ -576,7 +580,8 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                 ),
                                 Text(
                                     DateTimeFormater.timeAgoString(
-                                        visitor?.time ?? ''),
+                                        visitor?.time ?? '',
+                                        uts: false),
                                     style: Theme.of(context)
                                         .textTheme
                                         .displaySmall

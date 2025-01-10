@@ -159,28 +159,20 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
   void _handleAttachmentTap(BuildContext context, String attachment,
       String type, CreateTaskController controller, int index) {
     //  Filter out non-image attachments
-    final imageAttachments = controller.singleTask.value.attachments
-            ?.where((att) =>
-                att.type == 'jpg' || att.type == 'png' || att.type == 'image')
+    final imageAttachments = controller.singleTask.value.attachments?.reversed
             .toList()
-            .reversed
+            .where((att) =>
+                att.type == 'jpg' || att.type == 'png' || att.type == 'image')
             .toList() ??
         [];
+    print(controller.singleTask.value.attachments?.map((e)=>e.type).toList());
+    print(imageAttachments.length);
 
-    final imageIndex = (imageAttachments.reversed.toList()).indexWhere(
+    final imageIndex = (imageAttachments).indexWhere(
       (element) => controller.singleTask.value.attachments?[index] == element,
     );
-    if (type == 'image' || type == 'png') {
-      GoRouter.of(context).pushNamed(Routes.slidablePhotoGallery, extra: {
-        'images': imageAttachments
-            .map(
-              (e) => e.attachment!,
-            )
-            .toList(),
-        'memory': false,
-        'initial': imageIndex
-      });
-    } else if (type == 'pdf') {
+    // print(imageIndex);
+    if (type == 'pdf') {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -204,6 +196,16 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
           ),
         ),
       );
+    } else if (type == 'image' || type == 'png') {
+      GoRouter.of(context).pushNamed(Routes.slidablePhotoGallery, extra: {
+        'images': imageAttachments
+            .map(
+              (e) => e.attachment ?? '',
+            )
+            .toList(),
+        'memory': false,
+        'initial': imageIndex
+      });
     } else {
       // Handle other types if needed
     }

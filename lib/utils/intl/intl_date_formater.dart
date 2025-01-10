@@ -310,9 +310,10 @@ class DateTimeFormater {
     }
   }
 
-  static String timeAgoString(String? formattedString) {
+  static String timeAgoString(String? formattedString, {bool uts = true}) {
     try {
-      return timeAgo(DateTime.parse(formattedString ?? ''));
+      return timeAgo(DateTime.parse(formattedString ?? '')
+          .add(uts ? const Duration() : const Duration(hours: 5, minutes: 30)));
     } catch (e) {
       return '';
     }

@@ -129,7 +129,16 @@ class MyConnectionSection extends StatelessWidget {
                             connectionsController
                                 .fetchMyconnectionLoadMore.value) {
                           return const Center(
-                              child: CircularProgressIndicator());
+                              child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              ],
+                            ),
+                          ));
                         }
 
                         // Get connection data directly from index

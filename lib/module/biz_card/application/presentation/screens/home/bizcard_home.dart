@@ -63,10 +63,12 @@ class _BizCardHomeScreenState extends State<BizCardHomeScreen>
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
+          strokeWidth: 2,
+          edgeOffset: 0,
           onRefresh: () async {
-            bizcardController.getAllcards(true);
-            connectionsController.fetchMyConnections(true);
-            reminderController.fetchRemindersInOrder();
+            await bizcardController.getAllcards(true);
+            await connectionsController.fetchMyConnections(true);
+            await reminderController.fetchRemindersInOrder();
           },
           child: CustomScrollView(
             controller: _scrollController,

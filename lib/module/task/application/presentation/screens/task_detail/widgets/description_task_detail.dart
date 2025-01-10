@@ -14,6 +14,7 @@ class TaskDetailDescriptionSection extends StatelessWidget {
     return Card(
       elevation: 0,
       child: Container(
+        width: 320.w,
         padding: EdgeInsets.all(10.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),

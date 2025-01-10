@@ -140,9 +140,6 @@ class TotalTasksScreen extends StatelessWidget {
                 onTap: () {
                   homeController.changeSelectedTaskCategory('Completed Tasks');
                   taskController.fetchAllCompletedTasks();
-                  print(
-                      'competed datas = > ${taskController.completedTasks.length}');
-
                   Navigator.of(context).pop();
                 },
               ),

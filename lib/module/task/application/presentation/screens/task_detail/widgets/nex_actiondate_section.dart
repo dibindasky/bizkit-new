@@ -129,7 +129,7 @@ class NextActionDateSection extends StatelessWidget {
                         )
                       ],
                     ),
-                    adjustHieght(15.h),
+                    adjustHieght(5.h),
                     Center(
                       child: Text('No Next action date available',
                           style: Theme.of(context)
@@ -137,6 +137,7 @@ class NextActionDateSection extends StatelessWidget {
                               .displaySmall
                               ?.copyWith(color: kGreyNormal, fontSize: 11)),
                     ),
+                    adjustHieght(15.h),
                   ],
                 );
               } else {

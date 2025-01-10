@@ -32,12 +32,15 @@ class HomeAppBarWidget extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          "Hello ${authController.userName.value} ",
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall
-                              ?.copyWith(fontSize: 16),
+                        Expanded(
+                          child: Text(
+                            "Hello ${authController.userName.value}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(fontSize: 16),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         const Icon(Icons.arrow_drop_down)
                       ],

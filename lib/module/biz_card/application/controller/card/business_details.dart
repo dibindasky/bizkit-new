@@ -640,7 +640,7 @@ class BusinesDetailsController extends GetxController {
   }
 
   void productAdding(BuildContext context) async {
-    isLoading.value = true;
+    productsLoading.value = true;
     final cardController = Get.find<CardController>();
     BusinessProductAdding productModel = BusinessProductAdding(
       bizcardId: cardController.bizcardDetail.value.bizcardId,
@@ -655,10 +655,10 @@ class BusinesDetailsController extends GetxController {
     final data =
         await businessRepo.businessProductAdding(productModel: productModel);
     data.fold(
-      (l) => isLoading.value = false,
+      (l) => productsLoading.value = false,
       (r) {
         productDataClear();
-        isLoading.value = false;
+        productsLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();
@@ -680,7 +680,7 @@ class BusinesDetailsController extends GetxController {
 
   void productUpdating(
       {required int productIndex, required BuildContext context}) async {
-    isLoading.value = true;
+    productsLoading.value = true;
     final cardController = Get.find<CardController>();
     BusinessProductAdding productModel = BusinessProductAdding(
         bizcardId: cardController.bizcardDetail.value.bizcardId,
@@ -696,10 +696,10 @@ class BusinesDetailsController extends GetxController {
     final data =
         await businessRepo.businessProductUpdating(productModel: productModel);
     data.fold(
-      (l) => isLoading.value = false,
+      (l) => productsLoading.value = false,
       (r) {
         productDataClear();
-        isLoading.value = false;
+        productsLoading.value = false;
         cardController.cardDetail(
             cardId: cardController.bizcardDetail.value.bizcardId ?? '');
         GoRouter.of(context).pop();

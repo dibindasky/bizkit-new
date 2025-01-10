@@ -298,7 +298,7 @@ class _BizcardProductCreateUpdateScreenState
                   ),
                   adjustHieght(khieght * .03),
                   Obx(
-                    () => businessController.isLoading.value
+                    () => businessController.productsLoading.value
                         ? const LoadingAnimation()
                         : EventButton(
                             showGradiant: false,

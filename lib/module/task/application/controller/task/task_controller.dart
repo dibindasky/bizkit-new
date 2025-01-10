@@ -816,7 +816,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         log('${success.message}');
-
+        Get.find<TaskHomeScreenController>().fetchRecentTasks();
         showCustomToast(
           message: 'Task completed successfully',
           backgroundColor: Get.isDarkMode ? klightGrey : kblack,
@@ -1894,6 +1894,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         completedTasks.assignAll(success.tasks ?? []);
+        log("completedTasks : ${completedTasks.length}");
         filterByTypeLoading.value = false;
       },
     );

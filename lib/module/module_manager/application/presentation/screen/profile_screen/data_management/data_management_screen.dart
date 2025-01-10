@@ -260,7 +260,7 @@ class _DataManagementScreenState extends State<DataManagementScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 15),
                                 child: Text(
-                                  'Clear Local Storage Preferences',
+                                  'Manage Local Storage',
                                   style: Theme.of(context)
                                       .textTheme
                                       .displaySmall

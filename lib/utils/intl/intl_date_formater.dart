@@ -385,7 +385,8 @@ class DateTimeFormater {
   /// return format  == > 13:30
   static String extractTime(String date) {
     if (date == '') return '';
-    DateTime dateTime = DateTime.parse(date);
+    DateTime dateTime =
+        DateTime.parse(date).add(const Duration(hours: 5, minutes: 30));
     final DateFormat formatter = DateFormat('HH:mm');
     return formatter.format(dateTime);
   }

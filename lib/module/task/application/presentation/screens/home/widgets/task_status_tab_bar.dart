@@ -33,20 +33,26 @@ class TaskStatusTabBar extends StatelessWidget {
       },
       padding: EdgeInsets.zero,
       indicator: const BoxDecoration(
-          color: kblack, borderRadius: BorderRadius.all(Radius.circular(27))),
+          color: kblack,
+          borderRadius:
+              BorderRadius.all(Radius.circular(20))), // Reduced radius
       tabs: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          height: 30.h, // Added fixed height
+          padding: const EdgeInsets.symmetric(
+              horizontal: 12, vertical: 5), // Reduced padding
           decoration: BoxDecoration(
               border: Border.all(color: kblack.withOpacity(0.3)),
-              borderRadius: kBorderRadius25),
+              borderRadius: BorderRadius.circular(20)), // Matching radius
           child: Tab(
+            height: 22, // Added tab height
             child: Row(
+              mainAxisSize: MainAxisSize.min, // Added to keep row compact
               children: [
                 const Text('Self'),
                 adjustWidth(5.w),
                 CircleAvatar(
-                  radius: 10,
+                  radius: 8, // Reduced radius
                   backgroundColor: kgrey,
                   child: Obx(() => Text(
                         '${homeController.progresBarCounts.value.selfToSelf?.all ?? 0}',
@@ -54,6 +60,7 @@ class TaskStatusTabBar extends StatelessWidget {
                             .textTheme
                             .displaySmall
                             ?.copyWith(
+                                fontSize: 10, // Added smaller font size
                                 color:
                                     Theme.of(context).colorScheme.onTertiary),
                       )),
@@ -63,17 +70,21 @@ class TaskStatusTabBar extends StatelessWidget {
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          height: 30.h, // Added fixed height
+          padding: const EdgeInsets.symmetric(
+              horizontal: 12, vertical: 5), // Reduced padding
           decoration: BoxDecoration(
               border: Border.all(color: kblack.withOpacity(0.3)),
-              borderRadius: kBorderRadius25),
+              borderRadius: BorderRadius.circular(20)), // Matching radius
           child: Tab(
+            height: 22, // Added tab height
             child: Row(
+              mainAxisSize: MainAxisSize.min, // Added to keep row compact
               children: [
                 const Text('Self to others'),
                 adjustWidth(5.w),
                 CircleAvatar(
-                  radius: 10,
+                  radius: 8, // Reduced radius
                   backgroundColor: kgrey,
                   child: Obx(() => Text(
                         '${homeController.progresBarCounts.value.selfToOthers?.all ?? 0}',
@@ -81,6 +92,7 @@ class TaskStatusTabBar extends StatelessWidget {
                             .textTheme
                             .displaySmall
                             ?.copyWith(
+                                fontSize: 10, // Added smaller font size
                                 color:
                                     Theme.of(context).colorScheme.onTertiary),
                       )),
@@ -90,17 +102,21 @@ class TaskStatusTabBar extends StatelessWidget {
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          height: 30.h, // Added fixed height
+          padding: const EdgeInsets.symmetric(
+              horizontal: 12, vertical: 5), // Reduced padding
           decoration: BoxDecoration(
               border: Border.all(color: kblack.withOpacity(0.3)),
-              borderRadius: kBorderRadius25),
+              borderRadius: BorderRadius.circular(20)), // Matching radius
           child: Tab(
+            height: 22, // Added tab height
             child: Row(
+              mainAxisSize: MainAxisSize.min, // Added to keep row compact
               children: [
                 const Text('Others to self'),
                 adjustWidth(5.w),
                 CircleAvatar(
-                  radius: 10,
+                  radius: 8, // Reduced radius
                   backgroundColor: kgrey,
                   child: Obx(() => Text(
                         '${homeController.progresBarCounts.value.othersToSelf?.all ?? 0}',
@@ -108,6 +124,7 @@ class TaskStatusTabBar extends StatelessWidget {
                             .textTheme
                             .displaySmall
                             ?.copyWith(
+                                fontSize: 10, // Added smaller font size
                                 color:
                                     Theme.of(context).colorScheme.onTertiary),
                       )),

@@ -78,7 +78,7 @@ class TaskStatusSection extends StatelessWidget {
                     borderRadius: kBorderRadius20),
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 9),
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   child: Text(
                     'Add task',
                     style: Theme.of(context)

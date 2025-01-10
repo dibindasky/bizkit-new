@@ -325,8 +325,12 @@ class CreateTaskController extends GetxController {
   RxBool getNetworkLoading = false.obs;
 
   RxBool loadingForQuickTask = false.obs; // Loading state for quick task
+  RxBool loadingForQuickTakSyncing = false.obs;
+  RxBool errorQuickTakSyncing = false.obs;
+  RxBool loadingForCompletedQuickTakSyncing = false.obs;
   RxBool loadingForCompleteQuickTask = false.obs;
   RxBool loadingForQuickTaskReceivedReq = false.obs;
+  RxBool errorCompletedQuickTakSyncing = false.obs;
   RxBool loadingForAllQuickTasks =
       false.obs; // Loading state for all quick tasks
 
@@ -2214,8 +2218,11 @@ class CreateTaskController extends GetxController {
   // fetch all quick tasks
   void fetchAllQuickTasks() async {
     loadingForAllQuickTasks.value = true;
+    loadingForQuickTakSyncing.value = true;
+    errorQuickTakSyncing.value = false;
     quickTasksPageNumber = 1;
     quickTasks.value = [];
+    // get all local data
     final localresult =
         await taskLocalService.getQuickTaskList(isCompleted: false);
     localresult.fold((l) => null, (r) {
@@ -2228,10 +2235,13 @@ class CreateTaskController extends GetxController {
       pageSize: quickTasksPageSize,
     ));
 
+    // get data form server
     result.fold(
       (failure) {
         loadingForAllQuickTasks.value = false;
         log(failure.message.toString());
+        loadingForQuickTakSyncing.value = false;
+        errorQuickTakSyncing.value = true;
       },
       (success) async {
         if (success.data != null) {
@@ -2242,6 +2252,7 @@ class CreateTaskController extends GetxController {
                 quickTask: quickTask);
           }
         }
+        loadingForQuickTakSyncing.value = false;
       },
     );
   }
@@ -2277,6 +2288,8 @@ class CreateTaskController extends GetxController {
   // fetch all quick tasks
   void fetchCompletedQuickTasks() async {
     loadingForCompletedQuickTasks.value = true;
+    loadingForCompletedQuickTakSyncing.value = true;
+    errorCompletedQuickTakSyncing.value = false;
     completedQuickTaskPage = 1;
     completedQuickTasks.value = [];
     final localresult =
@@ -2296,6 +2309,8 @@ class CreateTaskController extends GetxController {
       (failure) {
         loadingForCompletedQuickTasks.value = false;
         log(failure.message.toString());
+        loadingForCompletedQuickTakSyncing.value = false;
+        errorCompletedQuickTakSyncing.value = true;
       },
       (success) async {
         if (success.data != null) {
@@ -2307,6 +2322,7 @@ class CreateTaskController extends GetxController {
                 quickTask: quickTask);
           }
         }
+        loadingForCompletedQuickTakSyncing.value = false;
       },
     );
   }

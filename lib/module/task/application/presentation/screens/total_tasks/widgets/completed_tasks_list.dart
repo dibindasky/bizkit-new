@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/module_manager/application/controller/internet_controller.dart';
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
@@ -19,7 +21,9 @@ class CompletedTasksListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final internetConnectinController =
         Get.find<InternetConnectionController>();
+        
     final taskController = Get.find<CreateTaskController>();
+   log('competed tasks ${taskController.completedTasks.first.toJson()}');
     return Obx(
       () {
         if (taskController.filterByTypeLoading.value) {
@@ -42,6 +46,7 @@ class CompletedTasksListView extends StatelessWidget {
                     },
                   )));
         } else if (taskController.completedTasks.isEmpty) {
+        
           return ErrorRefreshIndicator(
             image: emptyNodata2,
             errorMessage: 'No completed tasks',

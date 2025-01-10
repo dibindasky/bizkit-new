@@ -82,7 +82,7 @@ class BizcardDetailEditButton extends StatelessWidget {
                             cardController
                                     .bizcardDetail.value.completionLevel ==
                                 100
-                        ? 'Edit Card'
+                        ? 'Manage Card'
                         : '${cardController.bizcardDetail.value.completionLevel ?? 10}% Completed',
                     style: Theme.of(context).textTheme.displaySmall,
                   ),

@@ -34,7 +34,7 @@ class ClearAllLocalDataScreen extends StatelessWidget {
         ),
         backgroundColor: knill,
         title: Text(
-          'Clear Local Storage Preferences',
+          'Clear Local Storage',
           style: Theme.of(context).textTheme.displayMedium,
         ),
       ),

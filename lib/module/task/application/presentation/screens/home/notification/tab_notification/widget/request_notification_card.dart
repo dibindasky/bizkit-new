@@ -76,8 +76,10 @@ class NotificationRequestCard extends StatelessWidget {
                             padding: const EdgeInsets.all(1.0),
                             child: CircleAvatar(
                               backgroundColor: kblack,
-                              child: Text((name?.isEmpty??true)?'':
-                                name!.substring(0, 2).toUpperCase(),
+                              child: Text(
+                                (name?.isEmpty ?? true)
+                                    ? ''
+                                    : name!.substring(0, 2).toUpperCase(),
                                 style: textThinerStyle1.copyWith(color: kwhite),
                               ),
                             ),

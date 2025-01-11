@@ -26,6 +26,28 @@ class DateTimeFormater {
     }
   }
 
+  static String formatDateOnly(String dateTime) {
+    final date = DateTime.parse(
+        dateTime); // Convert the DateTime to the user's local time zone
+    final localDateTime = date.toLocal();
+    final updatedDateTime =
+        localDateTime.add(const Duration(hours: 5, minutes: 30));
+    final formattedDate = DateFormat('yMMMd').format(updatedDateTime);
+    return formattedDate;
+  }
+
+  static String formatTimeOnly(String dateTime) {
+    final date = DateTime.parse(
+        dateTime); // Convert the DateTime to the user's local time zone
+    final localDateTime = date.toLocal();
+
+    // Add 5 hours and 30 minutes to the localDateTime
+    final updatedDateTime =
+        localDateTime.add(const Duration(hours: 5, minutes: 30));
+    final formattedTime = DateFormat.jm().format(updatedDateTime);
+    return formattedTime;
+  }
+
   // return HH:MM AM/PM bu adding 5 hr 30 min to get indian time
   static String formatTimeAMPMDate(String? timestamp) {
     if (timestamp == null || timestamp.isEmpty) return '';

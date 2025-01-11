@@ -67,158 +67,166 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
           style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
-      body:  notificationController.bizcardNotifications.isEmpty?
-      Column(
-                children: [
-                  SizedBox( child: Image.asset(emptyNodata2)),
-                  Text('No notifications available\n at the moment',style: Theme.of(context).textTheme.titleSmall,textAlign: TextAlign.center,)
-                ],
-              ): Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Obx(
-          () {
-            return Column(
+      body: notificationController.bizcardNotifications.isEmpty
+          ? Column(
               children: [
-                Expanded(
-                  child: ListView.separated(
-                    controller: scrollController,
-                    shrinkWrap: true,
-                    separatorBuilder: (context, index) {
-                      return adjustHieght(10);
-                    },
-                    itemCount:
-                        notificationController.bizcardNotifications.length,
-                    itemBuilder: (context, index) {
-                      // log('notification length ${!state.notificationLoading && state.notification!.length <= index}=>$index ${state.notification!.length}');
-                      // final notification = state.notification![index];
-
-                      // if (state.notificationLoading &&
-                      //     index >= state.notification!.length - 1) {
-                      //   return const LoadingAnimation();
-                      // } else {
-
-                      return GestureDetector(
-                        onTap: () {
-                          // if (notification.tag == 'Connection request') {
-                          //   Navigator.push(
-                          //     context,
-                          //     cardFadePageRoute(
-                          //         const ScreenConnectionRequests()),
-                          //   );
-                          // }
-                          // if (notification.tag == 'Connection accepted') {
-                          //   Navigator.push(
-                          //     context,
-                          //     cardFadePageRoute(
-                          //         const MyConnectionsViewAllContacts()),
-                          //   );
-                          // }
-                          // if (notification.tag == 'Company Request') {
-                          //   Map<String, String> map =
-                          //       notification.cardId != null
-                          //           ? {
-                          //               'myCard': 'true',
-                          //               'cardId':
-                          //                   notification.cardId!.toString(),
-                          //             }
-                          //           : <String, String>{};
-                          //   GoRouter.of(context).pushNamed(
-                          //       Routes.cardDetailView,
-                          //       pathParameters: map);
-                          // Navigator.push(
-                          //   context,
-                          //   fadePageRoute(const Tabs()),
-                          // );
-                          // }
-                          // if (notification.tag == 'Request Diclined') {}
-                        },
-                        child: Dismissible(
-                          key: Key(notificationController
-                                  .bizcardNotifications[index].id ??
-                              ''),
-                          onDismissed: (direction) {
-                            notificationController.clearNotification([
-                              notificationController
-                                      .bizcardNotifications[index].id ??
-                                  ''
-                            ]);
+                SizedBox(child: Image.asset(emptyNodata2)),
+                Text(
+                  'No notifications available\n at the moment',
+                  style: Theme.of(context).textTheme.titleSmall,
+                  textAlign: TextAlign.center,
+                )
+              ],
+            )
+          : Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Obx(
+                () {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.separated(
+                          controller: scrollController,
+                          shrinkWrap: true,
+                          separatorBuilder: (context, index) {
+                            return adjustHieght(10);
                           },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                                color: kwhite,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                adjustHieght(20),
-                                Row(
-                                  children: [
-                                    const CircleAvatar(
-                                      backgroundColor: kblue,
-                                      radius: 8,
-                                    ),
-                                    adjustWidth(10),
-                                    Expanded(
-                                      child: Text(
+                          itemCount: notificationController
+                              .bizcardNotifications.length,
+                          itemBuilder: (context, index) {
+                            // log('notification length ${!state.notificationLoading && state.notification!.length <= index}=>$index ${state.notification!.length}');
+                            // final notification = state.notification![index];
+
+                            // if (state.notificationLoading &&
+                            //     index >= state.notification!.length - 1) {
+                            //   return const LoadingAnimation();
+                            // } else {
+
+                            return GestureDetector(
+                              onTap: () {
+                                // if (notification.tag == 'Connection request') {
+                                //   Navigator.push(
+                                //     context,
+                                //     cardFadePageRoute(
+                                //         const ScreenConnectionRequests()),
+                                //   );
+                                // }
+                                // if (notification.tag == 'Connection accepted') {
+                                //   Navigator.push(
+                                //     context,
+                                //     cardFadePageRoute(
+                                //         const MyConnectionsViewAllContacts()),
+                                //   );
+                                // }
+                                // if (notification.tag == 'Company Request') {
+                                //   Map<String, String> map =
+                                //       notification.cardId != null
+                                //           ? {
+                                //               'myCard': 'true',
+                                //               'cardId':
+                                //                   notification.cardId!.toString(),
+                                //             }
+                                //           : <String, String>{};
+                                //   GoRouter.of(context).pushNamed(
+                                //       Routes.cardDetailView,
+                                //       pathParameters: map);
+                                // Navigator.push(
+                                //   context,
+                                //   fadePageRoute(const Tabs()),
+                                // );
+                                // }
+                                // if (notification.tag == 'Request Diclined') {}
+                              },
+                              child: Dismissible(
+                                key: Key(notificationController
+                                        .bizcardNotifications[index].id ??
+                                    ''),
+                                onDismissed: (direction) {
+                                  notificationController.clearNotification([
+                                    notificationController
+                                            .bizcardNotifications[index].id ??
+                                        ''
+                                  ]);
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  decoration: BoxDecoration(
+                                      color: kwhite,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      adjustHieght(20),
+                                      Row(
+                                        children: [
+                                          const CircleAvatar(
+                                            backgroundColor: kblue,
+                                            radius: 8,
+                                          ),
+                                          adjustWidth(10),
+                                          Expanded(
+                                            child: Text(
+                                              notificationController
+                                                      .bizcardNotifications[
+                                                          index]
+                                                      .title ??
+                                                  "",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall
+                                                  ?.copyWith(fontSize: 13),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          // Text(
+                                          //   DateTimeFormater.formatTimeAMPM(
+                                          //       notificationController
+                                          //           .bizcardNotifications[index]
+                                          //           .createdAt),
+                                          //   style: Theme.of(context)
+                                          //       .textTheme
+                                          //       .displaySmall
+                                          //       ?.copyWith(color: kGreyNormal),
+                                          // ),
+                                        ],
+                                      ),
+                                      adjustHieght(10),
+                                      Text(
                                         notificationController
                                                 .bizcardNotifications[index]
-                                                .title ??
+                                                .message ??
                                             "",
                                         style: Theme.of(context)
                                             .textTheme
                                             .displaySmall
-                                            ?.copyWith(fontSize: 13),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
+                                            ?.copyWith(fontSize: 12),
                                       ),
-                                    ),
-                                    Text(
-                                      DateTimeFormater.formatTimeAMPM(
-                                          notificationController
-                                              .bizcardNotifications[index]
-                                              .createdAt),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall
-                                          ?.copyWith(color: kGreyNormal),
-                                    ),
-                                  ],
+                                      adjustHieght(7.h),
+                                      Text(
+                                        'click to get more information',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(color: kGreyNormal),
+                                      ),
+                                      adjustHieght(10),
+                                    ],
+                                  ),
                                 ),
-                                adjustHieght(10),
-                                Text(
-                                  notificationController
-                                          .bizcardNotifications[index]
-                                          .message ??
-                                      "",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(fontSize: 12),
-                                ),
-                                adjustHieght(7.h),
-                                Text(
-                                  'click to get more information',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(color: kGreyNormal),
-                                ),
-                                adjustHieght(10),
-                              ],
-                            ),
-                          ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                ),
-                adjustHieght(20.h),
-              ],
-            );
-          },
-        ),
-      ),
+                      ),
+                      adjustHieght(20.h),
+                    ],
+                  );
+                },
+              ),
+            ),
       floatingActionButton:
           notificationController.bizcardNotifications.isNotEmpty
               ? FloatingActionButton(
@@ -233,7 +241,7 @@ class _ScreenCardNotificationState extends State<ScreenCardNotification> {
 
                     notificationController
                         .clearNotification(bizcardNotificationIds);
-                        GoRouter.of(context).pop();
+                    GoRouter.of(context).pop();
                   },
                 )
               : null,

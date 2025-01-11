@@ -227,6 +227,7 @@ class SubTaskTileDetailPage extends StatelessWidget {
                 title: 'Delete Subtask',
                 description: 'Are you sure you want to delete this subtask ?');
           }
+          return null;
         },
         direction: DismissDirection.startToEnd,
         child: Card(

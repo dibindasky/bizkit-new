@@ -94,7 +94,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                           borderRadius: kBorderRadius10),
                       child: Center(
                         child: Text(
-                          'Yes',
+                          controller.isLoading.value ? 'Loading....' : 'Yes',
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
@@ -176,7 +176,7 @@ class TaskStatusChangeDialog extends StatelessWidget {
                       borderRadius: kBorderRadius10),
                   child: Center(
                     child: Text(
-                      'Complete ',
+                      controller.isLoading.value ? 'Loading....' : 'Complete ',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),

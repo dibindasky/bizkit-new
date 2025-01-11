@@ -4,6 +4,7 @@ import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class SubTaskDetailView extends StatelessWidget {
   const SubTaskDetailView({
@@ -30,43 +31,59 @@ class SubTaskDetailView extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: kBorderRadius10,
         ),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              adjustWidth(25.w),
-              Text(
-                subTaskTitle ?? 'SubTask Title',
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall
-                    ?.copyWith(fontSize: 15),
-              ),
-              IconButton(
-                icon: const Icon(
-                  Icons.close,
-                  color: kneon,
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                adjustWidth(25.w),
+                Expanded(
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    subTaskTitle ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontSize: 15),
+                  ),
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-          const Divider(color: kGreyNormal, indent: 0),
-          adjustHieght(10.h),
-          Text(
-            subTaskDes ?? 'Subtask des',
-            style: Theme.of(context).textTheme.displaySmall,
-          ),
-          adjustHieght(10.h),
-          if (formattedDuration != null)
-            Text(
-              'Total Time Taken: $formattedDuration',
-              style: Theme.of(context).textTheme.displaySmall,
+                GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).pop();
+                  },
+                  child: const CircleAvatar(
+                    radius: 18,
+                    backgroundColor: kblack,
+                    child: Icon(
+                      Icons.close,
+                      color: kwhite,
+                      size: 17,
+                    ),
+                  ),
+                )
+              ],
             ),
-          adjustHieght(10.h),
-        ]),
+            Divider(color: kGreyNormal.withOpacity(0.2), indent: 0),
+            adjustHieght(10.h),
+            Text(
+              subTaskDes ?? '',
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall
+                  ?.copyWith(fontSize: 11, color: kGreyNormal),
+            ),
+            adjustHieght(10.h),
+            if (formattedDuration != null)
+              Text(
+                textAlign: TextAlign.center,
+                'Total Time Taken: $formattedDuration',
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+            adjustHieght(10.h),
+          ]),
+        ),
       ),
     );
   }

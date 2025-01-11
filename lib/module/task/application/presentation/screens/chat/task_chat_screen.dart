@@ -42,82 +42,9 @@ class ScreenTaskChat extends StatelessWidget {
                     )
                   : Column(
                       children: [
-                        Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20.w, vertical: 6.h),
-                            child: AnimatedCrossFade(
-                                crossFadeState:
-                                    chatController.selectedMessages.isNotEmpty
-                                        ? CrossFadeState.showSecond
-                                        : CrossFadeState.showFirst,
-                                firstChild: Row(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        GoRouter.of(context).pop();
-                                        // chatController.closeConnetion(context);
-                                      },
-                                      child: CircleAvatar(
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimary,
-                                        child: Icon(
-                                          Icons.arrow_back_ios_new,
-                                          size: 18.sp,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onTertiary,
-                                        ),
-                                      ),
-                                    ),
-                                    adjustWidth(10.w),
-                                    Text(
-                                      taskTitle,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displaySmall
-                                          ?.copyWith(fontSize: 15),
-                                    ),
-                                  ],
-                                ),
-                                secondChild: Row(children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      chatController.clearSelectedMessages();
-                                    },
-                                    child: CircleAvatar(
-                                      backgroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                      child: Icon(
-                                        Icons.close,
-                                        size: 18.sp,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onTertiary,
-                                      ),
-                                    ),
-                                  ),
-                                  adjustWidth(10.w),
-                                  Text(
-                                    "${chatController.selectedMessages.length} Selected",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall
-                                        ?.copyWith(fontSize: 15),
-                                  ),
-                                  const Spacer(),
-                                  GestureDetector(
-                                      child: const Icon(Icons.delete),
-                                      onTap: () {
-                                        chatController.deleteFileFromChat();
-                                      })
-                                ]),
-                                duration: const Duration(milliseconds: 300))),
+                        MessageSelectedAppbar(
+                            chatController: chatController,
+                            taskTitle: taskTitle),
                         const Divider(
                           thickness: 1,
                           color: kGrayLight,
@@ -145,5 +72,86 @@ class ScreenTaskChat extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class MessageSelectedAppbar extends StatelessWidget {
+  const MessageSelectedAppbar({
+    super.key,
+    required this.chatController,
+    required this.taskTitle,
+  });
+
+  final ChatController chatController;
+  final String taskTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
+        child: AnimatedCrossFade(
+            crossFadeState: chatController.selectedMessages.isNotEmpty
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
+            firstChild: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).pop();
+                    // chatController.closeConnetion(context);
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                    child: Icon(
+                      Icons.arrow_back_ios_new,
+                      size: 18.sp,
+                      color: Theme.of(context).colorScheme.onTertiary,
+                    ),
+                  ),
+                ),
+                adjustWidth(10.w),
+                Text(
+                  taskTitle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 15),
+                ),
+              ],
+            ),
+            secondChild: Row(children: [
+              GestureDetector(
+                onTap: () {
+                  chatController.clearSelectedMessages();
+                },
+                child: CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                  child: Icon(
+                    Icons.close,
+                    size: 18.sp,
+                    color: Theme.of(context).colorScheme.onTertiary,
+                  ),
+                ),
+              ),
+              adjustWidth(10.w),
+              Text(
+                "${chatController.selectedMessages.length} Selected",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(fontSize: 15),
+              ),
+              const Spacer(),
+              GestureDetector(
+                  child: const Icon(Icons.delete),
+                  onTap: () {
+                    chatController.deleteMessage();
+                  })
+            ]),
+            duration: const Duration(milliseconds: 300))));
   }
 }

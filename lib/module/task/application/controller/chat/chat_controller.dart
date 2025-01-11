@@ -145,7 +145,7 @@ class ChatController extends GetxController {
                 jsonDecode(message as String) as Map<String, dynamic>;
 
             bool doAnimate = true;
-
+            print(decodedMessage);
             // WebSocket connection established successfully
             if (decodedMessage['type'] == 'connection_success') {
               connectionLoading.value = false;
@@ -325,7 +325,6 @@ class ChatController extends GetxController {
         break;
 
       case 'time_expense':
-        print(decodedMessage);
         Get.find<CreateTaskController>().fetchSingleTask(
             singleTaskModel: GetSingleTaskModel(taskId: chatTaskId));
         final m = TimeExpense.fromJson(decodedMessage, uid: uid);
@@ -445,6 +444,34 @@ class ChatController extends GetxController {
           }
         }
         break;
+
+      case 'delete_time_expense':
+        for (var id in (decodedMessage['message_ids'] as List?) ?? <String>[]) {
+          final index =
+              messages.indexWhere((m) => m.messageId == (id as String?));
+          if (index != -1) {
+            messages[index].deleted = true;
+            doAnimate = false;
+            update(['chat']);
+            await taskChatLocalService.insertOrUpdateMessage(
+                message: messages[index]);
+          }
+        }
+
+      case 'delete_message':
+        for (var id in (decodedMessage['message_ids'] as List?) ?? <String>[]) {
+          final index =
+              messages.indexWhere((m) => m.messageId == (id as String?));
+          if (index != -1) {
+            messages[index].deleted = true;
+            doAnimate = false;
+            update(['chat']);
+            await taskChatLocalService.insertOrUpdateMessage(
+                message: messages[index]);
+          }
+        }
+        break;
+
       default:
         // Handle unsupported message types if needed
         log('message type not found ${decodedMessage['message_type']}');

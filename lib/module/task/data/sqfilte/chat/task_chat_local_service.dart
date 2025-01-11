@@ -617,6 +617,8 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${TimeExpense.colTimestamp},
         ${TimeExpense.colReadByAll},
         ${TimeExpense.colSender},
+        ${TimeExpense.colTimeExpenceEntryId},
+        ${TimeExpense.colTimeExpenceId},
         ${TimeExpense.colId},
         ${TimeExpense.colUserName},
         ${TimeExpense.colTaskId},
@@ -627,7 +629,7 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${TimeExpense.colEndDate},
         ${TimeExpense.colLocalId}
       ) 
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     ''';
       return await localService.rawInsert(query, [
         timeExpense.messageType ?? '',
@@ -639,6 +641,8 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         timeExpense.timestamp ?? '',
         (timeExpense.readByAll ?? false) ? 1 : 0,
         timeExpense.sender ? 1 : 0,
+        timeExpense.timeExpenseEntryId ?? '',
+        timeExpense.timeExpenseId ?? '',
         timeExpense.timeExpenseData?.id ?? '',
         timeExpense.timeExpenseData?.userName ?? '',
         timeExpense.timeExpenseData?.taskId ?? '',
@@ -669,6 +673,8 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         ${TimeExpense.colTimestamp} = ?,
         ${TimeExpense.colReadByAll} = ?,
         ${TimeExpense.colSender} = ?,
+        ${TimeExpense.colTimeExpenceEntryId} = ?,
+        ${TimeExpense.colTimeExpenceId} = ?,
         ${TimeExpense.colId} = ?,
         ${TimeExpense.colTaskId} = ?,
         ${TimeExpense.colTime} = ?,
@@ -690,6 +696,8 @@ class TaskChatLocalService implements TaskChatLocalServiceRepo {
         timeExpense.timestamp ?? '',
         (timeExpense.readByAll ?? false) ? 1 : 0,
         timeExpense.sender ? 1 : 0,
+        timeExpense.timeExpenseEntryId ?? '',
+        timeExpense.timeExpenseId ?? '',
         timeExpense.timeExpenseData?.id ?? '',
         timeExpense.timeExpenseData?.taskId ?? '',
         timeExpense.timeExpenseData?.time ?? '',

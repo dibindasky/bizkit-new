@@ -6,8 +6,10 @@ part 'attachment.g.dart';
 class Attachment {
   String? attachment;
   String? type;
+  @JsonKey(name: 'local_id')
+  String? localId;
 
-  Attachment({this.attachment, this.type});
+  Attachment({this.attachment, this.type, this.localId});
 
   factory Attachment.fromJson(Map<String, dynamic> json) {
     return _$AttachmentFromJson(json);

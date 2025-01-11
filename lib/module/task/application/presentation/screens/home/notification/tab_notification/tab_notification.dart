@@ -75,9 +75,7 @@ class TaskTabNotification extends StatelessWidget {
                     indicatorColor: knill,
                     tabs: const [
                       Tab(text: 'Requests Received'),
-                      Tab(
-                        text: 'Requests Sent',
-                      ),
+                      Tab(text: 'Requests Sent'),
                     ],
                   ),
                 ),

@@ -9,11 +9,12 @@ part of 'attachment.dart';
 Attachment _$AttachmentFromJson(Map<String, dynamic> json) => Attachment(
       attachment: json['attachment'] as String?,
       type: json['type'] as String?,
-    )..localId = json['localId'] as int?;
+      localId: json['local_id'] as String?,
+    );
 
 Map<String, dynamic> _$AttachmentToJson(Attachment instance) =>
     <String, dynamic>{
-      'localId': instance.localId,
+      'local_id': instance.localId,
       'attachment': instance.attachment,
       'type': instance.type,
     };

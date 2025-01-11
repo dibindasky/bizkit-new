@@ -5,12 +5,13 @@ part 'attachment.g.dart';
 @JsonSerializable()
 class Attachment {
   // Local ID
-  int? localId;
+  @JsonKey(name: 'local_id')
+  String? localId;
 
   String? attachment;
   String? type;
 
-  Attachment({this.attachment, this.type});
+  Attachment({this.attachment, this.type, this.localId});
 
   factory Attachment.fromJson(Map<String, dynamic> json) {
     return _$AttachmentFromJson(json);

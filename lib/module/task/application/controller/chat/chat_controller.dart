@@ -185,8 +185,6 @@ class ChatController extends GetxController {
             _error = 'Connection error: $error';
             connectionLoading.value = false;
             connected.value = false;
-            // connectChannel(context, taskId: taskId);
-            // GoRouter.of(context).pop();
           },
           onDones: () {
             if (webSocketService.channel?.closeCode != null) {
@@ -194,41 +192,13 @@ class ChatController extends GetxController {
                   'Connection closed with code: ${webSocketService.channel?.closeCode}';
             }
           });
-      // webSocketService.channel?.stream.listen(
-      //   ,
-      //   onError: (error) {
-      //     _error = 'Connection error: $error';
-      //     connectionLoading.value = false;
-      //     connected.value = false;
-      //     // connectChannel(context, taskId: taskId);
-      //     // GoRouter.of(context).pop();
-      //   },
-      //   onDone: () {
-      //     if (webSocketService.channel?.closeCode != null) {
-      //       _error =
-      //           'Connection closed with code: ${webSocketService.channel?.closeCode}';
-      //     }
-      //     connectionLoading.value = false;
-      //     connected.value = false;
-      //     // GoRouter.of(context).pop();
-      //   },
-      // );
     } catch (e) {
       _error = 'Failed to connect: $e';
       connectionLoading.value = false;
       connected.value = false;
       webSocketService.disconnect();
-      // ignore: use_build_context_synchronously
-      // connectChannel(context, taskId: taskId);
     }
   }
-
-  // void _reConnect({required String accessToken}) {
-  //   channel = IOWebSocketChannel.connect(
-  //     Uri.parse(SocketEndpoints.taskChat.replaceFirst('{task_id}', chatTaskId)),
-  //     headers: {'Authorization': 'Bearer $accessToken'},
-  //   );
-  // }
 
   /// generate an unique id for message to store locally
   String getUniqueId() => const Uuid().v4();
@@ -355,6 +325,7 @@ class ChatController extends GetxController {
         break;
 
       case 'time_expense':
+        print(decodedMessage);
         Get.find<CreateTaskController>().fetchSingleTask(
             singleTaskModel: GetSingleTaskModel(taskId: chatTaskId));
         final m = TimeExpense.fromJson(decodedMessage, uid: uid);
@@ -835,14 +806,65 @@ class ChatController extends GetxController {
     }
   }
 
+  /// delete message
+  void deleteMessage() {
+    deleteFileFromChat();
+    deleteTimeExpense();
+    deleteOtherMessages();
+    clearSelectedMessages();
+  }
+
+  /// delete other messages
+  void deleteOtherMessages() {
+    final deleteMessage = selectedMessages
+        .where(
+            (e) => (e.messageType != 'time_expense' && e.messageType != 'file'))
+        .toList();
+    if (deleteMessage.isEmpty) {
+      return;
+    }
+    addMessageToChannel(data: {
+      "message_type": "delete_message",
+      "message_ids": deleteMessage.map((e) => e.messageId).toList()
+    });
+  }
+
+  /// delete time expense
+  void deleteTimeExpense() {
+    final timeExpense =
+        selectedMessages.where((e) => e.messageType == 'time_expense').toList();
+    if (timeExpense.isEmpty) {
+      return;
+    }
+    addMessageToChannel(data: {
+      "message_type": "delete_time_expanse",
+      "messages": List.generate(
+        timeExpense.length,
+        (index) {
+          final data = timeExpense[index].timeExpence;
+          return {
+            "time_expense_id": data?.timeExpenseId ?? '',
+            "time_expense_entry_id": data?.timeExpenseEntryId,
+            "message_id": data?.messageId
+          };
+        },
+      )
+    });
+  }
+
   /// delete file from chat
   void deleteFileFromChat() {
+    final fileToDelete =
+        selectedMessages.where((e) => e.messageType == 'file').toList();
+    if (fileToDelete.isEmpty) {
+      return;
+    }
     addMessageToChannel(data: {
       "message_type": "delete_file",
-      "message_ids": List.generate(selectedMessages.length,
-          (index) => selectedMessages[index].messageId),
+      "message_ids": List.generate(
+          fileToDelete.length, (index) => fileToDelete[index].messageId),
       "files": List.generate(
-          selectedMessages.length, (index) => selectedMessages[index].file)
+          fileToDelete.length, (index) => fileToDelete[index].file)
     });
     // for (var mess in selectedMessages) {
     //   final index = messages.indexWhere((m) => m.messageId == mess.messageId);
@@ -852,7 +874,6 @@ class ChatController extends GetxController {
     //     taskChatLocalService.insertOrUpdateMessage(message: messages[index]);
     //   }
     // }
-    clearSelectedMessages();
   }
 
   void selectOrUnselectMessage({required Message message}) {

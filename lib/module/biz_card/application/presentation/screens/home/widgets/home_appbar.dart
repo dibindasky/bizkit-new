@@ -32,7 +32,7 @@ class HomeAppBarWidget extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Expanded(
+                        Flexible(
                           child: Text(
                             "Hello ${authController.userName.value}",
                             style: Theme.of(context)

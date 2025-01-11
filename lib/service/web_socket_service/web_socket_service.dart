@@ -32,7 +32,7 @@ class WebSocketService {
     _channel!.stream.listen(
       listener,
       onError: (error) {
-        // log('WebSocket error: $error');
+        log('WebSocket error: $error');
         if (this.onErrors != null) {
           this.onErrors!(error);
         }

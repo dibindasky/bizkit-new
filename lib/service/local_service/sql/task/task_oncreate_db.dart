@@ -309,7 +309,9 @@ class TaskSql {
       ${TimeExpense.colExpense} TEXT,
       ${TimeExpense.colDescription} TEXT,
       ${TimeExpense.colStartDate} TEXT,
-      ${TimeExpense.colEndDate} TEXT
+      ${TimeExpense.colEndDate} TEXT,
+      ${TimeExpense.colTimeExpenceEntryId} TEXT,
+      ${TimeExpense.colTimeExpenceId} TEXT
     )
   ''';
 

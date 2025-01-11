@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
+import 'package:bizkit/utils/animations/custom_expansion_view_more_less_buttons.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,16 +9,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class TagsContainer extends StatelessWidget {
+class TagsContainer extends StatefulWidget {
   TagsContainer({
     super.key,
     this.tagsForEdit = false,
   });
 
+  final bool tagsForEdit;
+
+  @override
+  State<TagsContainer> createState() => _TagsContainerState();
+}
+
+class _TagsContainerState extends State<TagsContainer> {
   // final List<String>? tags;
   final TextEditingController tagController = TextEditingController();
+
   final CreateTaskController controller = Get.find<CreateTaskController>();
-  final bool tagsForEdit;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,7 +56,7 @@ class TagsContainer extends StatelessWidget {
                     placeholderStyle: Theme.of(context).textTheme.displaySmall,
                     suffix: GestureDetector(
                       onTap: () {
-                        if (tagsForEdit) {
+                        if (widget.tagsForEdit) {
                           final tag = tagController.text.trim();
 
                           if (tag.isNotEmpty &&
@@ -64,10 +73,10 @@ class TagsContainer extends StatelessWidget {
                               !controller.tags.contains(tag)) {
                             controller.tags.add(tag);
                             // FocusScope.of(context).unfocus();
-                            log('Tags =====> ${controller.tags}');
                           }
                           tagController.clear();
                         }
+                        setState(() {});
                       },
                       child: const Padding(
                         padding: EdgeInsets.only(right: 10.0),
@@ -92,56 +101,63 @@ class TagsContainer extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Obx(() {
-                    return Wrap(
-                      spacing: 18.0,
-                      runSpacing: 4.0,
-                      children: tagsForEdit
-                          ? controller.tagsForEdit.asMap().entries.map((entry) {
-                              int index = entry.key;
-                              String tag = entry.value;
-                              return Chip(
-                                label: Text(
-                                  tag,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(
-                                          color: controller.tagColor[index %
-                                              controller.tagColor.length]),
-                                ),
-                                onDeleted: () {
-                                  controller.removeTagForEdit(tag);
-                                  log('Tags For Edit =====> ${controller.tagsForEdit}');
-                                },
-                                side: BorderSide.none,
-                                backgroundColor: controller.tagColor[
-                                        index % controller.tagColor.length]
-                                    .withOpacity(0.05),
-                              );
-                            }).toList()
-                          : controller.tags.asMap().entries.map((entry) {
-                              int index = entry.key;
-                              String tag = entry.value;
-                              return Chip(
-                                label: Text(
-                                  tag,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displaySmall
-                                      ?.copyWith(
-                                          color: controller.tagColor[index %
-                                              controller.tagColor.length]),
-                                ),
-                                onDeleted: () {
-                                  controller.removeTag(tag);
-                                  log('Tags =====> ${controller.tags}');
-                                },
-                                side: BorderSide.none,
-                                backgroundColor: controller.tagColor[
-                                        index % controller.tagColor.length]
-                                    .withOpacity(0.05),
-                              );
-                            }).toList(),
+                    controller.tagsForEdit.length;
+                    print('collapse or expand widget');
+                    return ExpandableViewMoreViewLessContainer(
+                      child: Wrap(
+                        spacing: 18.0,
+                        runSpacing: 4.0,
+                        children: widget.tagsForEdit
+                            ? controller.tagsForEdit
+                                .asMap()
+                                .entries
+                                .map((entry) {
+                                int index = entry.key;
+                                String tag = entry.value;
+                                return Chip(
+                                  label: Text(
+                                    tag,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(
+                                            color: controller.tagColor[index %
+                                                controller.tagColor.length]),
+                                  ),
+                                  onDeleted: () {
+                                    controller.removeTagForEdit(tag);
+                                    setState(() {});
+                                  },
+                                  side: BorderSide.none,
+                                  backgroundColor: controller.tagColor[
+                                          index % controller.tagColor.length]
+                                      .withOpacity(0.05),
+                                );
+                              }).toList()
+                            : controller.tags.asMap().entries.map((entry) {
+                                int index = entry.key;
+                                String tag = entry.value;
+                                return Chip(
+                                  label: Text(
+                                    tag,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall
+                                        ?.copyWith(
+                                            color: controller.tagColor[index %
+                                                controller.tagColor.length]),
+                                  ),
+                                  onDeleted: () {
+                                    controller.removeTag(tag);
+                                    log('Tags =====> ${controller.tags}');
+                                  },
+                                  side: BorderSide.none,
+                                  backgroundColor: controller.tagColor[
+                                          index % controller.tagColor.length]
+                                      .withOpacity(0.05),
+                                );
+                              }).toList(),
+                      ),
                     );
                   }),
                 ),

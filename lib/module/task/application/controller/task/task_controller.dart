@@ -629,6 +629,7 @@ class CreateTaskController extends GetxController {
       return Attachment(
         attachment: base64Encode(File(file.path!).readAsBytesSync()),
         type: file.extension == 'jpg' ? 'image' : file.extension,
+        
       );
     }).toList();
   }
@@ -846,7 +847,9 @@ class CreateTaskController extends GetxController {
 
   // Fetches the list of received requests
   void fetchReceivedRequests() async {
+    if(receivedRequests.isEmpty){
     loadingForRecivedRequests.value = true;
+    }
     final result = await taskService.getReceivedRequests();
     result.fold(
       (failure) {

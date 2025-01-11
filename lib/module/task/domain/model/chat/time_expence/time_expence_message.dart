@@ -11,6 +11,8 @@ class TimeExpense {
   bool? readByAll;
   bool sender;
   bool isLoadMore;
+  String? timeExpenseId;
+  String? timeExpenseEntryId;
 
   TimeExpense({
     this.messageType,
@@ -23,6 +25,8 @@ class TimeExpense {
     this.timeExpenseData,
     this.readByAll,
     this.localId,
+    this.timeExpenseEntryId,
+    this.timeExpenseId,
     this.sender = false,
     this.isLoadMore = false,
   });
@@ -41,6 +45,8 @@ class TimeExpense {
       profilePicture: json['profile_picture'] as String?,
       messageId: json['message_id'] as String?,
       timestamp: json['timestamp'] as String?,
+      timeExpenseEntryId: json['time_expense_entry_id'] as String?,
+      timeExpenseId: json['time_expense_id'] as String?,
       timeExpenseData: fromLocalDb
           // make timeexpence data form local data
           ? TimeExpenseData.fromJson(json)
@@ -73,6 +79,8 @@ class TimeExpense {
       'read_by_all': readByAll,
       'sender': sender,
       'is_load_more': isLoadMore,
+      'time_expense_entry_id': timeExpenseEntryId,
+      'time_expense_id': timeExpenseId,
     };
   }
 
@@ -89,6 +97,8 @@ class TimeExpense {
   static const String colReadByAll = 'read_by_all';
   static const String colSender = 'sender';
   static const String colIsLoadMore = 'is_load_more';
+  static const String colTimeExpenceEntryId = 'time_expense_entry_id';
+  static const String colTimeExpenceId = 'time_expense_id';
 
   /// [TimeExpenseData] items
   static const String colId = '_id';

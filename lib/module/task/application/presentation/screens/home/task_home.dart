@@ -129,7 +129,6 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
               child: Draggable(
                 feedback: _buildFloatingButton(),
                 childWhenDragging: Container(),
-                hitTestBehavior: HitTestBehavior.translucent,
                 onDragEnd: (details) {
                   onDragEnd(details, screenSize);
                 },

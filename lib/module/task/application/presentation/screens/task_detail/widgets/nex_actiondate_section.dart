@@ -15,6 +15,7 @@ import 'package:bizkit/utils/widgets/event_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class NextActionDateSection extends StatelessWidget {
   const NextActionDateSection({
@@ -223,19 +224,27 @@ class NextActionDateSection extends StatelessWidget {
                                             .displaySmall
                                             ?.copyWith(fontSize: 14),
                                       ),
-                                      IconButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
+                                      GestureDetector(
+                                        onTap: () {
+                                          GoRouter.of(context).pop();
                                         },
-                                        icon: const Icon(Icons.close),
-                                      ),
+                                        child: const CircleAvatar(
+                                          radius: 18,
+                                          backgroundColor: kblack,
+                                          child: Icon(
+                                            Icons.close,
+                                            color: kwhite,
+                                            size: 17,
+                                          ),
+                                        ),
+                                      )
                                     ],
                                   ),
                                   content: Container(
-                                    decoration: BoxDecoration(
-                                      color: kGreyNormal.withOpacity(0.1),
-                                      borderRadius: kBorderRadius15,
-                                    ),
+                                    // decoration: BoxDecoration(
+                                    //   color: kGreyNormal.withOpacity(0.1),
+                                    //   borderRadius: kBorderRadius15,
+                                    // ),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment:
@@ -259,7 +268,8 @@ class NextActionDateSection extends StatelessWidget {
                                                             .textTheme
                                                             .displayMedium
                                                             ?.copyWith(
-                                                                fontSize: 13)),
+                                                              fontSize: 13,
+                                                            )),
                                                   ),
                                                   Flash(
                                                     animate: true,
@@ -275,18 +285,14 @@ class NextActionDateSection extends StatelessWidget {
                                                 ],
                                               ),
                                               adjustHieght(10.h),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 1,
-                                                        vertical: 10),
-                                                child: Text(
-                                                    textAlign: TextAlign.start,
-                                                    '${nextAction?.description}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .displaySmall),
-                                              ),
+                                              Text(
+                                                  textAlign: TextAlign.start,
+                                                  '${nextAction?.description}',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displaySmall
+                                                      ?.copyWith(
+                                                          color: kGreyNormal)),
                                             ],
                                           ),
                                         ),
@@ -301,8 +307,14 @@ class NextActionDateSection extends StatelessWidget {
                                         CircleAvatar(
                                           radius: 15,
                                           child: NetworkImageWithLoader(
-                                              errorWidget:
-                                                  const Icon(Icons.person),
+                                              errorWidget: const CircleAvatar(
+                                                backgroundColor: kblack,
+                                                child: Icon(
+                                                  Icons.person,
+                                                  size: 18,
+                                                  color: kwhite,
+                                                ),
+                                              ),
                                               radius: 15,
                                               nextAction?.userProfile ?? ''),
                                         ),

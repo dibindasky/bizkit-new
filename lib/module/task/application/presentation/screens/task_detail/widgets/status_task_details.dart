@@ -77,11 +77,20 @@ class TaskDetailStatusSection extends StatelessWidget {
                                           .titleSmall
                                           ?.copyWith(fontSize: 14),
                                     ),
-                                    IconButton(
-                                        onPressed: () {
-                                          GoRouter.of(context).pop();
-                                        },
-                                        icon: const Icon(Icons.close))
+                                    GestureDetector(
+                                      onTap: () {
+                                        GoRouter.of(context).pop();
+                                      },
+                                      child: const CircleAvatar(
+                                        radius: 20,
+                                        backgroundColor: kblack,
+                                        child: Icon(
+                                          Icons.close,
+                                          color: kwhite,
+                                          size: 18,
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),

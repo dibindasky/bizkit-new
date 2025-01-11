@@ -165,13 +165,11 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
                 att.type == 'jpg' || att.type == 'png' || att.type == 'image')
             .toList() ??
         [];
-    print(controller.singleTask.value.attachments?.map((e)=>e.type).toList());
-    print(imageAttachments.length);
 
     final imageIndex = (imageAttachments).indexWhere(
-      (element) => controller.singleTask.value.attachments?[index] == element,
+      (element) => element.attachment == attachment,
     );
-    // print(imageIndex);
+
     if (type == 'pdf') {
       Navigator.push(
         context,
@@ -196,7 +194,7 @@ class TaskDetailAttachmentsSection extends StatelessWidget {
           ),
         ),
       );
-    } else if (type == 'image' || type == 'png') {
+    } else if (type == 'image' || type == 'png' || type == 'jpg') {
       GoRouter.of(context).pushNamed(Routes.slidablePhotoGallery, extra: {
         'images': imageAttachments
             .map(

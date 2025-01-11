@@ -137,6 +137,8 @@ class TaskContainer extends StatelessWidget {
           () => Stack(
             children: [
               Card(
+                elevation: 1,
+
                 color: !controller.selectedIndices.contains(index)
                     ? Theme.of(context).colorScheme.onTertiary
                     : kwhite.withOpacity(.2),

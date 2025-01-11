@@ -77,7 +77,9 @@ class NotificationRequestCard extends StatelessWidget {
                             child: CircleAvatar(
                               backgroundColor: kblack,
                               child: Text(
-                                name!.substring(0, 2).toUpperCase(),
+                                (name?.isEmpty ?? true)
+                                    ? ''
+                                    : name!.substring(0, 2).toUpperCase(),
                                 style: textThinerStyle1.copyWith(color: kwhite),
                               ),
                             ),

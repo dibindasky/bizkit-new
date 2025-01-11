@@ -72,8 +72,8 @@ class NotificationCard extends StatelessWidget {
                             ),
                             adjustWidth(8),
                             Expanded(
-                              child: Text(taskTitle??
-                                title ?? '',
+                              child: Text(
+                                taskTitle ?? title ?? '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .displaySmall
@@ -81,13 +81,15 @@ class NotificationCard extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            Text(
-                              DateTimeFormater.formatTimeAMPM(createdAt),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displaySmall
-                                  ?.copyWith(color: kGreyNormal),
-                            ),
+                            // Text(
+                            //   DateTimeFormater.timeAgoString(
+                            //     createdAt,
+                            //   ),
+                            //   style: Theme.of(context)
+                            //       .textTheme
+                            //       .displaySmall
+                            //       ?.copyWith(color: kGreyNormal),
+                            // ),
                           ],
                         ),
                         adjustHieght(5),

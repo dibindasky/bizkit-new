@@ -61,20 +61,20 @@ class ChatListView extends StatelessWidget {
               if (message.textMessage != null) {
                 return ChatBubble(
                   showArrow: showArrow,
-                  message: message.textMessage!,
+                  message: message,
                 );
               }
               // poll message
               if (message.poll != null) {
                 return PollContainerChat(
-                  message: message.poll!,
+                  message: message,
                   active: active,
                 );
               }
               // time or expence
               if (message.timeExpence != null) {
                 return TimeAndExpenseCard(
-                  message: message.timeExpence!,
+                  message: message,
                 );
               }
               // file type
@@ -83,11 +83,11 @@ class ChatListView extends StatelessWidget {
               }
               // current location
               if (message.currentLocation != null) {
-                return CurrentLocationCard(message: message.currentLocation!);
+                return CurrentLocationCard(message: message);
               }
               // voice message
               if (message.voiceMessage != null) {
-                return VoiceMessageCard(message: message.voiceMessage!);
+                return VoiceMessageCard(message: message);
               }
               return Text(
                 'Unknown type',

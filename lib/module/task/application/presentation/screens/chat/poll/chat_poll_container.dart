@@ -1,6 +1,7 @@
 import 'package:bizkit/core/routes/routes.dart';
 import 'package:bizkit/module/task/application/controller/chat/chat_controller.dart';
 import 'package:bizkit/module/task/application/presentation/screens/chat/widgets/message_read_marker.dart';
+import 'package:bizkit/module/task/domain/model/chat/message.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll/poll.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll/poll_answer.dart';
 import 'package:bizkit/module/task/domain/model/chat/poll/vote_poll.dart';
@@ -18,7 +19,7 @@ class PollContainerChat extends StatefulWidget {
   const PollContainerChat(
       {super.key, required this.message, required this.active});
 
-  final Poll message;
+  final Message message;
   final bool active;
 
   @override
@@ -68,7 +69,7 @@ class _PollContainerChatState extends State<PollContainerChat> {
   }
 
   initilize() {
-    message = widget.message;
+    message = widget.message.poll!;
     sender = message.sender;
     selectedOption.clear();
     totalVotes = 0;
@@ -133,7 +134,6 @@ class _PollContainerChatState extends State<PollContainerChat> {
     super.didUpdateWidget(oldWidget);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -142,243 +142,269 @@ class _PollContainerChatState extends State<PollContainerChat> {
           bottom: 0.w,
           left: sender ? 50.w : 0.w,
           right: !sender ? 50.w : 0.w),
-      child: ClipPath(
-        clipper: PollChatClipper(isSender: sender),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          padding: EdgeInsets.only(
-              left: !sender ? 15.w : 5.w,
-              right: sender ? 15.w : 5.w,
-              top: sender ? 5.w : 0.w,
-              bottom: 2.h),
-          decoration: BoxDecoration(
-            color: sender ? neonShade.withGreen(190) : kwhite,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              sender
-                  ? kempty
-                  : Text(
-                      message.userName ?? '',
-                      style: textThinStyle1.copyWith(
-                          fontSize: 8.sp, color: kblack),
-                    ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
-                decoration: BoxDecoration(
-                    color: !sender
-                        ? kGreyNormal.withOpacity(0.1)
-                        : kwhite.withOpacity(0.3),
-                    borderRadius: kBorderRadius5),
-                child: Text(message.pollQuestion ?? '',
-                    style:
-                        textStyle1.copyWith(color: sender ? kwhite : kblack)),
+      child: GestureDetector(onLongPress: () {
+        controller.selectOrUnselectMessage(message: widget.message);
+      }, onTap: () {
+        if (controller.selectedMessages.isNotEmpty) {
+          controller.selectOrUnselectMessage(message: widget.message);
+        }
+      }, child: Obx(
+        () {
+          final selectedMessage = controller.selectedMessages
+                  .indexWhere((t) => t.messageId == this.message.messageId) !=
+              -1;
+          return ClipPath(
+            clipper: PollChatClipper(isSender: sender),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              padding: EdgeInsets.only(
+                  left: !sender ? 15.w : 5.w,
+                  right: sender ? 15.w : 5.w,
+                  top: sender ? 5.w : 0.w,
+                  bottom: 2.h),
+              decoration: BoxDecoration(
+                color: selectedMessage
+                    ? kblue
+                    : sender
+                        ? neonShade.withGreen(190)
+                        : kwhite,
               ),
-              adjustHieght(2.h),
-              ListView(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: List.generate(
-                  message.pollAnswers?.length ?? 0,
-                  (index) {
-                    final answer = message.pollAnswers?[index];
-                    final selected =
-                        selectedOption.contains(answer?.answerId ?? '');
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {
-                              markUnMarkAnswer(answer);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.zero,
-                              margin: EdgeInsets.symmetric(vertical: 5.h),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  // Checkbox
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: sender ? kwhite : kblack,
-                                          width: 2.0),
-                                      borderRadius:
-                                          BorderRadius.circular(500.0),
-                                    ),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: selectedOption.contains(
-                                                answer?.answerId ?? '')
-                                            ? sender
-                                                ? kwhite
-                                                : kblack
-                                            : Colors.transparent,
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      padding:
-                                          EdgeInsets.all(selected ? 0 : 8.0),
-                                      child: selected
-                                          ? Icon(
-                                              Icons.check,
-                                              color: sender ? kblack : kwhite,
-                                              size: 15,
-                                            )
-                                          : null,
-                                    ),
-                                  ),
-                                  kWidth10,
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          answer?.answerText ?? '',
-                                          style: textThinStyle1.copyWith(
-                                              color: sender ? kwhite : kblack),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  sender
+                      ? kempty
+                      : Text(
+                          message.userName ?? '',
+                          style: textThinStyle1.copyWith(
+                              fontSize: 8.sp, color: kblack),
+                        ),
+                  Container(
+                    width: double.infinity,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
+                    decoration: BoxDecoration(
+                        color: !sender
+                            ? kGreyNormal.withOpacity(0.1)
+                            : kwhite.withOpacity(0.3),
+                        borderRadius: kBorderRadius5),
+                    child: Text(message.pollQuestion ?? '',
+                        style: textStyle1.copyWith(
+                            color: sender ? kwhite : kblack)),
+                  ),
+                  adjustHieght(2.h),
+                  ListView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: List.generate(
+                      message.pollAnswers?.length ?? 0,
+                      (index) {
+                        final answer = message.pollAnswers?[index];
+                        final selected =
+                            selectedOption.contains(answer?.answerId ?? '');
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: () {
+                                  markUnMarkAnswer(answer);
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.zero,
+                                  margin: EdgeInsets.symmetric(vertical: 5.h),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      // Checkbox
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: sender ? kwhite : kblack,
+                                              width: 2.0),
+                                          borderRadius:
+                                              BorderRadius.circular(500.0),
                                         ),
-                                        CustomLinearProgressBar(
-                                          height: 5.h,
-                                          progress:
-                                              answer?.answerVotes == null ||
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: selectedOption.contains(
+                                                    answer?.answerId ?? '')
+                                                ? sender
+                                                    ? kwhite
+                                                    : kblack
+                                                : Colors.transparent,
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                          ),
+                                          padding: EdgeInsets.all(
+                                              selected ? 0 : 8.0),
+                                          child: selected
+                                              ? Icon(
+                                                  Icons.check,
+                                                  color:
+                                                      sender ? kblack : kwhite,
+                                                  size: 15,
+                                                )
+                                              : null,
+                                        ),
+                                      ),
+                                      kWidth10,
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              answer?.answerText ?? '',
+                                              style: textThinStyle1.copyWith(
+                                                  color:
+                                                      sender ? kwhite : kblack),
+                                            ),
+                                            CustomLinearProgressBar(
+                                              height: 5.h,
+                                              progress: answer?.answerVotes ==
+                                                          null ||
                                                       totalVotes == 0
                                                   ? 0
                                                   : ((answer!.answerVotes!) /
                                                           totalVotes)
                                                       .toDouble(),
-                                          progressColor:
-                                              sender ? kwhite : kneonShade,
-                                          backgroundColor:
-                                              kwhite.withOpacity(0.1),
-                                        )
-                                      ],
-                                    ),
+                                              progressColor:
+                                                  sender ? kwhite : kneonShade,
+                                              backgroundColor:
+                                                  kwhite.withOpacity(0.1),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
+                              ),
+                            ),
+                            sender || completed
+                                ? SizedBox(
+                                    width: 20.h,
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        "${answer?.answerVotes ?? 0}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall
+                                            ?.copyWith(
+                                                color:
+                                                    sender ? kwhite : kblack),
+                                      ),
+                                    ),
+                                  )
+                                : kempty
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  expired ||
+                          ((completed || selectedOption.isNotEmpty) &&
+                              !showTextField)
+                      ? Align(
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.pollDetail.value = message;
+                              GoRouter.of(context).pushNamed(
+                                Routes.taskChatPollDetail,
+                              );
+                            },
+                            child: Text(
+                              'SEE VOTES',
+                              style: textThinStyle1.copyWith(
+                                color: sender ? kwhite : kblack,
+                                fontSize: 12.sp,
                               ),
                             ),
                           ),
-                        ),
-                        sender || completed
-                            ? SizedBox(
-                                width: 20.h,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                    "${answer?.answerVotes ?? 0}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall
-                                        ?.copyWith(
-                                            color: sender ? kwhite : kblack),
-                                  ),
-                                ),
-                              )
-                            : kempty
-                      ],
-                    );
-                  },
-                ),
-              ),
-              expired ||
-                      ((completed || selectedOption.isNotEmpty) &&
-                          !showTextField)
-                  ? Align(
-                      child: GestureDetector(
-                        onTap: () {
-                          controller.pollDetail.value = message;
-                          GoRouter.of(context).pushNamed(
-                            Routes.taskChatPollDetail,
-                          );
-                        },
-                        child: Text(
-                          'SEE VOTES',
-                          style: textThinStyle1.copyWith(
-                            color: sender ? kwhite : kblack,
-                            fontSize: 12.sp,
-                          ),
-                        ),
-                      ),
-                    )
-                  : !showTextField && !completed
-                      ? kempty
-                      : Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 5.h, vertical: 5.h),
-                          decoration: BoxDecoration(
-                              color: kwhite, borderRadius: kBorderRadius10),
-                          child: TextField(
-                            maxLines: 3,
-                            maxLength: 250,
-                            controller: reasonController,
-                            style: TextStyle(color: kblack, fontSize: 12.sp),
-                            decoration: InputDecoration(
-                              hintText: 'Let us know why ?',
-                              hintStyle:
-                                  Theme.of(context).textTheme.displaySmall,
-                              contentPadding: const EdgeInsets.only(left: 10),
-                              border: InputBorder.none,
-                              suffix: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    markAnswer(reasonController.text);
-                                    completed = true;
-                                    showTextField = false;
-                                  });
-                                  reasonController.clear();
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.all(5.w),
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(100)),
-                                    child: ColoredBox(
-                                      color: kblack,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Icon(Icons.send,
-                                            color: kwhite, size: 18.w),
+                        )
+                      : !showTextField && !completed
+                          ? kempty
+                          : Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 5.h, vertical: 5.h),
+                              decoration: BoxDecoration(
+                                  color: kwhite, borderRadius: kBorderRadius10),
+                              child: TextField(
+                                maxLines: 3,
+                                maxLength: 250,
+                                controller: reasonController,
+                                style:
+                                    TextStyle(color: kblack, fontSize: 12.sp),
+                                decoration: InputDecoration(
+                                  hintText: 'Let us know why ?',
+                                  hintStyle:
+                                      Theme.of(context).textTheme.displaySmall,
+                                  contentPadding:
+                                      const EdgeInsets.only(left: 10),
+                                  border: InputBorder.none,
+                                  suffix: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        markAnswer(reasonController.text);
+                                        completed = true;
+                                        showTextField = false;
+                                      });
+                                      reasonController.clear();
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5.w),
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(100)),
+                                        child: ColoredBox(
+                                          color: kblack,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(Icons.send,
+                                                color: kwhite, size: 18.w),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-              adjustHieght(2.h),
-              Row(
-                children: [
-                  Text(
-                    '$totalVotes votes • ${expired ? 'Expired' : 'Active'}',
-                    style: textThinStyle1.copyWith(
-                        fontSize: 10.sp, color: sender ? kwhite : kblack),
+                  adjustHieght(2.h),
+                  Row(
+                    children: [
+                      Text(
+                        '$totalVotes votes • ${expired ? 'Expired' : 'Active'}',
+                        style: textThinStyle1.copyWith(
+                            fontSize: 10.sp, color: sender ? kwhite : kblack),
+                      ),
+                      const Spacer(),
+                      Text(
+                        DateTimeFormater.formatTimeAMPM(
+                            message.timestamp ?? ''),
+                        style: textThinStyle1.copyWith(
+                            color: sender ? kgrey : kgrey, fontSize: 8.sp),
+                      ),
+                      sender ? kWidth10 : kempty,
+                      sender
+                          ? MessageReadMarker(
+                              read: message.readByAll,
+                              pending: message.messageId?.isEmpty ?? true)
+                          : kempty
+                    ],
                   ),
-                  const Spacer(),
-                  Text(
-                    DateTimeFormater.formatTimeAMPM(message.timestamp ?? ''),
-                    style: textThinStyle1.copyWith(
-                        color: sender ? kgrey : kgrey, fontSize: 8.sp),
-                  ),
-                  sender ? kWidth10 : kempty,
-                  sender
-                      ? MessageReadMarker(
-                          read: message.readByAll,
-                          pending: message.messageId?.isEmpty ?? true)
-                      : kempty
                 ],
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
+          );
+        },
+      )),
     );
   }
 }

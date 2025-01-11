@@ -1,6 +1,7 @@
 import 'package:bizkit/module/task/application/controller/task/task_controller.dart';
 import 'package:bizkit/utils/constants/colors.dart';
 import 'package:bizkit/utils/constants/constant.dart';
+import 'package:bizkit/utils/images/network_image_with_loader.dart';
 import 'package:bizkit/utils/shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,12 +50,16 @@ class ParticipantsListBottomSheet extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     child: ListTile(
-                      leading: const CircleAvatar(
-                        child: Icon(
-                          Icons.person,
-                          color: kblack,
-                        ),
-                      ),
+                      leading: CircleAvatar(
+                          backgroundColor: kblack,
+                          child: Text(
+                            taskController.singleTask.value
+                                    .assignedToDetails![index].name
+                                    ?.substring(0, 2)
+                                    .toUpperCase() ??
+                                '',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )),
                       title: Text(
                         taskController.singleTask.value
                                 .assignedToDetails?[index].name ??

@@ -45,35 +45,43 @@ class NotoficationBuilder extends StatelessWidget {
                 ],
               ),
               adjustHieght(10.h),
-              notificationController.taskNotification.isEmpty?
-              Column(
-                children: [
-                  SizedBox( child: Image.asset(emptyNodata2)),
-                  Text('No notifications available\n at the moment',style: Theme.of(context).textTheme.titleSmall,textAlign: TextAlign.center,)
-                ],
-              ):
-              Expanded(
-                child: Obx(() {
-                  return ListView.builder(
-                    itemCount: notificationController.taskNotification.length,
-                    itemBuilder: (context, index) {
-                      return NotificationCard(
-                        taskTitle:notificationController
-                            .taskNotification[index].taskTitle ,
-                        title: notificationController.taskNotification[index].title,
-                        message: notificationController
-                            .taskNotification[index].message,
-                        createdAt: notificationController
-                            .taskNotification[index].createdAt,
-                        taskId: notificationController
-                            .taskNotification[index].taskId,
-                        notificationId:
-                            notificationController.taskNotification[index].id,
-                      );
-                    },
-                  );
-                }),
-              ),
+              notificationController.taskNotification.isEmpty
+                  ? Column(
+                      children: [
+                        SizedBox(child: Image.asset(emptyNodata2)),
+                        Text(
+                          'No notifications available\n at the moment',
+                          style: Theme.of(context).textTheme.titleSmall,
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    )
+                  : Expanded(
+                      child: Obx(() {
+                        return ListView.builder(
+                          itemCount:
+                              notificationController.taskNotification.length,
+                          itemBuilder: (context, index) {
+                            return NotificationCard(
+                              taskTitle: notificationController
+                                  .taskNotification[index].taskTitle,
+                              title: notificationController
+                                  .taskNotification[index].title,
+                              message: notificationController
+                                  .taskNotification[index].message,
+                              createdAt: notificationController
+                                      .taskNotification[index].updatedAt ??
+                                  notificationController
+                                      .taskNotification[index].createdAt,
+                              taskId: notificationController
+                                  .taskNotification[index].taskId,
+                              notificationId: notificationController
+                                  .taskNotification[index].id,
+                            );
+                          },
+                        );
+                      }),
+                    ),
             ],
           ),
         ),
@@ -88,7 +96,6 @@ class NotoficationBuilder extends StatelessWidget {
                     .map((datas) => datas.id)
                     .toList();
                 notificationController.clearNotification(ids);
-                
               })
           : null,
     );

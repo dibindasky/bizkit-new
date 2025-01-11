@@ -1341,6 +1341,7 @@ class CreateTaskController extends GetxController {
       },
       (success) {
         log("${success.message}");
+
         isAccept == true
             ? showCustomToast(
                 message: 'Task Accepted successfully',
@@ -1353,7 +1354,6 @@ class CreateTaskController extends GetxController {
                 textColor: Get.isDarkMode ? kblack : kwhite,
               );
         isLoading.value = false;
-
         fetchReceivedRequests();
       },
     );

@@ -338,9 +338,10 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Created at',
-                                  style:
-                                      Theme.of(context).textTheme.displaySmall),
+                              Text(
+                                'Created at',
+                                style: Theme.of(context).textTheme.displaySmall,
+                              ),
                               if (taskController.isLoading.value)
                                 Padding(
                                   padding:
@@ -349,16 +350,27 @@ class TaskDetailUserInfoSection extends StatelessWidget {
                                       height: 9.h, width: 50.w),
                                 )
                               else
-                                Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: true,
-                                    DateTimeFormater.formatTimeAMPM(
-                                      task.createdAt ?? 'No createdAt',
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      DateTimeFormater.formatDateOnly(
+                                          task.createdAt ?? 'No createdAt'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall
+                                          ?.copyWith(fontSize: 10),
                                     ),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displaySmall
-                                        ?.copyWith(fontSize: 10)),
+                                    Text(
+                                      DateTimeFormater.formatTimeOnly(
+                                          task.createdAt ?? 'No createdAt'),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall
+                                          ?.copyWith(fontSize: 10),
+                                    ),
+                                  ],
+                                ),
                             ],
                           ),
                         ],

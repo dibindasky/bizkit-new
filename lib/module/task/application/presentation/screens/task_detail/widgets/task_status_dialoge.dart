@@ -37,32 +37,71 @@ class TaskStatusChangeDialog extends StatelessWidget {
                   .displaySmall
                   ?.copyWith(fontSize: 14),
             ),
-            content: Text('Are you sure you want to kill this task?',
-                style: Theme.of(context).textTheme.displaySmall),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 150,
+                  child: Image.asset('asset/images/yes_or_no.png'),
+                ),
+                Text('Are you sure you want to kill this task?',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.displaySmall),
+              ],
+            ),
             actions: <Widget>[
-              TextButton(
-                child: const Text('Cancel'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: const Text('Yes'),
-                onPressed: () {
-                  GoRouter.of(context).pop();
-                  controller.killatask(
-                    context: context,
-                    killAtaskModel:
-                        KillATaskModel(isKilled: true, taskId: taskId ?? ''),
-                  );
-                  GoRouter.of(context).pop();
-                  controller.taskFilterByDeadline();
-                  homeController.progresBar();
-                  controller.getTasksCountWithoutDate();
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 12),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.onSecondary,
+                          borderRadius: kBorderRadius10),
+                      child: Center(
+                        child: Text(
+                          'Cancel',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                      controller.killatask(
+                        context: context,
+                        killAtaskModel: KillATaskModel(
+                            isKilled: true, taskId: taskId ?? ''),
+                      );
+                      GoRouter.of(context).pop();
+                      controller.taskFilterByDeadline();
+                      homeController.progresBar();
+                      controller.getTasksCountWithoutDate();
 
-                  GoRouter.of(context).pop();
-                },
-              ),
+                      GoRouter.of(context).pop();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 12),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.onSecondary,
+                          borderRadius: kBorderRadius10),
+                      child: Center(
+                        child: Text(
+                          'Yes',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           );
         },
@@ -74,29 +113,48 @@ class TaskStatusChangeDialog extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(
-              'Confirm Complete Task',
-              style: Theme.of(context)
-                  .textTheme
-                  .displaySmall
-                  ?.copyWith(fontSize: 14),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Confirm Complete Task',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall
+                      ?.copyWith(fontSize: 14),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).pop();
+                  },
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: kGreyNormal.withOpacity(0.2),
+                    child: const Icon(
+                      Icons.close,
+                      size: 18,
+                    ),
+                  ),
+                )
+              ],
             ),
-            content: Text(
-              'Are you sure you want to complete this task?',
-              style: Theme.of(context).textTheme.displaySmall,
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 150,
+                  child: Image.asset('asset/images/yes_or_no.png'),
+                ),
+                Text(
+                  textAlign: TextAlign.center,
+                  'Are you sure you want to complete this task?',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              ],
             ),
             actions: <Widget>[
-              TextButton(
-                child: const Text('Cancel'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: const Text(
-                  'Yes',
-                ),
-                onPressed: () {
+              GestureDetector(
+                onTap: () {
                   GoRouter.of(context).pop();
                   controller.completeTask(
                       context: context,
@@ -109,7 +167,21 @@ class TaskStatusChangeDialog extends StatelessWidget {
                   homeController.fetchRecentTasks();
                   GoRouter.of(context).pop();
                 },
-              ),
+                child: Container(
+                  width: 320,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      borderRadius: kBorderRadius10),
+                  child: Center(
+                    child: Text(
+                      'Complete ',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                ),
+              )
             ],
           );
         },

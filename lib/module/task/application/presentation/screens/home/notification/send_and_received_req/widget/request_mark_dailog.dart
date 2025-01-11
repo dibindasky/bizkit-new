@@ -23,7 +23,6 @@ Future<dynamic> requestMarkingDailog(
           acceptanceStatus: 'accepted',
         ),
       );
-      Navigator.pop(context);
     },
   );
 }

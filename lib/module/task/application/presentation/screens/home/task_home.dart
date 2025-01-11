@@ -16,7 +16,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 
-// Updated enum with center positions
+// Enum for positions
 enum ButtonPosition {
   topLeft,
   topRight,
@@ -57,11 +57,10 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
     }
   }
 
-  // Updated direction calculator
   SpeedDialDirection getDialDirection() {
     switch (currentPosition) {
       case ButtonPosition.topLeft:
-        return SpeedDialDirection.down;
+        return SpeedDialDirection.down; // Dial opens downward
       case ButtonPosition.centerLeft:
       case ButtonPosition.bottomLeft:
         return SpeedDialDirection.up; // Dial opens to the right
@@ -71,7 +70,7 @@ class _TaskHomeScreenState extends State<TaskHomeScreen>
       case ButtonPosition.bottomRight:
         return SpeedDialDirection.up; // Dial opens upward
       default:
-        return SpeedDialDirection.up; // Default direction
+        return SpeedDialDirection.up; // Default direction [ opens upward ]
     }
   }
 
